@@ -132,11 +132,11 @@ export function sightRange(w: World, c: Creature): number {
 }
 
 /** 관찰자가 대상 위치를 볼 수 있는가 (거리·시선·조명·잠행) */
-export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>): boolean {
+export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>, baseRange?: number): boolean {
   if (viewer.unconscious || viewer.asleep) return false
   const d = cheb(viewer.pos, p)
   if (d <= 1) return true
-  let range = sightRange(w, viewer)
+  let range = baseRange ?? sightRange(w, viewer)
   const target = creatureAt(w, p)
   if (target?.sneaking && target.id !== viewer.id) range = Math.floor(range * 0.6)
   if (d > range) return false
@@ -148,9 +148,10 @@ export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>): b
 export function updatePlayerVision(w: World, pl: Creature) {
   const fov = computeFov(w, pl.pos, sightRange(w, pl))
   const vis: number[] = []
+  const range = sightRange(w, pl)
   for (const i of fov) {
     const p = { x: i % w.s.map.w, y: Math.floor(i / w.s.map.w) }
-    if (canSee(w, pl, p, fov)) {
+    if (canSee(w, pl, p, fov, range)) {
       vis.push(i)
       w.s.map.tiles[i].seen = true
     }

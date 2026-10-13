@@ -7,6 +7,33 @@ import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wo
 
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
 
+// 몸 상태에서 나오는 값(의식·기능 능력치·부위 상태·통증)은 같은 상태면 같은 값이다.
+// 상태 지문이 바뀌면 다시 계산한다 (순수 함수 메모, 결정론에 영향 없음)
+const memo = new WeakMap<Creature, { key: string; m: Map<string, number> }>()
+
+function stateKey(w: World, c: Creature): string {
+  let sev = 0, fx = 0
+  for (const wd of c.body.wounds) {
+    sev += wd.severity - wd.healed
+    if (wd.fracture) fx += 1 + wd.fracture.progress + (wd.splint ? 2 : 0)
+    if (wd.infection) fx += wd.infection.progress
+    if (wd.tendon) fx += 7
+  }
+  const n = c.needs
+  return `${c.body.wounds.length}|${sev.toFixed(3)}|${fx.toFixed(3)}|${Math.round(c.body.blood)}|${c.body.missing.length}|${Object.keys(c.body.tourniquets).length}|${c.effects.length}|${Math.round(n.bodyTemp * 10)}|${Math.round(n.fatigue)}|${c.cond?.shock ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.traits.length}|${c.abilities.length}|${Object.keys(c.equip).length}`
+}
+
+function cached(w: World, c: Creature, name: string, fn: () => number): number {
+  const key = stateKey(w, c)
+  let e = memo.get(c)
+  if (!e || e.key !== key) { e = { key, m: new Map() }; memo.set(c, e) }
+  const hit = e.m.get(name)
+  if (hit !== undefined) return hit
+  const v = fn()
+  e.m.set(name, v)
+  return v
+}
+
 export function bodyDef(w: World, c: Creature): BodyDef {
   return w.db.body(c.body.def)
 }
@@ -167,6 +194,10 @@ const FRACTURE_PAIN = { hairline: 6, simple: 15, compound: 25 }
 
 /** 총 통증 0~150 = Σ상처 통증 × 특성계수 × (1 − 진통효과) */
 export function painTotal(w: World, c: Creature): number {
+  return cached(w, c, 'pain', () => painTotalRaw(w, c))
+}
+
+function painTotalRaw(w: World, c: Creature): number {
   const turn = turnOf(w)
   let p = 0
   for (const wd of c.body.wounds) {
@@ -227,6 +258,10 @@ function consciousnessOrgan(w: World, c: Creature): BodyPartDef | undefined {
 
 /** 의식 = 뇌e × (1 − P통증 − P혈액 − P피로 − P체온 − P약물 − P쇼크) × (0.4 + 0.6 × 산소공급) */
 export function consciousness(w: World, c: Creature): number {
+  return cached(w, c, 'cons', () => consciousnessRaw(w, c))
+}
+
+function consciousnessRaw(w: World, c: Creature): number {
   const turn = turnOf(w)
   const organ = consciousnessOrgan(w, c)
   const brain = organ ? partEff(w, c, organ.id) : 1
@@ -292,6 +327,10 @@ function genericCapacity(w: World, c: Creature, cap: string): number {
 
 export function capacity(w: World, c: Creature, cap: string): number {
   if (cap === 'consciousness') return consciousness(w, c)
+  return cached(w, c, cap, () => capacityRaw(w, c, cap))
+}
+
+function capacityRaw(w: World, c: Creature, cap: string): number {
   const kind = bodyDef(w, c).kind
   const turn = turnOf(w)
   let v: number
@@ -716,6 +755,10 @@ export function regionHealth(w: World, c: Creature, r: Region): number {
 
 /** 0 멀쩡 · 1 타박 · 2 부상 · 3 중상 · 4 불구 = HP% 단계와 기능 단계 중 나쁜 쪽 (02 §2.0.2) */
 export function regionState(w: World, c: Creature, r: Region): number {
+  return cached(w, c, 'rs_' + r, () => regionStateRaw(w, c, r))
+}
+
+function regionStateRaw(w: World, c: Creature, r: Region): number {
   if (!regionParts(w, c, r).length) return 0
   return Math.max(stageOf(regionHpPct(w, c, r) / 100), stageOf(regionFunction(w, c, r)))
 }

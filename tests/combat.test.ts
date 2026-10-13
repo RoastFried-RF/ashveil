@@ -8,6 +8,9 @@ import { makeItem } from '../src/core/items'
 import type { Creature } from '../src/core/types'
 import { makeWorld } from './helpers'
 
+/** 타입 좁히기를 피해 현재 활동을 읽는다 */
+const actOf = (c: Creature) => c.activity
+
 /** 한낮·맑음, 주변 개체 정리 */
 function noon(w: World) {
   w.s.time = (TURNS_PER_DAY + 12 * TURNS_PER_HOUR) * 100
@@ -70,14 +73,14 @@ describe('처치 채널 (02 §12 · 01 §4.2)', () => {
     const leg = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftThigh', severity: 6, source: 't' }).wound
     const chest = addWound(w, pl, { def: 'Wound.Cut', part: 'Chest', severity: 6, source: 't' }).wound
     expect(perform(w, pl, { type: 'treat', uid: bandage.uid, woundId: leg.id }).ok).toBe(true)
-    expect(pl.activity?.total).toBe(5)
+    expect(actOf(pl)?.total).toBe(5)
     pl.activity = undefined
     perform(w, pl, { type: 'treat', uid: bandage.uid, woundId: chest.id })
-    expect(pl.activity?.total).toBe(6)
+    expect(actOf(pl)?.total).toBe(6)
     pl.activity = undefined
     pl.abilities = ['Ab.Survival.FirstAid']
     perform(w, pl, { type: 'treat', uid: bandage.uid, woundId: leg.id })
-    expect(pl.activity?.total).toBe(3)
+    expect(actOf(pl)?.total).toBe(3)
   })
 })
 
@@ -90,11 +93,11 @@ describe('루팅 창 (13 §8)', () => {
     tileAt(w, p).searched = false
     tileAt(w, p).cont = undefined
     perform(w, pl, { type: 'search' })
-    expect(pl.activity?.total).toBe(1)
+    expect(actOf(pl)?.total).toBe(1)
     pl.activity = undefined
     tileAt(w, p).t = 'Terrain.Sarcophagus'
     perform(w, pl, { type: 'search' })
-    expect(pl.activity?.total).toBe(3)
+    expect(actOf(pl)?.total).toBe(3)
   })
   it('시체는 들고 있던 것을 지닌다: 첫 수색 2턴, 입은 장비 벗기기 = 탈 턴', async () => {
     const { lootGrid, lootItems } = await import('../src/core/actions')
@@ -108,7 +111,7 @@ describe('루팅 창 (13 §8)', () => {
     killCreature(w, r, 't')
     expect(tileAt(w, at).items.length).toBe(0)
     perform(w, pl, { type: 'search' })
-    expect(pl.activity?.total).toBe(2)
+    expect(actOf(pl)?.total).toBe(2)
     pl.activity!.remaining = 1
     const { activityStep } = await import('../src/core/actions')
     activityStep(w, pl)
@@ -116,7 +119,7 @@ describe('루팅 창 (13 §8)', () => {
     expect(lootGrid(w)).toMatchObject({ w: 8, h: 4 })
     const mail = lootItems(w)!.find((i) => i.def === 'Item.ScrapMail')!
     perform(w, pl, { type: 'lootTake', uid: mail.uid })
-    expect(pl.activity?.kind).toBe('strip')
-    expect(pl.activity?.total).toBe(3) // 사슬옷 착탈 6/3
+    expect(actOf(pl)?.kind).toBe('strip')
+    expect(actOf(pl)?.total).toBe(3) // 사슬옷 착탈 6/3
   })
 })
