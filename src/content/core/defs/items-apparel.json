@@ -1,0 +1,22 @@
+[
+  { "defType": "Item", "id": "Item.RagShirt", "label": "누더기 셔츠", "sprite": "rag_shirt", "category": "apparel", "weight": 0.3, "value": 2,
+    "apparel": { "layer": 0, "groups": ["torso", "arms"], "insulation": 1, "armor": { "sharp": 0.02, "blunt": 0.02 }, "durability": 20 } },
+  { "defType": "Item", "id": "Item.Trousers", "label": "해진 바지", "sprite": "cloth", "category": "apparel", "weight": 0.4, "value": 2,
+    "apparel": { "layer": 0, "groups": ["legs"], "insulation": 1, "armor": { "sharp": 0.02, "blunt": 0.02 }, "durability": 20 } },
+  { "defType": "Item", "id": "Item.PaddedJacket", "label": "누빔 재킷", "description": "솜을 누빈 천. 타격을 흡수하고 따뜻하다. 젖으면 무거워진다.", "sprite": "padded_jacket", "category": "apparel", "weight": 1.5, "value": 20,
+    "apparel": { "layer": 1, "groups": ["torso", "arms"], "insulation": 3, "armor": { "sharp": 0.15, "blunt": 0.22 }, "durability": 40 } },
+  { "defType": "Item", "id": "Item.LeatherCoat", "label": "가죽 코트", "description": "거칠게 무두질한 가죽. 베기에 강하다.", "sprite": "leather_coat", "category": "apparel", "weight": 2.5, "value": 35,
+    "apparel": { "layer": 2, "groups": ["torso", "arms", "legs"], "insulation": 3, "armor": { "sharp": 0.25, "blunt": 0.1, "heat": 0.15 }, "noise": 1, "durability": 60 } },
+  { "defType": "Item", "id": "Item.OilclothCloak", "label": "방수포 망토", "description": "재비를 막는다. 망토 아래 옷은 젖지 않는다.", "sprite": "oilcloth_cloak", "category": "apparel", "weight": 0.8, "value": 25,
+    "apparel": { "layer": 4, "groups": ["torso", "arms", "legs"], "insulation": 1, "armor": { "sharp": 0.04 }, "waterproof": true, "durability": 25 } },
+  { "defType": "Item", "id": "Item.ScrapMail", "label": "고철 사슬옷", "description": "철사와 와셔를 엮었다. 베기·찌르기에 강하지만 시끄럽고, 내피 없이 입으면 추위가 스며든다.", "sprite": "scrap_mail", "category": "apparel", "weight": 8, "value": 70,
+    "apparel": { "layer": 3, "groups": ["torso", "arms"], "insulation": -1, "armor": { "sharp": 0.45, "blunt": 0.15 }, "noise": 3, "durability": 90 } },
+  { "defType": "Item", "id": "Item.Hood", "label": "두건", "sprite": "hood", "category": "apparel", "weight": 0.2, "value": 4,
+    "apparel": { "layer": 2, "groups": ["head"], "insulation": 1, "armor": { "sharp": 0.04 }, "durability": 15 } },
+  { "defType": "Item", "id": "Item.ScrapHelmet", "label": "고철 투구", "description": "냄비를 두드려 폈다. 머리를 지키지만 소리가 울린다.", "sprite": "scrap_helmet", "category": "apparel", "weight": 1.6, "value": 30,
+    "apparel": { "layer": 3, "groups": ["head", "eyes"], "insulation": 0, "armor": { "sharp": 0.5, "blunt": 0.3 }, "noise": 1, "durability": 70 } },
+  { "defType": "Item", "id": "Item.Boots", "label": "가죽 장화", "sprite": "boots", "category": "apparel", "weight": 1.0, "value": 15,
+    "apparel": { "layer": 2, "groups": ["feet"], "insulation": 1, "armor": { "sharp": 0.2, "blunt": 0.1 }, "durability": 40 } },
+  { "defType": "Item", "id": "Item.Gloves", "label": "작업 장갑", "description": "손가락을 지키고, 상처를 만질 때 덜 더럽힌다.", "sprite": "gloves", "category": "apparel", "weight": 0.2, "value": 8,
+    "apparel": { "layer": 1, "groups": ["hands"], "insulation": 1, "armor": { "sharp": 0.1, "blunt": 0.05 }, "durability": 20 } }
+]

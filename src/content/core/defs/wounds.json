@@ -1,0 +1,11 @@
+[
+  { "defType": "Wound", "id": "Wound.Base", "abstract": true, "label": "상처", "bleedPerSeverity": 1, "painPerSeverity": 1, "infectionChance": 0.1, "healPerDay": 6, "scarChance": 0.2, "clotPerTurn": 0.995, "visible": true },
+  { "defType": "Wound", "id": "Wound.Cut", "parent": "Wound.Base", "label": "베인 상처", "bleedPerSeverity": 1.8, "painPerSeverity": 1.0, "infectionChance": 0.12, "healPerDay": 7, "scarChance": 0.3 },
+  { "defType": "Wound", "id": "Wound.Stab", "parent": "Wound.Base", "label": "찔린 상처", "bleedPerSeverity": 1.4, "painPerSeverity": 1.2, "infectionChance": 0.15, "healPerDay": 5, "scarChance": 0.25, "clotPerTurn": 0.997 },
+  { "defType": "Wound", "id": "Wound.InternalBleed", "parent": "Wound.Stab", "label": "내출혈", "visible": false, "bleedPerSeverity": 1.2, "clotPerTurn": 0.999, "infectionChance": 0.2 },
+  { "defType": "Wound", "id": "Wound.Bruise", "parent": "Wound.Base", "label": "타박상", "bleedPerSeverity": 0.05, "painPerSeverity": 1.3, "infectionChance": 0.0, "healPerDay": 10, "scarChance": 0.0, "clotPerTurn": 0.98 },
+  { "defType": "Wound", "id": "Wound.Bite", "parent": "Wound.Base", "label": "물린 상처", "bleedPerSeverity": 1.5, "painPerSeverity": 1.3, "infectionChance": 0.3, "healPerDay": 5, "scarChance": 0.4 },
+  { "defType": "Wound", "id": "Wound.Burn", "parent": "Wound.Base", "label": "화상", "bleedPerSeverity": 0, "painPerSeverity": 2.0, "infectionChance": 0.2, "healPerDay": 3, "scarChance": 0.7 },
+  { "defType": "Wound", "id": "Wound.Severed", "parent": "Wound.Base", "label": "절단면", "bleedPerSeverity": 3.0, "painPerSeverity": 1.5, "infectionChance": 0.25, "healPerDay": 3, "scarChance": 1.0, "clotPerTurn": 0.998 },
+  { "defType": "Wound", "id": "Wound.Necrosis", "parent": "Wound.Base", "label": "괴사", "bleedPerSeverity": 0, "painPerSeverity": 1.5, "infectionChance": 0.6, "healPerDay": 0, "scarChance": 1.0 }
+]

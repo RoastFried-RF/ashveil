@@ -1,0 +1,6 @@
+[
+  { "op": "replace", "target": "Wound.Cut", "path": "/bleedPerSeverity", "value": 2.3 },
+  { "op": "replace", "target": "Event.HoundPack", "path": "/weight", "value": 4 },
+  { "op": "add", "target": "Loot.Chest", "path": "/entries/-", "value": { "item": "Item.SawMachete", "weight": 2 } },
+  { "op": "merge", "target": "Creature.Reaver", "path": "/loadout/slots/0", "value": { "items": ["Item.RustyKnife", "Item.Machete", "Item.SawMachete", "Item.PipeClub"] } }
+]

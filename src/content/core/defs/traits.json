@@ -1,0 +1,16 @@
+[
+  { "defType": "Trait", "id": "Trait.ColdBlooded", "label": "냉혈", "description": "사람을 죽여도 마음이 흔들리지 않는다.", "conflicts": ["Trait.Coward"], "mods": { "killMood": 0 } },
+  { "defType": "Trait", "id": "Trait.Coward", "label": "겁쟁이", "description": "사기가 쉽게 꺾이고 위험할 때 공황에 빠지기 쉽다. 대신 위험을 빨리 알아챈다.", "conflicts": ["Trait.ColdBlooded", "Trait.Bloodlust"], "mods": { "stressMult": 1.4, "perception": 2 } },
+  { "defType": "Trait", "id": "Trait.Bloodlust", "label": "피를 보면 흥분", "description": "피 흘리는 적 근처에서 명중이 오르고 스트레스가 풀린다.", "conflicts": ["Trait.Coward"], "mods": { "bloodHit": 8 } },
+  { "defType": "Trait", "id": "Trait.HardBones", "label": "강골", "description": "골절 확률이 절반이다.", "mods": { "fractureMult": 0.5 } },
+  { "defType": "Trait", "id": "Trait.ThinBlood", "label": "묽은 피", "description": "상처에서 피가 1.5배 흐르고 잘 굳지 않는다.", "mods": { "bleedMult": 1.5 } },
+  { "defType": "Trait", "id": "Trait.NightOwl", "label": "야행성", "description": "어둠 속에서 더 잘 본다. 낮에는 기분이 처진다.", "mods": { "lightThreshold": 0.12 } },
+  { "defType": "Trait", "id": "Trait.Alcoholic", "label": "알코올 의존", "description": "하루에 한 번 술을 마시지 않으면 손이 떨린다.", "mods": { "alcoholNeed": 1 } },
+  { "defType": "Trait", "id": "Trait.IronStomach", "label": "강철 위장", "description": "날고기와 흐린 물에 탈이 나지 않는다.", "mods": { "foodPoisonImmune": 1 } },
+  { "defType": "Trait", "id": "Trait.FastHealer", "label": "빠른 회복", "description": "상처가 빨리 아물고 면역이 강하다.", "conflicts": ["Trait.Sickly"], "mods": { "healMult": 1.4, "immunityMult": 1.3 } },
+  { "defType": "Trait", "id": "Trait.Sickly", "label": "병약", "description": "감염에 약하다.", "conflicts": ["Trait.FastHealer"], "mods": { "immunityMult": 0.7 } },
+  { "defType": "Trait", "id": "Trait.ColdResistant", "label": "추위에 강함", "description": "체감 추위가 5도 덜하다.", "mods": { "coldComfort": 5 } },
+  { "defType": "Trait", "id": "Trait.PainTolerant", "label": "고통 내성", "description": "통증을 30% 덜 느낀다.", "mods": { "painMult": 0.7 } },
+  { "defType": "Trait", "id": "Trait.Nearsighted", "label": "근시", "description": "멀리 있는 것이 흐릿하다. 원거리 명중이 낮다.", "mods": { "sightRange": -5, "rangedHit": -15 } },
+  { "defType": "Trait", "id": "Trait.Light", "label": "가벼운 발", "description": "발소리가 작다.", "mods": { "noiseMult": 0.6 } }
+]

@@ -1,0 +1,21 @@
+[
+  { "defType": "Item", "id": "Item.Weapon", "abstract": true, "label": "무기", "sprite": "knife", "category": "weapon", "weight": 1, "value": 10 },
+  { "defType": "Item", "id": "Item.RustyKnife", "parent": "Item.Weapon", "label": "녹슨 칼", "description": "날이 무뎌 베기보다 찢는다. 상처가 더럽다.", "sprite": "rusty_knife", "weight": 0.3, "value": 4,
+    "attack": { "label": "베기", "damageType": "cut", "damage": 7, "armorPen": 0.08, "tu": 80, "stamina": 4, "skill": "blade", "bleedMult": 1.1, "noise": 3 } },
+  { "defType": "Item", "id": "Item.HuntingKnife", "parent": "Item.Weapon", "label": "사냥칼", "description": "찌르기에 좋다. 통조림도 딸 수 있다.", "sprite": "knife", "weight": 0.35, "value": 18,
+    "attack": { "label": "찌르기", "damageType": "stab", "damage": 9, "armorPen": 0.22, "tu": 80, "stamina": 4, "skill": "blade", "bleedMult": 1.2, "noise": 3 } },
+  { "defType": "Item", "id": "Item.Machete", "parent": "Item.Weapon", "label": "철판 마체테", "description": "개척기 농기구를 갈아 만든 칼.", "sprite": "machete", "weight": 0.9, "value": 30,
+    "attack": { "label": "내려베기", "damageType": "cut", "damage": 13, "armorPen": 0.18, "tu": 100, "stamina": 7, "skill": "blade", "bleedMult": 1.3, "noise": 4 } },
+  { "defType": "Item", "id": "Item.Hatchet", "parent": "Item.Weapon", "label": "손도끼", "description": "갑옷째 쪼갠다. 뼈를 부수기도 한다.", "sprite": "hatchet", "weight": 1.1, "value": 26,
+    "attack": { "label": "찍기", "damageType": "cut", "damage": 14, "armorPen": 0.3, "tu": 110, "stamina": 8, "skill": "axe", "fractureMult": 1.2, "noise": 5 } },
+  { "defType": "Item", "id": "Item.PipeClub", "parent": "Item.Weapon", "label": "파이프 곤봉", "description": "출혈은 적지만 뼈가 부러진다. 판금에도 통한다.", "sprite": "pipe_club", "weight": 1.4, "value": 12,
+    "attack": { "label": "후려치기", "damageType": "blunt", "damage": 12, "armorPen": 0.15, "tu": 100, "stamina": 7, "skill": "blunt", "fractureMult": 1.6, "stunChance": 0.15, "noise": 6 } },
+  { "defType": "Item", "id": "Item.RebarSpear", "parent": "Item.Weapon", "label": "철근 창", "description": "두 칸 떨어진 적을 찌른다. 양손 무기.", "sprite": "rebar_spear", "weight": 2.2, "value": 22, "twoHanded": true,
+    "attack": { "label": "찌르기", "damageType": "stab", "damage": 13, "armorPen": 0.35, "tu": 110, "stamina": 7, "skill": "spear", "reach": 2, "noise": 4 } },
+  { "defType": "Item", "id": "Item.Bow", "parent": "Item.Weapon", "label": "사냥 활", "description": "화살은 귀하다. 젖으면 시위가 늘어진다. 양손 무기.", "sprite": "bow", "weight": 1.0, "value": 40, "twoHanded": true,
+    "attack": { "label": "사격", "damageType": "stab", "damage": 12, "armorPen": 0.3, "tu": 120, "stamina": 5, "skill": "archery", "noise": 2 },
+    "ranged": { "range": 12, "ammo": "Item.Arrow" } },
+  { "defType": "Item", "id": "Item.Arrow", "label": "화살", "sprite": "arrow", "category": "ammo", "weight": 0.05, "stackable": true, "value": 3 },
+  { "defType": "Item", "id": "Item.ScrapBuckler", "label": "고철 방패", "description": "정면 공격만 막는다. 막을 때마다 기력을 쓴다.", "sprite": "buckler", "category": "shield", "weight": 2.0, "value": 20,
+    "shield": { "block": 30, "stamina": 6, "armor": 0.4 } }
+]

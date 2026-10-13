@@ -1,0 +1,7 @@
+[
+  { "defType": "Event", "id": "Event.Rats", "label": "굴쥐 떼", "cost": 10, "weight": 3, "spawn": [{ "creature": "Creature.BurrowRat", "count": [2, 3] }], "hint": "벽 틈에서 무언가 긁는 소리가 난다.", "cooldownTurns": 1200 },
+  { "defType": "Event", "id": "Event.HoundPair", "label": "재늑대 두 마리", "cost": 28, "weight": 3, "spawn": [{ "creature": "Creature.AshHound", "count": [2, 2] }], "hint": "멀리서 개 짖는 소리가 바람에 실려 온다.", "nightWeight": 2 },
+  { "defType": "Event", "id": "Event.HoundPack", "label": "재늑대 무리", "cost": 60, "weight": 2, "minDay": 1, "spawn": [{ "creature": "Creature.AshHoundAlpha", "count": [1, 1] }, { "creature": "Creature.AshHound", "count": [2, 3] }], "hint": "길게 늘어지는 울음소리. 여럿이다.", "nightWeight": 2.5 },
+  { "defType": "Event", "id": "Event.LoneReaver", "label": "떠도는 약탈자", "cost": 30, "weight": 3, "spawn": [{ "creature": "Creature.Reaver", "count": [1, 1] }], "hint": "재 위에 낯선 발자국이 찍혀 있다." },
+  { "defType": "Event", "id": "Event.ReaverBand", "label": "약탈자 패거리", "cost": 65, "weight": 2, "minDay": 1, "spawn": [{ "creature": "Creature.Reaver", "count": [2, 3] }], "hint": "멀리서 쇠붙이 부딪히는 소리와 웃음소리가 들린다." }
+]

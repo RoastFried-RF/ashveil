@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ash-50: #f2efe6;
+  --color-ash-100: #e2ded2;
+  --color-ash-200: #c9c4b5;
+  --color-ash-300: #a39e90;
+  --color-ash-400: #7d796e;
+  --color-ash-500: #5c5951;
+  --color-ash-600: #3f3d38;
+  --color-ash-700: #2b2a27;
+  --color-ash-800: #1c1b19;
+  --color-ash-900: #121110;
+  --color-ash-950: #0a0a09;
+  --color-blood-300: #f08a76;
+  --color-blood-500: #c0412e;
+  --color-blood-700: #7a2418;
+  --color-moss-300: #a9c98a;
+  --color-moss-500: #6f9a4b;
+  --font-sans: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "D2Coding", "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  background: var(--color-ash-950);
+  color: var(--color-ash-100);
+  font-family: var(--font-sans);
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-ash-600); border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+canvas { image-rendering: pixelated; display: block; }
+
+.btn {
+  @apply rounded border border-ash-600 bg-ash-800 px-2 py-0.5 text-xs text-ash-100 hover:border-amber-500 hover:text-amber-200 disabled:cursor-not-allowed disabled:opacity-40;
+}
+.panel {
+  @apply rounded-md border border-ash-700 bg-ash-900/95;
+}
+kbd {
+  @apply rounded border border-ash-600 bg-ash-800 px-1 font-mono text-[11px] text-amber-200;
+}
