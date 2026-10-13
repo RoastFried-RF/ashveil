@@ -313,3 +313,62 @@ describe('장소 사건: 약탈자 순찰 (14 §10)', () => {
     expect(fired).toBeLessThan(8)
   })
 })
+
+describe('수색대·정산 (10 §3 · 14 §9.2)', () => {
+  it('모닥불: 밤 불빛 18칸, 낮 연기 15칸, 바람 아래면 22.5칸', async () => {
+    const { fireVisibleFrom } = await import('../src/core/storyteller')
+    const w = makeWorld('srch1')
+    const map = w.s.map
+    const fire = map.waypoints!.homeFire!
+    // 낮 12시, 바람 동쪽
+    w.s.time = (28800 + 12 * 1200) * 100
+    w.s.weather = 'clear'
+    w.s.wind = { x: 1, y: 0 }
+    const east = (d: number) => ({ x: fire.x + d, y: fire.y })
+    const west = (d: number) => ({ x: fire.x - d, y: fire.y })
+    expect(fireVisibleFrom(w, map, east(22))).toBeTruthy() // 바람 아래 22.5
+    expect(fireVisibleFrom(w, map, west(16))).toBeFalsy() // 바람 위 15 초과
+    expect(fireVisibleFrom(w, map, west(15))).toBeTruthy()
+    // 밤 (02시): 반경 6 × 3 = 18
+    w.s.time = (28800 + 2 * 1200) * 100
+    expect(fireVisibleFrom(w, map, west(18))).toBeTruthy()
+    expect(fireVisibleFrom(w, map, west(19))).toBeFalsy()
+    // 불을 끄면 흔적 없음
+    map.lights.find((L) => L.kind === 'campfire' && L.pos.x === fire.x && L.pos.y === fire.y)!.off = true
+    expect(fireVisibleFrom(w, map, west(3))).toBeFalsy()
+  })
+  it('보관함 약탈: 가치 높은 것부터 1명당 2개', async () => {
+    const { raidStash } = await import('../src/core/storyteller')
+    const { createCreature } = await import('../src/core/creatures')
+    const w = makeWorld('srch2')
+    const map = w.s.map
+    const stash = map.waypoints!.homeStash!
+    const t = map.tiles[stash.y * map.w + stash.x]
+    t.cont = { items: [makeItem(w, 'Item.Jerky'), makeItem(w, 'Item.Bow'), makeItem(w, 'Item.Machete'), makeItem(w, 'Item.Cloth')], opened: true, kind: 'Terrain.Stash' }
+    const r = createCreature(w, 'Creature.Reaver', { x: stash.x + 1, y: stash.y })
+    r.bag = []
+    const took = raidStash(w, r, map, stash)
+    expect(took.map((i) => i.def).sort()).toEqual(['Item.Bow', 'Item.Machete'])
+    expect(t.cont.items.length).toBe(2)
+    expect(r.bag.length).toBe(2)
+  })
+  it('재진입 정산: 핏자국은 마르고, 5일 지난 시체는 뼈가 된다', async () => {
+    const { settleReentry } = await import('../src/core/game')
+    const { createCreature } = await import('../src/core/creatures')
+    const w = makeWorld('srch3')
+    const { map } = generateDungeon(w, 1)
+    const R = map.rooms[1]
+    const p = { x: R.x + 1, y: R.y + 1 }
+    map.tiles[p.y * map.w + p.x].blood = 100
+    const dead = createCreature(w, 'Creature.Shade', p)
+    dead.alive = false
+    dead.deathTurn = 0
+    dead.bag = [makeItem(w, 'Item.RustyKnife')]
+    const res = [dead]
+    w.s.time = 6 * 28800 * 100
+    settleReentry(w, map, res, 0)
+    expect(map.tiles[p.y * map.w + p.x].blood).toBe(0)
+    expect(res.includes(dead)).toBe(false)
+    expect(map.tiles[p.y * map.w + p.x].items.map((i) => i.def)).toEqual(expect.arrayContaining(['Item.RustyKnife', 'Item.Bones']))
+  })
+})

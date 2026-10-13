@@ -2,7 +2,7 @@
 
 import { activityStep, interruptTreat, perform, type Action, hostile } from './actions'
 import { aiDecide } from './ai'
-import { bloodLoss, bodyTick, deathCause, effectiveBleed, totalBleed } from './body'
+import { bloodLoss, bodyTick, deathCause, effectiveBleed, hpCap, totalBleed } from './body'
 import { killCreature } from './combat'
 import { log, player, rng, START_TURN, turnOf, TU_PER_TURN, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 import { createCreature, createPlayer } from './creatures'
@@ -10,13 +10,13 @@ import type { DefDatabase } from './defs'
 import { weatherTick } from './environment'
 import { canSee, invalidateLights, updatePlayerVision } from './fov'
 import { cheb, eq, type Pos } from './geom'
-import { addToInventory, allItems, equip } from './items'
-import { generateDungeon, generateSurface, type GenResult } from './mapgen'
+import { addToInventory, allItems, equip, makeItem } from './items'
+import { generateDungeon, generateSurface, sleepChance, type GenResult, type RoomType } from './mapgen'
 import { needsTick, psycheTick } from './needs'
 import { awardCrisis, gainXp } from './progression'
 import { buildReport } from './report'
 import { RNG_STREAMS, Rng, seedState } from './rng'
-import { storytellerTick } from './storyteller'
+import { settleSurfaceEvents, storytellerTick } from './storyteller'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
@@ -217,12 +217,14 @@ function globalTurnTick(w: World) {
   if (turn % 600 === 0) {
     // 오래된 시체는 치운다. 남은 소지품은 그 자리 바닥으로
     w.s.creatures = w.s.creatures.filter((c) => {
-      if (c.alive || c.id === w.s.playerId || turn - (c.deathTurn ?? turn) < 4800) return true
+      if (c.alive || c.id === w.s.playerId || turn - (c.deathTurn ?? turn) < CORPSE_DAYS * TURNS_PER_DAY) return true
       const t = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x]
       for (const it of allItems(c)) t.items.push({ ...it, gx: undefined, gy: undefined, rot: undefined })
+      t.items.push(makeItem(w, 'Item.Bones'))
       return false
     })
   }
+  if (turn % TURNS_PER_HOUR === 0) for (const t of w.s.map.tiles) if (t.blood) t.blood = t.blood * BLOOD_DRY_PER_HOUR < 1 ? 0 : t.blood * BLOOD_DRY_PER_HOUR
   storytellerTick(w)
   w.s.noiseEvents = w.s.noiseEvents.filter((n) => turn - n.turn < 2)
 }
@@ -444,7 +446,37 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
   const sources = (s.sources ??= initialSources())
   const r = rng(w, 'story')
   const now = turnOf(w)
+  const elapsed = now - leftAt
   markCleared(w, map, residents)
+  // 1) 불씨: 바닥에 둔 켜진 등불은 연료가 탄다
+  for (const t of map.tiles) for (const it of t.items) {
+    if (!it.lit || it.fuel === undefined) continue
+    it.fuel = Math.max(0, it.fuel - elapsed)
+    if (it.fuel <= 0) it.lit = false
+  }
+  // 2) 부패: 핏자국은 12시간에 마른다, 시체는 5일 뒤 뼈만 남는다(소지품은 그 자리 바닥으로)
+  let dry = 1
+  for (let h = 0; h < Math.min(200, Math.floor(elapsed / TURNS_PER_HOUR)); h++) dry *= BLOOD_DRY_PER_HOUR
+  for (const t of map.tiles) if (t.blood) t.blood = t.blood * dry < 1 ? 0 : t.blood * dry
+  for (let i = residents.length - 1; i >= 0; i--) {
+    const c = residents[i]
+    if (c.alive || now - (c.deathTurn ?? now) < CORPSE_DAYS * TURNS_PER_DAY) continue
+    const t = map.tiles[c.pos.y * map.w + c.pos.x]
+    for (const it of allItems(c)) t.items.push({ ...it, gx: undefined, gy: undefined, rot: undefined })
+    t.items.push(makeItem(w, 'Item.Bones'))
+    residents.splice(i, 1)
+  }
+  // 3) 치유: 출혈 중이 아닌 상처는 경과 일수만큼 아문다 (02 §13, 무처치 0.6 · 휴식 1.2)
+  const days = elapsed / TURNS_PER_DAY
+  for (const c of residents) {
+    if (!c.alive) continue
+    for (const wd of c.body.wounds) {
+      if (wd.bleed > 0 || wd.artery) continue
+      wd.healed = Math.min(wd.severity, wd.healed + w.db.wound(wd.def).healPerDay * (wd.bandage ? 1 : 0.6) * 1.2 * days)
+    }
+    c.body.wounds = c.body.wounds.filter((wd) => wd.healed < wd.severity || wd.bleed > 0 || !!wd.artery)
+    c.hp = Math.min(hpCap(w, c), c.hp + days * TURNS_PER_DAY / Math.max(1, Math.floor(100 / c.stats.vit)))
+  }
   const firstBoundary = Math.ceil((leftAt - DAY_BOUNDARY_HOUR * TURNS_PER_HOUR) / TURNS_PER_DAY) * TURNS_PER_DAY + DAY_BOUNDARY_HOUR * TURNS_PER_HOUR
   let came = 0
   for (let t = firstBoundary; t <= now; t += TURNS_PER_DAY) {
@@ -486,4 +518,21 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     })
   }
   if (came) log(w, 'flavor', w.db.event('Event.Reoccupy').hint ?? '')
+  // 5) 잠듦 재배정 (14 §7.1): 방 유형 + 종 + 시간대, 깊은 잠 50%
+  for (const c of residents) {
+    if (!c.alive || c.room === undefined || c.ai.mode === 'hunt' || c.ai.route) continue
+    const R = map.rooms[c.room]
+    if (!R) continue
+    c.asleep = r.chance(sleepChance(w, R.type as RoomType, c.def))
+    c.deepSleep = c.asleep && r.chance(0.5) ? true : undefined
+  }
+  // 6) 지상만: 장소 사건 정산 (순찰이 야영지를 찾았는가)
+  if (map.kind === 'surface') {
+    for (let t = firstBoundary; t <= now; t += TURNS_PER_DAY) settleSurfaceEvents(w, map, residents, t, r)
+  }
 }
+
+/** 핏자국 마름: 시간당 ×0.85 → 12시간이면 약 14% (14 §9.2 '12시간') */
+export const BLOOD_DRY_PER_HOUR = 0.85
+/** 시체 → 뼈 (5일) */
+export const CORPSE_DAYS = 5

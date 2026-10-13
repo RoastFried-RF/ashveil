@@ -73,6 +73,7 @@ function staticLight(w: World): Float32Array {
   if (hit && hit.ver === ver) return hit.arr
   const arr = new Float32Array(m.w * m.h)
   for (const L of m.lights) {
+    if (L.off) continue
     const r = L.radius
     for (let y = Math.max(0, L.pos.y - r - 1); y <= Math.min(m.h - 1, L.pos.y + r + 1); y++) {
       for (let x = Math.max(0, L.pos.x - r - 1); x <= Math.min(m.w - 1, L.pos.x + r + 1); x++) {

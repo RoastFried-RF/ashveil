@@ -10,7 +10,7 @@ import { countOf, itemDef, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
 import { emitNoise, smells } from './perception'
 import { awardDefeat } from './progression'
-import { PATROL_WAIT } from './storyteller'
+import { alarmArrived, PATROL_WAIT, raidStash } from './storyteller'
 import type { Creature } from './types'
 
 function visibleHostiles(w: World, c: Creature): Creature[] {
@@ -99,6 +99,13 @@ function nearestFood(w: World, c: Creature, range: number): Pos | null {
   return best?.p ?? null
 }
 
+/** 도주 목적지: 약탈자 = 야영지(거점), 던전 = 가까운 계단 */
+function fleeDest(w: World, c: Creature): Pos | undefined {
+  if (w.s.map.kind === 'surface') return c.faction === 'reavers' ? c.home ?? w.s.map.waypoints?.reaverCamp : undefined
+  const links = w.s.map.links.map((l) => l.pos).sort((a, b) => cheb(a, c.pos) - cheb(b, c.pos))
+  return links[0]
+}
+
 export function aiDecide(w: World, c: Creature): Action {
   const r = rng(w, 'ai')
   const cdef = w.db.creature(c.def)
@@ -106,13 +113,12 @@ export function aiDecide(w: World, c: Creature): Action {
   const pl = player(w)
   const ai = c.ai
 
-  // 잠든 적: 인기척에 깬다 (잠행이면 잘 안 깬다)
+  // 잠든 적: 소리로만 깬다(perception). 포자 인간은 인접 칸에 2턴 이상 머물면 깬다 (14 §7.2)
   if (c.asleep) {
-    const d = cheb(pl.pos, c.pos)
-    if (pl.alive && d <= 3) {
-      const p = pl.sneaking ? (d <= 1 ? 0.12 : 0.02) : d <= 1 ? 0.6 : d <= 2 ? 0.25 : 0.08
-      if (r.chance(p)) wake(w, c, '인기척')
-    }
+    if (c.def.startsWith('Creature.SporeMan') && pl.alive && cheb(pl.pos, c.pos) <= 1) {
+      ai.nearTurns = (ai.nearTurns ?? 0) + 1
+      if (ai.nearTurns >= 2) wake(w, c, '곁의 기척')
+    } else ai.nearTurns = 0
     if (c.asleep) return { type: 'wait' }
   }
   const isGuard = cdef.ai === 'guard' || cdef.ai === 'boss'
@@ -140,13 +146,26 @@ export function aiDecide(w: World, c: Creature): Action {
   }
 
   if (ai.mode === 'flee') {
-    if (!threats.length && ai.morale > fleeLine + 15 && !tooHurt) ai.mode = 'idle'
-    const atEdge = c.pos.x === 0 || c.pos.y === 0 || c.pos.x === w.s.map.w - 1 || c.pos.y === w.s.map.h - 1
-    if (atEdge && threats.every((t) => cheb(t.pos, c.pos) > 3)) {
-      c.alive = false
-      c.deathCause = 'escaped'
-      if (c.body.wounds.some((wd) => wd.source.startsWith(pl.name))) awardDefeat(w, pl, c, 0.5, '도주시킴')
-      if (canSee(w, pl, c.pos)) log(w, 'info', `${c.name}이(가) 지도 밖으로 사라졌다.`)
+    if (!threats.length && ai.morale > fleeLine + 15 && !tooHurt) { ai.mode = 'idle'; ai.goneSince = undefined }
+    // 도주 경험치: 시야 밖으로 사라져 30턴 동안 돌아오지 않으면 50% (15 §3)
+    if (canSee(w, pl, c.pos)) ai.goneSince = undefined
+    else {
+      ai.goneSince ??= turn
+      if (turn - ai.goneSince >= 30 && c.body.wounds.some((wd) => wd.sourceId === pl.id)) awardDefeat(w, pl, c, 0.5, '도주시킴')
+    }
+    // 도주는 지도 가장자리가 아니라 공급원 쪽으로 (12 §12.3 · D11): 약탈자는 야영지, 던전 거주자는 계단(관로·순례길로 이어진다)
+    const dest = fleeDest(w, c)
+    if (dest && cheb(c.pos, dest) <= 0 && !canSee(w, pl, c.pos)) {
+      if (w.s.map.kind === 'dungeon') {
+        // 층을 떠나 공급원으로 돌아간다
+        c.alive = false
+        c.deathCause = 'escaped'
+        const src = w.s.sources?.find((x) => x.species === c.def && x.floors.includes(w.s.map.id))
+        if (src) src.count = Math.min(src.cap, src.count + 1)
+        if (c.body.wounds.some((wd) => wd.sourceId === pl.id)) awardDefeat(w, pl, c, 0.5, '도주시킴')
+        return { type: 'wait' }
+      }
+      ai.mode = 'guard'
       return { type: 'wait' }
     }
     // 궁지에 몰린 사람은 항복
@@ -162,15 +181,20 @@ export function aiDecide(w: World, c: Creature): Action {
       return { type: 'wait' }
     }
     if (threats.length) {
+      const toward = dest ? stepToward(w, c, dest) : undefined
+      if (toward && toward.type === 'move') {
+        const d = DIRS[toward.dir]
+        const next = { x: c.pos.x + d.x, y: c.pos.y + d.y }
+        if (threats.every((t) => cheb(t.pos, next) >= cheb(t.pos, c.pos) || cheb(t.pos, next) > 1)) return toward
+      }
       const away = stepAway(w, c, threats)
       if (away) return away
       // 도망칠 곳이 없으면 싸운다
       const adj = threats.find((t) => canReach(w, c, t))
       if (adj) return { type: 'attack', target: adj.id }
     }
-    // 가장 가까운 가장자리로
-    const edge = { x: c.pos.x < w.s.map.w / 2 ? 0 : w.s.map.w - 1, y: c.pos.y }
-    return stepToward(w, c, edge) ?? { type: 'wait' }
+    if (dest) return stepToward(w, c, dest) ?? { type: 'wait' }
+    return { type: 'wait' }
   }
 
   // 목표 선택
@@ -275,11 +299,18 @@ export function aiDecide(w: World, c: Creature): Action {
     const goal = ai.route[i]
     if (cheb(c.pos, goal) <= 1) {
       const last = i >= ai.route.length - 1
-      if (ai.waitUntil === undefined) ai.waitUntil = turn + (last ? 0 : PATROL_WAIT)
+      // 수색대는 기다리지 않는다. 보관함에 닿으면 턴다 (10 §3.2)
+      const searching = ai.task?.kind === 'search' || ai.task?.kind === 'alarm'
+      if (ai.task?.kind === 'search' && ai.task.stash && eq(goal, ai.task.stash)) raidStash(w, c, w.s.map, goal)
+      if (ai.waitUntil === undefined) ai.waitUntil = turn + (last || searching ? 0 : PATROL_WAIT)
       if (turn >= ai.waitUntil) {
         ai.waitUntil = undefined
         ai.routeIdx = i + 1
-        if (last) { ai.route = undefined; ai.routeIdx = undefined; ai.mode = isGuard ? 'guard' : 'wander' }
+        if (last) {
+          if (ai.task?.kind === 'alarm') alarmArrived(w, c)
+          ai.task = undefined
+          ai.route = undefined; ai.routeIdx = undefined; ai.mode = isGuard ? 'guard' : 'wander'
+        }
       }
       return { type: 'wait' }
     }

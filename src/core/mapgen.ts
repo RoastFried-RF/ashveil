@@ -154,7 +154,7 @@ export function generateSurface(w: World): GenResult {
     const x = r.int(4, W - 5), y = r.int(14, H - 5)
     if (b.get(x, y) === 'Terrain.Earth' && !nearAnchor(x, y)) b.set(x, y, 'Terrain.Remains')
   }
-  m.waypoints = { reaverCamp: reaverWp, stream: streamWp, monastery: monasteryWp }
+  m.waypoints = { reaverCamp: reaverWp, stream: streamWp, monastery: monasteryWp, homeFire: campfire, homeStash: { x: cx + 2, y: cy + 5 } }
   m.rooms.forEach((R, i) => { for (let y = R.y; y < R.y + R.h; y++) for (let x = R.x; x < R.x + R.w; x++) if (b.in(x, y)) b.at(x, y).room = i })
   return { map: m, start, spawns }
 }
@@ -180,7 +180,7 @@ export function unblockDoorways(w: World, b: Builder) {
 
 // ── 지하 (14 §3.3 · §4 · §5) ───────────────────────────
 
-type RoomType = 'guard' | 'ossuary' | 'library' | 'shrine' | 'storage' | 'cell' | 'empty' | 'boss'
+export type RoomType = 'guard' | 'ossuary' | 'library' | 'shrine' | 'storage' | 'cell' | 'empty' | 'boss'
 
 const ROOM_NAMES: Record<RoomType, string> = {
   guard: '경비실', ossuary: '납골실', library: '서고', shrine: '성소', storage: '창고', cell: '감방', empty: '빈 방', boss: '대성소',

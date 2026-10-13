@@ -61,6 +61,7 @@ export type Action =
   | { type: 'examineSelf' }
   | { type: 'closeDoor'; dir: number }
   | { type: 'attackMode' }
+  | { type: 'toggleFire' }
 
 export interface ActResult { ok: boolean; tu: number; msg?: string }
 
@@ -380,6 +381,16 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       invalidateLights(w)
       emitNoise(w, p, c.sneaking ? 2 : 4, c.id)
       if (isPl(c)) log(w, 'info', '문을 닫았다.')
+      return { ok: true, tu: 100 }
+    }
+
+    case 'toggleFire': {
+      // 모닥불 끄기·켜기 1턴 (10 §3.3: 내려가기 전에 불을 끄면 위험 0)
+      const L = w.s.map.lights.find((x) => x.kind === 'campfire' && cheb(x.pos, c.pos) <= 1)
+      if (!L) return FAIL('곁에 모닥불이 없다')
+      L.off = !L.off
+      invalidateLights(w)
+      if (isPl(c)) log(w, 'info', L.off ? '모닥불을 흙으로 덮어 껐다. 연기도 불빛도 없다.' : '모닥불에 다시 불을 붙였다. 따뜻하지만 멀리서 보인다.')
       return { ok: true, tu: 100 }
     }
 

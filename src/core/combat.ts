@@ -107,7 +107,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   const lv = lightLevel(w, d.pos)
   let lp = [0, -5, -15, -30][lv]
   const ds = w.db.creature(a.def).darkSight
-  if (ds !== undefined && lp < -ds) lp = -ds
+  if (ds && lv >= 2) lp = -ds[lv - 2]
   // 야행성: 어둠 단계 감점 5 완화, 조준 사격·다리 쏘기는 조명 감점 절반 (04 §8 #8)
   if (traitAdd(w, a, 'nightOwl') > 0 && lp < 0) lp = mods?.aimed ? Math.ceil(lp / 2) : Math.min(0, lp + 5)
   add(['밝음', '어스름', '어둠', '칠흑'][lv], lp)

@@ -23,7 +23,7 @@ export function ambientTemp(w: World, pos?: Pos): number {
   if (w.s.weather === 'overcast') t -= 1
   if (w.s.weather === 'ashrain') t -= 3
   if (pos && tileAt(w, pos).roof) t += 3
-  if (pos && w.s.map.lights.some((L) => L.kind === 'campfire' && Math.abs(L.pos.x - pos.x) <= 2 && Math.abs(L.pos.y - pos.y) <= 2)) t += 14
+  if (pos && w.s.map.lights.some((L) => L.kind === 'campfire' && !L.off && Math.abs(L.pos.x - pos.x) <= 2 && Math.abs(L.pos.y - pos.y) <= 2)) t += 14
   return Math.round(t * 10) / 10
 }
 

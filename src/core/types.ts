@@ -243,8 +243,8 @@ export interface CreatureDef extends DefBase {
   noMorale?: boolean
   /** 청각 보정 (07 §9.1) */
   hearing?: number
-  /** 어둠 감점 완화: 칠흑·어둠 명중 감점 상한 (그늘 사람 −5, 07 §13) */
-  darkSight?: number
+  /** 어둠 시야: [어둠, 칠흑] 명중 감점 (그늘 사람 −5 · −15, bestiary §17) */
+  darkSight?: [number, number]
   /** 보유 능력 (15 §15) */
   abilities?: string[]
 }
@@ -512,6 +512,12 @@ export interface AiState {
   hunger: number
   morale: number
   alertTurn?: number
+  /** 장소 사건 임무: 경보(흔적을 보고 귀환) · 수색(흔적 지점 → 보관함) */
+  task?: { kind: 'alarm' | 'search'; pos: Pos; stash?: Pos }
+  /** 도주로 시야에서 사라진 턴 (30턴 미귀환 = 도주시킴 경험치, 15 §3) */
+  goneSince?: number
+  /** 잠든 포자 인간 곁에 머문 턴 */
+  nearTurns?: number
   /** 순찰 경로 (경유지 순서) · 현재 지점 · 대기 끝 턴 */
   route?: Pos[]
   routeIdx?: number
@@ -648,7 +654,7 @@ export interface MapRoom {
 
 /** 거주 인구 공급원 (14 §9.4) */
 export interface PopSource { id: string; label: string; species: string; count: number; cap: number; regenDays: number; floors: string[]; lastRegenDay: number; needsAlive?: string }
-export interface MapLight { pos: Pos; radius: number; kind: string }
+export interface MapLight { pos: Pos; radius: number; kind: string; off?: boolean }
 
 export interface MapState {
   id: string
@@ -689,6 +695,8 @@ export interface Knowledge {
 export interface StorytellerState {
   budget: number
   lastEventTurn: number
+  /** 수색대 출발 예정 (10 §3 #2): 순찰이 흔적을 보고 돌아온 1시간 뒤 */
+  search?: { at: number; pos: Pos }
   pending?: { event: string; atTurn: number }
   history: { turn: number; event: string }[]
 }

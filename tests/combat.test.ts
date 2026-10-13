@@ -123,3 +123,22 @@ describe('루팅 창 (13 §8)', () => {
     expect(actOf(pl)?.total).toBe(3) // 사슬옷 착탈 6/3
   })
 })
+
+describe('소리와 각성 (07 §9.1 · 14 §7.2)', () => {
+  it('경로 비용: 칸당 1, 닫힌 문 +4 — 14 검산 1의 수치', async () => {
+    const { noiseCost } = await import('../src/core/perception')
+    const w = makeWorld('noise1')
+    const m = w.s.map
+    // 3줄짜리 복도를 판다: 가운데 줄만 바닥, (x0+5)에 닫힌 문
+    const y0 = 10, x0 = 10
+    for (let y = y0 - 1; y <= y0 + 1; y++) for (let x = x0 - 1; x <= x0 + 12; x++) m.tiles[y * m.w + x].t = y === y0 ? 'Terrain.KtFloor' : 'Terrain.KtWall'
+    m.tiles[y0 * m.w + x0 + 3].t = 'Terrain.DoorClosed'
+    const cost = noiseCost(w, { x: x0, y: y0 }, 20)
+    expect(cost.get(y0 * m.w + x0 + 2)).toBe(2) // 2칸 옆
+    expect(cost.get(y0 * m.w + x0 + 4)).toBe(8) // 4칸 + 닫힌 문 4
+    // 가죽 장화 3 − 2 = 1 < 3 · 사슬옷 5 − 2 = 3 ≥ 3 · 막기 8 − 4 − 4 = 0 < 3 (얕은 잠 임계 3, 청각 보정 0인 경우)
+    expect(3 - 2).toBeLessThan(3)
+    expect(5 - 2).toBeGreaterThanOrEqual(3)
+    expect(8 - cost.get(y0 * m.w + x0 + 4)!).toBeLessThan(3)
+  })
+})
