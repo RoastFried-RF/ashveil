@@ -297,6 +297,8 @@ export interface Activity {
   /** 중단 판정용: 시작 시점에 보이던 적, 상처 수 */
   seenHostiles?: number[]
   woundCount?: number
+  /** 진행한 턴 수 */
+  elapsed?: number
 }
 
 export interface AiState {

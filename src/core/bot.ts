@@ -7,6 +7,7 @@ import { creatureAt, inBounds, player, terrainAt, turnOf, TURNS_PER_DAY, type Wo
 import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { itemDef, mainWeapon } from './items'
+import { isRaining } from './environment'
 import { diagonalBlocked, findPath } from './path'
 
 export function botDecide(w: World): Action {
@@ -69,7 +70,14 @@ export function botDecide(w: World): Action {
     const water = nearest(w, (p) => terrainAt(w, p).water === 'shallow')
     if (water) { const st = stepTo(w, water); if (st !== null) return { type: 'move', dir: st } }
   }
-  if (pl.needs.fatigue > 75) return { type: 'sleep' }
+  // 추위·비: 지붕 아래로
+  const here = w.s.map.tiles[pl.pos.y * w.s.map.w + pl.pos.x]
+  if (!here.roof && (pl.needs.bodyTemp < 36 || (isRaining(w) && pl.needs.wetness > 30))) {
+    const roof = nearest(w, (p) => w.s.map.tiles[p.y * w.s.map.w + p.x].roof && terrainAt(w, p).passable && !creatureAt(w, p))
+    if (roof) { const st = stepTo(w, roof); if (st !== null) return { type: 'move', dir: st } }
+  }
+  if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35) return { type: 'sleep' }
+  if (pl.needs.bodyTemp < 36 && here.roof) return { type: 'rest', turns: 120 }
 
   // 탐색
   if (w.s.map.tiles[pl.pos.y * w.s.map.w + pl.pos.x].items.length) return { type: 'pickup' }

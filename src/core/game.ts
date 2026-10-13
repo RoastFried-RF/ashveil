@@ -162,7 +162,8 @@ function interrupted(w: World, pl: Creature): string | null {
     const o = w.s.creatures.find((c) => c.id === id)!
     return `${o.name}이(가) 보인다!`
   }
-  if (pl.activity?.kind === 'sleep') {
+  // 시작 직후에는 상태 조건으로 끊지 않는다 (시간이 흐르지 않는 무한 반복 방지)
+  if (pl.activity?.kind === 'sleep' && (act.elapsed ?? 0) > 0) {
     if (pl.needs.fatigue <= 2) return '개운하게 깼다.'
     if (pl.needs.bodyTemp < 34.5) return '추위에 잠이 깼다.'
     if (w.s.noiseEvents.some((n) => n.source !== pl.id && cheb(n.pos, pl.pos) <= n.radius && n.radius >= 7)) return '소리에 잠이 깼다.'

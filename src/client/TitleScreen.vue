@@ -29,7 +29,7 @@ function cont() {
       <header class="space-y-2 text-center">
         <h1 class="text-5xl font-bold tracking-[0.3em] text-ash-100">ASHVEIL</h1>
         <p class="text-ash-400">재의 장막 아래, 회색 고원의 폐허. 피 한 방울도 기록된다.</p>
-        <p class="text-xs text-ash-500">프로토타입 v0.1 · 각인 모드(단일 저장, 죽으면 끝)</p>
+        <p class="text-xs text-ash-500">프로토타입 v0.1 · 각인 모드(단일 저장, 죽으면 끝) · 키보드 권장 (모바일은 맵 클릭으로 한 칸씩 이동)</p>
       </header>
 
       <section v-if="imprint" class="panel space-y-2 p-4">

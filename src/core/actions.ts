@@ -183,6 +183,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const why = sleepingBlocked(w, c)
       if (why) return FAIL(`잠들 수 없다: ${why}`)
       if (c.needs.fatigue < 15) return FAIL('졸리지 않다')
+      if (c.needs.bodyTemp < 35) return FAIL('너무 추워 잠들 수 없다. 몸부터 녹여야 한다')
       c.activity = { kind: 'sleep', remaining: 9600, label: '수면' }
       if (isPl(c)) log(w, 'info', '눈을 감는다…')
       return { ok: true, tu: 0 }
@@ -541,6 +542,7 @@ export function activityStep(w: World, c: Creature): boolean {
   const act = c.activity
   if (!act) return true
   act.remaining--
+  act.elapsed = (act.elapsed ?? 0) + 1
   switch (act.kind) {
     case 'press': {
       const wd = c.body.wounds.find((x) => x.id === act.woundId)

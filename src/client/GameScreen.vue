@@ -157,8 +157,8 @@ const tabs: [Tab, string][] = [['status', '1 상태'], ['body', '2 신체'], ['i
 
 <template>
   <div class="flex h-full flex-col">
-    <div class="flex min-h-0 flex-1">
-      <div class="relative min-w-0 flex-1">
+    <div class="flex min-h-0 flex-1 flex-col md:flex-row">
+      <div class="relative min-h-[55vh] min-w-0 flex-1 md:min-h-0">
         <MapView :target="target" :highlight="mode?.kind === 'shoot' ? visibleEnemies.map((c) => c.pos) : []" @hover="hover = $event" @click="onClick" />
         <div class="absolute left-2 top-2 flex items-center gap-2">
           <button class="btn" @click="abandonToTitle">타이틀</button>
@@ -210,7 +210,7 @@ const tabs: [Tab, string][] = [['status', '1 상태'], ['body', '2 신체'], ['i
         </div>
       </div>
 
-      <aside class="flex w-[360px] shrink-0 flex-col border-l border-ash-800 bg-ash-900">
+      <aside class="flex max-h-[45vh] w-full shrink-0 flex-col border-t border-ash-800 bg-ash-900 md:max-h-none md:w-[360px] md:border-l md:border-t-0">
         <nav class="flex border-b border-ash-800">
           <button v-for="[k, l] in tabs" :key="k" class="flex-1 py-1.5 text-xs" :class="tab === k ? 'bg-ash-800 text-amber-200' : 'text-ash-400 hover:text-ash-100'" @click="tab = k">{{ l }}</button>
         </nav>
@@ -222,6 +222,6 @@ const tabs: [Tab, string][] = [['status', '1 상태'], ['body', '2 신체'], ['i
         </div>
       </aside>
     </div>
-    <div class="h-44 shrink-0 border-t border-ash-800 bg-ash-950"><LogPanel /></div>
+    <div class="h-32 shrink-0 border-t border-ash-800 bg-ash-950 md:h-44"><LogPanel /></div>
   </div>
 </template>
