@@ -1,7 +1,8 @@
 # 11 — 모딩 (Modding)
 
-> 기준: `CANON.md` D6(엔진 독립: 순수 TS 로직 + JSON Def), §4 결정론 규칙. 사용하는 Def 타입은 07~10, 12의 스키마 예시를 따른다.
-> 상태: 초안 v0.1 · 2026-10-13
+> **3차 반영 (2026-10-13): CANON §7.4 정리** — Def 예시를 2·3차 정본에 맞췄다: `SkillDef`·`TalentDef` → `AbilityDef`(15 §11), 가장자리 `spawn` 사건 → `PlaceEventDef`(`origin` 필수, 10 §7), 지역·층·공급원 Def(14 §12)와 `HealthPoolDef`(02 §16)를 추가했다(§3.4). 의미 검증 목록(§3.2)에서 '최소 무게'를 빼고(D22) 격자 크기·`origin`·능력 트리·숙달 2종·경험치 원천(D15·D23) 규칙을 넣었다. 패치·샘플 모드 예시의 무기 공격을 07 §14 형식(`energy`, 천분율 정수, TU 없음 — D9·D24)으로, 맵 생성 대상을 지역 지상 지도(09 §12)로 바꿨다. 텍스처는 16×16(D13). 일관성 정리: `MasteryDef` 검증에 **책 횟수 상한 `bookCap`**(06 §5.2·15 §9.3, core 15 = 2단계 문턱)을 넣고 `BookDef`의 `masteryCount` 합산 규칙을 연결했다.
+> 기준: `CANON.md` D6(엔진 독립: 순수 TS 로직 + JSON Def), §4 결정론 규칙, §7 D8·D13·D22~D24. 사용하는 Def 타입은 01~15의 스키마 예시를 따른다.
+> 상태: 초안 v0.2 · 2026-10-13
 
 ## 0. 결론 요약
 
@@ -30,7 +31,7 @@ mods/someone.nightmod/
 ├─ defs/            # 새 Def (하위 폴더 자유)
 ├─ patches/         # 다른 Def 수정
 ├─ lang/ko/ lang/en/  # 문자열 키 → 텍스트
-├─ textures/        # 32×32 PNG (12 픽셀 가이드)
+├─ textures/        # 16×16 PNG, 화면 ×3 배율(CANON D13, 12 픽셀 가이드). 공개 배포 예제는 CC0 에셋만(CANON 7.1)
 ├─ migrations/      # Def ID 이름 변경 맵 (§7)
 └─ scripts/         # 단계 1+ (훅·워커)
 ```
@@ -74,8 +75,29 @@ mods/someone.nightmod/
 | 4 상속 해석 | 순환, 부모 없음, 타입 불일치 | 오류 |
 | 5 완전 스키마 | 해석된 Def를 필수 필드 포함 스키마로 | 오류 |
 | 6 참조 해석 | `x-defRef` 대상 존재·타입·abstract 아님 | 오류(선택 참조는 경고) |
-| 7 의미 검증 | Def 타입별 규칙: 커버리지 합 100, 개척·정원사 레시피 금지, 최소 무게 1g, 날씨 전이 합 100 등 | 오류/경고 |
+| 7 의미 검증 | Def 타입별 규칙(아래 §3.2.1) | 오류/경고 |
 | 8 동결 | 불변 객체로 고정, 로드 해시 계산 | — |
+
+#### 3.2.1 의미 검증 규칙 (7단계)
+
+| Def | 규칙 | 심각도 | 근거 |
+|---|---|---|---|
+| `BodyDef` | 부위 커버리지 합 = 1,000(‰) | 오류 | 02 §16 |
+| `HealthPoolDef` | `regions` 정확히 6개(머리·몸통·팔 2·다리 2), BodyDef의 모든 부위가 정확히 한 region에 속함, `stateThresholds` 내림차순 | 오류 | 02 §2.0, CANON D18 |
+| `ItemDef` | `grid.w`·`grid.h` ≥ 1, 기본 배낭(10×6)에 회전 포함 들어갈 것. `weight`·`carryCapacity` 필드는 **폐지 필드**(오류) | 오류 | 13, CANON D22 |
+| `WeaponDef` | `family` 필수(능력 트리 계열), 공격마다 `energy` 필수. `tu`·`stamina`·`skill`은 폐지 필드(현재 스키마 오류, 옛 스키마는 §8 자동 변환) | 오류 | 07 §14, CANON D9·D24 |
+| `RecipeDef` | 개척·정원사 기술 아이템 제작 레시피 금지 | 경고 | CANON §3.3 |
+| `WeatherTableDef` | 각 행 전이 확률 합 = 100 | 오류 | 09 §9.2 |
+| `AbilityDef` | (`tree`, `order`) 유일, 트리당 4개(core 트리), `tier` 2는 같은 트리 능력 1개 선행, `prerequisites` 같은 트리·순환 없음. `Active`는 `energy`·`cooldownTurns` 필수, `Toggle`은 `toggleCost` 필수 | 오류 | 15 §5·§7 |
+| `MasteryDef` | core는 `Mastery.Medicine`·`Mastery.Survival` 2종. 모드가 새 숙달을 추가하면 경고("D23 이탈"). `thresholds` 5개 오름차순, `bookCap` 필수이고 1 ≤ `bookCap` ≤ `thresholds[1]`(책으로는 2단계 문턱까지 — core 15). 위반은 오류 | 경고 / 오류 | 15 §9.3, 06 §5.2, CANON D23 |
+| `XPSourceDef` | `kind` ∈ {Kill, Surrender, Rout, RoomDiscover, FloorEntry, Crisis}. 행동 횟수·독서·걸음 수 기반 kind는 오류. `Crisis`는 `limit.perGameDay` 필수 | 오류 | 15 §3, CANON D15 |
+| `BookDef` | `skillXP`·`capSkill`은 폐지 필드(오류), `masteryCount` 대상은 숙달 Def만. 런타임에 책 `masteryCount`는 숙달마다 합산해 그 `MasteryDef.bookCap`(노련함이면 문턱 배율 ×0.8 적용 → 12)에서 자른다 | 오류 | 06 §5.2 |
+| `PlaceEventDef` | `category: Threat`이면 `origin` 필수, `composition.fromPopulation`은 true만, `spawn` 필드는 폐지 필드(오류), `traces` 1개 이상 | 오류 | 10 §7·§10, CANON D8 |
+| `RegionDef` | 지상 지도 1개, `dungeon` 층의 `depth`가 1부터 연속, `exits` 타일이 지상 지도 안의 통행 가능 칸 | 오류 | 14 §2·§12 |
+| `MapGenDef`(지상) | `Validate` 단계에 `ResidentsInAnchors` 포함(모든 거주자가 구역·방 안) | 오류 | 09 §12, CANON D8 |
+| `DungeonFloorDef` | `rooms[].residents`는 방에만, 복도 거주자 없음. `populationSources` 존재 | 오류 | 14 §4 |
+| `ReoccupationRuleDef` | `graceDays` ≥ 0, `dailyChance` 0~1,000(‰) | 오류 | 14 §9.3 |
+| 폐지 타입 | `SkillDef`·`TalentDef`·`EventDef` | 오류 + 대체 타입 안내(§3.4) | CANON D8·D23 |
 
 ### 3.3 상속 병합 의미론
 
@@ -89,10 +111,73 @@ mods/someone.nightmod/
 
 **검산 1 — 상속 병합**
 ```json
-{ "id": "Weapon.MeleeBase", "abstract": true, "noise": { "swing": 6, "clash": 8 }, "special": ["Special.Shove"], "blockValue": 5 }
-{ "id": "Weapon.HandAxe", "parent": "Weapon.MeleeBase", "noise": { "swing": 7 }, "special": { "$append": ["Special.BeardHook"] } }
+[
+  { "defType": "WeaponDef", "id": "Weapon.MeleeBase", "abstract": true, "noise": { "swing": 6, "clash": 8 }, "special": ["Special.Shove"], "blockValue": 5 },
+  { "defType": "WeaponDef", "id": "Weapon.HandAxe", "parent": "Weapon.MeleeBase", "noise": { "swing": 7 }, "special": { "$append": ["Special.BeardHook"] } }
+]
 ```
 결과: `noise = {swing: 7, clash: 8}`(깊은 병합), `special = ["Special.Shove", "Special.BeardHook"]`, `blockValue = 5`(상속).
+
+### 3.4 2·3차 방향의 주요 Def 타입 [프로토타입]
+
+> 1차 설계의 `SkillDef`(사용 기반 숙련)·`TalentDef`(숙련 임계 재능)·`EventDef`(가장자리·시야 밖 `spawn` 포함)는 **폐지**했다(CANON D8·D23). 로더는 이 타입을 만나면 오류를 내고 대체 타입을 안내한다(§3.2 7단계, §8 마이그레이션). 각 타입의 정본 예시는 괄호 안 문서다.
+
+| 1차 타입 | 대체 | 정본 |
+|---|---|---|
+| `SkillDef` | `AbilityDef`(능력 트리 6 × 4) + `MasteryDef`(의료·생존 숙달 2종만) + `LevelCurveDef`·`XPSourceDef` | 15 §11 |
+| `TalentDef` | `AbilityDef`(패시브) — 1차 재능은 05 부록 A의 후보 풀 | 15 §11, 05 부록 A |
+| `EventDef`(`spawn`) | `PlaceEventDef`(`origin` 필수, `composition.fromPopulation`) | 10 §7 |
+| (없음) | `RegionDef`·`DungeonFloorDef`·`RoomTypeDef`·`PopulationSourceDef`·`ReoccupationRuleDef` | 14 §12 |
+| (없음) | `HealthPoolDef`(HP 풀 + 6부위) | 02 §16 |
+
+**능력** (15 §11 형식 그대로)
+```json
+{
+  "defType": "AbilityDef",
+  "id": "Ability.Blunt.HeadBash",
+  "label": "@ability.headBash.label",
+  "tree": "Tree.Blunt", "tier": 1, "order": 1,
+  "kind": "Active",
+  "energy": 14, "cooldownTurns": 6, "turns": 1,
+  "requires": { "weaponFamily": "Blunt" },
+  "attackMods": [
+    { "stage": "HitLocation", "field": "partWeightMult.Head", "op": "mul", "value": 4000 },
+    { "stage": "Stun", "field": "stunChanceAddPct", "op": "add", "value": 40 }
+  ],
+  "quickSlot": true,
+  "icon": "icon:ability_head_bash"
+}
+```
+- 값은 15 §6.3 '머리 강타'(기력 14, 대기 6, 머리 가중 ×4, 기절 +40%p). `4000` = ×4.0(천분율 정수, §3.1).
+
+**장소 사건** (10 §7 형식 그대로, 필드 일부)
+```json
+{
+  "defType": "PlaceEventDef",
+  "id": "Nightmod.Event.ShadeForage",
+  "category": "Threat",
+  "tags": ["ShadeFolk", "Forage"],
+  "origin": { "place": "Place.GreyCloister.Floor1.EastCrack", "population": "Pop.ConduitDepths" },
+  "schedule": { "at": "22:00", "everyDays": 1 },
+  "conditions": ["pop('Pop.ConduitDepths').count >= 6"],
+  "chance": 250,
+  "composition": { "fromPopulation": true, "count": [1, 2] },
+  "route": { "waypoints": ["Wp.Floor1.Storeroom", "Wp.Floor1.EastCrack"], "waitMinutes": 10 },
+  "traces": ["Trace.Footprints"],
+  "resolveWhileFrozen": "Settlement",
+  "text": { "title": "@nightmod.event.shadeForage.title" }
+}
+```
+- 모드 예: 그늘 사람이 밤마다 1층 창고로 먹이를 찾으러 나온다. 출발지 = 관로 균열(장소) + 관로 하단(공급원). 공급원 인원이 6 미만이면 열리지 않는다(10 E1).
+
+**지역** (14 §12 `RegionDef`)과 **HP 풀** (02 §16 `HealthPoolDef`)은 해당 문서 예시를 그대로 쓴다. 모더가 자주 패치하는 필드:
+
+| Def | 필드 | 패치 예 |
+|---|---|---|
+| `RegionDef` | `populationSources`, `exits[].status` | 출입구 `"Future"` → `"Open"` |
+| `PopulationSourceDef` | `start`, `cap`, `regen` | 관로 하단 상한 24 → 30 |
+| `ReoccupationRuleDef` | `graceDays`, `dailyChance` | 유예 3일 → 5일 |
+| `HealthPoolDef` | `maxHp`, `regions[].maxRatio`, `stateThresholds` | 머리 최대치 300 → 250(‰) |
 
 ## 4. 패치 연산 [프로토타입: add/replace/remove/merge + ifModLoaded]
 
@@ -104,10 +189,11 @@ mods/someone.nightmod/
     "ifModLoaded": "someone.nightmod" },
   { "op": "merge", "targetQuery": { "defType": "WeaponDef", "tags": ["Weapon.Axe"] },
     "path": "/noise", "value": { "clash": 10 } },
-  { "op": "add", "target": "MapGen.RuinOutskirts", "path": "/steps[id=Validate]", "position": "before",
+  { "op": "add", "target": "MapGen.GreyCloister.Surface", "path": "/steps[op=Validate]", "position": "before",
     "value": { "op": "Scatter", "items": { "Nightmod.Obj.Shrine": 1 } } },
-  { "op": "remove", "target": "Event.ReaverAmbushRoad", "path": "/chain[event=Event.ReaverTracking]",
-    "optional": true }
+  { "op": "remove", "target": "Event.ReaverPatrol", "path": "/onSee[trace=Trace.ReaverCorpse]",
+    "optional": true },
+  { "op": "replace", "target": "Reoccupy.Default", "path": "/graceDays", "value": 5 }
 ]
 ```
 
@@ -197,6 +283,7 @@ mods/someone.nightmod/
 | `onDeath` | 개체 사망 | 명령 목록(사망 보고서 항목 추가 가능) |
 
 명령 예: `addThought`, `applyWound`, `spawnItem`, `adjustReputation`, `queueEvent`, `log`. 코어가 **모드 로드 순서 → 등록 순서**로 적용한다.
+- 생물을 지도에 직접 만드는 명령(`spawnCreature`)은 **없다**(CANON D8). 생물을 움직이려면 `queueEvent`로 `origin`이 있는 `PlaceEventDef`를 예약하고, 개체는 출발지 공급원에서 뽑혀 걸어온다(10 E1·E2). `spawnItem`은 아이템 전용이며 컨테이너·바닥 칸에만 놓인다.
 
 ```ts
 export default defineMod({
@@ -213,8 +300,8 @@ export default defineMod({
 ### 6.2 워커 (단계 2 초안)
 | 워커 인터페이스 | 용도 |
 |---|---|
-| `EventWorker` | `canFire(ctx)`, `execute(ctx)` — DSL로 못 쓰는 사건 조건·결과 |
-| `MapGenStepWorker` | 09 MapGenDef의 사용자 정의 `op` |
+| `PlaceEventWorker` | `canFire(ctx)`, `execute(ctx)` — DSL로 못 쓰는 장소 사건 조건·결과. `origin` 검증은 워커 이전에 코어가 한다 |
+| `MapGenStepWorker` | 09 MapGenDef(지상 지도)·14 층 생성의 사용자 정의 `op`. 실행 뒤에도 `ResidentsInAnchors` 검증을 받는다 |
 | `AIConsiderationWorker` | 07 목표 선정 유틸리티 항 추가 |
 | `ItemCompWorker` | 08 아이템 컴포넌트 동작 |
 
@@ -236,10 +323,10 @@ export default defineMod({
 
 | 변화 | 처리 |
 |---|---|
-| 모드 추가 | 기존 월드는 재생성하지 않음. 새 사건은 풀에 합류, 새 바이옴·맵 생성은 아직 생성 안 된 지역에만 |
-| 모드 제거 | 그 모드 Def를 참조하는 것: 아이템 → `Item.MissingPlaceholder`(무게·부피 유지, 원 ID 보관 → 모드 재설치 시 복원), 상처·상태 → 제거 + 로그, 개체 → 맵에서 제거 + 로그, 대기 사건 → 폐기, `modState` → 폐기 |
+| 모드 추가 | 기존 월드는 재생성하지 않음. 새 장소 사건은 `origin` 장소가 있는 지역에서만 열림, 새 바이옴·지역·층 생성은 아직 생성 안 된 지역에만 |
+| 모드 제거 | 그 모드 Def를 참조하는 것: 아이템 → `Item.MissingPlaceholder`(격자 크기·배낭 위치 유지, 원 ID 보관 → 모드 재설치 시 복원), 상처·상태 → 제거 + 로그, 개체 → 층에서 제거 + 로그(공급원 인원은 그대로), 대기 사건 → 폐기, `modState` → 폐기 |
 | 모드 업데이트 | Def ID 사라짐 → `migrations/rename.json`(`{"Old.Id": "New.Id"}`) 우선 적용, 없으면 제거와 동일 |
-| 스키마 버전 상승 | core가 제공하는 Def 마이그레이션(JSON 변환)을 오래된 모드에 자동 적용 + 경고 |
+| 스키마 버전 상승 | core가 제공하는 Def 마이그레이션(JSON 변환)을 오래된 모드에 자동 적용 + 경고. 예: `defSchemaVersion` 3 → 4에서 공격의 `stamina` → `energy`, `tu` 삭제(D9·D24). `SkillDef`·`TalentDef`·`spawn` 사건은 자동 변환 불가 → 오류 + §3.4 대체 안내 |
 | 각인 모드에서 목록 변경 | 허용하되 연대기에 "모드 변경됨" 표기, 업적 비활성 |
 
 로드 전 차이 리포트: "제거될 아이템 3개, 상처 1개, 대기 사건 2개" → 계속/취소.
@@ -290,32 +377,42 @@ export default defineMod({
 목표: Def 로더·상속·패치·조건부 패치가 실제로 동작함을 보이는 최소 모드.
 `defs/weapons.json`
 ```json
-[{ "defType": "WeaponDef", "id": "Ashfang.Weapon.FangKnife", "parent": "Weapon.KnifeBase",
-   "label": "@ashfang.fangKnife",
+[{ "defType": "ItemDef", "id": "Ashfang.Item.FangKnife", "parent": "Item.MeleeWeaponBase",
+   "label": "@ashfang.fangKnife", "category": "Weapon", "tags": ["Weapon.Blade"],
+   "grid": { "w": 1, "h": 2, "rotatable": true }, "stackLimit": 1,
+   "equip": { "slots": ["MainHand", "OffHand"], "equipTurns": 1, "unequipTurns": 1 },
+   "comps": { "weapon": "Ashfang.Weapon.FangKnife" } },
+ { "defType": "WeaponDef", "id": "Ashfang.Weapon.FangKnife", "parent": "Weapon.KnifeBase",
+   "label": "@ashfang.fangKnife", "family": "Blade",
    "attacks": [{ "id": "stab", "damageType": "Pierce", "baseDamage": 8, "penetration": 10,
-                 "tu": 70, "stamina": 4, "reach": 1, "bleedMult": 1.2, "accuracy": 0 }],
+                 "energy": 4, "reach": 1, "bleedMult": 1200, "accuracy": 0 }],
    "stuffSlot": { "blade": "Bone" } }]
 ```
 `patches/drops.json`
 ```json
-[{ "op": "add", "target": "Animal.AshHound", "path": "/butcher/-",
-   "value": { "item": "Ashfang.Item.Fang", "count": [1, 2] } },
+[{ "op": "add", "target": "Loot.Ossuary.Sarcophagus", "path": "/entries/-",
+   "value": { "item": "Ashfang.Item.FangKnife", "weight": 20 } },
  { "op": "replace", "target": "DamageType.Slash", "path": "/bleedPerDamage", "value": 2.25,
    "ifModNotLoaded": "someone.realisticbleeding" }]
 ```
 - `attacks`는 배열이라 상속 시 **통째 교체**된다(§3.3). `{"id":"stab","baseDamage":8}`만 쓰면 나머지 필드가 사라져 5단계(완전 스키마)에서 오류 → 샘플 모드가 이 함정을 일부러 보여준다.
-- 수용 기준: `validate` 통과, `resolve Ashfang.Weapon.FangKnife`가 부모의 `blockValue`·`noise` 등을 상속하고 `attacks`는 교체된 결과를 출처와 함께 출력, 게임 내 재늑대 해체 시 송곳니 드롭, 베기 출혈 계수 2.25(깊은 베임 D 20 → 45 ml/턴).
+- 공격 형식은 07 §14(`energy` = 기력, `bleedMult` 천분율 1200 = ×1.2). 1차 형식의 `tu`·`stamina` 필드는 현재 스키마에서 폐지 필드라 7단계 오류다(D9: 공격은 1턴, D24: 기력). 옛 `defSchemaVersion`을 선언한 모드만 §8 마이그레이션이 자동 변환한다.
+- `family: "Blade"` + 찌르기만 있는 무기 → 도검 트리 중 **급소 찌르기는 쓸 수 있고 깊게 베기는 잠긴다**(15 §7 공격 방식 요구). 능력 Def를 건드리지 않고 무기 하나로 능력 규칙이 따라오는 것을 보여준다.
+- 수용 기준: `validate` 통과, `resolve Ashfang.Weapon.FangKnife`가 부모의 `blockValue`·`noise` 등을 상속하고 `attacks`는 교체된 결과를 출처와 함께 출력, 수도원 2층 납골실 석관(13 `Container.Sarcophagus`)에서 송곳니 칼이 나올 수 있음, 베기 출혈 계수 2.25(깊은 베임 D 20 → 20 × 2.25 = 45 ml/턴).
 
 ## 14. 다른 시스템과의 상호작용
 
 | 시스템 | 모딩 관점 |
 |---|---|
 | 01 시간 | TU 비용은 Def 파라미터, 스케줄러는 코어 |
-| 02~06 | 신체 트리·상처·특성·숙련·지식 항목 전부 Def |
+| 02~06 | 신체 트리·HP 풀(`HealthPoolDef`)·상처·특성·배경·숙달·지식 항목 전부 Def |
 | 07 전투 | WeaponDef·AIPersonaDef·SpecialActionDef, 훅 `modifyHitChance` |
 | 08 아이템 | ItemDef·MaterialDef·RecipeDef, techLevel 검증 |
-| 09 월드 | BiomeDef·MapGenDef(단계 삽입 패치), DiseaseDef |
-| 10 스토리텔러 | EventDef(조건 DSL)·PersonaDef |
+| 09 월드 | BiomeDef·MapGenDef(지상 지도, 단계 삽입 패치)·PlaceChangeDef, DiseaseDef |
+| 10 스토리텔러 | PlaceEventDef(`origin` 필수, 조건 DSL)·PersonaDef [후속] |
+| 13 소지품 | ItemDef(`grid`)·InventoryDef·LootContainerDef. 무게 필드 없음 |
+| 14 장소 | RegionDef·DungeonFloorDef·RoomTypeDef·PopulationSourceDef·ReoccupationRuleDef |
+| 15 능력 | AbilityDef·LevelCurveDef·XPSourceDef·MasteryDef |
 | 12 UI | 문자열 키, 텍스처, 키 바인딩 기본값 Def |
 
 ## 15. 깊이 3층 (모더 관점)
@@ -323,13 +420,13 @@ export default defineMod({
 | 층 | 내용 |
 |---|---|
 | L1 | 숫자 바꾸기: `replace` 패치 한 줄로 베기 출혈 계수 조정 |
-| L2 | 상속으로 새 무기·적·사건 추가, 조건부 패치로 다른 모드와 호환, `[id=…]` 선택자로 순서 독립 패치 |
+| L2 | 상속으로 새 무기·적·장소 사건 추가, 조건부 패치로 다른 모드와 호환, `[op=…]`·`[id=…]` 선택자로 순서 독립 패치 |
 | L3 | 훅·워커로 새 메커니즘, `modState`로 지속 상태, 시뮬 러너로 밸런스 검증, 필드별 출처 추적으로 다중 모드 디버깅 |
 
 ## 16. "이런 것까지?" 디테일
 
 1. 추상 부모를 패치하면 모든 자식에 전파, 단 자식이 덮어쓴 필드는 "가려진 패치" 경고.
-2. 배열 패치는 인덱스 대신 `[id=Validate]` 선택자 → 다른 모드가 단계를 끼워 넣어도 안 깨짐.
+2. 배열 패치는 인덱스 대신 `[op=Validate]` 선택자 → 다른 모드가 단계를 끼워 넣어도 안 깨짐.
 3. 모드마다 RNG 하위 스트림이 따로 → 모드 하나 추가해도 코어 전투 난수는 그대로.
 4. 확률·계수는 Def에서 0.02처럼 소수로 써도 로드 시 고정소수점 정수(200‱)로 변환.
 5. 모드 제거 시 아이템은 "알 수 없는 물건"으로 남고 원 ID를 보관 → 다시 설치하면 복원.
@@ -340,6 +437,8 @@ export default defineMod({
 10. 시드 공유 문자열에 로드 해시가 들어가 "같은 시드인데 왜 다르지?"를 미리 경고.
 11. 문자열 리터럴(`@키` 아님)은 경고 → 번역 모드가 덮을 수 없기 때문.
 12. 개척·정원사 기술 아이템에 제작 레시피를 붙이면 검증 경고(세계 규칙 CANON §3.3).
+13. 모드가 위협 사건에서 `origin`을 빼면 로드 전에 막힌다. "어디서 왔는가"가 없는 적은 모드로도 만들 수 없다(10 E1).
+14. 1차 모드의 `stamina`·`tu` 공격 필드는 스키마 마이그레이션이 `energy`로 바꾸고 `tu`는 지운다 — 같은 무기가 "한 번 휘두르면 1턴"이 된다.
 
 ## 17. UI 표현
 
@@ -363,7 +462,7 @@ export default defineMod({
 | 항목 | 표시 |
 |---|---|
 | Def 로더(JSON), JSON Schema 검증, 상속(parent/abstract, 병합 의미론) | [프로토타입] |
-| 참조 해석, 의미 검증 일부(커버리지 합·최소 무게) | [프로토타입] |
+| 참조 해석, 의미 검증 일부(커버리지 합·격자 크기·`origin` 필수·능력 트리·폐지 타입/필드) | [프로토타입] |
 | 패치 add/replace/remove/merge, `[k=v]` 선택자, `ifModLoaded`/`ifModNotLoaded` | [프로토타입] |
 | 매니페스트·위상 정렬·충돌 리포트·로드 해시 | [프로토타입] |
 | `validate`·`resolve` CLI, 적합성 테스트 30쌍, 샘플 모드 `sample.ashfang` | [프로토타입] |
