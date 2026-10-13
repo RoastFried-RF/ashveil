@@ -68,7 +68,7 @@ function sideOf(defender: Creature, attackerPos: Pos): 'l' | 'r' | undefined {
 
 /** 기습 대상: 잠듦·의식 없음(기절) (07 §2.8, D28) */
 export function helpless(c: Creature): boolean {
-  return !!c.asleep || c.unconscious
+  return !!c.asleep || c.unconscious || c.activity?.kind === 'sleep'
 }
 
 /** 대상이 공격자를 인지하지 못함 (기습 +20, 반응 불가) */
@@ -103,7 +103,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   lines.push(`50 + (공격치 ${as} − 회피치 ${ev}) × 2 = ${chance}`)
   const add = (label: string, v: number) => { if (v !== 0) { chance += v; lines.push(`${label} ${v > 0 ? '+' : ''}${v}`) } }
   // 방향 · 기습
-  if (helpless(d)) add(d.asleep ? '잠든 상대' : '의식 없는 상대', 40)
+  if (helpless(d)) add(d.unconscious ? '의식 없는 상대' : '잠든 상대', 40)
   else {
     const rel = relationOf(w, d, a.pos)
     add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
@@ -532,6 +532,9 @@ interface WoundOut {
   organ?: string
 }
 
+/** 동맥 판정 문턱: 심각도가 부위 HP의 이 % 이상일 때만 (CANON D33) */
+export const ARTERY_MIN_PCT = 30
+
 function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: number, dtype: DamageType, atk: AttackDef,
   mods: AbilityAttackMods | undefined, detail: string[], label: string): WoundOut {
   const r = rng(w, 'combat')
@@ -540,9 +543,9 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   const bleedMult = (atk.bleedMult ?? 1) * (mods?.bleedMult ?? 1)
   const hp = d.body.maxHp[pd.id]
   detail.push(`심각도 ${D}/${hp} = ${Math.round(D * 100 / hp)}% (${D < hp * 0.25 ? '경상' : D < hp * 0.5 ? '중상' : D < hp ? '심각' : '파괴'})`)
-  // 동맥: 베기·찌르기·물기, D × 2% (+ 깊게 베기 15%p)
+  // 동맥: 베기·찌르기·물기, D ≥ 부위 HP 30%일 때만 D × 2% (+ 깊게 베기 15%p) — CANON D33
   let artery = 0
-  if (pd.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite')) {
+  if (pd.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite') && D * 100 >= hp * ARTERY_MIN_PCT) {
     const ch = clamp(D * 2 + (mods?.arterialBonus ?? 0), 0, 100)
     const ar = r.int(0, 99)
     detail.push(`동맥 판정 ${ch}% roll ${ar}`)

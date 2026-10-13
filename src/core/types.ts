@@ -527,6 +527,11 @@ export interface Activity {
   /** 중단 판정용: 시작 시점에 보이던 적, 상처 수 */
   seenHostiles?: number[]
   woundCount?: number
+  /** 수면: 잠들 때 피로, 굶주림·갈증 단계, 젖음 · 깨운 이유 (01 §8) */
+  sleep0?: { fatigue: number; hunger: number; thirst: number; wet: number }
+  wokeBy?: string
+  /** 자동 모드 중단 판정 스냅샷 (01 §6.2) */
+  snap?: import('./autostop').AutoSnap
   /** 진행한 턴 수 */
   elapsed?: number
 }
@@ -765,6 +770,8 @@ export interface GameState {
   over?: { kind: 'death' | 'escape'; turn: number; report: DeathReport }
   visible: number[] // 이번 턴 플레이어가 보는 타일 인덱스
   noiseEvents: { pos: Pos; radius: number; source: number; turn: number }[]
+  /** 자동 모드가 마지막으로 위협에 끊긴 턴 (01 §6.2 이력 현상) */
+  autoStopTurn?: number
   /** 화면 연출용 이벤트 (렌더러가 소비) */
   fx: FxEvent[]
   /** 거주 인구 공급원 (14 §9.4) */

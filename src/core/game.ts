@@ -15,8 +15,10 @@ import { generateDungeon, generateSurface, sleepChance, type GenResult, type Roo
 import { needsTick, psycheTick } from './needs'
 import { awardCrisis, gainXp } from './progression'
 import { buildReport } from './report'
-import { emitNoise } from './perception'
+import { emitNoise, sleepCycleDeep } from './perception'
 import { RNG_STREAMS, Rng, seedState } from './rng'
+import { autoSnap, autoStop } from './autostop'
+import { nextActor } from './scheduler'
 import { settleSurfaceEvents, storytellerTick } from './storyteller'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
@@ -166,6 +168,19 @@ function freeNear(w: World, p: Pos, avoidPlayer = false): Pos {
   return p
 }
 
+/** 굶주림·갈증 단계 0 보통 · 1 배고픔(<900) · 2 굶주림(<0) */
+function sleepStart(c: Creature) {
+  const st = (v: number) => (v < 0 ? 2 : v < 900 ? 1 : 0)
+  return { fatigue: c.needs.fatigue, hunger: st(c.needs.kcal), thirst: st(c.needs.water), wet: c.needs.wetness }
+}
+
+/** 깬 직후 잠기운 (01 §8.3): 10턴, 깊은 잠에서 깼다면 20턴 */
+function wakeUp(w: World, c: Creature) {
+  c.drowsyUntil = turnOf(w) + (c.deepSleep ? 20 : 10)
+  if (c.deepSleep && c.faction === 'player') log(w, 'warn', '깊은 잠에서 끌려 나왔다. 머리가 멍하다.')
+  c.deepSleep = undefined
+}
+
 function isSleeping(c: Creature) {
   return c.activity?.kind === 'sleep'
 }
@@ -254,15 +269,6 @@ function finish(w: World, kind: 'death' | 'escape', cause: string) {
   if (kind === 'death') log(w, 'danger', `당신은 죽었다. (${cause})`)
 }
 
-function nextActor(w: World): Creature | undefined {
-  let best: Creature | undefined
-  for (const c of w.s.creatures) {
-    if (!c.alive) continue
-    if (!best || c.nextAct < best.nextAct || (c.nextAct === best.nextAct && (c.faction === 'player' || (best.faction !== 'player' && c.id < best.id)))) best = c
-  }
-  return best
-}
-
 function visibleHostileIds(w: World, pl: Creature): Set<number> {
   return new Set(w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)).map((o) => o.id))
 }
@@ -270,18 +276,27 @@ function visibleHostileIds(w: World, pl: Creature): Set<number> {
 function interrupted(w: World, pl: Creature): string | null {
   const act = pl.activity
   if (!act) return null
-  if (pl.body.wounds.length > (act.woundCount ?? pl.body.wounds.length)) return '공격받았다!'
-  const known = new Set(act.seenHostiles ?? [])
-  for (const id of visibleHostileIds(w, pl)) if (!known.has(id)) {
-    const o = w.s.creatures.find((c) => c.id === id)!
-    return `${o.name}이(가) 보인다!`
+  if (act.kind === 'sleep') {
+    // 수면 주기 (01 §8): 눈을 감고 있으니 적을 '보고' 깨지는 않는다. 소리(각성 임계)·피해·몸 신호로만 깬다
+    const s0 = (act.sleep0 ??= sleepStart(pl))
+    pl.deepSleep = sleepCycleDeep(act.elapsed ?? 0, s0.fatigue) || undefined
+    if (pl.body.wounds.length > (act.woundCount ?? pl.body.wounds.length)) return '공격받았다!'
+    if (act.wokeBy) return act.wokeBy
+    if ((act.elapsed ?? 0) > 0) {
+      if (pl.needs.fatigue <= 2) return '개운하게 깼다.'
+      if (pl.needs.bodyTemp < 35) return '추위에 잠이 깼다.'
+      if (pl.needs.wetness >= s0.wet + 20) return '몸이 젖어 잠이 깼다.'
+      const now = sleepStart(pl)
+      if (now.hunger > s0.hunger) return '배가 고파 잠이 깼다.'
+      if (now.thirst > s0.thirst) return '목이 말라 잠이 깼다.'
+    }
+    return null
   }
-  if (pl.activity?.kind === 'sleep' && (act.elapsed ?? 0) > 0) {
-    if (pl.needs.fatigue <= 2) return '개운하게 깼다.'
-    if (pl.needs.bodyTemp < 34.5) return '추위에 잠이 깼다.'
-    if (w.s.noiseEvents.some((n) => n.source !== pl.id && cheb(n.pos, pl.pos) <= n.radius && n.radius >= 7)) return '소리에 잠이 깼다.'
-  }
-  return null
+  // 휴식·채널 행동은 자동 모드: T1~T6 (01 §6.2). 처치·압박 중에는 신체 변화로 끊지 않는다
+  if (!act.snap) return null
+  const why = autoStop(w, act.snap, { skipBody: act.kind === 'treat' || act.kind === 'press' })
+  if (why) w.s.autoStopTurn = turnOf(w)
+  return why && (why.endsWith('다') ? why + '!' : why)
 }
 
 /** 플레이어 입력이 필요할 때까지 시뮬레이션 진행 */
@@ -304,7 +319,7 @@ export function runUntilInput(w: World, maxSteps = 300000) {
         const why = interrupted(w, actor)
         if (why) {
           log(w, 'warn', `${actor.activity.label} 중단: ${why}`)
-          if (actor.activity.kind === 'sleep') sleepQuality(w, actor)
+          if (actor.activity.kind === 'sleep') { sleepQuality(w, actor); wakeUp(w, actor) }
           stopActivity(w, actor)
           updatePlayerVision(w, actor)
           return
@@ -313,7 +328,7 @@ export function runUntilInput(w: World, maxSteps = 300000) {
         const done = activityStep(w, actor)
         actor.nextAct += TU_PER_TURN
         if (done) {
-          if (kind === 'sleep') sleepQuality(w, actor)
+          if (kind === 'sleep') { sleepQuality(w, actor); wakeUp(w, actor) }
           updatePlayerVision(w, actor)
           return
         }
@@ -332,8 +347,9 @@ export function runUntilInput(w: World, maxSteps = 300000) {
         continue
       }
     }
-    const action = aiDecide(w, actor)
-    const res = perform(w, actor, action)
+    let res = perform(w, actor, aiDecide(w, actor))
+    // 동시성 충돌(01 §3.5): 먼저 처리된 쪽이 칸을 차지하면 같은 TU 안에서 1회만 다시 계획
+    if (!res.ok) { actor.ai.path = undefined; res = perform(w, actor, aiDecide(w, actor)) }
     actor.nextAct += res.ok ? Math.max(30, res.tu) : TU_PER_TURN
   }
 }
@@ -367,6 +383,7 @@ export function playerAct(w: World, action: Action): string | null {
   if (act) {
     act.seenHostiles = [...visibleHostileIds(w, pl)]
     act.woundCount = pl.body.wounds.length
+    act.snap = autoSnap(w)
   }
   pl.nextAct += res.tu
   if (res.tu > 0 || act) runUntilInput(w)

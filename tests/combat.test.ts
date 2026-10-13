@@ -204,3 +204,57 @@ describe('냄새 (07 §9.2)', () => {
     expect(smells(w, shade, pl)).toBe(false)
   })
 })
+
+describe('동맥 판정 문턱 (CANON D33)', () => {
+  it('동맥 상처는 언제나 심각도 ≥ 부위 HP 30%, 작은 베임만으로는 동맥이 터지지 않는다', async () => {
+    const { resolveAttack, ARTERY_MIN_PCT } = await import('../src/core/combat')
+    const w = makeWorld('art1')
+    const pl = noon(w)
+    const at = openTile(w, pl, 1, 0)
+    const shade = createCreature(w, 'Creature.Shade', at)
+    w.s.creatures.push(shade)
+    let small = 0
+    for (let i = 0; i < 400; i++) {
+      pl.body.wounds = []
+      pl.hp = 999
+      pl.alive = true
+      pl.unconscious = false
+      pl.reactions = undefined
+      resolveAttack(w, shade, pl)
+      for (const wd of pl.body.wounds) {
+        const hp = pl.body.maxHp[wd.part]
+        if (wd.artery) expect(wd.severity * 100).toBeGreaterThanOrEqual(hp * ARTERY_MIN_PCT)
+        else if (wd.severity * 100 < hp * ARTERY_MIN_PCT) small++
+      }
+    }
+    expect(small).toBeGreaterThan(50) // 녹슨 단검 베임 대부분은 문턱 아래
+    // 문턱: 상완 30 → 9 · 대퇴 35 → 10.5 · 목 25 → 7.5
+    expect(30 * ARTERY_MIN_PCT / 100).toBe(9)
+    expect(35 * ARTERY_MIN_PCT / 100).toBe(10.5)
+  })
+})
+
+describe('스케줄러 (01 §3)', () => {
+  it('검산 1: 같은 readyAt이면 주도권(민첩×2+지각) 높은 그늘 사람이 먼저, 창벽 자세면 플레이어가 먼저', async () => {
+    const { initiative, nextActor } = await import('../src/core/scheduler')
+    const w = makeWorld('sch1')
+    const pl = noon(w)
+    pl.stats.agi = 12
+    pl.stats.per = 10
+    const s = createCreature(w, 'Creature.Shade', openTile(w, pl, 3, 0))
+    s.stats.agi = 14
+    s.stats.per = 12
+    s.asleep = false
+    w.s.creatures.push(s)
+    pl.nextAct = s.nextAct = 10200
+    expect(initiative(pl)).toBe(34)
+    expect(initiative(s)).toBe(40)
+    expect(nextActor(w)).toBe(s)
+    pl.effects.push({ kind: 'spearWall', untilTurn: Number.MAX_SAFE_INTEGER })
+    expect(nextActor(w)).toBe(pl)
+    pl.effects = []
+    s.asleep = true // 수면·기절이면 주도권 0 → 동률이면 seq(플레이어 0)
+    expect(initiative(s)).toBe(0)
+    expect(nextActor(w)).toBe(pl)
+  })
+})

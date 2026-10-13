@@ -3,7 +3,7 @@
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
-  allItems, type Pos, type World,
+  allItems, autoBlocked, autoSnap, autoStop, turnOf, type Pos, type World,
 } from '../core'
 import HoverInfo from './HoverInfo.vue'
 import LogPanel from './LogPanel.vue'
@@ -21,7 +21,7 @@ import MapWindow from './ui/MapWindow.vue'
 import SideBars from './ui/SideBars.vue'
 import StatusStrip from './ui/StatusStrip.vue'
 import Tooltip from './ui/Tooltip.vue'
-import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startShoot, targeting, toggleWin, useHotbar, visibleEnemies, wins } from './ui'
+import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startShoot, targeting, toggleWin, useHotbar, wins } from './ui'
 import { computeBanners } from './warnings'
 
 const hover = ref<Pos | null>(null)
@@ -97,28 +97,33 @@ function stopTravel() {
   clearInterval(travelTimer)
 }
 
-/** 먼 칸 클릭: 경로를 따라 한 걸음씩. 적이 보이거나 다치면 멈춘다 */
+/** 먼 칸 클릭: 경로를 따라 한 걸음씩. 위협 T1~T6(01 §6.2)이 생기면 멈추고, 멈춘 뒤 3턴은 다시 못 쓴다 */
 function startTravel(dest: Pos) {
   const ww = w.value
   const pl = player(ww)
+  const wait = autoBlocked(ww)
+  if (wait > 0) { hint.value = `위협이 가시지 않았다 — ${wait}턴 뒤 자동 이동 가능`; return }
   const path = findPath(ww, pl.pos, dest, { avoidCreatures: true, selfId: pl.id })
   if (!path?.length) { hint.value = '갈 수 없다'; return }
   travel.value = path
-  const startEnemies = visibleEnemies(ww).length
+  const snap = autoSnap(ww)
   clearInterval(travelTimer)
   travelTimer = setInterval(() => {
     const cur = world.value
     if (!cur || cur.s.over || !travel.value?.length) return stopTravel()
     const me = player(cur)
-    if (visibleEnemies(cur).filter((c) => !c.asleep).length > startEnemies) { hint.value = '적이 보인다 — 멈춤'; return stopTravel() }
-    const hp = me.hp
     const next = travel.value[0]
     const dir = DIRS.findIndex((d) => d.x === next.x - me.pos.x && d.y === next.y - me.pos.y)
     if (dir < 0) return stopTravel()
     const err = doAct({ type: 'move', dir })
     if (err) return stopTravel()
     travel.value = travel.value.slice(1)
-    if (player(world.value!).hp < hp) { hint.value = '다쳤다 — 멈춤'; stopTravel() }
+    const why = autoStop(world.value!, snap)
+    if (why) {
+      world.value!.s.autoStopTurn = turnOf(world.value!)
+      hint.value = `${why} — 멈춤`
+      stopTravel()
+    }
   }, 95)
 }
 

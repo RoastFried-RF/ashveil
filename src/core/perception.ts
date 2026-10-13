@@ -1,7 +1,7 @@
 // 소음·냄새 전파. 벽은 소리를 줄이고, 바람은 냄새를 실어 나른다.
 
 import { capacity } from './body'
-import { log, player, turnOf, type World } from './ctx'
+import { log, player, turnOf, TURNS_PER_HOUR, type World } from './ctx'
 import { cheb, DIRS, dirIndex, DIR_LABELS, type Pos } from './geom'
 import { itemDef } from './items'
 import { traitAdd } from './traits'
@@ -53,6 +53,14 @@ export function hearingBonus(w: World, c: Creature): number {
   return h
 }
 
+/** 수면 주기 (01 §8.1): 얕은 잠 30분 → 깊은 잠 45분(수면 부채: 지침 +15분 · 탈진 +30분) → 얕은 잠 15분, 반복 */
+export function sleepCycleDeep(elapsedTurns: number, fatigueAtStart: number): boolean {
+  const MIN = TURNS_PER_HOUR / 60
+  const extra = fatigueAtStart > 90 ? 30 : fatigueAtStart > 75 ? 15 : 0
+  const t = elapsedTurns % ((90 + extra) * MIN)
+  return t >= 30 * MIN && t < (75 + extra) * MIN
+}
+
 /** 각성 임계 (01 §8.2 · 14 §7.2): 얕은 잠 3 · 깊은 잠 8 + 피로 + 종 보정(포자 인간 +2 · 말라붙은 자 −1) */
 export function wakeThreshold(w: World, c: Creature): number {
   let t = c.deepSleep ? 8 : 3
@@ -84,6 +92,11 @@ export function emitNoise(w: World, pos: Pos, strength: number, sourceId: number
     const pc = costs.get(c.pos.y * w.s.map.w + c.pos.x) ?? d + 8
     const reach = strength - pc - amb + hearingBonus(w, c)
     if (c.id === pl.id) {
+      // 자는 플레이어도 같은 규칙으로 깬다 (01 §8.2)
+      if (c.activity?.kind === 'sleep') {
+        if (reach >= wakeThreshold(w, c)) c.activity.wokeBy ??= '소리에 잠이 깼다.'
+        continue
+      }
       if (strength >= 6 && reach >= 0 && d > 2 && !w.s.visible.includes(pos.y * w.s.map.w + pos.x)) {
         const dir = DIR_LABELS[dirIndex(pos.x - c.pos.x, pos.y - c.pos.y)]
         log(w, 'flavor', `${dir}쪽 어딘가에서 소리가 났다.`)
