@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, ref, watch } from 'vue'
-import { abilityReady, energyMax, hpMax, player, turnOf, xpToNext, xpTotalFor, type World } from '../../core'
+import { abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
 import { version, world } from '../store'
@@ -29,7 +29,12 @@ const d = computed(() => {
   return {
     pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
     xp: pl.xp - xpTotalFor(pl.level), xpNext: xpToNext(pl.level) - xpTotalFor(pl.level), level: pl.level, slots,
-    points: pl.statPoints, apoints: pl.abilityPoints, wounds: pl.body.wounds.length,
+    points: pl.statPoints, apoints: pl.abilityPoints, wounds: pl.body.wounds.length, cap: hpCap(w, pl),
+    // 채널 진행 (12 §2.1): "붕대 감기 3/5턴"
+    chan: pl.activity?.total ? { label: pl.activity.label, done: pl.activity.total - pl.activity.remaining, total: pl.activity.total } : null,
+    policy: { block: '막기 우선', parry: '받아넘기기 우선', none: '반응 안 함' }[pl.reactPolicy ?? 'block'],
+    mode: wield(w, pl)?.atk.label ?? '맨손',
+    modes: (wield(w, pl)?.item ? w.db.item(wield(w, pl)!.item!.def).attacks?.length ?? 0 : 0) > 1,
   }
 })
 
@@ -51,7 +56,7 @@ function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
   else { const t = itemTip(w, null, s.ref.def); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기'], t.color) }
 }
 
-const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '소지품', 'I'], ['abil', '능력', 'K'], ['body', '신체', 'B'], ['journal', '일지', 'J']]
+const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '소지품', 'I'], ['abil', '능력', '⇧K'], ['body', '신체', '⇧B'], ['journal', '일지', '⇧J'], ['map', '지도', 'M']]
 </script>
 
 <template>
@@ -63,13 +68,22 @@ const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '�
         <span class="absolute bottom-0 right-0 rounded-sm bg-black/70 px-1 text-[10px] font-bold text-amber-200">{{ d.level }}</span>
       </div>
       <div class="flex-1 space-y-1">
-        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" color="red" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" data-testid="hp-bar" />
+        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" :title="`회복 상한 ${d.cap} (상처 sev 합의 절반만큼 묶여 있다)`" data-testid="hp-bar" />
         <Bar :value="d.en" :max="d.enMax" color="blue" :label="`기력 ${Math.floor(d.en)} / ${d.enMax}`" />
         <Bar :value="d.xp" :max="d.xpNext" color="gold" :height="10" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" />
       </div>
     </div>
 
     <div class="flex flex-col gap-1">
+      <!-- 채널 진행 -->
+      <div v-if="d.chan" class="df df-tab !py-0.5" data-testid="channel">
+        <Bar :value="d.chan.done" :max="d.chan.total" color="gold" :height="12" :label="`${d.chan.label} ${d.chan.done}/${d.chan.total}턴`" />
+      </div>
+      <!-- 반응 정책 · 공격 방식 -->
+      <div class="flex justify-center gap-1 text-[10px]">
+        <button class="dbtn !text-[10px]" title="반응 정책 순환 (V)" @click="doAct({ type: 'reactPolicy' })">반응: {{ d.policy }} <span class="text-ash-500">V</span></button>
+        <button class="dbtn !text-[10px]" :disabled="!d.modes" title="공격 방식 바꾸기 (Q, 자유 행동)" @click="doAct({ type: 'attackMode' })">공격: {{ d.mode }} <span class="text-ash-500">Q</span></button>
+      </div>
       <!-- 창 버튼 -->
       <div class="flex justify-center gap-1">
         <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap !text-[11px]" :data-testid="`btn-${k}`" @click="toggleWin(k)">

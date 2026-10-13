@@ -372,3 +372,24 @@ describe('수색대·정산 (10 §3 · 14 §9.2)', () => {
     expect(map.tiles[p.y * map.w + p.x].items.map((i) => i.def)).toEqual(expect.arrayContaining(['Item.RustyKnife', 'Item.Bones']))
   })
 })
+
+describe('자동 정렬 (13 §9 검산 2)', () => {
+  it('활·창·마체테·투구·밀주·붕대·물병·육포·등불 → 25칸, 행 우선 배치', () => {
+    const w = makeWorld('sort1')
+    const pl = emptyBag(w)
+    for (const id of ['Item.Lantern', 'Item.Jerky', 'Item.WaterBottle', 'Item.Bandage', 'Item.Moonshine', 'Item.ScrapHelmet', 'Item.Machete', 'Item.RebarSpear', 'Item.Bow']) {
+      pl.bag.push({ ...makeItem(w, id), gx: undefined, gy: undefined })
+    }
+    // 무작위 배치에서 정렬
+    pl.bag = []
+    for (const id of ['Item.Lantern', 'Item.Jerky', 'Item.WaterBottle', 'Item.Bandage', 'Item.Moonshine', 'Item.ScrapHelmet', 'Item.Machete', 'Item.RebarSpear', 'Item.Bow']) addToBag(w, pl, makeItem(w, id))
+    expect(playerAct(w, { type: 'sortBag' })).toBeNull()
+    const at = (def: string) => pl.bag.find((i) => i.def === def)!
+    expect([at('Item.Bow').gx, at('Item.Bow').gy]).toEqual([0, 0])
+    expect(at('Item.RebarSpear').gx).toBe(2)
+    expect(at('Item.Machete').gx).toBe(3)
+    let used = 0
+    for (const it of pl.bag) { const [a, b] = itemDef(w, it).size; used += a * b }
+    expect(used).toBe(25)
+  })
+})

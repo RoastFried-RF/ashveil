@@ -7,8 +7,10 @@ import {
 } from '../core'
 import { act, world } from './store'
 
-export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal'
-export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false })
+export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal' | 'map'
+export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false, map: false })
+/** 연 순서 (Esc는 가장 위 창부터, 동시에 3개까지, 12 §2.3) */
+export const winOrder: WinKey[] = []
 export const hint = ref<string | null>(null)
 /** 기록 창 크게 보기 (Shift+L, 12 §8) */
 export const logBig = ref(false)
@@ -23,8 +25,33 @@ export function nextZ(): number {
 }
 
 export function toggleWin(k: WinKey) {
-  wins[k] = !wins[k]
+  setWin(k, !wins[k])
 }
+
+export function setWin(k: WinKey, open: boolean) {
+  const i = winOrder.indexOf(k)
+  if (i >= 0) winOrder.splice(i, 1)
+  wins[k] = open
+  if (!open) return
+  winOrder.push(k)
+  // 창은 3개까지: 넘치면 가장 먼저 연 창을 닫는다
+  while (winOrder.length > 3) wins[winOrder.shift()!] = false
+}
+
+/** 가장 위(마지막에 연) 창을 닫는다 */
+export function closeTopWin(): boolean {
+  for (let i = winOrder.length - 1; i >= 0; i--) {
+    const k = winOrder[i]
+    winOrder.splice(i, 1)
+    if (wins[k]) { wins[k] = false; return true }
+  }
+  const open = (Object.keys(wins) as WinKey[]).filter((k) => wins[k])
+  if (open.length) { wins[open[open.length - 1]] = false; return true }
+  return false
+}
+
+/** 전투 기록 상세도 3단계 (12 §5) */
+export const logLevel = ref<'brief' | 'standard' | 'detail'>('standard')
 
 export function doAct(a: Action): string | null {
   const err = act(a)

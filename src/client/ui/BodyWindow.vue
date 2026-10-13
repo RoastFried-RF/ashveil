@@ -59,6 +59,8 @@ const d = computed(() => {
   return {
     pl, bandage, tourniquet, splint, disinfect, canCauterize, regions, wounds, med,
     hp: pl.hp, hpMax: hpMax(w, pl), bleed, blood, max, loss: bloodLoss(pl), toShock: eta(0.7), toDeath: eta(0.5),
+    // 위험 시간 (12 §4): floor((현재 혈액 − 임계) / 총 출혈), 임계 85·70·60·50%
+    timers: [['어지러움', eta(0.85)], ['쇼크 위험', eta(0.7)], ['기절', eta(0.6)], ['사망', eta(0.5)]].filter(([, t]) => t !== null) as [string, number][],
     pain: painTotal(w, pl),
     pen: [
       pen.hit ? `명중 −${Math.min(pen.hit, 25)}` : '', pen.damageMult < 1 ? `피해 ×${pen.damageMult}` : '', ARM_BLOCK[pen.leftArm] ? `방패 막기 −${ARM_BLOCK[pen.leftArm]}` : '',
@@ -71,6 +73,15 @@ const d = computed(() => {
 })
 const FRACTURE = { hairline: '금', simple: '단순', compound: '복합' }
 const R = (r: Region) => d.value.regions.find((x) => x.r === r)!
+/** 색약 대응 무늬 (12 §4): 멀쩡 빈칸 · 타박 점 · 부상 사선 · 중상 격자 · 불구 × */
+const PATTERN = [
+  'none',
+  'radial-gradient(circle, rgba(0,0,0,.45) 1px, transparent 1.5px) 0 0/5px 5px',
+  'repeating-linear-gradient(45deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px)',
+  'repeating-linear-gradient(0deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px), repeating-linear-gradient(90deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px)',
+  'linear-gradient(45deg, transparent 45%, rgba(0,0,0,.7) 45% 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, rgba(0,0,0,.7) 45% 55%, transparent 55%)',
+]
+const fill = (r: Region) => ({ background: PATTERN[R(r).s] === 'none' ? STATE_COLOR[R(r).s] : `${PATTERN[R(r).s]}, ${STATE_COLOR[R(r).s]}` })
 function rtip(e: MouseEvent, r: Region) {
   const x = R(r)
   showTip(e, `${x.label}: ${STATE_LABEL[x.s]}`, [`부위 체력 ${Math.round(x.h * 100)}%`, `상처 ${x.wounds}개`, `영향: ${REGION_EFFECT[r]}`])
@@ -84,12 +95,12 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
       <!-- 6부위 인형 -->
       <div class="w-[170px] shrink-0">
         <div class="inset relative mx-auto h-[220px] w-[150px]" data-testid="body-doll">
-          <div class="absolute left-1/2 top-[8px] h-[38px] w-[38px] -translate-x-1/2 rounded-full border border-black/50" :style="{ background: STATE_COLOR[R('head').s] }" @mouseenter="rtip($event, 'head')" @mouseleave="hideTip" />
-          <div class="absolute left-1/2 top-[50px] h-[70px] w-[46px] -translate-x-1/2 rounded-md border border-black/50" :style="{ background: STATE_COLOR[R('torso').s] }" @mouseenter="rtip($event, 'torso')" @mouseleave="hideTip" />
-          <div class="absolute left-[22px] top-[52px] h-[66px] w-[16px] rotate-[8deg] rounded-md border border-black/50" :style="{ background: STATE_COLOR[R('rarm').s] }" @mouseenter="rtip($event, 'rarm')" @mouseleave="hideTip" />
-          <div class="absolute right-[22px] top-[52px] h-[66px] w-[16px] -rotate-[8deg] rounded-md border border-black/50" :style="{ background: STATE_COLOR[R('larm').s] }" @mouseenter="rtip($event, 'larm')" @mouseleave="hideTip" />
-          <div class="absolute left-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="{ background: STATE_COLOR[R('rleg').s] }" @mouseenter="rtip($event, 'rleg')" @mouseleave="hideTip" />
-          <div class="absolute right-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="{ background: STATE_COLOR[R('lleg').s] }" @mouseenter="rtip($event, 'lleg')" @mouseleave="hideTip" />
+          <div class="absolute left-1/2 top-[8px] h-[38px] w-[38px] -translate-x-1/2 rounded-full border border-black/50" :style="fill('head')" @mouseenter="rtip($event, 'head')" @mouseleave="hideTip" />
+          <div class="absolute left-1/2 top-[50px] h-[70px] w-[46px] -translate-x-1/2 rounded-md border border-black/50" :style="fill('torso')" @mouseenter="rtip($event, 'torso')" @mouseleave="hideTip" />
+          <div class="absolute left-[22px] top-[52px] h-[66px] w-[16px] rotate-[8deg] rounded-md border border-black/50" :style="fill('rarm')" @mouseenter="rtip($event, 'rarm')" @mouseleave="hideTip" />
+          <div class="absolute right-[22px] top-[52px] h-[66px] w-[16px] -rotate-[8deg] rounded-md border border-black/50" :style="fill('larm')" @mouseenter="rtip($event, 'larm')" @mouseleave="hideTip" />
+          <div class="absolute left-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="fill('rleg')" @mouseenter="rtip($event, 'rleg')" @mouseleave="hideTip" />
+          <div class="absolute right-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="fill('lleg')" @mouseenter="rtip($event, 'lleg')" @mouseleave="hideTip" />
         </div>
         <div class="mt-1 grid grid-cols-2 gap-x-2">
           <div v-for="x in d.regions" :key="x.r" class="flex justify-between"><span class="text-ash-400">{{ x.label }}</span><b :style="{ color: STATE_COLOR[x.s] === '#4a1612' ? '#c04030' : STATE_COLOR[x.s] }">{{ STATE_LABEL[x.s] }}</b></div>
@@ -104,8 +115,7 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
           <Bar :value="d.blood" :max="d.max" color="red" :height="12" :label="`혈액 ${Math.round(d.blood)} / ${d.max} ml`" />
           <div class="mt-0.5 flex flex-wrap gap-x-3 text-ash-400">
             <span>출혈 <b :class="d.bleed > 5 ? 'text-blood-300' : 'text-ash-200'">{{ d.bleed.toFixed(1) }}</b> ml/턴</span>
-            <span v-if="d.toShock !== null">쇼크까지 ~{{ d.toShock }}턴</span>
-            <span v-if="d.toDeath !== null" :class="d.toDeath < 300 ? 'text-blood-300' : ''">사망까지 ~{{ d.toDeath }}턴</span>
+            <span v-for="[k, t] in d.timers" :key="k" :class="t < 30 ? 'text-blood-300' : ''">{{ k }}까지 ~{{ t }}턴</span>
             <span>통증 <b class="text-ash-200">{{ painLabel(d.pain) }}</b></span>
           </div>
         </div>

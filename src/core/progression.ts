@@ -24,7 +24,8 @@ export function xpToNext(level: number): number {
 export function gainXp(w: World, c: Creature, amount: number, reason?: string) {
   if (c.faction !== 'player' || amount <= 0) return
   c.xp += amount
-  if (reason) w.s.fx.push({ k: 'status', id: c.id, text: `+${amount} 경험치`, color: '#d9c27a', turn: turnOf(w) })
+  // 경험치 숫자는 회색 "+15" (12 §2.5, 피해 숫자와 구분)
+  if (reason) w.s.fx.push({ k: 'xp', id: c.id, v: amount, turn: turnOf(w) })
   while (c.level < MAX_LEVEL && c.xp >= xpToNext(c.level)) {
     c.level++
     c.statPoints++

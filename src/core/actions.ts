@@ -63,6 +63,8 @@ export type Action =
   | { type: 'attackMode' }
   | { type: 'toggleFire' }
   | { type: 'giveWater'; target: number }
+  | { type: 'sortBag' }
+  | { type: 'reactPolicy'; policy?: 'block' | 'parry' | 'none' }
 
 export interface ActResult { ok: boolean; tu: number; msg?: string }
 
@@ -399,6 +401,31 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       emitNoise(w, p, c.sneaking ? 2 : 4, c.id)
       if (isPl(c)) log(w, 'info', '문을 닫았다.')
       return { ok: true, tu: 100 }
+    }
+
+    case 'sortBag': {
+      // 자동 정렬 (13 §9): 쌓임 합치기 → 범주·칸 수·긴 변·defId 순 → 행 우선 첫 빈자리, 하나라도 안 들어가면 취소
+      const before = c.bag.map((i) => ({ ...i }))
+      const items = c.bag.filter((i) => i.gx !== undefined)
+      const loose = c.bag.filter((i) => i.gx === undefined)
+      c.bag = []
+      let failed = false
+      for (const it of sortForPacking(w, items.map((i) => ({ ...i, gx: undefined, gy: undefined, rot: undefined })))) {
+        if (addToBag(w, c, it) > 0) { failed = true; break }
+      }
+      if (failed) {
+        c.bag = before
+        return FAIL('정렬하면 들어가지 않는다')
+      }
+      c.bag.push(...loose)
+      return FREE
+    }
+
+    case 'reactPolicy': {
+      const order: ('block' | 'parry' | 'none')[] = ['block', 'parry', 'none']
+      c.reactPolicy = a.policy ?? order[(order.indexOf(c.reactPolicy ?? 'block') + 1) % 3]
+      if (isPl(c)) log(w, 'info', `반응 정책: ${{ block: '막기 우선', parry: '받아넘기기 우선', none: '반응 안 함' }[c.reactPolicy]}`)
+      return FREE
     }
 
     case 'giveWater': {

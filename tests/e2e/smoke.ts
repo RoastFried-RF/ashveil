@@ -1,4 +1,4 @@
-// Playwright 스모크: 새 게임 → 이동 → 창(I/C/K/B) → 봇으로 던전 진입·전투 → 스크린샷. 콘솔 오류가 있으면 실패.
+// Playwright 스모크: 새 게임 → 이동 → 창(I/C/K/B/M) → 봇으로 던전 진입·전투 → 스크린샷. 콘솔 오류가 있으면 실패.
 // 사용: npm run build && node --import tsx tests/e2e/smoke.ts [outDir]
 import { chromium, type Page } from 'playwright-core'
 import { spawn } from 'node:child_process'
@@ -6,7 +6,7 @@ import { mkdirSync } from 'node:fs'
 
 const out = process.argv[2] ?? 'test-results'
 mkdirSync(out, { recursive: true })
-const server = spawn('npx', ['vite', 'preview', '--port', '4317', '--strictPort'], { stdio: 'pipe' })
+const server = spawn('npx', ['vite', 'preview', '--port', '4317', '--strictPort'], { stdio: 'pipe', detached: true })
 await new Promise((r) => setTimeout(r, 2500))
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH ?? '/opt/pw-browsers/chromium', args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] })
 const errors: string[] = []
@@ -61,6 +61,11 @@ try {
   await page.waitForTimeout(300)
   await page.screenshot({ path: `${out}/08-body.png` })
   await page.keyboard.press('Escape')
+  await page.keyboard.press('m')
+  await page.waitForSelector('[data-testid=win-map]')
+  await page.waitForTimeout(200)
+  await page.screenshot({ path: `${out}/08b-map.png` })
+  await page.keyboard.press('Escape')
   for (let i = 0; i < 30; i++) { if ((await bot(page, 30)) === 'over') break }
   await page.waitForTimeout(400)
   await page.screenshot({ path: `${out}/09-later.png` })
@@ -69,7 +74,8 @@ try {
   console.log('log tail:', (logText ?? '').slice(-300))
 } finally {
   await browser.close()
-  server.kill()
+  // npx 아래 vite 자식까지 그룹으로 종료 (안 그러면 프로세스가 안 끝난다)
+  if (server.pid) process.kill(-server.pid)
 }
 if (errors.length) {
   console.error('콘솔 오류:\n' + errors.join('\n'))

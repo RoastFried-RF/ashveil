@@ -114,10 +114,36 @@ function up(e: PointerEvent) {
 }
 onBeforeUnmount(() => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('keydown', rotKey, true); window.removeEventListener('contextmenu', rotCtx, true) })
 
+/** 같은 칸에 착용 중인 장비와 비교 (12 §2.3 I 창 비교) */
+function compare(w: World, it: ItemInst): string[] {
+  const d = itemDef(w, it)
+  if (!d.slot || d.slot === 'ring') return []
+  const cur = player(w).equip[d.slot as Slot]
+  if (!cur || cur.uid === it.uid) return []
+  const c = itemDef(w, cur)
+  const out = [`— 착용 중: ${c.label}`]
+  const diff = (label: string, a: number, b: number) => { if (a !== b) out.push(`${label} ${b} → ${a} (${a > b ? '+' : ''}${a - b})`) }
+  if (d.apparel && c.apparel) {
+    diff('날 방어', d.apparel.armor.sharp ?? 0, c.apparel.armor.sharp ?? 0)
+    diff('타격 방어', d.apparel.armor.blunt ?? 0, c.apparel.armor.blunt ?? 0)
+    diff('단열', d.apparel.insulation, c.apparel.insulation)
+    diff('둔중', d.bulk ?? 0, c.bulk ?? 0)
+  }
+  const a = d.attacks?.[0], b = c.attacks?.[0]
+  if (a && b) {
+    diff('피해', a.damage, b.damage)
+    diff('관통', a.pen, b.pen)
+    diff('정확도', a.accuracy, b.accuracy)
+    diff('기력', a.energy, b.energy)
+  }
+  return out.length > 1 ? out : []
+}
+
 function tip(e: MouseEvent, it: ItemInst) {
   if (drag.value?.moved) return
-  const t = itemTip(world.value as World, it)
-  showTip(e, t.title, [...t.lines, '더블클릭: 사용/장착 · 우클릭: 메뉴 · 끌기: 옮기기'], t.color)
+  const w = world.value as World
+  const t = itemTip(w, it)
+  showTip(e, t.title, [...t.lines, ...compare(w, it), '더블클릭: 사용/장착 · 우클릭: 메뉴 · 끌기: 옮기기 · Ctrl+S: 자동 정렬'], t.color)
 }
 function dbl(it: ItemInst, from: Drag['from'], slot?: Slot) {
   hideTip()

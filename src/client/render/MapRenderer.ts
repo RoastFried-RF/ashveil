@@ -6,7 +6,7 @@ import {
   AnimatedSprite, Application, Container, Graphics, Sprite, Text, Texture, TextureStyle, type TextStyleOptions,
 } from 'pixi.js'
 import {
-  bloodLoss, hpMax, isRaining, lightAt, player, totalBleed, turnOf, hasEffect,
+  bloodLoss, hpMax, isRaining, lightAt, player, regionState, totalBleed, turnOf, hasEffect,
   type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
@@ -42,6 +42,8 @@ interface CView {
   alive: boolean
   scale: number
   zzT: number
+  /** 다리 중상 이상: 걷기 절뚝임 (12 §2.5) */
+  limp: boolean
 }
 
 interface Floater { t: Text; vy: number; life: number; max: number }
@@ -141,8 +143,9 @@ export class MapRenderer {
   sync(w: World) {
     this.w = w
     if (!this.ready) return
-    const W = this.app.renderer.width / this.app.renderer.resolution
-    this.zoom = W < 700 ? 2 : 3
+    // 정수 배율 = floor(세로 / 360) → 16:9에서 늘 40 × 22.5칸 (12 §2.4)
+    const H = this.app.renderer.height / this.app.renderer.resolution
+    this.zoom = Math.max(1, Math.floor(H / 360))
     this.world.scale.set(this.zoom)
     if (w.s.map.id !== this.mapId) {
       this.mapId = w.s.map.id
@@ -355,6 +358,11 @@ export class MapRenderer {
         b.alpha = Math.min(0.85, 0.3 + tile.blood / 220)
         this.dyn.addChild(b)
       }
+      // 포자 구름 (07 §11): 보이는 칸만, 농도만큼 진하게
+      if (tile.spores && tile.spores.until > turnOf(w) && vis.has(i)) {
+        const g = new Graphics().rect(px, py, T, T).fill({ color: 0x9aa878, alpha: Math.min(0.55, 0.12 + tile.spores.conc * 0.05) })
+        this.dyn.addChild(g)
+      }
       let s: Sprite | null = null
       if (terr.door) {
         s = new Sprite(tex(terr.door === 'open' ? 'door_open' : 'door_closed'))
@@ -477,7 +485,7 @@ export class MapRenderer {
     const v: CView = {
       id: c.id, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
-      alive: c.alive, scale, zzT: (c.id * 37) % 1000,
+      alive: c.alive, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
     void w
     return v
@@ -507,6 +515,7 @@ export class MapRenderer {
         v.t = Math.abs(cur.x - c.pos.x) + Math.abs(cur.y - c.pos.y) > 2.5 ? 1 : 0
       }
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
+      v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
       if (v.alive && !c.alive) { v.alive = false; v.deadT = 0 }
       this.drawBar(w, c, v)
       this.drawMarks(w, c, v)
@@ -534,7 +543,10 @@ export class MapRenderer {
     return -15
   }
 
-  /** 머리 위 상태 표식: 잠듦·경계·추적·도주·항복·출혈·기절·잠행 */
+  /**
+   * 머리 위 아이콘 (12 §2.5): 최대 3개.
+   * 우선순위 기절 > 도주·항복 > 출혈(핏방울 1~3: <10 / <40 / ≥40 ml) > 잠듦(z/zz) > 조준 중 > 자세 · 추적·잠행
+   */
   private drawMarks(w: World, c: Creature, v: CView) {
     const g = v.marks
     g.clear()
@@ -543,17 +555,25 @@ export class MapRenderer {
     const top = this.headY(v) - 7
     const icons: ((x: number) => void)[] = []
     const pl = player(w)
+    if (hasEffect(c, 'stunned', turn) || c.unconscious) icons.push((x) => g.star(x + 2, top - 1, 5, 2.4, 1).fill(0xf0e060))
+    if (c.ai.mode === 'flee') icons.push((x) => g.moveTo(x, top - 2).lineTo(x + 4, top - 4).lineTo(x + 4, top).closePath().fill(0xe0e0d0))
+    else if (c.ai.mode === 'surrender') icons.push((x) => g.rect(x, top - 4, 0.8, 6).rect(x + 0.8, top - 4, 3.5, 2.5).fill(0xf0f0f0))
+    const bl = totalBleed(w, c, true)
+    if (bl > 0.5) {
+      const n = bl >= 40 ? 3 : bl >= 10 ? 2 : 1
+      icons.push((x) => { for (let i = 0; i < n; i++) g.circle(x + i * 1.6 + 0.8, top + (i % 2), 0.9).fill(0xd02020) })
+    }
+    if (c.asleep) icons.push((x) => { g.rect(x, top - 3, 3, 0.7).rect(x + 2, top - 2.3, 0.7, 1).rect(x + 1, top - 1.6, 0.7, 1).rect(x, top - 0.6, 3, 0.7).fill(0xb0c0e0); if (c.deepSleep) g.rect(x + 3.5, top - 4, 2, 0.5).rect(x + 4.5, top - 3.5, 0.5, 0.8).rect(x + 3.5, top - 2.7, 2, 0.5).fill(0xb0c0e0) })
+    if (c.activity?.kind === 'aim') icons.push((x) => g.circle(x + 2, top - 1, 2).stroke({ color: 0xffd060, width: 0.7 }).circle(x + 2, top - 1, 0.6).fill(0xffd060))
+    if (hasEffect(c, 'parryStance', turn) || hasEffect(c, 'spearWall', turn)) icons.push((x) => g.moveTo(x, top - 3).lineTo(x + 4, top - 3).lineTo(x + 4, top - 1).lineTo(x + 2, top + 1).lineTo(x, top - 1).closePath().fill(0x9fc0e0))
+    if (c.ai.cornered) icons.push((x) => g.rect(x, top - 3, 4, 1).rect(x + 1.5, top - 3, 1, 4).fill(0xe07040))
     if (c.id !== pl.id) {
       if (c.ai.mode === 'hunt') icons.push((x) => g.rect(x, top - 4, 1.5, 4).rect(x, top + 1, 1.5, 1.5).fill(0xff4a3a))
       else if (c.ai.mode === 'investigate') icons.push((x) => g.rect(x, top - 4, 3, 1.2).rect(x + 2, top - 3, 1.2, 2).rect(x + 1, top - 1, 1.2, 1).rect(x + 1, top + 1, 1.2, 1.2).fill(0xf0c040))
-      else if (c.ai.mode === 'flee') icons.push((x) => g.moveTo(x, top - 2).lineTo(x + 4, top - 4).lineTo(x + 4, top).closePath().fill(0xe0e0d0))
-      else if (c.ai.mode === 'surrender') icons.push((x) => g.rect(x, top - 4, 0.8, 6).rect(x + 0.8, top - 4, 3.5, 2.5).fill(0xf0f0f0))
     } else if (c.sneaking) icons.push((x) => g.ellipse(x + 2, top - 1, 2.5, 1.4).fill(0x9fb3c8).circle(x + 2, top - 1, 0.8).fill(0x20242a))
-    if (totalBleed(w, c, true) > 0.5) icons.push((x) => g.circle(x + 1.5, top, 1.5).moveTo(x, top - 0.5).lineTo(x + 1.5, top - 3.5).lineTo(x + 3, top - 0.5).fill(0xd02020))
-    if (hasEffect(c, 'stunned', turn) || hasEffect(c, 'knockedDown', turn)) icons.push((x) => g.star(x + 2, top - 1, 5, 2.4, 1).fill(0xf0e060))
-    if (c.unconscious) icons.push((x) => g.rect(x, top - 1, 4, 1).fill(0xa0a0a0))
-    const n = icons.length
-    icons.forEach((f, k) => f(-n * 2.5 + k * 5))
+    if (hasEffect(c, 'knockedDown', turn)) icons.push((x) => g.rect(x, top - 1, 4, 1.2).fill(0xe0a050))
+    const shown = icons.slice(0, 3)
+    shown.forEach((f, k) => f(-shown.length * 2.5 + k * 5))
   }
 
   private viewPos(v: CView): Pos {
@@ -602,7 +622,8 @@ export class MapRenderer {
       case 'dmg': {
         v.flashT = 1
         if (c.id === pl.id) this.shake = Math.min(6, 2 + e.v / 6)
-        this.float(c, `${e.v}`, e.crit ? '#ffcf4a' : c.id === pl.id ? '#ff6a5a' : '#f2ece0', k, e.crit ? 10 : 8)
+        // 내가 준 피해 흰색, 받은 피해 주황 (12 §2.5)
+        this.float(c, `${e.v}`, c.id === pl.id ? '#ff9a3a' : '#f2ece0', k, e.crit ? 10 : 8)
         this.spark(c, 0xc02018)
         break
       }
@@ -613,6 +634,7 @@ export class MapRenderer {
       case 'status': this.float(c, e.text, e.color, k, 6); break
       case 'death': this.float(c, c.id === pl.id ? '사망' : '쓰러짐', '#c03028', k, 7); break
       case 'level': this.float(c, '레벨 업!', '#ffd870', k, 9); this.spark(c, 0xffe080, 14); break
+      case 'xp': this.float(c, `+${e.v}`, '#a8a8a0', k, 6); break
       case 'move': break
     }
   }
@@ -692,7 +714,8 @@ export class MapRenderer {
     const Hpx = this.app.renderer.height / this.app.renderer.resolution
     const s = T * this.zoom
     let tx = Wpx / 2 - (pp.x + 0.5) * s
-    let ty = Hpx / 2 - (pp.y + 0.5) * s
+    // 하단 HUD가 가리는 만큼 플레이어를 화면 세로 중앙보다 1칸 위에 둔다 (12 §2.4)
+    let ty = Hpx / 2 - (pp.y + 0.5) * s - s
     const mw = w.s.map.w * s, mh = w.s.map.h * s
     tx = mw < Wpx ? (Wpx - mw) / 2 : Math.min(0, Math.max(Wpx - mw, tx))
     ty = mh < Hpx ? (Hpx - mh) / 2 : Math.min(0, Math.max(Hpx - mh, ty))
@@ -741,7 +764,8 @@ export class MapRenderer {
       }
       v.body.texture = tex(frame)
     }
-    const hop = moving ? -Math.sin(v.t * Math.PI) * 1.5 : 0
+    // 절뚝임: 걸음 후반에 1px 주저앉는다
+    const hop = moving ? -Math.sin(v.t * Math.PI) * 1.5 + (v.limp && v.t > 0.5 ? 1 : 0) : 0
     const breathe = !moving && v.alive ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy + hop)
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)

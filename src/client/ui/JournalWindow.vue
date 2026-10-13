@@ -11,9 +11,11 @@ import { wins } from '../ui'
 import Bar from './Bar.vue'
 import Win from './Win.vue'
 
-type Tab = 'log' | 'beast' | 'pill' | 'needs'
+// 탭 (12 §2.3): 지식 · 도감 · 소문 · 사건 · 연대기 (+ 생존 상태 · 전체 기록)
+type Tab = 'log' | 'beast' | 'pill' | 'needs' | 'rumor' | 'events' | 'chron'
 const tab = ref<Tab>('needs')
-const TABS: [Tab, string][] = [['needs', '생존'], ['beast', '도감'], ['pill', '약'], ['log', '기록']]
+const TABS: [Tab, string][] = [['needs', '생존'], ['pill', '지식'], ['beast', '도감'], ['rumor', '소문'], ['events', '사건'], ['chron', '연대기'], ['log', '기록']]
+const EVENT_LABEL: Record<string, string> = { 'Event.ReaverPatrol': '약탈자 순찰', 'Event.ReaverSearch': '약탈자 수색대 출발', 'Event.StashRaided': '야영지 보관함 약탈', 'Event.Reoccupy': '던전 재점거' }
 
 const d = computed(() => {
   void version.value
@@ -36,6 +38,8 @@ const d = computed(() => {
     temp: `체온 ${n.bodyTemp.toFixed(1)}°C · 기온 ${ambientTemp(w, pl.pos).toFixed(1)}°C · 단열 ${insulation(w, pl)} (쾌적 ≥${comfortMin(w, pl).toFixed(0)}°C) · 젖음 ${n.wetness.toFixed(0)}%`,
     mood: mood(w, pl), thoughts: activeThoughts(w, pl).sort((a, b) => a.mood - b.mood),
     clock: fmtClock(turnOf(w)),
+    events: w.s.storyteller.history.slice(-40).reverse().map((e) => ({ when: fmtClock(e.turn), label: EVENT_LABEL[e.event] ?? e.event })),
+    chron: pl.history.slice(-80).reverse().map((h) => ({ when: fmtClock(h.turn), text: h.text })),
   }
 })
 </script>
@@ -67,6 +71,18 @@ const d = computed(() => {
       <template v-else-if="tab === 'pill'">
         <p class="mb-1 text-ash-400">알약의 색과 효과는 시드마다 섞인다.</p>
         <div v-for="p in d.pills" :key="p.label" class="flex justify-between border-b border-[#2e2a22] py-0.5"><span>{{ p.label }}</span><span :class="p.known ? 'text-moss-300' : 'text-ash-500'" :title="p.known?.description">{{ p.known ? p.known.label : '???' }}</span></div>
+      </template>
+      <template v-else-if="tab === 'rumor'">
+        <p class="text-ash-400">서가·석관의 쪽지, 포로, 시체 소지품에서 듣는 소문이 여기에 모인다. (쪽지 콘텐츠는 후속)</p>
+      </template>
+      <template v-else-if="tab === 'events'">
+        <p class="mb-1 text-ash-400">장소에서 일어난 일. 순찰은 매일 06:00, 흔적을 보면 수색대가 나온다.</p>
+        <div v-for="(e, i) in d.events" :key="i" class="flex justify-between border-b border-[#2e2a22] py-0.5"><span class="font-mono text-ash-500">{{ e.when }}</span><span class="text-ash-200">{{ e.label }}</span></div>
+        <p v-if="!d.events.length" class="text-ash-500">아직 없다.</p>
+      </template>
+      <template v-else-if="tab === 'chron'">
+        <div v-for="(h, i) in d.chron" :key="i" class="font-mono text-[11px] leading-5"><span class="text-ash-600">{{ h.when }}</span> <span class="text-ash-200">{{ h.text }}</span></div>
+        <p v-if="!d.chron.length" class="text-ash-500">아직 없다.</p>
       </template>
       <template v-else>
         <div v-for="(e, i) in d.log" :key="i" :class="KIND_CLASS[e.kind]" class="font-mono text-[11px] leading-5"><span class="text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}</div>

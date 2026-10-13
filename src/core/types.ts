@@ -781,6 +781,7 @@ export type FxEvent =
   | { k: 'move'; id: number; from: Pos; to: Pos; turn: number }
   | { k: 'death'; id: number; turn: number }
   | { k: 'level'; id: number; turn: number }
+  | { k: 'xp'; id: number; v: number; turn: number }
 
 export interface DeathReport {
   title: string
