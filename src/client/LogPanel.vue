@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 우하단 전투·사건 기록. ▸ 를 누르면 판정 단계(명중 공식)가 펼쳐진다.
 import { computed, nextTick, ref, watch } from 'vue'
 import { fmtClock } from '../core'
 import { KIND_CLASS } from './format'
@@ -6,17 +7,14 @@ import { version, world } from './store'
 
 const box = ref<HTMLDivElement>()
 const open = ref<Set<number>>(new Set())
+const big = ref(false)
 const entries = computed(() => {
   void version.value
   const log = world.value?.s.log ?? []
-  return log.slice(-120).map((e, i) => ({ ...e, key: log.length - 120 + i }))
+  const n = big.value ? 120 : 40
+  return log.slice(-n).map((e, i) => ({ ...e, key: log.length - n + i }))
 })
-
-watch(version, async () => {
-  await nextTick()
-  if (box.value) box.value.scrollTop = box.value.scrollHeight
-})
-
+watch(version, async () => { await nextTick(); if (box.value) box.value.scrollTop = box.value.scrollHeight })
 function toggle(k: number) {
   const s = new Set(open.value)
   if (s.has(k)) s.delete(k)
@@ -26,16 +24,18 @@ function toggle(k: number) {
 </script>
 
 <template>
-  <div ref="box" class="h-full overflow-y-auto px-2 py-1 font-mono text-[12px] leading-5" data-testid="log">
-    <div v-for="e in entries" :key="e.key">
-      <div :class="[KIND_CLASS[e.kind], e.detail ? 'cursor-pointer hover:bg-ash-800' : '']" @click="e.detail && toggle(e.key)">
-        <span class="text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span>
-        {{ e.text }}
-        <span v-if="e.detail" class="text-ash-600">{{ open.has(e.key) ? '▾' : '▸' }}</span>
-      </div>
-      <div v-if="e.detail && open.has(e.key)" class="mb-1 ml-12 border-l border-ash-700 pl-2 text-[11px] text-ash-400">
-        <div v-for="(l, i) in e.detail" :key="i">{{ l }}</div>
+  <div class="df df-olive pointer-events-auto !border-[10px] w-[min(440px,94vw)] bg-black/30">
+    <div ref="box" class="overflow-y-auto pr-1 text-[12px] leading-[18px]" :class="big ? 'h-[46vh]' : 'h-[118px]'" data-testid="log">
+      <div v-for="e in entries" :key="e.key">
+        <div :class="[KIND_CLASS[e.kind], e.detail ? 'cursor-pointer hover:bg-white/5' : '']" @click="e.detail && toggle(e.key)">
+          <span class="font-mono text-[10px] text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}
+          <span v-if="e.detail" class="text-ash-600">{{ open.has(e.key) ? '▾' : '▸' }}</span>
+        </div>
+        <div v-if="e.detail && open.has(e.key)" class="mb-1 ml-10 border-l border-ash-700 pl-2 font-mono text-[11px] text-ash-400">
+          <div v-for="(l, i) in e.detail" :key="i">{{ l }}</div>
+        </div>
       </div>
     </div>
+    <button class="absolute -top-2 right-1 text-[10px] text-ash-500 hover:text-amber-200" @click="big = !big">{{ big ? '▾ 줄이기' : '▴ 늘리기' }}</button>
   </div>
 </template>

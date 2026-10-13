@@ -12,11 +12,18 @@ const LIGHT_BY_HOUR: [number, number][] = [[0, 0.06], [5, 0.06], [7, 0.45], [9, 
 export const WEATHER_LABEL: Record<Weather, string> = { clear: '옅은 장막', overcast: '짙은 구름', ashrain: '재비' }
 
 export function ambientTemp(w: World, pos?: Pos): number {
+  if (w.s.map.kind === 'dungeon') {
+    // 지하는 서늘하고 일정하다. 화로 곁은 따뜻하다
+    let t = 9 - w.s.map.depth
+    if (pos && w.s.map.lights.some((L) => L.kind !== 'torch' && Math.abs(L.pos.x - pos.x) <= 2 && Math.abs(L.pos.y - pos.y) <= 2)) t += 10
+    return t
+  }
   const { hourF } = clock(turnOf(w))
   let t = lerpTable(TEMP_BY_HOUR, hourF)
   if (w.s.weather === 'overcast') t -= 1
   if (w.s.weather === 'ashrain') t -= 3
   if (pos && tileAt(w, pos).roof) t += 3
+  if (pos && w.s.map.lights.some((L) => L.kind === 'campfire' && Math.abs(L.pos.x - pos.x) <= 2 && Math.abs(L.pos.y - pos.y) <= 2)) t += 14
   return Math.round(t * 10) / 10
 }
 
@@ -33,7 +40,7 @@ export function isNight(w: World): boolean {
 }
 
 export function isRaining(w: World): boolean {
-  return w.s.weather === 'ashrain'
+  return w.s.weather === 'ashrain' && w.s.map.kind === 'surface'
 }
 
 /** 날씨 전이 (매 턴 호출, 만료 시 다음 날씨 결정) */
@@ -54,6 +61,6 @@ export function weatherTick(w: World) {
       overcast: '구름이 짙게 깔린다.',
       ashrain: '회색 비가 내리기 시작한다. 재 냄새가 섞여 있다.',
     }
-    log(w, 'flavor', msg[next])
+    if (w.s.map.kind === 'surface') log(w, 'flavor', msg[next])
   }
 }

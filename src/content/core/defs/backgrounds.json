@@ -1,18 +1,191 @@
 [
-  { "defType": "Background", "id": "Bg.Deserter", "label": "탈영 경비병", "description": "잔존 경비대에서 도망쳤다. 싸울 줄은 알지만 쫓기는 신세다.",
-    "stats": { "str": 12, "vit": 11 }, "skills": { "blade": 1600, "blunt": 900, "shield": 900, "dodge": 600, "medicine": 400 }, "passions": { "blade": 2 }, "literate": true,
-    "startItems": ["Item.Machete", "Item.RagShirt", "Item.Trousers", "Item.PaddedJacket", "Item.Boots", "Item.Bandage", "Item.Cloth", "Item.Hardtack", "Item.WaterBottle"] },
-  { "defType": "Background", "id": "Bg.Scavenger", "label": "고물 발굴꾼", "description": "폐허를 뒤져 먹고살았다. 어디에 뭐가 숨어 있는지 안다.",
-    "stats": { "per": 12, "agi": 11 }, "skills": { "blade": 600, "survival": 900, "stealth": 900, "dodge": 900 }, "passions": { "survival": 2, "stealth": 1 }, "literate": true,
-    "startItems": ["Item.HuntingKnife", "Item.RagShirt", "Item.Trousers", "Item.LeatherCoat", "Item.Gloves", "Item.Lantern", "Item.Cloth", "Item.Cloth", "Item.Jerky", "Item.WaterBottle"] },
-  { "defType": "Background", "id": "Bg.Hunter", "label": "촌락 사냥꾼", "description": "고원 촌락에서 짐승을 쫓았다. 활과 칼을 다룬다.",
-    "stats": { "per": 13, "agi": 11 }, "skills": { "archery": 2500, "blade": 900, "survival": 1600, "stealth": 900 }, "passions": { "archery": 2, "survival": 1 }, "literate": false,
-    "startItems": ["Item.Bow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.Arrow", "Item.RustyKnife", "Item.RagShirt", "Item.Trousers", "Item.LeatherCoat", "Item.Boots", "Item.Cloth", "Item.Jerky", "Item.Jerky", "Item.WaterBottle"] },
-  { "defType": "Background", "id": "Bg.Herbalist", "label": "떠돌이 약초꾼", "description": "약초와 상처를 다뤘다. 싸움은 서툴다.",
-    "stats": { "wil": 12, "str": 8 }, "skills": { "medicine": 2500, "survival": 900, "blade": 400 }, "passions": { "medicine": 2 }, "literate": true,
-    "startItems": ["Item.RustyKnife", "Item.RagShirt", "Item.Trousers", "Item.OilclothCloak", "Item.Bandage", "Item.Bandage", "Item.Tourniquet", "Item.Splint", "Item.Moonshine", "Item.DriedApple", "Item.WaterBottle", "Item.Lantern"] },
-  { "defType": "Background", "id": "Bg.Excommunicate", "label": "파문된 순례자", "description": "장막 순례회에서 쫓겨났다. 고통을 견디는 법을 배웠다.",
-    "stats": { "wil": 13, "vit": 11 }, "skills": { "blunt": 1200, "dodge": 600, "medicine": 600 }, "passions": { "blunt": 1 }, "literate": true,
-    "startItems": ["Item.PipeClub", "Item.RagShirt", "Item.Trousers", "Item.Hood", "Item.OilclothCloak", "Item.Cloth", "Item.Cloth", "Item.Hardtack", "Item.WaterBottle"],
-    "traitWeights": { "Trait.PainTolerant": 4 } }
+  {
+    "defType": "Background",
+    "id": "Bg.Deserter",
+    "label": "탈영 경비병",
+    "description": "잔존 경비대에서 도망쳤다. 싸울 줄은 알지만 쫓기는 신세다.",
+    "stats": {
+      "str": 12,
+      "vit": 11
+    },
+    "skills": {
+      "blade": 1600,
+      "blunt": 900,
+      "shield": 900,
+      "dodge": 600,
+      "medicine": 400
+    },
+    "passions": {
+      "blade": 2
+    },
+    "literate": true,
+    "startItems": [
+      "Item.Machete",
+      "Item.PaddedJacket",
+      "Item.Boots",
+      "Item.LeatherBelt",
+      "Item.Bandage",
+      "Item.Cloth",
+      "Item.Hardtack",
+      "Item.WaterBottle",
+      "Item.Lantern"
+    ],
+    "startAbilities": [
+      "Ab.Blade.DeepCut"
+    ]
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Scavenger",
+    "label": "고물 발굴꾼",
+    "description": "폐허를 뒤져 먹고살았다. 어디에 뭐가 숨어 있는지 안다.",
+    "stats": {
+      "per": 12,
+      "agi": 11
+    },
+    "skills": {
+      "blade": 600,
+      "survival": 900,
+      "stealth": 900,
+      "dodge": 900
+    },
+    "passions": {
+      "survival": 2,
+      "stealth": 1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.HuntingKnife",
+      "Item.LeatherCoat",
+      "Item.Gloves",
+      "Item.Lantern",
+      "Item.Cloth",
+      "Item.Cloth",
+      "Item.Jerky",
+      "Item.WaterBottle"
+    ],
+    "startAbilities": [
+      "Ab.Survival.Sneak"
+    ]
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Hunter",
+    "label": "촌락 사냥꾼",
+    "description": "고원 촌락에서 짐승을 쫓았다. 활과 칼을 다룬다.",
+    "stats": {
+      "per": 13,
+      "agi": 11
+    },
+    "skills": {
+      "archery": 2500,
+      "blade": 900,
+      "survival": 1600,
+      "stealth": 900
+    },
+    "passions": {
+      "archery": 2,
+      "survival": 1
+    },
+    "literate": false,
+    "startItems": [
+      "Item.Bow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.RustyKnife",
+      "Item.LeatherCoat",
+      "Item.Boots",
+      "Item.Cloth",
+      "Item.Jerky",
+      "Item.Jerky",
+      "Item.WaterBottle",
+      "Item.Lantern"
+    ],
+    "startAbilities": [
+      "Ab.Archery.Aimed"
+    ]
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Herbalist",
+    "label": "떠돌이 약초꾼",
+    "description": "약초와 상처를 다뤘다. 싸움은 서툴다.",
+    "stats": {
+      "wil": 12,
+      "str": 8
+    },
+    "skills": {
+      "medicine": 2500,
+      "survival": 900,
+      "blade": 400
+    },
+    "passions": {
+      "medicine": 2
+    },
+    "literate": true,
+    "startItems": [
+      "Item.RustyKnife",
+      "Item.RagShirt",
+      "Item.OilclothCloak",
+      "Item.Bandage",
+      "Item.Bandage",
+      "Item.Tourniquet",
+      "Item.Splint",
+      "Item.Moonshine",
+      "Item.DriedApple",
+      "Item.WaterBottle",
+      "Item.Lantern",
+      "Item.HealthDraught"
+    ],
+    "startAbilities": [
+      "Ab.Survival.FirstAid"
+    ]
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Excommunicate",
+    "label": "파문된 순례자",
+    "description": "장막 순례회에서 쫓겨났다. 고통을 견디는 법을 배웠다.",
+    "stats": {
+      "wil": 13,
+      "vit": 11
+    },
+    "skills": {
+      "blunt": 1200,
+      "dodge": 600,
+      "medicine": 600
+    },
+    "passions": {
+      "blunt": 1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.PipeClub",
+      "Item.RagShirt",
+      "Item.Hood",
+      "Item.OilclothCloak",
+      "Item.BoneCharm",
+      "Item.Cloth",
+      "Item.Cloth",
+      "Item.Hardtack",
+      "Item.WaterBottle",
+      "Item.Lantern"
+    ],
+    "traitWeights": {
+      "Trait.PainTolerant": 4
+    },
+    "startAbilities": [
+      "Ab.Blunt.HeadBash"
+    ]
+  }
 ]

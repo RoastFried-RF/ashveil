@@ -1,8 +1,8 @@
 // 신체·상처·출혈·통증·의식·감염. 플레이어와 모든 생물에 동일 규칙 (대칭성).
 
 import { clamp, log, lerpTable, rng, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, tileAt, type World } from './ctx'
-import { addEffect, hasEffect, traitMul } from './traits'
-import type { BodyDef, BodyPartDef, BodyState, Capacity, Creature, CreatureDef, Wound, WoundDef } from './types'
+import { addEffect, hasEffect, traitAdd, traitMul } from './traits'
+import type { BodyDef, BodyPartDef, BodyState, Capacity, Creature, CreatureDef, Region, Wound, WoundDef } from './types'
 
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
 
@@ -24,6 +24,9 @@ export function part(w: World, c: Creature, id: string): BodyPartDef {
   if (!p) throw new Error(`부위 없음: ${id}`)
   return p
 }
+
+/** 출혈량 보정: 베인 상처 심각도 15 → 약 13ml/턴, 5.5 → 약 1ml/턴 */
+export const BLEED_SCALE = 0.35
 
 export function createBody(def: BodyDef, cdef: CreatureDef): BodyState {
   const hpMult = cdef.hpMult ?? 1
@@ -108,6 +111,8 @@ export function totalBleed(w: World, c: Creature, externalOnly = false): number 
   return t
 }
 
+export const PAIN_SCALE = 0.6
+
 export function painTotal(w: World, c: Creature): number {
   const turn = turnOf(w)
   let p = 0
@@ -124,7 +129,8 @@ export function painTotal(w: World, c: Creature): number {
     const since = turn - c.body.tourniquets[limb]
     p += 6 + Math.min(20, since / 120)
   }
-  p *= traitMul(w, c, 'painMult')
+  // 피해의 생사는 HP가 맡으므로 통증은 상처 심각도의 60%만 반영한다
+  p *= PAIN_SCALE * traitMul(w, c, 'painMult')
   if (hasEffect(c, 'painkiller', turn)) p *= 0.5
   if (hasEffect(c, 'analgesic', turn)) p *= 0.3
   if (hasEffect(c, 'alcohol', turn)) p *= 0.75
@@ -145,7 +151,9 @@ const TEMP_TABLE: [number, number][] = [[28, 0], [32, 0.5], [35, 0.9], [36, 1]]
 
 export function consciousness(w: World, c: Creature): number {
   const turn = turnOf(w)
-  let v = effectiveHealth(w, c, 'Brain')
+  // 의식 기관: 사람은 뇌, 융합체는 핵
+  const organ = bodyDef(w, c).parts.find((p) => p.capacities?.consciousness)
+  let v = organ ? effectiveHealth(w, c, organ.id) : 1
   v *= lerpTable(BLOOD_TABLE, bloodLoss(c))
   v *= lerpTable(PAIN_TABLE, painTotal(w, c))
   v *= lerpTable(TEMP_TABLE, c.needs.bodyTemp)
@@ -198,9 +206,10 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
   const def = w.db.wound(spec.def)
   const pd = part(w, c, spec.part)
   const arterial = !!spec.arterial
-  // 작은 상처는 덜 흐른다: 심각도 12 기준으로 0.25~1.5배
-  const sizeFactor = clamp(spec.severity / 12, 0.25, 1.5)
-  let bleed = spec.severity * sizeFactor * def.bleedPerSeverity * (pd.bleedMult ?? 1) * (spec.bleedMult ?? 1)
+  // 작은 상처는 훨씬 덜 흐른다: (심각도/12)^1.5, 0.1~1.6배. ml/턴(3초)
+  const rel = spec.severity / 12
+  const sizeFactor = clamp(rel * Math.sqrt(rel), 0.1, 1.6)
+  let bleed = spec.severity * sizeFactor * def.bleedPerSeverity * BLEED_SCALE * (pd.bleedMult ?? 1) * (spec.bleedMult ?? 1)
   if (arterial) bleed *= 4
   const wound: Wound = {
     id: w.s.nextId++,
@@ -215,10 +224,12 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
     ageTurns: 0,
     source: spec.source,
   }
+  const before = partDamage(c, spec.part)
   c.body.wounds.push(wound)
   c.lastAttacker = spec.source
   let destroyed: string | undefined
-  if (partDamage(c, spec.part) >= c.body.maxHp[spec.part] && !c.body.missing.includes(spec.part)) {
+  // 이번 상처로 처음 한계를 넘었을 때만 '파괴' (같은 알림 반복 방지)
+  if (before < c.body.maxHp[spec.part] && partDamage(c, spec.part) >= c.body.maxHp[spec.part] && !c.body.missing.includes(spec.part)) {
     destroyed = spec.part
     if (!pd.vital && pd.parent && spec.canSever) {
       c.body.missing.push(spec.part)
@@ -248,12 +259,12 @@ export function isDescendantOrSelf(w: World, c: Creature, id: string, ancestor: 
 
 /** 사망 원인 판정 (살아 있으면 null) */
 export function deathCause(w: World, c: Creature): string | null {
+  if (c.hp <= 0) return '치명상'
   const def = bodyDef(w, c)
   for (const p of def.parts) {
     if (p.vital && partHealth(w, c, p.id) <= 0) return `${p.label} 파괴`
   }
-  const root = def.parts.find((p) => !p.parent)!
-  if (partHealth(w, c, root.id) <= 0) return `${root.label} 파괴`
+  // 몸통(뿌리 부위) 자체 파괴는 즉사가 아니다: 체력(HP)이 생사를 가르고, 몸통은 '불구' 상태로 벌칙만 준다
   if (c.body.missing.includes('Neck') || c.body.missing.includes('Head')) return '머리 절단'
   if (bloodLoss(c) >= 0.5) return '과다 출혈'
   if (c.needs.bodyTemp < 28) return '저체온'
@@ -343,6 +354,14 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
     c.body.blood = Math.min(c.body.bloodMax, c.body.blood + 0.06)
     c.needs.water -= 0.06
   }
+  // HP 회복 (느리다. 출혈 중·굶주림엔 멈춘다)
+  const max = hpMax(w, c)
+  if (bled < 0.5 && c.needs.kcal > 0 && c.hp < max) {
+    let regen = 0.07 * (sleeping ? 3 : 1) * (1 + (c.stats.vit - 10) * 0.05)
+    if (hasEffect(c, 'draught', turn)) regen += 0.5
+    c.hp = Math.min(max, c.hp + regen)
+  }
+  if (c.hp > max) c.hp = max
   // 지혈대 괴사
   for (const [limb, at] of Object.entries(c.body.tourniquets)) {
     const since = turn - at
@@ -390,4 +409,85 @@ export function observedCondition(w: World, c: Creature): string[] {
   if (c.ai.mode === 'surrender') out.push('무기를 내려놓고 항복했다')
   if (out.length === 0) out.push('멀쩡해 보인다')
   return out
+}
+
+
+// ── 6부위 상태 ───────────────────────────────────
+
+export const REGION_LABEL: Record<Region, string> = { head: '머리', torso: '몸통', larm: '왼팔', rarm: '오른팔', lleg: '왼다리', rleg: '오른다리' }
+export const STATE_LABEL = ['멀쩡', '타박', '부상', '중상', '불구'] as const
+
+const regionCache = new WeakMap<BodyDef, Map<string, Region>>()
+
+export function partRegion(w: World, c: Creature, id: string): Region {
+  const def = bodyDef(w, c)
+  let m = regionCache.get(def)
+  if (!m) {
+    m = new Map()
+    const pm = partMap(def)
+    for (const p of def.parts) {
+      let cur: BodyPartDef | undefined = p
+      let r: Region | undefined
+      while (cur && !r) { r = cur.region; cur = cur.parent ? pm.get(cur.parent) : undefined }
+      m.set(p.id, r ?? 'torso')
+    }
+    regionCache.set(def, m)
+  }
+  return m.get(id) ?? 'torso'
+}
+
+function regionRoot(w: World, c: Creature, r: Region): BodyPartDef | undefined {
+  return bodyDef(w, c).parts.find((p) => p.region === r)
+}
+
+/** 부위 체력 비율 0~1 */
+export function regionHealth(w: World, c: Creature, r: Region): number {
+  const root = regionRoot(w, c, r)
+  if (!root) return 1
+  if (isMissing(w, c, root.id)) return 0
+  const max = c.body.maxHp[root.id] * 1.6
+  let dmg = 0
+  for (const wd of c.body.wounds) if (partRegion(w, c, wd.part) === r) dmg += (wd.severity - wd.healed) * (wd.internal ? 0.5 : 1)
+  for (const m of c.body.missing) if (partRegion(w, c, m) === r) dmg += 8
+  if (c.body.wounds.some((wd) => wd.fracture && !wd.splinted && partRegion(w, c, wd.part) === r)) dmg += max * 0.25
+  return clamp(1 - dmg / max, 0, 1)
+}
+
+/** 0 멀쩡 · 1 타박 · 2 부상 · 3 중상 · 4 불구 */
+export function regionState(w: World, c: Creature, r: Region): number {
+  const h = regionHealth(w, c, r)
+  if (h >= 0.85) return 0
+  if (h >= 0.6) return 1
+  if (h >= 0.35) return 2
+  if (h > 0) return 3
+  return 4
+}
+
+const HEAD_HIT = [0, 5, 10, 20, 30]
+const ARM_HIT = [0, 4, 8, 15, 25]
+const ARM_DMG = [1, 0.95, 0.85, 0.7, 0.5]
+const LEG_EVA = [0, 4, 8, 15, 25]
+const TORSO_REGEN = [1, 0.9, 0.75, 0.55, 0.35]
+
+export function regionPenalties(w: World, c: Creature) {
+  const st = (r: Region) => regionState(w, c, r)
+  const legs = Math.max(st('lleg'), st('rleg'))
+  return {
+    hit: HEAD_HIT[st('head')] + ARM_HIT[st('rarm')],
+    damageMult: ARM_DMG[st('rarm')],
+    block: ARM_HIT[st('larm')] * 2,
+    evasion: LEG_EVA[st('lleg')] / 2 + LEG_EVA[st('rleg')] / 2,
+    stumble: legs >= 4 ? 0.3 : legs >= 3 ? 0.15 : 0,
+    energyRegen: TORSO_REGEN[st('torso')],
+  }
+}
+
+export function hpMax(w: World, c: Creature): number {
+  const def = w.db.creature(c.def)
+  const base = def.hpBase ?? 50 + c.stats.vit * 5
+  return Math.round(base + traitAdd(w, c, 'maxHp') + (c.faction === 'player' ? (c.level - 1) * 4 : 0))
+}
+
+export function energyMax(_w: World, c: Creature): number {
+  return 50 + c.stats.wil * 5
 }

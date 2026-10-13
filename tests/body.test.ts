@@ -5,25 +5,25 @@ import { player } from '../src/core/ctx'
 import { makeWorld } from './helpers'
 
 describe('신체·출혈', () => {
-  it('출혈량 공식: 심각도 × 크기계수 × 상처계수 × 부위계수 (× 동맥 4)', () => {
+  it('출혈량 공식: 심각도 × 크기계수 × 상처계수 × 0.35 × 부위계수 (× 동맥 4)', () => {
     const w = makeWorld('b1')
     const pl = player(w)
-    // 베임 1.8, 심각도 12 → 크기계수 1.0 → 21.6 ml/턴
+    // 크기계수 = clamp((심각도/12)^1.5, 0.1, 1.6). 베임 1.8, 심각도 12 → 12 × 1 × 1.8 × 0.35 = 7.56 → 7.6 ml/턴
     const { wound } = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftLeg', severity: 12, source: 't' })
-    expect(wound.bleed).toBeCloseTo(21.6, 1)
-    // 같은 상처가 동맥이면 ×4 = 86.4
+    expect(wound.bleed).toBeCloseTo(7.6, 1)
+    // 같은 상처가 동맥이면 ×4 = 30.24 → 30.2
     const { wound: art } = addWound(w, pl, { def: 'Wound.Cut', part: 'RightLeg', severity: 12, source: 't', arterial: true })
-    expect(art.bleed).toBeCloseTo(86.4, 1)
-    // 작은 상처(3)는 크기계수 0.25 → 1.8×3×0.25 = 1.35 → 1.4
+    expect(art.bleed).toBeCloseTo(30.2, 1)
+    // 작은 상처(3): (0.25)^1.5 = 0.125 → 3 × 0.125 × 1.8 × 0.35 = 0.236 → 0.2
     const { wound: small } = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftArm', severity: 3, source: 't' })
-    expect(small.bleed).toBeCloseTo(1.4, 1)
+    expect(small.bleed).toBeCloseTo(0.2, 1)
   })
   it('지혈대는 해당 팔다리 출혈을 0으로, 붕대는 동맥에 약하다', () => {
     const w = makeWorld('b2')
     const pl = player(w)
     const { wound } = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftLeg', severity: 12, source: 't', arterial: true })
     wound.bandage = { quality: 'clean', infectionMult: 0.6, bleedMult: 0.1, arterialMult: 0.6 }
-    expect(effectiveBleed(w, pl, wound)).toBeCloseTo(86.4 * 0.6, 1)
+    expect(effectiveBleed(w, pl, wound)).toBeCloseTo(30.2 * 0.6, 1)
     pl.body.tourniquets.LeftLeg = 0
     expect(effectiveBleed(w, pl, wound)).toBe(0)
   })

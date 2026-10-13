@@ -1,16 +1,16 @@
 // 사망 보고서·연대기: 죽음의 원인 사슬을 남겨 다음 판에서 배우게 한다.
 
 import { bloodLoss, painLabel, painTotal, part, woundDef } from './body'
-import { clock, fmtClock, turnOf, TURNS_PER_DAY, type World } from './ctx'
+import { clock, fmtClock, START_TURN, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import { WEATHER_LABEL } from './environment'
-import { itemLabel } from './items'
+import { allItems, itemLabel } from './items'
 import type { Creature, DeathReport } from './types'
 
 export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cause: string): DeathReport {
   const turn = turnOf(w)
   const bg = c.background ? w.db.background(c.background).label : '떠돌이'
   const traits = c.traits.map((t) => w.db.trait(t).label)
-  const days = Math.round((turn / TURNS_PER_DAY) * 10) / 10
+  const days = Math.round(((turn - START_TURN) / TURNS_PER_DAY) * 10) / 10
   const chain = c.history.slice(-10).map((h) => `[${fmtClock(h.turn)}] ${h.text}`)
   const vitals = [
     `혈액 ${Math.round(c.body.blood)} / ${c.body.bloodMax} ml (손실 ${(bloodLoss(c) * 100).toFixed(0)}%)`,
@@ -25,9 +25,10 @@ export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cau
   const kills = Object.entries(w.s.knowledge.bestiary).filter(([, b]) => b.killed > 0).map(([id, b]) => `${w.db.creature(id).label} ${b.killed}`)
   const meals = c.history.filter((h) => h.kind === 'meal')
   const lastMeal = meals.length ? meals[meals.length - 1].text : '없음'
-  const unknown = c.inventory.filter((i) => w.db.item(i.def).unidentified && !w.s.knowledge.pillKnown[i.def]).map((i) => itemLabel(w, i))
+  const unknown = allItems(c).filter((i) => w.db.item(i.def).unidentified && !w.s.knowledge.pillKnown[i.def]).map((i) => itemLabel(w, i))
   const stats = [
-    `생존 ${days}일 (${fmtClock(turn)})`,
+    `생존 ${days}일 (${fmtClock(turn)}) · 레벨 ${c.level}`,
+    `가장 깊이 내려간 곳: ${deepest(w)}`,
     `날씨: ${WEATHER_LABEL[w.s.weather]}`,
     `처치한 것: ${kills.length ? kills.join(', ') : '없음'}`,
     `마지막 식사: ${lastMeal}`,
@@ -50,4 +51,10 @@ export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cau
     daysSurvived: days,
     epitaph,
   }
+}
+
+function deepest(w: World): string {
+  const depths = Object.values(w.s.maps).map((m) => m.depth).concat(w.s.map.depth)
+  const d = Math.max(0, ...depths)
+  return d === 0 ? '지상' : `지하 ${d}층`
 }

@@ -1,855 +1,1009 @@
 [
- {
-  "defType": "Body",
-  "id": "Body.Humanoid",
-  "label": "인간형",
-  "bloodMl": 5000,
-  "parts": [
-   {
-    "id": "Torso",
-    "label": "몸통",
-    "hp": 40,
-    "coverage": 1,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "bone": true
-   },
-   {
-    "id": "Neck",
-    "label": "목",
-    "hp": 25,
-    "coverage": 0.075,
-    "height": "high",
-    "groups": [
-     "neck"
-    ],
-    "parent": "Torso",
-    "artery": true,
-    "bleedMult": 1.5,
-    "vital": true
-   },
-   {
-    "id": "Head",
-    "label": "머리",
-    "hp": 25,
-    "coverage": 0.8,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Neck"
-   },
-   {
-    "id": "Skull",
-    "label": "두개골",
-    "hp": 25,
-    "coverage": 0.3,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "internal": true,
-    "bone": true
-   },
-   {
-    "id": "Brain",
-    "label": "뇌",
-    "hp": 10,
-    "coverage": 0.8,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Skull",
-    "internal": true,
-    "vital": true,
-    "capacities": {
-     "consciousness": 1
-    }
-   },
-   {
-    "id": "LeftEye",
-    "label": "왼쪽 눈",
-    "hp": 10,
-    "coverage": 0.07,
-    "height": "high",
-    "groups": [
-     "eyes"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "sight": 0.5
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftEar",
-    "label": "왼쪽 귀",
-    "hp": 12,
-    "coverage": 0.07,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "hearing": 0.5
-    }
-   },
-   {
-    "id": "RightEye",
-    "label": "오른쪽 눈",
-    "hp": 10,
-    "coverage": 0.07,
-    "height": "high",
-    "groups": [
-     "eyes"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "sight": 0.5
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightEar",
-    "label": "오른쪽 귀",
-    "hp": 12,
-    "coverage": 0.07,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "hearing": 0.5
-    }
-   },
-   {
-    "id": "Jaw",
-    "label": "턱",
-    "hp": 18,
-    "coverage": 0.15,
-    "height": "high",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "bone": true,
-    "capacities": {
-     "breathing": 0.0
-    }
-   },
-   {
-    "id": "Heart",
-    "label": "심장",
-    "hp": 15,
-    "coverage": 0.02,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "vital": true,
-    "capacities": {
-     "bloodPumping": 1
-    },
-    "bleedMult": 3
-   },
-   {
-    "id": "LeftLung",
-    "label": "왼쪽 폐",
-    "hp": 15,
-    "coverage": 0.025,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "capacities": {
-     "breathing": 0.5
-    },
-    "bleedMult": 1.5
-   },
-   {
-    "id": "LeftKidney",
-    "label": "왼쪽 신장",
-    "hp": 15,
-    "coverage": 0.017,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "bleedMult": 1.5
-   },
-   {
-    "id": "RightLung",
-    "label": "오른쪽 폐",
-    "hp": 15,
-    "coverage": 0.025,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "capacities": {
-     "breathing": 0.5
-    },
-    "bleedMult": 1.5
-   },
-   {
-    "id": "RightKidney",
-    "label": "오른쪽 신장",
-    "hp": 15,
-    "coverage": 0.017,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "bleedMult": 1.5
-   },
-   {
-    "id": "Liver",
-    "label": "간",
-    "hp": 20,
-    "coverage": 0.025,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "vital": true,
-    "bleedMult": 2
-   },
-   {
-    "id": "Stomach",
-    "label": "위",
-    "hp": 20,
-    "coverage": 0.025,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true
-   },
-   {
-    "id": "LeftArm",
-    "label": "왼팔",
-    "hp": 30,
-    "coverage": 0.12,
-    "height": "mid",
-    "groups": [
-     "arms"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "LeftArm"
-   },
-   {
-    "id": "LeftHand",
-    "label": "왼손",
-    "hp": 20,
-    "coverage": 0.14,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftArm",
-    "bone": true,
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.15
-    },
-    "painMult": 1.2
-   },
-   {
-    "id": "LeftThumb",
-    "label": "왼손 엄지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftHand",
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.105
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftIndex",
-    "label": "왼손 검지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftHand",
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.06999999999999999
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftMiddle",
-    "label": "왼손 중지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftHand",
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.06999999999999999
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftRing",
-    "label": "왼손 약지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftHand",
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.0525
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftPinky",
-    "label": "왼손 새끼",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "LeftHand",
-    "limb": "LeftArm",
-    "capacities": {
-     "manipulation": 0.0525
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "LeftLeg",
-    "label": "왼다리",
-    "hp": 30,
-    "coverage": 0.14,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "LeftLeg",
-    "capacities": {
-     "moving": 0.35
-    }
-   },
-   {
-    "id": "LeftFoot",
-    "label": "왼발",
-    "hp": 25,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "LeftLeg",
-    "bone": true,
-    "limb": "LeftLeg",
-    "capacities": {
-     "moving": 0.15
-    }
-   },
-   {
-    "id": "RightArm",
-    "label": "오른팔",
-    "hp": 30,
-    "coverage": 0.12,
-    "height": "mid",
-    "groups": [
-     "arms"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "RightArm"
-   },
-   {
-    "id": "RightHand",
-    "label": "오른손",
-    "hp": 20,
-    "coverage": 0.14,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightArm",
-    "bone": true,
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.15
-    },
-    "painMult": 1.2
-   },
-   {
-    "id": "RightThumb",
-    "label": "오른손 엄지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightHand",
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.105
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightIndex",
-    "label": "오른손 검지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightHand",
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.06999999999999999
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightMiddle",
-    "label": "오른손 중지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightHand",
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.06999999999999999
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightRing",
-    "label": "오른손 약지",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightHand",
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.0525
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightPinky",
-    "label": "오른손 새끼",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "hands"
-    ],
-    "parent": "RightHand",
-    "limb": "RightArm",
-    "capacities": {
-     "manipulation": 0.0525
-    },
-    "painMult": 1.5
-   },
-   {
-    "id": "RightLeg",
-    "label": "오른다리",
-    "hp": 30,
-    "coverage": 0.14,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "RightLeg",
-    "capacities": {
-     "moving": 0.35
-    }
-   },
-   {
-    "id": "RightFoot",
-    "label": "오른발",
-    "hp": 25,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "RightLeg",
-    "bone": true,
-    "limb": "RightLeg",
-    "capacities": {
-     "moving": 0.15
-    }
-   }
-  ]
- },
- {
-  "defType": "Body",
-  "id": "Body.Quadruped",
-  "label": "사족형",
-  "bloodMl": 2500,
-  "parts": [
-   {
-    "id": "Torso",
-    "label": "몸통",
-    "hp": 30,
-    "coverage": 1,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "bone": true
-   },
-   {
-    "id": "Neck",
-    "label": "목",
-    "hp": 18,
-    "coverage": 0.1,
-    "height": "mid",
-    "groups": [
-     "neck"
-    ],
-    "parent": "Torso",
-    "artery": true,
-    "bleedMult": 1.5,
-    "vital": true
-   },
-   {
-    "id": "Head",
-    "label": "머리",
-    "hp": 18,
-    "coverage": 0.7,
-    "height": "mid",
-    "groups": [
-     "head"
-    ],
-    "parent": "Neck"
-   },
-   {
-    "id": "Skull",
-    "label": "두개골",
-    "hp": 18,
-    "coverage": 0.3,
-    "height": "mid",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "internal": true,
-    "bone": true
-   },
-   {
-    "id": "Brain",
-    "label": "뇌",
-    "hp": 8,
-    "coverage": 0.8,
-    "height": "mid",
-    "groups": [
-     "head"
-    ],
-    "parent": "Skull",
-    "internal": true,
-    "vital": true,
-    "capacities": {
-     "consciousness": 1
-    }
-   },
-   {
-    "id": "LeftEye",
-    "label": "왼쪽 눈",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "eyes"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "sight": 0.5
-    }
-   },
-   {
-    "id": "RightEye",
-    "label": "오른쪽 눈",
-    "hp": 8,
-    "coverage": 0.08,
-    "height": "mid",
-    "groups": [
-     "eyes"
-    ],
-    "parent": "Head",
-    "capacities": {
-     "sight": 0.5
-    }
-   },
-   {
-    "id": "Jaw",
-    "label": "턱",
-    "hp": 14,
-    "coverage": 0.25,
-    "height": "mid",
-    "groups": [
-     "head"
-    ],
-    "parent": "Head",
-    "bone": true,
-    "capacities": {
-     "manipulation": 1
-    }
-   },
-   {
-    "id": "Heart",
-    "label": "심장",
-    "hp": 12,
-    "coverage": 0.03,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "vital": true,
-    "capacities": {
-     "bloodPumping": 1
-    },
-    "bleedMult": 3
-   },
-   {
-    "id": "Lungs",
-    "label": "폐",
-    "hp": 14,
-    "coverage": 0.05,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "capacities": {
-     "breathing": 1
-    },
-    "bleedMult": 1.5
-   },
-   {
-    "id": "Liver",
-    "label": "간",
-    "hp": 14,
-    "coverage": 0.03,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true,
-    "vital": true,
-    "bleedMult": 2
-   },
-   {
-    "id": "Stomach",
-    "label": "위",
-    "hp": 14,
-    "coverage": 0.03,
-    "height": "mid",
-    "groups": [
-     "torso"
-    ],
-    "parent": "Torso",
-    "internal": true
-   },
-   {
-    "id": "FrontLeftLeg",
-    "label": "왼쪽 앞다리",
-    "hp": 18,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "FrontLeftLeg",
-    "capacities": {
-     "moving": 0.2
-    }
-   },
-   {
-    "id": "FrontLeftPaw",
-    "label": "왼쪽 앞발",
-    "hp": 12,
-    "coverage": 0.2,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "FrontLeftLeg",
-    "bone": true,
-    "limb": "FrontLeftLeg",
-    "capacities": {
-     "moving": 0.05
-    }
-   },
-   {
-    "id": "FrontRightLeg",
-    "label": "오른쪽 앞다리",
-    "hp": 18,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "FrontRightLeg",
-    "capacities": {
-     "moving": 0.2
-    }
-   },
-   {
-    "id": "FrontRightPaw",
-    "label": "오른쪽 앞발",
-    "hp": 12,
-    "coverage": 0.2,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "FrontRightLeg",
-    "bone": true,
-    "limb": "FrontRightLeg",
-    "capacities": {
-     "moving": 0.05
-    }
-   },
-   {
-    "id": "HindLeftLeg",
-    "label": "왼쪽 뒷다리",
-    "hp": 18,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "HindLeftLeg",
-    "capacities": {
-     "moving": 0.2
-    }
-   },
-   {
-    "id": "HindLeftPaw",
-    "label": "왼쪽 뒷발",
-    "hp": 12,
-    "coverage": 0.2,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "HindLeftLeg",
-    "bone": true,
-    "limb": "HindLeftLeg",
-    "capacities": {
-     "moving": 0.05
-    }
-   },
-   {
-    "id": "HindRightLeg",
-    "label": "오른쪽 뒷다리",
-    "hp": 18,
-    "coverage": 0.1,
-    "height": "low",
-    "groups": [
-     "legs"
-    ],
-    "parent": "Torso",
-    "bone": true,
-    "artery": true,
-    "limb": "HindRightLeg",
-    "capacities": {
-     "moving": 0.2
-    }
-   },
-   {
-    "id": "HindRightPaw",
-    "label": "오른쪽 뒷발",
-    "hp": 12,
-    "coverage": 0.2,
-    "height": "low",
-    "groups": [
-     "feet"
-    ],
-    "parent": "HindRightLeg",
-    "bone": true,
-    "limb": "HindRightLeg",
-    "capacities": {
-     "moving": 0.05
-    }
-   },
-   {
-    "id": "Tail",
-    "label": "꼬리",
-    "hp": 10,
-    "coverage": 0.05,
-    "height": "mid",
-    "groups": [
-     "tail"
-    ],
-    "parent": "Torso"
-   }
-  ]
- }
+  {
+    "defType": "Body",
+    "id": "Body.Humanoid",
+    "label": "인간형",
+    "bloodMl": 5000,
+    "parts": [
+      {
+        "id": "Torso",
+        "label": "몸통",
+        "hp": 40,
+        "coverage": 1,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "bone": true,
+        "region": "torso"
+      },
+      {
+        "id": "Neck",
+        "label": "목",
+        "hp": 25,
+        "coverage": 0.075,
+        "height": "high",
+        "groups": [
+          "neck"
+        ],
+        "parent": "Torso",
+        "artery": true,
+        "bleedMult": 1.5,
+        "vital": true,
+        "region": "head"
+      },
+      {
+        "id": "Head",
+        "label": "머리",
+        "hp": 25,
+        "coverage": 0.8,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Neck"
+      },
+      {
+        "id": "Skull",
+        "label": "두개골",
+        "hp": 25,
+        "coverage": 0.3,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "internal": true,
+        "bone": true
+      },
+      {
+        "id": "Brain",
+        "label": "뇌",
+        "hp": 10,
+        "coverage": 0.8,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Skull",
+        "internal": true,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        }
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼쪽 눈",
+        "hp": 10,
+        "coverage": 0.07,
+        "height": "high",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "sight": 0.5
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftEar",
+        "label": "왼쪽 귀",
+        "hp": 12,
+        "coverage": 0.07,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "hearing": 0.5
+        }
+      },
+      {
+        "id": "RightEye",
+        "label": "오른쪽 눈",
+        "hp": 10,
+        "coverage": 0.07,
+        "height": "high",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "sight": 0.5
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightEar",
+        "label": "오른쪽 귀",
+        "hp": 12,
+        "coverage": 0.07,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "hearing": 0.5
+        }
+      },
+      {
+        "id": "Jaw",
+        "label": "턱",
+        "hp": 18,
+        "coverage": 0.15,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "bone": true,
+        "capacities": {
+          "breathing": 0.0
+        }
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "hp": 15,
+        "coverage": 0.02,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "vital": true,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "bleedMult": 3
+      },
+      {
+        "id": "LeftLung",
+        "label": "왼쪽 폐",
+        "hp": 15,
+        "coverage": 0.025,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "capacities": {
+          "breathing": 0.5
+        },
+        "bleedMult": 1.5
+      },
+      {
+        "id": "LeftKidney",
+        "label": "왼쪽 신장",
+        "hp": 15,
+        "coverage": 0.017,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "bleedMult": 1.5
+      },
+      {
+        "id": "RightLung",
+        "label": "오른쪽 폐",
+        "hp": 15,
+        "coverage": 0.025,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "capacities": {
+          "breathing": 0.5
+        },
+        "bleedMult": 1.5
+      },
+      {
+        "id": "RightKidney",
+        "label": "오른쪽 신장",
+        "hp": 15,
+        "coverage": 0.017,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "bleedMult": 1.5
+      },
+      {
+        "id": "Liver",
+        "label": "간",
+        "hp": 20,
+        "coverage": 0.025,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "vital": true,
+        "bleedMult": 2
+      },
+      {
+        "id": "Stomach",
+        "label": "위",
+        "hp": 20,
+        "coverage": 0.025,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true
+      },
+      {
+        "id": "LeftArm",
+        "label": "왼팔",
+        "hp": 30,
+        "coverage": 0.12,
+        "height": "mid",
+        "groups": [
+          "arms"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "LeftArm",
+        "region": "larm"
+      },
+      {
+        "id": "LeftHand",
+        "label": "왼손",
+        "hp": 20,
+        "coverage": 0.14,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftArm",
+        "bone": true,
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.15
+        },
+        "painMult": 1.2
+      },
+      {
+        "id": "LeftThumb",
+        "label": "왼손 엄지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftHand",
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.105
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftIndex",
+        "label": "왼손 검지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftHand",
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.06999999999999999
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftMiddle",
+        "label": "왼손 중지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftHand",
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.06999999999999999
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftRing",
+        "label": "왼손 약지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftHand",
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.0525
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftPinky",
+        "label": "왼손 새끼",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "LeftHand",
+        "limb": "LeftArm",
+        "capacities": {
+          "manipulation": 0.0525
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "LeftLeg",
+        "label": "왼다리",
+        "hp": 30,
+        "coverage": 0.14,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "LeftLeg",
+        "capacities": {
+          "moving": 0.35
+        },
+        "region": "lleg"
+      },
+      {
+        "id": "LeftFoot",
+        "label": "왼발",
+        "hp": 25,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "LeftLeg",
+        "bone": true,
+        "limb": "LeftLeg",
+        "capacities": {
+          "moving": 0.15
+        }
+      },
+      {
+        "id": "RightArm",
+        "label": "오른팔",
+        "hp": 30,
+        "coverage": 0.12,
+        "height": "mid",
+        "groups": [
+          "arms"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "RightArm",
+        "region": "rarm"
+      },
+      {
+        "id": "RightHand",
+        "label": "오른손",
+        "hp": 20,
+        "coverage": 0.14,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightArm",
+        "bone": true,
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.15
+        },
+        "painMult": 1.2
+      },
+      {
+        "id": "RightThumb",
+        "label": "오른손 엄지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightHand",
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.105
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightIndex",
+        "label": "오른손 검지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightHand",
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.06999999999999999
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightMiddle",
+        "label": "오른손 중지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightHand",
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.06999999999999999
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightRing",
+        "label": "오른손 약지",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightHand",
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.0525
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightPinky",
+        "label": "오른손 새끼",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "hands"
+        ],
+        "parent": "RightHand",
+        "limb": "RightArm",
+        "capacities": {
+          "manipulation": 0.0525
+        },
+        "painMult": 1.5
+      },
+      {
+        "id": "RightLeg",
+        "label": "오른다리",
+        "hp": 30,
+        "coverage": 0.14,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "RightLeg",
+        "capacities": {
+          "moving": 0.35
+        },
+        "region": "rleg"
+      },
+      {
+        "id": "RightFoot",
+        "label": "오른발",
+        "hp": 25,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "RightLeg",
+        "bone": true,
+        "limb": "RightLeg",
+        "capacities": {
+          "moving": 0.15
+        }
+      }
+    ]
+  },
+  {
+    "defType": "Body",
+    "id": "Body.Quadruped",
+    "label": "사족형",
+    "bloodMl": 2500,
+    "parts": [
+      {
+        "id": "Torso",
+        "label": "몸통",
+        "hp": 30,
+        "coverage": 1,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "bone": true,
+        "region": "torso"
+      },
+      {
+        "id": "Neck",
+        "label": "목",
+        "hp": 18,
+        "coverage": 0.1,
+        "height": "mid",
+        "groups": [
+          "neck"
+        ],
+        "parent": "Torso",
+        "artery": true,
+        "bleedMult": 1.5,
+        "vital": true,
+        "region": "head"
+      },
+      {
+        "id": "Head",
+        "label": "머리",
+        "hp": 18,
+        "coverage": 0.7,
+        "height": "mid",
+        "groups": [
+          "head"
+        ],
+        "parent": "Neck"
+      },
+      {
+        "id": "Skull",
+        "label": "두개골",
+        "hp": 18,
+        "coverage": 0.3,
+        "height": "mid",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "internal": true,
+        "bone": true
+      },
+      {
+        "id": "Brain",
+        "label": "뇌",
+        "hp": 8,
+        "coverage": 0.8,
+        "height": "mid",
+        "groups": [
+          "head"
+        ],
+        "parent": "Skull",
+        "internal": true,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        }
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼쪽 눈",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "sight": 0.5
+        }
+      },
+      {
+        "id": "RightEye",
+        "label": "오른쪽 눈",
+        "hp": 8,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Head",
+        "capacities": {
+          "sight": 0.5
+        }
+      },
+      {
+        "id": "Jaw",
+        "label": "턱",
+        "hp": 14,
+        "coverage": 0.25,
+        "height": "mid",
+        "groups": [
+          "head"
+        ],
+        "parent": "Head",
+        "bone": true,
+        "capacities": {
+          "manipulation": 1
+        }
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "hp": 12,
+        "coverage": 0.03,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "vital": true,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "bleedMult": 3
+      },
+      {
+        "id": "Lungs",
+        "label": "폐",
+        "hp": 14,
+        "coverage": 0.05,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "capacities": {
+          "breathing": 1
+        },
+        "bleedMult": 1.5
+      },
+      {
+        "id": "Liver",
+        "label": "간",
+        "hp": 14,
+        "coverage": 0.03,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true,
+        "vital": true,
+        "bleedMult": 2
+      },
+      {
+        "id": "Stomach",
+        "label": "위",
+        "hp": 14,
+        "coverage": 0.03,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Torso",
+        "internal": true
+      },
+      {
+        "id": "FrontLeftLeg",
+        "label": "왼쪽 앞다리",
+        "hp": 18,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "FrontLeftLeg",
+        "capacities": {
+          "moving": 0.2
+        },
+        "region": "larm"
+      },
+      {
+        "id": "FrontLeftPaw",
+        "label": "왼쪽 앞발",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "FrontLeftLeg",
+        "bone": true,
+        "limb": "FrontLeftLeg",
+        "capacities": {
+          "moving": 0.05
+        }
+      },
+      {
+        "id": "FrontRightLeg",
+        "label": "오른쪽 앞다리",
+        "hp": 18,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "FrontRightLeg",
+        "capacities": {
+          "moving": 0.2
+        },
+        "region": "rarm"
+      },
+      {
+        "id": "FrontRightPaw",
+        "label": "오른쪽 앞발",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "FrontRightLeg",
+        "bone": true,
+        "limb": "FrontRightLeg",
+        "capacities": {
+          "moving": 0.05
+        }
+      },
+      {
+        "id": "HindLeftLeg",
+        "label": "왼쪽 뒷다리",
+        "hp": 18,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "HindLeftLeg",
+        "capacities": {
+          "moving": 0.2
+        },
+        "region": "lleg"
+      },
+      {
+        "id": "HindLeftPaw",
+        "label": "왼쪽 뒷발",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "HindLeftLeg",
+        "bone": true,
+        "limb": "HindLeftLeg",
+        "capacities": {
+          "moving": 0.05
+        }
+      },
+      {
+        "id": "HindRightLeg",
+        "label": "오른쪽 뒷다리",
+        "hp": 18,
+        "coverage": 0.1,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Torso",
+        "bone": true,
+        "artery": true,
+        "limb": "HindRightLeg",
+        "capacities": {
+          "moving": 0.2
+        },
+        "region": "rleg"
+      },
+      {
+        "id": "HindRightPaw",
+        "label": "오른쪽 뒷발",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "low",
+        "groups": [
+          "feet"
+        ],
+        "parent": "HindRightLeg",
+        "bone": true,
+        "limb": "HindRightLeg",
+        "capacities": {
+          "moving": 0.05
+        }
+      },
+      {
+        "id": "Tail",
+        "label": "꼬리",
+        "hp": 10,
+        "coverage": 0.05,
+        "height": "mid",
+        "groups": [
+          "tail"
+        ],
+        "parent": "Torso"
+      }
+    ]
+  },
+  {
+    "defType": "Body",
+    "id": "Body.Amalgam",
+    "label": "융합체",
+    "bloodMl": 9000,
+    "parts": [
+      {
+        "id": "Mass",
+        "label": "살덩이",
+        "hp": 120,
+        "coverage": 1,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "region": "torso"
+      },
+      {
+        "id": "Core",
+        "label": "핵",
+        "hp": 45,
+        "coverage": 0.08,
+        "height": "mid",
+        "groups": [
+          "torso"
+        ],
+        "parent": "Mass",
+        "internal": true,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1,
+          "bloodPumping": 1
+        },
+        "bleedMult": 2
+      },
+      {
+        "id": "Throat",
+        "label": "목구멍",
+        "hp": 40,
+        "coverage": 0.1,
+        "height": "high",
+        "groups": [
+          "head"
+        ],
+        "parent": "Mass",
+        "region": "head",
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "EyeA",
+        "label": "눈",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "high",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Throat",
+        "capacities": {
+          "sight": 0.5
+        }
+      },
+      {
+        "id": "EyeB",
+        "label": "눈",
+        "hp": 12,
+        "coverage": 0.2,
+        "height": "high",
+        "groups": [
+          "eyes"
+        ],
+        "parent": "Throat",
+        "capacities": {
+          "sight": 0.5
+        }
+      },
+      {
+        "id": "TendrilA",
+        "label": "촉수",
+        "hp": 45,
+        "coverage": 0.12,
+        "height": "mid",
+        "groups": [
+          "arms"
+        ],
+        "parent": "Mass",
+        "region": "larm",
+        "capacities": {
+          "manipulation": 0.5
+        },
+        "artery": true
+      },
+      {
+        "id": "TendrilB",
+        "label": "촉수",
+        "hp": 45,
+        "coverage": 0.12,
+        "height": "mid",
+        "groups": [
+          "arms"
+        ],
+        "parent": "Mass",
+        "region": "rarm",
+        "capacities": {
+          "manipulation": 0.5
+        },
+        "artery": true
+      },
+      {
+        "id": "BaseA",
+        "label": "밑동",
+        "hp": 50,
+        "coverage": 0.12,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Mass",
+        "region": "lleg",
+        "capacities": {
+          "moving": 0.5
+        }
+      },
+      {
+        "id": "BaseB",
+        "label": "밑동",
+        "hp": 50,
+        "coverage": 0.12,
+        "height": "low",
+        "groups": [
+          "legs"
+        ],
+        "parent": "Mass",
+        "region": "rleg",
+        "capacities": {
+          "moving": 0.5
+        }
+      }
+    ]
+  }
 ]

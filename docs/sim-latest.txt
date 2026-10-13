@@ -1,37 +1,42 @@
-sim-0: 과다 출혈 · 0.21일 · Bg.Excommunicate · 사건 Rats,HoundPair
-sim-1: 몸통 파괴 · 0.41일 · Bg.Hunter · 사건 Rats,Rats,Rats,HoundPair
-sim-2: 몸통 파괴 · 0.40일 · Bg.Hunter · 사건 Rats,Rats,LoneReaver,Rats
-sim-3: 몸통 파괴 · 0.46일 · Bg.Hunter · 사건 Rats,Rats,HoundPair,HoundPair
-sim-4: 몸통 파괴 · 0.65일 · Bg.Excommunicate · 사건 Rats,Rats,Rats,HoundPair,Rats,HoundPair,HoundPack
-sim-5: 몸통 파괴 · 0.19일 · Bg.Scavenger · 사건 Rats,HoundPair
-sim-6: 과다 출혈 · 0.30일 · Bg.Scavenger · 사건 Rats,HoundPair,Rats
-sim-7: 과다 출혈 · 0.23일 · Bg.Herbalist · 사건 Rats,Rats
-sim-8: 몸통 파괴 · 1.05일 · Bg.Hunter · 사건 Rats,Rats,LoneReaver,Rats,LoneReaver,LoneReaver,HoundPair,HoundPair,HoundPair,Rats,HoundPair
-sim-9: 몸통 파괴 · 0.41일 · Bg.Hunter · 사건 Rats,Rats,Rats,HoundPair
-sim-10: 과다 출혈 · 0.41일 · Bg.Scavenger · 사건 Rats,Rats,HoundPair,Rats
-sim-11: 과다 출혈 · 0.27일 · Bg.Herbalist · 사건 Rats,Rats,HoundPair
-sim-12: 과다 출혈 · 0.53일 · Bg.Deserter · 사건 Rats,Rats,LoneReaver,Rats,HoundPair
-sim-13: 몸통 파괴 · 0.30일 · Bg.Scavenger · 사건 Rats,Rats,HoundPair
-sim-14: 과다 출혈 · 0.33일 · Bg.Deserter · 사건 Rats,Rats,LoneReaver
-sim-15: 탈수 · 0.82일 · Bg.Deserter · 사건 Rats,Rats,LoneReaver,Rats,LoneReaver,HoundPair,HoundPair,HoundPair
-sim-16: 몸통 파괴 · 0.37일 · Bg.Hunter · 사건 Rats,Rats,LoneReaver
-sim-17: 과다 출혈 · 0.29일 · Bg.Scavenger · 사건 Rats,Rats,HoundPair
-sim-18: 몸통 파괴 · 0.88일 · Bg.Scavenger · 사건 Rats,LoneReaver,Rats,Rats,LoneReaver,LoneReaver,LoneReaver,Rats,HoundPair
-sim-19: 몸통 파괴 · 0.46일 · Bg.Hunter · 사건 Rats,Rats,Rats,LoneReaver,HoundPair
-sim-20: 과다 출혈 · 0.59일 · Bg.Deserter · 사건 Rats,Rats,LoneReaver,HoundPair,Rats,HoundPair
-sim-21: 몸통 파괴 · 1.15일 · Bg.Deserter · 사건 Rats,Rats,LoneReaver,Rats,LoneReaver,HoundPair,LoneReaver,LoneReaver,Rats,HoundPack,Rats,Rats
-sim-22: 과다 출혈 · 0.60일 · Bg.Excommunicate · 사건 Rats,Rats,Rats,LoneReaver,LoneReaver,HoundPair
-sim-23: 과다 출혈 · 0.66일 · Bg.Excommunicate · 사건 Rats,Rats,LoneReaver,Rats,Rats,Rats,HoundPack
-sim-24: 몸통 파괴 · 0.29일 · Bg.Herbalist · 사건 Rats,Rats,HoundPair
-sim-25: 몸통 파괴 · 0.62일 · Bg.Deserter · 사건 Rats,HoundPair,Rats,Rats,HoundPair,LoneReaver
-sim-26: 과다 출혈 · 0.26일 · Bg.Scavenger · 사건 Rats,Rats,LoneReaver
-sim-27: 몸통 파괴 · 0.78일 · Bg.Scavenger · 사건 Rats,Rats,Rats,Rats,HoundPack,HoundPair,LoneReaver,LoneReaver
-sim-28: 몸통 파괴 · 0.37일 · Bg.Scavenger · 사건 Rats,Rats,Rats,HoundPair
-sim-29: 과다 출혈 · 1.16일 · Bg.Deserter · 사건 Rats,Rats,HoundPair,Rats,Rats,Rats,LoneReaver,HoundPair,HoundPack,LoneReaver,HoundPair,LoneReaver
+# pnpm sim 30 3 — 2026-10-13 KST, 프로토타입 v0.2 (턴제 던전 RPG 뼈대 + 신체 시뮬레이션)
+# 봇은 잠행·후퇴·문 활용 없이 정면 교전한다. 사람보다 빨리 죽는다.
+
+sim-0: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
+sim-1: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-2: 치명상 · 1.83일 · Lv5 · crypt2 · Bg.Deserter · 사건 ReaverPatrol,ReaverPatrol
+sim-3: 치명상 · 0.03일 · Lv2 · crypt1 · Bg.Excommunicate · 사건 -
+sim-4: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-5: 치명상 · 0.62일 · Lv3 · crypt2 · Bg.Deserter · 사건 -
+sim-6: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-7: 치명상 · 0.74일 · Lv3 · crypt2 · Bg.Excommunicate · 사건 -
+sim-8: 치명상 · 0.02일 · Lv2 · crypt1 · Bg.Herbalist · 사건 -
+sim-9: 치명상 · 0.24일 · Lv3 · crypt2 · Bg.Scavenger · 사건 -
+sim-10: 과다 출혈 · 0.02일 · Lv2 · crypt1 · Bg.Hunter · 사건 -
+sim-11: 치명상 · 2.23일 · Lv3 · crypt2 · Bg.Excommunicate · 사건 ReaverPatrol,ReaverPatrol,ReaverPatrol
+sim-12: 과다 출혈 · 0.64일 · Lv2 · crypt1 · Bg.Excommunicate · 사건 -
+sim-13: 치명상 · 0.32일 · Lv2 · crypt1 · Bg.Deserter · 사건 -
+sim-14: 심장 파괴 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-15: 저체온 · 1.34일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverPatrol
+sim-16: 생존(시간 종료) · 3.00일 · Lv2 · crypt1 · Bg.Deserter · 사건 -
+sim-17: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-18: 과다 출혈 · 0.05일 · Lv2 · crypt1 · Bg.Hunter · 사건 -
+sim-19: 과다 출혈 · 0.22일 · Lv2 · crypt1 · Bg.Deserter · 사건 -
+sim-20: 과다 출혈 · 0.00일 · Lv1 · surface · Bg.Deserter · 사건 -
+sim-21: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Scavenger · 사건 -
+sim-22: 치명상 · 0.01일 · Lv2 · crypt1 · Bg.Excommunicate · 사건 -
+sim-23: 치명상 · 0.23일 · Lv2 · crypt1 · Bg.Hunter · 사건 -
+sim-24: 과다 출혈 · 0.54일 · Lv3 · crypt1 · Bg.Excommunicate · 사건 ReaverPatrol
+sim-25: 과다 출혈 · 0.02일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
+sim-26: 치명상 · 0.92일 · Lv3 · surface · Bg.Scavenger · 사건 -
+sim-27: 치명상 · 1.29일 · Lv3 · crypt2 · Bg.Excommunicate · 사건 ReaverPatrol
+sim-28: 과다 출혈 · 0.01일 · Lv2 · crypt1 · Bg.Excommunicate · 사건 -
+sim-29: 과다 출혈 · 0.02일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
 
 ── 집계 ──
-몸통 파괴: 16 (53%)
-과다 출혈: 13 (43%)
-탈수: 1 (3%)
-평균 생존 0.52일 · 탈출 0/30 · 109.0s
-⚠ 경고: '몸통 파괴' 이(가) 사망 원인의 50% 초과 — 밸런스 점검 필요
+치명상: 16 (53%)
+과다 출혈: 11 (37%)
+심장 파괴: 1 (3%)
+저체온: 1 (3%)
+생존(시간 종료): 1 (3%)
+평균 생존 0.48일 · 탈출 0/30 · 261.0s
+⚠ 경고: '치명상' 이(가) 사망 원인의 50% 초과 — 밸런스 점검 필요

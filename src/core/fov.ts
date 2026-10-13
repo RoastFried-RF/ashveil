@@ -1,12 +1,12 @@
 // 시야(재귀 그림자 투사)와 조명
 
 import { capacity } from './body'
-import { idx, inBounds, isOpaque, tileAt, type World } from './ctx'
+import { creatureAt, idx, inBounds, isOpaque, tileAt, type World } from './ctx'
 import { daylight } from './environment'
 import { cheb, dist2, line, type Pos } from './geom'
 import { lightSource } from './items'
 import { traitAdd, traitOverride } from './traits'
-import type { Creature } from './types'
+import type { Creature, MapState } from './types'
 
 const MULT = [
   [1, 0, 0, -1, -1, 0, 0, 1],
@@ -58,9 +58,43 @@ export function hasLos(w: World, a: Pos, b: Pos): boolean {
   return true
 }
 
+// 고정 광원(화로·횃불·모닥불) 밝기 캐시. 문이 열리고 닫히면 무효화
+const staticCache = new WeakMap<MapState, { ver: number; arr: Float32Array }>()
+const versions = new WeakMap<MapState, number>()
+
+export function invalidateLights(w: World) {
+  versions.set(w.s.map, (versions.get(w.s.map) ?? 0) + 1)
+}
+
+function staticLight(w: World): Float32Array {
+  const m = w.s.map
+  const ver = versions.get(m) ?? 0
+  const hit = staticCache.get(m)
+  if (hit && hit.ver === ver) return hit.arr
+  const arr = new Float32Array(m.w * m.h)
+  for (const L of m.lights) {
+    const r = L.radius
+    for (let y = Math.max(0, L.pos.y - r); y <= Math.min(m.h - 1, L.pos.y + r); y++) {
+      for (let x = Math.max(0, L.pos.x - r); x <= Math.min(m.w - 1, L.pos.x + r); x++) {
+        const p = { x, y }
+        const d2 = dist2(L.pos, p)
+        if (d2 > r * r) continue
+        if (d2 > 0 && !hasLos(w, L.pos, p)) continue
+        const v = 1 - Math.sqrt(d2) / (r + 1)
+        const i = y * m.w + x
+        if (v > arr[i]) arr[i] = v
+      }
+    }
+  }
+  staticCache.set(m, { ver, arr })
+  return arr
+}
+
 /** 타일 밝기 0~1 */
 export function lightAt(w: World, p: Pos): number {
-  let l = daylight(w) * (tileAt(w, p).roof ? 0.45 : 1)
+  const m = w.s.map
+  let l = m.kind === 'surface' ? daylight(w) * (tileAt(w, p).roof ? 0.45 : 1) : m.ambient
+  l = Math.max(l, staticLight(w)[p.y * m.w + p.x])
   for (const c of w.s.creatures) {
     if (!c.alive) continue
     const src = lightSource(w, c)
@@ -83,12 +117,15 @@ export function sightRange(w: World, c: Creature): number {
   return Math.max(1, Math.round(base * Math.max(0.15, capacity(w, c, 'sight'))))
 }
 
-/** 관찰자가 대상 위치를 볼 수 있는가 (거리·시선·조명) */
+/** 관찰자가 대상 위치를 볼 수 있는가 (거리·시선·조명·잠행) */
 export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>): boolean {
-  if (viewer.unconscious) return false
+  if (viewer.unconscious || viewer.asleep) return false
   const d = cheb(viewer.pos, p)
   if (d <= 1) return true
-  if (d > sightRange(w, viewer)) return false
+  let range = sightRange(w, viewer)
+  const target = creatureAt(w, p)
+  if (target?.sneaking && target.id !== viewer.id) range = Math.floor(range * 0.6)
+  if (d > range) return false
   if (fov) { if (!fov.has(idx(w, p))) return false }
   else if (!hasLos(w, viewer.pos, p)) return false
   return lightAt(w, p) >= lightThreshold(w, viewer)

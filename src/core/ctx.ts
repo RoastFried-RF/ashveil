@@ -5,6 +5,8 @@ import type { Creature, GameState, LogEntry, Tile, TerrainDef } from './types'
 
 export const TU_PER_TURN = 100
 export const TURNS_PER_HOUR = 1200
+/** 1일차 18:00 — 해 질 녘에 도착 */
+export const START_TURN = 18 * TURNS_PER_HOUR
 export const TURNS_PER_DAY = TURNS_PER_HOUR * 24
 export const SECONDS_PER_TURN = 3
 

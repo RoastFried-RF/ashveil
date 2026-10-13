@@ -1,28 +1,314 @@
 [
-  { "defType": "Terrain", "id": "Terrain.Floor", "abstract": true, "label": "바닥", "sprites": [], "passable": true, "opaque": false, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.Grass", "parent": "Terrain.Floor", "label": "시든 풀", "sprites": ["grass0", "grass1", "grass2"] },
-  { "defType": "Terrain", "id": "Terrain.GrassDirt", "parent": "Terrain.Floor", "label": "풀 섞인 흙", "sprites": ["grassdirt0", "grassdirt1", "grassdirt2"] },
-  { "defType": "Terrain", "id": "Terrain.Dirt", "parent": "Terrain.Floor", "label": "흙", "sprites": ["dirt0", "dirt1", "dirt2"] },
-  { "defType": "Terrain", "id": "Terrain.Ash", "parent": "Terrain.Floor", "label": "재 쌓인 땅", "description": "발소리가 묻힌다.", "sprites": ["ash0", "ash1", "ash2", "ash3"], "noiseMult": 0.7 },
-  { "defType": "Terrain", "id": "Terrain.Road", "parent": "Terrain.Floor", "label": "갈라진 포장도로", "sprites": ["road0", "road1"], "noiseMult": 1.2 },
-  { "defType": "Terrain", "id": "Terrain.Concrete", "parent": "Terrain.Floor", "label": "콘크리트 바닥", "sprites": ["concrete0", "concrete1", "concrete2", "concrete3"], "noiseMult": 1.3 },
-  { "defType": "Terrain", "id": "Terrain.Rubble", "parent": "Terrain.Floor", "label": "잔해", "description": "걷기 어렵고 시끄럽다.", "sprites": ["rubble0", "rubble1", "rubble2"], "moveMult": 1.5, "noiseMult": 1.6 },
-  { "defType": "Terrain", "id": "Terrain.Mud", "parent": "Terrain.Floor", "label": "진흙", "description": "발이 빠진다. 이동이 느려진다.", "sprites": ["mud0", "mud1", "mud2", "mud3"], "moveMult": 1.5, "noiseMult": 0.8 },
-  { "defType": "Terrain", "id": "Terrain.ShallowWater", "parent": "Terrain.Floor", "label": "얕은 물", "description": "하반신이 젖는다. 마실 수는 있지만 깨끗하지 않다.", "sprites": ["water_shallow"], "moveMult": 2, "water": "shallow", "noiseMult": 1.5 },
-  { "defType": "Terrain", "id": "Terrain.DeepWater", "label": "깊은 물", "sprites": ["water_deep"], "passable": false, "opaque": false, "moveMult": 1, "water": "deep" },
-  { "defType": "Terrain", "id": "Terrain.Wall", "abstract": true, "label": "벽", "sprites": [], "passable": false, "opaque": true, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.BrickWall", "parent": "Terrain.Wall", "label": "무너진 벽돌벽", "sprites": ["wallbrick0", "wallbrick1", "wallbrick2", "wallbrick3"] },
-  { "defType": "Terrain", "id": "Terrain.StoneWall", "parent": "Terrain.Wall", "label": "석벽", "sprites": ["wallstone0", "wallstone1"] },
-  { "defType": "Terrain", "id": "Terrain.MetalWall", "parent": "Terrain.Wall", "label": "녹슨 개척기 외벽", "sprites": ["wallmetal"] },
-  { "defType": "Terrain", "id": "Terrain.Tree", "label": "죽어가는 나무", "sprites": ["tree0", "tree1", "tree2", "tree3"], "passable": false, "opaque": true, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.Boulder", "label": "바위", "sprites": ["boulder"], "passable": false, "opaque": false, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.Column", "label": "무너진 기둥", "sprites": ["column", "stump"], "passable": false, "opaque": false, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.DoorClosed", "label": "닫힌 문", "sprites": ["door_closed"], "passable": false, "opaque": true, "moveMult": 1, "door": "closed" },
-  { "defType": "Terrain", "id": "Terrain.DoorOpen", "label": "열린 문", "sprites": ["door_open"], "passable": true, "opaque": false, "moveMult": 1, "door": "open" },
-  { "defType": "Terrain", "id": "Terrain.Container", "abstract": true, "label": "용기", "sprites": [], "passable": false, "opaque": false, "moveMult": 1 },
-  { "defType": "Terrain", "id": "Terrain.Crate", "parent": "Terrain.Container", "label": "나무 상자", "sprites": ["crate_closed"], "container": "Loot.Crate" },
-  { "defType": "Terrain", "id": "Terrain.Locker", "parent": "Terrain.Container", "label": "녹슨 사물함", "sprites": ["locker"], "container": "Loot.Locker" },
-  { "defType": "Terrain", "id": "Terrain.Chest", "parent": "Terrain.Container", "label": "궤짝", "sprites": ["chest"], "container": "Loot.Chest" },
-  { "defType": "Terrain", "id": "Terrain.Remains", "parent": "Terrain.Floor", "label": "오래된 유골", "description": "재의 겨울 때 죽은 누군가.", "sprites": ["bones"], "container": "Loot.Remains" },
-  { "defType": "Terrain", "id": "Terrain.OpenedCrate", "parent": "Terrain.Container", "label": "뒤진 상자", "sprites": ["crate_open"] }
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Floor",
+    "abstract": true,
+    "label": "바닥",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.KtFloor",
+    "parent": "Terrain.Floor",
+    "label": "석판 바닥",
+    "floor": "kt",
+    "sprites": [],
+    "noiseMult": 1.2
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.CdFloor",
+    "parent": "Terrain.Floor",
+    "label": "오염된 석판",
+    "description": "갈라진 틈에서 무언가 맥동한다.",
+    "floor": "cd",
+    "sprites": [],
+    "noiseMult": 1.0
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Earth",
+    "parent": "Terrain.Floor",
+    "label": "젖은 흙",
+    "floor": "earth",
+    "sprites": [],
+    "noiseMult": 0.8
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Path",
+    "parent": "Terrain.Floor",
+    "label": "부서진 돌길",
+    "floor": "kt",
+    "sprites": [],
+    "noiseMult": 1.2
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Rubble",
+    "parent": "Terrain.Floor",
+    "label": "잔해",
+    "description": "걷기 어렵고 시끄럽다.",
+    "floor": "kt",
+    "sprites": [
+      "skull"
+    ],
+    "moveMult": 1.0,
+    "noiseMult": 1.6
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Wall",
+    "abstract": true,
+    "label": "벽",
+    "sprites": [],
+    "passable": false,
+    "opaque": true,
+    "moveMult": 1,
+    "wall": true
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.KtWall",
+    "parent": "Terrain.Wall",
+    "label": "수도원 석벽"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.RuinWall",
+    "parent": "Terrain.Wall",
+    "label": "무너진 담장"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Shelf",
+    "parent": "Terrain.Wall",
+    "label": "서가",
+    "description": "곰팡이 슨 책들. 대부분 읽을 수 없다."
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Tree",
+    "label": "말라 죽은 나무",
+    "sprites": [
+      "tree_dead"
+    ],
+    "passable": false,
+    "opaque": true,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Rock",
+    "label": "바위",
+    "sprites": [
+      "rock"
+    ],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Fungus",
+    "label": "버섯 무리",
+    "description": "장막 포자를 먹고 자란 버섯. 뒤지면 먹을 만한 것이 있을지도.",
+    "sprites": [
+      "mushrooms"
+    ],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "container": "Loot.Fungus"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.DoorClosed",
+    "label": "닫힌 문",
+    "sprites": [
+      "door_closed"
+    ],
+    "passable": false,
+    "opaque": true,
+    "moveMult": 1,
+    "door": "closed"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.DoorOpen",
+    "label": "열린 문",
+    "sprites": [
+      "door_open"
+    ],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "door": "open",
+    "floor": "kt"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.StairsDown",
+    "parent": "Terrain.Floor",
+    "label": "아래로 내려가는 계단",
+    "description": "> 키로 내려간다.",
+    "floor": "kt",
+    "sprites": [
+      "floor_stairs"
+    ],
+    "stairs": "down"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.StairsUp",
+    "parent": "Terrain.Floor",
+    "label": "위로 올라가는 계단",
+    "description": "< 키로 올라간다.",
+    "floor": "kt",
+    "sprites": [
+      "floor_ladder"
+    ],
+    "stairs": "up"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Container",
+    "abstract": true,
+    "label": "용기",
+    "sprites": [],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Chest",
+    "parent": "Terrain.Container",
+    "label": "궤짝",
+    "sprites": [
+      "chest0"
+    ],
+    "container": "Loot.Chest"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.RedChest",
+    "parent": "Terrain.Container",
+    "label": "붉은 궤짝",
+    "description": "묵직하다. 귀한 것이 들었을지도.",
+    "sprites": [
+      "chest_red0"
+    ],
+    "container": "Loot.Treasure"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Crate",
+    "parent": "Terrain.Container",
+    "label": "나무 상자",
+    "sprites": [
+      "crate0"
+    ],
+    "container": "Loot.Crate"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Pot",
+    "parent": "Terrain.Container",
+    "label": "항아리",
+    "sprites": [
+      "pot0",
+      "pot1",
+      "pot2"
+    ],
+    "container": "Loot.Pot"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Sarcophagus",
+    "parent": "Terrain.Container",
+    "label": "석관",
+    "description": "뚜껑이 무겁다. 여는 데 시간이 걸리고 소리가 난다.",
+    "sprites": [],
+    "container": "Loot.Sarcophagus"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Remains",
+    "parent": "Terrain.Floor",
+    "label": "오래된 유골",
+    "description": "재의 겨울 때 죽은 누군가.",
+    "floor": "kt",
+    "sprites": [
+      "skull"
+    ],
+    "container": "Loot.Remains"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Statue",
+    "label": "석상",
+    "description": "얼굴이 깎여 나간 순례자 석상.",
+    "sprites": [],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Column",
+    "label": "무너진 기둥",
+    "sprites": [],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Brazier",
+    "label": "화로",
+    "description": "아직 불씨가 남아 있다. 주변을 밝히고 데운다.",
+    "sprites": [
+      "brazier0"
+    ],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Campfire",
+    "label": "모닥불",
+    "description": "야영지의 불. 곁에서 쉬면 몸이 데워지고 옷이 마른다.",
+    "sprites": [
+      "torch_stand0"
+    ],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ShallowWater",
+    "parent": "Terrain.Floor",
+    "label": "고인 물",
+    "description": "하반신이 젖는다. 마실 수는 있지만 깨끗하지 않다.",
+    "floor": "kt",
+    "sprites": [],
+    "water": "shallow",
+    "noiseMult": 1.5
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.SarcoBlock",
+    "label": "석관",
+    "description": "순례회 고위 사제의 석관. 앞쪽에서 열 수 있다.",
+    "sprites": [],
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1
+  }
 ]

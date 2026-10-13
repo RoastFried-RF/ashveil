@@ -1,25 +1,55 @@
 // 헤드리스 밸런스용 단순 플레이어 봇. 사람처럼 잘하진 않지만 시스템이 돌아가는지 본다.
+// 지상 → 수도원 계단 → 지하 묘소를 탐색하며 상자를 뒤지고, 레벨업 포인트를 쓰고, 능력을 쓴다.
 
-import { adjacentContainer, hostile, type Action } from './actions'
-import { bloodLoss, effectiveBleed, part } from './body'
+import { abilityReady } from './abilities'
+import { adjacentContainer, hostile, lootItems, type Action } from './actions'
+import { bloodLoss, effectiveBleed, hpMax, part } from './body'
 import { canReach } from './combat'
-import { creatureAt, inBounds, player, terrainAt, turnOf, TURNS_PER_DAY, type World } from './ctx'
+import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
-import { itemDef, mainWeapon } from './items'
-import { isRaining } from './environment'
+import { allItems, countOf, currentAttack, itemDef, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
+import { abilitiesByTree, canLearn } from './progression'
+import type { Stats } from './types'
+
+const STAT_ORDER: (keyof Stats)[] = ['agi', 'str', 'vit', 'agi', 'per', 'vit', 'wil']
+let lastLootTurn = -1
 
 export function botDecide(w: World): Action {
   const pl = player(w)
-  const inv = pl.inventory
+  const inv = allItems(pl)
   const find = (pred: (d: ReturnType<typeof itemDef>) => boolean) => inv.find((i) => pred(itemDef(w, i)))
+
+  // 성장 포인트
+  if (pl.statPoints > 0) return { type: 'spendStat', stat: STAT_ORDER[(pl.level + pl.statPoints) % STAT_ORDER.length] }
+  if (pl.abilityPoints > 0) {
+    const skill = currentAttack(w, pl)?.skill
+    const trees = abilitiesByTree(w)
+    for (const tree of Object.keys(trees).sort((a, b) => Number(b === skill) - Number(a === skill))) {
+      const ab = trees[tree].find((d) => !canLearn(w, pl, d.id))
+      if (ab) return { type: 'learn', id: ab.id }
+    }
+  }
+  // 열린 루팅 창: 한 번 다 담고 닫는다
+  const list = lootItems(w)
+  if (list) {
+    if (list.length && lastLootTurn !== turnOf(w)) {
+      lastLootTurn = turnOf(w)
+      return { type: 'lootAll' }
+    }
+    return { type: 'lootClose' }
+  }
+
+  // 어두운 곳에서는 등불을 켠다
+  const lamp = inv.find((i) => !!itemDef(w, i).light)
+  if (lamp && !lamp.lit && (lamp.fuel ?? 0) > 0 && w.s.map.kind === 'dungeon') return { type: 'toggleLight', uid: lamp.uid }
 
   // 출혈 처치
   const bleeding = pl.body.wounds
     .filter((wd) => !wd.internal && effectiveBleed(w, pl, wd) > 1.2)
     .sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))
-  const enemies = w.s.creatures.filter((o) => o.alive && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
+  const enemies = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
   const adjacentEnemy = enemies.find((e) => cheb(e.pos, pl.pos) <= 1)
   if (bleeding.length && !adjacentEnemy) {
     const wd = bleeding[0]
@@ -37,6 +67,10 @@ export function botDecide(w: World): Action {
   const frac = pl.body.wounds.find((wd) => wd.fracture && !wd.splinted)
   const splint = find((d) => d.medical?.kind === 'splint')
   if (frac && splint && !adjacentEnemy) return { type: 'treat', uid: splint.uid, woundId: frac.id }
+  if (pl.hp < hpMax(w, pl) * 0.35) {
+    const draught = inv.find((i) => i.def === 'Item.HealthDraught')
+    if (draught) return { type: 'consume', uid: draught.uid }
+  }
 
   // 전투
   if (enemies.length) {
@@ -47,12 +81,19 @@ export function botDecide(w: World): Action {
       if (away !== null) return { type: 'move', dir: away }
     }
     const mw = mainWeapon(w, pl)
-    if (cheb(e.pos, pl.pos) <= 1 && mw && itemDef(w, mw).ranged) {
+    const ranged = !!(mw && itemDef(w, mw).ranged)
+    if (cheb(e.pos, pl.pos) <= 1 && ranged) {
       const melee = inv.find((i) => itemDef(w, i).category === 'weapon' && !itemDef(w, i).ranged)
       if (melee) return { type: 'equip', uid: melee.uid }
     }
-    if (!(mw && itemDef(w, mw).ranged && cheb(e.pos, pl.pos) > 1) && canReach(w, pl, e)) return { type: 'attack', target: e.id }
-    if (mw && itemDef(w, mw).ranged && inv.some((i) => i.def === itemDef(w, mw).ranged!.ammo)) return { type: 'shoot', target: e.id }
+    if (canReach(w, pl, e) && !(ranged && cheb(e.pos, pl.pos) > 1)) {
+      for (const id of pl.abilities) {
+        const d = w.db.ability(id)
+        if (d.kind === 'active' && d.attack && !abilityReady(w, pl, id)) return { type: 'ability', id, target: e.id }
+      }
+      return { type: 'attack', target: e.id }
+    }
+    if (ranged && countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0) return { type: 'shoot', target: e.id }
     const st = stepTo(w, e.pos)
     if (st !== null) return { type: 'move', dir: st }
     return { type: 'wait' }
@@ -69,28 +110,40 @@ export function botDecide(w: World): Action {
     if (DIRS.some((d) => { const p = { x: pl.pos.x + d.x, y: pl.pos.y + d.y }; return inBounds(w, p) && !!terrainAt(w, p).water })) return { type: 'drinkHere' }
     const water = nearest(w, (p) => terrainAt(w, p).water === 'shallow')
     if (water) { const st = stepTo(w, water); if (st !== null) return { type: 'move', dir: st } }
-  }
-  // 추위·비: 지붕 아래로
-  const here = w.s.map.tiles[pl.pos.y * w.s.map.w + pl.pos.x]
-  if (!here.roof && (pl.needs.bodyTemp < 36 || (isRaining(w) && pl.needs.wetness > 30))) {
-    const roof = nearest(w, (p) => w.s.map.tiles[p.y * w.s.map.w + p.x].roof && terrainAt(w, p).passable && !creatureAt(w, p))
-    if (roof) { const st = stepTo(w, roof); if (st !== null) return { type: 'move', dir: st } }
+    // 지하에는 물이 없다: 위층 계단으로 올라간다
+    const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
+    if (up && pl.needs.water < 600) {
+      if (eq(pl.pos, up.pos)) return { type: 'stairs' }
+      const st = stepTo(w, up.pos)
+      if (st !== null) return { type: 'move', dir: st }
+    }
   }
   if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35) return { type: 'sleep' }
-  if (pl.needs.bodyTemp < 36 && here.roof) return { type: 'rest', turns: 120 }
+  // 다쳤으면 다음 방으로 가기 전에 쉰다 (던전 탐험의 정석)
+  if (pl.hp < hpMax(w, pl) * 0.75 || bloodLoss(pl) > 0.12) return { type: 'rest', turns: 120 }
 
-  // 탐색
-  if (w.s.map.tiles[pl.pos.y * w.s.map.w + pl.pos.x].items.length) return { type: 'pickup' }
+  // 탐색: 바닥 → 용기 → 미발견 방 → 아래층
+  if (tileAt(w, pl.pos).items.length) return { type: 'pickup' }
   if (adjacentContainer(w, pl)) return { type: 'search' }
-  const cont = nearest(w, (p) => !!terrainAt(w, p).container && !w.s.map.tiles[p.y * w.s.map.w + p.x].searched)
+  // 레벨이 낮으면 약탈자 야영지는 피한다
+  const avoid = (p: Pos) => pl.level < 5 && w.s.map.rooms[tileAt(w, p).room ?? -1]?.type === 'camp'
+  const cont = nearest(w, (p) => !!terrainAt(w, p).container && !tileAt(w, p).searched && !!tileAt(w, p).seen && !avoid(p))
   if (cont) {
     const st = stepTo(w, cont)
     if (st !== null) return { type: 'move', dir: st }
   }
-  if (turnOf(w) > TURNS_PER_DAY * 2.5) {
-    const exit = w.s.map.exits[0]
-    if (eq(pl.pos, exit)) return { type: 'leave' }
-    const st = stepTo(w, exit)
+  const room = w.s.map.rooms
+    .filter((r) => !r.discovered && !(r.type === 'camp' && pl.level < 5))
+    .map((r) => ({ x: r.x + (r.w >> 1), y: r.y + (r.h >> 1) }))
+    .sort((a, b) => cheb(a, pl.pos) - cheb(b, pl.pos))[0]
+  if (room) {
+    const st = stepTo(w, room)
+    if (st !== null) return { type: 'move', dir: st }
+  }
+  const down = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsDown')
+  if (down) {
+    if (eq(pl.pos, down.pos)) return { type: 'stairs' }
+    const st = stepTo(w, down.pos)
     if (st !== null) return { type: 'move', dir: st }
   }
   return { type: 'rest', turns: 60 }
@@ -123,7 +176,7 @@ function stepAway(w: World, threats: Pos[]): number | null {
   let best: number | null = null, bs = -1
   for (let i = 0; i < 8; i++) {
     const p = { x: pl.pos.x + DIRS[i].x, y: pl.pos.y + DIRS[i].y }
-    if (p.x < 0 || p.y < 0 || p.x >= w.s.map.w || p.y >= w.s.map.h) continue
+    if (!inBounds(w, p)) continue
     if (!terrainAt(w, p).passable || creatureAt(w, p) || diagonalBlocked(w, pl.pos, DIRS[i].x, DIRS[i].y)) continue
     const s = Math.min(...threats.map((t) => cheb(t, p)))
     if (s > bs) { bs = s; best = i }

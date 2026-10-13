@@ -2,7 +2,7 @@
 // 엔진 독립: 입력은 순수 JSON 객체, 파일 시스템/번들러에 의존하지 않음.
 
 import type {
-  AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
+  AbilityDef, AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
   SkillDef, TerrainDef, ThoughtDef, TraitDef, BackgroundDef, WoundDef,
 } from './types'
 
@@ -174,7 +174,7 @@ const REQUIRED: Record<string, string[]> = {
   Body: ['bloodMl', 'parts'],
   Wound: ['label', 'bleedPerSeverity', 'painPerSeverity', 'infectionChance', 'healPerDay', 'clotPerTurn'],
   Item: ['label', 'sprite', 'category', 'weight'],
-  Creature: ['label', 'sprite', 'body', 'faction', 'moveTU', 'stats', 'skills', 'ai', 'morale', 'lightThreshold', 'sightRange'],
+  Creature: ['label', 'body', 'faction', 'moveTU', 'stats', 'skills', 'ai', 'morale', 'lightThreshold', 'sightRange'],
   Terrain: ['label', 'sprites', 'passable', 'opaque', 'moveMult'],
   LootTable: ['rolls', 'entries'],
   Trait: ['label', 'description'],
@@ -183,6 +183,7 @@ const REQUIRED: Record<string, string[]> = {
   Event: ['label', 'cost', 'weight'],
   PillEffect: ['label', 'description', 'effect', 'durationTurns'],
   Skill: ['label'],
+  Ability: ['label', 'description', 'tree', 'tier', 'kind', 'icon'],
 }
 
 export class DefDatabase {
@@ -220,6 +221,7 @@ export class DefDatabase {
   event(id: string) { return this.get<EventDef>(id) }
   pill(id: string) { return this.get<PillEffectDef>(id) }
   skill(id: string) { return this.get<SkillDef>(id) }
+  ability(id: string) { return this.get<AbilityDef>(id) }
 }
 
 export function loadMods(pkgs: ModPackage[], enabled?: string[]): { db: DefDatabase; report: LoadReport } {
@@ -288,6 +290,7 @@ export function loadMods(pkgs: ModPackage[], enabled?: string[]): { db: DefDatab
     const req = REQUIRED[d.defType as string]
     if (!req) report.warnings.push(`알 수 없는 defType '${String(d.defType)}' (${String(d.id)})`)
     else for (const f of req) if (!(f in d)) report.errors.push(`${String(d.id)}: 필수 필드 '${f}' 없음`)
+    if (d.defType === 'Creature' && !('sprite' in d) && !('char' in d)) report.errors.push(`${String(d.id)}: 'sprite' 또는 'char' 필요`)
     final.push(d as unknown as AnyDef)
   }
   const db = new DefDatabase(final, report.order)
@@ -308,7 +311,11 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   }
   for (const l of db.all<LootTableDef>('LootTable')) for (const e of l.entries) need(l.id, e.item, 'Item')
   for (const t of db.all<TerrainDef>('Terrain')) need(t.id, t.container, 'LootTable')
-  for (const b of db.all<BackgroundDef>('Background')) for (const it of b.startItems) need(b.id, it, 'Item')
+  for (const b of db.all<BackgroundDef>('Background')) {
+    for (const it of b.startItems) need(b.id, it, 'Item')
+    for (const a of b.startAbilities ?? []) need(b.id, a, 'Ability')
+  }
+  for (const a of db.all<AbilityDef>('Ability')) for (const r of a.requires ?? []) need(a.id, r, 'Ability')
   for (const e of db.all<EventDef>('Event')) for (const s of e.spawn ?? []) need(e.id, s.creature, 'Creature')
   for (const i of db.all<ItemDef>('Item')) need(i.id, i.ranged?.ammo, 'Item')
   for (const b of db.all<BodyDef>('Body')) {

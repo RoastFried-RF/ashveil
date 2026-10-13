@@ -1,17 +1,378 @@
 [
-  { "defType": "LootTable", "id": "Loot.Crate", "rolls": [1, 3], "entries": [
-    { "item": "Item.Hardtack", "weight": 4, "count": [1, 2] }, { "item": "Item.Jerky", "weight": 3 }, { "item": "Item.CannedMeat", "weight": 2 },
-    { "item": "Item.DriedApple", "weight": 2, "count": [1, 2] }, { "item": "Item.Cloth", "weight": 4, "count": [1, 3] }, { "item": "Item.Splint", "weight": 1 },
-    { "item": "Item.Arrow", "weight": 2, "count": [2, 5] }, { "item": "Item.PipeClub", "weight": 1 }, { "item": "Item.DirtyWaterBottle", "weight": 1 } ] },
-  { "defType": "LootTable", "id": "Loot.Locker", "rolls": [1, 2], "entries": [
-    { "item": "Item.Bandage", "weight": 3, "count": [1, 2] }, { "item": "Item.Painkiller", "weight": 1 }, { "item": "Item.Tourniquet", "weight": 1 },
-    { "item": "Item.Gloves", "weight": 2 }, { "item": "Item.Hood", "weight": 2 }, { "item": "Item.PaddedJacket", "weight": 1 }, { "item": "Item.Boots", "weight": 1 },
-    { "item": "Item.OilclothCloak", "weight": 1 }, { "item": "Item.Moonshine", "weight": 2 }, { "item": "Item.Lantern", "weight": 1 },
-    { "item": "Item.PillYellow", "weight": 1 }, { "item": "Item.PillBlue", "weight": 1 }, { "item": "Item.PillWhite", "weight": 1 } ] },
-  { "defType": "LootTable", "id": "Loot.Chest", "rolls": [1, 2], "entries": [
-    { "item": "Item.ScrapMail", "weight": 1 }, { "item": "Item.ScrapHelmet", "weight": 2 }, { "item": "Item.Hatchet", "weight": 2 }, { "item": "Item.RebarSpear", "weight": 2 },
-    { "item": "Item.HuntingKnife", "weight": 2 }, { "item": "Item.ScrapBuckler", "weight": 2 }, { "item": "Item.Bow", "weight": 1 }, { "item": "Item.LeatherCoat", "weight": 1 } ] },
-  { "defType": "LootTable", "id": "Loot.Remains", "rolls": [0, 2], "entries": [
-    { "item": "Item.PillBlack", "weight": 1 }, { "item": "Item.PillGreen", "weight": 1 }, { "item": "Item.PillMagenta", "weight": 1 }, { "item": "Item.PillYellow", "weight": 1 },
-    { "item": "Item.RustyKnife", "weight": 2 }, { "item": "Item.Cloth", "weight": 2 }, { "item": "Item.Moonshine", "weight": 1 }, { "item": "Item.CannedMeat", "weight": 1 } ] }
+  {
+    "defType": "LootTable",
+    "id": "Loot.Crate",
+    "rolls": [
+      1,
+      3
+    ],
+    "entries": [
+      {
+        "item": "Item.Hardtack",
+        "weight": 4,
+        "count": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "Item.Jerky",
+        "weight": 3
+      },
+      {
+        "item": "Item.CannedMeat",
+        "weight": 2
+      },
+      {
+        "item": "Item.DriedApple",
+        "weight": 2,
+        "count": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "Item.Cloth",
+        "weight": 4,
+        "count": [
+          1,
+          3
+        ]
+      },
+      {
+        "item": "Item.Splint",
+        "weight": 1
+      },
+      {
+        "item": "Item.Arrow",
+        "weight": 2,
+        "count": [
+          2,
+          5
+        ]
+      },
+      {
+        "item": "Item.PipeClub",
+        "weight": 1
+      },
+      {
+        "item": "Item.DirtyWaterBottle",
+        "weight": 1
+      },
+      {
+        "item": "Item.LampOil",
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Locker",
+    "rolls": [
+      1,
+      2
+    ],
+    "entries": [
+      {
+        "item": "Item.Bandage",
+        "weight": 3,
+        "count": [
+          1,
+          2
+        ]
+      },
+      {
+        "item": "Item.Painkiller",
+        "weight": 1
+      },
+      {
+        "item": "Item.Tourniquet",
+        "weight": 1
+      },
+      {
+        "item": "Item.Gloves",
+        "weight": 2
+      },
+      {
+        "item": "Item.Hood",
+        "weight": 2
+      },
+      {
+        "item": "Item.PaddedJacket",
+        "weight": 1
+      },
+      {
+        "item": "Item.Boots",
+        "weight": 1
+      },
+      {
+        "item": "Item.OilclothCloak",
+        "weight": 1
+      },
+      {
+        "item": "Item.Moonshine",
+        "weight": 2
+      },
+      {
+        "item": "Item.Lantern",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillYellow",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillBlue",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillWhite",
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Chest",
+    "rolls": [
+      1,
+      2
+    ],
+    "entries": [
+      {
+        "item": "Item.ScrapMail",
+        "weight": 1
+      },
+      {
+        "item": "Item.ScrapHelmet",
+        "weight": 2
+      },
+      {
+        "item": "Item.Hatchet",
+        "weight": 2
+      },
+      {
+        "item": "Item.RebarSpear",
+        "weight": 2
+      },
+      {
+        "item": "Item.HuntingKnife",
+        "weight": 2
+      },
+      {
+        "item": "Item.ScrapBuckler",
+        "weight": 2
+      },
+      {
+        "item": "Item.Bow",
+        "weight": 1
+      },
+      {
+        "item": "Item.LeatherCoat",
+        "weight": 1
+      },
+      {
+        "item": "Item.LampOil",
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Remains",
+    "rolls": [
+      0,
+      2
+    ],
+    "entries": [
+      {
+        "item": "Item.PillBlack",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillGreen",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillMagenta",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillYellow",
+        "weight": 1
+      },
+      {
+        "item": "Item.RustyKnife",
+        "weight": 2
+      },
+      {
+        "item": "Item.Cloth",
+        "weight": 2
+      },
+      {
+        "item": "Item.Moonshine",
+        "weight": 1
+      },
+      {
+        "item": "Item.CannedMeat",
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Pot",
+    "rolls": [
+      0,
+      1
+    ],
+    "entries": [
+      {
+        "item": "Item.Cloth",
+        "weight": 3
+      },
+      {
+        "item": "Item.Hardtack",
+        "weight": 2
+      },
+      {
+        "item": "Item.DriedApple",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillBlue",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillMagenta",
+        "weight": 1
+      },
+      {
+        "item": "Item.Arrow",
+        "weight": 1,
+        "count": [
+          2,
+          5
+        ]
+      },
+      {
+        "item": "Item.LampOil",
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Sarcophagus",
+    "rolls": [
+      1,
+      3
+    ],
+    "entries": [
+      {
+        "item": "Item.BoneCharm",
+        "weight": 2
+      },
+      {
+        "item": "Item.SealRing",
+        "weight": 2
+      },
+      {
+        "item": "Item.PillBlack",
+        "weight": 2
+      },
+      {
+        "item": "Item.PillWhite",
+        "weight": 2
+      },
+      {
+        "item": "Item.HealthDraught",
+        "weight": 2
+      },
+      {
+        "item": "Item.RustyKnife",
+        "weight": 1
+      },
+      {
+        "item": "Item.Moonshine",
+        "weight": 1
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Treasure",
+    "rolls": [
+      2,
+      3
+    ],
+    "entries": [
+      {
+        "item": "Item.ScrapMail",
+        "weight": 1
+      },
+      {
+        "item": "Item.ScrapHelmet",
+        "weight": 2
+      },
+      {
+        "item": "Item.Hatchet",
+        "weight": 2
+      },
+      {
+        "item": "Item.RebarSpear",
+        "weight": 2
+      },
+      {
+        "item": "Item.HuntingKnife",
+        "weight": 2
+      },
+      {
+        "item": "Item.Bow",
+        "weight": 1
+      },
+      {
+        "item": "Item.SealRing",
+        "weight": 1
+      },
+      {
+        "item": "Item.HealthDraught",
+        "weight": 3
+      },
+      {
+        "item": "Item.Painkiller",
+        "weight": 2
+      },
+      {
+        "item": "Item.Tourniquet",
+        "weight": 2
+      },
+      {
+        "item": "Item.LampOil",
+        "weight": 2
+      }
+    ]
+  },
+  {
+    "defType": "LootTable",
+    "id": "Loot.Fungus",
+    "rolls": [
+      0,
+      2
+    ],
+    "entries": [
+      {
+        "item": "Item.RawMeat",
+        "weight": 0
+      },
+      {
+        "item": "Item.DriedApple",
+        "weight": 1
+      },
+      {
+        "item": "Item.PillGreen",
+        "weight": 1
+      }
+    ]
+  }
 ]

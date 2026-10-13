@@ -1,13 +1,30 @@
 # 크레딧
 
+라이선스는 각 itch.io 페이지에서 2026-10-13 KST에 확인했다. 원본 팩(zip)은 저장소에 넣지 않는다. 게임에 쓰는 부분만 `tools/art/build-sprites.py`로 잘라 낸 시트(`public/sprites/`)만 포함한다.
+
+> 주의: 이 저장소는 비공개(2026-10-13 기준)다. 공개로 돌리면 잘라 낸 시트도 "팩 재배포"로 읽힐 수 있으므로, 그때는 `public/sprites/`를 저장소에서 빼고 빌드 단계에서 원본 팩으로부터 생성한다.
+
 ## 그래픽
 
-- **Dungeon Crawl Stone Soup 32×32 tiles** — CC0 (퍼블릭 도메인)
-  - 출처: https://opengameart.org/content/dungeon-crawl-32x32-tiles (확인일 2026-10-13)
-  - 라이선스 원문: `public/tiles/LICENSE-CC0.txt`
-  - 가공: 지형 타일 채도·밝기 조정(`tools/art/ashen.py`), 재/도로 타일 레벨 조정(`tools/art/ash_levels.py`). 원본 팩에서 다시 만들 때는 두 스크립트를 이 순서로 한 번씩 적용한다.
-  - CC0이므로 표기 의무는 없지만 감사의 뜻으로 남긴다.
+| 팩 | 제작자 | 라이선스 요지 | 쓰는 곳 |
+|---|---|---|---|
+| [Knowledge Temple](https://pingupollas.itch.io/knowledge-temple) | [pingupollas](https://pingupollas.itch.io/) | 상업 이용 가능, **이름 + itch.io 링크 표기 의무**(원본·수정본 모두), 리소스 팩 형태 재배포·판매 금지, 수정 허용 | 석판 바닥, 벽·서가, 이끼, 석상·석관·항아리·사슬, 화로 애니메이션 (분위기 기준) |
+| [Crawling Depths](https://pingupollas.itch.io/crawling-depths) | [pingupollas](https://pingupollas.itch.io/) | 위와 같음 (**표기 의무**, 팩 재배포 금지) | 오염된 방 바닥, 맥동하는 혈관·눈 소품, 융합체(보스) |
+| [Damp Dungeons](https://arex-v.itch.io/damp-dungeons) | arex-v | 상업 이용·수정 허용, 재판매 금지 (표기 의무 명시 없음 — 감사 표기) | 캐릭터(주인공·약탈자 팔레트 교체·그늘 사람·말라붙은 자·포자 인간), 상자·궤짝·횃불·문 |
+| [Dark World](https://kaishido.itch.io/dark-world) | kaishido | CC0 1.0 | 마른 나무, 바위, 버섯 무리 |
+| [16×16 Dark Dungeon](https://kosinaz.itch.io/16x16-dark-dungeon-tileset) | kosinaz | CC0 1.0 | 현재 빌드에서는 미사용 (받아 두었으나 KT 톤과 겹쳐 보류, 후속 후보) |
+| [Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) | 0x72 | CC0 1.0 (코드 MIT) | 계단·사다리·해골 바닥 장식 |
+| [Dark Ages UI](https://hypnobius.itch.io/dark-ages-ui) | hypnobius | 상업 이용 가능, 표기는 선택, 원본·수정본 팩 재배포·판매 금지, NFT·AI 학습 금지 | 창 테두리·슬롯·버튼·막대 (글자·수치는 Vue에서 한국어로 그림) |
+| [Dungeon Crawl Stone Soup 32×32](https://opengameart.org/content/dungeon-crawl-32x32-tiles) | DCSS 기여자 | CC0 | 아이템·능력 아이콘, 지상 풀·흙·피 자국 |
+
+- DCSS 지형 타일 가공: 채도·밝기 조정(`tools/art/ashen.py`), 재/도로 레벨 조정(`tools/art/ash_levels.py`).
+- 약탈자 색 교체·말라붙은 자 탈색 등 팔레트 가공: `tools/art/build-sprites.py`.
+- 표기 의무가 있는 Knowledge Temple·Crawling Depths는 타이틀 화면 하단에도 이름과 링크를 표시한다. 스팀 출시 때는 크레딧 화면과 스토어 설명에 같은 문구를 넣는다.
+
+## 글꼴
+
+- [Gowun Batang](https://fonts.google.com/specimen/Gowun+Batang) — SIL Open Font License 1.1 (Google Fonts)
 
 ## 영감
 
-- Stoneshard (Ink Stains Games), RimWorld (Ludeon Studios) — 시스템 설계와 장르 구조만 참고. 고유명사·설정·에셋은 사용하지 않는다.
+- 두 상업 게임(하드코어 턴제 던전 RPG, 콜로니 시뮬레이션)의 시스템 구조만 참고했다. 고유명사·설정·에셋은 쓰지 않는다.

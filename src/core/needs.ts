@@ -1,6 +1,6 @@
 // 생존(열량·수분·비타민·피로·체온·젖음·기력)과 기분(사고 스택·스트레스)
 
-import { capacity, painTotal, totalBleed } from './body'
+import { capacity, energyMax, painTotal, regionPenalties, totalBleed } from './body'
 import { clamp, log, rng, turnOf, TURNS_PER_DAY, tileAt, terrainAt, type World } from './ctx'
 import { ambientTemp, daylight, isRaining } from './environment'
 import { apparelItems } from './items'
@@ -15,22 +15,15 @@ export function newNeeds() {
   return { kcal: 1800, water: 1800, vitamin: 60, fatigue: 20, bodyTemp: 37, wetness: 0, stamina: 100, stress: 10 }
 }
 
-/** 의복 단열 (젖음 반영) */
+/** 의복 단열 (젖음 반영). 모든 사람은 기본 옷(단열 2)을 입고 있다 */
 export function insulation(w: World, c: Creature): number {
   const cdef = w.db.creature(c.def)
-  let ins = cdef.insulation ?? 0
-  const items = apparelItems(w, c)
   const wetFactor = 1 - (0.7 * c.needs.wetness) / 100
-  let hasMidTorso = false
-  for (const { def } of items) {
+  const waterproof = hasWaterproof(w, c)
+  let ins = cdef.insulation ?? (cdef.body === 'Body.Humanoid' ? 2 * (waterproof ? 1 : wetFactor) : 0)
+  for (const { def } of apparelItems(w, c)) {
     const ap = def.apparel!
-    if (ap.layer <= 1 && ap.groups.includes('torso')) hasMidTorso = true
-  }
-  for (const { def } of items) {
-    const ap = def.apparel!
-    ins += ap.insulation * (ap.waterproof ? 1 : wetFactor)
-    // 금속 갑옷을 내피 없이 입으면 냉기가 스민다
-    if (ap.insulation < 0 && !hasMidTorso) ins -= 2
+    ins += ap.insulation * (ap.waterproof || waterproof ? 1 : wetFactor)
   }
   return Math.round(ins * 10) / 10
 }
@@ -65,13 +58,17 @@ export function needsTick(w: World, c: Creature, sleeping: boolean) {
   else if (!hasEffect(c, 'stimulant', turn)) n.fatigue = Math.min(100, n.fatigue + 100 / 19200 * (c.exerted ? 1.5 : 1))
   if (hasEffect(c, 'sedative', turn)) n.fatigue = Math.min(100, n.fatigue + 0.02)
 
-  // 기력
+  // 기력 (행동하지 않은 턴에 회복)
+  const emax = energyMax(w, c)
   if (!c.exerted) {
-    let regen = 2.5 * capacity(w, c, 'breathing')
+    let regen = 1.5 * capacity(w, c, 'breathing') * regionPenalties(w, c).energyRegen
     if (n.fatigue > 80) regen *= 0.5
     if (n.kcal < 0) regen *= 0.5
-    n.stamina = Math.min(100, n.stamina + regen)
+    if (hasEffect(c, 'spores', turn)) regen = 0
+    if (sleeping) regen *= 2
+    n.stamina = Math.min(emax, n.stamina + regen)
   }
+  if (n.stamina > emax) n.stamina = emax
 
   // 젖음
   const t = tileAt(w, c.pos)

@@ -2,11 +2,11 @@
 
 import { hostile, type Action } from './actions'
 import { bloodLoss, capacity, totalBleed } from './body'
-import { canReach, facingRelation } from './combat'
+import { canReach, facingRelation, fx, wake } from './combat'
 import { creatureAt, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
-import { itemDef, mainWeapon } from './items'
+import { countOf, itemDef, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
 import { emitNoise, smells } from './perception'
 import type { Creature } from './types'
@@ -104,6 +104,17 @@ export function aiDecide(w: World, c: Creature): Action {
   const pl = player(w)
   const ai = c.ai
 
+  // 잠든 적: 인기척에 깬다 (잠행이면 잘 안 깬다)
+  if (c.asleep) {
+    const d = cheb(pl.pos, c.pos)
+    if (pl.alive && d <= 3) {
+      const p = pl.sneaking ? (d <= 1 ? 0.12 : 0.02) : d <= 1 ? 0.6 : d <= 2 ? 0.25 : 0.08
+      if (r.chance(p)) wake(w, c, '인기척')
+    }
+    if (c.asleep) return { type: 'wait' }
+  }
+  const isGuard = cdef.ai === 'guard' || cdef.ai === 'boss'
+
   // 사기 회복 (위협이 없을 때)
   const threats = visibleHostiles(w, c)
   if (!threats.length) ai.morale = Math.min(cdef.morale, ai.morale + 0.3)
@@ -140,8 +151,7 @@ export function aiDecide(w: World, c: Creature): Action {
       ai.mode = 'surrender'
       const mw = mainWeapon(w, c)
       if (mw) {
-        c.equipment.main = undefined
-        c.inventory = c.inventory.filter((i) => i.uid !== mw.uid)
+        c.equip.main = undefined
         tileAt(w, c.pos).items.push(mw)
       }
       if (canSee(w, pl, c.pos)) log(w, 'warn', `${c.name}이(가) 무기를 내던지고 무릎을 꿇는다. "살려줘…!"`)
@@ -161,7 +171,7 @@ export function aiDecide(w: World, c: Creature): Action {
 
   // 목표 선택
   let target: Creature | undefined
-  const wantsFight = cdef.ai === 'raider'
+  const wantsFight = cdef.ai === 'raider' || isGuard
     || (cdef.ai === 'packHunter' && (ai.hunger > 0.4 || (ai.alertTurn !== undefined && turn - ai.alertTurn < 200)))
     || (cdef.ai === 'skittish' && (ai.alertTurn !== undefined && turn - ai.alertTurn < 50))
   if (threats.length) {
@@ -177,7 +187,7 @@ export function aiDecide(w: World, c: Creature): Action {
   }
 
   // 배고픈 짐승: 고기가 보이면 먼저 먹는다
-  if (cdef.ai !== 'raider' && ai.hunger > 0.3) {
+  if ((cdef.ai === 'packHunter' || cdef.ai === 'skittish') && ai.hunger > 0.3) {
     const nearThreat = threats.some((t) => cheb(t.pos, c.pos) <= 2)
     if (!nearThreat) {
       const here = tileAt(w, c.pos).items.some((i) => itemDef(w, i).food?.raw)
@@ -195,7 +205,18 @@ export function aiDecide(w: World, c: Creature): Action {
     }
   }
 
+  // 거점 경비는 일정 거리 이상 쫓지 않는다 (보스 7칸, 경비 14칸)
+  if (target && c.home && (cdef.ai === 'boss' || cdef.ai === 'guard') && cheb(target.pos, c.home) > (cdef.ai === 'boss' ? 7 : 14)) {
+    target = undefined
+    if (ai.mode === 'hunt') { ai.mode = 'return'; ai.path = undefined }
+  }
   if (target) {
+    if (ai.mode !== 'hunt' && isGuard && turn - (ai.alertTurn ?? -999) > 20) {
+      ai.alertTurn = turn
+      emitNoise(w, c.pos, 6, c.id) // 가까운 동료만 깨운다
+      fx(w, { k: 'status', id: c.id, text: '!', color: '#ff5050', turn })
+      if (canSee(w, pl, c.pos)) log(w, 'warn', cdef.ai === 'boss' ? `${c.name}이(가) 꿈틀거리며 몸을 일으킨다. 방 전체가 울린다.` : `${c.name}이(가) 당신을 발견했다.`)
+    }
     if (ai.mode !== 'hunt' && cdef.ai === 'packHunter') {
       emitNoise(w, c.pos, 12, c.id) // 짖어서 무리를 부른다
       if (canSee(w, pl, c.pos)) log(w, 'warn', `${c.name}이(가) 이빨을 드러내고 짖는다.`)
@@ -206,7 +227,7 @@ export function aiDecide(w: World, c: Creature): Action {
     // 원거리 무기
     const mw = mainWeapon(w, c)
     if (mw && itemDef(w, mw).ranged && cheb(c.pos, target.pos) > 1) {
-      if (c.inventory.some((i) => i.def === itemDef(w, mw).ranged!.ammo)) return { type: 'shoot', target: target.id }
+      if (countOf(c, itemDef(w, mw).ranged!.ammo) > 0) return { type: 'shoot', target: target.id }
     }
     if (canReach(w, c, target)) return { type: 'attack', target: target.id }
     if (cdef.ai === 'packHunter') {
@@ -241,6 +262,22 @@ export function aiDecide(w: World, c: Creature): Action {
       if (st) return st
       ai.mode = 'wander'
     }
+  }
+
+  // 경비형: 거점 근처에 머문다
+  if (isGuard && c.home) {
+    if (cheb(c.pos, c.home) > 5) {
+      ai.mode = 'return'
+      const st = stepToward(w, c, c.home)
+      if (st) return st
+    }
+    ai.mode = 'guard'
+    if (r.chance(0.15)) {
+      const d = DIRS[r.int(0, 7)]
+      const p = { x: c.pos.x + d.x, y: c.pos.y + d.y }
+      if (cheb(p, c.home) <= 3 && freeStep(w, c, p, d)) return { type: 'move', dir: DIRS.indexOf(d) }
+    }
+    return { type: 'wait' }
   }
 
   // 배회

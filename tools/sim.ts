@@ -20,8 +20,9 @@ for (let i = 0; i < runs; i++) {
   const s = newGame(db, { seed })
   const w: World = { db, s }
   runUntilInput(w)
+  const t0turn = turnOf(w)
   let guard = 0
-  while (!s.over && turnOf(w) < TURNS_PER_DAY * maxDays + 8 * 1200 && guard++ < 150000) {
+  while (!s.over && turnOf(w) - t0turn < TURNS_PER_DAY * maxDays && guard++ < 150000) {
     const err = playerAct(w, botDecide(w))
     if (err) playerAct(w, { type: 'wait' })
   }
@@ -29,9 +30,9 @@ for (let i = 0; i < runs; i++) {
   const key = s.over ? (s.over.kind === 'escape' ? '탈출' : s.over.report.cause) : '생존(시간 종료)'
   if (s.over?.kind === 'escape') escapes++
   causes[key] = (causes[key] ?? 0) + 1
-  const d = turnOf(w) / TURNS_PER_DAY - 8 / 24
+  const d = (turnOf(w) - t0turn) / TURNS_PER_DAY
   days.push(d)
-  console.log(`${seed}: ${key} · ${d.toFixed(2)}일 · ${pl.background} · 사건 ${s.storyteller.history.map((h) => h.event.replace('Event.', '')).join(',') || '-'}`)
+  console.log(`${seed}: ${key} · ${d.toFixed(2)}일 · Lv${pl.level} · ${s.map.id} · ${pl.background} · 사건 ${s.storyteller.history.map((h) => h.event.replace('Event.', '')).join(',') || '-'}`)
 }
 const avg = days.reduce((a, b) => a + b, 0) / days.length
 console.log('\n── 집계 ──')

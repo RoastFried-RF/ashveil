@@ -3,7 +3,7 @@
 import { capacity, totalBleed } from './body'
 import { isOpaque, log, player, turnOf, type World } from './ctx'
 import { cheb, dirIndex, DIR_LABELS, line, type Pos } from './geom'
-import { itemDef } from './items'
+import { allItems, itemDef } from './items'
 import type { Creature } from './types'
 
 export function emitNoise(w: World, pos: Pos, radius: number, sourceId: number) {
@@ -11,8 +11,11 @@ export function emitNoise(w: World, pos: Pos, radius: number, sourceId: number) 
   w.s.noiseEvents.push({ pos: { ...pos }, radius, source: sourceId, turn })
   if (w.s.noiseEvents.length > 30) w.s.noiseEvents.shift()
   const pl = player(w)
+  const src = w.s.creatures.find((o) => o.id === sourceId)
   for (const c of w.s.creatures) {
     if (!c.alive || c.unconscious || c.id === sourceId) continue
+    // 동료의 발소리·일상 소음은 무시한다 (경보 외침은 radius ≥ 6)
+    if (src && src.faction === c.faction && radius < 6) continue
     const d = cheb(c.pos, pos)
     if (d > radius) continue
     let walls = 0
@@ -26,7 +29,14 @@ export function emitNoise(w: World, pos: Pos, radius: number, sourceId: number) 
       }
       continue
     }
-    if (c.ai.mode === 'idle' || c.ai.mode === 'wander' || c.ai.mode === 'investigate') {
+    if (c.asleep) {
+      if (d <= eff / 2) {
+        c.asleep = false
+        c.ai.alertTurn = turnOf(w)
+        w.s.fx.push({ k: 'status', id: c.id, text: '!', color: '#ffd060', turn: turnOf(w) })
+      } else continue
+    }
+    if (c.ai.mode === 'idle' || c.ai.mode === 'wander' || c.ai.mode === 'investigate' || c.ai.mode === 'guard' || c.ai.mode === 'return') {
       c.ai.mode = 'investigate'
       c.ai.dest = { ...pos }
       c.ai.path = undefined
@@ -37,7 +47,7 @@ export function emitNoise(w: World, pos: Pos, radius: number, sourceId: number) 
 /** 냄새 세기: 외부 출혈 + 들고 있는 날고기 등 */
 export function scentStrength(w: World, c: Creature): number {
   let s = totalBleed(w, c, true)
-  for (const it of c.inventory) s += (itemDef(w, it).food?.scent ?? 0) * it.count
+  for (const it of allItems(c)) s += (itemDef(w, it).food?.scent ?? 0) * it.count
   return s
 }
 

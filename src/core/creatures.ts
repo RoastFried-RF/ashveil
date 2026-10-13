@@ -1,6 +1,6 @@
-// 생물 생성: 플레이어(배경·특성)와 NPC(로드아웃)
+// 생물 생성: 플레이어(배경·특성·시작 능력)와 NPC(로드아웃·잠듦·거점)
 
-import { createBody } from './body'
+import { createBody, energyMax, hpMax } from './body'
 import { creatureAt, terrainAt, rng, inBounds, type World } from './ctx'
 import type { Pos } from './geom'
 import { addToInventory, equip, itemDef, makeItem } from './items'
@@ -13,12 +13,13 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
   const def = w.db.creature(defId)
   const r = rng(w, 'world')
   const body = createBody(w.db.body(def.body), def)
-  const sprites = Array.isArray(def.sprite) ? def.sprite : [def.sprite]
+  const chars = def.char ? (Array.isArray(def.char) ? def.char : [def.char]) : []
+  const sprites = def.sprite ? (Array.isArray(def.sprite) ? def.sprite : [def.sprite]) : [defId]
   const c: Creature = {
     id: w.s.nextId++,
     def: defId,
     name: name ?? def.label,
-    sprite: r.pick(sprites),
+    sprite: chars.length ? r.pick(chars) : r.pick(sprites),
     pos: { ...pos },
     facing: r.int(0, 7),
     faction: def.faction,
@@ -33,26 +34,34 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
     needs: newNeeds(),
     effects: [],
     thoughts: [],
-    inventory: [],
-    equipment: { apparel: [] },
+    bag: [],
+    equip: {},
+    hotbar: new Array(10).fill(null),
+    hp: 1,
+    level: 1,
+    xp: 0,
+    statPoints: 0,
+    abilityPoints: 0,
+    abilities: [],
+    cooldowns: {},
     ai: {
-      mode: 'wander',
+      mode: def.ai === 'guard' || def.ai === 'boss' ? 'guard' : 'wander',
       hunger: def.hunger ? r.range(def.hunger[0], def.hunger[1]) : 0.3,
       morale: def.morale,
     },
     exerted: false,
     history: [],
   }
-  // 능력치 편차
   for (const k of Object.keys(c.stats) as (keyof typeof c.stats)[]) c.stats[k] = Math.max(3, c.stats[k] + r.int(-1, 1))
-  // 로드아웃
   for (const slot of def.loadout?.slots ?? []) {
     if (slot.chance !== undefined && !r.chance(slot.chance)) continue
     const it = makeItem(w, r.pick(slot.items))
     addToInventory(w, c, it)
     const idef = itemDef(w, it)
-    if (idef.apparel || idef.category === 'weapon' || idef.category === 'shield') equip(w, c, it.uid)
+    if (idef.slot && !c.equip[idef.slot === 'ring' ? 'ring1' : idef.slot]) equip(w, c, it.uid)
   }
+  c.hp = hpMax(w, c)
+  c.needs.stamina = energyMax(w, c)
   return c
 }
 
@@ -79,22 +88,31 @@ export function createPlayer(w: World, pos: Pos, bgId?: string): Creature {
   c.passions = { ...(bg.passions ?? {}) }
   c.literate = bg.literate
   c.traits = pickTraits(w, bg, 2 + (r.chance(0.3) ? 1 : 0))
-  c.facing = 2
+  c.facing = 0
   c.nextAct = w.s.time
-  c.inventory = []
-  c.equipment = { apparel: [] }
+  c.bag = []
+  c.equip = {}
+  c.abilityPoints = 1
+  c.statPoints = 1
+  c.abilities = [...(bg.startAbilities ?? [])]
   for (const id of bg.startItems) addToInventory(w, c, makeItem(w, id))
-  let weaponSet = false
-  for (const it of [...c.inventory]) {
+  for (const it of [...c.bag]) {
     const d = itemDef(w, it)
-    if (d.apparel) equip(w, c, it.uid)
-    else if (d.category === 'weapon' && !weaponSet) { equip(w, c, it.uid); weaponSet = true }
+    if (d.slot && !c.equip[d.slot === 'ring' ? 'ring1' : d.slot] && !(d.slot === 'main' && c.equip.main)) equip(w, c, it.uid)
+  }
+  // 빠른 슬롯: 시작 능력 → 붕대/천 → 음식
+  let hb = 0
+  for (const a of c.abilities) if (w.db.ability(a).kind !== 'passive') c.hotbar[hb++] = { kind: 'ability', id: a }
+  for (const d of ['Item.Bandage', 'Item.Cloth', 'Item.HealthDraught', 'Item.Hardtack', 'Item.Jerky', 'Item.WaterBottle']) {
+    if (hb >= 10) break
+    if (c.bag.some((i) => i.def === d)) c.hotbar[hb++] = { kind: 'item', def: d }
   }
   if (c.traits.includes('Trait.Alcoholic')) c.effects.push({ kind: 'drankRecently', untilTurn: 14400 })
+  c.hp = hpMax(w, c)
+  c.needs.stamina = energyMax(w, c)
   return c
 }
 
-/** 가장자리 스폰 위치 (플레이어에게 보이지 않고 충분히 먼 곳) */
 export function findSpawnNear(w: World, base: Pos, n: number): Pos[] {
   const out: Pos[] = []
   const r = rng(w, 'story')

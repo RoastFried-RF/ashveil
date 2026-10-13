@@ -1,0 +1,3546 @@
+{
+ "sheets": {
+  "kt_floor": "sprites/kt_floor.png",
+  "kt_moss": "sprites/kt_moss.png",
+  "kt_walls": "sprites/kt_walls.png",
+  "kt_props": "sprites/kt_props.png",
+  "kt_brazier": "sprites/kt_brazier.png",
+  "hero": "sprites/hero.png",
+  "hero_atk": "sprites/hero_atk.png",
+  "reaver0": "sprites/reaver0.png",
+  "reaver0_atk": "sprites/reaver0_atk.png",
+  "reaver1": "sprites/reaver1.png",
+  "reaver1_atk": "sprites/reaver1_atk.png",
+  "mon1": "sprites/mon1.png",
+  "mon2": "sprites/mon2.png",
+  "mon1_withered": "sprites/mon1_withered.png",
+  "objects": "sprites/objects.png",
+  "dw_env": "sprites/dw_env.png",
+  "dw_tree_dead": "sprites/dw_tree_dead.png",
+  "cd_tiles": "sprites/cd_tiles.png",
+  "amalgam": "sprites/amalgam.png",
+  "cd_veina1": "sprites/cd_veina1.png",
+  "cd_littleeyes": "sprites/cd_littleeyes.png",
+  "cd_urn_1": "sprites/cd_urn_1.png",
+  "cd_statue_b1": "sprites/cd_statue_b1.png",
+  "x72_misc": "sprites/x72_misc.png"
+ },
+ "frames": {
+  "kt_floor_q0": [
+   "kt_floor",
+   0,
+   0,
+   128,
+   128
+  ],
+  "kt_floor_q1": [
+   "kt_floor",
+   128,
+   0,
+   128,
+   128
+  ],
+  "kt_floor_q2": [
+   "kt_floor",
+   0,
+   128,
+   128,
+   128
+  ],
+  "kt_floor_q3": [
+   "kt_floor",
+   128,
+   128,
+   128,
+   128
+  ],
+  "moss_s0": [
+   "kt_moss",
+   0,
+   0,
+   16,
+   16
+  ],
+  "moss_s1": [
+   "kt_moss",
+   16,
+   0,
+   16,
+   16
+  ],
+  "moss_s2": [
+   "kt_moss",
+   32,
+   0,
+   16,
+   16
+  ],
+  "moss_s3": [
+   "kt_moss",
+   0,
+   16,
+   16,
+   16
+  ],
+  "moss_s4": [
+   "kt_moss",
+   16,
+   16,
+   16,
+   16
+  ],
+  "moss_s5": [
+   "kt_moss",
+   32,
+   16,
+   16,
+   16
+  ],
+  "moss_s6": [
+   "kt_moss",
+   0,
+   32,
+   16,
+   16
+  ],
+  "moss_s7": [
+   "kt_moss",
+   16,
+   32,
+   16,
+   16
+  ],
+  "moss_s8": [
+   "kt_moss",
+   32,
+   32,
+   16,
+   16
+  ],
+  "moss_s9": [
+   "kt_moss",
+   0,
+   48,
+   16,
+   16
+  ],
+  "moss_s10": [
+   "kt_moss",
+   16,
+   48,
+   16,
+   16
+  ],
+  "moss_s11": [
+   "kt_moss",
+   32,
+   48,
+   16,
+   16
+  ],
+  "moss_t0": [
+   "kt_moss",
+   48,
+   0,
+   16,
+   16
+  ],
+  "moss_t1": [
+   "kt_moss",
+   48,
+   16,
+   16,
+   16
+  ],
+  "moss_t2": [
+   "kt_moss",
+   48,
+   32,
+   16,
+   16
+  ],
+  "moss_t3": [
+   "kt_moss",
+   48,
+   48,
+   16,
+   16
+  ],
+  "moss_t4": [
+   "kt_moss",
+   48,
+   64,
+   16,
+   16
+  ],
+  "moss_t5": [
+   "kt_moss",
+   48,
+   80,
+   16,
+   16
+  ],
+  "moss_l0": [
+   "kt_moss",
+   64,
+   0,
+   32,
+   32
+  ],
+  "moss_l1": [
+   "kt_moss",
+   96,
+   0,
+   32,
+   32
+  ],
+  "moss_l2": [
+   "kt_moss",
+   128,
+   0,
+   32,
+   32
+  ],
+  "moss_l3": [
+   "kt_moss",
+   64,
+   32,
+   32,
+   32
+  ],
+  "moss_l4": [
+   "kt_moss",
+   96,
+   32,
+   32,
+   32
+  ],
+  "moss_l5": [
+   "kt_moss",
+   128,
+   32,
+   32,
+   32
+  ],
+  "moss_l6": [
+   "kt_moss",
+   64,
+   64,
+   32,
+   32
+  ],
+  "moss_l7": [
+   "kt_moss",
+   96,
+   64,
+   32,
+   32
+  ],
+  "moss_l8": [
+   "kt_moss",
+   128,
+   64,
+   32,
+   32
+  ],
+  "wall_face0": [
+   "kt_walls",
+   0,
+   0,
+   16,
+   16
+  ],
+  "wall_face1": [
+   "kt_walls",
+   16,
+   0,
+   16,
+   16
+  ],
+  "wall_face2": [
+   "kt_walls",
+   32,
+   0,
+   16,
+   16
+  ],
+  "wall_face3": [
+   "kt_walls",
+   48,
+   0,
+   16,
+   16
+  ],
+  "wall_face4": [
+   "kt_walls",
+   64,
+   0,
+   16,
+   16
+  ],
+  "wall_face5": [
+   "kt_walls",
+   80,
+   0,
+   16,
+   16
+  ],
+  "wall_face6": [
+   "kt_walls",
+   96,
+   0,
+   16,
+   16
+  ],
+  "wall_face7": [
+   "kt_walls",
+   112,
+   0,
+   16,
+   16
+  ],
+  "wall_top": [
+   "kt_walls",
+   0,
+   16,
+   16,
+   16
+  ],
+  "wall_edge_N": [
+   "kt_walls",
+   16,
+   16,
+   16,
+   16
+  ],
+  "wall_edge_S": [
+   "kt_walls",
+   32,
+   16,
+   16,
+   16
+  ],
+  "wall_edge_E": [
+   "kt_walls",
+   48,
+   16,
+   16,
+   16
+  ],
+  "wall_edge_W": [
+   "kt_walls",
+   64,
+   16,
+   16,
+   16
+  ],
+  "wall_ledge0": [
+   "kt_walls",
+   0,
+   32,
+   16,
+   16
+  ],
+  "wall_ledge1": [
+   "kt_walls",
+   16,
+   32,
+   16,
+   16
+  ],
+  "shelf0": [
+   "kt_walls",
+   0,
+   48,
+   16,
+   16
+  ],
+  "shelf1": [
+   "kt_walls",
+   16,
+   48,
+   16,
+   16
+  ],
+  "shelf2": [
+   "kt_walls",
+   32,
+   48,
+   16,
+   16
+  ],
+  "shelf3": [
+   "kt_walls",
+   48,
+   48,
+   16,
+   16
+  ],
+  "shelf4": [
+   "kt_walls",
+   64,
+   48,
+   16,
+   16
+  ],
+  "shelf5": [
+   "kt_walls",
+   80,
+   48,
+   16,
+   16
+  ],
+  "shelf6": [
+   "kt_walls",
+   96,
+   48,
+   16,
+   16
+  ],
+  "shelf7": [
+   "kt_walls",
+   112,
+   48,
+   16,
+   16
+  ],
+  "shelf8": [
+   "kt_walls",
+   0,
+   64,
+   16,
+   16
+  ],
+  "shelf9": [
+   "kt_walls",
+   16,
+   64,
+   16,
+   16
+  ],
+  "shelf10": [
+   "kt_walls",
+   32,
+   64,
+   16,
+   16
+  ],
+  "shelf11": [
+   "kt_walls",
+   48,
+   64,
+   16,
+   16
+  ],
+  "shelf12": [
+   "kt_walls",
+   64,
+   64,
+   16,
+   16
+  ],
+  "shelf13": [
+   "kt_walls",
+   80,
+   64,
+   16,
+   16
+  ],
+  "shelf14": [
+   "kt_walls",
+   96,
+   64,
+   16,
+   16
+  ],
+  "shelf15": [
+   "kt_walls",
+   112,
+   64,
+   16,
+   16
+  ],
+  "shelf16": [
+   "kt_walls",
+   0,
+   80,
+   16,
+   16
+  ],
+  "shelf17": [
+   "kt_walls",
+   16,
+   80,
+   16,
+   16
+  ],
+  "shelf18": [
+   "kt_walls",
+   32,
+   80,
+   16,
+   16
+  ],
+  "shelf19": [
+   "kt_walls",
+   48,
+   80,
+   16,
+   16
+  ],
+  "shelf20": [
+   "kt_walls",
+   64,
+   80,
+   16,
+   16
+  ],
+  "shelf21": [
+   "kt_walls",
+   80,
+   80,
+   16,
+   16
+  ],
+  "shelf22": [
+   "kt_walls",
+   96,
+   80,
+   16,
+   16
+  ],
+  "shelf23": [
+   "kt_walls",
+   112,
+   80,
+   16,
+   16
+  ],
+  "pot0": [
+   "kt_props",
+   0,
+   0,
+   16,
+   32
+  ],
+  "pot1": [
+   "kt_props",
+   18,
+   0,
+   16,
+   32
+  ],
+  "pot2": [
+   "kt_props",
+   36,
+   0,
+   16,
+   32
+  ],
+  "statue": [
+   "kt_props",
+   54,
+   0,
+   48,
+   80
+  ],
+  "sarcophagus": [
+   "kt_props",
+   104,
+   0,
+   80,
+   96
+  ],
+  "broken_column": [
+   "kt_props",
+   186,
+   0,
+   48,
+   128
+  ],
+  "niche_statue": [
+   "kt_props",
+   236,
+   0,
+   64,
+   64
+  ],
+  "chain0": [
+   "kt_props",
+   302,
+   0,
+   16,
+   64
+  ],
+  "seat": [
+   "kt_props",
+   320,
+   0,
+   48,
+   48
+  ],
+  "books0": [
+   "kt_props",
+   370,
+   0,
+   32,
+   20
+  ],
+  "books1": [
+   "kt_props",
+   404,
+   0,
+   32,
+   20
+  ],
+  "brazier0": [
+   "kt_brazier",
+   0,
+   0,
+   48,
+   64
+  ],
+  "brazier1": [
+   "kt_brazier",
+   48,
+   0,
+   48,
+   64
+  ],
+  "brazier2": [
+   "kt_brazier",
+   96,
+   0,
+   48,
+   64
+  ],
+  "brazier3": [
+   "kt_brazier",
+   144,
+   0,
+   48,
+   64
+  ],
+  "brazier4": [
+   "kt_brazier",
+   192,
+   0,
+   48,
+   64
+  ],
+  "brazier5": [
+   "kt_brazier",
+   240,
+   0,
+   48,
+   64
+  ],
+  "brazier6": [
+   "kt_brazier",
+   288,
+   0,
+   48,
+   64
+  ],
+  "brazier7": [
+   "kt_brazier",
+   336,
+   0,
+   48,
+   64
+  ],
+  "hero_w_down0": [
+   "hero",
+   0,
+   0,
+   24,
+   32
+  ],
+  "hero_w_down1": [
+   "hero",
+   24,
+   0,
+   24,
+   32
+  ],
+  "hero_w_down2": [
+   "hero",
+   48,
+   0,
+   24,
+   32
+  ],
+  "hero_w_left0": [
+   "hero",
+   0,
+   32,
+   24,
+   32
+  ],
+  "hero_w_left1": [
+   "hero",
+   24,
+   32,
+   24,
+   32
+  ],
+  "hero_w_left2": [
+   "hero",
+   48,
+   32,
+   24,
+   32
+  ],
+  "hero_w_right0": [
+   "hero",
+   0,
+   64,
+   24,
+   32
+  ],
+  "hero_w_right1": [
+   "hero",
+   24,
+   64,
+   24,
+   32
+  ],
+  "hero_w_right2": [
+   "hero",
+   48,
+   64,
+   24,
+   32
+  ],
+  "hero_w_up0": [
+   "hero",
+   0,
+   96,
+   24,
+   32
+  ],
+  "hero_w_up1": [
+   "hero",
+   24,
+   96,
+   24,
+   32
+  ],
+  "hero_w_up2": [
+   "hero",
+   48,
+   96,
+   24,
+   32
+  ],
+  "hero_a_down0": [
+   "hero_atk",
+   0,
+   0,
+   47,
+   63
+  ],
+  "hero_a_down1": [
+   "hero_atk",
+   47,
+   0,
+   47,
+   63
+  ],
+  "hero_a_down2": [
+   "hero_atk",
+   94,
+   0,
+   47,
+   63
+  ],
+  "hero_a_down3": [
+   "hero_atk",
+   141,
+   0,
+   47,
+   63
+  ],
+  "hero_a_left0": [
+   "hero_atk",
+   0,
+   63,
+   47,
+   63
+  ],
+  "hero_a_left1": [
+   "hero_atk",
+   47,
+   63,
+   47,
+   63
+  ],
+  "hero_a_left2": [
+   "hero_atk",
+   94,
+   63,
+   47,
+   63
+  ],
+  "hero_a_left3": [
+   "hero_atk",
+   141,
+   63,
+   47,
+   63
+  ],
+  "hero_a_right0": [
+   "hero_atk",
+   0,
+   126,
+   47,
+   63
+  ],
+  "hero_a_right1": [
+   "hero_atk",
+   47,
+   126,
+   47,
+   63
+  ],
+  "hero_a_right2": [
+   "hero_atk",
+   94,
+   126,
+   47,
+   63
+  ],
+  "hero_a_right3": [
+   "hero_atk",
+   141,
+   126,
+   47,
+   63
+  ],
+  "hero_a_up0": [
+   "hero_atk",
+   0,
+   189,
+   47,
+   63
+  ],
+  "hero_a_up1": [
+   "hero_atk",
+   47,
+   189,
+   47,
+   63
+  ],
+  "hero_a_up2": [
+   "hero_atk",
+   94,
+   189,
+   47,
+   63
+  ],
+  "hero_a_up3": [
+   "hero_atk",
+   141,
+   189,
+   47,
+   63
+  ],
+  "reaver0_w_down0": [
+   "reaver0",
+   0,
+   0,
+   24,
+   32
+  ],
+  "reaver0_w_down1": [
+   "reaver0",
+   24,
+   0,
+   24,
+   32
+  ],
+  "reaver0_w_down2": [
+   "reaver0",
+   48,
+   0,
+   24,
+   32
+  ],
+  "reaver0_w_left0": [
+   "reaver0",
+   0,
+   32,
+   24,
+   32
+  ],
+  "reaver0_w_left1": [
+   "reaver0",
+   24,
+   32,
+   24,
+   32
+  ],
+  "reaver0_w_left2": [
+   "reaver0",
+   48,
+   32,
+   24,
+   32
+  ],
+  "reaver0_w_right0": [
+   "reaver0",
+   0,
+   64,
+   24,
+   32
+  ],
+  "reaver0_w_right1": [
+   "reaver0",
+   24,
+   64,
+   24,
+   32
+  ],
+  "reaver0_w_right2": [
+   "reaver0",
+   48,
+   64,
+   24,
+   32
+  ],
+  "reaver0_w_up0": [
+   "reaver0",
+   0,
+   96,
+   24,
+   32
+  ],
+  "reaver0_w_up1": [
+   "reaver0",
+   24,
+   96,
+   24,
+   32
+  ],
+  "reaver0_w_up2": [
+   "reaver0",
+   48,
+   96,
+   24,
+   32
+  ],
+  "reaver0_a_down0": [
+   "reaver0_atk",
+   0,
+   0,
+   47,
+   63
+  ],
+  "reaver0_a_down1": [
+   "reaver0_atk",
+   47,
+   0,
+   47,
+   63
+  ],
+  "reaver0_a_down2": [
+   "reaver0_atk",
+   94,
+   0,
+   47,
+   63
+  ],
+  "reaver0_a_down3": [
+   "reaver0_atk",
+   141,
+   0,
+   47,
+   63
+  ],
+  "reaver0_a_left0": [
+   "reaver0_atk",
+   0,
+   63,
+   47,
+   63
+  ],
+  "reaver0_a_left1": [
+   "reaver0_atk",
+   47,
+   63,
+   47,
+   63
+  ],
+  "reaver0_a_left2": [
+   "reaver0_atk",
+   94,
+   63,
+   47,
+   63
+  ],
+  "reaver0_a_left3": [
+   "reaver0_atk",
+   141,
+   63,
+   47,
+   63
+  ],
+  "reaver0_a_right0": [
+   "reaver0_atk",
+   0,
+   126,
+   47,
+   63
+  ],
+  "reaver0_a_right1": [
+   "reaver0_atk",
+   47,
+   126,
+   47,
+   63
+  ],
+  "reaver0_a_right2": [
+   "reaver0_atk",
+   94,
+   126,
+   47,
+   63
+  ],
+  "reaver0_a_right3": [
+   "reaver0_atk",
+   141,
+   126,
+   47,
+   63
+  ],
+  "reaver0_a_up0": [
+   "reaver0_atk",
+   0,
+   189,
+   47,
+   63
+  ],
+  "reaver0_a_up1": [
+   "reaver0_atk",
+   47,
+   189,
+   47,
+   63
+  ],
+  "reaver0_a_up2": [
+   "reaver0_atk",
+   94,
+   189,
+   47,
+   63
+  ],
+  "reaver0_a_up3": [
+   "reaver0_atk",
+   141,
+   189,
+   47,
+   63
+  ],
+  "reaver1_w_down0": [
+   "reaver1",
+   0,
+   0,
+   24,
+   32
+  ],
+  "reaver1_w_down1": [
+   "reaver1",
+   24,
+   0,
+   24,
+   32
+  ],
+  "reaver1_w_down2": [
+   "reaver1",
+   48,
+   0,
+   24,
+   32
+  ],
+  "reaver1_w_left0": [
+   "reaver1",
+   0,
+   32,
+   24,
+   32
+  ],
+  "reaver1_w_left1": [
+   "reaver1",
+   24,
+   32,
+   24,
+   32
+  ],
+  "reaver1_w_left2": [
+   "reaver1",
+   48,
+   32,
+   24,
+   32
+  ],
+  "reaver1_w_right0": [
+   "reaver1",
+   0,
+   64,
+   24,
+   32
+  ],
+  "reaver1_w_right1": [
+   "reaver1",
+   24,
+   64,
+   24,
+   32
+  ],
+  "reaver1_w_right2": [
+   "reaver1",
+   48,
+   64,
+   24,
+   32
+  ],
+  "reaver1_w_up0": [
+   "reaver1",
+   0,
+   96,
+   24,
+   32
+  ],
+  "reaver1_w_up1": [
+   "reaver1",
+   24,
+   96,
+   24,
+   32
+  ],
+  "reaver1_w_up2": [
+   "reaver1",
+   48,
+   96,
+   24,
+   32
+  ],
+  "reaver1_a_down0": [
+   "reaver1_atk",
+   0,
+   0,
+   47,
+   63
+  ],
+  "reaver1_a_down1": [
+   "reaver1_atk",
+   47,
+   0,
+   47,
+   63
+  ],
+  "reaver1_a_down2": [
+   "reaver1_atk",
+   94,
+   0,
+   47,
+   63
+  ],
+  "reaver1_a_down3": [
+   "reaver1_atk",
+   141,
+   0,
+   47,
+   63
+  ],
+  "reaver1_a_left0": [
+   "reaver1_atk",
+   0,
+   63,
+   47,
+   63
+  ],
+  "reaver1_a_left1": [
+   "reaver1_atk",
+   47,
+   63,
+   47,
+   63
+  ],
+  "reaver1_a_left2": [
+   "reaver1_atk",
+   94,
+   63,
+   47,
+   63
+  ],
+  "reaver1_a_left3": [
+   "reaver1_atk",
+   141,
+   63,
+   47,
+   63
+  ],
+  "reaver1_a_right0": [
+   "reaver1_atk",
+   0,
+   126,
+   47,
+   63
+  ],
+  "reaver1_a_right1": [
+   "reaver1_atk",
+   47,
+   126,
+   47,
+   63
+  ],
+  "reaver1_a_right2": [
+   "reaver1_atk",
+   94,
+   126,
+   47,
+   63
+  ],
+  "reaver1_a_right3": [
+   "reaver1_atk",
+   141,
+   126,
+   47,
+   63
+  ],
+  "reaver1_a_up0": [
+   "reaver1_atk",
+   0,
+   189,
+   47,
+   63
+  ],
+  "reaver1_a_up1": [
+   "reaver1_atk",
+   47,
+   189,
+   47,
+   63
+  ],
+  "reaver1_a_up2": [
+   "reaver1_atk",
+   94,
+   189,
+   47,
+   63
+  ],
+  "reaver1_a_up3": [
+   "reaver1_atk",
+   141,
+   189,
+   47,
+   63
+  ],
+  "shade0_w_down0": [
+   "mon1",
+   0,
+   0,
+   24,
+   32
+  ],
+  "shade0_w_down1": [
+   "mon1",
+   24,
+   0,
+   24,
+   32
+  ],
+  "shade0_w_down2": [
+   "mon1",
+   48,
+   0,
+   24,
+   32
+  ],
+  "shade0_w_left0": [
+   "mon1",
+   0,
+   32,
+   24,
+   32
+  ],
+  "shade0_w_left1": [
+   "mon1",
+   24,
+   32,
+   24,
+   32
+  ],
+  "shade0_w_left2": [
+   "mon1",
+   48,
+   32,
+   24,
+   32
+  ],
+  "shade0_w_right0": [
+   "mon1",
+   0,
+   64,
+   24,
+   32
+  ],
+  "shade0_w_right1": [
+   "mon1",
+   24,
+   64,
+   24,
+   32
+  ],
+  "shade0_w_right2": [
+   "mon1",
+   48,
+   64,
+   24,
+   32
+  ],
+  "shade0_w_up0": [
+   "mon1",
+   0,
+   96,
+   24,
+   32
+  ],
+  "shade0_w_up1": [
+   "mon1",
+   24,
+   96,
+   24,
+   32
+  ],
+  "shade0_w_up2": [
+   "mon1",
+   48,
+   96,
+   24,
+   32
+  ],
+  "shade1_w_down0": [
+   "mon1",
+   144,
+   0,
+   24,
+   32
+  ],
+  "shade1_w_down1": [
+   "mon1",
+   168,
+   0,
+   24,
+   32
+  ],
+  "shade1_w_down2": [
+   "mon1",
+   192,
+   0,
+   24,
+   32
+  ],
+  "shade1_w_left0": [
+   "mon1",
+   144,
+   32,
+   24,
+   32
+  ],
+  "shade1_w_left1": [
+   "mon1",
+   168,
+   32,
+   24,
+   32
+  ],
+  "shade1_w_left2": [
+   "mon1",
+   192,
+   32,
+   24,
+   32
+  ],
+  "shade1_w_right0": [
+   "mon1",
+   144,
+   64,
+   24,
+   32
+  ],
+  "shade1_w_right1": [
+   "mon1",
+   168,
+   64,
+   24,
+   32
+  ],
+  "shade1_w_right2": [
+   "mon1",
+   192,
+   64,
+   24,
+   32
+  ],
+  "shade1_w_up0": [
+   "mon1",
+   144,
+   96,
+   24,
+   32
+  ],
+  "shade1_w_up1": [
+   "mon1",
+   168,
+   96,
+   24,
+   32
+  ],
+  "shade1_w_up2": [
+   "mon1",
+   192,
+   96,
+   24,
+   32
+  ],
+  "shade2_w_down0": [
+   "mon1",
+   216,
+   0,
+   24,
+   32
+  ],
+  "shade2_w_down1": [
+   "mon1",
+   240,
+   0,
+   24,
+   32
+  ],
+  "shade2_w_down2": [
+   "mon1",
+   264,
+   0,
+   24,
+   32
+  ],
+  "shade2_w_left0": [
+   "mon1",
+   216,
+   32,
+   24,
+   32
+  ],
+  "shade2_w_left1": [
+   "mon1",
+   240,
+   32,
+   24,
+   32
+  ],
+  "shade2_w_left2": [
+   "mon1",
+   264,
+   32,
+   24,
+   32
+  ],
+  "shade2_w_right0": [
+   "mon1",
+   216,
+   64,
+   24,
+   32
+  ],
+  "shade2_w_right1": [
+   "mon1",
+   240,
+   64,
+   24,
+   32
+  ],
+  "shade2_w_right2": [
+   "mon1",
+   264,
+   64,
+   24,
+   32
+  ],
+  "shade2_w_up0": [
+   "mon1",
+   216,
+   96,
+   24,
+   32
+  ],
+  "shade2_w_up1": [
+   "mon1",
+   240,
+   96,
+   24,
+   32
+  ],
+  "shade2_w_up2": [
+   "mon1",
+   264,
+   96,
+   24,
+   32
+  ],
+  "shade_chief_w_down0": [
+   "mon1",
+   72,
+   0,
+   24,
+   32
+  ],
+  "shade_chief_w_down1": [
+   "mon1",
+   96,
+   0,
+   24,
+   32
+  ],
+  "shade_chief_w_down2": [
+   "mon1",
+   120,
+   0,
+   24,
+   32
+  ],
+  "shade_chief_w_left0": [
+   "mon1",
+   72,
+   32,
+   24,
+   32
+  ],
+  "shade_chief_w_left1": [
+   "mon1",
+   96,
+   32,
+   24,
+   32
+  ],
+  "shade_chief_w_left2": [
+   "mon1",
+   120,
+   32,
+   24,
+   32
+  ],
+  "shade_chief_w_right0": [
+   "mon1",
+   72,
+   64,
+   24,
+   32
+  ],
+  "shade_chief_w_right1": [
+   "mon1",
+   96,
+   64,
+   24,
+   32
+  ],
+  "shade_chief_w_right2": [
+   "mon1",
+   120,
+   64,
+   24,
+   32
+  ],
+  "shade_chief_w_up0": [
+   "mon1",
+   72,
+   96,
+   24,
+   32
+  ],
+  "shade_chief_w_up1": [
+   "mon1",
+   96,
+   96,
+   24,
+   32
+  ],
+  "shade_chief_w_up2": [
+   "mon1",
+   120,
+   96,
+   24,
+   32
+  ],
+  "shade3_w_down0": [
+   "mon1",
+   0,
+   128,
+   24,
+   32
+  ],
+  "shade3_w_down1": [
+   "mon1",
+   24,
+   128,
+   24,
+   32
+  ],
+  "shade3_w_down2": [
+   "mon1",
+   48,
+   128,
+   24,
+   32
+  ],
+  "shade3_w_left0": [
+   "mon1",
+   0,
+   160,
+   24,
+   32
+  ],
+  "shade3_w_left1": [
+   "mon1",
+   24,
+   160,
+   24,
+   32
+  ],
+  "shade3_w_left2": [
+   "mon1",
+   48,
+   160,
+   24,
+   32
+  ],
+  "shade3_w_right0": [
+   "mon1",
+   0,
+   192,
+   24,
+   32
+  ],
+  "shade3_w_right1": [
+   "mon1",
+   24,
+   192,
+   24,
+   32
+  ],
+  "shade3_w_right2": [
+   "mon1",
+   48,
+   192,
+   24,
+   32
+  ],
+  "shade3_w_up0": [
+   "mon1",
+   0,
+   224,
+   24,
+   32
+  ],
+  "shade3_w_up1": [
+   "mon1",
+   24,
+   224,
+   24,
+   32
+  ],
+  "shade3_w_up2": [
+   "mon1",
+   48,
+   224,
+   24,
+   32
+  ],
+  "withered_w_down0": [
+   "mon1_withered",
+   72,
+   128,
+   24,
+   32
+  ],
+  "withered_w_down1": [
+   "mon1_withered",
+   96,
+   128,
+   24,
+   32
+  ],
+  "withered_w_down2": [
+   "mon1_withered",
+   120,
+   128,
+   24,
+   32
+  ],
+  "withered_w_left0": [
+   "mon1_withered",
+   72,
+   160,
+   24,
+   32
+  ],
+  "withered_w_left1": [
+   "mon1_withered",
+   96,
+   160,
+   24,
+   32
+  ],
+  "withered_w_left2": [
+   "mon1_withered",
+   120,
+   160,
+   24,
+   32
+  ],
+  "withered_w_right0": [
+   "mon1_withered",
+   72,
+   192,
+   24,
+   32
+  ],
+  "withered_w_right1": [
+   "mon1_withered",
+   96,
+   192,
+   24,
+   32
+  ],
+  "withered_w_right2": [
+   "mon1_withered",
+   120,
+   192,
+   24,
+   32
+  ],
+  "withered_w_up0": [
+   "mon1_withered",
+   72,
+   224,
+   24,
+   32
+  ],
+  "withered_w_up1": [
+   "mon1_withered",
+   96,
+   224,
+   24,
+   32
+  ],
+  "withered_w_up2": [
+   "mon1_withered",
+   120,
+   224,
+   24,
+   32
+  ],
+  "withered_priest_w_down0": [
+   "mon1_withered",
+   144,
+   128,
+   24,
+   32
+  ],
+  "withered_priest_w_down1": [
+   "mon1_withered",
+   168,
+   128,
+   24,
+   32
+  ],
+  "withered_priest_w_down2": [
+   "mon1_withered",
+   192,
+   128,
+   24,
+   32
+  ],
+  "withered_priest_w_left0": [
+   "mon1_withered",
+   144,
+   160,
+   24,
+   32
+  ],
+  "withered_priest_w_left1": [
+   "mon1_withered",
+   168,
+   160,
+   24,
+   32
+  ],
+  "withered_priest_w_left2": [
+   "mon1_withered",
+   192,
+   160,
+   24,
+   32
+  ],
+  "withered_priest_w_right0": [
+   "mon1_withered",
+   144,
+   192,
+   24,
+   32
+  ],
+  "withered_priest_w_right1": [
+   "mon1_withered",
+   168,
+   192,
+   24,
+   32
+  ],
+  "withered_priest_w_right2": [
+   "mon1_withered",
+   192,
+   192,
+   24,
+   32
+  ],
+  "withered_priest_w_up0": [
+   "mon1_withered",
+   144,
+   224,
+   24,
+   32
+  ],
+  "withered_priest_w_up1": [
+   "mon1_withered",
+   168,
+   224,
+   24,
+   32
+  ],
+  "withered_priest_w_up2": [
+   "mon1_withered",
+   192,
+   224,
+   24,
+   32
+  ],
+  "spore0_w_down0": [
+   "mon2",
+   0,
+   128,
+   24,
+   32
+  ],
+  "spore0_w_down1": [
+   "mon2",
+   24,
+   128,
+   24,
+   32
+  ],
+  "spore0_w_down2": [
+   "mon2",
+   48,
+   128,
+   24,
+   32
+  ],
+  "spore0_w_left0": [
+   "mon2",
+   0,
+   160,
+   24,
+   32
+  ],
+  "spore0_w_left1": [
+   "mon2",
+   24,
+   160,
+   24,
+   32
+  ],
+  "spore0_w_left2": [
+   "mon2",
+   48,
+   160,
+   24,
+   32
+  ],
+  "spore0_w_right0": [
+   "mon2",
+   0,
+   192,
+   24,
+   32
+  ],
+  "spore0_w_right1": [
+   "mon2",
+   24,
+   192,
+   24,
+   32
+  ],
+  "spore0_w_right2": [
+   "mon2",
+   48,
+   192,
+   24,
+   32
+  ],
+  "spore0_w_up0": [
+   "mon2",
+   0,
+   224,
+   24,
+   32
+  ],
+  "spore0_w_up1": [
+   "mon2",
+   24,
+   224,
+   24,
+   32
+  ],
+  "spore0_w_up2": [
+   "mon2",
+   48,
+   224,
+   24,
+   32
+  ],
+  "spore1_w_down0": [
+   "mon2",
+   72,
+   128,
+   24,
+   32
+  ],
+  "spore1_w_down1": [
+   "mon2",
+   96,
+   128,
+   24,
+   32
+  ],
+  "spore1_w_down2": [
+   "mon2",
+   120,
+   128,
+   24,
+   32
+  ],
+  "spore1_w_left0": [
+   "mon2",
+   72,
+   160,
+   24,
+   32
+  ],
+  "spore1_w_left1": [
+   "mon2",
+   96,
+   160,
+   24,
+   32
+  ],
+  "spore1_w_left2": [
+   "mon2",
+   120,
+   160,
+   24,
+   32
+  ],
+  "spore1_w_right0": [
+   "mon2",
+   72,
+   192,
+   24,
+   32
+  ],
+  "spore1_w_right1": [
+   "mon2",
+   96,
+   192,
+   24,
+   32
+  ],
+  "spore1_w_right2": [
+   "mon2",
+   120,
+   192,
+   24,
+   32
+  ],
+  "spore1_w_up0": [
+   "mon2",
+   72,
+   224,
+   24,
+   32
+  ],
+  "spore1_w_up1": [
+   "mon2",
+   96,
+   224,
+   24,
+   32
+  ],
+  "spore1_w_up2": [
+   "mon2",
+   120,
+   224,
+   24,
+   32
+  ],
+  "chest0": [
+   "objects",
+   0,
+   16,
+   16,
+   16
+  ],
+  "chest_red0": [
+   "objects",
+   0,
+   48,
+   16,
+   16
+  ],
+  "crate0": [
+   "objects",
+   0,
+   80,
+   16,
+   16
+  ],
+  "torch_stand0": [
+   "objects",
+   0,
+   104,
+   16,
+   32
+  ],
+  "lantern_hang0": [
+   "objects",
+   0,
+   128,
+   16,
+   32
+  ],
+  "spikes0": [
+   "objects",
+   48,
+   16,
+   16,
+   16
+  ],
+  "chest1": [
+   "objects",
+   16,
+   16,
+   16,
+   16
+  ],
+  "chest_red1": [
+   "objects",
+   16,
+   48,
+   16,
+   16
+  ],
+  "crate1": [
+   "objects",
+   16,
+   80,
+   16,
+   16
+  ],
+  "torch_stand1": [
+   "objects",
+   16,
+   104,
+   16,
+   32
+  ],
+  "lantern_hang1": [
+   "objects",
+   16,
+   128,
+   16,
+   32
+  ],
+  "spikes1": [
+   "objects",
+   64,
+   16,
+   16,
+   16
+  ],
+  "chest2": [
+   "objects",
+   32,
+   16,
+   16,
+   16
+  ],
+  "chest_red2": [
+   "objects",
+   32,
+   48,
+   16,
+   16
+  ],
+  "crate2": [
+   "objects",
+   32,
+   80,
+   16,
+   16
+  ],
+  "torch_stand2": [
+   "objects",
+   32,
+   104,
+   16,
+   32
+  ],
+  "lantern_hang2": [
+   "objects",
+   32,
+   128,
+   16,
+   32
+  ],
+  "spikes2": [
+   "objects",
+   80,
+   16,
+   16,
+   16
+  ],
+  "door_closed": [
+   "objects",
+   144,
+   0,
+   16,
+   32
+  ],
+  "door_open": [
+   "objects",
+   144,
+   96,
+   16,
+   16
+  ],
+  "tree": [
+   "dw_env",
+   0,
+   0,
+   80,
+   96
+  ],
+  "rock": [
+   "dw_env",
+   82,
+   0,
+   48,
+   32
+  ],
+  "mushrooms": [
+   "dw_env",
+   132,
+   0,
+   80,
+   64
+  ],
+  "tree_dead": [
+   "dw_tree_dead",
+   0,
+   0,
+   80,
+   96
+  ],
+  "cd_floor0": [
+   "cd_tiles",
+   0,
+   0,
+   16,
+   16
+  ],
+  "cd_floor1": [
+   "cd_tiles",
+   16,
+   0,
+   16,
+   16
+  ],
+  "cd_floor2": [
+   "cd_tiles",
+   32,
+   0,
+   16,
+   16
+  ],
+  "cd_floor3": [
+   "cd_tiles",
+   48,
+   0,
+   16,
+   16
+  ],
+  "cd_floor4": [
+   "cd_tiles",
+   64,
+   0,
+   16,
+   16
+  ],
+  "cd_floor5": [
+   "cd_tiles",
+   0,
+   16,
+   16,
+   16
+  ],
+  "cd_floor6": [
+   "cd_tiles",
+   16,
+   16,
+   16,
+   16
+  ],
+  "cd_floor7": [
+   "cd_tiles",
+   32,
+   16,
+   16,
+   16
+  ],
+  "cd_floor8": [
+   "cd_tiles",
+   48,
+   16,
+   16,
+   16
+  ],
+  "cd_floor9": [
+   "cd_tiles",
+   64,
+   16,
+   16,
+   16
+  ],
+  "cd_floor10": [
+   "cd_tiles",
+   0,
+   32,
+   16,
+   16
+  ],
+  "cd_floor11": [
+   "cd_tiles",
+   16,
+   32,
+   16,
+   16
+  ],
+  "cd_floor12": [
+   "cd_tiles",
+   32,
+   32,
+   16,
+   16
+  ],
+  "cd_floor13": [
+   "cd_tiles",
+   48,
+   32,
+   16,
+   16
+  ],
+  "cd_floor14": [
+   "cd_tiles",
+   64,
+   32,
+   16,
+   16
+  ],
+  "cd_floor15": [
+   "cd_tiles",
+   0,
+   48,
+   16,
+   16
+  ],
+  "cd_floor16": [
+   "cd_tiles",
+   16,
+   48,
+   16,
+   16
+  ],
+  "cd_floor17": [
+   "cd_tiles",
+   32,
+   48,
+   16,
+   16
+  ],
+  "cd_floor18": [
+   "cd_tiles",
+   48,
+   48,
+   16,
+   16
+  ],
+  "cd_floor19": [
+   "cd_tiles",
+   64,
+   48,
+   16,
+   16
+  ],
+  "amalgam0": [
+   "amalgam",
+   0,
+   0,
+   96,
+   64
+  ],
+  "amalgam1": [
+   "amalgam",
+   96,
+   0,
+   96,
+   64
+  ],
+  "amalgam2": [
+   "amalgam",
+   192,
+   0,
+   96,
+   64
+  ],
+  "amalgam3": [
+   "amalgam",
+   288,
+   0,
+   96,
+   64
+  ],
+  "amalgam4": [
+   "amalgam",
+   384,
+   0,
+   96,
+   64
+  ],
+  "amalgam5": [
+   "amalgam",
+   480,
+   0,
+   96,
+   64
+  ],
+  "cd_veina1_0": [
+   "cd_veina1",
+   0,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_1": [
+   "cd_veina1",
+   16,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_2": [
+   "cd_veina1",
+   32,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_3": [
+   "cd_veina1",
+   48,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_4": [
+   "cd_veina1",
+   64,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_5": [
+   "cd_veina1",
+   80,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_6": [
+   "cd_veina1",
+   96,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_7": [
+   "cd_veina1",
+   112,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_8": [
+   "cd_veina1",
+   128,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_9": [
+   "cd_veina1",
+   144,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_10": [
+   "cd_veina1",
+   160,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_11": [
+   "cd_veina1",
+   176,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_12": [
+   "cd_veina1",
+   192,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_13": [
+   "cd_veina1",
+   208,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_14": [
+   "cd_veina1",
+   224,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_15": [
+   "cd_veina1",
+   240,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_16": [
+   "cd_veina1",
+   256,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_17": [
+   "cd_veina1",
+   272,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_18": [
+   "cd_veina1",
+   288,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_19": [
+   "cd_veina1",
+   304,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_20": [
+   "cd_veina1",
+   320,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_21": [
+   "cd_veina1",
+   336,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_22": [
+   "cd_veina1",
+   352,
+   0,
+   16,
+   16
+  ],
+  "cd_veina1_23": [
+   "cd_veina1",
+   368,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_0": [
+   "cd_littleeyes",
+   0,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_1": [
+   "cd_littleeyes",
+   16,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_2": [
+   "cd_littleeyes",
+   32,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_3": [
+   "cd_littleeyes",
+   48,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_4": [
+   "cd_littleeyes",
+   64,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_5": [
+   "cd_littleeyes",
+   80,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_6": [
+   "cd_littleeyes",
+   96,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_7": [
+   "cd_littleeyes",
+   112,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_8": [
+   "cd_littleeyes",
+   128,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_9": [
+   "cd_littleeyes",
+   144,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_10": [
+   "cd_littleeyes",
+   160,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_11": [
+   "cd_littleeyes",
+   176,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_12": [
+   "cd_littleeyes",
+   192,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_13": [
+   "cd_littleeyes",
+   208,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_14": [
+   "cd_littleeyes",
+   224,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_15": [
+   "cd_littleeyes",
+   240,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_16": [
+   "cd_littleeyes",
+   256,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_17": [
+   "cd_littleeyes",
+   272,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_18": [
+   "cd_littleeyes",
+   288,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_19": [
+   "cd_littleeyes",
+   304,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_20": [
+   "cd_littleeyes",
+   320,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_21": [
+   "cd_littleeyes",
+   336,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_22": [
+   "cd_littleeyes",
+   352,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_23": [
+   "cd_littleeyes",
+   368,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_24": [
+   "cd_littleeyes",
+   384,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_25": [
+   "cd_littleeyes",
+   400,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_26": [
+   "cd_littleeyes",
+   416,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_27": [
+   "cd_littleeyes",
+   432,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_28": [
+   "cd_littleeyes",
+   448,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_29": [
+   "cd_littleeyes",
+   464,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_30": [
+   "cd_littleeyes",
+   480,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_31": [
+   "cd_littleeyes",
+   496,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_32": [
+   "cd_littleeyes",
+   512,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_33": [
+   "cd_littleeyes",
+   528,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_34": [
+   "cd_littleeyes",
+   544,
+   0,
+   16,
+   16
+  ],
+  "cd_littleeyes_35": [
+   "cd_littleeyes",
+   560,
+   0,
+   16,
+   16
+  ],
+  "cd_urn_1": [
+   "cd_urn_1",
+   0,
+   0,
+   16,
+   16
+  ],
+  "cd_statue_b1": [
+   "cd_statue_b1",
+   0,
+   0,
+   48,
+   48
+  ],
+  "floor_stairs": [
+   "x72_misc",
+   0,
+   0,
+   16,
+   16
+  ],
+  "floor_ladder": [
+   "x72_misc",
+   16,
+   0,
+   16,
+   16
+  ],
+  "skull": [
+   "x72_misc",
+   32,
+   0,
+   16,
+   16
+  ]
+ },
+ "anims": {
+  "brazier": {
+   "frames": [
+    "brazier0",
+    "brazier1",
+    "brazier2",
+    "brazier3",
+    "brazier4",
+    "brazier5",
+    "brazier6",
+    "brazier7"
+   ],
+   "fps": 8
+  },
+  "torch_stand": {
+   "frames": [
+    "torch_stand0",
+    "torch_stand1",
+    "torch_stand2"
+   ],
+   "fps": 7
+  },
+  "lantern_hang": {
+   "frames": [
+    "lantern_hang0",
+    "lantern_hang1",
+    "lantern_hang2"
+   ],
+   "fps": 6
+  },
+  "chest_open": {
+   "frames": [
+    "chest0",
+    "chest1",
+    "chest2"
+   ],
+   "fps": 10
+  },
+  "amalgam": {
+   "frames": [
+    "amalgam0",
+    "amalgam1",
+    "amalgam2",
+    "amalgam3",
+    "amalgam4",
+    "amalgam5"
+   ],
+   "fps": 6
+  },
+  "cd_veina1": {
+   "frames": [
+    "cd_veina1_0",
+    "cd_veina1_1",
+    "cd_veina1_2",
+    "cd_veina1_3",
+    "cd_veina1_4",
+    "cd_veina1_5",
+    "cd_veina1_6",
+    "cd_veina1_7",
+    "cd_veina1_8",
+    "cd_veina1_9",
+    "cd_veina1_10",
+    "cd_veina1_11",
+    "cd_veina1_12",
+    "cd_veina1_13",
+    "cd_veina1_14",
+    "cd_veina1_15",
+    "cd_veina1_16",
+    "cd_veina1_17",
+    "cd_veina1_18",
+    "cd_veina1_19",
+    "cd_veina1_20",
+    "cd_veina1_21",
+    "cd_veina1_22",
+    "cd_veina1_23"
+   ],
+   "fps": 6
+  },
+  "cd_littleeyes": {
+   "frames": [
+    "cd_littleeyes_0",
+    "cd_littleeyes_1",
+    "cd_littleeyes_2",
+    "cd_littleeyes_3",
+    "cd_littleeyes_4",
+    "cd_littleeyes_5",
+    "cd_littleeyes_6",
+    "cd_littleeyes_7",
+    "cd_littleeyes_8",
+    "cd_littleeyes_9",
+    "cd_littleeyes_10",
+    "cd_littleeyes_11",
+    "cd_littleeyes_12",
+    "cd_littleeyes_13",
+    "cd_littleeyes_14",
+    "cd_littleeyes_15",
+    "cd_littleeyes_16",
+    "cd_littleeyes_17",
+    "cd_littleeyes_18",
+    "cd_littleeyes_19",
+    "cd_littleeyes_20",
+    "cd_littleeyes_21",
+    "cd_littleeyes_22",
+    "cd_littleeyes_23",
+    "cd_littleeyes_24",
+    "cd_littleeyes_25",
+    "cd_littleeyes_26",
+    "cd_littleeyes_27",
+    "cd_littleeyes_28",
+    "cd_littleeyes_29",
+    "cd_littleeyes_30",
+    "cd_littleeyes_31",
+    "cd_littleeyes_32",
+    "cd_littleeyes_33",
+    "cd_littleeyes_34",
+    "cd_littleeyes_35"
+   ],
+   "fps": 6
+  }
+ },
+ "chars": {
+  "hero": {
+   "walk": {
+    "down": [
+     "hero_w_down0",
+     "hero_w_down1",
+     "hero_w_down2"
+    ],
+    "left": [
+     "hero_w_left0",
+     "hero_w_left1",
+     "hero_w_left2"
+    ],
+    "right": [
+     "hero_w_right0",
+     "hero_w_right1",
+     "hero_w_right2"
+    ],
+    "up": [
+     "hero_w_up0",
+     "hero_w_up1",
+     "hero_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "hero_w_down1"
+    ],
+    "left": [
+     "hero_w_left1"
+    ],
+    "right": [
+     "hero_w_right1"
+    ],
+    "up": [
+     "hero_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ],
+   "attack": {
+    "down": [
+     "hero_a_down0",
+     "hero_a_down1",
+     "hero_a_down2",
+     "hero_a_down3"
+    ],
+    "left": [
+     "hero_a_left0",
+     "hero_a_left1",
+     "hero_a_left2",
+     "hero_a_left3"
+    ],
+    "right": [
+     "hero_a_right0",
+     "hero_a_right1",
+     "hero_a_right2",
+     "hero_a_right3"
+    ],
+    "up": [
+     "hero_a_up0",
+     "hero_a_up1",
+     "hero_a_up2",
+     "hero_a_up3"
+    ]
+   },
+   "attackAnchor": [
+    0.5,
+    0.72
+   ]
+  },
+  "reaver0": {
+   "walk": {
+    "down": [
+     "reaver0_w_down0",
+     "reaver0_w_down1",
+     "reaver0_w_down2"
+    ],
+    "left": [
+     "reaver0_w_left0",
+     "reaver0_w_left1",
+     "reaver0_w_left2"
+    ],
+    "right": [
+     "reaver0_w_right0",
+     "reaver0_w_right1",
+     "reaver0_w_right2"
+    ],
+    "up": [
+     "reaver0_w_up0",
+     "reaver0_w_up1",
+     "reaver0_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "reaver0_w_down1"
+    ],
+    "left": [
+     "reaver0_w_left1"
+    ],
+    "right": [
+     "reaver0_w_right1"
+    ],
+    "up": [
+     "reaver0_w_up1"
+    ]
+   },
+   "attack": {
+    "down": [
+     "reaver0_a_down0",
+     "reaver0_a_down1",
+     "reaver0_a_down2",
+     "reaver0_a_down3"
+    ],
+    "left": [
+     "reaver0_a_left0",
+     "reaver0_a_left1",
+     "reaver0_a_left2",
+     "reaver0_a_left3"
+    ],
+    "right": [
+     "reaver0_a_right0",
+     "reaver0_a_right1",
+     "reaver0_a_right2",
+     "reaver0_a_right3"
+    ],
+    "up": [
+     "reaver0_a_up0",
+     "reaver0_a_up1",
+     "reaver0_a_up2",
+     "reaver0_a_up3"
+    ]
+   },
+   "attackAnchor": [
+    0.5,
+    0.72
+   ],
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "reaver1": {
+   "walk": {
+    "down": [
+     "reaver1_w_down0",
+     "reaver1_w_down1",
+     "reaver1_w_down2"
+    ],
+    "left": [
+     "reaver1_w_left0",
+     "reaver1_w_left1",
+     "reaver1_w_left2"
+    ],
+    "right": [
+     "reaver1_w_right0",
+     "reaver1_w_right1",
+     "reaver1_w_right2"
+    ],
+    "up": [
+     "reaver1_w_up0",
+     "reaver1_w_up1",
+     "reaver1_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "reaver1_w_down1"
+    ],
+    "left": [
+     "reaver1_w_left1"
+    ],
+    "right": [
+     "reaver1_w_right1"
+    ],
+    "up": [
+     "reaver1_w_up1"
+    ]
+   },
+   "attack": {
+    "down": [
+     "reaver1_a_down0",
+     "reaver1_a_down1",
+     "reaver1_a_down2",
+     "reaver1_a_down3"
+    ],
+    "left": [
+     "reaver1_a_left0",
+     "reaver1_a_left1",
+     "reaver1_a_left2",
+     "reaver1_a_left3"
+    ],
+    "right": [
+     "reaver1_a_right0",
+     "reaver1_a_right1",
+     "reaver1_a_right2",
+     "reaver1_a_right3"
+    ],
+    "up": [
+     "reaver1_a_up0",
+     "reaver1_a_up1",
+     "reaver1_a_up2",
+     "reaver1_a_up3"
+    ]
+   },
+   "attackAnchor": [
+    0.5,
+    0.72
+   ],
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "shade0": {
+   "walk": {
+    "down": [
+     "shade0_w_down0",
+     "shade0_w_down1",
+     "shade0_w_down2"
+    ],
+    "left": [
+     "shade0_w_left0",
+     "shade0_w_left1",
+     "shade0_w_left2"
+    ],
+    "right": [
+     "shade0_w_right0",
+     "shade0_w_right1",
+     "shade0_w_right2"
+    ],
+    "up": [
+     "shade0_w_up0",
+     "shade0_w_up1",
+     "shade0_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "shade0_w_down1"
+    ],
+    "left": [
+     "shade0_w_left1"
+    ],
+    "right": [
+     "shade0_w_right1"
+    ],
+    "up": [
+     "shade0_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "shade1": {
+   "walk": {
+    "down": [
+     "shade1_w_down0",
+     "shade1_w_down1",
+     "shade1_w_down2"
+    ],
+    "left": [
+     "shade1_w_left0",
+     "shade1_w_left1",
+     "shade1_w_left2"
+    ],
+    "right": [
+     "shade1_w_right0",
+     "shade1_w_right1",
+     "shade1_w_right2"
+    ],
+    "up": [
+     "shade1_w_up0",
+     "shade1_w_up1",
+     "shade1_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "shade1_w_down1"
+    ],
+    "left": [
+     "shade1_w_left1"
+    ],
+    "right": [
+     "shade1_w_right1"
+    ],
+    "up": [
+     "shade1_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "shade2": {
+   "walk": {
+    "down": [
+     "shade2_w_down0",
+     "shade2_w_down1",
+     "shade2_w_down2"
+    ],
+    "left": [
+     "shade2_w_left0",
+     "shade2_w_left1",
+     "shade2_w_left2"
+    ],
+    "right": [
+     "shade2_w_right0",
+     "shade2_w_right1",
+     "shade2_w_right2"
+    ],
+    "up": [
+     "shade2_w_up0",
+     "shade2_w_up1",
+     "shade2_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "shade2_w_down1"
+    ],
+    "left": [
+     "shade2_w_left1"
+    ],
+    "right": [
+     "shade2_w_right1"
+    ],
+    "up": [
+     "shade2_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "shade_chief": {
+   "walk": {
+    "down": [
+     "shade_chief_w_down0",
+     "shade_chief_w_down1",
+     "shade_chief_w_down2"
+    ],
+    "left": [
+     "shade_chief_w_left0",
+     "shade_chief_w_left1",
+     "shade_chief_w_left2"
+    ],
+    "right": [
+     "shade_chief_w_right0",
+     "shade_chief_w_right1",
+     "shade_chief_w_right2"
+    ],
+    "up": [
+     "shade_chief_w_up0",
+     "shade_chief_w_up1",
+     "shade_chief_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "shade_chief_w_down1"
+    ],
+    "left": [
+     "shade_chief_w_left1"
+    ],
+    "right": [
+     "shade_chief_w_right1"
+    ],
+    "up": [
+     "shade_chief_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "shade3": {
+   "walk": {
+    "down": [
+     "shade3_w_down0",
+     "shade3_w_down1",
+     "shade3_w_down2"
+    ],
+    "left": [
+     "shade3_w_left0",
+     "shade3_w_left1",
+     "shade3_w_left2"
+    ],
+    "right": [
+     "shade3_w_right0",
+     "shade3_w_right1",
+     "shade3_w_right2"
+    ],
+    "up": [
+     "shade3_w_up0",
+     "shade3_w_up1",
+     "shade3_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "shade3_w_down1"
+    ],
+    "left": [
+     "shade3_w_left1"
+    ],
+    "right": [
+     "shade3_w_right1"
+    ],
+    "up": [
+     "shade3_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "withered": {
+   "walk": {
+    "down": [
+     "withered_w_down0",
+     "withered_w_down1",
+     "withered_w_down2"
+    ],
+    "left": [
+     "withered_w_left0",
+     "withered_w_left1",
+     "withered_w_left2"
+    ],
+    "right": [
+     "withered_w_right0",
+     "withered_w_right1",
+     "withered_w_right2"
+    ],
+    "up": [
+     "withered_w_up0",
+     "withered_w_up1",
+     "withered_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "withered_w_down1"
+    ],
+    "left": [
+     "withered_w_left1"
+    ],
+    "right": [
+     "withered_w_right1"
+    ],
+    "up": [
+     "withered_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "withered_priest": {
+   "walk": {
+    "down": [
+     "withered_priest_w_down0",
+     "withered_priest_w_down1",
+     "withered_priest_w_down2"
+    ],
+    "left": [
+     "withered_priest_w_left0",
+     "withered_priest_w_left1",
+     "withered_priest_w_left2"
+    ],
+    "right": [
+     "withered_priest_w_right0",
+     "withered_priest_w_right1",
+     "withered_priest_w_right2"
+    ],
+    "up": [
+     "withered_priest_w_up0",
+     "withered_priest_w_up1",
+     "withered_priest_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "withered_priest_w_down1"
+    ],
+    "left": [
+     "withered_priest_w_left1"
+    ],
+    "right": [
+     "withered_priest_w_right1"
+    ],
+    "up": [
+     "withered_priest_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "spore0": {
+   "walk": {
+    "down": [
+     "spore0_w_down0",
+     "spore0_w_down1",
+     "spore0_w_down2"
+    ],
+    "left": [
+     "spore0_w_left0",
+     "spore0_w_left1",
+     "spore0_w_left2"
+    ],
+    "right": [
+     "spore0_w_right0",
+     "spore0_w_right1",
+     "spore0_w_right2"
+    ],
+    "up": [
+     "spore0_w_up0",
+     "spore0_w_up1",
+     "spore0_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "spore0_w_down1"
+    ],
+    "left": [
+     "spore0_w_left1"
+    ],
+    "right": [
+     "spore0_w_right1"
+    ],
+    "up": [
+     "spore0_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  },
+  "spore1": {
+   "walk": {
+    "down": [
+     "spore1_w_down0",
+     "spore1_w_down1",
+     "spore1_w_down2"
+    ],
+    "left": [
+     "spore1_w_left0",
+     "spore1_w_left1",
+     "spore1_w_left2"
+    ],
+    "right": [
+     "spore1_w_right0",
+     "spore1_w_right1",
+     "spore1_w_right2"
+    ],
+    "up": [
+     "spore1_w_up0",
+     "spore1_w_up1",
+     "spore1_w_up2"
+    ]
+   },
+   "idle": {
+    "down": [
+     "spore1_w_down1"
+    ],
+    "left": [
+     "spore1_w_left1"
+    ],
+    "right": [
+     "spore1_w_right1"
+    ],
+    "up": [
+     "spore1_w_up1"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.92
+   ]
+  }
+ },
+ "ui": {
+  "frame": "sprites/ui/frame.png",
+  "parchment": "sprites/ui/parchment.png",
+  "celtic": "sprites/ui/celtic.png",
+  "celtic2": "sprites/ui/celtic2.png",
+  "btn": "sprites/ui/btn.png",
+  "btn_olive": "sprites/ui/btn_olive.png",
+  "btn_sel": "sprites/ui/btn_sel.png",
+  "slot": "sprites/ui/slot.png",
+  "slot_olive": "sprites/ui/slot_olive.png",
+  "slot_sel": "sprites/ui/slot_sel.png",
+  "tab": "sprites/ui/tab.png",
+  "tab_olive": "sprites/ui/tab_olive.png",
+  "tab_sel": "sprites/ui/tab_sel.png",
+  "bar_frame": "sprites/ui/bar_frame.png",
+  "bar_frame2": "sprites/ui/bar_frame2.png",
+  "bar_frame_gold": "sprites/ui/bar_frame_gold.png",
+  "bar_blue": "sprites/ui/bar_blue.png",
+  "bar_red": "sprites/ui/bar_red.png",
+  "bar_green": "sprites/ui/bar_green.png",
+  "warn": "sprites/ui/warn.png",
+  "xmark": "sprites/ui/xmark.png",
+  "diamond": "sprites/ui/diamond.png",
+  "diamond_dim": "sprites/ui/diamond_dim.png",
+  "ornament": "sprites/ui/ornament.png",
+  "divider": "sprites/ui/divider.png",
+  "parchment_small": "sprites/ui/parchment_small.png"
+ }
+}

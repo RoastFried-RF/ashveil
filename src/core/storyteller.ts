@@ -1,69 +1,28 @@
-// 스토리텔러(라이트): 위협 예산이 쌓이면 복선을 깔고 잠시 뒤 사건을 일으킨다.
+// 스토리텔러(장소 기반): 적은 맵 가장자리에서 솟아나지 않는다.
+// 이미 존재하는 거점(약탈자 야영지)의 무리가 밤에 순찰을 나서는 식으로만 사건이 일어난다.
 
-import { clock, idx, log, player, rng, turnOf, TURNS_PER_HOUR, type World } from './ctx'
-import { createCreature, findSpawnNear } from './creatures'
+import { log, rng, turnOf, type World } from './ctx'
 import { isNight } from './environment'
-import { cheb } from './geom'
-import type { EventDef } from './types'
 
-export const BUDGET_PER_HOUR = 9
-/** 첫 사건까지 유예 (newGame 에서 lastEventTurn 으로 반영) */
-export const GRACE_TURNS = 1800
-export const MIN_GAP_TURNS = 2400
+/** 순찰 간격(턴). 100TU=1턴=3초 → 7200턴 ≈ 6시간 */
+export const PATROL_COOLDOWN = 7200
 
-export function storytellerTick(w: World, spawnable: () => { x: number; y: number }[]) {
+export function storytellerTick(w: World) {
   const st = w.s.storyteller
   const turn = turnOf(w)
-  st.budget += (BUDGET_PER_HOUR / TURNS_PER_HOUR) * (isNight(w) ? 1.5 : 1)
-
-  if (st.pending && turn >= st.pending.atTurn) {
-    fire(w, w.db.event(st.pending.event), spawnable())
-    st.pending = undefined
-    return
-  }
-  if (st.pending || turn - st.lastEventTurn < MIN_GAP_TURNS) return
-  if (turn % 50 !== 0) return
+  if (w.s.map.kind !== 'surface' || turn % 100 !== 0) return
+  if (!isNight(w) || turn - st.lastEventTurn < PATROL_COOLDOWN) return
+  const reavers = w.s.creatures.filter((c) => c.alive && c.faction === 'reavers' && !c.asleep && c.ai.mode === 'guard' && c.def === 'Creature.Reaver')
+  if (reavers.length < 2) return
   const r = rng(w, 'story')
-  const day = clock(turn).day
-  const affordable = w.db.all<EventDef>('Event').filter((e) => {
-    if (e.cost > st.budget) return false
-    if (e.minDay && day < e.minDay) return false
-    const last = [...st.history].reverse().find((h) => h.event === e.id)
-    if (last && e.cooldownTurns && turn - last.turn < e.cooldownTurns) return false
-    return true
-  })
-  if (!affordable.length) return
-  // 예산이 넉넉할수록 큰 사건 확률이 커진다
-  if (!r.chance(0.08 + Math.min(0.3, st.budget / 400))) return
-  const ev = r.weighted(affordable, (e) => e.weight * (isNight(w) ? e.nightWeight ?? 1 : 1) * (1 + e.cost / 60))
-  if (!ev) return
-  st.budget -= ev.cost
-  st.pending = { event: ev.id, atTurn: turn + r.int(80, 240) }
-  if (ev.hint) log(w, 'flavor', ev.hint)
-}
-
-function fire(w: World, ev: EventDef, spawnable: { x: number; y: number }[]) {
-  const r = rng(w, 'story')
-  const st = w.s.storyteller
-  const turn = turnOf(w)
-  const pl = player(w)
-  const visible = new Set(w.s.visible)
-  const cands = spawnable.filter((p) => cheb(p, pl.pos) >= 16 && !visible.has(idx(w, p)))
-  if (!cands.length) return
-  const base = r.pick(cands)
-  let spawned = 0
-  for (const s of ev.spawn ?? []) {
-    const n = r.int(s.count[0], s.count[1])
-    for (const p of findSpawnNear(w, base, n)) {
-      const c = createCreature(w, s.creature, p)
-      c.ai.mode = 'wander'
-      c.ai.dest = { ...pl.pos } // 대략 플레이어 쪽으로 배회
-      c.nextAct = w.s.time + r.int(0, 100)
-      w.s.creatures.push(c)
-      spawned++
-    }
+  const stairs = w.s.map.links[0]?.pos
+  if (!stairs) return
+  for (const c of r.shuffle([...reavers]).slice(0, 2)) {
+    c.ai.mode = 'investigate'
+    c.ai.dest = { x: stairs.x + r.int(-3, 3), y: stairs.y + 7 + r.int(0, 3) }
+    c.ai.path = undefined
   }
   st.lastEventTurn = turn
-  st.history.push({ turn, event: ev.id })
-  if (spawned === 0) return
+  st.history.push({ turn, event: 'Event.ReaverPatrol' })
+  log(w, 'flavor', w.db.event('Event.ReaverPatrol').hint ?? '')
 }
