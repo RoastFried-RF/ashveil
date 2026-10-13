@@ -1,9 +1,9 @@
 // 소음·냄새 전파. 벽은 소리를 줄이고, 바람은 냄새를 실어 나른다.
 
-import { capacity, totalBleed } from './body'
+import { capacity } from './body'
 import { log, player, turnOf, type World } from './ctx'
 import { cheb, DIRS, dirIndex, DIR_LABELS, type Pos } from './geom'
-import { allItems, itemDef } from './items'
+import { itemDef } from './items'
 import { traitAdd } from './traits'
 import type { Creature } from './types'
 
@@ -110,23 +110,52 @@ export function emitNoise(w: World, pos: Pos, strength: number, sourceId: number
   }
 }
 
-/** 냄새 세기: 외부 출혈 + 들고 있는 날고기 등 */
-export function scentStrength(w: World, c: Creature): number {
-  let s = totalBleed(w, c, true)
-  for (const it of allItems(c)) s += (itemDef(w, it).food?.scent ?? 0) * it.count
-  return s
+/** 정수 제곱근 */
+function isqrt(n: number): number {
+  return Math.floor(Math.sqrt(Math.max(0, n)))
 }
 
-/** 냄새로 대상을 감지하는가 (바람 방향 반영) */
+/**
+ * 냄새 누적 (07 §9.2): 매 턴 + floor(흘린 피 ml / 10)(소수부 이월), 생고기 소지 +1/턴, 재비 ×1/2.
+ * 10턴마다 누적 = floor(누적 × 9/10). 반경 R = isqrt(누적)
+ */
+export function scentTick(w: World, c: Creature, bledMl: number) {
+  const rain = w.s.weather === 'ashrain' && w.s.map.kind === 'surface' ? 0.5 : 1
+  c.scentCarry = (c.scentCarry ?? 0) + (bledMl / 10) * rain
+  let gen = Math.floor(c.scentCarry)
+  c.scentCarry -= gen
+  for (const it of c.bag) if (itemDef(w, it).food?.raw) gen += it.count
+  c.scent = (c.scent ?? 0) + gen
+  if (turnOf(w) % 10 === 0) c.scent = Math.floor((c.scent * 9) / 10)
+}
+
+export function scentStrength(_w: World, c: Creature): number {
+  return isqrt(c.scent ?? 0)
+}
+
+/** 후각 배율: 인간 1/2 · 그늘 사람 1 · 포자 인간 0 · 말라붙은 자 1/2 · 융합체 2 */
+export function smellMult(w: World, c: Creature): number {
+  const d = w.db.creature(c.def)
+  return d.smell ?? d.scentSense ?? 0.5
+}
+
+/** 냄새로 대상을 감지하는가: 거리 ≤ floor(R × 방향 배율 × 후각 배율). 바람 아래 ×(1 + 풍속/2), 위 ×1/2, 지하는 바람 0 */
 export function smells(w: World, sniffer: Creature, target: Creature): boolean {
-  const sense = w.db.creature(sniffer.def).scentSense ?? 0
+  const sense = smellMult(w, sniffer)
   if (sense <= 0) return false
-  const strength = scentStrength(w, target)
-  if (strength <= 0.3) return false
-  let range = Math.min(22, (3 + strength / 3) * sense)
-  const vx = sniffer.pos.x - target.pos.x, vy = sniffer.pos.y - target.pos.y
-  const dot = vx * w.s.wind.x + vy * w.s.wind.y
-  if (dot > 0) range *= 1.6
-  else if (dot < 0) range *= 0.5
-  return cheb(sniffer.pos, target.pos) <= range
+  const R = scentStrength(w, target)
+  if (R <= 0) return false
+  let dir = 1
+  if (w.s.map.kind === 'surface') {
+    const wind = w.s.wind
+    const speed = Math.max(Math.abs(wind.x), Math.abs(wind.y))
+    const vx = sniffer.pos.x - target.pos.x, vy = sniffer.pos.y - target.pos.y
+    const dot = vx * wind.x + vy * wind.y
+    const len2 = (vx * vx + vy * vy) * (wind.x * wind.x + wind.y * wind.y)
+    if (speed > 0 && len2 > 0) {
+      if (dot > 0 && 2 * dot * dot >= len2) dir = 1 + speed / 2
+      else if (dot < 0 && 2 * dot * dot >= len2) dir = 0.5
+    }
+  }
+  return cheb(sniffer.pos, target.pos) <= Math.floor(R * dir * sense)
 }

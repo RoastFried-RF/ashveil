@@ -56,13 +56,15 @@ export function botDecide(w: World): Action {
     const wd = bleeding[0]
     const limb = part(w, pl, wd.part).limb
     const tq = find((d) => d.medical?.kind === 'tourniquet')
-    if (wd.arterial && limb && tq && pl.body.tourniquets[limb] === undefined) return { type: 'treat', uid: tq.uid, woundId: wd.id }
-    if (!wd.bandage) {
-      const band = find((d) => d.medical?.kind === 'bandage')
-      if (band) return { type: 'treat', uid: band.uid, woundId: wd.id }
-    }
+    // 팔다리의 큰 출혈은 지혈대 (아래 부위 출혈 0)
+    if ((wd.arterial || effectiveBleed(w, pl, wd) > 15) && limb && tq && pl.body.tourniquets[limb] === undefined) return { type: 'treat', uid: tq.uid, woundId: wd.id }
+    const band = find((d) => d.medical?.kind === 'bandage')
+    const unbandaged = bleeding.find((x) => !x.bandage && !(x.arterial && part(w, pl, x.part).limb))
+    if (band && unbandaged) return { type: 'treat', uid: band.uid, woundId: unbandaged.id }
     if (effectiveBleed(w, pl, wd) > 2) return { type: 'press', woundId: wd.id }
   }
+  // 적이 붙어 있어도 큰 출혈은 손으로 누른다 (1턴, 한 손으로 싸울 수 있다)
+  if (bleeding.length && adjacentEnemy && effectiveBleed(w, pl, bleeding[0]) > 25 && pl.body.pressing === undefined && rngPick(w)) return { type: 'press', woundId: bleeding[0].id }
   // 지혈대 1.5시간 넘으면 풀기
   for (const [limb, at] of Object.entries(pl.body.tourniquets)) if (turnOf(w) - at > 1800) return { type: 'removeTourniquet', limb }
   const frac = pl.body.wounds.find((wd) => wd.fracture && !wd.splint)
@@ -77,9 +79,24 @@ export function botDecide(w: World): Action {
   if (enemies.length) {
     enemies.sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))
     const e = enemies[0]
-    if (bloodLoss(pl) > 0.3 && cheb(e.pos, pl.pos) > 1) {
+    if ((bloodLoss(pl) > 0.2 || pl.hp < hpMax(w, pl) * 0.4) && cheb(e.pos, pl.pos) > 1) {
       const away = stepAway(w, enemies.map((x) => x.pos))
       if (away !== null) return { type: 'move', dir: away }
+    }
+    // 깨어난 무리 셋 이상: 올라가는 계단으로 물러난다 (그늘 사람은 지상까지 따라오지 않는다, bestiary §17 L3)
+    if (enemies.filter((x) => cheb(x.pos, pl.pos) <= 6).length >= 3 && w.s.map.kind === 'dungeon') {
+      const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
+      if (up) {
+        if (eq(pl.pos, up.pos)) return { type: 'stairs' }
+        const st = stepTo(w, up.pos)
+        if (st !== null && !adjacentEnemy) return { type: 'move', dir: st }
+      }
+    }
+    // 여럿이면 좁은 곳(문틀·복도)으로 물러나 포위를 막는다 (bestiary §17 L1)
+    if (enemies.filter((x) => cheb(x.pos, pl.pos) <= 4).length >= 2 && !adjacentEnemy) {
+      const choke = chokeStep(w, enemies.map((x) => x.pos))
+      if (choke !== null) return { type: 'move', dir: choke }
+      if (openness(w, pl.pos) <= 3) return { type: 'wait' }
     }
     const mw = mainWeapon(w, pl)
     const ranged = !!(mw && itemDef(w, mw).ranged)
@@ -155,6 +172,35 @@ export function botDecide(w: World): Action {
     if (st !== null) return { type: 'move', dir: st }
   }
   return { type: 'rest', turns: 60 }
+}
+
+/** 둘러싼 8칸 중 지나갈 수 있는 칸 수 (작을수록 좁다) */
+function openness(w: World, p: Pos): number {
+  let n = 0
+  for (const d of DIRS) {
+    const q = { x: p.x + d.x, y: p.y + d.y }
+    if (inBounds(w, q) && terrainAt(w, q).passable) n++
+  }
+  return n
+}
+
+/** 지금보다 좁고 적에게서 가까워지지 않는 이웃 칸 */
+function chokeStep(w: World, threats: Pos[]): number | null {
+  const pl = player(w)
+  const here = openness(w, pl.pos)
+  const dNow = Math.min(...threats.map((t) => cheb(t, pl.pos)))
+  let best: number | null = null, bo = here
+  for (let i = 0; i < 8; i++) {
+    const p = { x: pl.pos.x + DIRS[i].x, y: pl.pos.y + DIRS[i].y }
+    if (!inBounds(w, p) || !terrainAt(w, p).passable || creatureAt(w, p) || diagonalBlocked(w, pl.pos, DIRS[i].x, DIRS[i].y)) continue
+    const o = openness(w, p)
+    if (o < bo && Math.min(...threats.map((t) => cheb(t, p))) >= dNow) { bo = o; best = i }
+  }
+  return best
+}
+
+function rngPick(w: World): boolean {
+  return (turnOf(w) & 1) === 0
 }
 
 function nearest(w: World, pred: (p: Pos) => boolean): Pos | null {

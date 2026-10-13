@@ -9,7 +9,7 @@ import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { countOf, itemDef, lightSource, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
-import { emitNoise, smells } from './perception'
+import { emitNoise, smellMult, smells } from './perception'
 import { moraleEvent, moraleOf, packHalved } from './morale'
 import { awardDefeat } from './progression'
 import { alarmArrived, PATROL_WAIT, raidStash } from './storyteller'
@@ -177,6 +177,8 @@ export function aiDecide(w: World, c: Creature): Action {
 
   // 잠든 적: 소리로만 깬다(perception). 포자 인간은 인접 칸에 2턴 이상 머물면 깬다 (14 §7.2)
   if (c.asleep) {
+    // 냄새를 맡은 잠든 개체는 '뒤척임': 깊은 잠 → 얕은 잠 (07 §9.2 검산 G)
+    if (c.deepSleep && smellMult(w, c) > 0 && pl.alive && smells(w, c, pl)) c.deepSleep = undefined
     if (c.def.startsWith('Creature.SporeMan') && pl.alive && cheb(pl.pos, c.pos) <= 1) {
       ai.nearTurns = (ai.nearTurns ?? 0) + 1
       if (ai.nearTurns >= 2) wake(w, c, '곁의 기척')
@@ -352,11 +354,11 @@ export function aiDecide(w: World, c: Creature): Action {
     return stepToward(w, c, target.pos) ?? sidestep(w, c, target.pos) ?? { type: 'wait' }
   }
 
-  // 냄새 추적
-  if (cdef.scentSense && (ai.hunger > 0.4 || cdef.ai === 'packHunter')) {
+  // 냄새 추적 (07 §9.2): 감지하면 그쪽을 조사한다
+  if (smellMult(w, c) > 0 && (cdef.ai !== 'skittish' || ai.hunger > 0.4)) {
     const prey = w.s.creatures.find((o) => o.alive && hostile(c, o) && smells(w, c, o))
-    if (prey) {
-      if (ai.mode !== 'investigate' && canSee(w, pl, c.pos)) log(w, 'flavor', `${c.name}이(가) 코를 킁킁대며 바람을 맡는다.`)
+    if (prey && ai.mode !== 'investigate') {
+      if (canSee(w, pl, c.pos)) log(w, 'flavor', `${c.name}이(가) 고개를 들고 냄새를 맡는다.`)
       ai.mode = 'investigate'
       ai.dest = { ...prey.pos }
     }

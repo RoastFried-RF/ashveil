@@ -5,6 +5,7 @@ import { killCreature, previewHit } from '../src/core/combat'
 import { createCreature } from '../src/core/creatures'
 import { player, tileAt, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from '../src/core/ctx'
 import { makeItem } from '../src/core/items'
+import { generateDungeon } from '../src/core/mapgen'
 import type { Creature } from '../src/core/types'
 import { makeWorld } from './helpers'
 
@@ -140,5 +141,66 @@ describe('소리와 각성 (07 §9.1 · 14 §7.2)', () => {
     expect(3 - 2).toBeLessThan(3)
     expect(5 - 2).toBeGreaterThanOrEqual(3)
     expect(8 - cost.get(y0 * m.w + x0 + 4)!).toBeLessThan(3)
+  })
+})
+
+describe('적 수치 (bestiary · 07 §12.1.1)', () => {
+  it('최대 HP·회피치가 도감과 같다', async () => {
+    const { hpMax } = await import('../src/core/body')
+    const { evasion } = await import('../src/core/combat')
+    const w = makeWorld('h1')
+    noon(w)
+    const at = (dx: number) => ({ x: 5 + dx, y: 5 })
+    const mk = (id: string, dx: number) => { const c = createCreature(w, id, at(dx)); c.equip = {}; return c }
+    const shade = mk('Creature.Shade', 0)
+    expect(hpMax(w, shade)).toBe(63)
+    expect(evasion(w, shade)).toBe(12) // (14 − 10) × 2 + 작은 체구 4
+    expect(hpMax(w, mk('Creature.Withered', 1))).toBe(68)
+    const spore = mk('Creature.SporeMan', 2)
+    expect(hpMax(w, spore)).toBe(95)
+    expect(evasion(w, spore)).toBe(-4)
+    const am = mk('Creature.Amalgam', 3)
+    expect(hpMax(w, am)).toBe(400)
+    expect(evasion(w, am)).toBe(-16) // (6 − 10) × 2 − 거대 8
+    const r = mk('Creature.Reaver', 4)
+    expect(r.stats.agi).toBeGreaterThanOrEqual(10)
+    expect(r.stats.agi).toBeLessThanOrEqual(13)
+  })
+  it('사기: 약탈자 기본 50, 시야 내 아군 사망 −15(30턴마다 반감), 우두머리 사망 −30', async () => {
+    const { moraleEvent, moraleOf } = await import('../src/core/morale')
+    const w = makeWorld('h2')
+    noon(w)
+    const r = createCreature(w, 'Creature.Reaver', { x: 5, y: 5 })
+    w.s.creatures = [r]
+    expect(moraleOf(w, r)).toBe(50)
+    const t = (w.s.time / 100) | 0
+    moraleEvent(r, -15, 'half30', t)
+    expect(moraleOf(w, r)).toBe(35) // 흔들림 (25~39)
+    w.s.time += 30 * 100
+    expect(moraleOf(w, r)).toBe(43) // −15 → −7 (반감, 0 쪽 버림)
+    moraleEvent(r, -30, 'fixed', t)
+    expect(moraleOf(w, r)).toBe(13) // 도주 판정 구간 (25 − 13) × 4 = 48%
+  })
+})
+
+describe('냄새 (07 §9.2)', () => {
+  it('검산 G: 40 ml/턴 출혈 20턴 → 누적 68 → 반경 8, 그늘 사람(후각 1) 8칸 감지', async () => {
+    const { scentTick, scentStrength, smells } = await import('../src/core/perception')
+    const w = makeWorld('sc1')
+    const pl = noon(w)
+    w.s.map = generateDungeon(w, 1).map // 지하: 바람 0
+    pl.scent = 0
+    pl.bag = []
+    const t0 = 10 * 1000 + 1
+    for (let i = 0; i < 20; i++) {
+      w.s.time = (t0 + i) * 100
+      scentTick(w, pl, 40)
+    }
+    expect(pl.scent).toBe(68)
+    expect(scentStrength(w, pl)).toBe(8)
+    const shade = createCreature(w, 'Creature.Shade', { x: pl.pos.x + 8, y: pl.pos.y })
+    expect(smells(w, shade, pl)).toBe(true)
+    shade.pos.x += 1
+    expect(smells(w, shade, pl)).toBe(false)
   })
 })

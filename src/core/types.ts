@@ -243,6 +243,8 @@ export interface CreatureDef extends DefBase {
   noMorale?: boolean
   /** 청각 보정 (07 §9.1) */
   hearing?: number
+  /** 후각 배율 (07 §9.2: 인간 1/2 · 그늘 사람 1 · 포자 인간 0 · 융합체 2) */
+  smell?: number
   /** 어둠 시야: [어둠, 칠흑] 명중 감점 (그늘 사람 −5 · −15, bestiary §17) */
   darkSight?: [number, number]
   /** 보유 능력 (15 §15) */
@@ -620,6 +622,9 @@ export interface Creature {
   freeActTurn?: number
   /** 잠기운 끝 턴 (01 §8.3) */
   drowsyUntil?: number
+  /** 냄새 누적 (07 §9.2) */
+  scent?: number
+  scentCarry?: number
   /** 이번 턴에 대기했는가 (기력 회복 ×2) */
   rested?: boolean
   /** 자기 몸을 살핀 턴 (01 §4.1) */

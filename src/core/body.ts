@@ -2,6 +2,7 @@
 // HP 풀 + 6부위 상태(스톤샤드 기본, §2.0) 위에 세부 부위 트리·상처 개체·기능 능력치(림월드 추가)를 얹는다.
 
 import { clamp, log, rng, tileAt, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
+import { scentTick } from './perception'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul } from './traits'
 import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wound, WoundDef } from './types'
 
@@ -581,6 +582,7 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
   c.body.wounds = c.body.wounds.filter((wd) => wd.healed < wd.severity || (wd.fracture && wd.fracture.progress < 1))
   if (c.faction === 'player' && c.body.wounds.length < before) log(w, 'good', '상처 하나가 아물었다.')
   c.body.blood = Math.max(0, c.body.blood - bled)
+  scentTick(w, c, bled)
   // 혈액 회복: 하루 400ml × 영양 × 수분 (탈수면 0), 1시간 단위 (02 §6)
   if (turn % TURNS_PER_HOUR === 0 && c.body.blood < c.body.bloodMax && c.needs.water > 0) {
     const nutr = c.needs.kcal < 0 ? 0.5 : 1
