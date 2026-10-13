@@ -41,7 +41,8 @@
     "bagSize": [
       8,
       4
-    ]
+    ],
+    "weightKg": 70
   },
   {
     "defType": "Creature",
@@ -67,13 +68,13 @@
       "reaver2"
     ],
     "faction": "reavers",
-    "morale": 55,
+    "morale": 50,
     "stats": {
       "str": 11,
-      "agi": 10,
-      "per": 9,
-      "vit": 10,
-      "wil": 8
+      "agi": 11,
+      "per": 10,
+      "vit": 11,
+      "wil": 10
     },
     "skills": {
       "blade": 900,
@@ -87,19 +88,21 @@
       "slots": [
         {
           "items": [
-            "Item.RustyKnife",
-            "Item.Machete",
             "Item.Hatchet",
-            "Item.PipeClub",
-            "Item.RebarSpear"
+            "Item.PipeClub"
           ]
         },
         {
           "items": [
-            "Item.RagShirt",
-            "Item.PaddedJacket",
-            "Item.LeatherCoat"
-          ]
+            "Item.PaddedJacket"
+          ],
+          "chance": 0.7
+        },
+        {
+          "items": [
+            "Item.ScrapMail"
+          ],
+          "chance": 1.0
         },
         {
           "items": [
@@ -113,12 +116,6 @@
             "Item.Boots"
           ],
           "chance": 0.5
-        },
-        {
-          "items": [
-            "Item.ScrapBuckler"
-          ],
-          "chance": 0.2
         },
         {
           "items": [
@@ -155,7 +152,38 @@
     ],
     "xp": 30,
     "sleepChance": 0.25,
-    "ai": "guard"
+    "ai": "guard",
+    "statRange": {
+      "str": [
+        10,
+        12
+      ],
+      "agi": [
+        10,
+        13
+      ],
+      "per": [
+        10,
+        10
+      ],
+      "vit": [
+        10,
+        12
+      ]
+    },
+    "evasion": 0,
+    "bagSize": [
+      8,
+      4
+    ],
+    "weaponAbilities": {
+      "axe": [
+        "Ab.Axe.Split"
+      ],
+      "blunt": [
+        "Ab.Blunt.Shove"
+      ]
+    }
   },
   {
     "defType": "Creature",
@@ -305,12 +333,11 @@
     "description": "야영지를 틀어쥔 두목. 쇠사슬 옷을 입고 손도끼를 쓴다.",
     "char": "reaver0",
     "xp": 60,
-    "morale": 80,
-    "hpBase": 130,
+    "morale": 70,
     "sleepChance": 0,
     "stats": {
       "str": 13,
-      "agi": 10,
+      "agi": 11,
       "per": 10,
       "vit": 13,
       "wil": 11
@@ -355,7 +382,13 @@
           ]
         }
       ]
-    }
+    },
+    "abilities": [
+      "Ab.Axe.Split",
+      "Ab.Axe.Ferocity",
+      "Ab.Survival.Breath"
+    ],
+    "leader": true
   },
   {
     "defType": "Creature",
@@ -398,7 +431,10 @@
           "chance": 0.5
         }
       ]
-    }
+    },
+    "abilities": [
+      "Ab.Archery.Aimed"
+    ]
   },
   {
     "defType": "Creature",
@@ -415,30 +451,30 @@
     "faction": "shades",
     "sizeClass": "small",
     "moveTU": 100,
-    "hpMult": 0.8,
-    "bloodMult": 0.7,
-    "hpBase": 45,
+    "hpMult": 0.7,
+    "bloodMult": 0.6,
     "evasion": 0,
     "stats": {
       "str": 8,
-      "agi": 11,
-      "per": 10,
+      "agi": 14,
+      "per": 12,
       "vit": 8,
-      "wil": 6
+      "wil": 8
     },
     "skills": {},
     "naturalAttack": {
-      "label": "돌칼 긋기",
-      "damageType": "cut",
-      "damage": 5,
-      "pen": 8,
-      "accuracy": 4,
-      "energy": 4,
-      "family": "blade",
-      "noise": 3
+      "label": "주먹",
+      "damageType": "blunt",
+      "damage": 3,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
     },
     "ai": "guard",
-    "morale": 45,
+    "morale": 40,
     "lightThreshold": 0.02,
     "sightRange": 9,
     "sleepChance": 0.4,
@@ -448,15 +484,21 @@
         {
           "items": [
             "Item.RustyKnife"
-          ],
-          "chance": 0.25
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt"
+          ]
         },
         {
           "items": [
             "Item.Cloth",
             "Item.RawMeat",
             "Item.PillBlack",
-            "Item.PillGreen"
+            "Item.PillGreen",
+            "Item.BoneCharm",
+            "Item.SealRing"
           ],
           "chance": 0.5
         }
@@ -470,7 +512,18 @@
     "bagSize": [
       4,
       3
-    ]
+    ],
+    "darkSight": [
+      5,
+      15
+    ],
+    "hearing": 2,
+    "weightKg": 40,
+    "abilities": [
+      "Ab.Shade.Lunge"
+    ],
+    "lightAverse": true,
+    "packFlee": true
   },
   {
     "defType": "Creature",
@@ -478,30 +531,57 @@
     "parent": "Creature.Shade",
     "label": "그늘 우두머리",
     "char": "shade_chief",
-    "hpBase": 85,
-    "morale": 70,
+    "morale": 50,
     "xp": 35,
     "sleepChance": 0.1,
     "stats": {
-      "str": 11,
-      "agi": 10,
+      "str": 10,
+      "agi": 14,
       "per": 12,
-      "vit": 11,
-      "wil": 9
+      "vit": 10,
+      "wil": 10
     },
     "naturalAttack": {
-      "label": "뼈곤봉 내려치기",
+      "label": "주먹",
       "damageType": "blunt",
-      "damage": 9,
-      "pen": 12,
-      "accuracy": 7,
-      "energy": 6,
-      "family": "blunt",
-      "noise": 5,
-      "stunD": 4
+      "damage": 3,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
     },
-    "sizeClass": "medium",
-    "evasion": 0
+    "sizeClass": "small",
+    "evasion": 0,
+    "abilities": [
+      "Ab.Shade.Lunge",
+      "Ab.Blade.DeepCut"
+    ],
+    "leader": true,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.RustyKnife",
+            "Item.HuntingKnife"
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt"
+          ]
+        },
+        {
+          "items": [
+            "Item.Cloth",
+            "Item.SealRing",
+            "Item.BoneCharm"
+          ],
+          "chance": 0.6
+        }
+      ]
+    }
   },
   {
     "defType": "Creature",
@@ -513,31 +593,32 @@
     "faction": "withered",
     "sizeClass": "medium",
     "moveTU": 100,
-    "hpMult": 0.9,
+    "hpMult": 0.8,
     "bloodMult": 0.5,
-    "hpBase": 65,
-    "evasion": -4,
+    "evasion": 0,
     "stats": {
-      "str": 11,
-      "agi": 8,
+      "str": 9,
+      "agi": 9,
       "per": 8,
-      "vit": 12,
-      "wil": 3
+      "vit": 7,
+      "wil": 8
     },
     "skills": {},
     "mods": {
-      "painMult": 0.15,
-      "bleedMult": 0.5
+      "painMult": 0,
+      "bleedMult": 0.6,
+      "noPain": 1
     },
     "naturalAttack": {
       "label": "할퀴기",
-      "damageType": "cut",
-      "damage": 8,
-      "pen": 10,
-      "accuracy": 9,
+      "damageType": "blunt",
+      "damage": 5,
+      "pen": 0,
+      "accuracy": 6,
       "energy": 3,
       "family": "unarmed",
-      "noise": 3
+      "noise": 6,
+      "requiresCapacity": "manipulation"
     },
     "ai": "guard",
     "morale": 999,
@@ -566,7 +647,16 @@
     "bagSize": [
       2,
       2
-    ]
+    ],
+    "noMorale": true,
+    "weightKg": 35,
+    "naturalArmor": {
+      "blunt": 3
+    },
+    "abilities": [
+      "Ab.Grab"
+    ],
+    "thirsty": true
   },
   {
     "defType": "Creature",
@@ -574,27 +664,29 @@
     "parent": "Creature.Withered",
     "label": "말라붙은 사제",
     "char": "withered_priest",
-    "hpBase": 100,
     "xp": 45,
     "sleepChance": 0.2,
     "stats": {
       "str": 12,
       "agi": 9,
       "per": 10,
-      "vit": 13,
+      "vit": 10,
       "wil": 8
     },
     "naturalAttack": {
       "label": "향로 내려치기",
       "damageType": "blunt",
       "damage": 12,
-      "pen": 15,
-      "accuracy": 10,
-      "energy": 5,
-      "family": "blunt",
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
       "noise": 6,
+      "requiresCapacity": "manipulation",
       "stunD": 4
-    }
+    },
+    "hpMult": 1.0,
+    "weightKg": 55
   },
   {
     "defType": "Creature",
@@ -610,35 +702,31 @@
     "sizeClass": "medium",
     "moveTU": 100,
     "hpMult": 1.0,
-    "bloodMult": 0.6,
-    "hpBase": 70,
-    "evasion": -6,
+    "bloodMult": 0.8,
+    "evasion": 0,
     "stats": {
-      "str": 10,
-      "agi": 7,
-      "per": 7,
-      "vit": 11,
-      "wil": 2
+      "str": 12,
+      "agi": 8,
+      "per": 6,
+      "vit": 9,
+      "wil": 8
     },
     "skills": {},
     "mods": {
-      "painMult": 0.4
+      "painMult": 0.3,
+      "bleedMult": 0.7,
+      "stumble": 10
     },
     "naturalAttack": {
       "label": "포자 주먹",
       "damageType": "blunt",
-      "damage": 7,
-      "pen": 5,
-      "accuracy": 8,
+      "damage": 6,
+      "pen": 0,
+      "accuracy": 6,
       "energy": 3,
       "family": "unarmed",
-      "noise": 3
-    },
-    "onHit": {
-      "effect": "spores",
-      "radius": 1,
-      "turns": 8,
-      "chance": 0.6
+      "noise": 6,
+      "requiresCapacity": "manipulation"
     },
     "ai": "guard",
     "morale": 999,
@@ -654,7 +742,19 @@
     "bagSize": [
       3,
       2
-    ]
+    ],
+    "noMorale": true,
+    "hearing": -2,
+    "weightKg": 70,
+    "naturalArmor": {
+      "sharp": 10,
+      "blunt": 5
+    },
+    "sporeOnHit": {
+      "radius": 1,
+      "turns": 3,
+      "conc": 6
+    }
   },
   {
     "defType": "Creature",
@@ -665,39 +765,31 @@
     "scale": 1,
     "body": "Body.Amalgam",
     "faction": "withered",
-    "sizeClass": "large",
+    "sizeClass": "huge",
     "moveTU": 100,
-    "hpBase": 280,
-    "evasion": -12,
+    "hpBase": 400,
+    "evasion": 0,
     "stats": {
-      "str": 16,
+      "str": 18,
       "agi": 6,
-      "per": 9,
+      "per": 8,
       "vit": 18,
       "wil": 10
     },
     "skills": {},
     "mods": {
-      "painMult": 0.2
+      "painMult": 0,
+      "noPain": 1
     },
     "naturalAttack": {
       "label": "촉수 후려치기",
       "damageType": "blunt",
-      "damage": 13,
-      "pen": 20,
-      "accuracy": 13,
-      "energy": 4,
+      "damage": 16,
+      "pen": 10,
+      "accuracy": 8,
+      "energy": 0,
       "family": "unarmed",
-      "noise": 8,
-      "reach": 2,
-      "requiresCapacity": "manipulation",
-      "stunD": 4
-    },
-    "onHit": {
-      "effect": "spores",
-      "radius": 1,
-      "turns": 6,
-      "chance": 0.3
+      "noise": 8
     },
     "ai": "boss",
     "morale": 999,
@@ -713,6 +805,40 @@
     "bagSize": [
       4,
       4
-    ]
+    ],
+    "bloodMult": 1.0,
+    "noMorale": true,
+    "weightKg": 400,
+    "naturalArmor": {
+      "sharp": 5,
+      "blunt": 15
+    },
+    "abilities": [
+      "Ab.Amalgam.Sweep",
+      "Ab.Amalgam.SporeBurst",
+      "Ab.Grab"
+    ],
+    "noBack": true,
+    "deathAllOf": [
+      [
+        "Head1",
+        "Head2",
+        "Head3"
+      ],
+      [
+        "Heart1",
+        "Heart2",
+        "Heart3"
+      ]
+    ],
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.SealRing"
+          ]
+        }
+      ]
+    }
   }
 ]

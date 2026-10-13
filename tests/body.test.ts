@@ -11,6 +11,7 @@ describe('신체·출혈 (02)', () => {
   it('상처 출혈 = sev × 유형 출혈계수 × 부위 혈관계수, 동맥은 고정값 (02 §6.1·§6.2)', () => {
     const w = makeWorld('b1')
     const pl = player(w)
+    pl.traits = []
     // 대퇴 베임 sev 15 → 15 × 2.0 × 1.2 = 36 ml/턴
     const { wound } = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftThigh', severity: 15, source: 't' })
     expect(wound.bleed).toBeCloseTo(36, 5)
@@ -22,6 +23,7 @@ describe('신체·출혈 (02)', () => {
   it('붕대 Q 29: 처치계수 0.384 · 동맥 0.742 → 약 125 ml/턴, 지혈대는 0 (02 §6.2 검산 3)', () => {
     const w = makeWorld('b2')
     const pl = player(w)
+    pl.traits = []
     expect(bandageCoef(29, false)).toBeCloseTo(0.384, 5)
     expect(bandageCoef(29, true)).toBeCloseTo(0.742, 5)
     // 응급 처치: 1 − (1 − 0.384) × 1.5 = 0.076 → 하한 0.15 (15 검산 5)

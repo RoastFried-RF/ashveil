@@ -1,7 +1,7 @@
 // 행동 실행. 플레이어와 NPC가 같은 함수를 쓴다 (규칙 대칭성).
 // 기본: 이동·공격 = 1턴(100TU). 치료·수색·수면 등은 여러 턴.
 
-import { abilityStrike, recoverArrow, spearWallReact, useAbility } from './abilities'
+import { abilityStrike, escapeChance, recoverArrow, spearWallReact, useAbility } from './abilities'
 import {
   bandageCoef, bloodLoss, capacity, energyMax, isMissing, PAIN_MULTI, painSpike, painStage, painTotal, part, regionPenalties, tryPart, woundDef,
 } from './body'
@@ -62,6 +62,7 @@ export type Action =
   | { type: 'closeDoor'; dir: number }
   | { type: 'attackMode' }
   | { type: 'toggleFire' }
+  | { type: 'giveWater'; target: number }
 
 export interface ActResult { ok: boolean; tu: number; msg?: string }
 
@@ -116,7 +117,8 @@ export function hostileAware(w: World, c: Creature): boolean {
 export function stumbleChance(w: World, c: Creature, to: Pos): number {
   const pen = regionPenalties(w, c)
   if (pen.crawl) return 0
-  let p = pen.stumble + (terrainAt(w, to).stumble ?? 0)
+  // 포자 인간: 뿌리 내린 다리 고유 비틀거림 +10 (bestiary §18)
+  let p = pen.stumble + (terrainAt(w, to).stumble ?? 0) + traitAdd(w, c, 'stumble')
   if (tileAt(w, to).taint) p += 5 // 포자 바닥
   if (tileAt(w, to).blood > 20) p += 5
   const loss = bloodLoss(c)
@@ -135,6 +137,7 @@ export function stumbleChance(w: World, c: Creature, to: Pos): number {
 
 export function hostile(a: Creature, b: Creature): boolean {
   if (a.faction === b.faction) return false
+  if (a.ai.mode === 'calm' || b.ai.mode === 'calm') return false
   if (a.faction === 'player' || b.faction === 'player') return true
   if (a.faction === 'vermin' || b.faction === 'vermin') return false
   if ((a.faction === 'withered' && b.faction === 'shades') || (a.faction === 'shades' && b.faction === 'withered')) return false
@@ -271,6 +274,20 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
         if (other.ai.mode === 'surrender' && isPl(c)) return FAIL(`${other.name}은(는) 항복했다.`)
         return FAIL('길이 막혔다')
       }
+      // 붙잡힘: 이동은 탈출 시도 (근력·민첩 대결)
+      const held = c.effects.find((e) => e.kind === 'grabbed' && e.untilTurn > turn)
+      if (held) {
+        const g = creatureById(w, held.magnitude)
+        if (g && g.alive && !g.unconscious && cheb(g.pos, c.pos) <= 1) {
+          const ch = escapeChance(c, g)
+          if (!r.chance(ch / 100)) {
+            if (isPl(c)) log(w, 'warn', `${g.name}에게 붙잡혀 빠져나가지 못했다. (탈출 ${ch}%)`)
+            return { ok: true, tu: 100 }
+          }
+          if (isPl(c)) log(w, 'info', `${g.name}의 손아귀를 뿌리쳤다.`)
+        }
+        c.effects = c.effects.filter((e) => e !== held)
+      }
       const terr = terrainAt(w, to)
       if (terr.door === 'closed') {
         tileAt(w, to).t = 'Terrain.DoorOpen'
@@ -381,6 +398,23 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       invalidateLights(w)
       emitNoise(w, p, c.sneaking ? 2 : 4, c.id)
       if (isPl(c)) log(w, 'info', '문을 닫았다.')
+      return { ok: true, tu: 100 }
+    }
+
+    case 'giveWater': {
+      // 말라붙은 자에게 물 주기: 1턴, 물 200ml → 30% 진정 (bestiary §19 L3)
+      const t = creatureById(w, a.target)
+      if (!t || !t.alive || cheb(t.pos, c.pos) > 1 || !w.db.creature(t.def).thirsty) return FAIL('물을 줄 상대가 없다')
+      const bottle = c.bag.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0)
+      if (!bottle) return FAIL('줄 물이 없다')
+      bottle.uses = (bottle.uses ?? 1) - 1
+      if (r.chance(0.3)) {
+        t.ai.mode = 'calm'
+        t.ai.target = undefined
+        addThought(w, c, 'Thought.SharedWater')
+        fx(w, { k: 'status', id: t.id, text: '진정', color: '#a0d0e0', turn })
+        if (isPl(c)) log(w, 'good', `${t.name}이(가) 물을 받아 마시고는 그 자리에 주저앉는다. 더는 덤비지 않는다.`)
+      } else if (isPl(c)) log(w, 'info', `${t.name}은(는) 물을 쏟아 버리고 다시 손을 뻗는다.`)
       return { ok: true, tu: 100 }
     }
 

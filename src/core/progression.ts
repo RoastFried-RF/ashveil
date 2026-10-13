@@ -71,6 +71,7 @@ export function canLearn(w: World, c: Creature, id: string): string | null {
   if (c.abilityPoints <= 0) return '능력 포인트가 없다'
   // 15 §7: ①② 는 조건 없음, ③④ 는 같은 갈래 능력 1개 이상 (+ 명시된 선행)
   const inTree = c.abilities.filter((a) => w.db.ability(a).tree === d.tree).length
+  if (d.tree === 'unique') return '배울 수 없는 능력'
   if (d.tier >= 3 && inTree < 1) return `${treeLabel(d.tree)} 갈래 능력을 하나 이상 먼저 배워야 한다`
   for (const r of d.requires ?? []) if (!c.abilities.includes(r)) return `먼저 '${w.db.ability(r).label}'을(를) 배워야 한다`
   return null
@@ -101,7 +102,8 @@ export function treeLabel(id: string): string {
 
 export function abilitiesByTree(w: World): Record<string, AbilityDef[]> {
   const out: Record<string, AbilityDef[]> = {}
-  for (const a of w.db.all<AbilityDef>('Ability')) (out[a.tree] ??= []).push(a)
+  // 고유 능력(적 전용)은 배울 수 없다
+  for (const a of w.db.all<AbilityDef>('Ability')) if (a.tree !== 'unique') (out[a.tree] ??= []).push(a)
   for (const k of Object.keys(out)) out[k].sort((a, b) => a.tier - b.tier)
   return out
 }

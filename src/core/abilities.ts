@@ -1,12 +1,13 @@
 // 액티브·토글 능력 사용 (15 §5~§7). 공격형은 07 §2 파이프라인을 그대로 쓰고 지정한 항만 바꾼다.
 
-import type { ActResult } from './actions'
-import { energyMax } from './body'
-import { canReach, fx, knockDown, pushBack, resolveAttack } from './combat'
-import { creatureAt, creatureById, inBounds, log, rng, turnOf, type World } from './ctx'
+import { stumbleChance, type ActResult } from './actions'
+import { energyMax, isDestroyed } from './body'
+import { canReach, fx, knockDown, previewHit, pushBack, resolveAttack, sporeCloud } from './combat'
+import { creatureAt, creatureById, inBounds, log, rng, terrainAt, turnOf, type World } from './ctx'
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex } from './geom'
 import { itemDef, removeOne, wield } from './items'
+import { emitNoise } from './perception'
 import { addEffect, hasEffect, traitAdd } from './traits'
 import type { AbilityDef, Creature } from './types'
 
@@ -59,6 +60,7 @@ function payCost(w: World, c: Creature, d: AbilityDef) {
 
 function hostileTo(a: Creature, b: Creature): boolean {
   if (a.faction === b.faction) return false
+  if (a.ai.mode === 'calm' || b.ai.mode === 'calm') return false
   return a.faction === 'player' || b.faction === 'player' || !(a.faction === 'vermin' || b.faction === 'vermin')
 }
 
@@ -98,6 +100,19 @@ export function useAbility(w: World, c: Creature, id: string, targetId?: number)
     fx(w, { k: 'status', id: c.id, text: d.label, color: '#8fc0a0', turn })
     return { ok: true, tu: 100 }
   }
+  if (d.burst) {
+    // 포자 분출: 머리 하나가 부서질 때마다 주기 +2턴 (bestiary §20)
+    payCost(w, c, d)
+    const broken = w.db.body(c.body.def).parts.filter((p) => p.region === 'head' && !p.internal && isDestroyed(w, c, p.id)).length
+    c.cooldowns[d.id] += broken * 2
+    sporeCloud(w, c.pos, d.burst.radius, d.burst.turns, d.burst.conc)
+    emitNoise(w, c.pos, 8, c.id)
+    if (w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'danger', `${c.name}이(가) 몸을 부풀리더니 짙은 포자를 뿜어낸다!`)
+    return { ok: true, tu: 100 }
+  }
+  if (d.sweep) return sweep(w, c, d)
+  if (d.grab) return grab(w, c, d, targetId)
+  if (d.lunge) return lunge(w, c, d, targetId)
   if (!d.attack) return { ok: false, tu: 0, msg: '쓸 수 없다' }
   const mods = d.attack
   // 휘둘러 베기: 인접 8칸의 모든 개체 (아군·중립 포함), 북쪽부터 시계 방향
@@ -161,6 +176,85 @@ export function abilityStrike(w: World, c: Creature, t: Creature, d: AbilityDef,
     }
   }
   return {}
+}
+
+/** 휩쓸기: 인접 8칸 중 적대 개체가 가장 많은 연속 N칸(팔 2개 이하면 2칸) (bestiary §20) */
+function sweep(w: World, c: Creature, d: AbilityDef): ActResult {
+  const arms = w.db.body(c.body.def).parts.filter((p) => (p.region === 'larm' || p.region === 'rarm') && !p.internal)
+  const left = arms.filter((p) => !isDestroyed(w, c, p.id)).length
+  if (arms.length && left === 0) return { ok: false, tu: 0, msg: '휘두를 팔이 없다' }
+  const n = arms.length && left <= 2 ? 2 : d.sweep ?? 3
+  let best: Creature[] = []
+  for (let i = 0; i < 8; i++) {
+    const arc: Creature[] = []
+    for (let k = 0; k < n; k++) {
+      const dd = DIRS[(i + k) % 8]
+      const o = creatureAt(w, { x: c.pos.x + dd.x, y: c.pos.y + dd.y })
+      if (o && o.alive && hostileTo(c, o)) arc.push(o)
+    }
+    if (arc.length > best.length) best = arc
+  }
+  if (!best.length) return { ok: false, tu: 0, msg: '주변에 적이 없다' }
+  payCost(w, c, d)
+  if (best.some((o) => o.faction === 'player')) log(w, 'danger', `${c.name}이(가) 촉수로 크게 휩쓸었다!`)
+  for (const t of best) resolveAttack(w, c, t, { abilityLabel: d.label, paid: true })
+  return { ok: true, tu: 100 }
+}
+
+/** 붙잡기: 명중하면 대상은 이동할 수 없다. 탈출 = 근력·민첩 대결 (bestiary §19·§20) */
+function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResult {
+  const t = creatureById(w, targetId)
+  if (!t || !t.alive || cheb(t.pos, c.pos) > 1) return { ok: false, tu: 0, msg: '붙잡을 대상이 없다' }
+  if (hasEffect(t, 'grabbed', turnOf(w))) return { ok: false, tu: 0, msg: '이미 붙잡혀 있다' }
+  payCost(w, c, d)
+  const pv = previewHit(w, c, t)
+  const roll = rng(w, 'combat').int(0, 99)
+  const isPl = t.faction === 'player' || c.faction === 'player'
+  if (!pv || roll >= pv.chance) {
+    if (isPl) log(w, 'combat', `${c.name}이(가) 붙잡으려 했지만 빗나갔다.`)
+    return { ok: true, tu: 100 }
+  }
+  addEffect(t, 'grabbed', turnOf(w) + 60, c.id)
+  fx(w, { k: 'status', id: t.id, text: '붙잡힘', color: '#e09060', turn: turnOf(w) })
+  if (isPl) log(w, 'danger', `${c.name}이(가) ${t.faction === 'player' ? '당신의' : t.name + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`)
+  return { ok: true, tu: 100 }
+}
+
+/** 탈출 판정: 50 + (내 근력·민첩 중 높은 쪽 − 붙잡은 쪽 근력) × 5, 5~95 */
+export function escapeChance(c: Creature, grabber: Creature): number {
+  return Math.max(5, Math.min(95, 50 + (Math.max(c.stats.str, c.stats.agi) - grabber.stats.str) * 5))
+}
+
+/** 달려들기: 직선 N칸을 달려와 같은 턴에 근접 공격, 이동 칸마다 비틀거림 판정 (bestiary §17) */
+function lunge(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResult {
+  const t = creatureById(w, targetId)
+  if (!t || !t.alive) return { ok: false, tu: 0, msg: '대상을 골라야 한다' }
+  const dx = t.pos.x - c.pos.x, dy = t.pos.y - c.pos.y
+  const dist = cheb(c.pos, t.pos)
+  if (dist < 2 || dist > (d.lunge ?? 2) + 1 || !(dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) return { ok: false, tu: 0, msg: '직선으로 닿지 않는다' }
+  const step = { x: Math.sign(dx), y: Math.sign(dy) }
+  const path = []
+  for (let k = 1; k < dist; k++) {
+    const p = { x: c.pos.x + step.x * k, y: c.pos.y + step.y * k }
+    if (!inBounds(w, p) || !terrainAt(w, p).passable || creatureAt(w, p)) return { ok: false, tu: 0, msg: '길이 막혔다' }
+    path.push(p)
+  }
+  payCost(w, c, d)
+  const r = rng(w, 'ai')
+  for (const p of path) {
+    const sp = stumbleChance(w, c, p)
+    if (sp > 0 && r.chance(sp / 100)) {
+      fx(w, { k: 'status', id: c.id, text: '휘청', color: '#e0b070', turn: turnOf(w) })
+      return { ok: true, tu: 100 }
+    }
+    const from = { ...c.pos }
+    c.pos = p
+    c.movedTurn = turnOf(w)
+    fx(w, { k: 'move', id: c.id, from, to: p, turn: turnOf(w) })
+  }
+  if (t.faction === 'player' || c.faction === 'player') log(w, 'combat', `${c.name}이(가) 순식간에 파고든다!`)
+  if (canReach(w, c, t)) resolveAttack(w, c, t, { abilityLabel: d.label, paid: true })
+  return { ok: true, tu: 100 }
 }
 
 /** 화살 회수: 명중 60% · 빗나감 85%, 화살 회수 능력 +30%p (상한 95) (07 §7.1 · 15 §6.5) */

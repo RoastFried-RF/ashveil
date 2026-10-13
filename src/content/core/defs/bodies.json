@@ -1331,9 +1331,9 @@
     "parts": [
       {
         "id": "Mass",
-        "label": "살덩이",
+        "label": "몸덩이",
         "region": "torso",
-        "hp": 160,
+        "hp": 180,
         "coverage": 500,
         "groups": [
           "mass"
@@ -1341,21 +1341,82 @@
         "vessel": 1.0,
         "pain": 0.6,
         "height": "mid",
-        "organMiss": 50
+        "organMiss": 40
       },
       {
-        "id": "Core",
-        "label": "핵",
+        "id": "Heart1",
+        "label": "심장 1",
         "region": "torso",
         "parent": "Mass",
         "internal": true,
-        "hp": 60,
-        "weight": 50,
-        "vital": true,
+        "hp": 30,
+        "weight": 10,
         "organ": 2.0,
         "capacities": {
-          "consciousness": 1,
-          "bloodPumping": 1,
+          "bloodPumping": 1
+        },
+        "groups": [
+          "mass"
+        ]
+      },
+      {
+        "id": "Heart2",
+        "label": "심장 2",
+        "region": "torso",
+        "parent": "Mass",
+        "internal": true,
+        "hp": 30,
+        "weight": 10,
+        "organ": 2.0,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "groups": [
+          "mass"
+        ]
+      },
+      {
+        "id": "Heart3",
+        "label": "심장 3",
+        "region": "torso",
+        "parent": "Mass",
+        "internal": true,
+        "hp": 30,
+        "weight": 10,
+        "organ": 2.0,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "groups": [
+          "mass"
+        ]
+      },
+      {
+        "id": "Lung1",
+        "label": "폐 1",
+        "region": "torso",
+        "parent": "Mass",
+        "internal": true,
+        "hp": 30,
+        "weight": 15,
+        "organ": 0.8,
+        "capacities": {
+          "breathing": 1
+        },
+        "groups": [
+          "mass"
+        ]
+      },
+      {
+        "id": "Lung2",
+        "label": "폐 2",
+        "region": "torso",
+        "parent": "Mass",
+        "internal": true,
+        "hp": 30,
+        "weight": 15,
+        "organ": 0.8,
+        "capacities": {
           "breathing": 1
         },
         "groups": [
@@ -1366,7 +1427,7 @@
         "id": "Head1",
         "label": "머리 1",
         "region": "head",
-        "hp": 40,
+        "hp": 30,
         "coverage": 60,
         "groups": [
           "head"
@@ -1377,14 +1438,15 @@
         "capacities": {
           "sight": 1,
           "hearing": 1,
-          "smell": 1
+          "smell": 1,
+          "consciousness": 1
         }
       },
       {
         "id": "Head2",
         "label": "머리 2",
         "region": "head",
-        "hp": 40,
+        "hp": 30,
         "coverage": 60,
         "groups": [
           "head"
@@ -1395,14 +1457,15 @@
         "capacities": {
           "sight": 1,
           "hearing": 1,
-          "smell": 1
+          "smell": 1,
+          "consciousness": 1
         }
       },
       {
         "id": "Head3",
         "label": "머리 3",
         "region": "head",
-        "hp": 40,
+        "hp": 30,
         "coverage": 60,
         "groups": [
           "head"
@@ -1413,14 +1476,15 @@
         "capacities": {
           "sight": 1,
           "hearing": 1,
-          "smell": 1
+          "smell": 1,
+          "consciousness": 1
         }
       },
       {
         "id": "Arm1",
         "label": "팔 1",
         "region": "larm",
-        "hp": 50,
+        "hp": 40,
         "coverage": 80,
         "groups": [
           "arm"
@@ -1428,7 +1492,6 @@
         "vessel": 1.0,
         "pain": 0.8,
         "height": "mid",
-        "artery": 60,
         "capacities": {
           "manipulation": 1
         },
@@ -1438,7 +1501,7 @@
         "id": "Arm2",
         "label": "팔 2",
         "region": "larm",
-        "hp": 50,
+        "hp": 40,
         "coverage": 80,
         "groups": [
           "arm"
@@ -1446,7 +1509,6 @@
         "vessel": 1.0,
         "pain": 0.8,
         "height": "mid",
-        "artery": 60,
         "capacities": {
           "manipulation": 1
         },
@@ -1456,7 +1518,7 @@
         "id": "Arm3",
         "label": "팔 3",
         "region": "rarm",
-        "hp": 50,
+        "hp": 40,
         "coverage": 80,
         "groups": [
           "arm"
@@ -1464,7 +1526,6 @@
         "vessel": 1.0,
         "pain": 0.8,
         "height": "mid",
-        "artery": 60,
         "capacities": {
           "manipulation": 1
         },
@@ -1474,7 +1535,7 @@
         "id": "Arm4",
         "label": "팔 4",
         "region": "rarm",
-        "hp": 50,
+        "hp": 40,
         "coverage": 80,
         "groups": [
           "arm"
@@ -1482,7 +1543,6 @@
         "vessel": 1.0,
         "pain": 0.8,
         "height": "mid",
-        "artery": 60,
         "capacities": {
           "manipulation": 1
         },

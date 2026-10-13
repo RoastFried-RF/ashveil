@@ -247,6 +247,24 @@ export interface CreatureDef extends DefBase {
   darkSight?: [number, number]
   /** 보유 능력 (15 §15) */
   abilities?: string[]
+  /** 능력치 흔들림 범위 (약탈자만, H) */
+  statRange?: Partial<Record<keyof Stats, [number, number]>>
+  /** 든 무기 계열에 따라 받는 능력 (약탈자 근접: 도끼 → 쪼개기, 둔기 → 밀쳐내기) */
+  weaponAbilities?: Record<string, string[]>
+  /** 무리 우두머리 (사망 시 같은 무리 사기 −30) */
+  leader?: boolean
+  /** 빛을 싫어함: 광원 반경 안에서 사기 −10 (그늘 사람) */
+  lightAverse?: boolean
+  /** 무리 절반을 잃으면 도주 (그늘 사람) */
+  packFlee?: boolean
+  /** 물 냄새에 끌리고 물을 주면 진정할 수 있다 (말라붙은 자) */
+  thirsty?: boolean
+  /** 맞아서 HP가 줄면 포자 구름 (포자 인간) */
+  sporeOnHit?: { radius: number; turns: number; conc: number }
+  /** 등 뒤가 없다 (융합체: 모든 방향이 정면) */
+  noBack?: boolean
+  /** 이 부위 묶음이 모두 파괴되면 죽는다 (융합체: 머리 셋, 심장 셋) */
+  deathAllOf?: string[][]
 }
 
 export interface Stats { str: number; agi: number; per: number; vit: number; wil: number }
@@ -384,6 +402,14 @@ export interface AbilityDef extends DefBase {
   attackMode?: string
   /** 채널 턴 수 (조준 사격 2) */
   channel?: number
+  /** 달려들기: 직선 N칸 이동 후 근접 공격 */
+  lunge?: number
+  /** 휩쓸기: 연속 N칸 */
+  sweep?: number
+  /** 포자 분출 */
+  burst?: { radius: number; turns: number; conc: number }
+  /** 붙잡기 */
+  grab?: boolean
   target?: 'enemy' | 'self'
   attack?: AbilityAttackMods
   stance?: { effect: string; turns: number; magnitude?: number }
@@ -504,7 +530,13 @@ export interface Activity {
 }
 
 export interface AiState {
-  mode: 'idle' | 'wander' | 'hunt' | 'investigate' | 'flee' | 'eat' | 'surrender' | 'guard' | 'return' | 'patrol'
+  mode: 'idle' | 'wander' | 'hunt' | 'investigate' | 'flee' | 'eat' | 'surrender' | 'guard' | 'return' | 'patrol' | 'calm'
+  /** 사기 사건 (07 §8): 값 · 시각 · 감쇠 방식 */
+  mev?: { v: number; t: number; k: 'half30' | 'fixed' | 't20' | 't30' }[]
+  /** 궁지: 도주가 결정됐지만 도망칠 수 없다 (명중 +5, 반응 안 함) */
+  cornered?: boolean
+  /** 마지막 사기 판정 턴 */
+  moraleCheck?: number
   target?: number
   dest?: Pos
   lastSeen?: Pos
@@ -640,6 +672,8 @@ export interface Tile {
   deco?: string
   /** 오염(최심부) */
   taint?: number
+  /** 포자 구름: 끝나는 턴과 농도 (07 §11) */
+  spores?: { until: number; conc: number }
 }
 
 export interface MapProp { kind: string; x: number; y: number; w: number; h: number; anim?: string; blocks?: boolean; scale?: number }

@@ -1,14 +1,16 @@
 // 적 AI: 무리 사냥꾼(재늑대), 약탈자, 겁많은 쥐. 같은 규칙 아래에서 판단한다.
 
 import { hostile, type Action } from './actions'
-import { bloodLoss, capacity, totalBleed } from './body'
+import { abilityReady } from './abilities'
+import { energyMax, regionState, totalBleed } from './body'
 import { canReach, facingRelation, fx, wake } from './combat'
 import { creatureAt, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
-import { countOf, itemDef, mainWeapon } from './items'
+import { countOf, itemDef, lightSource, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
 import { emitNoise, smells } from './perception'
+import { moraleEvent, moraleOf, packHalved } from './morale'
 import { awardDefeat } from './progression'
 import { alarmArrived, PATROL_WAIT, raidStash } from './storyteller'
 import type { Creature } from './types'
@@ -99,6 +101,66 @@ function nearestFood(w: World, c: Creature, range: number): Pos | null {
   return best?.p ?? null
 }
 
+/** 적의 능력 사용 규칙 (A13) */
+function chooseAbility(w: World, c: Creature, t: Creature, threats: Creature[]): Action | null {
+  const r = rng(w, 'ai')
+  const d = cheb(c.pos, t.pos)
+  for (const id of c.abilities) {
+    const def = w.db.ability(id)
+    if (def.kind !== 'active' || abilityReady(w, c, id)) continue
+    if (def.sweep) {
+      if (threats.some((o) => cheb(o.pos, c.pos) <= 1)) return { type: 'ability', id }
+      continue
+    }
+    if (def.burst) {
+      if (threats.some((o) => cheb(o.pos, c.pos) <= def.burst!.radius)) return { type: 'ability', id }
+      continue
+    }
+    if (def.grab) {
+      if (d <= 1 && !t.effects.some((e) => e.kind === 'grabbed') && r.chance(0.3)) return { type: 'ability', id, target: t.id }
+      continue
+    }
+    if (def.lunge) {
+      const dx = t.pos.x - c.pos.x, dy = t.pos.y - c.pos.y
+      if (d >= 2 && d <= def.lunge + 1 && (dx === 0 || dy === 0 || Math.abs(dx) === Math.abs(dy))) {
+        let clear = true
+        for (let k = 1; k < d; k++) {
+          const p = { x: c.pos.x + Math.sign(dx) * k, y: c.pos.y + Math.sign(dy) * k }
+          if (!terrainAt(w, p).passable || creatureAt(w, p)) clear = false
+        }
+        if (clear) return { type: 'ability', id, target: t.id }
+      }
+      continue
+    }
+    if (def.self) {
+      if (c.needs.energy < energyMax(w, c) * 0.3 && !threats.some((o) => cheb(o.pos, c.pos) <= 1)) return { type: 'ability', id }
+      continue
+    }
+    if (def.channel) {
+      if (d >= 3 && r.chance(0.6)) return { type: 'ability', id, target: t.id }
+      continue
+    }
+    if (def.attack && canReach(w, c, t) && r.chance(0.5)) return { type: 'ability', id, target: t.id }
+  }
+  return null
+}
+
+/** 항복 (07 §8): 무기를 내려놓는다. 항복을 받아낸 경험치는 처치와 같다 (15 §3) */
+function surrender(w: World, c: Creature, threats: Creature[]): Action {
+  const pl = player(w)
+  c.ai.mode = 'surrender'
+  c.ai.cornered = false
+  if (threats.some((t) => t.id === pl.id)) awardDefeat(w, pl, c, 1, '항복시킴')
+  const mw = mainWeapon(w, c)
+  if (mw) {
+    c.equip.main = undefined
+    tileAt(w, c.pos).items.push(mw)
+  }
+  fx(w, { k: 'status', id: c.id, text: '항복', color: '#f0f0f0', turn: turnOf(w) })
+  if (canSee(w, pl, c.pos)) log(w, 'warn', `${c.name}이(가) 무기를 내던지고 무릎을 꿇는다. "살려줘…!"`)
+  return { type: 'wait' }
+}
+
 /** 도주 목적지: 약탈자 = 야영지(거점), 던전 = 가까운 계단 */
 function fleeDest(w: World, c: Creature): Pos | undefined {
   if (w.s.map.kind === 'surface') return c.faction === 'reavers' ? c.home ?? w.s.map.waypoints?.reaverCamp : undefined
@@ -123,19 +185,37 @@ export function aiDecide(w: World, c: Creature): Action {
   }
   const isGuard = cdef.ai === 'guard' || cdef.ai === 'boss'
 
-  // 사기 회복 (위협이 없을 때)
+  // 진정한 개체(물을 받은 말라붙은 자)는 그 자리에 머문다
+  if (ai.mode === 'calm') return { type: 'wait' }
   const threats = visibleHostiles(w, c)
-  if (!threats.length) ai.morale = Math.min(cdef.morale, ai.morale + 0.3)
-  // 수적 우세
-  const allies = w.s.creatures.filter((o) => o.alive && o.faction === c.faction && o.id !== c.id && cheb(o.pos, c.pos) <= 6).length
 
-  // 도주/항복 판단
-  const fleeLine = cdef.ai === 'raider' ? 22 : cdef.ai === 'skittish' ? 15 : 18
-  const tooHurt = bloodLoss(c) > (cdef.ai === 'raider' ? 0.25 : 0.32) || capacity(w, c, 'moving') < 0.35
-  if (ai.mode !== 'surrender' && ai.mode !== 'flee' && (ai.morale + allies * 6 < fleeLine || tooHurt) && threats.length) {
-    ai.mode = 'flee'
-    if (canSee(w, pl, c.pos)) log(w, 'combat', `${c.name}이(가) 겁에 질려 달아나기 시작한다.`)
-    if (cdef.ai === 'packHunter') emitNoise(w, c.pos, 8, c.id) // 깨갱
+  // 사기 (07 §8): 사건 즉시 + 5턴마다 판정
+  const M = moraleOf(w, c)
+  ai.morale = M
+  if (!cdef.noMorale && ai.mode !== 'surrender' && ai.mode !== 'flee' && threats.length) {
+    const check = ai.moraleCheck === undefined || turn - ai.moraleCheck >= 5
+    let flee = M < 10 || packHalved(w, c)
+    if (!flee && M < 25 && check) flee = r.int(0, 99) < (25 - M) * 4
+    if (check) ai.moraleCheck = turn
+    if (flee) {
+      // 도주 불가: 다리 중상 이상 · 물러날 칸 없음(포위·막다른 곳)
+      const legs = Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg'))
+      const away = stepAway(w, c, threats)
+      const gain = away?.type === 'move' && threats.every((t) => cheb(t.pos, { x: c.pos.x + DIRS[away.dir].x, y: c.pos.y + DIRS[away.dir].y }) >= cheb(t.pos, c.pos))
+      if (legs < 3 && gain) {
+        ai.mode = 'flee'
+        ai.cornered = false
+        for (const o of w.s.creatures) if (o.alive && o.id !== c.id && o.faction === c.faction && canSee(w, o, c.pos)) moraleEvent(o, -5, 't20', turn)
+        fx(w, { k: 'status', id: c.id, text: '도주!', color: '#e0c050', turn })
+        if (canSee(w, pl, c.pos)) log(w, 'combat', `${c.name}이(가) 겁에 질려 달아나기 시작한다.`)
+      } else if (c.faction === 'reavers' && !ai.cornered && r.int(0, 99) < Math.max(20, (25 - M) * 3)) {
+        return surrender(w, c, threats)
+      } else if (!ai.cornered) {
+        ai.cornered = true
+        fx(w, { k: 'status', id: c.id, text: '궁지', color: '#e07040', turn })
+        if (canSee(w, pl, c.pos)) log(w, 'combat', `${c.name}이(가) 궁지에 몰렸다. 이를 악물고 덤빈다.`)
+      }
+    }
   }
 
   if (ai.mode === 'surrender') {
@@ -146,7 +226,7 @@ export function aiDecide(w: World, c: Creature): Action {
   }
 
   if (ai.mode === 'flee') {
-    if (!threats.length && ai.morale > fleeLine + 15 && !tooHurt) { ai.mode = 'idle'; ai.goneSince = undefined }
+    if (!threats.length && M >= 40) { ai.mode = 'idle'; ai.goneSince = undefined }
     // 도주 경험치: 시야 밖으로 사라져 30턴 동안 돌아오지 않으면 50% (15 §3)
     if (canSee(w, pl, c.pos)) ai.goneSince = undefined
     else {
@@ -166,18 +246,6 @@ export function aiDecide(w: World, c: Creature): Action {
         return { type: 'wait' }
       }
       ai.mode = 'guard'
-      return { type: 'wait' }
-    }
-    // 궁지에 몰린 사람은 항복
-    if (cdef.ai === 'raider' && threats.some((t) => cheb(t.pos, c.pos) <= 1) && (ai.morale < 5 || capacity(w, c, 'moving') < 0.35)) {
-      ai.mode = 'surrender'
-      if (threats.some((t) => t.id === pl.id)) awardDefeat(w, pl, c, 1, '항복시킴')
-      const mw = mainWeapon(w, c)
-      if (mw) {
-        c.equip.main = undefined
-        tileAt(w, c.pos).items.push(mw)
-      }
-      if (canSee(w, pl, c.pos)) log(w, 'warn', `${c.name}이(가) 무기를 내던지고 무릎을 꿇는다. "살려줘…!"`)
       return { type: 'wait' }
     }
     if (threats.length) {
@@ -252,6 +320,22 @@ export function aiDecide(w: World, c: Creature): Action {
     ai.mode = 'hunt'
     ai.target = target.id
     ai.lastSeen = { ...target.pos }
+    // 능력 (15 §15: 적도 같은 능력 Def를 쓴다)
+    const ab = chooseAbility(w, c, target, threats)
+    if (ab) return ab
+    // 빛을 싫어하는 무리: 광원을 든 대상에게는 정면으로 오지 않고, 동료 둘이 붙을 때까지 빛 밖에서 기다린다 (07 §12.4)
+    if (cdef.lightAverse && cheb(c.pos, target.pos) > 1) {
+      const src = lightSource(w, target)
+      if (src) {
+        const near = w.s.creatures.filter((o) => o.alive && o.id !== c.id && o.faction === c.faction && cheb(o.pos, target.pos) <= 2).length
+        if (near < 2 && cheb(c.pos, target.pos) <= src.radius + 1) {
+          return stepAway(w, c, [target]) ?? { type: 'wait' }
+        }
+        if (near < 2) return { type: 'wait' }
+        const spot = flankSpot(w, c, target)
+        if (spot) { const st = stepToward(w, c, spot); if (st) return st }
+      }
+    }
     // 원거리 무기
     const mw = mainWeapon(w, c)
     if (mw && itemDef(w, mw).ranged && cheb(c.pos, target.pos) > 1) {

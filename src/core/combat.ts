@@ -5,11 +5,12 @@ import {
   addStun, addWound, ARM_BLOCK, ARM_DMG, bloodLoss, bodyDef, isMissing, painStage, painTotal, part, regionPenalties,
   regionState, totalBleed,
 } from './body'
-import { clamp, creatureAt, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
+import { clamp, creatureAt, creatureById, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee, hasLos, lightLevel } from './fov'
-import { cheb, DIRS, dirDelta, dirIndex, type Pos } from './geom'
+import { cheb, DIRS, dirDelta, dirIndex, line, type Pos } from './geom'
 import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, wield, type Wield } from './items'
 import { addThought } from './needs'
+import { moraleEvent } from './morale'
 import { emitNoise } from './perception'
 import { awardDefeat } from './progression'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
@@ -52,6 +53,11 @@ export function facingRelation(defender: Creature, attackerPos: Pos): 'front' | 
   const toAtt = dirIndex(attackerPos.x - defender.pos.x, attackerPos.y - defender.pos.y)
   const d = dirDelta(defender.facing, toAtt)
   return d <= 1 ? 'front' : d === 2 ? 'side' : 'back'
+}
+
+/** 방향 관계. 융합체처럼 등 뒤가 없는 개체는 늘 정면 (bestiary §20) */
+export function relationOf(w: World, defender: Creature, attackerPos: Pos): 'front' | 'side' | 'back' {
+  return w.db.creature(defender.def).noBack ? 'front' : facingRelation(defender, attackerPos)
 }
 
 function sideOf(defender: Creature, attackerPos: Pos): 'l' | 'r' | undefined {
@@ -99,7 +105,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   // 방향 · 기습
   if (helpless(d)) add(d.asleep ? '잠든 상대' : '의식 없는 상대', 40)
   else {
-    const rel = facingRelation(d, a.pos)
+    const rel = relationOf(w, d, a.pos)
     add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
     if (unaware(w, a, d)) add('기습', 20)
   }
@@ -123,9 +129,9 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   add('기력', a.needs.energy <= 0 ? -15 : a.needs.energy < 25 ? -5 : 0)
   if (isDown(w, a)) add('넘어짐', -20)
   if ((a.drowsyUntil ?? 0) > turn) add('잠기운', -20)
-  if (hasEffect(a, 'spores', turn)) add('포자 기침', -10)
   const morale = a.ai.morale
-  if (a.faction !== 'player' && !w.db.creature(a.def).noMorale && morale >= 10 && morale < 40) add('흔들림', -5)
+  if (a.faction !== 'player' && !w.db.creature(a.def).noMorale && morale >= 25 && morale < 40) add('흔들림', -5)
+  if (a.ai.cornered) add('궁지', 5)
   // 협공: 같은 대상에 인접한 다른 아군 1명당 +5 (최대 +15)
   if (!ranged) {
     let mates = 0
@@ -141,6 +147,10 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
     add('사거리 초과', -rp)
     if (dist <= 1) add('인접 사격', -10)
     if (d.movedTurn !== undefined && turn - d.movedTurn <= 1) add('이동 중인 대상', -5)
+    // 연기·포자 구름: 사선상 칸당 −10 (07 §2.1)
+    let clouds = 0
+    for (const q of line(a.pos, d.pos)) if ((w.s.map.tiles[q.y * w.s.map.w + q.x].spores?.until ?? 0) > turn) clouds++
+    add('포자 구름', -10 * clouds)
   } else {
     if ((atk.reach ?? 1) >= 2 && dist <= 1) add('긴 자루 인접', -10)
     if (dist === 2) add('거리 유지', traitAdd(w, a, 'reachHit'))
@@ -167,9 +177,9 @@ function reactionMult(w: World, d: Creature): number {
 
 function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: boolean): Reaction[] {
   const turn = turnOf(w)
-  if (helpless(d) || d.ai.mode === 'surrender' || d.needs.energy <= 0) return []
+  if (helpless(d) || d.ai.mode === 'surrender' || d.ai.cornered || d.needs.energy <= 0) return []
   if (hasEffect(d, 'stunned', turn) || unaware(w, a, d) || !canSee(w, d, a.pos)) return []
-  const rel = facingRelation(d, a.pos)
+  const rel = relationOf(w, d, a.pos)
   const side = sideOf(d, a.pos)
   const down = isDown(w, d)
   const mult = reactionMult(w, d)
@@ -221,7 +231,7 @@ export interface PartPick { part: BodyPartDef; lines: string[] }
 export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: AbilityAttackMods; shieldFailed?: boolean; sneak?: boolean } = {}): PartPick {
   const r = rng(w, 'combat')
   const bdef = bodyDef(w, d)
-  const side = sideOf(d, a.pos)
+  const side = w.db.creature(d.def).noBack ? undefined : sideOf(d, a.pos)
   const smaller = SIZE_RANK[size(w, d)] - SIZE_RANK[size(w, a)] >= 2
   const down = isDown(w, d)
   const pw = opts.mods?.partWeights
@@ -508,7 +518,6 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
     emitNoise(w, d.pos, 12, d.id)
   }
   wake(w, d, '공격받음')
-  moraleHit(w, d, D, out.arterial || !!out.fracture || !!out.destroyed)
   return res
 }
 
@@ -629,15 +638,11 @@ function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numbe
     if (bodyDef(w, d).kind === 'amalgam') ch = 0
     if (ch > 0 && r.int(0, 99) < ch) knockDown(w, d, isPlayer, dName)
   }
-  // 포자 등 피격 반응
-  const odef = w.db.creature(d.def).onHit
-  if (odef && r.chance(odef.chance)) {
-    for (const o of w.s.creatures) {
-      if (!o.alive || cheb(o.pos, d.pos) > odef.radius || o.id === d.id) continue
-      addEffect(o, odef.effect, turn + odef.turns)
-      fx(w, { k: 'status', id: o.id, text: '포자!', color: '#a0c060', turn })
-    }
-    if (isPlayer) log(w, 'warn', `${d.name}에게서 포자 구름이 터졌다. 기침이 나고 기력이 돌지 않는다.`)
+  // 포자 뿜기: HP가 줄어들 때마다 인접 칸에 포자 구름 (bestiary §18)
+  const sp = w.db.creature(d.def).sporeOnHit
+  if (sp) {
+    sporeCloud(w, d.pos, sp.radius, sp.turns, sp.conc)
+    if (isPlayer) log(w, 'warn', `${d.name}에게서 회색 포자 구름이 터졌다.`)
   }
   // 비명 (통증 급증)
   if (D >= 10 && !traitOverride(w, d, 'noPain')) emitNoise(w, d.pos, 12, d.id)
@@ -668,10 +673,17 @@ function noteFight(w: World, a: Creature, d: Creature) {
   b.fought++
 }
 
-export function moraleHit(w: World, c: Creature, dmg: number, severe: boolean) {
-  if (c.faction === 'player' || w.db.creature(c.def).noMorale) return
-  c.ai.morale -= dmg * 1.2 + (severe ? 15 : 0)
-  c.ai.morale -= bloodLoss(c) * 30
+/** 포자 구름 (07 §11 · bestiary §18·§20): 반경 안 칸에 농도·지속 */
+export function sporeCloud(w: World, at: Pos, radius: number, turns: number, conc: number) {
+  const m = w.s.map
+  const until = turnOf(w) + turns
+  for (let y = at.y - radius; y <= at.y + radius; y++) for (let x = at.x - radius; x <= at.x + radius; x++) {
+    if (x < 0 || y < 0 || x >= m.w || y >= m.h) continue
+    const t = m.tiles[y * m.w + x]
+    if (!w.db.terrain(t.t).passable) continue
+    if (!t.spores || t.spores.until < until) t.spores = { until, conc: Math.max(conc, t.spores?.conc ?? 0) }
+  }
+  fx(w, { k: 'status', id: creatureAt(w, at)?.id ?? -1, text: '포자!', color: '#a0c060', turn: turnOf(w) })
 }
 
 // ── 밀치기 (07 §7.2) ─────────────────────────────
@@ -747,17 +759,23 @@ export function killCreature(w: World, c: Creature, cause: string) {
       const byPlayer = c.body.wounds.some((wd) => wd.sourceId === pl.id) || c.lastAttacker?.startsWith(pl.name)
       if (byPlayer) {
         b.killed++
-        if (c.faction === 'reavers') addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
+        if (c.faction === 'reavers' || c.faction === 'shades') addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
+        else if (c.faction === 'withered') addThought(w, pl, 'Thought.KilledFevered', traitOverride(w, pl, 'killMood'))
         else addThought(w, pl, 'Thought.KilledBeast')
         awardDefeat(w, pl, c, 1, '처치')
       } else addThought(w, pl, 'Thought.SawDeath')
     }
     log(w, 'combat', `${c.name}이(가) 쓰러졌다. (${cause})`)
   }
+  // 사기 사건 (07 §8): 시야 내 아군 사망 −15(30턴 반감), 우두머리 사망 −30, 처치한 쪽 +5
+  const leader = !!w.db.creature(c.def).leader
   for (const o of w.s.creatures) {
     if (!o.alive || o.faction !== c.faction || o.id === c.id) continue
-    if (cheb(o.pos, c.pos) <= 10) o.ai.morale -= 15
+    if (leader && cheb(o.pos, c.pos) <= 20) moraleEvent(o, -30, 'fixed', turn)
+    else if (canSee(w, o, c.pos)) moraleEvent(o, -15, 'half30', turn)
   }
+  const killer = creatureById(w, c.body.wounds[c.body.wounds.length - 1]?.sourceId)
+  if (killer && killer.alive && killer.faction !== 'player') moraleEvent(killer, 5, 't30', turn)
 }
 
 /** 인접(또는 리치 2) 공격 가능 여부 */

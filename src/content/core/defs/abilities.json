@@ -411,5 +411,67 @@
       "maxHp": 15,
       "bleedMult": 0.8
     }
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Shade.Lunge",
+    "tree": "unique",
+    "tier": 1,
+    "label": "달려들기",
+    "description": "직선 2칸을 달려와 같은 턴에 근접 공격한다. 이동 칸마다 비틀거림 판정.",
+    "kind": "active",
+    "energy": 10,
+    "cooldown": 6,
+    "target": "enemy",
+    "icon": "rusty_knife",
+    "lunge": 2,
+    "attack": {}
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Amalgam.Sweep",
+    "tree": "unique",
+    "tier": 1,
+    "label": "휩쓸기",
+    "description": "인접 8칸 중 대상이 가장 많은 연속 3칸을 후려친다. 남은 팔이 2개 이하면 2칸.",
+    "kind": "active",
+    "energy": 0,
+    "cooldown": 0,
+    "target": "self",
+    "icon": "pipe_club",
+    "sweep": 3,
+    "attack": {}
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Amalgam.SporeBurst",
+    "tree": "unique",
+    "tier": 1,
+    "label": "포자 분출",
+    "description": "반경 3에 짙은 포자 구름(농도 8, 4턴). 6턴마다, 머리 하나가 부서질 때마다 +2턴.",
+    "kind": "active",
+    "energy": 0,
+    "cooldown": 6,
+    "target": "self",
+    "icon": "pill_green",
+    "burst": {
+      "radius": 3,
+      "turns": 4,
+      "conc": 8
+    }
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Grab",
+    "tree": "unique",
+    "tier": 1,
+    "label": "붙잡기",
+    "description": "인접 대상의 팔을 붙잡는다. 붙잡힌 동안 이동할 수 없다(탈출 = 근력·민첩 대결).",
+    "kind": "active",
+    "energy": 0,
+    "cooldown": 3,
+    "target": "enemy",
+    "icon": "gloves",
+    "grab": true
   }
 ]

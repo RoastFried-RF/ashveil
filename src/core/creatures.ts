@@ -53,7 +53,9 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
     exerted: false,
     history: [],
   }
-  for (const k of Object.keys(c.stats) as (keyof typeof c.stats)[]) c.stats[k] = Math.max(3, c.stats[k] + r.int(-1, 1))
+  // 능력치 흔들림은 약탈자만 (도감 H): 범위 안에서 정수
+  for (const [k, range] of Object.entries(def.statRange ?? {}) as [keyof typeof c.stats, [number, number]][]) c.stats[k] = r.int(range[0], range[1])
+  c.abilities = [...(def.abilities ?? [])]
   for (const slot of def.loadout?.slots ?? []) {
     if (slot.chance !== undefined && !r.chance(slot.chance)) continue
     const it = makeItem(w, r.pick(slot.items), slot.count ? r.int(slot.count[0], slot.count[1]) : 1)
@@ -61,6 +63,9 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
     const idef = itemDef(w, it)
     if (idef.slot && !c.equip[idef.slot === 'ring' ? 'ring1' : idef.slot]) equip(w, c, it.uid)
   }
+  // 든 무기 계열에 따른 능력 (약탈자 근접: 도끼 → 쪼개기, 둔기 → 밀쳐내기, 15 §15)
+  const fam = c.equip.main ? itemDef(w, c.equip.main).attacks?.[0]?.family : undefined
+  for (const id of (fam && def.weaponAbilities?.[fam]) || []) if (!c.abilities.includes(id)) c.abilities.push(id)
   c.hp = hpMax(w, c)
   c.needs.energy = energyMax(w, c)
   return c

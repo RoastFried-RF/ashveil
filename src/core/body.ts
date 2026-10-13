@@ -256,6 +256,13 @@ function consciousnessOrgan(w: World, c: Creature): BodyPartDef | undefined {
   return bodyDef(w, c).parts.find((p) => p.capacities?.consciousness)
 }
 
+/** 의식 기관 효율: 여러 개(융합체 머리 셋)면 가장 성한 것 */
+function brainEff(w: World, c: Creature): number {
+  let best = -1
+  for (const p of bodyDef(w, c).parts) if (p.capacities?.consciousness) best = Math.max(best, partEff(w, c, p.id))
+  return best < 0 ? 1 : best
+}
+
 /** 의식 = 뇌e × (1 − P통증 − P혈액 − P피로 − P체온 − P약물 − P쇼크) × (0.4 + 0.6 × 산소공급) */
 export function consciousness(w: World, c: Creature): number {
   return cached(w, c, 'cons', () => consciousnessRaw(w, c))
@@ -263,8 +270,7 @@ export function consciousness(w: World, c: Creature): number {
 
 function consciousnessRaw(w: World, c: Creature): number {
   const turn = turnOf(w)
-  const organ = consciousnessOrgan(w, c)
-  const brain = organ ? partEff(w, c, organ.id) : 1
+  const brain = brainEff(w, c)
   const n = c.needs
   let pen = Math.max(0, painTotal(w, c) - 20) / 200
   pen += bloodPenalty(bloodLoss(c))
@@ -472,6 +478,9 @@ function sever(w: World, c: Creature, pd: BodyPartDef, source: string) {
 /** 사망 원인 판정 (살아 있으면 null) — 02 §2.0.1 사망 경로 */
 export function deathCause(w: World, c: Creature): string | null {
   if (c.hp <= 0) return '치명상'
+  for (const group of w.db.creature(c.def).deathAllOf ?? []) {
+    if (group.every((id) => isDestroyed(w, c, id))) return `${group.map((id) => part(w, c, id).label).join('·')} 모두 파괴`
+  }
   for (const p of bodyDef(w, c).parts) {
     if (p.vital && isDestroyed(w, c, p.id)) return `${p.label} 파괴`
     if (p.delayedDeath && isDestroyed(w, c, p.id)) {

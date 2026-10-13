@@ -15,6 +15,7 @@ import { generateDungeon, generateSurface, sleepChance, type GenResult, type Roo
 import { needsTick, psycheTick } from './needs'
 import { awardCrisis, gainXp } from './progression'
 import { buildReport } from './report'
+import { emitNoise } from './perception'
 import { RNG_STREAMS, Rng, seedState } from './rng'
 import { settleSurfaceEvents, storytellerTick } from './storyteller'
 import { hasEffect } from './traits'
@@ -205,6 +206,13 @@ function globalTurnTick(w: World) {
           if (c.faction === 'player') log(w, 'warn', '등불의 기름이 다 떨어졌다. 어둠이 덮친다.')
         }
       }
+    }
+    // 포자 구름 칸: 머문 턴당 기력 −2, 기침(소음 4) — 포자 인간·융합체는 영향 없음 (07 §11)
+    const sp = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x].spores
+    if (sp && sp.until > turn && !c.def.startsWith('Creature.SporeMan') && c.def !== 'Creature.Amalgam') {
+      c.needs.energy = Math.max(0, c.needs.energy - 2)
+      emitNoise(w, c.pos, 4, c.id)
+      if (c.faction === 'player' && turn % 5 === 0) log(w, 'warn', '포자 구름 속이다. 기침이 멎지 않고 숨이 가쁘다.')
     }
     c.effects = c.effects.filter((e) => e.untilTurn > turn)
     const cause = deathCause(w, c)
