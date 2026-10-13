@@ -27,7 +27,7 @@ const d = computed(() => {
     return { i, empty: false as const, icon: def.sprite, label: def.label, cd: 0, cdMax: 1, ok: count > 0, count, on: false, ref }
   })
   return {
-    pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.stamina, enMax: energyMax(w, pl),
+    pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
     xp: pl.xp - xpTotalFor(pl.level), xpNext: xpToNext(pl.level) - xpTotalFor(pl.level), level: pl.level, slots,
     points: pl.statPoints, apoints: pl.abilityPoints, wounds: pl.body.wounds.length,
   }

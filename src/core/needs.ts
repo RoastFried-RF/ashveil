@@ -1,6 +1,6 @@
 // 생존(열량·수분·비타민·피로·체온·젖음·기력)과 기분(사고 스택·스트레스)
 
-import { bloodLoss, capacity, energyMax, painTotal, regionPenalties, totalBleed } from './body'
+import { bloodLoss, energyMax, painTotal, regionPenalties, totalBleed } from './body'
 import { clamp, log, rng, turnOf, TURNS_PER_DAY, tileAt, terrainAt, type World } from './ctx'
 import { ambientTemp, daylight, isRaining } from './environment'
 import { apparelItems } from './items'
@@ -12,7 +12,7 @@ export const WATER_PER_DAY = 2500
 export const VITAMIN_PER_DAY = 2
 
 export function newNeeds() {
-  return { kcal: 1800, water: 1800, vitamin: 60, fatigue: 20, bodyTemp: 37, wetness: 0, stamina: 100, stress: 10 }
+  return { kcal: 1800, water: 1800, vitamin: 60, fatigue: 20, bodyTemp: 37, wetness: 0, energy: 100, stress: 10 }
 }
 
 /** 의복 단열 (젖음 반영). 모든 사람은 기본 옷(단열 2)을 입고 있다 */
@@ -58,20 +58,22 @@ export function needsTick(w: World, c: Creature, sleeping: boolean) {
   else if (!hasEffect(c, 'stimulant', turn)) n.fatigue = Math.min(100, n.fatigue + 100 / 19200 * (c.exerted ? 1.5 : 1))
   if (hasEffect(c, 'sedative', turn)) n.fatigue = Math.min(100, n.fatigue + 0.02)
 
-  // 기력 (07 §6): 턴마다 (2 + ⌊활력/5⌋) × 몸통 계수, 공격·능력이 없던 턴 ×2.
+  // 기력 (07 §6): 턴마다 (2 + ⌊활력/5⌋) × 몸통 계수, 대기·휴식 턴 ×2.
   // 배고픔·추위 단계 ×0.75, 실혈 15% ×0.5, 포자 기침 0, 수면 ×2
   const emax = energyMax(w, c)
   {
-    let regen = (2 + Math.floor(c.stats.vit / 5)) * regionPenalties(w, c).energyRegen * capacity(w, c, 'breathing')
-    if (!c.exerted) regen *= 2
+    let regen = (2 + Math.floor(c.stats.vit / 5)) * regionPenalties(w, c).energyRegen
+    // 대기·휴식 턴 ×2 (07 §6)
+    if (c.rested || c.activity?.kind === 'rest') regen *= 2
     if (n.kcal < 600) regen *= 0.75
     if (n.bodyTemp < 36) regen *= 0.75
     if (bloodLoss(c) >= 0.15) regen *= 0.5
     if (hasEffect(c, 'spores', turn)) regen = 0
     if (sleeping) regen *= 2
-    n.stamina = Math.min(emax, n.stamina + regen)
+    n.energy = Math.min(emax, n.energy + regen)
   }
-  if (n.stamina > emax) n.stamina = emax
+  if (n.energy > emax) n.energy = emax
+  c.rested = false
 
   // 젖음
   const t = tileAt(w, c.pos)

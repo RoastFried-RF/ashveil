@@ -141,7 +141,7 @@ describe('성장', () => {
   it('능력은 기력·재사용 대기가 있다', () => {
     const w = makeWorld('lv3', 'Bg.Scavenger')
     const pl = player(w)
-    pl.needs.stamina = 0
+    pl.needs.energy = 0
     expect(abilityReady(w, pl, 'Ab.Blunt.HeadBash')).toMatch(/기력/)
   })
 })
@@ -197,12 +197,14 @@ describe('HP 풀과 6부위 (02 §2.0)', () => {
     const w = makeWorld('hp1')
     const pl = player(w)
     pl.traits = []
+    pl.abilities = []
+    pl.equip = {}
     pl.stats.vit = 10
     expect(hpMax(w, pl)).toBe(100)
-    addWound(w, pl, { def: 'Wound.Cut', part: 'RightArm', severity: 13, source: 't' })
+    addWound(w, pl, { def: 'Wound.Cut', part: 'RightUpperArm', severity: 13, source: 't' })
     expect(regionHpPct(w, pl, 'rarm')).toBe(62)
     expect(regionState(w, pl, 'rarm')).toBeGreaterThanOrEqual(1)
-    addWound(w, pl, { def: 'Wound.Cut', part: 'RightHand', severity: 9, source: 't' })
+    addWound(w, pl, { def: 'Wound.Cut', part: 'RightForearm', severity: 9, source: 't' })
     expect(regionHpPct(w, pl, 'rarm')).toBe(37)
     expect(regionState(w, pl, 'rarm')).toBeGreaterThanOrEqual(2)
     expect(hpCap(w, pl)).toBe(89)
@@ -213,8 +215,11 @@ describe('HP 풀과 6부위 (02 §2.0)', () => {
     const w = makeWorld('st1')
     const pl = player(w)
     pl.traits = []
-    // 왼다리 최대치 40 → sev 20 이면 HP% 50(부상), 기능(다리 부위 체력 30 중 20) 0.33 → 나쁜 쪽 = 중상
-    addWound(w, pl, { def: 'Wound.Bruise', part: 'LeftLeg', severity: 20, source: 't' })
+    pl.abilities = []
+    pl.equip = {}
+    // 왼다리 최대치 = 최대 HP × 0.4. 대퇴 타박 sev 30 → HP% 25 이하 = 중상
+    pl.stats.vit = 10
+    addWound(w, pl, { def: 'Wound.Bruise', part: 'LeftThigh', severity: 30, source: 't' })
     expect(regionState(w, pl, 'lleg')).toBe(3)
     const water = w.s.map.tiles.findIndex((t) => t.t === 'Terrain.ShallowWater')
     const to = { x: water % w.s.map.w, y: Math.floor(water / w.s.map.w) }

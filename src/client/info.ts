@@ -36,21 +36,31 @@ export function modLines(mods: Partial<Record<string, number>> | undefined): str
   })
 }
 
+const GROUP_LABEL: Record<string, string> = {
+  skull: '두개골', ear: '귀', eye: '눈', nose: '코', jaw: '턱', neck: '목', chest: '흉부', abdomen: '복부', pelvis: '골반',
+  upperArm: '상완', forearm: '전완', hand: '손', finger: '손가락', thigh: '대퇴', shin: '정강이', foot: '발', toe: '발가락',
+}
+
 export function itemTip(w: World, it: ItemInst | null, defId?: string): { title: string; lines: string[]; color: string } {
   const d = it ? itemDef(w, it) : w.db.item(defId!)
   const lines: string[] = []
   lines.push(`${CAT_LABEL[d.category]}${d.slot ? ` · ${SLOT_LABEL[d.slot]}` : ''}${d.twoHanded ? ' · 양손' : ''}`)
-  if (d.attack) {
-    const a = d.attack
-    lines.push(`${a.label}: ${DMG_LABEL[a.damageType] ?? a.damageType} ${a.damage} · 관통 ${Math.round(a.armorPen * 100)}% · 정확도 ${a.accuracy ?? 10}`)
-    lines.push(`계열 ${SKILL_LABEL[a.skill] ?? a.skill}${a.reach ? ` · 사거리 ${a.reach}` : ''}${a.bleedMult ? ` · 출혈 ×${a.bleedMult}` : ''}${a.stunChance ? ` · 기절 ${Math.round(a.stunChance * 100)}%` : ''}`)
+  for (const a of d.attacks ?? []) {
+    lines.push(`${a.label}: ${DMG_LABEL[a.damageType] ?? a.damageType} ${a.damage} · 관통 ${a.pen} · 정확도 +${a.accuracy} · 기력 ${a.energy}`)
   }
-  if (d.ranged) lines.push(`사정거리 ${d.ranged.range} · 탄약 ${w.db.item(d.ranged.ammo).label}`)
-  if (d.shield) lines.push(`막기 ${d.shield.block}% · 기력 ${d.shield.stamina}`)
+  if (d.attacks?.length) {
+    const a = d.attacks[0]
+    lines.push(`계열 ${SKILL_LABEL[a.family] ?? a.family}${a.reach ? ` · 리치 ${a.reach}` : ''}${a.bleedMult ? ` · 출혈 ×${a.bleedMult}` : ''}${a.stunD ? ` · 머리 기절 판정 D+${a.stunD}` : ''}${a.shortBlade ? ' · 잠든 대상 첫 타 ×2' : ''}`)
+  }
+  if (d.weapon) lines.push(`막기치 ${d.weapon.block} · 받아넘기기치 ${d.weapon.parry > 0 ? '+' : ''}${d.weapon.parry}`)
+  if (it?.edge !== undefined) lines.push(`날 상태 ${Math.round(it.edge)}% (피해 ×${((60 + it.edge * 0.4) / 100).toFixed(2)})`)
+  if (d.ranged) lines.push(`유효 사거리 ${d.ranged.effective ?? d.ranged.range} · 최대 ${d.ranged.range} · 탄약 ${w.db.item(d.ranged.ammo).label}`)
+  if (d.shield) lines.push(`막기치 ${d.shield.block} · 흡수 ${d.shield.absorb} · 기력 4 + 피해/2`)
   if (d.apparel) {
     const ar = d.apparel.armor
-    const parts = [ar.sharp ? `날붙이 ${Math.round(ar.sharp * 100)}%` : '', ar.blunt ? `타격 ${Math.round(ar.blunt * 100)}%` : '', ar.heat ? `열 ${Math.round(ar.heat * 100)}%` : ''].filter(Boolean)
-    if (parts.length) lines.push(`방호: ${parts.join(' · ')}`)
+    const parts = [`날 ${ar.sharp ?? 0}`, `타격 ${ar.blunt ?? 0}`, `열 ${ar.heat ?? 0}`]
+    lines.push(`방어 ${parts.join(' / ')}${d.bulk ? ` · 둔중 ${d.bulk}` : ''}${d.apparel.noise ? ` · 걷기 소음 ${d.apparel.noise}` : ''}`)
+    lines.push(`덮는 곳: ${d.apparel.groups.map((g) => GROUP_LABEL[g] ?? g).join(' · ')}`)
     lines.push(`단열 ${d.apparel.insulation}${d.apparel.waterproof ? ' · 방수' : ''}`)
   }
   lines.push(...modLines(d.mods))
@@ -60,7 +70,8 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if (d.light) lines.push(`등불 반경 ${d.light.radius}${it?.fuel !== undefined ? ` · 연료 ${Math.round((it.fuel / 1200) * 10) / 10}시간` : ''}${it?.lit ? ' · 켜짐' : ''}`)
   if (d.refuel) lines.push(`등불 연료 +${Math.round(d.refuel / 1200)}시간`)
   if (it?.uses !== undefined) lines.push(`남은 양 ${it.uses}`)
-  lines.push(`크기 ${d.size?.[0] ?? 1}×${d.size?.[1] ?? 1} · ${d.weight} kg`)
+  if (it?.durability !== undefined) lines.push(`내구 ${Math.round(it.durability)}%${it.durability <= 0 ? ' — 파손' : it.durability < 30 ? ' — 부서지기 직전' : it.durability < 60 ? ' — 닳음' : ''}`)
+  lines.push(`크기 ${d.size?.[0] ?? 1}×${d.size?.[1] ?? 1}`)
   if (d.description) lines.push(d.description)
   return { title: it ? itemLabel(w, it) : d.label, lines, color: rarityColor(d) }
 }

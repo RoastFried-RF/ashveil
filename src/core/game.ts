@@ -1,6 +1,6 @@
 // 게임 루프: TU 스케줄러 + 턴 단위 전역 처리 + 지도 전환(지상 ↔ 던전 층)
 
-import { activityStep, perform, type Action, hostile } from './actions'
+import { activityStep, interruptTreat, perform, type Action, hostile } from './actions'
 import { aiDecide } from './ai'
 import { bloodLoss, bodyTick, deathCause, effectiveBleed, totalBleed } from './body'
 import { killCreature } from './combat'
@@ -284,8 +284,7 @@ export function runUntilInput(w: World, maxSteps = 300000) {
         if (why) {
           log(w, 'warn', `${actor.activity.label} 중단: ${why}`)
           if (actor.activity.kind === 'sleep') sleepQuality(w, actor)
-          halfEquip(w, actor)
-          actor.activity = undefined
+          stopActivity(w, actor)
           updatePlayerVision(w, actor)
           return
         }
@@ -303,6 +302,15 @@ export function runUntilInput(w: World, maxSteps = 300000) {
       updatePlayerVision(w, actor)
       return
     }
+    // NPC 채널 행동 (조준 사격 등): 맞으면 끊긴다
+    if (actor.activity) {
+      if (actor.body.wounds.length > (actor.activity.woundCount ?? actor.body.wounds.length)) stopActivity(w, actor)
+      else {
+        activityStep(w, actor)
+        actor.nextAct += TU_PER_TURN
+        continue
+      }
+    }
     const action = aiDecide(w, actor)
     const res = perform(w, actor, action)
     actor.nextAct += res.ok ? Math.max(30, res.tu) : TU_PER_TURN
@@ -319,7 +327,7 @@ function sleepQuality(w: World, pl: Creature) {
 export function playerAct(w: World, action: Action): string | null {
   if (w.s.over) return '게임이 끝났다'
   const pl = player(w)
-  if (pl.activity) pl.activity = undefined
+  if (pl.activity) stopActivity(w, pl)
   const res = perform(w, pl, action)
   if (!res.ok) {
     if (res.msg) log(w, 'info', res.msg)
@@ -365,6 +373,19 @@ function crisisTick(w: World, pl: Creature) {
     cw.infectionWon = false
     awardCrisis(w, pl, 'infection', 40, '감염과의 경주에서 이겼다')
   }
+}
+
+/** 채널 끊기 (01 §7): 착탈은 반쯤 입은 상태, 부목은 절반 보존, 조준 사격은 기력 절반 환급 */
+function stopActivity(w: World, c: Creature) {
+  const act = c.activity
+  if (!act) return
+  halfEquip(w, c)
+  interruptTreat(w, c)
+  if (act.kind === 'aim' && act.abilityId) {
+    c.needs.energy += Math.floor((w.db.ability(act.abilityId).energy ?? 0) / 2)
+    if (c.faction === 'player') log(w, 'warn', '조준이 흐트러졌다. (기력 절반 환급)')
+  }
+  c.activity = undefined
 }
 
 /** 입다가 끊기면 반쯤 걸친 채로 남는다: 방어·단열 50% (13 §6.1) */

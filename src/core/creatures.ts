@@ -62,7 +62,7 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
     if (idef.slot && !c.equip[idef.slot === 'ring' ? 'ring1' : idef.slot]) equip(w, c, it.uid)
   }
   c.hp = hpMax(w, c)
-  c.needs.stamina = energyMax(w, c)
+  c.needs.energy = energyMax(w, c)
   return c
 }
 
@@ -112,7 +112,7 @@ export function createPlayer(w: World, pos: Pos, bgId?: string): Creature {
   }
   if (c.traits.includes('Trait.Alcoholic')) c.effects.push({ kind: 'drankRecently', untilTurn: 14400 })
   c.hp = hpMax(w, c)
-  c.needs.stamina = energyMax(w, c)
+  c.needs.energy = energyMax(w, c)
   return c
 }
 

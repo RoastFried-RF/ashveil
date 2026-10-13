@@ -2,7 +2,7 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
-  ambientTemp, bloodLoss, fmtClock, lightAt, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
+  ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
   REGION_LABEL, STATE_LABEL, WEATHER_LABEL, type Region, type World,
 } from '../../core'
 import { STATE_COLOR } from '../info'
@@ -36,9 +36,9 @@ const d = computed(() => {
   if (n.bodyTemp < 36) chips.push({ t: n.bodyTemp < 35 ? '저체온' : '추위', c: '#80b0e0', tip: [`체온 ${n.bodyTemp.toFixed(1)}°C`] })
   if (n.wetness > 40) chips.push({ t: `젖음 ${n.wetness.toFixed(0)}%`, c: '#80a0c0', tip: ['단열이 떨어진다'] })
   if (pl.body.wounds.some((x) => x.infection)) chips.push({ t: '감염', c: '#c0d050', tip: ['소독·항생제·휴식'] })
-  if (pl.body.wounds.some((x) => x.fracture && !x.splinted)) chips.push({ t: '골절', c: '#e0c0a0', tip: ['부목으로 고정'] })
+  if (pl.body.wounds.some((x) => x.fracture && !x.splint)) chips.push({ t: '골절', c: '#e0c0a0', tip: ['부목으로 고정'] })
   if (Object.keys(pl.body.tourniquets).length) chips.push({ t: '지혈대', c: '#e0a040', tip: ['2시간 넘기면 괴사'] })
-  if (lightAt(w, pl.pos) < 0.2) chips.push({ t: '어둠', c: '#8890a0', tip: ['상대 명중 −10 · 등불(T)을 켜라'] })
+  if (lightLevel(w, pl.pos) >= 2) chips.push({ t: LIGHT_LABEL[lightLevel(w, pl.pos)], c: '#8890a0', tip: ['내 칸이 어두우면 상대 명중 −15(어둠) · −30(칠흑)', '등불(T)을 켜면 반경 5가 밝음'] })
   if (pl.sneaking) chips.push({ t: '잠행', c: '#9fb3c8', tip: ['이동이 느리고 눈에 덜 띈다', '잠든 적 기습 ×1.5'] })
   if (mood(w, pl) < 25) chips.push({ t: '절망', c: '#a080a0', tip: ['기분이 바닥이다'] })
   for (const e of pl.effects) if (e.untilTurn > turn && EFFECT[e.kind]) chips.push({ t: EFFECT[e.kind][0], c: EFFECT[e.kind][1], tip: [`${Math.ceil(e.untilTurn - turn)}턴 남음`] })

@@ -172,7 +172,7 @@ export function applyPatch(def: Record<string, unknown>, op: PatchOp): string | 
 // defType 별 필수 필드
 const REQUIRED: Record<string, string[]> = {
   Body: ['bloodMl', 'parts'],
-  Wound: ['label', 'bleedPerSeverity', 'painPerSeverity', 'infectionChance', 'healPerDay', 'clotPerTurn'],
+  Wound: ['label', 'bleedPerSeverity', 'painPerSeverity', 'contamination', 'healPerDay'],
   Item: ['label', 'sprite', 'category', 'weight'],
   Creature: ['label', 'body', 'faction', 'moveTU', 'stats', 'skills', 'ai', 'morale', 'lightThreshold', 'sightRange'],
   Terrain: ['label', 'sprites', 'passable', 'opaque', 'moveMult'],
@@ -321,7 +321,9 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for (const b of db.all<BodyDef>('Body')) {
     const ids = new Set(b.parts.map((p) => p.id))
     for (const p of b.parts) if (p.parent && !ids.has(p.parent)) report.errors.push(`${b.id}: 부위 '${p.id}' 의 부모 '${p.parent}' 없음`)
-    const roots = b.parts.filter((p) => !p.parent)
-    if (roots.length !== 1) report.errors.push(`${b.id}: 루트 부위는 정확히 1개여야 함 (${roots.length})`)
+    // 외부 부위 커버리지(‰) 합은 1000 (07 §2.3), 내부 부위는 부모가 있어야 한다
+    const ext = b.parts.filter((p) => !p.internal).reduce((n, p) => n + (p.coverage ?? 0), 0)
+    if (ext !== 1000) report.errors.push(`${b.id}: 외부 커버리지 합 ${ext} ≠ 1000`)
+    for (const p of b.parts) if (p.internal && !p.parent) report.errors.push(`${b.id}: 내부 부위 '${p.id}' 에 부모가 없음`)
   }
 }

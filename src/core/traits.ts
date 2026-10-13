@@ -10,15 +10,28 @@ function* modSources(w: World, c: Creature): Generator<Partial<Record<string, nu
   }
   const cm = w.db.creature(c.def).mods
   if (cm) yield cm
+  // 갈래 패시브는 그 계열 무기로 싸울 때만 (15 §7)
+  let fam: string | undefined | null = null
   for (const a of c.abilities ?? []) {
     const d = w.db.tryGet<AbilityDef>(a)
-    if (d && d.kind === 'passive' && d.mods) yield d.mods
+    if (!d || d.kind !== 'passive' || !d.mods) continue
+    if (d.weapon) {
+      if (fam === null) fam = mainFamily(w, c)
+      if (fam !== d.weapon) continue
+    }
+    yield d.mods
   }
   for (const it of Object.values(c.equip ?? {}) as (ItemInst | undefined)[]) {
     if (!it) continue
     const m = w.db.item(it.def).mods
     if (m) yield m
   }
+}
+
+function mainFamily(w: World, c: Creature): string | undefined {
+  const m = c.equip?.main
+  const d = m ? w.db.item(m.def) : undefined
+  return d?.attacks?.[0]?.family ?? w.db.creature(c.def).naturalAttack?.family
 }
 
 /** 곱연산 수정치 (기본 1) */

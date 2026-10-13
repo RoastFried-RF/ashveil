@@ -1,5 +1,6 @@
 // 아이템: 격자 배낭 + 장비 슬롯 + 빠른 슬롯
 
+import { regionState } from './body'
 import { type World } from './ctx'
 import type { AttackDef, Creature, ItemDef, ItemInst, Slot } from './types'
 
@@ -9,7 +10,8 @@ export const BAG_H = 6
 export function makeItem(w: World, defId: string, count = 1): ItemInst {
   const def = w.db.item(defId)
   const it: ItemInst = { uid: w.s.nextId++, def: defId, count }
-  if (def.apparel) it.durability = def.apparel.durability
+  if (def.apparel || def.attacks || def.shield) it.durability = 100
+  if (def.attacks?.some((a) => a.damageType === 'cut' || a.damageType === 'stab')) it.edge = def.edgeStart ?? 100
   if (def.light) { it.fuel = def.light.fuelTurns; it.lit = false }
   if (def.uses) it.uses = def.uses
   return it
@@ -174,7 +176,11 @@ export function equip(w: World, c: Creature, uid: number, target?: Slot): string
   const def = itemDef(w, it)
   const slot = target ?? slotFor(w, c, def)
   if (!slot) return '장착할 수 없는 물건'
-  if (def.slot === 'ring' ? !slot.startsWith('ring') : def.slot !== slot) return '그 칸에는 맞지 않는다'
+  // 한손 무기는 보조 칸에도 든다 (13 §6.1)
+  const offWeapon = slot === 'off' && def.slot === 'main' && !def.twoHanded && !!def.attacks
+  if (!offWeapon && (def.slot === 'ring' ? !slot.startsWith('ring') : def.slot !== slot)) return '그 칸에는 맞지 않는다'
+  const blocked = slotBlocked(w, c, slot)
+  if (blocked) return blocked
   if (slot === 'off') {
     const main = c.equip.main
     if (main && itemDef(w, main).twoHanded) return '양손 무기를 들고 있다'
@@ -203,6 +209,65 @@ export function unequip(w: World, c: Creature, slot: Slot): string | null {
   return null
 }
 
+/** 슬롯이 막혔는가 (13 §6.1): 보조 칸은 왼팔 불구면, 반지는 그 손 손가락을 잃으면 */
+export function slotBlocked(w: World, c: Creature, slot: Slot): string | null {
+  if (slot === 'off' && regionState(w, c, 'larm') === 4) return '왼팔을 쓸 수 없다'
+  if (slot === 'main' && regionState(w, c, 'rarm') === 4) return '오른팔을 쓸 수 없다'
+  if (slot === 'ring1' || slot === 'ring2') {
+    const side = slot === 'ring1' ? 'Right' : 'Left'
+    if (c.body.missing.some((m) => m.startsWith(side) && /Thumb|Index|Middle|Ring|Pinky|Hand|Forearm|UpperArm/.test(m))) return '그 손에 낄 손가락이 없다'
+  }
+  return null
+}
+
+/** 지금 공격에 쓰는 무기·팔 (02 §2.0.3: 불구 팔의 무기는 못 쓴다, 양손 무기는 두 팔 모두 필요) */
+export interface Wield {
+  atk: AttackDef
+  item?: ItemInst
+  arm: 'larm' | 'rarm'
+  twoHanded: boolean
+}
+
+function pickMode(def: ItemDef, mode?: string): AttackDef {
+  const list = def.attacks!
+  return list.find((a) => a.id === mode) ?? list[0]
+}
+
+export function wield(w: World, c: Creature, mode?: string): Wield | undefined {
+  const la = regionState(w, c, 'larm'), ra = regionState(w, c, 'rarm')
+  const want = mode ?? c.attackMode
+  const main = c.equip.main
+  if (main) {
+    const d = itemDef(w, main)
+    if (d.attacks?.length) {
+      if (d.twoHanded ? la < 4 && ra < 4 : ra < 4) return { atk: pickMode(d, want), item: main, arm: 'rarm', twoHanded: !!d.twoHanded }
+    }
+  }
+  const off = c.equip.off
+  if (off && la < 4) {
+    const d = itemDef(w, off)
+    if (d.attacks?.length && !d.ranged) return { atk: pickMode(d, want), item: off, arm: 'larm', twoHanded: false }
+  }
+  const nat = w.db.creature(c.def).naturalAttack
+  if (!nat) return undefined
+  if (nat.family === 'unarmed' && w.db.body(c.body.def).kind === 'humanoid') {
+    if (ra < 4) return { atk: nat, arm: 'rarm', twoHanded: false }
+    if (la < 4) return { atk: nat, arm: 'larm', twoHanded: false }
+    return undefined
+  }
+  return { atk: nat, arm: 'rarm', twoHanded: false }
+}
+
+/** 근접에 쓰는 무기 (활을 들고 있으면 주먹) */
+export function meleeWield(w: World, c: Creature, mode?: string): Wield | undefined {
+  const main = c.equip.main
+  if (main && itemDef(w, main).ranged) {
+    const nat = w.db.creature(c.def).naturalAttack
+    return nat ? { atk: nat, arm: 'rarm', twoHanded: false } : undefined
+  }
+  return wield(w, c, mode)
+}
+
 export function mainWeapon(_w: World, c: Creature): ItemInst | undefined {
   return c.equip.main
 }
@@ -212,13 +277,7 @@ export function offHand(_w: World, c: Creature): ItemInst | undefined {
 }
 
 export function currentAttack(w: World, c: Creature): AttackDef | undefined {
-  const mw = c.equip.main
-  if (mw) {
-    const d = itemDef(w, mw)
-    if (d.attack && !d.ranged) return d.attack
-    if (d.ranged) return d.attack
-  }
-  return w.db.creature(c.def).naturalAttack
+  return wield(w, c)?.atk
 }
 
 export function apparelItems(w: World, c: Creature): { it: ItemInst; def: ItemDef }[] {
@@ -253,7 +312,7 @@ export function lightSource(w: World, c: Creature): { it: ItemInst; radius: numb
 }
 
 export function hasBlade(w: World, c: Creature): boolean {
-  return allItems(c).some((i) => itemDef(w, i).attack?.skill === 'blade')
+  return allItems(c).some((i) => itemDef(w, i).attacks?.some((a) => a.family === 'blade'))
 }
 
 // 무게는 쓰지 않는다 (공간이 제약). 호환용으로 1 고정

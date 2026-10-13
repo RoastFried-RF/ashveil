@@ -25,7 +25,7 @@ export function botDecide(w: World): Action {
   // 성장 포인트
   if (pl.statPoints > 0) return { type: 'spendStat', stat: STAT_ORDER[(pl.level + pl.statPoints) % STAT_ORDER.length] }
   if (pl.abilityPoints > 0) {
-    const skill = currentAttack(w, pl)?.skill
+    const skill = currentAttack(w, pl)?.family
     const trees = abilitiesByTree(w)
     for (const tree of Object.keys(trees).sort((a, b) => Number(b === skill) - Number(a === skill))) {
       const ab = trees[tree].find((d) => !canLearn(w, pl, d.id))
@@ -65,7 +65,7 @@ export function botDecide(w: World): Action {
   }
   // 지혈대 1.5시간 넘으면 풀기
   for (const [limb, at] of Object.entries(pl.body.tourniquets)) if (turnOf(w) - at > 1800) return { type: 'removeTourniquet', limb }
-  const frac = pl.body.wounds.find((wd) => wd.fracture && !wd.splinted)
+  const frac = pl.body.wounds.find((wd) => wd.fracture && !wd.splint)
   const splint = find((d) => d.medical?.kind === 'splint')
   if (frac && splint && !adjacentEnemy) return { type: 'treat', uid: splint.uid, woundId: frac.id }
   if (pl.hp < hpMax(w, pl) * 0.35) {

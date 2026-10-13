@@ -99,10 +99,10 @@ export function useItem(w: World, it: ItemInst): string | null {
   if (d.medical) {
     const wounds = pl.body.wounds.filter((wd) => !wd.internal)
     let target
-    if (d.medical.kind === 'splint') target = wounds.find((wd) => wd.fracture && !wd.splinted)
-    else if (d.medical.kind === 'disinfect') target = wounds.find((wd) => !wd.disinfected && (wd.infection || !wd.infectionChecked))
+    if (d.medical.kind === 'splint') target = wounds.find((wd) => wd.fracture && (!wd.splint || wd.splint.half))
+    else if (d.medical.kind === 'disinfect') target = wounds.filter((wd) => wd.contam > 5 && !wd.cauterized).sort((a, b) => b.contam - a.contam)[0]
     else if (d.medical.kind === 'tourniquet') target = wounds.filter((wd) => wd.arterial && part(w, pl, wd.part).limb).sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))[0]
-    else target = wounds.filter((wd) => !wd.bandage && effectiveBleed(w, pl, wd) > 0).sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))[0]
+    else target = wounds.filter((wd) => (!wd.bandage || wd.bandage.dirty) && effectiveBleed(w, pl, wd) > 0).sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))[0]
       ?? wounds.find((wd) => !wd.bandage)
     if (!target) return (hint.value = '처치할 상처가 없다')
     return doAct({ type: 'treat', uid: it.uid, woundId: target.id })

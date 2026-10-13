@@ -14,8 +14,9 @@
     "target": "enemy",
     "attack": {
       "bleedMult": 2,
-      "arterialBonus": 0.15
-    }
+      "arterialBonus": 15
+    },
+    "attackMode": "slash"
   },
   {
     "defType": "Ability",
@@ -27,8 +28,9 @@
     "kind": "passive",
     "icon": "knife",
     "mods": {
-      "hitBonus_blade": 8
-    }
+      "hitBonus": 8
+    },
+    "weapon": "blade"
   },
   {
     "defType": "Ability",
@@ -70,8 +72,9 @@
         "head": 4,
         "neck": 4
       },
-      "armorPenBonus": 0.2
-    }
+      "penBonus": 20
+    },
+    "attackMode": "stab"
   },
   {
     "defType": "Ability",
@@ -87,7 +90,7 @@
     "weapon": "axe",
     "target": "enemy",
     "attack": {
-      "armorPenBonus": 0.25,
+      "penBonus": 25,
       "armorDamage": 10
     }
   },
@@ -101,8 +104,9 @@
     "kind": "passive",
     "icon": "hatchet",
     "mods": {
-      "dmgVsBleeding": 0.2
-    }
+      "dmgVsBleeding": 1.2
+    },
+    "weapon": "axe"
   },
   {
     "defType": "Ability",
@@ -163,7 +167,7 @@
       "partWeights": {
         "head": 4
       },
-      "stunBonus": 0.4
+      "stunBonus": 40
     }
   },
   {
@@ -177,7 +181,8 @@
     "icon": "pipe_club",
     "mods": {
       "fractureDealt": 1.5
-    }
+    },
+    "weapon": "blunt"
   },
   {
     "defType": "Ability",
@@ -194,8 +199,7 @@
     "target": "enemy",
     "attack": {
       "knockback": 1,
-      "knockdownChance": 0.5,
-      "damageMult": 0.6
+      "knockdownChance": 0.5
     }
   },
   {
@@ -212,7 +216,8 @@
     ],
     "mods": {
       "deflectHalf": 1
-    }
+    },
+    "weapon": "blunt"
   },
   {
     "defType": "Ability",
@@ -242,7 +247,8 @@
     "icon": "rebar_spear",
     "mods": {
       "reachHit": 10
-    }
+    },
+    "weapon": "spear"
   },
   {
     "defType": "Ability",
@@ -258,8 +264,7 @@
     "weapon": "spear",
     "target": "enemy",
     "attack": {
-      "knockdownChance": 0.6,
-      "damageMult": 0.4
+      "knockdownChance": 0.6
     }
   },
   {
@@ -297,9 +302,9 @@
     "weapon": "archery",
     "target": "enemy",
     "attack": {
-      "hitBonus": 25,
-      "tu": 200
-    }
+      "hitBonus": 25
+    },
+    "channel": 2
   },
   {
     "defType": "Ability",
@@ -312,7 +317,8 @@
     "icon": "bow",
     "mods": {
       "rangePenaltyHalf": 1
-    }
+    },
+    "weapon": "archery"
   },
   {
     "defType": "Ability",
@@ -344,8 +350,9 @@
     "kind": "passive",
     "icon": "arrow",
     "mods": {
-      "arrowRecover": 0.3
-    }
+      "arrowRecover": 30
+    },
+    "weapon": "archery"
   },
   {
     "defType": "Ability",

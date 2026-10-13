@@ -74,13 +74,13 @@ function staticLight(w: World): Float32Array {
   const arr = new Float32Array(m.w * m.h)
   for (const L of m.lights) {
     const r = L.radius
-    for (let y = Math.max(0, L.pos.y - r); y <= Math.min(m.h - 1, L.pos.y + r); y++) {
-      for (let x = Math.max(0, L.pos.x - r); x <= Math.min(m.w - 1, L.pos.x + r); x++) {
+    for (let y = Math.max(0, L.pos.y - r - 1); y <= Math.min(m.h - 1, L.pos.y + r + 1); y++) {
+      for (let x = Math.max(0, L.pos.x - r - 1); x <= Math.min(m.w - 1, L.pos.x + r + 1); x++) {
         const p = { x, y }
         const d2 = dist2(L.pos, p)
-        if (d2 > r * r) continue
+        if (d2 > (r + 1) * (r + 1)) continue
         if (d2 > 0 && !hasLos(w, L.pos, p)) continue
-        const v = 1 - Math.sqrt(d2) / (r + 1)
+        const v = sourceLight(Math.sqrt(d2), r)
         const i = y * m.w + x
         if (v > arr[i]) arr[i] = v
       }
@@ -101,12 +101,26 @@ export function lightAt(w: World, p: Pos): number {
     if (!src) continue
     const r = src.radius
     const d2 = dist2(c.pos, p)
-    if (d2 > r * r) continue
+    if (d2 > (r + 1) * (r + 1)) continue
     if (d2 > 0 && !hasLos(w, c.pos, p)) continue
-    l = Math.max(l, 1 - Math.sqrt(d2) / (r + 1))
+    l = Math.max(l, sourceLight(Math.sqrt(d2), r))
   }
   return l
 }
+
+/** 광원 반경 안은 '밝음'(≥ 0.7), 경계 1칸은 '어스름'(0.55) (01 §9.2) */
+function sourceLight(d: number, r: number): number {
+  if (d <= r) return 0.7 + 0.3 * (1 - d / (r + 1))
+  return 0.55
+}
+
+/** 조명 단계 (01 §9.2): 0 밝음(≥ 0.7) · 1 어스름(≥ 0.5) · 2 어둠(≥ 0.1) · 3 칠흑 */
+export function lightLevel(w: World, p: Pos): 0 | 1 | 2 | 3 {
+  const l = lightAt(w, p)
+  return l >= 0.7 ? 0 : l >= 0.5 ? 1 : l >= 0.1 ? 2 : 3
+}
+
+export const LIGHT_LABEL = ['밝음', '어스름', '어둠', '칠흑'] as const
 
 export function lightThreshold(w: World, c: Creature): number {
   return traitOverride(w, c, 'lightThreshold') ?? w.db.creature(c.def).lightThreshold

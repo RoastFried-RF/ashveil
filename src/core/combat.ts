@@ -1,125 +1,266 @@
-// 공격 판정 파이프라인 (체력 층 + 상처 층):
-// 1 명중 → 2 방어 반응(막기/받아넘기기) → 3 부위 결정 → 4 방어구 층 → 5 HP 피해·상처 → 6 2차 효과
+// 공격 판정 파이프라인 (07 §2). 모든 판정은 combat 스트림의 정수 roll 0..99 하나씩.
+// 1 명중 → 2 방어 반응(막기/받아넘기기) → 3 부위 결정(‰) → 4 방어구 층 → 5 HP 피해·상처 → 6 2차 효과
 
 import {
-  addWound, bloodLoss, bodyDef, capacity, isMissing, painTotal, part, partMap, partRegion, regionPenalties, totalBleed,
+  addStun, addWound, ARM_BLOCK, ARM_DMG, bloodLoss, bodyDef, isMissing, painStage, painTotal, part, regionPenalties,
+  regionState, totalBleed,
 } from './body'
-import { clamp, creatureAt, log, player, rng, turnOf, type World } from './ctx'
-import { lightAt } from './fov'
-import { cheb, dirDelta, dirIndex, type Pos } from './geom'
-import { allItems, apparelItems, currentAttack, itemDef, makeItem } from './items'
+import { clamp, creatureAt, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
+import { canSee, hasLos, lightLevel } from './fov'
+import { cheb, DIRS, dirDelta, dirIndex, type Pos } from './geom'
+import { allItems, apparelItems, itemDef, makeItem, meleeWield, wield, type Wield } from './items'
 import { addThought } from './needs'
 import { emitNoise } from './perception'
 import { awardDefeat } from './progression'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
-import type { AbilityAttackMods, ArmorCategory, AttackDef, BodyPartDef, Creature, DamageType, FxEvent } from './types'
+import type { AbilityAttackMods, ArmorCategory, AttackDef, BodyPartDef, Creature, DamageType, FxEvent, ItemInst, Region } from './types'
 
-const SIZE_EVASION: Record<string, number> = { tiny: 8, small: 4, medium: 0, large: -8 }
-const SIZE_RANK: Record<string, number> = { tiny: 0, small: 1, medium: 2, large: 3 }
+/** 크기 보정: 작음 +4 · 보통 0 · 큼 −4 · 거대 −8 (07 §2.1) */
+const SIZE_EVASION: Record<string, number> = { tiny: 4, small: 4, medium: 0, large: -4, huge: -8 }
+const SIZE_RANK: Record<string, number> = { tiny: 0, small: 1, medium: 2, large: 3, huge: 4 }
 
-/** 회피치 = (민첩 − 10) × 2 + 장비·능력 보정 + 크기, 양수면 × 다리 계수 (02 §2.0.3) */
+function size(w: World, c: Creature): string {
+  return w.db.creature(c.def).sizeClass
+}
+
+export function isDown(w: World, c: Creature): boolean {
+  return hasEffect(c, 'knockedDown', turnOf(w))
+}
+
+/** 회피치 = (민첩 − 10) × 2 + 장비·능력 − 둔중 + 크기, 양수면 × 다리 계수(내림) (07 §2.1) */
 export function evasion(w: World, c: Creature): number {
-  if (c.unconscious || c.asleep || c.ai.mode === 'surrender' || hasEffect(c, 'knockedDown', turnOf(w))) return -100
-  const cdef = w.db.creature(c.def)
-  let e = (c.stats.agi - 10) * 2 + (cdef.evasion ?? 0) + traitAdd(w, c, 'evasion') + (SIZE_EVASION[cdef.sizeClass] ?? 0)
-  if (e > 0) e *= regionPenalties(w, c).evasionCoef
-  // 둔중 (13 §6.2): 무게 대신 쓰는 몸놀림 감점
-  for (const it of Object.values(c.equip)) if (it) e -= itemDef(w, it).bulk ?? 0
+  let e = (c.stats.agi - 10) * 2 + (w.db.creature(c.def).evasion ?? 0) + traitAdd(w, c, 'evasion') + (SIZE_EVASION[size(w, c)] ?? 0)
+  for (const it of Object.values(c.equip)) {
+    if (!it) continue
+    e -= itemDef(w, it).bulk ?? 0
+    if (it.half) e -= 2 // 반쯤 입은 장비 (01 §7)
+  }
+  if (e > 0) e = Math.floor(e * regionPenalties(w, c).evasionCoef)
+  const terr = terrainAt(w, c.pos)
+  if (terr.id.includes('Mud') || terr.water === 'shallow') e -= 2
   return e
 }
 
-/** 공격치 = 무기 정확도 + (민첩 − 10) × 1.5 + (지각 − 10) + 보정 */
+/** 공격치 = 무기 정확도 + floor((민첩 − 10) × 1.5) + (지각 − 머리 불이익 − 10) + 능력·장비 (05 §2.1) */
 export function attackScore(w: World, a: Creature, atk: AttackDef): number {
-  // 머리 상태는 지각도 깎는다 (02 §2.0.3)
   const pen = regionPenalties(w, a)
-  return (atk.accuracy ?? 10) + (a.stats.agi - 10) * 1.5 + (a.stats.per - pen.per - 10)
-    + traitAdd(w, a, 'hitBonus') + traitAdd(w, a, 'hitBonus_' + atk.skill) - pen.hit
+  return atk.accuracy + Math.floor((a.stats.agi - 10) * 1.5) + (a.stats.per - pen.per - 10) + traitAdd(w, a, 'hitBonus')
 }
 
+/** 대상 기준 공격자 방향: front · side · back, 그리고 좌우 */
 export function facingRelation(defender: Creature, attackerPos: Pos): 'front' | 'side' | 'back' {
   const toAtt = dirIndex(attackerPos.x - defender.pos.x, attackerPos.y - defender.pos.y)
   const d = dirDelta(defender.facing, toAtt)
   return d <= 1 ? 'front' : d === 2 ? 'side' : 'back'
 }
 
-export interface HitPreview { chance: number; lines: string[]; attack: AttackDef }
+function sideOf(defender: Creature, attackerPos: Pos): 'l' | 'r' | undefined {
+  const toAtt = dirIndex(attackerPos.x - defender.pos.x, attackerPos.y - defender.pos.y)
+  const off = (toAtt - defender.facing + 8) % 8
+  return off === 2 ? 'r' : off === 6 ? 'l' : undefined
+}
 
-export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods): HitPreview | null {
-  const atk = currentAttack(w, a)
-  if (!atk) return null
+/** 기습 대상: 잠듦·의식 없음(기절) (07 §2.8, D28) */
+export function helpless(c: Creature): boolean {
+  return !!c.asleep || c.unconscious
+}
+
+/** 대상이 공격자를 인지하지 못함 (기습 +20, 반응 불가) */
+function unaware(w: World, a: Creature, d: Creature): boolean {
+  if (helpless(d)) return false
+  if (d.faction !== 'player' && (d.ai.mode === 'hunt' || d.ai.mode === 'flee') && d.ai.target === a.id) return false
+  if (d.ai.alertTurn !== undefined && turnOf(w) - d.ai.alertTurn < 10 && d.faction !== 'player') return false
+  return !canSee(w, d, a.pos)
+}
+
+function narrowCorridor(w: World, p: Pos): boolean {
+  let open = 0
+  for (const i of [0, 2, 4, 6]) {
+    const q = { x: p.x + DIRS[i].x, y: p.y + DIRS[i].y }
+    if (inBounds(w, q) && terrainAt(w, q).passable) open++
+  }
+  return open <= 2
+}
+
+export interface HitPreview { chance: number; lines: string[]; attack: AttackDef; wield?: Wield }
+
+/** 1단계 명중: clamp(5, 95, 50 + (공격치 − 회피치) × 2 + Σ수정치) (07 §2.1) */
+export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods, wd?: Wield): HitPreview | null {
+  const wl = wd ?? (ranged ? wield(w, a) : meleeWield(w, a))
+  if (!wl) return null
+  const atk = wl.atk
+  const turn = turnOf(w)
   const lines: string[] = []
   const as = attackScore(w, a, atk)
-  const ev = Math.max(-30, evasion(w, d))
+  const ev = helpless(d) ? 0 : evasion(w, d)
   let chance = 50 + (as - ev) * 2
-  lines.push(`기본 50 + (공격치 ${as.toFixed(0)} − 회피치 ${ev.toFixed(0)}) × 2 = ${chance.toFixed(0)}`)
-  const add = (label: string, v: number) => { if (v !== 0) { chance += v; lines.push(`${label} ${v > 0 ? '+' : ''}${v.toFixed(0)}`) } }
-  const rel = facingRelation(d, a.pos)
-  if (!d.unconscious && !d.asleep) add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
-  const light = lightAt(w, d.pos)
-  if (light < 0.2) add('어둠', -10)
-  else if (light < 0.4) add('어스름', -5)
-  // 통증·손 상태는 부위 상태(공격치)와 겹치므로 작게, 상한을 둔다
-  const pain = clamp(Math.floor(painTotal(w, a) / 20), 0, 6)
-  add('통증', -pain * 2)
-  const manip = capacity(w, a, 'manipulation')
-  if (manip < 0.95 && atk.skill !== 'bite') add('손 상태', -Math.min(12, Math.round((1 - manip) * 20)))
-  // 기력: 25 미만 −5, 바닥 −15 (07 §6)
-  if (a.needs.stamina <= 0) add('기력 바닥', -15)
-  else if (a.needs.stamina < 25) add('기력 부족', -5)
-  if (a.needs.fatigue > 80) add('피로', -10)
-  if (a.needs.bodyTemp < 35) add('추위 떨림', -10)
-  if (hasEffect(a, 'alcohol', turnOf(w))) add('취기', -5)
-  if (hasEffect(a, 'spores', turnOf(w))) add('포자 기침', -10)
-  if (ranged) {
-    const dist = cheb(a.pos, d.pos)
-    const pen = Math.max(0, dist - 3) * 3
-    add('거리', -(traitAdd(w, a, 'rangePenaltyHalf') > 0 ? pen / 2 : pen))
-    add('원거리 특성', traitAdd(w, a, 'rangedHit'))
-    add('시력', -Math.round((1 - capacity(w, a, 'sight')) * 30))
-    if (a.needs.wetness > 60) add('젖은 시위', -10)
-  } else if (cheb(a.pos, d.pos) === 2) add('거리 유지', traitAdd(w, a, 'reachHit'))
-  if (mods?.hitBonus) add('능력', mods.hitBonus)
-  const bh = traitAdd(w, a, 'bloodHit')
-  if (bh && totalBleed(w, d, true) > 2) add('피 냄새', bh)
-  if (d.unconscious || d.asleep || hasEffect(d, 'knockedDown', turnOf(w))) {
-    chance = 95
-    lines.push(d.asleep ? '잠든 상대 → 95' : '쓰러진 상대 → 95')
+  lines.push(`50 + (공격치 ${as} − 회피치 ${ev}) × 2 = ${chance}`)
+  const add = (label: string, v: number) => { if (v !== 0) { chance += v; lines.push(`${label} ${v > 0 ? '+' : ''}${v}`) } }
+  // 방향 · 기습
+  if (helpless(d)) add(d.asleep ? '잠든 상대' : '의식 없는 상대', 40)
+  else {
+    const rel = facingRelation(d, a.pos)
+    add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
+    if (unaware(w, a, d)) add('기습', 20)
   }
+  // 조명 (대상 칸): 밝음 0 · 어스름 −5 · 어둠 −15 · 칠흑 −30
+  const lv = lightLevel(w, d.pos)
+  let lp = [0, -5, -15, -30][lv]
+  const ds = w.db.creature(a.def).darkSight
+  if (ds !== undefined && lp < -ds) lp = -ds
+  add(['밝음', '어스름', '어둠', '칠흑'][lv], lp)
+  if (isDown(w, d) && !helpless(d)) add('넘어진 상대', ranged ? -15 : 20)
+  // 공격자 머리·쥔 팔
+  const pen = regionPenalties(w, a, wl.arm, wl.twoHanded)
+  add('머리 상태', -pen.headHit)
+  add('쥔 팔 상태', -Math.min(10, pen.armHit))
+  // 공격자 몸
+  add('통증', -5 * painStage(painTotal(w, a)))
+  const loss = bloodLoss(a)
+  add('실혈', loss >= 0.3 ? -20 : loss >= 0.15 ? -10 : 0)
+  add('기력', a.needs.energy <= 0 ? -15 : a.needs.energy < 25 ? -5 : 0)
+  if (isDown(w, a)) add('넘어짐', -20)
+  if ((a.drowsyUntil ?? 0) > turn) add('잠기운', -20)
+  if (hasEffect(a, 'spores', turn)) add('포자 기침', -10)
+  const morale = a.ai.morale
+  if (a.faction !== 'player' && !w.db.creature(a.def).noMorale && morale >= 10 && morale < 40) add('흔들림', -5)
+  // 협공: 같은 대상에 인접한 다른 아군 1명당 +5 (최대 +15)
+  if (!ranged) {
+    let mates = 0
+    for (const o of w.s.creatures) if (o.alive && o.id !== a.id && o.faction === a.faction && !helpless(o) && cheb(o.pos, d.pos) <= 1) mates++
+    add('협공', Math.min(15, mates * 5))
+  }
+  const dist = cheb(a.pos, d.pos)
+  if (ranged) {
+    const rd = wl.item ? itemDef(w, wl.item).ranged : undefined
+    const over = Math.max(0, dist - (rd?.effective ?? rd?.range ?? 6))
+    let rp = over * 3
+    if (traitAdd(w, a, 'rangePenaltyHalf') > 0) rp = Math.floor(rp / 2)
+    add('사거리 초과', -rp)
+    if (dist <= 1) add('인접 사격', -10)
+    if (d.movedTurn !== undefined && turn - d.movedTurn <= 1) add('이동 중인 대상', -5)
+  } else {
+    if ((atk.reach ?? 1) >= 2 && dist <= 1) add('긴 자루 인접', -10)
+    if (dist === 2) add('거리 유지', traitAdd(w, a, 'reachHit'))
+    if (atk.family === 'axe' && narrowCorridor(w, a.pos)) add('좁은 곳 도끼', -15)
+  }
+  if (mods?.hitBonus) add('능력', mods.hitBonus)
   chance = clamp(chance, 5, 95)
-  lines.push(`최종 ${chance.toFixed(0)}% (5~95 제한)`)
-  return { chance, lines, attack: atk }
+  lines.push(`최종 ${chance}% (5~95)`)
+  return { chance, lines, attack: atk, wield: wl }
 }
 
-/** 3 부위 결정: 노출 면적 가중 + 신장 차이 + 능력의 부위 가중 */
-export function pickPart(w: World, a: Creature, d: Creature, mods?: AbilityAttackMods): BodyPartDef {
+// ── 2단계 방어 반응 ──────────────────────────────
+
+interface Reaction { kind: 'shield' | 'block' | 'parry'; chance: number; cost: number; item: ItemInst }
+
+/** 같은 턴 두 번째 반응부터 기력 ×1.5, 세 번째 ×2 (07 §2.2) */
+function reactionMult(w: World, d: Creature): number {
+  const turn = turnOf(w)
+  const n = d.reactions?.turn === turn ? d.reactions.n : 0
+  return n === 0 ? 1 : n === 1 ? 1.5 : 2
+}
+
+function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: boolean): Reaction[] {
+  const turn = turnOf(w)
+  if (helpless(d) || d.ai.mode === 'surrender' || d.needs.energy <= 0) return []
+  if (hasEffect(d, 'stunned', turn) || unaware(w, a, d) || !canSee(w, d, a.pos)) return []
+  const rel = facingRelation(d, a.pos)
+  const side = sideOf(d, a.pos)
+  const down = isDown(w, d)
+  const mult = reactionMult(w, d)
+  const la = regionState(w, d, 'larm'), ra = regionState(w, d, 'rarm')
+  const out: Reaction[] = []
+  // 방패 막기: 정면, 방패쪽(왼쪽) 측면 −20
+  const sh = d.equip.off
+  const shDef = sh ? itemDef(w, sh).shield : undefined
+  if (sh && shDef && la < 4 && (sh.durability ?? 100) > 0 && (rel === 'front' || (rel === 'side' && side === 'l'))) {
+    let ch = shDef.block + (d.stats.str - 10) * 2 + traitAdd(w, d, 'blockBonus') - ARM_BLOCK[la] - (rel === 'side' ? 20 : 0) - (down ? 20 : 0)
+    ch = clamp(ch, 0, 85)
+    out.push({ kind: 'shield', chance: ch, cost: Math.ceil((4 + Math.floor(D / 2)) * mult), item: sh })
+  }
+  const wl = wield(w, d)
+  const wdef = wl?.item ? itemDef(w, wl.item) : undefined
+  if (!down && !ranged && rel === 'front' && wl?.item && wdef?.weapon && !wdef.ranged && (wl.item.durability ?? 100) > 0) {
+    const armSt = wl.twoHanded ? Math.max(la, ra) : wl.arm === 'larm' ? la : ra
+    if (armSt < 4) {
+      // 무기 막기
+      const bc = clamp(wdef.weapon.block + (d.stats.str - 10) - ARM_BLOCK[armSt], 0, 50)
+      out.push({ kind: 'block', chance: bc, cost: Math.ceil((6 + D) * mult), item: wl.item })
+      // 받아넘기기: 받아넘기기 자세 +40, 상한 90
+      const stance = effectMag(d, 'parryStance', turn)
+      const pc = clamp(15 + (d.stats.agi - a.stats.agi) * 2 + wdef.weapon.parry, 0, 50) + stance
+      out.push({ kind: 'parry', chance: clamp(pc, 0, stance ? 90 : 50), cost: Math.ceil(6 * mult), item: wl.item })
+    }
+  }
+  return out.filter((o) => o.cost <= d.needs.energy)
+}
+
+/** 반응 정책 (07 §2.2): 플레이어 설정 · AI는 가장 높은 쪽. 최선이 10% 미만이면 생략 */
+function chooseReaction(d: Creature, opts: Reaction[]): Reaction | undefined {
+  if (!opts.length) return undefined
+  const policy = d.faction === 'player' ? d.reactPolicy ?? 'block' : 'best'
+  if (policy === 'none') return undefined
+  const best = [...opts].sort((x, y) => y.chance - x.chance)[0]
+  if (best.chance < 10) return undefined
+  if (policy === 'parry') return opts.find((o) => o.kind === 'parry' && o.chance >= 10) ?? best
+  if (policy === 'block') return opts.filter((o) => o.kind !== 'parry' && o.chance >= 10).sort((x, y) => y.chance - x.chance)[0] ?? best
+  return best
+}
+
+// ── 3단계 부위 결정 (07 §2.3) ──────────────────────
+
+const REGION_ORDER: Region[] = ['head', 'torso', 'rarm', 'larm', 'rleg', 'lleg']
+
+export interface PartPick { part: BodyPartDef; lines: string[] }
+
+export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: AbilityAttackMods; shieldFailed?: boolean; sneak?: boolean } = {}): PartPick {
   const r = rng(w, 'combat')
   const bdef = bodyDef(w, d)
-  const map = partMap(bdef)
-  const abs = new Map<string, number>()
-  for (const p of bdef.parts) {
-    const parentAbs = p.parent ? abs.get(p.parent) ?? 0 : 1
-    abs.set(p.id, parentAbs * p.coverage)
-  }
-  const sizeDiff = SIZE_RANK[w.db.creature(a.def).sizeClass] - SIZE_RANK[w.db.creature(d.def).sizeClass]
-  const candidates = bdef.parts.filter((p) => !p.internal && !isMissing(w, d, p.id))
-  const pick = r.weighted(candidates, (p) => {
-    let own = abs.get(p.id)!
-    for (const ch of bdef.parts) if (ch.parent === p.id && !ch.internal && !isMissing(w, d, ch.id)) own -= abs.get(ch.id)!
-    let mult = 1
-    if (!d.unconscious && !d.asleep) {
-      if (sizeDiff <= -2) mult = p.height === 'high' ? 0.02 : p.height === 'low' ? 3 : 0.4
-      else if (sizeDiff === -1) mult = p.height === 'high' ? 0.25 : p.height === 'low' ? 2.2 : 1
-      if (sizeDiff >= 1) mult = p.height === 'low' ? 0.5 : p.height === 'high' ? 1.4 : 1
-    }
-    const pw = mods?.partWeights
+  const side = sideOf(d, a.pos)
+  const smaller = SIZE_RANK[size(w, d)] - SIZE_RANK[size(w, a)] >= 2
+  const down = isDown(w, d)
+  const pw = opts.mods?.partWeights
+  const cands = bdef.parts
+    .filter((p) => !p.internal && (p.coverage ?? 0) > 0 && !isMissing(w, d, p.id))
+    .sort((x, y) => REGION_ORDER.indexOf(x.region) - REGION_ORDER.indexOf(y.region))
+  const weights = cands.map((p) => {
+    let m = 1
+    if (side && p.side) m *= p.side === side ? 1.5 : 0.5
+    const isLeg = p.region === 'lleg' || p.region === 'rleg'
+    const isArm = p.region === 'larm' || p.region === 'rarm'
+    if (smaller) m *= isLeg ? 3 : isArm ? 0.5 : p.region === 'head' ? 0 : 1
+    if (down) m *= p.region === 'head' || p.region === 'torso' ? 1.5 : isLeg ? 0.5 : 1
+    if (opts.sneak && p.id === 'Neck') m *= 2
+    if (opts.shieldFailed && p.region === 'larm') m *= 2
     if (pw) {
-      mult *= pw[partRegion(w, d, p.id)] ?? 1
-      if (p.id === 'Neck' && pw.neck) mult *= pw.neck
+      m *= pw[p.region] ?? 1
+      if (p.id === 'Neck' && pw.neck) m *= pw.neck
     }
-    return Math.max(0, own) * mult
+    return Math.round((p.coverage ?? 0) * m)
   })
-  return pick ?? map.get(bdef.parts[0].id)!
+  const total = weights.reduce((s, v) => s + v, 0)
+  const roll = r.int(0, Math.max(0, total - 1))
+  let acc = 0
+  let pick = cands[0]
+  for (let i = 0; i < cands.length; i++) {
+    acc += weights[i]
+    if (roll < acc) { pick = cands[i]; break }
+  }
+  const lines = [`부위: ${pick.label} ${weights[cands.indexOf(pick)]} / ${total} (roll ${roll})`]
+  // 손·발 피격의 일부는 손가락·발가락으로 (02 §2.2)
+  if (pick.childShare) {
+    const kids = bdef.parts.filter((p) => p.parent === pick.id && p.digit && !isMissing(w, d, p.id))
+    if (kids.length && r.int(0, 99) < pick.childShare) {
+      const k = r.weighted(kids, (p) => p.weight ?? 1)!
+      lines.push(`→ ${k.label}`)
+      pick = k
+    }
+  }
+  return { part: pick, lines }
 }
+
+// ── 4·5·6단계 ───────────────────────────────────
 
 function armorCategory(t: DamageType): ArmorCategory {
   return t === 'blunt' ? 'blunt' : t === 'burn' ? 'heat' : 'sharp'
@@ -129,49 +270,85 @@ const WOUND_FOR: Record<DamageType, string> = {
   cut: 'Wound.Cut', stab: 'Wound.Stab', blunt: 'Wound.Bruise', bite: 'Wound.Bite', burn: 'Wound.Burn',
 }
 
-export interface AttackResult { hit: boolean; damage: number; killed: boolean }
-export interface AttackOpts { ranged?: boolean; mods?: AbilityAttackMods; abilityLabel?: string; counter?: boolean }
+export interface AttackResult { hit: boolean; damage: number; killed: boolean; reacted?: string }
+export interface AttackOpts {
+  ranged?: boolean
+  mods?: AbilityAttackMods
+  abilityLabel?: string
+  /** 반격(0턴·기력 0) */
+  counter?: boolean
+  /** 공격 방식 지정 (능력의 베기/찌르기) */
+  mode?: string
+  /** 기력을 이미 냈다 (능력) */
+  paid?: boolean
+}
 
 export function fx(w: World, ev: FxEvent) {
   w.s.fx.push(ev)
   if (w.s.fx.length > 80) w.s.fx.splice(0, w.s.fx.length - 80)
 }
 
+/** 깨우기. 맞아서 깨면 잠기운 10턴(깊은 잠 20턴) (01 §8.3) */
 export function wake(w: World, c: Creature, why: string) {
   if (!c.asleep) return
+  const turn = turnOf(w)
   c.asleep = false
-  c.ai.alertTurn = turnOf(w)
-  fx(w, { k: 'status', id: c.id, text: '!', color: '#ffd060', turn: turnOf(w) })
+  c.drowsyUntil = turn + (c.deepSleep ? 20 : 10)
+  c.deepSleep = false
+  c.ai.alertTurn = turn
+  fx(w, { k: 'status', id: c.id, text: '!', color: '#ffd060', turn })
   if (c.faction !== 'player' && w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'warn', `${c.name}이(가) 깨어났다. (${why})`)
+}
+
+/** 한 층의 결과 분포 [튕김, 절반, 관통] % (정수 roll 0..99, 07 §2.4) */
+export function layerOdds(useful: number, crumple: boolean): [number, number, number] {
+  let d = 0, h = 0
+  for (let roll = 0; roll < 100; roll++) {
+    if ((crumple ? 4 : 2) * roll < useful) d++
+    else if (roll < useful) h++
+  }
+  return [d, h, 100 - d - h]
+}
+
+function wear(it: ItemInst | undefined, pct: number) {
+  if (!it || pct <= 0) return
+  it.durability = Math.max(0, (it.durability ?? 100) - pct)
+}
+
+function dull(it: ItemInst | undefined, loss: number) {
+  if (!it || it.edge === undefined) return
+  it.edge = Math.max(0, it.edge - loss)
 }
 
 export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOpts = {}): AttackResult {
   const r = rng(w, 'combat')
   const turn = turnOf(w)
   const mods = opts.mods
-  const pv = previewHit(w, a, d, opts.ranged, mods)
+  const wl = opts.ranged ? wield(w, a, opts.mode) : meleeWield(w, a, opts.mode)
+  const pv = previewHit(w, a, d, opts.ranged, mods, wl)
   const res: AttackResult = { hit: false, damage: 0, killed: false }
-  if (!pv) return res
+  if (!pv || !wl) return res
   const atk = pv.attack
   const detail: string[] = [...pv.lines]
   const isPlayer = a.faction === 'player' || d.faction === 'player'
   const aName = a.faction === 'player' ? '당신' : a.name
   const dName = d.faction === 'player' ? '당신' : d.name
   const label = opts.abilityLabel ?? atk.label
-  const sneakAttack = !!d.asleep
+  const sneak = helpless(d)
+  const firstSneak = sneak
 
   a.exerted = true
   // 기본 공격은 무기 기력 전부, 능력은 능력 비용으로 대체 (07 §2.7 · §6)
-  a.needs.stamina = Math.max(0, a.needs.stamina - (opts.abilityLabel ? 0 : atk.stamina))
+  if (!opts.paid && !opts.counter) a.needs.energy = Math.max(0, a.needs.energy - atk.energy)
   a.facing = dirIndex(d.pos.x - a.pos.x, d.pos.y - a.pos.y)
   fx(w, { k: 'attack', id: a.id, target: d.id, turn })
-  emitNoise(w, a.pos, (atk.noise ?? 4) + 1, a.id)
+  emitNoise(w, a.pos, atk.noise ?? 6, a.id)
   d.ai.alertTurn = turn
   noteFight(w, a, d)
 
   // 1 명중
-  const roll = r.float() * 100
-  detail.push(`주사위 ${roll.toFixed(1)} vs ${pv.chance.toFixed(0)}`)
+  const roll = r.int(0, 99)
+  detail.push(`roll ${roll} < ${pv.chance}?`)
   if (roll >= pv.chance) {
     fx(w, { k: 'miss', id: d.id, turn })
     wake(w, d, '빗나간 공격')
@@ -179,154 +356,276 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
     return res
   }
 
+  // 피해 원값 D0 = floor(기본 × 날 상태 × 근력 보정 × 팔 상태 × (80 + r)/100), r = 0..40 (07 §2.5)
+  const pen0 = regionPenalties(w, a, wl.arm, wl.twoHanded)
+  let edgeF = 1
+  if (wl.item?.edge !== undefined && (atk.damageType === 'cut' || atk.damageType === 'stab')) edgeF = (60 + wl.item.edge * 0.4) / 100
+  const strF = opts.ranged || atk.family === 'archery' ? 1 : (100 + (a.stats.str - 10) * 5) / 100
+  const rr = r.int(0, 40)
+  let D = Math.floor(atk.damage * edgeF * strF * ARM_DMG[pen0.armState] * (80 + rr) / 100)
+  detail.push(`피해 ${atk.damage} × 날 ${edgeF.toFixed(2)} × 근력 ${strF.toFixed(2)} × 팔 ${ARM_DMG[pen0.armState]} × ${80 + rr}% = ${D}`)
+  if (mods?.damageMult) { D = Math.floor(D * mods.damageMult); detail.push(`능력 ×${mods.damageMult} → ${D}`) }
+  const fero = traitMul(w, a, 'dmgVsBleeding')
+  if (fero !== 1 && totalBleed(w, d) > 0) { D = Math.floor(D * fero); detail.push(`흉포 ×${fero} → ${D}`) }
+  if (firstSneak) {
+    const m = atk.shortBlade ? 2 : 1.5
+    D = Math.floor(D * m)
+    detail.push(`기습 첫 타 ×${m} → ${D}`)
+  }
+  let dtype: DamageType = atk.damageType
+  let pen = atk.pen + (mods?.penBonus ?? 0)
+
   // 2 방어 반응
-  const rel = facingRelation(d, a.pos)
-  if (!d.unconscious && !d.asleep && rel !== 'back' && d.ai.mode !== 'surrender' && !opts.ranged && !hasEffect(d, 'knockedDown', turn)) {
-    const sh = d.equip.off
-    const shDef = sh ? itemDef(w, sh).shield : undefined
-    if (shDef && rel === 'front' && d.needs.stamina >= shDef.stamina) {
-      const bc = shDef.block - regionPenalties(w, d).block
-      d.needs.stamina -= shDef.stamina
+  let shieldFailed = false
+  let forcedPart: string | undefined
+  if (!sneak && !opts.counter) {
+    const react = chooseReaction(d, reactionOptions(w, a, d, D, !!opts.ranged))
+    if (react) {
+      d.needs.energy -= react.cost
       d.exerted = true
-      if (r.float() * 100 < bc) {
-        detail.push(`방패 막기 ${bc.toFixed(0)}% 성공`)
-        emitNoise(w, d.pos, 6, d.id)
+      d.reactions = { turn, n: (d.reactions?.turn === turn ? d.reactions.n : 0) + 1 }
+      const rroll = r.int(0, 99)
+      const ok = rroll < react.chance
+      const name = react.kind === 'shield' ? '방패 막기' : react.kind === 'block' ? '무기 막기' : '받아넘기기'
+      detail.push(`${name} ${react.chance}% · 기력 ${react.cost} · roll ${rroll} → ${ok ? '성공' : '실패'}`)
+      if (ok && react.kind === 'shield') {
+        emitNoise(w, d.pos, 8, d.id)
         fx(w, { k: 'block', id: d.id, turn })
-        if (isPlayer) log(w, 'combat', `${dName}이(가) 방패로 ${aName}의 ${label}을(를) 막았다.`, detail)
-        return res
-      }
-      detail.push(`방패 막기 ${bc.toFixed(0)}% 실패`)
-    } else {
-      const mw = d.equip.main
-      const mdef = mw ? itemDef(w, mw) : undefined
-      if (mdef?.attack && !mdef.ranged && d.needs.stamina >= 8) {
-        const pc = 8 + (d.stats.agi - 10) * 1.5 - (rel === 'side' ? 5 : 0) + effectMag(d, 'parryStance', turn)
-        if (r.float() * 100 < pc) {
-          d.needs.stamina -= 8
-          d.exerted = true
-          detail.push(`받아넘기기 ${pc.toFixed(0)}% 성공`)
-          fx(w, { k: 'parry', id: d.id, turn })
-          if (isPlayer) log(w, 'combat', `${dName}이(가) ${aName}의 ${label}을(를) 받아넘겼다.`, detail)
-          if (hasEffect(d, 'parryStance', turn) && !opts.counter && canReach(w, d, a)) {
+        const absorb = itemDef(w, react.item).shield!.absorb
+        wear(react.item, Math.floor(D / 4) * (atk.shieldDamage ?? 1))
+        if (D <= absorb) {
+          res.reacted = 'shield'
+          if (isPlayer) log(w, 'combat', `${dName}이(가) 방패로 ${aName}의 ${label}을(를) 막았다.`, detail)
+          return res
+        }
+        // 흡수 초과분은 방패 든 팔에 타격으로
+        D -= absorb
+        dtype = 'blunt'
+        forcedPart = bodyDef(w, d).parts.find((p) => p.region === 'larm' && /Forearm|Leg/.test(p.id))?.id
+        detail.push(`방패 흡수 ${absorb}, 넘친 ${D}이(가) 방패 든 팔로`)
+      } else if (ok) {
+        emitNoise(w, d.pos, 8, d.id)
+        fx(w, { k: react.kind === 'parry' ? 'parry' : 'block', id: d.id, turn })
+        if (react.kind === 'block') wear(react.item, Math.floor(D / 4))
+        res.reacted = react.kind
+        if (isPlayer) log(w, 'combat', `${dName}이(가) ${aName}의 ${label}을(를) ${react.kind === 'parry' ? '받아넘겼다' : '무기로 막았다'}.`, detail)
+        if (react.kind === 'parry') {
+          a.nextAct += 50 // 빈틈 +50TU
+          if (hasEffect(d, 'parryStance', turn) && canReach(w, d, a)) {
             if (isPlayer) log(w, 'combat', `${dName}의 반격!`)
             resolveAttack(w, d, a, { counter: true, abilityLabel: '반격' })
           }
-          return res
         }
-      }
+        return res
+      } else if (react.kind === 'shield') shieldFailed = true
     }
   }
 
   // 3 부위
-  const pd = pickPart(w, a, d, mods)
-  detail.push(`부위: ${pd.label}`)
+  const pk = forcedPart ? { part: part(w, d, forcedPart), lines: [`부위: ${part(w, d, forcedPart).label}(방패 팔)`] } : pickPart(w, a, d, { mods, shieldFailed, sneak })
+  const pd = pk.part
+  detail.push(...pk.lines)
 
-  // 피해량
-  let dmg = atk.damage * r.range(0.85, 1.15)
-  if (atk.skill !== 'archery' && atk.skill !== 'bite') dmg *= 1 + (a.stats.str - 10) * 0.04
-  if (atk.skill === 'bite') dmg *= 0.6 + 0.4 * capacity(w, a, 'manipulation')
-  dmg *= regionPenalties(w, a).damageMult * (mods?.damageMult ?? 1)
-  if (totalBleed(w, d, true) > 1) dmg *= 1 + traitAdd(w, a, 'dmgVsBleeding')
-  if (sneakAttack) { dmg *= 1.5; detail.push('기습 ×1.5') }
-  let dtype: DamageType = atk.damageType
-  detail.push(`피해 ${dmg.toFixed(1)} (${dtype})`)
-
-  // 4 방어구 층 (바깥부터)
-  const pen = atk.armorPen + (mods?.armorPenBonus ?? 0)
-  const covering = apparelItems(w, d)
-    .filter(({ def }) => def.apparel!.groups.some((g) => pd.groups.includes(g)))
+  // 4 방어구 층: 망토 → 몸 → 자연 방어 (07 §2.4)
+  const tag = pd.groups[0]
+  const layers: { label: string; armor: Partial<Record<ArmorCategory, number>>; it?: ItemInst; max: number }[] = apparelItems(w, d)
+    .filter(({ def }) => def.apparel!.groups.includes(tag))
     .sort((x, y) => y.def.apparel!.layer - x.def.apparel!.layer)
-  const deflectDiv = traitAdd(w, a, 'deflectHalf') > 0 ? 4 : 2
-  for (const { it, def } of covering) {
-    const cat = armorCategory(dtype)
-    const armorVal = (def.apparel!.armor[cat] ?? 0) * (it.durability !== undefined ? 0.5 + 0.5 * it.durability / def.apparel!.durability : 1) * (it.half ? 0.5 : 1)
-    const eff = armorVal - pen
-    if (mods?.armorDamage) it.durability = Math.max(0, (it.durability ?? 0) - mods.armorDamage)
-    if (eff <= 0) continue
-    const ar = r.float()
-    if (ar < eff / deflectDiv) {
-      detail.push(`${def.label}: 튕겨냄 (유효 ${eff.toFixed(2)}, roll ${ar.toFixed(2)})`)
-      it.durability = Math.max(0, (it.durability ?? 0) - 1)
+    .map(({ it, def }) => ({ label: def.label, armor: def.apparel!.armor, it, max: def.apparel!.durability }))
+  const nat = w.db.creature(d.def).naturalArmor
+  if (nat) layers.push({ label: '자연 방어', armor: nat, max: 0 })
+  const crumple = traitAdd(w, a, 'deflectHalf') > 0
+  const hitItems: ItemInst[] = []
+  for (const L of layers) {
+    const base = L.armor[armorCategory(dtype)] ?? 0
+    const dur = L.it ? L.it.durability ?? 100 : 100
+    let effA = Math.floor(base * (50 + dur / 2) / 100)
+    if (L.it?.half) effA = Math.floor(effA / 2)
+    const useful = effA - pen
+    if (L.it) hitItems.push(L.it)
+    if (useful <= 0) { detail.push(`${L.label}: 실효 ${effA} − 관통 ${pen} ≤ 0, 통과`); continue }
+    const ar = r.int(0, 99)
+    const blockedLoss = (blocked: number) => L.it && L.max > 0 ? Math.floor(blocked * 100 / L.max) : 0
+    if ((crumple ? 4 : 2) * ar < useful) {
+      detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 튕김`)
+      wear(L.it, blockedLoss(D))
+      wear(wl.item, 2)
+      dull(wl.item, 3)
       fx(w, { k: 'deflect', id: d.id, turn })
+      emitNoise(w, d.pos, 8, d.id)
       wake(w, d, '공격받음')
-      if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${def.label}에 튕겨났다.`, detail)
+      if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${L.label}에 튕겨났다.`, detail)
       return res
     }
-    if (ar < eff) {
-      dmg *= 0.5
-      if (dtype !== 'blunt') dtype = 'blunt'
-      detail.push(`${def.label}: 절반 흡수 → 타격으로 (유효 ${eff.toFixed(2)}, roll ${ar.toFixed(2)})`)
-      it.durability = Math.max(0, (it.durability ?? 0) - 2)
-    } else {
-      detail.push(`${def.label}: 관통 (유효 ${eff.toFixed(2)}, roll ${ar.toFixed(2)})`)
-      it.durability = Math.max(0, (it.durability ?? 0) - 1)
-    }
+    if (ar < useful) {
+      const before = D
+      D = Math.floor(D / 2)
+      if (dtype === 'cut' || dtype === 'stab' || dtype === 'bite') dtype = 'blunt'
+      pen = Math.floor(pen / 2)
+      detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 절반 ${D} · 타격 변환`)
+      wear(L.it, blockedLoss(before - D))
+      dull(wl.item, 2)
+    } else detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 관통`)
   }
-  dmg = Math.max(0.5, dmg)
+  if (mods?.armorDamage) for (const it of hitItems) wear(it, mods.armorDamage + traitAdd(w, a, 'splitBonus'))
+  wear(wl.item, 1)
+  dull(wl.item, 1)
+  if (D <= 0) {
+    detail.push('피해 0')
+    if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${pd.label}에 닿았지만 상처를 내지 못했다.`, detail)
+    wake(w, d, '공격받음')
+    return res
+  }
 
-  // 5 상처: 내부 장기 관통
-  let target = pd
-  let internal = false
-  const inner = bodyDef(w, d).parts.filter((p) => p.parent === pd.id && p.internal && !isMissing(w, d, p.id))
-  const penetrate = (dtype === 'stab' || dtype === 'bite' ? 0.45 : dtype === 'cut' ? 0.2 : 0.12) * Math.max(0, (dmg - 4) / 10)
-  if (inner.length && r.chance(clamp(penetrate, 0, 0.7))) {
-    const ip = r.weighted(inner, (p) => p.coverage)!
-    const deeper = bodyDef(w, d).parts.filter((p) => p.parent === ip.id && p.internal)
-    target = deeper.length && r.chance(0.5) ? deeper[0] : ip
-    internal = true
-    detail.push(`관통 → ${target.label}`)
-  }
-  const woundId = internal && dtype !== 'blunt' ? 'Wound.InternalBleed' : WOUND_FOR[dtype]
-  const arterial = !internal && !!target.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite')
-    && r.chance(clamp((dmg - 4) / 30 + (mods?.arterialBonus ?? 0), 0, 0.45))
-  let fracture = false
-  if (target.bone) {
-    const fm = (atk.fractureMult ?? 1) * traitMul(w, d, 'fractureMult') * (mods?.fractureMult ?? 1) * traitMul(w, a, 'fractureDealt')
-    // 부위 체력 대비 피해 비율이 30%를 넘어야 골절 위험이 생긴다 (작은 타격으로 뼈가 쉽게 부러지지 않게)
-    const ratio = dmg / d.body.maxHp[target.id]
-    const fc = dtype === 'blunt' ? (ratio - 0.3) * 1.1 * fm : (ratio - 0.3) * 0.3 * fm
-    fracture = r.chance(clamp(fc, 0, 0.75))
-  }
-  const { wound, destroyed } = addWound(w, d, {
-    def: woundId, part: target.id, severity: dmg, source: `${a.name}의 ${label}`,
-    arterial, internal, fracture, bleedMult: (atk.bleedMult ?? 1) * (mods?.bleedMult ?? 1),
-    canSever: (dtype === 'cut' || dtype === 'bite') && dmg >= d.body.maxHp[target.id] * 0.6,
-  })
-  // HP 피해 (체력 층)
-  const hpDmg = Math.round(dmg * 10) / 10
-  d.hp = Math.round((d.hp - hpDmg) * 10) / 10
+  // 5 상처
+  const hpBefore = d.hp
+  const out = applyWound(w, a, d, pd, D, dtype, atk, mods, detail, label)
+  d.hp -= D
   res.hit = true
-  res.damage = dmg
-  fx(w, { k: 'dmg', id: d.id, v: Math.max(1, Math.round(hpDmg)), crit: sneakAttack || arterial, turn })
-  const woundLabel = w.db.wound(woundId).label
-  const severed = !!destroyed && d.body.missing.includes(destroyed)
-  let text = `${aName}의 ${label} → ${dName}의 ${target.label}에 ${woundLabel} (${hpDmg.toFixed(1)})`
-  if (sneakAttack) text = '기습! ' + text
-  if (arterial) { text += ' — 동맥이 끊겼다! 피가 뿜어져 나온다'; fx(w, { k: 'status', id: d.id, text: '동맥!', color: '#ff4040', turn }) }
-  if (fracture) { text += ' — 뼈가 부러졌다'; fx(w, { k: 'status', id: d.id, text: '골절!', color: '#f0d0a0', turn }) }
-  if (destroyed) text += severed ? ` — ${part(w, d, destroyed).label}이(가) 떨어져 나갔다` : ` — ${part(w, d, destroyed).label}이(가) 못 쓰게 됐다`
-  if (severed) fx(w, { k: 'status', id: d.id, text: '절단!', color: '#ff6060', turn })
-  if (internal && d.faction !== 'player') text = `${aName}의 ${label} → ${dName}의 ${pd.label} 깊숙이 박혔다 (${hpDmg.toFixed(1)})`
-  detail.push(`상처 출혈 ${wound.bleed} ml/턴 · HP −${hpDmg.toFixed(1)}`)
+  res.damage = D
+  fx(w, { k: 'dmg', id: d.id, v: D, crit: sneak || out.arterial, turn })
+  let text = `${aName}의 ${label} → ${dName}의 ${out.target.label}에 ${out.woundLabel} (${D})`
+  if (sneak) text = '기습! ' + text
+  if (out.arterial) { text += ' — 동맥이 끊겼다! 피가 뿜어져 나온다'; fx(w, { k: 'status', id: d.id, text: '동맥!', color: '#ff4040', turn }) }
+  if (out.fracture) { text += ` — 뼈가 부러졌다(${out.fracture})`; fx(w, { k: 'status', id: d.id, text: '골절!', color: '#f0d0a0', turn }) }
+  if (out.tendon) text += ' — 힘줄이 끊겼다'
+  if (out.destroyed) text += out.severed ? ` — ${out.destroyed}이(가) 떨어져 나갔다` : ` — ${out.destroyed}이(가) 못 쓰게 됐다`
+  if (out.severed) fx(w, { k: 'status', id: d.id, text: '절단!', color: '#ff6060', turn })
+  if (out.organ && d.faction !== 'player') text += ` — 깊숙이 박혔다`
+  detail.push(`HP ${Math.round(hpBefore)} → ${Math.round(d.hp)}`)
   if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', text, detail)
-  if (d.faction === 'player') d.history.push({ turn, kind: 'wound', text: `${a.name}에게 ${target.label} ${woundLabel}${arterial ? '(동맥)' : ''}${fracture ? '(골절)' : ''}` })
-  if (severed && d.faction === 'player') addThought(w, d, 'Thought.Maimed')
+  if (d.faction === 'player') d.history.push({ turn, kind: 'wound', text: `${a.name}에게 ${out.target.label} ${out.woundLabel}${out.arterial ? '(동맥)' : ''}${out.fracture ? '(골절)' : ''}` })
+  if (out.severed && d.faction === 'player') addThought(w, d, 'Thought.Maimed')
 
   // 6 2차 효과
-  if (dtype === 'blunt' && target.groups.includes('head') && r.chance((atk.stunChance ?? 0.05) + dmg / 60 + (mods?.stunBonus ?? 0))) {
-    addEffect(d, 'stunned', turn + r.int(2, 4))
-    fx(w, { k: 'status', id: d.id, text: '기절!', color: '#f0e070', turn })
-    if (isPlayer) log(w, 'combat', `${dName}이(가) 머리를 맞고 휘청인다 (기절).`)
+  secondary(w, a, d, out.target, D, dtype, atk, mods, out.tendon, isPlayer, dName)
+  if (sneak) {
+    // 기습 비명: 같은 방 잠든 개체의 각성 판정 (07 §2.8)
+    emitNoise(w, d.pos, 12, d.id)
   }
-  if ((target.groups.includes('hands') || target.groups.includes('arms')) && dmg > 6 && r.chance(dmg / 50)) {
-    const mw = d.equip.main
-    if (mw && d.faction !== 'player') {
-      delete d.equip.main
-      w.s.map.tiles[d.pos.y * w.s.map.w + d.pos.x].items.push(mw)
-      fx(w, { k: 'status', id: d.id, text: '무기 놓침', color: '#d0d0d0', turn })
-      if (isPlayer) log(w, 'combat', `${dName}이(가) 무기를 떨어뜨렸다.`)
+  wake(w, d, '공격받음')
+  moraleHit(w, d, D, out.arterial || !!out.fracture || !!out.destroyed)
+  return res
+}
+
+interface WoundOut {
+  target: BodyPartDef
+  woundLabel: string
+  arterial: boolean
+  fracture?: string
+  tendon: boolean
+  destroyed?: string
+  severed: boolean
+  organ?: string
+}
+
+function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: number, dtype: DamageType, atk: AttackDef,
+  mods: AbilityAttackMods | undefined, detail: string[], label: string): WoundOut {
+  const r = rng(w, 'combat')
+  const bdef = bodyDef(w, d)
+  const source = `${a.name}의 ${label}`
+  const bleedMult = (atk.bleedMult ?? 1) * (mods?.bleedMult ?? 1)
+  const hp = d.body.maxHp[pd.id]
+  detail.push(`심각도 ${D}/${hp} = ${Math.round(D * 100 / hp)}% (${D < hp * 0.25 ? '경상' : D < hp * 0.5 ? '중상' : D < hp ? '심각' : '파괴'})`)
+  // 동맥: 베기·찌르기·물기, D × 2% (+ 깊게 베기 15%p)
+  let artery = 0
+  if (pd.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite')) {
+    const ch = clamp(D * 2 + (mods?.arterialBonus ?? 0), 0, 100)
+    const ar = r.int(0, 99)
+    detail.push(`동맥 판정 ${ch}% roll ${ar}`)
+    if (ar < ch) artery = pd.artery
+  }
+  // 힘줄: 손·전완·발 베기 D ≥ 부위 HP 40%
+  let tendon = false
+  if (pd.tendon && dtype === 'cut' && D * 100 >= hp * 40 && r.int(0, 99) < 50) tendon = true
+  // 골절: 타격(방어구가 바꾼 피해 포함), (D − 뼈 강도) × 8% × 배율, 상한 90
+  let fracture: { grade: 'hairline' | 'simple' | 'compound'; progress: number } | undefined
+  if (pd.bone !== undefined && dtype === 'blunt' && D > pd.bone) {
+    const special = (mods?.fractureMult ?? 1) * traitMul(w, a, 'fractureDealt')
+    const m = special * (special > 1 ? traitMul(w, d, 'fractureTaken') : 1)
+    const ch = clamp(Math.floor((D - pd.bone) * 8 * m), 0, 90)
+    const fr = r.int(0, 99)
+    detail.push(`골절 판정 (${D} − ${pd.bone}) × 8 × ${m} = ${ch}% roll ${fr}`)
+    if (fr < ch) {
+      const margin = D - pd.bone
+      fracture = { grade: margin <= 3 ? 'hairline' : margin <= 9 ? 'simple' : 'compound', progress: 0 }
     }
   }
+  const woundId = WOUND_FOR[dtype]
+  const { wound, destroyed, severed } = addWound(w, d, {
+    def: woundId, part: pd.id, severity: D, source, sourceId: a.id, artery, fracture, tendon, bleedMult,
+    contam: (atk.contam ?? 0) + (fracture?.grade === 'compound' ? 30 : 0),
+    canSever: dtype === 'cut' || dtype === 'bite',
+  })
+  if (fracture?.grade === 'compound') wound.bleed += D
+  detail.push(`출혈 ${wound.bleed}${wound.artery ? ` + 동맥 ${wound.artery}` : ''} ml/턴`)
+  // 장기 관통: 찌르기 clamp(0, 80, (D − 4) × 6)% (흉부·복부), 두개골은 남은 HP를 넘으면 뇌
+  let organ: string | undefined
+  const inner = bdef.parts.filter((p) => p.parent === pd.id && p.internal && !p.digit && !isMissing(w, d, p.id))
+  if (inner.length && dtype === 'stab' && pd.organMiss !== undefined) {
+    const ch = clamp((D - 4) * 6, 0, 80)
+    const or = r.int(0, 99)
+    detail.push(`장기 관통 ${ch}% roll ${or}`)
+    if (or < ch) {
+      const pool: (BodyPartDef | null)[] = [...inner, null]
+      const pick = r.weighted(pool, (p) => (p ? p.weight ?? 1 : pd.organMiss ?? 0))
+      if (pick) organ = pick.id
+    }
+  } else if (dtype === 'blunt' && pd.id === 'Abdomen' && D * 100 >= hp * 40 && r.int(0, 99) < 25) {
+    const pick = r.weighted(inner.filter((p) => p.id === 'Spleen' || p.id === 'Liver'), (p) => p.weight ?? 1)
+    if (pick) organ = pick.id
+  } else if (pd.id === 'Skull' && destroyed) {
+    organ = inner.find((p) => p.capacities?.consciousness)?.id
+  }
+  if (organ) {
+    const op = part(w, d, organ)
+    addWound(w, d, { def: 'Wound.InternalBleed', part: organ, severity: D, source, sourceId: a.id, internal: true })
+    detail.push(`→ ${op.label} 관통 (내출혈 ${Math.round(D * (op.organ ?? 1) * 10) / 10} ml/턴)`)
+  }
+  return {
+    target: pd, woundLabel: w.db.wound(woundId).label, arterial: !!artery, fracture: fracture && { hairline: '금', simple: '단순', compound: '복합' }[fracture.grade],
+    tendon, destroyed: destroyed && part(w, d, destroyed).label, severed: !!severed, organ,
+  }
+}
+
+function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: number, dtype: DamageType, atk: AttackDef,
+  mods: AbilityAttackMods | undefined, tendon: boolean, isPlayer: boolean, dName: string) {
+  const r = rng(w, 'combat')
+  const turn = turnOf(w)
+  // 기절 (D27): 머리 타격 clamp(0, 90, (D' − 4) × 6 − (의지 − 10) × 3 + 능력)%, 둔기는 D + 4. 지속 ceil(D/2)턴
+  if (pd.region === 'head' && !helpless(d)) {
+    const Dx = D + (dtype === 'blunt' ? atk.stunD ?? 0 : 0)
+    const ch = clamp((Dx - 4) * 6 - (d.stats.wil - 10) * 3 + (mods?.stunBonus ?? 0), 0, 90)
+    if (r.int(0, 99) < ch) {
+      addStun(d, turn, Math.ceil(D / 2))
+      d.unconscious = true
+      fx(w, { k: 'status', id: d.id, text: '기절', color: '#f0e070', turn })
+      if (isPlayer) log(w, 'combat', `${dName}이(가) 머리를 맞고 정신을 잃었다 (기절 ${Math.ceil(D / 2)}턴).`)
+    }
+  }
+  // 무기 떨굼: 손·전완 D × 3%, 힘줄 절단 100%
+  if ((pd.groups.includes('hand') || pd.groups.includes('forearm') || pd.groups.includes('finger')) && (tendon || r.int(0, 99) < D * 3)) {
+    const slot = pd.side === 'l' ? 'off' : 'main'
+    const it = d.equip[slot]
+    if (it && (itemDef(w, it).attacks || itemDef(w, it).shield)) {
+      delete d.equip[slot]
+      const spot = freeAdjacent(w, d.pos)
+      tileAt(w, spot).items.push(it)
+      fx(w, { k: 'status', id: d.id, text: '무기 놓침', color: '#d0d0d0', turn })
+      if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', `${dName}이(가) ${itemDef(w, it).label}을(를) 떨어뜨렸다.`)
+    }
+  }
+  // 넘어짐: 다리 D ≥ 부위HP 30% → D × 4% / 타격 D ≥ 15 → (D − 10) × 5% / 사족 ×1/2
+  if (!isDown(w, d)) {
+    let ch = 0
+    const isLeg = pd.region === 'lleg' || pd.region === 'rleg'
+    if (isLeg && D * 100 >= d.body.maxHp[pd.id] * 30) ch = D * 4
+    if (dtype === 'blunt' && D >= 15) ch = Math.max(ch, (D - 10) * 5)
+    if (bodyDef(w, d).kind === 'quadruped') ch /= 2
+    if (bodyDef(w, d).kind === 'amalgam') ch = 0
+    if (ch > 0 && r.int(0, 99) < ch) knockDown(w, d, isPlayer, dName)
+  }
+  // 포자 등 피격 반응
   const odef = w.db.creature(d.def).onHit
   if (odef && r.chance(odef.chance)) {
     for (const o of w.s.creatures) {
@@ -336,10 +635,26 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
     }
     if (isPlayer) log(w, 'warn', `${d.name}에게서 포자 구름이 터졌다. 기침이 나고 기력이 돌지 않는다.`)
   }
-  if (dmg >= 6) emitNoise(w, d.pos, 7, d.id)
-  wake(w, d, '공격받음')
-  moraleHit(w, d, dmg, arterial || fracture || !!destroyed)
-  return res
+  // 비명 (통증 급증)
+  if (D >= 10 && !traitOverride(w, d, 'noPain')) emitNoise(w, d.pos, 12, d.id)
+  void a
+}
+
+export function knockDown(w: World, d: Creature, isPlayer: boolean, dName: string) {
+  const turn = turnOf(w)
+  // 넘어지면 일어나기 1턴 (다리 골절 시 3턴)
+  const legFx = d.body.wounds.some((x) => x.fracture && (part(w, d, x.part).region === 'lleg' || part(w, d, x.part).region === 'rleg'))
+  addEffect(d, 'knockedDown', turn + (legFx ? 3 : 1) + 1)
+  fx(w, { k: 'status', id: d.id, text: '넘어짐', color: '#e0a050', turn })
+  if (isPlayer) log(w, 'combat', `${dName}이(가) 넘어졌다.`)
+}
+
+function freeAdjacent(w: World, p: Pos): Pos {
+  for (const dd of DIRS) {
+    const q = { x: p.x + dd.x, y: p.y + dd.y }
+    if (inBounds(w, q) && terrainAt(w, q).passable) return q
+  }
+  return p
 }
 
 function noteFight(w: World, a: Creature, d: Creature) {
@@ -350,9 +665,49 @@ function noteFight(w: World, a: Creature, d: Creature) {
 }
 
 export function moraleHit(w: World, c: Creature, dmg: number, severe: boolean) {
-  if (c.faction === 'player') return
+  if (c.faction === 'player' || w.db.creature(c.def).noMorale) return
   c.ai.morale -= dmg * 1.2 + (severe ? 15 : 0)
   c.ai.morale -= bloodLoss(c) * 30
+}
+
+// ── 밀치기 (07 §7.2) ─────────────────────────────
+
+function mass(w: World, c: Creature): number {
+  return c.stats.str + Math.floor((w.db.creature(c.def).weightKg ?? 70) / 10)
+}
+
+export function shoveChance(w: World, a: Creature, d: Creature): number {
+  let ch = 50 + (mass(w, a) - mass(w, d)) * 3
+  if (a.equip.off && itemDef(w, a.equip.off).shield) ch += itemDef(w, a.equip.off).shield!.shove ?? 10
+  else if (!wield(w, a)?.item) ch += 10
+  const terr = terrainAt(w, d.pos)
+  if (terr.id.includes('Mud') || terr.water === 'shallow') ch += 15
+  if (hasEffect(d, 'parryStance', turnOf(w)) || hasEffect(d, 'spearWall', turnOf(w))) ch -= 20
+  return clamp(ch, 5, 95)
+}
+
+/** 대상을 n칸 민다. 벽이면 타격 5(흉부) + 넘어짐 25% */
+export function pushBack(w: World, a: Creature, t: Creature, n: number) {
+  const r = rng(w, 'combat')
+  const isPl = a.faction === 'player' || t.faction === 'player'
+  const name = t.faction === 'player' ? '당신' : t.name
+  if (size(w, t) === 'huge') return
+  const dir = DIRS[dirIndex(t.pos.x - a.pos.x, t.pos.y - a.pos.y)]
+  for (let i = 0; i < n; i++) {
+    const to: Pos = { x: t.pos.x + dir.x, y: t.pos.y + dir.y }
+    if (!inBounds(w, to) || !terrainAt(w, to).passable || creatureAt(w, to)) {
+      const chest = bodyDef(w, t).parts.find((p) => p.id === 'Chest' || p.region === 'torso' && !p.internal)!
+      addWound(w, t, { def: 'Wound.Bruise', part: chest.id, severity: 5, source: '벽에 부딪힘', sourceId: a.id })
+      t.hp -= 5
+      fx(w, { k: 'status', id: t.id, text: '쾅!', color: '#e08050', turn: turnOf(w) })
+      if (isPl) log(w, 'combat', `${name}이(가) 벽에 부딪혔다.`)
+      if (r.int(0, 99) < 25) knockDown(w, t, isPl, name)
+      return
+    }
+    const from = { ...t.pos }
+    t.pos = to
+    fx(w, { k: 'move', id: t.id, from, to, turn: turnOf(w) })
+  }
 }
 
 /** 사망 처리: 시체, 소지품 투하(루팅 더미), 주변 사기, 경험치 */
@@ -379,7 +734,7 @@ export function killCreature(w: World, c: Creature, cause: string) {
     if (pl.alive) {
       const b = (w.s.knowledge.bestiary[c.def] ??= { seen: 0, fought: 0, killed: 0 })
       // 사망 원인 기여: 플레이어가 준 상처가 하나라도 남아 있으면 전액 (15 §3)
-      const byPlayer = c.lastAttacker?.startsWith(pl.name) || c.body.wounds.some((wd) => wd.source.startsWith(pl.name))
+      const byPlayer = c.body.wounds.some((wd) => wd.sourceId === pl.id) || c.lastAttacker?.startsWith(pl.name)
       if (byPlayer) {
         b.killed++
         if (c.faction === 'reavers') addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
@@ -391,14 +746,15 @@ export function killCreature(w: World, c: Creature, cause: string) {
   }
   for (const o of w.s.creatures) {
     if (!o.alive || o.faction !== c.faction || o.id === c.id) continue
-    if (cheb(o.pos, c.pos) <= 10) o.ai.morale -= 25
+    if (cheb(o.pos, c.pos) <= 10) o.ai.morale -= 15
   }
 }
 
 /** 인접(또는 리치 2) 공격 가능 여부 */
 export function canReach(w: World, a: Creature, d: Creature): boolean {
-  const atk = currentAttack(w, a)
-  const reach = atk?.reach ?? 1
+  const atk = meleeWield(w, a)?.atk
+  if (!atk) return false
+  const reach = atk.reach ?? 1
   const dist = cheb(a.pos, d.pos)
   if (dist <= 1) {
     const dx = d.pos.x - a.pos.x, dy = d.pos.y - a.pos.y
@@ -411,7 +767,7 @@ export function canReach(w: World, a: Creature, d: Creature): boolean {
   }
   if (dist === 2 && reach >= 2) {
     const mid = { x: a.pos.x + Math.sign(d.pos.x - a.pos.x), y: a.pos.y + Math.sign(d.pos.y - a.pos.y) }
-    return w.db.terrain(w.s.map.tiles[mid.y * w.s.map.w + mid.x].t).passable && !creatureAt(w, mid)
+    return w.db.terrain(w.s.map.tiles[mid.y * w.s.map.w + mid.x].t).passable && !creatureAt(w, mid) && hasLos(w, a.pos, d.pos)
   }
   return false
 }

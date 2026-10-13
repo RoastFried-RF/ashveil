@@ -8,16 +8,17 @@
     "weight": 0.3,
     "value": 2,
     "apparel": {
-      "layer": 0,
+      "layer": 1,
       "groups": [
-        "torso",
-        "arms",
-        "legs"
+        "chest",
+        "abdomen",
+        "upperArm"
       ],
       "insulation": 1,
       "armor": {
-        "sharp": 0.02,
-        "blunt": 0.02
+        "sharp": 3,
+        "blunt": 2,
+        "heat": 1
       },
       "durability": 20,
       "noise": 2
@@ -44,13 +45,18 @@
     "apparel": {
       "layer": 1,
       "groups": [
-        "torso",
-        "arms"
+        "neck",
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm",
+        "forearm"
       ],
-      "insulation": 3,
+      "insulation": 4,
       "armor": {
-        "sharp": 0.15,
-        "blunt": 0.22
+        "sharp": 20,
+        "blunt": 25,
+        "heat": 4
       },
       "durability": 40,
       "noise": 2
@@ -75,17 +81,20 @@
     "weight": 2.5,
     "value": 35,
     "apparel": {
-      "layer": 2,
+      "layer": 1,
       "groups": [
-        "torso",
-        "arms",
-        "legs"
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm",
+        "forearm",
+        "thigh"
       ],
       "insulation": 3,
       "armor": {
-        "sharp": 0.25,
-        "blunt": 0.1,
-        "heat": 0.15
+        "sharp": 18,
+        "blunt": 12,
+        "heat": 3
       },
       "noise": 3,
       "durability": 60
@@ -110,15 +119,18 @@
     "weight": 0.8,
     "value": 25,
     "apparel": {
-      "layer": 4,
+      "layer": 2,
       "groups": [
-        "torso",
-        "arms",
-        "legs"
+        "chest",
+        "abdomen",
+        "upperArm",
+        "thigh"
       ],
       "insulation": 1,
       "armor": {
-        "sharp": 0.04
+        "sharp": 4,
+        "blunt": 2,
+        "heat": 2
       },
       "waterproof": true,
       "durability": 25,
@@ -144,15 +156,19 @@
     "weight": 8,
     "value": 70,
     "apparel": {
-      "layer": 3,
+      "layer": 1,
       "groups": [
-        "torso",
-        "arms"
+        "neck",
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm"
       ],
-      "insulation": -1,
+      "insulation": 0,
       "armor": {
-        "sharp": 0.45,
-        "blunt": 0.15
+        "sharp": 45,
+        "blunt": 15,
+        "heat": 2
       },
       "noise": 5,
       "durability": 90
@@ -177,13 +193,17 @@
     "weight": 0.2,
     "value": 4,
     "apparel": {
-      "layer": 2,
+      "layer": 1,
       "groups": [
-        "head"
+        "skull",
+        "ear",
+        "neck"
       ],
-      "insulation": 1,
+      "insulation": 2,
       "armor": {
-        "sharp": 0.04
+        "sharp": 3,
+        "blunt": 3,
+        "heat": 2
       },
       "durability": 15
     },
@@ -207,15 +227,16 @@
     "weight": 1.6,
     "value": 30,
     "apparel": {
-      "layer": 3,
+      "layer": 1,
       "groups": [
-        "head",
-        "eyes"
+        "skull",
+        "ear"
       ],
       "insulation": 0,
       "armor": {
-        "sharp": 0.5,
-        "blunt": 0.3
+        "sharp": 35,
+        "blunt": 20,
+        "heat": 1
       },
       "durability": 70
     },
@@ -238,14 +259,17 @@
     "weight": 1.0,
     "value": 15,
     "apparel": {
-      "layer": 2,
+      "layer": 1,
       "groups": [
-        "feet"
+        "foot",
+        "toe",
+        "shin"
       ],
-      "insulation": 1,
+      "insulation": 2,
       "armor": {
-        "sharp": 0.2,
-        "blunt": 0.1
+        "sharp": 15,
+        "blunt": 10,
+        "heat": 3
       },
       "durability": 40,
       "noise": 3
@@ -272,12 +296,14 @@
     "apparel": {
       "layer": 1,
       "groups": [
-        "hands"
+        "hand",
+        "finger"
       ],
       "insulation": 1,
       "armor": {
-        "sharp": 0.1,
-        "blunt": 0.05
+        "sharp": 8,
+        "blunt": 5,
+        "heat": 3
       },
       "durability": 20
     },
@@ -306,15 +332,12 @@
     "slot": "belt",
     "value": 10,
     "apparel": {
-      "layer": 2,
+      "layer": 1,
       "groups": [
-        "torso"
+        "pelvis"
       ],
       "insulation": 0,
-      "armor": {
-        "sharp": 0.03,
-        "blunt": 0.03
-      },
+      "armor": {},
       "durability": 30
     }
   },

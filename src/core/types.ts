@@ -24,65 +24,100 @@ export interface BodyPartDef {
   label: string
   parent?: string
   hp: number
-  /** 부모 부위 면적 중 이 부위가 차지하는 비율 (루트는 1) */
-  coverage: number
-  height: Height
+  /** 외부 커버리지 ‰ (외부 부위만, 몸 전체 합 1000 · 07 §2.3) */
+  coverage?: number
+  /** 내부 분배 가중 (부모가 관통됐을 때 · 02 §2.2) */
+  weight?: number
+  height?: Height
   internal?: boolean
   vital?: boolean
   /** 파괴되면 24시간 뒤 사망 (간) */
   delayedDeath?: boolean
-  bone?: boolean
-  artery?: boolean
-  bleedMult?: number
-  painMult?: number
-  /** 지혈대 단위 (팔/다리) */
+  /** 뼈 강도 = 골절 임계 (02 §2.1) */
+  bone?: number
+  /** 동맥 출혈 ml/턴 (02 §2.1: 경동맥 250 · 대퇴 150 …) */
+  artery?: number
+  /** 혈관계수 (02 §5) */
+  vessel?: number
+  /** 통증계수 (02 §5) */
+  pain?: number
+  /** 내출혈 장기계수 (02 §8) */
+  organ?: number
+  /** 장기 관통 판정의 빗나감 가중 (흉부 40 · 복부 15) */
+  organMiss?: number
+  /** 이 부위 피격 중 자식(손가락·발가락)으로 넘어가는 % */
+  childShare?: number
+  /** 관통 시 추가 오염 (장 80) */
+  contam?: number
+  /** 지혈대 단위 (그 팔·다리의 상완·대퇴) */
   limb?: string
-  /** 방어구 커버 그룹 */
+  side?: 'l' | 'r'
+  /** 힘줄 판정 부위 (손·전완·발) */
+  tendon?: boolean
+  /** 0이 되면 떨어져 나가는 부위 (손가락·손·발·귀·코) */
+  detach?: boolean
+  digit?: boolean
+  /** 사족 다리 */
+  qleg?: boolean
+  /** 방어구 덮음 태그 (13 §6.2) */
   groups: string[]
-  /** 6부위 영역 (없으면 부모를 따름) */
-  region?: Region
-  capacities?: Partial<Record<Capacity, number>>
+  region: Region
+  capacities?: Partial<Record<string, number>>
 }
 
 export interface BodyDef extends DefBase {
   defType: 'Body'
   bloodMl: number
+  kind?: 'humanoid' | 'quadruped' | 'amalgam'
   parts: BodyPartDef[]
 }
 
 export interface WoundDef extends DefBase {
   defType: 'Wound'
   label: string
-  /** 심각도(hp 피해) 1당 턴당 출혈 ml */
+  /** sev 1당 턴당 출혈 ml (02 §5) */
   bleedPerSeverity: number
   painPerSeverity: number
-  infectionChance: number
-  /** 하루 치유량 (hp) */
+  /** 생성 시 기본 오염 0~100 */
+  contamination: number
+  /** 하루 치유량 (sev) */
   healPerDay: number
   scarChance: number
-  /** 비동맥 상처의 턴당 출혈 감소 배율 (안정 시) */
-  clotPerTurn: number
   /** 외부에서 보이는가 (내출혈 = false) */
   visible?: boolean
 }
 
 export interface AttackDef {
+  /** 공격 방식 id: slash 베기 · stab 찌르기 · blunt 타격 */
+  id?: string
   label: string
   damageType: DamageType
+  /** 기본 피해 (07 §7.1) */
   damage: number
-  armorPen: number
-  tu: number
-  stamina: number
-  skill: string
+  /** 관통 0~100 (07 §2.4) */
+  pen: number
+  /** 기력 (07 §6) */
+  energy: number
+  /** 무기 계열 (15 §7): blade·axe·blunt·spear·archery·unarmed */
+  family: string
+  /** 무기 정확도 (공격치 기본값) */
+  accuracy: number
   reach?: number
+  /** 출혈 배율 (07 §7.1) */
   bleedMult?: number
-  fractureMult?: number
-  stunChance?: number
   noise?: number
   /** 이 능력치가 0이면 공격 불가 (예: 턱 파괴 시 물기 불가) */
   requiresCapacity?: Capacity
-  /** 무기 정확도 (공격치 기본값) */
-  accuracy?: number
+  /** 머리 기절 판정에 D + 이 값 (둔기 4) */
+  stunD?: number
+  /** 짧은 날: 잠든·기절 대상 첫 타 ×2 (07 §2.8) */
+  shortBlade?: boolean
+  /** 방패 내구 피해 배율 (손도끼 2) */
+  shieldDamage?: number
+  /** 맨손 등 밀치기 보정 (07 §7.2) */
+  shove?: number
+  /** 생성 상처 오염 가산 (녹 +10, 02 §10.1) */
+  contam?: number
 }
 
 export type Slot = 'head' | 'chest' | 'hands' | 'feet' | 'belt' | 'back' | 'neck' | 'ring1' | 'ring2' | 'main' | 'off'
@@ -91,7 +126,10 @@ export type Region = 'head' | 'torso' | 'larm' | 'rarm' | 'lleg' | 'rleg'
 export const REGIONS: Region[] = ['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg']
 
 export interface RangedDef {
+  /** 최대 사거리 */
   range: number
+  /** 유효 사거리 (초과 1칸당 −3, 07 §2.1) */
+  effective?: number
   ammo: string
 }
 
@@ -110,28 +148,38 @@ export interface ItemDef extends DefBase {
   slot?: Exclude<Slot, 'ring1' | 'ring2'> | 'ring'
   /** 장착 시 능력치·특성형 수정치 */
   mods?: Partial<Record<string, number>>
-  attack?: AttackDef
+  /** 날 상태 시작값 % (녹슨 칼 60) */
+  edgeStart?: number
+  /** 공격 방식들 (07 §14 attacks[]). 첫 번째가 기본 */
+  attacks?: AttackDef[]
+  /** 무기 막기치 / 받아넘기기치 (07 §7.1) */
+  weapon?: { block: number; parry: number }
   ranged?: RangedDef
   twoHanded?: boolean
   apparel?: {
-    layer: number // 0 내의, 1 중간, 2 외투, 3 갑옷, 4 겉망토
+    /** 판정 순서: 큰 값이 바깥 (망토 2 → 몸·머리·장갑·장화 1) */
+    layer: number
+    /** 덮는 세부 부위 태그 (13 §6.2) */
     groups: string[]
     insulation: number
+    /** 날 / 타격 / 열 방어 0~100 (13 §6.2) */
     armor: Partial<Record<ArmorCategory, number>>
     noise?: number
     waterproof?: boolean
     durability: number
   }
-  shield?: { block: number; stamina: number; armor: number }
+  /** 방패: 막기치, 흡수량(넘친 피해는 방패 든 팔로), 밀치기 보정 (07 §2.2·§7.2) */
+  shield?: { block: number; absorb: number; shove?: number }
   food?: { kcal: number; vitamin?: number; water?: number; raw?: boolean; scent?: number; needsTool?: string }
   drink?: { water: number; dirty?: boolean; alcohol?: number }
   medical?: {
     kind: 'bandage' | 'tourniquet' | 'splint' | 'disinfect'
-    bleedMult?: number
-    arterialBleedMult?: number
-    infectionMult?: number
-    tu: number
-    quality?: number
+    /** 처치 품질 Q 도구 항 (02 §12.1: 옷 찢은 천 −10 · 깨끗한 붕대 0) */
+    tool?: number
+    /** 더러운 붕대: 오염 +10 */
+    dirty?: boolean
+    /** 세척 배율 (술 0.4 · 깨끗한 물 0.75) */
+    washMult?: number
   }
   drug?: { effect: string; durationTurns: number }
   /** 미확인 그룹 (예: 'pill') — 시드별로 외형이 섞임 */
@@ -152,7 +200,7 @@ export interface CreatureDef extends DefBase {
   sprite?: string | string[]
   body: string
   faction: string
-  sizeClass: 'tiny' | 'small' | 'medium' | 'large'
+  sizeClass: 'tiny' | 'small' | 'medium' | 'large' | 'huge'
   moveTU: number
   bloodMult?: number
   hpMult?: number
@@ -185,6 +233,18 @@ export interface CreatureDef extends DefBase {
   mods?: Partial<Record<string, number>>
   /** 맞으면 주변에 뿌리는 효과 (포자 등) */
   onHit?: { effect: string; radius: number; turns: number; chance: number }
+  /** 체중 kg (밀치기 체급, 07 §7.2) */
+  weightKg?: number
+  /** 자연 방어: 털·가죽·껍질 (07 §2.4 마지막 층) */
+  naturalArmor?: Partial<Record<ArmorCategory, number>>
+  /** 사기 판정을 하지 않는 종 (07 §8) */
+  noMorale?: boolean
+  /** 청각 보정 (07 §9.1) */
+  hearing?: number
+  /** 어둠 감점 완화: 칠흑·어둠 명중 감점 상한 (그늘 사람 −5, 07 §13) */
+  darkSight?: number
+  /** 보유 능력 (15 §15) */
+  abilities?: string[]
 }
 
 export interface Stats { str: number; agi: number; per: number; vit: number; wil: number }
@@ -278,19 +338,25 @@ export interface SkillDef extends DefBase {
 }
 
 export interface AbilityAttackMods {
+  /** 명중 가산 (조준 사격 +25) */
   hitBonus?: number
   damageMult?: number
+  /** 상처 출혈 항 배율 (깊게 베기 ×2) */
   bleedMult?: number
+  /** 동맥 확률 가산 %p (깊게 베기 +15) */
   arterialBonus?: number
-  armorPenBonus?: number
+  /** 관통 가산 (0~100 척도: 급소 찌르기 +20, 쪼개기 +25) */
+  penBonus?: number
+  /** 맞은 방어구 내구 추가 손실 %p (쪼개기 10) */
   armorDamage?: number
+  /** 골절 확률 배율 */
   fractureMult?: number
+  /** 기절 확률 가산 %p (머리 강타 +40) */
   stunBonus?: number
   partWeights?: Partial<Record<Region | 'neck', number>>
   aoe?: 'adjacent' | 'line2'
   knockback?: number
   knockdownChance?: number
-  tu?: number
 }
 
 export interface AbilityDef extends DefBase {
@@ -303,8 +369,12 @@ export interface AbilityDef extends DefBase {
   energy?: number
   cooldown?: number
   requires?: string[]
-  /** 요구 무기 계열 (attack.skill) */
+  /** 요구 무기 계열 (주무기 attacks[].family). 패시브는 그 계열로 싸울 때만 (15 §7) */
   weapon?: string
+  /** 요구 공격 방식 (깊게 베기 = slash, 급소 찌르기 = stab) */
+  attackMode?: string
+  /** 채널 턴 수 (조준 사격 2) */
+  channel?: number
   target?: 'enemy' | 'self'
   attack?: AbilityAttackMods
   stance?: { effect: string; turns: number; magnitude?: number }
@@ -330,31 +400,47 @@ export interface ItemInst {
   rot?: boolean
   /** 입다가 끊겨 반쯤 걸친 상태: 방어·단열 50% (13 §6.1) */
   half?: boolean
+  /** 내구 % 0~100 (08 §5) */
   durability?: number
+  /** 날 상태 % 0~100 (08 §5) */
+  edge?: number
   fuel?: number
   lit?: boolean
   uses?: number
   dirty?: boolean
 }
 
+export type FractureGrade = 'hairline' | 'simple' | 'compound'
+
 export interface Wound {
   id: number
   def: string
   part: string
+  /** 정수 피해 D (02 §4) */
   severity: number
   healed: number
+  /** 상처 출혈 ml/턴 (응고 대상) */
   bleed: number
+  /** 동맥 출혈 ml/턴 (자연 응고 없음, 02 §6) */
+  artery?: number
   arterial: boolean
   internal: boolean
-  fracture: boolean
-  bandage?: { quality: 'dirty' | 'clean'; infectionMult: number; bleedMult: number; arterialMult: number }
-  splinted?: boolean
+  /** 골절: 등급과 치유 진행 0~1 (02 §9) */
+  fracture?: { grade: FractureGrade; progress: number }
+  splint?: { quality: number; half?: boolean }
+  /** 붕대: 처치 품질 Q, 감은 시각, 응급 처치 보너스 (02 §6 · 15 §6.6) */
+  bandage?: { quality: number; at: number; dirty?: boolean; firstAid?: number }
+  /** 힘줄 절단 (효율 상한 0.5) */
+  tendon?: boolean
   cauterized?: boolean
-  disinfected?: boolean
-  infection?: { progress: number; immunity: number }
+  /** 오염 0~100 (02 §10.1) */
+  contam: number
+  infection?: { progress: number; immunity: number; sepsis?: number }
   infectionChecked?: boolean
   ageTurns: number
   source: string
+  /** 상처를 낸 개체 id (사망 원인 기여, 15 §3) */
+  sourceId?: number
   scar?: boolean
 }
 
@@ -366,7 +452,8 @@ export interface BodyState {
   maxHp: Record<string, number>
   missing: string[]
   wounds: Wound[]
-  tourniquets: Record<string, number> // limb -> 적용 시각(turn)
+  /** 지혈대: 그 팔·다리의 상완/대퇴 id → 감은 시각(turn) */
+  tourniquets: Record<string, number>
   pressing?: number // 압박 중인 wound id (이번 턴)
 }
 
@@ -377,7 +464,7 @@ export interface Needs {
   fatigue: number
   bodyTemp: number
   wetness: number
-  stamina: number
+  energy: number
   stress: number
 }
 
@@ -386,8 +473,15 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number }
 
 export interface Activity {
-  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip'
+  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim'
   remaining: number
+  /** 시작 때 정한 전체 턴 */
+  total?: number
+  /** 처치 종류 */
+  treat?: 'bandage' | 'tourniquet' | 'splint' | 'disinfect' | 'cauterize'
+  limb?: string
+  /** 채널 능력 id (조준 사격) */
+  abilityId?: string
   slot?: Slot
   target?: Pos
   uid?: number
@@ -463,8 +557,28 @@ export interface Creature {
   mapId?: string
   ai: AiState
   activity?: Activity
-  /** 이번 턴에 공격/방어로 스태미나를 썼는가 */
+  /** 이번 턴에 공격/방어로 기력을 썼는가 */
   exerted: boolean
+  /** 몸 상태 시계: 쇼크·기절·통증 지속 (02 §6.3·§7) */
+  cond?: { shock?: boolean; shockOkSince?: number; painHighSince?: number; faintUntil?: number }
+  /** 같은 턴 안의 반응 횟수 (07 §2.2 연속 반응 피로) */
+  reactions?: { turn: number; n: number }
+  /** 반응 정책 (07 §2.2) */
+  reactPolicy?: 'block' | 'parry' | 'none'
+  /** 고른 공격 방식 id (베기/찌르기) */
+  attackMode?: string
+  /** 마지막으로 이동한 턴 (원거리 '대상 이동 중' −5) */
+  movedTurn?: number
+  /** 자유 행동을 쓴 턴 (01 §3.4, 턴당 1회) */
+  freeActTurn?: number
+  /** 잠기운 끝 턴 (01 §8.3) */
+  drowsyUntil?: number
+  /** 이번 턴에 대기했는가 (기력 회복 ×2) */
+  rested?: boolean
+  /** 자기 몸을 살핀 턴 (01 §4.1) */
+  examinedAt?: number
+  /** 소작 인두 가열 진행 (보존, 01 §7) */
+  heat?: { done: number; at: number }
   lastAttacker?: string
   killedBy?: string
   deathCause?: string
