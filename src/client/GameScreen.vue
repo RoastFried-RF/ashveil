@@ -2,7 +2,7 @@
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  adjacentContainer, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
+  adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
   allItems, type Pos, type World,
 } from '../core'
 import HoverInfo from './HoverInfo.vue'
@@ -181,6 +181,7 @@ function onClick(p: Pos, button: number) {
   if (d === 0) {
     if (terrainAt(ww, p).stairs) doAct({ type: 'stairs' })
     else if (ww.s.map.exits.some((e) => e.x === p.x && e.y === p.y)) doAct({ type: 'leave' })
+    else if (adjacentCorpse(ww, pl) && eqPos(adjacentCorpse(ww, pl)!.pos, p)) doAct({ type: 'search' })
     else if (ww.s.map.tiles[p.y * ww.s.map.w + p.x].items.length) doAct({ type: 'pickup' })
     else doAct({ type: 'wait' })
     return
@@ -188,6 +189,8 @@ function onClick(p: Pos, button: number) {
   if (d === 1) {
     const terr = terrainAt(ww, p)
     if (terr.container && adjacentContainer(ww, pl, true)) { doAct({ type: 'search' }); return }
+    const corpse = adjacentCorpse(ww, pl)
+    if (corpse && eqPos(corpse.pos, p) && !creatureAt(ww, p)) { doAct({ type: 'search' }); return }
     doAct({ type: 'move', dir: DIRS.findIndex((x) => x.x === p.x - pl.pos.x && x.y === p.y - pl.pos.y) })
     return
   }

@@ -8,7 +8,7 @@ import {
 import { clamp, creatureAt, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee, hasLos, lightLevel } from './fov'
 import { cheb, DIRS, dirDelta, dirIndex, type Pos } from './geom'
-import { allItems, apparelItems, itemDef, makeItem, meleeWield, wield, type Wield } from './items'
+import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, wield, type Wield } from './items'
 import { addThought } from './needs'
 import { emitNoise } from './perception'
 import { awardDefeat } from './progression'
@@ -108,6 +108,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   let lp = [0, -5, -15, -30][lv]
   const ds = w.db.creature(a.def).darkSight
   if (ds !== undefined && lp < -ds) lp = -ds
+  // 야행성: 어둠 단계 감점 5 완화, 조준 사격·다리 쏘기는 조명 감점 절반 (04 §8 #8)
+  if (traitAdd(w, a, 'nightOwl') > 0 && lp < 0) lp = mods?.aimed ? Math.ceil(lp / 2) : Math.min(0, lp + 5)
   add(['밝음', '어스름', '어둠', '칠흑'][lv], lp)
   if (isDown(w, d) && !helpless(d)) add('넘어진 상대', ranged ? -15 : 20)
   // 공격자 머리·쥔 팔
@@ -145,6 +147,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
     if (atk.family === 'axe' && narrowCorridor(w, a.pos)) add('좁은 곳 도끼', -15)
   }
   if (mods?.hitBonus) add('능력', mods.hitBonus)
+  // 알코올 의존 금단(손떨림): 공격형 액티브 명중 −10 (15 §9.2)
+  if (mods && hasEffect(a, 'withdrawal', turn)) add('손떨림', -10)
   chance = clamp(chance, 5, 95)
   lines.push(`최종 ${chance}% (5~95)`)
   return { chance, lines, attack: atk, wield: wl }
@@ -722,9 +726,15 @@ export function killCreature(w: World, c: Creature, cause: string) {
   c.killedBy = c.lastAttacker
   const t = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x]
   if (c.faction !== 'player') {
-    for (const it of allItems(c)) t.items.push({ ...it, gx: undefined, gy: undefined })
+    // 시체는 실제로 들고 있던 것을 그대로 지닌다: 배낭 격자 + 장착 장비 (13 §8.1). 격자에 안 들어가면 바닥으로
+    const [gw, gh] = w.db.creature(c.def).bagSize ?? [4, 3]
+    const items = c.bag
     c.bag = []
-    c.equip = {}
+    const g = { items: c.bag, w: gw, h: gh }
+    for (const it of items) {
+      const left = gridAdd(w, g, { ...it, gx: undefined, gy: undefined, rot: undefined })
+      if (left > 0) t.items.push({ ...it, count: left, gx: undefined, gy: undefined })
+    }
   }
   t.blood = Math.min(400, t.blood + 60)
   if (c.faction === 'beasts' || c.faction === 'vermin') t.items.push(makeItem(w, 'Item.RawMeat', c.def === 'Creature.BurrowRat' ? 1 : 3))

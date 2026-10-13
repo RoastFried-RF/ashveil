@@ -2,7 +2,7 @@
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
 import { computed, onBeforeUnmount, ref } from 'vue'
 import {
-  BAG_W, BAG_H, fitsAt, itemDef, itemSize, itemLabel, lootItems, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
+  BAG_W, BAG_H, fitsAt, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
 } from '../../core'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
@@ -20,11 +20,14 @@ const d = computed(() => {
   const bag = pl.bag.filter((i) => i.gx !== undefined && i.gy !== undefined)
   const loose = pl.bag.filter((i) => i.gx === undefined || i.gy === undefined)
   const loot = lootItems(w)
-  const lootLabel = w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
+  const grid = lootGrid(w)
+  const corpse = lootEquip(w)
+  const lootEq = corpse ? (Object.keys(corpse.equip) as Slot[]).filter((k) => corpse.equip[k]).map((k) => ({ slot: k, it: corpse.equip[k]! })) : []
+  const lootLabel = corpse ? `${corpse.name}의 시체` : w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
   const floor = !loot ? tileAt(w, pl.pos).items : []
   let used = 0
   for (const it of bag) { const [a, b] = itemSize(w, it); used += a * b }
-  return { w, pl, bag, loose, loot, lootLabel, floor, free: BAG_W * BAG_H - used }
+  return { w, pl, bag, loose, loot, grid, lootEq, lootLabel, floor, free: BAG_W * BAG_H - used }
 })
 
 // ── 끌기 ──
@@ -35,7 +38,7 @@ const menu = ref<{ x: number; y: number; it: ItemInst; from: Drag['from']; slot?
 function down(e: PointerEvent, from: Drag['from'], it: ItemInst, slot?: Slot) {
   if (e.button !== 0) return
   const el = (e.currentTarget as HTMLElement).getBoundingClientRect()
-  drag.value = { from, it, slot, gdx: Math.floor((e.clientX - el.left) / CELL), gdy: Math.floor((e.clientY - el.top) / CELL), x: e.clientX, y: e.clientY, moved: false, sx: e.clientX, sy: e.clientY, rot: from === 'bag' && !!it.rot }
+  drag.value = { from, it, slot, gdx: Math.floor((e.clientX - el.left) / CELL), gdy: Math.floor((e.clientY - el.top) / CELL), x: e.clientX, y: e.clientY, moved: false, sx: e.clientX, sy: e.clientY, rot: (from === 'bag' || from === 'loot') && !!it.rot }
   window.addEventListener('pointermove', move)
   window.addEventListener('pointerup', up)
   window.addEventListener('keydown', rotKey, true)
@@ -96,6 +99,10 @@ function up(e: PointerEvent) {
   } else if (kind === 'slot') {
     if (g.from === 'bag') doAct({ type: 'equip', uid: g.it.uid, slot: el.dataset.slot as Slot })
     else hint.value = '먼저 배낭에 넣어야 한다'
+  } else if (kind === 'lootcell') {
+    const gx = Number(el.dataset.gx) - g.gdx, gy = Number(el.dataset.gy) - g.gdy
+    if (g.from === 'bag') { const err = doAct({ type: 'lootPut', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err }
+    else if (g.from === 'loot') { const err = act({ type: 'lootMove', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err }
   } else if (kind === 'loot') {
     if (g.from === 'bag') doAct({ type: 'lootPut', uid: g.it.uid })
   } else if (kind === 'ground') {
@@ -210,25 +217,52 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
       </div>
     </div>
 
-    <!-- 루팅 / 발밑 -->
+    <!-- 루팅: 상자·석관·서가·보관함·시체는 격자, 바닥은 목록 (13 §8) -->
     <div v-if="d.loot" class="df df-olive mt-2 !border-[12px]" data-drop="loot" data-testid="loot">
       <div class="mb-1 flex items-center justify-between">
-        <span class="font-title text-sm text-[#e8d7a8]">{{ d.lootLabel }}</span>
+        <span class="font-title text-sm text-[#e8d7a8]">{{ d.lootLabel }}<span v-if="d.grid" class="ml-2 text-[10px] text-ash-500">{{ d.grid.w }}×{{ d.grid.h }}</span></span>
         <span class="flex gap-1">
-          <button class="dbtn-gold" data-testid="loot-all" :disabled="!d.loot.length" @click="doAct({ type: 'lootAll' })">모두 가져가기 (E)</button>
+          <button class="dbtn-gold" data-testid="loot-all" :disabled="!(d.grid ? d.grid.items.length : d.loot.length)" @click="doAct({ type: 'lootAll' })">모두 가져가기 (E)</button>
           <button class="dbtn" @click="doAct({ type: 'lootClose' })">닫기</button>
         </span>
       </div>
-      <p v-if="!d.loot.length" class="text-xs text-ash-500">비어 있다.</p>
-      <div class="flex flex-wrap gap-1">
+      <div v-if="d.lootEq.length" class="mb-1 flex flex-wrap items-center gap-1">
+        <span class="text-[10px] text-ash-500">입고 있는 것 (벗기기 = 탈 턴):</span>
         <div
-          v-for="it in d.loot" :key="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" :data-testid="`loot-${it.def}`"
-          @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mouseleave="hideTip"
+          v-for="e in d.lootEq" :key="e.it.uid" class="df df-slot relative flex h-[40px] w-[40px] cursor-grab items-center justify-center" :data-testid="`loot-${e.it.def}`"
+          @pointerdown="down($event, 'loot', e.it)" @dblclick="dbl(e.it, 'loot')" @mouseenter="tip($event, e.it)" @mouseleave="hideTip"
         >
-          <ItemIcon :name="d.w.db.item(it.def).sprite" />
-          <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
+          <ItemIcon :name="d.w.db.item(e.it.def).sprite" :size="28" />
         </div>
       </div>
+      <div v-if="d.grid" class="inset relative" :style="{ width: d.grid.w * CELL + 4 + 'px', height: d.grid.h * CELL + 4 + 'px' }" data-testid="loot-grid">
+        <div
+          v-for="i in d.grid.w * d.grid.h" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="lootcell" :data-gx="(i - 1) % d.grid.w" :data-gy="Math.floor((i - 1) / d.grid.w)"
+          :style="{ left: ((i - 1) % d.grid.w) * CELL + 'px', top: Math.floor((i - 1) / d.grid.w) * CELL + 'px', width: CELL + 'px', height: CELL + 'px' }"
+        />
+        <div
+          v-for="it in d.grid.items.filter((x) => x.gx !== undefined)" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
+          :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`loot-${it.def}`"
+          :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
+          @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
+        >
+          <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
+          <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
+        </div>
+        <p v-if="!d.grid.items.length && !d.lootEq.length" class="pointer-events-none absolute inset-0 flex items-center justify-center text-xs text-ash-500">비어 있다.</p>
+      </div>
+      <template v-else>
+        <p v-if="!d.loot.length" class="text-xs text-ash-500">비어 있다.</p>
+        <div class="flex flex-wrap gap-1">
+          <div
+            v-for="it in d.loot" :key="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" :data-testid="`loot-${it.def}`"
+            @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mouseleave="hideTip"
+          >
+            <ItemIcon :name="d.w.db.item(it.def).sprite" />
+            <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
+          </div>
+        </div>
+      </template>
     </div>
     <div v-else-if="d.floor.length" class="df df-olive mt-2 !border-[12px]">
       <div class="mb-1 flex items-center justify-between"><span class="font-title text-sm text-[#e8d7a8]">발밑</span><button class="dbtn" @click="doAct({ type: 'pickup' })">모두 줍기 (G)</button></div>

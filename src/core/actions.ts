@@ -10,7 +10,8 @@ import { clamp, creatureAt, creatureById, inBounds, log, rng, terrainAt, tileAt,
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { hasLos, invalidateLights, lightLevel } from './fov'
 import {
-  addToBag, addToInventory, equip, findItem, hasBlade, itemDef, itemLabel, makeItem, meleeWield, moveInBag, removeOne, removeStack, unequip, wield,
+  addToBag, addToInventory, equip, findItem, findSpot, gridAdd, gridFits, gridSpot, hasBlade, itemDef, itemLabel, makeItem, meleeWield, moveInBag,
+  removeOne, removeStack, unequip, wield, type Grid,
 } from './items'
 import { addThought } from './needs'
 import { diagonalBlocked } from './path'
@@ -35,7 +36,8 @@ export type Action =
   | { type: 'search' }
   | { type: 'lootTake'; uid: number }
   | { type: 'lootAll' }
-  | { type: 'lootPut'; uid: number }
+  | { type: 'lootPut'; uid: number; gx?: number; gy?: number; rot?: boolean }
+  | { type: 'lootMove'; uid: number; gx: number; gy: number; rot?: boolean }
   | { type: 'lootClose' }
   | { type: 'treat'; uid: number; woundId?: number; limb?: string }
   | { type: 'consume'; uid: number }
@@ -156,12 +158,97 @@ function sleepingBlocked(w: World, c: Creature): string | null {
   return null
 }
 
+/** 수색 기본 턴: 생존 숙달 −5%/단계(최대 −25%) (15 §9.3) */
+function searchBase(_w: World, c: Creature, base: number): number {
+  return Math.max(1, Math.ceil(base * (1 - 0.05 * masteryStage(c, 'survival')) - 1e-9))
+}
+
+/** 자동 정렬 순서 (13 §9): 범주 → 칸 수 내림차순 → 긴 변 → defId */
+const CAT_ORDER = ['weapon', 'shield', 'apparel', 'medical', 'drug', 'food', 'drink', 'tool', 'ammo', 'misc']
+export function sortForPacking(w: World, items: ItemInst[]): ItemInst[] {
+  const key = (i: ItemInst) => {
+    const d = itemDef(w, i)
+    const [a, b] = d.size ?? [1, 1]
+    return [CAT_ORDER.indexOf(d.category), -(a * b), -Math.max(a, b)]
+  }
+  return items.sort((x, y) => {
+    const kx = key(x), ky = key(y)
+    for (let i = 0; i < 3; i++) if (kx[i] !== ky[i]) return kx[i] - ky[i]
+    return x.def < y.def ? -1 : x.def > y.def ? 1 : x.uid - y.uid
+  })
+}
+
+/** 용기를 열어 내용물을 정한다 (전리품 표는 처음 열 때 한 번) */
+function openContainer(w: World, c: Creature, p: Pos) {
+  const t = tileAt(w, p)
+  const terr = terrainAt(w, p)
+  t.searched = true
+  if (!t.cont) {
+    t.cont = { items: [], opened: true, kind: terr.id }
+    const [gw, gh] = terr.lootGrid ?? [6, 4]
+    const g: Grid = { items: t.cont.items, w: gw, h: gh }
+    for (const it of sortForPacking(w, terr.container ? rollLoot(w, terr.container) : [])) gridAdd(w, g, it)
+  }
+  t.cont.opened = true
+  if (isPl(c)) w.s.loot = { pos: p, kind: 'cont' }
+}
+
+/** 주변의 시체 (소지품이 남은) */
+export function adjacentCorpse(w: World, c: Creature, unsearchedOnly = false): Creature | undefined {
+  return w.s.creatures.find((o) => !o.alive && o.id !== c.id && cheb(o.pos, c.pos) <= 1 && (!unsearchedOnly || !o.searched)
+    && (o.bag.length > 0 || Object.values(o.equip).some(Boolean)))
+}
+
+/** 현재 루팅 대상의 격자 (상자·석관·서가·보관함·시체 배낭). 바닥은 null */
+export function lootGrid(w: World): Grid | null {
+  const l = w.s.loot
+  if (!l) return null
+  if (l.kind === 'corpse') {
+    const o = w.s.creatures.find((x) => x.id === l.id)
+    if (!o) return null
+    const [gw, gh] = w.db.creature(o.def).bagSize ?? [4, 3]
+    return { items: o.bag, w: gw, h: gh }
+  }
+  if (l.kind !== 'cont') return null
+  const t = tileAt(w, l.pos)
+  const [gw, gh] = terrainAt(w, l.pos).lootGrid ?? [6, 4]
+  t.cont ??= { items: [], opened: true, kind: terrainAt(w, l.pos).id }
+  return { items: t.cont.items, w: gw, h: gh }
+}
+
+/** 시체의 장착 장비 (벗기기 = 그 장비 탈 턴) */
+export function lootEquip(w: World): Creature | undefined {
+  const l = w.s.loot
+  return l?.kind === 'corpse' ? w.s.creatures.find((x) => x.id === l.id) : undefined
+}
+
 /** 현재 루팅 대상의 아이템 목록 */
 export function lootItems(w: World): ItemInst[] | null {
   const l = w.s.loot
   if (!l) return null
-  const t = tileAt(w, l.pos)
-  return l.kind === 'cont' ? t.cont?.items ?? [] : t.items
+  if (l.kind === 'floor') return tileAt(w, l.pos).items
+  const g = lootGrid(w)
+  if (!g) return null
+  const o = lootEquip(w)
+  return o ? [...g.items, ...Object.values(o.equip).filter((i): i is ItemInst => !!i)] : g.items
+}
+
+/** 루팅 대상에서 아이템 하나 꺼내기 (시체 장비면 벗긴다) */
+function lootRemove(w: World, uid: number): ItemInst | undefined {
+  const g = lootGrid(w)
+  const l = w.s.loot
+  if (l?.kind === 'floor') {
+    const t = tileAt(w, l.pos)
+    const it = t.items.find((i) => i.uid === uid)
+    if (it) t.items = t.items.filter((i) => i !== it)
+    return it
+  }
+  if (!g) return undefined
+  const i = g.items.findIndex((x) => x.uid === uid)
+  if (i >= 0) return g.items.splice(i, 1)[0]
+  const o = lootEquip(w)
+  if (o) for (const k of Object.keys(o.equip) as Slot[]) if (o.equip[k]?.uid === uid) { const it = o.equip[k]!; delete o.equip[k]; return it }
+  return undefined
 }
 
 export function perform(w: World, c: Creature, a: Action): ActResult {
@@ -392,17 +479,30 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       return moveInBag(w, c, a.uid, a.gx, a.gy, a.rot) ? FREE : FAIL('그 자리에 들어가지 않는다')
 
     case 'search': {
-      // 아직 안 뒤진 용기를 먼저, 없으면 이미 연 용기를 다시 연다
+      // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
+      const corpse = adjacentCorpse(w, c)
+      if (corpse && !adjacentContainer(w, c)) {
+        if (corpse.searched) { w.s.loot = { pos: { ...corpse.pos }, kind: 'corpse', id: corpse.id }; return FREE }
+        const n = channelTurns(w, c, searchBase(w, c, 2))
+        if (n === null) return FAIL('손이 말을 듣지 않는다')
+        c.activity = { kind: 'search', remaining: n, total: n, target: { ...corpse.pos }, uid: corpse.id, label: `${corpse.name}의 시체 뒤지기` }
+        return { ok: true, tu: 0 }
+      }
       const p = adjacentContainer(w, c) ?? adjacentContainer(w, c, true)
       if (!p) return FAIL('뒤질 만한 것이 없다')
       const t = tileAt(w, p)
+      const terr = terrainAt(w, p)
       if (t.searched && t.cont) {
         w.s.loot = { pos: p, kind: 'cont' }
         return FREE
       }
-      const terr = terrainAt(w, p)
-      const turns = terr.id === 'Terrain.Sarcophagus' ? 30 : terr.id === 'Terrain.Pot' ? 6 : 12
-      c.activity = { kind: 'search', remaining: turns, target: p, label: `${terr.label} 뒤지기` }
+      if ((terr.openTurns ?? 1) === 0) {
+        openContainer(w, c, p)
+        return FREE
+      }
+      const n = channelTurns(w, c, searchBase(w, c, terr.openTurns ?? 1))
+      if (n === null) return FAIL('손이 말을 듣지 않는다')
+      c.activity = { kind: 'search', remaining: n, total: n, target: p, label: `${terr.label} 열기` }
       return { ok: true, tu: 0 }
     }
 
@@ -410,21 +510,32 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const list = lootItems(w)
       const it = list?.find((i) => i.uid === a.uid)
       if (!list || !it) return FAIL('없다')
-      const left = addToBag(w, c, { ...it })
+      // 시체가 입은 장비는 벗기는 데 그 장비의 탈 턴이 든다 (13 §8.1)
+      const o = lootEquip(w)
+      if (o && Object.values(o.equip).some((e) => e?.uid === it.uid)) {
+        if (!findSpot(w, c, itemDef(w, it))) return FAIL('배낭에 자리가 없다')
+        const n = channelTurns(w, c, itemDef(w, it).equipTurns?.[1] ?? 1, { equip: true })
+        if (n === null) return FAIL('손이 말을 듣지 않는다')
+        c.activity = { kind: 'strip', remaining: n, total: n, uid: it.uid, label: `${itemDef(w, it).label} 벗겨 내기` }
+        return { ok: true, tu: 0 }
+      }
+      const left = addToBag(w, c, { ...it, gx: undefined, gy: undefined, rot: undefined })
       if (left === it.count) return FAIL('배낭에 자리가 없다')
-      if (left === 0) list.splice(list.indexOf(it), 1)
+      if (left === 0) lootRemove(w, it.uid)
       else it.count = left
       // 꺼내기·옮기기 0턴, 적이 나를 알아챈 동안은 1회당 1턴 (13 §8.3)
       return { ok: true, tu: hostileAware(w, c) ? 100 : 0 }
     }
 
     case 'lootAll': {
-      const list = lootItems(w)
+      // 모두 가져가기 = 자동 정렬 순서로 들어가는 것만, 장착 장비는 빼고 (13 §8.2)
+      const g = lootGrid(w)
+      const list = g ? g.items : w.s.loot?.kind === 'floor' ? tileAt(w, w.s.loot.pos).items : null
       if (!list || !list.length) return FAIL('가져갈 것이 없다')
       let took = 0
-      for (const it of [...list]) {
-        const left = addToBag(w, c, { ...it })
-        if (left === 0) { list.splice(list.indexOf(it), 1); took++ }
+      for (const it of sortForPacking(w, [...list])) {
+        const left = addToBag(w, c, { ...it, gx: undefined, gy: undefined, rot: undefined })
+        if (left === 0) { lootRemove(w, it.uid); took++ }
         else it.count = left
       }
       if (!took) return FAIL('배낭에 자리가 없다')
@@ -433,18 +544,37 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     }
 
     case 'lootPut': {
-      const list = lootItems(w)
-      if (!list) return FAIL('넣을 곳이 없다')
-      // 보관함은 칸 수가 정해져 있다 (야영지 보관함 12×8)
-      const stash = w.s.loot ? terrainAt(w, w.s.loot.pos).stash : undefined
+      const g = lootGrid(w)
       const held = findItem(c, a.uid)
-      if (stash && held) {
-        const cells = (i: ItemInst) => { const [x, y] = itemDef(w, i).size; return x * y }
-        if (list.reduce((n, i) => n + cells(i), 0) + cells(held) > stash[0] * stash[1]) return FAIL('보관함에 자리가 없다')
+      if (!held) return FAIL('없다')
+      if (w.s.loot?.kind === 'floor' || !g) {
+        if (!w.s.loot) return FAIL('넣을 곳이 없다')
+        const it = removeStack(c, a.uid)!
+        tileAt(w, w.s.loot.pos).items.push(it)
+        return FREE
       }
-      const it = removeStack(c, a.uid)
-      if (!it) return FAIL('없다')
-      list.push(it)
+      const def = itemDef(w, held)
+      const rot = a.rot ?? false
+      if (a.gx !== undefined && a.gy !== undefined) {
+        if (!gridFits(w, g, def, a.gx, a.gy, undefined, rot)) return FAIL('그 자리에 들어가지 않는다')
+        const it = removeStack(c, a.uid)!
+        Object.assign(it, { gx: a.gx, gy: a.gy, rot: rot || undefined })
+        g.items.push(it)
+        return FREE
+      }
+      if (!gridSpot(w, g, def)) return FAIL('자리가 없다')
+      const it = removeStack(c, a.uid)!
+      gridAdd(w, g, { ...it, gx: undefined, gy: undefined })
+      return FREE
+    }
+
+    case 'lootMove': {
+      const g = lootGrid(w)
+      const it = g?.items.find((i) => i.uid === a.uid)
+      if (!g || !it) return FAIL('없다')
+      const r0 = a.rot ?? !!it.rot
+      if (!gridFits(w, g, itemDef(w, it), a.gx, a.gy, it.uid, r0)) return FAIL('그 자리에 들어가지 않는다')
+      Object.assign(it, { gx: a.gx, gy: a.gy, rot: r0 || undefined })
       return FREE
     }
 
@@ -953,18 +1083,33 @@ export function activityStep(w: World, c: Creature): boolean {
       break
     case 'search':
       if (act.remaining <= 0 && act.target) {
+        // 시체 첫 수색 (소음 2)
+        const corpse = act.uid !== undefined ? w.s.creatures.find((o) => o.id === act.uid && !o.alive) : undefined
+        if (corpse) {
+          corpse.searched = true
+          emitNoise(w, c.pos, 2, c.id)
+          practice(w, c, 'survival', `corpse:${corpse.id}`)
+          if (isPl(c)) w.s.loot = { pos: { ...corpse.pos }, kind: 'corpse', id: corpse.id }
+          break
+        }
         const t = tileAt(w, act.target)
         const terr = terrainAt(w, act.target)
-        t.searched = true
-        if (!t.cont) t.cont = { items: terr.container ? rollLoot(w, terr.container) : [], opened: true, kind: terr.id }
-        t.cont.opened = true
+        openContainer(w, c, act.target)
         practice(w, c, 'survival', `search:${act.target.x},${act.target.y}`)
-        emitNoise(w, c.pos, terr.id === 'Terrain.Sarcophagus' ? 8 : 3, c.id)
-        fx(w, { k: 'status', id: c.id, text: t.cont.items.length ? '발견!' : '빈 통', color: t.cont.items.length ? '#e0c060' : '#a0a0a0', turn: turnOf(w) })
-        if (isPl(c)) {
-          w.s.loot = { pos: act.target, kind: 'cont' }
-          log(w, t.cont.items.length ? 'good' : 'info', t.cont.items.length ? `${terr.label}에서 찾았다: ${t.cont.items.map((i) => itemLabel(w, i)).join(', ')}` : '아무것도 없다. 누군가 먼저 다녀갔다.')
-        }
+        emitNoise(w, c.pos, terr.openNoise ?? 2, c.id)
+        const n = t.cont?.items.length ?? 0
+        fx(w, { k: 'status', id: c.id, text: n ? '발견!' : '빈 통', color: n ? '#e0c060' : '#a0a0a0', turn: turnOf(w) })
+        if (isPl(c) && t.cont) log(w, n ? 'good' : 'info', n ? `${terr.label}에서 찾았다: ${t.cont.items.map((i) => itemLabel(w, i)).join(', ')}` : '아무것도 없다. 누군가 먼저 다녀갔다.')
+      }
+      break
+    case 'strip':
+      if (act.remaining <= 0 && act.uid !== undefined) {
+        const list = lootItems(w)
+        const it = list?.find((i) => i.uid === act.uid)
+        if (it && addToBag(w, c, { ...it, gx: undefined, gy: undefined, rot: undefined, half: undefined }) === 0) {
+          lootRemove(w, it.uid)
+          if (isPl(c)) log(w, 'info', `${itemDef(w, it).label}을(를) 벗겨 냈다.`)
+        } else if (isPl(c)) log(w, 'warn', '벗겨 내지 못했다. (배낭에 자리가 없다)')
       }
       break
     case 'equip':

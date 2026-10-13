@@ -7,7 +7,7 @@ import { creatureAt, creatureById, inBounds, log, rng, turnOf, type World } from
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex } from './geom'
 import { itemDef, removeOne, wield } from './items'
-import { addEffect, traitAdd } from './traits'
+import { addEffect, hasEffect, traitAdd } from './traits'
 import type { AbilityDef, Creature } from './types'
 
 export const WEAPON_LABEL: Record<string, string> = { blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활' }
@@ -46,7 +46,7 @@ export function abilityReady(w: World, c: Creature, id: string): string | null {
     }
     if (d.attackMode && wl.item && !itemDef(w, wl.item).attacks?.some((a) => a.id === d.attackMode)) return `${MODE_LABEL[d.attackMode]} 공격이 있는 무기여야 한다`
   }
-  if (d.id === 'Ab.Archery.Aimed' && traitAdd(w, c, 'tremor') > 0) return '손이 떨려 겨눌 수 없다'
+  if (d.id === 'Ab.Archery.Aimed' && hasEffect(c, 'withdrawal', turn)) return '손이 떨려 겨눌 수 없다'
   return null
 }
 

@@ -1,7 +1,7 @@
 // 수정치 파이프라인: 특성 + 생물 고유 + 배운 패시브 능력 + 장비 수정치를 한 곳에서 합산
 
 import type { World } from './ctx'
-import type { AbilityDef, Creature, ItemInst } from './types'
+import type { AbilityDef, BackgroundDef, Creature, ItemInst } from './types'
 
 function* modSources(w: World, c: Creature): Generator<Partial<Record<string, number>>> {
   for (const t of c.traits) {
@@ -10,6 +10,10 @@ function* modSources(w: World, c: Creature): Generator<Partial<Record<string, nu
   }
   const cm = w.db.creature(c.def).mods
   if (cm) yield cm
+  if (c.background) {
+    const bm = w.db.tryGet<BackgroundDef>(c.background)?.mods
+    if (bm) yield bm
+  }
   // 갈래 패시브는 그 계열 무기로 싸울 때만 (15 §7)
   let fam: string | undefined | null = null
   for (const a of c.abilities ?? []) {

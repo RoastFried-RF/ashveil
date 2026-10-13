@@ -47,7 +47,7 @@ export function needsTick(w: World, c: Creature, sleeping: boolean) {
   // 대사
   let act = c.exerted ? 1.8 : 1
   if (sleeping) act *= 0.85
-  n.kcal -= (KCAL_PER_DAY / TURNS_PER_DAY) * act * (1 + cold * 0.02)
+  n.kcal -= (KCAL_PER_DAY / TURNS_PER_DAY) * act * (1 + cold * 0.02) * traitMul(w, c, 'kcalMult')
   let waterMult = c.exerted ? 1.5 : 1
   if (hasEffect(c, 'dysentery', turn)) waterMult *= 3
   n.water -= (WATER_PER_DAY / TURNS_PER_DAY) * waterMult

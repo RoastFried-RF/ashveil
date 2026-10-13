@@ -2,7 +2,7 @@
 // 지상 → 수도원 계단 → 지하 묘소를 탐색하며 상자를 뒤지고, 레벨업 포인트를 쓰고, 능력을 쓴다.
 
 import { abilityReady } from './abilities'
-import { adjacentContainer, hostile, lootItems, type Action } from './actions'
+import { adjacentContainer, adjacentCorpse, hostile, lootItems, type Action } from './actions'
 import { bloodLoss, effectiveBleed, hpMax, part } from './body'
 import { canReach } from './combat'
 import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, type World } from './ctx'
@@ -126,7 +126,13 @@ export function botDecide(w: World): Action {
 
   // 탐색: 바닥 → 용기 → 미발견 방 → 아래층
   if (tileAt(w, pl.pos).items.length) return { type: 'pickup' }
-  if (adjacentContainer(w, pl)) return { type: 'search' }
+  if (adjacentContainer(w, pl) || adjacentCorpse(w, pl, true)) return { type: 'search' }
+  // 쓰러뜨린 적의 시체를 뒤진다 (소지품은 시체에 남는다)
+  const body = w.s.creatures.find((o) => !o.alive && !o.searched && o.id !== pl.id && cheb(o.pos, pl.pos) <= 10 && (o.bag.length > 0 || Object.values(o.equip).some(Boolean)))
+  if (body) {
+    const st = stepTo(w, body.pos)
+    if (st !== null) return { type: 'move', dir: st }
+  }
   // 레벨이 낮으면 약탈자 야영지는 피한다
   const avoid = (p: Pos) => pl.level < 5 && w.s.map.rooms[tileAt(w, p).room ?? -1]?.type === 'camp'
   const cont = nearest(w, (p) => !!terrainAt(w, p).container && !tileAt(w, p).searched && !!tileAt(w, p).seen && !avoid(p))

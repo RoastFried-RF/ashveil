@@ -233,6 +233,8 @@ export interface CreatureDef extends DefBase {
   mods?: Partial<Record<string, number>>
   /** 맞으면 주변에 뿌리는 효과 (포자 등) */
   onHit?: { effect: string; radius: number; turns: number; chance: number }
+  /** 시체 배낭 격자 (13 §8.1: 약탈자 8×4 · 그늘 사람 4×3 …) */
+  bagSize?: [number, number]
   /** 체중 kg (밀치기 체급, 07 §7.2) */
   weightKg?: number
   /** 자연 방어: 털·가죽·껍질 (07 §2.4 마지막 층) */
@@ -268,7 +270,10 @@ export interface TerrainDef extends DefBase {
   door?: 'open' | 'closed'
   container?: string // LootTable id
   /** 보관함 격자 [가로, 세로] (13: 야영지 보관함 12×8) */
-  stash?: [number, number]
+  /** 루팅 격자 [가로, 세로] · 여는 턴 · 소음 (13 §8.1) */
+  lootGrid?: [number, number]
+  openTurns?: number
+  openNoise?: number
   noiseMult?: number
 }
 
@@ -298,6 +303,8 @@ export interface BackgroundDef extends DefBase {
   mastery?: Partial<Record<'medicine' | 'survival', number>>
   /** 시작 능력 포인트 가산 (몰락한 길드 상인 +1) */
   bonusAbilityPoints?: number
+  /** 능력 효율 보정 (15 §9.1: 탈영 경비병 창 액티브 기력 −2 …) */
+  mods?: Partial<Record<string, number>>
   literate: boolean
   startItems: string[]
   startAbilities?: string[]
@@ -357,6 +364,8 @@ export interface AbilityAttackMods {
   aoe?: 'adjacent' | 'line2'
   knockback?: number
   knockdownChance?: number
+  /** 조준형 (야행성: 조명 감점 절반) */
+  aimed?: boolean
 }
 
 export interface AbilityDef extends DefBase {
@@ -473,7 +482,7 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number }
 
 export interface Activity {
-  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim'
+  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip'
   remaining: number
   /** 시작 때 정한 전체 턴 */
   total?: number
@@ -585,6 +594,8 @@ export interface Creature {
   deathTurn?: number
   history: HistoryEvent[]
   literate?: boolean
+  /** 시체를 처음 뒤졌는가 (13 §8.1: 첫 수색 2턴) */
+  searched?: boolean
   /** 이 개체로 경험치를 이미 줬는가 (처치·항복·도주 중 한 번만) */
   xpAwarded?: boolean
   /** 재점거로 들어온 개체 (경험치 ×0.5, 14 §9.3) */
@@ -712,7 +723,7 @@ export interface GameState {
   /** 거주 인구 공급원 (14 §9.4) */
   sources?: PopSource[]
   /** 열려 있는 루팅 대상 */
-  loot?: { pos: Pos; kind: 'cont' | 'floor' }
+  loot?: { pos: Pos; kind: 'cont' | 'floor' | 'corpse'; id?: number }
 }
 
 export type FxEvent =

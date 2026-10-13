@@ -89,7 +89,13 @@
     "parent": "Terrain.Wall",
     "label": "서가",
     "description": "기울어진 서가. 뒤지면 무언가 나올지도 모른다.",
-    "container": "Loot.Shelf"
+    "container": "Loot.Shelf",
+    "lootGrid": [
+      4,
+      4
+    ],
+    "openTurns": 2,
+    "openNoise": 1
   },
   {
     "defType": "Terrain",
@@ -124,7 +130,13 @@
     "passable": false,
     "opaque": false,
     "moveMult": 1,
-    "container": "Loot.Fungus"
+    "container": "Loot.Fungus",
+    "lootGrid": [
+      2,
+      2
+    ],
+    "openTurns": 1,
+    "openNoise": 1
   },
   {
     "defType": "Terrain",
@@ -193,7 +205,13 @@
     "sprites": [
       "chest0"
     ],
-    "container": "Loot.Chest"
+    "container": "Loot.Chest",
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -204,7 +222,13 @@
     "sprites": [
       "chest_red0"
     ],
-    "container": "Loot.Treasure"
+    "container": "Loot.Treasure",
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -214,7 +238,13 @@
     "sprites": [
       "crate0"
     ],
-    "container": "Loot.Crate"
+    "container": "Loot.Crate",
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -226,7 +256,13 @@
       "pot1",
       "pot2"
     ],
-    "container": "Loot.Pot"
+    "container": "Loot.Pot",
+    "lootGrid": [
+      3,
+      2
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -235,7 +271,13 @@
     "label": "석관",
     "description": "뚜껑이 무겁다. 여는 데 시간이 걸리고 소리가 난다.",
     "sprites": [],
-    "container": "Loot.Sarcophagus"
+    "container": "Loot.Sarcophagus",
+    "lootGrid": [
+      8,
+      3
+    ],
+    "openTurns": 3,
+    "openNoise": 6
   },
   {
     "defType": "Terrain",
@@ -247,7 +289,13 @@
     "sprites": [
       "skull"
     ],
-    "container": "Loot.Remains"
+    "container": "Loot.Remains",
+    "lootGrid": [
+      3,
+      2
+    ],
+    "openTurns": 1,
+    "openNoise": 1
   },
   {
     "defType": "Terrain",
@@ -322,7 +370,13 @@
     "container": "Loot.GuardChest",
     "sprites": [
       "chest0"
-    ]
+    ],
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -332,7 +386,13 @@
     "container": "Loot.Altar",
     "sprites": [
       "chest_red0"
-    ]
+    ],
+    "lootGrid": [
+      4,
+      3
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -342,7 +402,13 @@
     "container": "Loot.Storage",
     "sprites": [
       "crate0"
-    ]
+    ],
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -352,7 +418,13 @@
     "container": "Loot.ReaverCamp",
     "sprites": [
       "crate0"
-    ]
+    ],
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2
   },
   {
     "defType": "Terrain",
@@ -361,12 +433,14 @@
     "label": "야영지 보관함",
     "description": "12×8 칸. 짐을 두고 다닐 수 있다.",
     "container": "Loot.Empty",
-    "stash": [
+    "sprites": [
+      "chest0"
+    ],
+    "lootGrid": [
       12,
       8
     ],
-    "sprites": [
-      "chest0"
-    ]
+    "openTurns": 0,
+    "openNoise": 0
   }
 ]

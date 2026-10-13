@@ -51,39 +51,46 @@ export function itemSize(w: World, it: ItemInst): [number, number] {
   return it.rot ? [b, a] : [a, b]
 }
 
-function occupied(w: World, c: Creature, ignore?: number): boolean[] {
-  const grid = new Array(BAG_W * BAG_H).fill(false)
-  for (const it of c.bag) {
+/** 격자 하나 (배낭·상자·시체 배낭·보관함) */
+export interface Grid { items: ItemInst[]; w: number; h: number }
+
+export function bagGrid(c: Creature): Grid {
+  return { items: c.bag, w: BAG_W, h: BAG_H }
+}
+
+function occupiedIn(w: World, g: Grid, ignore?: number): boolean[] {
+  const grid = new Array(g.w * g.h).fill(false)
+  for (const it of g.items) {
     if (it.uid === ignore || it.gx === undefined || it.gy === undefined) continue
     const [iw, ih] = itemSize(w, it)
-    for (let y = it.gy; y < it.gy + ih; y++) for (let x = it.gx; x < it.gx + iw; x++) grid[y * BAG_W + x] = true
+    for (let y = it.gy; y < Math.min(g.h, it.gy + ih); y++) for (let x = it.gx; x < Math.min(g.w, it.gx + iw); x++) grid[y * g.w + x] = true
   }
   return grid
 }
 
-export function fitsAt(w: World, c: Creature, def: ItemDef, gx: number, gy: number, ignore?: number, rot = false): boolean {
+export function gridFits(w: World, g: Grid, def: ItemDef, gx: number, gy: number, ignore?: number, rot = false): boolean {
   const [iw, ih] = rot ? [def.size[1], def.size[0]] : def.size
-  if (gx < 0 || gy < 0 || gx + iw > BAG_W || gy + ih > BAG_H) return false
-  const g = occupied(w, c, ignore)
-  for (let y = gy; y < gy + ih; y++) for (let x = gx; x < gx + iw; x++) if (g[y * BAG_W + x]) return false
+  if (gx < 0 || gy < 0 || gx + iw > g.w || gy + ih > g.h) return false
+  const occ = occupiedIn(w, g, ignore)
+  for (let y = gy; y < gy + ih; y++) for (let x = gx; x < gx + iw; x++) if (occ[y * g.w + x]) return false
   return true
 }
 
-/** 빈 자리: 세로 우선(왼쪽 위부터), 기본 방향 먼저 → 안 되면 돌려서 (13 §9) */
-export function findSpot(w: World, c: Creature, def: ItemDef): [number, number, boolean] | null {
+/** 빈 자리: 행 우선(y → x), 기본 방향 먼저 → 안 되면 돌려서 (13 §9) */
+export function gridSpot(w: World, g: Grid, def: ItemDef): [number, number, boolean] | null {
   for (const rot of def.size[0] === def.size[1] ? [false] : [false, true]) {
-    for (let x = 0; x < BAG_W; x++) for (let y = 0; y < BAG_H; y++) if (fitsAt(w, c, def, x, y, undefined, rot)) return [x, y, rot]
+    for (let y = 0; y < g.h; y++) for (let x = 0; x < g.w; x++) if (gridFits(w, g, def, x, y, undefined, rot)) return [x, y, rot]
   }
   return null
 }
 
-/** 배낭에 넣기. 같은 종류는 먼저 쌓는다. 실패하면 남은 개수 반환 */
-export function addToBag(w: World, c: Creature, it: ItemInst): number {
+/** 격자에 넣기. 같은 종류는 먼저 쌓는다. 실패하면 남은 개수 반환 */
+export function gridAdd(w: World, g: Grid, it: ItemInst): number {
   const def = itemDef(w, it)
   const ms = maxStack(def)
   let left = it.count
   if (ms > 1) {
-    for (const ex of c.bag) {
+    for (const ex of g.items) {
       if (ex.def !== it.def || ex.count >= ms) continue
       const take = Math.min(ms - ex.count, left)
       ex.count += take
@@ -92,7 +99,7 @@ export function addToBag(w: World, c: Creature, it: ItemInst): number {
     }
   }
   while (left > 0) {
-    const spot = findSpot(w, c, def)
+    const spot = gridSpot(w, g, def)
     if (!spot) return left
     const n = Math.min(ms, left)
     const piece: ItemInst = n === it.count && left === it.count ? it : { ...it, uid: w.s.nextId++, count: n }
@@ -100,10 +107,23 @@ export function addToBag(w: World, c: Creature, it: ItemInst): number {
     piece.gx = spot[0]
     piece.gy = spot[1]
     piece.rot = spot[2] || undefined
-    c.bag.push(piece)
+    g.items.push(piece)
     left -= n
   }
   return 0
+}
+
+export function fitsAt(w: World, c: Creature, def: ItemDef, gx: number, gy: number, ignore?: number, rot = false): boolean {
+  return gridFits(w, bagGrid(c), def, gx, gy, ignore, rot)
+}
+
+export function findSpot(w: World, c: Creature, def: ItemDef): [number, number, boolean] | null {
+  return gridSpot(w, bagGrid(c), def)
+}
+
+/** 배낭에 넣기. 같은 종류는 먼저 쌓는다. 실패하면 남은 개수 반환 */
+export function addToBag(w: World, c: Creature, it: ItemInst): number {
+  return gridAdd(w, bagGrid(c), it)
 }
 
 /** NPC 등 격자 제약 없이 넣기 (배낭이 꽉 차도 소지) */

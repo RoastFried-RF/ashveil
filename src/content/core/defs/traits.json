@@ -1,16 +1,163 @@
 [
-  { "defType": "Trait", "id": "Trait.ColdBlooded", "label": "냉혈", "description": "사람을 죽여도 마음이 흔들리지 않는다.", "conflicts": ["Trait.Coward"], "mods": { "killMood": 0 } },
-  { "defType": "Trait", "id": "Trait.Coward", "label": "겁쟁이", "description": "사기가 쉽게 꺾이고 위험할 때 공황에 빠지기 쉽다. 대신 위험을 빨리 알아챈다.", "conflicts": ["Trait.ColdBlooded", "Trait.Bloodlust"], "mods": { "stressMult": 1.4, "perception": 2 } },
-  { "defType": "Trait", "id": "Trait.Bloodlust", "label": "피를 보면 흥분", "description": "피 흘리는 적 근처에서 명중이 오르고 스트레스가 풀린다.", "conflicts": ["Trait.Coward"], "mods": { "bloodHit": 8 } },
-  { "defType": "Trait", "id": "Trait.HardBones", "label": "강골", "description": "골절 확률이 절반이다.", "mods": { "fractureMult": 0.5 } },
-  { "defType": "Trait", "id": "Trait.ThinBlood", "label": "묽은 피", "description": "상처에서 피가 1.5배 흐르고 잘 굳지 않는다.", "mods": { "bleedMult": 1.5 } },
-  { "defType": "Trait", "id": "Trait.NightOwl", "label": "야행성", "description": "어둠 속에서 더 잘 본다. 낮에는 기분이 처진다.", "mods": { "lightThreshold": 0.12 } },
-  { "defType": "Trait", "id": "Trait.Alcoholic", "label": "알코올 의존", "description": "하루에 한 번 술을 마시지 않으면 손이 떨린다.", "mods": { "alcoholNeed": 1 } },
-  { "defType": "Trait", "id": "Trait.IronStomach", "label": "강철 위장", "description": "날고기와 흐린 물에 탈이 나지 않는다.", "mods": { "foodPoisonImmune": 1 } },
-  { "defType": "Trait", "id": "Trait.FastHealer", "label": "빠른 회복", "description": "상처가 빨리 아물고 면역이 강하다.", "conflicts": ["Trait.Sickly"], "mods": { "healMult": 1.4, "immunityMult": 1.3 } },
-  { "defType": "Trait", "id": "Trait.Sickly", "label": "병약", "description": "감염에 약하다.", "conflicts": ["Trait.FastHealer"], "mods": { "immunityMult": 0.7 } },
-  { "defType": "Trait", "id": "Trait.ColdResistant", "label": "추위에 강함", "description": "체감 추위가 5도 덜하다.", "mods": { "coldComfort": 5 } },
-  { "defType": "Trait", "id": "Trait.PainTolerant", "label": "고통 내성", "description": "통증을 30% 덜 느낀다.", "mods": { "painMult": 0.7 } },
-  { "defType": "Trait", "id": "Trait.Nearsighted", "label": "근시", "description": "멀리 있는 것이 흐릿하다. 원거리 명중이 낮다.", "mods": { "sightRange": -5, "rangedHit": -15 } },
-  { "defType": "Trait", "id": "Trait.Light", "label": "가벼운 발", "description": "발소리가 작다.", "mods": { "noiseMult": 0.6 } }
+  {
+    "defType": "Trait",
+    "id": "Trait.ColdBlooded",
+    "label": "냉혈",
+    "description": "사람을 죽여도 마음이 흔들리지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1.",
+    "conflicts": [
+      "Trait.Coward"
+    ],
+    "mods": {
+      "killMood": 0,
+      "executeCooldown": -1
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Coward",
+    "label": "겁쟁이",
+    "description": "사기가 쉽게 꺾이고 공황에 빠지기 쉽다. 막는 데는 열심(자세 지속 +1턴), 치는 데는 주저(공격형 능력 기력 +2).",
+    "conflicts": [
+      "Trait.ColdBlooded",
+      "Trait.Bloodlust"
+    ],
+    "mods": {
+      "stressMult": 1.4,
+      "perception": 2,
+      "stanceTurns": 1,
+      "attackAbilityEnergy": 2
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Bloodlust",
+    "label": "피를 보면 흥분",
+    "description": "피 흘리는 적 근처에서 명중이 오르고 스트레스가 풀린다.",
+    "conflicts": [
+      "Trait.Coward"
+    ],
+    "mods": {
+      "bloodHit": 8
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.HardBones",
+    "label": "강골",
+    "description": "다리 찍기·뼈 부수기를 맞을 때 골절 확률 ×0.7.",
+    "mods": {
+      "fractureTaken": 0.7
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.ThinBlood",
+    "label": "묽은 피",
+    "description": "상처에서 피가 1.5배 흐르고 잘 굳지 않는다.",
+    "mods": {
+      "bleedMult": 1.5
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.NightOwl",
+    "label": "야행성",
+    "description": "어둠 속 명중 감점이 5 덜하고, 조준 사격·다리 쏘기의 조명 감점은 절반이다. 낮에는 기분이 처진다.",
+    "mods": {
+      "lightThreshold": 0.12,
+      "nightOwl": 1
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Alcoholic",
+    "label": "알코올 의존",
+    "description": "하루에 한 번 술을 마시지 않으면 손이 떨린다. 금단 중 공격형 능력 명중 −10, 조준 사격 불가.",
+    "mods": {
+      "alcoholNeed": 1
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.IronStomach",
+    "label": "강철 위장",
+    "description": "날고기와 흐린 물에 탈이 나지 않는다.",
+    "mods": {
+      "foodPoisonImmune": 1
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.FastHealer",
+    "label": "빠른 회복",
+    "description": "상처가 빨리 아물고 면역이 강하다.",
+    "conflicts": [
+      "Trait.Sickly"
+    ],
+    "mods": {
+      "healMult": 1.4,
+      "immunityMult": 1.3
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Sickly",
+    "label": "병약",
+    "description": "감염에 약하다.",
+    "conflicts": [
+      "Trait.FastHealer"
+    ],
+    "mods": {
+      "immunityMult": 0.7
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.ColdResistant",
+    "label": "추위 체질",
+    "description": "추위를 덜 탄다. 저체온 1단계에서도 숨 고르기 회복량이 줄지 않는다.",
+    "mods": {
+      "coldComfort": 3,
+      "coldBreath": 1
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.PainTolerant",
+    "label": "고통 내성",
+    "description": "통증을 30% 덜 느낀다.",
+    "mods": {
+      "painMult": 0.7
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Nearsighted",
+    "label": "근시",
+    "description": "멀리 있는 것이 흐릿하다. 원거리 명중이 낮다.",
+    "mods": {
+      "sightRange": -5,
+      "rangedHit": -15
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Light",
+    "label": "가벼운 발",
+    "description": "발소리가 작다.",
+    "mods": {
+      "noiseMult": 0.6
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Glutton",
+    "label": "대식가",
+    "description": "많이 먹는다. 숨 고르기를 쓸 때 50kcal를 더 태운다.",
+    "conflicts": [],
+    "mods": {
+      "kcalMult": 1.2,
+      "breathKcal": 50
+    }
+  }
 ]

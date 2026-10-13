@@ -169,16 +169,19 @@ function isSleeping(c: Creature) {
   return c.activity?.kind === 'sleep'
 }
 
-/** 새 방 발견 (경험치) */
+/** 새 방 발견: 방 내부 칸의 50% 이상을 처음 본 순간 경험치 5 (15 §3 · 14 §11) */
 function discoverRoom(w: World, pl: Creature) {
-  const t = w.s.map.tiles[pl.pos.y * w.s.map.w + pl.pos.x]
-  if (t.room === undefined) return
-  const R = w.s.map.rooms[t.room]
-  if (!R || R.discovered) return
-  R.discovered = true
-  if (R.type === 'entry') return
-  log(w, 'info', `${R.name}에 들어섰다.`)
-  gainXp(w, pl, 5, R.name)
+  const m = w.s.map
+  for (const R of m.rooms) {
+    if (R.discovered) continue
+    let seen = 0
+    for (let y = R.y; y < R.y + R.h; y++) for (let x = R.x; x < R.x + R.w; x++) if (m.tiles[y * m.w + x].seen) seen++
+    if (seen * 2 < R.w * R.h) continue
+    R.discovered = true
+    if (R.type === 'entry') continue
+    log(w, 'info', `${R.name}을(를) 찾았다.`)
+    gainXp(w, pl, 5, R.name)
+  }
 }
 
 /** 턴 경계마다 1회: 모든 생물의 신체·생존, 날씨, 사건 */
@@ -211,7 +214,15 @@ function globalTurnTick(w: World) {
     }
     c.exerted = false
   }
-  if (turn % 600 === 0) w.s.creatures = w.s.creatures.filter((c) => c.alive || c.id === w.s.playerId || turn - (c.deathTurn ?? turn) < 4800)
+  if (turn % 600 === 0) {
+    // 오래된 시체는 치운다. 남은 소지품은 그 자리 바닥으로
+    w.s.creatures = w.s.creatures.filter((c) => {
+      if (c.alive || c.id === w.s.playerId || turn - (c.deathTurn ?? turn) < 4800) return true
+      const t = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x]
+      for (const it of allItems(c)) t.items.push({ ...it, gx: undefined, gy: undefined, rot: undefined })
+      return false
+    })
+  }
   storytellerTick(w)
   w.s.noiseEvents = w.s.noiseEvents.filter((n) => turn - n.turn < 2)
 }
