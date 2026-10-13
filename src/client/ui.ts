@@ -134,6 +134,7 @@ export function useItem(w: World, it: ItemInst): string | null {
     if (!target) return (hint.value = '처치할 상처가 없다')
     return doAct({ type: 'treat', uid: it.uid, woundId: target.id })
   }
+  if (d.readable) return doAct({ type: 'read', uid: it.uid })
   if (d.food || d.drink || d.drug || d.unidentified || d.refuel) return doAct({ type: 'consume', uid: it.uid })
   if (d.light && !d.slot) return doAct({ type: 'toggleLight', uid: it.uid })
   if (d.slot) return doAct({ type: 'equip', uid: it.uid })

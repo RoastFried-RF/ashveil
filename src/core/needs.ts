@@ -3,7 +3,7 @@
 import { bloodLoss, energyMax, painTotal, regionPenalties, totalBleed } from './body'
 import { clamp, log, rng, turnOf, TURNS_PER_DAY, tileAt, terrainAt, type World } from './ctx'
 import { ambientTemp, daylight, isRaining } from './environment'
-import { apparelItems } from './items'
+import { apparelItems, qualityInfo } from './items'
 import { addEffect, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, Thought } from './types'
 
@@ -23,7 +23,7 @@ export function insulation(w: World, c: Creature): number {
   let ins = cdef.insulation ?? (cdef.body === 'Body.Humanoid' ? 2 * (waterproof ? 1 : wetFactor) : 0)
   for (const { it, def } of apparelItems(w, c)) {
     const ap = def.apparel!
-    ins += ap.insulation * (ap.waterproof || waterproof ? 1 : wetFactor) * (it.half ? 0.5 : 1)
+    ins += ap.insulation * qualityInfo(it).ins * (ap.waterproof || waterproof ? 1 : wetFactor) * (it.half ? 0.5 : 1)
   }
   return Math.round(ins * 10) / 10
 }

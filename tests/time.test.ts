@@ -116,3 +116,60 @@ describe('자동 모드 중단 T1~T6 (01 §6.2)', () => {
   })
 })
 
+
+describe('재비 6시간 블록 (09 §9.2)', () => {
+  it('전이표 각 행의 합은 100, 날씨는 00·06·12·18시에만 바뀐다', async () => {
+    const { WEATHER_TABLE, WEATHER_BLOCK, nextWeatherBlock, weatherTick } = await import('../src/core/environment')
+    for (const row of Object.values(WEATHER_TABLE)) expect(row.clear + row.overcast + row.ashrain).toBe(100)
+    expect(WEATHER_BLOCK).toBe(6 * TURNS_PER_HOUR)
+    const w = makeWorld('wx1')
+    expect(w.s.weatherUntil % WEATHER_BLOCK).toBe(0)
+    let changes = 0
+    for (let t = 0; t < 3 * TURNS_PER_DAY; t++) {
+      w.s.time += 100
+      const before = w.s.weatherUntil
+      weatherTick(w)
+      if (w.s.weatherUntil !== before) { changes++; expect(turnOf(w) % WEATHER_BLOCK).toBe(0) }
+    }
+    expect(changes).toBe(12) // 3일 × 4블록
+    expect(nextWeatherBlock(WEATHER_BLOCK - 1)).toBe(WEATHER_BLOCK)
+  })
+})
+
+describe('소문 쪽지 (06 §7.0 · 14 §5.1)', () => {
+  it('지하 1층 첫 서가에는 아래층 방 위치 쪽지가 있고, 그 위치는 실제 지하 2층 방과 같다', async () => {
+    const { changeMap, playerAct } = await import('../src/core/game')
+    const { readNote } = await import('../src/core/rumors')
+    const w = makeWorld('note1')
+    changeMap(w, 'crypt1')
+    const pl = player(w)
+    w.s.creatures = [pl]
+    const m = w.s.map
+    let shelf: { x: number; y: number } | undefined, stand: { x: number; y: number } | undefined
+    for (let i = 0; i < m.tiles.length && !stand; i++) {
+      if (m.tiles[i].t !== 'Terrain.Shelf') continue
+      const p = { x: i % m.w, y: Math.floor(i / m.w) }
+      for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) {
+        const q = { x: p.x + dx, y: p.y + dy }
+        if (w.db.terrain(tileAt(w, q).t).passable) { shelf = p; stand = q; break }
+      }
+    }
+    expect(stand).toBeDefined()
+    pl.pos = stand!
+    playerAct(w, { type: 'search' })
+    const cont = tileAt(w, shelf!).cont!
+    const note = cont.items.find((i) => i.def === 'Item.Note')!
+    expect(note.note?.kind).toBe('room')
+    expect(note.note?.mapId).toBe('crypt2')
+    expect(m.noteGiven).toBe(true)
+    expect(readNote(w, pl, note)).toBe(true)
+    expect(readNote(w, pl, note)).toBe(false) // 같은 소문은 한 번만
+    const r = w.s.knowledge.rumors![0]
+    expect(r.hop).toBe(0)
+    expect(r.writtenAt).toBeLessThan(r.foundAt)
+    changeMap(w, 'crypt2')
+    const room = w.s.map.rooms[r.roomIdx!]
+    expect({ x: room.x, y: room.y, w: room.w, h: room.h }).toEqual(r.rect)
+    expect(room.name).toBe(r.roomName)
+  })
+})

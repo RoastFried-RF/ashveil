@@ -44,15 +44,29 @@ export function isRaining(w: World): boolean {
 }
 
 /** 날씨 전이 (매 턴 호출, 만료 시 다음 날씨 결정) */
+/** 날씨 블록 6시간 (09 §9.2) */
+export const WEATHER_BLOCK = TURNS_PER_HOUR * 6
+
+/** 마르코프 전이표 % (09 §9.2, 프로토타입: 맑음·흐림·재비만 — 폭풍·눈 몫은 재비·흐림에 합친다) */
+export const WEATHER_TABLE: Record<Weather, Record<Weather, number>> = {
+  clear: { clear: 50, overcast: 40, ashrain: 10 },
+  overcast: { clear: 15, overcast: 52, ashrain: 33 },
+  ashrain: { clear: 5, overcast: 45, ashrain: 50 },
+}
+
+/** 다음 6시간 블록 경계 (00·06·12·18시) */
+export const nextWeatherBlock = (turn: number) => (Math.floor(turn / WEATHER_BLOCK) + 1) * WEATHER_BLOCK
+
 export function weatherTick(w: World) {
   const turn = turnOf(w)
   if (turn < w.s.weatherUntil) return
   const r = rng(w, 'world')
   const prev = w.s.weather
-  const next: Weather = r.weighted<Weather>(['clear', 'overcast', 'ashrain'], (x) =>
-    x === prev ? 1 : x === 'ashrain' ? (prev === 'overcast' ? 2 : 0.6) : 1.5) ?? 'clear'
+  const row = WEATHER_TABLE[prev]
+  const roll = r.int(0, 99)
+  const next: Weather = roll < row.clear ? 'clear' : roll < row.clear + row.overcast ? 'overcast' : 'ashrain'
   w.s.weather = next
-  w.s.weatherUntil = turn + r.int(TURNS_PER_HOUR * 1, TURNS_PER_HOUR * 4)
+  w.s.weatherUntil = nextWeatherBlock(turn)
   // 바람도 함께 바뀜
   w.s.wind = { x: r.int(-1, 1), y: r.int(-1, 1) }
   if (next !== prev) {

@@ -2,7 +2,7 @@
 // 일지: 기록(전체 로그) · 도감 · 약 · 생존 상태
 import { computed, ref } from 'vue'
 import {
-  activeThoughts, ambientTemp, comfortMin, fmtClock, insulation, mood, player, turnOf,
+  activeThoughts, ambientTemp, comfortMin, fmtClock, insulation, mood, player, turnOf, TURNS_PER_DAY,
   type CreatureDef, type ItemDef, type World,
 } from '../../core'
 import { KIND_CLASS } from '../format'
@@ -40,6 +40,11 @@ const d = computed(() => {
     clock: fmtClock(turnOf(w)),
     events: w.s.storyteller.history.slice(-40).reverse().map((e) => ({ when: fmtClock(e.turn), label: EVENT_LABEL[e.event] ?? e.event })),
     chron: pl.history.slice(-80).reverse().map((h) => ({ when: fmtClock(h.turn), text: h.text })),
+    // 소문 (06 §7.3): 출처 단계와 작성 시점만 보인다. 정확도 수치는 숨긴다
+    rumors: (k.rumors ?? []).slice().reverse().map((r) => ({
+      text: r.text, src: r.source, stage: r.hop === 0 ? '목격자' : r.hop === 1 ? '전해 들음' : '떠도는 말',
+      written: `${Math.max(0, Math.round((turnOf(w) - r.writtenAt) / TURNS_PER_DAY))}일 전쯤 쓰임`, found: fmtClock(r.foundAt),
+    })),
   }
 })
 </script>
@@ -73,7 +78,11 @@ const d = computed(() => {
         <div v-for="p in d.pills" :key="p.label" class="flex justify-between border-b border-[#2e2a22] py-0.5"><span>{{ p.label }}</span><span :class="p.known ? 'text-moss-300' : 'text-ash-500'" :title="p.known?.description">{{ p.known ? p.known.label : '???' }}</span></div>
       </template>
       <template v-else-if="tab === 'rumor'">
-        <p class="text-ash-400">서가·석관의 쪽지, 포로, 시체 소지품에서 듣는 소문이 여기에 모인다. (쪽지 콘텐츠는 후속)</p>
+        <p v-if="!d.rumors.length" class="text-ash-400">서가·석관의 쪽지를 읽으면 소문이 여기에 모인다. 쪽지는 쓴 날 이후의 일을 모른다.</p>
+        <div v-for="(r, i) in d.rumors" :key="i" class="mb-2 border-b border-[#2c2a22] pb-1" data-testid="rumor">
+          <p class="text-ash-100">{{ r.text }}</p>
+          <p class="text-[10px] text-ash-500">{{ r.stage }} · {{ r.src }} · {{ r.written }} · {{ r.found }}에 읽음</p>
+        </div>
       </template>
       <template v-else-if="tab === 'events'">
         <p class="mb-1 text-ash-400">장소에서 일어난 일. 순찰은 매일 06:00, 흔적을 보면 수색대가 나온다.</p>

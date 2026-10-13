@@ -7,7 +7,7 @@ import { killCreature } from './combat'
 import { log, player, rng, START_TURN, turnOf, TU_PER_TURN, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 import { createCreature, createPlayer } from './creatures'
 import type { DefDatabase } from './defs'
-import { weatherTick } from './environment'
+import { nextWeatherBlock, weatherTick } from './environment'
 import { canSee, invalidateLights, updatePlayerVision } from './fov'
 import { cheb, eq, type Pos } from './geom'
 import { addToInventory, allItems, equip, makeItem } from './items'
@@ -67,7 +67,7 @@ export function newGame(db: DefDatabase, opts: NewGameOptions): GameState {
     nextId: 1,
     log: [],
     weather: 'overcast',
-    weatherUntil: START_TURN + TURNS_PER_HOUR * 2,
+    weatherUntil: nextWeatherBlock(START_TURN),
     wind: { x: 1, y: 0 },
     storyteller: { budget: 0, lastEventTurn: START_TURN, history: [] },
     knowledge: { pillMap: {}, pillKnown: {}, bestiary: {} },

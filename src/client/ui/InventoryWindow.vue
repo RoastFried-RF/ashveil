@@ -2,11 +2,12 @@
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
 import { computed, onBeforeUnmount, ref } from 'vue'
 import {
-  BAG_W, BAG_H, fitsAt, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
+  BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
 } from '../../core'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
 import { assignHotbar, doAct, hideTip, hint, showTip, useItem, wins } from '../ui'
+import ItemBadges from './ItemBadges.vue'
 import ItemIcon from './ItemIcon.vue'
 import Win from './Win.vue'
 
@@ -49,6 +50,48 @@ function move(e: PointerEvent) {
   if (!g) return
   g.x = e.clientX; g.y = e.clientY
   if (Math.abs(g.x - g.sx) + Math.abs(g.y - g.sy) > 5) { g.moved = true; hideTip() }
+  if (g.moved) hover.value = dropTarget(g, e)
+}
+
+/** 격자 위 포인터 칸 [cx, cy] */
+function cellAt(sel: string, x: number, y: number, gw: number, gh: number): [number, number] | null {
+  const el = document.querySelector(sel)
+  if (!el) return null
+  const r = el.getBoundingClientRect()
+  const cx = Math.floor((x - r.left - 2) / CELL), cy = Math.floor((y - r.top - 2) / CELL)
+  return cx >= 0 && cy >= 0 && cx < gw && cy < gh ? [cx, cy] : null
+}
+
+/** 놓기 윤곽 (12 §2.3 G3): 들어가면 초록, 안 들어가면 빨강, 같은 더미 위면 합치기(노랑) */
+interface Hover { grid: 'bag' | 'loot'; gx: number; gy: number; ok: boolean; merge?: ItemInst }
+const hover = ref<Hover | null>(null)
+function dropTarget(g: Drag, e: { clientX: number; clientY: number }): Hover | null {
+  const w = world.value as World
+  const pl = player(w)
+  const def = itemDef(w, g.it)
+  const offset = g.from === 'bag' || g.from === 'loot'
+  const b = cellAt('[data-testid=bag]', e.clientX, e.clientY, BAG_W, BAG_H)
+  if (b) {
+    const under = itemAtCell(w, pl.bag, b[0], b[1], g.it.uid)
+    if (under && canStack(under, g.it) && under.count < maxStack(itemDef(w, under))) return { grid: 'bag', gx: under.gx!, gy: under.gy!, ok: true, merge: under }
+    const gx = b[0] - (offset ? g.gdx : 0), gy = b[1] - (offset ? g.gdy : 0)
+    return { grid: 'bag', gx, gy, ok: fitsAt(w, pl, def, gx, gy, g.from === 'bag' ? g.it.uid : undefined, g.rot) }
+  }
+  const lg = lootGrid(w)
+  const l = lg && cellAt('[data-testid=loot-grid]', e.clientX, e.clientY, lg.w, lg.h)
+  if (lg && l) {
+    const gx = l[0] - (offset ? g.gdx : 0), gy = l[1] - (offset ? g.gdy : 0)
+    return { grid: 'loot', gx, gy, ok: gridFits(w, lg, def, gx, gy, g.from === 'loot' ? g.it.uid : undefined, g.rot) }
+  }
+  return null
+}
+
+/** 나누기 수 (13 §5): Ctrl = 절반, Shift = 1개 */
+function splitN(e: PointerEvent, it: ItemInst): number | undefined {
+  if (it.count < 2) return undefined
+  if (e.ctrlKey || e.metaKey) return Math.floor(it.count / 2)
+  if (e.shiftKey) return 1
+  return undefined
 }
 /** 끄는 중 R 또는 우클릭: 90° 돌리기 (13 §3) */
 function rotate() {
@@ -80,14 +123,23 @@ function up(e: PointerEvent) {
   window.removeEventListener('contextmenu', rotCtx, true)
   const g = drag.value
   drag.value = null
+  hover.value = null
   if (!g || !g.moved) return
   const w = world.value as World
+  const tgt = dropTarget(g, e)
+  if (tgt?.grid === 'bag' && g.from === 'bag') {
+    const n = splitN(e, g.it)
+    const err = tgt.merge ? act({ type: 'mergeItem', uid: g.it.uid, into: tgt.merge.uid, n })
+      : n ? act({ type: 'splitItem', uid: g.it.uid, n, gx: tgt.gx, gy: tgt.gy, rot: g.rot })
+        : act({ type: 'moveItem', uid: g.it.uid, gx: tgt.gx, gy: tgt.gy, rot: g.rot })
+    if (err) hint.value = err
+    return
+  }
   const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-drop]') as HTMLElement | null
-  if (!el) return
-  const kind = el.dataset.drop
+  if (!el && !tgt) return
+  const kind = tgt ? (tgt.grid === 'bag' ? 'cell' : 'lootcell') : el!.dataset.drop
   if (kind === 'cell') {
-    const gx = Number(el.dataset.gx) - (g.from === 'bag' ? g.gdx : 0), gy = Number(el.dataset.gy) - (g.from === 'bag' ? g.gdy : 0)
-    if (g.from === 'bag') { const err = act({ type: 'moveItem', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err; return }
+    const gx = tgt ? tgt.gx : Number(el!.dataset.gx), gy = tgt ? tgt.gy : Number(el!.dataset.gy)
     let err: string | null = null
     if (g.from === 'equip' && g.slot) err = doAct({ type: 'unequip', slot: g.slot })
     else if (g.from === 'loot') err = doAct({ type: 'lootTake', uid: g.it.uid })
@@ -96,11 +148,11 @@ function up(e: PointerEvent) {
       const moved = player(w).bag.find((i) => i.uid === g.it.uid)
       if (moved && fitsAt(w, player(w), itemDef(w, moved), gx, gy, moved.uid, g.rot)) act({ type: 'moveItem', uid: moved.uid, gx, gy, rot: g.rot })
     }
-  } else if (kind === 'slot') {
+  } else if (kind === 'slot' && el) {
     if (g.from === 'bag') doAct({ type: 'equip', uid: g.it.uid, slot: el.dataset.slot as Slot })
     else hint.value = '먼저 배낭에 넣어야 한다'
   } else if (kind === 'lootcell') {
-    const gx = Number(el.dataset.gx) - g.gdx, gy = Number(el.dataset.gy) - g.gdy
+    const gx = tgt ? tgt.gx : Number(el!.dataset.gx) - g.gdx, gy = tgt ? tgt.gy : Number(el!.dataset.gy) - g.gdy
     if (g.from === 'bag') { const err = doAct({ type: 'lootPut', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err }
     else if (g.from === 'loot') { const err = act({ type: 'lootMove', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err }
   } else if (kind === 'loot') {
@@ -164,6 +216,7 @@ const menuItems = computed(() => {
   const def = itemDef(w, m.it)
   const out: [string, () => void][] = []
   if (m.from === 'bag') {
+    if (def.readable) out.push(['읽기', () => doAct({ type: 'read', uid: m.it.uid })])
     if (def.food || def.drink || def.drug || def.unidentified || def.refuel) out.push(['먹기·쓰기', () => useItem(w, m.it)])
     if (def.medical) out.push(['상처에 쓰기', () => useItem(w, m.it)])
     if (def.slot) out.push(['장착', () => doAct({ type: 'equip', uid: m.it.uid })])
@@ -190,6 +243,11 @@ const dragSize = computed<[number, number]>(() => {
   const [a, b] = itemDef(world.value as World, g.it).size
   return g.rot ? [b, a] : [a, b]
 })
+function outline(h: Hover) {
+  const [a, b] = h.merge ? size(h.merge) : dragSize.value
+  return { left: h.gx * CELL + 'px', top: h.gy * CELL + 'px', width: a * CELL + 'px', height: b * CELL + 'px' }
+}
+const OUTLINE = (h: Hover) => (h.merge ? 'border-amber-300 bg-amber-300/10' : h.ok ? 'border-[#6aa84f] bg-[#6aa84f]/15' : 'border-[#d8402e] bg-[#d8402e]/15')
 const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a, b) >= 2 ? 64 : 32 }
 </script>
 
@@ -210,6 +268,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
                   >
                     <ItemIcon :name="d.w.db.item(d.pl.equip[s]!.def).sprite" :size="32" />
                   </div>
+                  <ItemBadges :w="d.w" :it="d.pl.equip[s]!" />
                   <span v-if="d.pl.equip[s]!.lit" class="absolute right-0.5 top-0 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
                 </template>
                 <span v-else class="pointer-events-none text-[10px] text-[#6a6252]">{{ SLOT_LABEL[s] }}</span>
@@ -228,6 +287,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
             v-for="i in BAG_W * BAG_H" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="cell" :data-gx="(i - 1) % BAG_W" :data-gy="Math.floor((i - 1) / BAG_W)"
             :style="{ left: ((i - 1) % BAG_W) * CELL + 'px', top: Math.floor((i - 1) / BAG_W) * CELL + 'px', width: CELL + 'px', height: CELL + 'px' }"
           />
+          <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
           <div
             v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
             :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`"
@@ -235,10 +295,12 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
             <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
+            <ItemBadges :w="d.w" :it="it" />
             <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
             <span v-if="it.lit" class="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
           </div>
         </div>
+        <div class="mt-0.5 text-[10px] text-ash-500">끌기 중 Ctrl = 절반 나누기 · Shift = 1개 · 같은 것 위에 놓으면 합치기</div>
         <div v-if="d.loose.length" class="mt-1 text-[11px] text-blood-300">넘친 짐: {{ d.loose.map((i) => itemLabel(d.w, i)).join(', ') }}</div>
       </div>
     </div>
@@ -259,6 +321,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           @pointerdown="down($event, 'loot', e.it)" @dblclick="dbl(e.it, 'loot')" @mouseenter="tip($event, e.it)" @mouseleave="hideTip"
         >
           <ItemIcon :name="d.w.db.item(e.it.def).sprite" :size="28" />
+          <ItemBadges :w="d.w" :it="e.it" />
         </div>
       </div>
       <div v-if="d.grid" class="inset relative" :style="{ width: d.grid.w * CELL + 4 + 'px', height: d.grid.h * CELL + 4 + 'px' }" data-testid="loot-grid">
@@ -266,6 +329,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           v-for="i in d.grid.w * d.grid.h" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="lootcell" :data-gx="(i - 1) % d.grid.w" :data-gy="Math.floor((i - 1) / d.grid.w)"
           :style="{ left: ((i - 1) % d.grid.w) * CELL + 'px', top: Math.floor((i - 1) / d.grid.w) * CELL + 'px', width: CELL + 'px', height: CELL + 'px' }"
         />
+        <div v-if="hover?.grid === 'loot'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" />
         <div
           v-for="it in d.grid.items.filter((x) => x.gx !== undefined)" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
           :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`loot-${it.def}`"
@@ -273,6 +337,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
         >
           <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
+          <ItemBadges :w="d.w" :it="it" />
           <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
         </div>
         <p v-if="!d.grid.items.length && !d.lootEq.length" class="pointer-events-none absolute inset-0 flex items-center justify-center text-xs text-ash-500">비어 있다.</p>

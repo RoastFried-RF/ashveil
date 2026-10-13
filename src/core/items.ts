@@ -17,6 +17,34 @@ export function makeItem(w: World, defId: string, count = 1): ItemInst {
   return it
 }
 
+/** 품질 6단계 (08 §4 · 13 §10): 피해·방어, 최대 내구, 단열, 가치 배율과 테두리 색(탁한 색만) */
+export const QUALITY = [
+  { label: '조악', dmg: 0.85, dur: 0.7, ins: 0.9, value: 0.5, color: '#4c4a44' },
+  { label: '보통', dmg: 1, dur: 1, ins: 1, value: 1, color: '#9c988c' },
+  { label: '좋음', dmg: 1.1, dur: 1.15, ins: 1.05, value: 1.6, color: '#76864a' },
+  { label: '뛰어남', dmg: 1.2, dur: 1.3, ins: 1.1, value: 2.5, color: '#62788a' },
+  { label: '명품', dmg: 1.3, dur: 1.5, ins: 1.15, value: 4, color: '#8e7ea8' },
+  { label: '전설', dmg: 1.45, dur: 1.8, ins: 1.2, value: 8, color: '#a8925a' },
+] as const
+
+export const qualityOf = (it?: ItemInst): number => it?.quality ?? 1
+export const qualityInfo = (it?: ItemInst) => QUALITY[qualityOf(it)]
+/** 품질이 의미 있는 아이템: 무기·방어구·방패 */
+export const hasQuality = (def: ItemDef) => !!(def.apparel || def.attacks || def.shield)
+
+/** 내구 구간 (13 §10): 60~100 · 30~59 닳음 · 1~29 부서지기 직전 · 0 파손 */
+export function durabilityBand(d: number): { label: string; color: string } {
+  if (d <= 0) return { label: '파손', color: '#d8402e' }
+  if (d < 30) return { label: '부서지기 직전', color: '#d9a040' }
+  if (d < 60) return { label: '닳음', color: '#b0a878' }
+  return { label: '', color: '#e8e4d8' }
+}
+
+/** 쌓임 키 (13 §5): 같은 Def + 같은 품질 + 같은 오염 상태만 쌓인다 */
+export function canStack(a: ItemInst, b: ItemInst): boolean {
+  return a.def === b.def && qualityOf(a) === qualityOf(b) && !!a.dirty === !!b.dirty
+}
+
 export function itemDef(w: World, it: ItemInst): ItemDef {
   return w.db.item(it.def)
 }
@@ -91,7 +119,7 @@ export function gridAdd(w: World, g: Grid, it: ItemInst): number {
   let left = it.count
   if (ms > 1) {
     for (const ex of g.items) {
-      if (ex.def !== it.def || ex.count >= ms) continue
+      if (!canStack(ex, it) || ex.count >= ms) continue
       const take = Math.min(ms - ex.count, left)
       ex.count += take
       left -= take
@@ -144,6 +172,38 @@ export function moveInBag(w: World, c: Creature, uid: number, gx: number, gy: nu
   it.gy = gy
   it.rot = r || undefined
   return true
+}
+
+/** 격자에서 (gx, gy) 칸을 차지한 아이템 */
+export function itemAtCell(w: World, items: ItemInst[], gx: number, gy: number, ignore?: number): ItemInst | undefined {
+  return items.find((i) => {
+    if (i.uid === ignore || i.gx === undefined || i.gy === undefined) return false
+    const [iw, ih] = itemSize(w, i)
+    return gx >= i.gx && gx < i.gx + iw && gy >= i.gy && gy < i.gy + ih
+  })
+}
+
+/** 합치기 (13 §5): 같은 것 위에 놓으면 합친다. 넘치는 수는 끌던 쪽에 남는다. 옮긴 수 */
+export function mergeInto(w: World, items: ItemInst[], from: ItemInst, to: ItemInst, n = from.count): number {
+  if (from.uid === to.uid || !canStack(from, to)) return 0
+  const take = Math.min(maxStack(itemDef(w, to)) - to.count, n, from.count)
+  if (take <= 0) return 0
+  to.count += take
+  from.count -= take
+  if (from.count <= 0) items.splice(items.indexOf(from), 1)
+  return take
+}
+
+/** 나누기 (13 §5): Ctrl+끌기 = 절반, Shift+끌기 = 1개. 새 더미를 (gx, gy)에 */
+export function splitInBag(w: World, c: Creature, uid: number, n: number, gx: number, gy: number, rot?: boolean): ItemInst | undefined {
+  const it = c.bag.find((i) => i.uid === uid)
+  if (!it || n <= 0 || n >= it.count) return undefined
+  const r = rot ?? !!it.rot
+  if (!fitsAt(w, c, itemDef(w, it), gx, gy, undefined, r)) return undefined
+  const piece: ItemInst = { ...it, uid: w.s.nextId++, count: n, gx, gy, rot: r || undefined }
+  it.count -= n
+  c.bag.push(piece)
+  return piece
 }
 
 /** 하나 빼내기 (쌓인 경우 1개 분리) */

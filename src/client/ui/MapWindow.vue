@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// 지도 (M, 12 §2.3 · 14 §17): 층 탭, 본 칸, 발견한 방 이름, '정리됨 · N일 전'. 다시 찼는지는 가서 보기 전엔 모른다
+// 지도 (M, 12 §2.3 · 14 §17): 층 탭, 본 칸, 발견한 방 이름, '정리됨 · N일 전'. 다시 찼는지는 가서 보기 전엔 모른다.
+// 소문(쪽지)으로만 아는 방은 점선 — 아직 안 간 층도 탭이 생긴다 (06 §7.0)
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { player, turnOf, TURNS_PER_DAY, type MapState, type World } from '../../core'
+import { player, rumoredRooms, turnOf, TURNS_PER_DAY, type MapState, type World } from '../../core'
 import { version, world } from '../store'
 import { wins } from '../ui'
 import Win from './Win.vue'
@@ -10,36 +11,51 @@ const PX = 4
 const tab = ref<string>('')
 const cv = ref<HTMLCanvasElement>()
 
-const floors = computed(() => {
+interface Floor { id: string; kind: 'surface' | 'dungeon'; depth: number; w: number; h: number; map?: MapState }
+const floors = computed<Floor[]>(() => {
   void version.value
   const w = world.value as World
-  const all: MapState[] = [w.s.map, ...Object.values(w.s.maps)]
-  const order = (m: MapState) => (m.kind === 'surface' ? 0 : m.depth)
+  const all: Floor[] = [w.s.map, ...Object.values(w.s.maps)].map((m) => ({ id: m.id, kind: m.kind, depth: m.depth, w: m.w, h: m.h, map: m }))
+  for (const r of w.s.knowledge.rumors ?? []) {
+    if (r.kind !== 'room' || !r.mapId || all.some((f) => f.id === r.mapId)) continue
+    all.push({ id: r.mapId, kind: 'dungeon', depth: Number(r.mapId.replace('crypt', '')), w: r.mapW ?? 60, h: r.mapH ?? 40 })
+  }
+  const order = (m: Floor) => (m.kind === 'surface' ? 0 : m.depth)
   return all.filter((m, i, a) => a.findIndex((x) => x.id === m.id) === i).sort((a, b) => order(a) - order(b))
 })
-const cur = computed(() => floors.value.find((m) => m.id === tab.value) ?? (world.value as World).s.map)
-const label = (m: MapState) => (m.kind === 'surface' ? '지상' : `지하 ${m.depth}층`)
+const cur = computed<Floor>(() => floors.value.find((m) => m.id === tab.value) ?? floors.value.find((m) => m.id === (world.value as World).s.map.id)!)
+const label = (m: Floor) => (m.kind === 'surface' ? '지상' : `지하 ${m.depth}층`) + (m.map ? '' : ' (소문)')
+const rumors = computed(() => { void version.value; return rumoredRooms(world.value as World, cur.value.id) })
 
 const rooms = computed(() => {
   void version.value
   const w = world.value as World
   const now = turnOf(w)
-  return cur.value.rooms.filter((r) => r.discovered && r.type !== 'entry').map((r) => ({
+  const seen = (cur.value.map?.rooms ?? []).filter((r) => r.discovered && r.type !== 'entry').map((r) => ({
     name: r.name,
     cleared: r.clearedAt !== undefined ? `정리됨 · ${Math.floor((now - r.clearedAt) / TURNS_PER_DAY)}일 전` : '',
   }))
+  const heard = rumors.value.filter((r) => !cur.value.map?.rooms[r.roomIdx ?? -1]?.discovered).map((r) => ({ name: `${r.roomName ?? '방'}?`, cleared: '소문' }))
+  return [...seen, ...heard]
 })
 
 function draw() {
   const c = cv.value
   const w = world.value as World | undefined
   if (!c || !w) return
-  const m = cur.value
-  c.width = m.w * PX
-  c.height = m.h * PX
+  const f = cur.value
+  c.width = f.w * PX
+  c.height = f.h * PX
   const g = c.getContext('2d')!
   g.fillStyle = '#0b0a08'
   g.fillRect(0, 0, c.width, c.height)
+  // 소문으로 아는 방: 점선 호박색
+  g.setLineDash([3, 2])
+  g.strokeStyle = '#c89a40'
+  for (const r of rumors.value) if (r.rect && !f.map?.rooms[r.roomIdx ?? -1]?.discovered) g.strokeRect(r.rect.x * PX + 0.5, r.rect.y * PX + 0.5, r.rect.w * PX - 1, r.rect.h * PX - 1)
+  g.setLineDash([])
+  const m = f.map
+  if (!m) return
   for (let y = 0; y < m.h; y++) for (let x = 0; x < m.w; x++) {
     const t = m.tiles[y * m.w + x]
     if (!t.seen) continue

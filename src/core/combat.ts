@@ -8,7 +8,7 @@ import {
 import { clamp, creatureAt, creatureById, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
 import { canSee, hasLos, lightLevel } from './fov'
 import { cheb, DIRS, dirDelta, dirIndex, line, type Pos } from './geom'
-import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, wield, type Wield } from './items'
+import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, qualityInfo, wield, type Wield } from './items'
 import { addThought } from './needs'
 import { moraleEvent } from './morale'
 import { emitNoise } from './perception'
@@ -376,8 +376,9 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   if (wl.item?.edge !== undefined && (atk.damageType === 'cut' || atk.damageType === 'stab')) edgeF = (60 + wl.item.edge * 0.4) / 100
   const strF = opts.ranged || atk.family === 'archery' ? 1 : (100 + (a.stats.str - 10) * 5) / 100
   const rr = r.int(0, 40)
-  let D = Math.floor(atk.damage * edgeF * strF * ARM_DMG[pen0.armState] * (80 + rr) / 100)
-  detail.push(`피해 ${atk.damage} × 날 ${edgeF.toFixed(2)} × 근력 ${strF.toFixed(2)} × 팔 ${ARM_DMG[pen0.armState]} × ${80 + rr}% = ${D}`)
+  const qm = wl.item ? qualityInfo(wl.item).dmg : 1
+  let D = Math.floor(atk.damage * qm * edgeF * strF * ARM_DMG[pen0.armState] * (80 + rr) / 100)
+  detail.push(`피해 ${atk.damage}${qm !== 1 ? ` × 품질 ${qm}` : ''} × 날 ${edgeF.toFixed(2)} × 근력 ${strF.toFixed(2)} × 팔 ${ARM_DMG[pen0.armState]} × ${80 + rr}% = ${D}`)
   if (mods?.damageMult) { D = Math.floor(D * mods.damageMult); detail.push(`능력 ×${mods.damageMult} → ${D}`) }
   const fero = traitMul(w, a, 'dmgVsBleeding')
   if (fero !== 1 && totalBleed(w, d) > 0) { D = Math.floor(D * fero); detail.push(`흉포 ×${fero} → ${D}`) }
@@ -445,7 +446,7 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   const layers: { label: string; armor: Partial<Record<ArmorCategory, number>>; it?: ItemInst; max: number }[] = apparelItems(w, d)
     .filter(({ def }) => def.apparel!.groups.includes(tag))
     .sort((x, y) => y.def.apparel!.layer - x.def.apparel!.layer)
-    .map(({ it, def }) => ({ label: def.label, armor: def.apparel!.armor, it, max: def.apparel!.durability }))
+    .map(({ it, def }) => ({ label: def.label, armor: def.apparel!.armor, it, max: Math.floor(def.apparel!.durability * qualityInfo(it).dur) }))
   const nat = w.db.creature(d.def).naturalArmor
   if (nat) layers.push({ label: '자연 방어', armor: nat, max: 0 })
   const crumple = traitAdd(w, a, 'deflectHalf') > 0
@@ -453,7 +454,7 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   for (const L of layers) {
     const base = L.armor[armorCategory(dtype)] ?? 0
     const dur = L.it ? L.it.durability ?? 100 : 100
-    let effA = Math.floor(base * (50 + dur / 2) / 100)
+    let effA = Math.floor(base * (L.it ? qualityInfo(L.it).dmg : 1) * (50 + dur / 2) / 100)
     if (L.it?.half) effA = Math.floor(effA / 2)
     const useful = effA - pen
     if (L.it) hitItems.push(L.it)

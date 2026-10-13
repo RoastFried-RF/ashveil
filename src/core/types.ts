@@ -142,6 +142,8 @@ export interface ItemDef extends DefBase {
   /** 배낭 격자 크기 [가로, 세로] */
   size: [number, number]
   stackable?: boolean
+  /** 읽을 수 있다 (쪽지 → 소문, 06 §7.0) */
+  readable?: boolean
   maxStack?: number
   value?: number
   /** 장착 슬롯 (반지는 'ring') */
@@ -437,6 +439,8 @@ export interface ItemInst {
   rot?: boolean
   /** 입다가 끊겨 반쯤 걸친 상태: 방어·단열 50% (13 §6.1) */
   half?: boolean
+  /** 품질 0 조악 · 1 보통(기본) · 2 좋음 · 3 뛰어남 · 4 명품 · 5 전설 (08 §4) */
+  quality?: number
   /** 내구 % 0~100 (08 §5) */
   durability?: number
   /** 날 상태 % 0~100 (08 §5) */
@@ -445,6 +449,8 @@ export interface ItemInst {
   lit?: boolean
   uses?: number
   dirty?: boolean
+  /** 쪽지 내용 (06 §7.0) */
+  note?: Rumor
 }
 
 export type FractureGrade = 'hairline' | 'simple' | 'compound'
@@ -713,6 +719,8 @@ export interface MapState {
   exits: Pos[]
   links: MapLink[]
   rooms: MapRoom[]
+  /** 이 층 서가에서 아래층 방 위치 쪽지가 이미 나왔는가 (14 §5.1) */
+  noteGiven?: boolean
   props: MapProp[]
   lights: MapLight[]
   /** 장소 사건 경유지 (14 §10: 약탈자 야영지·숲 개울·수도원 입구) */
@@ -728,12 +736,31 @@ export interface LogEntry {
   detail?: string[]
 }
 
+/** 소문 (06 §7.1 축약): 출처 단계 hop 0 목격자 · 1 전해 들음 · 2+ 떠도는 말 */
+export interface Rumor {
+  id: string
+  kind: 'room' | 'boss' | 'supply'
+  text: string
+  source: string
+  hop: number
+  /** 작성 시점(턴) · 얻은 시점(턴) */
+  writtenAt: number
+  foundAt: number
+  mapId?: string
+  roomIdx?: number
+  roomName?: string
+  mapW?: number
+  mapH?: number
+  rect?: { x: number; y: number; w: number; h: number }
+}
+
 export interface Knowledge {
   /** 외형 -> 효과 def id (시드별 섞임, 비밀) */
   pillMap: Record<string, string>
   /** 플레이어가 아는 외형 -> 효과 */
   pillKnown: Record<string, string>
   bestiary: Record<string, { seen: number; fought: number; killed: number; dissected?: number }>
+  rumors?: Rumor[]
 }
 
 export interface StorytellerState {

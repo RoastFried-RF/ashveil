@@ -11,11 +11,12 @@ import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { hasLos, invalidateLights, lightLevel } from './fov'
 import {
   addToBag, addToInventory, equip, findItem, findSpot, gridAdd, gridFits, gridSpot, hasBlade, itemDef, itemLabel, makeItem, meleeWield, moveInBag,
-  removeOne, removeStack, unequip, wield, type Grid,
+  canStack, hasQuality, mergeInto, removeOne, removeStack, splitInBag, unequip, wield, type Grid,
 } from './items'
 import { addThought } from './needs'
 import { diagonalBlocked } from './path'
 import { emitNoise } from './perception'
+import { readNote, writeNote } from './rumors'
 import { learnAbility, spendStat } from './progression'
 import { masteryStage, practice } from './skills'
 import { addEffect, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
@@ -33,6 +34,9 @@ export type Action =
   | { type: 'equip'; uid: number; slot?: Slot }
   | { type: 'unequip'; slot: Slot }
   | { type: 'moveItem'; uid: number; gx: number; gy: number; rot?: boolean }
+  | { type: 'read'; uid: number }
+  | { type: 'splitItem'; uid: number; n: number; gx: number; gy: number; rot?: boolean }
+  | { type: 'mergeItem'; uid: number; into: number; n?: number }
   | { type: 'search' }
   | { type: 'lootTake'; uid: number }
   | { type: 'lootAll' }
@@ -193,7 +197,11 @@ function openContainer(w: World, c: Creature, p: Pos) {
     t.cont = { items: [], opened: true, kind: terr.id }
     const [gw, gh] = terr.lootGrid ?? [6, 4]
     const g: Grid = { items: t.cont.items, w: gw, h: gh }
-    for (const it of sortForPacking(w, terr.container ? rollLoot(w, terr.container) : [])) gridAdd(w, g, it)
+    const loot = terr.container ? rollLoot(w, terr.container) : []
+    // 서가 쪽지 하나는 반드시 아래층 방 위치 단서 (14 §5.1)
+    if (terr.id === 'Terrain.Shelf' && w.s.map.kind === 'dungeon' && !w.s.map.noteGiven && w.s.map.depth < 3 && !loot.some((i) => i.def === 'Item.Note')) loot.push(makeItem(w, 'Item.Note'))
+    for (const it of loot) if (itemDef(w, it).readable) writeNote(w, it, w.s.map, terr.id)
+    for (const it of sortForPacking(w, loot)) gridAdd(w, g, it)
   }
   t.cont.opened = true
   if (isPl(c)) w.s.loot = { pos: p, kind: 'cont' }
@@ -549,6 +557,25 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
 
     case 'moveItem':
       return moveInBag(w, c, a.uid, a.gx, a.gy, a.rot) ? FREE : FAIL('그 자리에 들어가지 않는다')
+
+    case 'read': {
+      // 쪽지 읽기 1턴 (06 §7.0): 소문 게시판에 오른다
+      const it = findItem(c, a.uid)
+      if (!it || !itemDef(w, it).readable) return FAIL('읽을 것이 없다')
+      if (!it.note) return FAIL('글씨가 번져 알아볼 수 없다')
+      if (isPl(c)) readNote(w, c, it)
+      return { ok: true, tu: 100 }
+    }
+
+    case 'splitItem':
+      return splitInBag(w, c, a.uid, a.n, a.gx, a.gy, a.rot) ? FREE : FAIL('나눌 수 없다')
+
+    case 'mergeItem': {
+      const from = c.bag.find((i) => i.uid === a.uid), to = c.bag.find((i) => i.uid === a.into)
+      if (!from || !to) return FAIL('없다')
+      if (!canStack(from, to)) return FAIL(from.def === to.def ? '상태가 달라 쌓이지 않는다' : '같은 것만 쌓인다')
+      return mergeInto(w, c.bag, from, to, a.n) > 0 ? FREE : FAIL('더 쌓을 수 없다')
+    }
 
     case 'search': {
       // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
@@ -1236,7 +1263,10 @@ export function rollLoot(w: World, tableId: string): ItemInst[] {
     const e = r.weighted(tbl.entries, (x) => x.weight)
     if (!e) continue
     const count = e.count ? r.int(e.count[0], e.count[1]) : 1
-    out.push(makeItem(w, e.item, count))
+    const it = makeItem(w, e.item, count)
+    // 품질 (08 §4, 프로토타입은 조악·보통·좋음만 드롭): 25 / 60 / 15 %
+    if (hasQuality(w.db.item(e.item))) { const q = r.int(0, 99); it.quality = q < 25 ? 0 : q < 85 ? 1 : 2 }
+    out.push(it)
   }
   return out
 }

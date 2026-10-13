@@ -1,6 +1,6 @@
 // 툴팁 문구: 아이템·능력·수정치를 한국어로 풀어 쓴다
 
-import { itemDef, itemLabel, type AbilityDef, type ItemDef, type ItemInst, type World } from '../core'
+import { durabilityBand, hasQuality, itemDef, itemLabel, qualityInfo, type AbilityDef, type ItemDef, type ItemInst, type World } from '../core'
 
 export const SLOT_LABEL: Record<string, string> = {
   head: '머리', chest: '몸', hands: '손', feet: '발', belt: '허리', back: '등', neck: '목',
@@ -45,6 +45,10 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   const d = it ? itemDef(w, it) : w.db.item(defId!)
   const lines: string[] = []
   lines.push(`${CAT_LABEL[d.category]}${d.slot ? ` · ${SLOT_LABEL[d.slot]}` : ''}${d.twoHanded ? ' · 양손' : ''}`)
+  if (it && hasQuality(d)) {
+    const q = qualityInfo(it)
+    lines.push(`품질 ${q.label}${q.dmg !== 1 ? ` · 피해·방어 ×${q.dmg} · 내구 ×${q.dur} · 단열 ×${q.ins}` : ''}`)
+  }
   for (const a of d.attacks ?? []) {
     lines.push(`${a.label}: ${DMG_LABEL[a.damageType] ?? a.damageType} ${a.damage} · 관통 ${a.pen} · 정확도 +${a.accuracy} · 기력 ${a.energy}`)
   }
@@ -70,10 +74,41 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if (d.light) lines.push(`등불 반경 ${d.light.radius}${it?.fuel !== undefined ? ` · 연료 ${Math.round((it.fuel / 1200) * 10) / 10}시간` : ''}${it?.lit ? ' · 켜짐' : ''}`)
   if (d.refuel) lines.push(`등불 연료 +${Math.round(d.refuel / 1200)}시간`)
   if (it?.uses !== undefined) lines.push(`남은 양 ${it.uses}`)
-  if (it?.durability !== undefined) lines.push(`내구 ${Math.round(it.durability)}%${it.durability <= 0 ? ' — 파손' : it.durability < 30 ? ' — 부서지기 직전' : it.durability < 60 ? ' — 닳음' : ''}`)
+  if (it?.durability !== undefined) { const b = durabilityBand(it.durability); lines.push(`내구 ${Math.round(it.durability)}%${b.label ? ` — ${b.label}` : ''}`) }
   lines.push(`크기 ${d.size?.[0] ?? 1}×${d.size?.[1] ?? 1}`)
   if (d.description) lines.push(d.description)
   return { title: it ? itemLabel(w, it) : d.label, lines, color: rarityColor(d) }
+}
+
+const REGION_LABEL: Record<string, string> = { head: '머리', torso: '몸통', larm: '왼팔', rarm: '오른팔', lleg: '왼다리', rleg: '오른다리', neck: '목' }
+
+/** 능력 툴팁 L2(Shift): 바꾸는 판정 공식 항 (15 §19 · 12) */
+export function abilityFormula(d: AbilityDef): string[] {
+  const out: string[] = []
+  const m = d.attack
+  if (m) {
+    if (m.hitBonus) out.push(`명중 = 50 + (공격치 − 회피치) × 2 + 수정 ${m.hitBonus > 0 ? '+' : ''}${m.hitBonus}`)
+    if (m.damageMult) out.push(`피해 D = 기본 × 날 × 근력 × 팔 × (80 + r)% × ${m.damageMult}`)
+    if (m.penBonus) out.push(`관통 +${m.penBonus} → 방어구 유효 = 실효 − 관통`)
+    if (m.bleedMult) out.push(`상처 출혈 = D × 유형계수 × 혈관계수 × ${m.bleedMult} (동맥 고정값엔 곱하지 않음)`)
+    if (m.arterialBonus) out.push(`동맥 판정(D ≥ 부위 HP 30%) = D × 2% + ${m.arterialBonus}%p`)
+    if (m.fractureMult) out.push(`골절 = (D − 뼈 강도) × 8% × ${m.fractureMult}`)
+    if (m.stunBonus) out.push(`머리 기절 판정 +${m.stunBonus}%p`)
+    if (m.armorDamage) out.push(`맞은 방어구 내구 −${m.armorDamage}%p 추가`)
+    if (m.partWeights) out.push(`부위 가중: ${Object.entries(m.partWeights).map(([k, v]) => `${REGION_LABEL[k] ?? k} ×${v}`).join(' · ')}`)
+    if (m.aoe) out.push(m.aoe === 'adjacent' ? '범위: 인접 8칸 모두' : '범위: 앞 2칸 직선')
+    if (m.knockback) out.push(`밀쳐내기 ${m.knockback}칸`)
+    if (m.knockdownChance) out.push(`넘어뜨림 ${m.knockdownChance}%`)
+    if (m.aimed) out.push('조준형: 야행성이면 조명 감점 절반')
+  }
+  if (d.stance) out.push(`자세 ${d.stance.turns}턴 (반응 phase 1: 같은 시각이면 먼저 움직인다)${d.stance.magnitude ? ` · 크기 ${d.stance.magnitude}` : ''}`)
+  if (d.self?.energyPct) out.push(`기력 회복 최대치의 ${d.self.energyPct}%`)
+  if (d.self?.painRelief) out.push(`통증 −${d.self.painRelief}${d.self.turns ? ` (${d.self.turns}턴)` : ''}`)
+  if (d.channel) out.push(`채널 ${d.channel}턴 · 맞으면 끊기고 기력 절반 환급`)
+  if (d.lunge) out.push(`직선 ${d.lunge}칸 이동 후 공격`)
+  if (d.sweep) out.push(`연속 ${d.sweep}칸 휩쓸기`)
+  out.push(...modLines(d.mods))
+  return out
 }
 
 export function abilityTip(w: World, d: AbilityDef): { title: string; lines: string[] } {

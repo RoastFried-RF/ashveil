@@ -393,3 +393,56 @@ describe('자동 정렬 (13 §9 검산 2)', () => {
     expect(used).toBe(25)
   })
 })
+
+describe('쌓임·나누기·품질 (13 §5 · §10 · 08 §4)', () => {
+  function bagWorld() {
+    const w = makeWorld('stk1')
+    const pl = player(w)
+    pl.bag = []
+    return { w, pl }
+  }
+  it('Ctrl 나누기 = 절반, 같은 것 위에 놓으면 합치고 넘치는 수는 남는다', async () => {
+    const { perform } = await import('../src/core/actions')
+    const { w, pl } = bagWorld()
+    addToBag(w, pl, makeItem(w, 'Item.Bandage', 5))
+    const st = pl.bag[0]
+    expect(perform(w, pl, { type: 'splitItem', uid: st.uid, n: Math.floor(5 / 2), gx: 5, gy: 2 }).ok).toBe(true)
+    expect(pl.bag.map((i) => i.count).sort()).toEqual([2, 3])
+    const piece = pl.bag.find((i) => i.gx === 5)!
+    const first = pl.bag.find((i) => i.uid !== piece.uid)!
+    addToBag(w, pl, makeItem(w, 'Item.Bandage', 4)) // 기존 더미부터: 3 → 5, 남은 2 → 2 → 4
+    expect([first.count, piece.count]).toEqual([5, 4])
+    expect(perform(w, pl, { type: 'mergeItem', uid: piece.uid, into: first.uid }).ok).toBe(false) // 가득 찬 더미
+    expect(perform(w, pl, { type: 'splitItem', uid: first.uid, n: 2, gx: 8, gy: 0 }).ok).toBe(true) // 5 → 3 + 2
+    expect(perform(w, pl, { type: 'mergeItem', uid: piece.uid, into: first.uid }).ok).toBe(true) // 4 중 2만 들어간다
+    expect([first.count, piece.count]).toEqual([5, 2])
+    expect(pl.bag.reduce((n, i) => n + i.count, 0)).toBe(9)
+  })
+  it('품질·오염이 다르면 쌓이지 않는다', async () => {
+    const { canStack } = await import('../src/core/items')
+    const { w } = bagWorld()
+    const a = makeItem(w, 'Item.Bandage'), b = makeItem(w, 'Item.Bandage')
+    expect(canStack(a, b)).toBe(true)
+    b.dirty = true
+    expect(canStack(a, b)).toBe(false)
+    const h1 = makeItem(w, 'Item.Hatchet'), h2 = makeItem(w, 'Item.Hatchet')
+    h2.quality = 2
+    expect(canStack(h1, h2)).toBe(false)
+  })
+  it('품질 배율: 조악 ×0.85 · 좋음 ×1.1, 상자 드롭 무기·방어구는 조악·보통·좋음만', async () => {
+    const { QUALITY, hasQuality } = await import('../src/core/items')
+    const { rollLoot } = await import('../src/core/actions')
+    expect(QUALITY[0].dmg).toBe(0.85)
+    expect(QUALITY[2].dmg).toBe(1.1)
+    // 손도끼 찍기 14: 조악 14 × 0.85 = 11.9, 좋음 14 × 1.1 = 15.4 ((80 + r)% 전)
+    expect(14 * QUALITY[0].dmg).toBeCloseTo(11.9)
+    expect(14 * QUALITY[2].dmg).toBeCloseTo(15.4)
+    const w = makeWorld('loot-q')
+    const qs = new Set<number>()
+    for (const { id } of w.db.all('LootTable')) for (let i = 0; i < 40; i++) for (const it of rollLoot(w, id)) {
+      if (hasQuality(w.db.item(it.def))) qs.add(it.quality ?? 1)
+      else expect(it.quality).toBeUndefined()
+    }
+    expect([...qs].every((q) => q <= 2)).toBe(true)
+  })
+})
