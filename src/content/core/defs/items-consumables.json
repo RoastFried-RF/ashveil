@@ -73,7 +73,7 @@
     "sprite": "splint",
     "category": "medical",
     "weight": 0.4,
-    "stackable": true,
+    "stackable": false,
     "value": 5,
     "medical": {
       "kind": "splint",
@@ -82,8 +82,7 @@
     "size": [
       1,
       2
-    ],
-    "maxStack": 5
+    ]
   },
   {
     "defType": "Item",
@@ -94,7 +93,7 @@
     "category": "drink",
     "weight": 0.5,
     "value": 12,
-    "uses": 4,
+    "uses": 5,
     "drink": {
       "water": 50,
       "alcohol": 1
@@ -220,27 +219,28 @@
     "category": "drink",
     "weight": 0.6,
     "value": 8,
-    "uses": 2,
+    "uses": 5,
     "drink": {
-      "water": 250
+      "water": 200
     },
     "size": [
       1,
       2
-    ]
+    ],
+    "description": " 1,000ml 들이, 한 번에 200ml."
   },
   {
     "defType": "Item",
     "id": "Item.DirtyWaterBottle",
     "label": "물병 (흐린 물)",
-    "description": "웅덩이에서 떠온 물. 이질에 걸릴 수 있다.",
+    "description": "웅덩이에서 떠온 물. 이질에 걸릴 수 있다. 1,000ml 들이, 한 번에 200ml.",
     "sprite": "water_bottle",
     "category": "drink",
     "weight": 0.6,
     "value": 2,
-    "uses": 2,
+    "uses": 5,
     "drink": {
-      "water": 250,
+      "water": 200,
       "dirty": true
     },
     "size": [
@@ -317,7 +317,7 @@
     "sprite": "canned_meat",
     "category": "food",
     "weight": 0.5,
-    "stackable": true,
+    "stackable": false,
     "value": 30,
     "food": {
       "kcal": 600,
@@ -327,8 +327,7 @@
     "size": [
       1,
       1
-    ],
-    "maxStack": 5
+    ]
   },
   {
     "defType": "Item",
@@ -338,7 +337,7 @@
     "sprite": "raw_meat",
     "category": "food",
     "weight": 0.5,
-    "stackable": true,
+    "stackable": false,
     "value": 5,
     "food": {
       "kcal": 300,
@@ -349,14 +348,13 @@
     "size": [
       1,
       1
-    ],
-    "maxStack": 5
+    ]
   },
   {
     "defType": "Item",
     "id": "Item.Lantern",
     "label": "기름 등불",
-    "description": "어둠을 밝히지만 멀리서도 보인다. 칼날을 달궈 상처를 지질 수 있다.",
+    "description": "어둠을 밝히지만 멀리서도 보인다. 보조 손에 들거나(반경 5) 허리띠에 걸어야(반경 4) 빛이 난다. 칼날을 달궈 상처를 지질 수 있다.",
     "sprite": "lantern",
     "category": "tool",
     "weight": 0.8,
@@ -368,7 +366,8 @@
     "size": [
       1,
       2
-    ]
+    ],
+    "slot": "off"
   },
   {
     "defType": "Item",

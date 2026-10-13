@@ -1,6 +1,6 @@
 // 생존(열량·수분·비타민·피로·체온·젖음·기력)과 기분(사고 스택·스트레스)
 
-import { capacity, energyMax, painTotal, regionPenalties, totalBleed } from './body'
+import { bloodLoss, capacity, energyMax, painTotal, regionPenalties, totalBleed } from './body'
 import { clamp, log, rng, turnOf, TURNS_PER_DAY, tileAt, terrainAt, type World } from './ctx'
 import { ambientTemp, daylight, isRaining } from './environment'
 import { apparelItems } from './items'
@@ -21,9 +21,9 @@ export function insulation(w: World, c: Creature): number {
   const wetFactor = 1 - (0.7 * c.needs.wetness) / 100
   const waterproof = hasWaterproof(w, c)
   let ins = cdef.insulation ?? (cdef.body === 'Body.Humanoid' ? 2 * (waterproof ? 1 : wetFactor) : 0)
-  for (const { def } of apparelItems(w, c)) {
+  for (const { it, def } of apparelItems(w, c)) {
     const ap = def.apparel!
-    ins += ap.insulation * (ap.waterproof || waterproof ? 1 : wetFactor)
+    ins += ap.insulation * (ap.waterproof || waterproof ? 1 : wetFactor) * (it.half ? 0.5 : 1)
   }
   return Math.round(ins * 10) / 10
 }
@@ -58,12 +58,15 @@ export function needsTick(w: World, c: Creature, sleeping: boolean) {
   else if (!hasEffect(c, 'stimulant', turn)) n.fatigue = Math.min(100, n.fatigue + 100 / 19200 * (c.exerted ? 1.5 : 1))
   if (hasEffect(c, 'sedative', turn)) n.fatigue = Math.min(100, n.fatigue + 0.02)
 
-  // 기력 (행동하지 않은 턴에 회복)
+  // 기력 (07 §6): 턴마다 (2 + ⌊활력/5⌋) × 몸통 계수, 공격·능력이 없던 턴 ×2.
+  // 배고픔·추위 단계 ×0.75, 실혈 15% ×0.5, 포자 기침 0, 수면 ×2
   const emax = energyMax(w, c)
-  if (!c.exerted) {
-    let regen = 1.5 * capacity(w, c, 'breathing') * regionPenalties(w, c).energyRegen
-    if (n.fatigue > 80) regen *= 0.5
-    if (n.kcal < 0) regen *= 0.5
+  {
+    let regen = (2 + Math.floor(c.stats.vit / 5)) * regionPenalties(w, c).energyRegen * capacity(w, c, 'breathing')
+    if (!c.exerted) regen *= 2
+    if (n.kcal < 600) regen *= 0.75
+    if (n.bodyTemp < 36) regen *= 0.75
+    if (bloodLoss(c) >= 0.15) regen *= 0.5
     if (hasEffect(c, 'spores', turn)) regen = 0
     if (sleeping) regen *= 2
     n.stamina = Math.min(emax, n.stamina + regen)

@@ -43,27 +43,35 @@ export function equippedSlot(c: Creature, uid: number): Slot | undefined {
 
 // ── 격자 ──────────────────────────────────────────────
 
+/** 놓인 방향을 반영한 칸 크기 [가로, 세로] */
+export function itemSize(w: World, it: ItemInst): [number, number] {
+  const [a, b] = itemDef(w, it).size ?? [1, 1]
+  return it.rot ? [b, a] : [a, b]
+}
+
 function occupied(w: World, c: Creature, ignore?: number): boolean[] {
   const grid = new Array(BAG_W * BAG_H).fill(false)
   for (const it of c.bag) {
     if (it.uid === ignore || it.gx === undefined || it.gy === undefined) continue
-    const [iw, ih] = itemDef(w, it).size
+    const [iw, ih] = itemSize(w, it)
     for (let y = it.gy; y < it.gy + ih; y++) for (let x = it.gx; x < it.gx + iw; x++) grid[y * BAG_W + x] = true
   }
   return grid
 }
 
-export function fitsAt(w: World, c: Creature, def: ItemDef, gx: number, gy: number, ignore?: number): boolean {
-  const [iw, ih] = def.size
+export function fitsAt(w: World, c: Creature, def: ItemDef, gx: number, gy: number, ignore?: number, rot = false): boolean {
+  const [iw, ih] = rot ? [def.size[1], def.size[0]] : def.size
   if (gx < 0 || gy < 0 || gx + iw > BAG_W || gy + ih > BAG_H) return false
   const g = occupied(w, c, ignore)
   for (let y = gy; y < gy + ih; y++) for (let x = gx; x < gx + iw; x++) if (g[y * BAG_W + x]) return false
   return true
 }
 
-export function findSpot(w: World, c: Creature, def: ItemDef): [number, number] | null {
-  // 세로 우선(왼쪽 위부터 채움)
-  for (let x = 0; x < BAG_W; x++) for (let y = 0; y < BAG_H; y++) if (fitsAt(w, c, def, x, y)) return [x, y]
+/** 빈 자리: 세로 우선(왼쪽 위부터), 기본 방향 먼저 → 안 되면 돌려서 (13 §9) */
+export function findSpot(w: World, c: Creature, def: ItemDef): [number, number, boolean] | null {
+  for (const rot of def.size[0] === def.size[1] ? [false] : [false, true]) {
+    for (let x = 0; x < BAG_W; x++) for (let y = 0; y < BAG_H; y++) if (fitsAt(w, c, def, x, y, undefined, rot)) return [x, y, rot]
+  }
   return null
 }
 
@@ -89,6 +97,7 @@ export function addToBag(w: World, c: Creature, it: ItemInst): number {
     piece.count = n
     piece.gx = spot[0]
     piece.gy = spot[1]
+    piece.rot = spot[2] || undefined
     c.bag.push(piece)
     left -= n
   }
@@ -104,12 +113,14 @@ export function addToInventory(w: World, c: Creature, it: ItemInst) {
   }
 }
 
-export function moveInBag(w: World, c: Creature, uid: number, gx: number, gy: number): boolean {
+export function moveInBag(w: World, c: Creature, uid: number, gx: number, gy: number, rot?: boolean): boolean {
   const it = c.bag.find((i) => i.uid === uid)
   if (!it) return false
-  if (!fitsAt(w, c, itemDef(w, it), gx, gy, uid)) return false
+  const r = rot ?? !!it.rot
+  if (!fitsAt(w, c, itemDef(w, it), gx, gy, uid, r)) return false
   it.gx = gx
   it.gy = gy
+  it.rot = r || undefined
   return true
 }
 
@@ -228,8 +239,17 @@ export function gearAdd(w: World, c: Creature, key: string): number {
   return v
 }
 
-export function lightSource(w: World, c: Creature): ItemInst | undefined {
-  return allItems(c).find((i) => i.lit && (i.fuel ?? 0) > 0)
+/** 켜진 등불이 빛나는 곳 (13 §6, C5): 보조 손 = 제 반경, 허리띠 걸이(배낭 속 + 허리띠) = 반경 −1. 배낭에만 있으면 빛이 새지 않는다 */
+export function lightSource(w: World, c: Creature): { it: ItemInst; radius: number } | undefined {
+  const lit = (i?: ItemInst) => !!i && !!i.lit && (i.fuel ?? 0) > 0 && !!itemDef(w, i).light
+  const off = c.equip.off
+  if (off && lit(off)) return { it: off, radius: itemDef(w, off).light!.radius }
+  for (const it of Object.values(c.equip)) if (it && lit(it) && it !== off) return { it, radius: itemDef(w, it).light!.radius }
+  if (c.equip.belt) {
+    const hooked = c.bag.find((i) => lit(i))
+    if (hooked) return { it: hooked, radius: itemDef(w, hooked).light!.radius - 1 }
+  }
+  return undefined
 }
 
 export function hasBlade(w: World, c: Creature): boolean {

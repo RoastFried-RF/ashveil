@@ -30,7 +30,7 @@
         "artery": true,
         "bleedMult": 1.5,
         "vital": true,
-        "region": "head"
+        "region": "torso"
       },
       {
         "id": "Head",
@@ -41,7 +41,8 @@
         "groups": [
           "head"
         ],
-        "parent": "Neck"
+        "parent": "Neck",
+        "region": "head"
       },
       {
         "id": "Skull",
@@ -231,8 +232,8 @@
         ],
         "parent": "Torso",
         "internal": true,
-        "vital": true,
-        "bleedMult": 2
+        "bleedMult": 2,
+        "delayedDeath": true
       },
       {
         "id": "Stomach",
@@ -700,8 +701,8 @@
         ],
         "parent": "Torso",
         "internal": true,
-        "vital": true,
-        "bleedMult": 2
+        "bleedMult": 2,
+        "delayedDeath": true
       },
       {
         "id": "Stomach",

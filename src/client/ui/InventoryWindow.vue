@@ -2,7 +2,7 @@
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
 import { computed, onBeforeUnmount, ref } from 'vue'
 import {
-  BAG_W, BAG_H, fitsAt, itemDef, itemLabel, lootItems, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
+  BAG_W, BAG_H, fitsAt, itemDef, itemSize, itemLabel, lootItems, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
 } from '../../core'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
@@ -23,21 +23,23 @@ const d = computed(() => {
   const lootLabel = w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
   const floor = !loot ? tileAt(w, pl.pos).items : []
   let used = 0
-  for (const it of bag) { const [a, b] = itemDef(w, it).size; used += a * b }
+  for (const it of bag) { const [a, b] = itemSize(w, it); used += a * b }
   return { w, pl, bag, loose, loot, lootLabel, floor, free: BAG_W * BAG_H - used }
 })
 
 // ── 끌기 ──
-interface Drag { from: 'bag' | 'equip' | 'loot' | 'floor'; it: ItemInst; slot?: Slot; gdx: number; gdy: number; x: number; y: number; moved: boolean; sx: number; sy: number }
+interface Drag { from: 'bag' | 'equip' | 'loot' | 'floor'; it: ItemInst; slot?: Slot; gdx: number; gdy: number; x: number; y: number; moved: boolean; sx: number; sy: number; rot: boolean }
 const drag = ref<Drag | null>(null)
 const menu = ref<{ x: number; y: number; it: ItemInst; from: Drag['from']; slot?: Slot } | null>(null)
 
 function down(e: PointerEvent, from: Drag['from'], it: ItemInst, slot?: Slot) {
   if (e.button !== 0) return
   const el = (e.currentTarget as HTMLElement).getBoundingClientRect()
-  drag.value = { from, it, slot, gdx: Math.floor((e.clientX - el.left) / CELL), gdy: Math.floor((e.clientY - el.top) / CELL), x: e.clientX, y: e.clientY, moved: false, sx: e.clientX, sy: e.clientY }
+  drag.value = { from, it, slot, gdx: Math.floor((e.clientX - el.left) / CELL), gdy: Math.floor((e.clientY - el.top) / CELL), x: e.clientX, y: e.clientY, moved: false, sx: e.clientX, sy: e.clientY, rot: from === 'bag' && !!it.rot }
   window.addEventListener('pointermove', move)
   window.addEventListener('pointerup', up)
+  window.addEventListener('keydown', rotKey, true)
+  window.addEventListener('contextmenu', rotCtx, true)
 }
 function move(e: PointerEvent) {
   const g = drag.value
@@ -45,9 +47,34 @@ function move(e: PointerEvent) {
   g.x = e.clientX; g.y = e.clientY
   if (Math.abs(g.x - g.sx) + Math.abs(g.y - g.sy) > 5) { g.moved = true; hideTip() }
 }
+/** 끄는 중 R 또는 우클릭: 90° 돌리기 (13 §3) */
+function rotate() {
+  const g = drag.value
+  if (!g) return
+  const [a, b] = itemDef(world.value as World, g.it).size
+  if (a === b) return
+  g.rot = !g.rot
+  g.gdx = 0
+  g.gdy = 0
+}
+function rotKey(e: KeyboardEvent) {
+  if (!drag.value?.moved || (e.key !== 'r' && e.key !== 'R')) return
+  e.preventDefault()
+  e.stopImmediatePropagation()
+  rotate()
+}
+function rotCtx(e: MouseEvent) {
+  if (!drag.value?.moved) return
+  e.preventDefault()
+  e.stopImmediatePropagation()
+  rotate()
+}
 function up(e: PointerEvent) {
+  if (e.button !== 0) return
   window.removeEventListener('pointermove', move)
   window.removeEventListener('pointerup', up)
+  window.removeEventListener('keydown', rotKey, true)
+  window.removeEventListener('contextmenu', rotCtx, true)
   const g = drag.value
   drag.value = null
   if (!g || !g.moved) return
@@ -57,14 +84,14 @@ function up(e: PointerEvent) {
   const kind = el.dataset.drop
   if (kind === 'cell') {
     const gx = Number(el.dataset.gx) - (g.from === 'bag' ? g.gdx : 0), gy = Number(el.dataset.gy) - (g.from === 'bag' ? g.gdy : 0)
-    if (g.from === 'bag') { const err = act({ type: 'moveItem', uid: g.it.uid, gx, gy }); if (err) hint.value = err; return }
+    if (g.from === 'bag') { const err = act({ type: 'moveItem', uid: g.it.uid, gx, gy, rot: g.rot }); if (err) hint.value = err; return }
     let err: string | null = null
     if (g.from === 'equip' && g.slot) err = doAct({ type: 'unequip', slot: g.slot })
     else if (g.from === 'loot') err = doAct({ type: 'lootTake', uid: g.it.uid })
     else if (g.from === 'floor') err = doAct({ type: 'pickup', uid: g.it.uid })
     if (!err) {
       const moved = player(w).bag.find((i) => i.uid === g.it.uid)
-      if (moved && fitsAt(w, player(w), itemDef(w, moved), gx, gy, moved.uid)) act({ type: 'moveItem', uid: moved.uid, gx, gy })
+      if (moved && fitsAt(w, player(w), itemDef(w, moved), gx, gy, moved.uid, g.rot)) act({ type: 'moveItem', uid: moved.uid, gx, gy, rot: g.rot })
     }
   } else if (kind === 'slot') {
     if (g.from === 'bag') doAct({ type: 'equip', uid: g.it.uid, slot: el.dataset.slot as Slot })
@@ -78,7 +105,7 @@ function up(e: PointerEvent) {
     assignHotbar({ kind: 'item', def: g.it.def })
   }
 }
-onBeforeUnmount(() => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up) })
+onBeforeUnmount(() => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('keydown', rotKey, true); window.removeEventListener('contextmenu', rotCtx, true) })
 
 function tip(e: MouseEvent, it: ItemInst) {
   if (drag.value?.moved) return
@@ -122,8 +149,14 @@ const menuItems = computed(() => {
 function pick(f: () => void) { menu.value = null; f() }
 
 function size(it: ItemInst): [number, number] {
-  return itemDef(world.value as World, it).size ?? [1, 1]
+  return itemSize(world.value as World, it)
 }
+const dragSize = computed<[number, number]>(() => {
+  const g = drag.value
+  if (!g) return [1, 1]
+  const [a, b] = itemDef(world.value as World, g.it).size
+  return g.rot ? [b, a] : [a, b]
+})
 const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a, b) >= 2 ? 64 : 32 }
 </script>
 
@@ -168,7 +201,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
             :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
-            <ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" />
+            <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
             <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
             <span v-if="it.lit" class="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
           </div>
@@ -209,8 +242,9 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
     <!-- 끄는 중인 아이템 -->
     <Teleport to="body">
-      <div v-if="drag?.moved" class="pointer-events-none fixed z-[9998] opacity-90" :style="{ left: drag.x - 16 + 'px', top: drag.y - 16 + 'px' }">
-        <ItemIcon :name="d.w.db.item(drag.it.def).sprite" />
+      <div v-if="drag?.moved" class="pointer-events-none fixed z-[9998] flex items-center justify-center border border-amber-400/70 bg-amber-200/10" :style="{ left: drag.x - drag.gdx * CELL - CELL / 2 + 'px', top: drag.y - drag.gdy * CELL - CELL / 2 + 'px', width: dragSize[0] * CELL + 'px', height: dragSize[1] * CELL + 'px' }">
+        <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" /></div>
+        <span class="absolute -bottom-4 left-0 whitespace-nowrap text-[10px] text-amber-200 [text-shadow:0_1px_0_#000]">R·우클릭: 돌리기</span>
       </div>
       <div v-if="menu" class="df df-celtic fixed z-[9998] !border-[10px] min-w-[120px]" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>
         <div class="mb-1 border-b border-[#4a4436] text-xs text-[#e8d7a8]">{{ itemLabel(d.w, menu.it) }}</div>

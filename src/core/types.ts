@@ -29,6 +29,8 @@ export interface BodyPartDef {
   height: Height
   internal?: boolean
   vital?: boolean
+  /** 파괴되면 24시간 뒤 사망 (간) */
+  delayedDeath?: boolean
   bone?: boolean
   artery?: boolean
   bleedMult?: number
@@ -137,6 +139,10 @@ export interface ItemDef extends DefBase {
   light?: { radius: number; fuelTurns: number }
   /** 등불 연료 보충량 (턴) */
   refuel?: number
+  /** 착/탈 턴 수 (13 §6.1). 없으면 1/1 */
+  equipTurns?: [number, number]
+  /** 둔중: 회피치에서 뺀다 (13 §6.2) */
+  bulk?: number
   uses?: number
 }
 
@@ -160,7 +166,7 @@ export interface CreatureDef extends DefBase {
   lightThreshold: number
   sightRange: number
   scentSense?: number
-  loadout?: { slots: { items: string[]; chance?: number }[] }
+  loadout?: { slots: { items: string[]; chance?: number; count?: [number, number] }[] }
   hunger?: [number, number]
   bestiary?: string[]
   /** 처치 경험치 */
@@ -196,9 +202,13 @@ export interface TerrainDef extends DefBase {
   passable: boolean
   opaque: boolean
   moveMult: number
+  /** 비틀거림 가산 % (01 §5.3) */
+  stumble?: number
   water?: 'shallow' | 'deep'
   door?: 'open' | 'closed'
   container?: string // LootTable id
+  /** 보관함 격자 [가로, 세로] (13: 야영지 보관함 12×8) */
+  stash?: [number, number]
   noiseMult?: number
 }
 
@@ -224,6 +234,10 @@ export interface BackgroundDef extends DefBase {
   stats?: Partial<Stats>
   skills: Record<string, number>
   passions?: Record<string, 1 | 2>
+  /** 시작 숙달 단계 (15 §9.1) */
+  mastery?: Partial<Record<'medicine' | 'survival', number>>
+  /** 시작 능력 포인트 가산 (몰락한 길드 상인 +1) */
+  bonusAbilityPoints?: number
   literate: boolean
   startItems: string[]
   startAbilities?: string[]
@@ -312,6 +326,10 @@ export interface ItemInst {
   /** 배낭 격자 위치 */
   gx?: number
   gy?: number
+  /** 90° 돌려 놓았는가 (13 §3, CANON D16) */
+  rot?: boolean
+  /** 입다가 끊겨 반쯤 걸친 상태: 방어·단열 50% (13 §6.1) */
+  half?: boolean
   durability?: number
   fuel?: number
   lit?: boolean
@@ -368,8 +386,9 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number }
 
 export interface Activity {
-  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press'
+  kind: 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip'
   remaining: number
+  slot?: Slot
   target?: Pos
   uid?: number
   woundId?: number
@@ -382,7 +401,7 @@ export interface Activity {
 }
 
 export interface AiState {
-  mode: 'idle' | 'wander' | 'hunt' | 'investigate' | 'flee' | 'eat' | 'surrender' | 'guard' | 'return'
+  mode: 'idle' | 'wander' | 'hunt' | 'investigate' | 'flee' | 'eat' | 'surrender' | 'guard' | 'return' | 'patrol'
   target?: number
   dest?: Pos
   lastSeen?: Pos
@@ -390,6 +409,10 @@ export interface AiState {
   hunger: number
   morale: number
   alertTurn?: number
+  /** 순찰 경로 (경유지 순서) · 현재 지점 · 대기 끝 턴 */
+  route?: Pos[]
+  routeIdx?: number
+  waitUntil?: number
 }
 
 export interface Creature {
@@ -405,8 +428,11 @@ export interface Creature {
   unconscious: boolean
   body: BodyState
   stats: Stats
-  skills: Record<string, number> // xp
+  /** 숙달 성공 횟수 (medicine·survival) */
+  skills: Record<string, number>
   passions: Record<string, number>
+  /** 숙달 카운트 기록 (같은 대상 1회, 시간당 3회) */
+  masteryLog?: { keys: string[]; hour: number; inHour: Record<string, number> }
   traits: string[]
   background?: string
   needs: Needs
@@ -427,7 +453,13 @@ export interface Creature {
   cooldowns: Record<string, number>
   sneaking?: boolean
   asleep?: boolean
+  /** 깊은 잠 (각성 임계 8, 14 §7.2) */
+  deepSleep?: boolean
   home?: Pos
+  /** 지연 사망 장기가 멎은 시각 */
+  organFailAt?: Record<string, number>
+  /** 거주하는 방 번호 (재점거 판정, 14 §9.3) */
+  room?: number
   mapId?: string
   ai: AiState
   activity?: Activity
@@ -439,6 +471,22 @@ export interface Creature {
   deathTurn?: number
   history: HistoryEvent[]
   literate?: boolean
+  /** 이 개체로 경험치를 이미 줬는가 (처치·항복·도주 중 한 번만) */
+  xpAwarded?: boolean
+  /** 재점거로 들어온 개체 (경험치 ×0.5, 14 §9.3) */
+  reoccupied?: boolean
+  /** 위기 극복 감시 (15 §3) */
+  crisis?: CrisisWatch
+}
+
+export interface CrisisWatch {
+  /** 종류 → 마지막으로 보상한 게임일 */
+  last: Record<string, number>
+  arterial: number[]
+  bleeding: boolean
+  wasUnconscious: boolean
+  wokeAt?: number
+  infectionWon?: boolean
 }
 
 export interface HistoryEvent { turn: number; kind: string; text: string }
@@ -463,9 +511,18 @@ export interface Tile {
   taint?: number
 }
 
-export interface MapProp { kind: string; x: number; y: number; w: number; h: number; anim?: string; blocks?: boolean }
+export interface MapProp { kind: string; x: number; y: number; w: number; h: number; anim?: string; blocks?: boolean; scale?: number }
 export interface MapLink { pos: Pos; to: string; toPos: Pos; label: string }
-export interface MapRoom { x: number; y: number; w: number; h: number; type: string; discovered: boolean; name: string }
+export interface MapRoom {
+  x: number; y: number; w: number; h: number; type: string; discovered: boolean; name: string
+  /** 원래 거주 편성 (종 id 목록) */
+  residents?: string[]
+  /** 정리된 시각(턴). 다시 차면 지운다 */
+  clearedAt?: number
+}
+
+/** 거주 인구 공급원 (14 §9.4) */
+export interface PopSource { id: string; label: string; species: string; count: number; cap: number; regenDays: number; floors: string[]; lastRegenDay: number; needsAlive?: string }
 export interface MapLight { pos: Pos; radius: number; kind: string }
 
 export interface MapState {
@@ -483,6 +540,8 @@ export interface MapState {
   rooms: MapRoom[]
   props: MapProp[]
   lights: MapLight[]
+  /** 장소 사건 경유지 (14 §10: 약탈자 야영지·숲 개울·수도원 입구) */
+  waypoints?: Record<string, Pos>
 }
 
 export type Weather = 'clear' | 'overcast' | 'ashrain'
@@ -536,6 +595,8 @@ export interface GameState {
   noiseEvents: { pos: Pos; radius: number; source: number; turn: number }[]
   /** 화면 연출용 이벤트 (렌더러가 소비) */
   fx: FxEvent[]
+  /** 거주 인구 공급원 (14 §9.4) */
+  sources?: PopSource[]
   /** 열려 있는 루팅 대상 */
   loot?: { pos: Pos; kind: 'cont' | 'floor' }
 }

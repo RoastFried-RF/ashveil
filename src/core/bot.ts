@@ -14,7 +14,8 @@ import { abilitiesByTree, canLearn } from './progression'
 import type { Stats } from './types'
 
 const STAT_ORDER: (keyof Stats)[] = ['agi', 'str', 'vit', 'agi', 'per', 'vit', 'wil']
-let lastLootTurn = -1
+/** 세계(상태)마다 '이번 턴에 이미 다 담았다' 표시 — 모듈 전역이면 두 세계가 섞인다 */
+const lastLootTurn = new WeakMap<object, number>()
 
 export function botDecide(w: World): Action {
   const pl = player(w)
@@ -34,8 +35,8 @@ export function botDecide(w: World): Action {
   // 열린 루팅 창: 한 번 다 담고 닫는다
   const list = lootItems(w)
   if (list) {
-    if (list.length && lastLootTurn !== turnOf(w)) {
-      lastLootTurn = turnOf(w)
+    if (list.length && lastLootTurn.get(w.s) !== turnOf(w)) {
+      lastLootTurn.set(w.s, turnOf(w))
       return { type: 'lootAll' }
     }
     return { type: 'lootClose' }
@@ -118,9 +119,10 @@ export function botDecide(w: World): Action {
       if (st !== null) return { type: 'move', dir: st }
     }
   }
-  if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35) return { type: 'sleep' }
+  const awakeNear = w.s.creatures.some((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && cheb(o.pos, pl.pos) <= 8)
+  if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35 && !awakeNear) return { type: 'sleep' }
   // 다쳤으면 다음 방으로 가기 전에 쉰다 (던전 탐험의 정석)
-  if (pl.hp < hpMax(w, pl) * 0.75 || bloodLoss(pl) > 0.12) return { type: 'rest', turns: 120 }
+  if ((pl.hp < hpMax(w, pl) * 0.75 || bloodLoss(pl) > 0.12) && !awakeNear) return { type: 'rest', turns: 120 }
 
   // 탐색: 바닥 → 용기 → 미발견 방 → 아래층
   if (tileAt(w, pl.pos).items.length) return { type: 'pickup' }

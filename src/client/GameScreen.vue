@@ -18,7 +18,7 @@ import InventoryWindow from './ui/InventoryWindow.vue'
 import JournalWindow from './ui/JournalWindow.vue'
 import StatusStrip from './ui/StatusStrip.vue'
 import Tooltip from './ui/Tooltip.vue'
-import { confirmTarget, doAct, hideTip, hint, startShoot, targeting, toggleWin, useHotbar, visibleEnemies, wins } from './ui'
+import { confirmTarget, doAct, hideTip, hint, logBig, startShoot, targeting, toggleWin, useHotbar, visibleEnemies, wins } from './ui'
 
 const hover = ref<Pos | null>(null)
 const shift = ref(false)
@@ -143,7 +143,7 @@ function onKey(e: KeyboardEvent) {
     case 'R': doAct({ type: 'rest', turns: 1200 }); break
     case 'z': case 'Z': doAct({ type: 'sleep' }); break
     case '>': case '<': case 'Enter': if (onStairs.value) doAct({ type: 'stairs' }); break
-    case 'L': doAct({ type: 'leave' }); break
+    case 'L': logBig.value = !logBig.value; break
     case 'f': startShoot(); break
     case 't': {
       const lamp = allItems(player(w.value)).find((i) => itemDef(w.value, i).light)
@@ -180,6 +180,7 @@ function onClick(p: Pos, button: number) {
   }
   if (d === 0) {
     if (terrainAt(ww, p).stairs) doAct({ type: 'stairs' })
+    else if (ww.s.map.exits.some((e) => e.x === p.x && e.y === p.y)) doAct({ type: 'leave' })
     else if (ww.s.map.tiles[p.y * ww.s.map.w + p.x].items.length) doAct({ type: 'pickup' })
     else doAct({ type: 'wait' })
     return
@@ -246,7 +247,8 @@ onBeforeUnmount(() => {
         <p><kbd>1</kbd>~<kbd>0</kbd> 빠른 슬롯(능력·아이템) · 능력은 대상 선택 후 <kbd>Enter</kbd>/클릭 · <kbd>f</kbd> 활 쏘기</p>
         <p><kbd>C</kbd> 캐릭터 · <kbd>I</kbd> 소지품 · <kbd>Shift+K</kbd> 능력 · <kbd>Shift+B</kbd> 신체 · <kbd>Shift+J</kbd> 일지 · <kbd>Esc</kbd> 창 닫기</p>
         <p><kbd>s</kbd> 곁의 용기 뒤지기 → 루팅 창 · <kbd>e</kbd> 모두 가져가기 · <kbd>g</kbd> 줍기 · <kbd>t</kbd> 등불 · <kbd>&gt;</kbd> 계단</p>
-        <p><kbd>.</kbd>/<kbd>Space</kbd> 한 턴 · <kbd>r</kbd> 10분 휴식 · <kbd>R</kbd> 1시간 · <kbd>z</kbd> 잠 · 소지품: 끌어서 옮기기/장착, 우클릭 메뉴</p>
+        <p><kbd>.</kbd>/<kbd>Space</kbd> 한 턴 · <kbd>r</kbd> 10분 휴식 · <kbd>R</kbd> 1시간 · <kbd>z</kbd> 잠 · <kbd>Shift+L</kbd> 기록 크게 · 소지품: 끌어서 옮기기/장착, 끄는 중 <kbd>R</kbd>·우클릭 돌리기, 우클릭 메뉴</p>
+        <p>남쪽 옛 수레길 끝(지역 출입구)에 서서 그 칸을 클릭하면 고원을 떠난다(탈출).</p>
         <h3 class="pt-1 font-title text-sm text-[#e8d7a8]">기억할 것</h3>
         <ul class="list-disc pl-5 text-ash-300">
           <li>적은 정해진 곳에 산다. 잠든 적은 기습하라(명중 95%, 피해 ×1.5). 잠행은 생존 능력.</li>

@@ -5,6 +5,7 @@ import { creatureAt, terrainAt, rng, inBounds, type World } from './ctx'
 import type { Pos } from './geom'
 import { addToInventory, equip, itemDef, makeItem } from './items'
 import { newNeeds } from './needs'
+import { setMasteryStage, type MasteryKind } from './skills'
 import type { BackgroundDef, Creature, TraitDef } from './types'
 
 const NAMES = ['에다', '로반', '케스', '미르', '타일', '브랜', '유나', '하렌', '오슬', '세린', '도겸', '아라', '베일', '노아', '카이', '린']
@@ -55,7 +56,7 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
   for (const k of Object.keys(c.stats) as (keyof typeof c.stats)[]) c.stats[k] = Math.max(3, c.stats[k] + r.int(-1, 1))
   for (const slot of def.loadout?.slots ?? []) {
     if (slot.chance !== undefined && !r.chance(slot.chance)) continue
-    const it = makeItem(w, r.pick(slot.items))
+    const it = makeItem(w, r.pick(slot.items), slot.count ? r.int(slot.count[0], slot.count[1]) : 1)
     addToInventory(w, c, it)
     const idef = itemDef(w, it)
     if (idef.slot && !c.equip[idef.slot === 'ring' ? 'ring1' : idef.slot]) equip(w, c, it.uid)
@@ -84,16 +85,18 @@ export function createPlayer(w: World, pos: Pos, bgId?: string): Creature {
   const c = createCreature(w, 'Creature.Drifter', pos, r.pick(NAMES))
   c.background = bg.id
   c.stats = { str: 10, agi: 10, per: 10, vit: 10, wil: 10, ...bg.stats }
-  c.skills = { ...bg.skills }
-  c.passions = { ...(bg.passions ?? {}) }
+  // 숙련 폐지(D23): 의료·생존 숙달만, 배경이 시작 단계를 준다 (15 §9.1)
+  c.skills = {}
+  c.passions = {}
+  for (const [k, st] of Object.entries(bg.mastery ?? {})) setMasteryStage(c, k as MasteryKind, st ?? 0)
   c.literate = bg.literate
   c.traits = pickTraits(w, bg, 2 + (r.chance(0.3) ? 1 : 0))
   c.facing = 0
   c.nextAct = w.s.time
   c.bag = []
   c.equip = {}
-  c.abilityPoints = 1
-  c.statPoints = 1
+  c.abilityPoints = 2 + (bg.bonusAbilityPoints ?? 0) // 15 §4: 시작 능력 포인트 2 + 배경 무료 능력
+  c.statPoints = 0
   c.abilities = [...(bg.startAbilities ?? [])]
   for (const id of bg.startItems) addToInventory(w, c, makeItem(w, id))
   for (const it of [...c.bag]) {

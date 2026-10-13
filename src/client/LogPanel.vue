@@ -4,10 +4,10 @@ import { computed, nextTick, ref, watch } from 'vue'
 import { fmtClock } from '../core'
 import { KIND_CLASS } from './format'
 import { version, world } from './store'
+import { logBig as big } from './ui'
 
 const box = ref<HTMLDivElement>()
 const open = ref<Set<number>>(new Set())
-const big = ref(false)
 const entries = computed(() => {
   void version.value
   const log = world.value?.s.log ?? []

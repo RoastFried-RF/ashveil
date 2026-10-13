@@ -232,6 +232,7 @@ export class MapRenderer {
       if (k === 'statue' || k === 'sarcophagus') {
         const s = new Sprite(tex(k))
         s.anchor.set(0.5, 1)
+        if (p.scale) s.scale.set(p.scale)
         s.position.set((p.x + p.w / 2) * T, (p.y + p.h) * T)
         s.zIndex = (p.y + p.h) * T - 1
         this.objs.addChild(s)
@@ -359,14 +360,12 @@ export class MapRenderer {
         s = new Sprite(tex(terr.door === 'open' ? 'door_open' : 'door_closed'))
         s.anchor.set(0, 1)
         s.position.set(px, py + T)
-      } else if (terr.container && tile.t !== 'Terrain.Sarcophagus') {
+      } else if (terr.container && !terr.wall && tile.t !== 'Terrain.Sarcophagus') {
         const opened = !!tile.searched
-        const name = tile.t === 'Terrain.Pot' ? (opened ? 'pot2' : `pot${h % 2}`)
-          : tile.t === 'Terrain.Chest' ? (opened ? 'chest2' : 'chest0')
-            : tile.t === 'Terrain.RedChest' ? (opened ? 'chest_red2' : 'chest_red0')
-              : tile.t === 'Terrain.Crate' ? (opened ? 'crate2' : 'crate0')
-                : tile.t === 'Terrain.Fungus' ? 'mushrooms'
-                  : tile.t === 'Terrain.Remains' ? 'skull' : 'crate0'
+        // 지형 Def의 첫 스프라이트를 쓰고, 열린 용기는 '…2' 프레임(열린 뚜껑)이 있으면 그것으로
+        const base = terr.sprites?.[0] ?? 'crate0'
+        let name = base === 'pot0' && !opened ? `pot${h % 2}` : base
+        if (opened && hasFrame(base.replace(/0$/, '2'))) name = base.replace(/0$/, '2')
         s = new Sprite(tex(name))
         s.anchor.set(0.5, 1)
         s.position.set(px + T / 2, py + T)

@@ -2,7 +2,7 @@
 // 기본: 이동·공격 = 1턴(100TU). 치료·수색·수면 등은 여러 턴.
 
 import { useAbility } from './abilities'
-import { capacity, isMissing, part, regionPenalties, woundDef } from './body'
+import { bloodLoss, capacity, energyMax, isMissing, painTotal, part, regionPenalties, woundDef } from './body'
 import { canReach, fx, resolveAttack } from './combat'
 import { creatureAt, creatureById, inBounds, log, rng, terrainAt, tileAt, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import { cheb, DIRS, eq, type Pos } from './geom'
@@ -14,8 +14,8 @@ import { addThought } from './needs'
 import { diagonalBlocked } from './path'
 import { emitNoise } from './perception'
 import { learnAbility, spendStat } from './progression'
-import { practice, skillLevel } from './skills'
-import { addEffect, traitAdd, traitMul, traitOverride } from './traits'
+import { masteryStage, practice } from './skills'
+import { addEffect, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, HotbarRef, ItemInst, Slot, Stats, Wound } from './types'
 
 export type Action =
@@ -29,7 +29,7 @@ export type Action =
   | { type: 'drop'; uid: number }
   | { type: 'equip'; uid: number; slot?: Slot }
   | { type: 'unequip'; slot: Slot }
-  | { type: 'moveItem'; uid: number; gx: number; gy: number }
+  | { type: 'moveItem'; uid: number; gx: number; gy: number; rot?: boolean }
   | { type: 'search' }
   | { type: 'lootTake'; uid: number }
   | { type: 'lootAll' }
@@ -60,10 +60,39 @@ const FREE: ActResult = { ok: true, tu: 0 }
 
 function isPl(c: Creature) { return c.faction === 'player' }
 
-export function moveTU(w: World, c: Creature, to: Pos): number {
-  const terr = terrainAt(w, to)
-  const base = c.sneaking ? 200 : 100
-  return Math.round(base * terr.moveMult / Math.max(0.3, capacity(w, c, 'moving')))
+/** 이동 = 1턴(01 §4). 잠행 2턴, 양다리 불구면 기어가기 2턴 */
+export function moveTU(w: World, c: Creature, _to: Pos): number {
+  if (regionPenalties(w, c).crawl) return 200
+  return c.sneaking ? 200 : 100
+}
+
+/** 다턴 행동 배율 (01 §5.1, 프로토타입 부분집합): 쓰는 팔 · 피로 · 통증 · 실혈 · 추위 · 어둠. 상한 ×4 */
+export function multiTurnFactor(w: World, c: Creature): number {
+  let f = regionPenalties(w, c).multiTurn
+  const n = c.needs
+  f *= n.fatigue > 90 ? 1.3 : n.fatigue > 75 ? 1.15 : n.fatigue > 60 ? 1.05 : 1
+  const pain = painTotal(w, c)
+  f *= pain >= 120 ? 1.3 : pain >= 80 ? 1.15 : pain >= 40 ? 1.05 : 1
+  const loss = bloodLoss(c)
+  f *= loss >= 0.3 ? 1.2 : loss >= 0.15 ? 1.05 : 1
+  f *= n.bodyTemp < 34 ? 1.5 : n.bodyTemp < 35 ? 1.25 : n.bodyTemp < 36 ? 1.1 : 1
+  return Math.min(4, f)
+}
+
+/** 비틀거림% = clamp(0, 60, 왼다리 + 오른다리 + 지형 + 몸) (01 §5.2) */
+export function stumbleChance(w: World, c: Creature, to: Pos): number {
+  const pen = regionPenalties(w, c)
+  if (pen.crawl) return 0
+  let p = pen.stumble + (terrainAt(w, to).stumble ?? 0)
+  if (tileAt(w, to).taint) p += 5 // 포자 바닥
+  if (tileAt(w, to).blood > 20) p += 5
+  const loss = bloodLoss(c)
+  if (loss >= 0.3) p += 10
+  else if (loss >= 0.15) p += 5
+  if (painTotal(w, c) >= 120) p += 5
+  if (hasEffect(c, 'alcohol', turnOf(w))) p += 5
+  if (capacity(w, c, 'consciousness') < 0.6) p += 10
+  return Math.max(0, Math.min(60, Math.round(p)))
 }
 
 export function hostile(a: Creature, b: Creature): boolean {
@@ -129,11 +158,11 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       }
       if (!terr.passable) return FAIL(`${terr.label}에 막혔다`)
       if (diagonalBlocked(w, c.pos, d.x, d.y)) return FAIL('모서리에 끼어 지나갈 수 없다')
-      // 다리를 크게 다치면 비틀거린다 
-      const stumble = regionPenalties(w, c).stumble
-      if (stumble > 0 && r.chance(stumble)) {
-        fx(w, { k: 'status', id: c.id, text: '비틀!', color: '#e0b070', turn })
-        if (isPl(c)) log(w, 'warn', '다친 다리가 꺾여 비틀거렸다.')
+      // 비틀거림 (01 §5.2): 다리 상태 + 지형 + 몸, 상한 60%. 양다리 불구면 기어간다(2턴, 판정 없음)
+      const sp = stumbleChance(w, c, to)
+      if (sp > 0 && r.chance(sp / 100)) {
+        fx(w, { k: 'status', id: c.id, text: '휘청', color: '#e0b070', turn })
+        if (isPl(c)) log(w, 'warn', `발이 꺾여 휘청였다. (비틀거림 ${sp}%)`)
         return { ok: true, tu: 100 }
       }
       const tu = moveTU(w, c, to)
@@ -141,8 +170,10 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       c.pos = to
       c.facing = a.dir
       fx(w, { k: 'move', id: c.id, from, to, turn })
-      let noise = 2 * (terr.noiseMult ?? 1)
-      for (const it of Object.values(c.equip)) if (it) noise += itemDef(w, it).apparel?.noise ?? 0
+      // 걷기 소음: 맨몸 2와 입은 옷 중 가장 큰 값 하나 (13 §6.2)
+      let noise = 2
+      for (const it of Object.values(c.equip)) if (it) noise = Math.max(noise, itemDef(w, it).apparel?.noise ?? 0)
+      noise *= terr.noiseMult ?? 1
       noise *= traitMul(w, c, 'noiseMult') * (c.sneaking ? 0.3 : 1)
       if (noise >= 2.5) emitNoise(w, to, Math.round(noise), c.id)
       for (const wd of c.body.wounds) {
@@ -176,10 +207,10 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const atk = (mw ? itemDef(w, mw).attack : undefined) ?? w.db.creature(c.def).naturalAttack
       if (!atk) return FAIL('공격 수단이 없다')
       if (atk.requiresCapacity && capacity(w, c, atk.requiresCapacity) < 0.1) return FAIL('공격할 수 없는 상태다')
-      if (c.needs.stamina < 3 && isPl(c)) log(w, 'warn', '기력이 바닥났다. 공격이 무디다.')
+      if (c.needs.stamina < atk.stamina && isPl(c)) log(w, 'warn', '기력이 바닥났다. 공격이 무디다.')
       if (t.ai.mode === 'surrender' && isPl(c)) c.history.push({ turn, kind: 'execute', text: `항복한 ${t.name}을(를) 공격` })
       resolveAttack(w, c, t)
-      return { ok: true, tu: c.needs.stamina < 5 ? 150 : 100 }
+      return { ok: true, tu: 100 }
     }
 
     case 'shoot': {
@@ -246,20 +277,37 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (!it) return FAIL('없다')
       const def = itemDef(w, it)
       if (def.light && !def.slot) return perform(w, c, { type: 'toggleLight', uid: a.uid })
-      const err = equip(w, c, a.uid, a.slot)
-      if (err) return FAIL(err)
-      if (isPl(c)) log(w, 'info', `${def.label}을(를) ${def.apparel ? '입었다' : '들었다'}.`)
-      return { ok: true, tu: def.apparel ? 200 : 100 }
+      // 착용 턴 (13 §6.1). 반쯤 걸친 옷은 남은 절반만
+      const base = def.equipTurns?.[0] ?? 1
+      const turns = Math.ceil((it.half ? base / 2 : base) * multiTurnFactor(w, c))
+      if (turns <= 1) {
+        const err = equip(w, c, a.uid, a.slot)
+        if (err) return FAIL(err)
+        it.half = undefined
+        if (isPl(c)) log(w, 'info', `${def.label}을(를) ${def.apparel ? '입었다' : '들었다'}.`)
+        return { ok: true, tu: 100 }
+      }
+      c.activity = { kind: 'equip', remaining: turns, uid: a.uid, slot: a.slot, label: `${def.label} 입기` }
+      return { ok: true, tu: 0 }
     }
 
     case 'unequip': {
-      const err = unequip(w, c, a.slot)
-      if (err) return FAIL(err)
-      return { ok: true, tu: 100 }
+      const it = c.equip[a.slot]
+      if (!it) return FAIL('비어 있다')
+      const def = itemDef(w, it)
+      const turns = Math.ceil((def.equipTurns?.[1] ?? 1) * multiTurnFactor(w, c))
+      if (turns <= 1) {
+        const err = unequip(w, c, a.slot)
+        if (err) return FAIL(err)
+        it.half = undefined
+        return { ok: true, tu: 100 }
+      }
+      c.activity = { kind: 'unequip', remaining: turns, slot: a.slot, uid: it.uid, label: `${def.label} 벗기` }
+      return { ok: true, tu: 0 }
     }
 
     case 'moveItem':
-      return moveInBag(w, c, a.uid, a.gx, a.gy) ? FREE : FAIL('그 자리에 들어가지 않는다')
+      return moveInBag(w, c, a.uid, a.gx, a.gy, a.rot) ? FREE : FAIL('그 자리에 들어가지 않는다')
 
     case 'search': {
       // 아직 안 뒤진 용기를 먼저, 없으면 이미 연 용기를 다시 연다
@@ -304,6 +352,13 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     case 'lootPut': {
       const list = lootItems(w)
       if (!list) return FAIL('넣을 곳이 없다')
+      // 보관함은 칸 수가 정해져 있다 (야영지 보관함 12×8)
+      const stash = w.s.loot ? terrainAt(w, w.s.loot.pos).stash : undefined
+      const held = findItem(c, a.uid)
+      if (stash && held) {
+        const cells = (i: ItemInst) => { const [x, y] = itemDef(w, i).size; return x * y }
+        if (list.reduce((n, i) => n + cells(i), 0) + cells(held) > stash[0] * stash[1]) return FAIL('보관함에 자리가 없다')
+      }
       const it = removeStack(c, a.uid)
       if (!it) return FAIL('없다')
       list.push(it)
@@ -347,7 +402,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       c.hp -= 4
       emitNoise(w, c.pos, 9, c.id)
       addThought(w, c, 'Thought.Cauterized')
-      practice(w, c, 'medicine', 8)
+      practice(w, c, 'medicine', `wound:${wd.id}`)
       fx(w, { k: 'status', id: c.id, text: '지글…', color: '#ff9040', turn })
       if (isPl(c)) {
         log(w, 'warn', `달군 칼날을 ${part(w, c, wd.part).label}에 댄다. 살 타는 냄새. 비명이 새어 나온다. 출혈은 멎었다.`)
@@ -379,7 +434,6 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const def = itemDef(w, it)
       if (!def.unidentified) return FAIL('살펴볼 필요가 없다')
       if (w.s.knowledge.pillKnown[it.def]) return FAIL('이미 아는 약이다')
-      if (skillLevel(c, 'medicine') < 15) return FAIL('의료 숙달 15 이상이어야 감별할 수 있다')
       c.activity = { kind: 'examine', remaining: 30, uid: it.uid, label: `${def.label} 감별` }
       return { ok: true, tu: 0 }
     }
@@ -405,7 +459,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       })
       if (!near) return FAIL('물이 없다')
       it.def = 'Item.DirtyWaterBottle'
-      it.uses = 2
+      it.uses = 5 // 1,000ml = 200ml × 5 (13 §4)
       if (isPl(c)) log(w, 'info', '흐린 물을 병에 채웠다.')
       return { ok: true, tu: 150 }
     }
@@ -477,7 +531,8 @@ function dirtyWater(w: World, c: Creature) {
 }
 
 function treatTU(w: World, c: Creature, base: number): number {
-  const speed = 1 - Math.min(0.6, traitAdd(w, c, 'treatSpeed') + skillLevel(c, 'medicine') / 200)
+  // 응급 처치 ×0.6, 의료 숙달 5단계 ×0.9 (15 §9.3)
+  const speed = (1 - Math.min(0.6, traitAdd(w, c, 'treatSpeed'))) * (masteryStage(c, 'medicine') >= 5 ? 0.9 : 1)
   return Math.max(100, Math.round(base / Math.max(0.25, capacity(w, c, 'manipulation')) * speed))
 }
 
@@ -494,7 +549,8 @@ function treat(w: World, c: Creature, uid: number, woundId?: number, limb?: stri
       if (!wd) return FAIL('상처를 골라야 한다')
       if (wd.internal) return FAIL('몸속 상처는 붕대로 막을 수 없다')
       if (wd.bandage && wd.bandage.quality === 'clean') return FAIL('이미 깨끗한 붕대가 감겨 있다')
-      const skillBonus = (1 - Math.min(0.4, skillLevel(c, 'medicine') / 100)) / (1 + traitAdd(w, c, 'bandageBonus'))
+      // 처치 품질 Q +4/단계 → 출혈 배율에서 단계당 4%p 덜어 낸다
+      const skillBonus = (1 - masteryStage(c, 'medicine') * 0.04) / (1 + traitAdd(w, c, 'bandageBonus'))
       wd.bandage = {
         quality: med.quality ? 'clean' : 'dirty',
         infectionMult: med.infectionMult ?? 1,
@@ -502,7 +558,7 @@ function treat(w: World, c: Creature, uid: number, woundId?: number, limb?: stri
         arterialMult: (med.arterialBleedMult ?? 0.7) * skillBonus,
       }
       removeOne(w, c, uid)
-      practice(w, c, 'medicine', 10)
+      practice(w, c, 'medicine', `wound:${wd.id}`)
       fx(w, { k: 'status', id: c.id, text: '붕대', color: '#e8e0c8', turn })
       if (isPl(c)) {
         let msg = `${part(w, c, wd.part).label}의 ${woundDef(w, wd).label}에 ${def.label}을(를) 감았다.`
@@ -519,7 +575,7 @@ function treat(w: World, c: Creature, uid: number, woundId?: number, limb?: stri
       if (isMissing(w, c, lb)) return FAIL('그 팔다리는 이미 없다')
       c.body.tourniquets[lb] = turn
       removeOne(w, c, uid)
-      practice(w, c, 'medicine', 8)
+      practice(w, c, 'medicine', `limb:${lb}`)
       if (isPl(c)) log(w, 'info', `${part(w, c, lb).label}에 지혈대를 단단히 감았다. 두 시간 안에 풀어야 한다.`)
       return { ok: true, tu: treatTU(w, c, med.tu) }
     }
@@ -529,7 +585,7 @@ function treat(w: World, c: Creature, uid: number, woundId?: number, limb?: stri
       if (target.splinted) return FAIL('이미 부목을 댔다')
       target.splinted = true
       removeOne(w, c, uid)
-      practice(w, c, 'medicine', 10)
+      practice(w, c, 'medicine', `wound:${target.id}`)
       if (isPl(c)) log(w, 'info', `${part(w, c, target.part).label}에 부목을 댔다. 욱신거림이 조금 가라앉는다.`)
       return { ok: true, tu: treatTU(w, c, med.tu) }
     }
@@ -540,7 +596,7 @@ function treat(w: World, c: Creature, uid: number, woundId?: number, limb?: stri
       if (wd.infection) wd.infection.progress = Math.max(0, wd.infection.progress - 10)
       it.uses = (it.uses ?? 1) - 1
       if ((it.uses ?? 0) <= 0) removeOne(w, c, uid)
-      practice(w, c, 'medicine', 6)
+      practice(w, c, 'medicine', `wound:${wd.id}`)
       if (isPl(c)) log(w, 'info', `${part(w, c, wd.part).label}의 상처에 술을 부었다. 타는 듯이 쓰라리다.`)
       return { ok: true, tu: treatTU(w, c, med.tu) }
     }
@@ -639,7 +695,7 @@ export function applyPillEffect(w: World, c: Creature, effect: string, duration:
     case 'painkiller': addEffect(c, 'analgesic', turn + duration); break
     case 'stimulant':
       addEffect(c, 'stimulant', turn + duration)
-      c.needs.stamina = 50 + c.stats.wil * 5
+      c.needs.stamina = energyMax(w, c)
       c.needs.fatigue = Math.max(0, c.needs.fatigue - 40)
       break
     case 'antibiotic': addEffect(c, 'antibiotic', turn + duration); break
@@ -677,7 +733,7 @@ export function activityStep(w: World, c: Creature): boolean {
         t.searched = true
         if (!t.cont) t.cont = { items: terr.container ? rollLoot(w, terr.container) : [], opened: true, kind: terr.id }
         t.cont.opened = true
-        practice(w, c, 'survival', 3)
+        practice(w, c, 'survival', `search:${act.target.x},${act.target.y}`)
         emitNoise(w, c.pos, terr.id === 'Terrain.Sarcophagus' ? 8 : 3, c.id)
         fx(w, { k: 'status', id: c.id, text: t.cont.items.length ? '발견!' : '빈 통', color: t.cont.items.length ? '#e0c060' : '#a0a0a0', turn: turnOf(w) })
         if (isPl(c)) {
@@ -686,17 +742,36 @@ export function activityStep(w: World, c: Creature): boolean {
         }
       }
       break
+    case 'equip':
+      if (act.remaining <= 0 && act.uid !== undefined) {
+        const it = findItem(c, act.uid)
+        const err = it ? equip(w, c, act.uid, act.slot) : '없다'
+        if (it && !err) {
+          it.half = undefined
+          if (isPl(c)) log(w, 'info', `${itemDef(w, it).label}을(를) 다 입었다.`)
+        } else if (isPl(c)) log(w, 'warn', `입지 못했다: ${err}`)
+      }
+      break
+    case 'unequip':
+      if (act.remaining <= 0 && act.slot) {
+        const it = c.equip[act.slot]
+        const err = unequip(w, c, act.slot)
+        if (it && !err) it.half = undefined
+        if (err && isPl(c)) log(w, 'warn', `벗지 못했다: ${err}`)
+      }
+      break
     case 'examine':
       if (act.remaining <= 0 && act.uid !== undefined) {
         const it = findItem(c, act.uid)
         if (it) {
           const r = rng(w, 'body')
-          const ch = (skillLevel(c, 'medicine') - 10) / 40
+          // 감별 (06): 감별치 = 지각 + 의료 숙달 × 5, 성공 = 50 + (감별치 − 난이도 25) × 3 %
+          const ch = (50 + (c.stats.per + masteryStage(c, 'medicine') * 5 - 25) * 3) / 100
           if (r.chance(Math.min(0.9, ch))) {
             const eff = w.s.knowledge.pillMap[it.def]
             w.s.knowledge.pillKnown[it.def] = eff
             if (isPl(c)) log(w, 'good', `${itemDef(w, it).label}의 정체를 알아냈다: ${w.db.pill(eff).label}.`)
-            practice(w, c, 'medicine', 15)
+            practice(w, c, 'medicine', `pill:${it.def}`)
           } else if (isPl(c)) log(w, 'info', '냄새와 색만으로는 알 수 없었다.')
         }
       }

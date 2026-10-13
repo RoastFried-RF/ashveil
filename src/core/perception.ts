@@ -1,7 +1,7 @@
 // 소음·냄새 전파. 벽은 소리를 줄이고, 바람은 냄새를 실어 나른다.
 
 import { capacity, totalBleed } from './body'
-import { isOpaque, log, player, turnOf, type World } from './ctx'
+import { isOpaque, log, player, terrainAt, turnOf, type World } from './ctx'
 import { cheb, dirIndex, DIR_LABELS, line, type Pos } from './geom'
 import { allItems, itemDef } from './items'
 import type { Creature } from './types'
@@ -30,8 +30,15 @@ export function emitNoise(w: World, pos: Pos, radius: number, sourceId: number) 
       continue
     }
     if (c.asleep) {
-      if (d <= eff / 2) {
+      // 각성 판정 (14 §7.2): 도달 세기 = 소음 − 거리 − 가로막힘(벽 2·닫힌 문 4) + 청각 보정 ≥ 임계(얕은 잠 3 · 깊은 잠 8, 포자 +2 · 말라붙은 자 −1)
+      let block = 0
+      for (const p of line(c.pos, pos)) { const t = terrainAt(w, p); if (t.door === 'closed') block += 4; else if (t.opaque) block += 2 }
+      const strength = radius - d - block + Math.round((capacity(w, c, 'hearing') - 1) * 3)
+      const cid = c.def
+      const thr = (c.deepSleep ? 8 : 3) + (cid === 'Creature.SporeMan' ? 2 : 0) + (cid === 'Creature.Withered' || cid === 'Creature.WitheredPriest' ? -1 : 0)
+      if (strength >= thr) {
         c.asleep = false
+        c.deepSleep = undefined
         c.ai.alertTurn = turnOf(w)
         w.s.fx.push({ k: 'status', id: c.id, text: '!', color: '#ffd060', turn: turnOf(w) })
       } else continue

@@ -2,7 +2,7 @@
 // 캐릭터: 초상·배경·특성 / 능력치(+포인트) / 파생치 / 숙달
 import { computed } from 'vue'
 import {
-  attackScore, currentAttack, energyMax, evasion, hpMax, insulation, mood, player, sightRange, skillLevel, xpToNext,
+  attackScore, currentAttack, energyMax, evasion, hpMax, insulation, mood, player, sightRange, masteryCount, masteryNext, masteryStage, MASTERY_LABEL, xpToNext, xpTotalFor,
   STAT_LABEL, type Stats, type World,
 } from '../../core'
 import { frameCss } from '../render/atlas'
@@ -25,7 +25,7 @@ const d = computed(() => {
   const w = world.value as World
   const pl = player(w)
   const atk = currentAttack(w, pl)
-  const prev = pl.level > 1 ? xpToNext(pl.level - 1) : 0
+  const prev = xpTotalFor(pl.level)
   return {
     pl,
     bg: pl.background ? w.db.background(pl.background) : null,
@@ -37,7 +37,7 @@ const d = computed(() => {
       ['시야', sightRange(w, pl)], ['단열', insulation(w, pl)], ['기분', mood(w, pl).toFixed(0)],
       ['무기', atk ? `${atk.label} ${atk.damage}` : '맨손'],
     ] as [string, string | number][],
-    skills: Object.keys(pl.skills).filter((k) => w.db.has(k)).map((k) => ({ label: w.db.skill(k).label, lv: skillLevel(pl, k) })),
+    skills: (['medicine', 'survival'] as const).map((k) => ({ label: `${MASTERY_LABEL[k]} 숙달`, lv: `${masteryStage(pl, k)}단계 (${masteryCount(pl, k)}/${masteryNext(pl, k) ?? '최고'})` })),
     xp: pl.xp - prev, xpMax: xpToNext(pl.level) - prev,
   }
 })
@@ -75,7 +75,7 @@ const d = computed(() => {
       <div v-for="[k, v] in d.derived" :key="k" class="flex justify-between border-b border-[#2e2a22] py-0.5"><span class="text-ash-400">{{ k }}</span><span class="font-mono text-ash-100">{{ v }}</span></div>
     </div>
     <div v-if="d.skills.length" class="mt-3 text-xs">
-      <div class="mb-1 font-title text-sm text-[#e8d7a8]">숙달 (쓰면 오른다)</div>
+      <div class="mb-1 font-title text-sm text-[#e8d7a8]">숙달 (성공할수록 오른다 · 같은 대상 1회 · 시간당 3회)</div>
       <div class="grid grid-cols-2 gap-x-4">
         <div v-for="s in d.skills" :key="s.label" class="flex justify-between"><span class="text-ash-300">{{ s.label }}</span><span class="font-mono">{{ s.lv }}</span></div>
       </div>

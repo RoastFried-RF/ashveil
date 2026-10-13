@@ -1,28 +1,36 @@
-// 스토리텔러(장소 기반): 적은 맵 가장자리에서 솟아나지 않는다.
-// 이미 존재하는 거점(약탈자 야영지)의 무리가 밤에 순찰을 나서는 식으로만 사건이 일어난다.
+// 장소 기반 사건 (10 · 14 §10): 적은 맵 가장자리에서 솟아나지 않는다.
+// 이미 있는 거점(약탈자 야영지)의 사람들이 정해진 경로를 걸어서 순찰한다.
 
-import { log, rng, turnOf, type World } from './ctx'
-import { isNight } from './environment'
+import { log, rng, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 
-/** 순찰 간격(턴). 100TU=1턴=3초 → 7200턴 ≈ 6시간 */
-export const PATROL_COOLDOWN = 7200
+/** 순찰: 매일 06:00, 야영지 인원 ≥ 4이면 50% → 2~3명 (두목 제외), 경유지마다 30분 대기 */
+export const PATROL_HOUR = 6
+export const PATROL_CHANCE = 0.5
+export const PATROL_MIN_CAMP = 4
+export const PATROL_WAIT = TURNS_PER_HOUR / 2
 
 export function storytellerTick(w: World) {
   const st = w.s.storyteller
   const turn = turnOf(w)
-  if (w.s.map.kind !== 'surface' || turn % 100 !== 0) return
-  if (!isNight(w) || turn - st.lastEventTurn < PATROL_COOLDOWN) return
-  const reavers = w.s.creatures.filter((c) => c.alive && c.faction === 'reavers' && !c.asleep && c.ai.mode === 'guard' && c.def === 'Creature.Reaver')
-  if (reavers.length < 2) return
+  const map = w.s.map
+  if (map.kind !== 'surface' || !map.waypoints) return
+  if (turn % TURNS_PER_DAY !== PATROL_HOUR * TURNS_PER_HOUR || st.lastEventTurn === turn) return
+  st.lastEventTurn = turn
+  const camp = w.s.creatures.filter((c) => c.alive && c.faction === 'reavers' && c.ai.mode !== 'flee' && c.ai.mode !== 'surrender')
+  if (camp.length < PATROL_MIN_CAMP) return
   const r = rng(w, 'story')
-  const stairs = w.s.map.links[0]?.pos
-  if (!stairs) return
-  for (const c of r.shuffle([...reavers]).slice(0, 2)) {
-    c.ai.mode = 'investigate'
-    c.ai.dest = { x: stairs.x + r.int(-3, 3), y: stairs.y + 7 + r.int(0, 3) }
+  if (!r.chance(PATROL_CHANCE)) return
+  const pool = camp.filter((c) => c.def !== 'Creature.ReaverChief' && !c.unconscious && c.ai.mode !== 'hunt')
+  const n = Math.min(pool.length, r.int(2, 3))
+  const wp = map.waypoints
+  for (const c of r.shuffle([...pool]).slice(0, n)) {
+    c.asleep = false
+    c.ai.mode = 'patrol'
+    c.ai.route = [wp.stream, wp.monastery, c.home ?? wp.reaverCamp]
+    c.ai.routeIdx = 0
+    c.ai.waitUntil = undefined
     c.ai.path = undefined
   }
-  st.lastEventTurn = turn
   st.history.push({ turn, event: 'Event.ReaverPatrol' })
   log(w, 'flavor', w.db.event('Event.ReaverPatrol').hint ?? '')
 }

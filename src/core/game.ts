@@ -2,7 +2,7 @@
 
 import { activityStep, perform, type Action, hostile } from './actions'
 import { aiDecide } from './ai'
-import { bodyTick, deathCause } from './body'
+import { bloodLoss, bodyTick, deathCause, effectiveBleed, totalBleed } from './body'
 import { killCreature } from './combat'
 import { log, player, rng, START_TURN, turnOf, TU_PER_TURN, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 import { createCreature, createPlayer } from './creatures'
@@ -10,15 +10,15 @@ import type { DefDatabase } from './defs'
 import { weatherTick } from './environment'
 import { canSee, invalidateLights, updatePlayerVision } from './fov'
 import { cheb, eq, type Pos } from './geom'
-import { allItems } from './items'
+import { addToInventory, allItems, equip } from './items'
 import { generateDungeon, generateSurface, type GenResult } from './mapgen'
 import { needsTick, psycheTick } from './needs'
-import { gainXp } from './progression'
+import { awardCrisis, gainXp } from './progression'
 import { buildReport } from './report'
 import { RNG_STREAMS, Rng, seedState } from './rng'
 import { storytellerTick } from './storyteller'
 import { hasEffect } from './traits'
-import type { Activity, Creature, GameState, MapState, PillEffectDef } from './types'
+import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
 export const SAVE_VERSION = 2
 export { START_TURN } from './ctx'
@@ -34,8 +34,14 @@ function populate(w: World, gen: GenResult): Creature[] {
   for (const sp of gen.spawns) {
     const c = createCreature(w, sp.def, sp.pos)
     c.asleep = !!sp.asleep
+    if (sp.asleep && sp.deep) c.deepSleep = true
     c.home = sp.home ? { ...sp.home } : { ...sp.pos }
     c.mapId = gen.map.id
+    if (sp.room !== undefined) {
+      c.room = sp.room
+      const R = gen.map.rooms[sp.room]
+      if (R) (R.residents ??= []).push(sp.def)
+    }
     out.push(c)
   }
   return out
@@ -90,7 +96,19 @@ export function changeMap(w: World, toId: string) {
   const s = w.s
   const pl = player(w)
   const fromId = s.map.id
-  s.offCreatures[fromId] = s.creatures.filter((c) => c.id !== pl.id && (c.alive || turnOf(w) - (c.deathTurn ?? 0) < 2400))
+  markCleared(w, s.map, s.creatures)
+  // 따라오기 (14 §8): 플레이어를 추적 중이고 인접한 적. 사기 ≥ 40 (사기 없는 종은 항상).
+  // 그늘 사람은 지상으로 나오지 않고, 융합체는 대성소를 떠나지 않는다
+  const followers = s.creatures.filter((c) => {
+    if (!c.alive || c.id === pl.id || c.asleep || c.unconscious || !hostile(c, pl)) return false
+    if (c.ai.mode !== 'hunt' || c.ai.target !== pl.id || cheb(c.pos, pl.pos) > 1) return false
+    if (c.def === 'Creature.Amalgam') return false
+    if (toId === 'surface' && (c.def === 'Creature.Shade' || c.def === 'Creature.ShadeChief')) return false
+    const noMorale = c.def === 'Creature.Withered' || c.def === 'Creature.WitheredPriest' || c.def === 'Creature.SporeMan'
+    return noMorale || c.ai.morale >= 40
+  })
+  // 시체는 남는다 (증거·뼈, 14 §9.2) — 지우지 않는다
+  s.offCreatures[fromId] = s.creatures.filter((c) => c.id !== pl.id && !followers.includes(c))
   s.maps[fromId] = s.map
   ;(s.map as MapState & { leftAt?: number }).leftAt = turnOf(w)
   let target = s.maps[toId]
@@ -107,39 +125,41 @@ export function changeMap(w: World, toId: string) {
   const arrival = target.links.find((l) => l.to === fromId)?.pos ?? { x: 1, y: 1 }
   const others = s.offCreatures[toId] ?? []
   delete s.offCreatures[toId]
-  // 재점거: 하루 넘게 비운 던전의 정리된 방
+  // 재진입 정산 (14 §9.2): 일 단위 과정만 — 공급원 회복, 정리된 방 재점거
   const leftAt = (target as MapState & { leftAt?: number }).leftAt
-  if (!firstVisit && target.kind === 'dungeon' && leftAt !== undefined && turnOf(w) - leftAt > TURNS_PER_DAY) {
-    const r = rng(w, 'story')
-    const empty = target.rooms.filter((R, i) => R.type !== 'entry' && R.type !== 'boss' && !others.some((c) => c.alive && c.pos.x >= R.x && c.pos.x < R.x + R.w && c.pos.y >= R.y && c.pos.y < R.y + R.h) && i > 0)
-    if (empty.length) {
-      const R = r.pick(empty)
-      for (let i = 0; i < r.int(1, 2); i++) {
-        const c = createCreature(w, 'Creature.Shade', { x: R.x + r.int(0, R.w - 1), y: R.y + r.int(0, R.h - 1) })
-        c.home = { x: R.x + Math.floor(R.w / 2), y: R.y + Math.floor(R.h / 2) }
-        others.push(c)
-      }
-      log(w, 'flavor', w.db.event('Event.Reoccupy').hint ?? '')
-    }
-  }
+  if (!firstVisit && leftAt !== undefined) settleReentry(w, target, others, leftAt)
   s.creatures = [pl, ...others]
   for (const c of others) c.nextAct = Math.max(c.nextAct, s.time) + 50
   pl.pos = freeNear(w, arrival)
   pl.mapId = toId
-  pl.nextAct = s.time
+  pl.nextAct = s.time + TU_PER_TURN // 계단 1턴
+  for (const f of followers) {
+    s.creatures.push(f)
+    f.pos = freeNear(w, pl.pos, true)
+    f.mapId = toId
+    f.room = undefined
+    f.home = undefined
+    f.ai.path = undefined
+    f.nextAct = s.time + TU_PER_TURN
+  }
+  const goingUp = target.depth < (s.maps[fromId]?.depth ?? 0)
+  if (followers.length) log(w, 'danger', `${followers.map((f) => f.name).join(', ')}이(가) 계단을 따라 ${goingUp ? '올라왔다' : '내려왔다'}!`)
   s.loot = undefined
   s.visible = []
   updatePlayerVision(w, pl)
   log(w, 'info', `${target.name}${target.kind === 'dungeon' ? ' — 축축한 냉기와 썩은 향 냄새.' : '. 바깥 공기다.'}`)
-  if (firstVisit && target.kind === 'dungeon') gainXp(w, pl, 20 * target.depth, target.name)
+  // 골절을 안고 층을 빠져나감 20 (15 §3)
+  if (pl.body.wounds.some((wd) => wd.fracture)) awardCrisis(w, pl, 'fracture', 20, '부러진 뼈를 안고 층을 빠져나왔다')
+  // 층 첫 진입 25 · 50 · 100 (15 §3)
+  if (firstVisit && target.kind === 'dungeon') gainXp(w, pl, [0, 25, 50, 100][target.depth] ?? 100, target.name)
 }
 
-function freeNear(w: World, p: Pos): Pos {
+function freeNear(w: World, p: Pos, avoidPlayer = false): Pos {
   for (let r = 0; r < 4; r++) for (let dy = -r; dy <= r; dy++) for (let dx = -r; dx <= r; dx++) {
     const q = { x: p.x + dx, y: p.y + dy }
     if (q.x < 0 || q.y < 0 || q.x >= w.s.map.w || q.y >= w.s.map.h) continue
     if (!w.db.terrain(w.s.map.tiles[q.y * w.s.map.w + q.x].t).passable) continue
-    if (w.s.creatures.some((c) => c.alive && eq(c.pos, q) && c.id !== w.s.playerId)) continue
+    if (w.s.creatures.some((c) => c.alive && eq(c.pos, q) && (avoidPlayer || c.id !== w.s.playerId))) continue
     return q
   }
   return p
@@ -158,7 +178,7 @@ function discoverRoom(w: World, pl: Creature) {
   R.discovered = true
   if (R.type === 'entry') return
   log(w, 'info', `${R.name}에 들어섰다.`)
-  gainXp(w, pl, 5 + w.s.map.depth * 2, R.name)
+  gainXp(w, pl, 5, R.name)
 }
 
 /** 턴 경계마다 1회: 모든 생물의 신체·생존, 날씨, 사건 */
@@ -170,7 +190,10 @@ function globalTurnTick(w: World) {
     const sleeping = isSleeping(c) || !!c.asleep
     needsTick(w, c, sleeping)
     bodyTick(w, c, sleeping)
-    if (c.faction === 'player') psycheTick(w, c)
+    if (c.faction === 'player') {
+      psycheTick(w, c)
+      crisisTick(w, c)
+    }
     for (const it of allItems(c)) {
       if (it.lit && it.fuel !== undefined) {
         it.fuel--
@@ -261,6 +284,7 @@ export function runUntilInput(w: World, maxSteps = 300000) {
         if (why) {
           log(w, 'warn', `${actor.activity.label} 중단: ${why}`)
           if (actor.activity.kind === 'sleep') sleepQuality(w, actor)
+          halfEquip(w, actor)
           actor.activity = undefined
           updatePlayerVision(w, actor)
           return
@@ -319,4 +343,115 @@ export function playerAct(w: World, action: Action): string | null {
   if (res.tu > 0 || act) runUntilInput(w)
   else updatePlayerVision(w, pl)
   return null
+}
+
+/** 위기 극복 감시 (15 §3): 동맥 지혈 30 · 실혈 30% 후 출혈 정지 30 · 기절 후 100턴 생존 30 · 감염 경주 승리 40 */
+function crisisTick(w: World, pl: Creature) {
+  const cw = (pl.crisis ??= { last: {}, arterial: [], bleeding: false, wasUnconscious: false })
+  const turn = turnOf(w)
+  const arterialNow = pl.body.wounds.filter((wd) => wd.arterial && effectiveBleed(w, pl, wd) > 0).map((wd) => wd.id)
+  if (cw.arterial.some((id) => !arterialNow.includes(id))) awardCrisis(w, pl, 'arterial', 30, '동맥 출혈을 멈췄다')
+  cw.arterial = arterialNow
+  const bleed = totalBleed(w, pl)
+  if (cw.bleeding && bleed <= 0 && bloodLoss(pl) >= 0.3) awardCrisis(w, pl, 'bloodloss', 30, '피를 쏟고도 출혈을 모두 막았다')
+  cw.bleeding = bleed > 0
+  if (cw.wasUnconscious && !pl.unconscious) cw.wokeAt = turn
+  cw.wasUnconscious = pl.unconscious
+  if (cw.wokeAt !== undefined && turn - cw.wokeAt >= 100) {
+    cw.wokeAt = undefined
+    awardCrisis(w, pl, 'woke', 30, '정신을 잃었다가 살아남았다')
+  }
+  if (cw.infectionWon) {
+    cw.infectionWon = false
+    awardCrisis(w, pl, 'infection', 40, '감염과의 경주에서 이겼다')
+  }
+}
+
+/** 입다가 끊기면 반쯤 걸친 채로 남는다: 방어·단열 50% (13 §6.1) */
+function halfEquip(w: World, c: Creature) {
+  const act = c.activity
+  if (act?.kind !== 'equip' || act.uid === undefined || (act.elapsed ?? 0) <= 0) return
+  const it = allItems(c).find((i) => i.uid === act.uid)
+  if (!it || equip(w, c, act.uid, act.slot)) return
+  it.half = true
+  log(w, 'warn', `${w.db.item(it.def).label}을(를) 반쯤 걸친 채 멈췄다. (방어 50%)`)
+}
+
+// ── 재점거 (14 §9.3 · §9.4, CANON D20) ─────────────────────
+
+export const REOCCUPY_GRACE_DAYS = 3
+export const REOCCUPY_CHANCE = 0.15
+const DAY_BOUNDARY_HOUR = 6
+
+export function initialSources(): PopSource[] {
+  return [
+    { id: 'conduit', label: '관로 하단', species: 'Creature.Shade', count: 18, cap: 24, regenDays: 4, floors: ['crypt1', 'crypt2'], lastRegenDay: 0 },
+    { id: 'pilgrims', label: '순례길', species: 'Creature.SporeMan', count: 4, cap: 6, regenDays: 7, floors: ['crypt1', 'crypt3'], lastRegenDay: 0 },
+    { id: 'ward', label: '납골당 병동', species: 'Creature.Withered', count: 0, cap: 4, regenDays: 10, floors: ['crypt2', 'crypt3'], lastRegenDay: 0, needsAlive: 'Creature.Amalgam' },
+  ]
+}
+
+/** 방 거주자 전원이 사망·도주·항복했고 플레이어가 그 방을 봤으면 '정리됨' */
+export function markCleared(w: World, map: MapState, creatures: Creature[]) {
+  const turn = turnOf(w)
+  map.rooms.forEach((R, i) => {
+    if (!R.residents?.length || R.clearedAt !== undefined || !R.discovered) return
+    const holding = creatures.some((c) => c.room === i && c.alive && c.ai.mode !== 'surrender' && c.faction !== 'player')
+    if (!holding) R.clearedAt = turn
+  })
+}
+
+function bossAlive(w: World, defId: string): boolean {
+  const all = [...w.s.creatures, ...Object.values(w.s.offCreatures).flat()]
+  return all.some((c) => c.def === defId && c.alive)
+}
+
+/** 06:00 경계마다: 공급원 회복 → 유예가 끝난 정리된 방마다 15% 재점거 */
+export function settleReentry(w: World, map: MapState, residents: Creature[], leftAt: number) {
+  const s = w.s
+  const sources = (s.sources ??= initialSources())
+  const r = rng(w, 'story')
+  const now = turnOf(w)
+  markCleared(w, map, residents)
+  const firstBoundary = Math.ceil((leftAt - DAY_BOUNDARY_HOUR * TURNS_PER_HOUR) / TURNS_PER_DAY) * TURNS_PER_DAY + DAY_BOUNDARY_HOUR * TURNS_PER_HOUR
+  let came = 0
+  for (let t = firstBoundary; t <= now; t += TURNS_PER_DAY) {
+    const day = Math.floor(t / TURNS_PER_DAY)
+    for (const src of sources) {
+      if (src.needsAlive && !bossAlive(w, src.needsAlive)) { src.lastRegenDay = day; continue }
+      while (day - src.lastRegenDay >= src.regenDays) {
+        src.lastRegenDay += src.regenDays
+        src.count = Math.min(src.cap, src.count + 1)
+      }
+    }
+    map.rooms.forEach((R, i) => {
+      if (R.clearedAt === undefined || t - R.clearedAt < REOCCUPY_GRACE_DAYS * TURNS_PER_DAY) return
+      if (!r.chance(REOCCUPY_CHANCE)) return
+      const options = sources.filter((src) => src.floors.includes(map.id) && src.count >= 1 && R.residents!.includes(src.species))
+      if (!options.length) return
+      const src = r.pick(options)
+      const orig = R.residents!.filter((d) => d === src.species).length
+      const n = Math.min(src.count, Math.max(1, Math.floor(orig * r.range(0.5, 1))))
+      for (let k = 0; k < n; k++) {
+        const c = createCreature(w, src.species, { x: R.x + r.int(0, R.w - 1), y: R.y + r.int(0, R.h - 1) })
+        c.reoccupied = true
+        c.room = i
+        c.mapId = map.id
+        c.home = { x: R.x + Math.floor(R.w / 2), y: R.y + Math.floor(R.h / 2) }
+        c.asleep = r.chance(w.db.creature(src.species).sleepChance ?? 0.3)
+        // 방 안의 바닥 물건은 점거자가 주워 간다 (13 §20)
+        if (k === 0) {
+          for (let y = R.y; y < R.y + R.h; y++) for (let x = R.x; x < R.x + R.w; x++) {
+            const tl = map.tiles[y * map.w + x]
+            for (const it of tl.items.splice(0)) addToInventory(w, c, it)
+          }
+        }
+        residents.push(c)
+      }
+      src.count -= n
+      R.clearedAt = undefined
+      came += n
+    })
+  }
+  if (came) log(w, 'flavor', w.db.event('Event.Reoccupy').hint ?? '')
 }

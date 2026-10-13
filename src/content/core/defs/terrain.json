@@ -57,7 +57,8 @@
       "skull"
     ],
     "moveMult": 1.0,
-    "noiseMult": 1.6
+    "noiseMult": 1.6,
+    "stumble": 5
   },
   {
     "defType": "Terrain",
@@ -87,7 +88,8 @@
     "id": "Terrain.Shelf",
     "parent": "Terrain.Wall",
     "label": "서가",
-    "description": "곰팡이 슨 책들. 대부분 읽을 수 없다."
+    "description": "기울어진 서가. 뒤지면 무언가 나올지도 모른다.",
+    "container": "Loot.Shelf"
   },
   {
     "defType": "Terrain",
@@ -299,7 +301,8 @@
     "floor": "kt",
     "sprites": [],
     "water": "shallow",
-    "noiseMult": 1.5
+    "noiseMult": 1.5,
+    "stumble": 10
   },
   {
     "defType": "Terrain",
@@ -310,5 +313,60 @@
     "passable": false,
     "opaque": false,
     "moveMult": 1
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.GuardChest",
+    "parent": "Terrain.Chest",
+    "label": "경비실 상자",
+    "container": "Loot.GuardChest",
+    "sprites": [
+      "chest0"
+    ]
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Altar",
+    "parent": "Terrain.Chest",
+    "label": "제단 상자",
+    "container": "Loot.Altar",
+    "sprites": [
+      "chest_red0"
+    ]
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.StoreCrate",
+    "parent": "Terrain.Crate",
+    "label": "창고 궤짝",
+    "container": "Loot.Storage",
+    "sprites": [
+      "crate0"
+    ]
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.CampChest",
+    "parent": "Terrain.Crate",
+    "label": "약탈물 상자",
+    "container": "Loot.ReaverCamp",
+    "sprites": [
+      "crate0"
+    ]
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Stash",
+    "parent": "Terrain.Chest",
+    "label": "야영지 보관함",
+    "description": "12×8 칸. 짐을 두고 다닐 수 있다.",
+    "container": "Loot.Empty",
+    "stash": [
+      12,
+      8
+    ],
+    "sprites": [
+      "chest0"
+    ]
   }
 ]

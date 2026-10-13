@@ -9,6 +9,8 @@ import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { countOf, itemDef, mainWeapon } from './items'
 import { diagonalBlocked, findPath } from './path'
 import { emitNoise, smells } from './perception'
+import { awardDefeat } from './progression'
+import { PATROL_WAIT } from './storyteller'
 import type { Creature } from './types'
 
 function visibleHostiles(w: World, c: Creature): Creature[] {
@@ -143,12 +145,14 @@ export function aiDecide(w: World, c: Creature): Action {
     if (atEdge && threats.every((t) => cheb(t.pos, c.pos) > 3)) {
       c.alive = false
       c.deathCause = 'escaped'
+      if (c.body.wounds.some((wd) => wd.source.startsWith(pl.name))) awardDefeat(w, pl, c, 0.5, '도주시킴')
       if (canSee(w, pl, c.pos)) log(w, 'info', `${c.name}이(가) 지도 밖으로 사라졌다.`)
       return { type: 'wait' }
     }
     // 궁지에 몰린 사람은 항복
     if (cdef.ai === 'raider' && threats.some((t) => cheb(t.pos, c.pos) <= 1) && (ai.morale < 5 || capacity(w, c, 'moving') < 0.35)) {
       ai.mode = 'surrender'
+      if (threats.some((t) => t.id === pl.id)) awardDefeat(w, pl, c, 1, '항복시킴')
       const mw = mainWeapon(w, c)
       if (mw) {
         c.equip.main = undefined
@@ -206,14 +210,14 @@ export function aiDecide(w: World, c: Creature): Action {
   }
 
   // 거점 경비는 일정 거리 이상 쫓지 않는다 (보스 7칸, 경비 14칸)
-  if (target && c.home && (cdef.ai === 'boss' || cdef.ai === 'guard') && cheb(target.pos, c.home) > (cdef.ai === 'boss' ? 7 : 14)) {
+  if (target && c.home && !ai.route && (cdef.ai === 'boss' || cdef.ai === 'guard') && cheb(target.pos, c.home) > (cdef.ai === 'boss' ? 7 : 14)) {
     target = undefined
     if (ai.mode === 'hunt') { ai.mode = 'return'; ai.path = undefined }
   }
   if (target) {
     if (ai.mode !== 'hunt' && isGuard && turn - (ai.alertTurn ?? -999) > 20) {
       ai.alertTurn = turn
-      emitNoise(w, c.pos, 6, c.id) // 가까운 동료만 깨운다
+      emitNoise(w, c.pos, 12, c.id) // 소리쳐 동료를 깨운다 (14 §7.3: 소음 12)
       fx(w, { k: 'status', id: c.id, text: '!', color: '#ff5050', turn })
       if (canSee(w, pl, c.pos)) log(w, 'warn', cdef.ai === 'boss' ? `${c.name}이(가) 꿈틀거리며 몸을 일으킨다. 방 전체가 울린다.` : `${c.name}이(가) 당신을 발견했다.`)
     }
@@ -262,6 +266,25 @@ export function aiDecide(w: World, c: Creature): Action {
       if (st) return st
       ai.mode = 'wander'
     }
+  }
+
+  // 순찰 (14 §10): 경유지마다 30분 대기, 마지막은 거점 → 경비로 복귀
+  if (ai.route?.length) {
+    if (ai.mode !== 'patrol') ai.mode = 'patrol'
+    const i = ai.routeIdx ?? 0
+    const goal = ai.route[i]
+    if (cheb(c.pos, goal) <= 1) {
+      const last = i >= ai.route.length - 1
+      if (ai.waitUntil === undefined) ai.waitUntil = turn + (last ? 0 : PATROL_WAIT)
+      if (turn >= ai.waitUntil) {
+        ai.waitUntil = undefined
+        ai.routeIdx = i + 1
+        if (last) { ai.route = undefined; ai.routeIdx = undefined; ai.mode = isGuard ? 'guard' : 'wander' }
+      }
+      return { type: 'wait' }
+    }
+    const st = stepToward(w, c, goal)
+    if (st) return st
   }
 
   // 경비형: 거점 근처에 머문다

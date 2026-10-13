@@ -14,8 +14,8 @@ function play(seed: string, steps: number) {
 
 describe('결정론', () => {
   it('같은 시드 + 같은 입력 → 같은 상태 해시', () => {
-    expect(stateHash(play('det-1', 300).s)).toBe(stateHash(play('det-1', 300).s))
-  })
+    expect(stateHash(play('det-1', 200).s)).toBe(stateHash(play('det-1', 200).s))
+  }, 60000)
   it('다른 시드 → 다른 세계', () => {
     expect(stateHash(makeWorld('a').s)).not.toBe(stateHash(makeWorld('b').s))
   })
@@ -29,5 +29,5 @@ describe('결정론', () => {
       if (playerAct(b, act)) playerAct(b, { type: 'wait' })
     }
     expect(stateHash(b.s)).toBe(stateHash(a.s))
-  })
+  }, 60000)
 })

@@ -178,7 +178,7 @@ const REQUIRED: Record<string, string[]> = {
   Terrain: ['label', 'sprites', 'passable', 'opaque', 'moveMult'],
   LootTable: ['rolls', 'entries'],
   Trait: ['label', 'description'],
-  Background: ['label', 'description', 'skills', 'startItems'],
+  Background: ['label', 'description', 'startItems'],
   Thought: ['label', 'mood', 'durationTurns'],
   Event: ['label', 'cost', 'weight'],
   PillEffect: ['label', 'description', 'effect', 'durationTurns'],

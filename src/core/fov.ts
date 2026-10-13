@@ -99,7 +99,7 @@ export function lightAt(w: World, p: Pos): number {
     if (!c.alive) continue
     const src = lightSource(w, c)
     if (!src) continue
-    const r = w.db.item(src.def).light!.radius
+    const r = src.radius
     const d2 = dist2(c.pos, p)
     if (d2 > r * r) continue
     if (d2 > 0 && !hasLos(w, c.pos, p)) continue

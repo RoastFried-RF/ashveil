@@ -10,29 +10,30 @@ import { cheb, dirDelta, dirIndex, type Pos } from './geom'
 import { allItems, apparelItems, currentAttack, itemDef, makeItem } from './items'
 import { addThought } from './needs'
 import { emitNoise } from './perception'
-import { gainXp } from './progression'
+import { awardDefeat } from './progression'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { AbilityAttackMods, ArmorCategory, AttackDef, BodyPartDef, Creature, DamageType, FxEvent } from './types'
 
 const SIZE_EVASION: Record<string, number> = { tiny: 8, small: 4, medium: 0, large: -8 }
 const SIZE_RANK: Record<string, number> = { tiny: 0, small: 1, medium: 2, large: 3 }
 
-/** 회피치 = (민첩 − 10) × 2 + 장비·능력 보정 + 크기 − 다리 상태, × 이동 능력 */
+/** 회피치 = (민첩 − 10) × 2 + 장비·능력 보정 + 크기, 양수면 × 다리 계수 (02 §2.0.3) */
 export function evasion(w: World, c: Creature): number {
   if (c.unconscious || c.asleep || c.ai.mode === 'surrender' || hasEffect(c, 'knockedDown', turnOf(w))) return -100
   const cdef = w.db.creature(c.def)
   let e = (c.stats.agi - 10) * 2 + (cdef.evasion ?? 0) + traitAdd(w, c, 'evasion') + (SIZE_EVASION[cdef.sizeClass] ?? 0)
-  e -= regionPenalties(w, c).evasion
-  e *= capacity(w, c, 'moving')
-  if (c.needs.stamina < 10) e -= 10
-  if (c.equip.chest && c.equip.chest.def === 'Item.ScrapMail') e -= 4
+  if (e > 0) e *= regionPenalties(w, c).evasionCoef
+  // 둔중 (13 §6.2): 무게 대신 쓰는 몸놀림 감점
+  for (const it of Object.values(c.equip)) if (it) e -= itemDef(w, it).bulk ?? 0
   return e
 }
 
 /** 공격치 = 무기 정확도 + (민첩 − 10) × 1.5 + (지각 − 10) + 보정 */
 export function attackScore(w: World, a: Creature, atk: AttackDef): number {
-  return (atk.accuracy ?? 10) + (a.stats.agi - 10) * 1.5 + (a.stats.per - 10)
-    + traitAdd(w, a, 'hitBonus') + traitAdd(w, a, 'hitBonus_' + atk.skill) - regionPenalties(w, a).hit
+  // 머리 상태는 지각도 깎는다 (02 §2.0.3)
+  const pen = regionPenalties(w, a)
+  return (atk.accuracy ?? 10) + (a.stats.agi - 10) * 1.5 + (a.stats.per - pen.per - 10)
+    + traitAdd(w, a, 'hitBonus') + traitAdd(w, a, 'hitBonus_' + atk.skill) - pen.hit
 }
 
 export function facingRelation(defender: Creature, attackerPos: Pos): 'front' | 'side' | 'back' {
@@ -62,6 +63,9 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   add('통증', -pain * 2)
   const manip = capacity(w, a, 'manipulation')
   if (manip < 0.95 && atk.skill !== 'bite') add('손 상태', -Math.min(12, Math.round((1 - manip) * 20)))
+  // 기력: 25 미만 −5, 바닥 −15 (07 §6)
+  if (a.needs.stamina <= 0) add('기력 바닥', -15)
+  else if (a.needs.stamina < 25) add('기력 부족', -5)
   if (a.needs.fatigue > 80) add('피로', -10)
   if (a.needs.bodyTemp < 35) add('추위 떨림', -10)
   if (hasEffect(a, 'alcohol', turnOf(w))) add('취기', -5)
@@ -157,8 +161,8 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   const sneakAttack = !!d.asleep
 
   a.exerted = true
-  // 기본 공격은 기력을 거의 쓰지 않는다 (능력은 별도 비용)
-  a.needs.stamina = Math.max(0, a.needs.stamina - (opts.abilityLabel ? 0 : atk.stamina * 0.15))
+  // 기본 공격은 무기 기력 전부, 능력은 능력 비용으로 대체 (07 §2.7 · §6)
+  a.needs.stamina = Math.max(0, a.needs.stamina - (opts.abilityLabel ? 0 : atk.stamina))
   a.facing = dirIndex(d.pos.x - a.pos.x, d.pos.y - a.pos.y)
   fx(w, { k: 'attack', id: a.id, target: d.id, turn })
   emitNoise(w, a.pos, (atk.noise ?? 4) + 1, a.id)
@@ -235,7 +239,7 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   const deflectDiv = traitAdd(w, a, 'deflectHalf') > 0 ? 4 : 2
   for (const { it, def } of covering) {
     const cat = armorCategory(dtype)
-    const armorVal = (def.apparel!.armor[cat] ?? 0) * (it.durability !== undefined ? 0.5 + 0.5 * it.durability / def.apparel!.durability : 1)
+    const armorVal = (def.apparel!.armor[cat] ?? 0) * (it.durability !== undefined ? 0.5 + 0.5 * it.durability / def.apparel!.durability : 1) * (it.half ? 0.5 : 1)
     const eff = armorVal - pen
     if (mods?.armorDamage) it.durability = Math.max(0, (it.durability ?? 0) - mods.armorDamage)
     if (eff <= 0) continue
@@ -374,11 +378,13 @@ export function killCreature(w: World, c: Creature, cause: string) {
   if (c.id !== pl.id) {
     if (pl.alive) {
       const b = (w.s.knowledge.bestiary[c.def] ??= { seen: 0, fought: 0, killed: 0 })
-      if (c.lastAttacker?.startsWith(pl.name)) {
+      // 사망 원인 기여: 플레이어가 준 상처가 하나라도 남아 있으면 전액 (15 §3)
+      const byPlayer = c.lastAttacker?.startsWith(pl.name) || c.body.wounds.some((wd) => wd.source.startsWith(pl.name))
+      if (byPlayer) {
         b.killed++
         if (c.faction === 'reavers') addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
         else addThought(w, pl, 'Thought.KilledBeast')
-        gainXp(w, pl, w.db.creature(c.def).xp ?? 10, c.name)
+        awardDefeat(w, pl, c, 1, '처치')
       } else addThought(w, pl, 'Thought.SawDeath')
     }
     log(w, 'combat', `${c.name}이(가) 쓰러졌다. (${cause})`)

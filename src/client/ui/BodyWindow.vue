@@ -3,7 +3,7 @@
 import { computed } from 'vue'
 import {
   allItems, bloodLoss, capacity, effectiveBleed, hasBlade, hpMax, itemDef, painLabel, painTotal, part, partRegion, player,
-  regionHealth, regionPenalties, regionState, skillLevel, totalBleed, turnOf, woundDef,
+  regionHealth, regionPenalties, regionState, masteryStage, totalBleed, turnOf, woundDef,
   REGION_LABEL, STATE_LABEL, type ItemInst, type Region, type Wound, type World,
 } from '../../core'
 import { STATE_COLOR } from '../info'
@@ -22,7 +22,7 @@ const d = computed(() => {
   const pl = player(w)
   const inv = allItems(pl)
   const find = (pred: (i: ItemInst) => boolean) => inv.find(pred)
-  const med = skillLevel(pl, 'medicine')
+  const med = masteryStage(pl, 'medicine')
   const bandage = find((i) => i.def === 'Item.Bandage') ?? find((i) => itemDef(w, i).medical?.kind === 'bandage')
   const tourniquet = find((i) => itemDef(w, i).medical?.kind === 'tourniquet')
   const splint = find((i) => itemDef(w, i).medical?.kind === 'splint')
@@ -38,7 +38,7 @@ const d = computed(() => {
   const wounds = pl.body.wounds.map((wd: Wound) => {
     const def = woundDef(w, wd)
     const pd = part(w, pl, wd.part)
-    const hidden = wd.internal && med < 25
+    const hidden = wd.internal && med < 2 // 의료 숙달 2: 원인 불명 혈액 감소 경고 (15 §9.3)
     return {
       wd, hidden, limb: pd.limb, region: REGION_LABEL[partRegion(w, pl, wd.part)],
       label: hidden ? '몸속 출혈 (부위 불명)' : `${pd.label} · ${def.label}`,
@@ -58,7 +58,7 @@ const d = computed(() => {
     pain: painTotal(w, pl),
     pen: [
       pen.hit ? `명중 −${pen.hit}` : '', pen.damageMult < 1 ? `피해 ×${pen.damageMult}` : '', pen.block ? `막기 −${pen.block}` : '',
-      pen.evasion ? `회피 −${pen.evasion}` : '', pen.stumble ? `비틀거림 ${Math.round(pen.stumble * 100)}%` : '', pen.energyRegen < 1 ? `기력 회복 ×${pen.energyRegen}` : '',
+      pen.per ? `지각 −${pen.per}` : '', pen.evasionCoef < 1 ? `회피 ×${pen.evasionCoef}` : '', pen.stumble ? `비틀거림 +${pen.stumble}%` : '', pen.energyMax < 1 ? `최대 기력 ×${pen.energyMax}` : '', pen.energyRegen < 1 ? `기력 회복 ×${pen.energyRegen}` : '', pen.multiTurn > 1 ? `다턴 행동 ×${pen.multiTurn}` : '',
     ].filter(Boolean),
     caps: [['의식', capacity(w, pl, 'consciousness')], ['이동', capacity(w, pl, 'moving')], ['조작', capacity(w, pl, 'manipulation')], ['시야', capacity(w, pl, 'sight')], ['호흡', capacity(w, pl, 'breathing')]] as [string, number][],
     tqs: Object.entries(pl.body.tourniquets).map(([limb, at]) => ({ limb, label: part(w, pl, limb).label, minutes: Math.floor(((turnOf(w) - at) * 3) / 60) })),
@@ -115,7 +115,7 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
           <span>지혈대: {{ t.label }} · <b :class="t.minutes > 90 ? 'text-blood-300' : 'text-amber-300'">{{ t.minutes }}분</b> (120분 넘으면 괴사)</span>
           <button class="dbtn" @click="act({ type: 'removeTourniquet', limb: t.limb })">풀기</button>
         </div>
-        <div class="font-title text-sm text-[#e8d7a8]">상처 {{ d.wounds.length }}개 <span class="text-xs text-ash-500">(의료 {{ d.med }})</span></div>
+        <div class="font-title text-sm text-[#e8d7a8]">상처 {{ d.wounds.length }}개 <span class="text-xs text-ash-500">(의료 숙달 {{ d.med }}단계)</span></div>
         <p v-if="!d.wounds.length" class="text-ash-500">멀쩡하다.</p>
         <ul class="space-y-1.5" data-testid="wounds">
           <li v-for="x in d.wounds" :key="x.wd.id" class="df df-tab" :data-testid="`wound-${x.wd.id}`">

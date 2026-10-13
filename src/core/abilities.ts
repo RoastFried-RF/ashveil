@@ -6,6 +6,7 @@ import { creatureAt, creatureById, inBounds, log, rng, terrainAt, turnOf, type W
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex, type Pos } from './geom'
 import { currentAttack, itemDef } from './items'
+import { energyMax } from './body'
 import { addEffect } from './traits'
 import type { AbilityDef, Creature } from './types'
 
@@ -34,7 +35,8 @@ function weaponLabel(skill: string): string {
 
 function payCost(w: World, c: Creature, d: AbilityDef) {
   c.needs.stamina -= d.energy ?? 0
-  c.cooldowns[d.id] = turnOf(w) + (d.cooldown ?? 0)
+  // t 에 쓰면 t+1 … t+N 동안 못 쓰고 t+N+1 에 다시 쓴다 (15 §5)
+  c.cooldowns[d.id] = turnOf(w) + (d.cooldown ?? 0) + 1
   c.exerted = (d.energy ?? 0) > 0
 }
 
@@ -60,7 +62,8 @@ export function useAbility(w: World, c: Creature, id: string, targetId?: number)
   }
   if (d.self) {
     payCost(w, c, d)
-    if (d.self.energyPct) c.needs.stamina = Math.min(50 + c.stats.wil * 5, c.needs.stamina + (50 + c.stats.wil * 5) * d.self.energyPct)
+    // 숨 고르기: 현재 최대 기력(몸통 보정 포함)의 비율만큼 (15 §6.6)
+    if (d.self.energyPct) c.needs.stamina = Math.min(energyMax(w, c), c.needs.stamina + energyMax(w, c) * d.self.energyPct)
     if (d.self.painRelief) addEffect(c, 'breath', turn + (d.self.turns ?? 3) + 1, d.self.painRelief)
     if (isPl) log(w, 'info', `${d.label}. 숨이 고르게 돌아온다.`)
     w.s.fx.push({ k: 'status', id: c.id, text: d.label, color: '#8fc0a0', turn })

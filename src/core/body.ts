@@ -263,6 +263,11 @@ export function deathCause(w: World, c: Creature): string | null {
   const def = bodyDef(w, c)
   for (const p of def.parts) {
     if (p.vital && partHealth(w, c, p.id) <= 0) return `${p.label} 파괴`
+    // 간처럼 즉사는 아니지만 기능이 멎으면 24시간 뒤 죽는 장기 (02 §2.0.1)
+    if (p.delayedDeath && partHealth(w, c, p.id) <= 0) {
+      const since = (c.organFailAt ??= {})[p.id] ??= turnOf(w)
+      if (turnOf(w) - since >= TURNS_PER_DAY) return `${p.label} 기능 정지`
+    }
   }
   // 몸통(뿌리 부위) 자체 파괴는 즉사가 아니다: 체력(HP)이 생사를 가르고, 몸통은 '불구' 상태로 벌칙만 준다
   if (c.body.missing.includes('Neck') || c.body.missing.includes('Head')) return '머리 절단'
@@ -329,7 +334,10 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
       inf.immunity += imm / TURNS_PER_DAY
       if (inf.immunity >= 100) {
         wd.infection = undefined
-        if (c.faction === 'player') log(w, 'good', `${part(w, c, wd.part).label}의 감염을 이겨냈다.`)
+        if (c.faction === 'player') {
+          log(w, 'good', `${part(w, c, wd.part).label}의 감염을 이겨냈다.`)
+          ;(c.crisis ??= { last: {}, arterial: [], bleeding: false, wasUnconscious: false }).infectionWon = true
+        }
       }
     }
     // 치유
@@ -354,14 +362,14 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
     c.body.blood = Math.min(c.body.bloodMax, c.body.blood + 0.06)
     c.needs.water -= 0.06
   }
-  // HP 회복 (느리다. 출혈 중·굶주림엔 멈춘다)
-  const max = hpMax(w, c)
-  if (bled < 0.5 && c.needs.kcal > 0 && c.hp < max) {
-    let regen = 0.07 * (sleeping ? 3 : 1) * (1 + (c.stats.vit - 10) * 0.05)
+  // HP 회복 (02 §2.0.1): 적대 인식이 없을 때 floor(100/활력)턴마다 +1, 수면 ×3. 실혈 30%·쇼크면 정지. 상한 = hpCap
+  const max = hpCap(w, c)
+  if (c.hp < max && bloodLoss(c) < 0.3 && !hasEffect(c, 'shock', turn) && c.needs.kcal > 0 && !hostileNear(w, c)) {
+    let regen = (1 / Math.max(1, Math.floor(100 / Math.max(1, c.stats.vit)))) * (sleeping ? 3 : 1)
     if (hasEffect(c, 'draught', turn)) regen += 0.5
     c.hp = Math.min(max, c.hp + regen)
   }
-  if (c.hp > max) c.hp = max
+  if (c.hp > hpMax(w, c)) c.hp = hpMax(w, c)
   // 지혈대 괴사
   for (const [limb, at] of Object.entries(c.body.tourniquets)) {
     const since = turn - at
@@ -440,54 +448,112 @@ function regionRoot(w: World, c: Creature, r: Region): BodyPartDef | undefined {
   return bodyDef(w, c).parts.find((p) => p.region === r)
 }
 
-/** 부위 체력 비율 0~1 */
-export function regionHealth(w: World, c: Creature, r: Region): number {
-  const root = regionRoot(w, c, r)
-  if (!root) return 1
-  if (isMissing(w, c, root.id)) return 0
-  const max = c.body.maxHp[root.id] * 1.6
-  let dmg = 0
-  for (const wd of c.body.wounds) if (partRegion(w, c, wd.part) === r) dmg += (wd.severity - wd.healed) * (wd.internal ? 0.5 : 1)
-  for (const m of c.body.missing) if (partRegion(w, c, m) === r) dmg += 8
-  if (c.body.wounds.some((wd) => wd.fracture && !wd.splinted && partRegion(w, c, wd.part) === r)) dmg += max * 0.25
-  return clamp(1 - dmg / max, 0, 1)
+/** 6부위 최대치 = 최대 HP × 비율 (02 §2.0.2, CANON D18) */
+export const REGION_RATIO: Record<Region, number> = { head: 0.3, torso: 0.6, larm: 0.35, rarm: 0.35, lleg: 0.4, rleg: 0.4 }
+
+export function regionMax(w: World, c: Creature, r: Region): number {
+  return hpMax(w, c) * REGION_RATIO[r]
 }
 
-/** 0 멀쩡 · 1 타박 · 2 부상 · 3 중상 · 4 불구 */
-export function regionState(w: World, c: Creature, r: Region): number {
-  const h = regionHealth(w, c, r)
-  if (h >= 0.85) return 0
-  if (h >= 0.6) return 1
-  if (h >= 0.35) return 2
-  if (h > 0) return 3
+/** 부위 HP% 0~100 = floor(100 − Σ(그 부위 미치유 상처 sev) × 100 / 부위 최대치) */
+export function regionHpPct(w: World, c: Creature, r: Region): number {
+  const root = regionRoot(w, c, r)
+  if (!root) return 100
+  if (isMissing(w, c, root.id)) return 0
+  let sev = 0
+  for (const wd of c.body.wounds) if (partRegion(w, c, wd.part) === r) sev += wd.severity - wd.healed
+  return clamp(Math.floor(100 - (sev * 100) / regionMax(w, c, r)), 0, 100)
+}
+
+/** 부위 기능 효율 0~1: 머리 = 의식 기관, 몸통 = min(호흡, 혈액순환), 팔다리 = 사슬(손·발까지)의 최저 효율 */
+export function regionFunction(w: World, c: Creature, r: Region): number {
+  const def = bodyDef(w, c)
+  if (r === 'head') {
+    const organ = def.parts.find((p) => p.capacities?.consciousness && partRegion(w, c, p.id) === 'head')
+    return organ ? effectiveHealth(w, c, organ.id) : 1
+  }
+  if (r === 'torso') return Math.min(capacity(w, c, 'breathing'), capacity(w, c, 'bloodPumping'))
+  const chain = def.parts.filter((p) => partRegion(w, c, p.id) === r && !p.internal && !/Thumb|Index|Middle|Ring|Pinky|Toe/.test(p.id))
+  if (!chain.length) return 1
+  return Math.min(...chain.map((p) => (isMissing(w, c, p.id) ? 0 : effectiveHealth(w, c, p.id))))
+}
+
+function stageOf(v: number): number {
+  if (v >= 0.85) return 0
+  if (v >= 0.6) return 1
+  if (v >= 0.35) return 2
+  if (v > 0) return 3
   return 4
 }
 
-const HEAD_HIT = [0, 5, 10, 20, 30]
-const ARM_HIT = [0, 4, 8, 15, 25]
-const ARM_DMG = [1, 0.95, 0.85, 0.7, 0.5]
-const LEG_EVA = [0, 4, 8, 15, 25]
-const TORSO_REGEN = [1, 0.9, 0.75, 0.55, 0.35]
+/** 부위 체력 비율 0~1 (화면용) */
+export function regionHealth(w: World, c: Creature, r: Region): number {
+  return regionHpPct(w, c, r) / 100
+}
 
-export function regionPenalties(w: World, c: Creature) {
+/** 0 멀쩡 · 1 타박 · 2 부상 · 3 중상 · 4 불구 = HP% 단계와 기능 단계 중 나쁜 쪽 (02 §2.0.2) */
+export function regionState(w: World, c: Creature, r: Region): number {
+  return Math.max(stageOf(regionHpPct(w, c, r) / 100), stageOf(regionFunction(w, c, r)))
+}
+
+// 02 §2.0.3 부위 상태 불이익 (인덱스 = 상태 0~4)
+const HEAD_PER = [0, 1, 2, 3, 5]
+const HEAD_HIT = [0, 3, 6, 10, 15]
+const TORSO_EMAX = [1, 0.95, 0.85, 0.7, 0.5]
+const TORSO_REGEN = [1, 0.9, 0.75, 0.5, 0.25]
+const ARM_HIT = [0, 2, 5, 10, 15]
+const ARM_DMG = [1, 0.95, 0.85, 0.7, 0.5]
+const ARM_BLOCK = [0, 5, 10, 20, 100]
+const ARM_MULTI = [1, 1, 1.1, 1.25, 1.5]
+const LEG_EVA = [1, 0.9, 0.75, 0.5, 0.25]
+const LEG_STUMBLE = [0, 0, 5, 15, 30]
+
+export function regionPenalties(w: World, c: Creature, twoHanded = false) {
   const st = (r: Region) => regionState(w, c, r)
-  const legs = Math.max(st('lleg'), st('rleg'))
+  const head = st('head'), torso = st('torso'), la = st('larm'), ra = st('rarm'), ll = st('lleg'), rl = st('rleg')
+  const arm = twoHanded ? Math.max(la, ra) : ra
   return {
-    hit: HEAD_HIT[st('head')] + ARM_HIT[st('rarm')],
-    damageMult: ARM_DMG[st('rarm')],
-    block: ARM_HIT[st('larm')] * 2,
-    evasion: LEG_EVA[st('lleg')] / 2 + LEG_EVA[st('rleg')] / 2,
-    stumble: legs >= 4 ? 0.3 : legs >= 3 ? 0.15 : 0,
-    energyRegen: TORSO_REGEN[st('torso')],
+    per: HEAD_PER[head],
+    hit: HEAD_HIT[head] + ARM_HIT[arm],
+    damageMult: ARM_DMG[arm],
+    block: ARM_BLOCK[la],
+    /** 회피치(양수일 때)에 곱한다 = (왼다리 + 오른다리) / 2 */
+    evasionCoef: (LEG_EVA[ll] + LEG_EVA[rl]) / 2,
+    /** 비틀거림 % (다리 몫) */
+    stumble: LEG_STUMBLE[ll] + LEG_STUMBLE[rl],
+    crawl: ll === 4 && rl === 4,
+    mainArmCrippled: ra === 4,
+    energyMax: TORSO_EMAX[torso],
+    energyRegen: TORSO_REGEN[torso],
+    /** 다턴 행동 배율(쓰는 팔) */
+    multiTurn: ARM_MULTI[Math.max(ra, twoHanded ? la : 0)],
   }
 }
 
 export function hpMax(w: World, c: Creature): number {
   const def = w.db.creature(c.def)
   const base = def.hpBase ?? 50 + c.stats.vit * 5
-  return Math.round(base + traitAdd(w, c, 'maxHp') + (c.faction === 'player' ? (c.level - 1) * 4 : 0))
+  return Math.round(base + traitAdd(w, c, 'maxHp'))
 }
 
-export function energyMax(_w: World, c: Creature): number {
-  return 50 + c.stats.wil * 5
+/** HP 회복 상한 = 최대 HP − floor(Σ 미치유 상처 sev / 2) (02 §2.0.1, CANON D19) */
+export function hpCap(w: World, c: Creature): number {
+  let sev = 0
+  for (const wd of c.body.wounds) sev += wd.severity - wd.healed
+  return Math.max(0, hpMax(w, c) - Math.floor(sev / 2))
+}
+
+export function energyMax(w: World, c: Creature): number {
+  return Math.round((50 + c.stats.wil * 5) * TORSO_EMAX[regionState(w, c, 'torso')])
+}
+
+/** 깨어 있는 적이 8칸 안에 있으면 숨을 고를 수 없다 */
+function hostileNear(w: World, c: Creature): boolean {
+  for (const o of w.s.creatures) {
+    if (!o.alive || o.asleep || o.unconscious || o.id === c.id || o.faction === c.faction) continue
+    if (o.faction === 'vermin' || o.ai.mode === 'surrender') continue
+    if (c.faction !== 'player' && o.faction !== 'player') continue
+    if (Math.max(Math.abs(o.pos.x - c.pos.x), Math.abs(o.pos.y - c.pos.y)) <= 8) return true
+  }
+  return false
 }

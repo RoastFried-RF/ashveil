@@ -37,7 +37,7 @@ function click(x: { a: AbilityDef; learned: boolean; why: string | null }) {
 <template>
   <Win title="능력" :x="120" :y="70" :width="560" testid="win-abil" @close="wins.abil = false">
     <div class="mb-2 flex items-center justify-between text-xs">
-      <span class="text-ash-400">같은 갈래를 (단계−1)개 이상 배워야 다음 단계가 열린다.</span>
+      <span class="text-ash-400">1·2단계는 바로, 3·4단계는 같은 갈래 능력을 하나 이상 배워야 열린다.</span>
       <span :class="d.pl.abilityPoints ? 'pulse-gold text-amber-300' : 'text-ash-500'">능력 포인트 {{ d.pl.abilityPoints }}</span>
     </div>
     <div class="grid grid-cols-3 gap-2 sm:grid-cols-6">

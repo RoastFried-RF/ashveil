@@ -295,7 +295,7 @@
     "label": "약탈단 두목",
     "description": "야영지를 틀어쥔 두목. 쇠사슬 옷을 입고 손도끼를 쓴다.",
     "char": "reaver0",
-    "xp": 70,
+    "xp": 60,
     "morale": 80,
     "hpBase": 130,
     "sleepChance": 0,
@@ -350,6 +350,49 @@
   },
   {
     "defType": "Creature",
+    "id": "Creature.ReaverArcher",
+    "parent": "Creature.Reaver",
+    "label": "약탈단 궁수",
+    "description": "망루를 지키는 약탈자. 다가오기 전에 화살을 날린다.",
+    "xp": 35,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.Bow"
+          ]
+        },
+        {
+          "items": [
+            "Item.Arrow"
+          ],
+          "count": [
+            8,
+            14
+          ]
+        },
+        {
+          "items": [
+            "Item.RustyKnife"
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt",
+            "Item.PaddedJacket"
+          ]
+        },
+        {
+          "items": [
+            "Item.Hood"
+          ],
+          "chance": 0.5
+        }
+      ]
+    }
+  },
+  {
+    "defType": "Creature",
     "id": "Creature.Shade",
     "label": "그늘 사람",
     "description": "장막 아래 지하로 내려간 사람들의 후손. 작고 빠르며 어둠 속에서도 본다.",
@@ -391,7 +434,7 @@
     "lightThreshold": 0.02,
     "sightRange": 9,
     "sleepChance": 0.4,
-    "xp": 20,
+    "xp": 15,
     "loadout": {
       "slots": [
         {
@@ -425,7 +468,7 @@
     "char": "shade_chief",
     "hpBase": 85,
     "morale": 70,
-    "xp": 45,
+    "xp": 35,
     "sleepChance": 0.1,
     "stats": {
       "str": 11,
@@ -491,7 +534,7 @@
     "lightThreshold": 0.1,
     "sightRange": 7,
     "sleepChance": 0.6,
-    "xp": 30,
+    "xp": 25,
     "loadout": {
       "slots": [
         {
@@ -518,7 +561,7 @@
     "label": "말라붙은 사제",
     "char": "withered_priest",
     "hpBase": 100,
-    "xp": 55,
+    "xp": 45,
     "sleepChance": 0.2,
     "stats": {
       "str": 12,
@@ -590,7 +633,7 @@
     "lightThreshold": 0.1,
     "sightRange": 6,
     "sleepChance": 0.3,
-    "xp": 25,
+    "xp": 20,
     "bestiary": [
       "갓을 쓴 사람 모양의 버섯. 느리다.",
       "때리면 포자 구름이 터진다. 포자를 마시면 기침이 나고 기력이 돌지 않는다.",
@@ -646,7 +689,7 @@
     "lightThreshold": 0.05,
     "sightRange": 8,
     "sleepChance": 1.0,
-    "xp": 300,
+    "xp": 250,
     "bestiary": [
       "방 하나를 채운 살덩이.",
       "촉수는 두 칸 밖까지 닿는다. 핵이 어딘가에 있다.",

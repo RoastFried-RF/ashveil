@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, ref, watch } from 'vue'
-import { abilityReady, allItems, energyMax, hpMax, player, turnOf, xpToNext, type World } from '../../core'
+import { abilityReady, energyMax, hpMax, player, turnOf, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
 import { version, world } from '../store'
@@ -22,13 +22,13 @@ const d = computed(() => {
       const err = abilityReady(w, pl, ref.id)
       return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
-    const count = allItems(pl).filter((it) => it.def === ref.def).reduce((s, it) => s + it.count, 0)
+    const count = pl.bag.filter((it) => it.def === ref.def).reduce((s, it) => s + it.count, 0)
     const def = w.db.item(ref.def)
     return { i, empty: false as const, icon: def.sprite, label: def.label, cd: 0, cdMax: 1, ok: count > 0, count, on: false, ref }
   })
   return {
     pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.stamina, enMax: energyMax(w, pl),
-    xp: pl.xp - (pl.level > 1 ? xpToNext(pl.level - 1) : 0), xpNext: xpToNext(pl.level) - (pl.level > 1 ? xpToNext(pl.level - 1) : 0), level: pl.level, slots,
+    xp: pl.xp - xpTotalFor(pl.level), xpNext: xpToNext(pl.level) - xpTotalFor(pl.level), level: pl.level, slots,
     points: pl.statPoints, apoints: pl.abilityPoints, wounds: pl.body.wounds.length,
   }
 })

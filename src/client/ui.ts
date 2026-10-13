@@ -2,7 +2,7 @@
 
 import { reactive, ref } from 'vue'
 import {
-  abilityReady, allItems, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player,
+  abilityReady, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
@@ -10,6 +10,8 @@ import { act, world } from './store'
 export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal'
 export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false })
 export const hint = ref<string | null>(null)
+/** 기록 창 크게 보기 (Shift+L, 12 §8) */
+export const logBig = ref(false)
 export const tooltip = ref<{ x: number; y: number; title: string; lines: string[]; color?: string } | null>(null)
 
 export interface Targeting { kind: 'ability' | 'shoot'; id?: string; label: string; targets: number[]; idx: number }
@@ -117,7 +119,8 @@ export function useHotbar(i: number) {
   const ref = player(w).hotbar[i]
   if (!ref) return
   if (ref.kind === 'ability') return useAbility(ref.id)
-  const it = allItems(player(w)).find((x) => x.def === ref.def)
+  // 배낭 속 물건만 (13 §7)
+  const it = player(w).bag.find((x) => x.def === ref.def)
   if (!it) { hint.value = `${w.db.item(ref.def).label}: 남은 것이 없다`; return }
   useItem(w, it)
 }
@@ -126,7 +129,8 @@ export function assignHotbar(ref: HotbarRef) {
   const w = world.value
   if (!w) return
   const hb = player(w).hotbar
-  const same = hb.findIndex((h) => h && h.kind === ref.kind && (h.kind === 'ability' ? h.id === (ref as { id: string }).id : h.def === (ref as { def: string }).def))
+  // 능력은 한 칸만, 같은 소모품은 여러 칸 허용 (13 §7)
+  const same = ref.kind === 'ability' ? hb.findIndex((h) => h?.kind === 'ability' && h.id === ref.id) : -1
   if (same >= 0) { hint.value = `이미 ${same + 1}번 칸에 있다`; return }
   const i = hb.findIndex((h) => !h)
   if (i < 0) { hint.value = '빠른 슬롯이 가득 찼다 (칸을 우클릭해 비우기)'; return }
