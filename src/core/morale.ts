@@ -55,8 +55,8 @@ export function moraleOf(w: World, c: Creature): number {
     else if (hostileTo(c, o) && o.ai.mode !== 'surrender' && canSee(w, c, o.pos)) foe += threat(w, o)
   }
   if (foe > 0) m += Math.max(-20, Math.min(10, Math.floor((1 - foe / Math.max(0.1, ally)) * 10)))
-  // 빛을 싫어함: 광원 반경 안 −10 (그늘 사람)
-  if (def.lightAverse && lightLevel(w, c.pos) === 0 && w.s.map.kind === 'dungeon') m -= 10
+  // 빛을 싫어함: 광원 반경 안 − lightMorale (그늘 사람 25, CANON D35)
+  if (def.lightAverse && lightLevel(w, c.pos) === 0 && w.s.map.kind === 'dungeon') m -= def.lightMorale ?? 10
   return m
 }
 

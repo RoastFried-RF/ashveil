@@ -579,7 +579,8 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
 
     case 'search': {
       // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
-      const corpse = adjacentCorpse(w, c)
+      // 안 뒤진 시체 먼저 (이웃에 시체가 여럿이면 이미 뒤진 것만 계속 여는 일이 없게)
+      const corpse = adjacentCorpse(w, c, true) ?? adjacentCorpse(w, c)
       if (corpse && !adjacentContainer(w, c)) {
         if (corpse.searched) { w.s.loot = { pos: { ...corpse.pos }, kind: 'corpse', id: corpse.id }; return FREE }
         const n = channelTurns(w, c, searchBase(w, c, 2))

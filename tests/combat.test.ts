@@ -258,3 +258,33 @@ describe('스케줄러 (01 §3)', () => {
     expect(nextActor(w)).toBe(pl)
   })
 })
+
+describe('그늘 사람과 빛 (CANON D35)', () => {
+  it('광원 반경 안이면 사기 −25: 기본 40 → 15 → 판정마다 40% 도주', async () => {
+    const { moraleOf } = await import('../src/core/morale')
+    const { changeMap } = await import('../src/core/game')
+    const { invalidateLights, lightLevel } = await import('../src/core/fov')
+    const { allItems, itemDef } = await import('../src/core/items')
+    const w = makeWorld('d35')
+    changeMap(w, 'crypt1')
+    const pl = player(w)
+    w.s.creatures = [pl]
+    const lamp = allItems(pl).find((i) => !!itemDef(w, i).light)!
+    // 빛 없는 칸을 찾아 그늘 사람을 둔다 (화로 반경 밖)
+    lamp.lit = false
+    invalidateLights(w)
+    const s = createCreature(w, 'Creature.Shade', { x: pl.pos.x + 1, y: pl.pos.y })
+    s.asleep = false
+    w.s.creatures.push(s)
+    const dark = lightLevel(w, s.pos)
+    const m0 = moraleOf(w, s)
+    lamp.lit = true
+    invalidateLights(w)
+    expect(lightLevel(w, s.pos)).toBe(0)
+    const m1 = moraleOf(w, s)
+    expect(dark).not.toBe(0)
+    expect(m0 - m1).toBe(25)
+    expect(w.db.creature('Creature.ShadeChief').lightMorale).toBe(25) // 우두머리도 물려받는다
+    expect((25 - 15) * 4).toBe(40)
+  })
+})

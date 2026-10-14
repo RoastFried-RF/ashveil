@@ -259,6 +259,8 @@ export interface CreatureDef extends DefBase {
   leader?: boolean
   /** 빛을 싫어함: 광원 반경 안에서 사기 −10 (그늘 사람) */
   lightAverse?: boolean
+  /** 광원 반경 안 사기 감소 (기본 10, 그늘 사람 25 — CANON D35) */
+  lightMorale?: number
   /** 무리 절반을 잃으면 도주 (그늘 사람) */
   packFlee?: boolean
   /** 물 냄새에 끌리고 물을 주면 진정할 수 있다 (말라붙은 자) */

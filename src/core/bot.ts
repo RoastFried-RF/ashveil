@@ -11,6 +11,7 @@ import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, TURNS_PER_HOUR
 import { canSee } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { allItems, countOf, currentAttack, findSpot, itemDef, mainWeapon, wield } from './items'
+import { moraleOf } from './morale'
 import { diagonalBlocked, findPath } from './path'
 import { abilitiesByTree, canLearn } from './progression'
 import type { Creature, ItemInst, Stats } from './types'
@@ -35,7 +36,10 @@ export function fightRisk(w: World, pl: Creature, foes: Creature[]): number {
     const mine = (previewHit(w, pl, e)?.chance ?? 5) / 100
     const theirs = (previewHit(w, e, pl)?.chance ?? 50) / 100
     const ttk = e.hp / Math.max(0.05, mine * (myAtk?.damage ?? 3) * 0.85)
-    const dps = theirs * (wield(w, e)?.atk.damage ?? 3)
+    // 사기 (07 §8): 10 미만은 곧 달아나고, 25 미만은 5턴마다 (25 − 사기) × 4% 도주 — 그만큼 덜 위험하다
+    const M = w.db.creature(e.def).noMorale ? 100 : moraleOf(w, e)
+    const stay = M < 10 ? 0.2 : M < 25 ? Math.max(0.3, 1 - (25 - M) * 0.04 * 2) : 1
+    const dps = theirs * (wield(w, e)?.atk.damage ?? 3) * stay
     return { ttk, dps }
   }).sort((a, b) => a.ttk - b.ttk)
   let t = 0, taken = 0
