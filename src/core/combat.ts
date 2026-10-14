@@ -118,6 +118,15 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   if (traitAdd(w, a, 'nightOwl') > 0 && lp < 0) lp = mods?.aimed ? Math.ceil(lp / 2) : Math.min(0, lp + 5)
   add(['밝음', '어스름', '어둠', '칠흑'][lv], lp)
   if (isDown(w, d) && !helpless(d)) add('넘어진 상대', ranged ? -15 : 20)
+  // 고저차 (07 §5): 단차 1 높으면 근접 +10 · 원거리 +5, 낮으면 반대
+  const elev = terrainAt(w, a.pos).elevation ?? 0, delev = terrainAt(w, d.pos).elevation ?? 0
+  if (elev !== delev) add(elev > delev ? '높은 자리' : '낮은 자리', (elev > delev ? 1 : -1) * (ranged ? 5 : 10))
+  // 엄폐 (07 §2.1, 원거리만): 대상 바로 앞(쏘는 쪽) 칸의 장애물
+  if (ranged && cheb(a.pos, d.pos) > 1) {
+    const q = { x: d.pos.x + Math.sign(a.pos.x - d.pos.x), y: d.pos.y + Math.sign(a.pos.y - d.pos.y) }
+    const cv = terrainAt(w, q).cover ?? 0
+    if (cv) add(cv >= 30 ? '전 엄폐' : '반 엄폐', -cv)
+  }
   // 공격자 머리·쥔 팔
   const pen = regionPenalties(w, a, wl.arm, wl.twoHanded)
   add('머리 상태', -pen.headHit)

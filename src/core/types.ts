@@ -295,6 +295,10 @@ export interface TerrainDef extends DefBase {
   container?: string // LootTable id
   /** 뒤진 뒤 다시 차는 일수 (버섯 무리 2일, D36) */
   regrowDays?: number
+  /** 단차 (07 §5: 돌무더기·계단·제단·석관 위 = 1) */
+  elevation?: number
+  /** 이 칸 뒤에 선 대상을 원거리로 쏠 때 감점 (07 §2.1: 반 엄폐 15 · 전 엄폐 30) */
+  cover?: number
   /** 보관함 격자 [가로, 세로] (13: 야영지 보관함 12×8) */
   /** 루팅 격자 [가로, 세로] · 여는 턴 · 소음 (13 §8.1) */
   lootGrid?: [number, number]

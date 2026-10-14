@@ -305,3 +305,27 @@ describe('플레이어 공포 (07 §8 대칭)', () => {
     expect(after.chance).toBe(Math.max(5, before.chance - 10))
   })
 })
+
+describe('고저차·엄폐 (07 §5 · §2.1)', () => {
+  it('돌무더기 위에서 근접 +10, 아래에서 −10. 석상 뒤 대상은 원거리 반 엄폐 −15', () => {
+    const w = makeWorld('elev1')
+    const pl = noon(w)
+    const at = openTile(w, pl, 1, 0)
+    const r = createCreature(w, 'Creature.Reaver', at)
+    w.s.creatures.push(r)
+    const base = previewHit(w, pl, r)!.chance
+    tileAt(w, pl.pos).t = 'Terrain.Rubble'
+    const up = previewHit(w, pl, r)!
+    expect(up.lines.some((l) => l.includes('높은 자리 +10'))).toBe(true)
+    expect(previewHit(w, r, pl)!.lines.some((l) => l.includes('낮은 자리 -10'))).toBe(true)
+    tileAt(w, pl.pos).t = 'Terrain.Earth'
+    expect(previewHit(w, pl, r)!.chance).toBe(base)
+    // 원거리: 대상(4칸 동쪽) 바로 앞 칸에 석상
+    r.pos = { x: pl.pos.x + 4, y: pl.pos.y }
+    for (let dx = 1; dx <= 4; dx++) tileAt(w, { x: pl.pos.x + dx, y: pl.pos.y }).t = 'Terrain.Earth'
+    tileAt(w, { x: pl.pos.x + 3, y: pl.pos.y }).t = 'Terrain.Statue'
+    pl.equip.main = makeItem(w, 'Item.Bow')
+    const pv = previewHit(w, pl, r, true)
+    expect(pv?.lines.some((l) => l.includes('반 엄폐 -15'))).toBe(true)
+  })
+})
