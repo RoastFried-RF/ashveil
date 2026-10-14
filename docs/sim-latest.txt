@@ -1,39 +1,39 @@
-# pnpm sim 30 3 — 2026-10-14 00:25 KST, v0.5 (D33 동맥 판정 문턱 · F7 주도권 · F8·F9 · 품질 드롭 · 6시간 날씨)
-# 과다 출혈 70% → 50%(D33). 남은 실혈은 녹슨 단검 작은 베임 누적. 봇은 여전히 정면 교전만 한다.
+# pnpm sim 30 3 — 2026-10-14 11:51 KST, v0.6 (D34 작은 상처 출혈 · 봇 전술: 승산 계산·후퇴·잠행 기습·체온·모닥불)
+# 평균 생존 0.18 → 1.42일, 3일 생존 0 → 10판. 레벨은 거의 오르지 않는다 — 봇이 그늘 사람과의 1:1(명중 34% 대 95%)을 피하기 때문.
 
-sim-0: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-1: 치명상 · 0.17일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
-sim-2: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-3: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-4: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-5: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Scavenger · 사건 -
-sim-6: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-7: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-8: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-9: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-10: 탈수 · 2.12일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-11: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-12: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-13: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-14: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-15: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
-sim-16: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-17: 과다 출혈 · 0.17일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-18: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-0: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.GuildMerchant · 사건 -
+sim-1: 과다 출혈 · 0.75일 · Lv1 · surface · Bg.Herbalist · 사건 -
+sim-2: 치명상 · 0.58일 · Lv2 · surface · Bg.Deserter · 사건 ReaverPatrol
+sim-3: 과다 출혈 · 0.02일 · Lv2 · surface · Bg.Excommunicate · 사건 -
+sim-4: 치명상 · 0.55일 · Lv1 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
+sim-5: 아사 · 2.78일 · Lv1 · surface · Bg.Scavenger · 사건 ReaverPatrol,ReaverSearch
+sim-6: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
+sim-7: 치명상 · 0.50일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 ReaverPatrol
+sim-8: 치명상 · 0.50일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 ReaverPatrol
+sim-9: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Hunter · 사건 ReaverPatrol,ReaverSearch
+sim-10: 치명상 · 0.88일 · Lv1 · surface · Bg.Hunter · 사건 ReaverPatrol
+sim-11: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-12: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch,ReaverPatrol,ReaverSearch
+sim-13: 치명상 · 1.50일 · Lv1 · crypt1 · Bg.Deserter · 사건 ReaverPatrol,ReaverPatrol
+sim-14: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-15: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
+sim-16: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
+sim-17: 치명상 · 0.55일 · Lv1 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
+sim-18: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch
 sim-19: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-20: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-21: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Scavenger · 사건 -
-sim-22: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-23: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-24: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-25: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-26: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-27: 탈수 · 1.72일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-28: 심장 파괴 · 0.00일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-29: 치명상 · 1.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch,StashRaided
+sim-20: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
+sim-21: 치명상 · 1.55일 · Lv1 · surface · Bg.Scavenger · 사건 ReaverPatrol,ReaverPatrol,ReaverSearch
+sim-22: 치명상 · 0.50일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 ReaverPatrol
+sim-23: 치명상 · 0.17일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
+sim-24: 과다 출혈 · 0.17일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-25: 생존(시간 종료) · 3.04일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
+sim-26: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-27: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
+sim-28: 치명상 · 1.55일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
+sim-29: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol
 ── 집계 ──
-과다 출혈: 15 (50%)
-치명상: 12 (40%)
-탈수: 2 (7%)
-심장 파괴: 1 (3%)
-평균 생존 0.18일 · 탈출 0/30 · 107.1s
+치명상: 13 (43%)
+생존(시간 종료): 10 (33%)
+과다 출혈: 6 (20%)
+아사: 1 (3%)
+평균 생존 1.42일 · 탈출 0/30 · 1632.3s
