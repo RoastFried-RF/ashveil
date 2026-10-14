@@ -1101,7 +1101,8 @@ function consume(w: World, c: Creature, uid: number): ActResult {
     return { ok: true, tu: 100 }
   }
   if (def.refuel) {
-    const lamp = c.bag.find((i) => itemDef(w, i).light)
+    // 손·허리에 든 등불도 (배낭 속만 찾던 버그)
+    const lamp = [...Object.values(c.equip), ...c.bag].find((i): i is ItemInst => !!i && !!itemDef(w, i).light)
     if (!lamp) return FAIL('기름을 부을 등불이 없다')
     lamp.fuel = Math.min(itemDef(w, lamp).light!.fuelTurns, (lamp.fuel ?? 0) + def.refuel)
     removeOne(w, c, uid)

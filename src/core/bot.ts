@@ -5,10 +5,10 @@
 
 import { abilityReady } from './abilities'
 import { adjacentContainer, adjacentCorpse, hostile, lootItems, type Action } from './actions'
-import { bloodLoss, effectiveBleed, energyMax, hpMax, part } from './body'
+import { bloodLoss, effectiveBleed, energyMax, hpMax, part, totalBleed } from './body'
 import { canReach, previewHit } from './combat'
 import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, TURNS_PER_HOUR, type World } from './ctx'
-import { canSee } from './fov'
+import { canSee, lightLevel } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { allItems, countOf, currentAttack, findSpot, itemDef, mainWeapon, wield } from './items'
 import { moraleOf } from './morale'
@@ -35,7 +35,9 @@ export function fightRisk(w: World, pl: Creature, foes: Creature[]): number {
   const rows = foes.map((e) => {
     const mine = (previewHit(w, pl, e)?.chance ?? 5) / 100
     const theirs = (previewHit(w, e, pl)?.chance ?? 50) / 100
-    const ttk = e.hp / Math.max(0.05, mine * (myAtk?.damage ?? 3) * 0.85)
+    // 기력이 바닥나면 공격이 무디다 (07): 내 피해 절반으로 본다
+    const blunt = pl.needs.energy < (myAtk?.energy ?? 5) ? 0.5 : 1
+    const ttk = e.hp / Math.max(0.05, mine * (myAtk?.damage ?? 3) * 0.85 * blunt)
     // 사기 (07 §8): 10 미만은 곧 달아나고, 25 미만은 5턴마다 (25 − 사기) × 4% 도주 — 그만큼 덜 위험하다
     const M = w.db.creature(e.def).noMorale ? 100 : moraleOf(w, e)
     const stay = M < 10 ? 0.2 : M < 25 ? Math.max(0.3, 1 - (25 - M) * 0.04 * 2) : 1
@@ -47,6 +49,20 @@ export function fightRisk(w: World, pl: Creature, foes: Creature[]): number {
   // 실혈이 HP보다 먼저 온다: 맞은 피해의 대부분이 상처 출혈로 이어진다 → 버틸 몸은 HP의 절반 정도
   const budget = pl.hp * 0.5 * (1 - bloodLoss(pl) * 2)
   return taken / Math.max(1, budget)
+}
+
+/**
+ * 빛 안에서 버티기 (bestiary §17 L2 · CANON D35): 등불이 켜져 있고 보이는 적이 모두 빛을 싫어하는 종이면
+ * (몸이 버틸 만할 때만) 물러나지 않는다. 빛 안에 들어온 적만 받아치고, 빛 밖으로 쫓아가지 않는다(어둠은 그들의 땅).
+ */
+function holdInLight(w: World, pl: Creature, foes: Creature[]): boolean {
+  if (w.s.map.kind !== 'dungeon' || !foes.length) return false
+  const lamp = allItems(pl).find((i) => !!itemDef(w, i).light)
+  if (!lamp?.lit || (lamp.fuel ?? 0) < 60) return false
+  if (!foes.every((e) => w.db.creature(e.def).lightAverse)) return false
+  // 출혈이 쌓이면 버티지 않는다: HP 70%·실혈 12%·지금 출혈 8 ml/턴 중 하나라도 넘으면 물러나 처치
+  // 목이 마르면(지하엔 물이 없다) 버티지 않고 올라간다
+  return pl.hp >= hpMax(w, pl) * 0.7 && bloodLoss(pl) < 0.12 && totalBleed(w, pl) < 8 && pl.needs.water > 900
 }
 
 /** 근접 무기 기댓값: (50 + 정확도 × 2) × 피해 */
@@ -96,6 +112,9 @@ export function botDecide(w: World): Action {
   // 어두운 곳에서는 등불을 켠다
   const lamp = inv.find((i) => !!itemDef(w, i).light)
   if (lamp && !lamp.lit && (lamp.fuel ?? 0) > 0 && w.s.map.kind === 'dungeon') return { type: 'toggleLight', uid: lamp.uid }
+  // 등불 기름이 1시간 아래면 채운다 (빛이 곧 방패다)
+  const oil = find((d) => !!d.refuel)
+  if (lamp && oil && (lamp.fuel ?? 0) < TURNS_PER_HOUR && !enemiesAdjacent(w)) return { type: 'consume', uid: oil.uid }
 
   // 출혈 처치
   const bleeding = pl.body.wounds
@@ -106,7 +125,8 @@ export function botDecide(w: World): Action {
   // 보이지 않는 적에게 계속 베이고 있으면(달려들기 후 빠지기) 위층으로 물러나 처치·회복
   // 처치보다 먼저: 냄새 맡고 모여드는 곳에서 붕대를 감지 않는다 (지혈대가 필요한 큰 출혈만 예외)
   const hurtRecently = turnOf(w) - (m0.hurtAt ?? -1e9) <= 40
-  if (hurtRecently && !adjacentEnemy && w.s.map.kind === 'dungeon' && (bloodLoss(pl) > 0.08 || pl.hp < hpMax(w, pl) * 0.7) && !bleeding.some((x) => x.arterial || effectiveBleed(w, pl, x) > 15) && turnOf(w) - (m0.lastStairs ?? -1e9) > 30) {
+  const holding = holdInLight(w, pl, enemies)
+  if (hurtRecently && !adjacentEnemy && !holding && w.s.map.kind === 'dungeon' && (bloodLoss(pl) > 0.08 || pl.hp < hpMax(w, pl) * 0.7) && !bleeding.some((x) => x.arterial || effectiveBleed(w, pl, x) > 15) && turnOf(w) - (m0.lastStairs ?? -1e9) > 30) {
     const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
     if (up) {
       if (eq(pl.pos, up.pos)) { m0.retreats++; m0.lastRetreat = m0.lastStairs = turnOf(w); return { type: 'stairs' } }
@@ -149,6 +169,12 @@ export function botDecide(w: World): Action {
     if (spot) { const st = stepTo(w, spot); if (st !== null) return { type: 'move', dir: st } }
   }
 
+  // 싸우는 틈에도 목은 축인다 (병에 물이 있으면, 붙은 적이 없을 때)
+  if (pl.needs.water < 700 && !adjacentEnemy) {
+    const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0)
+    if (drink) return { type: 'consume', uid: drink.uid }
+  }
+
   // 전투
   if (enemies.length) {
     enemies.sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))
@@ -159,8 +185,9 @@ export function botDecide(w: World): Action {
     // 불리하면 물러난다: 지하에서는 올라가는 계단으로(그늘 사람은 지상까지 따라오지 않는다, bestiary §17 L3)
     // 계단을 막 탔으면(따라온 적) 30턴은 다시 계단으로 도망치지 않는다 — 계단 왕복 방지
     const stairsOk = turnOf(w) - (mem(w).lastStairs ?? -1e9) > 30
-    if (risk > 1 && w.s.map.kind === 'dungeon' && stairsOk) {
-      const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
+    // 붙은 적이 있어도 물러난다: 실측(12판)으로 붙은 채 버티기 0.21일 < 물러나기 1.48일
+    const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
+    if (risk > 1 && w.s.map.kind === 'dungeon' && stairsOk && !holding) {
       if (up) {
         const m = mem(w)
         for (const x of near) avoidRoomOf(w, x)
@@ -206,6 +233,13 @@ export function botDecide(w: World): Action {
       return { type: 'attack', target: e.id }
     }
     if (ranged && countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0) return { type: 'shoot', target: e.id }
+    // 빛 안에서 버티는 중: 빛 밖의 적은 쫓지 않는다. 좁은 곳이면 그 자리에서, 아니면 좁은 곳으로
+    if (holding && lightLevel(w, e.pos) !== 0) {
+      const toward0 = dirIndex(e.pos.x - pl.pos.x, e.pos.y - pl.pos.y)
+      if (pl.facing !== toward0) return { type: 'face', dir: toward0 }
+      if (openness(w, pl.pos) > 3) { const choke = chokeStep(w, enemies.map((x) => x.pos)); if (choke !== null) return { type: 'move', dir: choke } }
+      return { type: 'wait' }
+    }
     // 다가오는 적은 정면으로 맞는다 (측면 +10 · 후면 +20을 주지 않는다)
     const toward = dirIndex(e.pos.x - pl.pos.x, e.pos.y - pl.pos.y)
     if (cheb(e.pos, pl.pos) === 2 && e.ai.mode === 'hunt' && pl.facing !== toward) return { type: 'face', dir: toward }
@@ -247,11 +281,16 @@ export function botDecide(w: World): Action {
     if (water) { const st = stepTo(w, water); if (st !== null) return { type: 'move', dir: st } }
     // 지하에는 물이 없다: 위층 계단으로 올라간다
     const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
-    if (up && pl.needs.water < 600) {
+    if (up && pl.needs.water < 1200) {
       if (eq(pl.pos, up.pos)) return { type: 'stairs' }
       const st = stepTo(w, up.pos)
       if (st !== null) return { type: 'move', dir: st }
     }
+  }
+  // 물가에 있으면 빈 병을 채운다 (지하로 가져갈 물)
+  if (DIRS.some((d) => { const p = { x: pl.pos.x + d.x, y: pl.pos.y + d.y }; return inBounds(w, p) && !!terrainAt(w, p).water })) {
+    const bottle = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) < 3)
+    if (bottle && pl.needs.water >= 900) return { type: 'fillBottle', uid: bottle.uid }
   }
   // 모닥불: 몸을 녹일 때만 켜고, 떠나기 전엔 끈다 (켜 둔 불빛·연기는 순찰이 보고 수색대를 부른다, 10 §3.3)
   const homeFire = w.s.map.kind === 'surface' ? w.s.map.lights.find((L) => L.kind === 'campfire' && cheb(L.pos, pl.pos) <= 1) : undefined
@@ -298,6 +337,12 @@ export function botDecide(w: World): Action {
   const down = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsDown')
   // 내려가기 전에 몸을 채운다 (HP 90% · 기력 80% · 출혈 없음)
   if (down && (pl.hp < hpMax(w, pl) * 0.9 || pl.needs.energy < energyMax(w, pl) * 0.8 || bleeding.length) && !awakeNear) return { type: 'rest', turns: 60 }
+  // 지하로 내려가기 전에 빈 병을 채운다 (지하엔 물이 없다)
+  if (down && w.s.map.kind === 'surface' && !awakeNear) {
+    const empty = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) < 3)
+    const water = empty && nearest(w, (p) => terrainAt(w, p).water === 'shallow')
+    if (water) { const st = stepTo(w, water); if (st !== null) return { type: 'move', dir: st } }
+  }
   // 물러난 뒤 1시간은 다시 내려가지 않는다 (추적하던 무리가 제자리로 돌아갈 시간)
   const sinceRetreat = turnOf(w) - (mem(w).lastRetreat ?? -1e9)
   if (down && sinceRetreat < TURNS_PER_HOUR && !awakeNear) return { type: 'rest', turns: 60 }
@@ -323,6 +368,11 @@ function sleeperTarget(w: World): Creature | undefined {
     return s
   }
   return undefined
+}
+
+function enemiesAdjacent(w: World): boolean {
+  const pl = player(w)
+  return w.s.creatures.some((o) => o.alive && !o.asleep && hostile(pl, o) && cheb(o.pos, pl.pos) <= 1)
 }
 
 /** 둘러싼 8칸 중 지나갈 수 있는 칸 수 (작을수록 좁다) */

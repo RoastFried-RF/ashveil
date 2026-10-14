@@ -446,3 +446,19 @@ describe('쌓임·나누기·품질 (13 §5 · §10 · 08 §4)', () => {
     expect([...qs].every((q) => q <= 2)).toBe(true)
   })
 })
+
+describe('등불 기름 (13 · 03)', () => {
+  it('손·허리에 든 등불에도 기름을 부을 수 있다', async () => {
+    const { perform } = await import('../src/core/actions')
+    const { allItems } = await import('../src/core/items')
+    const w = makeWorld('oil1')
+    const pl = player(w)
+    const lamp = allItems(pl).find((i) => !!itemDef(w, i).light)!
+    expect(pl.bag.includes(lamp)).toBe(false) // 시작 등불은 장착 상태
+    lamp.fuel = 10
+    const oil = makeItem(w, 'Item.LampOil')
+    addToBag(w, pl, oil)
+    expect(perform(w, pl, { type: 'consume', uid: oil.uid }).ok).toBe(true)
+    expect(lamp.fuel).toBe(Math.min(itemDef(w, lamp).light!.fuelTurns, 10 + itemDef(w, oil).refuel!))
+  })
+})
