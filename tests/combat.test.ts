@@ -288,3 +288,20 @@ describe('그늘 사람과 빛 (CANON D35)', () => {
     expect((25 - 15) * 4).toBe(40)
   })
 })
+
+describe('플레이어 공포 (07 §8 대칭)', () => {
+  it('플레이어 사기가 25 미만이면 명중 −10 (공포), 그 이상이면 없다', async () => {
+    const { moraleEvent, moraleOf } = await import('../src/core/morale')
+    const w = makeWorld('fear1')
+    const pl = noon(w)
+    const r = createCreature(w, 'Creature.Reaver', openTile(w, pl, 1, 0))
+    w.s.creatures.push(r)
+    const before = previewHit(w, pl, r)!
+    expect(before.lines.some((l) => l.includes('공포'))).toBe(false)
+    moraleEvent(pl, -60, 'fixed', 0)
+    expect(moraleOf(w, pl)).toBeLessThan(25)
+    const after = previewHit(w, pl, r)!
+    expect(after.lines.some((l) => l.includes('공포 -10'))).toBe(true)
+    expect(after.chance).toBe(Math.max(5, before.chance - 10))
+  })
+})

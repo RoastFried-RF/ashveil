@@ -10,7 +10,7 @@ import { canSee, hasLos, lightLevel } from './fov'
 import { cheb, DIRS, dirDelta, dirIndex, line, type Pos } from './geom'
 import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, qualityInfo, wield, type Wield } from './items'
 import { addThought } from './needs'
-import { moraleEvent } from './morale'
+import { moraleEvent, moraleOf } from './morale'
 import { emitNoise } from './perception'
 import { awardDefeat } from './progression'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
@@ -131,6 +131,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   if ((a.drowsyUntil ?? 0) > turn) add('잠기운', -20)
   const morale = a.ai.morale
   if (a.faction !== 'player' && !w.db.creature(a.def).noMorale && morale >= 25 && morale < 40) add('흔들림', -5)
+  // 대칭 (07 §8): 플레이어도 같은 사기 공식. 25 미만이면 '공포' 명중 −10 (조작권은 빼앗지 않는다)
+  if (a.faction === 'player' && moraleOf(w, a) < 25) add('공포', -10)
   if (a.ai.cornered) add('궁지', 5)
   // 협공: 같은 대상에 인접한 다른 아군 1명당 +5 (최대 +15)
   if (!ranged) {

@@ -1,6 +1,6 @@
 // 경고 체계 (12 §6): 상태에서 경고 띠를 계산한다
 import {
-  bloodLoss, canSee, hostile, hpMax, painStage, painTotal, player, regionState, totalBleed, REGION_LABEL, STATE_LABEL,
+  bloodLoss, canSee, hostile, hpMax, moraleOf, painStage, painTotal, player, regionState, totalBleed, REGION_LABEL, STATE_LABEL,
   type Region, type World,
 } from '../core'
 
@@ -22,6 +22,8 @@ export function computeBanners(w: World): Banner[] {
   if (bleed > 0.3 && toDeath >= 30) out.push({ p: 1, text: `출혈 ${bleed.toFixed(1)} ml/턴`, turns: toDeath })
   const foes = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)).length
   if (foes) out.push({ p: 1, text: `적 ${foes}` })
+  // 공포 (07 §8 대칭): 사기 25 미만이면 명중 −10
+  if (foes && moraleOf(w, pl) < 25) out.push({ p: 1, text: '공포 — 명중 −10' })
   const bad = REGIONS.map((r) => [r, regionState(w, pl, r)] as const).filter(([, s]) => s >= 3)
   if (bad.length) out.push({ p: 1, text: bad.map(([r, s]) => `${REGION_LABEL[r]} ${STATE_LABEL[s]}`).join(' · ') })
   if (painStage(painTotal(w, pl)) >= 3) out.push({ p: 1, text: '통증 심각' })
