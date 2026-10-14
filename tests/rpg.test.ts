@@ -462,3 +462,31 @@ describe('등불 기름 (13 · 03)', () => {
     expect(lamp.fuel).toBe(Math.min(itemDef(w, lamp).light!.fuelTurns, 10 + itemDef(w, oil).refuel!))
   })
 })
+
+describe('버섯 채집 (CANON D36)', () => {
+  it('버섯 무리는 뒤진 뒤 2일이면 다시 자라 다시 뒤질 수 있다', async () => {
+    const { perform, adjacentContainer, containerFresh } = await import('../src/core/actions')
+    const { tileAt, TURNS_PER_DAY } = await import('../src/core/ctx')
+    const { runUntilInput } = await import('../src/core/game')
+    const w = makeWorld('fungus1')
+    const pl = player(w)
+    w.s.creatures = [pl]
+    const m = w.s.map
+    const i = m.tiles.findIndex((t) => t.t === 'Terrain.Fungus')
+    expect(i).toBeGreaterThanOrEqual(0)
+    const f = { x: i % m.w, y: Math.floor(i / m.w) }
+    const stand = [[0, 1], [1, 0], [-1, 0], [0, -1]].map(([dx, dy]) => ({ x: f.x + dx, y: f.y + dy })).find((q) => w.db.terrain(tileAt(w, q).t).passable)!
+    pl.pos = stand
+    expect(perform(w, pl, { type: 'search' }).ok).toBe(true)
+    while (pl.activity) { pl.nextAct = w.s.time; runUntilInput(w) }
+    expect(tileAt(w, f).searched).toBe(true)
+    expect(containerFresh(w, f)).toBe(false)
+    expect(adjacentContainer(w, pl)).toBeUndefined()
+    w.s.time += 2 * TURNS_PER_DAY * 100
+    expect(containerFresh(w, f)).toBe(true)
+    expect(adjacentContainer(w, pl)).toEqual(f)
+    expect(perform(w, pl, { type: 'search' }).ok).toBe(true)
+    expect(tileAt(w, f).searched).toBe(false) // 새로 뒤지는 중 (내용물은 다시 굴린다)
+    expect(w.db.item('Item.AshCap').food!.poison).toBe(5)
+  })
+})

@@ -4,7 +4,7 @@
 // 잠든 무리가 있는 방은 피한다, 다가오는 적은 정면으로 맞는다, 더 좋은 무기로 바꾼다, 원거리 무기는 거리에서 먼저.
 
 import { abilityReady } from './abilities'
-import { adjacentContainer, adjacentCorpse, hostile, lootItems, type Action } from './actions'
+import { adjacentContainer, adjacentCorpse, containerFresh, hostile, lootItems, type Action } from './actions'
 import { bloodLoss, effectiveBleed, energyMax, hpMax, part, totalBleed } from './body'
 import { canReach, previewHit } from './combat'
 import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, TURNS_PER_HOUR, type World } from './ctx'
@@ -270,8 +270,24 @@ export function botDecide(w: World): Action {
 
   // 생존
   if (pl.needs.kcal < 900) {
-    const food = find((d) => !!d.food && !d.food.raw) ?? find((d) => !!d.food)
+    const food = find((d) => !!d.food && !d.food.raw) ?? find((d) => !!d.food && (d.food.poison ?? 25) <= 10) ?? find((d) => !!d.food)
     if (food) return { type: 'consume', uid: food.uid }
+    // 먹을 게 없으면 숲 버섯 무리로 (D36: 이틀이면 다시 자란다). 지하에서는 올라간다
+    if (w.s.map.kind === 'surface') {
+      const patch = nearest(w, (p) => terrainAt(w, p).id === 'Terrain.Fungus' && containerFresh(w, p) && !!tileAt(w, p).seen && !avoided(w, p))
+      if (patch) {
+        if (cheb(patch, pl.pos) <= 1) return { type: 'search' }
+        const st = stepTo(w, patch)
+        if (st !== null) return { type: 'move', dir: st }
+      }
+    } else {
+      const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
+      if (up && !enemiesAdjacent(w)) {
+        if (eq(pl.pos, up.pos)) return { type: 'stairs' }
+        const st = stepTo(w, up.pos)
+        if (st !== null) return { type: 'move', dir: st }
+      }
+    }
   }
   if (pl.needs.water < 900) {
     const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0)
@@ -321,7 +337,7 @@ export function botDecide(w: World): Action {
   }
   // 레벨이 낮으면 약탈자 야영지는 피한다
   const avoid = (p: Pos) => (pl.level < 5 && w.s.map.rooms[tileAt(w, p).room ?? -1]?.type === 'camp') || avoided(w, p)
-  const cont = nearest(w, (p) => !!terrainAt(w, p).container && !tileAt(w, p).searched && !!tileAt(w, p).seen && !avoid(p))
+  const cont = nearest(w, (p) => !!terrainAt(w, p).container && containerFresh(w, p) && !!tileAt(w, p).seen && !avoid(p))
   if (cont) {
     const st = stepTo(w, cont)
     if (st !== null) return { type: 'move', dir: st }

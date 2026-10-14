@@ -172,7 +172,7 @@ export interface ItemDef extends DefBase {
   }
   /** 방패: 막기치, 흡수량(넘친 피해는 방패 든 팔로), 밀치기 보정 (07 §2.2·§7.2) */
   shield?: { block: number; absorb: number; shove?: number }
-  food?: { kcal: number; vitamin?: number; water?: number; raw?: boolean; scent?: number; needsTool?: string }
+  food?: { kcal: number; vitamin?: number; water?: number; raw?: boolean; scent?: number; needsTool?: string; /** 날것 식중독 % (기본 25) */ poison?: number }
   drink?: { water: number; dirty?: boolean; alcohol?: number }
   medical?: {
     kind: 'bandage' | 'tourniquet' | 'splint' | 'disinfect'
@@ -293,6 +293,8 @@ export interface TerrainDef extends DefBase {
   water?: 'shallow' | 'deep'
   door?: 'open' | 'closed'
   container?: string // LootTable id
+  /** 뒤진 뒤 다시 차는 일수 (버섯 무리 2일, D36) */
+  regrowDays?: number
   /** 보관함 격자 [가로, 세로] (13: 야영지 보관함 12×8) */
   /** 루팅 격자 [가로, 세로] · 여는 턴 · 소음 (13 §8.1) */
   lootGrid?: [number, number]
@@ -681,6 +683,8 @@ export interface Tile {
   blood: number
   items: ItemInst[]
   searched?: boolean
+  /** 다시 자라는 시각(턴) — 이 시각이 지나면 다시 뒤질 수 있다 */
+  regrowAt?: number
   seen?: boolean
   /** 용기(상자·항아리·석관) 내용물 */
   cont?: { items: ItemInst[]; opened: boolean; kind: string }

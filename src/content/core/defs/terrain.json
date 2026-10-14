@@ -123,7 +123,7 @@
     "defType": "Terrain",
     "id": "Terrain.Fungus",
     "label": "버섯 무리",
-    "description": "장막 포자를 먹고 자란 버섯. 뒤지면 먹을 만한 것이 있을지도.",
+    "description": "장막 포자를 먹고 자란 버섯. 뒤지면 먹을 만한 갓버섯이 있다. 따 가도 이틀이면 다시 돋는다.",
     "sprites": [
       "mushrooms"
     ],
@@ -136,7 +136,8 @@
       2
     ],
     "openTurns": 1,
-    "openNoise": 1
+    "openNoise": 1,
+    "regrowDays": 2
   },
   {
     "defType": "Terrain",

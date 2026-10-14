@@ -155,10 +155,15 @@ export function adjacentContainer(w: World, c: Creature, includeOpened = false):
   for (const d of [{ x: 0, y: 0 }, ...DIRS]) {
     const p = { x: c.pos.x + d.x, y: c.pos.y + d.y }
     if (!inBounds(w, p)) continue
-    const t = tileAt(w, p)
-    if (terrainAt(w, p).container && (includeOpened || !t.searched)) return p
+    if (terrainAt(w, p).container && (includeOpened || containerFresh(w, p))) return p
   }
   return undefined
+}
+
+/** 아직 안 뒤졌거나, 뒤진 뒤 다시 자랐다 (버섯 무리, D36) */
+export function containerFresh(w: World, p: Pos): boolean {
+  const t = tileAt(w, p)
+  return !t.searched || (t.regrowAt !== undefined && turnOf(w) >= t.regrowAt)
 }
 
 function sleepingBlocked(w: World, c: Creature): string | null {
@@ -193,6 +198,7 @@ function openContainer(w: World, c: Creature, p: Pos) {
   const t = tileAt(w, p)
   const terr = terrainAt(w, p)
   t.searched = true
+  if (terr.regrowDays) t.regrowAt = turnOf(w) + terr.regrowDays * TURNS_PER_DAY
   if (!t.cont) {
     t.cont = { items: [], opened: true, kind: terr.id }
     const [gw, gh] = terr.lootGrid ?? [6, 4]
@@ -591,6 +597,8 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const p = adjacentContainer(w, c) ?? adjacentContainer(w, c, true)
       if (!p) return FAIL('뒤질 만한 것이 없다')
       const t = tileAt(w, p)
+      // 다시 자랐으면 새로 뒤진다 (남은 것은 썩어 흙이 됐다)
+      if (t.searched && t.regrowAt !== undefined && turnOf(w) >= t.regrowAt) { t.searched = false; t.cont = undefined; t.regrowAt = undefined }
       const terr = terrainAt(w, p)
       if (t.searched && t.cont) {
         w.s.loot = { pos: p, kind: 'cont' }
@@ -1057,12 +1065,12 @@ function consume(w: World, c: Creature, uid: number): ActResult {
     c.needs.water += def.food.water ?? 0
     if (def.food.raw) {
       addThought(w, c, 'Thought.AteRaw')
-      if (!traitOverride(w, c, 'foodPoisonImmune') && r.chance(0.25)) {
+      if (!traitOverride(w, c, 'foodPoisonImmune') && r.chance((def.food.poison ?? 25) / 100)) {
         addEffect(c, 'foodPoisoning', turn + 2400)
         c.needs.water -= 300
         c.needs.kcal -= 200
         addThought(w, c, 'Thought.Vomited')
-        if (isPl(c)) log(w, 'danger', '속이 뒤집혀 토했다. 날고기가 탈이 났다.')
+        if (isPl(c)) log(w, 'danger', `속이 뒤집혀 토했다. ${def.label}이(가) 탈이 났다.`)
       }
     } else if (def.food.kcal >= 500) addThought(w, c, 'Thought.AteGood')
     removeOne(w, c, uid)
