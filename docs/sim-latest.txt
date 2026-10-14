@@ -1,38 +1,39 @@
-# pnpm sim 30 3 — 2026-10-14 16:22 KST, v0.7 (D35 그늘 사람 빛 안 사기 −25 · 봇 사기 반영 · 뒤지기 시체 선택 수정)
-# 평균 생존 1.34일(v0.6 1.42), 3일 생존 11판(v0.6 10). 빛 안 그늘 사람은 붙었을 때 평균 사기 18·도주 잦음(6판 표본 13회) — 하지만 봇은 교전을 거의 하지 않아(휘두름 18회·처치 0) 성장이 없다.
+# pnpm sim 30 3 — 2026-10-14 18:25 KST, v0.8 (봇 빛 안 버티기 · 물 관리 · 기름 붓기 버그 수정)
+# 평균 생존 1.38일(v0.7 1.34), 3일 생존 8판, 레벨 2 이상 9판(v0.7 2판), 탈수 0(v0.7 이전 측정에선 최대 23%). 아사 10%는 먹을 것 공급원이 없어서.
 
 sim-0: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
-sim-1: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch
-sim-2: 치명상 · 1.51일 · Lv1 · surface · Bg.Deserter · 사건 ReaverPatrol
-sim-3: 생존(시간 종료) · 3.02일 · Lv1 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
+sim-1: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch,ReaverPatrol,ReaverSearch
+sim-2: 생존(시간 종료) · 3.02일 · Lv3 · surface · Bg.Deserter · 사건 ReaverPatrol,ReaverPatrol,ReaverSearch
+sim-3: 치명상 · 0.64일 · Lv2 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
 sim-4: 치명상 · 0.55일 · Lv1 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
-sim-5: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Scavenger · 사건 -
+sim-5: 아사 · 2.78일 · Lv1 · surface · Bg.Scavenger · 사건 -
 sim-6: 치명상 · 1.10일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-7: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
-sim-8: 과다 출혈 · 0.18일 · Lv1 · surface · Bg.Excommunicate · 사건 -
-sim-9: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-7: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
+sim-8: 치명상 · 0.50일 · Lv2 · surface · Bg.Excommunicate · 사건 ReaverPatrol
+sim-9: 과다 출혈 · 1.84일 · Lv2 · surface · Bg.Hunter · 사건 ReaverPatrol,ReaverSearch,ReaverPatrol,ReaverSearch
 sim-10: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-11: 과다 출혈 · 0.17일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
-sim-12: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.GuildMerchant · 사건 ReaverPatrol
-sim-13: 치명상 · 1.50일 · Lv1 · crypt1 · Bg.Deserter · 사건 ReaverPatrol,ReaverPatrol
+sim-11: 과다 출혈 · 0.26일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-12: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
+sim-13: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
 sim-14: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
-sim-15: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
-sim-16: 치명상 · 0.55일 · Lv1 · surface · Bg.Deserter · 사건 ReaverPatrol,ReaverSearch
+sim-15: 아사 · 2.55일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch
+sim-16: 아사 · 2.82일 · Lv1 · surface · Bg.Deserter · 사건 -
 sim-17: 과다 출혈 · 0.17일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
 sim-18: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol,ReaverSearch
 sim-19: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-20: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-21: 치명상 · 0.55일 · Lv1 · surface · Bg.Scavenger · 사건 ReaverPatrol,ReaverSearch
+sim-20: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
+sim-21: 치명상 · 0.14일 · Lv3 · crypt1 · Bg.Scavenger · 사건 -
 sim-22: 치명상 · 0.50일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 ReaverPatrol
-sim-23: 과다 출혈 · 0.17일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-23: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
 sim-24: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-25: 생존(시간 종료) · 3.04일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
-sim-26: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
-sim-27: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-28: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-25: 치명상 · 1.50일 · Lv2 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverPatrol
+sim-26: 과다 출혈 · 0.17일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-27: 치명상 · 1.66일 · Lv2 · crypt1 · Bg.GuildMerchant · 사건 -
+sim-28: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.GuildMerchant · 사건 ReaverPatrol
 sim-29: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Herbalist · 사건 ReaverPatrol
 ── 집계 ──
-생존(시간 종료): 11 (37%)
-치명상: 11 (37%)
-과다 출혈: 8 (27%)
-평균 생존 1.34일 · 탈출 0/30 · 1295.4s
+치명상: 10 (33%)
+과다 출혈: 9 (30%)
+생존(시간 종료): 8 (27%)
+아사: 3 (10%)
+평균 생존 1.38일 · 탈출 0/30 · 1417.9s
