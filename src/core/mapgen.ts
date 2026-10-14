@@ -49,7 +49,7 @@ export function generateSurface(w: World): GenResult {
   for (const t of m.tiles) if (r.chance(0.16)) t.deco = `moss_s${r.int(0, 11)}`
 
   // 수도원 입구 (북쪽 중앙 16×10): 무너진 정문, 종탑 잔해, 마당, 1층 계단
-  const mx = 17, my = 1, mw = 16, mh = 10
+  const mx = 24, my = 1, mw = 16, mh = 10
   for (let y = my; y < my + mh; y++) for (let x = mx; x < mx + mw; x++) {
     const edge = x === mx || x === mx + mw - 1 || y === my || y === my + mh - 1
     const thick = y === my || y === my + 1
