@@ -173,3 +173,19 @@ describe('소문 쪽지 (06 §7.0 · 14 §5.1)', () => {
     expect(room.name).toBe(r.roomName)
   })
 })
+
+describe('T1 거리 (CANON D37)', () => {
+  it('10칸 밖에서 제 일을 하는 적은 끊지 않고, 나를 쫓거나 10칸 안이면 끊는다', async () => {
+    const { T1_RANGE, t1Relevant } = await import('../src/core/autostop')
+    const { w, pl } = setup('t1far')
+    const r = createCreature(w, 'Creature.Reaver', { x: pl.pos.x + T1_RANGE + 1, y: pl.pos.y })
+    r.ai.mode = 'idle'
+    expect(t1Relevant(r, pl)).toBe(false)
+    r.ai.mode = 'hunt'
+    r.ai.target = pl.id
+    expect(t1Relevant(r, pl)).toBe(true)
+    r.ai.mode = 'idle'
+    r.pos = { x: pl.pos.x + T1_RANGE, y: pl.pos.y }
+    expect(t1Relevant(r, pl)).toBe(true)
+  })
+})

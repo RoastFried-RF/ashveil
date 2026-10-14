@@ -33,9 +33,18 @@ const SUSPICIOUS = 2
 
 const ONE_CELL = { size: [1, 1] } as unknown as ItemDef
 
+/** T1 위협 거리: 이보다 멀고 나를 쫓지 않는 적은 '본 채로 두고' 계속한다 (01 §6.2 무시 목록의 자동판, CANON D37) */
+export const T1_RANGE = 10
+
 function hostileIds(w: World, pl: Creature): number[] {
-  // 잠든 개체도 처음 보면 트리거 (T1)
-  return w.s.creatures.filter((o) => o.alive && o.faction !== 'player' && o.faction !== 'vermin' && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)).map((o) => o.id)
+  // 잠든 개체도 처음 보면 트리거 (T1). 단 멀리서 제 일을 하는 적은 다가오거나 나를 쫓을 때 트리거
+  return w.s.creatures.filter((o) => o.alive && o.faction !== 'player' && o.faction !== 'vermin' && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)
+    && t1Relevant(o, pl)).map((o) => o.id)
+}
+
+/** T1에 넣을 적: 10칸 안이거나 나를 쫓는 중 */
+export function t1Relevant(o: Creature, pl: Creature): boolean {
+  return cheb(o.pos, pl.pos) <= T1_RANGE || (o.ai.mode === 'hunt' && o.ai.target === pl.id)
 }
 
 const bloodStageOf = (loss: number) => (loss >= 0.4 ? 3 : loss >= 0.3 ? 2 : loss >= 0.15 ? 1 : 0)

@@ -41,14 +41,21 @@ export function fightRisk(w: World, pl: Creature, foes: Creature[]): number {
     // 사기 (07 §8): 10 미만은 곧 달아나고, 25 미만은 5턴마다 (25 − 사기) × 4% 도주 — 그만큼 덜 위험하다
     const M = w.db.creature(e.def).noMorale ? 100 : moraleOf(w, e)
     const stay = M < 10 ? 0.2 : M < 25 ? Math.max(0.3, 1 - (25 - M) * 0.04 * 2) : 1
-    const dps = theirs * (wield(w, e)?.atk.damage ?? 3) * stay
-    return { ttk, dps }
+    const atk = wield(w, e)?.atk
+    const dps = theirs * (atk?.damage ?? 3) * stay
+    // 맞을 때마다 새 상처가 생겨 남은 싸움 내내 피를 흘린다: 상처당 출혈 ≈ 피해(베기·찌르기, 작은 상처 ×0.5 × 유형 2) — 타격은 거의 없음
+    const perHit = atk && (atk.damageType === 'cut' || atk.damageType === 'stab' || atk.damageType === 'bite') ? atk.damage : (atk?.damage ?? 3) * 0.2
+    return { ttk, dps, bleedRate: theirs * stay * perHit }
   }).sort((a, b) => a.ttk - b.ttk)
-  let t = 0, taken = 0
-  for (const r of rows) { t += r.ttk; taken += r.dps * t }
+  let t = 0, taken = 0, newBleed = 0
+  for (const r of rows) { t += r.ttk; taken += r.dps * t; newBleed += r.bleedRate * t * t / 2 }
   // 실혈이 HP보다 먼저 온다: 맞은 피해의 대부분이 상처 출혈로 이어진다 → 버틸 몸은 HP의 절반 정도
   const budget = pl.hp * 0.5 * (1 - bloodLoss(pl) * 2)
-  return taken / Math.max(1, budget)
+  // 지금 흐르는 피: 싸우는 t턴 동안 실혈 30%(쇼크)까지 남은 피를 다 쓰면 그만큼 위험하다
+  const bleed = totalBleed(w, pl)
+  const bloodLeft = pl.body.bloodMax * 0.3 - (pl.body.bloodMax - pl.body.blood)
+  const bleedRisk = (bleed * t + newBleed) / Math.max(1, bloodLeft)
+  return Math.max(taken / Math.max(1, budget), bleedRisk)
 }
 
 /**
