@@ -793,6 +793,8 @@ export interface GameState {
   weatherUntil: number
   wind: Pos
   storyteller: StorytellerState
+  /** 헤드리스 봇 기억 (밸런스 측정용, 세이브와 함께 직렬화해 결정론 유지) */
+  bot?: { avoid: string[]; retreats: number; lastRetreat?: number; lootAt?: string; lastStairs?: number; lastHp?: number; hurtAt?: number }
   knowledge: Knowledge
   over?: { kind: 'death' | 'escape'; turn: number; report: DeathReport }
   visible: number[] // 이번 턴 플레이어가 보는 타일 인덱스

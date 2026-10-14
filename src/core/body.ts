@@ -9,19 +9,20 @@ import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wo
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
 
 // 몸 상태에서 나오는 값(의식·기능 능력치·부위 상태·통증)은 같은 상태면 같은 값이다.
-// 상태 지문이 바뀌면 다시 계산한다 (순수 함수 메모, 결정론에 영향 없음)
+// 상태 지문은 그 값들이 읽는 입력을 빠짐없이 담아야 한다 — 하나라도 반올림하거나 빠뜨리면
+// 캐시 이력(불러오기 직후 빈 캐시 vs 이어 온 캐시)에 따라 값이 달라져 결정론이 깨진다.
 const memo = new WeakMap<Creature, { key: string; m: Map<string, number> }>()
 
 function stateKey(w: World, c: Creature): string {
-  let sev = 0, fx = 0
+  const turn = turnOf(w)
+  let k = ''
   for (const wd of c.body.wounds) {
-    sev += wd.severity - wd.healed
-    if (wd.fracture) fx += 1 + wd.fracture.progress + (wd.splint ? 2 : 0)
-    if (wd.infection) fx += wd.infection.progress
-    if (wd.tendon) fx += 7
+    k += `${wd.part}:${wd.severity}:${wd.healed}:${wd.fracture ? wd.fracture.grade + wd.fracture.progress : ''}:${wd.splint ? wd.splint.quality + (wd.splint.half ? 'h' : '') : ''}:${wd.infection?.progress ?? ''}:${wd.tendon ? 1 : 0};`
   }
   const n = c.needs
-  return `${c.body.wounds.length}|${sev.toFixed(3)}|${fx.toFixed(3)}|${Math.round(c.body.blood)}|${c.body.missing.length}|${Object.keys(c.body.tourniquets).length}|${c.effects.length}|${Math.round(n.bodyTemp * 10)}|${Math.round(n.fatigue)}|${c.cond?.shock ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.traits.length}|${c.abilities.length}|${Object.keys(c.equip).length}`
+  const fx = c.effects.filter((e) => e.untilTurn > turn).map((e) => e.kind + (e.magnitude ?? '')).sort().join(',')
+  const eq = Object.values(c.equip).map((i) => i?.uid ?? '').join(',')
+  return `${k}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.fatigue > 90 ? 3 : n.fatigue > 75 ? 2 : n.fatigue > 60 ? 1 : 0}|${c.cond?.shock ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}`
 }
 
 function cached(w: World, c: Creature, name: string, fn: () => number): number {
@@ -399,6 +400,10 @@ export interface WoundSpec {
   canSever?: boolean
 }
 
+/** 작은 상처 출혈 문턱 (CANON D34): 심각도 < 부위 HP × 15%면 상처 출혈 × 0.5. 동맥 출혈은 그대로 */
+export const SMALL_WOUND_PCT = 15
+export const SMALL_WOUND_BLEED = 0.5
+
 /** 상처 추가 (02 §4). 반환: 이번 상처로 처음 파괴된 부위 id */
 export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound; destroyed?: string; severed?: boolean } {
   const def = w.db.wound(spec.def)
@@ -406,7 +411,9 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
   const sev = Math.max(1, Math.round(spec.severity))
   // 상처 출혈 = sev × 유형 출혈계수 × 부위 혈관계수 (내출혈은 × 장기계수) × 배율
   const coef = spec.internal ? pd.organ ?? 1 : pd.vessel ?? 1
-  const bleed = sev * def.bleedPerSeverity * coef * (spec.bleedMult ?? 1)
+  const hpPart = c.body.maxHp[spec.part] ?? 0
+  const small = !spec.internal && hpPart > 0 && sev * 100 < hpPart * SMALL_WOUND_PCT
+  const bleed = sev * def.bleedPerSeverity * coef * (spec.bleedMult ?? 1) * (small ? SMALL_WOUND_BLEED : 1)
   const env = tileAt(w, c.pos)
   let contam = def.contamination + (spec.contam ?? 0) + (pd.contam ?? 0)
   if (w.db.terrain(env.t).id.includes('Mud')) contam += 20

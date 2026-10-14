@@ -20,6 +20,18 @@ describe('신체·출혈 (02)', () => {
     const { wound: art } = addWound(w, pl, { def: 'Wound.Cut', part: 'RightThigh', severity: 15, source: 't', artery: 150 })
     expect(effectiveBleed(w, pl, art)).toBeCloseTo(186, 5)
   })
+  it('작은 상처 출혈 문턱 (CANON D34): sev < 부위 HP 15%면 상처 출혈 × 0.5, 동맥은 그대로', () => {
+    const w = makeWorld('b1s')
+    const pl = player(w)
+    pl.traits = []
+    expect(pl.body.maxHp.LeftThigh).toBe(35) // 문턱 35 × 15% = 5.25
+    const a = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftThigh', severity: 5, source: 't' }).wound
+    expect(a.bleed).toBeCloseTo(5 * 2 * 1.2 * 0.5, 5) // 6.0
+    const b = addWound(w, pl, { def: 'Wound.Cut', part: 'RightThigh', severity: 6, source: 't' }).wound
+    expect(b.bleed).toBeCloseTo(6 * 2 * 1.2, 5) // 14.4
+    const c = addWound(w, pl, { def: 'Wound.Cut', part: 'LeftShin', severity: 2, source: 't', artery: 80 }).wound
+    expect(c.artery).toBe(80)
+  })
   it('붕대 Q 29: 처치계수 0.384 · 동맥 0.742 → 약 125 ml/턴, 지혈대는 0 (02 §6.2 검산 3)', () => {
     const w = makeWorld('b2')
     const pl = player(w)

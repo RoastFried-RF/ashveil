@@ -377,6 +377,8 @@ export function playerAct(w: World, action: Action): string | null {
   if (res.msg === 'stairs') {
     const link = w.s.map.links.find((l) => eq(l.pos, pl.pos))!
     changeMap(w, link.to)
+    // 계단도 1턴이다: 따라온 적이 먼저 움직일 수 있다 (계단 왕복으로 시간을 멈추지 못하게)
+    runUntilInput(w)
     return null
   }
   const act = pl.activity as Activity | undefined

@@ -309,13 +309,16 @@ export function aiDecide(w: World, c: Creature): Action {
     if (ai.mode === 'hunt') { ai.mode = 'return'; ai.path = undefined }
   }
   if (target) {
-    if (ai.mode !== 'hunt' && isGuard && turn - (ai.alertTurn ?? -999) > 20) {
+    // 소리쳐 깨우기는 한 번 경보한 뒤 120턴(6분)은 다시 하지 않는다 — 추적을 잃었다 되찾을 때마다 외치지 않게
+    if (ai.mode !== 'hunt' && isGuard && turn - (ai.alertTurn ?? -999) > 120) {
       ai.alertTurn = turn
       emitNoise(w, c.pos, 12, c.id) // 소리쳐 동료를 깨운다 (14 §7.3: 소음 12)
       fx(w, { k: 'status', id: c.id, text: '!', color: '#ff5050', turn })
       if (canSee(w, pl, c.pos)) log(w, 'warn', cdef.ai === 'boss' ? `${c.name}이(가) 꿈틀거리며 몸을 일으킨다. 방 전체가 울린다.` : `${c.name}이(가) 당신을 발견했다.`)
     }
-    if (ai.mode !== 'hunt' && cdef.ai === 'packHunter') {
+    // 무리 부르기는 60턴에 한 번 (빛을 피해 물러났다 다시 오는 그늘 사람이 매번 소리치지 않게)
+    if (ai.mode !== 'hunt' && cdef.ai === 'packHunter' && turn - (ai.alertTurn ?? -999) > 60) {
+      ai.alertTurn = turn
       emitNoise(w, c.pos, 12, c.id) // 짖어서 무리를 부른다
       if (canSee(w, pl, c.pos)) log(w, 'warn', `${c.name}이(가) 이빨을 드러내고 짖는다.`)
     }

@@ -14,8 +14,16 @@ export function deserialize(json: string): GameState {
 }
 
 /** 결정론 검증용 상태 해시 (FNV-1a) */
+/** 키 순서와 무관한 직렬화: 런타임에 키가 붙은 순서는 불러오기 전후로 달라질 수 있다 */
+function canonical(v: unknown): string {
+  if (v === null || typeof v !== 'object') return JSON.stringify(v) ?? 'null'
+  if (Array.isArray(v)) return '[' + v.map((x) => (x === undefined ? 'null' : canonical(x))).join(',') + ']'
+  const o = v as Record<string, unknown>
+  return '{' + Object.keys(o).filter((k) => o[k] !== undefined).sort().map((k) => JSON.stringify(k) + ':' + canonical(o[k])).join(',') + '}'
+}
+
 export function stateHash(s: GameState): string {
-  const str = serialize(s)
+  const str = canonical(s)
   let h = 0x811c9dc5
   for (let i = 0; i < str.length; i++) {
     h ^= str.charCodeAt(i)
