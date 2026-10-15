@@ -4,7 +4,7 @@
 // 잠든 무리가 있는 방은 피한다, 다가오는 적은 정면으로 맞는다, 더 좋은 무기로 바꾼다, 원거리 무기는 거리에서 먼저.
 
 import { abilityReady } from './abilities'
-import { adjacentContainer, adjacentCorpse, containerFresh, hostile, lootItems, type Action } from './actions'
+import { adjacentContainer, adjacentCorpse, canTreat, containerFresh, hostile, lootItems, type Action } from './actions'
 import { bloodLoss, effectiveBleed, energyMax, hpMax, part, totalBleed } from './body'
 import { canReach, previewHit } from './combat'
 import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, TURNS_PER_HOUR, type World } from './ctx'
@@ -14,6 +14,7 @@ import { allItems, countOf, currentAttack, findSpot, itemDef, mainWeapon, wield 
 import { moraleOf } from './morale'
 import { diagonalBlocked, findPath } from './path'
 import { abilitiesByTree, canLearn } from './progression'
+import { traitMul } from './traits'
 import type { Creature, ItemInst, Stats } from './types'
 
 const STAT_ORDER: (keyof Stats)[] = ['agi', 'str', 'vit', 'agi', 'per', 'vit', 'wil']
@@ -49,6 +50,8 @@ export function fightRisk(w: World, pl: Creature, foes: Creature[]): number {
   }).sort((a, b) => a.ttk - b.ttk)
   let t = 0, taken = 0, newBleed = 0
   for (const r of rows) { t += r.ttk; taken += r.dps * t; newBleed += r.bleedRate * t * t / 2 }
+  // 묽은 피 등 출혈 배율 특성 (body.ts 출혈률과 같은 배율)
+  newBleed *= traitMul(w, pl, 'bleedMult')
   // 실혈이 HP보다 먼저 온다: 맞은 피해의 대부분이 상처 출혈로 이어진다 → 버틸 몸은 HP의 절반 정도
   const budget = pl.hp * 0.5 * (1 - bloodLoss(pl) * 2)
   // 지금 흐르는 피: 싸우는 t턴 동안 실혈 30%(쇼크)까지 남은 피를 다 쓰면 그만큼 위험하다
@@ -147,10 +150,11 @@ export function botDecide(w: World): Action {
     const limb = part(w, pl, wd.part).limb
     const tq = find((d) => d.medical?.kind === 'tourniquet')
     // 팔다리의 큰 출혈은 지혈대 (아래 부위 출혈 0)
-    if ((wd.arterial || effectiveBleed(w, pl, wd) > 15) && limb && tq && pl.body.tourniquets[limb] === undefined) return { type: 'treat', uid: tq.uid, woundId: wd.id }
+    // 손이 말을 듣지 않으면(다턴 배율 ×4 초과) 처치를 시도하지 않고 손으로 누른다
+    if ((wd.arterial || effectiveBleed(w, pl, wd) > 15) && limb && tq && pl.body.tourniquets[limb] === undefined && canTreat(w, pl, 'tourniquet', wd)) return { type: 'treat', uid: tq.uid, woundId: wd.id }
     const band = find((d) => d.medical?.kind === 'bandage')
     const unbandaged = bleeding.find((x) => !x.bandage && !(x.arterial && part(w, pl, x.part).limb))
-    if (band && unbandaged) return { type: 'treat', uid: band.uid, woundId: unbandaged.id }
+    if (band && unbandaged && canTreat(w, pl, 'bandage', unbandaged)) return { type: 'treat', uid: band.uid, woundId: unbandaged.id }
     if (effectiveBleed(w, pl, wd) > 2) return { type: 'press', woundId: wd.id }
   }
   // 적이 붙어 있어도 큰 출혈은 손으로 누른다 (1턴, 한 손으로 싸울 수 있다)
@@ -159,7 +163,7 @@ export function botDecide(w: World): Action {
   for (const [limb, at] of Object.entries(pl.body.tourniquets)) if (turnOf(w) - at > 1800) return { type: 'removeTourniquet', limb }
   const frac = pl.body.wounds.find((wd) => wd.fracture && !wd.splint)
   const splint = find((d) => d.medical?.kind === 'splint')
-  if (frac && splint && !adjacentEnemy) return { type: 'treat', uid: splint.uid, woundId: frac.id }
+  if (frac && splint && !adjacentEnemy && canTreat(w, pl, 'splint', frac)) return { type: 'treat', uid: splint.uid, woundId: frac.id }
   if (pl.hp < hpMax(w, pl) * 0.35) {
     const draught = inv.find((i) => i.def === 'Item.HealthDraught')
     if (draught) return { type: 'consume', uid: draught.uid }
@@ -182,8 +186,10 @@ export function botDecide(w: World): Action {
     if (drink) return { type: 'consume', uid: drink.uid }
   }
 
-  // 전투
-  if (enemies.length) {
+  // 전투. 8칸 밖에만 보이는 무리가 이길 수 없는 상대면 다가가지 않고 하던 일을 한다
+  // (물러난 자리와 8칸 경계를 오가는 왕복 방지)
+  const farOnly = enemies.length > 0 && enemies.every((x) => cheb(x.pos, pl.pos) > 8)
+  if (enemies.length && !(farOnly && fightRisk(w, pl, enemies) > 1)) {
     enemies.sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))
     const e = enemies[0]
     const near = enemies.filter((x) => cheb(x.pos, pl.pos) <= 8)
@@ -240,6 +246,9 @@ export function botDecide(w: World): Action {
       return { type: 'attack', target: e.id }
     }
     if (ranged && countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0) return { type: 'shoot', target: e.id }
+    // 높은 자리 (07 §5): 다가오는 적은 단차 위(잔해·관·제단, 지하는 올라가는 계단)에서 받는다
+    const hg = highGround(w, enemies, up?.pos)
+    if (hg) return hg
     // 빛 안에서 버티는 중: 빛 밖의 적은 쫓지 않는다. 좁은 곳이면 그 자리에서, 아니면 좁은 곳으로
     if (holding && lightLevel(w, e.pos) !== 0) {
       const toward0 = dirIndex(e.pos.x - pl.pos.x, e.pos.y - pl.pos.y)
@@ -375,6 +384,40 @@ export function botDecide(w: World): Action {
     if (st !== null) return { type: 'move', dir: st }
   }
   return { type: 'rest', turns: 60 }
+}
+
+const elevOf = (w: World, p: Pos) => terrainAt(w, p).elevation ?? 0
+
+/**
+ * 높은 자리 잡기 (07 §5: 단차 1 위면 근접 +10, 아래면 −10). 사냥 중인 적이 6칸 안에서 다가오면
+ * 이미 높은 자리면 그쪽을 보고 기다리고(30턴까지), 올라가는 계단이 6걸음 안이고 적보다 가까우면 계단으로(높은 자리이자 퇴로),
+ * 아니면 적에게 붙지 않는 옆 칸 중 더 높은 칸으로 오른다.
+ */
+function highGround(w: World, enemies: Creature[], up?: Pos): Action | null {
+  const pl = player(w), m = mem(w)
+  const coming = enemies.filter((e) => e.ai.mode === 'hunt' && cheb(e.pos, pl.pos) <= 6)
+  if (!coming.length) { m.standAt = undefined; return null }
+  const nearestFoe = coming[0]
+  if (elevOf(w, pl.pos) > 0) {
+    m.standAt ??= turnOf(w)
+    if (turnOf(w) - m.standAt > 30) return null
+    const toward = dirIndex(nearestFoe.pos.x - pl.pos.x, nearestFoe.pos.y - pl.pos.y)
+    return pl.facing !== toward ? { type: 'face', dir: toward } : { type: 'wait' }
+  }
+  m.standAt = undefined
+  if (up && w.s.map.kind === 'dungeon') {
+    const path = findPath(w, pl.pos, up, { avoidCreatures: true, selfId: pl.id })
+    if (path && path.length && path.length <= 6 && coming.every((e) => cheb(e.pos, up) > path.length)) {
+      const n = path[0]
+      return { type: 'move', dir: dirIndex(n.x - pl.pos.x, n.y - pl.pos.y) }
+    }
+  }
+  for (let i = 0; i < 8; i++) {
+    const p = { x: pl.pos.x + DIRS[i].x, y: pl.pos.y + DIRS[i].y }
+    if (!inBounds(w, p) || !terrainAt(w, p).passable || creatureAt(w, p) || diagonalBlocked(w, pl.pos, DIRS[i].x, DIRS[i].y)) continue
+    if (elevOf(w, p) > elevOf(w, pl.pos) && coming.every((e) => cheb(e.pos, p) >= 2)) return { type: 'move', dir: i }
+  }
+  return null
 }
 
 /** 잠든 단독 적: 주변 5칸에 다른 잠든 적이 없고 깨어 있는 적도 없을 때. 무리면 그 방을 피할 곳으로 */

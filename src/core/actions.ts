@@ -857,6 +857,11 @@ function treatBase(w: World, c: Creature, kind: string, wd?: Wound): number {
   return Math.ceil(base * f - 1e-9)
 }
 
+/** 처치를 시작할 수 있나: 다턴 배율 ×4를 넘으면(손이 말을 듣지 않으면) 불가 */
+export function canTreat(w: World, c: Creature, kind: string, wd?: Wound): boolean {
+  return channelTurns(w, c, treatBase(w, c, kind, wd)) !== null
+}
+
 /**
  * 처치 품질 Q (02 §12.1)
  * = clamp(5, 100, (40 + (지각 − 10) × 2 + 의료 숙달 × 4 + 도구 + 조명 + 청결 + 환경 − 통증 페널티) × 조작 × 자가계수)
