@@ -1,7 +1,8 @@
 // 헤드리스 밸런스용 플레이어 봇. 사람처럼 잘하진 않지만 시스템이 돌아가는지 본다.
 // 지상 → 수도원 계단 → 지하 묘소를 탐색하며 상자를 뒤지고, 레벨업 포인트를 쓰고, 능력을 쓴다.
 // 전술 (bestiary L1~L3 · 07): 승산 계산 → 불리하면 위층으로 물러나 회복 후 재진입, 잠든 단독 적은 잠행 기습,
-// 잠든 무리가 있는 방은 피한다, 다가오는 적은 정면으로 맞는다, 더 좋은 무기로 바꾼다, 원거리 무기는 거리에서 먼저.
+// 잠든 무리가 있는 방은 피한다, 다가오는 적은 정면·높은 자리(계단)에서 맞는다, 빛을 싫어하는 적은 등불 안에서 버틴다,
+// 더 좋은 무기로 바꾼다, 원거리 무기는 거리에서 먼저. 설명·측정은 docs/prototype.md §4.
 
 import { abilityReady } from './abilities'
 import { adjacentContainer, adjacentCorpse, canTreat, containerFresh, hostile, lootItems, type Action } from './actions'

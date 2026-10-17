@@ -1,5 +1,5 @@
 // 신체·상처·출혈·통증·의식·감염 (02). 플레이어와 모든 생물에 동일 규칙 (대칭성).
-// HP 풀 + 6부위 상태(스톤샤드 기본, §2.0) 위에 세부 부위 트리·상처 개체·기능 능력치(림월드 추가)를 얹는다.
+// HP 풀 + 6부위 상태(뼈대, §2.0) 위에 세부 부위 트리·상처 개체·기능 능력치(디테일 층)를 얹는다.
 
 import { clamp, log, rng, tileAt, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 import { scentTick } from './perception'
