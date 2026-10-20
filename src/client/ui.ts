@@ -2,7 +2,7 @@
 
 import { reactive, ref } from 'vue'
 import {
-  throwQuote, quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
+  throwItems, throwQuote, quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
@@ -103,10 +103,11 @@ export function startThrow(uid: number): string | null {
   if (!w) return null
   const pl = player(w)
   const ts = visibleEnemies(w).filter(c => !throwQuote(w, pl, uid, c.id).error)
-  if (!ts.length) return (hint.value = '돌을 던질 수 있는 적이 없다')
-  targeting.value = { kind: 'throw', uid, label: '돌 던지기', targets: ts.map(c => c.id), idx: 0 }
+  const item=throwItems(pl).find(i=>i.uid===uid),label=item?itemDef(w,item).throwable?.attack.label??'투척 공격':'투척 공격'
+  if (!ts.length) return (hint.value = '던질 수 있는 적이 없다')
+  targeting.value = { kind: 'throw', uid, label, targets: ts.map(c => c.id), idx: 0 }
   setWin('inv', false)
-  hint.value = '돌 던지기 — 대상을 고르세요 (클릭 · Tab 순환 · Enter 확정 · Esc 취소)'
+  hint.value = `${label} — 대상을 고르세요 (클릭 · Tab 순환 · Enter 확정 · Esc 취소)`
   return null
 }
 
@@ -182,7 +183,7 @@ export function useHotbar(i: number) {
   if (!ref) return
   if (ref.kind === 'ability') return useAbility(ref.id)
   // 배낭/착용한 허리 주머니의 실제 소모품 (13 §7)
-  const it = quickItem(player(w),ref.def,ref.fletchingDamaged)
+  const it = quickItem(player(w),ref.def,ref.fletchingDamaged,!!w.db.item(ref.def).throwable)
   if (!it) { hint.value = `${w.db.item(ref.def).label}: 남은 것이 없다`; return }
   useItem(w, it)
 }

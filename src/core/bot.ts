@@ -1,4 +1,5 @@
 import {firearmSupply} from './firearms'
+import {throwQuote} from './throwing'
 import {canSearchContainer} from './container-locks'
 import {readyFood} from './open-food-state'
 import { corpseMoneyQuote } from './corpse-money'
@@ -184,6 +185,7 @@ export function botDecide(w: World): Action {
     if (draught) return { type: 'consume', uid: draught.uid }
   }
 
+  for(const item of [pl.equip.main,pl.equip.off])if(item&&itemDef(w,item).throwable){const target=enemies.find(e=>cheb(pl.pos,e.pos)>1&&!throwQuote(w,pl,item.uid,e.id).error);if(target)return {type:'throwAttack',uid:item.uid,target:target.id}}
   // 파손·끊어진 활을 계속 쏘려 하지 않는다. 여유가 있으면 시위를 걸고, 교전 중에는 예비 무기로.
   const heldMain = mainWeapon(w, pl)
   const firearm=heldMain&&itemDef(w,heldMain).ranged?.firearm

@@ -1,4 +1,5 @@
 import {firearmReady,firearmSupply} from './firearms'
+import {throwQuote} from './throwing'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
 import {residentCultivationDecision} from './resident-cultivation'
@@ -626,6 +627,8 @@ function decideAction(w: World, c: Creature): Action {
         if (spot) { const st = stepToward(w, c, spot); if (st) return st }
       }
     }
+    // 손에 든 실제 투척 무기만 쓴다. 기존 소지 돌을 자동 공격 탄약으로 소비하지 않는다.
+    if(cheb(c.pos,target.pos)>1)for(const item of [c.equip.main,c.equip.off])if(item&&itemDef(w,item).throwable&&!throwQuote(w,c,item.uid,target.id).error)return {type:'throwAttack',uid:item.uid,target:target.id}
     // 실제 장전된 마지막 탄도 배낭 탄약과 별개로 사용할 수 있다.
     const gun=c.equip.main,gunRange=gun&&itemDef(w,gun).ranged
     if(gun&&gunRange?.firearm&&cheb(c.pos,target.pos)>1 ){

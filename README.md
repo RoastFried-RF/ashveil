@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.281** · 각인189. 권총·소총/실제 탄피 재장전·화면·전체5,738개/월드30판 통합 검증을 마쳤다. 후속 전체 구현은 계속 진행 중이다. 현재 진행은 [진행 상황](docs/progress.md), 코드의 작업 중 기능까지 포함한 상세 상태는 [구현 현황](docs/prototype.md), 사용자 요청 전체와 남은 범위는 [확장 로드맵](docs/expansion-roadmap.md)에 기록한다.
+**현재 상태: 프로토타입 v0.282 검증 중** · 각인189. 권총·소총/실제 탄피 재장전·화면·전체5,738개/월드30판 통합 검증을 마쳤다. 후속 전체 구현은 계속 진행 중이다. 현재 진행은 [진행 상황](docs/progress.md), 코드의 작업 중 기능까지 포함한 상세 상태는 [구현 현황](docs/prototype.md), 사용자 요청 전체와 남은 범위는 [확장 로드맵](docs/expansion-roadmap.md)에 기록한다.
 
 ## 현재 플레이할 수 있는 것
 
@@ -125,3 +125,10 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 ![원본 권총·소총·실탄](docs/previews/v281-1352-native-original-revolver-rifle-ammunition-and-primer-icons.png)
 ![실제 소총5발 클립과 남아 있는 권총](docs/previews/v281-1356-native-real-five-round-rifle-three-turn-clip-and-loaded-revolver.png)
 ![작은 화면의 실제 시작 버튼](docs/previews/v281-1366-00-title.png)
+
+## 투창 회수·실제 잔탄 HUD (v0.282 검증 중)
+
+직접 그린 투창을 실제 손에서 던지고 같은 무기를 회수한다. 총기 잔탄·빈 총·걸림은 실제 탄창 상태를 읽어 HUD와 아이콘에 표시한다. 전체5764개와 실제 화면23장을 통과했고 월드30판을 검사 중이다. [검증 근거](docs/release-v282-proof.json).
+
+![실제 투창 회수](docs/previews/v282-1364-native-actual-same-javelin-recovered-and-held-one-round-gun-preserved.png)
+![작은 화면의 실제 잔탄](docs/previews/v282-1366-native-small-screen-rifle-four-rounds-and-original-loaded-revolver.png)

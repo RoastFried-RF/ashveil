@@ -92,9 +92,10 @@ export function pocketItems(c:Creature):ItemInst[]{const belt=c.equip.belt;retur
 export function quiverItems(c:Creature):ItemInst[]{const back=c.equip.back;return back&&!back.half&&!back.missingItem&&(back.durability??100)>0?back.contents??[]:[]}
 export function supplyItems(c:Creature):ItemInst[]{return[...c.bag,...pocketItems(c),...quiverItems(c)]}
 export const itemStorage=(def:ItemDef)=>def.storage??def.pocket??def.quiver?.size
-/** 빠른 슬롯은 배낭/착용한 주머니의 같은 종류만, 가장 덜 신선한 실제 더미부터 쓴다. */
-export function quickItem(c:Creature,def:string,fletchingDamaged?:boolean):ItemInst|undefined{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).sort((a,b)=>(a.freshness??100)-(b.freshness??100)||a.uid-b.uid)[0]}
-export function quickCount(c:Creature,def:string,fletchingDamaged?:boolean):number{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).reduce((n,it)=>n+it.count,0)}
+function quickSources(c:Creature,includeHeld:boolean):ItemInst[]{return[...supplyItems(c),...(includeHeld?[c.equip.main,c.equip.off].filter((i):i is ItemInst=>!!i&&!i.half):[])]}
+/** 기본은 배낭/착용한 주머니이며, 투척이 명시한 경우만 실제 두 손을 포함한다. */
+export function quickItem(c:Creature,def:string,fletchingDamaged?:boolean,includeHeld=false):ItemInst|undefined{return quickSources(c,includeHeld).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).sort((a,b)=>(a.freshness??100)-(b.freshness??100)||a.uid-b.uid)[0]}
+export function quickCount(c:Creature,def:string,fletchingDamaged?:boolean,includeHeld=false):number{return quickSources(c,includeHeld).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).reduce((n,it)=>n+it.count,0)}
 
 /** 환경·가치 정산용. 사용/도구 검색은 allItems의 접근 가능한 물품만 찾는다. */
 export function storedItems(items: readonly ItemInst[]): ItemInst[] {

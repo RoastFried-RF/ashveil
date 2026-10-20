@@ -1471,6 +1471,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const result = throwAtCreature(w, c, a.uid, a.target)
       if(result.error)return FAIL(result.error)
       worsenFractures(w,c,result.arm!)
+      if(result.twoHanded)worsenFractures(w,c,result.arm==='larm'?'rarm':'larm')
       return { ok: true, tu: 100 }
     }
     case 'throw': {

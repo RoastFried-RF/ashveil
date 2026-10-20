@@ -54,3 +54,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## ASHVEIL 원본 산업 화기 아이콘
 
 회전식 권총·볼트식 소총·공장/재생 실탄·빈 탄피·뇌관6종을 직접 픽셀 도형으로 제작했다. 원본 SVG/PNG·팔레트·재현 도구·SHA는 [제작 기록](docs/art-industrial-items-original.md)에 기록한다.
+
+## ASHVEIL 원본 투창 아이콘
+
+깃 없는 목재 자루·낡은 금속 끝·섬유 묶음을 새 픽셀 도형으로 직접 제작했다. 원본 PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-javelin-original.md)에 있다.

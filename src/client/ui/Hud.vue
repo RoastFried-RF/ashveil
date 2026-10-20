@@ -16,6 +16,15 @@ const d = computed(() => {
   const w = world.value as World
   const pl = player(w)
   const turn = turnOf(w)
+  const gun = pl.equip.main
+  const gunDef = gun && w.db.item(gun.def)
+  const ranged = gunDef?.ranged
+  const firearm = gun && gunDef && ranged?.firearm ? {
+    uid: gun.uid, label: gunDef.label,
+    loaded: ranged.magazine ? gun.loadedCartridges?.length ?? 0 : gun.loadedRound ? 1 : 0,
+    capacity: ranged.magazine?.capacity ?? 1,
+    jammed: !!gun.firearmJammed,
+  } : null
   const slots = pl.hotbar.map((ref, i) => {
     if (!ref) return { i, empty: true as const }
     if (ref.kind === 'ability') {
@@ -24,8 +33,8 @@ const d = computed(() => {
       const err = abilityReady(w, pl, ref.id)
       return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
-    const count = quickCount(pl,ref.def,ref.fletchingDamaged)
     const def = w.db.item(ref.def)
+    const count = quickCount(pl,ref.def,ref.fletchingDamaged,!!def.throwable)
     return { i, empty: false as const, icon: def.sprite, label: def.label+(ref.fletchingDamaged?' (깃 손상)':''), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {
@@ -35,7 +44,7 @@ const d = computed(() => {
     // 채널 진행 (12 §2.1): "붕대 감기 3/5턴"
     chan: pl.activity?.total ? { label: pl.activity.label, done: pl.activity.total - pl.activity.remaining, total: pl.activity.total } : null,
     policy: { block: '막기 우선', parry: '받아넘기기 우선', none: '반응 안 함' }[pl.reactPolicy ?? 'block'],
-    mode: wield(w, pl)?.atk.label ?? '맨손',
+    firearm, mode: wield(w, pl)?.atk.label ?? '맨손',
     modes: (wield(w, pl)?.item ? w.db.item(wield(w, pl)!.item!.def).attacks?.length ?? 0 : 0) > 1,
   }
 })
@@ -86,7 +95,14 @@ const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['in
 
     <div class="hud-context">
       <button class="dbtn" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">반응</span> {{ d.policy }} <kbd>{{ primaryBindingText(preferences.keyBindings,'reaction') }}</kbd></button>
-      <button class="dbtn" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">공격</span> {{ d.mode }} <kbd>{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</kbd></button>
+      <div class="hud-attack-context">
+        <button class="dbtn" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">공격</span> <span class="hud-mode-label">{{ d.mode }}</span> <kbd>{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</kbd></button>
+        <span v-if="d.firearm" class="hud-firearm-ammo" :class="{ 'is-empty': !d.firearm.loaded, 'is-jammed': d.firearm.jammed }" role="status" aria-live="polite" aria-atomic="true" :aria-label="`${d.firearm.label}: 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ', 걸림' : !d.firearm.loaded ? ', 빈 총' : ''}`" :title="`${d.firearm.label} · 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ' · 걸림' : !d.firearm.loaded ? ' · 빈 총' : ''}`" data-testid="hud-firearm-ammo" :data-weapon-uid="d.firearm.uid" :data-loaded="d.firearm.loaded" :data-capacity="d.firearm.capacity" :data-jammed="d.firearm.jammed">
+          <svg width="6" height="11" viewBox="0 0 6 11" fill="none" aria-hidden="true"><path d="M2 1h2l1 2v6H1V3l1-2ZM1 7h4M0 10h6" stroke="currentColor" stroke-width=".8" /></svg>
+          <span v-if="d.firearm.jammed" class="hud-firearm-state">걸림</span><span v-else-if="!d.firearm.loaded" class="hud-firearm-state">빈 총</span>
+          <span class="hud-firearm-count">{{ d.firearm.loaded }}/{{ d.firearm.capacity }}<span class="hud-firearm-unit">발</span></span>
+        </span>
+      </div>
     </div>
 
     <div class="hud-hotbar" data-testid="hotbar">
@@ -113,3 +129,16 @@ const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['in
     </nav>
   </div>
 </template>
+
+<style scoped>
+.hud-attack-context { display: flex; min-width: 0; align-items: center; gap: 6px; }
+.hud-attack-context > button { min-width: 0; }
+.hud-mode-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hud-firearm-ammo { display: inline-flex; flex-shrink: 0; min-height: 20px; align-items: center; gap: 5px; border: 1px solid #758164; border-radius: 3px; background: #182b29; padding: 1px 6px; color: #e2d9b9; white-space: nowrap; }
+.hud-firearm-ammo > svg { color: #c0a46e; }
+.hud-firearm-count { font: 600 11px var(--font-mono); font-variant-numeric: tabular-nums; }
+.hud-firearm-unit { margin-left: 2px; color: #aab8a6; font: 10px var(--font-sans); }
+.hud-firearm-state { font-size: 10px; font-weight: 600; }
+.hud-firearm-ammo.is-empty { border-color: var(--state-warn); background: #302d20; color: #e9cb91; }
+.hud-firearm-ammo.is-jammed { border-color: var(--state-danger); background: #3c2723; color: #ffdbb2; }
+</style>
