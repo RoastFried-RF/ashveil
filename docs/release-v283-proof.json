@@ -41,11 +41,19 @@
     "workers": 2
   },
   "world": {
-    "status": "pending",
+    "status": "passed",
     "overworld": true,
     "runs": 30,
     "maxDays": 3,
-    "workers": 4
+    "workers": 4,
+    "seconds": 435.70278277,
+    "averageDays": 0.4675023148148149,
+    "causes": {
+      "저체온": 20,
+      "치명상": 4,
+      "과다 출혈": 6
+    },
+    "wholeResultRowsIdenticalTo282": 30
   },
   "goldens": "ALL5 initial/final/errors vs282:8 metadata paths only (version/new Greatsword/Recipe/2Maneuvers/shape/2hashes). Remaining WHOLE/time/RNG/UID/errors exact282. After physical two-hand fracture fix, all5 WHOLE exact first283 capture. Archived282 vectors once.",
   "native": {
