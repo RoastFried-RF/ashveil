@@ -69,8 +69,8 @@ export function bestiaryDetails(w:World,id:string,observer=player(w)):string[] {
  const def=w.db.creature(id),lines=[`S${stage} · ${['','관찰','전투','해부','문헌'][stage]}`]
  {const range=bestiaryRange(w,observer,referenceSpecimen(w,id,observer).blood,stage)!;lines.push(`혈액 ${range[0]===range[1]?range[0]:`약 ${range[0]}~${range[1]}`}ml`)}
  lines.push(`이동 ${def.moveTU<100?'빠름':def.moveTU>100?'느림':'보통'}`)
- if(def.naturalAttack)lines.push(`공격 수단: ${def.naturalAttack.label}${stage>=2?` · ${ {cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상'}[def.naturalAttack.damageType]}`:''}`)
- if(stage>=2 && def.damageTaken){const weak=Object.entries(def.damageTaken).filter(([,n])=>n>1).map(([kind])=>({cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상'})[kind as import('./types').DamageType]);if(weak.length)lines.push(`약점 피해: ${weak.join(', ')}`)}
+ if(def.naturalAttack)lines.push(`공격 수단: ${def.naturalAttack.label}${stage>=2?` · ${ {cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상',gunshot:'총상'}[def.naturalAttack.damageType]}`:''}`)
+ if(stage>=2 && def.damageTaken){const weak=Object.entries(def.damageTaken).filter(([,n])=>n>1).map(([kind])=>({cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상',gunshot:'총상'})[kind as import('./types').DamageType]);if(weak.length)lines.push(`약점 피해: ${weak.join(', ')}`)}
  lines.push(...(def.bestiary??[]).slice(0,Math.min(3,stage)))
  if(stage>=4)lines.push(...entry?.facts??[])
  lines.push(bestiaryProgress(w,id,observer));return lines

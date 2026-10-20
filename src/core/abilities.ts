@@ -1,3 +1,4 @@
+import {attemptFirearm,firearmShock} from './firearms'
 import { knownCreatureName } from './bestiary-state'
 import { alcoholWithdrawalStage } from './drug-state'
 // 액티브·토글 능력 사용 (15 §5~§7). 공격형은 07 §2 파이프라인을 그대로 쓰고 지정한 항만 바꾼다.
@@ -168,12 +169,15 @@ export function abilityStrike(w: World, c: Creature, t: Creature, d: AbilityDef,
     const err = bowProblem(main, itemDef(w, main))
     if (err) return { ok: false, msg: err }
     if (!projectileReady(w, c, main)) return { ok: false, msg: '발사할 탄약이 없다' }
-    if (bowStringBreaks(w, c, true)) return { ok: true }
-    projectileDamaged=projectileFletching(w,c,main)
-    spendProjectile(w, c, main)
+    if(itemDef(w,main).ranged?.firearm){if(attemptFirearm(w,c,main,true)!=='fired')return {ok:true}}
+    else {
+      if (bowStringBreaks(w, c, true)) return { ok: true }
+      projectileDamaged=projectileFletching(w,c,main)
+      spendProjectile(w, c, main)
+    }
   }
   const res = resolveAttack(w, c, t, { mods, abilityLabel: d.label, ranged, projectileDamaged, mode: d.attackMode, paid: true })
-  if (ranged) recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
+  if (ranged) {if(itemDef(w,c.equip.main!).ranged?.firearm)firearmShock(w,c,c.equip.main!);else recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)}
   // 꿰뚫기: 바라보는 방향 일직선 2칸의 모든 개체 (가까운 칸부터)
   if (mods.aoe === 'line2') {
     const dir = DIRS[dirIndex(t.pos.x - c.pos.x, t.pos.y - c.pos.y)]
@@ -273,7 +277,7 @@ function lunge(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResu
 /** 화살 회수: 명중 60% · 빗나감 85%, 화살 회수 능력 +30%p (상한 95) (07 §7.1 · 15 §6.5) */
 export function recoverArrow(w: World, c: Creature, t: Creature, hit: boolean, woundId?: number,projectileDamaged=false) {
   const rd = itemDef(w, c.equip.main!).ranged
-  if (!rd) return
+  if (!rd||rd.firearm) return
   const p = Math.min(95, (hit ? 60 : 85) + traitAdd(w, c, 'arrowRecover'))
   const intact = rng(w, 'combat').int(0, 99) < p
   const wd = t.body.wounds.find((wd) => wd.id === woundId)

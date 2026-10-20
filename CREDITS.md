@@ -46,3 +46,7 @@
 ## 개발 하네스 참고 코드
 
 OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고정 커밋으로 보관했다. 원본 Apache 2.0 라이선스와 SHA-256·프로젝트 호환 변경은 [출처 기록](tools/vendor/openai-web-game/PROVENANCE.md)에 있다. 현재 공식 카탈로그의 지원 스킬로 표시하지 않으며, 프로젝트 하네스는 기존 Playwright Core를 사용한다.
+
+## ASHVEIL 원본 화기 아이콘
+
+부싯돌 장총·납탄·흑색화약1회분·총기 기름은 이 프로젝트를 위해 직접 픽셀 도형으로 제작했다. 원본 SVG/PNG·팔레트·재현 도구·해시는 [제작 기록](docs/art-firearm-items-original.md)에 기록한다. 기존 외부 팩의 변형이 아니다.

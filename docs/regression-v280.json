@@ -1,0 +1,84 @@
+{
+  "version": 280,
+  "checkpoint": "v280",
+  "manifestSha256": "dba2b985a32cb7b645dc95a5de86616a16ab1515ffe6c6f30e2655d98929d30a",
+  "save": 188,
+  "items": 197,
+  "definitions": 866,
+  "recipes": 84,
+  "patches": 290,
+  "wholeGoldens": "ALL5 initial/final/errors audited against279: exactly12 metadata paths and world2 finite guard market4 actual stacks with reviewed later UID shifts; all remaining WHOLE state/RNG unchanged",
+  "native": {
+    "screenshots": 5,
+    "wholeRoundtrips": 2,
+    "wholeStatePhases": 7,
+    "actualInputTU": 1400,
+    "errors": 0,
+    "allViewed": true,
+    "independentAll13PngReview": true
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen280": true
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen280": true
+      }
+    ],
+    "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+    "all8ScreenshotsViewed": true,
+    "errors": 0
+  },
+  "full": {
+    "status": "passed",
+    "files": 314,
+    "passed": 5706,
+    "failed": 0,
+    "seconds": 642.3933229980469,
+    "workers": 2
+  },
+  "world": {
+    "status": "running",
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4
+  },
+  "source": {
+    "src": {
+      "files": 640,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 989,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 37,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 195,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  }
+}

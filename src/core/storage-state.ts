@@ -13,6 +13,12 @@ export function storedItemStateError(s:GameState):string|null{
  const entries=stateItemEntries(s),counts=new Map<number,number>()
  for(const{item}of entries)counts.set(item.uid,(counts.get(item.uid)??0)+1)
  for(const{item,path}of entries){
+  if(item.powderWetness!==undefined&&(!Number.isFinite(item.powderWetness)||item.powderWetness<0||item.powderWetness>100)||item.firearmFouling!==undefined&&(!Number.isSafeInteger(item.firearmFouling)||item.firearmFouling<0||item.firearmFouling>100)||item.firearmJammed!==undefined&&typeof item.firearmJammed!=='boolean')return path+': 화약 젖음/총열 오염/걸림 기록이 올바르지 않다'
+  if(item.loadedRound!==undefined){
+   const round=item.loadedRound
+   if(!round||typeof round!=='object'||item.count!==1||!round.ball||!round.powder||item.loadedAmmo!==round.ball.def)return path+': 장전된 두 실물 기록이 올바르지 않다'
+   for(const child of [round.ball,round.powder])if(!Number.isSafeInteger(child.uid)||child.uid<=0||typeof child.def!=='string'||child.count!==1||child.contents!==undefined||child.loadedRound!==undefined||counts.get(child.uid)!==1)return path+': 장전된 탄/화약의 UID/개수 기록이 올바르지 않다'
+  }
   if((item.fletchingDamaged!==undefined&&typeof item.fletchingDamaged!=='boolean')||(item.loadedAmmoFletching!==undefined&&typeof item.loadedAmmoFletching!=='boolean')||(item.loadedAmmoFletching&&!item.loadedAmmo))return path+': 탄약 깃 상태 기록이 올바르지 않다'
   if(item.contents===undefined)continue
   if(!Array.isArray(item.contents)||item.count!==1)return path+': 가방 내부 물품 기록이 올바르지 않다'

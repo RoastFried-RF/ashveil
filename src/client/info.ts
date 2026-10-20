@@ -1,3 +1,4 @@
+import {firearmRates} from '../core/firearms'
 import {qualityFromScore} from '../core/crafting'
 import {foodKcal,cookingRules} from '../core/cooking-state'
 // 툴팁 문구: 아이템·능력·수정치를 한국어로 풀어 쓴다
@@ -12,8 +13,8 @@ const CAT_LABEL: Record<ItemDef['category'], string> = {
   weapon: '무기', apparel: '옷·방어구', shield: '방패', medical: '의료품', food: '음식', drink: '마실 것',
   drug: '약', tool: '도구', ammo: '탄약', misc: '잡동사니',
 }
-const DMG_LABEL: Record<string, string> = { cut: '베기', stab: '찌르기', blunt: '타격', bite: '물기', burn: '화상' }
-const SKILL_LABEL: Record<string, string> = { blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활', crossbow: '석궁', unarmed: '맨손' }
+const DMG_LABEL: Record<string, string> = { cut: '베기', stab: '찌르기', blunt: '타격', bite: '물기', burn: '화상', gunshot: '총상' }
+const SKILL_LABEL: Record<string, string> = { blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활', crossbow: '석궁', firearm:'화기', throwing:'투척', unarmed: '맨손' }
 export const MOD_LABEL: Record<string, string> = {
   maxHp: '최대 체력', hitBonus: '명중', evasion: '회피', bleedMult: '받는 출혈 ×', painMult: '통증 ×', stressResist: '스트레스 저항',
   hitBonus_blade: '도검 명중', hitBonus_axe: '도끼 명중', hitBonus_blunt: '둔기 명중', hitBonus_spear: '창 명중', hitBonus_archery: '활 명중',
@@ -104,7 +105,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
     if (drug.external) lines.push('신체 창에서 겉으로 드러난 상처를 골라 바른다.')
   }
   const raw=it&&rawStock(w,it);if(raw)lines.push(`제작 원재료: ${raw.material.label} · 조각당 ${raw.unitGrams}g · 합계 ${raw.grams}g${d.rawFragment?' · 재질을 고르는 제작에 다시 쓸 수 있다':''}`)
-  if (d.ranged?.reloadTurns) lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedAmmo ? '한 발 장전됨'+(it?.loadedAmmoFletching?' (깃 손상)':'') : '빈 석궁'} · 빈 석궁으로 사격하면 먼저 장전한다` )
+  if (d.ranged?.reloadTurns&&!d.ranged.firearm) lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedAmmo ? '한 발 장전됨'+(it?.loadedAmmoFletching?' (깃 손상)':'') : '빈 석궁'} · 빈 석궁으로 사격하면 먼저 장전한다` )
   if(d.apparel?.liningHost)lines.push('안감 칸1개 · 셔츠/재킷을 넣을 수 있다')
   if(d.apparel?.liner)lines.push('안감으로 착용 가능 · 겉옷과 착탈 시간이 합산된다')
   if (it && d.stuffSlots?.length) {
@@ -122,12 +123,14 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   }
   if (d.weapon) lines.push(`막기치 ${d.weapon.block} · 받아넘기기치 ${d.weapon.parry > 0 ? '+' : ''}${d.weapon.parry}`)
   if (it?.edge !== undefined && !d.ranged) lines.push(`날 상태 ${Math.round(it.edge)}% (피해 ×${((60 + it.edge * 0.4) / 100).toFixed(2)})`)
+  if(d.ranged?.firearm){const rates=it&&firearmRates(w,it),cfg=d.ranged.firearm;lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedRound?'한 발 장전됨':'빈 장총'} · ${w.db.item(d.ranged.ammo).label}1 + ${w.db.item(cfg.powder).label}1`);if(rates)lines.push(`총열 오염 ${rates.fouling}/100 · 불발 ${rates.misfire}% · 걸림 ${rates.jam}%${it?.firearmJammed?' · 현재 걸림':''}`,`장전 화약 ${rates.wet?'젖음':'건조'} · 총열 청소 기본${cfg.cleanTurns}턴/총기 기름1 · 걸림 해소 기본${cfg.unjamTurns}턴`)}
+  if(d.powder&&it)lines.push(`화약 젖음 ${(it.powderWetness??0).toFixed(1)}% · 젖으면 불발 위험 증가`)
   if (d.ranged) lines.push(`유효 사거리 ${d.ranged.effective ?? d.ranged.range} · 최대 ${d.ranged.range} · 탄약 ${w.db.item(d.ranged.ammo).label}`)
   if (d.throwable) {
     const t = d.throwable, a = t.attack
     lines.push(`투척 ${DMG_LABEL[a.damageType]} ${a.damage} · 관통 ${a.pen} · 정확도 ${a.accuracy} · 기력 ${a.energy}`, `유효 사거리 ${t.effective} · 최대 ${t.range} · 실제1개를 던져 바닥에서 회수`, '더블클릭/빠른 슬롯: 투척 조준 (Tab·Enter·Esc)')
   }
-  if (d.ranged && it) lines.push(`시위 ${it.bowBroken ? '끊어짐' : it.bowUnstrung ? '풀림' : '걸림'} · 습기 ${(it.bowMoisture ?? 0).toFixed(1)}% · 탄성 ${it.elasticity ?? 100}%`, '습기 30%: 피해 −10%·사거리 −1 / 60%: −25%·−3, 끊어질 수 있다')
+  if (d.ranged && !d.ranged.firearm && it) lines.push(`시위 ${it.bowBroken ? '끊어짐' : it.bowUnstrung ? '풀림' : '걸림'} · 습기 ${(it.bowMoisture ?? 0).toFixed(1)}% · 탄성 ${it.elasticity ?? 100}%`, '습기 30%: 피해 −10%·사거리 −1 / 60%: −25%·−3, 끊어질 수 있다')
   if (it?.rust) lines.push(`녹 ${it.rust}단계 · 가치 −${it.rust * 15}%${it.rust >= 3 && it.edge !== undefined ? ' · 날 최대 70%' : ''}`)
   if (it?.partDurability) lines.push(`부위별 내구 ${Math.min(...Object.values(it.partDurability)).toFixed(0)}~${Math.max(...Object.values(it.partDurability)).toFixed(0)}% (표시 내구는 평균)`)
   const now = Math.floor(w.s.time / 100)

@@ -650,6 +650,16 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
+  for(const item of db.all<ItemDef>('Item')){
+    if(item.powder!==undefined&&(typeof item.powder!=='boolean'||item.powder&&item.category!=='ammo'))report.errors.push(item.id+': 화약은 실제 탄약 회분이어야 한다')
+    const rd=item.ranged,cfg=rd?.firearm
+    if(!cfg)continue
+    if(!isObj(cfg)){report.errors.push(item.id+': 화기 구조 오류');continue}
+    const ball=db.tryGet<ItemDef>(rd!.ammo),powder=db.tryGet<ItemDef>(cfg.powder),oil=db.tryGet<ItemDef>(cfg.oil)
+    if(!rd!.reloadTurns||!item.twoHanded||item.stackable||item.maxStack!==1||item.attacks?.length!==1||item.attacks[0].damageType!=='gunshot'||ball?.category!=='ammo'||ball.powder||!powder?.powder||oil?.defType!=='Item'||cfg.powder===rd!.ammo)report.errors.push(item.id+': 단발 양손 화기/실제 탄두·화약·기름 정의가 필요하다')
+    for(const key of ['misfire','foulingPerShot','jamThreshold','jamPerPoint','wetThreshold','wetMultiplier','cleanTurns','unjamTurns','moraleShock']as const)if(!Number.isFinite(cfg[key])||cfg[key]<0||cfg[key]>100||(key!=='jamPerPoint'&&!Number.isSafeInteger(cfg[key])))report.errors.push(item.id+': firearm.'+key+' 수치 오류')
+    if(cfg.foulingPerShot<1||cfg.wetMultiplier<1||cfg.cleanTurns<1||cfg.unjamTurns<1)report.errors.push(item.id+': 화기 작업/오염/젖음 배율은 양수여야 한다')
+  }
   for (const item of db.all<ItemDef>('Item')) if (item.throwable !== undefined) {
     const td = item.throwable
     if (!isObj(td) || !isObj(td.attack)) { report.errors.push(item.id + ': throwable 실제 공격/거리 구조가 필요하다'); continue }
@@ -1655,6 +1665,8 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       }
     }
     need(i.id, i.ranged?.ammo, 'Item')
+    need(i.id, i.ranged?.firearm?.powder, 'Item')
+    need(i.id, i.ranged?.firearm?.oil, 'Item')
     need(i.id, i.cooking?.result, 'Item')
     need(i.id, i.repair?.material, 'Item')
     need(i.id, i.salvage?.material, 'Item')

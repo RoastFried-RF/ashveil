@@ -1,3 +1,4 @@
+import {ageFirearmPowder} from './firearms'
 import {exposeFletching} from './fletching-state'
 // 바닥의 실물·멈춘 지역의 장비만 환경을 정산한다. 생명 활동·AI 시각은 진행시키지 않는다.
 import { rainAcidity, weatherDef, weatherWetPerTurn } from './climate-state'
@@ -20,6 +21,7 @@ export function ageLooseGear(w:World,it:ItemInst,pos:Pos,sealed=false,fletchingP
  if(it.missingItem)return
  const d=itemDef(w,it),cfg=gearWeatherDef(w),now=turnOf(w),elapsed=clamp(now-(it.gearAgedAt??now-cfg.intervalTurns),0,cfg.intervalTurns)
  if(d.fletching){const exposed=w.s.map.kind==='surface'&&!w.s.map.tiles[pos.y*w.s.map.w+pos.x].roof;exposeFletching(w,it,!sealed&&!fletchingProtected&&exposed,it.gearAgedAt===undefined?0:elapsed);it.gearAgedAt=now}
+ if(d.powder||d.ranged?.firearm){const t=w.s.map.tiles[pos.y*w.s.map.w+pos.x],terr=w.db.terrain(t.t);ageFirearmPowder(w,it,w.s.map.kind==='surface'&&!t.roof,!!terr.water&&(!t.icy||(t.iceHoleUntil??0)>now),warmth(w,pos),it.gearAgedAt===undefined?0:elapsed,sealed||fletchingProtected);if(d.powder)return}
  if(it.durability===undefined&&!d.apparel&&!d.ranged&&!d.book)return
  if(!elapsed)return
  it.gearAgedAt=now
@@ -32,7 +34,7 @@ export function ageLooseGear(w:World,it:ItemInst,pos:Pos,sealed=false,fletchingP
   const regions=d.book?[{id:'torso' as const,group:''}]:THERMAL_REGIONS.filter((r)=>d.apparel!.groups.includes(r.group))
   for(const r of regions)it.wetness[r.id]=water?100:clamp((it.wetness[r.id]??0)+(wetting>0?wetting:-drying),0,100)
  }
- if(d.ranged)ageBowWeather(w,it,exposed,heat,elapsed)
+ if(d.ranged&&!d.ranged.firearm)ageBowWeather(w,it,exposed,heat,elapsed)
  const material=primaryMaterial(w,it),exposure=Math.max(0,Math.min(elapsed,now-(it.oiledUntil??-Infinity)+1))
  if(exposed&&isRaining(w)&&material?.category==='Metal'&&it.durability!==undefined)corrodeGear(w,it,exposure*(100-material.corrosionResist)/100*(w.s.overworld?weatherDef(w).corrosionMult*(1+rainAcidity(w)/5):1),cfg.looseBody)
 }

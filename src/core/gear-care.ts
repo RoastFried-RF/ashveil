@@ -1,3 +1,4 @@
+import {ageFirearmPowder} from './firearms'
 import {exposeFletching} from './fletching-state'
 import { rainAcidity, weatherDef } from './climate-state'
 // 08 §5: 날 마모·시위·재비 부식과 정비. 시계와 난수는 게임 상태만 쓴다.
@@ -23,7 +24,7 @@ export function edgeLoss(w: World, it: ItemInst | undefined, loss: number) {
 export function gearCareError(w: World, c: Creature, uid: number, kind: GearCare): string | null {
   const it = findItem(c, uid), d = it && itemDef(w, it)
   if (!it || !d) return '정비할 물건이 없다'
-  if (['wax', 'string', 'unstring'].includes(kind) && !d.ranged) return '활에만 할 수 있는 정비다'
+  if (['wax', 'string', 'unstring'].includes(kind) && (!d.ranged||d.ranged.firearm)) return '활에만 할 수 있는 정비다'
   if (kind === 'oil' && primaryMaterial(w, it)?.category !== 'Metal') return '금속 장비에만 기름칠할 수 있다'
   if (kind === 'sharpen') {
     if (it.edge === undefined || d.ranged) return '갈 수 있는 날이 없다'
@@ -65,7 +66,7 @@ export function gearCareStep(w: World, c: Creature): boolean {
 /** 실제 발사 직전 한 번만. 끊어지면 화살은 남고 행동과 당기기 기력은 소모한다. */
 export function bowStringBreaks(w: World, c: Creature, paid = false): boolean {
   const it = c.equip.main, d = it && itemDef(w, it)
-  if (!it || !d?.ranged || bowProblem(it, d)) return false
+  if (!it || !d?.ranged || d.ranged.firearm || bowProblem(it, d)) return false
   const chance = Math.floor(((it.bowMoisture ?? 0) - 60) / 2)
   if (chance <= 0 || !rng(w, 'combat').chance(chance / 100)) return false
   it.bowBroken = true
@@ -114,8 +115,9 @@ export function gearTick(w: World, c: Creature,elapsed=1) {
     if(it.missingItem)continue
     const d = itemDef(w, it), held = equipped.includes(it)
     if(d.fletching)exposeFletching(w,it,exposed&&(held||quiverItems(c).includes(it)),elapsed)
-    if(it.durability!==undefined||d.apparel||d.ranged||d.book||d.fletching)it.gearAgedAt=turn
-    if(d.ranged)ageBowWeather(w,it,exposed&&held,fireWarmth(w,c),elapsed)
+    if(!d.powder&&(it.durability!==undefined||d.apparel||d.ranged||d.book||d.fletching))it.gearAgedAt=turn
+    if(d.powder||d.ranged?.firearm)ageFirearmPowder(w,it,exposed&&held,false,fireWarmth(w,c),elapsed,!allItems(c).includes(it))
+    if(d.ranged&&!d.ranged.firearm)ageBowWeather(w,it,exposed&&held,fireWarmth(w,c),elapsed)
     if (!held || !exposed || !rain || it.durability === undefined) continue
     const m = primaryMaterial(w, it)
     const exposure=Math.max(0,Math.min(elapsed,turn-(it.oiledUntil??-Infinity)+1))

@@ -1,3 +1,4 @@
+import {SAVE_VERSION} from '../src/core/game'
 import {describe,expect,it} from 'vitest'
 import {addWound} from '../src/core/body'
 import {abilityStrike,recoverArrow} from '../src/core/abilities'
@@ -42,7 +43,7 @@ describe('실제 화살 깃·탄약 선택·명중·회수',()=>{
  it('실제 이물질 제거도 원래 손상 표시를 보존한다',()=>{const d=setup(),wd=addWound(d.w,d.target,{def:'Wound.Stab',part:'LeftThigh',severity:1,source:'깃 시험'}).wound;lodgeProjectile(d.w,d.target,wd,'Item.Arrow',true,true);const procedure=d.w.db.all<ProcedureDef>('Procedure').find(p=>p.kind==='extract')!;d.s.rng.body=[0,0,0,0];finishProcedure(d.w,d.target,procedure,100,wd);expect(tileAt(d.w,d.target.pos).items.find(i=>i.def==='Item.Arrow')?.fletchingDamaged).toBe(true)})
  it('장전 완료에 실제 손상 상태를 옮기고 마지막 탄약을 쏘면 장전 표시도 없앤다',()=>{const d=setup(),loaded=loadMods([...readPackages(),{manifest:{id:'fletching-reload',name:'깃 장전 검사',version:'1',dependencies:['core']},defs:[],patches:[{op:'add',target:'Item.Bow',path:'/ranged/reloadTurns',value:2}]}],['fletching-reload']);expect(loaded.report.errors).toEqual([]);d.w.db=loaded.db;ammo(d,true,1);const bow=d.p.equip.main!;expect(startReload(d.w,d.p,bow.uid,1)).toBeNull();finishReload(d.w,d.p,d.p.activity!);expect(bow.loadedAmmoFletching).toBe(true);expect(projectileFletching(d.w,d.p,bow)).toBe(true);expect(d.p.bag).toEqual([]);expect(spendProjectile(d.w,d.p,bow)).toBe(true);expect(bow.loadedAmmo).toBeUndefined();expect(bow.loadedAmmoFletching).toBeUndefined()})
  it('전체 저장 복원은 선택/빠른 슬롯의 두 상태와 후속 한 발을 보존한다',()=>{const d=setup(),good=ammo(d),bad=ammo(d,true);d.p.hotbar=[{kind:'item',def:good.def,fletchingDamaged:false},{kind:'item',def:bad.def,fletchingDamaged:true}];perform(d.w,d.p,{type:'selectAmmo',uid:bad.uid});const copy={db:d.w.db,s:deserialize(serialize(d.s))},p=copy.s.creatures.find(c=>c.id===d.p.id)!;expect(selectedProjectile(p,bad.def)?.fletchingDamaged).toBe(true);expect(spendProjectile(d.w,d.p,d.p.equip.main!)).toBe(true);expect(spendProjectile(copy,p,p.equip.main!)).toBe(true);expect(stateHash(copy.s)).toBe(stateHash(d.s))})
- it('186각인은 손상/선택 이력을 추정하지 않고 버전만 이행한다',()=>{const d=setup();ammo(d);const old=JSON.parse(serialize(d.s));old.version=186;const copy=deserialize(JSON.stringify(old));expect(copy.version).toBe(187);expect({...JSON.parse(serialize(copy)),version:186}).toEqual(old)})
+ it('186각인은 손상/선택 이력을 추정하지 않고 버전만 이행한다',()=>{const d=setup();ammo(d);const old=JSON.parse(serialize(d.s));old.version=186;const copy=deserialize(JSON.stringify(old));expect(copy.version).toBe(SAVE_VERSION);expect({...JSON.parse(serialize(copy)),version:186}).toEqual(old)})
 })
 
 function loadedFixture(){

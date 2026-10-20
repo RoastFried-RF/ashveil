@@ -16,7 +16,7 @@ export interface DefBase {
   _mod?: string
 }
 
-export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn'
+export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn' | 'gunshot'
 export type ArmorCategory = 'sharp' | 'blunt' | 'heat'
 export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool'
 export type Height = 'low' | 'mid' | 'high'
@@ -184,6 +184,7 @@ export type Region = 'head' | 'torso' | 'larm' | 'rarm' | 'lleg' | 'rleg'
 export const REGIONS: Region[] = ['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg']
 
 export interface RangedDef {
+  firearm?: { powder: string; oil: string; misfire: number; foulingPerShot: number; jamThreshold: number; jamPerPoint: number; wetThreshold: number; wetMultiplier: number; cleanTurns: number; unjamTurns: number; moraleShock: number }
   reloadTurns?: number
   /** 최대 사거리 */
   range: number
@@ -269,6 +270,8 @@ export interface ItemDef extends DefBase {
   /** 무기 막기치 / 받아넘기기치 (07 §7.1) */
   weapon?: { block: number; parry: number }
   ranged?: RangedDef
+  /** 실제 화약 회분. 젖음은 각 인스턴스에 보존한다. */
+  powder?: boolean
   /** 실제 물품 한 개를 던지는 공격. 탄약·장비 슬롯을 새로 만들지 않는다. */
   throwable?: { range: number; effective: number; attack: AttackDef }
   twoHanded?: boolean
@@ -1836,6 +1839,11 @@ export interface ItemInst {
   waterFrozen?: boolean
   loadedAmmo?: string
   loadedAmmoFletching?: boolean
+  /** 장전으로 옮긴 실제 한 발. 두 실물의 UID/상태를 그대로 저장한다. */
+  loadedRound?: { ball: ItemInst; powder: ItemInst }
+  powderWetness?: number
+  firearmFouling?: number
+  firearmJammed?: boolean
   fletchingDamaged?: boolean
   freshness?: number
   /** Per piece ash exposure carried from actual processed ingredients. */
@@ -2035,12 +2043,13 @@ export interface Activity {
   waterUses?: number
   waterQuality?: WaterQuality
   care?: 'wax' | 'oil' | 'sharpen' | 'string' | 'unstring'
+  firearmCare?: 'clean' | 'unjam'
   prisonerOperation?:PrisonerOperation
   prisonerId?:number
   fireUid?:number
   fireHot?:boolean
   beddingWash?:{map:string;terrain:string;uid?:number}
-  kind: 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  kind: 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */

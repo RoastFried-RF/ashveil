@@ -499,7 +499,7 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
   const mechanical=machineRules(w,c)
   if(mechanical){
     const original=spec.def
-    const mapped:Record<string,string>={'Wound.Cut':'Wound.MachineCrack','Wound.Bite':'Wound.MachineCrack','Wound.Stab':'Wound.MachinePerforation','Wound.InternalBleed':'Wound.MachinePerforation','Wound.Bruise':'Wound.MachineDeformation','Wound.Burn':'Wound.MachineHeat'}
+    const mapped:Record<string,string>={'Wound.Cut':'Wound.MachineCrack','Wound.Bite':'Wound.MachineCrack','Wound.Stab':'Wound.MachinePerforation','Wound.Gunshot':'Wound.MachinePerforation','Wound.InternalBleed':'Wound.MachinePerforation','Wound.Bruise':'Wound.MachineDeformation','Wound.Burn':'Wound.MachineHeat'}
     spec={...spec,def:mapped[original]??original,artery:0,tendon:false,foreign:undefined,dislocated:false,canSever:false,contam:0}
     if(original==='Wound.Cut'||original==='Wound.Bite')spec.severity=Math.max(1,Math.floor(spec.severity/2))
     if(original==='Wound.Burn'&&c.body.machine)c.body.machine.heat=clamp(c.body.machine.heat+spec.severity,0,100)

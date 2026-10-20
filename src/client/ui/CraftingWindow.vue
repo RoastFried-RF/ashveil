@@ -46,7 +46,7 @@ const d = computed(() => {
       station: r.stations?.map((s) => STATION[s] ?? s).join(' / '),
     }}),
     gear: allItems(pl).filter((it) => itemDef(w, it).repair || itemDef(w, it).salvage).map((it) => ({ it, def: itemDef(w, it), repair: repairPreview(w, pl, it.uid), salvage: salvagePreview(w, pl, it.uid), repairError: maintenanceError(w, pl, 'repair', it.uid), salvageError: maintenanceError(w, pl, 'salvage', it.uid),
-      care: (Object.keys(CARE) as GearCare[]).filter((k) => k === 'oil' ? primaryMaterial(w, it)?.category === 'Metal' : k === 'sharpen' ? it.edge !== undefined && !itemDef(w, it).ranged : !!itemDef(w, it).ranged).map((k) => ({ k, label: CARE[k], error: gearCareError(w, pl, it.uid, k) })),
+      care: (Object.keys(CARE) as GearCare[]).filter((k) => k === 'oil' ? primaryMaterial(w, it)?.category === 'Metal' : k === 'sharpen' ? it.edge !== undefined && !itemDef(w, it).ranged : !!itemDef(w, it).ranged&&!itemDef(w,it).ranged!.firearm).map((k) => ({ k, label: CARE[k], error: gearCareError(w, pl, it.uid, k) })),
     })),
     bedding: nearbyBedding(w, pl).map((p) => ({ p, label: terrainAt(w, p).label, wetness:beddingAt(w,p).wetness, scorch:beddingScorch(tileAt(w,p)),lice:activeBeddingLice(w,p),wash:beddingWashQuote(w,pl,p),burning:!!tileAt(w,p).beddingFire,material:beddingFireMaterial(w,p),putOut:beddingFireQuote(w,pl,p),portable: terrainAt(w, p).bedding?.portable && !!tileAt(w, p).placed, fixed: !terrainAt(w,p).bedding?.portable, pack: furnitureQuote(w,pl,p) })),
     gather: nearbyGather(w, pl).map((p) => ({ p, def: terrainAt(w, p), product: w.db.item(terrainAt(w, p).gather!.item).label })),

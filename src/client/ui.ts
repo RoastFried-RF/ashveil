@@ -143,6 +143,7 @@ export function useItem(w: World, it: ItemInst): string | null {
   const d = itemDef(w, it)
   const pl = player(w)
   if(d.throwable)return startThrow(it.uid)
+  if(d.powder){hint.value='화약은 장총의 장전 메뉴에서 실제 납탄과 함께 쓴다';return null}
   if(d.category==='ammo')return doAct({type:'selectAmmo',uid:it.uid})
   if (d.drug?.def && w.db.get<DrugDef>(d.drug.def).external) { setWin('body', true); return (hint.value = '신체 창에서 약을 바를 상처를 고르세요.') }
   if (d.prosthetic) { prostheticInstallUid.value = it.uid; setWin('body', true); return (hint.value = '결손 부위를 골라 의수족을 설치할 수 있다.') }

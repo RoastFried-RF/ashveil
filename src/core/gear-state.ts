@@ -4,6 +4,7 @@ import type { BodyDef, BodyPartDef, Creature, ItemDef, ItemInst } from './types'
 
 export function bowProblem(it: ItemInst, d: ItemDef): string | null {
   if (!d.ranged) return null
+  if(d.ranged.firearm)return (it.durability??100)<=0?'화기가 부서졌다. 수리해야 한다':it.firearmJammed?'총이 걸렸다. 먼저 걸림을 해소해야 한다':null
   if ((it.durability ?? 100) <= 0) return '활이 부서졌다. 수리해야 한다'
   if (it.bowBroken) return '활시위가 끊어졌다. 새 시위를 걸어야 한다'
   if (it.bowUnstrung) return '활시위를 걸어야 쏠 수 있다'
@@ -13,11 +14,11 @@ const cache = new WeakMap<ItemInst, { base: ItemDef; key: string; def: ItemDef }
 export function agedItemDef(base: ItemDef, it: ItemInst): ItemDef {
   const wet = (it.bowMoisture ?? 0) >= 60 ? 2 : (it.bowMoisture ?? 0) >= 30 ? 1 : 0
   const elasticity = it.elasticity ?? 100, rust = it.rust ?? 0
-  if ((!base.ranged || (!wet && elasticity === 100)) && !rust) return base
+  if ((!base.ranged || base.ranged.firearm || (!wet && elasticity === 100)) && !rust) return base
   const key = `${wet}:${elasticity}:${rust}`, found = cache.get(it)
   if (found?.base === base && found.key === key) return found.def
   const d = { ...base }
-  if (base.ranged) {
+  if (base.ranged&&!base.ranged.firearm) {
     const penalty = wet === 2 ? 3 : wet === 1 ? 1 : 0, mult = (wet === 2 ? .75 : wet === 1 ? .9 : 1) * elasticity / 100
     d.ranged = { ...base.ranged, range: Math.max(1, base.ranged.range - penalty), effective: Math.max(1, (base.ranged.effective ?? base.ranged.range) - penalty) }
     d.attacks = base.attacks?.map((a) => ({ ...a, damage: a.damage * mult }))

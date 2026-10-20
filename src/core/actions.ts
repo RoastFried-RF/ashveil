@@ -149,6 +149,7 @@ import { learnAbility, spendStat } from './progression'
 import { masteryStage, practice, studyBook } from './skills'
 import type { Surgery } from './surgery'
 import { canHeatBlade, strainProjectiles, treatmentArm, type Procedure } from './medical'
+import { attemptFirearm, firearmCareStep, firearmShock, startFirearmCare } from './firearms'
 import { finishReload, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
 import { throwAtCreature } from './throwing'
 import { bowProblem } from './gear-state'
@@ -285,6 +286,7 @@ export type Action =
   | {type:'merchantIdentify';target:number;uid:number;expectedFee?:number}
   | { type: 'attack'; target: number;mode?:string }
   | { type: 'shoot'; target: number }
+  | { type: 'firearmCare'; uid: number; operation: 'clean' | 'unjam' }
   | { type: 'reload'; uid: number }
   | { type:'refreshCropSubstrate';pos:Pos;uid:number }
   | { type: 'waterCrop'; pos:Pos; uid:number; ml:number }
@@ -803,6 +805,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
     }
 
+    case 'firearmCare': { const err=startFirearmCare(w,c,a.uid,a.operation,multiTurnFactor(w,c)); return err?FAIL(err):FREE }
     case 'reload': { const err = startReload(w, c, a.uid, multiTurnFactor(w, c)); return err ? FAIL(err) : FREE }
 
     case 'shoot': {
@@ -821,6 +824,13 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
         return FAIL('화살이 없다')
       }
       if (capacity(w, c, 'manipulation') < 0.5) return FAIL('손이 성치 않아 시위를 당길 수 없다')
+      if(rd.firearm){
+        if(!canSee(w,c,t.pos)||(isPl(c)&&!w.s.visible.includes(t.pos.y*w.s.map.w+t.pos.x)))return FAIL('대상이 보이지 않는다')
+        const result=attemptFirearm(w,c,mw)
+        if(result==='fired'){resolveAttack(w,c,t,{ranged:true});firearmShock(w,c,mw)}
+        worsenFractures(w,c,'rarm');worsenFractures(w,c,'larm')
+        return {ok:true,tu:100}
+      }
       if (bowStringBreaks(w, c)) return { ok: true, tu: 100 }
       const projectileDamaged=projectileFletching(w,c,mw)
       spendProjectile(w, c, mw)
@@ -1306,7 +1316,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
         const back=c.equip.back
         if(back&&back.uid===w.s.loot.id){const quiver=itemDef(w,back).quiver;if(quiver&&!quiver.ammo.includes(held.missingItem?.def??held.def))return FAIL('화살통에는 지정된 화살만 넣을 수 있다')}
         const belt=c.equip.belt
-        if(belt&&belt.uid===w.s.loot.id&&itemDef(w,belt).pocket){const d=itemDef(w,held);if(!d.food&&!d.drink&&!d.drug&&!d.medical&&!d.unidentified&&!d.refuel)return FAIL('허리 주머니에는 소모품만 넣을 수 있다')}
+        if(belt&&belt.uid===w.s.loot.id&&itemDef(w,belt).pocket){const d=itemDef(w,held);if(!d.food&&!d.drink&&!d.drug&&!d.medical&&!d.unidentified&&!d.refuel&&!w.db.all<import('./types').ItemDef>('Item').some(def=>def.ranged?.firearm?.oil===held.def))return FAIL('허리 주머니에는 소모품만 넣을 수 있다')}
       }
       if (w.s.loot?.kind === 'floor' || !g) {
         if (!w.s.loot) return FAIL('넣을 곳이 없다')
@@ -1744,6 +1754,7 @@ export function activityStep(w: World, c: Creature): boolean {
     }
   }
   switch (act.kind) {
+    case 'firearmCare':return firearmCareStep(w,c)
     case 'pryContainer':return containerPryStep(w,c)
     case 'ransom':
     case 'ransomWait':return ransomStep(w,c)

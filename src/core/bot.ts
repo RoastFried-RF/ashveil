@@ -94,6 +94,7 @@ const meleeScore = (w: World, it: ItemInst | undefined) => {
 
 export function botDecide(w: World): Action {
   const pl = player(w)
+  const shotAvailable=(it:import('./types').ItemInst)=>{const rd=itemDef(w,it).ranged!;return projectileReady(w,pl,it)||(rd.firearm?[rd.ammo,rd.firearm.powder].every(def=>countOf(pl,def)>0):countOf(pl,rd.ammo)>0)}
   const inv = allItems(pl)
   const find = (pred: (d: ReturnType<typeof itemDef>) => boolean) => inv.find((i) => pred(itemDef(w, i)))
 
@@ -184,6 +185,11 @@ export function botDecide(w: World): Action {
 
   // 파손·끊어진 활을 계속 쏘려 하지 않는다. 여유가 있으면 시위를 걸고, 교전 중에는 예비 무기로.
   const heldMain = mainWeapon(w, pl)
+  const firearm=heldMain&&itemDef(w,heldMain).ranged?.firearm
+  if(heldMain&&firearm){
+    if(heldMain.firearmJammed)return {type:'firearmCare',uid:heldMain.uid,operation:'unjam'}
+    if(!enemies.length&&(heldMain.firearmFouling??0)>=40&&countOf(pl,firearm.oil)>0)return {type:'firearmCare',uid:heldMain.uid,operation:'clean'}
+  }
   if (heldMain && ((heldMain.durability ?? 100) <= 0 || bowProblem(heldMain, itemDef(w, heldMain)))) {
     if (!enemies.length && itemDef(w, heldMain).ranged && !gearCareError(w, pl, heldMain.uid, 'string')) return { type: 'gearCare', uid: heldMain.uid, care: 'string' }
     const spare = inv.filter((i) => i.uid !== heldMain.uid && meleeScore(w, i) > 0).sort((a, b) => meleeScore(w, b) - meleeScore(w, a))[0]
@@ -255,7 +261,7 @@ export function botDecide(w: World): Action {
     const mw = mainWeapon(w, pl)
     const ranged = !!(mw && itemDef(w, mw).ranged && !bowProblem(mw, itemDef(w, mw)))
     // 원거리 무기는 거리에서 먼저 (사거리 안, 붙기 전)
-    const bow = inv.find((i) => itemDef(w, i).ranged && !bowProblem(i, itemDef(w, i)) && (projectileReady(w, pl, i) || countOf(pl, itemDef(w, i).ranged!.ammo) > 0))
+    const bow = inv.find((i) => itemDef(w, i).ranged && !bowProblem(i, itemDef(w, i)) && shotAvailable(i))
     if (bow && !ranged && cheb(e.pos, pl.pos) >= 4 && cheb(e.pos, pl.pos) <= (itemDef(w, bow).ranged!.effective ?? 6)) return { type: 'equip', uid: bow.uid }
     if (cheb(e.pos, pl.pos) <= 1 && ranged) {
       const melee = inv.filter((i) => meleeScore(w, i) > 0).sort((a, b) => meleeScore(w, b) - meleeScore(w, a))[0]
@@ -268,7 +274,7 @@ export function botDecide(w: World): Action {
       }
       return { type: 'attack', target: e.id }
     }
-    if (ranged && (projectileReady(w, pl, mw!) || countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0)) return { type: 'shoot', target: e.id }
+    if (ranged && shotAvailable(mw!)) return { type: 'shoot', target: e.id }
     // 높은 자리 (07 §5): 다가오는 적은 단차 위(잔해·관·제단, 지하는 올라가는 계단)에서 받는다
     const hg = highGround(w, enemies, up?.pos)
     if (hg) return hg

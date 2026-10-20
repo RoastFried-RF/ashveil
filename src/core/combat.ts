@@ -345,7 +345,7 @@ function armorCategory(t: DamageType): ArmorCategory {
 }
 
 const WOUND_FOR: Record<DamageType, string> = {
-  cut: 'Wound.Cut', stab: 'Wound.Stab', blunt: 'Wound.Bruise', bite: 'Wound.Bite', burn: 'Wound.Burn',
+  cut: 'Wound.Cut', stab: 'Wound.Stab', blunt: 'Wound.Bruise', bite: 'Wound.Bite', burn: 'Wound.Burn', gunshot: 'Wound.Gunshot',
 }
 
 export interface AttackResult { hit: boolean; damage: number; killed: boolean; woundId?: number; reacted?: string }
@@ -560,7 +560,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
     if (ar < useful) {
       const before = D
       D = Math.floor(D / 2)
-      if (dtype === 'cut' || dtype === 'stab' || dtype === 'bite') dtype = 'blunt'
+      if (dtype === 'cut' || dtype === 'stab' || dtype === 'bite' || dtype === 'gunshot') dtype = 'blunt'
       pen = Math.floor(pen / 2)
       detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 절반 ${D} · 타격 변환`)
       wearArmorPart(w, d, L.it, pd.id, blockedLoss(before - D))
@@ -649,7 +649,7 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   detail.push(`심각도 ${D}/${hp} = ${Math.round(D * 100 / hp)}% (${D < hp * 0.25 ? '경상' : D < hp * 0.5 ? '중상' : D < hp ? '심각' : '파괴'})`)
   // 동맥: 베기·찌르기·물기, D ≥ 부위 HP 30%일 때만 D × 2% (+ 깊게 베기 15%p) — CANON D33
   let artery = 0
-  if (pd.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite') && D * 100 >= hp * ARTERY_MIN_PCT) {
+  if (pd.artery && (dtype === 'cut' || dtype === 'stab' || dtype === 'bite' || dtype === 'gunshot') && D * 100 >= hp * ARTERY_MIN_PCT) {
     const ch = clamp(D * 2 + (mods?.arterialBonus ?? 0), 0, 100)
     const ar = r.int(0, 99)
     detail.push(`동맥 판정 ${ch}% roll ${ar}`)
@@ -660,8 +660,8 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   if (pd.tendon && dtype === 'cut' && D * 100 >= hp * 40 && r.int(0, 99) < 50) tendon = true
   // 골절: 타격(방어구가 바꾼 피해 포함), (D − 뼈 강도) × 8% × 배율, 상한 90
   let fracture: { grade: 'hairline' | 'simple' | 'compound'; progress: number } | undefined
-  if (pd.bone !== undefined && dtype === 'blunt' && D > pd.bone) {
-    const special = (mods?.fractureMult ?? 1) * traitMul(w, a, 'fractureDealt')
+  if (pd.bone !== undefined && (dtype === 'blunt' || dtype === 'gunshot') && D > pd.bone) {
+    const special = (mods?.fractureMult ?? 1) * traitMul(w, a, 'fractureDealt') * (dtype === 'gunshot' ? 2 : 1)
     const m = special * traitMul(w, d, 'fractureTaken')
     const ch = clamp(Math.floor((D - pd.bone) * 8 * m), 0, 90)
     const fr = r.int(0, 99)
@@ -672,11 +672,20 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
     }
   }
   const woundId = WOUND_FOR[dtype]
+  const bullet = dtype === 'gunshot' && !machineRules(w,d)
+  const exits = bullet && D >= 2 && r.chance(.5)
   const { wound, damage, destroyed, severed } = addWound(w, d, {
-    def: woundId, part: pd.id, severity: D, source, sourceId: a.id, artery, fracture, tendon, bleedMult,
+    def: woundId, part: pd.id, severity: exits ? Math.ceil(D/2) : D, source, sourceId: a.id, artery, fracture, tendon, bleedMult,
     contam: (atk.contam ?? 0) + (fracture?.grade === 'compound' ? 30 : 0),
+    foreign: bullet&&!exits ? {kind:'bullet',contam:0,pain:0} : undefined,
     canSever: dtype === 'cut' || dtype === 'bite',
   })
+  let exitDamage=0,exitDestroyed:string|undefined
+  if(exits){
+    const out=addWound(w,d,{def:woundId,part:pd.id,severity:Math.floor(D/2),source,sourceId:a.id,bleedMult,contam:atk.contam??0})
+    exitDamage=out.damage;exitDestroyed=out.destroyed
+    detail.push('탄두 사출구: 실제 피해를 입구/출구 상처에 분배했다')
+  }else if(bullet)detail.push('탄두가 남았다: 이물질 추출이 필요하다')
   const biteDisease=dtype==='bite'?w.db.creature(a.def).biteDisease:undefined
   if(biteDisease?.prevention)recordBiteRisk(w,d,a,wound)
   else if(biteDisease)exposeDisease(w,d,biteDisease.id,biteDisease.chance,{kind:'실제 물린 상처',turn:turnOf(w),creature:a.id,wound:wound.id},diseaseStream('bite.'+d.id))
@@ -685,8 +694,8 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   // 장기 관통: 찌르기 clamp(0, 80, (D − 4) × 6)% (흉부·복부), 두개골은 남은 HP를 넘으면 뇌
   let organ: string | undefined
   const inner = bdef.parts.filter((p) => p.parent === pd.id && p.internal && !p.digit && !isMissing(w, d, p.id))
-  if (inner.length && dtype === 'stab' && pd.organMiss !== undefined) {
-    const ch = clamp((D - 4) * 6, 0, 80)
+  if (inner.length && (dtype === 'stab' || dtype === 'gunshot') && pd.organMiss !== undefined) {
+    const ch = clamp(clamp((D - 4) * 6, 0, 80) * (dtype==='gunshot'?1.5:1),0,100)
     const or = r.int(0, 99)
     detail.push(`장기 관통 ${ch}% roll ${or}`)
     if (or < ch) {
@@ -706,8 +715,8 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
     detail.push(`→ ${op.label} 관통 (내출혈 ${Math.round(D * (op.organ ?? 1) * 10) / 10} ml/턴)`)
   }
   return {
-    damage,target: pd, woundId: wound.id, woundLabel: w.db.wound(wound.def).label, arterial: !!artery, fracture: fracture && { hairline: '금', simple: '단순', compound: '복합' }[fracture.grade],
-    tendon, destroyed: destroyed && part(w, d, destroyed).label, severed: !!severed, organ,
+    damage:damage+exitDamage,target: pd, woundId: wound.id, woundLabel: w.db.wound(wound.def).label, arterial: !!artery, fracture: fracture && { hairline: '금', simple: '단순', compound: '복합' }[fracture.grade],
+    tendon, destroyed: (destroyed||exitDestroyed) && part(w, d, (destroyed||exitDestroyed)!).label, severed: !!severed, organ,
   }
 }
 

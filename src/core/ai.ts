@@ -1,3 +1,5 @@
+import {firearmReady} from './firearms'
+import {supplyItems} from './items'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
 import {residentCultivationDecision} from './resident-cultivation'
@@ -625,9 +627,15 @@ function decideAction(w: World, c: Creature): Action {
         if (spot) { const st = stepToward(w, c, spot); if (st) return st }
       }
     }
+    // 실제 장전된 마지막 탄도 배낭 탄약과 별개로 사용할 수 있다.
+    const gun=c.equip.main,gunRange=gun&&itemDef(w,gun).ranged
+    if(gun&&gunRange?.firearm&&cheb(c.pos,target.pos)>1 ){
+      if(gun.firearmJammed)return {type:'firearmCare',uid:gun.uid,operation:'unjam'}
+      if(cheb(c.pos,target.pos)<=rangedRange(w,c,target)&&(firearmReady(w,c,gun)||[gunRange.ammo,gunRange.firearm.powder].every(def=>supplyItems(c).some(i=>i.def===def&&i.count>0&&!i.missingItem))))return {type:'shoot',target:target.id}
+    }
     // 원거리 무기
     const mw = mainWeapon(w, c)
-    if (mw && itemDef(w, mw).ranged && cheb(c.pos, target.pos) > 1) {
+    if (mw && itemDef(w, mw).ranged && !itemDef(w,mw).ranged!.firearm && cheb(c.pos, target.pos) > 1) {
       if (countOf(c, itemDef(w, mw).ranged!.ammo) > 0 && cheb(c.pos, target.pos) <= rangedRange(w, c, target)) return { type: 'shoot', target: target.id }
     }
     if (canReach(w, c, target)) return { type: 'attack', target: target.id }

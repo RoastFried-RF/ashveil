@@ -24,9 +24,10 @@ export function makeItem(w: World, defId: string, count = 1): ItemInst {
   if (def.stuffDefaults) it.stuff = structuredClone(def.stuffDefaults)
   if (def.apparel) it.wetness = {}
   if (def.apparel || def.attacks || def.shield || def.toolTags || def.repair || def.prosthetic) it.durability = 100
-  if (it.durability!==undefined||def.ranged||def.book||def.fletching)it.gearAgedAt=turnOf(w)
+  if (it.durability!==undefined||def.ranged||def.book||def.fletching||def.powder)it.gearAgedAt=turnOf(w)
   if (def.attacks?.some((a) => a.damageType === 'cut' || a.damageType === 'stab')) it.edge = def.edgeStart ?? 100
   if (def.light) { it.fuel = def.light.fuelTurns; it.lit = false }
+  if(def.powder)it.powderWetness=0
   if (def.uses!==undefined) it.uses = def.uses
   if(def.food?.servings){it.uses=def.food.servings;it.foodVesselDef=def.food.emptyVessel;it.foodSealed=true}
   return it
@@ -57,6 +58,8 @@ export function durabilityBand(d: number): { label: string; color: string } {
 
 /** 쌓임 키 (13 §5): 같은 Def·품질·내구·오염 상태만 쌓인다. */
 export function canStack(a: ItemInst, b: ItemInst): boolean {
+  if((a.powderWetness!==undefined||b.powderWetness!==undefined)&&a.gearAgedAt!==b.gearAgedAt)return false
+  if((a.powderWetness??0)!==(b.powderWetness??0)||a.loadedRound||b.loadedRound)return false
   if(!!a.fletchingDamaged!==!!b.fletchingDamaged)return false
   if(a.contents||b.contents)return false
   if(a.missingItem||b.missingItem||a.def===MISSING_ITEM||b.def===MISSING_ITEM)return false
@@ -96,7 +99,7 @@ export function quickCount(c:Creature,def:string,fletchingDamaged?:boolean):numb
 /** 환경·가치 정산용. 사용/도구 검색은 allItems의 접근 가능한 물품만 찾는다. */
 export function storedItems(items: readonly ItemInst[]): ItemInst[] {
   const result:ItemInst[]=[],seen=new Set<ItemInst>()
-  const visit=(it:ItemInst)=>{if(seen.has(it))return;seen.add(it);result.push(it);for(const child of it.contents??[])visit(child)}
+  const visit=(it:ItemInst)=>{if(seen.has(it))return;seen.add(it);result.push(it);for(const child of it.contents??[])visit(child);if(it.loadedRound){visit(it.loadedRound.ball);visit(it.loadedRound.powder)}}
   for(const it of items)visit(it)
   return result
 }

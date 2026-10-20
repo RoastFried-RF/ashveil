@@ -10,7 +10,7 @@ export function stateItemEntries(s:GameState):ItemEntry[]{
   seen.add(value)
   if(!Array.isArray(value)){
    const row=value as Record<string,unknown>
-   if(Number.isSafeInteger(row.uid)&&typeof row.def==='string'&&Number.isSafeInteger(row.count)){result.push({item:value as ItemInst,path});walk(row.contents,path+'/contents');return}
+   if(Number.isSafeInteger(row.uid)&&typeof row.def==='string'&&Number.isSafeInteger(row.count)){result.push({item:value as ItemInst,path});walk(row.contents,path+'/contents');walk(row.loadedRound,path+'/loadedRound');return}
   }
   for(const[key,entry]of Object.entries(value)){
    if(key==='inputs'&&path.endsWith('/processing'))continue

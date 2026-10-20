@@ -14455,6 +14455,16 @@
                   }
                 ]
               },
+              "powder": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "throwable": {
                 "anyOf": [
                   {
@@ -16365,6 +16375,9 @@
               "ranged": {
                 "$ref": "#/$defs/RangedDef"
               },
+              "powder": {
+                "type": "boolean"
+              },
               "throwable": {
                 "type": "object",
                 "properties": {
@@ -17044,7 +17057,8 @@
             "stab",
             "blunt",
             "bite",
-            "burn"
+            "burn",
+            "gunshot"
           ]
         },
         "damage": {
@@ -17112,6 +17126,57 @@
     "RangedDef": {
       "type": "object",
       "properties": {
+        "firearm": {
+          "type": "object",
+          "properties": {
+            "powder": {
+              "type": "string"
+            },
+            "oil": {
+              "type": "string"
+            },
+            "misfire": {
+              "type": "number"
+            },
+            "foulingPerShot": {
+              "type": "number"
+            },
+            "jamThreshold": {
+              "type": "number"
+            },
+            "jamPerPoint": {
+              "type": "number"
+            },
+            "wetThreshold": {
+              "type": "number"
+            },
+            "wetMultiplier": {
+              "type": "number"
+            },
+            "cleanTurns": {
+              "type": "number"
+            },
+            "unjamTurns": {
+              "type": "number"
+            },
+            "moraleShock": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "powder",
+            "oil",
+            "misfire",
+            "foulingPerShot",
+            "jamThreshold",
+            "jamPerPoint",
+            "wetThreshold",
+            "wetMultiplier",
+            "cleanTurns",
+            "unjamTurns",
+            "moraleShock"
+          ]
+        },
         "reloadTurns": {
           "type": "number"
         },
@@ -17975,6 +18040,16 @@
                         ]
                       },
                       "burn": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "gunshot": {
                         "anyOf": [
                           {
                             "type": "number"
@@ -20217,6 +20292,9 @@
                     "type": "number"
                   },
                   "burn": {
+                    "type": "number"
+                  },
+                  "gunshot": {
                     "type": "number"
                   }
                 }
@@ -56855,6 +56933,131 @@
     "Inherited_RangedDef": {
       "type": "object",
       "properties": {
+        "firearm": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "powder": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "oil": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "misfire": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "foulingPerShot": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "jamThreshold": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "jamPerPoint": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "wetThreshold": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "wetMultiplier": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cleanTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "unjamTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "moraleShock": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "reloadTurns": {
           "anyOf": [
             {
@@ -56961,7 +57164,8 @@
                 "stab",
                 "blunt",
                 "bite",
-                "burn"
+                "burn",
+                "gunshot"
               ]
             },
             {
