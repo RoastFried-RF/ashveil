@@ -87,9 +87,9 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 
 그래픽: [Knowledge Temple](https://pingupollas.itch.io/knowledge-temple)·[Crawling Depths](https://pingupollas.itch.io/crawling-depths) by [pingupollas](https://pingupollas.itch.io/), [Damp Dungeons](https://arex-v.itch.io/damp-dungeons) by arex-v, [Dark World](https://kaishido.itch.io/dark-world) by kaishido (CC0), [Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) by 0x72 (CC0), [Dark Ages UI](https://hypnobius.itch.io/dark-ages-ui) by hypnobius, [DCSS 32×32](https://opengameart.org/content/dungeon-crawl-32x32-tiles) (CC0). 라이선스와 재배포 조건은 [CREDITS.md](CREDITS.md).
 
-## 원본 아트·UI와 깃 상태 구현 (v0.277 통합 검사 중)
+## 원본 아트·UI와 깃 상태 구현 (v0.277 통합 검증 완료)
 
-원본 타이틀 풍경·초상·4방향28프레임 캐릭터와 얇은 재색/황동 UI를 적용했다. 아래는 실제 타이틀→새 게임에서 촬영한 화면이다.1440×1080과1366×768에서 화면6장·실제 탄약 선택/사격/저장 복원6장(전체187 복원2회)을 확인했다. 깃 손상·명시적 탄약 선택/소진·회수 상한을 구현했고 전체 회귀·월드30판은 현재 검사 중이다. 마지막 전체 검증 완료 버전은 위275이며 이번 중간 브랜치 결과와 구분한다.
+원본 타이틀 풍경·초상·4방향28프레임 캐릭터와 얇은 재색/황동 UI를 적용했다. 아래는 실제 타이틀→새 게임에서 촬영한 화면이다.1440×1080과1366×768에서 화면6장·실제 탄약 선택/사격/저장 복원6장(전체187 복원2회)을 확인했다. 깃 손상·명시적 탄약 선택/소진·회수 상한을 구현했고 전체311파일5,641개와 월드30판을 통과했으며30개 전체 결과 행은275와 같다. 각인187을 사용한다. 추가 아이콘/UI·개발 하네스와 나머지 장기 확장은 다음 작업으로 계속 진행한다.
 
 ![원본 타이틀과 생성 화면](docs/previews/v277-title.png)
 ![새 캐릭터와 HUD 실제 플레이](docs/previews/v277-world.png)
