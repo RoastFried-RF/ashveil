@@ -1,0 +1,158 @@
+[
+  {
+    "op": "add",
+    "target": "Event.ReaverPatrol",
+    "path": "/category",
+    "value": "Threat"
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverPatrol",
+    "path": "/origin",
+    "value": {
+      "kind": "camp",
+      "faction": "reavers",
+      "waypoint": "reaverCamp",
+      "minMembers": 4
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverPatrol",
+    "path": "/composition",
+    "value": {
+      "fromPopulation": true,
+      "count": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverPatrol",
+    "path": "/traces",
+    "value": [
+      "departureHint"
+    ]
+  },
+  {
+    "op": "remove",
+    "target": "Event.ReaverPatrol",
+    "path": "/place/origin"
+  },
+  {
+    "op": "remove",
+    "target": "Event.ReaverPatrol",
+    "path": "/place/count"
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverSearch",
+    "path": "/category",
+    "value": "Threat"
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverSearch",
+    "path": "/origin",
+    "value": {
+      "kind": "camp",
+      "faction": "reavers",
+      "waypoint": "reaverCamp",
+      "minMembers": 2
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverSearch",
+    "path": "/composition",
+    "value": {
+      "fromPopulation": true,
+      "count": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.ReaverSearch",
+    "path": "/traces",
+    "value": [
+      "departureHint"
+    ]
+  },
+  {
+    "op": "remove",
+    "target": "Event.ReaverSearch",
+    "path": "/place/origin"
+  },
+  {
+    "op": "remove",
+    "target": "Event.ReaverSearch",
+    "path": "/place/count"
+  },
+  {
+    "op": "add",
+    "target": "Event.Reoccupy",
+    "path": "/category",
+    "value": "Threat"
+  },
+  {
+    "op": "add",
+    "target": "Event.Reoccupy",
+    "path": "/origin",
+    "value": {
+      "kind": "population",
+      "source": "@roomPopulation"
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.Reoccupy",
+    "path": "/composition",
+    "value": {
+      "fromPopulation": true
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.Reoccupy",
+    "path": "/traces",
+    "value": [
+      "reoccupiedRoom"
+    ]
+  },
+  {
+    "op": "add",
+    "target": "Event.StashRaided",
+    "path": "/category",
+    "value": "Consequence"
+  },
+  {
+    "op": "add",
+    "target": "Event.StashRaided",
+    "path": "/origin",
+    "value": {
+      "kind": "party",
+      "event": "Event.ReaverSearch"
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.StashRaided",
+    "path": "/composition",
+    "value": {
+      "fromPopulation": true
+    }
+  },
+  {
+    "op": "add",
+    "target": "Event.StashRaided",
+    "path": "/traces",
+    "value": [
+      "originalStockMoved"
+    ]
+  }
+]

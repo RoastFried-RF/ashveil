@@ -1,0 +1,105 @@
+[
+  {
+    "op": "add",
+    "target": "RegionLayout.SaltrimHarbor",
+    "path": "/dock",
+    "value": [
+      14,
+      21
+    ]
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.SignalistEnclave",
+    "path": "/dock",
+    "value": [
+      14,
+      21
+    ]
+  },
+  {
+    "op": "replace",
+    "target": "RegionLayout.SignalistEnclave",
+    "path": "/clear",
+    "value": [
+      {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 48,
+        "terrain": "Terrain.SeaDeep"
+      },
+      {
+        "x": 12,
+        "y": 0,
+        "w": 2,
+        "h": 48,
+        "terrain": "Terrain.SeaShallow"
+      },
+      {
+        "x": 14,
+        "y": 19,
+        "w": 20,
+        "h": 3,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 30,
+        "y": 14,
+        "w": 5,
+        "h": 34,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 24,
+        "y": 13,
+        "w": 17,
+        "h": 12,
+        "terrain": "Terrain.Earth"
+      }
+    ]
+  },
+  {
+    "op": "add",
+    "target": "Stock.lantern",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.CoracleKit",
+      "target": 1,
+      "dailyProduction": 0,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.lantern",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.CoastalBoatManual",
+      "target": 1,
+      "dailyProduction": 0,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.SignalistEnclave",
+    "path": "/legacyObjects",
+    "value": [
+      {
+        "key": "dock-water",
+        "pos": [
+          13,
+          21
+        ],
+        "terrain": "Terrain.SeaShallow",
+        "from": [
+          "Terrain.Earth",
+          "Terrain.Path",
+          "Terrain.CoastalMud",
+          "Terrain.Rock"
+        ]
+      }
+    ]
+  }
+]

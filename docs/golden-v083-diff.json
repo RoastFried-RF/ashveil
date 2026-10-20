@@ -1,0 +1,127 @@
+{
+  "from": "v0.82 save46",
+  "to": "v0.83 save47",
+  "reason": "One appended physically reachable coastal Signalist enclave, its host resources, 80 population and eight finite original market stacks with optional local weather. All existing state, old site order, old market UIDs, roads, RNG, actors, climate and command/error outcomes remain exact. Generation chronology prevents newly loaded Def filenames from shifting older expansions.",
+  "scenarios": [
+    {
+      "name": "surface",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "d491c36c",
+      "afterInitialHash": "e7a526e9",
+      "beforeHash": "860fe877",
+      "afterHash": "7ff2baba",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "58313ec4",
+      "afterInitialHash": "798aab57",
+      "beforeHash": "e8c992a4",
+      "afterHash": "5f17133f",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "290b1c18",
+      "afterInitialHash": "6f789dd5",
+      "beforeHash": "b38c0912",
+      "afterHash": "edf171e9",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "world-journey",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "560eb30c",
+      "afterInitialHash": "3f880380",
+      "beforeHash": "48e4d4e4",
+      "afterHash": "a2ab3046",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSite": "Region.FirstlightSignalists",
+          "actualCoastCell": {
+            "x": 37,
+            "y": 93
+          },
+          "newPopulation": 80,
+          "newOriginalMarketStacks": 8,
+          "allExistingSiteOrderAndMarketUidsExact": true,
+          "onlyHostBiomeAndFourResourceFieldsMayChange": true,
+          "onlyNewLocalWeatherMayAppear": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSite": "Region.FirstlightSignalists",
+          "actualCoastCell": {
+            "x": 37,
+            "y": 93
+          },
+          "newPopulation": 80,
+          "newOriginalMarketStacks": 8,
+          "allExistingSiteOrderAndMarketUidsExact": true,
+          "onlyHostBiomeAndFourResourceFieldsMayChange": true,
+          "onlyNewLocalWeatherMayAppear": true
+        }
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "560eb30c",
+      "afterInitialHash": "3f880380",
+      "beforeHash": "58c0e309",
+      "afterHash": "d9324f8b",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSite": "Region.FirstlightSignalists",
+          "actualCoastCell": {
+            "x": 37,
+            "y": 93
+          },
+          "newPopulation": 80,
+          "newOriginalMarketStacks": 8,
+          "allExistingSiteOrderAndMarketUidsExact": true,
+          "onlyHostBiomeAndFourResourceFieldsMayChange": true,
+          "onlyNewLocalWeatherMayAppear": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSite": "Region.FirstlightSignalists",
+          "actualCoastCell": {
+            "x": 37,
+            "y": 93
+          },
+          "newPopulation": 80,
+          "newOriginalMarketStacks": 8,
+          "allExistingSiteOrderAndMarketUidsExact": true,
+          "onlyHostBiomeAndFourResourceFieldsMayChange": true,
+          "onlyNewLocalWeatherMayAppear": true
+        }
+      }
+    }
+  ]
+}

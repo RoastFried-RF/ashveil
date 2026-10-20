@@ -1,12 +1,14 @@
+import {plantPines} from './pines'
+import {applyScriptMapGen,type ScriptMapGenOptions} from './script-mapgen'
 // 지도 생성 (14 §2~§7): 지상(수도원 앞뜰 64×48, 구역 4) + 지하 3층(회랑·납골당·오염된 성소).
 // 적은 정해진 장소(방·야영지)에만 배치된다. 생성은 층마다 한 번이고 이후 변화는 상태로 저장된다.
 
 import { clock, turnOf, type World } from './ctx'
 import type { Pos } from './geom'
 import { Rng, seedState } from './rng'
-import type { MapLight, MapProp, MapRoom, MapState, Tile } from './types'
+import type { MapLight, MapProp, MapRoom, MapState, Tile, WorldGenDef } from './types'
 
-export interface Spawn { def: string; pos: Pos; asleep?: boolean; deep?: boolean; home?: Pos; room?: number }
+export interface Spawn { settlementResident?:boolean; def: string; pos: Pos; asleep?: boolean; deep?: boolean; home?: Pos; room?: number }
 export interface GenResult { map: MapState; start: Pos; spawns: Spawn[] }
 
 export const DUNGEON_DEPTH = 3
@@ -40,7 +42,12 @@ class Builder {
 
 // ── 지상: 잿빛 수도원 앞뜰 (14 §3.2) ─────────────────────
 
-export function generateSurface(w: World): GenResult {
+export function generateSurface(w:World,options:ScriptMapGenOptions={}):GenResult{
+  const target=options.scriptPreview?{db:w.db,s:{...w.s,rng:structuredClone(w.s.rng)}}:w
+  const gen=generateSurfaceCore(target),config=w.db.all<WorldGenDef>('WorldGen')[0]
+  return config?applyScriptMapGen(target,{id:config.id+'.surface',genWorker:config.mapWorkers?.surface},gen,options):gen
+}
+function generateSurfaceCore(w: World): GenResult {
   const r = new Rng(seedState(w.s.seed, 'map:surface'))
   const W = 64, H = 48
   const m = blank('surface', '잿빛 수도원 앞뜰', 'surface', 0, W, H, 'Terrain.Earth', 0)
@@ -80,6 +87,8 @@ export function generateSurface(w: World): GenResult {
   b.set(fire.x, fire.y, 'Terrain.Campfire'); b.light(fire.x, fire.y, 6, 'campfire')
   b.set(bx + 12, by + 1, 'Terrain.Column') // 망루
   b.set(bx + 2, by + 7, 'Terrain.CampChest'); b.set(bx + 4, by + 8, 'Terrain.CampChest')
+  // 출입구를 비워 둔 낮은 목책: 사격 전 엄폐 30.
+  for (const y of [by + 3, by + 7]) b.set(bx - 1, y, 'Terrain.Barricade')
   const home = { x: fire.x, y: fire.y + 1 }
   const campRoom = m.rooms.length
   m.rooms.push({ x: bx - 1, y: by - 1, w: bw + 2, h: bh + 2, type: 'camp', discovered: false, name: '약탈자 야영지' })
@@ -89,7 +98,7 @@ export function generateSurface(w: World): GenResult {
   camp('Creature.Reaver', fire.x - 2, fire.y + 1, r.chance(0.4))
   camp('Creature.Reaver', fire.x + 2, fire.y + 2)
   camp('Creature.Reaver', bx + 3, by + 4, r.chance(0.4))
-  camp('Creature.Reaver', bx + 8, by + 7)
+  camp('Creature.Reaver', bx + 9, by + 7)
   const reaverWp = { x: bx - 2, y: by + 5 }
 
   // 야영지 (남서 10×8, 시작): 모닥불, 야영지 보관함 12×8
@@ -155,7 +164,12 @@ export function generateSurface(w: World): GenResult {
     if (b.get(x, y) === 'Terrain.Earth' && !nearAnchor(x, y)) b.set(x, y, 'Terrain.Remains')
   }
   m.waypoints = { reaverCamp: reaverWp, stream: streamWp, monastery: monasteryWp, homeFire: campfire, homeStash: { x: cx + 2, y: cy + 5 } }
+  // 개울 가장자리의 진흙. 기존 길과 장소 앵커는 보존한다.
+  for (let y = 14; y < H - 2; y++) for (let x = 1; x < W - 1; x++) {
+    if (b.get(x, y) === 'Terrain.Earth' && !nearAnchor(x, y) && (b.get(x - 1, y) === 'Terrain.ShallowWater' || b.get(x + 1, y) === 'Terrain.ShallowWater')) b.set(x, y, 'Terrain.Mud')
+  }
   m.rooms.forEach((R, i) => { for (let y = R.y; y < R.y + R.h; y++) for (let x = R.x; x < R.x + R.w; x++) if (b.in(x, y)) b.at(x, y).room = i })
+  plantPines(w,m,'world.botany.monastery')
   return { map: m, start, spawns }
 }
 
@@ -241,7 +255,12 @@ export function sleepChance(w: World, type: RoomType, def: string): number {
   return Math.max(0, Math.min(1, p))
 }
 
-export function generateDungeon(w: World, depth: number): GenResult {
+export function generateDungeon(w:World,depth:number,options:ScriptMapGenOptions={}):GenResult{
+  const target=options.scriptPreview?{db:w.db,s:{...w.s,rng:structuredClone(w.s.rng)}}:w
+  const gen=generateDungeonCore(target,depth),config=w.db.all<WorldGenDef>('WorldGen')[0]
+  return config?applyScriptMapGen(target,{id:config.id+'.'+gen.map.id,genWorker:config.mapWorkers?.dungeon},gen,options):gen
+}
+function generateDungeonCore(w: World, depth: number): GenResult {
   const id = `crypt${depth}`
   const r = new Rng(seedState(w.s.seed, 'map:' + id))
   const [W, H] = FLOOR_SIZE[depth - 1] ?? FLOOR_SIZE[2]

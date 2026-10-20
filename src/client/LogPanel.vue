@@ -2,6 +2,8 @@
 // 우하단 전투·사건 기록. ▸ 를 누르면 판정 단계(명중 공식)가 펼쳐진다.
 import { computed, nextTick, ref, watch } from 'vue'
 import { fmtClock } from '../core'
+import {speakText,stopSpeech} from './speech'
+import { preferences } from './preferences'
 import { KIND_CLASS } from './format'
 import { version, world } from './store'
 import { logBig as big, logLevel } from './ui'
@@ -28,18 +30,20 @@ function toggle(k: number) {
 
 <template>
   <div class="df df-olive pointer-events-auto !border-[10px] w-[min(440px,94vw)] bg-black/30">
-    <div ref="box" class="overflow-y-auto pr-1 text-[12px] leading-[18px]" :class="big ? 'h-[46vh]' : 'h-[118px]'" data-testid="log">
+    <div ref="box" class="overflow-y-auto pr-1" :style="{ fontSize: preferences.logFontSize + 'px', lineHeight: 1.5 }" :class="big ? 'h-[46vh]' : 'h-[118px]'" data-testid="log">
       <div v-for="e in entries" :key="e.key">
         <div :class="[KIND_CLASS[e.kind], e.detail ? 'cursor-pointer hover:bg-white/5' : '']" @click="e.detail && toggle(e.key)">
-          <span class="font-mono text-[10px] text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}
+          <span class="font-mono text-[0.83em] text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}
           <span v-if="e.detail" class="text-ash-600">{{ open.has(e.key) ? '▾' : '▸' }}</span>
         </div>
-        <div v-if="e.detail && (open.has(e.key) || logLevel === 'detail')" class="mb-1 ml-10 border-l border-ash-700 pl-2 font-mono text-[11px] text-ash-400">
+        <div v-if="e.detail && (open.has(e.key) || logLevel === 'detail')" class="mb-1 ml-10 border-l border-ash-700 pl-2 font-mono text-[0.92em] text-ash-400">
           <div v-for="(l, i) in e.detail" :key="i">{{ l }}</div>
         </div>
       </div>
     </div>
     <div class="absolute -top-2 right-1 flex gap-2 text-[10px] text-ash-500">
+      <button v-if="preferences.speechEnabled" data-testid="read-log" class="hover:text-amber-200" @click="speakText(entries.slice(-10).map(e=>e.text+(e.detail&&(open.has(e.key)||logLevel==='detail')?'\n'+e.detail.join('\n'):'')).join('\n'))">기록 읽기</button>
+      <button v-if="preferences.speechEnabled" data-testid="stop-speech" class="hover:text-amber-200" @click="stopSpeech">읽기 멈춤</button>
       <button v-for="[k, l] in [['brief', '간략'], ['standard', '표준'], ['detail', '상세']]" :key="k" :class="logLevel === k ? 'text-amber-200' : 'hover:text-amber-200'" @click="logLevel = k as typeof logLevel">{{ l }}</button>
       <button class="hover:text-amber-200" @click="big = !big">{{ big ? '▾ 줄이기' : '▴ 늘리기' }}</button>
     </div>

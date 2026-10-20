@@ -1,0 +1,305 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.FieldMat",
+    "label": "풀·가지 깔개",
+    "sprite": "cloth",
+    "weight": 1,
+    "value": 12,
+    "size": [
+      2,
+      2
+    ],
+    "place": "Terrain.FieldMat",
+    "category": "tool"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.FieldMat",
+    "parent": "Terrain.Earth",
+    "label": "풀·가지 깔개",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "bedding": {
+      "quality": 0.65,
+      "insulation": 0,
+      "portable": true
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.FieldMat",
+    "label": "풀·가지 깔개 만들기",
+    "category": "survival",
+    "primaryAttr": "str",
+    "basic": true,
+    "workTurns": 100,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 2
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.FieldMat",
+      "count": 1
+    },
+    "tools": [],
+    "stations": []
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Bedroll",
+    "label": "침낭",
+    "sprite": "cloth",
+    "weight": 1,
+    "value": 12,
+    "size": [
+      2,
+      3
+    ],
+    "place": "Terrain.Bedroll",
+    "category": "tool"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Bedroll",
+    "parent": "Terrain.Earth",
+    "label": "침낭",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "bedding": {
+      "quality": 0.8,
+      "insulation": 6,
+      "portable": true
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.Bedroll",
+    "label": "침낭 만들기",
+    "category": "textile",
+    "primaryAttr": "agi",
+    "basic": false,
+    "workTurns": 400,
+    "inputs": [
+      {
+        "item": "Item.Wool",
+        "count": 2
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 2
+      },
+      {
+        "item": "Item.Thread",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.Bedroll",
+      "count": 1
+    },
+    "tools": [
+      "needle"
+    ],
+    "stations": [
+      "workbench",
+      "loom"
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.StrawBed",
+    "label": "짚 침대",
+    "sprite": "crate_closed",
+    "weight": 1,
+    "value": 12,
+    "size": [
+      2,
+      3
+    ],
+    "place": "Terrain.StrawBed",
+    "category": "tool"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.StrawBed",
+    "parent": "Terrain.Earth",
+    "label": "짚 침대",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "bedding": {
+      "quality": 0.9,
+      "insulation": 0,
+      "portable": false
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.StrawBed",
+    "label": "짚 침대 만들기",
+    "category": "woodwork",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 400,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 3
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 3
+      }
+    ],
+    "output": {
+      "item": "Item.StrawBed",
+      "count": 1
+    },
+    "tools": [
+      "blade"
+    ],
+    "stations": [
+      "workbench"
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Bed",
+    "label": "나무 침대",
+    "sprite": "crate_closed",
+    "weight": 1,
+    "value": 12,
+    "size": [
+      2,
+      3
+    ],
+    "place": "Terrain.Bed",
+    "category": "tool"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Bed",
+    "parent": "Terrain.Earth",
+    "label": "나무 침대",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "bedding": {
+      "quality": 1,
+      "insulation": 0,
+      "portable": false
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.Bed",
+    "label": "나무 침대 만들기",
+    "category": "woodwork",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 600,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 4
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 3
+      },
+      {
+        "item": "Item.Wool",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.Bed",
+      "count": 1
+    },
+    "tools": [
+      "blade",
+      "hammer"
+    ],
+    "stations": [
+      "workbench",
+      "artisan"
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.GoodBed",
+    "label": "좋은 침대",
+    "sprite": "crate_closed",
+    "weight": 1,
+    "value": 12,
+    "size": [
+      2,
+      3
+    ],
+    "place": "Terrain.GoodBed",
+    "category": "tool"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.GoodBed",
+    "parent": "Terrain.Earth",
+    "label": "좋은 침대",
+    "sprites": [],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "bedding": {
+      "quality": 1.1,
+      "insulation": 0,
+      "portable": false
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.GoodBed",
+    "label": "좋은 침대 만들기",
+    "category": "woodwork",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 900,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 6
+      },
+      {
+        "item": "Item.Wool",
+        "count": 3
+      },
+      {
+        "item": "Item.Thread",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.GoodBed",
+      "count": 1
+    },
+    "tools": [
+      "blade",
+      "hammer",
+      "needle"
+    ],
+    "stations": [
+      "artisan"
+    ]
+  }
+]

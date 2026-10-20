@@ -1,0 +1,75 @@
+{
+  "version": "v0.31",
+  "baseline": "v0.30",
+  "commandsChanged": false,
+  "review": [
+    "뇌진탕 누적/3회 의식 상한·건망 획득/숙달 보존·자연 탈구와 활 근접 공격/의수족 수리를 추가했다.",
+    "기존 고정 명령/오류·시간·난수·HP/혈액과 모든 상태 차이를 별도로 비교했다.",
+    "surface와dungeon 상태 전체가 그대로이며freeze에서는NPC뇌진탕 기록1개와자연탈구판정2회의body RNG소비만 달라졌다. 탈구는 발생하지 않았고 명령/실패/TU/HP·혈액은 유지됐다."
+  ],
+  "vectors": [
+    {
+      "name": "surface",
+      "beforeHash": "5f30bb0c",
+      "afterHash": "5f30bb0c",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {},
+      "changes": []
+    },
+    {
+      "name": "dungeon-combat",
+      "beforeHash": "8a1934cf",
+      "afterHash": "8a1934cf",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {},
+      "changes": []
+    },
+    {
+      "name": "freeze-reentry",
+      "beforeHash": "dd6c3312",
+      "afterHash": "b46faed4",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": false,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {
+        "creatures": 1,
+        "rng": 4
+      },
+      "changes": [
+        {
+          "path": "/creatures/11/body/concussionEvents",
+          "after": [
+            85
+          ]
+        },
+        {
+          "path": "/rng/body/0",
+          "before": 3843243688,
+          "after": 3041576843
+        },
+        {
+          "path": "/rng/body/1",
+          "before": 3587899246,
+          "after": 3117522084
+        },
+        {
+          "path": "/rng/body/2",
+          "before": 2723620172,
+          "after": 2697326755
+        },
+        {
+          "path": "/rng/body/3",
+          "before": 91770762,
+          "after": 91770764
+        }
+      ]
+    }
+  ]
+}

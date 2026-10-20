@@ -1,0 +1,1527 @@
+{
+  "from": "v0.77 save41",
+  "to": "v0.78 save42",
+  "reason": "Physical equipment exposure clocks; stored regional bow humidity now advances while biological and AI clocks remain frozen. Existing replay commands and errors unchanged.",
+  "scenarios": [
+    {
+      "name": "surface",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "a3ff1d7f",
+      "afterInitialHash": "5cf86308",
+      "beforeHash": "1bd10f68",
+      "afterHash": "1845823b",
+      "stages": {
+        "initial": {
+          "count": 28,
+          "differences": [
+            {
+              "path": ".creatures[0].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        },
+        "state": {
+          "count": 40,
+          "differences": [
+            {
+              "path": ".creatures[0].bag[5].gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[7].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[7].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[8].equip.chest.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".creatures[8].equip.main.gearAgedAt",
+              "added": 21671
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.feet.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.head.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.off.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[1].bag[1].gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.head.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.feet.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[3].bag[0].gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.feet.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.feet.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.chest.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.head.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.main.gearAgedAt",
+              "added": 21662
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "9625c4bd",
+      "afterInitialHash": "0aa04ce8",
+      "beforeHash": "25ed579d",
+      "afterHash": "b0029ed8",
+      "stages": {
+        "initial": {
+          "count": 26,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        },
+        "state": {
+          "count": 48,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[7].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[7].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[8].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[8].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[9].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[9].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[10].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[10].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[11].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[11].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[12].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[12].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[13].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[13].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[14].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[14].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[15].equip.chest.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".creatures[15].equip.main.gearAgedAt",
+              "added": 21678
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[1].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[3].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[5].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "ef91d66f",
+      "afterInitialHash": "40858924",
+      "beforeHash": "2446aa5b",
+      "afterHash": "923fa166",
+      "stages": {
+        "initial": {
+          "count": 29,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.back.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        },
+        "state": {
+          "count": 47,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.back.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[0].equip.head.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[7].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[7].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[8].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[8].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[9].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[9].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[10].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[10].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[11].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[11].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[12].equip.chest.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".creatures[12].equip.main.gearAgedAt",
+              "added": 21755
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.feet.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.head.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[0].equip.off.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[1].bag[1].gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.head.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[1].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[2].bag[0].gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[2].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[3].bag[0].gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.feet.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.head.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[3].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[4].bag[0].gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.feet.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.head.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[4].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.chest.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".offCreatures.surface[5].equip.main.gearAgedAt",
+              "added": 21703
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "world-journey",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "728cc687",
+      "afterInitialHash": "0cb52c78",
+      "beforeHash": "9f8590fc",
+      "afterHash": "b158854c",
+      "stages": {
+        "initial": {
+          "count": 33,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[8].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[9].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[6].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        },
+        "state": {
+          "count": 34,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[8].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[9].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[6].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[0].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[0].equip.feet.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[0].equip.head.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[0].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[0].equip.off.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[1].bag[1].gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[1].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[1].equip.main.bowMoisture",
+              "before": 0.01916666666666666,
+              "after": 0.8333333333333335
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[1].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[2].bag[0].gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[2].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[2].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[3].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[3].equip.head.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[3].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[4].bag[0].gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[4].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[4].equip.feet.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[4].equip.head.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[4].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[5].bag[0].gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[5].equip.chest.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[5].equip.head.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".overworld.scenes.Region.GreyCloister.creatures[5].equip.main.gearAgedAt",
+              "added": 22600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "728cc687",
+      "afterInitialHash": "0cb52c78",
+      "beforeHash": "897ade9f",
+      "afterHash": "fa5d1af7",
+      "stages": {
+        "initial": {
+          "count": 33,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.feet.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].bag[0].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.head.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[8].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[9].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[6].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        },
+        "state": {
+          "count": 34,
+          "differences": [
+            {
+              "path": ".creatures[0].equip.belt.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[0].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[0].equip.feet.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[0].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[1].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[1].equip.feet.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[1].equip.head.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[1].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[1].equip.off.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[2].bag[1].gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[2].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[2].equip.main.bowMoisture",
+              "before": 0.019999999999999993,
+              "after": 2.000833333333334
+            },
+            {
+              "path": ".creatures[2].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[3].bag[0].gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[3].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[3].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[4].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[4].equip.head.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[4].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[5].bag[0].gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[5].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[5].equip.feet.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[5].equip.head.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[5].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[6].bag[0].gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[6].equip.chest.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[6].equip.head.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".creatures[6].equip.main.gearAgedAt",
+              "added": 24025
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[8].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.ForkwayLedgerhouse.items[9].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[5].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".overworld.markets.Region.PostThree.items[6].gearAgedAt",
+              "added": 21600
+            },
+            {
+              "path": ".version",
+              "before": 41,
+              "after": 42
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

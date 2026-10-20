@@ -1,19 +1,34 @@
+import {MISSING_ITEM} from './missing-items'
+import {equipmentSnapshot,runEquipmentWorkers} from './script-item'
+import { pillBelief } from './knowledge-state'
+import { prostheticAt, prostheticGrip } from './prosthetic-state'
+import { clothingRemoveSlots } from './lining-state'
 // 아이템: 격자 배낭 + 장비 슬롯 + 빠른 슬롯
 
-import { regionState } from './body'
-import { type World } from './ctx'
+import { agedItemDef, bowProblem } from './gear-state'
+import { materialItemDef } from './materials'
+import { capacity, regionState } from './body'
+import { turnOf, type World } from './ctx'
 import type { AttackDef, Creature, ItemDef, ItemInst, Slot } from './types'
 
 export const BAG_W = 10
 export const BAG_H = 6
 
 export function makeItem(w: World, defId: string, count = 1): ItemInst {
+  if(defId===MISSING_ITEM)throw new Error('보관물은 새 물품으로 생성할 수 없다')
   const def = w.db.item(defId)
+  if(def.storage&&count!==1)throw new Error('가방은 한 인스턴스에 하나씩 생성해야 한다')
   const it: ItemInst = { uid: w.s.nextId++, def: defId, count }
-  if (def.apparel || def.attacks || def.shield) it.durability = 100
+  if(def.storage)it.contents=[]
+  if (def.food?.freshHours || def.drink?.freshHours) { it.freshness = 100; it.foodAgedAt = turnOf(w) }
+  if (def.stuffDefaults) it.stuff = structuredClone(def.stuffDefaults)
+  if (def.apparel) it.wetness = {}
+  if (def.apparel || def.attacks || def.shield || def.toolTags || def.repair || def.prosthetic) it.durability = 100
+  if (it.durability!==undefined||def.ranged||def.book)it.gearAgedAt=turnOf(w)
   if (def.attacks?.some((a) => a.damageType === 'cut' || a.damageType === 'stab')) it.edge = def.edgeStart ?? 100
   if (def.light) { it.fuel = def.light.fuelTurns; it.lit = false }
-  if (def.uses) it.uses = def.uses
+  if (def.uses!==undefined) it.uses = def.uses
+  if(def.food?.servings){it.uses=def.food.servings;it.foodVesselDef=def.food.emptyVessel;it.foodSealed=true}
   return it
 }
 
@@ -40,13 +55,22 @@ export function durabilityBand(d: number): { label: string; color: string } {
   return { label: '', color: '#e8e4d8' }
 }
 
-/** 쌓임 키 (13 §5): 같은 Def + 같은 품질 + 같은 오염 상태만 쌓인다 */
+/** 쌓임 키 (13 §5): 같은 Def·품질·내구·오염 상태만 쌓인다. */
 export function canStack(a: ItemInst, b: ItemInst): boolean {
-  return a.def === b.def && qualityOf(a) === qualityOf(b) && !!a.dirty === !!b.dirty
+  if(a.contents||b.contents)return false
+  if(a.missingItem||b.missingItem||a.def===MISSING_ITEM||b.def===MISSING_ITEM)return false
+  if(JSON.stringify(a.cropHarvest)!==JSON.stringify(b.cropHarvest))return false
+  if(a.contaminantAsh!==b.contaminantAsh||a.foodSaltGrams!==b.foodSaltGrams||a.foodHeatedAt!==b.foodHeatedAt)return false
+  if (a.pillRemaining !== undefined || b.pillRemaining !== undefined) return false
+  if (!!a.waterFrozen !== !!b.waterFrozen) return false
+  if ((a.durability??100)!==(b.durability??100)) return false
+  if(a.rawGrams!==b.rawGrams||a.rawMaterial!==b.rawMaterial||JSON.stringify(a.stuff)!==JSON.stringify(b.stuff))return false
+  return a.def === b.def && qualityOf(a) === qualityOf(b) && JSON.stringify(a.foodWater)===JSON.stringify(b.foodWater) && a.foodQ === b.foodQ && a.cookProgress === b.cookProgress && !!a.foodBurnt === !!b.foodBurnt && !!a.dirty === !!b.dirty && (a.freshness ?? 100) === (b.freshness ?? 100) && a.foodAgedAt === b.foodAgedAt && !!a.foodFrozen === !!b.foodFrozen && !!a.foodThawed === !!b.foodThawed && !!a.foodWet === !!b.foodWet && !!a.foodLeftover === !!b.foodLeftover && !!a.foodSealed === !!b.foodSealed
 }
 
 export function itemDef(w: World, it: ItemInst): ItemDef {
-  return w.db.item(it.def)
+  if(it.missingItem)return{...w.db.item(MISSING_ITEM),label:`${it.missingItem.label} (보관물)`,size:[...it.missingItem.size],stackable:true,maxStack:Math.max(it.count,it.missingItem.maxStack)}
+  return agedItemDef(materialItemDef(w, it), it)
 }
 
 export function maxStack(def: ItemDef): number {
@@ -56,7 +80,15 @@ export function maxStack(def: ItemDef): number {
 /** 장착 + 배낭의 모든 아이템 */
 export function allItems(c: Creature): ItemInst[] {
   const eq = Object.values(c.equip).filter((x): x is ItemInst => !!x)
-  return [...c.bag, ...eq]
+  return [...c.bag, ...eq, ...(c.captivity?[c.captivity.rope]:[]), ...Object.values(c.body.prosthetics ?? {}).map((s) => s.item)]
+}
+
+/** 환경·가치 정산용. 사용/도구 검색은 allItems의 접근 가능한 물품만 찾는다. */
+export function storedItems(items: readonly ItemInst[]): ItemInst[] {
+  const result:ItemInst[]=[],seen=new Set<ItemInst>()
+  const visit=(it:ItemInst)=>{if(seen.has(it))return;seen.add(it);result.push(it);for(const child of it.contents??[])visit(child)}
+  for(const it of items)visit(it)
+  return result
 }
 
 export function findItem(c: Creature, uid: number): ItemInst | undefined {
@@ -151,7 +183,9 @@ export function findSpot(w: World, c: Creature, def: ItemDef): [number, number, 
 
 /** 배낭에 넣기. 같은 종류는 먼저 쌓는다. 실패하면 남은 개수 반환 */
 export function addToBag(w: World, c: Creature, it: ItemInst): number {
-  return gridAdd(w, bagGrid(c), it)
+  const result = gridAdd(w, bagGrid(c), it)
+  if (result < it.count) delete it.waterSettlesAt
+  return result
 }
 
 /** NPC 등 격자 제약 없이 넣기 (배낭이 꽉 차도 소지) */
@@ -197,7 +231,7 @@ export function mergeInto(w: World, items: ItemInst[], from: ItemInst, to: ItemI
 /** 나누기 (13 §5): Ctrl+끌기 = 절반, Shift+끌기 = 1개. 새 더미를 (gx, gy)에 */
 export function splitInBag(w: World, c: Creature, uid: number, n: number, gx: number, gy: number, rot?: boolean): ItemInst | undefined {
   const it = c.bag.find((i) => i.uid === uid)
-  if (!it || n <= 0 || n >= it.count) return undefined
+  if (!it || it.missingItem || it.contents || n <= 0 || n >= it.count) return undefined
   const r = rot ?? !!it.rot
   if (!fitsAt(w, c, itemDef(w, it), gx, gy, undefined, r)) return undefined
   const piece: ItemInst = { ...it, uid: w.s.nextId++, count: n, gx, gy, rot: r || undefined }
@@ -216,6 +250,7 @@ export function removeOne(w: World, c: Creature, uid: number): ItemInst | undefi
   }
   const it = c.bag.find((i) => i.uid === uid)
   if (!it) return undefined
+  if(it.missingItem&&it.count>1)return undefined
   if (it.count > 1) {
     it.count--
     return { ...it, uid: w.s.nextId++, count: 1, gx: undefined, gy: undefined }
@@ -248,54 +283,107 @@ export function slotFor(w: World, c: Creature, def: ItemDef): Slot | null {
   if (def.slot === 'ring') return c.equip.ring1 ? (c.equip.ring2 ? 'ring1' : 'ring2') : 'ring1'
   return def.slot
 }
+export function equipDisplacements(w:World,c:Creature,it:ItemInst,target?:Slot):{slot:Slot;item:ItemInst}[]{
+  const def=itemDef(w,it),slot=target??slotFor(w,c,def)
+  if(!slot)return[]
+  const slots:Slot[]=[slot]
+  if(slot==='chest'&&!def.apparel?.liningHost)slots.push('lining')
+  if(slot==='main'&&def.twoHanded)slots.push('off')
+  return slots.filter((s)=>!!c.equip[s]&&c.equip[s]!.uid!==it.uid).map((s)=>({slot:s,item:c.equip[s]!}))
+}
 
-/** 장착. 기존 장비는 배낭으로. 반환: 오류 메시지 또는 null */
-export function equip(w: World, c: Creature, uid: number, target?: Slot): string | null {
+/** 장착 전 슬롯/교체 공간을 읽기 전용으로 검사한다. 실제 입기/완료/중단 모두 같은 규칙을 쓴다. */
+export function equipError(w: World, c: Creature, uid: number, target?: Slot): string | null {
   const it = c.bag.find((i) => i.uid === uid)
-  if (!it) return '배낭에 없다'
+  if(!it){const worn=(Object.keys(c.equip)as Slot[]).find((slot)=>c.equip[slot]?.uid===uid);if(worn&&(!target||target===worn))return slotBlocked(w,c,worn);return '배낭에 없다'}
+  if(it.missingItem)return '원래 정의를 복원해야 장착할 수 있다'
   const def = itemDef(w, it)
   const slot = target ?? slotFor(w, c, def)
   if (!slot) return '장착할 수 없는 물건'
   // 한손 무기는 보조 칸에도 든다 (13 §6.1)
   const offWeapon = slot === 'off' && def.slot === 'main' && !def.twoHanded && !!def.attacks
-  if (!offWeapon && (def.slot === 'ring' ? !slot.startsWith('ring') : def.slot !== slot)) return '그 칸에는 맞지 않는다'
+  const lining=slot==='lining'
+  if(lining&&(def.slot!=='chest'||!def.apparel?.liner))return '이 물품은 안감으로 입을 수 없다'
+  if(lining&&!c.equip.chest)return '안감을 넣을 겉옷을 먼저 입어야 한다'
+  if(lining&&!itemDef(w,c.equip.chest!).apparel?.liningHost)return '이 겉옷에는 안감 칸이 없다'
+  if (!lining&&!offWeapon && (def.slot === 'ring' ? !slot.startsWith('ring') : def.slot !== slot)) return '그 칸에는 맞지 않는다'
   const blocked = slotBlocked(w, c, slot)
   if (blocked) return blocked
+  if(slot==='main'&&def.twoHanded&&c.leading)return '호송 밧줄을 잡은 동안 양손 장비를 들 수 없다'
   if (slot === 'off') {
     const main = c.equip.main
     if (main && itemDef(w, main).twoHanded) return '양손 무기를 들고 있다'
   }
+  // 꺼낼 물품의 빈 칸까지 포함하되, 두 개의 기존 장비가 함께 들어가야 한다.
+  // 미리보기에서 쌓임 분할/UID 할당이 일어나도 실제 세계에는 반영하지 않는다.
+  const preview:World={db:w.db,s:{...w.s,nextId:w.s.nextId}},grid:Grid={items:structuredClone(c.bag.filter((b)=>b.uid!==uid)),w:BAG_W,h:BAG_H}
+  const displaced=equipDisplacements(w,c,it,slot).map((e)=>e.item)
+  for(const old of displaced)if(gridAdd(preview,grid,structuredClone(old)))return '교체할 장비를 넣을 배낭 자리가 없다'
+  return null
+}
+
+/** 장착. 기존 장비는 배낭으로. 반환: 오류 메시지 또는 null */
+export function equip(w:World,c:Creature,uid:number,target?:Slot,scriptNotify=true):string|null{
+  const error=equipError(w,c,uid,target)
+  if(error)return error
+  const it=c.bag.find((i)=>i.uid===uid)
+  if(!it)return null // 같은 슬롯의 반착용 재개
+  const before=scriptNotify?equipmentSnapshot(c):[]
+  const def=itemDef(w,it),slot=target??slotFor(w,c,def)!
   c.bag = c.bag.filter((i) => i.uid !== uid)
   it.gx = undefined
   it.gy = undefined
   const prev = c.equip[slot]
   c.equip[slot] = it
-  if (prev) addToInventory(w, c, prev)
+  if (prev) {prev.half=undefined;prev.dressProgress=undefined;addToBag(w, c, prev)}
+  if(slot==='chest'&&!def.apparel?.liningHost&&c.equip.lining){const liner=c.equip.lining;delete c.equip.lining;liner.half=undefined;liner.dressProgress=undefined;addToBag(w,c,liner)}
   if (slot === 'main' && def.twoHanded && c.equip.off) {
     const off = c.equip.off
     delete c.equip.off
-    addToInventory(w, c, off)
+    off.half=undefined;off.dressProgress=undefined;addToBag(w, c, off)
   }
+  if(scriptNotify)runEquipmentWorkers(w,c,before)
   return null
 }
 
-export function unequip(w: World, c: Creature, slot: Slot): string | null {
+export function unequipError(w:World,c:Creature,slot:Slot):string|null{
   const it = c.equip[slot]
   if (!it) return '비어 있다'
-  const def = itemDef(w, it)
-  if (!findSpot(w, c, def) && !c.bag.some((b) => b.def === it.def && b.count < maxStack(def))) return '배낭에 자리가 없다'
+  const slots=clothingRemoveSlots(c,slot)
+  if(slots.length>1){
+    const shadow:World={db:w.db,s:{...w.s,nextId:-1}},grid:Grid={items:structuredClone(c.bag),w:BAG_W,h:BAG_H}
+    for(const s of slots)if(gridAdd(shadow,grid,structuredClone(c.equip[s]!)))return '겉옷과 안감을 넣을 배낭 자리가 없다'
+    return null
+  }
+  const def=itemDef(w,it)
+  return !findSpot(w,c,def)&&!c.bag.some((b)=>b.def===it.def&&b.count<maxStack(def))?'배낭에 자리가 없다':null
+}
+export function unequip(w: World, c: Creature, slot: Slot): string | null {
+  const error=unequipError(w,c,slot);if(error)return error
+  const before=equipmentSnapshot(c),it=c.equip[slot]!,slots=clothingRemoveSlots(c,slot)
+  if(slots.length>1){
+    for(const s of slots){const item=c.equip[s]!;delete c.equip[s];item.half=undefined;item.dressProgress=undefined;addToBag(w,c,item)}
+    runEquipmentWorkers(w,c,before)
+    return null
+  }
   delete c.equip[slot]
+  it.half=undefined;it.dressProgress=undefined
   addToBag(w, c, it)
+  runEquipmentWorkers(w,c,before)
   return null
 }
 
 /** 슬롯이 막혔는가 (13 §6.1): 보조 칸은 왼팔 불구면, 반지는 그 손 손가락을 잃으면 */
 export function slotBlocked(w: World, c: Creature, slot: Slot): string | null {
+  if(c.leading&&c.leading.hand===(slot==='main'?'Right':slot==='off'?'Left':undefined))return '호송 밧줄을 잡고 있는 손이다'
+  if (slot === 'off' && !prostheticGrip(w, c, 'Left')) return '갈고리 손으로는 장비를 쥘 수 없다'
+  if (slot === 'main' && !prostheticGrip(w, c, 'Right')) return '갈고리 손으로는 무기를 쥘 수 없다'
   if (slot === 'off' && regionState(w, c, 'larm') === 4) return '왼팔을 쓸 수 없다'
   if (slot === 'main' && regionState(w, c, 'rarm') === 4) return '오른팔을 쓸 수 없다'
   if (slot === 'ring1' || slot === 'ring2') {
     const side = slot === 'ring1' ? 'Right' : 'Left'
-    if (c.body.missing.some((m) => m.startsWith(side) && /Thumb|Index|Middle|Ring|Pinky|Hand|Forearm|UpperArm/.test(m))) return '그 손에 낄 손가락이 없다'
+    if (!prostheticGrip(w, c, side)) return '그 손에는 반지를 낄 수 없다'
+    if (!prostheticAt(w, c, `${side}Hand`) && c.body.missing.some((m) => m.startsWith(side) && /Ring|Hand|Forearm|UpperArm/.test(m))) return '그 손에 낄 손가락이 없다'
   }
   return null
 }
@@ -308,8 +396,8 @@ export interface Wield {
   twoHanded: boolean
 }
 
-function pickMode(def: ItemDef, mode?: string): AttackDef {
-  const list = def.attacks!
+function pickMode(def: ItemDef, mode?: string, it?: ItemInst): AttackDef | undefined {
+  const list = def.attacks!.filter((a) => !a.requiresLit || (it?.lit && (it.fuel ?? 0) > 0))
   return list.find((a) => a.id === mode) ?? list[0]
 }
 
@@ -319,20 +407,33 @@ export function wield(w: World, c: Creature, mode?: string): Wield | undefined {
   const main = c.equip.main
   if (main) {
     const d = itemDef(w, main)
-    if (d.attacks?.length) {
-      if (d.twoHanded ? la < 4 && ra < 4 : ra < 4) return { atk: pickMode(d, want), item: main, arm: 'rarm', twoHanded: !!d.twoHanded }
+    if (d.attacks?.length && (main.durability ?? 100) > 0 && !bowProblem(main, d)) {
+      const atk = pickMode(d, want, main)
+      if (atk && (d.twoHanded ? la < 4 && ra < 4 && prostheticGrip(w, c, 'Right') : ra < 4 && prostheticGrip(w, c, 'Right'))) return { atk, item: main, arm: 'rarm', twoHanded: !!d.twoHanded }
     }
   }
   const off = c.equip.off
-  if (off && la < 4) {
+  if (off && la < 4 && prostheticGrip(w, c, 'Left')) {
     const d = itemDef(w, off)
-    if (d.attacks?.length && !d.ranged) return { atk: pickMode(d, want), item: off, arm: 'larm', twoHanded: false }
+    const atk = d.attacks?.length && !d.ranged && (off.durability ?? 100) > 0 ? pickMode(d, want, off) : undefined
+    if (atk) return { atk, item: off, arm: 'larm', twoHanded: false }
   }
-  const nat = w.db.creature(c.def).naturalAttack
+  return naturalWield(w, c,want)
+}
+
+function naturalWield(w: World, c: Creature,mode?:string): Wield | undefined {
+  const la = regionState(w, c, 'larm'), ra = regionState(w, c, 'rarm')
+  for (const side of ['Right', 'Left'] as const) {
+    if(c.leading?.hand===side)continue
+    const hook = prostheticAt(w, c, `${side}Hand`)
+    if (hook?.rule.attack && (side === 'Right' ? ra : la) < 4) return { atk: hook.rule.attack, arm: side === 'Right' ? 'rarm' : 'larm', twoHanded: false }
+  }
+  const def=w.db.creature(c.def),nat=def.naturalAttacks?.find(a=>a.id===(mode??c.attackMode))??def.naturalAttack
   if (!nat) return undefined
+  if(w.db.body(c.body.def).kind==='mechanical'&&nat.requiresCapacity&&capacity(w,c,nat.requiresCapacity)<.1)return undefined
   if (nat.family === 'unarmed' && w.db.body(c.body.def).kind === 'humanoid') {
-    if (ra < 4) return { atk: nat, arm: 'rarm', twoHanded: false }
-    if (la < 4) return { atk: nat, arm: 'larm', twoHanded: false }
+    if (ra < 4&&c.leading?.hand!=='Right') return { atk: nat, arm: 'rarm', twoHanded: false }
+    if (la < 4&&c.leading?.hand!=='Left') return { atk: nat, arm: 'larm', twoHanded: false }
     return undefined
   }
   return { atk: nat, arm: 'rarm', twoHanded: false }
@@ -341,10 +442,7 @@ export function wield(w: World, c: Creature, mode?: string): Wield | undefined {
 /** 근접에 쓰는 무기 (활을 들고 있으면 주먹) */
 export function meleeWield(w: World, c: Creature, mode?: string): Wield | undefined {
   const main = c.equip.main
-  if (main && itemDef(w, main).ranged) {
-    const nat = w.db.creature(c.def).naturalAttack
-    return nat ? { atk: nat, arm: 'rarm', twoHanded: false } : undefined
-  }
+  if (main && itemDef(w, main).ranged) return naturalWield(w, c)
   return wield(w, c, mode)
 }
 
@@ -361,9 +459,9 @@ export function currentAttack(w: World, c: Creature): AttackDef | undefined {
 }
 
 export function apparelItems(w: World, c: Creature): { it: ItemInst; def: ItemDef }[] {
-  return Object.values(c.equip)
-    .filter((x): x is ItemInst => !!x)
-    .map((it) => ({ it, def: itemDef(w, it) }))
+  return Object.entries(c.equip)
+    .filter((x): x is [string,ItemInst] => !!x[1])
+    .map(([slot,it]) => {const def=itemDef(w,it);return{it,def:slot==='lining'&&def.apparel?{...def,apparel:{...def.apparel,layer:0}}:def}})
     .filter((x) => !!x.def.apparel)
 }
 
@@ -402,12 +500,15 @@ export function encumbranceMult(_w: World, _c: Creature): number {
 
 export function itemLabel(w: World, it: ItemInst): string {
   const def = itemDef(w, it)
-  let s = def.label
+  let s = def.relic && (it.appraisal ?? 0) < 2 ? def.unknownLabel ?? '미확인 유물' : def.label
+  if (def.drink && !def.drink.alcohol && (it.uses ?? 1) > 0 && (it.water?.salinity ?? def.drink.quality?.salinity ?? 0) > 0) s += ' (소금물)'
   if (def.unidentified) {
-    const eff = w.s.knowledge.pillKnown[it.def]
-    if (eff) s += ` (${w.db.pill(eff).label})`
+    const belief = pillBelief(w,it.def)
+    if (belief?.belief) s += ` (${w.db.pill(belief.belief).label}${belief.confidence === 'likely' ? ' 추정' : ''})`
     else s += ' (미확인)'
   }
+  if (it.pillRemaining !== undefined) s += ` [${Math.round(it.pillRemaining * 4)}/4정]`
+  if(def.rawFragment)s+=` [${it.rawGrams??0}g]`
   if (it.count > 1) s += ` ×${it.count}`
   if (it.uses !== undefined) s += ` [${it.uses}회]`
   if (def.light) s += it.lit ? ' (켜짐)' : ''

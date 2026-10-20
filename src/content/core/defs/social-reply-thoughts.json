@@ -1,0 +1,33 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.Welcomed",
+    "label": "환대받았다",
+    "mood": 5,
+    "durationTurns": 86400,
+    "lifeEvent": "welcome",
+    "decay": "linear",
+    "stack": 1
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Insulted",
+    "label": "모욕당했다",
+    "mood": -5,
+    "durationTurns": 57600,
+    "lifeEvent": "insult",
+    "decay": "linear",
+    "stack": 3,
+    "stackMult": 0.5
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Expelled",
+    "label": "쫓겨났다",
+    "mood": -8,
+    "durationTurns": 144000,
+    "lifeEvent": "expelled",
+    "decay": "linear",
+    "stack": 1
+  }
+]

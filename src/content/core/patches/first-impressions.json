@@ -1,0 +1,35 @@
+[
+  {
+    "op": "add",
+    "target": "Economy.Hearth",
+    "path": "/firstImpressions",
+    "value": {
+      "villagerFactions": [
+        "coalition"
+      ],
+      "filthyBelow": 20,
+      "filthyPenalty": -5,
+      "faceGroups": [
+        "eye",
+        "nose",
+        "jaw"
+      ],
+      "faceScarPenalty": -5,
+      "hagglePerPoint": 1,
+      "warmAt": 10,
+      "waryBelow": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "Trait.ColdBlooded",
+    "path": "/mods/firstImpression",
+    "value": -5
+  },
+  {
+    "op": "replace",
+    "target": "Trait.ColdBlooded",
+    "path": "/description",
+    "value": "살인·처형·죽음 목격으로 기분이 내려가지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1. 첫 인상 −5."
+  }
+]

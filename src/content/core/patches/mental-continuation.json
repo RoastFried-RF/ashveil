@@ -1,0 +1,99 @@
+[
+  {
+    "op": "add",
+    "target": "Thought.Dark",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "lightLevel",
+            "min": 3
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Thought.Dark",
+    "path": "/conditionMoodKey",
+    "value": "darkMood"
+  },
+  {
+    "op": "add",
+    "target": "Trait.NightOwl",
+    "path": "/mods/darkMood",
+    "value": 2
+  },
+  {
+    "op": "add",
+    "target": "Trait.Loner",
+    "path": "/mods/isolationMoodMult",
+    "value": 0
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Prayed",
+    "path": "/durationTurns",
+    "value": 14400
+  },
+  {
+    "op": "merge",
+    "target": "Thought.Fled",
+    "path": "",
+    "value": {
+      "durationTurns": 28800,
+      "stack": 2,
+      "stackMult": 0.5
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Trait.Pious",
+    "path": "/description",
+    "value": "10분 기도를 마치면 스트레스−10. 재비에 노출된 기도는 기분+5를12시간 남긴다."
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Dark",
+    "path": "/mood",
+    "value": -3
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Dark",
+    "path": "/label",
+    "value": "칠흑 속"
+  },
+  {
+    "op": "add",
+    "target": "Trait.Coward",
+    "path": "/mods/fledMood",
+    "value": 0
+  },
+  {
+    "op": "add",
+    "target": "Trait.Talkative",
+    "path": "/mods/isolationMoodMult",
+    "value": 2
+  },
+  {
+    "op": "replace",
+    "target": "Trait.Talkative",
+    "path": "/description",
+    "value": "대화 기분+6, 외로움×2. 잠행 중10턴마다1% 확률로 혼잣말을 낸다."
+  },
+  {
+    "op": "replace",
+    "target": "Trait.NightOwl",
+    "path": "/description",
+    "value": "어둠 명중 감점5 완화, 조준 사격·다리 쏘기 조명 감점 절반. 밤+3, 낮−2, 실제 칠흑 속 기분+2."
+  },
+  {
+    "op": "replace",
+    "target": "Trait.Coward",
+    "path": "/description",
+    "value": "사기−15, 도주 충동 붕괴×3, 받아넘기기·창벽 자세+1턴, 공격형 능력 기력+2. 도주 기억의 기분 감점 없음."
+  }
+]

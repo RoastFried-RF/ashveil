@@ -1,0 +1,28 @@
+[
+  {
+    "op": "add",
+    "target": "Item.Torch",
+    "path": "/light/openFlame",
+    "value": true
+  },
+  {
+    "op": "add",
+    "target": "Creature.AshHound",
+    "path": "/fireFear",
+    "value": {
+      "radius": 3,
+      "torchPenalty": 30,
+      "memoryPenalty": 10,
+      "memoryTurns": 86400,
+      "avoidRadius": 6,
+      "packRadius": 8,
+      "maxMemories": 8
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Creature.AshHound",
+    "path": "/bestiary/2",
+    "value": "다리가 약하다. 한 마리가 쓰러지면 나머지가 망설인다. 생고기를 던지면 먹느라 멈춘다. 횃불을 경계하며, 그 불에 쫓겨난 무리는 사흘 동안 그 상대를 피한다."
+  }
+]

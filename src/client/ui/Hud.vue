@@ -4,6 +4,8 @@ import { computed, ref, watch } from 'vue'
 import { abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
+import { primaryBindingText, type Command } from '../keybindings'
+import { preferences } from '../preferences'
 import { version, world } from '../store'
 import { doAct, hideTip, showTip, toggleWin, useHotbar, wins, type WinKey } from '../ui'
 import Bar from './Bar.vue'
@@ -50,13 +52,13 @@ watch(() => d.value.hp, (now, before) => {
 })
 
 function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
-  if (s.empty) return showTip(e, `빈 칸 ${s.i === 9 ? 0 : s.i + 1}`, ['능력 창(K)이나 소지품(I)에서 등록한다'])
+  if (s.empty) return showTip(e, `빈 칸 ${s.i === 9 ? 0 : s.i + 1}`, [`능력 창(${primaryBindingText(preferences.keyBindings,'abilities')})이나 소지품(${primaryBindingText(preferences.keyBindings,'inventory')})에서 등록한다`])
   const w = world.value as World
   if (s.ref.kind === 'ability') { const t = abilityTip(w, w.db.ability(s.ref.id)); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기']) }
   else { const t = itemTip(w, null, s.ref.def); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기'], t.color) }
 }
 
-const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '소지품', 'I'], ['abil', '능력', '⇧K'], ['body', '신체', '⇧B'], ['journal', '일지', '⇧J'], ['map', '지도', 'M']]
+const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['inv','소지품','inventory'],['abil','능력','abilities'],['body','신체','body'],['journal','일지','journal'],['map','지도','map'],['craft','제작','craft'],['society','주민·세력','society']]
 </script>
 
 <template>
@@ -81,13 +83,13 @@ const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '�
       </div>
       <!-- 반응 정책 · 공격 방식 -->
       <div class="flex justify-center gap-1 text-[10px]">
-        <button class="dbtn !text-[10px]" title="반응 정책 순환 (V)" @click="doAct({ type: 'reactPolicy' })">반응: {{ d.policy }} <span class="text-ash-500">V</span></button>
-        <button class="dbtn !text-[10px]" :disabled="!d.modes" title="공격 방식 바꾸기 (Q, 자유 행동)" @click="doAct({ type: 'attackMode' })">공격: {{ d.mode }} <span class="text-ash-500">Q</span></button>
+        <button class="dbtn !text-[10px]" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })">반응: {{ d.policy }} <span class="text-ash-500">{{ primaryBindingText(preferences.keyBindings,'reaction') }}</span></button>
+        <button class="dbtn !text-[10px]" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })">공격: {{ d.mode }} <span class="text-ash-500">{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</span></button>
       </div>
       <!-- 창 버튼 -->
       <div class="flex justify-center gap-1">
         <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap !text-[11px]" :data-testid="`btn-${k}`" @click="toggleWin(k)">
-          {{ l }}<span class="ml-0.5 text-[9px] text-ash-400">{{ key }}</span>
+          {{ l }}<span class="ml-0.5 text-[9px] text-ash-400">{{ primaryBindingText(preferences.keyBindings,key) }}</span>
           <span v-if="(k === 'char' && d.points) || (k === 'abil' && d.apoints)" class="pulse-gold absolute -right-1 -top-1 h-2.5 w-2.5 rotate-45 bg-amber-400" />
         </button>
       </div>
@@ -103,7 +105,7 @@ const BTNS: [WinKey, string, string][] = [['char', '캐릭터', 'C'], ['inv', '�
             <div v-if="s.cd > 0" class="absolute inset-0 flex items-center justify-center bg-black/65 text-sm font-bold text-[#e8d7a8]">{{ s.cd }}</div>
             <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ s.count }}</span>
           </template>
-          <span class="absolute left-0.5 top-0 text-[9px] font-bold text-[#a89c80]">{{ s.i === 9 ? 0 : s.i + 1 }}</span>
+          <span class="absolute left-0.5 top-0 text-[9px] font-bold text-[#a89c80]">{{ primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command) }}</span>
         </button>
       </div>
     </div>

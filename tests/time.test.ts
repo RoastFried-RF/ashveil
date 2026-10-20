@@ -34,15 +34,16 @@ const at = (pl: Creature, dx: number) => ({ x: pl.pos.x + dx, y: pl.pos.y })
 
 describe('수면 주기 (01 §8)', () => {
   it('얕은 30분 → 깊은 45분 → 얕은 15분, 지침이면 깊은 잠 +15분', () => {
+    const {w}=setup('sleep-cycle-canonical')
     const M = TURNS_PER_HOUR / 60 // 1분 = 20턴
-    expect(sleepCycleDeep(0, 50)).toBe(false)
-    expect(sleepCycleDeep(30 * M - 1, 50)).toBe(false)
-    expect(sleepCycleDeep(30 * M, 50)).toBe(true)
-    expect(sleepCycleDeep(75 * M - 1, 50)).toBe(true)
-    expect(sleepCycleDeep(75 * M, 50)).toBe(false)
-    expect(sleepCycleDeep(90 * M + 30 * M, 50)).toBe(true) // 다음 주기
-    expect(sleepCycleDeep(89 * M, 80)).toBe(true) // 지침: 깊은 잠 30~90분, 주기 105분
-    expect(sleepCycleDeep(90 * M, 80)).toBe(false)
+    expect(sleepCycleDeep(w, 0, 50)).toBe(false)
+    expect(sleepCycleDeep(w, 30 * M - 1, 50)).toBe(false)
+    expect(sleepCycleDeep(w, 30 * M, 50)).toBe(true)
+    expect(sleepCycleDeep(w, 75 * M - 1, 50)).toBe(true)
+    expect(sleepCycleDeep(w, 75 * M, 50)).toBe(false)
+    expect(sleepCycleDeep(w, 90 * M + 30 * M, 50)).toBe(true) // 다음 주기
+    expect(sleepCycleDeep(w, 89 * M, 80)).toBe(true) // 지침: 깊은 잠 30~90분, 주기 105분
+    expect(sleepCycleDeep(w, 90 * M, 80)).toBe(false)
   })
 
   it('검산 4: 깊은 잠 8 + 지침 1 = 9. 외침 12가 4칸이면 못 깨고 3칸이면 깬다', () => {

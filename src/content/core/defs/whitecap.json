@@ -1,0 +1,113 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.Whitecap",
+    "label": "흰갓버섯",
+    "description": "관로 입구와 어두운 배양목에서 기르는 버섯. 날것은 탈이 날 수 있다.",
+    "sprite": "ash_cap",
+    "category": "food",
+    "weight": 0.05,
+    "stackable": true,
+    "maxStack": 5,
+    "value": 2,
+    "size": [
+      1,
+      1
+    ],
+    "food": {
+      "kcal": 120,
+      "vitamin": 3,
+      "water": 30,
+      "raw": true,
+      "poison": 5,
+      "protein": 3,
+      "freshHours": 72
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.WhitecapCulture",
+    "label": "흰갓 배양목",
+    "description": "실제 목재와 천·흰갓으로 만든 배지. 빈 바닥에 설치한다. 햇빛20% 이하·5~35°C·실제 물이 필요하며 네 번 수확하면 목재 하나로 배지를 교체한다. 멸균하지 않았으며 재료 오염은 남는다.",
+    "sprite": "stump",
+    "category": "misc",
+    "weight": 0.1,
+    "stackable": false,
+    "maxStack": 1,
+    "value": 5,
+    "size": [
+      2,
+      2
+    ],
+    "place": "Terrain.WhitecapPlot"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.WhitecapPlot",
+    "parent": "Terrain.Floor",
+    "label": "흰갓 배양목",
+    "description": "목재 배지에서 어둠을 좋아하는 흰갓버섯이 자란다. 햇빛20% 이하, 실제 물과5~35°C가 필요하다. 네 번 수확하면 실제 목재로 배지를 교체해야 한다.",
+    "sprites": [
+      "mushrooms"
+    ],
+    "passable": true,
+    "opaque": false,
+    "gather": {
+      "item": "Item.Whitecap",
+      "count": 2,
+      "turns": 12,
+      "regrowTurns": 28800
+    },
+    "cultivation": {
+      "minLight": 0,
+      "maxLight": 0.2,
+      "minTemp": 5,
+      "maxTemp": 35,
+      "waterMl": 400,
+      "maxSalinity": 1,
+      "rainMlPerHour": 80,
+      "needsSoil": false,
+      "substrate": {
+        "item": "Item.Wood",
+        "cycles": 4,
+        "turns": 1
+      }
+    },
+    "visual": {
+      "sprite": "mushrooms",
+      "scale": 0.3,
+      "tint": 14540253
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.WhitecapCulture",
+    "label": "흰갓 배양목 만들기",
+    "category": "survival",
+    "primaryAttr": "per",
+    "mastery": "survival",
+    "basic": true,
+    "stations": [
+      "hand"
+    ],
+    "workTurns": 60,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 1
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 1
+      },
+      {
+        "item": "Item.Whitecap",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.WhitecapCulture",
+      "count": 1
+    }
+  }
+]

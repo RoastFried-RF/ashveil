@@ -1,0 +1,146 @@
+[
+  {
+    "defType": "WorldSimulation",
+    "id": "WorldSimulation.Hearth",
+    "referencePopulation": 180,
+    "defaultPopulation": {
+      "coalition": 180,
+      "guild": 400,
+      "pilgrims": 120,
+      "guard": 120
+    },
+    "stock": {
+      "Food": 2400,
+      "Fuel": 600,
+      "Metal": 40,
+      "Medicine": 18,
+      "Ammo": 0,
+      "Salt": 90
+    },
+    "stockTarget": {
+      "Food": 3600,
+      "Fuel": 600,
+      "Metal": 40,
+      "Medicine": 18,
+      "Ammo": 0,
+      "Salt": 60
+    },
+    "production": {
+      "Food": 160,
+      "Fuel": 25
+    },
+    "consumption": {
+      "Food": 1,
+      "Fuel": 0.15,
+      "Salt": 0.05
+    },
+    "items": {
+      "Item.Jerky": {
+        "commodity": "Food",
+        "units": 0.056
+      },
+      "Item.DriedApple": {
+        "commodity": "Food",
+        "units": 0.028
+      },
+      "Item.Hardtack": {
+        "commodity": "Food",
+        "units": 0.14
+      },
+      "Item.CannedMeat": {
+        "commodity": "Food",
+        "units": 0.18
+      },
+      "Item.RawMeat": {
+        "commodity": "Food",
+        "units": 0.12
+      },
+      "Item.AshCap": {
+        "commodity": "Food",
+        "units": 0.048
+      },
+      "Item.RoastedMeat": {
+        "commodity": "Food",
+        "units": 0.132
+      },
+      "Item.Wood": {
+        "commodity": "Fuel",
+        "units": 1
+      },
+      "Item.Charcoal": {
+        "commodity": "Fuel",
+        "units": 1
+      },
+      "Item.Bandage": {
+        "commodity": "Medicine",
+        "units": 1
+      },
+      "Item.HealthDraught": {
+        "commodity": "Medicine",
+        "units": 2
+      },
+      "Item.Arrow": {
+        "commodity": "Ammo",
+        "units": 1
+      },
+      "Item.Bolt": {
+        "commodity": "Ammo",
+        "units": 1
+      },
+      "Item.WillowTea": {
+        "commodity": "Medicine",
+        "units": 1
+      },
+      "Item.PoppyTincture": {
+        "commodity": "Medicine",
+        "units": 1
+      },
+      "Item.BitterMoss": {
+        "commodity": "Medicine",
+        "units": 1
+      },
+      "Item.AshLeaf": {
+        "commodity": "Medicine",
+        "units": 1
+      },
+      "Item.PurificationAmpoule": {
+        "commodity": "Medicine",
+        "units": 2
+      }
+    },
+    "disease": {
+      "def": "Disease.GreyFever",
+      "quarantineAt": 0.05,
+      "travelMult": 0.2,
+      "medicineMult": 3,
+      "contacts": 6,
+      "transmission": 0.5
+    },
+    "factionStock": {
+      "guild": {
+        "Ammo": 80,
+        "Medicine": 36
+      },
+      "guard": {
+        "Ammo": 160
+      },
+      "pilgrims": {
+        "Medicine": 48
+      }
+    },
+    "factionProduction": {
+      "guild": {
+        "Food": 40,
+        "Ammo": 2,
+        "Medicine": 2
+      },
+      "guard": {
+        "Food": 80,
+        "Ammo": 5
+      },
+      "pilgrims": {
+        "Medicine": 3
+      }
+    }
+  }
+]

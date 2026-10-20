@@ -34,7 +34,7 @@ export function base(): string {
 export async function loadAtlas(iconNames: string[]) {
   const b = base()
   const sheetUrls = Object.entries(M.sheets).map(([k, v]) => [k, b + v] as const)
-  const iconUrls = [...new Set(iconNames)].map((n) => [n, `${b}tiles/${n}.png`] as const)
+  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]).map((n) => [n, `${b}tiles/${n}.png`] as const)
   const all = await Assets.load([...sheetUrls.map((x) => x[1]), ...iconUrls.map((x) => x[1])])
   for (const [k, u] of sheetUrls) sheets.set(k, all[u] as Texture)
   for (const [k, u] of iconUrls) if (all[u]) icons.set(k, all[u] as Texture)
@@ -95,4 +95,11 @@ export function frameCss(name: string, scale: number): Record<string, string> {
     backgroundSize: 'auto',
     imageRendering: 'pixelated',
   }
+}
+
+
+/** Vue 아이콘도 실제 제공된 시트의 같은 영역을 읽는다. */
+export function iconFrame(name:string){
+  const f=M.frames[name]
+  return f?{url:base()+M.sheets[f[0]],x:f[1],y:f[2],w:f[3],h:f[4]}:undefined
 }

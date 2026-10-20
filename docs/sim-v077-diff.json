@@ -1,0 +1,958 @@
+{
+  "settingsEqual": true,
+  "overworld": true,
+  "runs": 30,
+  "maxDays": 3,
+  "unchangedFullRows": 28,
+  "changes": [
+    {
+      "seed": "sim-5",
+      "before": {
+        "seed": "sim-5",
+        "cause": "저체온",
+        "days": 1.3680555555555556,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 8,
+            "agi": 14,
+            "per": 10,
+            "vit": 8,
+            "wil": 11
+          },
+          "age": {
+            "years": 33,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Neat",
+            "Trait.ColdResistant"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309696,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21696,
+                  "untilTurn": 309696,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108489,
+              "count": 5,
+              "events": [
+                {
+                  "at": 22089,
+                  "untilTurn": 108489,
+                  "mood": -4
+                },
+                {
+                  "at": 22074,
+                  "untilTurn": 108474,
+                  "mood": -4
+                },
+                {
+                  "at": 22044,
+                  "untilTurn": 108444,
+                  "mood": -4
+                },
+                {
+                  "at": 21963,
+                  "untilTurn": 108363,
+                  "mood": -4
+                },
+                {
+                  "at": 21840,
+                  "untilTurn": 108240,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 61463,
+              "count": 2,
+              "events": [
+                {
+                  "at": 54263,
+                  "untilTurn": 61463,
+                  "mood": -4
+                },
+                {
+                  "at": 53255,
+                  "untilTurn": 60455,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 259800,
+              "count": 2,
+              "events": [
+                {
+                  "at": 58200,
+                  "untilTurn": 259800,
+                  "mood": -12
+                },
+                {
+                  "at": 50200,
+                  "untilTurn": 251800,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.Breakdown",
+              "untilTurn": 87727,
+              "count": 1,
+              "events": [
+                {
+                  "at": 58927,
+                  "untilTurn": 87727
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -1120.16,
+            "waterDeficit": 498,
+            "protein": 90,
+            "vitamin": 98,
+            "hygiene": 84,
+            "nutritionDay": 2,
+            "kcalRemainder": 0.701731783375001,
+            "waterRemainder": 0.1371527777777799,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.78981242803672,
+            "wetness": 0,
+            "energy": 105,
+            "stress": 53.84,
+            "sleepDebt": 12.124999999997092,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0,
+              "head": 0,
+              "hands": 0,
+              "feet": 0
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "lastMealKcal": 120,
+            "ash": 4,
+            "waterExposure": {
+              "ml": 0,
+              "pathogenMl": 0
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.8499999999999996,
+            "low": 7.875,
+            "high": 22.575,
+            "air": -6.1,
+            "feels": -8.1,
+            "windChill": 2,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 0,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 29,
+            "y": 20
+          },
+          "equipment": [
+            {
+              "def": "Item.RustyKnife",
+              "quality": 1,
+              "durability": 58,
+              "edge": 25,
+              "edgeWear": 0,
+              "corrosion": 559.9999999998809,
+              "rust": 3
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 98.22222222222223,
+              "partDurability": {
+                "Chest": 100,
+                "Abdomen": 89,
+                "Pelvis": 95,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "LeftThigh": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 0
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 0
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            }
+          ]
+        }
+      },
+      "after": {
+        "seed": "sim-5",
+        "cause": "저체온",
+        "days": 2.736111111111111,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 8,
+            "agi": 14,
+            "per": 10,
+            "vit": 8,
+            "wil": 11
+          },
+          "age": {
+            "years": 33,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Neat",
+            "Trait.ColdResistant"
+          ],
+          "aftermath": {
+            "scars": [
+              {
+                "part": "LeftThigh",
+                "severity": 5,
+                "cap": 1,
+                "burn": false,
+                "at": 97332,
+                "source": "그늘 사람의 베기"
+              }
+            ]
+          },
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309701,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21701,
+                  "untilTurn": 309701,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 112850,
+              "count": 5,
+              "events": [
+                {
+                  "at": 26450,
+                  "untilTurn": 112850,
+                  "mood": -4
+                },
+                {
+                  "at": 26440,
+                  "untilTurn": 112840,
+                  "mood": -4
+                },
+                {
+                  "at": 26425,
+                  "untilTurn": 112825,
+                  "mood": -4
+                },
+                {
+                  "at": 21736,
+                  "untilTurn": 108136,
+                  "mood": -4
+                },
+                {
+                  "at": 21731,
+                  "untilTurn": 108131,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.SunBreak",
+              "untilTurn": 105000,
+              "count": 1,
+              "events": [
+                {
+                  "at": 76200,
+                  "untilTurn": 105000
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 298200,
+              "count": 1,
+              "events": [
+                {
+                  "at": 96600,
+                  "untilTurn": 298200,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.Breakdown",
+              "untilTurn": 128400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 99600,
+                  "untilTurn": 128400
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -7002.37,
+            "waterDeficit": 497,
+            "protein": 71,
+            "vitamin": 96,
+            "hygiene": 76,
+            "nutritionDay": 3,
+            "kcalRemainder": 0.8201061949631789,
+            "waterRemainder": 0.5642361111111172,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.85387314126271,
+            "wetness": 100,
+            "energy": 105,
+            "stress": 76.57600000000005,
+            "sleepDebt": 45.82333333329978,
+            "skinWetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100,
+              "head": 100,
+              "hands": 100,
+              "feet": 100
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "lastMealKcal": 120,
+            "ash": 9,
+            "waterExposure": {
+              "ml": 0,
+              "pathogenMl": 0
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 0.8550000000000001,
+            "low": 12.8625,
+            "high": 23.5725,
+            "air": -6.7,
+            "feels": 3.3000000000000007,
+            "windChill": 2,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 100,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 39
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 42,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 1,
+            "snap": {
+              "turn": 100382,
+              "hp": 90,
+              "hungerStage": 3,
+              "thirstStage": 0,
+              "wounds": 1,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 18
+          },
+          "equipment": [
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 100,
+                "arms": 100,
+                "legs": 100
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 100
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            },
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 13.333333333333268,
+              "edge": 70,
+              "edgeWear": 0,
+              "corrosion": 261.0499999996211,
+              "rust": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "seed": "sim-21",
+      "before": {
+        "seed": "sim-21",
+        "cause": "저체온",
+        "days": 1.7708333333333333,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 9,
+            "per": 10,
+            "vit": 11,
+            "wil": 12
+          },
+          "age": {
+            "years": 20,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronStomach",
+            "Trait.Loner"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309696,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21696,
+                  "untilTurn": 309696,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108272,
+              "count": 3,
+              "events": [
+                {
+                  "at": 21872,
+                  "untilTurn": 108272,
+                  "mood": -4
+                },
+                {
+                  "at": 21749,
+                  "untilTurn": 108149,
+                  "mood": -4
+                },
+                {
+                  "at": 21696,
+                  "untilTurn": 108096,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.SunBreak",
+              "untilTurn": 76200,
+              "count": 1,
+              "events": [
+                {
+                  "at": 47400,
+                  "untilTurn": 76200
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 270800,
+              "count": 1,
+              "events": [
+                {
+                  "at": 69200,
+                  "untilTurn": 270800,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -2777.57,
+            "waterDeficit": 405,
+            "protein": 88.84,
+            "vitamin": 98,
+            "hygiene": 84,
+            "nutritionDay": 2,
+            "kcalRemainder": 0.5236973389677857,
+            "waterRemainder": 0.5729166666666763,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.93338852425002,
+            "wetness": 63.93999999999863,
+            "energy": 110,
+            "stress": 78.084,
+            "sleepDebt": 21.19333333332218,
+            "skinWetness": {
+              "torso": 63.93999999999863,
+              "arms": 63.93999999999863,
+              "legs": 63.93999999999863,
+              "head": 63.93999999999863,
+              "hands": 63.93999999999863,
+              "feet": 63.93999999999863
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "lastMealKcal": 120,
+            "ash": 3.8,
+            "waterExposure": {
+              "ml": 400,
+              "pathogenMl": 28000
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.5743970000000271,
+            "low": 14.064007499999931,
+            "high": 25.212801499999987,
+            "air": -3.9,
+            "feels": 6.1,
+            "windChill": 2,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 63.93999999999863,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 39
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 34,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 2,
+            "snap": {
+              "turn": 72574,
+              "hp": 102,
+              "hungerStage": 2,
+              "thirstStage": 0,
+              "wounds": 2,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 26
+          },
+          "equipment": [
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 74.99999999999993,
+              "edge": 70,
+              "edgeWear": 0,
+              "corrosion": 559.9999999998809,
+              "rust": 3
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 63.93999999999863,
+                "arms": 63.93999999999863,
+                "legs": 63.93999999999863
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 63.93999999999863
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            }
+          ]
+        }
+      },
+      "after": {
+        "seed": "sim-21",
+        "cause": "치명상",
+        "days": 0.2803819444444444,
+        "level": 2,
+        "map": "crypt1",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 9,
+            "per": 10,
+            "vit": 11,
+            "wil": 12
+          },
+          "age": {
+            "years": 20,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronStomach",
+            "Trait.Loner"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309703,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21703,
+                  "untilTurn": 309703,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108231,
+              "count": 4,
+              "events": [
+                {
+                  "at": 21831,
+                  "untilTurn": 108231,
+                  "mood": -4
+                },
+                {
+                  "at": 21818,
+                  "untilTurn": 108218,
+                  "mood": -4
+                },
+                {
+                  "at": 21713,
+                  "untilTurn": 108113,
+                  "mood": -4
+                },
+                {
+                  "at": 21703,
+                  "untilTurn": 108103,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 53618,
+              "count": 2,
+              "events": [
+                {
+                  "at": 29618,
+                  "untilTurn": 53618,
+                  "mood": -6
+                },
+                {
+                  "at": 21956,
+                  "untilTurn": 45956,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 231273,
+              "count": 1,
+              "events": [
+                {
+                  "at": 29673,
+                  "untilTurn": 231273,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "traumas": [
+            {
+              "def": "Trauma.Species",
+              "target": "Creature.SporeMan",
+              "overcome": 0,
+              "visible": [],
+              "seenTargets": [],
+              "active": false,
+              "encounters": {
+                "71": {
+                  "broken": false,
+                  "done": false,
+                  "qualifies": true,
+                  "distance": 1
+                }
+              }
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -208.53,
+            "waterDeficit": 335,
+            "protein": 91.67,
+            "vitamin": 98,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.06094719328331166,
+            "waterRemainder": 0.5729166666666698,
+            "scurvy": 0,
+            "fatigue": 62.34635416667778,
+            "bodyTemp": 35.79876576685004,
+            "wetness": 0,
+            "energy": 77,
+            "stress": 34.752,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0,
+              "head": 0,
+              "hands": 0,
+              "feet": 0
+            },
+            "thermal": {
+              "turns": 75,
+              "delta": 0.03247500000000002
+            },
+            "lastMealKcal": 350
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.8499999999999996,
+            "low": 10.875,
+            "high": 24.575,
+            "air": 6,
+            "feels": 9,
+            "windChill": 0,
+            "heat": 3,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 0,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 35,
+            "y": 24
+          },
+          "equipment": [
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 98.22222222222223,
+              "partDurability": {
+                "Chest": 100,
+                "Abdomen": 95,
+                "Pelvis": 89,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "LeftThigh": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 0
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 98.75,
+              "partDurability": {
+                "LeftShin": 95,
+                "LeftFoot": 100,
+                "RightShin": 100,
+                "RightFoot": 100
+              },
+              "wetness": {
+                "feet": 0
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            },
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 1.6666666666666023,
+              "edge": 41,
+              "edgeWear": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "op": "add",
+    "target": "Drug.PoppyTincture",
+    "path": "/thought",
+    "value": "Thought.DrugHaze"
+  },
+  {
+    "op": "add",
+    "target": "Trait.Loner",
+    "path": "/mods/aloneRadius",
+    "value": 3
+  },
+  {
+    "op": "replace",
+    "target": "Trait.Loner",
+    "path": "/description",
+    "value": "보이는3칸 안에 사람이 없으면 기분 +3. 대화의 기분 보너스는 없다."
+  },
+  {
+    "op": "add",
+    "target": "Trait.Neat",
+    "path": "/mods/neatEdgeThreshold",
+    "value": 60
+  },
+  {
+    "op": "replace",
+    "target": "Trait.Neat",
+    "path": "/description",
+    "value": "날60% 미만이나 녹슨 장비를 착용하면 기분 −3. 처치 청결 +5, 강박 정리 붕괴 ×3."
+  }
+]

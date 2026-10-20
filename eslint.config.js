@@ -23,6 +23,11 @@ export default tseslint.config(
     },
   },
   {
+    files:['mods/**/scripts/**/*.js'],
+    languageOptions:{globals:{...Object.fromEntries([...Object.keys(globals.browser),...Object.keys(globals.node)].map(k=>[k,'off'])),defineMod:'readonly'}},
+    rules:{'no-restricted-globals':['error','Date','performance','fetch','setTimeout','setInterval','SharedArrayBuffer','Atomics','eval']},
+  },
+  {
     // 코어는 결정론 유지: Math.random·초월함수 금지
     files: ['src/core/**/*.ts'],
     rules: {

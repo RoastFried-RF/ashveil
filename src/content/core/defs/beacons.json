@@ -1,0 +1,124 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.CoastalBeacon",
+    "parent": "Terrain.Campfire",
+    "label": "형제단 봉화",
+    "description": "실제 땔감으로 살리는 해안 봉화. 이미 아는 소식만 같은 규약의 실제 수신소로 보낸다.",
+    "sprites": [],
+    "beacon": {
+      "network": "lantern-coast",
+      "fuel": "Item.Wood",
+      "fuelTurns": 2400,
+      "maxFuelTurns": 28800,
+      "igniteTurns": 20,
+      "sendTurns": 20,
+      "turnsPerCell": 20,
+      "speed": 2,
+      "rangeCells": 16,
+      "height": 40,
+      "radius": 5,
+      "literacyMin": 1
+    }
+  },
+  {
+    "defType": "RegionSite",
+    "id": "Region.SaltrimRelay",
+    "label": "소금 해안 인근 봉화소",
+    "description": "장부소 가까운 실제 해안의 오래된 봉화 중계소. 불을 살리고 수신 기록을 확인할 수 있다.",
+    "cell": [
+      8,
+      44
+    ],
+    "kind": "conduit",
+    "faction": "lantern",
+    "layout": "RegionLayout.SaltrimRelay",
+    "extension": {
+      "biome": "Biome.Coast",
+      "footAccess": true,
+      "coast": true,
+      "generation": 6,
+      "near": {
+        "site": "Region.SaltrimHarbor",
+        "maxCells": 16
+      }
+    }
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.SaltrimRelay",
+    "label": "소금 해안 인근 봉화소",
+    "mapId": "saltrim-relay",
+    "kind": "surface",
+    "depth": 0,
+    "width": 48,
+    "height": 40,
+    "fill": "Terrain.CoastalMud",
+    "ambient": 1,
+    "start": [
+      24,
+      37
+    ],
+    "exits": [
+      [
+        24,
+        38
+      ],
+      [
+        23,
+        38
+      ],
+      [
+        25,
+        38
+      ]
+    ],
+    "dock": [
+      14,
+      21
+    ],
+    "scatter": [],
+    "clear": [
+      {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 40,
+        "terrain": "Terrain.SeaDeep"
+      },
+      {
+        "x": 12,
+        "y": 0,
+        "w": 2,
+        "h": 40,
+        "terrain": "Terrain.SeaShallow"
+      },
+      {
+        "x": 14,
+        "y": 20,
+        "w": 12,
+        "h": 3,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 23,
+        "y": 21,
+        "w": 3,
+        "h": 18,
+        "terrain": "Terrain.Path"
+      }
+    ],
+    "buildings": [],
+    "objects": [
+      {
+        "pos": [
+          18,
+          20
+        ],
+        "terrain": "Terrain.CoastalBeacon"
+      }
+    ],
+    "spawns": [],
+    "links": []
+  }
+]

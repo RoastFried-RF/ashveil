@@ -1,0 +1,178 @@
+[
+  {
+    "defType": "Bestiary",
+    "id": "Bestiary.Human",
+    "observeTurns": 20,
+    "encounterCount": 3,
+    "encounterGap": 60,
+    "fightClearTurns": 10,
+    "rangeWidth": [
+      0.3,
+      0.1
+    ],
+    "perRange": 0.05,
+    "keenRange": 0.05,
+    "dissectTurns": 200,
+    "dissectBase": 40,
+    "dissectMastery": 6,
+    "dissectPer": 2,
+    "dissectMin": 10,
+    "dissectMax": 95,
+    "autoDissectAfter": 3,
+    "failedYield": 0.7,
+    "toolBonus": [
+      -5,
+      0,
+      5,
+      10,
+      15,
+      20
+    ],
+    "tabooThought": "Thought.DissectHuman",
+    "tabooLoss": -5
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Hound",
+    "label": "재늑대",
+    "creatures": [
+      "Creature.AshHound",
+      "Creature.AshHoundAlpha"
+    ],
+    "kind": "animal",
+    "difficulty": 20,
+    "silhouette": "네발짐승의 실루엣",
+    "yields": [
+      {
+        "item": "Item.RawHide",
+        "count": 3
+      },
+      {
+        "item": "Item.Bones",
+        "count": 2
+      }
+    ],
+    "facts": [
+      "피 냄새와 바람을 따라온다. 비가 냄새 흔적을 약하게 만든다.",
+      "먹이를 던지면 먹느라 추격을 멈춘다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Rat",
+    "label": "굴쥐",
+    "creatures": [
+      "Creature.BurrowRat"
+    ],
+    "kind": "animal",
+    "difficulty": 5,
+    "silhouette": "작은 짐승의 실루엣",
+    "yields": [
+      {
+        "item": "Item.RawHide",
+        "count": 1
+      },
+      {
+        "item": "Item.Bones",
+        "count": 1
+      }
+    ],
+    "facts": [
+      "물린 상처는 오염되기 쉽다.",
+      "혼자서는 겁이 많으나 쓰러진 상대에게 대담해진다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Human",
+    "label": "인간",
+    "creatures": [
+      "Creature.Reaver",
+      "Creature.ReaverChief",
+      "Creature.ReaverArcher",
+      "Creature.Settler",
+      "Creature.SettlementGuard",
+      "Creature.SettlementTrader",
+      "Creature.SettlementDoctor"
+    ],
+    "kind": "human",
+    "difficulty": 10,
+    "silhouette": "낯선 사람",
+    "yields": [],
+    "facts": [
+      "동료가 쓰러지거나 피를 많이 흘리면 사기가 꺾인다.",
+      "사람 해부는 인간 정착지에서 금기다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Shade",
+    "label": "그늘 사람",
+    "creatures": [
+      "Creature.Shade",
+      "Creature.ShadeChief"
+    ],
+    "kind": "human",
+    "difficulty": 20,
+    "silhouette": "작은 사람의 실루엣",
+    "yields": [],
+    "facts": [
+      "어두운 곳을 잘 보며 무리를 이룬다.",
+      "등불은 먼저 빛을 든 사람의 위치를 드러낸다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Withered",
+    "label": "말라붙은 자",
+    "creatures": [
+      "Creature.Withered",
+      "Creature.WitheredPriest"
+    ],
+    "kind": "unavailable",
+    "difficulty": 0,
+    "silhouette": "마른 사람의 실루엣",
+    "yields": [],
+    "facts": [
+      "물200ml를 건네면30%확률로 진정한다.",
+      "해부할 수 없다. 쓰러진 이도 얼마 전까지 사람이었다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Spore",
+    "label": "포자 인간",
+    "creatures": [
+      "Creature.SporeMan"
+    ],
+    "kind": "human",
+    "difficulty": 25,
+    "silhouette": "갓을 쓴 사람의 실루엣",
+    "yields": [],
+    "facts": [
+      "피격 때 포자 구름이 터져 기침과 기력 저하를 일으킨다.",
+      "거리를 둔 창이나 활은 포자 노출을 줄인다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Amalgam",
+    "label": "융합체",
+    "creatures": [
+      "Creature.Amalgam"
+    ],
+    "kind": "animal",
+    "difficulty": 35,
+    "silhouette": "거대한 살덩이의 실루엣",
+    "yields": [
+      {
+        "item": "Item.Bones",
+        "count": 4
+      }
+    ],
+    "facts": [
+      "촉수는 두 칸 밖까지 닿는다.",
+      "촉수와 밑동의 손상이 공격과 추격을 약하게 만든다."
+    ]
+  }
+]

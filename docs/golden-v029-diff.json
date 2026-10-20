@@ -1,0 +1,45 @@
+{
+  "version": "v0.29",
+  "baseline": "v0.28",
+  "commandsChanged": false,
+  "review": [
+    "물의 병원체/재를 분리하고 이질 잠복/흡수·정수 활동·재 축적을 추가했다.",
+    "고정 명령/오류/시간/난수/HP/혈액과 초기 생성은 별도 비교한다.",
+    "세 벡터의 초기/최종 저장 상태 전체가v0.28과 동일하다. 새 행동·이질/재 축적은18개 전용 테스트와 브라우저로 검증한다."
+  ],
+  "vectors": [
+    {
+      "name": "surface",
+      "beforeHash": "5f30bb0c",
+      "afterHash": "5f30bb0c",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {},
+      "changes": []
+    },
+    {
+      "name": "dungeon-combat",
+      "beforeHash": "8a1934cf",
+      "afterHash": "8a1934cf",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {},
+      "changes": []
+    },
+    {
+      "name": "freeze-reentry",
+      "beforeHash": "dd6c3312",
+      "afterHash": "dd6c3312",
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {},
+      "changes": []
+    }
+  ]
+}

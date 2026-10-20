@@ -1,0 +1,15 @@
+[
+  {
+    "defType": "CompanionBond", "id": "CompanionBond.Hearth", "label": "동료와 쌓은 관계",
+    "initial": 0, "min": -100, "max": 100, "leaveAt": -25,
+    "periodTurns": 1200, "range": 6, "together": 1, "sharedTrait": 1,
+    "positivePerDay": 3, "wage": 1, "arrears": -5, "betrayal": -50,
+    "moraleDivisor": 20, "moraleCap": 5,
+    "personalities": ["Trait.ColdBlooded", "Trait.TenderHearted", "Trait.Pious", "Trait.Loner", "Trait.Talkative", "Trait.Paranoid"],
+    "conflicts": [
+      {"a": "Trait.ColdBlooded", "b": "Trait.TenderHearted", "delta": -3},
+      {"a": "Trait.Bloodlust", "b": "Trait.TenderHearted", "delta": -3},
+      {"a": "Trait.Loner", "b": "Trait.Talkative", "delta": -2}
+    ]
+  }
+]

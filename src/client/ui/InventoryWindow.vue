@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
+import { isWaterVessel,waterCapacity,cookingQuote,nearbyCampfires,nearbyIce, nearbySnow } from '../../core'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import {
-  BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type ItemInst, type Slot, type World,
+  corpseMoneyQuote, economyDef, bestiaryEntry, knownCreatureName, dissectionChance, dissectionError, bestiaryDef, waterSafetyDef, waterPourQuote, drinkVolume, WATER_TREATMENT_LABEL, BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, knowledgeDef, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type WaterTreatment, type ItemInst, type Slot, type World,
 } from '../../core'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
@@ -12,7 +13,7 @@ import ItemIcon from './ItemIcon.vue'
 import Win from './Win.vue'
 
 const CELL = 38
-const DOLL: (Slot | null)[][] = [['neck', 'head', 'back'], ['main', 'chest', 'off'], ['ring1', 'hands', 'ring2'], ['belt', 'feet', null]]
+const DOLL: (Slot | null)[][] = [['neck', 'head', 'back'], ['main', 'chest', 'off'], ['ring1', 'hands', 'ring2'], ['belt', 'feet', 'lining']]
 
 const d = computed(() => {
   void version.value
@@ -24,11 +25,12 @@ const d = computed(() => {
   const grid = lootGrid(w)
   const corpse = lootEquip(w)
   const lootEq = corpse ? (Object.keys(corpse.equip) as Slot[]).filter((k) => corpse.equip[k]).map((k) => ({ slot: k, it: corpse.equip[k]! })) : []
-  const lootLabel = corpse ? `${corpse.name}의 시체` : w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
+  const openBag=w.s.loot?.kind==='bag'?pl.bag.find(it=>it.uid===w.s.loot!.id):undefined
+  const lootLabel = openBag?itemLabel(w,openBag):corpse ? `${knownCreatureName(w,corpse)}의 시체` : w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
   const floor = !loot ? tileAt(w, pl.pos).items : []
   let used = 0
   for (const it of bag) { const [a, b] = itemSize(w, it); used += a * b }
-  return { w, pl, bag, loose, loot, grid, lootEq, lootLabel, floor, free: BAG_W * BAG_H - used }
+  return { w, pl, bag, loose, loot, grid, lootEq, lootLabel, floor, coins:corpseMoneyQuote(w,pl), currency:economyDef(w).currency, dissection:corpse?{id:corpse.id,kind:bestiaryEntry(w,corpse.def)?.kind,mood:w.db.thought(bestiaryDef(w).tabooThought).mood,loss:bestiaryDef(w).tabooLoss,error:dissectionError(w,pl,corpse.id),chance:dissectionChance(w,pl,corpse),turns:bestiaryDef(w).dissectTurns,done:corpse.dissected}:null, free: BAG_W * BAG_H - used }
 })
 
 // ── 끌기 ──
@@ -158,8 +160,7 @@ function up(e: PointerEvent) {
   } else if (kind === 'loot') {
     if (g.from === 'bag') doAct({ type: 'lootPut', uid: g.it.uid })
   } else if (kind === 'ground') {
-    if (g.from === 'bag') doAct({ type: 'drop', uid: g.it.uid })
-    else if (g.from === 'equip' && g.slot) { if (!doAct({ type: 'unequip', slot: g.slot })) doAct({ type: 'drop', uid: g.it.uid }) }
+    if (g.from === 'bag'||g.from==='equip') doAct({type:'drop',uid:g.it.uid})
   } else if (kind === 'hotbar') {
     assignHotbar({ kind: 'item', def: g.it.def })
   }
@@ -195,7 +196,7 @@ function tip(e: MouseEvent, it: ItemInst) {
   if (drag.value?.moved) return
   const w = world.value as World
   const t = itemTip(w, it)
-  showTip(e, t.title, [...t.lines, ...compare(w, it), '더블클릭: 사용/장착 · 우클릭: 메뉴 · 끌기: 옮기기 · Ctrl+S: 자동 정렬'], t.color)
+  showTip(e, t.title, [...t.lines, ...compare(w, it), it.missingItem?'우클릭: 통째 보관·이동 메뉴 · 끌기: 옮기기 · 끌기 중 R: 회전':'더블클릭: 사용/장착 · 우클릭: 메뉴 · 끌기: 옮기기 · Ctrl+S: 자동 정렬'], t.color)
 }
 function dbl(it: ItemInst, from: Drag['from'], slot?: Slot) {
   hideTip()
@@ -203,6 +204,7 @@ function dbl(it: ItemInst, from: Drag['from'], slot?: Slot) {
   if (from === 'equip' && slot) return doAct({ type: 'unequip', slot })
   if (from === 'loot') return doAct({ type: 'lootTake', uid: it.uid })
   if (from === 'floor') return doAct({ type: 'pickup', uid: it.uid })
+  if(itemDef(w,it).storage)return doAct({type:'openBag',uid:it.uid})
   useItem(w, it)
 }
 function ctx(e: MouseEvent, it: ItemInst, from: Drag['from'], slot?: Slot) {
@@ -215,18 +217,48 @@ const menuItems = computed(() => {
   const w = world.value as World
   const def = itemDef(w, m.it)
   const out: [string, () => void][] = []
+  if(m.it.missingItem){
+    if(m.from==='bag'||m.from==='equip'){if(w.s.loot)out.push(['넣기',()=>doAct({type:'lootPut',uid:m.it.uid})]);out.push(['바닥에 놓기',()=>doAct({type:'drop',uid:m.it.uid})])}
+    else if(m.from==='loot')out.push(['가져가기',()=>doAct({type:'lootTake',uid:m.it.uid})])
+    else out.push(['줍기',()=>doAct({type:'pickup',uid:m.it.uid})])
+    return out
+  }
+  if ((m.from === 'bag' || m.from === 'equip') && def.ranged?.reloadTurns && !m.it.loadedAmmo) out.push([`장전 (기본${def.ranged.reloadTurns}턴)`, () => doAct({ type: 'reload', uid: m.it.uid })])
   if (m.from === 'bag') {
+    if (def.place) out.push([w.db.terrain(def.place).gather?(w.db.terrain(def.place).cultivation?.needsSoil===false?'바라보는 바닥에 심기':'바라보는 흙에 심기'):'바라보는 쪽에 설치', () => doAct({ type: 'place', uid: m.it.uid, dir: player(w).facing })])
     if (def.readable) out.push(['읽기', () => doAct({ type: 'read', uid: m.it.uid })])
+    if (isWaterVessel(w,m.it)) {
+      if ((m.it.uses ?? 0) > 0) for (const method of Object.keys(waterSafetyDef(w).treatments) as WaterTreatment[]) out.push([`${m.it.waterFrozen && method === 'boil' ? '눈 녹여 끓이기' : '물 ' + WATER_TREATMENT_LABEL[method]}${method === 'settle' ? ' (6시간 내려놓기)' : ''}`, () => doAct({ type: 'waterTreatment', uid: m.it.uid, method })])
+      for (const target of player(w).bag.filter(i => i.uid !== m.it.uid && isWaterVessel(w,i))) {
+        const free = waterCapacity(w,target) - drinkVolume(w,target), ml = Math.min(drinkVolume(w,m.it),free)
+        const quote = waterPourQuote(w,player(w),m.it.uid,target.uid,ml)
+        if(!quote.error) out.push([`다른 물병[${target.uid}]에 ${ml}ml 붓기`, () => doAct({type:'pourWater',uid:m.it.uid,targetUid:target.uid,ml})])
+      }
+      out.push([(m.it.uses??0)>0?'내용 버리고 새 물 채우기':'물가에서 채우기', () => doAct({ type: 'fillBottle', uid: m.it.uid })])
+      if (nearbyIce(w, player(w))) out.push(['얼음 깨기 (3턴)', () => doAct({ type: 'breakIce' })])
+      if (nearbySnow(w, player(w)) && (m.it.uses ?? 0) <= 0) out.push(['눈 모으기', () => doAct({ type: 'collectSnow', uid: m.it.uid })])
+      out.push(['재비 빗물 받기', () => doAct({ type: 'collectRain', uid: m.it.uid })])
+    }
+    if (def.cooking&&!def.food?.emptyVessel) out.push(['불에서 굽기', () => doAct({ type: 'cook', uid: m.it.uid })])
+    if(def.cooking)for(const pos of nearbyCampfires(w,player(w)))if(!cookingQuote(w,player(w),m.it.uid,pos).error)out.push(['모닥불에 올리기 ('+pos.x+','+pos.y+')',()=>doAct({type:'stageCooking',uid:m.it.uid,pos})])
+
+    if (def.prosthetic) out.push(['신체에 설치', () => useItem(w, m.it)])
+    if (def.unidentified === 'pill') out.push([`맛보기 (¼·${knowledgeDef(w).tasteTurns}턴)`, () => doAct({ type: 'taste', uid: m.it.uid })])
+    if(def.openFood&&m.from==='bag')out.push([def.openFoodLabel??'밀봉 음식 열기',()=>doAct({type:'openFood',uid:m.it.uid})])
+    if(def.storage)out.push(['열기',()=>doAct({type:'openBag',uid:m.it.uid})])
     if (def.food || def.drink || def.drug || def.unidentified || def.refuel) out.push(['먹기·쓰기', () => useItem(w, m.it)])
     if (def.medical) out.push(['상처에 쓰기', () => useItem(w, m.it)])
     if (def.slot) out.push(['장착', () => doAct({ type: 'equip', uid: m.it.uid })])
+    if(def.apparel?.liner)out.push(['안감으로 입기',()=>doAct({type:'equip',uid:m.it.uid,slot:'lining'})])
     if (def.light && !def.slot) out.push([m.it.lit ? '불 끄기' : '불 켜기', () => doAct({ type: 'toggleLight', uid: m.it.uid })])
     if (w.s.loot) out.push(['넣기', () => doAct({ type: 'lootPut', uid: m.it.uid })])
     out.push(['빠른 슬롯에', () => assignHotbar({ kind: 'item', def: m.it.def })])
-    out.push(['살펴보기', () => doAct({ type: 'examine', uid: m.it.uid })])
+    out.push([def.unidentified === 'pill' ? `감별 (${knowledgeDef(w).examineTurns}턴)` : '살펴보기', () => doAct({ type: 'examine', uid: m.it.uid })])
     out.push(['버리기', () => doAct({ type: 'drop', uid: m.it.uid })])
   } else if (m.from === 'equip' && m.slot) {
+    if(m.it.half)out.push(['마저 입기',()=>doAct({type:'equip',uid:m.it.uid,slot:m.slot})])
     out.push(['벗기·내리기', () => doAct({ type: 'unequip', slot: m.slot! })])
+    out.push([def.apparel?'벗어 바닥에 놓기':'바닥에 놓기',()=>doAct({type:'drop',uid:m.it.uid})])
     if (def.light) out.push([m.it.lit ? '불 끄기' : '불 켜기', () => doAct({ type: 'toggleLight', uid: m.it.uid })])
   } else if (m.from === 'loot') out.push(['가져가기', () => doAct({ type: 'lootTake', uid: m.it.uid })])
   else out.push(['줍기', () => doAct({ type: 'pickup', uid: m.it.uid })])
@@ -281,7 +313,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
       <!-- 배낭 격자 -->
       <div>
-        <div class="mb-1 flex justify-between font-title text-xs text-ash-400"><span>배낭</span><span>빈 칸 {{ d.free }}</span></div>
+        <div class="mb-1 flex justify-between font-title text-xs text-ash-400"><span>배낭</span><span data-testid="wallet-balance">지갑 {{ d.pl.money??0 }}{{ d.currency }}</span><span>빈 칸 {{ d.free }}</span></div>
         <div class="inset relative" :style="{ width: BAG_W * CELL + 4 + 'px', height: BAG_H * CELL + 4 + 'px' }" data-testid="bag">
           <div
             v-for="i in BAG_W * BAG_H" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="cell" :data-gx="(i - 1) % BAG_W" :data-gy="Math.floor((i - 1) / BAG_W)"
@@ -290,7 +322,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
           <div
             v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-            :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`"
+            :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`" :data-uid="it.uid"
             :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
@@ -307,13 +339,15 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
     <!-- 루팅: 상자·석관·서가·보관함·시체는 격자, 바닥은 목록 (13 §8) -->
     <div v-if="d.loot" class="df df-olive mt-2 !border-[12px]" data-drop="loot" data-testid="loot">
+      <div v-if="d.dissection" class="mb-1 flex items-center gap-2 text-xs" data-testid="dissection-panel"><button class="dbtn" data-testid="dissect-corpse" :disabled="!!d.dissection.error" :title="d.dissection.error??'완료 때 한 번 판정하며 중단하면 사체를 보존한다'" @click="doAct({type:'dissect',target:d.dissection.id})">{{ d.dissection.kind==='machine'?'기계 분해':'사체 해부' }} (기본{{ d.dissection.turns }}턴)</button><span>{{ d.dissection.done ? (d.dissection.done.success?'해부 성공':'해부 실패 · 재료 손상') : d.dissection.error??`성공 ${d.dissection.chance}%` }}</span><span v-if="d.dissection.kind==='human'" class="text-amber-200">완료 시 기분 {{ d.dissection.mood }} · 목격 시 평판 소식 {{ d.dissection.loss }}</span></div>
       <div class="mb-1 flex items-center justify-between">
         <span class="font-title text-sm text-[#e8d7a8]">{{ d.lootLabel }}<span v-if="d.grid" class="ml-2 text-[10px] text-ash-500">{{ d.grid.w }}×{{ d.grid.h }}</span></span>
         <span class="flex gap-1">
-          <button class="dbtn-gold" data-testid="loot-all" :disabled="!(d.grid ? d.grid.items.length : d.loot.length)" @click="doAct({ type: 'lootAll' })">모두 가져가기 (E)</button>
+          <button class="dbtn-gold" data-testid="loot-all" :disabled="!(d.grid ? d.grid.items.length : d.loot.length) && (!!d.coins.error || !d.coins.amount)" @click="doAct({ type: 'lootAll' })">모두 가져가기 (E)</button>
           <button class="dbtn" @click="doAct({ type: 'lootClose' })">닫기</button>
         </span>
       </div>
+      <div v-if="d.coins.id !== undefined && d.coins.amount" class="mb-2 flex items-center gap-2 text-xs" data-testid="corpse-money"><span>주머니 동전 {{ d.coins.amount }}{{ d.currency }}</span><button class="dbtn" :disabled="!!d.coins.error" :title="d.coins.error??'동전은 지갑으로 옮긴다'" data-testid="take-corpse-money" @click="doAct({type:'lootMoney',target:d.coins.id!,expectedAmount:d.coins.amount})">동전 가져가기</button></div>
       <div v-if="d.lootEq.length" class="mb-1 flex flex-wrap items-center gap-1">
         <span class="text-[10px] text-ash-500">입고 있는 것 (벗기기 = 탈 턴):</span>
         <div
@@ -358,7 +392,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
     <div v-else-if="d.floor.length" class="df df-olive mt-2 !border-[12px]">
       <div class="mb-1 flex items-center justify-between"><span class="font-title text-sm text-[#e8d7a8]">발밑</span><button class="dbtn" @click="doAct({ type: 'pickup' })">모두 줍기 (G)</button></div>
       <div class="flex flex-wrap gap-1">
-        <div v-for="it in d.floor" :key="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" @pointerdown="down($event, 'floor', it)" @dblclick="dbl(it, 'floor')" @mouseenter="tip($event, it)" @mouseleave="hideTip">
+        <div v-for="it in d.floor" :key="it.uid" :data-floor-uid="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" @pointerdown="down($event, 'floor', it)" @dblclick="dbl(it, 'floor')" @mouseenter="tip($event, it)" @mouseleave="hideTip">
           <ItemIcon :name="d.w.db.item(it.def).sprite" />
           <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8]">{{ it.count }}</span>
         </div>

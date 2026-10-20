@@ -1,0 +1,66 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ConduitCrack",
+    "parent": "Terrain.KtWall",
+    "label": "관로로 이어진 동쪽 균열",
+    "description": "석벽 뒤로 낮은 관로가 이어진다. 이 입구를 막으면 관로 쪽의 새로운 진입을 끊을 수 있다.",
+    "device": "FieldDevice.ConduitCrack",
+    "wallMark": "crack"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ClosedConduitCrack",
+    "parent": "Terrain.KtWall",
+    "label": "무너뜨려 막은 관로 균열",
+    "description": "돌더미로 막힌 입구다. 이미 이쪽에 나온 사람과 시신은 그대로 남아 있다.",
+    "device": "FieldDevice.ConduitCrack",
+    "wallMark": "sealedCrack"
+  },
+  {
+    "defType": "FieldDevice",
+    "id": "FieldDevice.ConduitCrack",
+    "label": "관로 하단 진입 균열",
+    "description": "동쪽 벽의 관로 입구를 무너뜨려 막는다. 기존 주민을 처치하지 않으며, 이 공급원에서 오는 새 재점거와 회복을 멈춘다.",
+    "placement": {
+      "region": "Region.GreyCloister",
+      "mapId": "crypt1",
+      "source": "conduit",
+      "wall": "Terrain.KtWall",
+      "floor": "Terrain.KtFloor",
+      "terrain": "Terrain.ConduitCrack",
+      "waypoint": "conduitCrack"
+    },
+    "operations": [
+      {
+        "id": "seal",
+        "label": "균열을 무너뜨려 막기",
+        "turns": 400,
+        "requires": [],
+        "materials": [
+          {
+            "item": "Item.Stone",
+            "count": 4
+          }
+        ],
+        "tool": "hammer",
+        "noise": {
+          "radius": 14,
+          "intervalTurns": 20
+        },
+        "effect": {
+          "sealSource": {
+            "region": "Region.GreyCloister",
+            "source": "conduit"
+          },
+          "selfTerrain": "Terrain.ClosedConduitCrack",
+          "note": {
+            "key": "conduit-sealed",
+            "title": "관로 균열 봉쇄",
+            "text": "동쪽 균열을 직접 막았다. 관로의 새로운 진입은 끊겼지만 이미 나온 주민을 죽인 것은 아니다."
+          }
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "op": "add",
+    "target": "Climate.Hearth",
+    "path": "/towerStop",
+    "value": {
+      "radiusKm": 30,
+      "veilTarget": 20,
+      "sunBonus": 25,
+      "neighborRadiusKm": 160,
+      "neighborBoost": 20,
+      "soilDelayYears": 2,
+      "soilCollapseYears": 1,
+      "soilCommodities": [
+        "Food",
+        "Fuel",
+        "Medicine"
+      ],
+      "hostileFaction": "pilgrims"
+    }
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/objects/-",
+    "value": {
+      "pos": [
+        32,
+        20
+      ],
+      "terrain": "Terrain.SpireLadderUp"
+    }
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/links/-",
+    "value": {
+      "pos": [
+        32,
+        20
+      ],
+      "to": "chimney-roof",
+      "at": [
+        8,
+        14
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/submaps",
+    "value": [
+      {
+        "mapId": "chimney-roof",
+        "layout": "RegionLayout.ChimneyRoof"
+      }
+    ]
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/legacyObjects/-",
+    "value": {
+      "key": "spire-ladder",
+      "pos": [
+        32,
+        20
+      ],
+      "terrain": "Terrain.SpireLadderUp",
+      "from": [
+        "Terrain.KtFloor",
+        "Terrain.Earth",
+        "Terrain.Path"
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Terrain.ShadePlot",
+    "path": "/gather/soilDependent",
+    "value": true
+  }
+]

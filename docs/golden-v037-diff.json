@@ -1,0 +1,226 @@
+{
+  "fromVersion": "v0.36",
+  "toVersion": "v0.37",
+  "commandsRewritten": false,
+  "saveVersion": {
+    "from": 4,
+    "to": 5
+  },
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "64f63451",
+      "finalHash": "871bf242",
+      "errorsUnchanged": true,
+      "existingStateUnchangedExceptVersionAndMedicalStock": true,
+      "medicalStock": []
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "d86f1da1",
+      "finalHash": "a082aa19",
+      "errorsUnchanged": true,
+      "existingStateUnchangedExceptVersionAndMedicalStock": true,
+      "medicalStock": []
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "af05fd67",
+      "finalHash": "c96c7d66",
+      "errorsUnchanged": true,
+      "existingStateUnchangedExceptVersionAndMedicalStock": true,
+      "medicalStock": []
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "9fcc31f5",
+      "finalHash": "7a5b4974",
+      "errorsUnchanged": true,
+      "existingStateUnchangedExceptVersionAndMedicalStock": true,
+      "medicalStock": [
+        {
+          "kind": "initial",
+          "site": "Region.ForkwayLedgerhouse",
+          "added": [
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            },
+            {
+              "def": "Item.PoppyTincture",
+              "count": 3
+            },
+            {
+              "def": "Item.BitterMoss",
+              "count": 4
+            },
+            {
+              "def": "Item.AshLeaf",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "kind": "initial",
+          "site": "Region.Stillhouse",
+          "defId": "Item.Bandage",
+          "before": 12,
+          "after": 18
+        },
+        {
+          "kind": "initial",
+          "site": "Region.Stillhouse",
+          "added": [
+            {
+              "def": "Item.HealthDraught",
+              "count": 4
+            },
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "kind": "state",
+          "site": "Region.ForkwayLedgerhouse",
+          "added": [
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            },
+            {
+              "def": "Item.PoppyTincture",
+              "count": 3
+            },
+            {
+              "def": "Item.BitterMoss",
+              "count": 4
+            },
+            {
+              "def": "Item.AshLeaf",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "kind": "state",
+          "site": "Region.Stillhouse",
+          "defId": "Item.Bandage",
+          "before": 12,
+          "after": 18
+        },
+        {
+          "kind": "state",
+          "site": "Region.Stillhouse",
+          "added": [
+            {
+              "def": "Item.HealthDraught",
+              "count": 4
+            },
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "9fcc31f5",
+      "finalHash": "62608aef",
+      "errorsUnchanged": true,
+      "existingStateUnchangedExceptVersionAndMedicalStock": true,
+      "medicalStock": [
+        {
+          "kind": "initial",
+          "site": "Region.ForkwayLedgerhouse",
+          "added": [
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            },
+            {
+              "def": "Item.PoppyTincture",
+              "count": 3
+            },
+            {
+              "def": "Item.BitterMoss",
+              "count": 4
+            },
+            {
+              "def": "Item.AshLeaf",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "kind": "initial",
+          "site": "Region.Stillhouse",
+          "defId": "Item.Bandage",
+          "before": 12,
+          "after": 18
+        },
+        {
+          "kind": "initial",
+          "site": "Region.Stillhouse",
+          "added": [
+            {
+              "def": "Item.HealthDraught",
+              "count": 4
+            },
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            }
+          ]
+        },
+        {
+          "kind": "state",
+          "site": "Region.ForkwayLedgerhouse",
+          "added": [
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            },
+            {
+              "def": "Item.PoppyTincture",
+              "count": 3
+            },
+            {
+              "def": "Item.BitterMoss",
+              "count": 4
+            },
+            {
+              "def": "Item.AshLeaf",
+              "count": 5
+            }
+          ]
+        },
+        {
+          "kind": "state",
+          "site": "Region.Stillhouse",
+          "defId": "Item.Bandage",
+          "before": 12,
+          "after": 18
+        },
+        {
+          "kind": "state",
+          "site": "Region.Stillhouse",
+          "added": [
+            {
+              "def": "Item.HealthDraught",
+              "count": 4
+            },
+            {
+              "def": "Item.WillowTea",
+              "count": 6
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "구형 몸·로컬 NPC·시간·행동 오류·기존 난수는 같다. 별도 시장 UID와 실제 약품 저장고·목표·생산 및 두 정착지의 재고만 바뀐다. 약품 예산 확대로 증류원의 기존 붕대도12→18개, 회복약4개가 실제 입고된다. 전체 상태를 비교하고 기존 입력을 보존한 채 해시만 고정했다."
+}

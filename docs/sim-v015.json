@@ -1,0 +1,2751 @@
+{
+  "runs": 30,
+  "maxDays": 3,
+  "workers": 4,
+  "seconds": 282.688031992,
+  "averageDays": 1.3195694444444444,
+  "causes": {
+    "저체온": 4,
+    "치명상": 5,
+    "생존(시간 종료)": 9,
+    "과다 출혈": 10,
+    "탈수": 2
+  },
+  "rows": [
+    {
+      "seed": "sim-0",
+      "cause": "저체온",
+      "days": 1.8125,
+      "level": 3,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": -409.9648051225878,
+          "water": 776.8489583317911,
+          "vitamin": 80.37499999998056,
+          "fatigue": 100,
+          "bodyTemp": 27.977039004937556,
+          "wetness": 15.199249999999534,
+          "energy": 100,
+          "stress": 50,
+          "sleepDebt": 27.320833333316607,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 55.269999999998305,
+            "head": 0,
+            "hands": 0,
+            "feet": 55.269999999998305
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.4437655000000125,
+          "low": 11.89058624999997,
+          "high": 24.778117249999994,
+          "air": 5.8,
+          "feels": 4.8,
+          "windChill": 1,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 15.199249999999534,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 39,
+          "y": 28
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 55.269999999998305
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 55.269999999998305
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-1",
+      "cause": "치명상",
+      "days": 0.014618055555555556,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Herbalist",
+      "final": {
+        "needs": {
+          "kcal": 1759.4042053114094,
+          "water": 1763.0642361110702,
+          "vitamin": 59.97076388888991,
+          "fatigue": 22.216145833332845,
+          "bodyTemp": 36.8105486978125,
+          "wetness": 25.847249999999892,
+          "energy": 55,
+          "stress": 40,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 93.98999999999961,
+            "head": 0,
+            "hands": 0,
+            "feet": 93.98999999999961
+          },
+          "thermal": {
+            "turns": 21,
+            "delta": -0.004366471874999998
+          }
+        },
+        "thermal": {
+          "insulation": 1.5355175000000005,
+          "low": 14.16120625,
+          "high": 25.23224125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 25.847249999999892,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 39,
+          "y": 21
+        },
+        "equipment": [
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 93.98999999999961
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-2",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "needs": {
+          "kcal": -2111.587760396886,
+          "water": 976.249999998551,
+          "vitamin": 98.05222222209113,
+          "fatigue": 100,
+          "bodyTemp": 31.691545264375055,
+          "wetness": 0,
+          "energy": 100,
+          "stress": 100,
+          "sleepDebt": 45.26416666663362,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.6999999999999997,
+          "low": 11.25,
+          "high": 24.65,
+          "air": 2.3,
+          "feels": 15.55,
+          "windChill": 1.75,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 51,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 6,
+          "snap": {
+            "turn": 107991,
+            "hp": 100,
+            "wounds": 6,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 9
+        },
+        "equipment": [
+          {
+            "def": "Item.PaddedJacket",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 0
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          },
+          {
+            "def": "Item.RustyKnife"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-3",
+      "cause": "과다 출혈",
+      "days": 0.008020833333333333,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "needs": {
+          "kcal": 1776.3860041992123,
+          "water": 1779.0364583333137,
+          "vitamin": 59.983958333333895,
+          "fatigue": 21.25781249999975,
+          "bodyTemp": 36.89803038875,
+          "wetness": 26.9087499999998,
+          "energy": 46.79999999999998,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.84999999999927,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.84999999999927
+          },
+          "thermal": {
+            "turns": 31,
+            "delta": -0.016196546874999995
+          }
+        },
+        "thermal": {
+          "insulation": 1.7287625000000013,
+          "low": 13.678093749999997,
+          "high": 25.13561875,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.9087499999998,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 28,
+          "y": 23
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 15,
+          "woundId": 108,
+          "label": "상처 압박",
+          "seenHostiles": [
+            70,
+            73,
+            77,
+            80,
+            86,
+            89,
+            93,
+            97
+          ],
+          "woundCount": 9,
+          "snap": {
+            "turn": 21814,
+            "hp": 66,
+            "wounds": 9,
+            "hostiles": [
+              70,
+              73,
+              77,
+              80,
+              86,
+              89,
+              93,
+              97
+            ],
+            "bloodStage": 3,
+            "painStage": 2,
+            "regions": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              2
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.84999999999927
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-4",
+      "cause": "치명상",
+      "days": 0.003125,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "needs": {
+          "kcal": 1790.3566116970462,
+          "water": 1791.536458333327,
+          "vitamin": 59.99375000000022,
+          "fatigue": 20.50781249999991,
+          "bodyTemp": 37,
+          "wetness": 27.31437499999995,
+          "energy": 32.29999999999998,
+          "stress": 40,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 99.32499999999982,
+            "head": 0,
+            "hands": 0,
+            "feet": 99.32499999999982
+          },
+          "thermal": {
+            "turns": 90,
+            "delta": -0.045459166249999995
+          }
+        },
+        "thermal": {
+          "insulation": 1.7261812500000002,
+          "low": 13.684546874999999,
+          "high": 25.136909375,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.31437499999995,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 23
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 99.32499999999982
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-5",
+      "cause": "탈수",
+      "days": 2.1780902777777778,
+      "level": 3,
+      "map": "surface",
+      "background": "Bg.Scavenger",
+      "final": {
+        "needs": {
+          "kcal": -2521.944331886306,
+          "water": -2500.2083333348037,
+          "vitamin": 98.36131944433416,
+          "fatigue": 100,
+          "bodyTemp": 35.599772078656706,
+          "wetness": 0,
+          "energy": 95,
+          "stress": 100,
+          "sleepDebt": 37.52083333330733,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 129,
+            "delta": 0.06450000000000004
+          }
+        },
+        "thermal": {
+          "insulation": 2.8249999999999997,
+          "low": 10.9375,
+          "high": 24.5875,
+          "air": -1,
+          "feels": 13,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0
+            }
+          },
+          {
+            "def": "Item.Gloves",
+            "wetness": {
+              "hands": 0
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-6",
+      "cause": "치명상",
+      "days": 0.008229166666666666,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "needs": {
+          "kcal": 1776.6287174750403,
+          "water": 1778.819444444423,
+          "vitamin": 59.98354166666724,
+          "fatigue": 21.27083333333307,
+          "bodyTemp": 36.909701635625,
+          "wetness": 26.64337499999993,
+          "energy": 81,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 96.88499999999975,
+            "head": 0,
+            "hands": 0,
+            "feet": 96.88499999999975
+          },
+          "thermal": {
+            "turns": 37,
+            "delta": -0.013081541774999957
+          }
+        },
+        "thermal": {
+          "insulation": 1.7304512500000004,
+          "low": 13.673871875,
+          "high": 25.134774375,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.64337499999993,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 26,
+          "y": 17
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 96.88499999999975
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-7",
+      "cause": "과다 출혈",
+      "days": 0.009583333333333333,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": 1770.9131212033408,
+          "water": 1773.7847222222035,
+          "vitamin": 59.980833333334004,
+          "fatigue": 21.5729166666664,
+          "bodyTemp": 36.9284904810625,
+          "wetness": 26.511374999999862,
+          "energy": 70.19999999999995,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 96.4049999999995,
+            "head": 0,
+            "hands": 0,
+            "feet": 96.4049999999995
+          },
+          "thermal": {
+            "turns": 76,
+            "delta": -0.004453176719999401
+          }
+        },
+        "thermal": {
+          "insulation": 2.141423250000004,
+          "low": 12.64644187499999,
+          "high": 24.929288375,
+          "air": 2,
+          "feels": 9,
+          "windChill": 1,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.511374999999862,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 96.4049999999995
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 96.4049999999995
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-8",
+      "cause": "과다 출혈",
+      "days": 0.004826388888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "needs": {
+          "kcal": 1786.7833713975617,
+          "water": 1787.586805555543,
+          "vitamin": 59.99034722222256,
+          "fatigue": 20.74479166666651,
+          "bodyTemp": 37,
+          "wetness": 26.969249999999857,
+          "energy": 98,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.06999999999948,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.06999999999948
+          },
+          "thermal": {
+            "turns": 139,
+            "delta": -0.03427780749999999
+          }
+        },
+        "thermal": {
+          "insulation": 1.7283775000000008,
+          "low": 10.679056249999999,
+          "high": 25.13581125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.969249999999857,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 9,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.06999999999948
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-9",
+      "cause": "과다 출혈",
+      "days": 0.008125,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Hunter",
+      "final": {
+        "needs": {
+          "kcal": 1778.2168696831452,
+          "water": 1779.3836805555331,
+          "vitamin": 59.98375000000057,
+          "fatigue": 21.236979166666398,
+          "bodyTemp": 36.94329169375,
+          "wetness": 26.890874999999745,
+          "energy": 95,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.78499999999907,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.78499999999907
+          },
+          "thermal": {
+            "turns": 34,
+            "delta": 0.00964041206250031
+          }
+        },
+        "thermal": {
+          "insulation": 2.1312802500000068,
+          "low": 12.671799374999983,
+          "high": 24.934359875,
+          "air": 2.1,
+          "feels": 13.1,
+          "windChill": 0,
+          "heat": 8,
+          "shelter": 3,
+          "evaporation": 0,
+          "innerWetness": 26.890874999999745,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 7,
+          "woundId": 106,
+          "label": "상처 압박",
+          "seenHostiles": [],
+          "woundCount": 7,
+          "snap": {
+            "turn": 21785,
+            "hp": 74.19999999999982,
+            "wounds": 7,
+            "hostiles": [],
+            "bloodStage": 2,
+            "painStage": 1,
+            "regions": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 13
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.78499999999907
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 97.78499999999907
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-10",
+      "cause": "저체온",
+      "days": 1.4513888888888888,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Hunter",
+      "final": {
+        "needs": {
+          "kcal": 935.9989084131769,
+          "water": 976.9270833312511,
+          "vitamin": 99.94715277777422,
+          "fatigue": 100,
+          "bodyTemp": 27.884549895321403,
+          "wetness": 100,
+          "energy": 100,
+          "stress": 70,
+          "sleepDebt": 13.484166666662523,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.8550000000000001,
+          "low": 15.8625,
+          "high": 25.5725,
+          "air": -5.9,
+          "feels": 5.1,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 21,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 3,
+          "snap": {
+            "turn": 63360,
+            "hp": 98,
+            "wounds": 3,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 39
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-11",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": -1622.841558647711,
+          "water": 955.5729166629986,
+          "vitamin": 98.00930555542158,
+          "fatigue": 100,
+          "bodyTemp": 36.47647928826257,
+          "wetness": 100,
+          "energy": 105,
+          "stress": 55.35200000000002,
+          "sleepDebt": 12.258333333330304,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.8550000000000001,
+          "low": 15.8625,
+          "high": 25.5725,
+          "air": 0.3,
+          "feels": 11.3,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 60,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 0,
+          "snap": {
+            "turn": 107999,
+            "hp": 100,
+            "wounds": 0,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          }
+        },
+        "equipment": [
+          {
+            "def": "Item.Hatchet"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-12",
+      "cause": "과다 출혈",
+      "days": 0.008472222222222223,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": 1772.0672003072889,
+          "water": 1778.4288194444214,
+          "vitamin": 59.98305555555615,
+          "fatigue": 21.294270833333055,
+          "bodyTemp": 36.930911011125,
+          "wetness": 26.698374999999793,
+          "energy": 100,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.08499999999924,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.08499999999924
+          },
+          "thermal": {
+            "turns": 44,
+            "delta": -0.01568539637499994
+          }
+        },
+        "thermal": {
+          "insulation": 2.1364252500000056,
+          "low": 12.658936874999986,
+          "high": 24.931787375,
+          "air": 2.1,
+          "feels": 9.1,
+          "windChill": 1,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.698374999999793,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 2,
+          "woundId": 91,
+          "label": "상처 압박",
+          "seenHostiles": [],
+          "woundCount": 7,
+          "snap": {
+            "turn": 21800,
+            "hp": 73.19999999999987,
+            "wounds": 7,
+            "hostiles": [],
+            "bloodStage": 2,
+            "painStage": 2,
+            "regions": [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 18
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.08499999999924
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 97.08499999999924
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-13",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "needs": {
+          "kcal": -1604.2859407058643,
+          "water": -239.6440972239495,
+          "vitamin": 98.0069444443103,
+          "fatigue": 100,
+          "bodyTemp": 39.90633,
+          "wetness": 100,
+          "energy": 100,
+          "stress": 100,
+          "sleepDebt": 37.428333333307414,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.05,
+          "low": 15.375,
+          "high": 25.475,
+          "air": 0.3,
+          "feels": 10.55,
+          "windChill": 1.75,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest",
+          "fever": 40
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear"
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "wetness": {
+              "torso": 100,
+              "arms": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-14",
+      "cause": "과다 출혈",
+      "days": 1.848298611111111,
+      "level": 2,
+      "map": "crypt1",
+      "background": "Bg.Hunter",
+      "final": {
+        "needs": {
+          "kcal": 924.3273516969757,
+          "water": 1087.3177083316207,
+          "vitamin": 99.91569444443877,
+          "fatigue": 75.15802083333577,
+          "bodyTemp": 38.18889463626253,
+          "wetness": 27.42887500000003,
+          "energy": 79.19999999999993,
+          "stress": 66.1,
+          "sleepDebt": 11.990833333330547,
+          "skinWetness": {
+            "torso": 0.01,
+            "arms": 0.01,
+            "legs": 99.7150000000001,
+            "head": 0.01,
+            "hands": 0.01,
+            "feet": 99.7150000000001
+          },
+          "thermal": {
+            "turns": 31,
+            "delta": -0.010422734375000004
+          }
+        },
+        "thermal": {
+          "insulation": 2.1169687499999994,
+          "low": 12.707578125000001,
+          "high": 24.941515625,
+          "air": 6,
+          "feels": 9,
+          "windChill": 0,
+          "heat": 3,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.42887500000003,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 16,
+          "y": 11
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0.01,
+              "arms": 0.01,
+              "legs": 99.7150000000001
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 99.7150000000001
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-15",
+      "cause": "치명상",
+      "days": 0.005555555555555556,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Herbalist",
+      "final": {
+        "needs": {
+          "kcal": 1780.4278676627564,
+          "water": 1785.5902777777637,
+          "vitamin": 59.98888888888928,
+          "fatigue": 20.864583333333158,
+          "bodyTemp": 37,
+          "wetness": 26.96649999999986,
+          "energy": 55,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.05999999999949,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.05999999999949
+          },
+          "thermal": {
+            "turns": 160,
+            "delta": -0.09146235218750003
+          }
+        },
+        "thermal": {
+          "insulation": 1.5283950000000008,
+          "low": 14.179012499999999,
+          "high": 25.2358025,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.96649999999986,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 21,
+          "y": 22
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.05999999999949
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-16",
+      "cause": "과다 출혈",
+      "days": 0.007916666666666667,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "needs": {
+          "kcal": 1771.4796733645817,
+          "water": 1778.9496527777599,
+          "vitamin": 59.98416666666722,
+          "fatigue": 21.263020833333098,
+          "bodyTemp": 36.892149040375,
+          "wetness": 26.99262499999993,
+          "energy": 12.600000000000001,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.15499999999975,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.15499999999975
+          },
+          "thermal": {
+            "turns": 28,
+            "delta": 0.001375281125000001
+          }
+        },
+        "thermal": {
+          "insulation": 2.4938745000000004,
+          "low": 11.765313749999999,
+          "high": 24.753062749999998,
+          "air": 2.1,
+          "feels": 8.35,
+          "windChill": 1.75,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.99262499999993,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear"
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 98.15499999999975
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-17",
+      "cause": "과다 출혈",
+      "days": 0.006805555555555555,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "needs": {
+          "kcal": 1780.3388691514726,
+          "water": 1782.2048611110945,
+          "vitamin": 59.986388888889365,
+          "fatigue": 21.067708333333123,
+          "bodyTemp": 37,
+          "wetness": 26.951374999999807,
+          "energy": 114,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.0049999999993,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.0049999999993
+          },
+          "thermal": {
+            "turns": 196,
+            "delta": -0.08048113687499997
+          }
+        },
+        "thermal": {
+          "insulation": 1.7284912500000011,
+          "low": 13.678771874999997,
+          "high": 25.135754374999998,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.951374999999807,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 37,
+          "y": 8
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.0049999999993
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-18",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Herbalist",
+      "final": {
+        "needs": {
+          "kcal": -4285.791073898909,
+          "water": 986.5711805534042,
+          "vitamin": 98.00645833319916,
+          "fatigue": 100,
+          "bodyTemp": 32.18761118125007,
+          "wetness": 0.1175,
+          "energy": 110,
+          "stress": 72.944,
+          "sleepDebt": 48.64166666663055,
+          "skinWetness": {
+            "torso": 0.04999999999999999,
+            "arms": 0.04999999999999999,
+            "legs": 0.04999999999999999,
+            "head": 0.5,
+            "hands": 0.5,
+            "feet": 0.5
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.6997025,
+          "low": 13.75074375,
+          "high": 25.15014875,
+          "air": 0.3,
+          "feels": 14.8,
+          "windChill": 0.4999999999999999,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.1175,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 46,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 3,
+          "snap": {
+            "turn": 107986,
+            "hp": 94,
+            "wounds": 3,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 2,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 14
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 0.04999999999999999,
+              "arms": 0.04999999999999999
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 0.5,
+              "arms": 0.5,
+              "legs": 0.5
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-19",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "needs": {
+          "kcal": -1277.591538826634,
+          "water": 1129.574652775956,
+          "vitamin": 98.26819444432789,
+          "fatigue": 100,
+          "bodyTemp": 35.37521946325001,
+          "wetness": 100,
+          "energy": 95,
+          "stress": 74.90000000000002,
+          "sleepDebt": 41.401666666637134,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.05,
+          "low": 15.375,
+          "high": 25.475,
+          "air": 0.3,
+          "feels": 10.55,
+          "windChill": 1.75,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 3,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 6,
+          "snap": {
+            "turn": 107943,
+            "hp": 96,
+            "wounds": 6,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 1,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 57
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear"
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "wetness": {
+              "torso": 100,
+              "arms": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-20",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 3,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "needs": {
+          "kcal": -731.4376058412496,
+          "water": 1016.7621527761132,
+          "vitamin": 98.7873611110295,
+          "fatigue": 87.7584218749538,
+          "bodyTemp": 39.80842995875,
+          "wetness": 0.010000000000000002,
+          "energy": 100,
+          "stress": 47.999999999999986,
+          "sleepDebt": 22.849166666654007,
+          "skinWetness": {
+            "torso": 0.01,
+            "arms": 0.01,
+            "legs": 0.01,
+            "head": 0.01,
+            "hands": 0.01,
+            "feet": 0.01
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.699835,
+          "low": 14.2504125,
+          "high": 24.6500825,
+          "air": 2.3,
+          "feels": 0.5499999999999998,
+          "windChill": 1.75,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.010000000000000002,
+          "activity": "sleep",
+          "fever": 40
+        },
+        "pos": {
+          "x": 16,
+          "y": 36
+        },
+        "activity": {
+          "kind": "sleep",
+          "remaining": 9004,
+          "label": "수면",
+          "seenHostiles": [],
+          "woundCount": 10,
+          "snap": {
+            "turn": 107404,
+            "hp": 97,
+            "wounds": 10,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "sleep0": {
+            "fatigue": 89.4032916666225,
+            "hunger": 2,
+            "thirst": 0,
+            "wet": 0
+          },
+          "elapsed": 596
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear"
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "wetness": {
+              "torso": 0.01,
+              "arms": 0.01
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 0.01
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-21",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Scavenger",
+      "final": {
+        "needs": {
+          "kcal": -1226.9727144886092,
+          "water": 947.2222222203169,
+          "vitamin": 98.15840277765383,
+          "fatigue": 94.11270833330855,
+          "bodyTemp": 36.65596750000002,
+          "wetness": 0.47500000000000003,
+          "energy": 100,
+          "stress": 78.90000000000003,
+          "sleepDebt": 12.193333333330363,
+          "skinWetness": {
+            "torso": 0.4,
+            "arms": 0.4,
+            "legs": 0.4,
+            "head": 0.5,
+            "hands": 0.5,
+            "feet": 0.5
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.8152875,
+          "low": 10.96178125,
+          "high": 24.59235625,
+          "air": 0.3,
+          "feels": 14.3,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.47500000000000003,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 45,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 1,
+          "snap": {
+            "turn": 107984,
+            "hp": 99,
+            "wounds": 1,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 15
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0.5,
+              "arms": 0.5,
+              "legs": 0.5
+            }
+          },
+          {
+            "def": "Item.Gloves",
+            "wetness": {
+              "hands": 0.5
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-22",
+      "cause": "저체온",
+      "days": 1.5416666666666667,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": -592.2777827554114,
+          "water": 987.2395833318997,
+          "vitamin": 91.91666666664781,
+          "fatigue": 100,
+          "bodyTemp": 27.876329875000007,
+          "wetness": 100,
+          "energy": 105,
+          "stress": 61.360000000000014,
+          "sleepDebt": 9.77833333333256,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.8550000000000001,
+          "low": 15.8625,
+          "high": 25.5725,
+          "air": -3.3,
+          "feels": 7.699999999999999,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 10,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 44,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 7,
+          "snap": {
+            "turn": 65983,
+            "hp": 93,
+            "wounds": 7,
+            "hostiles": [],
+            "bloodStage": 1,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 16
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-23",
+      "cause": "치명상",
+      "days": 0.003993055555555555,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Hunter",
+      "final": {
+        "needs": {
+          "kcal": 1789.3308384678787,
+          "water": 1789.973958333322,
+          "vitamin": 59.99201388888917,
+          "fatigue": 20.601562499999865,
+          "bodyTemp": 37,
+          "wetness": 27.191999999999922,
+          "energy": 85,
+          "stress": 40,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.87999999999971,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.87999999999971
+          },
+          "thermal": {
+            "turns": 115,
+            "delta": -0.03554370424999999
+          }
+        },
+        "thermal": {
+          "insulation": 2.1232320000000025,
+          "low": 9.691919999999994,
+          "high": 24.938384,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.191999999999922,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 4,
+          "y": 3
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.87999999999971
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 98.87999999999971
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-24",
+      "cause": "저체온",
+      "days": 0.6041666666666666,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": 1049.8199256553557,
+          "water": 1089.3663194433545,
+          "vitamin": 63.79166666669889,
+          "fatigue": 100,
+          "bodyTemp": 27.927494827000146,
+          "wetness": 100,
+          "energy": 105,
+          "stress": 38.608000000000004,
+          "sleepDebt": 1.7024999999999388,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.8550000000000001,
+          "low": 15.8625,
+          "high": 25.5725,
+          "air": -1.4,
+          "feels": 9.6,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 7,
+          "y": 40
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 25,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 3,
+          "snap": {
+            "turn": 38964,
+            "hp": 97,
+            "wounds": 3,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 35
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-25",
+      "cause": "과다 출혈",
+      "days": 1.0563194444444444,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": 1002.9000390417964,
+          "water": 953.6458333317302,
+          "vitamin": 99.99069444444382,
+          "fatigue": 71.92416666668352,
+          "bodyTemp": 36.8752753196875,
+          "wetness": 26.872999999999976,
+          "energy": 74,
+          "stress": 70.86400000000002,
+          "sleepDebt": 0.9441666666666817,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.71999999999991,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.71999999999991
+          },
+          "thermal": {
+            "turns": 22,
+            "delta": -0.021721697937499996
+          }
+        },
+        "thermal": {
+          "insulation": 2.131758000000001,
+          "low": 9.670604999999998,
+          "high": 24.934121,
+          "air": 0.8,
+          "feels": -0.19999999999999996,
+          "windChill": 1,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.872999999999976,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 39,
+          "y": 16
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 111,
+          "label": "휴식",
+          "seenHostiles": [
+            41
+          ],
+          "woundCount": 4,
+          "snap": {
+            "turn": 52001,
+            "hp": 96,
+            "wounds": 4,
+            "hostiles": [
+              41
+            ],
+            "bloodStage": 1,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 9
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.71999999999991
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 97.71999999999991
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-26",
+      "cause": "과다 출혈",
+      "days": 0.005381944444444444,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Hunter",
+      "final": {
+        "needs": {
+          "kcal": 1783.8530023752107,
+          "water": 1785.4600694444332,
+          "vitamin": 59.98923611111149,
+          "fatigue": 20.87239583333318,
+          "bodyTemp": 37,
+          "wetness": 8.25499999999998,
+          "energy": 85,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 28.19999999999991,
+            "head": 0,
+            "hands": 0,
+            "feet": 48.20000000000006
+          },
+          "thermal": {
+            "turns": 155,
+            "delta": -0.0550670631875
+          }
+        },
+        "thermal": {
+          "insulation": 2.6357300000000006,
+          "low": 11.410674999999998,
+          "high": 24.682135,
+          "air": 2.2,
+          "feels": 9.2,
+          "windChill": 1,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 8.25499999999998,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.19999999999991
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 48.20000000000006
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "wetness": {}
+          },
+          {
+            "def": "Item.RustyKnife"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-27",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": -1400.4252956204632,
+          "water": 892.1788194427837,
+          "vitamin": 85.99999999991604,
+          "fatigue": 73.93575013010216,
+          "bodyTemp": 39.971117525125,
+          "wetness": 0.49500000000000005,
+          "energy": 105,
+          "stress": 53.46400000000004,
+          "sleepDebt": 12.001666666663871,
+          "skinWetness": {
+            "torso": 0.42000000000000004,
+            "arms": 0.42000000000000004,
+            "legs": 0.42000000000000004,
+            "head": 0.52,
+            "hands": 0.52,
+            "feet": 0.32
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.839801,
+          "low": 10.9004975,
+          "high": 24.5800995,
+          "air": 0.3,
+          "feels": 7.3,
+          "windChill": 1,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.49500000000000005,
+          "activity": "sleep",
+          "fever": 40
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "activity": {
+          "kind": "sleep",
+          "remaining": 9255,
+          "label": "수면",
+          "seenHostiles": [],
+          "woundCount": 9,
+          "snap": {
+            "turn": 107655,
+            "hp": 90,
+            "wounds": 9,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 1,
+            "frostbiteStage": 0
+          },
+          "sleep0": {
+            "fatigue": 75.00489075510426,
+            "hunger": 2,
+            "thirst": 0,
+            "wet": 0.1502499999951482
+          },
+          "elapsed": 345
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0.52,
+              "arms": 0.52,
+              "legs": 0.52
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 0.52
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-28",
+      "cause": "탈수",
+      "days": 2,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "needs": {
+          "kcal": -915.5037198855312,
+          "water": -2520.902777780034,
+          "vitamin": 98.25006944432667,
+          "fatigue": 100,
+          "bodyTemp": 38.5,
+          "wetness": 0.010000000000000002,
+          "energy": 100,
+          "stress": 100,
+          "sleepDebt": 32.669166666645076,
+          "skinWetness": {
+            "torso": 0.01,
+            "arms": 0.01,
+            "legs": 0.01,
+            "head": 0.01,
+            "hands": 0.01,
+            "feet": 0.01
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.8498004999999997,
+          "low": 10.87549875,
+          "high": 24.57509975,
+          "air": 3.3,
+          "feels": 17.3,
+          "windChill": 1,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.010000000000000002,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 7,
+          "y": 40
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife"
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "wetness": {
+              "torso": 0.01,
+              "arms": 0.01,
+              "legs": 0.01
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "wetness": {
+              "feet": 0.01
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-29",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Herbalist",
+      "final": {
+        "needs": {
+          "kcal": -4892.35964801804,
+          "water": 1017.1354166627198,
+          "vitamin": 95.9999999996651,
+          "fatigue": 100,
+          "bodyTemp": 36.4392775,
+          "wetness": 100,
+          "energy": 110,
+          "stress": 84.73759999999996,
+          "sleepDebt": 52.147499999960694,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.105,
+          "low": 15.2375,
+          "high": 25.4475,
+          "air": 0.3,
+          "feels": 11.8,
+          "windChill": 0.4999999999999999,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 7,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 45,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 7,
+          "snap": {
+            "turn": 107985,
+            "hp": 84,
+            "wounds": 7,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 15
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife"
+          },
+          {
+            "def": "Item.RagShirt",
+            "wetness": {
+              "torso": 100,
+              "arms": 100
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+[
+  {
+    "defType": "Trauma",
+    "id": "Trauma.Species",
+    "label": "종족 공포증",
+    "kind": "species",
+    "mood": -8,
+    "stressPer10": 2,
+    "hit": -5,
+    "morale": -10,
+    "overcome": {
+      "victory": 25,
+      "finishing": 35,
+      "flee": -10,
+      "breakdown": -20,
+      "fireDay": 5,
+      "crossing": 20,
+      "darkHour": 15,
+      "treatment": 10
+    },
+    "positive": {
+      "trait": "Trait.HunterOf",
+      "hit": 10,
+      "morale": 10,
+      "yieldMult": 1.2
+    }
+  },
+  {
+    "defType": "Trauma",
+    "id": "Trauma.Fire",
+    "label": "불 공포",
+    "kind": "fire",
+    "mood": -8,
+    "stressPer10": 0,
+    "hit": 0,
+    "morale": 0,
+    "overcome": {
+      "victory": 25,
+      "finishing": 35,
+      "flee": -10,
+      "breakdown": -20,
+      "fireDay": 5,
+      "crossing": 20,
+      "darkHour": 15,
+      "treatment": 10
+    },
+    "positive": {
+      "trait": "Trait.IronWill",
+      "hit": 0,
+      "morale": 0,
+      "yieldMult": 1
+    }
+  },
+  {
+    "defType": "Trauma",
+    "id": "Trauma.Water",
+    "label": "물 공포",
+    "kind": "water",
+    "mood": 0,
+    "stressPer10": 0,
+    "hit": 0,
+    "morale": 0,
+    "overcome": {
+      "victory": 25,
+      "finishing": 35,
+      "flee": -10,
+      "breakdown": -20,
+      "fireDay": 5,
+      "crossing": 20,
+      "darkHour": 15,
+      "treatment": 10
+    },
+    "positive": {
+      "trait": "Trait.IronWill",
+      "hit": 0,
+      "morale": 0,
+      "yieldMult": 1
+    }
+  },
+  {
+    "defType": "Trauma",
+    "id": "Trauma.Dark",
+    "label": "어둠 공포",
+    "kind": "dark",
+    "mood": 0,
+    "stressPer10": 3,
+    "hit": 0,
+    "morale": 0,
+    "overcome": {
+      "victory": 25,
+      "finishing": 35,
+      "flee": -10,
+      "breakdown": -20,
+      "fireDay": 5,
+      "crossing": 20,
+      "darkHour": 15,
+      "treatment": 10
+    },
+    "positive": {
+      "trait": "Trait.IronWill",
+      "hit": 0,
+      "morale": 0,
+      "yieldMult": 1
+    }
+  },
+  {
+    "defType": "Trauma",
+    "id": "Trauma.Blood",
+    "label": "피 공포",
+    "kind": "blood",
+    "mood": 0,
+    "stressPer10": 0,
+    "hit": 0,
+    "morale": 0,
+    "overcome": {
+      "victory": 25,
+      "finishing": 35,
+      "flee": -10,
+      "breakdown": -20,
+      "fireDay": 5,
+      "crossing": 20,
+      "darkHour": 15,
+      "treatment": 10
+    },
+    "positive": {
+      "trait": "Trait.IronWill",
+      "hit": 0,
+      "morale": 0,
+      "yieldMult": 1
+    }
+  }
+]

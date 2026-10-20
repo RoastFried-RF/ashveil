@@ -1,0 +1,630 @@
+[
+  {
+    "defType": "RegionSite",
+    "id": "Region.ShadeGrove",
+    "label": "검은 숲 정비구",
+    "description": "고원 남동 분지의 검은 수목 아래, 관로 정비공 가족의 후손들이 오래된 종자 금고를 지킨다.",
+    "cell": [
+      45,
+      81
+    ],
+    "kind": "settlement",
+    "faction": "shadefolk",
+    "extension": {
+      "biome": "Biome.BlackForest",
+      "population": 120,
+      "footAccess": true
+    },
+    "layout": "RegionLayout.Blackwood"
+  },
+  {
+    "defType": "Faction",
+    "id": "Faction.shadefolk",
+    "label": "그늘 사람들",
+    "key": "shadefolk",
+    "territorial": false,
+    "playerStart": -20,
+    "relations": {
+      "coalition": 0,
+      "guild": -20,
+      "reavers": -50,
+      "pilgrims": 0,
+      "guard": 0
+    },
+    "trader": "Stock.shadefolk",
+    "guard": "Creature.ShadeGroveGuard",
+    "resident": "Creature.ShadeGroveResident",
+    "merchant": "Creature.ShadeGroveMerchant",
+    "healer": "Creature.ShadeGroveHealer"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ShadeGroveResident",
+    "parent": "Creature.Shade",
+    "label": "숲의 그늘 주민",
+    "description": "따뜻한 관로에서 검은 숲으로 나온 정비공 가족의 후손이다. 지하 친척보다 체격이 크고 빛에 조금 덜 예민하다.",
+    "faction": "shadefolk",
+    "ai": "civilian",
+    "hpMult": 0.8,
+    "bloodMult": 0.75,
+    "weightKg": 46,
+    "sleepChance": 0,
+    "lightAverse": false,
+    "lightThreshold": 0.03,
+    "darkSight": [
+      3,
+      10
+    ],
+    "packFlee": false,
+    "abilities": [],
+    "morale": 65,
+    "bestiary": [
+      "작고 창백한 주민들이 검은 잎 아래에서 농사를 짓는다.",
+      "관로의 그늘 무리와 오래된 정비 은어를 나눈다.",
+      "눈이 까맣다는 소문은 저조도에 적응한 넓은 동공을 본 것이다."
+    ],
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.WoolShirt"
+          ]
+        },
+        {
+          "items": [
+            "Item.LeatherCoat"
+          ]
+        },
+        {
+          "items": [
+            "Item.Boots"
+          ]
+        },
+        {
+          "items": [
+            "Item.Hood"
+          ]
+        },
+        {
+          "items": [
+            "Item.ShadeRoot"
+          ],
+          "count": [
+            3,
+            3
+          ]
+        },
+        {
+          "items": [
+            "Item.WaterBottle"
+          ],
+          "count": [
+            2,
+            2
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ShadeGroveGuard",
+    "parent": "Creature.ShadeGroveResident",
+    "label": "종자 금고 경비",
+    "ai": "guard",
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.RebarSpear"
+          ]
+        },
+        {
+          "items": [
+            "Item.PaddedJacket"
+          ]
+        },
+        {
+          "items": [
+            "Item.LeatherCoat"
+          ]
+        },
+        {
+          "items": [
+            "Item.Boots"
+          ]
+        },
+        {
+          "items": [
+            "Item.Hood"
+          ]
+        },
+        {
+          "items": [
+            "Item.ShadeRoot"
+          ],
+          "count": [
+            3,
+            3
+          ]
+        },
+        {
+          "items": [
+            "Item.WaterBottle"
+          ],
+          "count": [
+            2,
+            2
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ShadeGroveMerchant",
+    "parent": "Creature.ShadeGroveResident",
+    "label": "숲의 교환상"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ShadeGroveHealer",
+    "parent": "Creature.ShadeGroveResident",
+    "label": "숲의 간병인",
+    "clinic": "Clinic.Hearth",
+    "skills": {
+      "medicine": 50
+    },
+    "stats": {
+      "str": 8,
+      "agi": 12,
+      "per": 13,
+      "vit": 10,
+      "wil": 10
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ShadeRoot",
+    "parent": "Item.Hardtack",
+    "label": "그늘뿌리",
+    "description": "저조도에서 자라는 검은 잎 식물의 둥근 뿌리. 그늘 마을의 주식이다.",
+    "weight": 0.3,
+    "value": 4,
+    "food": {
+      "kcal": 300,
+      "protein": 5,
+      "vitamin": 1,
+      "water": 45,
+      "thirst": 0,
+      "freshHours": 120,
+      "cooked": false
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ShadeSeeds",
+    "label": "봉인된 그늘 작물 종자",
+    "description": "종자 금고에 보관된 실제 재배용 종자 봉지. 땅에 심으면 그늘 작물 밭을 만든다.",
+    "sprite": "cloth",
+    "category": "misc",
+    "weight": 0.05,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 12,
+    "place": "Terrain.ShadePlot"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SeedVaultKey",
+    "label": "종자 금고 열쇠",
+    "description": "관로 정비 가문에서 지켜 온 금속 열쇠. 검은 숲 금고의 기계식 잠금장치와 맞는다.",
+    "sprite": "rebar_spear",
+    "category": "misc",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "value": 30
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SeedVaultLedger",
+    "label": "종자 금고 정비 기록",
+    "description": "실험 수목과 비상 재시작용 종자, 관로를 따라 이동한 정비공 가족의 이름이 남아 있다.",
+    "sprite": "cloth",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      2
+    ],
+    "value": 20,
+    "readable": true,
+    "book": {
+      "pages": 12,
+      "mastery": "survival",
+      "amount": 1,
+      "literacyMin": 1,
+      "bestiary": [
+        "BestiaryEntry.ShadeGrove",
+        "BestiaryEntry.TenderDrone"
+      ],
+      "note": "이곳은 테라포밍 실패 때 다시 시작하기 위해 묻은 종자 금고다. 검은 나무는 저조도 광합성 실험종의 후손이다. 침묵 뒤 관로 정비공 가족이 관로로 내려갔고, 남동쪽 정비구로 나온 가족은 숲에 정착했다. 관로에 남은 이들과 숲 주민은 같은 가문의 두 갈래다."
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.BlackwoodTree",
+    "parent": "Terrain.Tree",
+    "label": "검은 잎 나무",
+    "description": "장막의 약한 빛에서도 자라도록 개량된 수목이다.",
+    "visual": {
+      "sprite": "tree",
+      "scale": 0.4,
+      "tint": 7361650
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ShadePlot",
+    "parent": "Terrain.Floor",
+    "label": "그늘 작물 밭",
+    "description": "검은 잎 사이로 먹을 수 있는 뿌리가 자란다. 수확 뒤 하루가 지나면 다시 자란다.",
+    "sprites": [
+      "mushrooms"
+    ],
+    "passable": true,
+    "opaque": false,
+    "gather": {
+      "item": "Item.ShadeRoot",
+      "count": 2,
+      "turns": 12,
+      "regrowTurns": 28800
+    },
+    "visual": {
+      "sprite": "mushrooms",
+      "scale": 0.3,
+      "tint": 8959892
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.SeedVaultDoor",
+    "parent": "Terrain.DoorClosed",
+    "label": "잠긴 종자 금고 문",
+    "description": "기계식 잠금장치가 남아 있다. 맞는 열쇠가 필요하다.",
+    "keyItem": "Item.SeedVaultKey",
+    "openAs": "Terrain.SeedVaultDoorOpen"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.SeedVaultDoorOpen",
+    "parent": "Terrain.DoorOpen",
+    "label": "열린 종자 금고 문",
+    "closeAs": "Terrain.SeedVaultDoor"
+  },
+  {
+    "defType": "TraderStock",
+    "id": "Stock.shadefolk",
+    "label": "검은 숲의 실제 교환품",
+    "money": 240,
+    "bargaining": 12,
+    "entries": [
+      {
+        "item": "Item.ShadeRoot",
+        "target": 16,
+        "dailyProduction": 4,
+        "dailyConsumption": 3
+      },
+      {
+        "item": "Item.Hardtack",
+        "target": 5,
+        "dailyProduction": 1,
+        "dailyConsumption": 1
+      },
+      {
+        "item": "Item.WaterBottle",
+        "target": 8,
+        "dailyProduction": 2,
+        "dailyConsumption": 2
+      },
+      {
+        "item": "Item.Bandage",
+        "target": 8,
+        "dailyProduction": 2,
+        "dailyConsumption": 1
+      },
+      {
+        "item": "Item.Cloth",
+        "target": 10,
+        "dailyProduction": 2,
+        "dailyConsumption": 1
+      },
+      {
+        "item": "Item.SeedVaultKey",
+        "target": 1,
+        "dailyProduction": 0,
+        "dailyConsumption": 0
+      }
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.ShadeGrove",
+    "label": "숲의 그늘 사람들",
+    "creatures": [
+      "Creature.ShadeGroveResident",
+      "Creature.ShadeGroveGuard",
+      "Creature.ShadeGroveMerchant",
+      "Creature.ShadeGroveHealer"
+    ],
+    "kind": "human",
+    "difficulty": 20,
+    "silhouette": "검은 잎 아래의 작은 사람",
+    "yields": [],
+    "facts": [
+      "검은 숲에 사는 지상 지파와 관로에 남은 지하 지파는 친척이다.",
+      "검은 잎 나무는 저조도 광합성용 실험종의 후손이다."
+    ]
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.Blackwood",
+    "label": "검은 숲 정비구",
+    "mapId": "surface",
+    "kind": "surface",
+    "depth": 0,
+    "width": 64,
+    "height": 48,
+    "fill": "Terrain.Earth",
+    "ambient": 0,
+    "daylightMult": 0.2,
+    "start": [
+      32,
+      46
+    ],
+    "exits": [
+      [
+        32,
+        47
+      ]
+    ],
+    "scatter": [
+      {
+        "terrain": "Terrain.BlackwoodTree",
+        "chance": 0.32
+      },
+      {
+        "terrain": "Terrain.Fungus",
+        "chance": 0.035
+      }
+    ],
+    "clear": [
+      {
+        "x": 30,
+        "y": 14,
+        "w": 5,
+        "h": 34,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 24,
+        "y": 14,
+        "w": 16,
+        "h": 12,
+        "terrain": "Terrain.Earth"
+      },
+      {
+        "x": 32,
+        "y": 28,
+        "w": 12,
+        "h": 4,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 38,
+        "y": 25,
+        "w": 10,
+        "h": 9,
+        "terrain": "Terrain.Earth"
+      },
+      {
+        "x": 23,
+        "y": 26,
+        "w": 6,
+        "h": 5,
+        "terrain": "Terrain.ShadePlot"
+      },
+      {
+        "x": 32,
+        "y": 34,
+        "w": 12,
+        "h": 2,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 29,
+        "y": 28,
+        "w": 4,
+        "h": 2,
+        "terrain": "Terrain.Path"
+      }
+    ],
+    "buildings": [
+      {
+        "x": 25,
+        "y": 14,
+        "w": 15,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          32,
+          22
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "관로 가족의 집",
+        "roof": true
+      },
+      {
+        "x": 38,
+        "y": 25,
+        "w": 10,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          42,
+          33
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "종자 금고 정비구",
+        "roof": true
+      }
+    ],
+    "objects": [
+      {
+        "pos": [
+          40,
+          30
+        ],
+        "terrain": "Terrain.StairsDown"
+      }
+    ],
+    "spawns": [
+      {
+        "creature": "Creature.TenderDrone",
+        "pos": [
+          43,
+          28
+        ],
+        "home": [
+          43,
+          28
+        ],
+        "room": 1
+      }
+    ],
+    "links": [
+      {
+        "pos": [
+          40,
+          30
+        ],
+        "to": "seed-vault",
+        "at": [
+          6,
+          15
+        ]
+      }
+    ],
+    "submaps": [
+      {
+        "mapId": "seed-vault",
+        "layout": "RegionLayout.SeedVault"
+      }
+    ]
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.SeedVault",
+    "label": "비상 종자 금고",
+    "mapId": "seed-vault",
+    "kind": "dungeon",
+    "depth": 1,
+    "width": 32,
+    "height": 24,
+    "fill": "Terrain.RuinWall",
+    "ambient": 0.02,
+    "start": [
+      6,
+      15
+    ],
+    "exits": [],
+    "scatter": [],
+    "clear": [
+      {
+        "x": 4,
+        "y": 4,
+        "w": 23,
+        "h": 14,
+        "terrain": "Terrain.KtFloor",
+        "roof": true
+      },
+      {
+        "x": 16,
+        "y": 4,
+        "w": 1,
+        "h": 14,
+        "terrain": "Terrain.RuinWall",
+        "roof": true
+      }
+    ],
+    "buildings": [],
+    "objects": [
+      {
+        "pos": [
+          6,
+          15
+        ],
+        "terrain": "Terrain.StairsUp"
+      },
+      {
+        "pos": [
+          16,
+          10
+        ],
+        "terrain": "Terrain.SeedVaultDoor"
+      },
+      {
+        "pos": [
+          23,
+          8
+        ],
+        "terrain": "Terrain.Chest",
+        "items": [
+          {
+            "item": "Item.ShadeSeeds",
+            "count": 3
+          },
+          {
+            "item": "Item.SeedVaultLedger",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "spawns": [
+      {
+        "creature": "Creature.TenderDrone",
+        "pos": [
+          23,
+          13
+        ],
+        "home": [
+          23,
+          13
+        ]
+      }
+    ],
+    "links": [
+      {
+        "pos": [
+          6,
+          15
+        ],
+        "to": "surface",
+        "at": [
+          40,
+          30
+        ]
+      }
+    ]
+  }
+]

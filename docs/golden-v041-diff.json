@@ -1,0 +1,47 @@
+{
+  "fromVersion": "v0.40",
+  "toVersion": "v0.41",
+  "commandsRewritten": false,
+  "saveVersion": {
+    "from": 8,
+    "to": 9
+  },
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "d37517b5",
+      "finalHash": "5c42cbee",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "42fde1e5",
+      "finalHash": "64899f33",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "224ddfcb",
+      "finalHash": "ebd826cd",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "d32aaa91",
+      "finalHash": "3d2a47f0",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "d32aaa91",
+      "finalHash": "f1544a5b",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    }
+  ],
+  "note": "기존5입력/오류를 유지하고 초기/최종 전체 상태를 비교했다. 저장 형식8→9 외에 몸/시간/로그/난수/ID/물품/경제/지식이 모두 같다. 기존 입력은 진찰을 사용하지 않으므로 진찰/임상 기록은 별도 clinic 테스트와 브라우저에서 검증한다."
+}

@@ -1,9 +1,17 @@
 // 수정치 파이프라인: 특성 + 생물 고유 + 배운 패시브 능력 + 장비 수정치를 한 곳에서 합산
 
+import { nutritionStat } from './nutrition-state'
 import type { World } from './ctx'
-import type { AbilityDef, BackgroundDef, Creature, ItemInst } from './types'
+import type { AbilityDef, BackgroundDef, Creature, ItemInst, Stats, GrowthDef } from './types'
 
 function* modSources(w: World, c: Creature): Generator<Partial<Record<string, number>>> {
+  if (c.age) {
+    const growth = w.db.tryGet<GrowthDef>('Growth.Human')
+    const band = growth?.ageBands.filter((b) => b.min <= c.age!.years).sort((a, b) => b.min - a.min)[0]
+    if (band?.mods) yield band.mods
+    if (c.age.senses) yield { sightCap: .9, hearingCap: .9 }
+  }
+
   for (const t of c.traits) {
     const m = w.db.trait(t).mods
     if (m) yield m
@@ -74,4 +82,9 @@ export function addEffect(c: Creature, kind: string, untilTurn: number, magnitud
     ex.untilTurn = Math.max(ex.untilTurn, untilTurn)
     if (magnitude !== undefined) ex.magnitude = magnitude
   } else c.effects.push({ kind, untilTurn, magnitude })
+}
+
+/** 특성·능력·장비의 능력치 보정. 원래 능력치는 저장·레벨업에 보존한다. */
+export function effectiveStat(w: World, c: Creature, key: keyof Stats): number {
+  return Math.max(1, Math.min(20, c.stats[key] + traitAdd(w, c, `stat_${key}`) + nutritionStat(w, c, key)))
 }

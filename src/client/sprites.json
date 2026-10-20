@@ -23,7 +23,9 @@
   "cd_littleeyes": "sprites/cd_littleeyes.png",
   "cd_urn_1": "sprites/cd_urn_1.png",
   "cd_statue_b1": "sprites/cd_statue_b1.png",
-  "x72_misc": "sprites/x72_misc.png"
+  "x72_misc": "sprites/x72_misc.png",
+  "tender_drone": "sprites/tender_drone.png",
+  "tender_drone_inert": "sprites/tender_drone_inert.png"
  },
  "frames": {
   "kt_floor_q0": [
@@ -2797,6 +2799,20 @@
    0,
    16,
    16
+  ],
+  "tender_drone": [
+   "tender_drone",
+   0,
+   0,
+   32,
+   32
+  ],
+  "tender_drone_inert": [
+   "tender_drone_inert",
+   0,
+   0,
+   32,
+   32
   ]
  },
  "anims": {
@@ -3512,6 +3528,74 @@
    "anchor": [
     0.5,
     0.92
+   ]
+  },
+  "tender_drone": {
+   "walk": {
+    "down": [
+     "tender_drone"
+    ],
+    "left": [
+     "tender_drone"
+    ],
+    "right": [
+     "tender_drone"
+    ],
+    "up": [
+     "tender_drone"
+    ]
+   },
+   "idle": {
+    "down": [
+     "tender_drone"
+    ],
+    "left": [
+     "tender_drone"
+    ],
+    "right": [
+     "tender_drone"
+    ],
+    "up": [
+     "tender_drone"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.8
+   ]
+  },
+  "tender_drone_inert": {
+   "walk": {
+    "down": [
+     "tender_drone_inert"
+    ],
+    "left": [
+     "tender_drone_inert"
+    ],
+    "right": [
+     "tender_drone_inert"
+    ],
+    "up": [
+     "tender_drone_inert"
+    ]
+   },
+   "idle": {
+    "down": [
+     "tender_drone_inert"
+    ],
+    "left": [
+     "tender_drone_inert"
+    ],
+    "right": [
+     "tender_drone_inert"
+    ],
+    "up": [
+     "tender_drone_inert"
+    ]
+   },
+   "anchor": [
+    0.5,
+    0.8
    ]
   }
  },

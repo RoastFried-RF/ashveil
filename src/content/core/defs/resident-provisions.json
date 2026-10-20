@@ -1,0 +1,29 @@
+[
+  {
+    "defType": "ResidentProvision",
+    "id": "ResidentProvision.Hearth",
+    "label": "주민 식량 배급",
+    "terrain": "Terrain.ResidentDepot",
+    "radius": 3,
+    "food": "Item.Hardtack",
+    "minimumKcal": 350,
+    "targetKcal": 1750,
+    "requestBelowKcal": 500,
+    "dailyFoodUnits": 1.5,
+    "retryTurns": 1200
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ResidentDepot",
+    "parent": "Terrain.Earth",
+    "label": "주민 배급 창고",
+    "description": "주민들이 공동 식량을 받아 간다. 손님용 식량은 상점에서 구입한다.",
+    "sprites": [
+      "crate_closed"
+    ],
+    "passable": true,
+    "opaque": false,
+    "moveMult": 1,
+    "residentDepot": true
+  }
+]

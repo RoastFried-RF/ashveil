@@ -1,0 +1,501 @@
+{
+  "from": "v0.83 WORLD",
+  "to": "v0.84 WORLD",
+  "sameMode": true,
+  "runs": 30,
+  "maxDays": 3,
+  "allWholeResultRowsExact": false,
+  "changes": [
+    {
+      "seed": "sim-19",
+      "from": {
+        "seed": "sim-19",
+        "cause": "치명상",
+        "days": 0.5477777777777778,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Deserter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 13,
+            "agi": 13,
+            "per": 6,
+            "vit": 9,
+            "wil": 10
+          },
+          "age": {
+            "years": 31,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronWill",
+            "Trait.Gourmand",
+            "Trait.HardBones"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309700,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21700,
+                  "untilTurn": 309700,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108231,
+              "count": 4,
+              "events": [
+                {
+                  "at": 21831,
+                  "untilTurn": 108231,
+                  "mood": -4
+                },
+                {
+                  "at": 21773,
+                  "untilTurn": 108173,
+                  "mood": -4
+                },
+                {
+                  "at": 21717,
+                  "untilTurn": 108117,
+                  "mood": -4
+                },
+                {
+                  "at": 21700,
+                  "untilTurn": 108100,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 46166,
+              "count": 3,
+              "events": [
+                {
+                  "at": 22166,
+                  "untilTurn": 46166,
+                  "mood": -6
+                },
+                {
+                  "at": 21998,
+                  "untilTurn": 45998,
+                  "mood": -6
+                },
+                {
+                  "at": 21982,
+                  "untilTurn": 45982,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 44035,
+              "count": 2,
+              "events": [
+                {
+                  "at": 36835,
+                  "untilTurn": 44035,
+                  "mood": -8
+                },
+                {
+                  "at": 35939,
+                  "untilTurn": 43139,
+                  "mood": -8
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 238972,
+              "count": 1,
+              "events": [
+                {
+                  "at": 37372,
+                  "untilTurn": 238972,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "traumas": [
+            {
+              "def": "Trauma.Species",
+              "target": "Creature.Reaver",
+              "overcome": 0,
+              "visible": [],
+              "seenTargets": [],
+              "active": false,
+              "encounters": {
+                "30": {
+                  "broken": false,
+                  "done": false,
+                  "qualifies": true,
+                  "distance": 1
+                }
+              }
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -446.19,
+            "waterDeficit": 267,
+            "protein": 96.84,
+            "vitamin": 100,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.8550337674382007,
+            "waterRemainder": 0.6354166666666685,
+            "scurvy": 0,
+            "fatigue": 97.54791666664818,
+            "bodyTemp": 33.870655953492964,
+            "wetness": 12.224999999951546,
+            "energy": 10.600000000000021,
+            "stress": 54.16,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 12.224999999951546,
+              "arms": 12.224999999951546,
+              "legs": 12.224999999951546,
+              "head": 12.224999999951546,
+              "hands": 12.224999999951546,
+              "feet": 7.334999999970845
+            },
+            "thermal": {
+              "turns": 176,
+              "delta": -0.0910859749999669
+            },
+            "lastMealKcal": 120,
+            "ash": 0.6,
+            "waterExposure": {
+              "ml": 300,
+              "pathogenMl": 21000
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.4982875000007994,
+            "low": 11.754281249998002,
+            "high": 24.7508562499996,
+            "air": -8.9,
+            "feels": -9.4,
+            "windChill": 3.5,
+            "heat": 3,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 12.224999999951546,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 13,
+            "y": 41
+          },
+          "equipment": [
+            {
+              "def": "Item.RebarSpear",
+              "durability": 42,
+              "edge": 43,
+              "edgeWear": 0
+            },
+            {
+              "def": "Item.PaddedJacket",
+              "durability": 100,
+              "wetness": {
+                "torso": 12.224999999951546,
+                "arms": 12.224999999951546
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 12.224999999951546
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            }
+          ]
+        }
+      },
+      "to": {
+        "seed": "sim-19",
+        "cause": "저체온",
+        "days": 0.7569444444444444,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Deserter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 13,
+            "agi": 13,
+            "per": 6,
+            "vit": 9,
+            "wil": 10
+          },
+          "age": {
+            "years": 31,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronWill",
+            "Trait.Gourmand",
+            "Trait.HardBones"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309700,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21700,
+                  "untilTurn": 309700,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108231,
+              "count": 4,
+              "events": [
+                {
+                  "at": 21831,
+                  "untilTurn": 108231,
+                  "mood": -4
+                },
+                {
+                  "at": 21773,
+                  "untilTurn": 108173,
+                  "mood": -4
+                },
+                {
+                  "at": 21717,
+                  "untilTurn": 108117,
+                  "mood": -4
+                },
+                {
+                  "at": 21700,
+                  "untilTurn": 108100,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 45995,
+              "count": 3,
+              "events": [
+                {
+                  "at": 21995,
+                  "untilTurn": 45995,
+                  "mood": -6
+                },
+                {
+                  "at": 21981,
+                  "untilTurn": 45981,
+                  "mood": -6
+                },
+                {
+                  "at": 21742,
+                  "untilTurn": 45742,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 47268,
+              "count": 2,
+              "events": [
+                {
+                  "at": 40068,
+                  "untilTurn": 47268,
+                  "mood": -8
+                },
+                {
+                  "at": 39022,
+                  "untilTurn": 46222,
+                  "mood": -8
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 242400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 40800,
+                  "untilTurn": 242400,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawDeath",
+              "untilTurn": 47758,
+              "count": 3,
+              "events": [
+                {
+                  "at": 41758,
+                  "untilTurn": 47758
+                },
+                {
+                  "at": 41758,
+                  "untilTurn": 47758
+                },
+                {
+                  "at": 40758,
+                  "untilTurn": 46758
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -760.42,
+            "waterDeficit": 446,
+            "protein": 98.34,
+            "vitamin": 100,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.21798638175634366,
+            "waterRemainder": 0.09895833333333637,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.778109669186293,
+            "wetness": 100,
+            "energy": 95,
+            "stress": 66.16,
+            "sleepDebt": 4.649166666666987,
+            "skinWetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100,
+              "head": 100,
+              "hands": 100,
+              "feet": 96.23499999986002
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "lastMealKcal": 120,
+            "ash": 1,
+            "waterExposure": {
+              "ml": 0,
+              "pathogenMl": 0
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 0.09000000000000001,
+            "low": 17.775,
+            "high": 25.955,
+            "air": -5.6,
+            "feels": 1.4000000000000004,
+            "windChill": 5,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 100,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 39
+          },
+          "equipment": [
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 100
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            },
+            {
+              "def": "Item.RustyKnife",
+              "durability": 100,
+              "edge": 60,
+              "corrosion": 211.05000000000067
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "isolatedExperiment": {
+    "baselineSource": "immutable v083",
+    "onlySourceChange": "src/core/fov.ts: zero sight guard applies to organic viewers too",
+    "seed": "sim-19",
+    "sameWorldAndThreeDayLimit": true,
+    "entireResultRowEqualsV084": true,
+    "firstDifferentAction": {
+      "index": 245,
+      "timeTU": 2183000,
+      "action": {
+        "type": "attack",
+        "target": 68
+      }
+    },
+    "sourceAndTrace": "docs/sim-v084-sight-trace.json",
+    "scope": "One-condition experiment reproduces this whole final row; not a claim about every later causal interaction."
+  }
+}

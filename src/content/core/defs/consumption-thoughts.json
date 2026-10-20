@@ -1,0 +1,56 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.BlandFood",
+    "label": "맛없는 음식을 먹었다",
+    "mood": -2,
+    "durationTurns": 4800,
+    "stack": 2,
+    "stackMult": 0.5
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.SpoiledFood",
+    "label": "상한 음식을 먹었다",
+    "mood": -6,
+    "durationTurns": 14400,
+    "stack": 1,
+    "decay": "linear"
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Overate",
+    "label": "과식했다",
+    "mood": -2,
+    "durationTurns": 2400,
+    "stack": 1,
+    "lifeEvent": "overeat"
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Hangover",
+    "label": "숙취",
+    "mood": -5,
+    "durationTurns": 14400,
+    "stack": 1,
+    "decay": "linear",
+    "lifeEvent": "hangover"
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.BiteAche",
+    "label": "물린 자리가 쑤신다",
+    "mood": -2,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "latentBiteAche",
+            "min": 1
+          }
+        ]
+      ]
+    }
+  }
+]

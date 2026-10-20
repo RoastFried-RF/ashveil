@@ -1,3 +1,6 @@
+import {rememberVisiblePrisoners} from './prisoner-memory'
+import {turnOf} from './ctx'
+import { weatherSight } from './climate-state'
 // 시야(재귀 그림자 투사)와 조명
 
 import { capacity } from './body'
@@ -5,7 +8,7 @@ import { creatureAt, idx, inBounds, isOpaque, tileAt, type World } from './ctx'
 import { daylight } from './environment'
 import { cheb, dist2, line, type Pos } from './geom'
 import { lightSource } from './items'
-import { traitAdd, traitOverride } from './traits'
+import { effectiveStat, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, MapState } from './types'
 
 const MULT = [
@@ -94,7 +97,7 @@ function staticLight(w: World): Float32Array {
 /** 타일 밝기 0~1 */
 export function lightAt(w: World, p: Pos): number {
   const m = w.s.map
-  let l = m.kind === 'surface' ? daylight(w) * (tileAt(w, p).roof ? 0.45 : 1) : m.ambient
+  let l = m.kind === 'surface' ? daylight(w) * (m.daylightMult??1) * (tileAt(w, p).roof ? 0.45 : 1) : m.ambient
   l = Math.max(l, staticLight(w)[p.y * m.w + p.x])
   for (const c of w.s.creatures) {
     if (!c.alive) continue
@@ -128,18 +131,21 @@ export function lightThreshold(w: World, c: Creature): number {
 }
 
 export function sightRange(w: World, c: Creature): number {
-  const base = w.db.creature(c.def).sightRange + traitAdd(w, c, 'sightRange') + Math.floor((c.stats.per - 10) / 2)
-  return Math.max(1, Math.round(base * Math.max(0.15, capacity(w, c, 'sight'))))
+  const base = w.db.creature(c.def).sightRange + traitAdd(w, c, 'sightRange') + Math.floor((effectiveStat(w, c, 'per') - 10) / 2) - (c.breakdown?.kind === 'cry' ? 2 : 0)
+  const weather = weatherSight(w), protectedEyes = Object.values(c.equip).some((it) => it && w.db.item(it.def).apparel?.eyeProtection)
+  return Math.max(1, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight'))))
 }
 
 /** 관찰자가 대상 위치를 볼 수 있는가 (거리·시선·조명·잠행) */
 export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>, baseRange?: number): boolean {
+  if(capacity(w,viewer,'sight')<=0)return false
   if (viewer.unconscious || viewer.asleep) return false
   const d = cheb(viewer.pos, p)
   if (d <= 1) return true
   let range = baseRange ?? sightRange(w, viewer)
   const target = creatureAt(w, p)
   if (target?.sneaking && target.id !== viewer.id) range = Math.floor(range * 0.6)
+  if (d > 5) range = Math.max(5, Math.floor(range * traitMul(w, viewer, 'farSightMult')))
   if (d > range) return false
   if (fov) { if (!fov.has(idx(w, p))) return false }
   else if (!hasLos(w, viewer.pos, p)) return false
@@ -150,12 +156,22 @@ export function updatePlayerVision(w: World, pl: Creature) {
   const fov = computeFov(w, pl.pos, sightRange(w, pl))
   const vis: number[] = []
   const range = sightRange(w, pl)
+  const observedAt=canObserveTerrain(w,pl)?turnOf(w):undefined
   for (const i of fov) {
     const p = { x: i % w.s.map.w, y: Math.floor(i / w.s.map.w) }
     if (canSee(w, pl, p, fov, range)) {
       vis.push(i)
-      w.s.map.tiles[i].seen = true
+      const tile=w.s.map.tiles[i];tile.seen = true
+      if(observedAt!==undefined){
+        let contents=tile.observed?.contents
+        const loot=w.s.loot
+        if(pl.id===w.s.playerId&&loot?.kind==='cont'&&loot.pos.x===p.x&&loot.pos.y===p.y&&cheb(pl.pos,p)<=1&&tile.cont?.opened&&capacity(w,pl,'sight')>=.2&&lightLevel(w,pl.pos)<2)contents={at:observedAt,terrain:tile.t,items:tile.cont.items.map(it=>({uid:it.uid,def:it.def,count:it.count}))}
+        tile.observed={terrain:tile.t,at:observedAt,...(tile.device?{device:{uid:tile.device.uid,def:tile.device.def,completed:[...tile.device.completed]}}:{}),...(contents?{contents}:{})}
+      }
     }
   }
   w.s.visible = vis
+  rememberVisiblePrisoners(w,pl,vis)
 }
+
+export function canObserveTerrain(w:World,c:Creature):boolean{return c.alive&&!c.asleep&&!c.unconscious&&capacity(w,c,'sight')>0&&capacity(w,c,'consciousness')>=.5}

@@ -1,0 +1,5 @@
+[
+ {"defType":"Campfire","id":"Campfire.Hearth","label":"실제 야영 모닥불","terrain":"Terrain.Campfire","kit":"Item.CampfireKit","fuel":"Item.Wood","fuelTurns":2400,"maxFuelTurns":7200,"igniteTurns":100,"stokeTurns":3,"wetAt":60,"wetMultiplier":3,"radius":6,"workerTarget":2400},
+ {"defType":"Item","id":"Item.CampfireKit","label":"야영 모닥불 꾸러미","description":"돌 둘레와 장작 받침. 빈 땅에 설치한 뒤 실제 목재로 불을 피운다.","sprite":"stump","category":"misc","weight":4,"value":6,"size":[2,2],"place":"Terrain.Campfire","material":"Material.Wood"},
+ {"defType":"Recipe","id":"Recipe.CampfireKit","label":"야영 모닥불 꾸러미 만들기","category":"woodwork","primaryAttr":"str","basic":true,"workTurns":100,"inputs":[{"item":"Item.Stone","count":3},{"item":"Item.Wood","count":1}],"output":{"item":"Item.CampfireKit","count":1},"mastery":"survival"}
+]

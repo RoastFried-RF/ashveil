@@ -1,0 +1,52 @@
+{
+  "from": "v0.83 save47",
+  "to": "v0.84 save48",
+  "reason": "All five complete initial/final states and command/error outcomes remain exact except Save47->48. These fixed inputs do not enter the new PostThree vault or trigger the corrected completely blind/deaf perception or partial-stack-only loot cases; those have dedicated physical tests.",
+  "scenarios": [
+    {
+      "name": "surface",
+      "commandsAndErrorsUnchanged": true,
+      "allWholeInitialAndFinalStateExactExceptSaveVersion": true,
+      "beforeInitialHash": "e7a526e9",
+      "afterInitialHash": "3d2eb9ee",
+      "beforeHash": "7ff2baba",
+      "afterHash": "af0b1fc9"
+    },
+    {
+      "name": "dungeon-combat",
+      "commandsAndErrorsUnchanged": true,
+      "allWholeInitialAndFinalStateExactExceptSaveVersion": true,
+      "beforeInitialHash": "798aab57",
+      "afterInitialHash": "edb11156",
+      "beforeHash": "5f17133f",
+      "afterHash": "c15c7126"
+    },
+    {
+      "name": "freeze-reentry",
+      "commandsAndErrorsUnchanged": true,
+      "allWholeInitialAndFinalStateExactExceptSaveVersion": true,
+      "beforeInitialHash": "6f789dd5",
+      "afterInitialHash": "dd88e426",
+      "beforeHash": "edf171e9",
+      "afterHash": "4fa80aa0"
+    },
+    {
+      "name": "world-journey",
+      "commandsAndErrorsUnchanged": true,
+      "allWholeInitialAndFinalStateExactExceptSaveVersion": true,
+      "beforeInitialHash": "3f880380",
+      "afterInitialHash": "401ba99b",
+      "beforeHash": "a2ab3046",
+      "afterHash": "ec5ffb55"
+    },
+    {
+      "name": "world-climate-return",
+      "commandsAndErrorsUnchanged": true,
+      "allWholeInitialAndFinalStateExactExceptSaveVersion": true,
+      "beforeInitialHash": "3f880380",
+      "afterInitialHash": "401ba99b",
+      "beforeHash": "d9324f8b",
+      "afterHash": "d0d6a082"
+    }
+  ]
+}

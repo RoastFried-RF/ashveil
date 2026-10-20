@@ -59,7 +59,29 @@
       "block": 5,
       "parry": 0
     },
-    "edgeStart": 60
+    "edgeStart": 60,
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -105,7 +127,53 @@
     "weapon": {
       "block": 5,
       "parry": 5
-    }
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 3,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "blade",
+        "ref": "Material.Scrap",
+        "volumeCm3": 50,
+        "accepts": [
+          "Metal",
+          "Stone",
+          "Bone"
+        ],
+        "primary": true
+      },
+      {
+        "id": "haft",
+        "ref": "Material.Wood",
+        "volumeCm3": 70,
+        "accepts": [
+          "Wood",
+          "Bone"
+        ]
+      }
+    ],
+    "durabilityBase": 60,
+    "massFixedG": 50,
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -137,7 +205,29 @@
     "weapon": {
       "block": 10,
       "parry": 10
-    }
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Steel"
   },
   {
     "defType": "Item",
@@ -170,7 +260,52 @@
     "weapon": {
       "block": 5,
       "parry": -5
-    }
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "head",
+        "ref": "Material.Scrap",
+        "volumeCm3": 70,
+        "accepts": [
+          "Metal",
+          "Stone"
+        ],
+        "primary": true
+      },
+      {
+        "id": "haft",
+        "ref": "Material.Wood",
+        "volumeCm3": 350,
+        "accepts": [
+          "Wood",
+          "Bone"
+        ]
+      }
+    ],
+    "durabilityBase": 80,
+    "massFixedG": 350,
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -202,7 +337,41 @@
     "weapon": {
       "block": 6,
       "parry": -10
-    }
+    },
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 3,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Scrap",
+        "volumeCm3": 180,
+        "accepts": [
+          "Metal",
+          "Wood",
+          "Bone"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 100,
+    "massFixedG": 0,
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -236,7 +405,26 @@
     "weapon": {
       "block": 8,
       "parry": 5
-    }
+    },
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -270,7 +458,25 @@
         "noise": 3,
         "bleedMult": 1.0
       }
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Wood",
+      "count": 3,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Wood",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -305,6 +511,24 @@
       2,
       2
     ],
-    "slot": "off"
+    "slot": "off",
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    }
   }
 ]

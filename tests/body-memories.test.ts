@@ -1,0 +1,33 @@
+import {describe,expect,it} from 'vitest'
+import {bodyMemoryFixture,bodyMemoryNativeFixture} from './body-memories-fixture'
+import {activeThoughts,addThought} from '../src/core/thoughts'
+import {addWound,bodyTick} from '../src/core/body'
+import {completeHealing} from '../src/core/recovery'
+import {runUntilInput,SAVE_VERSION} from '../src/core/game'
+import {deserialize,serialize,stateHash} from '../src/core/save'
+import {turnOf} from '../src/core/ctx'
+import {loadMods} from '../src/core/defs'
+import {readPackages} from '../tools/loadContent'
+const memory=(d:ReturnType<typeof bodyMemoryFixture>,id='Thought.Scar')=>activeThoughts(d.w,d.p).find(t=>t.def===id)
+function scar(d:ReturnType<typeof bodyMemoryFixture>,part='LeftForearm',severity=2){const wd=addWound(d.w,d.p,{def:'Wound.Cut',part,severity,source:'실제 새 치유 상처'}).wound;wd.scar=true;wd.healed=severity;wd.bleed=0;completeHealing(d.w,d.p);return wd}
+describe('실제 새 신체 변화의 유한 기억',()=>{
+ it('실제 공개 대기1턴의 치유 완료만 새 몸 흉터−2/5일을 준다',()=>{const d=bodyMemoryNativeFixture('body');expect(d.proof.actualTurns).toBe(1);expect(d.p.body.wounds).toEqual([]);expect(d.p.body.scars).toHaveLength(1);expect(memory(d)).toMatchObject({mood:-2,count:1,remaining:144000})})
+ it('같은 실제 치유의 얼굴 흉터는−5, 허영은−10이다',()=>{for(const phase of ['face','vain']as const){const d=bodyMemoryNativeFixture(phase);expect(memory(d)).toMatchObject({mood:phase==='face'?-5:-10,count:1});expect(activeThoughts(d.w,d.p).find(t=>t.def==='Temperament.Scar')).toBeUndefined()}})
+ it('과거의 원래 얼굴 흉터는 새 기억이나 영구 중복벌점을 만들지 않는다',()=>{const d=bodyMemoryNativeFixture('old');expect(d.p.body.scars).toHaveLength(1);expect(memory(d)).toBeUndefined();expect(activeThoughts(d.w,d.p).find(t=>t.def==='Temperament.Scar')).toBeUndefined()})
+ it('아물지 않은 소작 예정 상처는 이미 생긴 흉터 기억이 아니다',()=>{const d=bodyMemoryFixture(),wd=addWound(d.w,d.p,{def:'Wound.Cut',part:'Skull',severity:2,source:'아직 아물지 않은 실제 상처'}).wound;d.p.traits=['Trait.Vain'];wd.scar=true;completeHealing(d.w,d.p);expect(d.p.body.scars??[]).toEqual([]);expect(memory(d)).toBeUndefined()})
+ it('완료한 같은 치유를 반복하거나 조회해도 기억/난수/UID가 바뀌지 않는다',()=>{const d=bodyMemoryFixture();scar(d);const before=stateHash(d.s);for(let i=0;i<4;i++){completeHealing(d.w,d.p);memory(d)}expect(stateHash(d.s)).toBe(before)})
+ it('괴혈병 등으로 다시 열린 옛 흉터가 동일하게 아물면 기억을 새로 만들지 않는다',()=>{const d=bodyMemoryFixture();scar(d);d.s.time+=100;const before=structuredClone(d.p.thoughts);scar(d);expect(d.p.body.scars).toHaveLength(1);expect(d.p.thoughts).toEqual(before)})
+ it('기존 부위의 실제 더 심한 흉터는 새 변화로 기억한다',()=>{const d=bodyMemoryFixture();scar(d);d.s.time+=100;scar(d,'LeftForearm',3);expect(d.p.body.scars).toHaveLength(1);expect(d.p.body.scars![0]!.severity).toBe(3);expect(d.p.thoughts.find(t=>t.def==='Thought.Scar')!.events).toHaveLength(2)})
+ it('몸과 얼굴은 같은3×.5중첩을 공유하고 각각 실제 사건값을 보존한다',()=>{const d=bodyMemoryFixture();scar(d);scar(d,'Skull');scar(d,'RightForearm');scar(d,'RightShin');expect(memory(d)).toMatchObject({mood:-6,count:3});expect(d.p.thoughts.filter(t=>t.def==='Thought.Scar')).toHaveLength(1)})
+ it('흉터 기억은 선형 감쇠하여5일에 사라지고 실제 흉터는 남는다',()=>{const d=bodyMemoryFixture();scar(d,'Skull');d.s.time+=72000*100;expect(memory(d)!.mood).toBe(-2);d.s.time+=72000*100;expect(memory(d)).toBeUndefined();expect(d.p.body.scars).toHaveLength(1)})
+ it('실제 손가락이 떨어지면 별도−6/10일이며 팔다리 상실을 중복 적용하지 않는다',()=>{const d=bodyMemoryFixture();addWound(d.w,d.p,{def:'Wound.Cut',part:'LeftIndex',severity:d.p.body.maxHp.LeftIndex,source:'실제 손가락 절단',canSever:true});expect(d.p.body.missing).toContain('LeftIndex');expect(memory(d,'Thought.LostFinger')).toMatchObject({mood:-6,count:1,remaining:288000});expect(memory(d,'Thought.LostLimb')).toBeUndefined();expect(memory(d,'Thought.Maimed')).toBeUndefined()})
+ it('실제 손 전체가 떨어지면−20/30일 한 사건이며 다섯 손가락 손실을 꾸미지 않는다',()=>{const d=bodyMemoryFixture();addWound(d.w,d.p,{def:'Wound.Cut',part:'LeftHand',severity:d.p.body.maxHp.LeftHand,source:'실제 손 절단',canSever:true});expect(d.p.body.missing).toContain('LeftHand');expect(memory(d,'Thought.LostLimb')).toMatchObject({mood:-20,count:1,remaining:864000});expect(memory(d,'Thought.LostFinger')).toBeUndefined()})
+ it('다른 실제 손가락 상실은5×.5로 중첩한다',()=>{const d=bodyMemoryFixture();for(const part of ['LeftIndex','RightIndex'])addWound(d.w,d.p,{def:'Wound.Cut',part,severity:d.p.body.maxHp[part]!,source:'각각 실제 절단',canSever:true});expect(memory(d,'Thought.LostFinger')).toMatchObject({mood:-9,count:2})})
+ it('물리적으로 남은 부위의 손상은 상실 기억이 아니다',()=>{const d=bodyMemoryFixture();addWound(d.w,d.p,{def:'Wound.Cut',part:'LeftForearm',severity:2,source:'실제 남은 팔'});expect(memory(d,'Thought.LostLimb')).toBeUndefined();expect(memory(d,'Thought.LostFinger')).toBeUndefined()})
+ it('기본60턴 절단의 실제72턴은 원래 칼과 지혈대로 완료한 뒤에만 기억한다',()=>{const d=bodyMemoryNativeFixture('loss');expect(d.proof.actualTurns).toBe(72);expect(d.p.body.missing).toContain('LeftHand');expect(d.p.equip.main!.uid).toBe(d.proof.knifeUid);expect(memory(d,'Thought.LostLimb')).toMatchObject({mood:-19,count:1});expect(memory(d,'Thought.Maimed')).toBeUndefined()})
+ it('미완료 절단은 기억이 없고 전체 각인 재개가 실제 마지막 남은 턴만 처리한다',()=>{const d=bodyMemoryNativeFixture('pending');expect(d.p.body.missing).not.toContain('LeftHand');expect(memory(d,'Thought.LostLimb')).toBeUndefined();const w={db:d.w.db,s:deserialize(serialize(d.s))};runUntilInput(d.w);runUntilInput(w);expect(w.s).toEqual(d.s);expect(d.p.body.missing).toContain('LeftHand');expect(memory(d,'Thought.LostLimb')!.count).toBe(1)})
+ it('기존 일반Maimed 기억은 원래 값/기간을 보존하고 새 흉터/결손으로 소급하지 않는다',()=>{const d=bodyMemoryFixture();addThought(d.w,d.p,'Thought.Maimed');const old=JSON.parse(serialize(d.s));old.version=105;const s=deserialize(JSON.stringify(old));expect(s.version).toBe(SAVE_VERSION);expect({...s,version:105}).toEqual(old);const w={db:d.w.db,s},p=s.creatures.find(c=>c.id===s.playerId)!;expect(activeThoughts(w,p).find(t=>t.def==='Thought.Maimed')!.mood).toBe(-15)})
+ it('내부 상처 치유는 외부 얼굴 흉터 기억이 아니다',()=>{const d=bodyMemoryFixture(),wd=addWound(d.w,d.p,{def:'Wound.InternalBleed',part:'Liver',severity:2,source:'실제 내출혈',internal:true}).wound;wd.scar=true;wd.healed=2;bodyTick(d.w,d.p,false);expect(memory(d)).toBeUndefined()})
+ it('얼굴 흉터 모드의 빈 목록/잘못된 값/사건을 거절한다',()=>{for(const [path,value]of [['/faceEvent/groups',[]],['/faceEvent/mood',-101],['/faceEvent/traitMoodKey',''],['/lifeEvent','talk']]as const){const packages=readPackages(),report=loadMods([...packages,{manifest:{id:'bad',name:'bad',version:'1'},defs:[],patches:[{op:'replace',target:'Thought.Scar',path,value}]}]).report;expect(report.errors.some(e=>e.includes('얼굴 흉터')),path).toBe(true)}})
+ it('상처 치유 뒤 각인의 신체/기억/난수/시간 전체를 복원한다',()=>{const d=bodyMemoryNativeFixture('vain');expect(deserialize(serialize(d.s))).toEqual(d.s);expect(d.p.body.scars![0]!.at).toBe(turnOf(d.w))})
+})

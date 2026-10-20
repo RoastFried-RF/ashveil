@@ -1,0 +1,79 @@
+{
+  "legacy": [
+    {
+      "name": "surface",
+      "previous": "5f30bb0c",
+      "current": "7c99a8ff",
+      "onlyChangedPath": "/version",
+      "old": 3,
+      "new": 4,
+      "commandsAndErrorsUnchanged": true
+    },
+    {
+      "name": "dungeon-combat",
+      "previous": "8a1934cf",
+      "current": "28c3c9ce",
+      "onlyChangedPath": "/version",
+      "old": 3,
+      "new": 4,
+      "commandsAndErrorsUnchanged": true
+    },
+    {
+      "name": "freeze-reentry",
+      "previous": "b46faed4",
+      "current": "0d90b90d",
+      "onlyChangedPath": "/version",
+      "old": 3,
+      "new": 4,
+      "commandsAndErrorsUnchanged": true
+    }
+  ],
+  "world": {
+    "name": "world-journey",
+    "commands": 28,
+    "commandsPreserved": true,
+    "previousInitial": "63b4e794",
+    "initial": "3bd78d40",
+    "previousFinal": "24337857",
+    "final": "21fe927f",
+    "newErrors": [
+      {
+        "index": 25,
+        "message": "이동 중인 칸을 마친 뒤 경로를 바꿀 수 있다"
+      },
+      {
+        "index": 26,
+        "message": "이동 중인 칸을 마친 뒤 경로를 바꿀 수 있다"
+      },
+      {
+        "index": 27,
+        "message": "이동 중인 칸을 먼저 지나야 한다"
+      }
+    ],
+    "reason": "Real autumn temperature and wind interrupt the first road cell at turn22600. The three unchanged follow-up inputs attempt to reverse or enter during that partial cell and are rejected. The player and all frozen residents remain alive; the remaining224turns are preserved.",
+    "time": 2260000,
+    "position": {
+      "x": 24,
+      "y": 76
+    },
+    "remaining": 224,
+    "changes": [
+      "save format4",
+      "regional weather records",
+      "initial frozen water",
+      "actual temperature and wetness/physiology",
+      "saved warning cooldown",
+      "world remains outside because the original enter command is rejected"
+    ]
+  },
+  "newVector": {
+    "name": "world-climate-return",
+    "commands": 30,
+    "initial": "3bd78d40",
+    "final": "37701904",
+    "errors": 0,
+    "time": 2402500,
+    "currentRegion": "Region.GreyCloister",
+    "reason": "30 real inputs resume the cold-interrupted trip, complete both cells and enter the same monastery. No fixture state edits."
+  }
+}

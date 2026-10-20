@@ -28,3 +28,9 @@
 ## 영감
 
 - 두 상업 게임(하드코어 턴제 던전 RPG, 콜로니 시뮬레이션)의 시스템 구조만 참고했다. 고유명사·설정·에셋은 쓰지 않는다.
+
+- 수리 드론의 32×32 가동/정지 타일: [Crawl RLTiles clockwork_bee / clockwork_bee_inert](https://github.com/crawl/crawl/tree/master/crawl-ref/source/rltiles/mon/nonliving), 원본 그대로 사용. [원본 public domain 고지](https://github.com/crawl/crawl/blob/master/crawl-ref/source/rltiles/license.txt)는 `public/sprites/LICENSE-RLTiles.txt`에 보존했다. 가동 PNG SHA-256 `b3c9cc8321f1ec4e8ba31ee1bed869a8074565900c62051732b7523fb241b644`, 정지 PNG `0b5ea94ae971a31d835e60f100b98875119bb6bb816ece1812e6325c1022ccef`.
+
+- 치즈와 잿딸기의32×32 아이콘은 위와 같은 Crawl RLTiles 원본을 수정 없이 사용한다. 고정 원본 커밋·파일별 URL/SHA-256과 재현 방법은 [food-sources.json](tools/art/food-sources.json)과 [fetch-food-icons.py](tools/art/fetch-food-icons.py)에 보관했다. 나머지 임시 음식 그림은 별도 제작 범위다.
+
+나무 물 양동이 아이콘 public/tiles/water_bucket.png는2026-10-18에 OpenAI image_gen으로 생성한 새 원본이다. 원본 픽셀/투명도를 수정하지 않았다. 파일 해시/생성 명세는 tools/art/water-bucket-source.json을 따른다.

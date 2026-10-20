@@ -1,0 +1,3030 @@
+{
+  "fromVersion": "v0.76",
+  "toVersion": "v0.77",
+  "saveVersion": 41,
+  "commandsRewritten": false,
+  "originalErrorsUnchanged": true,
+  "reason": "surface 명령2 equip만100→200TU: 실제 기존 장비 탈의1턴 추가. 이후 전체 입력의 종료 시각+100TU. 대응 NPC/체온·영양/AI 난수/연출·기록·미활성 지도 시계가 실제로 진행한다. 나머지4벡터는 버전 외 동일.",
+  "traceBefore": "test-results/golden-trace-v076.json",
+  "traceAfter": "test-results/golden-trace-v077.json",
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "cc50c642",
+      "initialHash": "a3ff1d7f",
+      "fromHash": "6f0d57cf",
+      "hash": "1bd10f68",
+      "initialOnlyVersionChanged": true,
+      "errorsIdentical": true,
+      "finalOnlyVersionChanged": false,
+      "changesExcludingVersion": 577,
+      "differences": [
+        {
+          "path": ".creatures[0].bag[6].foodAgedAt",
+          "before": 21621,
+          "after": 21622
+        },
+        {
+          "path": ".creatures[0].bag[7].foodAgedAt",
+          "before": 21631,
+          "after": 21632
+        },
+        {
+          "path": ".creatures[0].movedTurn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".creatures[0].needs.fatigue",
+          "before": 20.36458333333325,
+          "after": 20.369791666666583
+        },
+        {
+          "path": ".creatures[0].needs.kcal",
+          "before": -8.54,
+          "after": -8.63
+        },
+        {
+          "path": ".creatures[0].needs.kcalRemainder",
+          "before": 0.8611111111112049,
+          "after": 0.541666666666762
+        },
+        {
+          "path": ".creatures[0].needs.thermal.turns",
+          "before": 70,
+          "after": 71
+        },
+        {
+          "path": ".creatures[0].needs.waterRemainder",
+          "before": 0.03229166666666661,
+          "after": 0.1190972222222219
+        },
+        {
+          "path": ".creatures[0].nextAct",
+          "before": 2167000,
+          "after": 2167100
+        },
+        {
+          "path": ".creatures[0].scent",
+          "before": 199,
+          "after": 203
+        },
+        {
+          "path": ".creatures[1].nextAct",
+          "before": 2167096,
+          "after": 2167196
+        },
+        {
+          "path": ".creatures[2].nextAct",
+          "before": 2167086,
+          "after": 2167186
+        },
+        {
+          "path": ".creatures[3].movedTurn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".creatures[3].needs.kcal",
+          "before": -0.49,
+          "after": -0.58
+        },
+        {
+          "path": ".creatures[3].needs.kcalRemainder",
+          "before": 0.10714285714286476,
+          "after": 0.9285714285714386
+        },
+        {
+          "path": ".creatures[3].needs.thermal.delta",
+          "before": -0.007387500000000002,
+          "after": -0.0058875
+        },
+        {
+          "path": ".creatures[3].needs.waterRemainder",
+          "before": 0.7812499999999999,
+          "after": 0.8593749999999999
+        },
+        {
+          "path": ".creatures[3].nextAct",
+          "before": 2167051,
+          "after": 2167151
+        },
+        {
+          "path": ".creatures[4].movedTurn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".creatures[4].nextAct",
+          "before": 2167015,
+          "after": 2167115
+        },
+        {
+          "path": ".creatures[5].facing",
+          "before": 1,
+          "after": 4
+        },
+        {
+          "path": ".creatures[5].movedTurn",
+          "before": 21664,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".creatures[5].needs.kcal",
+          "before": -0.42,
+          "after": -0.39
+        },
+        {
+          "path": ".creatures[5].needs.kcalRemainder",
+          "before": 0.5595238095238146,
+          "after": 0.28571428571429003
+        },
+        {
+          "path": ".creatures[5].needs.thermal.delta",
+          "before": -0.008387500000000003,
+          "after": -0.008887500000000003
+        },
+        {
+          "path": ".creatures[5].needs.waterRemainder",
+          "before": 0.7291666666666667,
+          "after": 0.703125
+        },
+        {
+          "path": ".creatures[5].nextAct",
+          "before": 2167071,
+          "after": 2167171
+        },
+        {
+          "path": ".creatures[5].pos.x",
+          "before": 39,
+          "after": 38
+        },
+        {
+          "path": ".creatures[5].pos.y",
+          "before": 20,
+          "after": 21
+        },
+        {
+          "path": ".creatures[6].ai.morale",
+          "before": 15,
+          "after": 40
+        },
+        {
+          "path": ".creatures[6].facing",
+          "before": 0,
+          "after": 3
+        },
+        {
+          "path": ".creatures[6].movedTurn",
+          "before": 21664,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".creatures[6].needs.kcal",
+          "before": -0.42,
+          "after": -0.39
+        },
+        {
+          "path": ".creatures[6].needs.kcalRemainder",
+          "before": 0.5595238095238146,
+          "after": 0.28571428571429003
+        },
+        {
+          "path": ".creatures[6].needs.thermal.delta",
+          "before": -0.008387500000000003,
+          "after": -0.008887500000000003
+        },
+        {
+          "path": ".creatures[6].needs.waterRemainder",
+          "before": 0.7291666666666667,
+          "after": 0.703125
+        },
+        {
+          "path": ".creatures[6].nextAct",
+          "before": 2167015,
+          "after": 2167115
+        },
+        {
+          "path": ".creatures[6].pos.y",
+          "before": 20,
+          "after": 21
+        },
+        {
+          "path": ".creatures[7].facing",
+          "before": 0,
+          "after": 6
+        },
+        {
+          "path": ".creatures[7].movedTurn",
+          "before": 21667,
+          "after": 21663
+        },
+        {
+          "path": ".creatures[7].needs.kcalRemainder",
+          "before": 0.5595238095238146,
+          "after": 0.5595238095238155
+        },
+        {
+          "path": ".creatures[7].needs.waterRemainder",
+          "before": 0.7291666666666666,
+          "after": 0.7291666666666667
+        },
+        {
+          "path": ".creatures[7].nextAct",
+          "before": 2167091,
+          "after": 2167191
+        },
+        {
+          "path": ".creatures[7].pos.x",
+          "before": 32,
+          "after": 31
+        },
+        {
+          "path": ".creatures[7].pos.y",
+          "before": 26,
+          "after": 27
+        },
+        {
+          "path": ".creatures[8].nextAct",
+          "before": 2167063,
+          "after": 2167163
+        },
+        {
+          "path": ".fx[0].from.x",
+          "before": 50,
+          "after": 9
+        },
+        {
+          "path": ".fx[0].from.y",
+          "before": 8,
+          "after": 38
+        },
+        {
+          "path": ".fx[0].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[0].to.x",
+          "before": 51,
+          "after": 10
+        },
+        {
+          "path": ".fx[0].to.y",
+          "before": 9,
+          "after": 37
+        },
+        {
+          "path": ".fx[0].turn",
+          "before": 21645,
+          "after": 21609
+        },
+        {
+          "path": ".fx[1].from.x",
+          "before": 51,
+          "after": 10
+        },
+        {
+          "path": ".fx[1].from.y",
+          "before": 10,
+          "after": 37
+        },
+        {
+          "path": ".fx[1].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[1].to.x",
+          "before": 50,
+          "after": 11
+        },
+        {
+          "path": ".fx[1].to.y",
+          "before": 10,
+          "after": 36
+        },
+        {
+          "path": ".fx[1].turn",
+          "before": 21645,
+          "after": 21610
+        },
+        {
+          "path": ".fx[2].from.x",
+          "before": 51,
+          "after": 11
+        },
+        {
+          "path": ".fx[2].from.y",
+          "before": 8,
+          "after": 36
+        },
+        {
+          "path": ".fx[2].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[2].to.x",
+          "before": 50,
+          "after": 12
+        },
+        {
+          "path": ".fx[2].to.y",
+          "before": 8,
+          "after": 35
+        },
+        {
+          "path": ".fx[2].turn",
+          "before": 21645,
+          "after": 21611
+        },
+        {
+          "path": ".fx[3].from",
+          "before": "ABSENT",
+          "after": {
+            "x": 55,
+            "y": 12
+          }
+        },
+        {
+          "path": ".fx[3].id",
+          "before": 1,
+          "after": 51
+        },
+        {
+          "path": ".fx[3].k",
+          "before": "xp",
+          "after": "move"
+        },
+        {
+          "path": ".fx[3].to",
+          "before": "ABSENT",
+          "after": {
+            "x": 54,
+            "y": 11
+          }
+        },
+        {
+          "path": ".fx[3].turn",
+          "before": 21646,
+          "after": 21611
+        },
+        {
+          "path": ".fx[3].v",
+          "before": 5,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[4].color",
+          "before": "ABSENT",
+          "after": "#a0a0a0"
+        },
+        {
+          "path": ".fx[4].from",
+          "before": {
+            "x": 28,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[4].k",
+          "before": "move",
+          "after": "status"
+        },
+        {
+          "path": ".fx[4].text",
+          "before": "ABSENT",
+          "after": "빈 통"
+        },
+        {
+          "path": ".fx[4].to",
+          "before": {
+            "x": 29,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[4].turn",
+          "before": 21646,
+          "after": 21613
+        },
+        {
+          "path": ".fx[5].from.x",
+          "before": 51,
+          "after": 12
+        },
+        {
+          "path": ".fx[5].from.y",
+          "before": 9,
+          "after": 35
+        },
+        {
+          "path": ".fx[5].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[5].to.x",
+          "before": 51,
+          "after": 11
+        },
+        {
+          "path": ".fx[5].to.y",
+          "before": 8,
+          "after": 34
+        },
+        {
+          "path": ".fx[5].turn",
+          "before": 21646,
+          "after": 21614
+        },
+        {
+          "path": ".fx[6].from.x",
+          "before": 50,
+          "after": 11
+        },
+        {
+          "path": ".fx[6].from.y",
+          "before": 10,
+          "after": 34
+        },
+        {
+          "path": ".fx[6].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[6].to.x",
+          "before": 51,
+          "after": 10
+        },
+        {
+          "path": ".fx[6].to.y",
+          "before": 9,
+          "after": 33
+        },
+        {
+          "path": ".fx[6].turn",
+          "before": 21646,
+          "after": 21615
+        },
+        {
+          "path": ".fx[7].from.x",
+          "before": 50,
+          "after": 10
+        },
+        {
+          "path": ".fx[7].from.y",
+          "before": 8,
+          "after": 33
+        },
+        {
+          "path": ".fx[7].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[7].to.x",
+          "before": 49,
+          "after": 11
+        },
+        {
+          "path": ".fx[7].to.y",
+          "before": 9,
+          "after": 32
+        },
+        {
+          "path": ".fx[7].turn",
+          "before": 21646,
+          "after": 21616
+        },
+        {
+          "path": ".fx[8].from.x",
+          "before": 29,
+          "after": 55
+        },
+        {
+          "path": ".fx[8].from.y",
+          "before": 8,
+          "after": 11
+        },
+        {
+          "path": ".fx[8].id",
+          "before": 1,
+          "after": 61
+        },
+        {
+          "path": ".fx[8].to.x",
+          "before": 30,
+          "after": 56
+        },
+        {
+          "path": ".fx[8].to.y",
+          "before": 7,
+          "after": 12
+        },
+        {
+          "path": ".fx[8].turn",
+          "before": 21647,
+          "after": 21616
+        },
+        {
+          "path": ".fx[9].from.x",
+          "before": 51,
+          "after": 11
+        },
+        {
+          "path": ".fx[9].from.y",
+          "before": 8,
+          "after": 32
+        },
+        {
+          "path": ".fx[9].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[9].to.x",
+          "before": 50,
+          "after": 12
+        },
+        {
+          "path": ".fx[9].to.y",
+          "before": 8,
+          "after": 31
+        },
+        {
+          "path": ".fx[9].turn",
+          "before": 21647,
+          "after": 21617
+        },
+        {
+          "path": ".fx[10].from.x",
+          "before": 51,
+          "after": 12
+        },
+        {
+          "path": ".fx[10].from.y",
+          "before": 9,
+          "after": 31
+        },
+        {
+          "path": ".fx[10].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[10].to.x",
+          "before": 51,
+          "after": 13
+        },
+        {
+          "path": ".fx[10].to.y",
+          "before": 8,
+          "after": 30
+        },
+        {
+          "path": ".fx[10].turn",
+          "before": 21647,
+          "after": 21618
+        },
+        {
+          "path": ".fx[11].from.x",
+          "before": 49,
+          "after": 13
+        },
+        {
+          "path": ".fx[11].from.y",
+          "before": 9,
+          "after": 30
+        },
+        {
+          "path": ".fx[11].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[11].to.x",
+          "before": 50,
+          "after": 14
+        },
+        {
+          "path": ".fx[11].to.y",
+          "before": 10,
+          "after": 29
+        },
+        {
+          "path": ".fx[11].turn",
+          "before": 21647,
+          "after": 21619
+        },
+        {
+          "path": ".fx[12].from.x",
+          "before": 30,
+          "after": 14
+        },
+        {
+          "path": ".fx[12].from.y",
+          "before": 7,
+          "after": 29
+        },
+        {
+          "path": ".fx[12].to.x",
+          "before": 31,
+          "after": 15
+        },
+        {
+          "path": ".fx[12].to.y",
+          "before": 6,
+          "after": 28
+        },
+        {
+          "path": ".fx[12].turn",
+          "before": 21648,
+          "after": 21620
+        },
+        {
+          "path": ".fx[13].from.x",
+          "before": 50,
+          "after": 54
+        },
+        {
+          "path": ".fx[13].from.y",
+          "before": 8,
+          "after": 9
+        },
+        {
+          "path": ".fx[13].id",
+          "before": 61,
+          "after": 32
+        },
+        {
+          "path": ".fx[13].to.x",
+          "before": 51,
+          "after": 53
+        },
+        {
+          "path": ".fx[13].to.y",
+          "before": 9,
+          "after": 8
+        },
+        {
+          "path": ".fx[13].turn",
+          "before": 21648,
+          "after": 21620
+        },
+        {
+          "path": ".fx[14].from.x",
+          "before": 51,
+          "after": 54
+        },
+        {
+          "path": ".fx[14].from.y",
+          "before": 8,
+          "after": 11
+        },
+        {
+          "path": ".fx[14].id",
+          "before": 40,
+          "after": 51
+        },
+        {
+          "path": ".fx[14].to.x",
+          "before": 50,
+          "after": 55
+        },
+        {
+          "path": ".fx[14].to.y",
+          "before": 8,
+          "after": 12
+        },
+        {
+          "path": ".fx[14].turn",
+          "before": 21648,
+          "after": 21621
+        },
+        {
+          "path": ".fx[15].color",
+          "before": "ABSENT",
+          "after": "#e0c060"
+        },
+        {
+          "path": ".fx[15].from",
+          "before": {
+            "x": 50,
+            "y": 10
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[15].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[15].k",
+          "before": "move",
+          "after": "status"
+        },
+        {
+          "path": ".fx[15].text",
+          "before": "ABSENT",
+          "after": "발견!"
+        },
+        {
+          "path": ".fx[15].to",
+          "before": {
+            "x": 51,
+            "y": 10
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[15].turn",
+          "before": 21648,
+          "after": 21622
+        },
+        {
+          "path": ".fx[16].from.x",
+          "before": 31,
+          "after": 55
+        },
+        {
+          "path": ".fx[16].from.y",
+          "before": 6,
+          "after": 12
+        },
+        {
+          "path": ".fx[16].id",
+          "before": 1,
+          "after": 51
+        },
+        {
+          "path": ".fx[16].to.x",
+          "before": 32,
+          "after": 54
+        },
+        {
+          "path": ".fx[16].to.y",
+          "before": 5,
+          "after": 13
+        },
+        {
+          "path": ".fx[16].turn",
+          "before": 21649,
+          "after": 21622
+        },
+        {
+          "path": ".fx[17].from.x",
+          "before": 51,
+          "after": 15
+        },
+        {
+          "path": ".fx[17].from.y",
+          "before": 9,
+          "after": 28
+        },
+        {
+          "path": ".fx[17].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[17].to.x",
+          "before": 51,
+          "after": 16
+        },
+        {
+          "path": ".fx[17].to.y",
+          "before": 8,
+          "after": 28
+        },
+        {
+          "path": ".fx[17].turn",
+          "before": 21649,
+          "after": 21623
+        },
+        {
+          "path": ".fx[18].from.x",
+          "before": 50,
+          "after": 16
+        },
+        {
+          "path": ".fx[18].from.y",
+          "before": 8,
+          "after": 28
+        },
+        {
+          "path": ".fx[18].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[18].to.x",
+          "before": 51,
+          "after": 17
+        },
+        {
+          "path": ".fx[18].to.y",
+          "before": 9,
+          "after": 27
+        },
+        {
+          "path": ".fx[18].turn",
+          "before": 21649,
+          "after": 21624
+        },
+        {
+          "path": ".fx[19].from.x",
+          "before": 51,
+          "after": 54
+        },
+        {
+          "path": ".fx[19].from.y",
+          "before": 10,
+          "after": 13
+        },
+        {
+          "path": ".fx[19].to.x",
+          "before": 50,
+          "after": 53
+        },
+        {
+          "path": ".fx[19].to.y",
+          "before": 10,
+          "after": 14
+        },
+        {
+          "path": ".fx[19].turn",
+          "before": 21649,
+          "after": 21624
+        },
+        {
+          "path": ".fx[20].from.x",
+          "before": 32,
+          "after": 17
+        },
+        {
+          "path": ".fx[20].from.y",
+          "before": 5,
+          "after": 27
+        },
+        {
+          "path": ".fx[20].to.x",
+          "before": 33,
+          "after": 18
+        },
+        {
+          "path": ".fx[20].to.y",
+          "before": 4,
+          "after": 26
+        },
+        {
+          "path": ".fx[20].turn",
+          "before": 21650,
+          "after": 21625
+        },
+        {
+          "path": ".fx[21].from.x",
+          "before": 51,
+          "after": 18
+        },
+        {
+          "path": ".fx[21].from.y",
+          "before": 8,
+          "after": 26
+        },
+        {
+          "path": ".fx[21].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[21].to.x",
+          "before": 50,
+          "after": 19
+        },
+        {
+          "path": ".fx[21].to.y",
+          "before": 8,
+          "after": 25
+        },
+        {
+          "path": ".fx[21].turn",
+          "before": 21650,
+          "after": 21626
+        },
+        {
+          "path": ".fx[22].from.x",
+          "before": 51,
+          "after": 19
+        },
+        {
+          "path": ".fx[22].from.y",
+          "before": 9,
+          "after": 25
+        },
+        {
+          "path": ".fx[22].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[22].to.x",
+          "before": 51,
+          "after": 20
+        },
+        {
+          "path": ".fx[22].to.y",
+          "before": 8,
+          "after": 24
+        },
+        {
+          "path": ".fx[22].turn",
+          "before": 21650,
+          "after": 21627
+        },
+        {
+          "path": ".fx[23].from.x",
+          "before": 50,
+          "after": 20
+        },
+        {
+          "path": ".fx[23].from.y",
+          "before": 10,
+          "after": 24
+        },
+        {
+          "path": ".fx[23].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[23].to.x",
+          "before": 51,
+          "after": 21
+        },
+        {
+          "path": ".fx[23].to.y",
+          "before": 9,
+          "after": 23
+        },
+        {
+          "path": ".fx[23].turn",
+          "before": 21650,
+          "after": 21628
+        },
+        {
+          "path": ".fx[24].from.x",
+          "before": 33,
+          "after": 21
+        },
+        {
+          "path": ".fx[24].from.y",
+          "before": 4,
+          "after": 23
+        },
+        {
+          "path": ".fx[24].to.x",
+          "before": 34,
+          "after": 22
+        },
+        {
+          "path": ".fx[24].to.y",
+          "before": 5,
+          "after": 22
+        },
+        {
+          "path": ".fx[24].turn",
+          "before": 21651,
+          "after": 21629
+        },
+        {
+          "path": ".fx[25].from.x",
+          "before": 50,
+          "after": 22
+        },
+        {
+          "path": ".fx[25].from.y",
+          "before": 8,
+          "after": 22
+        },
+        {
+          "path": ".fx[25].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[25].to.x",
+          "before": 49,
+          "after": 23
+        },
+        {
+          "path": ".fx[25].to.y",
+          "before": 9,
+          "after": 21
+        },
+        {
+          "path": ".fx[25].turn",
+          "before": 21651,
+          "after": 21630
+        },
+        {
+          "path": ".fx[26].color",
+          "before": "ABSENT",
+          "after": "#e0c060"
+        },
+        {
+          "path": ".fx[26].from",
+          "before": {
+            "x": 51,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[26].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[26].k",
+          "before": "move",
+          "after": "status"
+        },
+        {
+          "path": ".fx[26].text",
+          "before": "ABSENT",
+          "after": "발견!"
+        },
+        {
+          "path": ".fx[26].to",
+          "before": {
+            "x": 50,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[26].turn",
+          "before": 21651,
+          "after": 21632
+        },
+        {
+          "path": ".fx[27].from.x",
+          "before": 51,
+          "after": 23
+        },
+        {
+          "path": ".fx[27].from.y",
+          "before": 9,
+          "after": 21
+        },
+        {
+          "path": ".fx[27].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[27].to.x",
+          "before": 51,
+          "after": 22
+        },
+        {
+          "path": ".fx[27].to.y",
+          "before": 8,
+          "after": 20
+        },
+        {
+          "path": ".fx[27].turn",
+          "before": 21651,
+          "after": 21633
+        },
+        {
+          "path": ".fx[28].from.x",
+          "before": 34,
+          "after": 53
+        },
+        {
+          "path": ".fx[28].from.y",
+          "before": 5,
+          "after": 8
+        },
+        {
+          "path": ".fx[28].id",
+          "before": 1,
+          "after": 32
+        },
+        {
+          "path": ".fx[28].to.x",
+          "before": 35,
+          "after": 54
+        },
+        {
+          "path": ".fx[28].to.y",
+          "before": 6,
+          "after": 8
+        },
+        {
+          "path": ".fx[28].turn",
+          "before": 21652,
+          "after": 21633
+        },
+        {
+          "path": ".fx[29].from.x",
+          "before": 49,
+          "after": 22
+        },
+        {
+          "path": ".fx[29].from.y",
+          "before": 9,
+          "after": 20
+        },
+        {
+          "path": ".fx[29].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[29].to.x",
+          "before": 50,
+          "after": 21
+        },
+        {
+          "path": ".fx[29].to.y",
+          "before": 10,
+          "after": 19
+        },
+        {
+          "path": ".fx[29].turn",
+          "before": 21652,
+          "after": 21634
+        },
+        {
+          "path": ".fx[30].from.x",
+          "before": 50,
+          "after": 21
+        },
+        {
+          "path": ".fx[30].from.y",
+          "before": 8,
+          "after": 19
+        },
+        {
+          "path": ".fx[30].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[30].to.x",
+          "before": 51,
+          "after": 22
+        },
+        {
+          "path": ".fx[30].to.y",
+          "before": 9,
+          "after": 18
+        },
+        {
+          "path": ".fx[30].turn",
+          "before": 21652,
+          "after": 21635
+        },
+        {
+          "path": ".fx[31].from.x",
+          "before": 51,
+          "after": 22
+        },
+        {
+          "path": ".fx[31].from.y",
+          "before": 8,
+          "after": 18
+        },
+        {
+          "path": ".fx[31].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[31].to.x",
+          "before": 50,
+          "after": 23
+        },
+        {
+          "path": ".fx[31].to.y",
+          "before": 8,
+          "after": 17
+        },
+        {
+          "path": ".fx[31].turn",
+          "before": 21652,
+          "after": 21636
+        },
+        {
+          "path": ".fx[32].from.x",
+          "before": 35,
+          "after": 23
+        },
+        {
+          "path": ".fx[32].from.y",
+          "before": 6,
+          "after": 17
+        },
+        {
+          "path": ".fx[32].to.x",
+          "before": 36,
+          "after": 24
+        },
+        {
+          "path": ".fx[32].to.y",
+          "before": 7,
+          "after": 16
+        },
+        {
+          "path": ".fx[32].turn",
+          "before": 21653,
+          "after": 21637
+        },
+        {
+          "path": ".fx[33].from.x",
+          "before": 50,
+          "after": 24
+        },
+        {
+          "path": ".fx[33].from.y",
+          "before": 10,
+          "after": 16
+        },
+        {
+          "path": ".fx[33].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[33].to.x",
+          "before": 51,
+          "after": 25
+        },
+        {
+          "path": ".fx[33].to.y",
+          "before": 10,
+          "after": 15
+        },
+        {
+          "path": ".fx[33].turn",
+          "before": 21653,
+          "after": 21638
+        },
+        {
+          "path": ".fx[34].from.x",
+          "before": 51,
+          "after": 25
+        },
+        {
+          "path": ".fx[34].from.y",
+          "before": 9,
+          "after": 15
+        },
+        {
+          "path": ".fx[34].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[34].to.x",
+          "before": 51,
+          "after": 26
+        },
+        {
+          "path": ".fx[34].to.y",
+          "before": 8,
+          "after": 14
+        },
+        {
+          "path": ".fx[34].turn",
+          "before": 21653,
+          "after": 21639
+        },
+        {
+          "path": ".fx[35].from.x",
+          "before": 50,
+          "after": 54
+        },
+        {
+          "path": ".fx[35].id",
+          "before": 51,
+          "after": 32
+        },
+        {
+          "path": ".fx[35].to.x",
+          "before": 51,
+          "after": 55
+        },
+        {
+          "path": ".fx[35].to.y",
+          "before": 9,
+          "after": 8
+        },
+        {
+          "path": ".fx[35].turn",
+          "before": 21653,
+          "after": 21639
+        },
+        {
+          "path": ".fx[36].from.x",
+          "before": 36,
+          "after": 26
+        },
+        {
+          "path": ".fx[36].from.y",
+          "before": 7,
+          "after": 14
+        },
+        {
+          "path": ".fx[36].to.x",
+          "before": 37,
+          "after": 25
+        },
+        {
+          "path": ".fx[36].to.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[36].turn",
+          "before": 21654,
+          "after": 21640
+        },
+        {
+          "path": ".fx[37].from.x",
+          "before": 51,
+          "after": 25
+        },
+        {
+          "path": ".fx[37].from.y",
+          "before": 10,
+          "after": 13
+        },
+        {
+          "path": ".fx[37].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[37].to.x",
+          "before": 50,
+          "after": 24
+        },
+        {
+          "path": ".fx[37].to.y",
+          "before": 10,
+          "after": 12
+        },
+        {
+          "path": ".fx[37].turn",
+          "before": 21654,
+          "after": 21641
+        },
+        {
+          "path": ".fx[38].from.x",
+          "before": 51,
+          "after": 24
+        },
+        {
+          "path": ".fx[38].from.y",
+          "before": 8,
+          "after": 12
+        },
+        {
+          "path": ".fx[38].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[38].to.x",
+          "before": 50,
+          "after": 25
+        },
+        {
+          "path": ".fx[38].to.y",
+          "before": 8,
+          "after": 11
+        },
+        {
+          "path": ".fx[38].turn",
+          "before": 21654,
+          "after": 21642
+        },
+        {
+          "path": ".fx[39].from.x",
+          "before": 51,
+          "after": 25
+        },
+        {
+          "path": ".fx[39].from.y",
+          "before": 9,
+          "after": 11
+        },
+        {
+          "path": ".fx[39].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[39].to.x",
+          "before": 51,
+          "after": 26
+        },
+        {
+          "path": ".fx[39].to.y",
+          "before": 8,
+          "after": 10
+        },
+        {
+          "path": ".fx[39].turn",
+          "before": 21654,
+          "after": 21643
+        },
+        {
+          "path": ".fx[40].color",
+          "before": "#e0c060",
+          "after": "#a0a0a0"
+        },
+        {
+          "path": ".fx[40].text",
+          "before": "발견!",
+          "after": "빈 통"
+        },
+        {
+          "path": ".fx[40].turn",
+          "before": 21655,
+          "after": 21644
+        },
+        {
+          "path": ".fx[41].from.x",
+          "before": 50,
+          "after": 26
+        },
+        {
+          "path": ".fx[41].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[41].to.x",
+          "before": 51,
+          "after": 27
+        },
+        {
+          "path": ".fx[41].turn",
+          "before": 21655,
+          "after": 21645
+        },
+        {
+          "path": ".fx[42].from.x",
+          "before": 50,
+          "after": 27
+        },
+        {
+          "path": ".fx[42].from.y",
+          "before": 8,
+          "after": 9
+        },
+        {
+          "path": ".fx[42].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[42].to.x",
+          "before": 49,
+          "after": 28
+        },
+        {
+          "path": ".fx[42].to.y",
+          "before": 9,
+          "after": 8
+        },
+        {
+          "path": ".fx[42].turn",
+          "before": 21655,
+          "after": 21646
+        },
+        {
+          "path": ".fx[43].from",
+          "before": {
+            "x": 51,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[43].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[43].k",
+          "before": "move",
+          "after": "xp"
+        },
+        {
+          "path": ".fx[43].to",
+          "before": {
+            "x": 50,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[43].turn",
+          "before": 21655,
+          "after": 21647
+        },
+        {
+          "path": ".fx[43].v",
+          "before": "ABSENT",
+          "after": 5
+        },
+        {
+          "path": ".fx[44].from.x",
+          "before": 37,
+          "after": 28
+        },
+        {
+          "path": ".fx[44].to.x",
+          "before": 36,
+          "after": 29
+        },
+        {
+          "path": ".fx[44].to.y",
+          "before": 7,
+          "after": 8
+        },
+        {
+          "path": ".fx[44].turn",
+          "before": 21656,
+          "after": 21647
+        },
+        {
+          "path": ".fx[45].from.x",
+          "before": 51,
+          "after": 53
+        },
+        {
+          "path": ".fx[45].from.y",
+          "before": 9,
+          "after": 14
+        },
+        {
+          "path": ".fx[45].id",
+          "before": 61,
+          "after": 51
+        },
+        {
+          "path": ".fx[45].to.x",
+          "before": 51,
+          "after": 52
+        },
+        {
+          "path": ".fx[45].to.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[45].turn",
+          "before": 21656,
+          "after": 21647
+        },
+        {
+          "path": ".fx[46].from.x",
+          "before": 49,
+          "after": 29
+        },
+        {
+          "path": ".fx[46].from.y",
+          "before": 9,
+          "after": 8
+        },
+        {
+          "path": ".fx[46].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[46].to.x",
+          "before": 50,
+          "after": 30
+        },
+        {
+          "path": ".fx[46].to.y",
+          "before": 10,
+          "after": 7
+        },
+        {
+          "path": ".fx[46].turn",
+          "before": 21656,
+          "after": 21648
+        },
+        {
+          "path": ".fx[47].from.x",
+          "before": 50,
+          "after": 30
+        },
+        {
+          "path": ".fx[47].from.y",
+          "before": 8,
+          "after": 7
+        },
+        {
+          "path": ".fx[47].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[47].to.x",
+          "before": 51,
+          "after": 31
+        },
+        {
+          "path": ".fx[47].to.y",
+          "before": 9,
+          "after": 6
+        },
+        {
+          "path": ".fx[47].turn",
+          "before": 21656,
+          "after": 21649
+        },
+        {
+          "path": ".fx[48].from.x",
+          "before": 36,
+          "after": 31
+        },
+        {
+          "path": ".fx[48].from.y",
+          "before": 7,
+          "after": 6
+        },
+        {
+          "path": ".fx[48].to.x",
+          "before": 35,
+          "after": 32
+        },
+        {
+          "path": ".fx[48].to.y",
+          "before": 6,
+          "after": 5
+        },
+        {
+          "path": ".fx[48].turn",
+          "before": 21657,
+          "after": 21650
+        },
+        {
+          "path": ".fx[49].from.x",
+          "before": 51,
+          "after": 52
+        },
+        {
+          "path": ".fx[49].from.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[49].id",
+          "before": 61,
+          "after": 51
+        },
+        {
+          "path": ".fx[49].to.x",
+          "before": 50,
+          "after": 53
+        },
+        {
+          "path": ".fx[49].to.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[49].turn",
+          "before": 21657,
+          "after": 21650
+        },
+        {
+          "path": ".fx[50].from.x",
+          "before": 50,
+          "after": 32
+        },
+        {
+          "path": ".fx[50].from.y",
+          "before": 10,
+          "after": 5
+        },
+        {
+          "path": ".fx[50].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[50].to.x",
+          "before": 51,
+          "after": 33
+        },
+        {
+          "path": ".fx[50].to.y",
+          "before": 10,
+          "after": 4
+        },
+        {
+          "path": ".fx[50].turn",
+          "before": 21657,
+          "after": 21651
+        },
+        {
+          "path": ".fx[51].from.x",
+          "before": 51,
+          "after": 33
+        },
+        {
+          "path": ".fx[51].from.y",
+          "before": 9,
+          "after": 4
+        },
+        {
+          "path": ".fx[51].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[51].to.x",
+          "before": 51,
+          "after": 34
+        },
+        {
+          "path": ".fx[51].to.y",
+          "before": 8,
+          "after": 5
+        },
+        {
+          "path": ".fx[51].turn",
+          "before": 21657,
+          "after": 21652
+        },
+        {
+          "path": ".fx[52].from.x",
+          "before": 35,
+          "after": 56
+        },
+        {
+          "path": ".fx[52].from.y",
+          "before": 6,
+          "after": 12
+        },
+        {
+          "path": ".fx[52].id",
+          "before": 1,
+          "after": 61
+        },
+        {
+          "path": ".fx[52].to.x",
+          "before": 34,
+          "after": 56
+        },
+        {
+          "path": ".fx[52].to.y",
+          "before": 5,
+          "after": 13
+        },
+        {
+          "path": ".fx[52].turn",
+          "before": 21658,
+          "after": 21652
+        },
+        {
+          "path": ".fx[53].from.x",
+          "before": 50,
+          "after": 34
+        },
+        {
+          "path": ".fx[53].from.y",
+          "before": 8,
+          "after": 5
+        },
+        {
+          "path": ".fx[53].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[53].to.x",
+          "before": 51,
+          "after": 35
+        },
+        {
+          "path": ".fx[53].to.y",
+          "before": 9,
+          "after": 6
+        },
+        {
+          "path": ".fx[53].turn",
+          "before": 21658,
+          "after": 21653
+        },
+        {
+          "path": ".fx[54].from.x",
+          "before": 51,
+          "after": 35
+        },
+        {
+          "path": ".fx[54].from.y",
+          "before": 10,
+          "after": 6
+        },
+        {
+          "path": ".fx[54].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[54].to.x",
+          "before": 50,
+          "after": 36
+        },
+        {
+          "path": ".fx[54].to.y",
+          "before": 10,
+          "after": 7
+        },
+        {
+          "path": ".fx[54].turn",
+          "before": 21658,
+          "after": 21654
+        },
+        {
+          "path": ".fx[55].from.x",
+          "before": 51,
+          "after": 53
+        },
+        {
+          "path": ".fx[55].from.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[55].to.x",
+          "before": 50,
+          "after": 54
+        },
+        {
+          "path": ".fx[55].to.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".fx[55].turn",
+          "before": 21658,
+          "after": 21654
+        },
+        {
+          "path": ".fx[56].from.x",
+          "before": 34,
+          "after": 36
+        },
+        {
+          "path": ".fx[56].from.y",
+          "before": 5,
+          "after": 7
+        },
+        {
+          "path": ".fx[56].to.x",
+          "before": 33,
+          "after": 37
+        },
+        {
+          "path": ".fx[56].to.y",
+          "before": 4,
+          "after": 8
+        },
+        {
+          "path": ".fx[56].turn",
+          "before": 21659,
+          "after": 21655
+        },
+        {
+          "path": ".fx[57].color",
+          "before": "ABSENT",
+          "after": "#e0c060"
+        },
+        {
+          "path": ".fx[57].from",
+          "before": {
+            "x": 51,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[57].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[57].k",
+          "before": "move",
+          "after": "status"
+        },
+        {
+          "path": ".fx[57].text",
+          "before": "ABSENT",
+          "after": "발견!"
+        },
+        {
+          "path": ".fx[57].to",
+          "before": {
+            "x": 51,
+            "y": 8
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[57].turn",
+          "before": 21659,
+          "after": 21656
+        },
+        {
+          "path": ".fx[58].from.x",
+          "before": 50,
+          "after": 37
+        },
+        {
+          "path": ".fx[58].from.y",
+          "before": 10,
+          "after": 8
+        },
+        {
+          "path": ".fx[58].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[58].to.x",
+          "before": 51,
+          "after": 36
+        },
+        {
+          "path": ".fx[58].to.y",
+          "before": 9,
+          "after": 7
+        },
+        {
+          "path": ".fx[58].turn",
+          "before": 21659,
+          "after": 21657
+        },
+        {
+          "path": ".fx[59].from.x",
+          "before": 50,
+          "after": 36
+        },
+        {
+          "path": ".fx[59].from.y",
+          "before": 8,
+          "after": 7
+        },
+        {
+          "path": ".fx[59].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[59].to.x",
+          "before": 49,
+          "after": 35
+        },
+        {
+          "path": ".fx[59].to.y",
+          "before": 9,
+          "after": 6
+        },
+        {
+          "path": ".fx[59].turn",
+          "before": 21659,
+          "after": 21658
+        },
+        {
+          "path": ".fx[60].from.x",
+          "before": 33,
+          "after": 35
+        },
+        {
+          "path": ".fx[60].from.y",
+          "before": 4,
+          "after": 6
+        },
+        {
+          "path": ".fx[60].to.x",
+          "before": 32,
+          "after": 34
+        },
+        {
+          "path": ".fx[60].turn",
+          "before": 21660,
+          "after": 21659
+        },
+        {
+          "path": ".fx[61].from.x",
+          "before": 51,
+          "after": 34
+        },
+        {
+          "path": ".fx[61].from.y",
+          "before": 8,
+          "after": 5
+        },
+        {
+          "path": ".fx[61].id",
+          "before": 61,
+          "after": 1
+        },
+        {
+          "path": ".fx[61].to.x",
+          "before": 50,
+          "after": 33
+        },
+        {
+          "path": ".fx[61].to.y",
+          "before": 8,
+          "after": 4
+        },
+        {
+          "path": ".fx[62].from.x",
+          "before": 51,
+          "after": 33
+        },
+        {
+          "path": ".fx[62].from.y",
+          "before": 9,
+          "after": 4
+        },
+        {
+          "path": ".fx[62].id",
+          "before": 40,
+          "after": 1
+        },
+        {
+          "path": ".fx[62].to.x",
+          "before": 51,
+          "after": 32
+        },
+        {
+          "path": ".fx[62].to.y",
+          "before": 8,
+          "after": 5
+        },
+        {
+          "path": ".fx[62].turn",
+          "before": 21660,
+          "after": 21661
+        },
+        {
+          "path": ".fx[63].from",
+          "before": {
+            "x": 49,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[63].id",
+          "before": 51,
+          "after": 1
+        },
+        {
+          "path": ".fx[63].k",
+          "before": "move",
+          "after": "xp"
+        },
+        {
+          "path": ".fx[63].to",
+          "before": {
+            "x": 50,
+            "y": 10
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[63].turn",
+          "before": 21660,
+          "after": 21662
+        },
+        {
+          "path": ".fx[63].v",
+          "before": "ABSENT",
+          "after": 25
+        },
+        {
+          "path": ".fx[64].from",
+          "before": "ABSENT",
+          "after": {
+            "x": 16,
+            "y": 20
+          }
+        },
+        {
+          "path": ".fx[64].id",
+          "before": 1,
+          "after": 74
+        },
+        {
+          "path": ".fx[64].k",
+          "before": "xp",
+          "after": "move"
+        },
+        {
+          "path": ".fx[64].to",
+          "before": "ABSENT",
+          "after": {
+            "x": 16,
+            "y": 19
+          }
+        },
+        {
+          "path": ".fx[64].turn",
+          "before": 21661,
+          "after": 21662
+        },
+        {
+          "path": ".fx[64].v",
+          "before": 25,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[65].from.x",
+          "before": 5,
+          "after": 32
+        },
+        {
+          "path": ".fx[65].from.y",
+          "before": 29,
+          "after": 27
+        },
+        {
+          "path": ".fx[65].id",
+          "before": 1,
+          "after": 89
+        },
+        {
+          "path": ".fx[65].to.x",
+          "before": 4,
+          "after": 31
+        },
+        {
+          "path": ".fx[65].to.y",
+          "before": 28,
+          "after": 27
+        },
+        {
+          "path": ".fx[66].from",
+          "before": "ABSENT",
+          "after": {
+            "x": 5,
+            "y": 29
+          }
+        },
+        {
+          "path": ".fx[66].k",
+          "before": "xp",
+          "after": "move"
+        },
+        {
+          "path": ".fx[66].to",
+          "before": "ABSENT",
+          "after": {
+            "x": 4,
+            "y": 28
+          }
+        },
+        {
+          "path": ".fx[66].v",
+          "before": 5,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[67].from.x",
+          "before": 37,
+          "after": 16
+        },
+        {
+          "path": ".fx[67].from.y",
+          "before": 21,
+          "after": 19
+        },
+        {
+          "path": ".fx[67].id",
+          "before": 86,
+          "after": 74
+        },
+        {
+          "path": ".fx[67].to.x",
+          "before": 37,
+          "after": 15
+        },
+        {
+          "path": ".fx[67].to.y",
+          "before": 20,
+          "after": 18
+        },
+        {
+          "path": ".fx[68].from",
+          "before": {
+            "x": 38,
+            "y": 21
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[68].id",
+          "before": 82,
+          "after": 1
+        },
+        {
+          "path": ".fx[68].k",
+          "before": "move",
+          "after": "xp"
+        },
+        {
+          "path": ".fx[68].to",
+          "before": {
+            "x": 39,
+            "y": 20
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".fx[68].turn",
+          "before": 21664,
+          "after": 21665
+        },
+        {
+          "path": ".fx[68].v",
+          "before": "ABSENT",
+          "after": 5
+        },
+        {
+          "path": ".fx[69].turn",
+          "before": 21665,
+          "after": 21666
+        },
+        {
+          "path": ".fx[70].from.x",
+          "before": 4,
+          "after": 15
+        },
+        {
+          "path": ".fx[70].from.y",
+          "before": 28,
+          "after": 18
+        },
+        {
+          "path": ".fx[70].id",
+          "before": 1,
+          "after": 74
+        },
+        {
+          "path": ".fx[70].to.x",
+          "before": 5,
+          "after": 16
+        },
+        {
+          "path": ".fx[70].to.y",
+          "before": 28,
+          "after": 17
+        },
+        {
+          "path": ".fx[71].from.x",
+          "before": 15,
+          "after": 4
+        },
+        {
+          "path": ".fx[71].from.y",
+          "before": 17,
+          "after": 28
+        },
+        {
+          "path": ".fx[71].id",
+          "before": 78,
+          "after": 1
+        },
+        {
+          "path": ".fx[71].to.x",
+          "before": 14,
+          "after": 5
+        },
+        {
+          "path": ".fx[71].to.y",
+          "before": 18,
+          "after": 28
+        },
+        {
+          "path": ".fx[72].from.x",
+          "before": 16,
+          "after": 15
+        },
+        {
+          "path": ".fx[72].from.y",
+          "before": 20,
+          "after": 17
+        },
+        {
+          "path": ".fx[72].id",
+          "before": 74,
+          "after": 78
+        },
+        {
+          "path": ".fx[72].to.x",
+          "before": 15,
+          "after": 14
+        },
+        {
+          "path": ".fx[72].to.y",
+          "before": 19,
+          "after": 18
+        },
+        {
+          "path": ".fx[72].turn",
+          "before": 21667,
+          "after": 21668
+        },
+        {
+          "path": ".fx[73].from.x",
+          "before": 32,
+          "after": 16
+        },
+        {
+          "path": ".fx[73].from.y",
+          "before": 27,
+          "after": 17
+        },
+        {
+          "path": ".fx[73].id",
+          "before": 89,
+          "after": 74
+        },
+        {
+          "path": ".fx[73].to.x",
+          "before": 32,
+          "after": 15
+        },
+        {
+          "path": ".fx[73].to.y",
+          "before": 26,
+          "after": 18
+        },
+        {
+          "path": ".fx[73].turn",
+          "before": 21667,
+          "after": 21668
+        },
+        {
+          "path": ".fx[74].turn",
+          "before": 21668,
+          "after": 21669
+        },
+        {
+          "path": ".fx[75].turn",
+          "before": 21668,
+          "after": 21669
+        },
+        {
+          "path": ".fx[76].from.y",
+          "before": 19,
+          "after": 18
+        },
+        {
+          "path": ".fx[76].turn",
+          "before": 21668,
+          "after": 21669
+        },
+        {
+          "path": ".fx[77].turn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".fx[78].turn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".fx[79].turn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".log[5].text",
+          "before": "사냥칼을 들었다.",
+          "after": "기존 장비를 벗은 뒤 새 장비로 갈아입었다. 벗은 물품을 곁에서 배낭으로 챙겼다."
+        },
+        {
+          "path": ".log[5].turn",
+          "before": 21600,
+          "after": 21601
+        },
+        {
+          "path": ".log[6].turn",
+          "before": 21601,
+          "after": 21602
+        },
+        {
+          "path": ".log[7].turn",
+          "before": 21612,
+          "after": 21613
+        },
+        {
+          "path": ".log[8].turn",
+          "before": 21621,
+          "after": 21622
+        },
+        {
+          "path": ".log[9].turn",
+          "before": 21631,
+          "after": 21632
+        },
+        {
+          "path": ".log[10].turn",
+          "before": 21643,
+          "after": 21644
+        },
+        {
+          "path": ".log[11].turn",
+          "before": 21646,
+          "after": 21647
+        },
+        {
+          "path": ".log[12].turn",
+          "before": 21649,
+          "after": 21650
+        },
+        {
+          "path": ".log[13].turn",
+          "before": 21655,
+          "after": 21656
+        },
+        {
+          "path": ".log[14].turn",
+          "before": 21660,
+          "after": 21661
+        },
+        {
+          "path": ".log[15].turn",
+          "before": 21661,
+          "after": 21662
+        },
+        {
+          "path": ".log[16].turn",
+          "before": 21662,
+          "after": 21663
+        },
+        {
+          "path": ".log[17].turn",
+          "before": 21664,
+          "after": 21665
+        },
+        {
+          "path": ".log[18].turn",
+          "before": 21665,
+          "after": 21666
+        },
+        {
+          "path": ".log[19].turn",
+          "before": 21667,
+          "after": 21668
+        },
+        {
+          "path": ".maps.surface.leftAt",
+          "before": 21661,
+          "after": 21662
+        },
+        {
+          "path": ".maps.surface.tiles[1304].regrowAt",
+          "before": 79231,
+          "after": 79232
+        },
+        {
+          "path": ".maps.surface.tiles[1744].regrowAt",
+          "before": 79221,
+          "after": 79222
+        },
+        {
+          "path": ".noiseEvents[0].turn",
+          "before": 21669,
+          "after": 21670
+        },
+        {
+          "path": ".offCreatures.surface[0].ai.path",
+          "before": [],
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[0].facing",
+          "before": 5,
+          "after": 2
+        },
+        {
+          "path": ".offCreatures.surface[0].movedTurn",
+          "before": 21626,
+          "after": 21639
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.fatigue",
+          "before": 20.31770833333326,
+          "after": 20.322916666666593
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.kcal",
+          "before": -5.16,
+          "after": -5.08
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.kcalRemainder",
+          "before": 0.041666666666753116,
+          "after": 0.3333333333334192
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.thermal.delta",
+          "before": -0.03747500000000002,
+          "after": -0.013965000000000003
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[0].needs.waterRemainder",
+          "before": 0.947916666666667,
+          "after": 0.9739583333333333
+        },
+        {
+          "path": ".offCreatures.surface[0].nextAct",
+          "before": 2166170,
+          "after": 2166270
+        },
+        {
+          "path": ".offCreatures.surface[0].pos.x",
+          "before": 50,
+          "after": 55
+        },
+        {
+          "path": ".offCreatures.surface[0].pos.y",
+          "before": 9,
+          "after": 8
+        },
+        {
+          "path": ".offCreatures.surface[1].ai.dest",
+          "before": {
+            "x": 50,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[1].ai.mode",
+          "before": "investigate",
+          "after": "guard"
+        },
+        {
+          "path": ".offCreatures.surface[1].equip.main.bowMoisture",
+          "before": 0,
+          "after": 0.051666666666666604
+        },
+        {
+          "path": ".offCreatures.surface[1].facing",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "path": ".offCreatures.surface[1].movedTurn",
+          "before": 21660,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.fatigue",
+          "before": 20.31770833333326,
+          "after": 20.322916666666593
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.kcal",
+          "before": -6.53,
+          "after": -4.73
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.kcalRemainder",
+          "before": 0.6458333333334085,
+          "after": 0.611111111111196
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.thermal.delta",
+          "before": -0.033532499999999986,
+          "after": -0.07641499999999993
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.waterDeficit",
+          "before": 5,
+          "after": 4
+        },
+        {
+          "path": ".offCreatures.surface[1].needs.waterRemainder",
+          "before": 0.7291666666666666,
+          "after": 0.84375
+        },
+        {
+          "path": ".offCreatures.surface[1].nextAct",
+          "before": 2166194,
+          "after": 2166294
+        },
+        {
+          "path": ".offCreatures.surface[1].pos.x",
+          "before": 51,
+          "after": 58
+        },
+        {
+          "path": ".offCreatures.surface[1].pos.y",
+          "before": 8,
+          "after": 7
+        },
+        {
+          "path": ".offCreatures.surface[2].ai.alertTurn",
+          "before": 21624,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[2].ai.dest",
+          "before": {
+            "x": 50,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[2].asleep",
+          "before": false,
+          "after": true
+        },
+        {
+          "path": ".offCreatures.surface[2].drowsyUntil",
+          "before": 21634,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[2].facing",
+          "before": 0,
+          "after": 4
+        },
+        {
+          "path": ".offCreatures.surface[2].movedTurn",
+          "before": 21632,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.fatigue",
+          "before": 20.105208333333284,
+          "after": 19.77395833333332
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.kcal",
+          "before": -4.82,
+          "after": -3.55
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.kcalRemainder",
+          "before": 0.9861111111111844,
+          "after": 0.2083333333333517
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.thermal.delta",
+          "before": -0.04201000000000004,
+          "after": -0.03379
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[2].needs.waterRemainder",
+          "before": 0.7656249999999996,
+          "after": 0.305555555555555
+        },
+        {
+          "path": ".offCreatures.surface[2].nextAct",
+          "before": 2166106,
+          "after": 2166206
+        },
+        {
+          "path": ".offCreatures.surface[2].pos.x",
+          "before": 49,
+          "after": 51
+        },
+        {
+          "path": ".offCreatures.surface[2].pos.y",
+          "before": 8,
+          "after": 11
+        },
+        {
+          "path": ".offCreatures.surface[3].ai.dest",
+          "before": {
+            "x": 50,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[3].ai.mode",
+          "before": "investigate",
+          "after": "guard"
+        },
+        {
+          "path": ".offCreatures.surface[3].facing",
+          "before": 3,
+          "after": 2
+        },
+        {
+          "path": ".offCreatures.surface[3].movedTurn",
+          "before": 21660,
+          "after": 21654
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.fatigue",
+          "before": 20.31770833333326,
+          "after": 20.322916666666593
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.kcal",
+          "before": -6.32,
+          "after": -4.91
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.kcalRemainder",
+          "before": 0.6388888888889248,
+          "after": 0.31944444444449793
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.thermal.delta",
+          "before": -0.00026999999999999995,
+          "after": -0.009449999999999998
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[3].needs.waterRemainder",
+          "before": 0.8072916666666662,
+          "after": 0.02604166666666652
+        },
+        {
+          "path": ".offCreatures.surface[3].nextAct",
+          "before": 2166195,
+          "after": 2166295
+        },
+        {
+          "path": ".offCreatures.surface[3].pos.x",
+          "before": 50,
+          "after": 54
+        },
+        {
+          "path": ".offCreatures.surface[3].pos.y",
+          "before": 10,
+          "after": 13
+        },
+        {
+          "path": ".offCreatures.surface[4].ai.alertTurn",
+          "before": 21624,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[4].ai.path",
+          "before": [],
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[4].asleep",
+          "before": false,
+          "after": true
+        },
+        {
+          "path": ".offCreatures.surface[4].drowsyUntil",
+          "before": 21634,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[4].facing",
+          "before": 2,
+          "after": 6
+        },
+        {
+          "path": ".offCreatures.surface[4].movedTurn",
+          "before": 21637,
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.fatigue",
+          "before": 20.105208333333284,
+          "after": 19.77395833333332
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.kcal",
+          "before": -4.44,
+          "after": -3.55
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.kcalRemainder",
+          "before": 0.3402777777778372,
+          "after": 0.2083333333333517
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.thermal.delta",
+          "before": -0.04005500000000006,
+          "after": -0.07719000000000002
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[4].needs.waterRemainder",
+          "before": 0.6440972222222219,
+          "after": 0.305555555555555
+        },
+        {
+          "path": ".offCreatures.surface[4].nextAct",
+          "before": 2166134,
+          "after": 2166234
+        },
+        {
+          "path": ".offCreatures.surface[4].pos.x",
+          "before": 52,
+          "after": 50
+        },
+        {
+          "path": ".offCreatures.surface[5].ai.dest",
+          "before": {
+            "x": 50,
+            "y": 9
+          },
+          "after": "ABSENT"
+        },
+        {
+          "path": ".offCreatures.surface[5].ai.mode",
+          "before": "investigate",
+          "after": "guard"
+        },
+        {
+          "path": ".offCreatures.surface[5].facing",
+          "before": 6,
+          "after": 4
+        },
+        {
+          "path": ".offCreatures.surface[5].movedTurn",
+          "before": 21660,
+          "after": 21652
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.fatigue",
+          "before": 20.31770833333326,
+          "after": 20.322916666666593
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.kcal",
+          "before": -7.72,
+          "after": -5.11
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.kcalRemainder",
+          "before": 0.9166666666667993,
+          "after": 0.2500000000000888
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.thermal.delta",
+          "before": -0.02015749999999999,
+          "after": -0.0463925
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.thermal.turns",
+          "before": 61,
+          "after": 62
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.waterDeficit",
+          "before": 5,
+          "after": 4
+        },
+        {
+          "path": ".offCreatures.surface[5].needs.waterRemainder",
+          "before": 0.8072916666666664,
+          "after": 0.9739583333333335
+        },
+        {
+          "path": ".offCreatures.surface[5].nextAct",
+          "before": 2166160,
+          "after": 2166260
+        },
+        {
+          "path": ".offCreatures.surface[5].pos.x",
+          "before": 50,
+          "after": 56
+        },
+        {
+          "path": ".offCreatures.surface[5].pos.y",
+          "before": 8,
+          "after": 13
+        },
+        {
+          "path": ".rng.ai[0]",
+          "before": 1605889206,
+          "after": 2562494401
+        },
+        {
+          "path": ".rng.ai[1]",
+          "before": 1776660910,
+          "after": 1056548380
+        },
+        {
+          "path": ".rng.ai[2]",
+          "before": 562634460,
+          "after": 3544308205
+        },
+        {
+          "path": ".rng.ai[3]",
+          "before": 1104659013,
+          "after": 1104659065
+        },
+        {
+          "path": ".time",
+          "before": 2167000,
+          "after": 2167100
+        }
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "9727521a",
+      "initialHash": "9625c4bd",
+      "fromHash": "12410f42",
+      "hash": "25ed579d",
+      "initialOnlyVersionChanged": true,
+      "errorsIdentical": true,
+      "finalOnlyVersionChanged": true,
+      "changesExcludingVersion": 0,
+      "differences": []
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "c0cd13da",
+      "initialHash": "ef91d66f",
+      "fromHash": "8312c3e4",
+      "hash": "2446aa5b",
+      "initialOnlyVersionChanged": true,
+      "errorsIdentical": true,
+      "finalOnlyVersionChanged": true,
+      "changesExcludingVersion": 0,
+      "differences": []
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "e2cebc82",
+      "initialHash": "728cc687",
+      "fromHash": "fe08f631",
+      "hash": "9f8590fc",
+      "initialOnlyVersionChanged": true,
+      "errorsIdentical": true,
+      "finalOnlyVersionChanged": true,
+      "changesExcludingVersion": 0,
+      "differences": []
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "e2cebc82",
+      "initialHash": "728cc687",
+      "fromHash": "1aff4a14",
+      "hash": "897ade9f",
+      "initialOnlyVersionChanged": true,
+      "errorsIdentical": true,
+      "finalOnlyVersionChanged": true,
+      "changesExcludingVersion": 0,
+      "differences": []
+    }
+  ]
+}

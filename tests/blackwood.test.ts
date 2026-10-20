@@ -1,0 +1,36 @@
+import { describe, expect, it } from 'vitest'
+import { perform } from '../src/core/actions'
+import { findPath } from '../src/core/path'
+import { initializeWorldSimulation } from '../src/core/world-simulation'
+import { appendExpansionSites, worldRoute } from '../src/core/overworld'
+import { lightAt } from '../src/core/fov'
+import { daylight } from '../src/core/environment'
+import { playerAct } from '../src/core/game'
+import { tileAt, turnOf } from '../src/core/ctx'
+import { exchange, marketFor } from '../src/core/economy'
+import { addToBag, makeItem } from '../src/core/items'
+import { nearbyGather, startGather } from '../src/core/crafting'
+import { studyBook } from '../src/core/skills'
+import { deserialize, serialize, stateHash } from '../src/core/save'
+import { blackwoodFixture } from './blackwood-fixture'
+import { finishBase } from './base-camp-fixture'
+const setup=blackwoodFixture
+function key(d:ReturnType<typeof setup>){const trader=d.w.s.creatures.find(c=>c.traderSite===d.site.id)!,market=marketFor(d.w,trader)!,item=market.items.find(i=>i.def==='Item.SeedVaultKey')!;d.p.pos={x:trader.pos.x,y:trader.pos.y+1};expect(exchange(d.w,d.p,trader,[{uid:item.uid,count:1}],[])).toBeNull();return item}
+function downstairs(d:ReturnType<typeof setup>){d.p.pos={x:40,y:30};expect(playerAct(d.w,{type:'stairs'})).toBeNull();expect(d.w.s.map.id).toBe('seed-vault')}
+describe('검은 숲·지상 지파·실제 종자 금고',()=>{
+ it('후속 숲은 실제 육지와 걸어갈 수 있는 경로에 생성한다',()=>{const d=setup(),start=d.m.sites.find(s=>s.id==='Region.GreyCloister')!;expect(d.m.cells[d.site.cell.y*d.m.w+d.site.cell.x].sea).toBe(false);expect(d.m.cells[d.site.cell.y*d.m.w+d.site.cell.x].biome).toBe('Biome.BlackForest');expect(worldRoute(d.w,start.cell,d.site.cell)).not.toBeNull()})
+ it('확장 배치 재호출은 도로·RNG·NPC·물품을 다시 만들지 않는다',()=>{const d=setup(),before=stateHash(d.w.s),roads=d.m.cells.map(c=>c.road);appendExpansionSites(d.w,d.m);appendExpansionSites(d.w,d.m);expect(stateHash(d.w.s)).toBe(before);expect(d.m.cells.map(c=>c.road)).toEqual(roads)})
+ it('실제 진입은 그늘 상인/간병인/경비와 수리 드론을 배치하며 일반 의사를 중복 생성하지 않는다',()=>{const d=setup();expect(d.w.s.map.layout).toBe('RegionLayout.Blackwood');for(const id of ['Creature.ShadeGroveMerchant','Creature.ShadeGroveHealer','Creature.ShadeGroveGuard','Creature.TenderDrone'])expect(d.w.s.creatures.some(c=>c.def===id)).toBe(true);expect(d.w.s.creatures.some(c=>c.def==='Creature.SettlementDoctor')).toBe(false);expect(d.w.s.creatures.filter(c=>c.def==='Creature.ShadeGroveGuard')).toHaveLength(2)})
+ it('숲의 낮 빛은 실제 캐노피 배율을 쓰고 열쇠 없는 문은 상태를 바꾸지 않는다',()=>{const d=setup();expect(lightAt(d.w,{x:32,y:44})).toBeCloseTo(daylight(d.w)*.2,10);downstairs(d);d.p.pos={x:15,y:10};const before=stateHash(d.w.s);expect(perform(d.w,d.p,{type:'move',dir:2})).toMatchObject({ok:false});expect(stateHash(d.w.s)).toBe(before);expect(tileAt(d.w,{x:16,y:10}).t).toBe('Terrain.SeedVaultDoor')})
+ it('실제 교환 재고의 원본 열쇠로 문을 열고 닫아도 전용 잠금 종류를 보존한다',()=>{const d=setup(),item=key(d);downstairs(d);d.p.pos={x:15,y:10};expect(perform(d.w,d.p,{type:'move',dir:2}).ok).toBe(true);expect(tileAt(d.w,{x:16,y:10}).t).toBe('Terrain.SeedVaultDoorOpen');expect(perform(d.w,d.p,{type:'closeDoor',dir:2}).ok).toBe(true);expect(tileAt(d.w,{x:16,y:10}).t).toBe('Terrain.SeedVaultDoor');expect(d.p.bag.find(i=>i.uid===item.uid)).toMatchObject({def:'Item.SeedVaultKey',count:1})})
+ it('상자는 원래 씨앗과 책을 격자에 보존하고 수색/전체 회수/왕복으로 복제하지 않는다',()=>{const d=setup();key(d);downstairs(d);const chest=tileAt(d.w,{x:23,y:8}),ids=chest.cont!.items.map(i=>i.uid);expect(chest.cont!.items.every(i=>i.gx!==undefined&&i.gy!==undefined)).toBe(true);d.p.pos={x:22,y:8};const next=d.w.s.nextId;expect(playerAct(d.w,{type:'search'})).toBeNull();expect(perform(d.w,d.p,{type:'lootAll'}).ok).toBe(true);expect(chest.cont!.items).toHaveLength(0);for(const uid of ids)expect(d.p.bag.some(i=>i.uid===uid)).toBe(true);expect(d.w.s.nextId).toBe(next);d.p.pos={x:6,y:15};expect(playerAct(d.w,{type:'stairs'})).toBeNull();expect(d.w.s.map.id).toBe('surface');downstairs(d);expect(tileAt(d.w,{x:23,y:8}).cont!.items).toEqual([]);for(const uid of ids)expect(d.p.bag.filter(i=>i.uid===uid)).toHaveLength(1)})
+ it('실제 종자는 한 봉지만 쓰고 새 환경 성장 상태를 남기며 시계 점프로 수확되지 않는다',()=>{const d=setup(),seed=makeItem(d.w,'Item.ShadeSeeds',3);addToBag(d.w,d.p,seed);d.p.pos={x:32,y:40};expect(perform(d.w,d.p,{type:'place',uid:seed.uid,dir:2}).ok).toBe(true);expect(seed.count).toBe(2);const pos={x:33,y:40};expect(tileAt(d.w,pos)).toMatchObject({t:'Terrain.ShadePlot',cultivation:{seedUid:seed.uid,growth:0,waterUnits:0}});expect(tileAt(d.w,pos).gatherAt).toBeUndefined();d.w.s.time+=28800*100;expect(nearbyGather(d.w,d.p)).not.toContainEqual(pos);expect(startGather(d.w,d.p,pos,1)).not.toBeNull();expect(seed.count).toBe(2)})
+ it('옛 밭은 보존한 마감 시각을 지나 같은 원래 수확/다음 시각을 유지한다',()=>{const d=setup(),pos={x:33,y:40};d.p.pos={x:32,y:40};Object.assign(tileAt(d.w,pos),{t:'Terrain.ShadePlot',gatherAt:turnOf(d.w)+28800});expect(nearbyGather(d.w,d.p)).not.toContainEqual(pos);d.w.s.time+=28800*100;expect(startGather(d.w,d.p,pos,1)).toBeNull();finishBase(d.w,d.p);expect(d.p.bag.find(i=>i.def==='Item.ShadeRoot')!.count).toBe(2);expect(tileAt(d.w,pos).gatherAt).toBe(turnOf(d.w)+28800);expect(tileAt(d.w,pos).cultivation).toBeUndefined()})
+ it('씨앗을 돌바닥에 심으려는 실패는 씨앗·시간·UID를 소비하지 않는다',()=>{const d=setup(),seed=makeItem(d.w,'Item.ShadeSeeds');addToBag(d.w,d.p,seed);d.p.pos={x:32,y:40};tileAt(d.w,{x:33,y:40}).t='Terrain.KtFloor';const before=stateHash(d.w.s);expect(perform(d.w,d.p,{type:'place',uid:seed.uid,dir:2}).ok).toBe(false);expect(stateHash(d.w.s)).toBe(before)})
+ it('실제 습득한 기록의 완독은 지파·금고 지식을 한 번 남긴다',()=>{const d=setup(),book=makeItem(d.w,'Item.SeedVaultLedger');addToBag(d.w,d.p,book);d.p.literacy=2;studyBook(d.w,d.p,book.def,true);expect(d.p.booksRead).toContain(book.def);expect(d.w.s.log.some(l=>l.text.includes('같은 가문의 두 갈래'))).toBe(true);const count=d.w.s.log.length;studyBook(d.w,d.p,book.def,true);expect(d.w.s.log).toHaveLength(count)})
+ it('방문한 숲·실제 주민·금고 물품·성장 시각의 전체 각인은 그대로 복원된다',()=>{const d=setup();key(d);downstairs(d);const before=serialize(d.w.s);expect(serialize(deserialize(before))).toBe(before);expect(stateHash(deserialize(before))).toBe(stateHash(d.w.s))})
+ it('기존 각인에 추가한 마을만 초기화하며 기존 주민/재고/시계를 다시 만들지 않는다',()=>{const d=setup(),sim=d.m.simulation!,prior=structuredClone(sim),markets=structuredClone(d.m.markets!);delete sim.settlements[d.site.id];delete d.m.markets![d.site.id];initializeWorldSimulation(d.w);for(const [id,value]of Object.entries(prior.settlements))if(id!==d.site.id)expect(sim.settlements[id]).toEqual(value);for(const [id,value]of Object.entries(markets))if(id!==d.site.id)expect(d.m.markets![id]).toEqual(value);expect(sim.day).toBe(prior.day);expect(sim.marketDay).toBe(prior.marketDay);expect(sim.settlements[d.site.id].population.total).toBe(120);expect(d.m.markets![d.site.id].items.some(i=>i.def==='Item.ShadeRoot')).toBe(true);const once=stateHash(d.w.s);initializeWorldSimulation(d.w);expect(stateHash(d.w.s)).toBe(once)})
+
+ it('실제 입장 위치에서 상인·밭·금고 계단까지 열린 연결길을 걸을 수 있다',()=>{const d=setup();expect(d.p.pos).toEqual({x:32,y:46});for(const target of [{x:30,y:19},{x:23,y:26},{x:40,y:30}])expect(findPath(d.w,d.p.pos,target,{maxNodes:8000,avoidCreatures:true,selfId:d.p.id})?.length).toBeGreaterThan(0)})
+
+})

@@ -1,41 +1,8 @@
-# pnpm sim 30 3 — 2026-10-15 15:54 KST, v0.12 (봇: 높은 자리·계단 버티기, 처치 가능 확인, 계단 왕복·경계 왕복 수정, 출혈 배율 특성 반영)
-# 평균 생존 1.03 → 0.90일(표준오차 ±0.23 — 차이는 잡음 범위), 3일 생존 9 → 7판, 레벨 2 이상 13 → 14판. 지하 1층 첫 교전에서 0.02일 안에 죽는 14판은 v0.11과 시드별로 똑같다.
-# 제거 실험: 같은 코드에서 '빛 안에서 버티기'를 끄면 0.85일 — 이것도 차이 없음.
+v0.271 실제 내부 격자 자루 · 각인183/API1.4.0
+월드모드 명시30판×최대3일·4작업자·435.784593564초
+30개 전체 결과 행/평균/사인이270과 같다. 골든5개 전체 초기/최종/오류는 선언한 버전/새 콘텐츠 메타데이터6경로 외270과 같다.
+평균 0.46703935185185197일 · 사인 {"저체온": 20, "치명상": 4, "과다 출혈": 6}
+동일제품 코드의271 검증본 전체304파일5532개636.2593781738282초(작업자2). 원래5530/5532의 집계 기대값2개 실패를 보관했고 두 시험의 정의/물품 수만 수정했다. src/dist 전체 바이트 동일 증명과23개 관련 검사를 거쳤다.
+실제1316–1319 네장 모두확인/전체183복원2·실제240턴 제작/안쪽 드래그/중첩 거절/원래UID·상태 보존/콘솔0. 원본E2E의 생고기 두 UID 선택자 중복은 보관했고 UID 선택자만 고친 동일제품 코드 검증본을 사용했다.
 
-sim-0: 뇌 파괴 · 2.01일 · Lv3 · crypt2 · Bg.GuildMerchant · 사건 ReaverPatrol
-sim-1: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Herbalist · 사건 -
-sim-2: 치명상 · 0.18일 · Lv2 · crypt1 · Bg.Deserter · 사건 -
-sim-3: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-4: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Excommunicate · 사건 -
-sim-5: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Scavenger · 사건 -
-sim-6: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Excommunicate · 사건 -
-sim-7: 과다 출혈 · 0.01일 · Lv2 · surface · Bg.GuildMerchant · 사건 -
-sim-8: 생존(시간 종료) · 3.01일 · Lv3 · surface · Bg.Excommunicate · 사건 ReaverPatrol
-sim-9: 생존(시간 종료) · 3.00일 · Lv1 · crypt1 · Bg.Hunter · 사건 ReaverPatrol,ReaverSearch,ReaverPatrol,ReaverSearch
-sim-10: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Hunter · 사건 -
-sim-11: 과다 출혈 · 0.36일 · Lv2 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-12: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 ReaverPatrol,ReaverSearch
-sim-13: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Deserter · 사건 -
-sim-14: 치명상 · 0.01일 · Lv2 · surface · Bg.Hunter · 사건 -
-sim-15: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Herbalist · 사건 -
-sim-16: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Deserter · 사건 ReaverPatrol,ReaverSearch
-sim-17: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
-sim-18: 과다 출혈 · 0.01일 · Lv2 · surface · Bg.Herbalist · 사건 -
-sim-19: 뇌 파괴 · 0.02일 · Lv2 · crypt2 · Bg.Deserter · 사건 -
-sim-20: 과다 출혈 · 0.00일 · Lv1 · crypt1 · Bg.Deserter · 사건 -
-sim-21: 과다 출혈 · 0.01일 · Lv2 · crypt1 · Bg.Scavenger · 사건 -
-sim-22: 치명상 · 1.50일 · Lv2 · surface · Bg.GuildMerchant · 사건 ReaverPatrol
-sim-23: 치명상 · 1.01일 · Lv2 · surface · Bg.Hunter · 사건 -
-sim-24: 치명상 · 0.77일 · Lv2 · surface · Bg.GuildMerchant · 사건 -
-sim-25: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.GuildMerchant · 사건 -
-sim-26: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
-sim-27: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
-sim-28: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.GuildMerchant · 사건 -
-sim-29: 치명상 · 0.02일 · Lv2 · crypt1 · Bg.Herbalist · 사건 -
-
-── 집계 ──
-치명상: 11 (37%)
-과다 출혈: 10 (33%)
-생존(시간 종료): 7 (23%)
-뇌 파괴: 2 (7%)
-평균 생존 0.90일 · 탈출 0/30 · 1229.2s
+[전체 비교](sim-v271-diff.json)·[자루 구현](storage-bags-implementation.md).

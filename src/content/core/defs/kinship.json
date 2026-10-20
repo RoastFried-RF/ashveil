@@ -1,0 +1,90 @@
+[
+  {
+    "defType": "Kinship",
+    "id": "Kinship.Shadefolk",
+    "label": "관로 가족의 두 지파",
+    "faction": "shadefolk",
+    "underground": [
+      "Creature.Shade",
+      "Creature.ShadeChief"
+    ],
+    "chiefs": [
+      "Creature.ShadeChief"
+    ],
+    "sites": [
+      "Region.ShadeGrove",
+      "Region.ShadeHollow",
+      "Region.ShadeBasin"
+    ],
+    "delayDays": 7,
+    "killLoss": -2,
+    "chiefLoss": -8,
+    "peaceReward": 3,
+    "torchLoss": -5,
+    "trust": 60,
+    "avoidRadius": 6
+  },
+  {
+    "defType": "RegionSite",
+    "id": "Region.ShadeHollow",
+    "label": "검은 숲 관로골",
+    "description": "관로 서쪽 분기에서 올라온 가족들이 검은 수목과 저조도 밭을 돌보는 작은 마을이다.",
+    "cell": [
+      49,
+      79
+    ],
+    "kind": "settlement",
+    "faction": "shadefolk",
+    "extension": {
+      "biome": "Biome.BlackForest",
+      "population": 100,
+      "footAccess": true
+    },
+    "layout": "RegionLayout.BlackwoodVillage"
+  },
+  {
+    "defType": "RegionSite",
+    "id": "Region.ShadeBasin",
+    "label": "검은 숲 그늘못",
+    "description": "남쪽 분지의 정비공 후손들이 빛을 가리고 농사짓는 마을이다. 종자 금고는 북쪽 정비구 한 곳에만 있다.",
+    "cell": [
+      42,
+      84
+    ],
+    "kind": "settlement",
+    "faction": "shadefolk",
+    "extension": {
+      "biome": "Biome.BlackForest",
+      "population": 100,
+      "footAccess": true
+    },
+    "layout": "RegionLayout.BlackwoodVillage"
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.BlackwoodVillage",
+    "parent": "RegionLayout.Blackwood",
+    "label": "검은 숲 가족 마을",
+    "buildings": [
+      {
+        "x": 25,
+        "y": 14,
+        "w": 15,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          32,
+          22
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "관로 가족의 집",
+        "roof": true
+      }
+    ],
+    "objects": [],
+    "spawns": [],
+    "links": [],
+    "submaps": []
+  }
+]

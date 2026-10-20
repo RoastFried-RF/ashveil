@@ -1,9 +1,32 @@
+import {runScriptHooks} from './script-hooks'
+import {recordBrainTrauma} from './brain-recovery'
+import {npcStressEvent} from './npc-psyche'
+import {finishSleepMemories} from './sleep-memories'
+import {infectionFor,infectionSystemic} from './infection-state'
+import {fatigueBand} from './fatigue-state'
+import {scurvyBleed} from './scurvy-state'
+import {ashLungCap,inhaledAsh} from './air-state'
+import {diseasePain,diseaseCapacityMultiplier,diseaseKey,recordWoundDiseaseRisk} from './disease-state'
+import { aquaticHypoxiaPenalty, drowningFatal } from './aquatic-state'
+import { parasiteBloodRate } from './parasite-state'
+import { alcoholStage, drugEffects, drugKey, pharmacologyDef, topicalAntibiotic, withdrawalPain, withdrawalStage } from './drug-state'
+import { recordConcussion } from './head-trauma'
+import { machineReady, machineRules } from './machine-state'
+import { ambientTemp } from './environment'
+import { prostheticAt, prostheticPartEfficiency, prostheticKey, prostheticSupport } from './prosthetic-state'
+import { hygieneContamination } from './food-state'
 // 신체·상처·출혈·통증·의식·감염 (02). 플레이어와 모든 생물에 동일 규칙 (대칭성).
 // HP 풀 + 6부위 상태(뼈대, §2.0) 위에 세부 부위 트리·상처 개체·기능 능력치(디테일 층)를 얹는다.
 
+import { hungerStage, nutritionConsciousness, nutritionDef, nutritionKey, nutritionMultiplier, thirstBand, thirstStage } from './nutrition-state'
 import { clamp, log, rng, tileAt, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
+import { sutureRule } from './surgery'
+import {rememberPartLoss} from './body-memories'
+import { completeHealing, chronicPain, recoveryCap, recoveryKey, scarPainMultiplier, tourniquetNerves } from './recovery'
+import { regenerationPeriod, willForChecks } from './growth'
 import { scentTick } from './perception'
-import { addEffect, effectMag, hasEffect, traitAdd, traitMul } from './traits'
+import { canSee } from './fov'
+import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wound, WoundDef } from './types'
 
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
@@ -11,24 +34,31 @@ const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
 // 몸 상태에서 나오는 값(의식·기능 능력치·부위 상태·통증)은 같은 상태면 같은 값이다.
 // 상태 지문은 그 값들이 읽는 입력을 빠짐없이 담아야 한다 — 하나라도 반올림하거나 빠뜨리면
 // 캐시 이력(불러오기 직후 빈 캐시 vs 이어 온 캐시)에 따라 값이 달라져 결정론이 깨진다.
-const memo = new WeakMap<Creature, { key: string; m: Map<string, number> }>()
+const memo = new WeakMap<Creature, { db: World['db']; key: string; m: Map<string, number> }>()
+
+/** 캐시가 읽는 동상 입력은 손가락 1도 이상 여부다. 노출·발가락 값의 직렬화는 불필요하다. */
+function frozenHands(w: World, c: Creature): boolean {
+  for (const id in c.frostbite) if (c.frostbite[id].grade >= 1 && tryPart(w, c, id)?.groups.includes('finger')) return true
+  return false
+}
 
 function stateKey(w: World, c: Creature): string {
   const turn = turnOf(w)
-  let k = ''
+  let k = JSON.stringify(c.body.def)
   for (const wd of c.body.wounds) {
-    k += `${wd.part}:${wd.severity}:${wd.healed}:${wd.fracture ? wd.fracture.grade + wd.fracture.progress : ''}:${wd.splint ? wd.splint.quality + (wd.splint.half ? 'h' : '') : ''}:${wd.infection?.progress ?? ''}:${wd.tendon ? 1 : 0};`
+    k += `${wd.def}:${wd.thawed ? 1 : 0}:${wd.part}:${wd.severity}:${wd.healed}:${wd.fracture ? wd.fracture.grade + wd.fracture.progress : ''}:${wd.splint ? wd.splint.quality + (wd.splint.half ? 'h' : '') : ''}:${wd.infection ? wd.infection.progress+':'+infectionFor(w,wd).pain : ''}:${wd.tendon ? 1 : 0}:${wd.suture?.def ?? ''}:${wd.suture?.quality ?? ''}:${wd.foreign?.pain ?? ''}:${wd.dislocated ? 1 : 0};`
   }
+  if(c.body.machine) k += `|machine:${JSON.stringify(c.body.machine)}`
   const n = c.needs
   const fx = c.effects.filter((e) => e.untilTurn > turn).map((e) => e.kind + (e.magnitude ?? '')).sort().join(',')
   const eq = Object.values(c.equip).map((i) => i?.uid ?? '').join(',')
-  return `${k}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.fatigue > 90 ? 3 : n.fatigue > 75 ? 2 : n.fatigue > 60 ? 1 : 0}|${c.cond?.shock ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}`
+  return `${k}|${c.body.concussionCap ?? ''}:${c.aquatic?.hypoxia??''}|${prostheticKey(w, c)}|${nutritionKey(w, c)}|${drugKey(w, c)}|${Object.entries(c.body.organDamage ?? {}).map(([id, n]) => id + n).join(',')}|${recoveryKey(w, c)}|${frozenHands(w, c) ? 1 : 0}|${diseaseKey(w,c)}:${inhaledAsh(c)}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.sleepDebt ?? 0}|${fatigueBand(w,c).consciousness}:${infectionSystemic(w,c).consciousness}|${c.cond?.shock ? 1 : 0}|${c.age?.years ?? 30}:${c.age?.jointPain ? 1 : 0}:${c.age?.senses ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}|${c.leading?.hand??''}`
 }
 
 function cached(w: World, c: Creature, name: string, fn: () => number): number {
   const key = stateKey(w, c)
   let e = memo.get(c)
-  if (!e || e.key !== key) { e = { key, m: new Map() }; memo.set(c, e) }
+  if (!e || e.db !== w.db || e.key !== key) { e = { db: w.db, key, m: new Map() }; memo.set(c, e) }
   const hit = e.m.get(name)
   if (hit !== undefined) return hit
   const v = fn()
@@ -65,10 +95,12 @@ export function createBody(def: BodyDef, cdef: CreatureDef): BodyState {
   const maxHp: Record<string, number> = {}
   for (const p of def.parts) maxHp[p.id] = Math.max(1, Math.round(p.hp * build))
   const blood = Math.round(def.bloodMl * (cdef.bloodMult ?? 1))
-  return { def: def.id, blood, bloodMax: blood, maxHp, missing: [], wounds: [], tourniquets: {} }
+  const body: BodyState = { def: def.id, blood, bloodMax: blood, maxHp, missing: [], wounds: [], tourniquets: {} }
+  if(def.kind==='mechanical'&&def.mechanical)body.machine={coolant:def.mechanical.coolantMl,heat:0,power:100,shutdownUntil:0}
+  return body
 }
 
-export function isMissing(w: World, c: Creature, id: string): boolean {
+export function anatomicalMissing(w: World, c: Creature, id: string): boolean {
   const map = partMap(bodyDef(w, c))
   let cur: BodyPartDef | undefined = map.get(id)
   while (cur) {
@@ -76,6 +108,10 @@ export function isMissing(w: World, c: Creature, id: string): boolean {
     cur = cur.parent ? map.get(cur.parent) : undefined
   }
   return false
+}
+
+export function isMissing(w: World, c: Creature, id: string): boolean {
+  return anatomicalMissing(w, c, id) && !prostheticAt(w, c, id)
 }
 
 export function isDescendantOrSelf(w: World, c: Creature, id: string, ancestor: string): boolean {
@@ -90,18 +126,21 @@ export function isDescendantOrSelf(w: World, c: Creature, id: string, ancestor: 
 
 /** 부위의 미치유 sev 합 */
 export function partDamage(c: Creature, id: string): number {
-  let d = 0
+  let d = c.body.organDamage?.[id] ?? 0
   for (const wd of c.body.wounds) if (wd.part === id) d += wd.severity - wd.healed
   return d
 }
 
 /** 부위 체력 비율 0~1 */
 export function partHealth(w: World, c: Creature, id: string): number {
+  if (prostheticAt(w, c, id)) return 1
   if (isMissing(w, c, id)) return 0
   return clamp(1 - partDamage(c, id) / c.body.maxHp[id], 0, 1)
 }
 
 export function isDestroyed(w: World, c: Creature, id: string): boolean {
+  const replacement = prostheticAt(w, c, id)
+  if (replacement) return (replacement.state.item.durability ?? 100) <= 0
   return isMissing(w, c, id) || partDamage(c, id) >= c.body.maxHp[id]
 }
 
@@ -124,6 +163,8 @@ function belowTourniquet(w: World, c: Creature, p: BodyPartDef): boolean {
  * 단, 장기·감각기·기도처럼 작은 기능 부위는 남은 체력 비율이 곧 기능이다.
  */
 export function partEff(w: World, c: Creature, id: string): number {
+  const replacement = prostheticPartEfficiency(w, c, id)
+  if (replacement !== undefined) return replacement
   const p = tryPart(w, c, id)
   if (!p || isMissing(w, c, id)) return 0
   if (partDamage(c, id) >= c.body.maxHp[id]) return 0
@@ -132,13 +173,15 @@ export function partEff(w: World, c: Creature, id: string): number {
     if (wd.part !== id) continue
     e = Math.min(e, fractureCap(wd))
     if (wd.tendon) e = Math.min(e, 0.5)
+    if (wd.dislocated) e = Math.min(e, w.db.get<import('./types').RecoveryDef>('Recovery.Wounds').dislocationCap)
   }
+  e = Math.min(e, recoveryCap(c, p))
   if (belowTourniquet(w, c, p)) e = 0
   return e
 }
 
 export function bloodLoss(c: Creature): number {
-  return 1 - c.body.blood / c.body.bloodMax
+  return c.body.bloodMax>0 ? 1 - c.body.blood / c.body.bloodMax : 0
 }
 
 export function woundDef(w: World, wd: Wound): WoundDef {
@@ -155,18 +198,22 @@ export function bandageCoef(q: number, arterial: boolean, firstAid = 0): number 
 }
 
 function lying(c: Creature): boolean {
-  return !!c.asleep || c.unconscious || c.activity?.kind === 'rest' || c.activity?.kind === 'sleep'
+  return !!c.asleep || c.unconscious || c.activity?.kind === 'rest' || c.activity?.kind === 'sleep' || c.breakdown?.kind === 'lie'
 }
 
 /** 이번 턴 실제 출혈량 ml/턴 = (상처 출혈 × 처치계수 + 동맥 × 동맥 계수) × 혈액순환 × 상황계수 */
 export function effectiveBleed(w: World, c: Creature, wd: Wound): number {
+  if(machineRules(w,c))return 0
   if (wd.cauterized) return 0
   let b = wd.bleed
+  if (wd.foreign?.kind === 'arrow') b *= w.db.get<import('./types').RecoveryDef>('Recovery.Wounds').arrowBleedMult
   let a = wd.artery ?? 0
+  if (wd.suture) b *= sutureRule(w, wd)!.bleedMult
   if (b <= 0 && a <= 0) return 0
   const p = tryPart(w, c, wd.part)
   if (!wd.internal) {
-    if (p?.limb && c.body.tourniquets[p.limb] !== undefined) return 0
+    const tq = wd.stumpLimb ?? p?.limb
+    if (tq && c.body.tourniquets[tq] !== undefined) return 0
     if (c.body.pressing === wd.id) { b *= 0.3; a *= 0.5 }
     else if (c.activity?.kind === 'treat' && c.activity.woundId === wd.id) { b *= 0.7; a *= 0.7 }
     else if (wd.bandage) {
@@ -178,16 +225,18 @@ export function effectiveBleed(w: World, c: Creature, wd: Wound): number {
   const turn = turnOf(w)
   if (c.exerted) s *= 1.3
   else if (lying(c)) s *= 0.8
-  if (hasEffect(c, 'alcohol', turn)) s += 0.15
+  s += alcoholStage(w, c) * 0.15
   if (c.needs.bodyTemp < 35) s *= 0.8
   if (hasEffect(c, 'stimulant', turn)) s *= 1.1
-  return (b + a) * s * capacity(w, c, 'bloodPumping') * traitMul(w, c, 'bleedMult')
+  s *= drugEffects(w, c).bleedMult
+  return (b + a) * s * capacity(w, c, 'bloodPumping') * traitMul(w, c, 'bleedMult') * (c.needs.scurvy >= 80 ? nutritionDef(w).scurvyBleedMult : 1)
 }
 
 export function totalBleed(w: World, c: Creature, externalOnly = false): number {
-  let t = 0
+  if(machineRules(w,c))return 0
+  let t = scurvyBleed(w,c)
   for (const wd of c.body.wounds) if (!externalOnly || !wd.internal) t += effectiveBleed(w, c, wd)
-  return t
+  return t+parasiteBloodRate(w,c)
 }
 
 // ── 통증 (02 §7) ────────────────────────────────
@@ -200,22 +249,30 @@ export function painTotal(w: World, c: Creature): number {
 }
 
 function painTotalRaw(w: World, c: Creature): number {
+  if(machineRules(w,c))return 0
   const turn = turnOf(w)
-  let p = 0
+  let p = chronicPain(w, c) + diseasePain(w,c)
   for (const wd of c.body.wounds) {
     const def = woundDef(w, wd)
     const pd = tryPart(w, c, wd.part)
-    p += (wd.severity - wd.healed) * def.painPerSeverity * (pd?.pain ?? 1)
-    if (wd.fracture) p += wd.splint || wd.fracture.grade === 'hairline' ? 6 : FRACTURE_PAIN[wd.fracture.grade]
-    if (wd.infection) p += wd.infection.progress * 0.2
+    let woundPain = (wd.severity - wd.healed) * def.painPerSeverity * (pd?.pain ?? 1) * (wd.thawed ? 1.5 : 1)
+    if (wd.fracture) woundPain += wd.splint || wd.fracture.grade === 'hairline' ? 6 : FRACTURE_PAIN[wd.fracture.grade]
+    if (wd.foreign) woundPain += w.db.get<import('./types').RecoveryDef>('Recovery.Wounds').foreignPain + wd.foreign.pain
+    if (wd.dislocated) woundPain += w.db.get<import('./types').RecoveryDef>('Recovery.Wounds').dislocationPain
+    if (wd.infection) woundPain += infectionFor(w,wd).pain
+    p += woundPain * scarPainMultiplier(w, c, wd.part)
   }
   p += 15 * Object.keys(c.body.tourniquets).length
+  if (hasEffect(c, 'foodPoisoning', turn)) p += 10
   if (hasEffect(c, 'reperfusion', turn)) p += 10
   if (hasEffect(c, 'sting', turn)) p += 10
+  if (hasEffect(c, 'frostbite', turn)) p += 2
+  p += drugEffects(w, c).topicalPain + withdrawalPain(w, c)
   p *= traitMul(w, c, 'painMult')
   if (hasEffect(c, 'painkiller', turn)) p *= 0.5
   if (hasEffect(c, 'analgesic', turn)) p *= 0.3
   if (hasEffect(c, 'alcohol', turn)) p *= 0.75
+  p = Math.max(0, p - drugEffects(w, c).pain)
   if (hasEffect(c, 'breath', turn)) p *= 0.5
   return clamp(p, 0, 150)
 }
@@ -245,12 +302,12 @@ function bloodPenalty(loss: number): number {
   return 0.4 + (L - 40) * 0.04
 }
 
-function tempPenalty(t: number): number {
+function tempPenalty(t: number, heatShift = 0): number {
   if (t < 32) return 0.4
   if (t < 34) return 0.15
   if (t < 35) return 0.05
-  if (t > 41) return 0.4
-  if (t > 39.5) return 0.1
+  if (t > 41 - heatShift) return 0.4
+  if (t > 39.5 - heatShift) return 0.1
   return 0
 }
 
@@ -271,23 +328,25 @@ export function consciousness(w: World, c: Creature): number {
 }
 
 function consciousnessRaw(w: World, c: Creature): number {
+  if(machineRules(w,c))return machineReady(w,c)?brainEff(w,c)*genericCapacity(w,c,'bloodPumping'):0
   const turn = turnOf(w)
   const brain = brainEff(w, c)
   const n = c.needs
   let pen = Math.max(0, painTotal(w, c) - 20) / 200
-  pen += bloodPenalty(bloodLoss(c))
-  pen += n.fatigue > 90 ? 0.15 : n.fatigue > 75 ? 0.08 : n.fatigue > 60 ? 0.03 : 0
-  pen += tempPenalty(n.bodyTemp)
+  pen += bloodPenalty(bloodLoss(c))+aquaticHypoxiaPenalty(w,c)
+  pen += fatigueBand(w,c).consciousness
+  pen += (w.db.creature(c.def).temperatureLimits?0:tempPenalty(n.bodyTemp, thirstBand(w, c).heatShift)) + nutritionConsciousness(w, c)
+  pen += drugEffects(w, c).consciousness
   if (hasEffect(c, 'sedative', turn)) pen += 0.08
   if (hasEffect(c, 'alcohol', turn)) pen += 0.06
   if (c.cond?.shock) pen += 0.15
-  if (c.body.wounds.some((wd) => (wd.infection?.progress ?? 0) >= 80)) pen += 0.15
+  pen += infectionSystemic(w,c).consciousness
   const oxygen = Math.min(capacity(w, c, 'breathing'), capacity(w, c, 'bloodPumping'))
   let v = brain * (1 - pen) * (0.4 + 0.6 * oxygen)
   if (hasEffect(c, 'stimulant', turn)) v *= 1.1
   // 머리 불구: 의식 상한 0.5 (혼미, 02 §2.0.3)
   if (regionState(w, c, 'head') === 4) v = Math.min(v, 0.5)
-  return clamp(v, 0, 1.2)
+  return clamp(v, 0, Math.min(1.2, c.body.concussionCap ?? 1.2))
 }
 
 /** 의식계수 = clamp(0, 1, (의식 − 0.3) / 0.4) — 이동·조작에 곱한다 */
@@ -317,6 +376,19 @@ export function handManip(w: World, c: Creature, side: 'Left' | 'Right'): number
   return byId(w, c, `${side}UpperArm`) * byId(w, c, `${side}Forearm`) * byId(w, c, `${side}Hand`) * f
 }
 
+/** 자가 처치에 실제 사용하는 한 손의 조작 능력. 의식·금단·동상·특성 상한은 양손 조작과 같다. */
+export function handCapacity(w: World, c: Creature, side: 'Left' | 'Right', ignoreLead=false): number {
+  if(!ignoreLead&&c.leading?.hand===side)return 0
+  return clamp(handManip(w, c, side) * manipulationFactor(w, c), 0, traitOverride(w, c, 'manipulationCap') ?? 1.2)
+}
+
+function manipulationFactor(w: World, c: Creature): number {
+  let f = consCoef(w, c)
+  if (hasEffect(c, 'withdrawal', turnOf(w))) f *= 0.85
+  if (frozenHands(w, c)) f *= 0.9
+  return f
+}
+
 function pair(a: number, b: number, hi: number, lo: number): number {
   return Math.max(a, b) * hi + Math.min(a, b) * lo
 }
@@ -334,13 +406,26 @@ function genericCapacity(w: World, c: Creature, cap: string): number {
 }
 
 export function capacity(w: World, c: Creature, cap: string): number {
+  if(c.captivity&&(cap==='manipulation'||cap==='moving'&&!c.captivity.anklesFree))return 0
   if (cap === 'consciousness') return consciousness(w, c)
   return cached(w, c, cap, () => capacityRaw(w, c, cap))
 }
 
 function capacityRaw(w: World, c: Creature, cap: string): number {
   const kind = bodyDef(w, c).kind
-  const turn = turnOf(w)
+  if(kind==='mechanical'){
+    const d=machineRules(w,c)!,m=c.body.machine
+    if(cap==='bloodPumping')return partEff(w,c,d.powerCell)
+    if(cap==='breathing')return partEff(w,c,d.coolingLoop)
+    let v=genericCapacity(w,c,cap)
+    if(cap==='moving'){
+      const legs=bodyDef(w,c).parts.filter(p=>p.qleg)
+      v=Math.min(1,legs.reduce((sum,p)=>sum+partEff(w,c,p.id),0)*1.2/Math.max(1,legs.length))
+    }
+    if(cap==='moving'||cap==='manipulation')v*=consCoef(w,c)
+    if((cap==='moving'||cap==='manipulation')&&m&&m.coolant<d.coolantMl/2)v*=m.coolant/(d.coolantMl/2)
+    return clamp(v,0,1)
+  }
   let v: number
   if (kind === 'humanoid') {
     switch (cap) {
@@ -350,8 +435,7 @@ function capacityRaw(w: World, c: Creature, cap: string): number {
         break
       }
       case 'manipulation':
-        v = (0.6 * handManip(w, c, 'Right') + 0.4 * handManip(w, c, 'Left')) * consCoef(w, c)
-        if (hasEffect(c, 'withdrawal', turn)) v *= 0.85
+        v = (0.6 * (c.leading?.hand==='Right'?0:handManip(w, c, 'Right')) + 0.4 * (c.leading?.hand==='Left'?0:handManip(w, c, 'Left'))) * manipulationFactor(w, c)
         break
       case 'sight': v = pair(byId(w, c, 'LeftEye'), byId(w, c, 'RightEye'), 0.75, 0.25) * consCoef(w, c); break
       case 'hearing': v = pair(byId(w, c, 'LeftEar'), byId(w, c, 'RightEar'), 0.7, 0.3); break
@@ -375,7 +459,11 @@ function capacityRaw(w: World, c: Creature, cap: string): number {
     v = genericCapacity(w, c, cap)
     if (cap === 'moving' || cap === 'manipulation') v *= consCoef(w, c)
   }
-  return clamp(v, 0, 1.2)
+  const capOverride = traitOverride(w, c, `${cap}Cap`)
+  if (cap === 'breathing') { const drug = drugEffects(w, c); v = Math.max(0, v - drug.breathingLoss); if (drug.overdose) v *= pharmacologyDef(w).overdoseBreathing }
+  if (cap === 'manipulation' && withdrawalStage(w, c) >= 2) v *= pharmacologyDef(w).withdrawalManipulation
+  v *= diseaseCapacityMultiplier(w,c,cap)
+  return clamp(v, 0, Math.min(capOverride??1.2,cap==='breathing'?ashLungCap(w,c):1.2))
 }
 
 // ── 상처 생성 ─────────────────────────────────────
@@ -396,6 +484,8 @@ export interface WoundSpec {
   /** 생성 시 추가 오염 */
   contam?: number
   tendon?: boolean
+  foreign?: Wound['foreign']
+  dislocated?: boolean
   /** 베기·물기로 떨어져 나갈 수 있는가 */
   canSever?: boolean
 }
@@ -405,7 +495,16 @@ export const SMALL_WOUND_PCT = 15
 export const SMALL_WOUND_BLEED = 0.5
 
 /** 상처 추가 (02 §4). 반환: 이번 상처로 처음 파괴된 부위 id */
-export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound; destroyed?: string; severed?: boolean } {
+export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound; damage:number; destroyed?: string; severed?: boolean } {
+  const mechanical=machineRules(w,c)
+  if(mechanical){
+    const original=spec.def
+    const mapped:Record<string,string>={'Wound.Cut':'Wound.MachineCrack','Wound.Bite':'Wound.MachineCrack','Wound.Stab':'Wound.MachinePerforation','Wound.InternalBleed':'Wound.MachinePerforation','Wound.Bruise':'Wound.MachineDeformation','Wound.Burn':'Wound.MachineHeat'}
+    spec={...spec,def:mapped[original]??original,artery:0,tendon:false,foreign:undefined,dislocated:false,canSever:false,contam:0}
+    if(original==='Wound.Cut'||original==='Wound.Bite')spec.severity=Math.max(1,Math.floor(spec.severity/2))
+    if(original==='Wound.Burn'&&c.body.machine)c.body.machine.heat=clamp(c.body.machine.heat+spec.severity,0,100)
+    if(original==='Wound.Bruise')spec.fracture={grade:'simple',progress:0}
+  }
   const def = w.db.wound(spec.def)
   const pd = part(w, c, spec.part)
   const sev = Math.max(1, Math.round(spec.severity))
@@ -415,30 +514,41 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
   const small = !spec.internal && hpPart > 0 && sev * 100 < hpPart * SMALL_WOUND_PCT
   const bleed = sev * def.bleedPerSeverity * coef * (spec.bleedMult ?? 1) * (small ? SMALL_WOUND_BLEED : 1)
   const env = tileAt(w, c.pos)
-  let contam = def.contamination + (spec.contam ?? 0) + (pd.contam ?? 0)
+  let contam = def.contamination + (spec.contam ?? 0) + (pd.contam ?? 0) + (!spec.internal && def.visible !== false ? hygieneContamination(w, c) : 0)
   if (w.db.terrain(env.t).id.includes('Mud')) contam += 20
-  if (c.needs.wetness > 50 && w.s.weather === 'ashrain') contam += 10
+  if (c.needs.wetness > 50 && ['ashrain', 'ashstorm'].includes(w.s.weather)) contam += 10
   const wound: Wound = {
     id: w.s.nextId++,
     def: spec.def,
     part: spec.part,
     severity: sev,
     healed: 0,
-    bleed: Math.round(bleed * 10) / 10,
+    bleed: mechanical?0:Math.round(bleed * 10) / 10,
     artery: spec.artery || undefined,
     arterial: !!spec.artery,
     internal: !!spec.internal || def.visible === false,
     fracture: spec.fracture,
     tendon: spec.tendon,
-    contam: clamp(contam, 0, 100),
+    tendonAt: spec.tendon ? turnOf(w) : undefined,
+    foreign: spec.foreign,
+    dislocated: spec.dislocated,
+    contam: mechanical?0:clamp(contam, 0, 100),
     ageTurns: 0,
     source: spec.source,
     sourceId: spec.sourceId,
   }
+  const recovery = w.db.get<import('./types').RecoveryDef>('Recovery.Wounds')
+  if (wound.dislocated === undefined && spec.def === 'Wound.Bruise' && !wound.internal && !wound.fracture && !prostheticAt(w, c, spec.part) && pd.groups.some((g) => ['hand', 'forearm', 'upperArm', 'foot', 'shin', 'thigh'].includes(g)) && recovery.dislocationChance > 0 && sev >= hpPart * recovery.dislocationSeverity && !c.body.wounds.some((wd) => wd.part === spec.part && wd.dislocated) && rng(w, 'body').chance(recovery.dislocationChance)) {
+    wound.dislocated = true
+    if (c.faction === 'player') log(w, 'danger', `${pd.label}의 관절이 빠졌다. 맞추기 전에는 쓰기 어렵다.`)
+  }
+  recordWoundDiseaseRisk(w,c,wound,spec.contam??0)
   const before = partDamage(c, spec.part)
   c.body.wounds.push(wound)
   c.lastAttacker = spec.source
   mergeWounds(c, spec.part, spec.def)
+  recordBrainTrauma(w,c,spec.part,wound.id)
+  if (spec.part === 'Skull' && spec.fracture && !prostheticAt(w, c, spec.part)) recordConcussion(w, c, wound.id)
   let destroyed: string | undefined
   let severed = false
   // 이번 상처로 처음 한계를 넘었을 때만 '파괴' (02 §4: 손가락·손·발·귀·코는 떨어져 나가고, 큰 부위는 효율 0)
@@ -449,26 +559,32 @@ export function addWound(w: World, c: Creature, spec: WoundSpec): { wound: Wound
       severed = true
     }
   }
-  return { wound, destroyed, severed }
+  npcStressEvent(w,c,'hurt')
+  if(w.s.creatures.includes(c))runScriptHooks(w,'onWoundInflicted',{ownerId:c.id,woundId:wound.id,wound:wound.def,part:wound.part,severity:wound.severity,internal:!!wound.internal})
+  return { wound, damage:sev, destroyed, severed }
 }
 
 /** 같은 부위·같은 유형이 3개를 넘으면 가장 작은 둘을 합친다 (02 §4) */
 function mergeWounds(c: Creature, partId: string, defId: string) {
-  const same = c.body.wounds.filter((x) => x.part === partId && x.def === defId && !x.fracture && !x.bandage)
+  const same = c.body.wounds.filter((x) => x.part === partId && x.def === defId && !x.patched && !x.fracture && !x.bandage && !x.suture && !x.foreign && !x.dislocated && !x.tendon)
   if (same.length <= 3) return
   same.sort((a, b) => a.severity - a.healed - (b.severity - b.healed))
   const [a, b] = same
+  if(defId==='Wound.Bite'||c.biteRisks?.some(r=>r.wound===a.id||r.wound===b.id||a.mergedIds?.includes(r.wound)||b.mergedIds?.includes(r.wound)))a.mergedIds=[...new Set([...(a.mergedIds??[]),b.id,...(b.mergedIds??[])])]
+  if(b.biteCareUntil!==undefined)a.biteCareUntil=Math.max(a.biteCareUntil??0,b.biteCareUntil)
   a.severity += b.severity
   a.healed += b.healed
   a.bleed += b.bleed
   a.artery = (a.artery ?? 0) + (b.artery ?? 0) || undefined
   a.arterial = a.arterial || b.arterial
   a.contam = Math.max(a.contam, b.contam)
+  if(b.diseaseRisk?.length)a.diseaseRisk=[...(a.diseaseRisk??[]),...b.diseaseRisk]
   c.body.wounds = c.body.wounds.filter((x) => x !== b)
 }
 
 function sever(w: World, c: Creature, pd: BodyPartDef, source: string) {
   c.body.missing.push(pd.id)
+  rememberPartLoss(w,c,pd)
   let sev = 0
   for (const x of c.body.wounds) if (isDescendantOrSelf(w, c, x.part, pd.id)) sev += x.severity - x.healed
   c.body.wounds = c.body.wounds.filter((x) => !isDescendantOrSelf(w, c, x.part, pd.id))
@@ -496,10 +612,16 @@ export function deathCause(w: World, c: Creature): string | null {
       if (turnOf(w) - since >= TURNS_PER_DAY) return `${p.label} 기능 정지`
     }
   }
+  if (machineRules(w,c)) return null
+  if(drowningFatal(w,c))return '익사'
   if (bloodLoss(c) >= 0.5) return '과다 출혈'
-  if (c.needs.bodyTemp < 28) return '저체온'
-  if (c.needs.kcal < -6000) return '아사'
-  if (c.needs.water < -2500) return '탈수'
+  const limits=w.db.creature(c.def).temperatureLimits
+  if (c.needs.bodyTemp < (limits?.min??28)) return '저체온'
+  if (c.needs.bodyTemp > (limits?.max??42.5 - thirstBand(w, c).heatShift)) return '고체온'
+  const disease = c.diseases?.find((d) => {const limit=w.db.get<import('./types').DiseaseDef>(d.def).fatalAfterTurns;return d.immunity<100&&(limit!==undefined?turnOf(w)>=d.incubatesUntil+limit:d.progress>=100)})
+  if (disease) return w.db.get(disease.def).label ?? '질병'
+  if (c.needs.nutritionFatal) return c.needs.nutritionFatal
+  if (c.needs.waterDeficit >= nutritionDef(w).thirst.at(-1)!.deficit) return '탈수'
   if (c.body.wounds.some((wd) => (wd.infection?.sepsis ?? 0) >= 100)) return '패혈증'
   return null
 }
@@ -507,23 +629,27 @@ export function deathCause(w: World, c: Creature): string | null {
 // ── 턴당 처리 ─────────────────────────────────────
 
 /** 일일 치유 배율 (02 §13): 처치(무처치 0.6 · 붕대 1.0 · 소작 0.8) × 휴식 × 영양 */
-function healRate(c: Creature, wd: Wound, sleeping: boolean): number {
-  let f = wd.cauterized ? 0.8 : wd.bandage ? 1.0 : 0.6
+function healRate(w: World, c: Creature, wd: Wound, sleeping: boolean): number {
+  let f = wd.suture ? sutureRule(w, wd)!.healMult : wd.cauterized ? 0.8 : wd.bandage ? 1.0 : 0.6
   f *= sleeping ? 1.2 : c.exerted ? 0.7 : 1
-  const n = c.needs
-  f *= n.kcal < -2000 ? 0.6 : n.kcal < 0 ? 0.8 : 1
-  if (n.vitamin <= 0) f *= 0.7
-  if ((wd.infection?.progress ?? 0) >= 40) f = 0
+  f *= nutritionMultiplier(w, c, 'healing')
+  if (!infectionFor(w,wd).healing) f = 0
   return f
 }
 
 const FRACTURE_DAYS = { hairline: 8, simple: 21, compound: 35 }
+export function healFracture(wd: Wound, turns = 1) {
+  if (!wd.fracture || wd.fracture.progress >= 1) return
+  const speed = wd.splint ? 0.7 + 0.5 * wd.splint.quality / 100 : 0.7
+  wd.fracture.progress = Math.min(1, wd.fracture.progress + speed * turns / (FRACTURE_DAYS[wd.fracture.grade] * TURNS_PER_DAY))
+}
 
 export function bodyTick(w: World, c: Creature, sleeping: boolean) {
+  if(machineRules(w,c)){mechanicalBodyTick(w,c);return}
   const turn = turnOf(w)
   const r = rng(w, 'body')
   const cond = (c.cond ??= {})
-  let bled = 0
+  let bled = scurvyBleed(w,c)
   for (const wd of c.body.wounds) {
     wd.ageTurns++
     const def = woundDef(w, wd)
@@ -540,7 +666,7 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
       let clot = wd.internal ? 0.92 : 0.9
       if (lying(c)) clot = 0.85
       if (!wd.internal && (wd.bandage || (c.activity?.kind === 'treat' && c.activity.woundId === wd.id) || c.body.pressing === wd.id)) clot = 0.8
-      if (hasEffect(c, 'alcohol', turn) || cond.shock) clot = 0.95
+      if (alcoholStage(w, c) || cond.shock) clot = 0.95
       wd.bleed *= clot
       if (wd.bleed < 0.5) wd.bleed = 0
     }
@@ -557,10 +683,10 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
     // 감염 vs 면역 경주: 1시간마다 I += I/24, M += M/24 (02 §10.2)
     if (wd.infection && wd.ageTurns % TURNS_PER_HOUR === 0) {
       const inf = wd.infection
-      const anti = hasEffect(c, 'antibiotic', turn) ? 0.7 : 0
+      const anti = Math.max(hasEffect(c, 'antibiotic', turn) ? 0.7 : 0, drugEffects(w, c).antibiotic, topicalAntibiotic(w, wd))
       const iDay = 30 * (1 + wd.contam / 200) * (1 - anti) * (wd.def === 'Wound.Burn' ? 1.2 : 1)
       const n = c.needs
-      let m = 25 * (n.kcal < -2000 ? 0.6 : n.kcal < 0 ? 0.8 : 1) * (sleeping ? 1.2 : c.exerted ? 0.8 : 1)
+      let m = 25 * nutritionMultiplier(w, c, 'immunity') * (sleeping ? 1.2 : c.exerted ? 0.8 : 1)
       m *= n.bodyTemp < 35 ? 0.8 : 1
       m *= 1 + (c.stats.vit - 10) * 0.04
       m *= traitMul(w, c, 'immunityMult')
@@ -577,30 +703,29 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
     }
     // 치유 (02 §13)
     if (def.healPerDay > 0 && wd.healed < wd.severity) {
-      wd.healed = Math.min(wd.severity, wd.healed + def.healPerDay * traitMul(w, c, 'healMult') * healRate(c, wd, sleeping) / TURNS_PER_DAY)
+      wd.healed = Math.min(wd.severity, wd.healed + def.healPerDay * traitMul(w, c, 'healMult') * healRate(w, c, wd, sleeping) / TURNS_PER_DAY)
     }
-    if (wd.fracture && wd.fracture.progress < 1) {
-      const speed = wd.splint ? 0.7 + 0.5 * wd.splint.quality / 100 : 0.7
-      wd.fracture.progress += speed / (FRACTURE_DAYS[wd.fracture.grade] * TURNS_PER_DAY)
-    }
+    healFracture(wd)
+
   }
   // 아문 상처 제거 (골절은 뼈가 붙을 때까지 남는다)
   const before = c.body.wounds.length
-  c.body.wounds = c.body.wounds.filter((wd) => wd.healed < wd.severity || (wd.fracture && wd.fracture.progress < 1))
+  completeHealing(w, c)
   if (c.faction === 'player' && c.body.wounds.length < before) log(w, 'good', '상처 하나가 아물었다.')
   c.body.blood = Math.max(0, c.body.blood - bled)
   scentTick(w, c, bled)
   // 혈액 회복: 하루 400ml × 영양 × 수분 (탈수면 0), 1시간 단위 (02 §6)
-  if (turn % TURNS_PER_HOUR === 0 && c.body.blood < c.body.bloodMax && c.needs.water > 0) {
-    const nutr = c.needs.kcal < 0 ? 0.5 : 1
-    c.body.blood = Math.min(c.body.bloodMax, c.body.blood + Math.floor(400 / 24 * nutr))
+  if (turn % TURNS_PER_HOUR === 0 && c.body.blood < c.body.bloodMax && thirstStage(w, c) < 3) {
+    const nutr = hungerStage(w, c) >= 2 ? .5 : 1
+    const restored = Math.min(c.body.bloodMax - c.body.blood, Math.floor(400 / 24 * nutr))
+    c.body.blood += restored; c.needs.waterDeficit += restored
   }
   // HP 회복 (02 §2.0.1): 적대 인식이 없을 때 floor(100/활력)턴마다 +1, 수면 ×3. 실혈 30%·쇼크면 정지
   const max = hpCap(w, c)
-  if (c.hp < max && bloodLoss(c) < 0.3 && !cond.shock && c.needs.kcal > 0 && !hostileNear(w, c)) {
-    let regen = (1 / Math.max(1, Math.floor(100 / Math.max(1, c.stats.vit)))) * (sleeping ? 3 : 1)
+  if (c.hp < max && bloodLoss(c) < 0.3 && !cond.shock && !hostileNear(w, c)) {
+    let regen = (1 / regenerationPeriod(w, c)) * (sleeping ? 3 : 1)
     if (hasEffect(c, 'draught', turn)) regen += 0.5
-    c.hp = Math.min(max, c.hp + regen)
+    c.hp = Math.min(max, c.hp + regen * nutritionMultiplier(w, c, 'healing'))
   }
   if (c.hp > hpMax(w, c)) c.hp = hpMax(w, c)
   tourniquetTick(w, c)
@@ -608,11 +733,39 @@ export function bodyTick(w: World, c: Creature, sleeping: boolean) {
   c.body.pressing = undefined
 }
 
+/** 누출은 응고·수면·붕대와 무관하다. 자연 치유나 골절 회복도 진행하지 않는다. */
+export function coolantLeak(w: World,c:Creature):number{
+  const d=machineRules(w,c)
+  if(!d)return 0
+  return c.body.wounds.reduce((sum,wd)=>sum+(!wd.patched&&wd.def==='Wound.MachinePerforation'&&(wd.part===d.chassis||wd.part===d.coolingLoop)?Math.max(0,wd.severity-wd.healed)*d.leakPerSeverity:0),0)
+}
+
+function mechanicalBodyTick(w:World,c:Creature){
+  const d=machineRules(w,c)!,m=c.body.machine
+  if(!m)return
+  const turn=turnOf(w),r=rng(w,'body')
+  for(const wd of c.body.wounds)wd.ageTurns++
+  m.coolant=Math.max(0,m.coolant-coolantLeak(w,c))
+  m.power=Math.max(0,m.power-d.idlePower)
+  // 최대 열의 코어 손상은 같은 턴의 냉각으로 지워지지 않는다.
+  if(m.heat>=100)addWound(w,c,{def:'Wound.MachineHeat',part:d.core,severity:d.coreDamage,source:'과열'})
+  const cooling=d.cooling*m.coolant/d.coolantMl*partEff(w,c,d.coolingLoop)-Math.max(0,ambientTemp(w)-d.ambientThreshold)/d.ambientDivisor
+  const hot=m.heat>=d.shutdownHeat
+  m.heat=clamp(m.heat-cooling,0,100)
+  if((hot&&(m.heat>=100||r.chance(d.shutdownChance)))||(w.db.terrain(tileAt(w,c.pos).t).water&&partDamage(c,d.chassis)>0&&r.chance(d.shortChance))){
+    m.shutdownUntil=Math.max(m.shutdownUntil,turn+r.int(d.shutdownTurns[0],d.shutdownTurns[1]))
+    c.activity=undefined
+  }
+  c.unconscious=!machineReady(w,c)||partEff(w,c,d.core)<=0
+  c.needs.energy=m.power
+}
+
 /** 지혈대: 2시간 안전, 4시간을 넘기면 아래 부위 괴사 (02 §12.2) */
 function tourniquetTick(w: World, c: Creature) {
   const turn = turnOf(w)
   for (const [limb, at] of Object.entries(c.body.tourniquets)) {
     const since = turn - at
+    tourniquetNerves(w, c, limb, at)
     if (since === TURNS_PER_HOUR * 2 && c.faction === 'player') log(w, 'warn', '지혈대를 감은 지 두 시간. 손끝·발끝 감각이 없다. 더 두면 신경이 상한다.')
     if (since > TURNS_PER_HOUR * 4 && since % 600 === 0) {
       const distal = bodyDef(w, c).parts.filter((p) => p.limb === limb && p.id !== limb && !p.internal && !isMissing(w, c, p.id))
@@ -662,7 +815,7 @@ function shockAndFaint(w: World, c: Creature) {
     }
   }
   // 통증 기절: 임계 = 80 + (의지 − 10) × 2 이상이면 매 턴 5% + (통증 − 임계)%
-  const thr = 80 + (c.stats.wil - 10) * 2
+  const thr = 80 + (willForChecks(w, c) - 10) * 2
   if (pain >= thr && !c.unconscious && r.chance((5 + pain - thr) / 100)) faint(w, c, '고통을 못 이겨')
   // 기절 회복: 10턴마다 의식 ≥ 0.35면 깬다
   const cons = consciousness(w, c)
@@ -678,6 +831,7 @@ export function faint(w: World, c: Creature, why: string) {
   const cond = (c.cond ??= {})
   if (cond.faintUntil !== undefined) return
   cond.faintUntil = turn + rng(w, 'body').int(30, 120)
+  finishSleepMemories(w,c)
   c.unconscious = true
   c.asleep = false
   if (c.faction === 'player') log(w, 'danger', `${why} 정신을 잃었다.`)
@@ -691,6 +845,14 @@ export function painSpike(w: World, c: Creature, spike: number) {
 
 /** 외부에서 관찰 가능한 상태 묘사 (적 툴팁용) */
 export function observedCondition(w: World, c: Creature): string[] {
+  if(machineRules(w,c)){
+    const out:string[]=[],m=c.body.machine!
+    if(coolantLeak(w,c)>0)out.push('이음새에서 냉각액이 샌다')
+    if(m.heat>=machineRules(w,c)!.protectiveHeat)out.push('과열 보호 모드다')
+    if(c.unconscious)out.push('구동을 멈췄다')
+    if(capacity(w,c,'moving')<.5)out.push('구동 다리가 제대로 움직이지 않는다')
+    return out.length?out:['외장은 성해 보인다']
+  }
   const out: string[] = []
   const bleed = totalBleed(w, c, true)
   if (bleed >= 40) out.push('피를 쏟고 있다')
@@ -797,7 +959,9 @@ const LEG_STUMBLE = [0, 0, 5, 15, 30]
 export function regionPenalties(w: World, c: Creature, arm: 'larm' | 'rarm' = 'rarm', twoHanded = false) {
   const st = (r: Region) => regionState(w, c, r)
   const head = st('head'), torso = st('torso'), la = st('larm'), ra = st('rarm'), ll = st('lleg'), rl = st('rleg')
-  const armSt = twoHanded ? Math.max(la, ra) : arm === 'larm' ? la : ra
+  const support = twoHanded ? prostheticSupport(w, c, 'Left') : undefined
+  const supportStage = support === undefined ? la : stageOf(Math.max(regionFunction(w, c, 'larm'), support))
+  const armSt = twoHanded ? Math.max(supportStage, ra) : arm === 'larm' ? la : ra
   return {
     per: HEAD_PER[head],
     /** 머리 + 무기 쥔 팔 명중 불이익 */
@@ -839,13 +1003,13 @@ export function energyMax(w: World, c: Creature): number {
   return Math.round((50 + c.stats.wil * 5) * TORSO_EMAX[regionState(w, c, 'torso')])
 }
 
-/** 깨어 있는 적이 8칸 안에 있으면 숨을 고를 수 없다 */
+/** 적대를 실제로 인식하고 있으면 회복할 수 없다. 벽 너머의 적은 제외한다 */
 export function hostileNear(w: World, c: Creature): boolean {
   for (const o of w.s.creatures) {
     if (!o.alive || o.asleep || o.unconscious || o.id === c.id || o.faction === c.faction) continue
     if (o.faction === 'vermin' || o.ai.mode === 'surrender') continue
     if (c.faction !== 'player' && o.faction !== 'player') continue
-    if (Math.max(Math.abs(o.pos.x - c.pos.x), Math.abs(o.pos.y - c.pos.y)) <= 8) return true
+    if (canSee(w, c, o.pos)) return true
   }
   return false
 }

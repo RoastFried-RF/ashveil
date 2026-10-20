@@ -1,0 +1,67 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.AshMask",
+    "parent": "Item.Hood",
+    "label": "방진 면포",
+    "description": "코와 입을 덮는 방진 면포. 실제 착용한 동안만 재 먼지를 줄인다. 젖거나 여과포가 다하면 보호가 떨어지고, 교체 중에는 보호하지 않는다.",
+    "slot": "neck",
+    "size": [
+      1,
+      1
+    ],
+    "weight": 0.2,
+    "value": 12,
+    "uses": 2400,
+    "apparel": {
+      "groups": [
+        "nose"
+      ],
+      "insulation": 0.2,
+      "armor": {
+        "sharp": 1,
+        "blunt": 1,
+        "heat": 1
+      },
+      "durability": 20,
+      "layer": 1
+    },
+    "respirator": {
+      "filter": "Item.ClothFilter",
+      "chargeTurns": 2400,
+      "protection": 0.9,
+      "wetAbove": 80,
+      "wetProtection": 0.2,
+      "refillTurns": 6
+    },
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 2,
+      "turns": 100,
+      "attr": "agi"
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.AshMask",
+    "label": "방진 면포 만들기",
+    "category": "survival",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 100,
+    "inputs": [
+      {
+        "item": "Item.Cloth",
+        "count": 2
+      },
+      {
+        "item": "Item.Charcoal",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.AshMask",
+      "count": 1
+    }
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "from": "v0.35",
+  "to": "v0.36",
+  "commandsRewritten": false,
+  "worldStockIdsSeparateFromLocalIds": true,
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "39f04094",
+      "finalHash": "7c99a8ff",
+      "initialAndFinalLocalNextIdUnchanged": true,
+      "existingStateUnchangedExceptNewWorldEconomyFields": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "3341d6be",
+      "finalHash": "28c3c9ce",
+      "initialAndFinalLocalNextIdUnchanged": true,
+      "existingStateUnchangedExceptNewWorldEconomyFields": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "94422ff2",
+      "finalHash": "0d90b90d",
+      "initialAndFinalLocalNextIdUnchanged": true,
+      "existingStateUnchangedExceptNewWorldEconomyFields": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "c513a9d6",
+      "finalHash": "0de88235",
+      "initialAndFinalLocalNextIdUnchanged": true,
+      "existingStateUnchangedExceptNewWorldEconomyFields": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "c513a9d6",
+      "finalHash": "f616cbbc",
+      "initialAndFinalLocalNextIdUnchanged": true,
+      "existingStateUnchangedExceptNewWorldEconomyFields": true,
+      "errorsUnchanged": true
+    }
+  ],
+  "note": "최초 전역 물품의 로컬 생성 번호 소비를 발견해 별도 안전 정수 UID 공간으로 수정. 로컬 NPC 생성과31단위 회귀에서 독립성을 확인."
+}

@@ -21,7 +21,10 @@
         "heat": 1
       },
       "durability": 20,
-      "noise": 2
+      "noise": 2,
+      "wetLoss": 70,
+      "waterproofPct": 0,
+      "windproof": 0.1
     },
     "slot": "chest",
     "size": [
@@ -31,7 +34,38 @@
     "equipTurns": [
       2,
       1
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Linen",
+        "volumeCm3": 700,
+        "accepts": [
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 50.0,
+    "massFixedG": 0
   },
   {
     "defType": "Item",
@@ -59,7 +93,10 @@
         "heat": 4
       },
       "durability": 40,
-      "noise": 2
+      "noise": 2,
+      "wetLoss": 60,
+      "waterproofPct": 0,
+      "windproof": 0.3
     },
     "slot": "chest",
     "size": [
@@ -69,7 +106,25 @@
     "equipTurns": [
       3,
       2
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 10,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -97,7 +152,10 @@
         "heat": 3
       },
       "noise": 3,
-      "durability": 60
+      "durability": 60,
+      "wetLoss": 70,
+      "waterproofPct": 20,
+      "windproof": 0.6
     },
     "slot": "chest",
     "size": [
@@ -107,13 +165,45 @@
     "equipTurns": [
       3,
       2
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Leather",
+        "volumeCm3": 1800,
+        "accepts": [
+          "Leather",
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 50.0,
+    "massFixedG": 0
   },
   {
     "defType": "Item",
     "id": "Item.OilclothCloak",
     "label": "방수포 망토",
-    "description": "재비를 막는다. 망토 아래 옷은 젖지 않는다.",
+    "description": "재비의 90%를 막아 아래 옷이 젖는 속도를 늦춘다. 머리·손·발은 덮지 않는다.",
     "sprite": "oilcloth_cloak",
     "category": "apparel",
     "weight": 0.8,
@@ -134,7 +224,10 @@
       },
       "waterproof": true,
       "durability": 25,
-      "noise": 2
+      "noise": 2,
+      "wetLoss": 0,
+      "waterproofPct": 90,
+      "windproof": 0.8
     },
     "slot": "back",
     "size": [
@@ -144,7 +237,25 @@
     "equipTurns": [
       1,
       1
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -171,7 +282,10 @@
         "heat": 2
       },
       "noise": 5,
-      "durability": 90
+      "durability": 90,
+      "wetLoss": 0,
+      "waterproofPct": 0,
+      "windproof": 0
     },
     "slot": "chest",
     "size": [
@@ -182,7 +296,39 @@
       6,
       3
     ],
-    "bulk": 2
+    "bulk": 2,
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 10,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Scrap",
+        "volumeCm3": 390,
+        "accepts": [
+          "Metal"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 90.0,
+    "massFixedG": 0,
+    "material": "Material.Scrap"
   },
   {
     "defType": "Item",
@@ -205,7 +351,10 @@
         "blunt": 3,
         "heat": 2
       },
-      "durability": 15
+      "durability": 15,
+      "wetLoss": 50,
+      "waterproofPct": 0,
+      "windproof": 0
     },
     "slot": "head",
     "size": [
@@ -215,7 +364,25 @@
     "equipTurns": [
       1,
       1
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -238,7 +405,10 @@
         "blunt": 20,
         "heat": 1
       },
-      "durability": 70
+      "durability": 70,
+      "wetLoss": 0,
+      "waterproofPct": 0,
+      "windproof": 0
     },
     "slot": "head",
     "size": [
@@ -248,7 +418,25 @@
     "equipTurns": [
       2,
       1
-    ]
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -272,7 +460,10 @@
         "heat": 3
       },
       "durability": 40,
-      "noise": 3
+      "noise": 3,
+      "wetLoss": 70,
+      "waterproofPct": 40,
+      "windproof": 0
     },
     "slot": "feet",
     "size": [
@@ -282,7 +473,25 @@
     "equipTurns": [
       3,
       2
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 2,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
   },
   {
     "defType": "Item",
@@ -305,7 +514,10 @@
         "blunt": 5,
         "heat": 3
       },
-      "durability": 20
+      "durability": 20,
+      "wetLoss": 70,
+      "waterproofPct": 0,
+      "windproof": 0
     },
     "slot": "hands",
     "size": [
@@ -315,7 +527,39 @@
     "equipTurns": [
       1,
       1
-    ]
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 1,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Leather",
+        "volumeCm3": 140,
+        "accepts": [
+          "Leather",
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 16.666666666666668,
+    "massFixedG": 0
   },
   {
     "defType": "Item",
@@ -339,6 +583,24 @@
       "insulation": 0,
       "armor": {},
       "durability": 30
+    },
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 1,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
     }
   },
   {

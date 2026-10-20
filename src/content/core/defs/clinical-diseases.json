@@ -1,0 +1,124 @@
+[
+  {
+    "defType": "Disease",
+    "id": "Disease.RatFever",
+    "label": "쥐열",
+    "incubationDays": [
+      1,
+      3
+    ],
+    "perDay": 20,
+    "fever": 38.5,
+    "permanentImmunity": false,
+    "clinical": {
+      "pain": 10
+    },
+    "symptom": "물린 뒤 관절이 쑤시고 열이 올랐다.",
+    "gradualFever": true
+  },
+  {
+    "defType": "Disease",
+    "id": "Disease.Tetanus",
+    "label": "턱굳음병",
+    "incubationDays": [
+      3,
+      10
+    ],
+    "perDay": 15,
+    "fever": 0,
+    "immunePerDay": 0,
+    "antibioticResponse": 0,
+    "permanentImmunity": false,
+    "clinical": {
+      "manipulation": 0.6,
+      "eatingMult": 3,
+      "seizure": {
+        "hourChance": 0.05,
+        "stunTurns": 5,
+        "fractureChance": 0.1,
+        "severity": 5
+      }
+    },
+    "woundExposure": {
+      "wounds": [
+        "Wound.Stab"
+      ],
+      "contamination": 50,
+      "severityFraction": 0.2,
+      "terrain": [
+        "Terrain.Mud",
+        "Terrain.BogMud",
+        "Terrain.CoastalMud"
+      ],
+      "addedContamination": 10,
+      "checkTurns": 7200,
+      "chance": 0.05
+    },
+    "symptom": "턱이 굳고 근육이 경련한다. 일반 항생제로는 억제할 수 없다."
+  },
+  {
+    "defType": "Disease",
+    "id": "Disease.Pneumonia",
+    "label": "폐렴",
+    "incubationDays": [
+      1,
+      2
+    ],
+    "perDay": 20,
+    "fever": 38.5,
+    "coughNoise": 10,
+    "permanentImmunity": false,
+    "clinical": {
+      "breathingPerProgress": 0.005
+    },
+    "coldExposure": {
+      "below": 34,
+      "chance": 1
+    },
+    "lyingExposure": {
+      "part": "Chest",
+      "turns": 86400,
+      "chance": 1
+    },
+    "symptom": "가슴이 답답하고 기침과 열이 시작됐다. 호흡이 점차 떨어진다.",
+    "gradualFever": true
+  },
+  {
+    "defType": "Drug",
+    "id": "Drug.TetanusSerum",
+    "label": "개척 혈청",
+    "durationTurns": 1,
+    "pain": 0,
+    "consciousness": 0,
+    "breathing": 0,
+    "sleep": 0,
+    "fatigue": 0,
+    "reaction": 0,
+    "bleedMult": 1,
+    "tolerance": 0,
+    "addiction": 0,
+    "curesDisease": "Disease.Tetanus"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TetanusSerum",
+    "label": "봉인된 개척 혈청",
+    "description": "0호 금고의 유한한 주입형 혈청. 턱굳음병을 치료하지만 원래 상처나 다른 질병은 치료하지 않는다.",
+    "sprite": "moonshine",
+    "category": "drug",
+    "relic": true,
+    "unknownLabel": "봉인된 개척기 주입기",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "value": 500,
+    "drug": {
+      "effect": "tetanusSerum",
+      "durationTurns": 1,
+      "def": "Drug.TetanusSerum"
+    }
+  }
+]

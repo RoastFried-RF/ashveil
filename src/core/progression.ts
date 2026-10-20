@@ -1,6 +1,10 @@
+import {rememberLifeEvent} from './life-memories'
+import { ensureBestiary, knownCreatureName } from './bestiary-state'
 // 성장: 경험치 → 레벨 → 능력치 1 + 능력 포인트 1
 
 import { log, turnOf, TURNS_PER_DAY, type World } from './ctx'
+import { mood } from './thoughts'
+import { traumaVictory } from './trauma'
 import type { AbilityDef, Creature, Stats } from './types'
 
 export const MAX_LEVEL = 20
@@ -23,6 +27,7 @@ export function xpToNext(level: number): number {
 
 export function gainXp(w: World, c: Creature, amount: number, reason?: string) {
   if (c.faction !== 'player' || amount <= 0) return
+  if (mood(w, c) >= 80) amount = Math.round(amount * 1.1)
   c.xp += amount
   // 경험치 숫자는 회색 "+15" (12 §2.5, 피해 숫자와 구분)
   if (reason) w.s.fx.push({ k: 'xp', id: c.id, v: amount, turn: turnOf(w) })
@@ -40,9 +45,13 @@ export function gainXp(w: World, c: Creature, amount: number, reason?: string) {
 export function awardDefeat(w: World, pl: Creature, c: Creature, mult: number, how: string) {
   if (c.xpAwarded || pl.faction !== 'player' || !pl.alive) return
   c.xpAwarded = true
+  if(pl.id===w.s.playerId)ensureBestiary(w,c.def).survived=true
+  traumaVictory(w, pl, c, false)
   const base = w.db.creature(c.def).xp ?? 10
   const amount = Math.round(base * mult * (c.reoccupied ? 0.5 : 1))
-  gainXp(w, pl, amount, `${c.name} ${how}`)
+  gainXp(w, pl, amount, `${knownCreatureName(w,c)} ${how}`)
+  const engagement=c.playerEngagement
+  if(engagement?.actor===pl.id&&engagement.ownThreat>0)rememberLifeEvent(w,pl,'victory',{threatRatio:engagement.threat/engagement.ownThreat})
 }
 
 /** 위기 극복: 같은 종류는 게임일당 1회 (15 §3) */

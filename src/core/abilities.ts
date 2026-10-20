@@ -1,14 +1,20 @@
+import { knownCreatureName } from './bestiary-state'
+import { alcoholWithdrawalStage } from './drug-state'
 // 액티브·토글 능력 사용 (15 §5~§7). 공격형은 07 §2 파이프라인을 그대로 쓰고 지정한 항만 바꾼다.
 
+import { projectileReady, spendProjectile } from './ranged'
+import { lodgeProjectile } from './medical'
 import { stumbleChance, type ActResult } from './actions'
 import { energyMax, isDestroyed } from './body'
-import { canReach, fx, knockDown, previewHit, pushBack, resolveAttack, sporeCloud } from './combat'
+import { bowProblem } from './gear-state'
+import { bowStringBreaks } from './gear-care'
+import { canReach, fx, knockDown, previewHit, pushBack, resolveAttack, sporeCloud, rangedRange } from './combat'
 import { creatureAt, creatureById, inBounds, log, rng, terrainAt, turnOf, type World } from './ctx'
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex } from './geom'
-import { itemDef, removeOne, wield } from './items'
+import { itemDef, wield } from './items'
 import { emitNoise } from './perception'
-import { addEffect, hasEffect, traitAdd } from './traits'
+import { addEffect, hasEffect, traitAdd, effectiveStat } from './traits'
 import type { AbilityDef, Creature } from './types'
 
 export const WEAPON_LABEL: Record<string, string> = { blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활' }
@@ -40,6 +46,9 @@ export function abilityReady(w: World, c: Creature, id: string): string | null {
   if (c.needs.energy <= 0 && cost >= 0 && d.attack) return '기력이 바닥났다'
   if (cost > c.needs.energy) return '기력이 부족하다'
   if (d.weapon) {
+    const main = c.equip.main
+    if (main && (main.durability ?? 100) <= 0) return '무기가 부서졌다. 수리해야 한다'
+    if (d.weapon === 'archery' && main) { const err = bowProblem(main, itemDef(w, main)); if (err) return err }
     const wl = wield(w, c)
     if (!wl || wl.atk.family !== d.weapon) {
       if (c.equip.main && w.db.item(c.equip.main.def).attacks?.[0]?.family === d.weapon) return '무기 든 팔을 쓸 수 없다'
@@ -47,7 +56,7 @@ export function abilityReady(w: World, c: Creature, id: string): string | null {
     }
     if (d.attackMode && wl.item && !itemDef(w, wl.item).attacks?.some((a) => a.id === d.attackMode)) return `${MODE_LABEL[d.attackMode]} 공격이 있는 무기여야 한다`
   }
-  if (d.id === 'Ab.Archery.Aimed' && hasEffect(c, 'withdrawal', turn)) return '손이 떨려 겨눌 수 없다'
+  if (d.id === 'Ab.Archery.Aimed' && (alcoholWithdrawalStage(w, c) || hasEffect(c, 'withdrawal', turn))) return '손이 떨려 겨눌 수 없다'
   return null
 }
 
@@ -107,7 +116,7 @@ export function useAbility(w: World, c: Creature, id: string, targetId?: number)
     c.cooldowns[d.id] += broken * 2
     sporeCloud(w, c.pos, d.burst.radius, d.burst.turns, d.burst.conc)
     emitNoise(w, c.pos, 8, c.id)
-    if (w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'danger', `${c.name}이(가) 몸을 부풀리더니 짙은 포자를 뿜어낸다!`)
+    if (w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'danger', `${knownCreatureName(w,c)}이(가) 몸을 부풀리더니 짙은 포자를 뿜어낸다!`)
     return { ok: true, tu: 100 }
   }
   if (d.sweep) return sweep(w, c, d)
@@ -130,8 +139,8 @@ export function useAbility(w: World, c: Creature, id: string, targetId?: number)
   const ranged = !!(wl?.item && itemDef(w, wl.item).ranged)
   if (ranged) {
     const rd = itemDef(w, wl!.item!).ranged!
-    if (cheb(c.pos, t.pos) > rd.range || !hasLos(w, c.pos, t.pos)) return { ok: false, tu: 0, msg: '쏠 수 없는 위치다' }
-    if (!c.bag.find((i) => i.def === rd.ammo)) return { ok: false, tu: 0, msg: '화살이 없다' }
+    if (cheb(c.pos, t.pos) > rangedRange(w, c, t) || !hasLos(w, c.pos, t.pos)) return { ok: false, tu: 0, msg: '쏠 수 없는 위치다' }
+    if (!projectileReady(w, c, wl!.item!)) return { ok: false, tu: 0, msg: rd.reloadTurns ? '먼저 석궁을 장전해야 한다' : '화살이 없다' }
   } else if (!canReach(w, c, t)) return { ok: false, tu: 0, msg: '닿지 않는다' }
   // 2턴 채널 (조준 사격): 첫 턴에 기력을 내고 겨눈다. 채널 중 피격되면 취소, 기력 절반 환급
   if (d.channel && d.channel > 1) {
@@ -140,7 +149,7 @@ export function useAbility(w: World, c: Creature, id: string, targetId?: number)
     c.facing = dirIndex(t.pos.x - c.pos.x, t.pos.y - c.pos.y)
     fx(w, { k: 'status', id: c.id, text: '조준', color: '#e0d080', turn })
     if (isPl) log(w, 'combat', `${d.label}: 활을 겨눈다… (${d.channel}턴)`)
-    else if (w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'warn', `${c.name}이(가) 당신을 겨누고 있다.`)
+    else if (w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'warn', `${knownCreatureName(w,c)}이(가) 당신을 겨누고 있다.`)
     return { ok: true, tu: 100 }
   }
   payCost(w, c, d)
@@ -154,13 +163,15 @@ export function abilityStrike(w: World, c: Creature, t: Creature, d: AbilityDef,
   const r = rng(w, 'combat')
   const isPl = c.faction === 'player' || t.faction === 'player'
   if (ranged) {
-    const rd = itemDef(w, c.equip.main!).ranged!
-    const ammo = c.bag.find((i) => i.def === rd.ammo)
-    if (!ammo) return { ok: false, msg: '화살이 없다' }
-    removeOne(w, c, ammo.uid)
+    const main = c.equip.main!
+    const err = bowProblem(main, itemDef(w, main))
+    if (err) return { ok: false, msg: err }
+    if (!projectileReady(w, c, main)) return { ok: false, msg: '발사할 탄약이 없다' }
+    if (bowStringBreaks(w, c, true)) return { ok: true }
+    spendProjectile(w, c, main)
   }
   const res = resolveAttack(w, c, t, { mods, abilityLabel: d.label, ranged, mode: d.attackMode, paid: true })
-  if (ranged) recoverArrow(w, c, t, res.hit)
+  if (ranged) recoverArrow(w, c, t, res.hit, res.woundId)
   // 꿰뚫기: 바라보는 방향 일직선 2칸의 모든 개체 (가까운 칸부터)
   if (mods.aoe === 'line2') {
     const dir = DIRS[dirIndex(t.pos.x - c.pos.x, t.pos.y - c.pos.y)]
@@ -172,7 +183,7 @@ export function abilityStrike(w: World, c: Creature, t: Creature, d: AbilityDef,
     if (mods.knockback) pushBack(w, c, t, mods.knockback)
     if (mods.knockdownChance) {
       const q = w.db.body(t.body.def).kind === 'quadruped' ? 0.5 : 1
-      if (r.chance(mods.knockdownChance * q)) knockDown(w, t, isPl, t.faction === 'player' ? '당신' : t.name)
+      if (r.chance(mods.knockdownChance * q)) knockDown(w, t, isPl, t.faction === 'player' ? '당신' : knownCreatureName(w,t))
     }
   }
   return {}
@@ -196,7 +207,7 @@ function sweep(w: World, c: Creature, d: AbilityDef): ActResult {
   }
   if (!best.length) return { ok: false, tu: 0, msg: '주변에 적이 없다' }
   payCost(w, c, d)
-  if (best.some((o) => o.faction === 'player')) log(w, 'danger', `${c.name}이(가) 촉수로 크게 휩쓸었다!`)
+  if (best.some((o) => o.faction === 'player')) log(w, 'danger', `${knownCreatureName(w,c)}이(가) 촉수로 크게 휩쓸었다!`)
   for (const t of best) resolveAttack(w, c, t, { abilityLabel: d.label, paid: true })
   return { ok: true, tu: 100 }
 }
@@ -211,18 +222,18 @@ function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResul
   const roll = rng(w, 'combat').int(0, 99)
   const isPl = t.faction === 'player' || c.faction === 'player'
   if (!pv || roll >= pv.chance) {
-    if (isPl) log(w, 'combat', `${c.name}이(가) 붙잡으려 했지만 빗나갔다.`)
+    if (isPl) log(w, 'combat', `${knownCreatureName(w,c)}이(가) 붙잡으려 했지만 빗나갔다.`)
     return { ok: true, tu: 100 }
   }
   addEffect(t, 'grabbed', turnOf(w) + 60, c.id)
   fx(w, { k: 'status', id: t.id, text: '붙잡힘', color: '#e09060', turn: turnOf(w) })
-  if (isPl) log(w, 'danger', `${c.name}이(가) ${t.faction === 'player' ? '당신의' : t.name + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`)
+  if (isPl) log(w, 'danger', `${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신의' : knownCreatureName(w,t) + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`)
   return { ok: true, tu: 100 }
 }
 
 /** 탈출 판정: 50 + (내 근력·민첩 중 높은 쪽 − 붙잡은 쪽 근력) × 5, 5~95 */
-export function escapeChance(c: Creature, grabber: Creature): number {
-  return Math.max(5, Math.min(95, 50 + (Math.max(c.stats.str, c.stats.agi) - grabber.stats.str) * 5))
+export function escapeChance(w: World, c: Creature, grabber: Creature): number {
+  return Math.max(5, Math.min(95, 50 + (Math.max(effectiveStat(w, c, 'str'), c.stats.agi) - effectiveStat(w, grabber, 'str')) * 5))
 }
 
 /** 달려들기: 직선 N칸을 달려와 같은 턴에 근접 공격, 이동 칸마다 비틀거림 판정 (bestiary §17) */
@@ -252,17 +263,20 @@ function lunge(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResu
     c.movedTurn = turnOf(w)
     fx(w, { k: 'move', id: c.id, from, to: p, turn: turnOf(w) })
   }
-  if (t.faction === 'player' || c.faction === 'player') log(w, 'combat', `${c.name}이(가) 순식간에 파고든다!`)
+  if (t.faction === 'player' || c.faction === 'player') log(w, 'combat', `${knownCreatureName(w,c)}이(가) 순식간에 파고든다!`)
   if (canReach(w, c, t)) resolveAttack(w, c, t, { abilityLabel: d.label, paid: true })
   return { ok: true, tu: 100 }
 }
 
 /** 화살 회수: 명중 60% · 빗나감 85%, 화살 회수 능력 +30%p (상한 95) (07 §7.1 · 15 §6.5) */
-export function recoverArrow(w: World, c: Creature, t: Creature, hit: boolean) {
+export function recoverArrow(w: World, c: Creature, t: Creature, hit: boolean, woundId?: number) {
   const rd = itemDef(w, c.equip.main!).ranged
   if (!rd) return
   const p = Math.min(95, (hit ? 60 : 85) + traitAdd(w, c, 'arrowRecover'))
-  if (rng(w, 'combat').int(0, 99) < p) {
+  const intact = rng(w, 'combat').int(0, 99) < p
+  const wd = t.body.wounds.find((wd) => wd.id === woundId)
+  if (hit && wd && t.alive) { lodgeProjectile(w, t, wd, rd.ammo, intact); return }
+  if (intact) {
     const tile = w.s.map.tiles[t.pos.y * w.s.map.w + t.pos.x]
     const ex = tile.items.find((i) => i.def === rd.ammo)
     if (ex) ex.count++
@@ -280,7 +294,7 @@ export function spearWallReact(w: World, mover: Creature) {
     const seen = (e.magnitude ?? 0)
     if (seen === mover.id) continue
     e.magnitude = mover.id
-    if (o.faction === 'player' || mover.faction === 'player') log(w, 'combat', `${o.faction === 'player' ? '당신' : o.name}의 창벽! 다가오는 ${mover.faction === 'player' ? '당신' : mover.name}을(를) 먼저 찌른다.`)
+    if (o.faction === 'player' || mover.faction === 'player') log(w, 'combat', `${o.faction === 'player' ? '당신' : knownCreatureName(w,o)}의 창벽! 다가오는 ${mover.faction === 'player' ? '당신' : knownCreatureName(w,mover)}을(를) 먼저 찌른다.`)
     resolveAttack(w, o, mover, { abilityLabel: '창벽 찌르기', counter: true })
     if (!mover.alive) return
   }

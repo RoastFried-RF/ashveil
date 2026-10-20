@@ -1,0 +1,9 @@
+{
+  "id": "sample-versioned",
+  "name": "버전 의존성 예제",
+  "version": "1.0.0",
+  "gameVersion": ">=0.1.0 <0.2.0",
+  "description": "현재 게임과 core 버전을 확인한다. 선택자 패치 예제가 켜지면 그 뒤에 조용한 흐름의 휴식 간격48시간을 적용한다. 선택 의존성은 자동으로 켜지지 않는다.",
+  "dependencies": [{"id": "core", "version": "^0.1.0"}],
+  "optionalDependencies": [{"id": "sample-selector", "version": "^1.0.0"}]
+}

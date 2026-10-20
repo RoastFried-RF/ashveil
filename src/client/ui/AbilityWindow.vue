@@ -28,7 +28,7 @@ const d = computed(() => {
     w, pl,
     xp: { cur: pl.xp - base, need: next - base, total: pl.xp, next },
     mastery: (['medicine', 'survival'] as const).map((k) => {
-      const n = masteryCount(pl, k), st = masteryStage(pl, k), nx = masteryNext(pl, k)
+      const n = masteryCount(pl, k), st = masteryStage(w, pl, k), nx = masteryNext(w, pl, k)
       const prev = st > 0 ? MASTERY_STEPS[st - 1] : 0
       return { label: MASTERY_LABEL[k], st, n, nx, frac: nx ? (n - prev) / (nx - prev) : 1 }
     }),

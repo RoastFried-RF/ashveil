@@ -1,6 +1,6 @@
 // 경고 체계 (12 §6): 상태에서 경고 띠를 계산한다
 import {
-  bloodLoss, canSee, hostile, hpMax, moraleOf, painStage, painTotal, player, regionState, totalBleed, REGION_LABEL, STATE_LABEL,
+  bloodLoss, canSee, hungerBand, hungerStage, thirstBand, thirstStage, hostile, hpMax, moraleOf, painStage, painTotal, player, regionState, totalBleed, REGION_LABEL, STATE_LABEL,
   type Region, type World,
 } from '../core'
 
@@ -11,6 +11,7 @@ const REGIONS: Region[] = ['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg']
 export function computeBanners(w: World): Banner[] {
   const pl = player(w)
   const out: Banner[] = []
+  const heatShift = thirstBand(w, pl).heatShift
   const bleed = totalBleed(w, pl)
   const blood = pl.body.blood, max = pl.body.bloodMax
   const toDeath = bleed > 0.05 ? Math.floor((blood - max * 0.5) / bleed) : Infinity
@@ -19,8 +20,9 @@ export function computeBanners(w: World): Banner[] {
   if (loss >= 0.3) out.push({ p: 0, text: `혈액 손실 ${Math.round(loss * 100)}%` })
   if (pl.hp <= hpMax(w, pl) * 0.15) out.push({ p: 0, text: `HP ${Math.ceil(pl.hp)} — 위독` })
   if (pl.needs.bodyTemp < 32) out.push({ p: 0, text: `체온 ${pl.needs.bodyTemp.toFixed(1)}°C` })
+  if (pl.needs.bodyTemp > 41 - heatShift) out.push({ p: 0, text: `고체온 ${pl.needs.bodyTemp.toFixed(1)}°C — 위독` })
   if (bleed > 0.3 && toDeath >= 30) out.push({ p: 1, text: `출혈 ${bleed.toFixed(1)} ml/턴`, turns: toDeath })
-  const foes = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)).length
+  const foes = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(w, pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos)).length
   if (foes) out.push({ p: 1, text: `적 ${foes}` })
   // 공포 (07 §8 대칭): 사기 25 미만이면 명중 −10
   if (foes && moraleOf(w, pl) < 25) out.push({ p: 1, text: '공포 — 명중 −10' })
@@ -28,8 +30,9 @@ export function computeBanners(w: World): Banner[] {
   if (bad.length) out.push({ p: 1, text: bad.map(([r, s]) => `${REGION_LABEL[r]} ${STATE_LABEL[s]}`).join(' · ') })
   if (painStage(painTotal(w, pl)) >= 3) out.push({ p: 1, text: '통증 심각' })
   if (pl.needs.bodyTemp < 35 && pl.needs.bodyTemp >= 32) out.push({ p: 1, text: '저체온' })
-  if (pl.needs.kcal < 900) out.push({ p: 2, text: pl.needs.kcal < 0 ? '굶주림' : '배고픔' })
-  if (pl.needs.water < 900) out.push({ p: 2, text: pl.needs.water < 0 ? '탈수' : '갈증' })
+  if (pl.needs.bodyTemp > 39.5 - heatShift && pl.needs.bodyTemp <= 41 - heatShift) out.push({ p: 1, text: '열사병 위험' })
+  if (hungerStage(w, pl) >= 1) out.push({ p: hungerStage(w, pl) >= 4 ? 1 : 2, text: hungerBand(w, pl).label })
+  if (thirstStage(w, pl) >= 1) out.push({ p: thirstStage(w, pl) >= 4 ? 0 : 2, text: thirstBand(w, pl).label })
   if (pl.needs.fatigue > 75) out.push({ p: 2, text: pl.needs.fatigue > 90 ? '탈진' : '지침' })
   for (const it of Object.values(pl.equip)) if (it && (it.durability ?? 100) < 30) { out.push({ p: 2, text: `${w.db.item(it.def).label} 부서지기 직전` }); break }
   return out.sort((a, b) => a.p - b.p || (a.turns ?? Infinity) - (b.turns ?? Infinity)).slice(0, 3)

@@ -1,0 +1,87 @@
+[
+  {
+    "name": "surface",
+    "baselineHash": "6e1bb6c6",
+    "baselineMatchesPinned": true,
+    "newHash": "82015fb9",
+    "errorsUnchanged": true,
+    "changes": 2,
+    "differences": [
+      {
+        "path": ".creatures[0].bag[5].bowMoisture",
+        "added": 0
+      },
+      {
+        "path": ".creatures[2].equip.main.bowMoisture",
+        "added": 0.05916666666666659
+      }
+    ]
+  },
+  {
+    "name": "dungeon-combat",
+    "baselineHash": "39f9960e",
+    "baselineMatchesPinned": true,
+    "newHash": "390e43c4",
+    "errorsUnchanged": true,
+    "changes": 6,
+    "differences": [
+      {
+        "path": ".creatures[0].equip.chest.durability",
+        "before": 90,
+        "after": 98.75
+      },
+      {
+        "path": ".creatures[0].equip.chest.partDurability",
+        "added": {
+          "Neck": 100,
+          "Chest": 100,
+          "Abdomen": 90,
+          "Pelvis": 100,
+          "LeftUpperArm": 100,
+          "LeftForearm": 100,
+          "RightUpperArm": 100,
+          "RightForearm": 100
+        }
+      },
+      {
+        "path": ".creatures[0].equip.main.edgeWear",
+        "added": 0
+      },
+      {
+        "path": ".creatures[2].equip.main.bowMoisture",
+        "added": 0.6750000000000088
+      },
+      {
+        "path": ".log[43].detail[6]",
+        "before": "누빔 재킷: 유효 11, roll 60 → 관통",
+        "after": "누빔 재킷: 유효 12, roll 60 → 관통"
+      },
+      {
+        "path": ".offCreatures.crypt1[12].equip.main.edgeWear",
+        "added": 0
+      }
+    ]
+  },
+  {
+    "name": "freeze-reentry",
+    "baselineHash": "6e3bfb36",
+    "baselineMatchesPinned": true,
+    "newHash": "0c681dcd",
+    "errorsUnchanged": true,
+    "changes": 3,
+    "differences": [
+      {
+        "path": ".creatures[2].equip.main.bowMoisture",
+        "added": 0.2158333333333327
+      },
+      {
+        "path": ".offCreatures.crypt1[3].equip.main.edgeWear",
+        "added": 0
+      },
+      {
+        "path": ".offCreatures.crypt1[10].equip.main.edgeWear",
+        "added": 0
+      }
+    ]
+  }
+]

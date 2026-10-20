@@ -1,0 +1,32 @@
+import {describe,it,expect} from 'vitest'
+import {scoutRoomFixture,scoutRoomNativeFixture} from './scout-room-rumors-fixture'
+import {hearScoutRooms} from '../src/core/scout-room-rumors'
+import {mapClaims} from '../src/core/cartography'
+import {npcFieldMap} from '../src/core/npc-map-memory'
+import {knownSurveyMaps} from '../src/core/map-commissions'
+import {learnRumor} from '../src/core/rumor-state'
+import {makeWorld} from './helpers'
+import {initialMapReport} from './cartography-fixture'
+import {startMapDrawing} from '../src/core/map-writing'
+import {playerAct,runUntilInput} from '../src/core/game'
+import {stateHash,serialize,deserialize} from '../src/core/save'
+import {type World} from '../src/core/ctx'
+describe('동료 실제 귀환 정찰과 지도/소문의 충돌',()=>{
+ it('동료가 떨어져 있는 동안 현재 원격 방/동료 위치를 조회해 소식을 만들지 않는다',()=>{const d=scoutRoomFixture(),before=stateHash(d.s);expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0);expect(stateHash(d.s)).toBe(before);expect(d.npc.fieldMaps).toBeUndefined();expect(d.room.discovered).toBe(false)})
+ it('동료는 실제 원래 수도원을 보고 정상 차례로 걸어 귀환한다',()=>{const d=scoutRoomNativeFixture('returned');expect(d.proof.actualTurns).toBeGreaterThan(20);expect(d.proof.netReturnDistance).toBeGreaterThan(20);expect(npcFieldMap(d.w,d.npc)!.rooms.some(r=>r.roomIndex===d.roomIndex)).toBe(true);expect(d.s.knowledge.rumors).toEqual([]);expect(d.room.discovered).toBe(false);expect(d.npc.bag).toEqual([])})
+ it('실제 대화1턴에만 당시 방의 목격자/시각을 전하고 현재 탐험 상태는 바꾸지 않는다',()=>{const d=scoutRoomNativeFixture('returned'),at=d.s.time,random=structuredClone(d.s.rng),room=structuredClone(d.room);d.act({type:'talk',target:d.npc.id});expect(d.s.time-at).toBe(100);const news=d.s.knowledge.rumors!.find(r=>r.roomIdx===d.roomIndex)!;expect(news.hop).toBe(0);expect(news.source).toContain(d.npc.name+'의 직접 정찰');expect(news.writtenAt).toBe(d.proof.actualRoomObservationAt);expect(news.mapDocument).toBeUndefined();expect(news.foundAt).toBe(at/100);expect(d.room).toEqual(room);expect(d.s.rng).toEqual(random)})
+ it('종이/잉크와 현재 원격 생물·재고를 소모하거나 소문에 넣지 않는다',()=>{const d=scoutRoomNativeFixture('heard');expect(d.paper.note).toBeUndefined();expect(d.ink.count).toBe(3);const r=d.s.knowledge.rumors!.find(r=>r.roomIdx===d.roomIndex)!;expect(r.text).not.toContain('명');expect(r.rect).toEqual({x:d.room.x,y:d.room.y,w:d.room.w,h:d.room.h});expect(d.npc.bag).toEqual([])})
+ it('들은 방 위치는 플레이어의 직접 탐험 지도 원본으로 복사하지 않는다',()=>{const d=scoutRoomNativeFixture('heard');expect(startMapDrawing(d.w,d.p,d.paper.uid,d.ink.uid,1)).toBeNull();expect(d.p.mapDrawingJob!.draft.rooms.some(r=>r.roomIndex===d.roomIndex)).toBe(false);expect(d.room.discovered).toBe(false)})
+ it('중복 대화는 시각/위치/출처를 새로 만들거나 덮어쓰지 않는다',()=>{const d=scoutRoomNativeFixture('heard'),before=stateHash(d.s);expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0);expect(stateHash(d.s)).toBe(before)})
+ for(const mode of ['sleep','deaf','far','dismissed']as const)it(`${mode} 대화는 동료 기록을 원격 전하지 않는다`,()=>{const d=scoutRoomNativeFixture('returned');if(mode==='sleep')d.npc.asleep=true;if(mode==='deaf')d.p.body.missing=['LeftEar','RightEar'];if(mode==='far')d.npc.pos.x+=5;if(mode==='dismissed')d.npc.companion!.status='dismissed';const before=stateHash(d.s);expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0);expect(stateHash(d.s)).toBe(before)})
+ it('다른 지역의 같은 지도 식별자를 현재 지역 보고로 덮어쓰지 않는다',()=>{const d=scoutRoomNativeFixture('returned');for(const m of d.npc.fieldMaps??[])m.region='Region.Other';const before=stateHash(d.s);expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0);expect(stateHash(d.s)).toBe(before)})
+ it('미래 날짜를 가진 잘못된 관찰은 과거 정찰로 공개하지 않는다',()=>{const d=scoutRoomNativeFixture('returned');for(const m of d.npc.fieldMaps??[]){for(const r of m.rooms)r.seenAt=d.s.time/100+1;for(const r of m.stairs)r.seenAt=d.s.time/100+1}expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0)})
+ it('방 소문과 지도는 같은 방 식별자의 서로 다른 위치를 함께 충돌 표시한다',()=>{const d=scoutRoomNativeFixture('conflict'),claims=mapClaims(d.w,d.s.map.id,d.s.map).filter(c=>c.roomIndex===d.roomIndex);expect(claims).toHaveLength(2);expect(claims.every(c=>c.conflict&&c.status==='unverified')).toBe(true);expect(claims.map(c=>c.origin).sort()).toEqual(['document','rumor'])})
+ it('진실한 현재 원격 방을 조회해 어느 출처가 맞는지 판정하지 않는다',()=>{const d=scoutRoomNativeFixture('conflict'),before=stateHash(d.s);expect(mapClaims(d.w,d.s.map.id,d.s.map).filter(c=>c.roomIndex===d.roomIndex).every(c=>c.status==='unverified')).toBe(true);expect(stateHash(d.s)).toBe(before)})
+ it('같은 방 좌표의 다른 이름도 출처끼리 충돌로 남긴다',()=>{const d=scoutRoomNativeFixture('heard'),r=d.s.knowledge.rumors!.find(r=>r.roomIdx===d.roomIndex)!,other=structuredClone(r);other.id+=':other';other.roomName='다르게 적은 이름';learnRumor(d.w,d.p,other);expect(mapClaims(d.w,d.s.map.id,d.s.map).filter(c=>c.roomIndex===d.roomIndex).every(c=>c.conflict)).toBe(true)})
+ it('직접 발견한 방은 지도/구술 기록보다 우선하고 과거 주장은 그대로 남는다',()=>{const d=scoutRoomNativeFixture('conflict'),original=structuredClone(d.s.knowledge.rumors);d.room.discovered=true;const claims=mapClaims(d.w,d.s.map.id,d.s.map).filter(c=>c.roomIndex===d.roomIndex);expect(claims.find(c=>c.origin==='rumor')!.status).toBe('verified');expect(claims.find(c=>c.origin==='document')!.status).toBe('contradicted');expect(d.s.knowledge.rumors).toEqual(original)})
+ it('조회는 원격 지도/방/지식/시간/난수를 바꾸지 않는다',()=>{const d=scoutRoomNativeFixture('heard'),before=serialize(d.s);for(let i=0;i<3;i++)mapClaims(d.w,d.s.map.id,d.s.map);expect(serialize(d.s)).toBe(before)})
+ it('명시적인 층/크기를 전해 들었으면 미방문 층 의뢰를 알되 실제 층은 만들지 않는다',()=>{const w=makeWorld('oral-known-floor','Bg.Hunter',true),r=initialMapReport();delete r.mapDocument;r.regionId=w.s.overworld!.currentRegion;w.s.knowledge.rumors=[r];const before=stateHash(w.s);expect(knownSurveyMaps(w).some(m=>m.mapId==='crypt2'&&m.depth===2)).toBe(true);expect(w.s.maps.crypt2).toBeUndefined();expect(stateHash(w.s)).toBe(before)})
+ it('구형 소문의 식별자만 보고 기록 없는 층 수를 의뢰에 추정하지 않는다',()=>{const w=makeWorld('oral-old-depth','Bg.Hunter',true),r=initialMapReport();delete r.mapDocument;delete r.mapDepth;r.regionId=w.s.overworld!.currentRegion;w.s.knowledge.rumors=[r];expect(knownSurveyMaps(w).some(m=>m.mapId==='crypt2')).toBe(false)})
+ it('진행 중 저장 후 남은 실제 시간과 동료의 관찰/들은 기록 전체는 복원과 같다',()=>{const d=scoutRoomNativeFixture('pending'),at=d.s.time,copy:World={db:d.w.db,s:deserialize(serialize(d.s))};expect(d.s.simulationPending).toBe(true);runUntilInput(d.w);runUntilInput(copy);expect(d.s.time).toBeGreaterThan(at);expect(JSON.parse(serialize(copy.s))).toEqual(JSON.parse(serialize(d.s)));expect(playerAct(d.w,{type:'wait'})).toBeNull();expect(d.room.discovered).toBe(false)})
+})

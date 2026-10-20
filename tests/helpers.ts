@@ -4,7 +4,7 @@ import type { World } from '../src/core/ctx'
 
 export const { db } = loadDb()
 
-export function makeWorld(seed = 'test', background?: string): World {
-  const s = newGame(db, { seed, background })
+export function makeWorld(seed = 'test', background?: string, overworld=false): World {
+  const s = newGame(db, { seed, background, overworld })
   return { db, s }
 }

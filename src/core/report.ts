@@ -6,7 +6,7 @@ import { WEATHER_LABEL } from './environment'
 import { allItems, itemLabel } from './items'
 import type { Creature, DeathReport } from './types'
 
-export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cause: string): DeathReport {
+export function buildReport(w: World, c: Creature, kind: 'death' | 'escape' | 'retire', cause: string): DeathReport {
   const turn = turnOf(w)
   const bg = c.background ? w.db.background(c.background).label : '떠돌이'
   const traits = c.traits.map((t) => w.db.trait(t).label)
@@ -15,7 +15,7 @@ export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cau
   const vitals = [
     `혈액 ${Math.round(c.body.blood)} / ${c.body.bloodMax} ml (손실 ${(bloodLoss(c) * 100).toFixed(0)}%)`,
     `체온 ${c.needs.bodyTemp.toFixed(1)}°C · 젖음 ${c.needs.wetness.toFixed(0)}%`,
-    `열량 ${Math.round(c.needs.kcal)} kcal · 수분 ${Math.round(c.needs.water)} ml · 비타민 ${c.needs.vitamin.toFixed(0)}`,
+    `열량 균형 ${Math.round(c.needs.kcal)} kcal · 수분 결손 ${Math.round(c.needs.waterDeficit)} ml · 단백 ${c.needs.protein.toFixed(0)} · 비타민 ${c.needs.vitamin.toFixed(0)}`,
     `통증 ${painLabel(painTotal(w, c))} · 스트레스 ${c.needs.stress.toFixed(0)}`,
   ]
   for (const wd of c.body.wounds) {
@@ -36,11 +36,11 @@ export function buildReport(w: World, c: Creature, kind: 'death' | 'escape', cau
   if (unknown.length) stats.push(`끝내 먹어보지 못한 약: ${unknown.join(', ')}`)
   const { day } = clock(turn)
   const killer = c.killedBy ? `, ${c.killedBy}` : ''
-  const epitaph = kind === 'escape'
+  const epitaph = kind === 'retire' ? `떠돌이 ${c.name}, ${day}일차. 원정을 마치고 정착했다.` : kind === 'escape'
     ? `떠돌이 ${c.name}, ${day}일차. 회색 고원 폐허를 벗어나 동쪽 길로 사라졌다.`
     : `떠돌이 ${c.name}, ${day}일차. ${cause}${killer}. 마지막으로 먹은 것: ${lastMeal}.`
   return {
-    title: kind === 'escape' ? '고원을 벗어나다' : '여기 잠들다',
+    title: kind === 'retire'?'떠돌이를 내려놓다':kind === 'escape' ? '고원을 벗어나다' : '여기 잠들다',
     name: c.name,
     background: bg,
     traits,

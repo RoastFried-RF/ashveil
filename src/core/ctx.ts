@@ -1,6 +1,6 @@
 import type { DefDatabase } from './defs'
 import type { Pos } from './geom'
-import { Rng, type RngStream } from './rng'
+import { Rng, seedState, type RngStream } from './rng'
 import type { Creature, GameState, LogEntry, Tile, TerrainDef } from './types'
 
 export const TU_PER_TURN = 100
@@ -16,7 +16,7 @@ export interface World {
 }
 
 export function rng(w: World, stream: RngStream): Rng {
-  const st = w.s.rng[stream]
+  const st = w.s.rng[stream] ?? ((stream.startsWith('mod.')||stream.startsWith('world.')||stream.startsWith('body.')||stream.startsWith('items.')||stream.startsWith('cooking.')||stream.startsWith('fire.')) ? w.s.rng[stream] = seedState(w.s.seed, stream) : undefined)
   if (!st) throw new Error(`RNG 스트림 없음: ${stream}`)
   return new Rng(st)
 }
@@ -74,7 +74,9 @@ export function isPassable(w: World, p: Pos): boolean {
 }
 
 export function isOpaque(w: World, p: Pos): boolean {
-  return !inBounds(w, p) || terrainAt(w, p).opaque
+  if (!inBounds(w, p) || terrainAt(w, p).opaque) return true
+  const sp = tileAt(w, p).spores
+  return !!sp && sp.until > turnOf(w) && sp.conc >= 5
 }
 
 export function nextId(w: World): number {

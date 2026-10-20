@@ -2,15 +2,17 @@
 
 import { reactive, ref } from 'vue'
 import {
-  abilityReady, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player,
+  abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
 
-export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal' | 'map'
-export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false, map: false })
+export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal' | 'map' | 'craft' | 'society'
+export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false, map: false, craft: false, society: false })
 /** 연 순서 (Esc는 가장 위 창부터, 동시에 3개까지, 12 §2.3) */
 export const winOrder: WinKey[] = []
+export const socialTarget = ref<number | null>(null)
+export const prostheticInstallUid = ref<number | null>(null)
 export const hint = ref<string | null>(null)
 /** 기록 창 크게 보기 (Shift+L, 12 §8) */
 export const logBig = ref(false)
@@ -54,6 +56,7 @@ export function closeTopWin(): boolean {
 export const logLevel = ref<'brief' | 'standard' | 'detail'>('standard')
 
 export function doAct(a: Action): string | null {
+  hideTip()
   const err = act(a)
   hint.value = err
   return err
@@ -64,7 +67,7 @@ export function visibleEnemies(w: World): Creature[] {
   const pl = player(w)
   const vis = new Set(w.s.visible)
   return w.s.creatures
-    .filter((c) => c.alive && hostile(pl, c) && vis.has(c.pos.y * w.s.map.w + c.pos.x))
+    .filter((c) => c.alive && hostile(w, pl, c) && vis.has(c.pos.y * w.s.map.w + c.pos.x))
     .sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))
 }
 
@@ -76,7 +79,7 @@ export function validTargets(w: World, abilityId?: string): Creature[] {
   const ab = abilityId ? w.db.ability(abilityId) : undefined
   const useRanged = ab ? ab.weapon === 'archery' : !!ranged
   return visibleEnemies(w).filter((c) => {
-    if (useRanged) return !!ranged && cheb(pl.pos, c.pos) <= ranged.range && hasLos(w, pl.pos, c.pos)
+    if (useRanged) return !!ranged && cheb(pl.pos, c.pos) <= rangedRange(w, pl, c) && hasLos(w, pl.pos, c.pos)
     return canReach(w, pl, c)
   })
 }
@@ -87,6 +90,8 @@ export function startShoot() {
   const pl = player(w)
   const mw = mainWeapon(w, pl)
   if (!mw || !itemDef(w, mw).ranged) { hint.value = '원거리 무기를 들고 있지 않다'; return }
+  const problem = bowProblem(mw, itemDef(w, mw))
+  if (problem) { hint.value = problem; return }
   const ts = validTargets(w)
   if (!ts.length) { hint.value = '쏠 수 있는 적이 없다'; return }
   targeting.value = { kind: 'shoot', label: '사격', targets: ts.map((c) => c.id), idx: 0 }
@@ -123,8 +128,20 @@ export function confirmTarget(id?: number) {
 export function useItem(w: World, it: ItemInst): string | null {
   const d = itemDef(w, it)
   const pl = player(w)
+  if (d.drug?.def && w.db.get<DrugDef>(d.drug.def).external) { setWin('body', true); return (hint.value = '신체 창에서 약을 바를 상처를 고르세요.') }
+  if (d.prosthetic) { prostheticInstallUid.value = it.uid; setWin('body', true); return (hint.value = '결손 부위를 골라 의수족을 설치할 수 있다.') }
   if (d.medical) {
     const wounds = pl.body.wounds.filter((wd) => !wd.internal)
+    if (d.medical.kind === 'suture') {
+      const advanced = masteryStage(w, pl, 'medicine') >= 3
+      const target = wounds.filter((wd) => w.db.wound(wd.def).suturable && (!wd.suture || (advanced && wd.tendon))).sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))[0]
+      const procedure = target?.artery ? 'ligate' : target?.tendon && advanced ? 'tendon' : 'suture'
+      const damaged = !target && advanced ? pl.body.damagedTendons?.[0] : undefined
+      const kind = damaged ? 'tendon' : procedure
+      const err = surgeryError(w, pl, surgeryDef(w, kind), target, damaged)
+      if (err) { setWin('body', true); return (hint.value = err) }
+      return doAct({ type: 'treat', uid: it.uid, woundId: target?.id, limb: damaged, procedure: kind })
+    }
     let target
     if (d.medical.kind === 'splint') target = wounds.find((wd) => wd.fracture && (!wd.splint || wd.splint.half))
     else if (d.medical.kind === 'disinfect') target = wounds.filter((wd) => wd.contam > 5 && !wd.cauterized).sort((a, b) => b.contam - a.contam)[0]

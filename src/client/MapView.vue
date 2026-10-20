@@ -4,6 +4,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { ItemDef, Pos, AbilityDef } from '../core'
 import { loadAtlas } from './render/atlas'
 import { MapRenderer, type RenderOpts } from './render/MapRenderer'
+import { preferences } from './preferences'
 import { version, world } from './store'
 
 const props = defineProps<{ opts: RenderOpts }>()
@@ -12,7 +13,7 @@ const host = ref<HTMLDivElement>()
 const loading = ref(true)
 let r: MapRenderer | null = null
 
-const GROUND = ['grass0', 'grass1', 'grass2', 'grassdirt0', 'grassdirt1', 'grassdirt2', 'dirt0', 'dirt1', 'dirt2', 'ash0', 'ash1', 'ash2', 'ash3', 'water_shallow', 'blood0', 'blood1', 'blood2', 'blood3', 'blood_pool']
+const GROUND = ['grass0', 'grass1', 'grass2', 'grassdirt0', 'grassdirt1', 'grassdirt2', 'dirt0', 'dirt1', 'dirt2', 'ash0', 'ash1', 'ash2', 'ash3', 'water_shallow', 'water_deep', 'blood0', 'blood1', 'blood2', 'blood3', 'blood_pool', 'murk_leech']
 
 onMounted(async () => {
   const w = world.value
@@ -28,6 +29,7 @@ onMounted(async () => {
   loading.value = false
 })
 
+watch(preferences, () => { if (r && world.value) r.sync(world.value) })
 watch(version, () => { if (r && world.value) r.sync(world.value) })
 watch(() => props.opts, (o) => r?.setOpts(o), { deep: true })
 

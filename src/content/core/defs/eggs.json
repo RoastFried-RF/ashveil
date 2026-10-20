@@ -1,0 +1,59 @@
+[
+  {
+    "defType": "Item",
+    "sprite": "ash_cap",
+    "category": "food",
+    "weight": 0,
+    "value": 5,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 3,
+    "id": "Item.Egg",
+    "label": "달걀",
+    "description": "한 개에80kcal를 담은 날달걀. 단단한 바닥에 버리면 더미의 껍데기가 깨질 수 있다.",
+    "food": {
+      "kcal": 80,
+      "protein": 6,
+      "vitamin": 1,
+      "water": 45,
+      "freshHours": 336,
+      "raw": true,
+      "poison": 0
+    },
+    "fragile": {
+      "dropChance": 0.3,
+      "result": "Item.CrackedEgg",
+      "waterMult": 0,
+      "beddingMult": 0,
+      "noise": 2
+    }
+  },
+  {
+    "defType": "Item",
+    "sprite": "ash_cap",
+    "category": "food",
+    "weight": 0,
+    "value": 2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 3,
+    "id": "Item.CrackedEgg",
+    "label": "깨진 달걀",
+    "description": "껍데기가 깨진 달걀 내용물. 한 개의 영양은 같지만6시간 만에 상하므로 빨리 먹어야 한다.",
+    "food": {
+      "kcal": 80,
+      "protein": 6,
+      "vitamin": 1,
+      "water": 45,
+      "freshHours": 6,
+      "raw": true,
+      "poison": 0
+    }
+  }
+]

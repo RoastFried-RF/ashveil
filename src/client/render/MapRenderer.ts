@@ -1,3 +1,4 @@
+import {mapAppearance,displayTile} from '../map-memory'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -6,9 +7,10 @@ import {
   AnimatedSprite, Application, Container, Graphics, Sprite, Text, Texture, TextureStyle, type TextStyleOptions,
 } from 'pixi.js'
 import {
-  bloodLoss, hpMax, isRaining, lightAt, player, regionState, totalBleed, turnOf, hasEffect,
+  beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, player, regionState, totalBleed, turnOf, hasEffect,
   type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
+import { paletteColor, preferences } from '../preferences'
 import { animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
 
 export const T = 16
@@ -40,11 +42,14 @@ interface CView {
   flashT: number
   deadT: number
   alive: boolean
+  unknown: boolean
   scale: number
   zzT: number
   /** 다리 중상 이상: 걷기 절뚝임 (12 §2.5) */
   limp: boolean
 }
+
+interface PropAnimation { s: Sprite; frames: Texture[]; fps: number; phase: number; flame?: boolean }
 
 interface Floater { t: Text; vy: number; life: number; max: number }
 
@@ -81,9 +86,12 @@ export class MapRenderer {
   private glowCanvas = document.createElement('canvas')
   private views = new Map<number, CView>()
   private floaters: Floater[] = []
-  private animated: { s: Sprite; frames: Texture[]; fps: number; phase: number }[] = []
+  private animated: PropAnimation[] = []
+  private dynamicAnimated: PropAnimation[] = []
   private flames: { s: Sprite; base: number; phase: number }[] = []
-  private mapId = ''
+  private renderedMap: World['s']['map'] | null = null
+  private renderedTerrain: (string|undefined)[] = []
+  private displayVisible:ReadonlySet<number>=new Set()
   private cam = { x: 0, y: 0 }
   private camInit = false
   private zoom = 3
@@ -147,13 +155,20 @@ export class MapRenderer {
     const H = this.app.renderer.height / this.app.renderer.resolution
     this.zoom = Math.max(1, Math.floor(H / 360))
     this.world.scale.set(this.zoom)
-    if (w.s.map.id !== this.mapId) {
-      this.mapId = w.s.map.id
-      this.buildStatic(w)
+    const mapChanged = w.s.map !== this.renderedMap
+    const appearance=mapAppearance(w)
+    this.displayVisible=appearance.visible
+    const terrainChanged = mapChanged || appearance.terrain.some((id,i)=>id!==this.renderedTerrain[i])
+    if (mapChanged) {
       for (const v of this.views.values()) v.root.destroy({ children: true })
       this.views.clear()
       this.camInit = false
       w.s.fx.length = 0
+    }
+    if (terrainChanged) {
+      this.renderedMap = w.s.map
+      this.renderedTerrain = appearance.terrain
+      this.buildStatic(w)
     }
     this.buildDynamic(w)
     this.updateLight(w)
@@ -169,17 +184,24 @@ export class MapRenderer {
   }
 
   private buildStatic(w: World) {
-    this.clear(this.ground); this.clear(this.deco); this.clear(this.walls); this.clear(this.objs)
+    this.clear(this.ground); this.clear(this.deco); this.clear(this.walls)
+    const creatureRoots = new Set([...this.views.values()].map(v => v.root))
+    for (const child of [...this.objs.children]) if (!creatureRoots.has(child as Container)) {
+      this.objs.removeChild(child); child.destroy({ children: true })
+    }
     this.animated = []; this.flames = []
     const map = w.s.map
     const surface = map.kind === 'surface'
     const isWall = (x: number, y: number) => {
       if (x < 0 || y < 0 || x >= map.w || y >= map.h) return true
-      return !!w.db.terrain(map.tiles[y * map.w + x].t).wall
+      const id=this.renderedTerrain[y*map.w+x]
+      return id?!!w.db.terrain(id).wall:true
     }
     for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
-      const tile = map.tiles[y * map.w + x]
-      const terr = w.db.terrain(tile.t)
+      const i=y*map.w+x,id=this.renderedTerrain[i]
+      if(!id)continue
+      const tile=displayTile(map.tiles[i],id,this.displayVisible.has(i))
+      const terr = w.db.terrain(id)
       const h = hash(x, y)
       const px = x * T, py = y * T
       // 바닥
@@ -231,6 +253,7 @@ export class MapRenderer {
     }
     // 다칸 소품
     for (const p of map.props) {
+      if(!this.renderedTerrain[p.y*map.w+p.x])continue
       const k = p.kind
       if (k === 'statue' || k === 'sarcophagus') {
         const s = new Sprite(tex(k))
@@ -254,21 +277,23 @@ export class MapRenderer {
     }
   }
 
-  private floorSprite(w: World, t: string, x: number, y: number, h: number, surface: boolean): Sprite {
+  private floorSprite(w: World, t: string, x: number, y: number, h: number, surface: boolean): Container {
+    const terrain=w.db.terrain(t)
+    if(terrain.floor==='deck'){const g=new Graphics().rect(0,0,T,T).fill(0x735435);for(const yy of [0,5,10,15])g.moveTo(0,yy).lineTo(T,yy).stroke({color:0x3b2d22,width:.6});const join=h%2?4:11;g.moveTo(join,0).lineTo(join,5).stroke({color:0x3b2d22,width:.5});return g}
     if (t === 'Terrain.CdFloor') {
       const s = new Sprite(tex(`cd_floor${h % 20}`))
       return s
     }
     if (surface && t !== 'Terrain.KtFloor' && t !== 'Terrain.Rubble' && !w.db.terrain(t).stairs) {
       let name: string
-      if (t === 'Terrain.ShallowWater') name = 'water_shallow'
-      else if (t === 'Terrain.Path') name = `dirt${h % 3}`
+      if (terrain.water) name = terrain.water==='deep'?'water_deep':'water_shallow'
+      else if (t === 'Terrain.Path' || t === 'Terrain.Mud') name = `dirt${h % 3}`
       else name = h % 9 === 0 ? 'grassdirt0' : 'grass0'
       const s = new Sprite(icon(name))
       s.width = T; s.height = T
       // 같은 결의 풀을 미세한 명도 차로만 흩뜨려 바둑판 무늬를 피한다
       const k = 0x80 + (h % 12)
-      s.tint = t === 'Terrain.Path' ? 0x9a9488 : (k << 16) | ((k + 6) << 8) | (k - 8)
+      s.tint = terrain.water ? 0xffffff : t === 'Terrain.Mud' ? 0x6a5948 : t === 'Terrain.Path' ? 0x9a9488 : (k << 16) | ((k + 6) << 8) | (k - 8)
       return s
     }
     // KT 석판: 8×8칸 블록마다 사분면을 고르고 그 안을 16px로 샘플링 → 이음매 없는 큰 무늬
@@ -287,6 +312,7 @@ export class MapRenderer {
       this.objs.addChild(s)
       return s
     }
+    if(terr.visual)return // 상태가 바뀌는 밭을 포함해 보이는 지형 표현은 동적 경로에서 그린다.
     if (terr.stairs) {
       const s = new Sprite(tex(terr.stairs === 'down' ? 'floor_stairs' : 'floor_ladder'))
       s.position.set(px, py)
@@ -312,21 +338,19 @@ export class MapRenderer {
         const s = add(new Sprite(frames[0]), 0.5, 0.95)
         s.scale.set(0.5)
         s.position.set(px + T / 2, py + T)
-        this.animated.push({ s, frames, fps: 8, phase: h % 8 })
+        this.animated.push({ s, frames, fps: 8, phase: h % 8, flame: true })
         break
       }
-      case 'Terrain.Campfire': {
-        const frames = animFrames('torch_stand')
-        const s = add(new Sprite(frames[0]), 0.5, 1)
-        s.position.set(px + T / 2, py + T)
-        this.animated.push({ s, frames, fps: 7, phase: h % 3 })
-        const r = new Sprite(tex('rock'))
-        r.anchor.set(0.5, 0.5); r.scale.set(0.35, 0.2); r.position.set(px + T / 2, py + T - 2); r.tint = 0x6a5a4a
-        this.deco.addChild(r)
-        break
-      }
+      case 'Terrain.Campfire': break // 설치·소진에 따라 동적으로 그린다.
       case 'Terrain.Statue': case 'Terrain.SarcoBlock': case 'Terrain.Sarcophagus':
         break // 다칸 소품이 그린다
+      case 'Terrain.Barricade': {
+        const s = add(new Sprite(tex('crate_closed')), 0.5, 1)
+        s.width = T; s.height = T
+        s.position.set(px + T / 2, py + T)
+        s.tint = 0x8a7460
+        break
+      }
       case 'Terrain.Column': {
         const s = add(new Sprite(tex('broken_column')), 0.5, 1)
         s.scale.set(0.5)
@@ -339,17 +363,32 @@ export class MapRenderer {
   // ── 동적: 문·용기·피·바닥 물건 ─────────────────────────
 
   private buildDynamic(w: World) {
+    this.dynamicAnimated=[]
     this.clear(this.dyn)
     for (const ch of [...this.objs.children]) if (ch.label === 'dyn') { this.objs.removeChild(ch); ch.destroy() }
     const map = w.s.map
-    const vis = new Set(w.s.visible)
+    const vis = this.displayVisible
     for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
       const i = y * map.w + x
-      const tile = map.tiles[i]
-      if (!tile.seen && !vis.has(i)) continue
-      const terr = w.db.terrain(tile.t)
+      const id=this.renderedTerrain[i]
+      if(!id)continue
+      const tile=displayTile(map.tiles[i],id,vis.has(i))
+      const terr=w.db.terrain(id)
       const h = hash(x, y)
       const px = x * T, py = y * T
+      if(terr.wallMark){
+        const crack=new Graphics().moveTo(px+10,py+1).lineTo(px+6,py+5).lineTo(px+9,py+8).lineTo(px+5,py+12).lineTo(px+6,py+15).stroke({color:0x15120e,width:3})
+        if(terr.wallMark==='sealedCrack'){
+          crack.poly([px+3,py+11,px+7,py+7,px+12,py+10,px+14,py+15,px+2,py+15]).fill(0x71685b)
+          crack.moveTo(px+7,py+8).lineTo(px+8,py+13).lineTo(px+3,py+12).moveTo(px+8,py+13).lineTo(px+13,py+12).stroke({color:0x383229,width:1})
+        }else crack.moveTo(px+11,py+1).lineTo(px+7,py+5).lineTo(px+10,py+8).lineTo(px+6,py+12).stroke({color:0xa7946e,width:1})
+        this.dyn.addChild(crack)
+      }
+      if (tile.icy || tile.snow) {
+        const surface = new Graphics().rect(px, py, T, T).fill({ color: tile.icy && terr.water ? 0x8ca8b4 : 0xb5b8b5, alpha: tile.icy && terr.water ? .65 : Math.min(.7, (tile.snow ?? 0) / 140) })
+        if (tile.icy && (tile.iceHoleUntil ?? 0) > turnOf(w)) surface.circle(px + 8, py + 8, 4).fill(0x273b48)
+        this.dyn.addChild(surface)
+      }
       if (tile.blood > 4) {
         const b = new Sprite(icon(tile.blood > 120 ? 'blood_pool' : `blood${h % 4}`))
         b.width = T; b.height = T
@@ -363,8 +402,43 @@ export class MapRenderer {
         const g = new Graphics().rect(px, py, T, T).fill({ color: 0x9aa878, alpha: Math.min(0.55, 0.12 + tile.spores.conc * 0.05) })
         this.dyn.addChild(g)
       }
+      if(tile.t==='Terrain.Campfire'||terr.beacon){
+        const coal=new Graphics().ellipse(px+T/2,py+T-3,T*.4,T*.16).fill(0x50463c)
+        this.dyn.addChild(coal)
+        if(vis.has(i)&&map.lights.some((l)=>(l.kind==='campfire'||l.kind==='beacon')&&!l.off&&l.pos.x===x&&l.pos.y===y)){
+          const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
+          this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
+        }
+      }
+      if(tile.terrainFire&&vis.has(i)){const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
       let s: Sprite | null = null
-      if (terr.door) {
+      if (terr.bedding) {
+        const bed = new Graphics().roundRect(px + 1, py + 2, T - 2, T - 4, 2).fill(0x694e32)
+        bed.rect(px + 3, py + 4, T - 6, T - 8).fill(terr.bedding.insulation ? 0x6e7950 : 0xa28b5d)
+        bed.rect(px + 3, py + 3, T - 6, 3).fill(0xc1b59a)
+        this.dyn.addChild(bed)
+        const scorch=beddingScorch(tile)
+        if(scorch)this.dyn.addChild(new Graphics().roundRect(px+1,py+2,T-2,T-4,2).fill({color:0x18100a,alpha:Math.min(.85,scorch/100)}))
+        if(tile.beddingFire){
+          const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
+          this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
+        }
+      }
+      if (terr.residentWell) {
+        const well = new Graphics().circle(px + T / 2, py + T / 2, T * .34).fill(0x8c8170)
+        well.circle(px + T / 2, py + T / 2, T * .23).fill(0x254654)
+        well.rect(px + T * .16, py + T * .13, T * .68, T * .1).fill(0x654d32)
+        this.dyn.addChild(well)
+      } else if (terr.visual) {
+        s=new Sprite(tex(terr.visual.sprite));s.anchor.set(.5,.96);s.position.set(px+T/2,py+T)
+        s.scale.set(terr.visual.scale*(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1))
+        if(terr.visual.tint!==undefined)s.tint=terr.visual.tint
+      } else if (terr.station) {
+        s = new Sprite(tex('crate_closed'))
+        s.width = T; s.height = T
+        s.position.set(px, py)
+        if (terr.station.id === 'forge') s.tint = 0xa07050
+      } else if (terr.door) {
         s = new Sprite(tex(terr.door === 'open' ? 'door_open' : 'door_closed'))
         s.anchor.set(0, 1)
         s.position.set(px, py + T)
@@ -408,7 +482,7 @@ export class MapRenderer {
     const gctx = this.glowCanvas.getContext('2d')!
     const dimg = dctx.createImageData(map.w, map.h)
     const gimg = gctx.createImageData(map.w, map.h)
-    const vis = new Set(w.s.visible)
+    const vis = this.displayVisible
     for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
       const i = y * map.w + x
       const o = i * 4
@@ -422,7 +496,8 @@ export class MapRenderer {
     }
     // 불빛: 보이는 광원 주변을 따뜻하게
     for (const L of map.lights) {
-      if (!vis.has(L.pos.y * map.w + L.pos.x) && !map.tiles[L.pos.y * map.w + L.pos.x].seen) continue
+      if(L.off)continue
+      if (!vis.has(L.pos.y * map.w + L.pos.x)) continue
       const col = L.kind === 'taint' ? [150, 40, 70] : [255, 140, 60]
       for (let dy = -L.radius; dy <= L.radius; dy++) for (let dx = -L.radius; dx <= L.radius; dx++) {
         const x = L.pos.x + dx, y = L.pos.y + dy
@@ -485,14 +560,14 @@ export class MapRenderer {
     const v: CView = {
       id: c.id, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
-      alive: c.alive, scale, zzT: (c.id * 37) % 1000, limp: false,
+      alive: c.alive, unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
     void w
     return v
   }
 
   private syncCreatures(w: World) {
-    const vis = new Set(w.s.visible)
+    const vis = this.displayVisible
     const seen = new Set<number>()
     const pl = player(w)
     for (const c of w.s.creatures) {
@@ -506,6 +581,7 @@ export class MapRenderer {
         if (!v) continue
       }
       if (!v) { v = this.makeView(w, c); this.views.set(c.id, v) }
+      if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??c.sprite]
       seen.add(c.id)
       v.root.visible = shown || (!c.alive && !!w.s.map.tiles[i].seen)
       if (v.to.x !== c.pos.x || v.to.y !== c.pos.y) {
@@ -515,6 +591,7 @@ export class MapRenderer {
         v.t = Math.abs(cur.x - c.pos.x) + Math.abs(cur.y - c.pos.y) > 2.5 ? 1 : 0
       }
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
+      v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
       if (v.alive && !c.alive) { v.alive = false; v.deadT = 0 }
       this.drawBar(w, c, v)
@@ -532,7 +609,7 @@ export class MapRenderer {
     const top = this.headY(v)
     const bw = v.anim ? 24 : 14
     g.rect(-bw / 2 - 1, top - 4, bw + 2, 3).fill({ color: 0x0a0806, alpha: 0.85 })
-    g.rect(-bw / 2, top - 3, bw * frac, 1).fill(frac > 0.5 ? 0xb83a2a : frac > 0.25 ? 0xd07a2a : 0xe0b040)
+    g.rect(-bw / 2, top - 3, bw * frac, 1).fill(frac > 0.5 ? paletteColor('health') : frac > 0.25 ? paletteColor('danger') : paletteColor('warn'))
     // 출혈 중이면 아래에 가는 붉은 선
     if (totalBleed(w, c, true) > 1) g.rect(-bw / 2, top - 1.5, bw * Math.min(1, totalBleed(w, c, true) / 20), 0.5).fill(0xff3030)
   }
@@ -563,6 +640,7 @@ export class MapRenderer {
       const n = bl >= 40 ? 3 : bl >= 10 ? 2 : 1
       icons.push((x) => { for (let i = 0; i < n; i++) g.circle(x + i * 1.6 + 0.8, top + (i % 2), 0.9).fill(0xd02020) })
     }
+    if(c.breakdown&&w.db.body(c.body.def).kind==='humanoid')icons.push((x)=>g.star(x+2,top-1,4,3,1.3).fill(0xd080b0))
     if (c.asleep) icons.push((x) => { g.rect(x, top - 3, 3, 0.7).rect(x + 2, top - 2.3, 0.7, 1).rect(x + 1, top - 1.6, 0.7, 1).rect(x, top - 0.6, 3, 0.7).fill(0xb0c0e0); if (c.deepSleep) g.rect(x + 3.5, top - 4, 2, 0.5).rect(x + 4.5, top - 3.5, 0.5, 0.8).rect(x + 3.5, top - 2.7, 2, 0.5).fill(0xb0c0e0) })
     if (c.activity?.kind === 'aim') icons.push((x) => g.circle(x + 2, top - 1, 2).stroke({ color: 0xffd060, width: 0.7 }).circle(x + 2, top - 1, 0.6).fill(0xffd060))
     if (hasEffect(c, 'parryStance', turn) || hasEffect(c, 'spearWall', turn)) icons.push((x) => g.moveTo(x, top - 3).lineTo(x + 4, top - 3).lineTo(x + 4, top - 1).lineTo(x + 2, top + 1).lineTo(x, top - 1).closePath().fill(0x9fc0e0))
@@ -586,7 +664,7 @@ export class MapRenderer {
   private consumeFx(w: World) {
     const evs = w.s.fx.splice(0)
     const pl = player(w)
-    const vis = new Set(w.s.visible)
+    const vis = this.displayVisible
     const stack = new Map<number, number>()
     // 한 번에 몰린 사건(봇·휴식 중)은 생물마다 마지막 6개만 띄운다
     const perId = new Map<number, number>()
@@ -620,8 +698,8 @@ export class MapRenderer {
         break
       }
       case 'dmg': {
-        v.flashT = 1
-        if (c.id === pl.id) this.shake = Math.min(6, 2 + e.v / 6)
+        v.flashT = preferences.hitFlash && preferences.animationSpeed > 0 ? 1 : 0
+        if (c.id === pl.id && preferences.screenShake && preferences.animationSpeed > 0) this.shake = Math.min(6, 2 + e.v / 6)
         // 내가 준 피해 흰색, 받은 피해 주황 (12 §2.5)
         this.float(c, `${e.v}`, c.id === pl.id ? '#ff9a3a' : '#f2ece0', k, e.crit ? 10 : 8)
         this.spark(c, 0xc02018)
@@ -640,6 +718,8 @@ export class MapRenderer {
   }
 
   private float(c: Creature, text: string, color: string, k: number, size: number) {
+    if (preferences.floaters === 'off') return
+    size *= preferences.floaters === 'large' ? 1.5 : 1
     const v = this.views.get(c.id)
     const p = v ? this.viewPos(v) : c.pos
     const t = new Text({ text, style: { ...FONT, fontSize: size * 4, fill: color, stroke: { color: '#120c08', width: 6 } }, resolution: 1 })
@@ -651,6 +731,7 @@ export class MapRenderer {
   }
 
   private spark(c: Creature, color: number, n = 6) {
+    if (preferences.animationSpeed === 0 || !preferences.hitFlash) return
     const v = this.views.get(c.id)
     const p = v ? this.viewPos(v) : c.pos
     for (let i = 0; i < n; i++) {
@@ -686,23 +767,28 @@ export class MapRenderer {
 
   private tick(dt: number) {
     if (!this.w) return
-    this.time += dt
+    const immediate = preferences.animationSpeed === 0
+    this.time += dt * preferences.animationSpeed
     const w = this.w
     // 애니 소품
-    for (const a of this.animated) {
-      const f = Math.floor((this.time / 1000) * a.fps + a.phase) % a.frames.length
+    for (const a of [...this.animated,...this.dynamicAnimated]) {
+      const f = a.flame && !preferences.torchFlicker ? 0 : Math.floor((this.time / 1000) * a.fps + a.phase) % a.frames.length
       a.s.texture = a.frames[f]
     }
     // 빛 깜박임
-    this.glow.alpha = 0.55 + Math.sin(this.time / 140) * 0.04 + Math.sin(this.time / 53) * 0.03
+    this.glow.alpha = !immediate && preferences.torchFlicker ? 0.55 + Math.sin(this.time / 140) * 0.04 + Math.sin(this.time / 53) * 0.03 : 0.55
     // 생물
-    for (const v of this.views.values()) this.animateView(v, dt)
+    for (const v of this.views.values()) {
+      if (!preferences.hitFlash || immediate) v.flashT = 0
+      if (v.body instanceof AnimatedSprite) { v.body.animationSpeed = 0.1 * preferences.animationSpeed; if (immediate) v.body.stop(); else if (!v.body.playing) v.body.play() }
+      this.animateView(v, dt * (preferences.animationSpeed || 1))
+    }
     // 떠오르는 글자·불꽃
     for (let i = this.floaters.length - 1; i >= 0; i--) {
       const f = this.floaters[i] as Floater & { vx?: number }
       f.life += dt
-      f.t.y += f.vy * dt
-      if (f.vx) { f.t.x += f.vx * dt; f.vy += 0.0002 * dt }
+      if (!immediate) f.t.y += f.vy * dt
+      if (f.vx && !immediate) { f.t.x += f.vx * dt; f.vy += 0.0002 * dt }
       else f.vy *= 0.985
       f.t.alpha = f.life > f.max * 0.6 ? Math.max(0, 1 - (f.life - f.max * 0.6) / (f.max * 0.4)) : 1
       if (f.life >= f.max) { f.t.destroy(); this.floaters.splice(i, 1) }
@@ -720,16 +806,18 @@ export class MapRenderer {
     tx = mw < Wpx ? (Wpx - mw) / 2 : Math.min(0, Math.max(Wpx - mw, tx))
     ty = mh < Hpx ? (Hpx - mh) / 2 : Math.min(0, Math.max(Hpx - mh, ty))
     if (!this.camInit) { this.cam = { x: tx, y: ty }; this.camInit = true }
-    const k = 1 - Math.pow(0.0001, dt / 1000)
+    const k = immediate ? 1 : 1 - Math.pow(0.0001, dt * preferences.animationSpeed / 1000)
     this.cam.x += (tx - this.cam.x) * k
     this.cam.y += (ty - this.cam.y) * k
     let sx = 0, sy = 0
+    if (!preferences.screenShake || immediate) this.shake = 0
     if (this.shake > 0.05) { sx = (Math.random() - 0.5) * this.shake; sy = (Math.random() - 0.5) * this.shake; this.shake *= Math.pow(0.002, dt / 1000) }
     this.world.position.set(Math.round(this.cam.x + sx), Math.round(this.cam.y + sy))
     this.drawRain(w, dt)
   }
 
   private animateView(v: CView, dt: number) {
+    if (preferences.animationSpeed === 0) { v.t = 1; v.attackT = -1; v.deadT = v.alive ? -1 : 1 }
     if (v.t < 1) v.t = Math.min(1, v.t + dt / MOVE_MS)
     const p = this.viewPos(v)
     const moving = v.t < 1
@@ -766,7 +854,7 @@ export class MapRenderer {
     }
     // 절뚝임: 걸음 후반에 1px 주저앉는다
     const hop = moving ? -Math.sin(v.t * Math.PI) * 1.5 + (v.limp && v.t > 0.5 ? 1 : 0) : 0
-    const breathe = !moving && v.alive ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
+    const breathe = preferences.animationSpeed > 0 && !moving && v.alive ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy + hop)
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
     if (v.char || v.anim) v.body.scale.set(v.scale, v.scale * breathe)
@@ -774,14 +862,14 @@ export class MapRenderer {
     if (!v.alive) {
       v.deadT = Math.min(1, v.deadT + dt / 380)
       v.body.rotation = (Math.PI / 2) * v.deadT * (v.id % 2 ? 1 : -1)
-      v.body.tint = 0x705050
+      v.body.tint = v.unknown ? 0x202028 : 0x705050
       v.body.alpha = 1 - v.deadT * 0.25
       v.shadow.alpha = 1 - v.deadT
       v.bar.visible = false
       v.marks.visible = false
     } else {
-      v.body.tint = v.flashT > 0.5 ? 0xffffff : v.flashT > 0 ? 0xff7060 : 0xffffff
-      if (v.flashT > 0.5) v.body.tint = 0xffb0a0
+      v.body.tint = v.unknown ? 0x202028 : v.flashT > 0.5 ? 0xffffff : v.flashT > 0 ? 0xff7060 : 0xffffff
+      if (!v.unknown && v.flashT > 0.5) v.body.tint = 0xffb0a0
     }
     // 잠든 적: Zz
     if (v.alive && this.w) {
@@ -799,17 +887,23 @@ export class MapRenderer {
   private drawRain(w: World, _dt: number) {
     const g = this.rain
     g.clear()
-    if (w.s.map.kind !== 'surface' || !isRaining(w)) return
+    if(w.s.map.fog){const f=w.s.map.fog;g.rect(0,0,this.app.renderer.width/this.app.renderer.resolution,this.app.renderer.height/this.app.renderer.resolution).fill({color:f.color,alpha:f.opacity})}
+    const snow = w.s.overworld && w.s.weather === 'ashsnow', gale = w.s.overworld && w.s.weather === 'ashgale'
+    if (w.s.map.kind === 'surface' && w.s.overworld && w.s.weather === 'frostfog') { g.rect(0, 0, this.app.renderer.width / this.app.renderer.resolution, this.app.renderer.height / this.app.renderer.resolution).fill({ color: 0x8c9a9c, alpha: .12 }); return }
+    if (w.s.map.kind !== 'surface' || !isRaining(w) && !snow && !gale) return
     const W = this.app.renderer.width / this.app.renderer.resolution
     const H = this.app.renderer.height / this.app.renderer.resolution
-    const n = 140
+    const n = w.s.overworld && weatherDef(w).group === 'storm' ? 240 : 140
     for (let i = 0; i < n; i++) {
       const seed = hash(i, 7)
       const x = (seed % 2000) / 2000 * W
-      const y = (((seed >>> 11) % 1000) / 1000 * H + this.time * (0.5 + (seed % 7) / 20)) % H
-      g.moveTo(x - (y % 3), y).lineTo(x - 3 - (y % 3), y + 10)
+      const y = (((seed >>> 11) % 1000) / 1000 * H + this.time * (snow ? .06 + (seed % 7) / 200 : .5 + (seed % 7) / 20)) % H
+      if (snow) g.rect(x, y, 2, 2)
+      else if (gale) g.moveTo(x, y).lineTo(x + 18, y + 2)
+      else g.moveTo(x - (y % 3), y).lineTo(x - 3 - (y % 3), y + 10)
     }
-    g.stroke({ color: 0x9aa0a8, width: 1, alpha: 0.28 })
+    if (snow) g.fill({ color: 0xbabfc4, alpha: .6 })
+    else g.stroke({ color: gale ? 0xa89d86 : 0x9aa0a8, width: 1, alpha: gale ? .4 : .28 })
   }
 
   /** 디버그: 플레이어 HP 감소 비율 (화면 가장자리 붉은 기운용) */

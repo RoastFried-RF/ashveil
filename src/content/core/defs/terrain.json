@@ -108,7 +108,13 @@
     "passable": false,
     "opaque": true,
     "moveMult": 1,
-    "cover": 15
+    "cover": 15,
+    "gather": {
+      "item": "Item.Wood",
+      "count": 1,
+      "turns": 20,
+      "regrowTurns": 28800
+    }
   },
   {
     "defType": "Terrain",
@@ -119,7 +125,13 @@
     ],
     "passable": false,
     "opaque": false,
-    "moveMult": 1
+    "moveMult": 1,
+    "gather": {
+      "item": "Item.Stone",
+      "count": 1,
+      "turns": 30,
+      "regrowTurns": 28800
+    }
   },
   {
     "defType": "Terrain",
@@ -361,7 +373,14 @@
     "sprites": [],
     "water": "shallow",
     "noiseMult": 1.5,
-    "stumble": 10
+    "stumble": 10,
+    "waterSource": "pond",
+    "gather": {
+      "item": "Item.Sand",
+      "count": 1,
+      "turns": 20,
+      "regrowTurns": 28800
+    }
   },
   {
     "defType": "Terrain",
@@ -459,5 +478,116 @@
     ],
     "openTurns": 0,
     "openNoise": 0
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Mud",
+    "parent": "Terrain.Earth",
+    "label": "진흙",
+    "description": "젖은 진흙. 발이 미끄러지고 상처가 더러워진다.",
+    "sprites": [
+      "mud0",
+      "mud1",
+      "mud2",
+      "mud3"
+    ],
+    "stumble": 10,
+    "noiseMult": 1.5
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Barricade",
+    "parent": "Terrain.Container",
+    "label": "나무 방책",
+    "description": "몸을 숨길 수 있는 높은 방책.",
+    "sprites": [
+      "crate_closed"
+    ],
+    "cover": 30
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Workbench",
+    "parent": "Terrain.Earth",
+    "label": "작업대",
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "cover": 15,
+    "sprites": [
+      "crate0"
+    ],
+    "station": {
+      "id": "workbench",
+      "bonus": 0
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Forge",
+    "parent": "Terrain.Earth",
+    "label": "대장간",
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "cover": 15,
+    "sprites": [
+      "crate0"
+    ],
+    "station": {
+      "id": "forge",
+      "bonus": 5
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Loom",
+    "parent": "Terrain.Earth",
+    "label": "베틀",
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "cover": 15,
+    "sprites": [
+      "crate0"
+    ],
+    "station": {
+      "id": "loom",
+      "bonus": 0
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.TanningVat",
+    "parent": "Terrain.Earth",
+    "label": "무두질 통",
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "cover": 15,
+    "sprites": [
+      "crate0"
+    ],
+    "station": {
+      "id": "tanning",
+      "bonus": 0
+    }
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.Artisan",
+    "parent": "Terrain.Earth",
+    "label": "장인 작업대",
+    "passable": false,
+    "opaque": false,
+    "moveMult": 1,
+    "cover": 15,
+    "sprites": [
+      "crate0"
+    ],
+    "station": {
+      "id": "artisan",
+      "bonus": 10
+    }
   }
 ]

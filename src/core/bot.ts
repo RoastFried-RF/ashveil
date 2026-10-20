@@ -1,15 +1,23 @@
+import {readyFood} from './open-food-state'
+import { corpseMoneyQuote } from './corpse-money'
+import { nearbyIce, nearbySnow } from './climate'
+import { handState, washHandsError } from './hand-hygiene'
+import { nearbyWater, waterTreatmentError } from './water'
 // 헤드리스 밸런스용 플레이어 봇. 사람처럼 잘하진 않지만 시스템이 돌아가는지 본다.
 // 지상 → 수도원 계단 → 지하 묘소를 탐색하며 상자를 뒤지고, 레벨업 포인트를 쓰고, 능력을 쓴다.
 // 전술 (bestiary L1~L3 · 07): 승산 계산 → 불리하면 위층으로 물러나 회복 후 재진입, 잠든 단독 적은 잠행 기습,
 // 잠든 무리가 있는 방은 피한다, 다가오는 적은 정면·높은 자리(계단)에서 맞는다, 빛을 싫어하는 적은 등불 안에서 버틴다,
 // 더 좋은 무기로 바꾼다, 원거리 무기는 거리에서 먼저. 설명·측정은 docs/prototype.md §4.
 
+import { projectileReady } from './ranged'
 import { abilityReady } from './abilities'
 import { adjacentContainer, adjacentCorpse, canTreat, containerFresh, hostile, lootItems, type Action } from './actions'
 import { bloodLoss, effectiveBleed, energyMax, hpMax, part, totalBleed } from './body'
+import { gearCareError } from './gear-care'
+import { bowProblem } from './gear-state'
 import { canReach, previewHit } from './combat'
 import { creatureAt, inBounds, player, terrainAt, tileAt, turnOf, TURNS_PER_HOUR, type World } from './ctx'
-import { canSee, lightLevel } from './fov'
+import { canSee, hasLos, lightLevel } from './fov'
 import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { allItems, countOf, currentAttack, findSpot, itemDef, mainWeapon, wield } from './items'
 import { moraleOf } from './morale'
@@ -73,13 +81,14 @@ function holdInLight(w: World, pl: Creature, foes: Creature[]): boolean {
   if (!foes.every((e) => w.db.creature(e.def).lightAverse)) return false
   // 출혈이 쌓이면 버티지 않는다: HP 70%·실혈 12%·지금 출혈 8 ml/턴 중 하나라도 넘으면 물러나 처치
   // 목이 마르면(지하엔 물이 없다) 버티지 않고 올라간다
-  return pl.hp >= hpMax(w, pl) * 0.7 && bloodLoss(pl) < 0.12 && totalBleed(w, pl) < 8 && pl.needs.water > 900
+  return pl.hp >= hpMax(w, pl) * 0.7 && bloodLoss(pl) < 0.12 && totalBleed(w, pl) < 8 && pl.needs.waterDeficit < 1000
 }
 
 /** 근접 무기 기댓값: (50 + 정확도 × 2) × 피해 */
 const meleeScore = (w: World, it: ItemInst | undefined) => {
-  const a = it && itemDef(w, it).attacks?.[0]
-  return a && !itemDef(w, it).ranged ? (50 + a.accuracy * 2) * a.damage : 0
+  if (!it || (it.durability ?? 100) <= 0) return 0
+  const d = itemDef(w, it), a = d.attacks?.[0]
+  return a && !d.ranged ? (50 + a.accuracy * 2) * a.damage : 0
 }
 
 export function botDecide(w: World): Action {
@@ -106,6 +115,8 @@ export function botDecide(w: World): Action {
   // 열린 루팅 창: 같은 자리는 한 번만 다 담고 닫는다 (배낭이 차서 못 담아도 반복하지 않는다)
   const list = lootItems(w)
   if (list) {
+    const coins=corpseMoneyQuote(w,pl)
+    if(!coins.error&&coins.amount)return{type:'lootMoney',target:coins.id!,expectedAmount:coins.amount}
     const at = w.s.loot ? `${w.s.map.id}:${w.s.loot.pos.x},${w.s.loot.pos.y}` : ''
     if (list.length && mem(w).lootAt !== at) {
       mem(w).lootAt = at
@@ -131,7 +142,7 @@ export function botDecide(w: World): Action {
   const bleeding = pl.body.wounds
     .filter((wd) => !wd.internal && effectiveBleed(w, pl, wd) > 1.2)
     .sort((a, b) => effectiveBleed(w, pl, b) - effectiveBleed(w, pl, a))
-  const enemies = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
+  const enemies = w.s.creatures.filter((o) => o.alive && !o.asleep && hostile(w, pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
   const adjacentEnemy = enemies.find((e) => cheb(e.pos, pl.pos) <= 1)
   // 보이지 않는 적에게 계속 베이고 있으면(달려들기 후 빠지기) 위층으로 물러나 처치·회복
   // 처치보다 먼저: 냄새 맡고 모여드는 곳에서 붕대를 감지 않는다 (지혈대가 필요한 큰 출혈만 예외)
@@ -170,6 +181,13 @@ export function botDecide(w: World): Action {
     if (draught) return { type: 'consume', uid: draught.uid }
   }
 
+  // 파손·끊어진 활을 계속 쏘려 하지 않는다. 여유가 있으면 시위를 걸고, 교전 중에는 예비 무기로.
+  const heldMain = mainWeapon(w, pl)
+  if (heldMain && ((heldMain.durability ?? 100) <= 0 || bowProblem(heldMain, itemDef(w, heldMain)))) {
+    if (!enemies.length && itemDef(w, heldMain).ranged && !gearCareError(w, pl, heldMain.uid, 'string')) return { type: 'gearCare', uid: heldMain.uid, care: 'string' }
+    const spare = inv.filter((i) => i.uid !== heldMain.uid && meleeScore(w, i) > 0).sort((a, b) => meleeScore(w, b) - meleeScore(w, a))[0]
+    if (spare) return { type: 'equip', uid: spare.uid }
+  }
   // 무기를 떨어뜨렸으면(07 2차 효과) 줍고 다시 든다 — 교전 판단보다 먼저
   if (!mainWeapon(w, pl)) {
     const spare = inv.filter((i) => meleeScore(w, i) > 0).sort((a, b) => meleeScore(w, b) - meleeScore(w, a))[0]
@@ -182,10 +200,13 @@ export function botDecide(w: World): Action {
   }
 
   // 싸우는 틈에도 목은 축인다 (병에 물이 있으면, 붙은 적이 없을 때)
-  if (pl.needs.water < 700 && !adjacentEnemy) {
-    const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0)
+  if (pl.needs.waterDeficit >= 500 && !adjacentEnemy) {
+    const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0 && !i.waterFrozen)
     if (drink) return { type: 'consume', uid: drink.uid }
   }
+
+  const frozenBottle = inv.find((i) => i.waterFrozen && (i.uses ?? 0) > 0)
+  if (frozenBottle && !enemies.length && !waterTreatmentError(w, pl, frozenBottle, 'boil')) return { type: 'waterTreatment', uid: frozenBottle.uid, method: 'boil' }
 
   // 전투. 8칸 밖에만 보이는 무리가 이길 수 없는 상대면 다가가지 않고 하던 일을 한다
   // (물러난 자리와 8칸 경계를 오가는 왕복 방지)
@@ -231,9 +252,9 @@ export function botDecide(w: World): Action {
       if (choke !== null) return { type: 'move', dir: choke }
     }
     const mw = mainWeapon(w, pl)
-    const ranged = !!(mw && itemDef(w, mw).ranged)
+    const ranged = !!(mw && itemDef(w, mw).ranged && !bowProblem(mw, itemDef(w, mw)))
     // 원거리 무기는 거리에서 먼저 (사거리 안, 붙기 전)
-    const bow = inv.find((i) => itemDef(w, i).ranged && countOf(pl, itemDef(w, i).ranged!.ammo) > 0)
+    const bow = inv.find((i) => itemDef(w, i).ranged && !bowProblem(i, itemDef(w, i)) && (projectileReady(w, pl, i) || countOf(pl, itemDef(w, i).ranged!.ammo) > 0))
     if (bow && !ranged && cheb(e.pos, pl.pos) >= 4 && cheb(e.pos, pl.pos) <= (itemDef(w, bow).ranged!.effective ?? 6)) return { type: 'equip', uid: bow.uid }
     if (cheb(e.pos, pl.pos) <= 1 && ranged) {
       const melee = inv.filter((i) => meleeScore(w, i) > 0).sort((a, b) => meleeScore(w, b) - meleeScore(w, a))[0]
@@ -246,7 +267,7 @@ export function botDecide(w: World): Action {
       }
       return { type: 'attack', target: e.id }
     }
-    if (ranged && countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0) return { type: 'shoot', target: e.id }
+    if (ranged && (projectileReady(w, pl, mw!) || countOf(pl, itemDef(w, mw!).ranged!.ammo) > 0)) return { type: 'shoot', target: e.id }
     // 높은 자리 (07 §5): 다가오는 적은 단차 위(잔해·관·제단, 지하는 올라가는 계단)에서 받는다
     const hg = highGround(w, enemies, up?.pos)
     if (hg) return hg
@@ -286,9 +307,12 @@ export function botDecide(w: World): Action {
   }
 
   // 생존
-  if (pl.needs.kcal < 900) {
-    const food = find((d) => !!d.food && !d.food.raw) ?? find((d) => !!d.food && (d.food.poison ?? 25) <= 10) ?? find((d) => !!d.food)
-    if (food) return { type: 'consume', uid: food.uid }
+  if (pl.needs.kcal <= -500) {
+    const edible=inv.filter(i=>readyFood(w,pl,i)),food=edible.find(i=>!itemDef(w,i).food!.raw)??edible.find(i=>(itemDef(w,i).food!.poison??25)<=10)??edible[0]
+    if (food) {
+      if (!enemies.length && handState(w, pl) === 'dirty' && !washHandsError(w, pl)) return { type: 'washHands' }
+      return { type: 'consume', uid: food.uid }
+    }
     // 먹을 게 없으면 숲 버섯 무리로 (D36: 이틀이면 다시 자란다). 지하에서는 올라간다
     if (w.s.map.kind === 'surface') {
       const patch = nearest(w, (p) => terrainAt(w, p).id === 'Terrain.Fungus' && containerFresh(w, p) && !!tileAt(w, p).seen && !avoided(w, p))
@@ -306,15 +330,17 @@ export function botDecide(w: World): Action {
       }
     }
   }
-  if (pl.needs.water < 900) {
-    const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0)
+  if (pl.needs.waterDeficit >= 500) {
+    const drink = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) > 0 && !i.waterFrozen)
     if (drink) return { type: 'consume', uid: drink.uid }
-    if (DIRS.some((d) => { const p = { x: pl.pos.x + d.x, y: pl.pos.y + d.y }; return inBounds(w, p) && !!terrainAt(w, p).water })) return { type: 'drinkHere' }
+    if (w.s.overworld && nearbyIce(w, pl)) return { type: 'breakIce' }
+    if (w.s.overworld ? !!nearbyWater(w, pl) : DIRS.some((d) => { const p = { x: pl.pos.x + d.x, y: pl.pos.y + d.y }; return inBounds(w, p) && !!terrainAt(w, p).water })) return { type: 'drinkHere' }
     const water = nearest(w, (p) => terrainAt(w, p).water === 'shallow')
     if (water) { const st = stepTo(w, water); if (st !== null) return { type: 'move', dir: st } }
+    if (w.s.overworld && pl.needs.bodyTemp > 34 && nearbySnow(w, pl)) return { type: 'eatSnow' }
     // 지하에는 물이 없다: 위층 계단으로 올라간다
     const up = w.s.map.links.find((l) => terrainAt(w, l.pos).id === 'Terrain.StairsUp')
-    if (up && pl.needs.water < 1200) {
+    if (up && pl.needs.waterDeficit >= 1000) {
       if (eq(pl.pos, up.pos)) return { type: 'stairs' }
       const st = stepTo(w, up.pos)
       if (st !== null) return { type: 'move', dir: st }
@@ -323,22 +349,23 @@ export function botDecide(w: World): Action {
   // 물가에 있으면 빈 병을 채운다 (지하로 가져갈 물)
   if (DIRS.some((d) => { const p = { x: pl.pos.x + d.x, y: pl.pos.y + d.y }; return inBounds(w, p) && !!terrainAt(w, p).water })) {
     const bottle = inv.find((i) => itemDef(w, i).drink && !itemDef(w, i).drink!.alcohol && (i.uses ?? 0) < 3)
-    if (bottle && pl.needs.water >= 900) return { type: 'fillBottle', uid: bottle.uid }
+    if (bottle && pl.needs.waterDeficit < 500 && w.s.overworld && nearbyIce(w, pl)) return { type: 'breakIce' }
+    if (bottle && pl.needs.waterDeficit < 500) return { type: 'fillBottle', uid: bottle.uid }
   }
   // 모닥불: 몸을 녹일 때만 켜고, 떠나기 전엔 끈다 (켜 둔 불빛·연기는 순찰이 보고 수색대를 부른다, 10 §3.3)
   const homeFire = w.s.map.kind === 'surface' ? w.s.map.lights.find((L) => L.kind === 'campfire' && cheb(L.pos, pl.pos) <= 1) : undefined
-  const cold = pl.needs.bodyTemp < 36.2 || (pl.needs.wetness > 40 && w.s.weather === 'ashrain')
-  if (homeFire && !homeFire.off && !cold && pl.needs.bodyTemp >= 36.8 && !pl.activity) return { type: 'toggleFire' }
-  if (homeFire && homeFire.off && cold) return { type: 'toggleFire' }
+  const cold = pl.needs.bodyTemp < 36.8 || (pl.needs.wetness > 40 && ['ashrain', 'ashstorm'].includes(w.s.weather))
+  if (homeFire && !homeFire.off && !cold && pl.needs.bodyTemp >= 36.8 && pl.needs.fatigue <= 75 && !(pl.needs.sleepDebt ?? 0) && !pl.activity) return { type: 'toggleFire' }
+  if (homeFire && homeFire.off && (cold || pl.needs.fatigue > 75 || (pl.needs.sleepDebt ?? 0) > 0)) return { type: 'toggleFire' }
 
   // 춥거나 젖었으면 불가·지붕 밑으로 (03: 젖은 옷은 단열을 잃는다). 지하는 비가 안 온다
-  if ((pl.needs.bodyTemp < 36.2 || (pl.needs.wetness > 40 && w.s.weather === 'ashrain')) && w.s.map.kind === 'surface') {
-    const fire = w.s.map.lights.find((L) => L.kind === 'campfire' && !avoided(w, L.pos))
-    const warm = fire ? nearest(w, (p) => cheb(p, fire.pos) === 1 && terrainAt(w, p).passable && !creatureAt(w, p)) : nearest(w, (p) => !!tileAt(w, p).roof && terrainAt(w, p).passable && !avoided(w, p))
+  if ((pl.needs.bodyTemp < 36.8 || (pl.needs.wetness > 40 && ['ashrain', 'ashstorm'].includes(w.s.weather))) && w.s.map.kind === 'surface') {
+    const fire = w.s.map.lights.filter((L) => L.kind === 'campfire' && !avoided(w, L.pos) && !(pl.level < 5 && w.s.map.rooms[tileAt(w, L.pos).room ?? -1]?.type === 'camp')).sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))[0]
+    const warm = fire ? nearest(w, (p) => cheb(p, fire.pos) <= (fire.off ? 1 : 2) && terrainAt(w, p).passable && (eq(p, pl.pos) || !creatureAt(w, p)) && hasLos(w, p, fire.pos)) : nearest(w, (p) => !!tileAt(w, p).roof && terrainAt(w, p).passable && (eq(p, pl.pos) || !creatureAt(w, p)) && !avoided(w, p))
     if (warm && !eq(warm, pl.pos)) { const st = stepTo(w, warm); if (st !== null) return { type: 'move', dir: st } }
     if (warm && eq(warm, pl.pos) && pl.needs.bodyTemp < 37) return { type: 'rest', turns: 60 }
   }
-  const awakeNear = w.s.creatures.some((o) => o.alive && !o.asleep && hostile(pl, o) && o.ai.mode !== 'surrender' && cheb(o.pos, pl.pos) <= 8)
+  const awakeNear = w.s.creatures.some((o) => o.alive && !o.asleep && hostile(w, pl, o) && o.ai.mode !== 'surrender' && cheb(o.pos, pl.pos) <= 8)
   if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35 && !awakeNear) return { type: 'sleep' }
   // 다쳤으면 다음 방으로 가기 전에 쉰다 (던전 탐험의 정석)
   if ((pl.hp < hpMax(w, pl) * 0.75 || bloodLoss(pl) > 0.12) && !awakeNear) return { type: 'rest', turns: 120 }
@@ -424,10 +451,10 @@ function highGround(w: World, enemies: Creature[], up?: Pos): Action | null {
 /** 잠든 단독 적: 주변 5칸에 다른 잠든 적이 없고 깨어 있는 적도 없을 때. 무리면 그 방을 피할 곳으로 */
 function sleeperTarget(w: World): Creature | undefined {
   const pl = player(w)
-  const vis = w.s.creatures.filter((o) => o.alive && hostile(pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
+  const vis = w.s.creatures.filter((o) => o.alive && hostile(w, pl, o) && o.ai.mode !== 'surrender' && canSee(w, pl, o.pos))
   if (vis.some((o) => !o.asleep)) return undefined
   for (const s of vis.filter((o) => o.asleep).sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))) {
-    const pack = w.s.creatures.filter((o) => o.alive && o.id !== s.id && hostile(pl, o) && cheb(o.pos, s.pos) <= 5)
+    const pack = w.s.creatures.filter((o) => o.alive && o.id !== s.id && hostile(w, pl, o) && cheb(o.pos, s.pos) <= 5)
     if (pack.length) { avoidRoomOf(w, s); continue }
     if (avoided(w, s.pos)) continue
     // 첫 타 뒤 1:1이 감당되는가
@@ -439,7 +466,7 @@ function sleeperTarget(w: World): Creature | undefined {
 
 function enemiesAdjacent(w: World): boolean {
   const pl = player(w)
-  return w.s.creatures.some((o) => o.alive && !o.asleep && hostile(pl, o) && cheb(o.pos, pl.pos) <= 1)
+  return w.s.creatures.some((o) => o.alive && !o.asleep && hostile(w, pl, o) && cheb(o.pos, pl.pos) <= 1)
 }
 
 /** 둘러싼 8칸 중 지나갈 수 있는 칸 수 (작을수록 좁다) */

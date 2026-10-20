@@ -7,7 +7,8 @@ function walk(dir: string, out: Record<string, unknown>) {
   for (const f of readdirSync(dir)) {
     const p = join(dir, f)
     if (statSync(p).isDirectory()) walk(p, out)
-    else if (f.endsWith('.json')) out[p] = JSON.parse(readFileSync(p, 'utf8'))
+    else if (f.endsWith('.json')) out[p] = readFileSync(p, 'utf8')
+    else if(f.endsWith('.js')&&p.split('/').includes('scripts'))out[p]=readFileSync(p,'utf8')
   }
 }
 

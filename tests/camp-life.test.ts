@@ -1,0 +1,37 @@
+import {SAVE_VERSION} from '../src/core/game'
+import { describe, expect, it } from 'vitest'
+import { perform } from '../src/core/actions'
+import { campfireAt, extinguishCampfire, startFireWork } from '../src/core/campfire'
+import { beddingAt, packBedding } from '../src/core/camping'
+import { sleepQuality } from '../src/core/conditions'
+import { tileAt, turnOf } from '../src/core/ctx'
+import { playerAct, runUntilInput, stopActivity } from '../src/core/game'
+import { addToBag, makeItem } from '../src/core/items'
+import { deserialize, serialize, stateHash } from '../src/core/save'
+import { fireVisibleFrom, storytellerTick } from '../src/core/storyteller'
+import { thermalState, wetnessTick } from '../src/core/thermal'
+import { baseFixture, finishBase } from './base-camp-fixture'
+function bedFixture(wet=100){const d=baseFixture(),{w,p,worker}=d;for(const l of w.s.map.lights)l.off=true;w.s.weather='clear';w.s.weatherUntil=1e12;w.s.wind={x:0,y:0};const item=makeItem(w,'Item.Bedroll');item.wetness={torso:wet};addToBag(w,p,item);expect(perform(w,p,{type:'place',uid:item.uid,dir:6}).ok).toBe(true);const pos={x:19,y:20},bed=tileAt(w,pos).placed!.item;worker.pos={...pos};worker.needs.fatigue=60;return{...d,bed,pos}}
+function sleep(d:ReturnType<typeof bedFixture>){expect(perform(d.w,d.worker,{type:'sleep'}).ok).toBe(true)}
+function tick(w:ReturnType<typeof baseFixture>['w'],n=1){for(let j=0;j<n;j++){expect(playerAct(w,{type:'wait'})).toBeNull();for(let i=0;w.s.simulationPending&&i<100;i++)runUntilInput(w,100)}}
+function fireFixture(hour=12){const d=baseFixture(),{w,p}=d;for(const l of w.s.map.lights)l.off=true;w.s.time=(28800+hour*1200)*100;w.s.weather='clear';w.s.wind={x:1,y:0};const kit=makeItem(w,'Item.CampfireKit');addToBag(w,p,kit);expect(perform(w,p,{type:'place',uid:kit.uid,dir:6}).ok).toBe(true);return{...d,kit,pos:{x:19,y:20}}}
+function light(d:ReturnType<typeof fireFixture>){const fuel=makeItem(d.w,'Item.Wood');addToBag(d.w,d.p,fuel);expect(startFireWork(d.w,d.p,d.pos,fuel.uid)).toBeNull();finishBase(d.w,d.p)}
+describe('실제 침구 접촉의 점진적 젖음 교환',()=>{
+ it('젖은 침구에 서 있는 동안 몸/옷을 즉시 적시지 않는다',()=>{const d=bedFixture(),{w,worker,bed}=d;wetnessTick(w,worker);expect(worker.needs.wetness).toBe(0);expect(bed.wetness!.torso).toBe(100)})
+ it('실제로 누우면 침구에서 접촉한 몸으로 천천히 옮기며 젖음을 복제하지 않는다',()=>{const d=bedFixture(),{w,worker,bed}=d; sleep(d);const uid=w.s.nextId,rng=structuredClone(w.s.rng),water=worker.needs.waterDeficit;wetnessTick(w,worker);expect(worker.needs.wetness).toBeGreaterThan(0);expect(worker.needs.wetness).toBeLessThan(1);expect(bed.wetness!.torso!+worker.needs.wetness).toBeCloseTo(100,10);expect(w.s.nextId).toBe(uid);expect(w.s.rng).toEqual(rng);expect(worker.needs.waterDeficit).toBe(water)})
+ it('마른 침구는 젖은 몸에서 수분을 받으며 공짜로 모두 말리지 않는다',()=>{const d=bedFixture(0),{w,worker,bed}=d;worker.needs.wetness=80;delete worker.needs.skinWetness;sleep(d);wetnessTick(w,worker);expect(bed.wetness!.torso).toBeGreaterThan(0);expect(worker.needs.wetness).toBeGreaterThan(79);expect(bed.wetness!.torso!+worker.needs.wetness).toBeCloseTo(79.99,10)})
+ it('옷을 입었다면 맨살을 건너뛰고 실제 최외곽 옷부터 닿는다',()=>{const d=bedFixture(),{w,worker}=d,shirt=makeItem(w,'Item.RagShirt'),cloak=makeItem(w,'Item.OilclothCloak');worker.equip.chest=shirt;worker.equip.back=cloak;sleep(d);wetnessTick(w,worker);expect(cloak.wetness!.torso).toBeGreaterThan(0);expect(shirt.wetness!.torso).toBe(0);expect(worker.needs.skinWetness!.torso).toBe(0)})
+ it('휴식/실신 중 실제 침구 위의 몸에도 적용하며 옆 칸에는 옮기지 않는다',()=>{for(const mode of ['rest','coma','next']){const d=bedFixture(),{w,worker,bed}=d;if(mode==='rest')worker.activity={kind:'rest',remaining:20,label:'휴식'};if(mode==='coma')worker.unconscious=true;if(mode==='next'){worker.pos={x:18,y:20};sleep(d)}wetnessTick(w,worker);if(mode==='next'){expect(worker.needs.wetness).toBe(0);expect(bed.wetness!.torso).toBe(100)}else expect(worker.needs.wetness).toBeGreaterThan(0)}})
+ it('접촉을 계산한 침구를 접어도 같은 UID와 남은 젖음이 배낭으로 간다',()=>{const d=bedFixture(),{w,p,worker,bed,pos}=d;sleep(d);wetnessTick(w,worker);const wet=bed.wetness!.torso;stopActivity(w,worker);worker.pos={x:20,y:21};expect(packBedding(w,p,pos)).toBeNull();expect(p.bag.find((i)=>i.uid===bed.uid)!.wetness!.torso).toBe(wet);expect(tileAt(w,pos).placed).toBeUndefined()})
+ it('침구·열·수면 질 미리보기는 몸이나 젖음을 진행시키지 않는다',()=>{const d=bedFixture(),{w,worker,pos}=d;sleep(d);const hash=stateHash(w.s);beddingAt(w,pos);thermalState(w,worker);sleepQuality(w,worker);expect(stateHash(w.s)).toBe(hash)})
+ it('실제 게임 시간 동안 젖음이 누적되면 기존 몸 신호로 잠을 깬다',()=>{const d=bedFixture(),{w,worker,bed}=d;sleep(d);const began=turnOf(w);for(let i=0;worker.asleep&&i<2000;i++)tick(w);expect(worker.asleep,JSON.stringify(worker.needs)).toBe(false);expect(worker.needs.wetness).toBeGreaterThanOrEqual(19.9);expect(worker.needs.waterDeficit).toBeLessThan(500);expect(worker.needs.bodyTemp).toBeGreaterThanOrEqual(35);expect(worker.needs.fatigue).toBeGreaterThan(25);expect(turnOf(w)-began).toBeGreaterThan(300);expect(worker.drowsyUntil).toBeGreaterThan(turnOf(w));expect(bed.wetness!.torso).toBeLessThan(100)},10000)
+ it('같은 침구·옷·몸의 중간 접촉을 전체 각인해 같은 입력 결과를 보존한다',()=>{const d=bedFixture(),{w}=d;sleep(d);tick(w,20);const copy={db:w.db,s:deserialize(serialize(w.s))};expect(copy.s.version).toBe(SAVE_VERSION);expect(stateHash(copy.s)).toBe(stateHash(w.s));tick(w,20);tick(copy,20);expect(stateHash(copy.s)).toBe(stateHash(w.s))})
+})
+describe('새 야영불의 실제 위치·불빛/연기와 순찰 흔적',()=>{
+ it('차가운 새 꾸러미는 흔적을 만들지 않으며 조회가 상태를 바꾸지 않는다',()=>{const{w,p}=fireFixture(),hash=stateHash(w.s);expect(fireVisibleFrom(w,w.s.map,p.pos)).toBeUndefined();expect(stateHash(w.s)).toBe(hash)})
+ it('실제로 점화한 새 위치의 낮 연기15칸·바람 아래22.5칸을 쓴다',()=>{const d=fireFixture(),{w,pos}=d;light(d);expect(fireVisibleFrom(w,w.s.map,{x:pos.x+22,y:pos.y})).toEqual(pos);expect(fireVisibleFrom(w,w.s.map,{x:pos.x-16,y:pos.y})).toBeUndefined();expect(fireVisibleFrom(w,w.s.map,{x:pos.x-15,y:pos.y})).toEqual(pos)})
+ it('밤에는 실제 새 불 반경의3배까지만 불빛 흔적을 감지한다',()=>{const d=fireFixture(2),{w,pos}=d;light(d);expect(fireVisibleFrom(w,w.s.map,{x:pos.x+18,y:pos.y})).toEqual(pos);expect(fireVisibleFrom(w,w.s.map,{x:pos.x+19,y:pos.y})).toBeUndefined()})
+ it('먼 첫 야영불 때문에 가까운 다른 실제 불을 놓치지 않는다',()=>{const d=fireFixture(2),{w,pos}=d;light(d);w.s.map.waypoints!.homeFire={x:1,y:1};tileAt(w,{x:1,y:1}).t='Terrain.Campfire';w.s.map.lights.unshift({pos:{x:1,y:1},radius:6,kind:'campfire'});expect(fireVisibleFrom(w,w.s.map,{x:pos.x+17,y:pos.y})).toEqual(pos)})
+ it('꺼짐/만료/다른 소유자/바뀐 실제 물품은 플레이어 야영 흔적으로 세지 않는다',()=>{for(const mode of ['out','expired','owner','uid']){const d=fireFixture(),{w,p,pos}=d;light(d);if(mode==='out')expect(extinguishCampfire(w,p,pos)).toBeNull();if(mode==='expired')w.s.time=campfireAt(w,pos)!.light.fuelUntil!*100;if(mode==='owner')tileAt(w,pos).placed!.owner=d.worker.id;if(mode==='uid')tileAt(w,pos).placed!.item.uid++;const hash=stateHash(w.s);expect(fireVisibleFrom(w,w.s.map,p.pos),mode).toBeUndefined();expect(stateHash(w.s),mode).toBe(hash)}})
+ it('실제 순찰자가 새 위치의 흔적을 보고 귀환 경보를 맡으며 인원을 생성하지 않는다',()=>{const d=fireFixture(),{w,pos,target}=d;light(d);target.pos={x:26,y:20};target.ai.mode='patrol';target.ai.task=undefined;target.home={x:27,y:20};w.s.creatures.push(target);const ids=w.s.creatures.map((c)=>c.id),next=w.s.nextId;storytellerTick(w);expect(target.ai.task).toEqual({kind:'alarm',pos});expect(target.ai.route).toEqual([target.home]);expect(w.s.creatures.map((c)=>c.id)).toEqual(ids);expect(w.s.nextId).toBe(next)})
+})

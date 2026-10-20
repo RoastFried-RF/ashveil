@@ -1,0 +1,10 @@
+[
+  {"defType":"FactionRelations","id":"FactionRelations.Hearth","label":"세력 관계와 원한",
+   "description":"design/09 §6.3의 방향별 변화·일일 기저 복귀와 원한. 현지 습격은 같은 지역/공격 세력의 하루 공격을 한 사건으로 묶는다.",
+   "returnPerDay":1,
+   "events":{
+     "raid":{"delta":-20,"baseline":0},"caravan":{"delta":1,"baseline":0},
+     "commonEnemy":{"delta":5,"baseline":0},"release":{"delta":3,"baseline":0},
+     "execution":{"delta":-10,"baseline":0},"grudge":{"delta":0,"baseline":-5}
+   }}
+]

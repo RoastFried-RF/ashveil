@@ -1,3 +1,33 @@
+import {runScriptHooks} from './script-hooks'
+import {cancelRansom} from './ransom'
+import {recordBountyVictory} from './bounty-contracts'
+import {recordStoryVictory} from './story-fame'
+import {sourceContains} from './population-sources'
+import {observeBleeding} from './blood-observation'
+import {recordCombatEngagement} from './combat-engagement'
+import {rememberLifeEvent} from './life-memories'
+import {npcStressEvent} from './npc-psyche'
+import {finishSleepMemories} from './sleep-memories'
+import {recordBiteRisk} from './bite-disease'
+import {diseaseStream} from './disease-state'
+import {exposeDisease} from './conditions'
+import { caravanLeaderDied } from './caravans'
+import { releaseHostParasites } from './parasites'
+import { witnessKinship } from './kinship-state'
+import { machineAction, machineRules } from './machine-state'
+import { breakMercy, releaseCaptivity } from './prisoners'
+import { isCompanion } from './companion-state'
+import { companionBetrayal } from './companion-bonds'
+import { employerDied } from './companions'
+import { contractsTick } from './contracts'
+import { recordResidentDeath } from './world-simulation'
+import { bestiaryCombatDetails, knownCreatureName } from './bestiary-state'
+import { noteBestiaryFight } from './bestiary'
+import { alcoholWithdrawalStage } from './drug-state'
+import { witnessAttack } from './diplomacy'
+import { recordConcussion } from './head-trauma'
+import { damageProsthetic } from './prosthetics'
+import { prostheticAt } from './prosthetic-state'
 // 공격 판정 파이프라인 (07 §2). 모든 판정은 combat 스트림의 정수 roll 0..99 하나씩.
 // 1 명중 → 2 방어 반응(막기/받아넘기기) → 3 부위 결정(‰) → 4 방어구 층 → 5 HP 피해·상처 → 6 2차 효과
 
@@ -6,14 +36,23 @@ import {
   regionState, totalBleed,
 } from './body'
 import { clamp, creatureAt, creatureById, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
-import { canSee, hasLos, lightLevel } from './fov'
+import { edgeLoss } from './gear-care'
+import { armorDurability, wearArmorPart } from './gear-state'
+import { canSee, hasLos, invalidateLights, lightLevel } from './fov'
 import { cheb, DIRS, dirDelta, dirIndex, line, type Pos } from './geom'
 import { apparelItems, gridAdd, itemDef, makeItem, meleeWield, qualityInfo, wield, type Wield } from './items'
-import { addThought } from './needs'
+import { structuralDurability } from './materials'
+import { addThought } from './thoughts'
+import { strainProjectiles } from './medical'
+import { strainStitches } from './surgery'
+import { willForChecks } from './growth'
+import { bleedingEnemyNear } from './temperament'
+import { traumaHit } from './fear-state'
+import { traumaEngage, traumaMeat, traumaVictory } from './trauma'
 import { moraleEvent, moraleOf } from './morale'
 import { emitNoise } from './perception'
 import { awardDefeat } from './progression'
-import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
+import { addEffect, effectMag, hasEffect, effectiveStat, traitAdd, traitMul, traitOverride } from './traits'
 import type { AbilityAttackMods, ArmorCategory, AttackDef, BodyPartDef, Creature, DamageType, FxEvent, ItemInst, Region } from './types'
 
 /** 크기 보정: 작음 +4 · 보통 0 · 큼 −4 · 거대 −8 (07 §2.1) */
@@ -37,6 +76,7 @@ export function evasion(w: World, c: Creature): number {
     if (it.half) e -= 2 // 반쯤 입은 장비 (01 §7)
   }
   if (e > 0) e = Math.floor(e * regionPenalties(w, c).evasionCoef)
+  if (hasEffect(c, 'overfull', turnOf(w))) e -= 1
   const terr = terrainAt(w, c.pos)
   if (terr.id.includes('Mud') || terr.water === 'shallow') e -= 2
   return e
@@ -45,7 +85,7 @@ export function evasion(w: World, c: Creature): number {
 /** 공격치 = 무기 정확도 + floor((민첩 − 10) × 1.5) + (지각 − 머리 불이익 − 10) + 능력·장비 (05 §2.1) */
 export function attackScore(w: World, a: Creature, atk: AttackDef): number {
   const pen = regionPenalties(w, a)
-  return atk.accuracy + Math.floor((a.stats.agi - 10) * 1.5) + (a.stats.per - pen.per - 10) + traitAdd(w, a, 'hitBonus')
+  return atk.accuracy + Math.floor((a.stats.agi - 10) * 1.5) + (effectiveStat(w, a, 'per') - pen.per - 10) + traitAdd(w, a, 'hitBonus')
 }
 
 /** 대상 기준 공격자 방향: front · side · back, 그리고 좌우 */
@@ -90,8 +130,14 @@ function narrowCorridor(w: World, p: Pos): boolean {
 
 export interface HitPreview { chance: number; lines: string[]; attack: AttackDef; wield?: Wield }
 
+export function rangedRange(w: World, a: Creature, d: Creature): number {
+  const it = wield(w, a)?.item
+  const range = it ? itemDef(w, it).ranged?.range ?? 0 : 0
+  return range <= 0 ? 0 : range + ((terrainAt(w, a.pos).elevation ?? 0) > (terrainAt(w, d.pos).elevation ?? 0) ? 1 : 0)
+}
+
 /** 1단계 명중: clamp(5, 95, 50 + (공격치 − 회피치) × 2 + Σ수정치) (07 §2.1) */
-export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods, wd?: Wield): HitPreview | null {
+export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods, wd?: Wield, scriptActual=false): HitPreview | null {
   const wl = wd ?? (ranged ? wield(w, a) : meleeWield(w, a))
   if (!wl) return null
   const atk = wl.atk
@@ -102,6 +148,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   let chance = 50 + (as - ev) * 2
   lines.push(`50 + (공격치 ${as} − 회피치 ${ev}) × 2 = ${chance}`)
   const add = (label: string, v: number) => { if (v !== 0) { chance += v; lines.push(`${label} ${v > 0 ? '+' : ''}${v}`) } }
+  add('공포·극복', traumaHit(w, a, d))
+  if (ranged) add('원거리 특성', traitAdd(w, a, 'rangedHit'))
   // 방향 · 기습
   if (helpless(d)) add(d.unconscious ? '의식 없는 상대' : '잠든 상대', 40)
   else {
@@ -132,7 +180,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   add('머리 상태', -pen.headHit)
   add('쥔 팔 상태', -Math.min(10, pen.armHit))
   // 공격자 몸
-  add('통증', -5 * painStage(painTotal(w, a)))
+  add('통증', a.breakdown?.kind === 'berserk' ? 0 : -5 * painStage(painTotal(w, a)))
   const loss = bloodLoss(a)
   add('실혈', loss >= 0.3 ? -20 : loss >= 0.15 ? -10 : 0)
   add('기력', a.needs.energy <= 0 ? -15 : a.needs.energy < 25 ? -5 : 0)
@@ -169,7 +217,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   }
   if (mods?.hitBonus) add('능력', mods.hitBonus)
   // 알코올 의존 금단(손떨림): 공격형 액티브 명중 −10 (15 §9.2)
-  if (mods && hasEffect(a, 'withdrawal', turn)) add('손떨림', -10)
+  if (mods && (alcoholWithdrawalStage(w, a) || hasEffect(a, 'withdrawal', turn))) add('손떨림', -10)
+  add('선택한 모드',runScriptHooks(w,'modifyHitChance',{actorId:a.id,targetId:d.id,ranged,baseChance:Math.round(chance)},!scriptActual))
   chance = clamp(chance, 5, 95)
   lines.push(`최종 ${chance}% (5~95)`)
   return { chance, lines, attack: atk, wield: wl }
@@ -188,7 +237,7 @@ function reactionMult(w: World, d: Creature): number {
 
 function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: boolean): Reaction[] {
   const turn = turnOf(w)
-  if (helpless(d) || d.ai.mode === 'surrender' || d.ai.cornered || d.needs.energy <= 0) return []
+  if (d.breakdown?.kind === 'berserk' || d.breakdown?.kind === 'catatonia' || helpless(d) || d.ai.mode === 'surrender' || d.ai.cornered || d.needs.energy <= 0) return []
   if (hasEffect(d, 'stunned', turn) || unaware(w, a, d) || !canSee(w, d, a.pos)) return []
   const rel = relationOf(w, d, a.pos)
   const side = sideOf(d, a.pos)
@@ -200,7 +249,7 @@ function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: 
   const sh = d.equip.off
   const shDef = sh ? itemDef(w, sh).shield : undefined
   if (sh && shDef && la < 4 && (sh.durability ?? 100) > 0 && (rel === 'front' || (rel === 'side' && side === 'l'))) {
-    let ch = shDef.block + (d.stats.str - 10) * 2 + traitAdd(w, d, 'blockBonus') - ARM_BLOCK[la] - (rel === 'side' ? 20 : 0) - (down ? 20 : 0)
+    let ch = shDef.block + (effectiveStat(w, d, 'str') - 10) * 2 + traitAdd(w, d, 'blockBonus') - ARM_BLOCK[la] - (rel === 'side' ? 20 : 0) - (down ? 20 : 0)
     ch = clamp(ch, 0, 85)
     out.push({ kind: 'shield', chance: ch, cost: Math.ceil((4 + Math.floor(D / 2)) * mult), item: sh })
   }
@@ -210,7 +259,7 @@ function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: 
     const armSt = wl.twoHanded ? Math.max(la, ra) : wl.arm === 'larm' ? la : ra
     if (armSt < 4) {
       // 무기 막기
-      const bc = clamp(wdef.weapon.block + (d.stats.str - 10) - ARM_BLOCK[armSt], 0, 50)
+      const bc = clamp(wdef.weapon.block + (effectiveStat(w, d, 'str') - 10) - ARM_BLOCK[armSt], 0, 50)
       out.push({ kind: 'block', chance: bc, cost: Math.ceil((6 + D) * mult), item: wl.item })
       // 받아넘기기: 받아넘기기 자세 +40, 상한 90
       const stance = effectMag(d, 'parryStance', turn)
@@ -295,7 +344,7 @@ const WOUND_FOR: Record<DamageType, string> = {
   cut: 'Wound.Cut', stab: 'Wound.Stab', blunt: 'Wound.Bruise', bite: 'Wound.Bite', burn: 'Wound.Burn',
 }
 
-export interface AttackResult { hit: boolean; damage: number; killed: boolean; reacted?: string }
+export interface AttackResult { hit: boolean; damage: number; killed: boolean; woundId?: number; reacted?: string }
 export interface AttackOpts {
   ranged?: boolean
   mods?: AbilityAttackMods
@@ -316,13 +365,16 @@ export function fx(w: World, ev: FxEvent) {
 /** 깨우기. 맞아서 깨면 잠기운 10턴(깊은 잠 20턴) (01 §8.3) */
 export function wake(w: World, c: Creature, why: string) {
   if (!c.asleep) return
+  if (c.activity?.kind === 'sleep') c.activity.wokeBy ??= why
   const turn = turnOf(w)
+  finishSleepMemories(w,c)
   c.asleep = false
+  c.lastWokeAt = turn
   c.drowsyUntil = turn + (c.deepSleep ? 20 : 10)
   c.deepSleep = false
   c.ai.alertTurn = turn
   fx(w, { k: 'status', id: c.id, text: '!', color: '#ffd060', turn })
-  if (c.faction !== 'player' && w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'warn', `${c.name}이(가) 깨어났다. (${why})`)
+  if (c.faction !== 'player' && w.s.visible.includes(c.pos.y * w.s.map.w + c.pos.x)) log(w, 'warn', `${knownCreatureName(w,c)}이(가) 깨어났다. (${why})`)
 }
 
 /** 한 층의 결과 분포 [튕김, 절반, 관통] % (정수 roll 0..99, 07 §2.4) */
@@ -335,36 +387,45 @@ export function layerOdds(useful: number, crumple: boolean): [number, number, nu
   return [d, h, 100 - d - h]
 }
 
-function wear(it: ItemInst | undefined, pct: number) {
+function wear(w: World, it: ItemInst | undefined, pct: number) {
   if (!it || pct <= 0) return
-  it.durability = Math.max(0, (it.durability ?? 100) - pct)
-}
-
-function dull(it: ItemInst | undefined, loss: number) {
-  if (!it || it.edge === undefined) return
-  it.edge = Math.max(0, it.edge - loss)
+  const scale = itemDef(w, it).apparel ? 1 : (structuralDurability(w, it) ?? 100) * qualityInfo(it).dur / 100
+  it.durability = Math.max(0, (it.durability ?? 100) - pct / scale)
 }
 
 export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOpts = {}): AttackResult {
+  const result=resolveAttackCore(w,a,d,opts)
+  runScriptHooks(w,'onAttackResolved',{actorId:a.id,targetId:d.id,hit:result.hit,damage:result.damage,killed:result.killed,ranged:!!opts.ranged})
+  return result
+}
+function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts): AttackResult {
   const r = rng(w, 'combat')
   const turn = turnOf(w)
   const mods = opts.mods
   const wl = opts.ranged ? wield(w, a, opts.mode) : meleeWield(w, a, opts.mode)
-  const pv = previewHit(w, a, d, opts.ranged, mods, wl)
+  const pv = previewHit(w, a, d, opts.ranged, mods, wl,true)
   const res: AttackResult = { hit: false, damage: 0, killed: false }
   if (!pv || !wl) return res
+  breakMercy(w,a,d)
+  companionBetrayal(w,a,d)
+  witnessAttack(w, a, d)
+  if(opts.ranged?cheb(a.pos,d.pos)<=rangedRange(w,a,d)&&rangedRange(w,a,d)>0&&hasLos(w,a.pos,d.pos):canReach(w,a,d))recordCombatEngagement(w,a,d)
+  if (d.id === w.s.playerId) w.s.autoIgnored = w.s.autoIgnored?.filter((id) => id !== a.id)
   const atk = pv.attack
+  machineAction(w,a,atk.damageType==='burn'?'weld':'attack')
   const detail: string[] = [...pv.lines]
   const isPlayer = a.faction === 'player' || d.faction === 'player'
-  const aName = a.faction === 'player' ? '당신' : a.name
-  const dName = d.faction === 'player' ? '당신' : d.name
+  const aName = a.faction === 'player' ? '당신' : knownCreatureName(w,a)
+  const dName = d.faction === 'player' ? '당신' : knownCreatureName(w,d)
   const label = opts.abilityLabel ?? atk.label
   const sneak = helpless(d)
   const firstSneak = sneak
 
   a.exerted = true
+  strainStitches(w, a)
+  strainProjectiles(w, a)
   // 기본 공격은 무기 기력 전부, 능력은 능력 비용으로 대체 (07 §2.7 · §6)
-  if (!opts.paid && !opts.counter) a.needs.energy = Math.max(0, a.needs.energy - atk.energy)
+  if (!opts.paid && !opts.counter) a.needs.energy = Math.max(0, a.needs.energy - atk.energy * (a.breakdown?.kind === 'berserk' ? 1.5 : 1))
   a.facing = dirIndex(d.pos.x - a.pos.x, d.pos.y - a.pos.y)
   fx(w, { k: 'attack', id: a.id, target: d.id, turn })
   emitNoise(w, a.pos, atk.noise ?? 6, a.id)
@@ -377,20 +438,21 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   if (roll >= pv.chance) {
     fx(w, { k: 'miss', id: d.id, turn })
     wake(w, d, '빗나간 공격')
-    if (isPlayer) log(w, 'combat', `${aName}의 ${label} — ${dName}에게 빗나갔다.`, detail)
+    if (isPlayer) log(w, 'combat', `${aName}의 ${label} — ${dName}에게 빗나갔다.`, bestiaryCombatDetails(w,d,detail))
     return res
   }
 
   // 피해 원값 D0 = floor(기본 × 날 상태 × 근력 보정 × 팔 상태 × (80 + r)/100), r = 0..40 (07 §2.5)
   const pen0 = regionPenalties(w, a, wl.arm, wl.twoHanded)
   let edgeF = 1
-  if (wl.item?.edge !== undefined && (atk.damageType === 'cut' || atk.damageType === 'stab')) edgeF = (60 + wl.item.edge * 0.4) / 100
-  const strF = opts.ranged || atk.family === 'archery' ? 1 : (100 + (a.stats.str - 10) * 5) / 100
+  if (!opts.ranged && wl.item?.edge !== undefined && (atk.damageType === 'cut' || atk.damageType === 'stab')) edgeF = (60 + wl.item.edge * 0.4) / 100
+  const strF = opts.ranged || atk.family === 'archery' ? 1 : (100 + (effectiveStat(w, a, 'str') - 10) * 5) / 100
   const rr = r.int(0, 40)
   const qm = wl.item ? qualityInfo(wl.item).dmg : 1
   let D = Math.floor(atk.damage * qm * edgeF * strF * ARM_DMG[pen0.armState] * (80 + rr) / 100)
   detail.push(`피해 ${atk.damage}${qm !== 1 ? ` × 품질 ${qm}` : ''} × 날 ${edgeF.toFixed(2)} × 근력 ${strF.toFixed(2)} × 팔 ${ARM_DMG[pen0.armState]} × ${80 + rr}% = ${D}`)
   if (mods?.damageMult) { D = Math.floor(D * mods.damageMult); detail.push(`능력 ×${mods.damageMult} → ${D}`) }
+  if (!opts.ranged && traitMul(w, a, 'bloodDamage') !== 1 && bleedingEnemyNear(w, a)) { const mult = traitMul(w, a, 'bloodDamage'); D = Math.floor(D * mult); if (mult !== 1) detail.push(`피 냄새 ×${mult} → ${D}`) }
   const fero = traitMul(w, a, 'dmgVsBleeding')
   if (fero !== 1 && totalBleed(w, d) > 0) { D = Math.floor(D * fero); detail.push(`흉포 ×${fero} → ${D}`) }
   if (firstSneak) {
@@ -409,6 +471,7 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
     if (react) {
       d.needs.energy -= react.cost
       d.exerted = true
+      strainStitches(w, d)
       d.reactions = { turn, n: (d.reactions?.turn === turn ? d.reactions.n : 0) + 1 }
       const rroll = r.int(0, 99)
       const ok = rroll < react.chance
@@ -418,10 +481,10 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
         emitNoise(w, d.pos, 8, d.id)
         fx(w, { k: 'block', id: d.id, turn })
         const absorb = itemDef(w, react.item).shield!.absorb
-        wear(react.item, Math.floor(D / 4) * (atk.shieldDamage ?? 1))
+        wear(w, react.item, Math.floor(D / 4) * (atk.shieldDamage ?? 1))
         if (D <= absorb) {
           res.reacted = 'shield'
-          if (isPlayer) log(w, 'combat', `${dName}이(가) 방패로 ${aName}의 ${label}을(를) 막았다.`, detail)
+          if (isPlayer) log(w, 'combat', `${dName}이(가) 방패로 ${aName}의 ${label}을(를) 막았다.`, bestiaryCombatDetails(w,d,detail))
           return res
         }
         // 흡수 초과분은 방패 든 팔에 타격으로
@@ -432,9 +495,9 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
       } else if (ok) {
         emitNoise(w, d.pos, 8, d.id)
         fx(w, { k: react.kind === 'parry' ? 'parry' : 'block', id: d.id, turn })
-        if (react.kind === 'block') wear(react.item, Math.floor(D / 4))
+        if (react.kind === 'block') wear(w, react.item, Math.floor(D / 4))
         res.reacted = react.kind
-        if (isPlayer) log(w, 'combat', `${dName}이(가) ${aName}의 ${label}을(를) ${react.kind === 'parry' ? '받아넘겼다' : '무기로 막았다'}.`, detail)
+        if (isPlayer) log(w, 'combat', `${dName}이(가) ${aName}의 ${label}을(를) ${react.kind === 'parry' ? '받아넘겼다' : '무기로 막았다'}.`, bestiaryCombatDetails(w,d,detail))
         if (react.kind === 'parry') {
           a.nextAct += 50 // 빈틈 +50TU
           if (hasEffect(d, 'parryStance', turn) && canReach(w, d, a)) {
@@ -462,25 +525,27 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   if (nat) layers.push({ label: '자연 방어', armor: nat, max: 0 })
   const crumple = traitAdd(w, a, 'deflectHalf') > 0
   const hitItems: ItemInst[] = []
+  let contactLoss = 1
   for (const L of layers) {
     const base = L.armor[armorCategory(dtype)] ?? 0
-    const dur = L.it ? L.it.durability ?? 100 : 100
+    const dur = L.it ? armorDurability(L.it, pd.id) : 100
     let effA = Math.floor(base * (L.it ? qualityInfo(L.it).dmg : 1) * (50 + dur / 2) / 100)
     if (L.it?.half) effA = Math.floor(effA / 2)
     const useful = effA - pen
     if (L.it) hitItems.push(L.it)
+    if(L.it&&atk.armorDamage)wearArmorPart(w,d,L.it,pd.id,atk.armorDamage)
     if (useful <= 0) { detail.push(`${L.label}: 실효 ${effA} − 관통 ${pen} ≤ 0, 통과`); continue }
     const ar = r.int(0, 99)
     const blockedLoss = (blocked: number) => L.it && L.max > 0 ? Math.floor(blocked * 100 / L.max) : 0
     if ((crumple ? 4 : 2) * ar < useful) {
       detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 튕김`)
-      wear(L.it, blockedLoss(D))
-      wear(wl.item, 2)
-      dull(wl.item, 3)
+      wearArmorPart(w, d, L.it, pd.id, blockedLoss(D))
+      wear(w, wl.item, 2)
+      edgeLoss(w, wl.item, 3)
       fx(w, { k: 'deflect', id: d.id, turn })
       emitNoise(w, d.pos, 8, d.id)
       wake(w, d, '공격받음')
-      if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${L.label}에 튕겨났다.`, detail)
+      if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${L.label}에 튕겨났다.`, bestiaryCombatDetails(w,d,detail))
       return res
     }
     if (ar < useful) {
@@ -489,25 +554,41 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
       if (dtype === 'cut' || dtype === 'stab' || dtype === 'bite') dtype = 'blunt'
       pen = Math.floor(pen / 2)
       detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 절반 ${D} · 타격 변환`)
-      wear(L.it, blockedLoss(before - D))
-      dull(wl.item, 2)
+      wearArmorPart(w, d, L.it, pd.id, blockedLoss(before - D))
+      contactLoss = Math.max(contactLoss, 2)
     } else detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 관통`)
   }
-  if (mods?.armorDamage) for (const it of hitItems) wear(it, mods.armorDamage + traitAdd(w, a, 'splitBonus'))
-  wear(wl.item, 1)
-  dull(wl.item, 1)
+  if (mods?.armorDamage) for (const it of hitItems) wearArmorPart(w, d, it, pd.id, mods.armorDamage + traitAdd(w, a, 'splitBonus'))
+  wear(w, wl.item, 1)
   if (D <= 0) {
+    edgeLoss(w, wl.item, contactLoss)
     detail.push('피해 0')
-    if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${pd.label}에 닿았지만 상처를 내지 못했다.`, detail)
+    if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${pd.label}에 닿았지만 상처를 내지 못했다.`, bestiaryCombatDetails(w,d,detail))
     wake(w, d, '공격받음')
     return res
   }
 
   // 5 상처
+  if(atk.targetHeat&&d.body.machine)d.body.machine.heat=clamp(d.body.machine.heat+atk.targetHeat,0,100)
+  D = Math.round(D * (w.db.creature(d.def).damageTaken?.[dtype] ?? 1))
+  const replacement = prostheticAt(w, d, pd.id)
+  if (replacement) {
+    damageProsthetic(w, d, pd.id, D)
+    edgeLoss(w, wl.item, contactLoss)
+    res.hit = true; res.damage = D
+    fx(w, { k: 'dmg', id: d.id, v: D, turn })
+    emitNoise(w, d.pos, 6, a.id)
+    wake(w, d, '공격받음')
+    if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', `${aName}의 ${label} → ${dName}의 ${replacement.rule.label} 파손 (${D}).`, bestiaryCombatDetails(w,d,detail))
+    return res
+  }
   const hpBefore = d.hp
   const out = applyWound(w, a, d, pd, D, dtype, atk, mods, detail, label)
+  if(machineRules(w,d))D=out.damage
+  edgeLoss(w, wl.item, out.fracture ? Math.max(2, contactLoss) : contactLoss)
   d.hp -= D
   res.hit = true
+  res.woundId = out.woundId
   res.damage = D
   fx(w, { k: 'dmg', id: d.id, v: D, crit: sneak || out.arterial, turn })
   let text = `${aName}의 ${label} → ${dName}의 ${out.target.label}에 ${out.woundLabel} (${D})`
@@ -519,12 +600,12 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
   if (out.severed) fx(w, { k: 'status', id: d.id, text: '절단!', color: '#ff6060', turn })
   if (out.organ && d.faction !== 'player') text += ` — 깊숙이 박혔다`
   detail.push(`HP ${Math.round(hpBefore)} → ${Math.round(d.hp)}`)
-  if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', text, detail)
-  if (d.faction === 'player') d.history.push({ turn, kind: 'wound', text: `${a.name}에게 ${out.target.label} ${out.woundLabel}${out.arterial ? '(동맥)' : ''}${out.fracture ? '(골절)' : ''}` })
-  if (out.severed && d.faction === 'player') addThought(w, d, 'Thought.Maimed')
+  if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', text, bestiaryCombatDetails(w,d,detail))
+  if (d.faction === 'player') d.history.push({ turn, kind: 'wound', text: `${knownCreatureName(w,a)}에게 ${out.target.label} ${out.woundLabel}${out.arterial ? '(동맥)' : ''}${out.fracture ? '(골절)' : ''}` })
 
+  observeBleeding(w,d)
   // 6 2차 효과
-  secondary(w, a, d, out.target, D, dtype, atk, mods, out.tendon, isPlayer, dName)
+  secondary(w, a, d, out.target, D, dtype, atk, mods, out.tendon, isPlayer, dName, out.woundId)
   if (sneak) {
     // 기습 비명: 같은 방 잠든 개체의 각성 판정 (07 §2.8)
     emitNoise(w, d.pos, 12, d.id)
@@ -534,7 +615,9 @@ export function resolveAttack(w: World, a: Creature, d: Creature, opts: AttackOp
 }
 
 interface WoundOut {
+  damage:number
   target: BodyPartDef
+  woundId: number
   woundLabel: string
   arterial: boolean
   fracture?: string
@@ -551,7 +634,7 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   mods: AbilityAttackMods | undefined, detail: string[], label: string): WoundOut {
   const r = rng(w, 'combat')
   const bdef = bodyDef(w, d)
-  const source = `${a.name}의 ${label}`
+  const source = `${d.id===w.s.playerId?knownCreatureName(w,a):a.name}의 ${label}`
   const bleedMult = (atk.bleedMult ?? 1) * (mods?.bleedMult ?? 1)
   const hp = d.body.maxHp[pd.id]
   detail.push(`심각도 ${D}/${hp} = ${Math.round(D * 100 / hp)}% (${D < hp * 0.25 ? '경상' : D < hp * 0.5 ? '중상' : D < hp ? '심각' : '파괴'})`)
@@ -570,7 +653,7 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
   let fracture: { grade: 'hairline' | 'simple' | 'compound'; progress: number } | undefined
   if (pd.bone !== undefined && dtype === 'blunt' && D > pd.bone) {
     const special = (mods?.fractureMult ?? 1) * traitMul(w, a, 'fractureDealt')
-    const m = special * (special > 1 ? traitMul(w, d, 'fractureTaken') : 1)
+    const m = special * traitMul(w, d, 'fractureTaken')
     const ch = clamp(Math.floor((D - pd.bone) * 8 * m), 0, 90)
     const fr = r.int(0, 99)
     detail.push(`골절 판정 (${D} − ${pd.bone}) × 8 × ${m} = ${ch}% roll ${fr}`)
@@ -580,12 +663,15 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
     }
   }
   const woundId = WOUND_FOR[dtype]
-  const { wound, destroyed, severed } = addWound(w, d, {
+  const { wound, damage, destroyed, severed } = addWound(w, d, {
     def: woundId, part: pd.id, severity: D, source, sourceId: a.id, artery, fracture, tendon, bleedMult,
     contam: (atk.contam ?? 0) + (fracture?.grade === 'compound' ? 30 : 0),
     canSever: dtype === 'cut' || dtype === 'bite',
   })
-  if (fracture?.grade === 'compound') wound.bleed += D
+  const biteDisease=dtype==='bite'?w.db.creature(a.def).biteDisease:undefined
+  if(biteDisease?.prevention)recordBiteRisk(w,d,a,wound)
+  else if(biteDisease)exposeDisease(w,d,biteDisease.id,biteDisease.chance,{kind:'실제 물린 상처',turn:turnOf(w),creature:a.id,wound:wound.id},diseaseStream('bite.'+d.id))
+  if (fracture?.grade === 'compound'&&!machineRules(w,d)) wound.bleed += D
   detail.push(`출혈 ${wound.bleed}${wound.artery ? ` + 동맥 ${wound.artery}` : ''} ml/턴`)
   // 장기 관통: 찌르기 clamp(0, 80, (D − 4) × 6)% (흉부·복부), 두개골은 남은 HP를 넘으면 뇌
   let organ: string | undefined
@@ -611,20 +697,22 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
     detail.push(`→ ${op.label} 관통 (내출혈 ${Math.round(D * (op.organ ?? 1) * 10) / 10} ml/턴)`)
   }
   return {
-    target: pd, woundLabel: w.db.wound(woundId).label, arterial: !!artery, fracture: fracture && { hairline: '금', simple: '단순', compound: '복합' }[fracture.grade],
+    damage,target: pd, woundId: wound.id, woundLabel: w.db.wound(wound.def).label, arterial: !!artery, fracture: fracture && { hairline: '금', simple: '단순', compound: '복합' }[fracture.grade],
     tendon, destroyed: destroyed && part(w, d, destroyed).label, severed: !!severed, organ,
   }
 }
 
 function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: number, dtype: DamageType, atk: AttackDef,
-  mods: AbilityAttackMods | undefined, tendon: boolean, isPlayer: boolean, dName: string) {
+  mods: AbilityAttackMods | undefined, tendon: boolean, isPlayer: boolean, dName: string, woundId: number) {
+  if(machineRules(w,d))return
   const r = rng(w, 'combat')
   const turn = turnOf(w)
   // 기절 (D27): 머리 타격 clamp(0, 90, (D' − 4) × 6 − (의지 − 10) × 3 + 능력)%, 둔기는 D + 4. 지속 ceil(D/2)턴
   if (pd.region === 'head' && !helpless(d)) {
     const Dx = D + (dtype === 'blunt' ? atk.stunD ?? 0 : 0)
-    const ch = clamp((Dx - 4) * 6 - (d.stats.wil - 10) * 3 + (mods?.stunBonus ?? 0), 0, 90)
+    const ch = clamp((Dx - 4) * 6 - (willForChecks(w, d) - 10) * 3 + (mods?.stunBonus ?? 0), 0, 90)
     if (r.int(0, 99) < ch) {
+      if (dtype === 'blunt') recordConcussion(w, d, woundId)
       addStun(d, turn, Math.ceil(D / 2))
       d.unconscious = true
       fx(w, { k: 'status', id: d.id, text: '기절', color: '#f0e070', turn })
@@ -632,7 +720,7 @@ function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numbe
     }
   }
   // 무기 떨굼: 손·전완 D × 3%, 힘줄 절단 100%
-  if ((pd.groups.includes('hand') || pd.groups.includes('forearm') || pd.groups.includes('finger')) && (tendon || r.int(0, 99) < D * 3)) {
+  if ((pd.groups.includes('hand') || pd.groups.includes('forearm') || pd.groups.includes('finger')) && (tendon || r.int(0, 99) < D * 3 * traitMul(w, d, 'weaponDropMult'))) {
     const slot = pd.side === 'l' ? 'off' : 'main'
     const it = d.equip[slot]
     if (it && (itemDef(w, it).attacks || itemDef(w, it).shield)) {
@@ -657,7 +745,7 @@ function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numbe
   const sp = w.db.creature(d.def).sporeOnHit
   if (sp) {
     sporeCloud(w, d.pos, sp.radius, sp.turns, sp.conc)
-    if (isPlayer) log(w, 'warn', `${d.name}에게서 회색 포자 구름이 터졌다.`)
+    if (isPlayer) log(w, 'warn', `${knownCreatureName(w,d)}에게서 회색 포자 구름이 터졌다.`)
   }
   // 비명 (통증 급증)
   if (D >= 10 && !traitOverride(w, d, 'noPain')) emitNoise(w, d.pos, 12, d.id)
@@ -684,19 +772,22 @@ function freeAdjacent(w: World, p: Pos): Pos {
 function noteFight(w: World, a: Creature, d: Creature) {
   const other = a.faction === 'player' ? d : d.faction === 'player' ? a : undefined
   if (!other) return
-  const b = (w.s.knowledge.bestiary[other.def] ??= { seen: 0, fought: 0, killed: 0 })
-  b.fought++
+  traumaEngage(w, a.faction === 'player' ? a : d, other)
+  noteBestiaryFight(w,other)
 }
 
 /** 포자 구름 (07 §11 · bestiary §18·§20): 반경 안 칸에 농도·지속 */
 export function sporeCloud(w: World, at: Pos, radius: number, turns: number, conc: number) {
   const m = w.s.map
   const until = turnOf(w) + turns
+  m.sporesExpire = Math.min(m.sporesExpire ?? until, until)
+  invalidateLights(w)
   for (let y = at.y - radius; y <= at.y + radius; y++) for (let x = at.x - radius; x <= at.x + radius; x++) {
     if (x < 0 || y < 0 || x >= m.w || y >= m.h) continue
     const t = m.tiles[y * m.w + x]
     if (!w.db.terrain(t.t).passable) continue
-    if (!t.spores || t.spores.until < until) t.spores = { until, conc: Math.max(conc, t.spores?.conc ?? 0) }
+    const previous = t.spores && t.spores.until > turnOf(w) ? t.spores : undefined
+    t.spores = { until: Math.max(until, previous?.until ?? 0), conc: Math.max(conc, previous?.conc ?? 0) }
   }
   fx(w, { k: 'status', id: creatureAt(w, at)?.id ?? -1, text: '포자!', color: '#a0c060', turn: turnOf(w) })
 }
@@ -704,7 +795,7 @@ export function sporeCloud(w: World, at: Pos, radius: number, turns: number, con
 // ── 밀치기 (07 §7.2) ─────────────────────────────
 
 function mass(w: World, c: Creature): number {
-  return c.stats.str + Math.floor((w.db.creature(c.def).weightKg ?? 70) / 10)
+  return effectiveStat(w, c, 'str') + Math.floor((w.db.creature(c.def).weightKg ?? 70) * traitMul(w, c, 'bodySizeMult') / 10)
 }
 
 export function shoveChance(w: World, a: Creature, d: Creature): number {
@@ -721,7 +812,7 @@ export function shoveChance(w: World, a: Creature, d: Creature): number {
 export function pushBack(w: World, a: Creature, t: Creature, n: number) {
   const r = rng(w, 'combat')
   const isPl = a.faction === 'player' || t.faction === 'player'
-  const name = t.faction === 'player' ? '당신' : t.name
+  const name = t.faction === 'player' ? '당신' : knownCreatureName(w,t)
   if (size(w, t) === 'huge') return
   const dir = DIRS[dirIndex(t.pos.x - a.pos.x, t.pos.y - a.pos.y)]
   for (let i = 0; i < n; i++) {
@@ -742,16 +833,32 @@ export function pushBack(w: World, a: Creature, t: Creature, n: number) {
 }
 
 /** 사망 처리: 시체, 소지품 투하(루팅 더미), 주변 사기, 경험치 */
-export function killCreature(w: World, c: Creature, cause: string) {
+export function killCreature(w: World, c: Creature, cause: string,options:{execution?:boolean;killerId?:number}={}) {
   if (!c.alive) return
+  if(c.activity?.kind==='ransom'||c.activity?.kind==='ransomWait')cancelRansom(w,c)
   const turn = turnOf(w)
   c.alive = false
+  delete c.sleepObservation
+  releaseHostParasites(w,c)
+  const depletedSources:string[]=[]
+  for (const source of w.s.sources ?? []) if (source.deployed && w.s.creatures.includes(c) && !isCompanion(w,c) && sourceContains(w,source,c)){const before=source.count;source.count=Math.max(0,source.count-1);if(before>0&&source.count===0)depletedSources.push(source.id)}
   c.unconscious = false
   c.asleep = false
   c.deathCause = cause
   c.deathTurn = turn
+  recordResidentDeath(w,c)
+  if(c.id===w.s.playerId){contractsTick(w);employerDied(w)}
   c.killedBy = c.lastAttacker
+  const attacker = creatureById(w, options.killerId??c.body.wounds[c.body.wounds.length - 1]?.sourceId)
+  if(attacker&&options.execution)witnessKinship(w,attacker,c,true)
+  if (attacker&&!options.execution) witnessAttack(w, attacker, c, true)
+  releaseCaptivity(w,c)
   const t = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x]
+  caravanLeaderDied(w,c)
+  if(c.body.machine?.components){c.bag.push(...c.body.machine.components);c.body.machine.components=[]}
+  for (const wd of c.body.wounds) if (wd.foreign?.kind === 'arrow' && wd.foreign.ammo) {
+    t.items.push(makeItem(w, wd.foreign.ammo)); wd.foreign = undefined
+  }
   if (c.faction !== 'player') {
     // 시체는 실제로 들고 있던 것을 그대로 지닌다: 배낭 격자 + 장착 장비 (13 §8.1). 격자에 안 들어가면 바닥으로
     const [gw, gh] = w.db.creature(c.def).bagSize ?? [4, 3]
@@ -763,24 +870,39 @@ export function killCreature(w: World, c: Creature, cause: string) {
       if (left > 0) t.items.push({ ...it, count: left, gx: undefined, gy: undefined })
     }
   }
-  t.blood = Math.min(400, t.blood + 60)
-  if (c.faction === 'beasts' || c.faction === 'vermin') t.items.push(makeItem(w, 'Item.RawMeat', c.def === 'Creature.BurrowRat' ? 1 : 3))
-  fx(w, { k: 'death', id: c.id, turn })
+  if(!machineRules(w,c))t.blood = Math.min(400, t.blood + 60)
   const pl = player(w)
+  if(isCompanion(w,c))for(const observer of w.s.creatures){
+    if(observer.id===c.id||!observer.alive||observer.asleep||observer.unconscious||observer.id!==pl.id&&!isCompanion(w,observer)||!canSee(w,observer,c.pos))continue
+    rememberLifeEvent(w,observer,'companionDeath')
+  }
+  const byPlayer = c.body.wounds.some((wd) => wd.sourceId === pl.id) || !!c.lastAttacker?.startsWith(pl.name)
+  recordStoryVictory(w,c,depletedSources,byPlayer||options.killerId===pl.id)
+  recordBountyVictory(w,c,options.killerId===pl.id||c.body.wounds.some(wound=>wound.sourceId===pl.id))
+  if (c.faction === 'beasts' || c.faction === 'vermin') {
+    const rule=w.db.creature(c.def).meatDrop,base=rule?.count??3,count=byPlayer?traumaMeat(w,pl,c,base):base
+    if(count>0)t.items.push(makeItem(w,rule?.item??'Item.RawMeat',count))
+  }
+  if (c.id !== pl.id && pl.alive) traumaVictory(w, pl, c, c.body.wounds.at(-1)?.sourceId === pl.id || !!c.lastAttacker?.startsWith(pl.name))
+  fx(w, { k: 'death', id: c.id, turn })
   if (c.id !== pl.id) {
     if (pl.alive) {
       const b = (w.s.knowledge.bestiary[c.def] ??= { seen: 0, fought: 0, killed: 0 })
       // 사망 원인 기여: 플레이어가 준 상처가 하나라도 남아 있으면 전액 (15 §3)
-      const byPlayer = c.body.wounds.some((wd) => wd.sourceId === pl.id) || c.lastAttacker?.startsWith(pl.name)
       if (byPlayer) {
+        // 구형 저장의 기존 살인 이력도 생애 1회 판정에 포함한다.
+        pl.firstHumanKill ??= Object.entries(w.s.knowledge.bestiary).some(([id, record]) => ['reavers', 'shades'].includes(w.db.creature(id).faction) && record.killed > 0)
         b.killed++
-        if (c.faction === 'reavers' || c.faction === 'shades') addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
+        if (c.faction === 'reavers' || c.faction === 'shades') {
+          if (!pl.firstHumanKill) { pl.firstHumanKill = true; addThought(w, pl, 'Thought.FirstHumanKill', traitOverride(w, pl, 'killMood')) }
+          addThought(w, pl, 'Thought.KilledHuman', traitOverride(w, pl, 'killMood'))
+        }
         else if (c.faction === 'withered') addThought(w, pl, 'Thought.KilledFevered', traitOverride(w, pl, 'killMood'))
         else addThought(w, pl, 'Thought.KilledBeast')
         awardDefeat(w, pl, c, 1, '처치')
-      } else addThought(w, pl, 'Thought.SawDeath')
+      } else addThought(w, pl, 'Thought.SawDeath', traitOverride(w, pl, 'deathMood'))
     }
-    log(w, 'combat', `${c.name}이(가) 쓰러졌다. (${cause})`)
+    log(w, 'combat', `${knownCreatureName(w,c)}이(가) 쓰러졌다. (${cause})`)
   }
   // 사기 사건 (07 §8): 시야 내 아군 사망 −15(30턴 반감), 우두머리 사망 −30, 처치한 쪽 +5
   const leader = !!w.db.creature(c.def).leader
@@ -788,9 +910,11 @@ export function killCreature(w: World, c: Creature, cause: string) {
     if (!o.alive || o.faction !== c.faction || o.id === c.id) continue
     if (leader && cheb(o.pos, c.pos) <= 20) moraleEvent(o, -30, 'fixed', turn)
     else if (canSee(w, o, c.pos)) moraleEvent(o, -15, 'half30', turn)
+    if(!o.asleep&&!o.unconscious&&canSee(w,o,c.pos))npcStressEvent(w,o,leader?'leaderDeath':'allyDeath',c.id)
   }
-  const killer = creatureById(w, c.body.wounds[c.body.wounds.length - 1]?.sourceId)
-  if (killer && killer.alive && killer.faction !== 'player') moraleEvent(killer, 5, 't30', turn)
+  const killer = creatureById(w, options.killerId??c.body.wounds[c.body.wounds.length - 1]?.sourceId)
+  if (killer && killer.alive && killer.faction !== 'player') {moraleEvent(killer, 5, 't30', turn);if(bodyDef(w,c).kind==='humanoid')npcStressEvent(w,killer,'killedHuman',c.id)}
+  runScriptHooks(w,'onDeath',{ownerId:c.id,cause,actorId:killer?.id??c.id})
 }
 
 /** 인접(또는 리치 2) 공격 가능 여부 */

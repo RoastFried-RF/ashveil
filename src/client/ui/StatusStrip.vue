@@ -2,8 +2,9 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
+  hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef,
   ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
-  REGION_LABEL, STATE_LABEL, WEATHER_LABEL, type Region, type World,
+  REGION_LABEL, STATE_LABEL, calendar, weatherLabel, type Region, type World,
 } from '../../core'
 import { STATE_COLOR } from '../info'
 import { version, world } from '../store'
@@ -11,7 +12,7 @@ import { hideTip, showTip, toggleWin } from '../ui'
 
 const EFFECT: Record<string, [string, string]> = {
   painkiller: ['진통', '#a0c0a0'], analgesic: ['마취', '#a0c0a0'], alcohol: ['취기', '#d0a060'], stimulant: ['각성', '#e0d070'],
-  antibiotic: ['항생', '#90c0d0'], sedative: ['진정', '#a0a0d0'], dysentery: ['이질', '#c08040'], foodPoisoning: ['식중독', '#c08040'],
+  antibiotic: ['항생', '#90c0d0'], sedative: ['진정', '#a0a0d0'], dysentery: ['이질', '#c08040'], foodPoisoning: ['식중독', '#c08040'], lice: ['이', '#c08040'],
   withdrawal: ['금단', '#c06060'], shock: ['쇼크', '#e05050'], stunned: ['기절', '#f0e070'], panic: ['공황', '#e07070'],
   breath: ['호흡 고르기', '#a0d0c0'], parryStance: ['받아넘기기 자세', '#e0c070'], spearWall: ['창벽', '#e0c070'],
   knockedDown: ['넘어짐', '#e0a050'], spores: ['포자', '#a0c060'],
@@ -23,15 +24,25 @@ const d = computed(() => {
   const pl = player(w)
   const n = pl.needs
   const turn = turnOf(w)
+  const diet=dietStatus(w,pl)
   const chips: { t: string; c: string; tip: string[] }[] = []
+  if(hallucinating(w,pl))chips.push({t:'환각',c:'#c090c0',tip:['잠 부족으로 지각이 흐려졌다. 충분한 수면으로 부채를 갚아야 한다.']})
+  if(diet.active)chips.push({t:'살코기 굶주림',c:'#c08040',tip:['최근'+diet.windowDays+'일 식사 중 단백질 열량 '+(diet.fraction*100).toFixed(1)+'%','설사 · 열량 흡수 ×'+diet.absorption+' · 수분 소모 증가']})
+  if (pl.breakdown) chips.push({ t: `붕괴: ${w.db.get(pl.breakdown.def).label}`, c: '#d080b0', tip: [`${Math.max(0, pl.breakdown.until - turn)}턴 남음`] })
+  for (const d of pl.diseases ?? []) if (d.incubatesUntil<=turn&&d.immunity<100) chips.push({ t: w.db.get(d.def).label ?? '질병', c: '#c0a060', tip: [`진행 ${d.progress.toFixed(0)} · 면역 ${d.immunity.toFixed(0)}`] })
+  if (Object.values(pl.frostbite ?? {}).some((f) => f.grade > 0)) chips.push({ t: '동상', c: '#80a0d0', tip: ['따뜻한 곳으로 피하고 손발을 보호해야 한다.'] })
   const bleed = totalBleed(w, pl)
   if (bleed > 0.3) chips.push({ t: `출혈 ${bleed.toFixed(1)}`, c: bleed > 6 ? '#ff4a3a' : '#d06050', tip: [`턴(3초)당 ${bleed.toFixed(1)} ml 흘린다`, '신체(B)에서 붕대·압박·지혈대'] })
   const loss = bloodLoss(pl)
   if (loss > 0.12) chips.push({ t: `실혈 ${Math.round(loss * 100)}%`, c: loss > 0.3 ? '#ff4a3a' : '#d08070', tip: ['30% 쇼크 · 50% 사망'] })
   const pain = painTotal(w, pl)
   if (pain > 15) chips.push({ t: `통증: ${painLabel(pain)}`, c: pain > 60 ? '#e06050' : '#d0a070', tip: ['명중·의식에 벌칙'] })
-  if (n.kcal < 900) chips.push({ t: n.kcal < 0 ? '굶주림' : '배고픔', c: n.kcal < 0 ? '#e06050' : '#d0b070', tip: [`${Math.round(n.kcal)} kcal`] })
-  if (n.water < 900) chips.push({ t: n.water < 0 ? '탈수' : '갈증', c: n.water < 0 ? '#e06050' : '#80b0d0', tip: [`${Math.round(n.water)} ml`] })
+  if (hungerStage(w, pl) >= 1) chips.push({ t: hungerBand(w, pl).label, c: hungerStage(w, pl) >= 2 ? '#e06050' : '#d0b070', tip: [`칼로리 균형 ${Math.round(n.kcal)} kcal`] })
+  if (thirstStage(w, pl) >= 1) chips.push({ t: thirstBand(w, pl).label, c: thirstStage(w, pl) >= 2 ? '#e06050' : '#80b0d0', tip: [`수분 결손 ${Math.round(n.waterDeficit)} ml`] })
+  if (n.protein < nutritionDef(w).lowProtein) chips.push({ t: '단백 부족', c: '#d0b070', tip: [`단백 상태 ${n.protein.toFixed(0)} /100`, '기력 회복·치유·면역 감소'] })
+  if (n.vitamin < nutritionDef(w).lowVitamin) chips.push({ t: '비타민 부족', c: '#d0b070', tip: [`비타민 ${n.vitamin.toFixed(0)} /100`, '피로 회복 감소'] })
+  if (n.scurvy > 0) chips.push({ t: '괴혈병', c: '#e06050', tip: [`진행 ${n.scurvy.toFixed(0)}/100`, '비타민이 필요하다'] })
+  if ((n.sleepDebt ?? 0) > 0) chips.push({ t: `수면 부채 ${(n.sleepDebt ?? 0).toFixed(1)}h`, c: '#b0a0d0', tip: ['피로를 다 풀고 더 자야 갚는다.', '8시간부터 10분마다 미세수면 위험'] })
   if (n.fatigue > 60) chips.push({ t: n.fatigue > 85 ? '탈진' : '피로', c: n.fatigue > 85 ? '#e06050' : '#b0a0c0', tip: [`피로 ${n.fatigue.toFixed(0)} — Z: 잠자기`] })
   if (n.bodyTemp < 36) chips.push({ t: n.bodyTemp < 35 ? '저체온' : '추위', c: '#80b0e0', tip: [`체온 ${n.bodyTemp.toFixed(1)}°C`] })
   if (n.wetness > 40) chips.push({ t: `젖음 ${n.wetness.toFixed(0)}%`, c: '#80a0c0', tip: ['단열이 떨어진다'] })
@@ -41,10 +52,11 @@ const d = computed(() => {
   if (lightLevel(w, pl.pos) >= 2) chips.push({ t: LIGHT_LABEL[lightLevel(w, pl.pos)], c: '#8890a0', tip: ['내 칸이 어두우면 상대 명중 −15(어둠) · −30(칠흑)', '등불(T)을 켜면 반경 5가 밝음'] })
   if (pl.sneaking) chips.push({ t: '잠행', c: '#9fb3c8', tip: ['이동이 느리고 눈에 덜 띈다', '잠든 적 기습 ×1.5'] })
   if (mood(w, pl) < 25) chips.push({ t: '절망', c: '#a080a0', tip: ['기분이 바닥이다'] })
-  for (const e of pl.effects) if (e.untilTurn > turn && EFFECT[e.kind]) chips.push({ t: EFFECT[e.kind][0], c: EFFECT[e.kind][1], tip: [`${Math.ceil(e.untilTurn - turn)}턴 남음`] })
+  if ((n.ash ?? 0) >= 30) chips.push({ t: (n.ash ?? 0) >= 60 ? '재·신장 위험' : '재 체기', c: '#c08040', tip: [`재 축적${(n.ash ?? 0).toFixed(1)} · 칼로리 흡수×0.9 · 매일1 감소`] })
+  for (const e of pl.effects) if (e.untilTurn > turn && EFFECT[e.kind]) chips.push({ t: EFFECT[e.kind][0], c: EFFECT[e.kind][1], tip: e.kind === 'lice' ? ['몸을 씻으면 제거된다. 수면 질×0.9·기분−3'] : [`${Math.ceil(e.untilTurn - turn)}턴 남음`] })
   const regions = (['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg'] as Region[]).map((r) => ({ r, s: regionState(w, pl, r) }))
   return {
-    name: w.s.map.name, depth: w.s.map.depth, clock: fmtClock(turn), weather: WEATHER_LABEL[w.s.weather],
+    name: w.s.map.name, depth: w.s.map.depth, clock: fmtClock(turn), weather: (w.s.overworld ? `${calendar(w).season.label}${calendar(w).seasonDay}일 · ` : '') + weatherLabel(w),
     temp: ambientTemp(w, pl.pos), surface: w.s.map.kind === 'surface', chips, regions,
   }
 })

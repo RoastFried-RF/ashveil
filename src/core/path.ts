@@ -1,4 +1,4 @@
-// A* (8방향, 체비셰프). 대각선 모서리 끼기 금지. 닫힌 문은 통과 가능(열면 됨).
+// A* (8방향, 체비셰프). 대각선 모서리 끼기 금지. 일반 닫힌 문은 열 수 있지만 봉인 문은 통과하지 않는다.
 
 import { creatureAt, inBounds, type World } from './ctx'
 import { DIRS, type Pos } from './geom'
@@ -6,7 +6,7 @@ import { DIRS, type Pos } from './geom'
 function passableForPath(w: World, p: Pos): boolean {
   if (!inBounds(w, p)) return false
   const t = w.db.terrain(w.s.map.tiles[p.y * w.s.map.w + p.x].t)
-  return t.passable || t.door === 'closed'
+  return t.passable || t.door === 'closed'&&!t.sealed
 }
 
 export function diagonalBlocked(w: World, from: Pos, dx: number, dy: number): boolean {
@@ -18,7 +18,7 @@ export function diagonalBlocked(w: World, from: Pos, dx: number, dy: number): bo
   return !pa && !pb
 }
 
-export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number; avoidCreatures?: boolean; selfId?: number } = {}): Pos[] | null {
+export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number; avoidCreatures?: boolean; selfId?: number; avoidWater?:boolean;avoidCells?:ReadonlySet<number> } = {}): Pos[] | null {
   const W = w.s.map.w
   const maxNodes = opts.maxNodes ?? 2500
   const key = (p: Pos) => p.y * W + p.x
@@ -37,8 +37,11 @@ export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number
     const cp = { x: cur.k % W, y: Math.floor(cur.k / W) }
     for (const d of DIRS) {
       const np = { x: cp.x + d.x, y: cp.y + d.y }
+      if(!inBounds(w,np)||w.db.terrain(w.s.map.tiles[key(np)].t).sealed)continue
       const nk = key(np)
+      if(opts.avoidCells?.has(nk))continue
       if (nk !== goal && !passableForPath(w, np)) continue
+      if(opts.avoidWater&&(!inBounds(w,np)||w.db.terrain(w.s.map.tiles[nk].t).water))continue
       if (diagonalBlocked(w, cp, d.x, d.y)) continue
       let cost = 1
       if (opts.avoidCreatures && nk !== goal) {

@@ -240,7 +240,7 @@ describe('숙달 (D23)', () => {
     practice(w, pl, 'medicine', 'wound:2'); practice(w, pl, 'medicine', 'wound:3'); practice(w, pl, 'medicine', 'wound:4')
     expect(masteryCount(pl, 'medicine')).toBe(3)
     for (let h = 1; h <= 2; h++) { w.s.time += 1200 * 100; practice(w, pl, 'medicine', `x${h}`) }
-    expect(masteryStage(pl, 'medicine')).toBe(1)
+    expect(masteryStage(w, pl, 'medicine')).toBe(1)
   })
 })
 
@@ -451,7 +451,7 @@ describe('등불 기름 (13 · 03)', () => {
   it('손·허리에 든 등불에도 기름을 부을 수 있다', async () => {
     const { perform } = await import('../src/core/actions')
     const { allItems } = await import('../src/core/items')
-    const w = makeWorld('oil1')
+    const w = makeWorld('oil1', 'Bg.Excommunicate')
     const pl = player(w)
     const lamp = allItems(pl).find((i) => !!itemDef(w, i).light)!
     expect(pl.bag.includes(lamp)).toBe(false) // 시작 등불은 장착 상태

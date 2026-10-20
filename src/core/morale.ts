@@ -1,3 +1,7 @@
+import { companionMorale } from './companion-bond-state'
+import {animalFearPenalty} from './animal-fear'
+import { effectiveFaction, isCompanion } from './companion-state'
+import { hostile } from './diplomacy'
 // 사기 (07 §8): 사기 = 기본 사기 + Σ사건 수정(감쇠) + 몸 상태 + 전력비 수정.
 // 40 이상 정상 · 25~39 흔들림(명중 −5) · 10~24 판정마다 (25 − 사기) × 4% 도주 · 10 미만 확정 도주.
 
@@ -6,6 +10,8 @@ import { cheb } from './geom'
 import { lightLevel, canSee } from './fov'
 import { turnOf, type World } from './ctx'
 import { wield } from './items'
+import { traumaMorale } from './fear-state'
+import { traitAdd } from './traits'
 import type { Creature, Region } from './types'
 
 type MoraleKind = 'half30' | 'fixed' | 't20' | 't30'
@@ -24,7 +30,7 @@ function hostileTo(a: Creature, b: Creature): boolean {
 }
 
 /** 위협 = HP% × 무기 등급(공격 피해), 시야 안만 */
-function threat(w: World, c: Creature): number {
+export function combatThreat(w: World, c: Creature): number {
   const atk = wield(w, c)?.atk
   return Math.max(0, c.hp / hpMax(w, c)) * (atk?.damage ?? 3)
 }
@@ -35,7 +41,7 @@ export function moraleOf(w: World, c: Creature): number {
   const def = w.db.creature(c.def)
   if (def.noMorale) return 100
   const turn = turnOf(w)
-  let m = def.morale
+  let m = def.morale + traitAdd(w, c, 'morale') + traumaMorale(w, c)+companionMorale(w,c)
   for (const e of c.ai.mev ?? []) {
     const dt = turn - e.t
     if (e.k === 'fixed') m += e.v
@@ -48,16 +54,17 @@ export function moraleOf(w: World, c: Creature): number {
   const loss = bloodLoss(c)
   m -= loss >= 0.3 ? 20 : loss >= 0.15 ? 10 : 0
   // 전력비 수정 = clamp(−20, +10, floor((1 − 적 위협 합 / 아군 위협 합) × 10))
-  let foe = 0, ally = threat(w, c)
+  let foe = 0, ally = combatThreat(w, c)
   for (const o of w.s.creatures) {
     if (!o.alive || o.id === c.id || o.unconscious || cheb(o.pos, c.pos) > 12) continue
-    if (o.faction === c.faction && o.ai.mode !== 'flee') ally += threat(w, o)
-    else if (hostileTo(c, o) && o.ai.mode !== 'surrender' && canSee(w, c, o.pos)) foe += threat(w, o)
+    const party=isCompanion(w,c)||isCompanion(w,o),allied=party?effectiveFaction(w,c)===effectiveFaction(w,o):o.faction===c.faction
+    if (allied && o.ai.mode !== 'flee') ally += combatThreat(w, o)
+    else if ((party?hostile(w,c,o):hostileTo(c, o)) && o.ai.mode !== 'surrender' && canSee(w, c, o.pos)) foe += combatThreat(w, o)
   }
   if (foe > 0) m += Math.max(-20, Math.min(10, Math.floor((1 - foe / Math.max(0.1, ally)) * 10)))
   // 빛을 싫어함: 광원 반경 안 − lightMorale (그늘 사람 25, CANON D35)
   if (def.lightAverse && lightLevel(w, c.pos) === 0 && w.s.map.kind === 'dungeon') m -= def.lightMorale ?? 10
-  return m
+  return def.fireFear?m-animalFearPenalty(w,c):m
 }
 
 /** 무리 절반 손실 (그늘 사람 '무리 절반을 잃으면 도주') */

@@ -61,8 +61,9 @@ kbd {
 .df-btn { border-width: 8px 10px; border-image: var(--ui-btn) 8 10 fill / 8px 10px stretch; }
 .df-btn-olive { border-width: 8px 10px; border-image: var(--ui-btn_olive) 8 10 fill / 8px 10px stretch; }
 .df-btn-sel { border-width: 8px 10px; border-image: var(--ui-btn_sel) 8 10 fill / 8px 10px stretch; }
-.df-tab { border-width: 6px; border-image: var(--ui-tab) 6 fill / 6px stretch; }
-.df-tab-sel { border-width: 6px; border-image: var(--ui-tab_sel) 6 fill / 6px stretch; }
+/* 탭 원본의 위10/아래7px 투명 여백은 테두리로만 자른다. 가운데를 늘려 글 위로 선을 확대하지 않는다. */
+.df-tab { border-width: 6px; border-image: var(--ui-tab) 12 6 9 fill / 6px stretch; }
+.df-tab-sel { border-width: 6px; border-image: var(--ui-tab_sel) 12 6 9 fill / 6px stretch; }
 .df-bar { border-width: 4px 8px; border-image: var(--ui-bar_frame) 4 8 fill / 4px 8px stretch; }
 .df-bar-gold { border-width: 8px 10px; border-image: var(--ui-bar_frame_gold) 8 10 fill / 8px 10px stretch; }
 .font-title { font-family: "Gowun Batang", "Noto Serif KR", serif; }
@@ -80,3 +81,7 @@ kbd {
 @keyframes danger-vignette { 0%, 100% { opacity: .55; } 50% { opacity: .9; } }
 /* 큰 내부 칸: 슬롯 이미지를 늘리면 장식이 번지므로 평면 처리 */
 .inset { background: #12110d; border: 2px solid #2e2a20; box-shadow: inset 0 0 0 1px #4a4434, inset 0 2px 8px rgba(0,0,0,.6); }
+
+/* 접근성: 경고는 움직임 없이도 색·문구·테두리가 남는다. */
+html[data-no-pulse="true"] .animate-pulse, html[data-no-pulse="true"] .pulse-gold { animation: none !important; }
+html[data-instant="true"] * { transition-duration: 0s !important; }
