@@ -42,11 +42,19 @@
     "ranIn": "v284 (ALL product/tests bytes exact v284-final)"
   },
   "world": {
-    "status": "pending",
+    "status": "passed",
     "overworld": true,
     "runs": 30,
     "maxDays": 3,
-    "workers": 4
+    "workers": 4,
+    "seconds": 432.311690572,
+    "averageDays": 0.4675023148148149,
+    "causes": {
+      "저체온": 20,
+      "치명상": 4,
+      "과다 출혈": 6
+    },
+    "wholeResultRowsIdenticalTo283": 30
   },
   "goldens": "ALL5 initial/final/errors vs283:4 metadata paths only (version191→192/Posture.Crouch/2contentHashes). Remaining WHOLE/time/RNG/UID/errors exact283. Archived283 vectors once.",
   "native": {
