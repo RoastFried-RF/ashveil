@@ -446,7 +446,7 @@ export class DefDatabase {
   modManifest():{id:string;version:string;hash:string}[]|undefined{return this.packageRecords?this.packageRecords.map(row=>({...row})):undefined}
   has(id: string): boolean { return this.map.has(id) }
   definitionManifest():Record<string,string>{return Object.fromEntries([...this.map].sort(([a],[b])=>a<b?-1:a>b?1:0).map(([id,d])=>[id,d.defType]))}
-  itemShapeManifest():Record<string,{size:[number,number];maxStack:number;label:string;storage?:[number,number]}>{return Object.fromEntries(this.all<ItemDef>('Item').sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(d=>[d.id,{size:[...d.size] as[number,number],maxStack:d.stackable?d.maxStack??5:1,label:d.label,...(d.storage?{storage:[...d.storage] as[number,number]}:{})}]))}
+  itemShapeManifest():Record<string,{size:[number,number];maxStack:number;label:string;storage?:[number,number]}>{return Object.fromEntries(this.all<ItemDef>('Item').sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(d=>[d.id,{size:[...d.size] as[number,number],maxStack:d.stackable?d.maxStack??5:1,label:d.label,...((d.storage??d.pocket??d.quiver?.size)?{storage:[...(d.storage??d.pocket??d.quiver?.size)!] as[number,number]}:{})}]))}
   get<T extends AnyDef = AnyDef>(id: string): T {
     const d = this.map.get(id)
     if (!d) throw new Error(`Def 없음: ${id}`)
@@ -639,6 +639,8 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for(const item of db.all<ItemDef>('Item'))if(item.storage!==undefined){
     if(!Array.isArray(item.storage)||item.storage.length!==2||item.storage.some(n=>!Number.isSafeInteger(n)||n<1||n>20)||item.stackable||item.maxStack!==1||item.slot||item.food||item.drink||item.drug||item.medical||item.refuel||item.unidentified||item.light||item.place||item.rawMaterial||item.rawFragment||item.watercraft)report.errors.push(item.id+': 가방은 1~20칸의 내부 격자와 최대 개수1이 필요하며 장착/소모/설치/원재료로 겸용할 수 없다')
   }
+  for(const item of db.all<ItemDef>('Item'))if(item.pocket!==undefined){if(!Array.isArray(item.pocket)||item.pocket.length!==2||item.pocket.some(n=>n!==2)||item.slot!=='belt'||!item.apparel||item.storage||item.stackable||item.maxStack!==1)report.errors.push(item.id+': 허리 주머니는 2×2/최대1개의 허리띠 장비여야 한다')}
+  for(const item of db.all<ItemDef>('Item'))if(item.quiver){const q=item.quiver;if(!Array.isArray(q.size)||q.size.length!==2||q.size[0]!==1||q.size[1]!==6||item.slot!=='back'||!item.apparel||item.storage||item.pocket||item.stackable||item.maxStack!==1||!Array.isArray(q.ammo)||!q.ammo.length||q.ammo.some(id=>db.tryGet<ItemDef>(id)?.defType!=='Item'||db.tryGet<ItemDef>(id)?.category!=='ammo'))report.errors.push(item.id+': 화살통은 실제 탄약 목록/1×6 격자/등 슬롯/최대1개 장비여야 한다')}
   for(const c of db.all<CreatureDef>('Creature'))if(c.considerationWorker!==undefined){if(typeof c.considerationWorker!=='string'||!/^[-A-Za-z0-9._]+:[A-Za-z][A-Za-z0-9_]{0,63}$/.test(c.considerationWorker)||!db.scriptSources.some(s=>s.modId===c.considerationWorker!.split(':')[0]&&s.stage===2))report.errors.push(c.id+': 실제 단계2 considerationWorker 참조가 필요하다')}
   for(const e of db.all<EventDef>('PlaceEvent'))if(e.worker!==undefined){if(typeof e.worker!=='string'||!/^[-A-Za-z0-9._]+:[A-Za-z][A-Za-z0-9_]{0,63}$/.test(e.worker)||!db.scriptSources.some(s=>s.modId===e.worker!.split(':')[0]&&s.stage===2)||!['Event.ReaverPatrol','Event.ReaverSearch'].includes(e.id)&&(e.origin?.kind!=='camp'||!Array.isArray(e.place?.route)||e.place.route.at(-1)!=='@home'))report.errors.push(e.id+': 실제 출발지/귀환 경로의 단계2 worker 참조가 필요하다')}
   for(const e of db.all<EventDef>('PlaceEvent'))if('spawn'in e)report.errors.push(e.id+': spawn은 폐지되었다. 실제 원래 인원을 사용하는 composition.fromPopulation을 정의해야 한다')
@@ -647,6 +649,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
+  for(const terrain of db.all<TerrainDef>('Terrain'))if(terrain.lock){const d=terrain.lock;if(!terrain.container||!Number.isSafeInteger(d.turns)||d.turns<1||d.turns>1200||!Number.isFinite(d.wear)||d.wear<1||d.wear>100||!Number.isSafeInteger(d.noise)||d.noise<0||d.noise>30||!Array.isArray(d.tools)||!d.tools.length||d.tools.some(tag=>!db.all<ItemDef>('Item').some(it=>it.toolTags?.includes(tag))))report.errors.push(terrain.id+': 실제 상자/도구와 유한한 잠금 작업 수치가 필요하다')}
   for(const item of db.all<ItemDef>('Item'))if(item.fragile!==undefined){
     const f=item.fragile
     if(!isObj(f))report.errors.push(item.id+': fragile 구조 오류')

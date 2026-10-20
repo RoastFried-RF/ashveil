@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, ref, watch } from 'vue'
-import { abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
+import { quickCount, abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
@@ -24,7 +24,7 @@ const d = computed(() => {
       const err = abilityReady(w, pl, ref.id)
       return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
-    const count = pl.bag.filter((it) => it.def === ref.def).reduce((s, it) => s + it.count, 0)
+    const count = quickCount(pl,ref.def)
     const def = w.db.item(ref.def)
     return { i, empty: false as const, icon: def.sprite, label: def.label, cd: 0, cdMax: 1, ok: count > 0, count, on: false, ref }
   })

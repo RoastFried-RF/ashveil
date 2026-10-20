@@ -57,7 +57,7 @@ export function thermalActivity(w: World, c: Creature, sleeping = c.asleep || c.
   if(inDeepWater(w,c))return 'work'
   if (sleeping) return 'sleep'
   if (c.activity?.kind === 'travel') return w.s.map.vessel?'work':'walk'
-  if (['excavate','respirator','waterRescue', 'beaconWork', 'boatCare', 'deviceWork', 'machineCare', 'craft', 'repair', 'salvage', 'gather', 'gearCare', 'water', 'collectSnow', 'breakIce', 'wash', 'washBedding', 'warm', 'packFurniture', 'fire', 'claimBase'].includes(c.activity?.kind ?? '')) return 'work'
+  if (['pryContainer','excavate','respirator','waterRescue', 'beaconWork', 'boatCare', 'deviceWork', 'machineCare', 'craft', 'repair', 'salvage', 'gather', 'gearCare', 'water', 'collectSnow', 'breakIce', 'wash', 'washBedding', 'warm', 'packFurniture', 'fire', 'claimBase'].includes(c.activity?.kind ?? '')) return 'work'
   if (c.exerted) return 'combat'
   return c.movedTurn !== undefined && turnOf(w) - c.movedTurn <= 1 ? 'walk' : 'rest'
 }

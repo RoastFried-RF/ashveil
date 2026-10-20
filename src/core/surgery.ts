@@ -1,7 +1,7 @@
 // 02 §12.2·13. 외과 처치의 조건과 지속 효과. 행동 시작/완료는 actions가 담당한다.
 import { log, rng, turnOf, type World } from './ctx'
 import { capacity } from './body'
-import { allItems, itemDef, qualityOf } from './items'
+import { allItems, itemDef, qualityOf, supplyItems } from './items'
 import { masteryStage } from './skills'
 import type { Creature, RecoveryDef, SurgeryDef, Wound } from './types'
 
@@ -15,7 +15,7 @@ export function surgeryError(w: World, c: Creature, d: SurgeryDef, wd?: Wound, p
   if (capacity(w, c, 'consciousness') < .5) return '혼미한 상태에서는 봉합할 수 없다'
   if (masteryStage(w, c, 'medicine') < d.mastery) return `의료 숙달${d.mastery}단계가 필요하다`
   if (!surgeryTool(w, c, d)) return '쓸 수 있는 바늘이 필요하다'
-  if (c.bag.filter((i) => i.def === d.supply).reduce((n, i) => n + i.count, 0) < d.count) return `${w.db.item(d.supply).label} ${d.count}개가 필요하다`
+  if (supplyItems(c).filter((i) => i.def === d.supply).reduce((n, i) => n + i.count, 0) < d.count) return `${w.db.item(d.supply).label} ${d.count}개가 필요하다`
   const target = wd?.part ?? part, p = w.db.body(patient.body.def).parts.find((p) => p.id === target)
   if (!p) return '처치할 부위가 없다'
   let ancestor = p

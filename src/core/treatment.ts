@@ -11,7 +11,7 @@ import { bandageCoef, capacity, handCapacity, isMissing, painSpike, painTotal, p
 import { fx } from './combat'
 import { clamp, creatureById, log, rng, terrainAt, tileAt, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import { hasLos, lightLevel } from './fov'
-import { allItems, findItem, itemDef, qualityOf, removeOne } from './items'
+import { allItems, findItem, itemDef, qualityOf, removeOne, supplyItems } from './items'
 import { canHeatBlade, finishProcedure, isProcedure, medicalBlade, procedureDef, procedureError, treatmentArm, type Procedure } from './medical'
 import { diagonalBlocked } from './path'
 import { cheb } from './geom'
@@ -44,7 +44,7 @@ export function treatmentAccess(w: World, c: Creature, patient: Creature): strin
 function bindSupplies(c: Creature, def: string, count: number, preferred: number): NonNullable<Activity['supplies']> {
   let left = count
   const bindings: NonNullable<Activity['supplies']> = []
-  for (const it of c.bag.filter((i) => i.def === def).sort((a, b) => (a.uid === preferred ? -1 : b.uid === preferred ? 1 : a.uid - b.uid))) {
+  for (const it of supplyItems(c).filter((i) => i.def === def).sort((a, b) => (a.uid === preferred ? -1 : b.uid === preferred ? 1 : a.uid - b.uid))) {
     const take = Math.min(left, it.count)
     if (take) bindings.push({ uid: it.uid, def, count: take })
     left -= take
@@ -258,9 +258,10 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
     const q = treatQuality(w, c, rule.toolBonus + [-5, 0, 3, 5, 8, 10][qualityOf(needle)], wd, { suturing: true, part: act.limb, patient }).q
     if (wd) woundHandContact(w, c, wd)
     let left = rule.count
-    const supplies = c.bag.filter((i) => i.def === rule.supply && (!act.supplies || act.supplies.some((b) => b.uid === i.uid))).sort((a, b) => (a.uid === act.uid ? -1 : b.uid === act.uid ? 1 : a.uid - b.uid))
+    const supplies = supplyItems(c).filter((i) => i.def === rule.supply && (!act.supplies || act.supplies.some((b) => b.uid === i.uid))).sort((a, b) => (a.uid === act.uid ? -1 : b.uid === act.uid ? 1 : a.uid - b.uid))
     for (const supply of supplies) { const take = act.supplies?.find((b) => b.uid === supply.uid)?.count ?? Math.min(left, supply.count); supply.count -= take; left -= take; if (!left) break }
     c.bag = c.bag.filter((i) => i.count > 0)
+    if(c.equip.belt?.contents)c.equip.belt.contents=c.equip.belt.contents.filter(i=>i.count>0)
     needle.durability = Math.max(0, (needle.durability ?? 100) - 1)
     if (wd) {
       if (wd.washedAt === undefined) wd.contam = Math.min(100, wd.contam * 1.5)

@@ -26,7 +26,7 @@ export function itemRenamePlan(s:GameState,db:DefDatabase){
   const shape=item.missingItem??(s.contentItemShapes&&Object.hasOwn(s.contentItemShapes,from)?s.contentItemShapes[from]:undefined),target=db.item(to)
   if(!validRecordedItemShape(shape)){errors.push(entry.path+': ID 이행할 물품의 원래 칸 크기 기록이 없다');continue}
   if(shape.size[0]!==target.size[0]||shape.size[1]!==target.size[1]){errors.push(entry.path+': ID 이행 목적지의 칸 크기가 원래 기록과 다르다');continue}
-  if(item.contents&&JSON.stringify(shape.storage)!==JSON.stringify(target.storage)){errors.push(entry.path+': ID 이행 목적지의 내부 격자 크기가 원래 기록과 다르다');continue}
+  if(item.contents&&JSON.stringify(shape.storage)!==JSON.stringify(target.storage??target.pocket??target.quiver?.size)){errors.push(entry.path+': ID 이행 목적지의 내부 격자 크기가 원래 기록과 다르다');continue}
   if(/\/body\/prosthetics\//.test(entry.path)||entry.path.endsWith('/vessel/hull')){errors.push(entry.path+': 설치된 의수족/선체의 별도 ID 이행이 필요하다');continue}
   moves.push(item.uid)
  }

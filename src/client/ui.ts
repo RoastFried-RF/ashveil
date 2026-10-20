@@ -2,7 +2,7 @@
 
 import { reactive, ref } from 'vue'
 import {
-  abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
+  quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
@@ -164,8 +164,8 @@ export function useHotbar(i: number) {
   const ref = player(w).hotbar[i]
   if (!ref) return
   if (ref.kind === 'ability') return useAbility(ref.id)
-  // 배낭 속 물건만 (13 §7)
-  const it = player(w).bag.find((x) => x.def === ref.def)
+  // 배낭/착용한 허리 주머니의 실제 소모품 (13 §7)
+  const it = quickItem(player(w),ref.def)
   if (!it) { hint.value = `${w.db.item(ref.def).label}: 남은 것이 없다`; return }
   useItem(w, it)
 }

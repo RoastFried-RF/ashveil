@@ -1,3 +1,4 @@
+import {canSearchContainer} from './container-locks'
 import {readyFood} from './open-food-state'
 import { corpseMoneyQuote } from './corpse-money'
 import { nearbyIce, nearbySnow } from './climate'
@@ -11,7 +12,7 @@ import { nearbyWater, waterTreatmentError } from './water'
 
 import { projectileReady } from './ranged'
 import { abilityReady } from './abilities'
-import { adjacentContainer, adjacentCorpse, canTreat, containerFresh, hostile, lootItems, type Action } from './actions'
+import { adjacentCorpse, canTreat, containerFresh, hostile, lootItems, type Action } from './actions'
 import { bloodLoss, effectiveBleed, energyMax, hpMax, part, totalBleed } from './body'
 import { gearCareError } from './gear-care'
 import { bowProblem } from './gear-state'
@@ -317,7 +318,7 @@ export function botDecide(w: World): Action {
     if (w.s.map.kind === 'surface') {
       const patch = nearest(w, (p) => terrainAt(w, p).id === 'Terrain.Fungus' && containerFresh(w, p) && !!tileAt(w, p).seen && !avoided(w, p))
       if (patch) {
-        if (cheb(patch, pl.pos) <= 1) return { type: 'search' }
+        if (cheb(patch, pl.pos) <= 1) return { type: 'search',pos:patch }
         const st = stepTo(w, patch)
         if (st !== null) return { type: 'move', dir: st }
       }
@@ -372,7 +373,9 @@ export function botDecide(w: World): Action {
 
   // 탐색: 바닥 → 용기 → 미발견 방 → 아래층
   if (tileAt(w, pl.pos).items.length) return { type: 'pickup' }
-  if (adjacentContainer(w, pl) || adjacentCorpse(w, pl, true)) return { type: 'search' }
+  const nearbyContainer=[{x:0,y:0},...DIRS].map(d=>({x:pl.pos.x+d.x,y:pl.pos.y+d.y})).find(pos=>inBounds(w,pos)&&hasLos(w,pl.pos,pos)&&canSee(w,pl,pos)&&!diagonalBlocked(w,pl.pos,pos.x-pl.pos.x,pos.y-pl.pos.y)&&terrainAt(w,pos).container&&containerFresh(w,pos)&&canSearchContainer(w,pl,pos))
+  if(nearbyContainer)return{type:'search',pos:nearbyContainer}
+  if(adjacentCorpse(w,pl,true))return{type:'search'}
   // 쓰러뜨린 적의 시체를 뒤진다 (소지품은 시체에 남는다)
   const body = w.s.creatures.find((o) => !o.alive && !o.searched && o.id !== pl.id && cheb(o.pos, pl.pos) <= 10 && (o.bag.length > 0 || Object.values(o.equip).some(Boolean)))
   if (body) {
@@ -381,7 +384,7 @@ export function botDecide(w: World): Action {
   }
   // 레벨이 낮으면 약탈자 야영지는 피한다
   const avoid = (p: Pos) => (pl.level < 5 && w.s.map.rooms[tileAt(w, p).room ?? -1]?.type === 'camp') || avoided(w, p)
-  const cont = nearest(w, (p) => !!terrainAt(w, p).container && containerFresh(w, p) && !!tileAt(w, p).seen && !avoid(p))
+  const cont = nearest(w, (p) => !!terrainAt(w, p).container && containerFresh(w, p) && canSearchContainer(w,pl,p) && !!tileAt(w, p).seen && !avoid(p))
   if (cont) {
     const st = stepTo(w, cont)
     if (st !== null) return { type: 'move', dir: st }

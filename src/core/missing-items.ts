@@ -1,5 +1,5 @@
 import type{DefDatabase}from'./defs'
-import type{GameState,ItemInst}from'./types'
+import type{GameState,ItemInst,ItemDef}from'./types'
 export const MISSING_ITEM='Item.MissingPlaceholder'
 type ItemEntry={item:ItemInst;path:string}
 /** 실제 저장 구조의 인스턴스만 찾고 스크립트/지식/보고서/보관 스냅샷은 물품으로 세지 않는다. */
@@ -41,6 +41,23 @@ export function missingItemReferences(s:GameState,ids:Set<string>){
 }
 export function validMissingItemRecord(it:ItemInst):boolean{const record=it.missingItem;return!!record&&it.def===MISSING_ITEM&&validRecordedItemShape(record)&&!!record.original&&!record.original.missingItem&&record.original.def===record.def&&record.original.uid===it.uid&&record.original.count===it.count}
 export function restoreMissingItem(it:ItemInst,def=it.missingItem!.def){const original=structuredClone(it.missingItem!.original),position={uid:it.uid,count:it.count,gx:it.gx,gy:it.gy,rot:it.rot,...(it.contents?{contents:it.contents}:{})};for(const key of Object.keys(it))delete(it as unknown as Record<string,unknown>)[key];Object.assign(it,original,position,{def})}
+/** 기록된 크기 변경은 막고, 기록이 없으면 현재 실물 배치만 검사한다. 과거 용량/헤더는 채우지 않는다. */
+function storageShapeChanged(s:GameState,it:ItemInst,current:ItemDef,db:DefDatabase):boolean{
+ if(!it.contents)return false
+ const recorded=s.contentItemShapes?.[it.def]?.storage,size=current.storage??current.pocket??current.quiver?.size
+ if(recorded!==undefined&&JSON.stringify(recorded)!==JSON.stringify(size))return true
+ if(!it.contents.length)return false
+ if(!size)return true
+ const occupied=new Set<number>()
+ for(const child of it.contents){
+  const childDef=db.tryGet(child.def),shape=child.missingItem?.size??s.contentItemShapes?.[child.def]?.size??(childDef?.defType==='Item'?childDef.size:undefined)
+  if(!shape||!Number.isSafeInteger(child.gx)||!Number.isSafeInteger(child.gy))return true
+  const[width,height]=child.rot?[shape[1],shape[0]]:shape,x=child.gx!,y=child.gy!
+  if(x<0||y<0||x+width>size[0]||y+height>size[1])return true
+  for(let yy=y;yy<y+height;yy++)for(let xx=x;xx<x+width;xx++){const cell=yy*size[0]+xx;if(occupied.has(cell))return true;occupied.add(cell)}
+ }
+ return false
+}
 export function missingItemPlan(s:GameState,db:DefDatabase){
  const convert:ItemEntry[]=[],restore:ItemEntry[]=[],errors:string[]=[]
  for(const entry of stateItemEntries(s)){
@@ -52,7 +69,7 @@ export function missingItemPlan(s:GameState,db:DefDatabase){
    if(original&&original.defType!=='Item'){errors.push(entry.path+': 보관한 원래 물품 정의의 종류가 바뀌었다');continue}
    if(original?.defType==='Item'){
     if(original.size[0]!==record.size[0]||original.size[1]!==record.size[1])errors.push(entry.path+': 돌아온 정의의 칸 크기가 원래 기록과 다르다')
-    else if(it.contents&&JSON.stringify(original.storage)!==JSON.stringify(record.storage))errors.push(entry.path+': 돌아온 가방의 내부 격자 크기가 원래 기록과 다르다')
+    else if(it.contents&&JSON.stringify(original.storage??original.pocket??original.quiver?.size)!==JSON.stringify(record.storage))errors.push(entry.path+': 돌아온 가방의 내부 격자 크기가 원래 기록과 다르다')
     else restore.push(entry)
    }
    if(!original&&(/\/body\/prosthetics\//.test(entry.path)||entry.path.endsWith('/vessel/hull')))errors.push(entry.path+': 설치된 의수족/선체는 원래 정의를 복원해야 한다')
@@ -60,7 +77,7 @@ export function missingItemPlan(s:GameState,db:DefDatabase){
   }
   if(it.def===MISSING_ITEM){errors.push(entry.path+': 원래 물품 기록 없는 보관물은 사용할 수 없다');continue}
   const current=db.tryGet(it.def)
-  if(current?.defType==='Item'){if(it.contents&&JSON.stringify(s.contentItemShapes?.[it.def]?.storage)!==JSON.stringify(current.storage))errors.push(entry.path+': 기록된 가방의 내부 격자 크기가 현재 정의와 다르다');continue}
+  if(current?.defType==='Item'){if(storageShapeChanged(s,it,current,db))errors.push(entry.path+': 기록된 가방의 내부 격자 크기가 현재 정의와 다르거나 확인할 수 없다');continue}
   if(current){errors.push(entry.path+': 물품 정의의 종류가 바뀌었다');continue}
   const shapes=s.contentItemShapes,shape=shapes&&Object.hasOwn(shapes,it.def)?shapes[it.def]:undefined
   if(s.contentDefinitions?.[it.def]!=='Item'||!validRecordedItemShape(shape)){errors.push(entry.path+': 없어진 물품의 원래 칸 크기/정의 기록이 없다');continue}

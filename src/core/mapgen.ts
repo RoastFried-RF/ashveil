@@ -466,6 +466,7 @@ function generateDungeonCore(w: World, depth: number): GenResult {
   })
 
   m.rooms = rooms.map(({ kind: _k, ...R }) => R)
+  for(const tile of m.tiles)if(w.db.terrain(tile.t).lock)tile.locked=true
   return { map: m, start: { x: up.x, y: up.y }, spawns }
 }
 

@@ -352,6 +352,12 @@ export function deserialize(json: string): GameState {
   if(s.version===181)s.version=182
   // 내부 격자는 이후 만든 실제 가방에만 생긴다. 구형 소지품에 자루나 내용물을 추가하지 않는다.
   if(s.version===182)s.version=183
+  // 기존 허리띠에 물품이나 과거 사용 기록을 채우지 않는다. 주머니는 실제 열 때 빈 상태로 시작한다.
+  if(s.version===183)s.version=184
+  // 구형 상자는 잠그지 않는다. 새 지도 생성의 실제 잠금과 진행 중 작업만 저장한다.
+  if(s.version===184)s.version=185
+  // 기존 장비에 화살통/화살을 채우지 않는다. 실제 새 화살통은 비어 있다.
+  if(s.version===185)s.version=186
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
   if(s.defSchemaVersion!==undefined&&(!Number.isSafeInteger(s.defSchemaVersion)||s.defSchemaVersion<=0))throw new Error('각인의 정의 스키마 버전 기록 형식이 올바르지 않다')

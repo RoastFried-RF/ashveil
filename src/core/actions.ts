@@ -1,4 +1,6 @@
+import {canSearchContainer,containerLocked,startContainerPry,containerPryStep} from './container-locks'
 import {obtainResidentCropSupply} from './resident-crop-supplies'
+import {mergeFood} from './food-merge'
 import {offerResidentProduce} from './resident-produce'
 import {recordResidentPlanting,forgetResidentPlot,giveResidentSeed} from './resident-cultivation'
 import {equipmentSnapshot,runEquipmentWorkers} from './script-item'
@@ -135,7 +137,7 @@ import { cheb, DIRS, dirIndex, eq, type Pos } from './geom'
 import { canSee, hasLos, invalidateLights, lightLevel } from './fov'
 import {
   allItems, addToBag, addToInventory, equip, equipError, findItem, findSpot, gridAdd, gridFits, gridSpot, hasBlade, itemDef, itemLabel, makeItem, meleeWield, moveInBag,
-  canStack, hasQuality, mergeInto, removeOne, removeStack, splitInBag, unequip, unequipError, wield, type Grid,
+  itemStorage, supplyItems, canStack, hasQuality, mergeInto, removeOne, removeStack, splitInBag, unequip, unequipError, wield, type Grid,
 } from './items'
 import { addThought } from './thoughts'
 import { traumaHandleFire, traumaMove } from './trauma'
@@ -316,8 +318,9 @@ export type Action =
   | { type: 'packFurniture'; pos: Pos }
   | { type: 'gearCare'; uid: number; care: GearCare }
   | { type: 'splitItem'; uid: number; n: number; gx: number; gy: number; rot?: boolean }
-  | { type: 'mergeItem'; uid: number; into: number; n?: number }
-  | { type: 'search'; includeEmpty?: boolean }
+  | { type: 'mergeItem'; uid: number; into: number; n?: number; freshnessApproval?:string }
+  | { type: 'search'; includeEmpty?: boolean; pos?:Pos }
+  | {type:'pryContainer';pos:Pos}
   | {type:'refillMask';uid:number;filterUid:number}
   | { type: 'lootTake'; uid: number }
   | { type: 'openBag'; uid: number }
@@ -453,6 +456,7 @@ export function sortForPacking(w: World, items: ItemInst[]): ItemInst[] {
 
 /** 용기를 열어 내용물을 정한다 (전리품 표는 처음 열 때 한 번) */
 export function openContainer(w: World, c: Creature, p: Pos) {
+  if(containerLocked(w,p))return
   const t = tileAt(w, p)
   const terr = terrainAt(w, p)
   t.searched = true
@@ -483,8 +487,8 @@ export function lootGrid(w: World): Grid | null {
   const l = w.s.loot
   if (!l) return null
   if(l.kind==='bag'){
-    const it=player(w).bag.find(it=>it.uid===l.id)
-    const size=it&&!it.missingItem?itemDef(w,it).storage:undefined
+    const c=player(w),it=c.bag.find(it=>it.uid===l.id)??(c.equip.belt?.uid===l.id?c.equip.belt:undefined)??(c.equip.back?.uid===l.id?c.equip.back:undefined)
+    const def=it&&!it.missingItem?itemDef(w,it):undefined,size=def&&(def.storage||(c.equip.belt===it||c.equip.back===it)&&!it!.half&&(it!.durability??100)>0?itemStorage(def):undefined)
     return it&&size&&it.contents?{items:it.contents,w:size[0],h:size[1]}:null
   }
   if (l.kind === 'corpse') {
@@ -494,6 +498,7 @@ export function lootGrid(w: World): Grid | null {
     return { items: o.bag, w: gw, h: gh }
   }
   if (l.kind !== 'cont') return null
+  if(containerLocked(w,l.pos))return null
   const t = tileAt(w, l.pos)
   const [gw, gh] = terrainAt(w, l.pos).lootGrid ?? [6, 4]
   t.cont ??= { items: [], opened: true, kind: terrainAt(w, l.pos).id }
@@ -1180,6 +1185,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     case 'mergeItem': {
       const from = c.bag.find((i) => i.uid === a.uid), to = c.bag.find((i) => i.uid === a.into)
       if (!from || !to) return FAIL('없다')
+      if(itemDef(w,from).food?.freshHours&&from.def===to.def){const error=mergeFood(w,c,a.uid,a.into,a.n,a.freshnessApproval);return error?FAIL(error):FREE}
       if (!canStack(from, to)) return FAIL(from.def === to.def ? '상태가 달라 쌓이지 않는다' : '같은 것만 쌓인다')
       return mergeInto(w, c.bag, from, to, a.n) > 0 ? FREE : FAIL('더 쌓을 수 없다')
     }
@@ -1189,19 +1195,23 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const turns=channelTurns(w,c,bestiaryDef(w).dissectTurns);if(turns===null)return FAIL('손을 쓸 수 없다')
       const err=startDissection(w,c,a.target,turns);return err?FAIL(err):FREE
     }
+    case 'pryContainer': {const error=startContainerPry(w,c,a.pos);return error?FAIL(error):FREE}
     case 'search': {
+      if(a.pos&&(!inBounds(w,a.pos)||cheb(c.pos,a.pos)>1||!hasLos(w,c.pos,a.pos)||!canSee(w,c,a.pos)||diagonalBlocked(w,c.pos,a.pos.x-c.pos.x,a.pos.y-c.pos.y)||!terrainAt(w,a.pos).container))return FAIL('보이는 상자 곁에서 수색해야 한다')
       // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
       // 안 뒤진 시체 먼저 (이웃에 시체가 여럿이면 이미 뒤진 것만 계속 여는 일이 없게)
-      const corpse = adjacentCorpse(w, c, true, a.includeEmpty) ?? adjacentCorpse(w, c, false, a.includeEmpty)
-      if (corpse && !adjacentContainer(w, c)) {
+      const corpse = a.pos?undefined:adjacentCorpse(w, c, true, a.includeEmpty) ?? adjacentCorpse(w, c, false, a.includeEmpty)
+      const adjacent=adjacentContainer(w,c)
+      if (corpse && (!adjacent||!canSearchContainer(w,c,adjacent))) {
         if (corpse.searched) { w.s.loot = { pos: { ...corpse.pos }, kind: 'corpse', id: corpse.id }; return FREE }
         const n = channelTurns(w, c, searchBase(w, c, 2), { dexterous: false })
         if (n === null) return FAIL('손이 말을 듣지 않는다')
         c.activity = { kind: 'search', remaining: n, total: n, target: { ...corpse.pos }, uid: corpse.id, label: `${knownCreatureName(w,corpse)}의 시체 뒤지기` }
         return { ok: true, tu: 0 }
       }
-      const p = adjacentContainer(w, c) ?? adjacentContainer(w, c, true)
+      const p = a.pos??adjacentContainer(w, c) ?? adjacentContainer(w, c, true)
       if (!p) return FAIL('뒤질 만한 것이 없다')
+      if(containerLocked(w,p)){const error=startContainerPry(w,c,p);return error?FAIL(error):FREE}
       const t = tileAt(w, p)
       // 다시 자랐으면 새로 뒤진다 (남은 것은 썩어 흙이 됐다)
       if (t.searched && t.regrowAt !== undefined && turnOf(w) >= t.regrowAt) { t.searched = false; t.cont = undefined; t.regrowAt = undefined }
@@ -1226,8 +1236,10 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     }
     case 'openBag': {
       if(c.id!==w.s.playerId)return FAIL('자신의 배낭에서만 가방을 열 수 있다')
-      const it=c.bag.find(it=>it.uid===a.uid)
-      if(!it||it.missingItem||!itemDef(w,it).storage)return FAIL('열 수 있는 가방이 없다')
+      const it=c.bag.find(it=>it.uid===a.uid)??(c.equip.belt?.uid===a.uid?c.equip.belt:undefined)??(c.equip.back?.uid===a.uid?c.equip.back:undefined)
+      if(!it||it.missingItem||!itemStorage(itemDef(w,it)))return FAIL('열 수 있는 가방이 없다')
+      if(itemDef(w,it).pocket&&(it!==c.equip.belt||it.half||(it.durability??100)<=0))return FAIL('허리띠를 온전히 착용해야 주머니를 쓸 수 있다')
+      if(itemDef(w,it).quiver&&(it!==c.equip.back||it.half||(it.durability??100)<=0))return FAIL('화살통을 온전히 착용해야 안을 쓸 수 있다')
       it.contents??=[]
       w.s.loot={kind:'bag',id:it.uid,pos:{...c.pos}}
       return FREE
@@ -1278,13 +1290,18 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
 
     case 'lootPut': {
       if(Object.values(c.equip).some((it)=>it?.uid===a.uid&&itemDef(w,it).apparel))return FAIL('입은 장비를 먼저 벗어야 한다')
+      if(w.s.loot?.kind==='cont'&&containerLocked(w,w.s.loot.pos))return FAIL('잠긴 상자에는 넣을 수 없다')
       const g = lootGrid(w)
       const held = findItem(c, a.uid)
       if (!held) return FAIL('없다')
       if(w.s.loot?.kind==='bag'){
         if(!g)return FAIL('열었던 가방이 배낭에 없다')
-        if(held.uid===w.s.loot.id||held.contents||itemDef(w,held).storage)return FAIL('가방 안에 가방을 넣을 수 없다')
+        if(held.uid===w.s.loot.id||held.contents||itemStorage(itemDef(w,held)))return FAIL('가방 안에 가방을 넣을 수 없다')
         if(held.lit)return FAIL('불을 끈 뒤 가방에 넣어야 한다')
+        const back=c.equip.back
+        if(back&&back.uid===w.s.loot.id){const quiver=itemDef(w,back).quiver;if(quiver&&!quiver.ammo.includes(held.missingItem?.def??held.def))return FAIL('화살통에는 지정된 화살만 넣을 수 있다')}
+        const belt=c.equip.belt
+        if(belt&&belt.uid===w.s.loot.id&&itemDef(w,belt).pocket){const d=itemDef(w,held);if(!d.food&&!d.drink&&!d.drug&&!d.medical&&!d.unidentified&&!d.refuel)return FAIL('허리 주머니에는 소모품만 넣을 수 있다')}
       }
       if (w.s.loot?.kind === 'floor' || !g) {
         if (!w.s.loot) return FAIL('넣을 곳이 없다')
@@ -1568,7 +1585,7 @@ function consumeForCore(w:World,provider:Creature,c:Creature,uid:number):ActResu
   if(provider!==c){
     if(!provider.alive||!c.alive||provider.asleep||c.asleep||provider.unconscious||c.unconscious||capacity(w,provider,'consciousness')<.5||capacity(w,c,'consciousness')<.5)return FAIL('깨어서 삼킬 수 있어야 한다')
     if(!w.s.creatures.includes(provider)||!w.s.creatures.includes(c)||cheb(provider.pos,c.pos)>1||!hasLos(w,provider.pos,c.pos)||!canSee(w,provider,c.pos)||diagonalBlocked(w,provider.pos,c.pos.x-provider.pos.x,c.pos.y-provider.pos.y))return FAIL('먹일 사람이 보이는 곁이어야 한다')
-    if(capacity(w,provider,'manipulation')<.2||!provider.bag.some((i)=>i.uid===uid))return FAIL('배낭의 물품을 건넬 손을 쓸 수 없다')
+    if(capacity(w,provider,'manipulation')<.2||!supplyItems(provider).some((i)=>i.uid===uid))return FAIL('배낭의 물품을 건넬 손을 쓸 수 없다')
     if(!def.food&&(!def.drink||def.drink.alcohol))return FAIL('음식이나 술이 아닌 식수만 먹일 수 있다')
   }
   if (def.food && c.breakdown?.kind === 'fast') return FAIL('먹고 싶지 않다. (정신붕괴: 단식)')
@@ -1583,7 +1600,7 @@ function consumeForCore(w:World,provider:Creature,c:Creature,uid:number):ActResu
     nourish(w, c, foodKcal(w,it), def.food.protein, def.food.vitamin,{uid:it.uid,def:it.def})
     hydrate(w, c, def.food.water ?? 0, (def.food.thirst ?? 0)+(it.foodSaltGrams??0)*waterSafetyDef(w).saltFlushMlPerGram!)
     if(it.contaminantAsh)c.needs.ash=clamp(Math.round(((c.needs.ash??0)+it.contaminantAsh)*10000)/10000,0,100)
-    if (def.food.dryTurns && !provider.bag.some((i) => drinkVolume(w, i) >= 100 && !itemDef(w, i).drink?.alcohol && !i.waterFrozen && suitableDrink(w, i))) tu *= def.food.dryTurns
+    if (def.food.dryTurns && !supplyItems(provider).some((i) => drinkVolume(w, i) >= 100 && !itemDef(w, i).drink?.alcohol && !i.waterFrozen && suitableDrink(w, i))) tu *= def.food.dryTurns
     if(it.foodBurnt&&cookingRules(w)){const d=cookingRules(w)!;addThought(w,c,d.thought,d.burnMood*traitMul(w,c,'tasteMoodMult'))}
     else if (def.food.raw) {
       addThought(w, c, 'Thought.AteRaw')
@@ -1702,6 +1719,7 @@ export function activityStep(w: World, c: Creature): boolean {
     }
   }
   switch (act.kind) {
+    case 'pryContainer':return containerPryStep(w,c)
     case 'ransom':
     case 'ransomWait':return ransomStep(w,c)
     case 'brewTea':return brewStep(w,c)
@@ -1871,6 +1889,7 @@ export function activityStep(w: World, c: Creature): boolean {
         }
         const t = tileAt(w, act.target)
         const terr = terrainAt(w, act.target)
+        if(containerLocked(w,act.target)){if(isPl(c))log(w,'warn','잠긴 상자는 먼저 잠금쇠를 열어야 한다.');break}
         openContainer(w, c, act.target)
         practice(w, c, 'survival', `search:${act.target.x},${act.target.y}`)
         emitNoise(w, c.pos, terr.openNoise ?? 2, c.id)

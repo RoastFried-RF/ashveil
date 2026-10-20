@@ -16,7 +16,7 @@ import type { Creature } from './types'
 
 export function metabolismRate(w: World, c: Creature, s: ThermalState, sleeping = false) {
   const d = nutritionDef(w), size = metabolicSize(w, c)
-  const kind = sleeping ? 'sleep' : c.exerted ? 'combat' : ['boatCare', ...(w.s.map.vessel?['travel']:[]), 'deviceWork', 'machineCare', 'craft', 'repair', 'salvage', 'gather', 'gearCare', 'reload'].includes(c.activity?.kind ?? '') ? 'work' : thermalActivity(w, c) === 'walk' ? 'walk' : c.rested || c.activity?.kind === 'rest' ? 'rest' : 'idle'
+  const kind = sleeping ? 'sleep' : c.exerted ? 'combat' : ['pryContainer','boatCare', ...(w.s.map.vessel?['travel']:[]), 'deviceWork', 'machineCare', 'craft', 'repair', 'salvage', 'gather', 'gearCare', 'reload'].includes(c.activity?.kind ?? '') ? 'work' : thermalActivity(w, c) === 'walk' ? 'walk' : c.rested || c.activity?.kind === 'rest' ? 'rest' : 'idle'
   const activity = d.activity[kind], exercising = ['walk', 'work', 'combat'].includes(kind)
   const bulk = exercising ? Object.values(c.equip).reduce((n, it) => n + (it ? w.db.item(it.def).bulk ?? 0 : 0), 0) : 0
   const cold = c.needs.bodyTemp < 36.5 && hungerBand(w, c).shivering ? d.shiveringKcal : s.feels < s.low ? d.coldKcal : 0

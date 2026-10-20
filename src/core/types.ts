@@ -231,6 +231,10 @@ export interface ItemDef extends DefBase {
   size: [number, number]
   /** 물품 내부 격자. 가방을 다른 가방에 넣을 수 없다. */
   storage?: [number, number]
+  /** 허리띠의 소모품 주머니. 착용 완료 후 바로 접근한다. */
+  pocket?: [number, number]
+  /** 등 슬롯의 화살 전용 격자. 착용을 마쳤을 때만 탄약에 접근한다. */
+  quiver?: {size:[number,number];ammo:string[]}
   stackable?: boolean
   /** 읽을 수 있다 (쪽지 → 소문, 06 §7.0) */
   readable?: boolean
@@ -441,6 +445,7 @@ export interface SignalPacket {key:string;rumor:Rumor;from:BeaconAddress;to:Beac
 export interface CropRule { maxLight?:number; needsSoil?:boolean; substrate?:{item:string;cycles:number;turns:number}; minLight:number; minTemp:number; maxTemp:number; waterMl:number; maxSalinity:number; rainMlPerHour:number }
 export interface CultivationState {dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
 export interface TerrainDef extends DefBase {
+  lock?:{turns:number;wear:number;noise:number;tools:string[]}
   cultivation?:CropRule
   combustion?:{family:string;burnTurns:number;burnedAs:string}
   needles?:{item:string;count:number;turns:number;regrowTurns:number}
@@ -1965,6 +1970,7 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number; events?: { at: number; untilTurn: number; mood?: number }[] }
 
 export interface Activity {
+  containerPry?:{map:string;region?:string;terrain:string;toolUid:number;signature:string}
   npcCare?:{provider:number;patient:number;woundId:number;materialUid:number;startedAt:number}
 
   excavation?:{contract:string;progress:number;mapId:string;region:string}
@@ -2028,7 +2034,7 @@ export interface Activity {
   fireUid?:number
   fireHot?:boolean
   beddingWash?:{map:string;terrain:string;uid?:number}
-  kind: 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  kind: 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */
@@ -2314,6 +2320,8 @@ export type HotbarRef = { kind: 'ability'; id: string } | { kind: 'item'; def: s
 
 export interface BeddingLice {source:number;at:number;until:number}
 export interface Tile {
+  /** 실제 새 지도 생성 때만 잠근다. 구형 상자를 소급해 잠그지 않는다. */
+  locked?:boolean
   cultivation?:CultivationState
   combustionRemaining?:{family:string;remaining:number;total:number;placedUid?:number}
   terrainFire?:{id:number;sourceUid:number;family:string;startedAt:number;lastAt:number;remaining:number;total:number;placedUid?:number}

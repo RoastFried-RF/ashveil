@@ -14,6 +14,7 @@ import CookingPanel from './CookingPanel.vue'
 import BoilPanel from './BoilPanel.vue'
 import SeasonalForagePanel from './SeasonalForagePanel.vue'
 import CultivationPanel from './CultivationPanel.vue'
+import ContainerLockPanel from './ContainerLockPanel.vue'
 import MachinePanel from './MachinePanel.vue'
 import FieldDevicePanel from './FieldDevicePanel.vue'
 import MarinePanel from './MarinePanel.vue'
@@ -60,6 +61,7 @@ function tip(e: MouseEvent, uid: number) {
 
 <template>
   <Win title="제작·정비" :x="180" :y="80" :width="600" testid="win-craft" @close="wins.craft = false">
+    <ContainerLockPanel />
     <AquaticPanel />
     <BeaconPanel />
     <MarinePanel />

@@ -57,6 +57,8 @@ const GROUP_LABEL: Record<string, string> = {
 export function itemTip(w: World, it: ItemInst | null, defId?: string): { title: string; lines: string[]; color: string } {
   const d = it ? itemDef(w, it) : w.db.item(defId!)
   const lines: string[] = []
+  if(d.quiver)lines.push('화살 전용1×6칸 · 등 슬롯/망토와 함께 착용 불가', '온전히 착용한 동안 실제 내부 화살을 꺼내 쏘거나 장전한다.')
+  if(d.pocket)lines.push('허리 주머니2×2 · 착용 완료 후 소모품에 바로 접근', '전투 중에도 빠른 슬롯 연결은0턴이며 사용은 원래 행동 시간을 쓴다.')
   if(d.storage)lines.push(`내부 ${d.storage[0]}×${d.storage[1]}칸 · ${it?.contents?.length??0}더미 보관`, '더블클릭 또는 우클릭 → 열기. 물품은 꺼낸 뒤 사용한다. 가방을 겹쳐 넣을 수 없다.')
   if(it?.missingItem)return{title:d.label,lines:[`원래 정의: ${it.missingItem.def}`,`원래 칸 ${it.missingItem.size[0]}×${it.missingItem.size[1]} · ${it.count}개`, '원래 상태를 보관 중이다. 사용·장착·거래·분할할 수 없다.', '원래 정의가 돌아오면 같은 물품으로 복원한다.'],color:'#d9a040'}
   if (d.relic && (it?.appraisal ?? 0) < 2) {

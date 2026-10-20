@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
-import { isWaterVessel,waterCapacity,cookingQuote,nearbyCampfires,nearbyIce, nearbySnow } from '../../core'
-import { computed, onBeforeUnmount, ref } from 'vue'
+import { foodMergeQuote,isWaterVessel,waterCapacity,cookingQuote,nearbyCampfires,nearbyIce, nearbySnow } from '../../core'
+import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import {
   corpseMoneyQuote, economyDef, bestiaryEntry, knownCreatureName, dissectionChance, dissectionError, bestiaryDef, waterSafetyDef, waterPourQuote, drinkVolume, WATER_TREATMENT_LABEL, BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, knowledgeDef, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type WaterTreatment, type ItemInst, type Slot, type World,
 } from '../../core'
@@ -25,7 +25,7 @@ const d = computed(() => {
   const grid = lootGrid(w)
   const corpse = lootEquip(w)
   const lootEq = corpse ? (Object.keys(corpse.equip) as Slot[]).filter((k) => corpse.equip[k]).map((k) => ({ slot: k, it: corpse.equip[k]! })) : []
-  const openBag=w.s.loot?.kind==='bag'?pl.bag.find(it=>it.uid===w.s.loot!.id):undefined
+  const openBag=w.s.loot?.kind==='bag'?(pl.bag.find(it=>it.uid===w.s.loot!.id)??(pl.equip.belt?.uid===w.s.loot.id?pl.equip.belt:undefined)??(pl.equip.back?.uid===w.s.loot.id?pl.equip.back:undefined)):undefined
   const lootLabel = openBag?itemLabel(w,openBag):corpse ? `${knownCreatureName(w,corpse)}의 시체` : w.s.loot ? terrainAt(w, w.s.loot.pos).label : ''
   const floor = !loot ? tileAt(w, pl.pos).items : []
   let used = 0
@@ -37,6 +37,27 @@ const d = computed(() => {
 interface Drag { from: 'bag' | 'equip' | 'loot' | 'floor'; it: ItemInst; slot?: Slot; gdx: number; gdy: number; x: number; y: number; moved: boolean; sx: number; sy: number; rot: boolean }
 const drag = ref<Drag | null>(null)
 const menu = ref<{ x: number; y: number; it: ItemInst; from: Drag['from']; slot?: Slot } | null>(null)
+const foodMerge=ref<{uid:number;into:number;n?:number;signature:string;description:string}|null>(null)
+function closeFoodMerge(){foodMerge.value=null;window.removeEventListener('keydown',foodMergeKey,true)}
+function foodMergeKey(e:KeyboardEvent){
+  if(!foodMerge.value)return
+  e.stopImmediatePropagation()
+  if(e.key==='Escape'){e.preventDefault();closeFoodMerge();return}
+  if(e.key==='Tab'||e.ctrlKey||e.metaKey)return
+  if((e.key==='Enter'||e.key===' ')&&(e.target as HTMLElement)?.closest('[data-testid=food-merge-confirmation] button'))return
+  e.preventDefault()
+}
+onBeforeUnmount(()=>window.removeEventListener('keydown',foodMergeKey,true))
+function requestMerge(uid:number,into:number,n?:number){
+  const w=world.value as World,quote=foodMergeQuote(w,player(w),uid,into,n)
+  if(!quote.error&&quote.needsConsent){foodMerge.value={uid,into,n,signature:quote.signature,description:quote.description};window.addEventListener('keydown',foodMergeKey,true);void nextTick(()=>document.querySelector<HTMLButtonElement>('[data-testid=food-merge-cancel]')?.focus());return null}
+  return act({type:'mergeItem',uid,into,n})
+}
+function confirmFoodMerge(){
+  const request=foodMerge.value;if(!request)return
+  const error=act({type:'mergeItem',uid:request.uid,into:request.into,n:request.n,freshnessApproval:request.signature})
+  closeFoodMerge();if(error)hint.value=error
+}
 
 function down(e: PointerEvent, from: Drag['from'], it: ItemInst, slot?: Slot) {
   if (e.button !== 0) return
@@ -75,7 +96,7 @@ function dropTarget(g: Drag, e: { clientX: number; clientY: number }): Hover | n
   const b = cellAt('[data-testid=bag]', e.clientX, e.clientY, BAG_W, BAG_H)
   if (b) {
     const under = itemAtCell(w, pl.bag, b[0], b[1], g.it.uid)
-    if (under && canStack(under, g.it) && under.count < maxStack(itemDef(w, under))) return { grid: 'bag', gx: under.gx!, gy: under.gy!, ok: true, merge: under }
+    if (under && (canStack(under, g.it)||g.from==='bag'&&!foodMergeQuote(w,pl,g.it.uid,under.uid).error) && under.count < maxStack(itemDef(w, under))) return { grid: 'bag', gx: under.gx!, gy: under.gy!, ok: true, merge: under }
     const gx = b[0] - (offset ? g.gdx : 0), gy = b[1] - (offset ? g.gdy : 0)
     return { grid: 'bag', gx, gy, ok: fitsAt(w, pl, def, gx, gy, g.from === 'bag' ? g.it.uid : undefined, g.rot) }
   }
@@ -131,7 +152,7 @@ function up(e: PointerEvent) {
   const tgt = dropTarget(g, e)
   if (tgt?.grid === 'bag' && g.from === 'bag') {
     const n = splitN(e, g.it)
-    const err = tgt.merge ? act({ type: 'mergeItem', uid: g.it.uid, into: tgt.merge.uid, n })
+    const err = tgt.merge ? requestMerge(g.it.uid,tgt.merge.uid,n)
       : n ? act({ type: 'splitItem', uid: g.it.uid, n, gx: tgt.gx, gy: tgt.gy, rot: g.rot })
         : act({ type: 'moveItem', uid: g.it.uid, gx: tgt.gx, gy: tgt.gy, rot: g.rot })
     if (err) hint.value = err
@@ -257,10 +278,15 @@ const menuItems = computed(() => {
     out.push(['버리기', () => doAct({ type: 'drop', uid: m.it.uid })])
   } else if (m.from === 'equip' && m.slot) {
     if(m.it.half)out.push(['마저 입기',()=>doAct({type:'equip',uid:m.it.uid,slot:m.slot})])
+    if(def.quiver)out.push(['화살통 열기',()=>doAct({type:'openBag',uid:m.it.uid})])
+    if(def.pocket)out.push(['주머니 열기',()=>doAct({type:'openBag',uid:m.it.uid})])
     out.push(['벗기·내리기', () => doAct({ type: 'unequip', slot: m.slot! })])
     out.push([def.apparel?'벗어 바닥에 놓기':'바닥에 놓기',()=>doAct({type:'drop',uid:m.it.uid})])
     if (def.light) out.push([m.it.lit ? '불 끄기' : '불 켜기', () => doAct({ type: 'toggleLight', uid: m.it.uid })])
-  } else if (m.from === 'loot') out.push(['가져가기', () => doAct({ type: 'lootTake', uid: m.it.uid })])
+  } else if (m.from === 'loot') {
+    out.push(['가져가기', () => doAct({ type: 'lootTake', uid: m.it.uid })])
+    if(w.s.loot?.kind==='bag'&&w.s.loot.id===d.value.pl.equip.belt?.uid){out.push(['주머니에서 쓰기',()=>useItem(w,m.it)]);out.push(['빠른 슬롯에',()=>assignHotbar({kind:'item',def:m.it.def})])}
+  }
   else out.push(['줍기', () => doAct({ type: 'pickup', uid: m.it.uid })])
   return out
 })
@@ -337,6 +363,10 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
       </div>
     </div>
 
+    <button v-if="d.pl.equip.belt && d.w.db.item(d.pl.equip.belt.def).pocket" class="dbtn mt-2" data-testid="open-belt-pocket" @click="doAct({type:'openBag',uid:d.pl.equip.belt.uid})">허리 주머니 열기 (2×2)</button>
+
+    <button v-if="d.pl.equip.back && d.w.db.item(d.pl.equip.back.def).quiver" class="dbtn mt-2 ml-2" data-testid="open-quiver" @click="doAct({type:'openBag',uid:d.pl.equip.back.uid})">화살통 열기 (1×6)</button>
+
     <!-- 루팅: 상자·석관·서가·보관함·시체는 격자, 바닥은 목록 (13 §8) -->
     <div v-if="d.loot" class="df df-olive mt-2 !border-[12px]" data-drop="loot" data-testid="loot">
       <div v-if="d.dissection" class="mb-1 flex items-center gap-2 text-xs" data-testid="dissection-panel"><button class="dbtn" data-testid="dissect-corpse" :disabled="!!d.dissection.error" :title="d.dissection.error??'완료 때 한 번 판정하며 중단하면 사체를 보존한다'" @click="doAct({type:'dissect',target:d.dissection.id})">{{ d.dissection.kind==='machine'?'기계 분해':'사체 해부' }} (기본{{ d.dissection.turns }}턴)</button><span>{{ d.dissection.done ? (d.dissection.done.success?'해부 성공':'해부 실패 · 재료 손상') : d.dissection.error??`성공 ${d.dissection.chance}%` }}</span><span v-if="d.dissection.kind==='human'" class="text-amber-200">완료 시 기분 {{ d.dissection.mood }} · 목격 시 평판 소식 {{ d.dissection.loss }}</span></div>
@@ -401,6 +431,14 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
     <!-- 끄는 중인 아이템 -->
     <Teleport to="body">
+      <div v-if="foodMerge" class="fixed inset-0 z-[10000] flex items-center justify-center bg-black/70" data-testid="food-merge-confirmation" @pointerdown.stop>
+        <div class="df df-celtic max-w-md !border-[14px] p-3 text-sm" role="dialog" aria-modal="true" aria-label="음식 신선도 병합 확인">
+          <p class="mb-2 text-amber-200">합치면 모두 더 낮은 신선도로 바뀐다.</p>
+          <p class="mb-3">{{ foodMerge.description }}</p>
+          <button class="dbtn-gold mr-2" data-testid="food-merge-accept" @click="confirmFoodMerge">이 상태로 합치기</button>
+          <button class="dbtn" data-testid="food-merge-cancel" @click="closeFoodMerge">취소</button>
+        </div>
+      </div>
       <div v-if="drag?.moved" class="pointer-events-none fixed z-[9998] flex items-center justify-center border border-amber-400/70 bg-amber-200/10" :style="{ left: drag.x - drag.gdx * CELL - CELL / 2 + 'px', top: drag.y - drag.gdy * CELL - CELL / 2 + 'px', width: dragSize[0] * CELL + 'px', height: dragSize[1] * CELL + 'px' }">
         <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" /></div>
         <span class="absolute -bottom-4 left-0 whitespace-nowrap text-[10px] text-amber-200 [text-shadow:0_1px_0_#000]">R·우클릭: 돌리기</span>

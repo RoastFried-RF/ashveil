@@ -11,6 +11,7 @@ export * from './actions'
 export * from './body'
 export * from './combat'
 export * from './items'
+export * from './food-merge'
 export * from './needs'
 export { sleepQuality, sleepRecoveryPerHour, exposeDisease, diseaseTick, frostbiteTick } from './conditions'
 export { thermalState, thermalActivity, temperatureDelta, fireWarmth, THERMAL_REGIONS } from './thermal'
@@ -315,3 +316,5 @@ export * from './creature-renames'
 export * from './body-renames'
 
 export * from './missing-creatures'
+
+export * from './container-locks'

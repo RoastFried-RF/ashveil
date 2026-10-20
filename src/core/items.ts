@@ -17,9 +17,9 @@ export const BAG_H = 6
 export function makeItem(w: World, defId: string, count = 1): ItemInst {
   if(defId===MISSING_ITEM)throw new Error('보관물은 새 물품으로 생성할 수 없다')
   const def = w.db.item(defId)
-  if(def.storage&&count!==1)throw new Error('가방은 한 인스턴스에 하나씩 생성해야 한다')
+  if((def.storage||def.pocket||def.quiver)&&count!==1)throw new Error('가방은 한 인스턴스에 하나씩 생성해야 한다')
   const it: ItemInst = { uid: w.s.nextId++, def: defId, count }
-  if(def.storage)it.contents=[]
+  if(def.storage||def.pocket||def.quiver)it.contents=[]
   if (def.food?.freshHours || def.drink?.freshHours) { it.freshness = 100; it.foodAgedAt = turnOf(w) }
   if (def.stuffDefaults) it.stuff = structuredClone(def.stuffDefaults)
   if (def.apparel) it.wetness = {}
@@ -80,8 +80,17 @@ export function maxStack(def: ItemDef): number {
 /** 장착 + 배낭의 모든 아이템 */
 export function allItems(c: Creature): ItemInst[] {
   const eq = Object.values(c.equip).filter((x): x is ItemInst => !!x)
-  return [...c.bag, ...eq, ...(c.captivity?[c.captivity.rope]:[]), ...Object.values(c.body.prosthetics ?? {}).map((s) => s.item)]
+  return [...c.bag, ...eq, ...pocketItems(c), ...quiverItems(c), ...(c.captivity?[c.captivity.rope]:[]), ...Object.values(c.body.prosthetics ?? {}).map((s) => s.item)]
 }
+
+/** 벗었거나 반쯤 걸친 허리띠의 안쪽은 바로 사용할 수 없다. */
+export function pocketItems(c:Creature):ItemInst[]{const belt=c.equip.belt;return belt&&!belt.half&&!belt.missingItem&&(belt.durability??100)>0?belt.contents??[]:[]}
+export function quiverItems(c:Creature):ItemInst[]{const back=c.equip.back;return back&&!back.half&&!back.missingItem&&(back.durability??100)>0?back.contents??[]:[]}
+export function supplyItems(c:Creature):ItemInst[]{return[...c.bag,...pocketItems(c),...quiverItems(c)]}
+export const itemStorage=(def:ItemDef)=>def.storage??def.pocket??def.quiver?.size
+/** 빠른 슬롯은 배낭/착용한 주머니의 같은 종류만, 가장 덜 신선한 실제 더미부터 쓴다. */
+export function quickItem(c:Creature,def:string):ItemInst|undefined{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem).sort((a,b)=>(a.freshness??100)-(b.freshness??100)||a.uid-b.uid)[0]}
+export function quickCount(c:Creature,def:string):number{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem).reduce((n,it)=>n+it.count,0)}
 
 /** 환경·가치 정산용. 사용/도구 검색은 allItems의 접근 가능한 물품만 찾는다. */
 export function storedItems(items: readonly ItemInst[]): ItemInst[] {
@@ -248,14 +257,16 @@ export function removeOne(w: World, c: Creature, uid: number): ItemInst | undefi
     delete c.equip[slot]
     return it
   }
-  const it = c.bag.find((i) => i.uid === uid)
+  const source=supplyItems(c).find(i=>i.uid===uid),items=source&&c.bag.includes(source)?c.bag:source&&pocketItems(c).includes(source)?pocketItems(c):quiverItems(c)
+  const it = items.find((i) => i.uid === uid)
   if (!it) return undefined
   if(it.missingItem&&it.count>1)return undefined
   if (it.count > 1) {
     it.count--
     return { ...it, uid: w.s.nextId++, count: 1, gx: undefined, gy: undefined }
   }
-  c.bag = c.bag.filter((i) => i.uid !== uid)
+  if(items===c.bag)c.bag=c.bag.filter(i=>i.uid!==uid)
+  else items.splice(items.indexOf(it),1)
   return { ...it, gx: undefined, gy: undefined }
 }
 
@@ -266,14 +277,16 @@ export function removeStack(c: Creature, uid: number): ItemInst | undefined {
     delete c.equip[slot]
     return it
   }
-  const it = c.bag.find((i) => i.uid === uid)
+  const source=supplyItems(c).find(i=>i.uid===uid),items=source&&c.bag.includes(source)?c.bag:source&&pocketItems(c).includes(source)?pocketItems(c):quiverItems(c)
+  const it = items.find((i) => i.uid === uid)
   if (!it) return undefined
-  c.bag = c.bag.filter((i) => i.uid !== uid)
+  if(items===c.bag)c.bag=c.bag.filter(i=>i.uid!==uid)
+  else items.splice(items.indexOf(it),1)
   return { ...it, gx: undefined, gy: undefined }
 }
 
 export function countOf(c: Creature, defId: string): number {
-  return c.bag.filter((i) => i.def === defId).reduce((s, i) => s + i.count, 0)
+  return supplyItems(c).filter((i) => i.def === defId).reduce((s, i) => s + i.count, 0)
 }
 
 // ── 장비 ──────────────────────────────────────────────
