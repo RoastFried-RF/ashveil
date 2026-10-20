@@ -7,8 +7,8 @@
     "kt_brazier": "sprites/kt_brazier.png",
     "hero": "sprites/original/ashveil-wanderer-walk.png",
     "hero_atk": "sprites/original/ashveil-wanderer-attack.png",
-    "reaver0": "sprites/reaver0.png",
-    "reaver0_atk": "sprites/reaver0_atk.png",
+    "reaver0": "sprites/original/ashveil-reaver-walk.png",
+    "reaver0_atk": "sprites/original/ashveil-reaver-attack.png",
     "reaver1": "sprites/reaver1.png",
     "reaver1_atk": "sprites/reaver1_atk.png",
     "mon1": "sprites/mon1.png",
@@ -40,7 +40,10 @@
     "original_reclaimed_round": "sprites/original/items/ashveil-reclaimed-round.png",
     "original_empty_case": "sprites/original/items/ashveil-empty-case.png",
     "original_primer_cap": "sprites/original/items/ashveil-primer-cap.png",
-    "original_javelin": "sprites/original/items/ashveil-javelin.png"
+    "original_javelin": "sprites/original/items/ashveil-javelin.png",
+    "original_greatsword": "sprites/original/items/ashveil-greatsword.png",
+    "original_trip": "sprites/original/items/ashveil-trip.png",
+    "original_disarm": "sprites/original/items/ashveil-disarm.png"
   },
   "frames": {
     "kt_floor_q0": [
@@ -950,113 +953,113 @@
       "reaver0_atk",
       0,
       0,
-      47,
-      63
+      32,
+      40
     ],
     "reaver0_a_down1": [
       "reaver0_atk",
-      47,
+      32,
       0,
-      47,
-      63
+      32,
+      40
     ],
     "reaver0_a_down2": [
       "reaver0_atk",
-      94,
+      64,
       0,
-      47,
-      63
+      32,
+      40
     ],
     "reaver0_a_down3": [
       "reaver0_atk",
-      141,
+      96,
       0,
-      47,
-      63
+      32,
+      40
     ],
     "reaver0_a_left0": [
       "reaver0_atk",
       0,
-      63,
-      47,
-      63
+      40,
+      32,
+      40
     ],
     "reaver0_a_left1": [
       "reaver0_atk",
-      47,
-      63,
-      47,
-      63
+      32,
+      40,
+      32,
+      40
     ],
     "reaver0_a_left2": [
       "reaver0_atk",
-      94,
-      63,
-      47,
-      63
+      64,
+      40,
+      32,
+      40
     ],
     "reaver0_a_left3": [
       "reaver0_atk",
-      141,
-      63,
-      47,
-      63
+      96,
+      40,
+      32,
+      40
     ],
     "reaver0_a_right0": [
       "reaver0_atk",
       0,
-      126,
-      47,
-      63
+      80,
+      32,
+      40
     ],
     "reaver0_a_right1": [
       "reaver0_atk",
-      47,
-      126,
-      47,
-      63
+      32,
+      80,
+      32,
+      40
     ],
     "reaver0_a_right2": [
       "reaver0_atk",
-      94,
-      126,
-      47,
-      63
+      64,
+      80,
+      32,
+      40
     ],
     "reaver0_a_right3": [
       "reaver0_atk",
-      141,
-      126,
-      47,
-      63
+      96,
+      80,
+      32,
+      40
     ],
     "reaver0_a_up0": [
       "reaver0_atk",
       0,
-      189,
-      47,
-      63
+      120,
+      32,
+      40
     ],
     "reaver0_a_up1": [
       "reaver0_atk",
-      47,
-      189,
-      47,
-      63
+      32,
+      120,
+      32,
+      40
     ],
     "reaver0_a_up2": [
       "reaver0_atk",
-      94,
-      189,
-      47,
-      63
+      64,
+      120,
+      32,
+      40
     ],
     "reaver0_a_up3": [
       "reaver0_atk",
-      141,
-      189,
-      47,
-      63
+      96,
+      120,
+      32,
+      40
     ],
     "reaver1_w_down0": [
       "reaver1",
@@ -2933,6 +2936,27 @@
       0,
       32,
       32
+    ],
+    "greatsword": [
+      "original_greatsword",
+      0,
+      0,
+      32,
+      32
+    ],
+    "trip": [
+      "original_trip",
+      0,
+      0,
+      32,
+      32
+    ],
+    "disarm": [
+      "original_disarm",
+      0,
+      0,
+      32,
+      32
     ]
   },
   "anims": {
@@ -3193,14 +3217,16 @@
           "reaver0_a_up3"
         ]
       },
-      "attackAnchor": [
-        0.5,
-        0.78
-      ],
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 29
     },
     "reaver1": {
       "walk": {

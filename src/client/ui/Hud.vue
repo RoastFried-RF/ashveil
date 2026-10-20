@@ -7,7 +7,7 @@ import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
 import { preferences } from '../preferences'
 import { version, world } from '../store'
-import { doAct, hideTip, showTip, toggleWin, useHotbar, wins, type WinKey } from '../ui'
+import { doAct, hideTip, showTip, startManeuver, toggleWin, useHotbar, wins, type WinKey } from '../ui'
 import Bar from './Bar.vue'
 import ItemIcon from './ItemIcon.vue'
 
@@ -71,6 +71,7 @@ function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
 }
 
 const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['inv','소지품','inventory'],['abil','능력','abilities'],['body','신체','body'],['journal','일지','journal'],['map','지도','map'],['craft','제작','craft'],['society','주민·세력','society']]
+const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as const
 </script>
 
 <template>
@@ -121,16 +122,25 @@ const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['in
       </button>
     </div>
 
-    <nav class="hud-nav" aria-label="게임 창">
+    <nav class="hud-nav" aria-label="게임 창 및 기본 전투 행동">
       <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap" :data-testid="`btn-${k}`" :aria-pressed="wins[k]" @click="toggleWin(k)">
         {{ l }}<kbd>{{ primaryBindingText(preferences.keyBindings,key) }}</kbd>
         <span v-if="(k === 'char' && d.points) || (k === 'abil' && d.apoints)" class="pulse-gold absolute right-0 top-0 h-1.5 w-1.5 rounded-full bg-amber-300" />
       </button>
+      <div class="hud-maneuvers" role="group" aria-label="기본 전투 행동">
+        <button v-for="[command, label] in MANEUVERS" :key="command" class="dbtn hud-maneuver-button" :data-testid="`btn-${command}`" :title="`${label}: 대상을 고른다 (${primaryBindingText(preferences.keyBindings,command)})`" @click="startManeuver(command)">
+          <ItemIcon :name="command" :size="16" />{{ label }}<kbd>{{ primaryBindingText(preferences.keyBindings,command) }}</kbd>
+        </button>
+      </div>
     </nav>
   </div>
 </template>
 
 <style scoped>
+.hud-nav { flex-wrap: wrap; }
+.hud-maneuvers { display: flex; flex-shrink: 0; align-items: center; gap: 3px; margin-left: 4px; padding-left: 7px; border-left: 1px solid #687052; }
+.hud-nav .hud-maneuver-button { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; min-height: 24px; padding: 2px 6px; border-color: #626d52; background: #30372980; color: #ded8ba; font-size: 10px; }
+.hud-nav .hud-maneuver-button:hover { border-color: #bea56e; background: #424832; color: #fff0c6; }
 .hud-attack-context { display: flex; min-width: 0; align-items: center; gap: 6px; }
 .hud-attack-context > button { min-width: 0; }
 .hud-mode-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

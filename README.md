@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.282** · 각인190. 투창·실제 잔탄 표시/화면·전체5,764개/월드30판 통합 검증을 마쳤다. 후속 전체 구현은 계속 진행 중이다. 현재 진행은 [진행 상황](docs/progress.md), 상세 상태는 [구현 현황](docs/prototype.md), 남은 전체 범위는 [확장 로드맵](docs/expansion-roadmap.md)에 기록한다.
+**현재 상태: 프로토타입 v0.283 검증 중** · 각인191. 전체5,792개와 실제15장 검증 완료·월드30판 검사 중. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -132,3 +132,10 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 
 ![실제 투창 회수](docs/previews/v282-1364-native-actual-same-javelin-recovered-and-held-one-round-gun-preserved.png)
 ![작은 화면의 실제 잔탄](docs/previews/v282-1366-native-small-screen-rifle-four-rounds-and-original-loaded-revolver.png)
+
+## 기본 전투 행동·양손 대도 (v0.283 검증 중)
+
+실제 무장해제로 떨어뜨린 원래 총의 장전탄·걸림·품질을 회수 후에도 보존한다. [검증 근거](docs/release-v283-proof.json).
+
+![실제 무장해제 조준](docs/previews/v283-1369-native-actual-disarm-aim-chance-and-cost.png)
+![양손 대도와 작은 화면](docs/previews/v283-1373-native-small-screen-greatsword-and-both-maneuver-buttons.png)

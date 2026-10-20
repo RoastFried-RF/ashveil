@@ -1,3 +1,4 @@
+import {combatManeuver} from './maneuvers'
 import {canSearchContainer,containerLocked,startContainerPry,containerPryStep} from './container-locks'
 import {obtainResidentCropSupply} from './resident-crop-supplies'
 import {mergeFood} from './food-merge'
@@ -366,6 +367,7 @@ export type Action =
   | { type: 'hotbar'; index: number; ref: HotbarRef | null }
   | { type: 'leave' }
   | { type: 'shove'; dir: number }
+  | { type: 'trip'|'disarm'; target:number }
   | { type: 'face'; dir: number }
   | { type: 'examineSelf' }
   | { type: 'closeDoor'; dir: number }
@@ -802,6 +804,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (t.ai.mode === 'surrender' && isPl(c)) c.history.push({ turn, kind: 'execute', text: `항복한 ${knownCreatureName(w,t)}을(를) 공격` })
       resolveAttack(w, c, t,{mode:a.mode})
       worsenFractures(w, c, wl.arm === 'larm' ? 'larm' : 'rarm')
+      if(wl.twoHanded)worsenFractures(w,c,wl.arm==='larm'?'rarm':'larm')
       return { ok: true, tu: 100 }
     }
 
@@ -837,6 +840,16 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const res = resolveAttack(w, c, t, { ranged: true,projectileDamaged })
       recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
       return { ok: true, tu: 100 }
+    }
+
+    case 'trip':
+    case 'disarm': {
+      const result=combatManeuver(w,c,a.type,a.target)
+      if(result.error)return FAIL(result.error)
+      worsenFractures(w,c,result.arm!)
+      if(result.twoHanded)worsenFractures(w,c,result.arm==='larm'?'rarm':'larm')
+      if(a.type==='trip')worsenFractures(w,c,'leg')
+      return {ok:true,tu:result.tu!}
     }
 
     case 'shove': {

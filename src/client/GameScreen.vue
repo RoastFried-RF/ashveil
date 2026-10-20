@@ -2,7 +2,7 @@
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
+  maneuverQuote, adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
   allItems, autoBlocked, autoSnap, autoStop, turnOf, type Pos, type World,
 } from '../core'
 import {readVisibleText,stopSpeech} from './speech'
@@ -28,7 +28,7 @@ import MapWindow from './ui/MapWindow.vue'
 import SideBars from './ui/SideBars.vue'
 import StatusStrip from './ui/StatusStrip.vue'
 import Tooltip from './ui/Tooltip.vue'
-import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startShoot, socialTarget, targeting, toggleWin, useHotbar, wins } from './ui'
+import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startManeuver, startShoot, socialTarget, targeting, toggleWin, useHotbar, wins } from './ui'
 import { computeBanners } from './warnings'
 
 const hover = ref<Pos | null>(null)
@@ -53,6 +53,12 @@ const danger = computed(() => {
   void version.value
   const pl = player(w.value)
   return Math.max(0, Math.min(1, Math.max(1 - pl.hp / hpMax(w.value, pl) - 0.55, bloodLoss(pl) * 2.5 - 0.3) * 2.2))
+})
+
+const maneuverPreview=computed(()=>{
+  void version.value
+  const t=targeting.value;if(!t||t.kind!=='trip'&&t.kind!=='disarm')return null
+  return maneuverQuote(w.value,player(w.value),t.kind,t.targets[t.idx])
 })
 
 const opts = computed<RenderOpts>(() => {
@@ -160,7 +166,7 @@ function onKey(raw: KeyboardEvent) {
   if (preferencesOpen.value || definitionInspectorOpen.value) return
   const element=raw.target instanceof HTMLElement?raw.target:null
   if(element?.matches('input,textarea,select,[contenteditable=true]'))return
-  if((raw.key==='Enter'||raw.key===' ')&&element?.closest('button,summary'))return
+  if((raw.key==='Enter'||raw.key===' ')&&element?.closest('button,summary')&&!(raw.key==='Enter'&&targeting.value))return
   const mapped=resolveGameKey(raw,preferences.keyBindings)
   const fixed=raw.key==='Escape'||raw.key==='Shift'||!!targeting.value&&(raw.key==='Tab'||raw.key==='Enter')
   if(!mapped&&!fixed)return
@@ -234,6 +240,8 @@ function onKey(raw: KeyboardEvent) {
   if (/^[0-9]$/.test(e.key)) { useHotbar(e.key === '0' ? 9 : Number(e.key) - 1); return }
   switch (e.key) {
     case '.': case ' ': case 'Numpad5': e.preventDefault(); doAct({ type: 'wait' }); break
+    case 'P': startManeuver('trip'); break
+    case 'O': startManeuver('disarm'); break
     case 'p': prefix.value = 'shove'; hint.value = '밀칠 방향을 누른다 (Esc 취소)'; break
     case 'o': prefix.value = 'close'; hint.value = '닫을 문 방향을 누른다 (Esc 취소)'; break
     case 'v': case 'V': doAct({ type: 'reactPolicy' }); break
@@ -355,7 +363,7 @@ onBeforeUnmount(() => {
     </div>
 
     <div v-if="activity" class="game-notice pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
-    <div v-if="targeting" class="game-notice pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
+    <div v-if="targeting" class="game-notice pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span v-if="maneuverPreview && !maneuverPreview.error">· {{ maneuverPreview.chance }}% · 기력 {{ maneuverPreview.cost }}</span><span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
 
     <div class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
       <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ onStairs }}(으)로 ( &gt; )</button></div>

@@ -320,3 +320,5 @@ export * from './body-renames'
 export * from './missing-creatures'
 
 export * from './container-locks'
+
+export * from './maneuvers'

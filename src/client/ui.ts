@@ -2,7 +2,7 @@
 
 import { reactive, ref } from 'vue'
 import {
-  throwItems, throwQuote, quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
+  maneuverQuote, type ManeuverKind, throwItems, throwQuote, quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
@@ -18,7 +18,7 @@ export const hint = ref<string | null>(null)
 export const logBig = ref(false)
 export const tooltip = ref<{ x: number; y: number; title: string; lines: string[]; color?: string } | null>(null)
 
-export interface Targeting { kind: 'ability' | 'shoot' | 'throw'; id?: string; uid?: number; label: string; targets: number[]; idx: number }
+export interface Targeting { kind: 'ability' | 'shoot' | 'throw' | 'trip' | 'disarm'; id?: string; uid?: number; label: string; targets: number[]; idx: number }
 export const targeting = ref<Targeting | null>(null)
 
 let zTop = 30
@@ -111,6 +111,17 @@ export function startThrow(uid: number): string | null {
   return null
 }
 
+/** 같은 읽기 전용 코어 검사를 사용하고 실제 확정 입력에서만 비용을 낸다. */
+export function startManeuver(kind:ManeuverKind){
+  const w=world.value;if(!w)return
+  const pl=player(w),label=kind==='trip'?'넘어뜨리기':'무장해제'
+  const ts=visibleEnemies(w).filter(c=>!maneuverQuote(w,pl,kind,c.id).error)
+  if(!ts.length){hint.value=`${label}: 바로 곁에 행동할 상대가 없다`;return}
+  targeting.value={kind,label,targets:ts.map(c=>c.id),idx:0}
+  setWin('inv',false)
+  hint.value=`${label} — 대상을 고르세요 (클릭 · Tab · Enter 확정 · Esc 취소)`
+}
+
 export function useAbility(id: string) {
   const w = world.value
   if (!w) return
@@ -136,6 +147,7 @@ export function confirmTarget(id?: number) {
   hint.value = null
   if (t.kind === 'shoot') doAct({ type: 'shoot', target })
   else if (t.kind === 'throw') doAct({ type: 'throwAttack', uid: t.uid!, target })
+  else if (t.kind === 'trip' || t.kind === 'disarm') doAct({type:t.kind,target})
   else doAct({ type: 'ability', id: t.id!, target })
 }
 

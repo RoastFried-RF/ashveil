@@ -53,3 +53,21 @@ describe('키 배정과 실제 게임 키 변환',()=>{
   })
 
 })
+
+describe('기본 전투 행동의 실제 키 배정',()=>{
+ it('ShiftP/ShiftO는 대상 선택이고 새 키로 재지정할 수 있다',()=>{
+  expect(resolveGameKey(input('KeyP',{shiftKey:true}),{})?.command).toBe('trip')
+  expect(resolveGameKey(input('KeyO',{shiftKey:true}),{})?.command).toBe('disarm')
+  expect(resolveGameKey(input('F11'),{trip:['F11']})?.command).toBe('trip')
+ })
+ it('한손 배치는 원래 추가Shift 방향 밀치기를 보존하고 두 행동을 별도 배정한다',()=>{
+  const right=rightHandBindings(),left=leftHandBindings()
+  expect(normalizeBindings(right)).toEqual(right);expect(normalizeBindings(left)).toEqual(left)
+  expect(resolveGameKey(input('KeyO',{shiftKey:true}),right)).toMatchObject({command:'north',shiftKey:true})
+  expect(resolveGameKey(input('KeyP',{shiftKey:true}),right)).toMatchObject({command:'northEast',shiftKey:true})
+  expect(resolveGameKey(input('KeyY',{altKey:true}),right)?.command).toBe('trip')
+  expect(resolveGameKey(input('KeyM',{altKey:true}),right)?.command).toBe('disarm')
+  expect(resolveGameKey(input('KeyB',{altKey:true}),left)?.command).toBe('trip')
+  expect(resolveGameKey(input('KeyG',{altKey:true}),left)?.command).toBe('disarm')
+ })
+})

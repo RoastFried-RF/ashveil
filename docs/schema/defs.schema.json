@@ -7,6 +7,9 @@
   "items": {
     "anyOf": [
       {
+        "$ref": "#/$defs/ManeuverDef"
+      },
+      {
         "$ref": "#/$defs/NpcCareDef"
       },
       {
@@ -303,6 +306,304 @@
     ]
   },
   "$defs": {
+    "ManeuverDef": {
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "required": [
+                  "parent"
+                ]
+              },
+              {
+                "required": [
+                  "abstract"
+                ],
+                "properties": {
+                  "abstract": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "id",
+              "defType"
+            ],
+            "properties": {
+              "defType": {
+                "const": "Maneuver"
+              },
+              "noise": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "kind": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "trip",
+                      "disarm"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "label": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "energy": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "turns": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "base": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "min": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "max": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "differenceMultiplier": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "weaponBonus": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$inherit": {
+                        "const": false
+                      }
+                    },
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "shortBladeBonus": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "twoHandedBonus": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "quadrupedBalance": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "defType",
+              "noise",
+              "kind",
+              "label",
+              "energy",
+              "turns",
+              "base",
+              "min",
+              "max",
+              "differenceMultiplier",
+              "weaponBonus",
+              "shortBladeBonus",
+              "twoHandedBonus",
+              "quadrupedBalance",
+              "id"
+            ],
+            "properties": {
+              "defType": {
+                "const": "Maneuver"
+              },
+              "noise": {
+                "type": "number"
+              },
+              "kind": {
+                "enum": [
+                  "trip",
+                  "disarm"
+                ]
+              },
+              "label": {
+                "type": "string"
+              },
+              "energy": {
+                "type": "number"
+              },
+              "turns": {
+                "type": "number"
+              },
+              "base": {
+                "type": "number"
+              },
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "differenceMultiplier": {
+                "type": "number"
+              },
+              "weaponBonus": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "shortBladeBonus": {
+                "type": "number"
+              },
+              "twoHandedBonus": {
+                "type": "number"
+              },
+              "quadrupedBalance": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
     "NpcCareDef": {
       "type": "object",
       "allOf": [

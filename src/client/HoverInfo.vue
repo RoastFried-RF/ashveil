@@ -3,7 +3,7 @@ import {mapVisibility,terrainAppearance,displayTile} from './map-memory'
 // 맵 위 커서 정보: 지형·물건·생물(상태·체력·명중률). Shift: 명중 공식
 import { computed } from 'vue'
 import {
-  throwQuote, bestiaryEntry, bestiaryStage, bestiaryDetails, knownCreatureName, canReach, cheb, creatureAt, fmtClock, hpMax, innBedAt, residentBedAt, itemDef, itemLabel, lightAt, mainWeapon, observedCondition, player, previewHit, turnOf,
+  maneuverQuote, throwQuote, bestiaryEntry, bestiaryStage, bestiaryDetails, knownCreatureName, canReach, cheb, creatureAt, fmtClock, hpMax, innBedAt, residentBedAt, itemDef, itemLabel, lightAt, mainWeapon, observedCondition, player, previewHit, turnOf,
   type Pos, type World,
 } from '../core'
 import { version, world } from './store'
@@ -42,7 +42,7 @@ const d = computed(() => {
     if (tile.blood > 4) lines.push(tile.blood > 120 ? '피 웅덩이' : '핏자국')
     if (tile.items.length) lines.push('물건: ' + tile.items.map((it) => itemLabel(w, it)).join(', '))
   } else lines.push(tile.observed?`(기억 속의 모습 · 관찰 ${fmtClock(tile.observed.at)})`:'(기억 속의 모습 · 관찰 시각 미기록)')
-  let hit: { chance: number; lines: string[]; reach: boolean } | null = null
+  let hit: { chance: number; lines: string[]; reach: boolean;label?:string } | null = null
   const c = visible ? creatureAt(w, p, true) : undefined
   if (c) {
     const pl = player(w)
@@ -62,6 +62,10 @@ const d = computed(() => {
           const quote = throwQuote(w, pl, aim.uid!, c.id)
           if (quote.preview) hit = { chance: quote.preview.chance, lines: quote.preview.lines, reach: true }
           else if (quote.error) lines.push(quote.error)
+        } else if (aim?.kind === 'trip' || aim?.kind === 'disarm') {
+          const quote=maneuverQuote(w,pl,aim.kind,c.id)
+          if(!quote.error)hit={chance:quote.chance!,lines:quote.lines??[],reach:true,label:aim.label+' 성공'}
+          else lines.push(quote.error)
         } else {
           const ranged = !!mainWeapon(w, pl) && !!itemDef(w, mainWeapon(w, pl)!).ranged && cheb(pl.pos, c.pos) > 1
           const pv = previewHit(w, pl, c, ranged)
@@ -80,7 +84,7 @@ const d = computed(() => {
     <div v-if="d.hp" class="my-1 h-1.5 w-full bg-black/60"><div class="h-full bg-[#b83a2a]" :style="{ width: (d.hp[0] / d.hp[1]) * 100 + '%' }" /></div>
     <div v-for="(l, i) in d.lines" :key="i" class="text-ash-300">{{ l }}</div>
     <div v-if="d.hit" class="mt-1 border-t border-[#4a4436] pt-1">
-      <span class="font-bold text-amber-200">명중 {{ d.hit.chance.toFixed(0) }}%</span>
+      <span class="font-bold text-amber-200">{{ d.hit.label ?? '명중' }} {{ d.hit.chance.toFixed(0) }}%</span>
       <span v-if="!d.hit.reach" class="text-ash-500"> (닿지 않음)</span>
       <span v-if="!detail" class="text-ash-500"> · Shift: 공식</span>
       <div v-if="detail" class="mt-0.5 font-mono text-[11px] text-ash-400"><div v-for="(l, i) in d.hit.lines" :key="i">{{ l }}</div></div>

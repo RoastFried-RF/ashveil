@@ -1121,6 +1121,24 @@ export interface BreakDef extends DefBase {
   startingMap?: string
 }
 
+/** 기본 전투 행동의 정본 확률과 수정 가능한 비용. */
+export interface ManeuverDef extends DefBase {
+  defType:'Maneuver'
+  noise:number
+  kind:'trip'|'disarm'
+  label:string
+  energy:number
+  turns:number
+  base:number
+  min:number
+  max:number
+  differenceMultiplier:number
+  weaponBonus:Partial<Record<string,number>>
+  shortBladeBonus:number
+  twoHandedBonus:number
+  quadrupedBalance:number
+}
+
 export interface AbilityAttackMods {
   /** 명중 가산 (조준 사격 +25) */
   hitBonus?: number
@@ -1776,6 +1794,7 @@ export interface BestiaryRecord {
   fights?: { id: number; map: string; lastTurn: number }[]
 }
 export type AnyDef =
+  | ManeuverDef
   | NpcCareDef | ResidentCultivationDef | ExcavationContractDef | EscortContractDef | NpcIdentityDef | NpcSocialReportDef | NpcSocialDef | PatrolContractDef | PrisonerExchangeDef | RansomDef | NpcAbductionDef | RescueRemainsDef | RescueContractDef | RecoveryContractDef | SourceContractDef | CartographyDef | InteractionDef | NpcPsycheDef | RegionLayoutDef | KinshipDef | FieldDeviceDef | EvidenceDef | RetirementDef
   | BodyDef | WoundDef | ItemDef | CreatureDef | TerrainDef | LootTableDef | TraitDef
   | BackgroundDef | FatigueDef | ThoughtDef | EventDef | PillEffectDef | SkillDef | AbilityDef | DiseaseDef | BreakDef | RecipeDef | MaterialDef | TraumaDef | GrowthDef | RecoveryDef | SurgeryDef | ProcedureDef | NutritionDef | FoodSafetyDef | WaterSafetyDef | ProstheticDef | WorldGenDef | BiomeDef | RegionSiteDef | SeasonDef | WeatherDef | ClimateDef | FactionDef | DiplomacyDef | EconomyDef | TraderStockDef | WorldSimulationDef | DrugDef | PharmacologyDef | KnowledgeDef | BestiaryDef | BestiaryEntryDef | ClinicDef | InnDef | HandHygieneDef | NpcRestDef | ResidentProvisionDef | ResidentWaterDef | ResidentPurificationDef | TeacherDef | ResidentWarmthDef | BeddingMoveDef | SupplyContractDef | BountyContractDef | InvestigationDef | FactionRelationsDef | ColdConfusionDef | CompanionDef | CompanionBondDef | PrisonerDef | PrisonerCareDef | PrisonerEscortDef | RecruitmentDef | RescueDef | NpcCustodyDef | BaseCampDef | BaseDefenseDef | BaseLogisticsDef | BaseWaterDef | BaseRestDef | CampfireDef | BeddingContactDef | GearWeatherDef | MaterialCraftingDef

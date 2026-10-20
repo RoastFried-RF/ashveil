@@ -8,6 +8,7 @@ export const COMMANDS = [
   ['search','시체·용기 수색','s',['KeyS']],['lootAll','모두 가져가기','e',['KeyE']],
   ['rest','10분 휴식','r',['KeyR']],['restHour','1시간 휴식','R',['Shift+KeyR']],['sleep','잠자기','z',['KeyZ','Shift+KeyZ']],
   ['shove','밀치기 방향 선택','p',['KeyP']],['closeDoor','문 닫을 방향 선택','o',['KeyO']],
+  ['trip','넘어뜨리기 대상 선택','P',['Shift+KeyP']],['disarm','무장해제 대상 선택','O',['Shift+KeyO']],
   ['reaction','방어 반응 전환','v',['KeyV','Shift+KeyV']],['attackMode','공격 방식 전환','q',['KeyQ','Shift+KeyQ']],
   ['inspect','상세 정보 전환','x',['KeyX','Shift+KeyX']],['interact','물 주기·모닥불','w',['KeyW']],
   ['dry','옷 말리기','d',['KeyD']],['stairs','계단 사용','Enter',['Enter','NumpadEnter','Shift+Period','Shift+Comma']],
@@ -91,7 +92,7 @@ function oneHandBindings(chosen:Partial<Record<Command,string>>):KeyBindings{
   for(const[id,key]of Object.entries(chosen)as[Command,string][])out[id]=[key]
   return out
 }
-export function leftHandBindings():KeyBindings{return oneHandBindings({north:'KeyW',northEast:'KeyE',east:'KeyD',southEast:'KeyC',south:'KeyX',southWest:'KeyZ',west:'KeyA',northWest:'KeyQ',wait:'KeyS',lootAll:'Alt+KeyE',pickup:'KeyR',search:'KeyF',rest:'KeyT',restHour:'Shift+KeyT',sleep:'KeyG',shove:'KeyV',closeDoor:'KeyB',interact:'Alt+KeyW',reaction:'Alt+KeyV',attackMode:'Alt+KeyQ',inspect:'Alt+KeyX',dry:'Alt+KeyD',shoot:'Alt+KeyF',light:'Alt+KeyT',character:'F1',inventory:'F4',abilities:'F5',body:'F6',journal:'F7',map:'F8',society:'F9',help:'F10'})}
-export function rightHandBindings():KeyBindings{return oneHandBindings({north:'KeyO',northEast:'KeyP',east:'Semicolon',southEast:'Slash',south:'Period',southWest:'Comma',west:'KeyK',northWest:'KeyI',wait:'KeyL',pickup:'KeyU',search:'KeyJ',rest:'KeyH',restHour:'Shift+KeyH',sleep:'KeyN',shove:'KeyY',closeDoor:'KeyM',interact:'Alt+KeyO',reaction:'Alt+KeyP',attackMode:'Alt+KeyK',inspect:'Alt+KeyL',dry:'Alt+Semicolon',stairs:'Enter',shoot:'Alt+KeyJ',light:'Alt+KeyU',character:'F1',inventory:'F4',abilities:'F5',body:'F6',journal:'F7',map:'F8',society:'F9',help:'F10'})}
+export function leftHandBindings():KeyBindings{return oneHandBindings({north:'KeyW',northEast:'KeyE',east:'KeyD',southEast:'KeyC',south:'KeyX',southWest:'KeyZ',west:'KeyA',northWest:'KeyQ',wait:'KeyS',lootAll:'Alt+KeyE',pickup:'KeyR',search:'KeyF',rest:'KeyT',restHour:'Shift+KeyT',sleep:'KeyG',trip:'Alt+KeyB',disarm:'Alt+KeyG',shove:'KeyV',closeDoor:'KeyB',interact:'Alt+KeyW',reaction:'Alt+KeyV',attackMode:'Alt+KeyQ',inspect:'Alt+KeyX',dry:'Alt+KeyD',shoot:'Alt+KeyF',light:'Alt+KeyT',character:'F1',inventory:'F4',abilities:'F5',body:'F6',journal:'F7',map:'F8',society:'F9',help:'F10'})}
+export function rightHandBindings():KeyBindings{return oneHandBindings({north:'KeyO',northEast:'KeyP',east:'Semicolon',southEast:'Slash',south:'Period',southWest:'Comma',west:'KeyK',northWest:'KeyI',wait:'KeyL',pickup:'KeyU',search:'KeyJ',rest:'KeyH',restHour:'Shift+KeyH',sleep:'KeyN',trip:'Alt+KeyY',disarm:'Alt+KeyM',shove:'KeyY',closeDoor:'KeyM',interact:'Alt+KeyO',reaction:'Alt+KeyP',attackMode:'Alt+KeyK',inspect:'Alt+KeyL',dry:'Alt+Semicolon',stairs:'Enter',shoot:'Alt+KeyJ',light:'Alt+KeyU',character:'F1',inventory:'F4',abilities:'F5',body:'F6',journal:'F7',map:'F8',society:'F9',help:'F10'})}
 
 export const primaryBindingText=(bindings:KeyBindings,command:Command)=>{const key=commandKeys(bindings,command)[0];return key?chordLabel(key):'미배정'}

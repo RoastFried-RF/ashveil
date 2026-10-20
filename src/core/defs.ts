@@ -11,7 +11,7 @@ import {SCRIPT_SOURCE_LIMIT,scriptBytes,type ScriptHost,type ScriptModule,type S
 // 엔진 독립: 입력은 순수 JSON 객체, 파일 시스템/번들러에 의존하지 않음.
 
 import type {
-  ResidentCultivationDef, NpcCareDef, ExcavationContractDef, EscortContractDef, NpcIdentityDef, NpcSocialReportDef, NpcSocialDef, PatrolContractDef, PrisonerExchangeDef, RansomDef, NpcAbductionDef, RescueRemainsDef, RescueContractDef, RecoveryContractDef, SourceContractDef, CartographyDef, InteractionDef, NpcPsycheDef, FatigueDef, AbilityDef, AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
+  ManeuverDef, ResidentCultivationDef, NpcCareDef, ExcavationContractDef, EscortContractDef, NpcIdentityDef, NpcSocialReportDef, NpcSocialDef, PatrolContractDef, PrisonerExchangeDef, RansomDef, NpcAbductionDef, RescueRemainsDef, RescueContractDef, RecoveryContractDef, SourceContractDef, CartographyDef, InteractionDef, NpcPsycheDef, FatigueDef, AbilityDef, AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
   SkillDef, TerrainDef, ThoughtDef, TraitDef, BackgroundDef, WoundDef, DiseaseDef, BreakDef, RecipeDef, MaterialDef, TraumaDef, GrowthDef, RecoveryDef, SurgeryDef, ProcedureDef, NutritionDef, FoodSafetyDef, WaterSafetyDef, ProstheticDef, WorldGenDef, BiomeDef, RegionSiteDef, SeasonDef, WeatherDef, ClimateDef, FactionDef, DiplomacyDef, EconomyDef, TraderStockDef, WorldSimulationDef, DrugDef, PharmacologyDef, KnowledgeDef, BestiaryDef, BestiaryEntryDef, ClinicDef, InnDef, HandHygieneDef, NpcRestDef, ResidentProvisionDef, ResidentWaterDef, ResidentPurificationDef, TeacherDef, ResidentWarmthDef, BeddingMoveDef, SupplyContractDef, BountyContractDef, InvestigationDef, FactionRelationsDef, ColdConfusionDef, CompanionDef, CompanionBondDef, PrisonerDef, PrisonerCareDef, PrisonerEscortDef, RecruitmentDef, RescueDef, NpcCustodyDef, BaseCampDef, BaseDefenseDef, BaseLogisticsDef, BaseWaterDef, BaseRestDef, CampfireDef, BeddingContactDef, GearWeatherDef, MaterialCraftingDef, RegionLayoutDef, KinshipDef, FieldDeviceDef, EvidenceDef, RetirementDef,
 } from './types'
 
@@ -371,6 +371,7 @@ const REQUIRED: Record<string, string[]> = {
   ExcavationContract:['label','refreshDays','deadlineBufferDays','baseReward','distanceReward','threatReward','wealthMult','reputation','workTurns','tool','minDurability','targets'],
   EscortContract:['label','routeRules','refreshDays','deadlineDays','baseReward','reputation','followDistance','maxFollowDistance'],
   ResidentCultivation:['label','enabled','roles','homeRadius','doseMl','waterBelowMl','reserveWaterMl','minKcal','maxWaterDeficit','maxFatigue','minBodyTemp','maxBodyTemp'],
+  Maneuver:['noise','kind','label','energy','turns','base','min','max','differenceMultiplier','weaponBonus','shortBladeBonus','twoHandedBonus','quadrupedBalance'],
   NpcCare:['label','enabled','sourceRules','minBond','minMedicine','minBleed','minKcal','maxWaterDeficit','maxFatigue','minBodyTemp','maxBodyTemp','witnessRange','historyLimit'],
   NpcIdentity:['label','enabled','bodies','names','format'],
   NpcSocialReport:['label','sourceRules','positiveAt','negativeAt','maxPeople'],
@@ -1114,6 +1115,13 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if(typeof d.enabled!=='boolean'||!Array.isArray(d.roles)||!d.roles.length||d.roles.some(r=>!['civilian','guard'].includes(r))||new Set(d.roles).size!==d.roles.length)report.errors.push(d.id+': residentCultivation 활성화/주민 역할 오류')
     for(const[key,lo,hi]of[['homeRadius',1,8],['doseMl',1,1000],['waterBelowMl',1,1000],['reserveWaterMl',0,5000],['minKcal',0,2500],['maxWaterDeficit',1,2000],['maxFatigue',1,100],['minBodyTemp',25,42],['maxBodyTemp',26,43]]as const)if(!Number.isFinite(d[key])||d[key]<lo||d[key]>hi||!['minBodyTemp','maxBodyTemp'].includes(key)&&!Number.isSafeInteger(d[key]))report.errors.push(d.id+': residentCultivation.'+key+' 오류')
     if(d.minBodyTemp>=d.maxBodyTemp)report.errors.push(d.id+': residentCultivation 체온 순서 오류')
+  }
+  for(const d of db.all<ManeuverDef>('Maneuver')){
+    if(!['trip','disarm'].includes(d.kind))report.errors.push(`${d.id}: 알 수 없는 기본 전투 행동`)
+    for(const key of ['noise','energy','turns','base','min','max','differenceMultiplier','shortBladeBonus','twoHandedBonus','quadrupedBalance']as const)if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}는 유한한 수여야 한다`)
+    range(d.id,'noise',d.noise,0);range(d.id,'energy',d.energy,0);range(d.id,'turns',d.turns,1);range(d.id,'min',d.min,0,100);range(d.id,'max',d.max,d.min,100)
+    if(!Number.isSafeInteger(d.turns))report.errors.push(`${d.id}: turns는 정수여야 한다`)
+    if(!d.weaponBonus||typeof d.weaponBonus!=='object'||Array.isArray(d.weaponBonus)||Object.values(d.weaponBonus).some(v=>typeof v!=='number'||!Number.isFinite(v)))report.errors.push(`${d.id}: 무기 보정은 유한한 수여야 한다`)
   }
   for(const d of db.all<NpcCareDef>('NpcCare')){
     if(typeof d.enabled!=='boolean')report.errors.push(d.id+': npcCare.enabled 오류')

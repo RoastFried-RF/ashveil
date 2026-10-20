@@ -58,3 +58,15 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## ASHVEIL 원본 투창 아이콘
 
 깃 없는 목재 자루·낡은 금속 끝·섬유 묶음을 새 픽셀 도형으로 직접 제작했다. 원본 PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-javelin-original.md)에 있다.
+
+### 원본 대도 아이콘
+
+넓은 낡은 금속 날·긴 가죽 손잡이·작은 황동 가드를 새 픽셀 좌표로 직접 제작했다. PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-greatsword-original.md)에 있다.
+
+### 원본 기본 전투 행동 아이콘
+
+넘어뜨리는 다리와 손에서 벗어나는 칼을 새 픽셀 좌표로 직접 그렸다. PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-maneuvers-original.md)에 있다.
+
+### 원본 잿빛 약탈자 캐릭터
+
+짧은 철모·가죽 조끼·해진 밧줄 허리띠를 가진 약탈자의4방향28포즈를 새 픽셀 좌표로 직접 그렸다. PNG/SVG·재현 도구·프레임 계약·해시는 [제작 기록](docs/art-reaver-original.md)에 있다.
