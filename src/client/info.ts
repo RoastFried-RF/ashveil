@@ -123,8 +123,14 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   }
   if (d.weapon) lines.push(`막기치 ${d.weapon.block} · 받아넘기기치 ${d.weapon.parry > 0 ? '+' : ''}${d.weapon.parry}`)
   if (it?.edge !== undefined && !d.ranged) lines.push(`날 상태 ${Math.round(it.edge)}% (피해 ×${((60 + it.edge * 0.4) / 100).toFixed(2)})`)
-  if(d.ranged?.firearm){const rates=it&&firearmRates(w,it),cfg=d.ranged.firearm;lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedRound?'한 발 장전됨':'빈 장총'} · ${w.db.item(d.ranged.ammo).label}1 + ${w.db.item(cfg.powder).label}1`);if(rates)lines.push(`총열 오염 ${rates.fouling}/100 · 불발 ${rates.misfire}% · 걸림 ${rates.jam}%${it?.firearmJammed?' · 현재 걸림':''}`,`장전 화약 ${rates.wet?'젖음':'건조'} · 총열 청소 기본${cfg.cleanTurns}턴/총기 기름1 · 걸림 해소 기본${cfg.unjamTurns}턴`)}
-  if(d.powder&&it)lines.push(`화약 젖음 ${(it.powderWetness??0).toFixed(1)}% · 젖으면 불발 위험 증가`)
+  if(d.ranged?.firearm){
+    const rd=d.ranged,cfg=rd.firearm!,rates=it&&firearmRates(w,it),mag=rd.magazine
+    lines.push(mag?`탄창 ${it?.loadedCartridges?.length??0}/${mag.capacity}발 · ${mag.mode==='round'?'한 발마다':'클립'} 기본${rd.reloadTurns}턴`:`장전 기본${rd.reloadTurns}턴 · ${it?.loadedRound?'한 발 장전됨':'빈 장총'} · ${w.db.item(rd.ammo).label}1 + ${w.db.item(cfg.powder!).label}1`)
+    if(mag&&it?.loadedCartridges?.length)lines.push(`다음 탄: ${w.db.item(it.loadedCartridges[0]!.def).label} · 탄창 ${it.loadedCartridges.map(i=>w.db.item(i.def).label).join(' / ')}`)
+    if(rates)lines.push(`총열 오염 ${rates.fouling}/100 · 불발 ${rates.misfire}% · 걸림 ${rates.jam}%${it?.firearmJammed?' · 현재 걸림':''}`,`장전 화약 ${rates.wet?'젖음':'건조'} · 총열 청소 기본${cfg.cleanTurns}턴/총기 기름1 · 걸림 해소 기본${cfg.unjamTurns}턴`)
+  }
+  if((d.powder||d.cartridge)&&it)lines.push(`화약 젖음 ${(it.powderWetness??0).toFixed(1)}% · 젖으면 불발 위험 증가`)
+  if(d.cartridge)lines.push(`실제 한 발 · 기본 불발${d.cartridge.misfire}% · 총열 오염+${d.cartridge.fouling} · 사용 후 빈 탄피 회수`)
   if (d.ranged) lines.push(`유효 사거리 ${d.ranged.effective ?? d.ranged.range} · 최대 ${d.ranged.range} · 탄약 ${w.db.item(d.ranged.ammo).label}`)
   if (d.throwable) {
     const t = d.throwable, a = t.attack

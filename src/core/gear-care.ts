@@ -115,8 +115,8 @@ export function gearTick(w: World, c: Creature,elapsed=1) {
     if(it.missingItem)continue
     const d = itemDef(w, it), held = equipped.includes(it)
     if(d.fletching)exposeFletching(w,it,exposed&&(held||quiverItems(c).includes(it)),elapsed)
-    if(!d.powder&&(it.durability!==undefined||d.apparel||d.ranged||d.book||d.fletching))it.gearAgedAt=turn
-    if(d.powder||d.ranged?.firearm)ageFirearmPowder(w,it,exposed&&held,false,fireWarmth(w,c),elapsed,!allItems(c).includes(it))
+    if(!d.powder&&!d.cartridge&&(it.durability!==undefined||d.apparel||d.ranged||d.book||d.fletching))it.gearAgedAt=turn
+    if(d.powder||d.cartridge||d.ranged?.firearm)ageFirearmPowder(w,it,exposed&&held,false,fireWarmth(w,c),elapsed,!allItems(c).includes(it))
     if(d.ranged&&!d.ranged.firearm)ageBowWeather(w,it,exposed&&held,fireWarmth(w,c),elapsed)
     if (!held || !exposed || !rain || it.durability === undefined) continue
     const m = primaryMaterial(w, it)

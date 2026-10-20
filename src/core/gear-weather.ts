@@ -21,7 +21,7 @@ export function ageLooseGear(w:World,it:ItemInst,pos:Pos,sealed=false,fletchingP
  if(it.missingItem)return
  const d=itemDef(w,it),cfg=gearWeatherDef(w),now=turnOf(w),elapsed=clamp(now-(it.gearAgedAt??now-cfg.intervalTurns),0,cfg.intervalTurns)
  if(d.fletching){const exposed=w.s.map.kind==='surface'&&!w.s.map.tiles[pos.y*w.s.map.w+pos.x].roof;exposeFletching(w,it,!sealed&&!fletchingProtected&&exposed,it.gearAgedAt===undefined?0:elapsed);it.gearAgedAt=now}
- if(d.powder||d.ranged?.firearm){const t=w.s.map.tiles[pos.y*w.s.map.w+pos.x],terr=w.db.terrain(t.t);ageFirearmPowder(w,it,w.s.map.kind==='surface'&&!t.roof,!!terr.water&&(!t.icy||(t.iceHoleUntil??0)>now),warmth(w,pos),it.gearAgedAt===undefined?0:elapsed,sealed||fletchingProtected);if(d.powder)return}
+ if(d.powder||d.cartridge||d.ranged?.firearm){const t=w.s.map.tiles[pos.y*w.s.map.w+pos.x],terr=w.db.terrain(t.t);ageFirearmPowder(w,it,w.s.map.kind==='surface'&&!t.roof,!!terr.water&&(!t.icy||(t.iceHoleUntil??0)>now),warmth(w,pos),it.gearAgedAt===undefined?0:elapsed,sealed||fletchingProtected);if(d.powder||d.cartridge)return}
  if(it.durability===undefined&&!d.apparel&&!d.ranged&&!d.book)return
  if(!elapsed)return
  it.gearAgedAt=now

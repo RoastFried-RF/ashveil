@@ -97,15 +97,16 @@ function consumeInputs(c: Creature, inputs: WorkJob['inputs'],debits?:ScriptItem
   }
   c.bag = c.bag.filter((it) => it.count > 0)
 }
-function receive(w: World, c: Creature, id: string, count: number, quality?: number, uses?: number, foodQ?: number, freshness?: number, foodState?: Pick<ItemInst, 'foodThawed' | 'foodWet' | 'foodLeftover' | 'foodBurnt'>, water?: WaterQuality,stuff?:Stuff,contaminantAsh?:number,originalVessel?:ItemInst,foodWater?:ItemInst['foodWater'],cropHarvest?:ItemInst['cropHarvest']) {
-  const it = originalVessel?structuredClone(originalVessel):makeItem(w, id, count)
+function receive(w: World, c: Creature, id: string, count: number, quality?: number, uses?: number, foodQ?: number, freshness?: number, foodState?: Pick<ItemInst, 'foodThawed' | 'foodWet' | 'foodLeftover' | 'foodBurnt'>, water?: WaterQuality,stuff?:Stuff,contaminantAsh?:number,originalVessel?:ItemInst,foodWater?:ItemInst['foodWater'],cropHarvest?:ItemInst['cropHarvest'],cartridge?:{case:ItemInst;wetness:number}) {
+  const it = originalVessel?structuredClone(originalVessel):cartridge?structuredClone(cartridge.case):makeItem(w, id, count)
+  if(cartridge){if(cartridge.case.count>1)it.uid=w.s.nextId++;it.def=id;it.count=count;it.powderWetness=cartridge.wetness;it.gearAgedAt=turnOf(w);delete it.gx;delete it.gy;delete it.rot}
   if(originalVessel){it.foodVesselDef=it.def;it.def=id;it.count=count;delete it.gx;delete it.gy;delete it.rot;it.uses=w.db.item(id).food?.servings;it.foodSealed=true;delete it.contaminantAsh;delete it.foodWater;delete it.cropHarvest}
   if(stuff)it.stuff=structuredClone(stuff)
   if(cropHarvest)it.cropHarvest=structuredClone(cropHarvest)
   if(foodWater)it.foodWater=structuredClone(foodWater)
   if(contaminantAsh)it.contaminantAsh=contaminantAsh
   if (water) it.water = water
-  if (quality !== undefined&&!originalVessel) it.quality = quality
+  if (quality !== undefined&&!originalVessel&&!cartridge) it.quality = quality
   if (foodQ !== undefined && itemDef(w, it).food) it.foodQ = foodQ
   if (freshness !== undefined && itemDef(w, it).food) { it.freshness = freshness;if(foodState){it.foodThawed=foodState.foodThawed;it.foodWet=foodState.foodWet;it.foodLeftover=foodState.foodLeftover;it.foodBurnt=foodState.foodBurnt} }
   if (uses !== undefined && itemDef(w, it).drink) it.uses = uses
@@ -237,6 +238,8 @@ function workStepCore(w: World, c: Creature,debits?:ScriptItemDebit[]): boolean 
   job.progress++
   if (r?.noise && job.progress % 10 === 0) emitNoise(w, c.pos, r.noise, c.id)
   if (c.activity.remaining > 0) return false
+  const cartridgeSources=r?.cartridgeReload&&{case:job.inputs.find(i=>i.def===r.cartridgeReload!.case),powder:job.inputs.find(i=>i.def===r.cartridgeReload!.powder)}
+  const cartridge=cartridgeSources&&{case:structuredClone(c.bag.find(i=>i.uid===cartridgeSources.case!.uid)!),wetness:c.bag.find(i=>i.uid===cartridgeSources.powder!.uid)!.powderWetness??0}
   const liquid = r && w.db.item(r.output.item).drink ? job.inputs.map((b) => c.bag.find((i) => i.uid === b.uid)).find((i) => i && itemDef(w, i).drink)?.uses : undefined
   const sourceWater = r?.waterTreatment ? job.inputs.map((b) => c.bag.find((i) => i.uid === b.uid)!).find((i) => itemDef(w, i).drink) : undefined
   const liquidQuality = sourceWater && r?.waterTreatment ? treatedWater(w, waterQuality(w, sourceWater), r.waterTreatment) : undefined
@@ -260,13 +263,13 @@ function workStepCore(w: World, c: Creature,debits?:ScriptItemDebit[]): boolean 
       batches.push({ id: w.s.nextId++, recipe: r.id, readyAt: turnOf(w) + r.passiveTurns, pos: { ...c.pos }, quality, crafter: c.id, freshness,...(processing?{processing,foodQ:q}:{}), ...foodState,...(contaminantAsh?{contaminantAsh}:{}),...(foodWater?{foodWater}:{}),...(job.materialPlan?{stuff:structuredClone(job.materialPlan.stuff)}:{}) })
       log(w,'info',r.label+' 재료를 준비했다. '+(r.preservation?'실제 불과 바람·날씨가 맞는 동안 가공한다. 제작 창에서 진행과 중단 이유를 확인할 수 있다.':(r.passiveTurns/1200).toFixed(1)+'시간 뒤 작업장 곁에서 회수할 수 있다.'))
     } else {
-      const out = receive(w, c, r.output.item, r.output.count, quality, liquid, q, freshness, foodState, liquidQuality,job.materialPlan?.stuff,contaminantAsh,meal?.vessel,foodWater)
+      const out = receive(w, c, r.output.item, r.output.count, quality, liquid, q, freshness, foodState, liquidQuality,job.materialPlan?.stuff,contaminantAsh,meal?.vessel,foodWater,undefined,cartridge)
       if(meal){out.foodHeatedAt=turnOf(w);out.foodSaltGrams=meal.salt;delete out.foodSealed;out.foodAgedAt=turnOf(w)}
       if (r.mastery) practice(w, c, r.mastery, `craft:${out.uid}`)
       if(r.interaction)completeInteraction(w,c,r.interaction,r.label+' 실제 완료')
       runScriptHooks(w,'onItemCrafted',{ownerId:c.id,recipe:r.id,item:out.def,uid:out.uid,count:r.output.count})
       runItemLifecycleWorker(w,'onCrafted',c,out,{recipe:r.id,count:r.output.count})
-      log(w, 'good', `${r.label} 완료: ${itemDef(w, out).label} ×${r.output.count} (품질 ${['조악', '보통', '좋음', '뛰어남', '명품', '전설'][quality]}, Q ${q}).`)
+      log(w, 'good', cartridge?`${r.label} 완료: ${itemDef(w,out).label} ×${r.output.count}. 화약 젖음 ${(out.powderWetness??0).toFixed(1)}%.`:`${r.label} 완료: ${itemDef(w, out).label} ×${r.output.count} (품질 ${['조악', '보통', '좋음', '뛰어남', '명품', '전설'][quality]}, Q ${q}).`)
     }
   } else if (job.kind === 'repair' && it) {
     const p = job.repairResult!

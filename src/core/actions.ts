@@ -149,7 +149,7 @@ import { learnAbility, spendStat } from './progression'
 import { masteryStage, practice, studyBook } from './skills'
 import type { Surgery } from './surgery'
 import { canHeatBlade, strainProjectiles, treatmentArm, type Procedure } from './medical'
-import { attemptFirearm, firearmCareStep, firearmShock, startFirearmCare } from './firearms'
+import { attemptFirearm, firearmAmmo, firearmCareStep, firearmShock, magazineReloadStep, startFirearmCare } from './firearms'
 import { finishReload, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
 import { throwAtCreature } from './throwing'
 import { bowProblem } from './gear-state'
@@ -828,7 +828,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
         if(!canSee(w,c,t.pos)||(isPl(c)&&!w.s.visible.includes(t.pos.y*w.s.map.w+t.pos.x)))return FAIL('대상이 보이지 않는다')
         const result=attemptFirearm(w,c,mw)
         if(result==='fired'){resolveAttack(w,c,t,{ranged:true});firearmShock(w,c,mw)}
-        worsenFractures(w,c,'rarm');worsenFractures(w,c,'larm')
+        worsenFractures(w,c,'rarm');if(itemDef(w,mw).twoHanded)worsenFractures(w,c,'larm')
         return {ok:true,tu:100}
       }
       if (bowStringBreaks(w, c)) return { ok: true, tu: 100 }
@@ -1535,7 +1535,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const ammo=findItem(c,a.uid)
       if(!ammo||!supplyItems(c).includes(ammo)||itemDef(w,ammo).category!=='ammo'||ammo.missingItem||ammo.count<1)return FAIL('선택할 실제 탄약이 없다')
       const weapon=c.equip.main,rd=weapon&&itemDef(w,weapon).ranged
-      if(rd&&rd.ammo!==ammo.def)return FAIL('현재 원거리 무기에 맞지 않는 탄약이다')
+      if(rd&&rd.ammo!==ammo.def&&!(weapon&&firearmAmmo(w,weapon,ammo)))return FAIL('현재 원거리 무기에 맞지 않는 탄약이다')
       if(weapon?.loadedAmmo&&!!weapon.loadedAmmoFletching!==!!ammo.fletchingDamaged)return FAIL('이미 장전된 탄약의 깃 상태는 선택으로 바꿀 수 없다')
       const preference={def:ammo.def,fletchingDamaged:!!ammo.fletchingDamaged}
       if(c.ammoPreference?.def!==preference.def||c.ammoPreference.fletchingDamaged!==preference.fletchingDamaged){c.ammoPreference=preference;if(isPl(c))log(w,'info',`다음 사격 탄약: ${itemLabel(w,ammo)}.`)}
@@ -1754,6 +1754,7 @@ export function activityStep(w: World, c: Creature): boolean {
     }
   }
   switch (act.kind) {
+    case 'magazineReload':return magazineReloadStep(w,c)
     case 'firearmCare':return firearmCareStep(w,c)
     case 'pryContainer':return containerPryStep(w,c)
     case 'ransom':

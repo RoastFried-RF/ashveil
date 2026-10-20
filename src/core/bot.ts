@@ -1,3 +1,4 @@
+import {firearmSupply} from './firearms'
 import {canSearchContainer} from './container-locks'
 import {readyFood} from './open-food-state'
 import { corpseMoneyQuote } from './corpse-money'
@@ -94,7 +95,7 @@ const meleeScore = (w: World, it: ItemInst | undefined) => {
 
 export function botDecide(w: World): Action {
   const pl = player(w)
-  const shotAvailable=(it:import('./types').ItemInst)=>{const rd=itemDef(w,it).ranged!;return projectileReady(w,pl,it)||(rd.firearm?[rd.ammo,rd.firearm.powder].every(def=>countOf(pl,def)>0):countOf(pl,rd.ammo)>0)}
+  const shotAvailable=(it:import('./types').ItemInst)=>{const rd=itemDef(w,it).ranged!;return projectileReady(w,pl,it)||(rd.firearm?firearmSupply(w,pl,it):countOf(pl,rd.ammo)>0)}
   const inv = allItems(pl)
   const find = (pred: (d: ReturnType<typeof itemDef>) => boolean) => inv.find((i) => pred(itemDef(w, i)))
 

@@ -172,7 +172,7 @@ async function cont(token?:string) {
               </div>
             </div>
             <p v-else class="p-4 text-xs leading-6 text-red-300">선택한 모드와 배경으로 떠돌이를 생성할 수 없다.</p>
-            <div class="border-t border-ash-700 p-4">
+            <div class="title-start-panel border-t border-ash-700 p-4">
               <p class="text-xs leading-6 text-ash-300">각인은 하나. 행동은 자동으로 기록되며,<br />죽은 떠돌이는 연대기에 남는다.</p>
               <button class="dbtn-gold title-start" data-testid="start" :disabled="!preview || loading || starting || !!loadErrors.length || !!sharedErrors.length" @click="start">{{ starting?'준비 중…':'고원으로 들어선다' }} <span v-if="!starting" class="ml-2" aria-hidden="true">→</span></button>
               <p v-if="err" class="mt-3 text-xs leading-5 text-blood-300" role="alert">{{ err }}</p>
@@ -235,3 +235,20 @@ async function cont(token?:string) {
     </main>
   </div>
 </template>
+
+<style scoped>
+/* 짧은 데스크톱 화면은 첫 화면 안에서 생성 결과와 시작을 함께 읽는다. */
+@media (min-width: 901px) and (max-height: 850px) {
+  .title-hero { min-height: clamp(224px, calc(100dvh - 524px), 280px); padding-top: 18px; padding-bottom: 18px; }
+  .title-wordmark { margin-top: 18px; font-size: 70px; line-height: 1; }
+  .title-subtitle { margin-top: 8px; font-size: 14px; line-height: 1.4; }
+  .title-intro { margin-top: 8px; font-size: 11px; line-height: 1.6; }
+  .title-hero-art { object-position: right 78%; }
+  .title-section-heading { padding-bottom: 11px; }
+  .title-creation-grid { margin-top: 14px; }
+  .title-passport-top { gap: 12px; padding: 12px; }
+  .title-portrait { width: 66px; height: 80px; }
+  .title-passport-body, .title-start-panel { padding: 12px; }
+  .title-start { margin-top: 12px; }
+}
+</style>

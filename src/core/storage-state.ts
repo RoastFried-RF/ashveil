@@ -17,7 +17,12 @@ export function storedItemStateError(s:GameState):string|null{
   if(item.loadedRound!==undefined){
    const round=item.loadedRound
    if(!round||typeof round!=='object'||item.count!==1||!round.ball||!round.powder||item.loadedAmmo!==round.ball.def)return path+': 장전된 두 실물 기록이 올바르지 않다'
-   for(const child of [round.ball,round.powder])if(!Number.isSafeInteger(child.uid)||child.uid<=0||typeof child.def!=='string'||child.count!==1||child.contents!==undefined||child.loadedRound!==undefined||counts.get(child.uid)!==1)return path+': 장전된 탄/화약의 UID/개수 기록이 올바르지 않다'
+   for(const child of [round.ball,round.powder])if(!Number.isSafeInteger(child.uid)||child.uid<=0||typeof child.def!=='string'||child.count!==1||child.contents!==undefined||child.loadedRound!==undefined||child.loadedCartridges!==undefined||counts.get(child.uid)!==1)return path+': 장전된 탄/화약의 UID/개수 기록이 올바르지 않다'
+  }
+  if(item.loadedCartridges!==undefined){
+   const rounds=item.loadedCartridges
+   if(!Array.isArray(rounds)||!rounds.length||rounds.length>20||item.count!==1||item.loadedRound!==undefined||item.loadedAmmo!==rounds[0]?.def)return path+': 탄창의 실제 실탄 기록이 올바르지 않다'
+   for(const child of rounds)if(!child||typeof child!=='object'||!Number.isSafeInteger(child.uid)||child.uid<=0||typeof child.def!=='string'||child.count!==1||child.contents!==undefined||child.loadedRound!==undefined||child.loadedCartridges!==undefined||counts.get(child.uid)!==1)return path+': 탄창 실탄의 UID/개수 기록이 올바르지 않다'
   }
   if((item.fletchingDamaged!==undefined&&typeof item.fletchingDamaged!=='boolean')||(item.loadedAmmoFletching!==undefined&&typeof item.loadedAmmoFletching!=='boolean')||(item.loadedAmmoFletching&&!item.loadedAmmo))return path+': 탄약 깃 상태 기록이 올바르지 않다'
   if(item.contents===undefined)continue

@@ -10,7 +10,7 @@ export function stateItemEntries(s:GameState):ItemEntry[]{
   seen.add(value)
   if(!Array.isArray(value)){
    const row=value as Record<string,unknown>
-   if(Number.isSafeInteger(row.uid)&&typeof row.def==='string'&&Number.isSafeInteger(row.count)){result.push({item:value as ItemInst,path});walk(row.contents,path+'/contents');walk(row.loadedRound,path+'/loadedRound');return}
+   if(Number.isSafeInteger(row.uid)&&typeof row.def==='string'&&Number.isSafeInteger(row.count)){result.push({item:value as ItemInst,path});walk(row.contents,path+'/contents');walk(row.loadedRound,path+'/loadedRound');walk(row.loadedCartridges,path+'/loadedCartridges');return}
   }
   for(const[key,entry]of Object.entries(value)){
    if(key==='inputs'&&path.endsWith('/processing'))continue
@@ -43,6 +43,10 @@ export function validMissingItemRecord(it:ItemInst):boolean{const record=it.miss
 export function restoreMissingItem(it:ItemInst,def=it.missingItem!.def){const original=structuredClone(it.missingItem!.original),position={uid:it.uid,count:it.count,gx:it.gx,gy:it.gy,rot:it.rot,...(it.contents?{contents:it.contents}:{})};for(const key of Object.keys(it))delete(it as unknown as Record<string,unknown>)[key];Object.assign(it,original,position,{def})}
 /** 기록된 크기 변경은 막고, 기록이 없으면 현재 실물 배치만 검사한다. 과거 용량/헤더는 채우지 않는다. */
 function storageShapeChanged(s:GameState,it:ItemInst,current:ItemDef,db:DefDatabase):boolean{
+ if(it.loadedCartridges){
+  const rd=current.ranged,mag=rd?.magazine
+  if(!rd?.firearm||!mag||it.loadedCartridges.length>mag.capacity||it.loadedCartridges.some(i=>![rd.ammo,...mag.alternatives].includes(i.missingItem?.def??i.def)))return true
+ }
  if(!it.contents)return false
  const recorded=s.contentItemShapes?.[it.def]?.storage,size=current.storage??current.pocket??current.quiver?.size
  if(recorded!==undefined&&JSON.stringify(recorded)!==JSON.stringify(size))return true
@@ -77,7 +81,7 @@ export function missingItemPlan(s:GameState,db:DefDatabase){
   }
   if(it.def===MISSING_ITEM){errors.push(entry.path+': 원래 물품 기록 없는 보관물은 사용할 수 없다');continue}
   const current=db.tryGet(it.def)
-  if(current?.defType==='Item'){if(storageShapeChanged(s,it,current,db))errors.push(entry.path+': 기록된 가방의 내부 격자 크기가 현재 정의와 다르거나 확인할 수 없다');continue}
+  if(current?.defType==='Item'){if(storageShapeChanged(s,it,current,db))errors.push(entry.path+(it.loadedCartridges?': 기록된 탄창의 용량이나 탄약이 현재 정의와 다르거나 확인할 수 없다':': 기록된 가방의 내부 격자 크기가 현재 정의와 다르거나 확인할 수 없다'));continue}
   if(current){errors.push(entry.path+': 물품 정의의 종류가 바뀌었다');continue}
   const shapes=s.contentItemShapes,shape=shapes&&Object.hasOwn(shapes,it.def)?shapes[it.def]:undefined
   if(s.contentDefinitions?.[it.def]!=='Item'||!validRecordedItemShape(shape)){errors.push(entry.path+': 없어진 물품의 원래 칸 크기/정의 기록이 없다');continue}

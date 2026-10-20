@@ -652,13 +652,25 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   }
   for(const item of db.all<ItemDef>('Item')){
     if(item.powder!==undefined&&(typeof item.powder!=='boolean'||item.powder&&item.category!=='ammo'))report.errors.push(item.id+': 화약은 실제 탄약 회분이어야 한다')
+    if(item.cartridge!==undefined){
+      const a=item.cartridge,spent=isObj(a)?db.tryGet<ItemDef>(a.spent):undefined
+      if(!isObj(a)||item.category!=='ammo'||item.powder||!item.stackable||!Number.isSafeInteger(a.misfire)||a.misfire<0||a.misfire>100||!Number.isSafeInteger(a.fouling)||a.fouling<1||a.fouling>100||spent?.defType!=='Item'||spent.cartridge||spent.powder||spent.id===item.id)report.errors.push(item.id+': 실제 실탄/불발/오염/빈 탄피 정의가 필요하다')
+    }
     const rd=item.ranged,cfg=rd?.firearm
+    if(rd?.magazine&&!cfg)report.errors.push(item.id+': 탄창에는 실제 화기 설정이 필요하다')
     if(!cfg)continue
     if(!isObj(cfg)){report.errors.push(item.id+': 화기 구조 오류');continue}
-    const ball=db.tryGet<ItemDef>(rd!.ammo),powder=db.tryGet<ItemDef>(cfg.powder),oil=db.tryGet<ItemDef>(cfg.oil)
-    if(!rd!.reloadTurns||!item.twoHanded||item.stackable||item.maxStack!==1||item.attacks?.length!==1||item.attacks[0].damageType!=='gunshot'||ball?.category!=='ammo'||ball.powder||!powder?.powder||oil?.defType!=='Item'||cfg.powder===rd!.ammo)report.errors.push(item.id+': 단발 양손 화기/실제 탄두·화약·기름 정의가 필요하다')
+    const ball=db.tryGet<ItemDef>(rd!.ammo),powder=cfg.powder&&db.tryGet<ItemDef>(cfg.powder),oil=db.tryGet<ItemDef>(cfg.oil),mag=rd!.magazine
+    if(!rd!.reloadTurns||item.stackable||item.maxStack!==1||item.attacks?.length!==1||item.attacks[0].damageType!=='gunshot'||ball?.category!=='ammo'||ball.powder||oil?.defType!=='Item')report.errors.push(item.id+': 화기/실제 탄약·기름 정의가 필요하다')
+    if(mag){
+      if(!isObj(mag)||!Number.isSafeInteger(mag.capacity)||mag.capacity<1||mag.capacity>20||!['round','clip'].includes(mag.mode)||!Array.isArray(mag.alternatives)||new Set(mag.alternatives).size!==mag.alternatives.length||mag.alternatives.includes(rd!.ammo)||cfg.powder!==undefined||!ball?.cartridge||mag.alternatives.some(id=>!db.tryGet<ItemDef>(id)?.cartridge))report.errors.push(item.id+': 탄창 용량/장전 방식/실제 호환 실탄 정의가 필요하다')
+    }else if(!item.twoHanded||!powder||!powder.powder||ball?.cartridge||cfg.powder===rd!.ammo)report.errors.push(item.id+': 단발 양손 화기/실제 탄두·화약·기름 정의가 필요하다')
     for(const key of ['misfire','foulingPerShot','jamThreshold','jamPerPoint','wetThreshold','wetMultiplier','cleanTurns','unjamTurns','moraleShock']as const)if(!Number.isFinite(cfg[key])||cfg[key]<0||cfg[key]>100||(key!=='jamPerPoint'&&!Number.isSafeInteger(cfg[key])))report.errors.push(item.id+': firearm.'+key+' 수치 오류')
     if(cfg.foulingPerShot<1||cfg.wetMultiplier<1||cfg.cleanTurns<1||cfg.unjamTurns<1)report.errors.push(item.id+': 화기 작업/오염/젖음 배율은 양수여야 한다')
+  }
+  for(const r of db.all<RecipeDef>('Recipe'))if(r.cartridgeReload!==undefined){
+    const cfg=r.cartridgeReload,ammo=db.tryGet<ItemDef>(r.output.item)
+    if(!isObj(cfg)||!ammo?.cartridge||r.output.count!==1||r.passiveTurns||r.preservation||ammo.cartridge.spent!==cfg.case||!db.tryGet<ItemDef>(cfg.powder)?.powder||r.inputs.filter(i=>i.item===cfg.case&&i.count===1).length!==1||r.inputs.filter(i=>i.item===cfg.powder&&i.count===1).length!==1)report.errors.push(r.id+': 실제 탄피 한 개/화약 한 회분의 실탄 재장전 정의가 필요하다')
   }
   for (const item of db.all<ItemDef>('Item')) if (item.throwable !== undefined) {
     const td = item.throwable
@@ -1667,6 +1679,8 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     need(i.id, i.ranged?.ammo, 'Item')
     need(i.id, i.ranged?.firearm?.powder, 'Item')
     need(i.id, i.ranged?.firearm?.oil, 'Item')
+    need(i.id, i.cartridge?.spent, 'Item')
+    for(const ammo of i.ranged?.magazine?.alternatives??[])need(i.id,ammo,'Item')
     need(i.id, i.cooking?.result, 'Item')
     need(i.id, i.repair?.material, 'Item')
     need(i.id, i.salvage?.material, 'Item')

@@ -50,3 +50,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## ASHVEIL 원본 화기 아이콘
 
 부싯돌 장총·납탄·흑색화약1회분·총기 기름은 이 프로젝트를 위해 직접 픽셀 도형으로 제작했다. 원본 SVG/PNG·팔레트·재현 도구·해시는 [제작 기록](docs/art-firearm-items-original.md)에 기록한다. 기존 외부 팩의 변형이 아니다.
+
+## ASHVEIL 원본 산업 화기 아이콘
+
+회전식 권총·볼트식 소총·공장/재생 실탄·빈 탄피·뇌관6종을 직접 픽셀 도형으로 제작했다. 원본 SVG/PNG·팔레트·재현 도구·SHA는 [제작 기록](docs/art-industrial-items-original.md)에 기록한다.

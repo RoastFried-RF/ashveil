@@ -1,5 +1,4 @@
-import {firearmReady} from './firearms'
-import {supplyItems} from './items'
+import {firearmReady,firearmSupply} from './firearms'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
 import {residentCultivationDecision} from './resident-cultivation'
@@ -631,7 +630,7 @@ function decideAction(w: World, c: Creature): Action {
     const gun=c.equip.main,gunRange=gun&&itemDef(w,gun).ranged
     if(gun&&gunRange?.firearm&&cheb(c.pos,target.pos)>1 ){
       if(gun.firearmJammed)return {type:'firearmCare',uid:gun.uid,operation:'unjam'}
-      if(cheb(c.pos,target.pos)<=rangedRange(w,c,target)&&(firearmReady(w,c,gun)||[gunRange.ammo,gunRange.firearm.powder].every(def=>supplyItems(c).some(i=>i.def===def&&i.count>0&&!i.missingItem))))return {type:'shoot',target:target.id}
+      if(cheb(c.pos,target.pos)<=rangedRange(w,c,target)&&(firearmReady(w,c,gun)||firearmSupply(w,c,gun)))return {type:'shoot',target:target.id}
     }
     // 원거리 무기
     const mw = mainWeapon(w, c)

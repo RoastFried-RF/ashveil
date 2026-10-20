@@ -1,0 +1,243 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.Revolver",
+    "parent": "Item.Weapon",
+    "label": "회전식 권총",
+    "description": "실제 공장/재생 실탄을 장전한다. 빈 탄피를 주워 장인 작업장에서 재장전할 수 있다.",
+    "sprite": "revolver",
+    "value": 360,
+    "size": [
+      2,
+      2
+    ],
+    "maxStack": 1,
+    "twoHanded": false,
+    "material": "Material.Steel",
+    "ranged": {
+      "range": 14,
+      "effective": 6,
+      "ammo": "Item.FactoryCartridge",
+      "reloadTurns": 2,
+      "firearm": {
+        "oil": "Item.GunOil",
+        "misfire": 2,
+        "foulingPerShot": 1,
+        "jamThreshold": 40,
+        "jamPerPoint": 0.5,
+        "wetThreshold": 30,
+        "wetMultiplier": 2,
+        "cleanTurns": 6,
+        "unjamTurns": 2,
+        "moraleShock": 10
+      },
+      "magazine": {
+        "capacity": 6,
+        "mode": "round",
+        "alternatives": [
+          "Item.ReclaimedCartridge"
+        ]
+      }
+    },
+    "attacks": [
+      {
+        "id": "shoot",
+        "label": "회전식 권총 사격",
+        "damageType": "gunshot",
+        "damage": 14,
+        "pen": 30,
+        "accuracy": 8,
+        "energy": 6,
+        "family": "firearm",
+        "noise": 30
+      }
+    ],
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ],
+      "station": "artisan"
+    },
+    "weight": 1.1
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BoltRifle",
+    "parent": "Item.Weapon",
+    "label": "볼트식 소총",
+    "description": "실제 공장/재생 실탄을 장전한다. 빈 탄피를 주워 장인 작업장에서 재장전할 수 있다.",
+    "sprite": "bolt_rifle",
+    "value": 480,
+    "size": [
+      2,
+      4
+    ],
+    "maxStack": 1,
+    "twoHanded": true,
+    "material": "Material.Steel",
+    "ranged": {
+      "range": 22,
+      "effective": 10,
+      "ammo": "Item.FactoryCartridge",
+      "reloadTurns": 3,
+      "firearm": {
+        "oil": "Item.GunOil",
+        "misfire": 2,
+        "foulingPerShot": 1,
+        "jamThreshold": 40,
+        "jamPerPoint": 0.5,
+        "wetThreshold": 30,
+        "wetMultiplier": 2,
+        "cleanTurns": 6,
+        "unjamTurns": 2,
+        "moraleShock": 10
+      },
+      "magazine": {
+        "capacity": 5,
+        "mode": "clip",
+        "alternatives": [
+          "Item.ReclaimedCartridge"
+        ]
+      }
+    },
+    "attacks": [
+      {
+        "id": "shoot",
+        "label": "볼트식 소총 사격",
+        "damageType": "gunshot",
+        "damage": 24,
+        "pen": 50,
+        "accuracy": 10,
+        "energy": 8,
+        "family": "firearm",
+        "noise": 30
+      }
+    ],
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ],
+      "station": "artisan"
+    },
+    "weight": 3.8
+  },
+  {
+    "defType": "Item",
+    "id": "Item.FactoryCartridge",
+    "label": "공장 실탄",
+    "sprite": "factory_round",
+    "category": "ammo",
+    "value": 43,
+    "weight": 0.03,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "cartridge": {
+      "misfire": 2,
+      "fouling": 1,
+      "spent": "Item.SpentCase"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ReclaimedCartridge",
+    "label": "재생 실탄",
+    "sprite": "reclaimed_round",
+    "category": "ammo",
+    "value": 43,
+    "weight": 0.03,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "cartridge": {
+      "misfire": 8,
+      "fouling": 4,
+      "spent": "Item.SpentCase"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SpentCase",
+    "label": "빈 탄피",
+    "sprite": "empty_case",
+    "category": "misc",
+    "value": 5,
+    "weight": 0.008,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PrimerCap",
+    "label": "뇌관",
+    "sprite": "primer_cap",
+    "category": "misc",
+    "value": 8,
+    "weight": 0.001,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.ReloadCartridge",
+    "label": "빈 탄피에 실탄 재장전",
+    "category": "smithing",
+    "primaryAttr": "per",
+    "basic": true,
+    "workTurns": 60,
+    "tools": [
+      "tongs"
+    ],
+    "stations": [
+      "artisan"
+    ],
+    "inputs": [
+      {
+        "item": "Item.SpentCase",
+        "count": 1
+      },
+      {
+        "item": "Item.LeadBall",
+        "count": 1
+      },
+      {
+        "item": "Item.BlackPowderCharge",
+        "count": 1
+      },
+      {
+        "item": "Item.PrimerCap",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.ReclaimedCartridge",
+      "count": 1
+    },
+    "cartridgeReload": {
+      "case": "Item.SpentCase",
+      "powder": "Item.BlackPowderCharge"
+    }
+  }
+]

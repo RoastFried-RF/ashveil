@@ -157,6 +157,14 @@ async function capture(page, out, name, artifacts) {
   const snapshot = await state(page)
   writeFileSync(join(out, `${name}-state.json`), JSON.stringify(snapshot.view, null, 2))
   writeFileSync(join(out, `${name}-world.json`), JSON.stringify(snapshot.world, null, 2))
+  const layout = await page.evaluate(() => {
+    const start = document.querySelector('[data-testid=start]')
+    if (!start) return null
+    const rect = start.getBoundingClientRect(), x = (rect.left + rect.right) / 2, y = (rect.top + rect.bottom) / 2
+    const atCenter = document.elementFromPoint(x, y)
+    return {viewport: {width: innerWidth, height: innerHeight}, start: {left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom, fullyInViewport: rect.left >= 0 && rect.top >= 0 && rect.right <= innerWidth && rect.bottom <= innerHeight, centerIsClickable: !!atCenter && start.contains(atCenter)}, scrolledElements: [...document.querySelectorAll('*')].filter(el => el.scrollTop || el.scrollLeft).map(el => ({tag: el.tagName, class: el.className, top: el.scrollTop, left: el.scrollLeft}))}
+  })
+  if (layout) writeFileSync(join(out, `${name}-layout.json`), JSON.stringify(layout, null, 2))
   await page.screenshot({path: join(out, `${name}.png`), fullPage: true, animations: 'disabled'})
   artifacts.push(name)
 }

@@ -184,7 +184,8 @@ export type Region = 'head' | 'torso' | 'larm' | 'rarm' | 'lleg' | 'rleg'
 export const REGIONS: Region[] = ['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg']
 
 export interface RangedDef {
-  firearm?: { powder: string; oil: string; misfire: number; foulingPerShot: number; jamThreshold: number; jamPerPoint: number; wetThreshold: number; wetMultiplier: number; cleanTurns: number; unjamTurns: number; moraleShock: number }
+  firearm?: { powder?: string; oil: string; misfire: number; foulingPerShot: number; jamThreshold: number; jamPerPoint: number; wetThreshold: number; wetMultiplier: number; cleanTurns: number; unjamTurns: number; moraleShock: number }
+  magazine?: { capacity: number; mode: 'round' | 'clip'; alternatives: string[] }
   reloadTurns?: number
   /** 최대 사거리 */
   range: number
@@ -272,6 +273,7 @@ export interface ItemDef extends DefBase {
   ranged?: RangedDef
   /** 실제 화약 회분. 젖음은 각 인스턴스에 보존한다. */
   powder?: boolean
+  cartridge?: { misfire: number; fouling: number; spent: string }
   /** 실제 물품 한 개를 던지는 공격. 탄약·장비 슬롯을 새로 만들지 않는다. */
   throwable?: { range: number; effective: number; attack: AttackDef }
   twoHanded?: boolean
@@ -1063,6 +1065,8 @@ export interface CraftBatch {
  processing?:{method:'smoke'|'dry'|'ferment';progress:number;total:number;lastAt:number;signature:string;vessel?:ItemInst;inputs:{uid:number;def:string;count:number}[];fire?:{pos:Pos;uid:number}}
 }
 export interface RecipeDef extends DefBase {
+  /** 같은 원래 탄피와 실제 화약 젖음을 완성 실탄에 보존한다. */
+  cartridgeReload?: { case: string; powder: string }
   interaction?:InteractionEvent
   defType: 'Recipe'
   label: string
@@ -1841,6 +1845,8 @@ export interface ItemInst {
   loadedAmmoFletching?: boolean
   /** 장전으로 옮긴 실제 한 발. 두 실물의 UID/상태를 그대로 저장한다. */
   loadedRound?: { ball: ItemInst; powder: ItemInst }
+  /** 탄창에 옮긴 실제 실탄. 배열 앞의 한 발부터 사용한다. */
+  loadedCartridges?: ItemInst[]
   powderWetness?: number
   firearmFouling?: number
   firearmJammed?: boolean
@@ -2044,12 +2050,13 @@ export interface Activity {
   waterQuality?: WaterQuality
   care?: 'wax' | 'oil' | 'sharpen' | 'string' | 'unstring'
   firearmCare?: 'clean' | 'unjam'
+  reloadUnitTurns?: number
   prisonerOperation?:PrisonerOperation
   prisonerId?:number
   fireUid?:number
   fireHot?:boolean
   beddingWash?:{map:string;terrain:string;uid?:number}
-  kind: 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  kind: 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */

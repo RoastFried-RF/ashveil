@@ -244,7 +244,7 @@ const menuItems = computed(() => {
     else out.push(['줍기',()=>doAct({type:'pickup',uid:m.it.uid})])
     return out
   }
-  if ((m.from === 'bag' || m.from === 'equip') && def.ranged?.reloadTurns && !m.it.loadedAmmo) out.push([`장전 (기본${def.ranged.reloadTurns}턴)`, () => doAct({ type: 'reload', uid: m.it.uid })])
+  if ((m.from === 'bag' || m.from === 'equip') && def.ranged?.reloadTurns && (def.ranged.magazine?(m.it.loadedCartridges?.length??0)<def.ranged.magazine.capacity:!m.it.loadedAmmo)) out.push([`장전 (기본${def.ranged.reloadTurns}턴${def.ranged.magazine?.mode==='round'?'·한 발마다':''})`, () => doAct({ type: 'reload', uid: m.it.uid })])
   if((m.from==='bag'||m.from==='equip')&&def.ranged?.firearm){
     if(m.it.firearmJammed)out.push([`걸림 해소 (기본${def.ranged.firearm.unjamTurns}턴)`,()=>doAct({type:'firearmCare',uid:m.it.uid,operation:'unjam'})])
     if((m.it.firearmFouling??0)>0)out.push([`총열 청소 (기본${def.ranged.firearm.cleanTurns}턴·총기 기름1)`,()=>doAct({type:'firearmCare',uid:m.it.uid,operation:'clean'})])

@@ -14465,6 +14465,51 @@
                   }
                 ]
               },
+              "cartridge": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "misfire": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "fouling": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "spent": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "throwable": {
                 "anyOf": [
                   {
@@ -16378,6 +16423,25 @@
               "powder": {
                 "type": "boolean"
               },
+              "cartridge": {
+                "type": "object",
+                "properties": {
+                  "misfire": {
+                    "type": "number"
+                  },
+                  "fouling": {
+                    "type": "number"
+                  },
+                  "spent": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "misfire",
+                  "fouling",
+                  "spent"
+                ]
+              },
               "throwable": {
                 "type": "object",
                 "properties": {
@@ -17164,7 +17228,6 @@
             }
           },
           "required": [
-            "powder",
             "oil",
             "misfire",
             "foulingPerShot",
@@ -17175,6 +17238,31 @@
             "cleanTurns",
             "unjamTurns",
             "moraleShock"
+          ]
+        },
+        "magazine": {
+          "type": "object",
+          "properties": {
+            "capacity": {
+              "type": "number"
+            },
+            "mode": {
+              "enum": [
+                "round",
+                "clip"
+              ]
+            },
+            "alternatives": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "capacity",
+            "mode",
+            "alternatives"
           ]
         },
         "reloadTurns": {
@@ -29287,6 +29375,41 @@
               "defType"
             ],
             "properties": {
+              "cartridgeReload": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "case": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "powder": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "interaction": {
                 "anyOf": [
                   {
@@ -30188,6 +30311,21 @@
               "id"
             ],
             "properties": {
+              "cartridgeReload": {
+                "type": "object",
+                "properties": {
+                  "case": {
+                    "type": "string"
+                  },
+                  "powder": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "case",
+                  "powder"
+                ]
+              },
               "interaction": {
                 "enum": [
                   "waterBoil",
@@ -57042,6 +57180,116 @@
                   "anyOf": [
                     {
                       "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "magazine": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "capacity": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "mode": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "round",
+                        "clip"
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "alternatives": {
+                  "anyOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "$append": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$prepend": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$remove": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "id"
+                                    ],
+                                    "properties": {
+                                      "id": {}
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "$append"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$prepend"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$remove"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "type": "null"

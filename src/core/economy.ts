@@ -107,7 +107,7 @@ export function tradePrice(w: World, c: Creature, trader: Creature, it: ItemInst
   const irritation = h && h.day === dayOf(w) && h.irritation >= e.irritationAt ? (buy ? e.irritationPrice : 1 / e.irritationPrice) : 1
   const spread = buy ? e.sellMult : trader.faction === 'guild' && d.relic ? e.guildRelicBuyMult : e.buyMult
   const value = (worldMapMarketValue(w,it) ?? d.value ?? 0) * (it.pillRemaining ?? 1) * materialMult * qualityInfo(it).value * condition * fresh * uses * regionalPrice(w, market, it.def) * (buy ? rep : 1 / rep) * haggleMult * irritation * spread
-  return Math.max(buy ? 1 : 0, buy ? Math.ceil(value - 1e-9) : Math.floor(value + 1e-9))+[...(it.contents??[]),...(it.loadedRound?[it.loadedRound.ball,it.loadedRound.powder]:[])].reduce((sum,child)=>sum+tradePrice(w,c,trader,child,buy,ignoreHaggle)*child.count,0)
+  return Math.max(buy ? 1 : 0, buy ? Math.ceil(value - 1e-9) : Math.floor(value + 1e-9))+[...(it.contents??[]),...(it.loadedRound?[it.loadedRound.ball,it.loadedRound.powder]:[]),...(it.loadedCartridges??[])].reduce((sum,child)=>sum+tradePrice(w,c,trader,child,buy,ignoreHaggle)*child.count,0)
 }
 export function tradeQuote(w: World, c: Creature, trader: Creature, buy: TradeLine[], sell: TradeLine[]): { error: string | null; buy: number; sell: number; balance: number } {
   const result = { error: tradeAccess(w, c, trader), buy: 0, sell: 0, balance: 0 }
