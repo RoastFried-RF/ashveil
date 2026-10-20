@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.280 검증 중** · 각인188. 전체5,706개/실제 화면 검증을 통과했고 월드30판은 진행 중이다. 후속 전체 구현은 계속 진행 중이다. 현재 진행은 [진행 상황](docs/progress.md), 코드의 작업 중 기능까지 포함한 상세 상태는 [구현 현황](docs/prototype.md), 사용자 요청 전체와 남은 범위는 [확장 로드맵](docs/expansion-roadmap.md)에 기록한다.
+**현재 상태: 프로토타입 v0.280** · 각인188. 전체5,706개/실제 화면/월드30판 통합 검증을 마쳤다. 후속 전체 구현은 계속 진행 중이다. 현재 진행은 [진행 상황](docs/progress.md), 코드의 작업 중 기능까지 포함한 상세 상태는 [구현 현황](docs/prototype.md), 사용자 요청 전체와 남은 범위는 [확장 로드맵](docs/expansion-roadmap.md)에 기록한다.
 
 ## 현재 플레이할 수 있는 것
 
@@ -111,9 +111,9 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 ![실제 왼손 돌 조준](docs/previews/v279-stone-aim.png)
 ![원래 두 돌 회수](docs/previews/v279-stone-recovered.png)
 
-## 실제 단발 화기 (v0.280 검증 중)
+## 실제 단발 화기 (v0.280 통합 검증 완료)
 
-납탄과 흑색화약을 실제7턴에 장전하고 총기 기름을6턴 청소에 쓴다. 불발/걸림·총상·저장 상태와 직접 그린4아이콘을 연결했다. 전체314파일5,706개/실제 화면5장·전체188복원2회를 통과했고 월드30판 장기 검사를 진행 중이다. [검증 근거](docs/release-v280-proof.json).
+납탄과 흑색화약을 실제7턴에 장전하고 총기 기름을6턴 청소에 쓴다. 불발/걸림·총상·저장 상태와 직접 그린4아이콘을 연결했다. 전체314파일5,706개/실제 화면5장·전체188복원2회를 통과했고 월드30판도 통과했고279와30개 전체 결과 행·평균·사인이 같다. [검증 근거](docs/release-v280-proof.json).
 
 ![원본 장총·납탄·화약·기름](docs/previews/v280-1347-native-original-musket-ball-powder-oil-icons-and-actual-counts.png)
 ![실제 총상 사격](docs/previews/v280-1350-native-actual-gunshot-and-original-one-round-consumed.png)
