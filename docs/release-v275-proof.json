@@ -104,8 +104,21 @@
       "source": "real Title continue of unknown legacy184 containing only old items; actual pouch filling/whole restore; actual craft300turn/equip/put original arrows/keyF+Enter shot/whole restore; no browser state replacement; only headless expected normal renderer FX consumption modeled",
       "errors": []
     },
-    "full": "running on immutable original v275",
-    "world": "runs after full succeeds",
-    "publishedMain": "v0.271 remains the last integrated milestone until full/world pass"
+    "full": {
+      "files": 309,
+      "tests": 5605,
+      "failed": 0,
+      "seconds": 626.7524587402344
+    },
+    "world": {
+      "seconds": 434.567077111,
+      "runs": 30,
+      "wholeRowsIdentical": 27,
+      "wholeRowsChanged": 3,
+      "sameDeathDays": 29,
+      "causesIdentical": true,
+      "audit": "sim-v275-diff.json"
+    },
+    "publishedMain": "v0.275 integrated milestone"
   }
 }
