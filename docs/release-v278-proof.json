@@ -32,7 +32,14 @@
     "wholeStatePhases": 15,
     "errors": 0
   },
-  "full": "pending",
+  "full": {
+    "status": "failed",
+    "passed": 5644,
+    "failed": 1,
+    "files": 312,
+    "seconds": 640.8482282714843,
+    "cause": "removal fixture removed Item.Sack but retained newly added original sprite PATCH targeting it; loader correctly rejected dangling target; fixture corrected in279 combined validation"
+  },
   "source": {
     "src": {
       "files": 635,
