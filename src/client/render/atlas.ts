@@ -8,6 +8,12 @@ export interface CharDef {
   idle: Record<Dir, string[]>
   attack?: Record<Dir, string[]>
   anchor: [number, number]
+  /** 공격 시트의 지면 기준. 걷기와 다른 크기의 프레임도 발 위치를 유지한다. */
+  attackAnchor?: [number, number]
+  /** 원본 픽셀을 월드에 표시하는 배율. 미지정 캐릭터는 기존 0.72를 유지한다. */
+  renderScale?: number
+  /** 지면부터 머리 위 상태 표시까지의 월드 픽셀 높이. */
+  headOffset?: number
 }
 export type Dir = 'down' | 'left' | 'right' | 'up'
 

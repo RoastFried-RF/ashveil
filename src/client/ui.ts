@@ -128,6 +128,7 @@ export function confirmTarget(id?: number) {
 export function useItem(w: World, it: ItemInst): string | null {
   const d = itemDef(w, it)
   const pl = player(w)
+  if(d.category==='ammo')return doAct({type:'selectAmmo',uid:it.uid})
   if (d.drug?.def && w.db.get<DrugDef>(d.drug.def).external) { setWin('body', true); return (hint.value = '신체 창에서 약을 바를 상처를 고르세요.') }
   if (d.prosthetic) { prostheticInstallUid.value = it.uid; setWin('body', true); return (hint.value = '결손 부위를 골라 의수족을 설치할 수 있다.') }
   if (d.medical) {
@@ -165,10 +166,12 @@ export function useHotbar(i: number) {
   if (!ref) return
   if (ref.kind === 'ability') return useAbility(ref.id)
   // 배낭/착용한 허리 주머니의 실제 소모품 (13 §7)
-  const it = quickItem(player(w),ref.def)
+  const it = quickItem(player(w),ref.def,ref.fletchingDamaged)
   if (!it) { hint.value = `${w.db.item(ref.def).label}: 남은 것이 없다`; return }
   useItem(w, it)
 }
+
+export function itemHotbarRef(w:World,it:ItemInst):HotbarRef{return{kind:'item',def:it.def,...(itemDef(w,it).fletching?{fletchingDamaged:!!it.fletchingDamaged}:{})}}
 
 export function assignHotbar(ref: HotbarRef) {
   const w = world.value

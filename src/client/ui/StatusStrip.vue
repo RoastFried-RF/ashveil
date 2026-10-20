@@ -72,7 +72,7 @@ const R = (r: string) => d.value.regions.find((x) => x.r === r)!.s
 
 <template>
   <div class="pointer-events-auto flex items-start gap-2" data-testid="status-strip">
-    <div class="df df-olive !border-[12px] min-w-[180px]">
+    <div class="df df-olive min-w-[180px]">
       <div class="font-title text-[15px] font-bold leading-tight text-[#e8d7a8]" data-testid="location">{{ d.name }}<span v-if="d.depth" class="ml-1 text-xs text-ash-400">지하 {{ d.depth }}층</span></div>
       <div class="text-[11px] text-ash-300">{{ d.clock }} · <template v-if="d.surface">{{ d.weather }} · </template>{{ d.temp.toFixed(0) }}°C</div>
     </div>

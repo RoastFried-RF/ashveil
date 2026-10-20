@@ -7,7 +7,7 @@ import {
 } from '../../core'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
-import { assignHotbar, doAct, hideTip, hint, showTip, useItem, wins } from '../ui'
+import { itemHotbarRef, assignHotbar, doAct, hideTip, hint, showTip, useItem, wins } from '../ui'
 import ItemBadges from './ItemBadges.vue'
 import ItemIcon from './ItemIcon.vue'
 import Win from './Win.vue'
@@ -183,7 +183,7 @@ function up(e: PointerEvent) {
   } else if (kind === 'ground') {
     if (g.from === 'bag'||g.from==='equip') doAct({type:'drop',uid:g.it.uid})
   } else if (kind === 'hotbar') {
-    assignHotbar({ kind: 'item', def: g.it.def })
+    assignHotbar(itemHotbarRef(world.value as World,g.it))
   }
 }
 onBeforeUnmount(() => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('keydown', rotKey, true); window.removeEventListener('contextmenu', rotCtx, true) })
@@ -246,6 +246,7 @@ const menuItems = computed(() => {
   }
   if ((m.from === 'bag' || m.from === 'equip') && def.ranged?.reloadTurns && !m.it.loadedAmmo) out.push([`장전 (기본${def.ranged.reloadTurns}턴)`, () => doAct({ type: 'reload', uid: m.it.uid })])
   if (m.from === 'bag') {
+    if(def.category==='ammo')out.push(['탄약으로 선택',()=>useItem(w,m.it)])
     if (def.place) out.push([w.db.terrain(def.place).gather?(w.db.terrain(def.place).cultivation?.needsSoil===false?'바라보는 바닥에 심기':'바라보는 흙에 심기'):'바라보는 쪽에 설치', () => doAct({ type: 'place', uid: m.it.uid, dir: player(w).facing })])
     if (def.readable) out.push(['읽기', () => doAct({ type: 'read', uid: m.it.uid })])
     if (isWaterVessel(w,m.it)) {
@@ -273,7 +274,7 @@ const menuItems = computed(() => {
     if(def.apparel?.liner)out.push(['안감으로 입기',()=>doAct({type:'equip',uid:m.it.uid,slot:'lining'})])
     if (def.light && !def.slot) out.push([m.it.lit ? '불 끄기' : '불 켜기', () => doAct({ type: 'toggleLight', uid: m.it.uid })])
     if (w.s.loot) out.push(['넣기', () => doAct({ type: 'lootPut', uid: m.it.uid })])
-    out.push(['빠른 슬롯에', () => assignHotbar({ kind: 'item', def: m.it.def })])
+    out.push(['빠른 슬롯에', () => assignHotbar(itemHotbarRef(w,m.it))])
     out.push([def.unidentified === 'pill' ? `감별 (${knowledgeDef(w).examineTurns}턴)` : '살펴보기', () => doAct({ type: 'examine', uid: m.it.uid })])
     out.push(['버리기', () => doAct({ type: 'drop', uid: m.it.uid })])
   } else if (m.from === 'equip' && m.slot) {
@@ -285,7 +286,7 @@ const menuItems = computed(() => {
     if (def.light) out.push([m.it.lit ? '불 끄기' : '불 켜기', () => doAct({ type: 'toggleLight', uid: m.it.uid })])
   } else if (m.from === 'loot') {
     out.push(['가져가기', () => doAct({ type: 'lootTake', uid: m.it.uid })])
-    if(w.s.loot?.kind==='bag'&&w.s.loot.id===d.value.pl.equip.belt?.uid){out.push(['주머니에서 쓰기',()=>useItem(w,m.it)]);out.push(['빠른 슬롯에',()=>assignHotbar({kind:'item',def:m.it.def})])}
+    if(w.s.loot?.kind==='bag'&&(w.s.loot.id===d.value.pl.equip.belt?.uid||w.s.loot.id===d.value.pl.equip.back?.uid)){out.push([def.category==='ammo'?'탄약으로 선택':'주머니에서 쓰기',()=>useItem(w,m.it)]);out.push(['빠른 슬롯에',()=>assignHotbar(itemHotbarRef(w,m.it))])}
   }
   else out.push(['줍기', () => doAct({ type: 'pickup', uid: m.it.uid })])
   return out
@@ -365,10 +366,11 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
     <button v-if="d.pl.equip.belt && d.w.db.item(d.pl.equip.belt.def).pocket" class="dbtn mt-2" data-testid="open-belt-pocket" @click="doAct({type:'openBag',uid:d.pl.equip.belt.uid})">허리 주머니 열기 (2×2)</button>
 
+    <button v-if="d.pl.ammoPreference" class="dbtn mt-2 ml-2" data-testid="clear-ammo-selection" @click="doAct({type:'clearAmmo'})">탄약 자동 선택으로 전환</button>
     <button v-if="d.pl.equip.back && d.w.db.item(d.pl.equip.back.def).quiver" class="dbtn mt-2 ml-2" data-testid="open-quiver" @click="doAct({type:'openBag',uid:d.pl.equip.back.uid})">화살통 열기 (1×6)</button>
 
     <!-- 루팅: 상자·석관·서가·보관함·시체는 격자, 바닥은 목록 (13 §8) -->
-    <div v-if="d.loot" class="df df-olive mt-2 !border-[12px]" data-drop="loot" data-testid="loot">
+    <div v-if="d.loot" class="df df-olive mt-2" data-drop="loot" data-testid="loot">
       <div v-if="d.dissection" class="mb-1 flex items-center gap-2 text-xs" data-testid="dissection-panel"><button class="dbtn" data-testid="dissect-corpse" :disabled="!!d.dissection.error" :title="d.dissection.error??'완료 때 한 번 판정하며 중단하면 사체를 보존한다'" @click="doAct({type:'dissect',target:d.dissection.id})">{{ d.dissection.kind==='machine'?'기계 분해':'사체 해부' }} (기본{{ d.dissection.turns }}턴)</button><span>{{ d.dissection.done ? (d.dissection.done.success?'해부 성공':'해부 실패 · 재료 손상') : d.dissection.error??`성공 ${d.dissection.chance}%` }}</span><span v-if="d.dissection.kind==='human'" class="text-amber-200">완료 시 기분 {{ d.dissection.mood }} · 목격 시 평판 소식 {{ d.dissection.loss }}</span></div>
       <div class="mb-1 flex items-center justify-between">
         <span class="font-title text-sm text-[#e8d7a8]">{{ d.lootLabel }}<span v-if="d.grid" class="ml-2 text-[10px] text-ash-500">{{ d.grid.w }}×{{ d.grid.h }}</span></span>
@@ -419,7 +421,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         </div>
       </template>
     </div>
-    <div v-else-if="d.floor.length" class="df df-olive mt-2 !border-[12px]">
+    <div v-else-if="d.floor.length" class="df df-olive mt-2">
       <div class="mb-1 flex items-center justify-between"><span class="font-title text-sm text-[#e8d7a8]">발밑</span><button class="dbtn" @click="doAct({ type: 'pickup' })">모두 줍기 (G)</button></div>
       <div class="flex flex-wrap gap-1">
         <div v-for="it in d.floor" :key="it.uid" :data-floor-uid="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" @pointerdown="down($event, 'floor', it)" @dblclick="dbl(it, 'floor')" @mouseenter="tip($event, it)" @mouseleave="hideTip">
@@ -432,7 +434,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
     <!-- 끄는 중인 아이템 -->
     <Teleport to="body">
       <div v-if="foodMerge" class="fixed inset-0 z-[10000] flex items-center justify-center bg-black/70" data-testid="food-merge-confirmation" @pointerdown.stop>
-        <div class="df df-celtic max-w-md !border-[14px] p-3 text-sm" role="dialog" aria-modal="true" aria-label="음식 신선도 병합 확인">
+        <div class="df df-celtic max-w-md p-3 text-sm" role="dialog" aria-modal="true" aria-label="음식 신선도 병합 확인">
           <p class="mb-2 text-amber-200">합치면 모두 더 낮은 신선도로 바뀐다.</p>
           <p class="mb-3">{{ foodMerge.description }}</p>
           <button class="dbtn-gold mr-2" data-testid="food-merge-accept" @click="confirmFoodMerge">이 상태로 합치기</button>
@@ -443,7 +445,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" /></div>
         <span class="absolute -bottom-4 left-0 whitespace-nowrap text-[10px] text-amber-200 [text-shadow:0_1px_0_#000]">R·우클릭: 돌리기</span>
       </div>
-      <div v-if="menu" class="df df-celtic fixed z-[9998] !border-[10px] min-w-[120px]" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>
+      <div v-if="menu" class="df df-celtic fixed z-[9998] min-w-[120px]" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>
         <div class="mb-1 border-b border-[#4a4436] text-xs text-[#e8d7a8]">{{ itemLabel(d.w, menu.it) }}</div>
         <button v-for="[l, f] in menuItems" :key="l" class="block w-full px-1 py-0.5 text-left text-xs text-ash-100 hover:bg-[#3a3428] hover:text-amber-200" @click="pick(f)">{{ l }}</button>
       </div>

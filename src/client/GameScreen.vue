@@ -340,30 +340,30 @@ onBeforeUnmount(() => {
     <!-- 위험: 화면 가장자리 붉은 기운 -->
     <div v-if="danger > 0" class="pointer-events-none absolute inset-0" :style="{ opacity: danger, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(120,0,0,.55) 100%)', animation: preferences.warningPulse ? 'danger-vignette 1.6s ease-in-out infinite' : 'none' }" />
 
-    <div class="pointer-events-none absolute left-2 top-2"><StatusStrip /></div>
-    <div class="absolute left-2 top-1/2 -translate-y-1/2"><SideBars /></div>
-    <div class="absolute right-2 top-2 flex flex-col items-end gap-2">
-      <div class="flex gap-1">
+    <div class="pointer-events-none absolute left-3 top-3"><StatusStrip /></div>
+    <div class="absolute left-3 top-1/2 -translate-y-1/2"><SideBars /></div>
+    <div class="absolute right-3 top-3 flex flex-col items-end gap-3">
+      <div class="game-tools flex gap-1.5">
         <button class="dbtn" @click="preferencesOpen = true">설정 (F3)</button>
         <button class="dbtn" @click="help = !help">? 조작법</button>
         <button class="dbtn" @click="abandonToTitle">타이틀</button>
       </div>
-      <p v-if="saveStatus === 'saving'" class="df px-2 text-xs text-ash-300" data-testid="save-status">각인 중…</p>
-      <div v-if="saveStatus === 'error'" class="df max-w-sm p-2 text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn" @click="saveImprint">다시 저장</button></div>
+      <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
+      <div v-if="saveStatus === 'error'" class="df df-celtic max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
       <Banners />
       <HoverInfo v-if="hover" :pos="hover" :detail="shift" />
     </div>
 
-    <div v-if="activity" class="df df-tab pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs text-amber-200">{{ activity }} 중… (위험하면 저절로 멈춘다)</div>
-    <div v-if="targeting" class="df df-btn-sel pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 text-xs text-amber-100">{{ targeting.label }}: 대상 선택 — 클릭 · Tab · Enter · Esc</div>
+    <div v-if="activity" class="game-notice pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
+    <div v-if="targeting" class="game-notice pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
 
-    <div class="pointer-events-none absolute bottom-2 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1">
+    <div class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
       <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ onStairs }}(으)로 ( &gt; )</button></div>
-      <div v-if="hint" class="df df-parch pointer-events-auto max-w-md cursor-pointer text-xs font-bold" data-testid="hint" @click="hint = null">{{ hint }}</div>
+      <div v-if="hint" class="game-notice pointer-events-auto max-w-md cursor-pointer text-xs font-semibold" data-testid="hint" @click="hint = null">{{ hint }}</div>
       <button v-if="resumeDest && w.s.autoThreat !== undefined" class="dbtn pointer-events-auto !text-xs" data-testid="ignore-threat" @click="ignoreAndResume">이번 개체를 무시하고 계속 (공격·3칸 접근 시 해제)</button>
       <Hud />
     </div>
-    <div class="pointer-events-none absolute bottom-[124px] right-2 2xl:bottom-2"><LogPanel /></div>
+    <div class="game-log pointer-events-none absolute bottom-[150px] right-3 2xl:bottom-3"><LogPanel /></div>
 
     <CraftingWindow v-if="wins.craft" />
     <SocietyWindow v-if="wins.society" />
@@ -377,12 +377,12 @@ onBeforeUnmount(() => {
       <div class="font-title text-3xl tracking-widest text-[#e8d7a8] [text-shadow:0_2px_0_#000,0_0_12px_#000]">{{ card.big }}</div>
       <div v-if="card.small" class="mt-1 text-xs text-ash-300 [text-shadow:0_1px_0_#000]">{{ card.small }}</div>
     </div>
-    <div v-if="simulating" class="absolute bottom-36 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded bg-black/80 px-3 py-1 text-xs text-amber-200" role="status" data-testid="simulation-progress"><span>시간이 흐르는 중…</span><button class="dbtn" data-testid="stop-activity" @click="doAct({ type: 'stopActivity' })">중단 (Esc)</button></div>
+    <div v-if="simulating" class="game-notice absolute bottom-40 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 text-xs" role="status" data-testid="simulation-progress"><span>시간이 흐르는 중…</span><button class="dbtn" data-testid="stop-activity" @click="doAct({ type: 'stopActivity' })">중단 (Esc)</button></div>
     <Tooltip />
 
     <div v-if="help" class="absolute inset-0 z-[5000] flex items-center justify-center bg-black/70 p-4" @click="help = false">
-      <div class="df df-gold max-h-[85vh] max-w-xl space-y-1.5 overflow-y-auto text-xs leading-6 text-ash-200" @click.stop>
-        <h2 class="font-title text-lg font-bold text-[#e8d7a8]">조작법</h2>
+      <div class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
+        <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">고원에서 살아남기</h2><button class="dbtn" aria-label="조작법 닫기" @click="help = false">닫기</button></div>
         <p>맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.</p>
         <p>Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.</p>
         <p>방향에 Ctrl을 더하면 제자리 회전, Shift를 더하면 밀친다. 접두 키를 쓴 뒤 방향을 골라도 된다.</p>

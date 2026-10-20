@@ -1,3 +1,4 @@
+import {projectileFletching} from './ranged'
 import {runScriptHooks} from './script-hooks'
 import {cancelRansom} from './ransom'
 import {recordBountyVictory} from './bounty-contracts'
@@ -137,7 +138,7 @@ export function rangedRange(w: World, a: Creature, d: Creature): number {
 }
 
 /** 1단계 명중: clamp(5, 95, 50 + (공격치 − 회피치) × 2 + Σ수정치) (07 §2.1) */
-export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods, wd?: Wield, scriptActual=false): HitPreview | null {
+export function previewHit(w: World, a: Creature, d: Creature, ranged = false, mods?: AbilityAttackMods, wd?: Wield, scriptActual=false,projectileDamaged?:boolean): HitPreview | null {
   const wl = wd ?? (ranged ? wield(w, a) : meleeWield(w, a))
   if (!wl) return null
   const atk = wl.atk
@@ -203,6 +204,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
     const over = Math.max(0, dist - (rd?.effective ?? rd?.range ?? 6))
     let rp = over * 3
     if (traitAdd(w, a, 'rangePenaltyHalf') > 0) rp = Math.floor(rp / 2)
+    if(wl.item&&(projectileDamaged??projectileFletching(w,a,wl.item))){const ammo=rd&&w.db.tryGet<import('./types').ItemDef>(rd.ammo);add('깃 손상',-(ammo?.fletching?.hitPenalty??0))}
     add('사거리 초과', -rp)
     if (dist <= 1) add('인접 사격', -10)
     if (d.movedTurn !== undefined && turn - d.movedTurn <= 1) add('이동 중인 대상', -5)
@@ -346,6 +348,7 @@ const WOUND_FOR: Record<DamageType, string> = {
 
 export interface AttackResult { hit: boolean; damage: number; killed: boolean; woundId?: number; reacted?: string }
 export interface AttackOpts {
+  projectileDamaged?:boolean
   ranged?: boolean
   mods?: AbilityAttackMods
   abilityLabel?: string
@@ -403,7 +406,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const turn = turnOf(w)
   const mods = opts.mods
   const wl = opts.ranged ? wield(w, a, opts.mode) : meleeWield(w, a, opts.mode)
-  const pv = previewHit(w, a, d, opts.ranged, mods, wl,true)
+  const pv = previewHit(w, a, d, opts.ranged, mods, wl,true,opts.projectileDamaged)
   const res: AttackResult = { hit: false, damage: 0, killed: false }
   if (!pv || !wl) return res
   breakMercy(w,a,d)
@@ -857,7 +860,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
   caravanLeaderDied(w,c)
   if(c.body.machine?.components){c.bag.push(...c.body.machine.components);c.body.machine.components=[]}
   for (const wd of c.body.wounds) if (wd.foreign?.kind === 'arrow' && wd.foreign.ammo) {
-    t.items.push(makeItem(w, wd.foreign.ammo)); wd.foreign = undefined
+    const arrow=makeItem(w, wd.foreign.ammo);if(wd.foreign.fletchingDamaged)arrow.fletchingDamaged=true;t.items.push(arrow); wd.foreign = undefined
   }
   if (c.faction !== 'player') {
     // 시체는 실제로 들고 있던 것을 그대로 지닌다: 배낭 격자 + 장착 장비 (13 §8.1). 격자에 안 들어가면 바닥으로

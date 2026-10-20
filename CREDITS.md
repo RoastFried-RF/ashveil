@@ -10,7 +10,7 @@
 |---|---|---|---|
 | [Knowledge Temple](https://pingupollas.itch.io/knowledge-temple) | [pingupollas](https://pingupollas.itch.io/) | 상업 이용 가능, **이름 + itch.io 링크 표기 의무**(원본·수정본 모두), 리소스 팩 형태 재배포·판매 금지, 수정 허용 | 석판 바닥, 벽·서가, 이끼, 석상·석관·항아리·사슬, 화로 애니메이션 (분위기 기준) |
 | [Crawling Depths](https://pingupollas.itch.io/crawling-depths) | [pingupollas](https://pingupollas.itch.io/) | 위와 같음 (**표기 의무**, 팩 재배포 금지) | 오염된 방 바닥, 맥동하는 혈관·눈 소품, 융합체(보스) |
-| [Damp Dungeons](https://arex-v.itch.io/damp-dungeons) | arex-v | 상업 이용·수정 허용, 재판매 금지 (표기 의무 명시 없음 — 감사 표기) | 캐릭터(주인공·약탈자 팔레트 교체·그늘 사람·말라붙은 자·포자 인간), 상자·궤짝·횃불·문 |
+| [Damp Dungeons](https://arex-v.itch.io/damp-dungeons) | arex-v | 상업 이용·수정 허용, 재판매 금지 (표기 의무 명시 없음 — 감사 표기) | 캐릭터(약탈자 팔레트 교체·그늘 사람·말라붙은 자·포자 인간; 주인공은 아래 새 원본으로 교체), 상자·궤짝·횃불·문 |
 | [Dark World](https://kaishido.itch.io/dark-world) | kaishido | CC0 1.0 | 마른 나무, 바위, 버섯 무리 |
 | [16×16 Dark Dungeon](https://kosinaz.itch.io/16x16-dark-dungeon-tileset) | kosinaz | CC0 1.0 | 현재 빌드에서는 미사용 (받아 두었으나 KT 톤과 겹쳐 보류, 후속 후보) |
 | [Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) | 0x72 | CC0 1.0 (코드 MIT) | 계단·사다리·해골 바닥 장식 |
@@ -34,3 +34,9 @@
 - 치즈와 잿딸기의32×32 아이콘은 위와 같은 Crawl RLTiles 원본을 수정 없이 사용한다. 고정 원본 커밋·파일별 URL/SHA-256과 재현 방법은 [food-sources.json](tools/art/food-sources.json)과 [fetch-food-icons.py](tools/art/fetch-food-icons.py)에 보관했다. 나머지 임시 음식 그림은 별도 제작 범위다.
 
 나무 물 양동이 아이콘 public/tiles/water_bucket.png는2026-10-18에 OpenAI image_gen으로 생성한 새 원본이다. 원본 픽셀/투명도를 수정하지 않았다. 파일 해시/생성 명세는 tools/art/water-bucket-source.json을 따른다.
+
+## 프로젝트 원본 아트 (2026-10-20)
+
+- 타이틀: `public/art/ashveil-title.png`. ASHVEIL의 수도원·침묵한 기계 문명에 맞춰 OpenAI image_gen으로 새로 제작했다. 정확한 생성 명세와 파일 해시는 [제작 기록](docs/art-title-original.md)에 보관한다.
+- 떠돌이 초상: `public/art/ashveil-wanderer-portrait.png`. 새 원본 초상을 타이틀 생성 미리보기와 플레이 HUD에 사용한다. 제작·해시 기록은 [캐릭터 아트 문서](docs/art-wanderer-original.md)에 보관한다.
+- 주인공 동작: `public/sprites/original/`의 새 픽셀 시트. 초상과 같은 후드·스카프·구리 장식을 바탕으로 직접 그린4방향 걷기/공격 프레임이며 재생성 소스는 `tools/art/draw-wanderer.mjs`다. 기존 타사 캐릭터를 자르거나 색만 바꾼 시트가 아니다.

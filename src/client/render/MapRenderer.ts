@@ -538,7 +538,7 @@ export class MapRenderer {
     if (ch) {
       body = new Sprite(tex(ch.idle.down[0]))
       body.anchor.set(ch.anchor[0], ch.anchor[1])
-      scale = 0.72
+      scale = ch.renderScale ?? 0.72
     } else if (animFrames(c.sprite).length) {
       anim = animFrames(c.sprite)
       body = new AnimatedSprite(anim)
@@ -616,7 +616,7 @@ export class MapRenderer {
 
   private headY(v: CView): number {
     if (v.anim) return -44
-    if (v.char) return -22
+    if (v.char) return -(v.char.headOffset ?? 22)
     return -15
   }
 
@@ -841,7 +841,7 @@ export class MapRenderer {
       if (v.attackT >= 0 && ch.attack) {
         const fr = ch.attack[v.dir]
         frame = fr[Math.min(fr.length - 1, Math.floor(v.attackT * fr.length))]
-        v.body.anchor.set(0.5, 0.78)
+        v.body.anchor.set(ch.attackAnchor?.[0] ?? 0.5, ch.attackAnchor?.[1] ?? 0.78)
       } else if (moving) {
         const fr = ch.walk[v.dir]
         frame = fr[Math.floor(v.t * 3) % fr.length]

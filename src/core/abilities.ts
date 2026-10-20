@@ -2,7 +2,7 @@ import { knownCreatureName } from './bestiary-state'
 import { alcoholWithdrawalStage } from './drug-state'
 // 액티브·토글 능력 사용 (15 §5~§7). 공격형은 07 §2 파이프라인을 그대로 쓰고 지정한 항만 바꾼다.
 
-import { projectileReady, spendProjectile } from './ranged'
+import { projectileFletching, projectileReady, spendProjectile } from './ranged'
 import { lodgeProjectile } from './medical'
 import { stumbleChance, type ActResult } from './actions'
 import { energyMax, isDestroyed } from './body'
@@ -12,7 +12,7 @@ import { canReach, fx, knockDown, previewHit, pushBack, resolveAttack, sporeClou
 import { creatureAt, creatureById, inBounds, log, rng, terrainAt, turnOf, type World } from './ctx'
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex } from './geom'
-import { itemDef, wield } from './items'
+import { canStack, itemDef, maxStack, wield } from './items'
 import { emitNoise } from './perception'
 import { addEffect, hasEffect, traitAdd, effectiveStat } from './traits'
 import type { AbilityDef, Creature } from './types'
@@ -162,16 +162,18 @@ export function abilityStrike(w: World, c: Creature, t: Creature, d: AbilityDef,
   const mods = d.attack!
   const r = rng(w, 'combat')
   const isPl = c.faction === 'player' || t.faction === 'player'
+  let projectileDamaged=false
   if (ranged) {
     const main = c.equip.main!
     const err = bowProblem(main, itemDef(w, main))
     if (err) return { ok: false, msg: err }
     if (!projectileReady(w, c, main)) return { ok: false, msg: '발사할 탄약이 없다' }
     if (bowStringBreaks(w, c, true)) return { ok: true }
+    projectileDamaged=projectileFletching(w,c,main)
     spendProjectile(w, c, main)
   }
-  const res = resolveAttack(w, c, t, { mods, abilityLabel: d.label, ranged, mode: d.attackMode, paid: true })
-  if (ranged) recoverArrow(w, c, t, res.hit, res.woundId)
+  const res = resolveAttack(w, c, t, { mods, abilityLabel: d.label, ranged, projectileDamaged, mode: d.attackMode, paid: true })
+  if (ranged) recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
   // 꿰뚫기: 바라보는 방향 일직선 2칸의 모든 개체 (가까운 칸부터)
   if (mods.aoe === 'line2') {
     const dir = DIRS[dirIndex(t.pos.x - c.pos.x, t.pos.y - c.pos.y)]
@@ -269,18 +271,22 @@ function lunge(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResu
 }
 
 /** 화살 회수: 명중 60% · 빗나감 85%, 화살 회수 능력 +30%p (상한 95) (07 §7.1 · 15 §6.5) */
-export function recoverArrow(w: World, c: Creature, t: Creature, hit: boolean, woundId?: number) {
+export function recoverArrow(w: World, c: Creature, t: Creature, hit: boolean, woundId?: number,projectileDamaged=false) {
   const rd = itemDef(w, c.equip.main!).ranged
   if (!rd) return
   const p = Math.min(95, (hit ? 60 : 85) + traitAdd(w, c, 'arrowRecover'))
   const intact = rng(w, 'combat').int(0, 99) < p
   const wd = t.body.wounds.find((wd) => wd.id === woundId)
-  if (hit && wd && t.alive) { lodgeProjectile(w, t, wd, rd.ammo, intact); return }
+  if (hit && wd && t.alive) { lodgeProjectile(w, t, wd, rd.ammo, intact,projectileDamaged); return }
   if (intact) {
     const tile = w.s.map.tiles[t.pos.y * w.s.map.w + t.pos.x]
-    const ex = tile.items.find((i) => i.def === rd.ammo)
+    const recovered:import('./types').ItemInst = { uid: w.s.nextId, def: rd.ammo, count: 1 }
+    if(projectileDamaged)recovered.fletchingDamaged=true
+    if(itemDef(w,recovered).fletching)recovered.gearAgedAt=turnOf(w)
+    const limit = maxStack(itemDef(w, recovered))
+    const ex = tile.items.find((i) => i.count < limit && canStack(i, recovered))
     if (ex) ex.count++
-    else tile.items.push({ uid: w.s.nextId++, def: rd.ammo, count: 1 })
+    else { w.s.nextId++; tile.items.push(recovered) }
   }
 }
 

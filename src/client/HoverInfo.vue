@@ -67,7 +67,7 @@ const d = computed(() => {
 </script>
 
 <template>
-  <div v-if="d" class="df df-celtic pointer-events-none !border-[10px] max-w-xs text-xs" data-testid="hover">
+  <div v-if="d" class="df df-celtic pointer-events-none max-w-xs text-xs" data-testid="hover">
     <div class="font-title text-sm font-bold text-[#e8d7a8]">{{ d.title }}</div>
     <div v-if="d.hp" class="my-1 h-1.5 w-full bg-black/60"><div class="h-full bg-[#b83a2a]" :style="{ width: (d.hp[0] / d.hp[1]) * 100 + '%' }" /></div>
     <div v-for="(l, i) in d.lines" :key="i" class="text-ash-300">{{ l }}</div>

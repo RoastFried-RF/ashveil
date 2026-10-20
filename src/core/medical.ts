@@ -77,7 +77,7 @@ export function finishProcedure(w: World, c: Creature, d: ProcedureDef, q: numbe
       const foreign = wd.foreign
       wd.foreign = undefined; wd.contam = Math.max(0, wd.contam - foreign.contam)
       c.body.blood = Math.max(0, c.body.blood - wd.severity * d.bloodPerSeverity!)
-      if (foreign.kind === 'arrow' && foreign.ammo) tileAt(w, c.pos).items.push(makeItem(w, foreign.ammo))
+      if (foreign.kind === 'arrow' && foreign.ammo) {const arrow=makeItem(w,foreign.ammo);if(foreign.fletchingDamaged)arrow.fletchingDamaged=true;tileAt(w,c.pos).items.push(arrow)}
       if (c.faction === 'player') log(w, 'good', `이물질을 뽑았다. 순간적으로 피 ${wd.severity * d.bloodPerSeverity!}ml을(를) 잃었다.`)
     } else {
       wd.severity += d.failureSeverity!
@@ -94,11 +94,12 @@ export function finishProcedure(w: World, c: Creature, d: ProcedureDef, q: numbe
   else if (c.body.blood <= c.body.bloodMax * .5) killCreature(w, c, '과다 출혈')
 }
 
-export function lodgeProjectile(w: World, c: Creature, wd: Wound, ammo: string, intact: boolean) {
+export function lodgeProjectile(w: World, c: Creature, wd: Wound, ammo: string, intact: boolean,fletchingDamaged=false) {
   const rules = medicalRules(w)
   if (!intact && !rng(w, 'combat').chance(rules.brokenHeadChance)) return
   const contam = Math.min(rules.foreignContam, 100 - wd.contam)
   wd.foreign = { kind: intact ? 'arrow' : 'fragment', ammo: intact ? ammo : undefined, contam, pain: 0 }
+  if(intact&&fletchingDamaged)wd.foreign.fletchingDamaged=true
   wd.contam = clamp(wd.contam + contam, 0, 100)
   if (c.faction === 'player') log(w, 'warn', intact ? '화살이 박혔다. 움직이면 아프고, 뽑으면 피가 더 흐른다.' : '부러진 촉이 상처에 남았다.')
 }

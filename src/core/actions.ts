@@ -149,7 +149,7 @@ import { learnAbility, spendStat } from './progression'
 import { masteryStage, practice, studyBook } from './skills'
 import type { Surgery } from './surgery'
 import { canHeatBlade, strainProjectiles, treatmentArm, type Procedure } from './medical'
-import { finishReload, projectileReady, spendProjectile, startReload } from './ranged'
+import { finishReload, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
 import { bowProblem } from './gear-state'
 import { bowStringBreaks, gearCareStep, startGearCare, type GearCare } from './gear-care'
 import { beddingMapKey,packBedding } from './camping'
@@ -357,6 +357,8 @@ export type Action =
   | { type: 'ability'; id: string; target?: number }
   | { type: 'spendStat'; stat: keyof Stats }
   | { type: 'learn'; id: string }
+  | {type:'selectAmmo';uid:number}
+  | {type:'clearAmmo'}
   | { type: 'hotbar'; index: number; ref: HotbarRef | null }
   | { type: 'leave' }
   | { type: 'shove'; dir: number }
@@ -818,9 +820,10 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       }
       if (capacity(w, c, 'manipulation') < 0.5) return FAIL('손이 성치 않아 시위를 당길 수 없다')
       if (bowStringBreaks(w, c)) return { ok: true, tu: 100 }
+      const projectileDamaged=projectileFletching(w,c,mw)
       spendProjectile(w, c, mw)
-      const res = resolveAttack(w, c, t, { ranged: true })
-      recoverArrow(w, c, t, res.hit, res.woundId)
+      const res = resolveAttack(w, c, t, { ranged: true,projectileDamaged })
+      recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
       return { ok: true, tu: 100 }
     }
 
@@ -1510,7 +1513,21 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       return err ? FAIL(err) : FREE
     }
 
+    case 'selectAmmo': {
+      const ammo=findItem(c,a.uid)
+      if(!ammo||!supplyItems(c).includes(ammo)||itemDef(w,ammo).category!=='ammo'||ammo.missingItem||ammo.count<1)return FAIL('선택할 실제 탄약이 없다')
+      const weapon=c.equip.main,rd=weapon&&itemDef(w,weapon).ranged
+      if(rd&&rd.ammo!==ammo.def)return FAIL('현재 원거리 무기에 맞지 않는 탄약이다')
+      if(weapon?.loadedAmmo&&!!weapon.loadedAmmoFletching!==!!ammo.fletchingDamaged)return FAIL('이미 장전된 탄약의 깃 상태는 선택으로 바꿀 수 없다')
+      const preference={def:ammo.def,fletchingDamaged:!!ammo.fletchingDamaged}
+      if(c.ammoPreference?.def!==preference.def||c.ammoPreference.fletchingDamaged!==preference.fletchingDamaged){c.ammoPreference=preference;if(isPl(c))log(w,'info',`다음 사격 탄약: ${itemLabel(w,ammo)}.`)}
+      return FREE
+    }
+
+    case 'clearAmmo': {delete c.ammoPreference;return FREE}
+
     case 'hotbar': {
+      if(a.ref?.kind==='item'&&a.ref.fletchingDamaged!==undefined&&typeof a.ref.fletchingDamaged!=='boolean')return FAIL('탄약 상태 선택이 올바르지 않다')
       if (a.index < 0 || a.index >= c.hotbar.length) return FAIL('칸 오류')
       c.hotbar[a.index] = a.ref
       return FREE

@@ -1,11 +1,19 @@
+import {stateActors} from './missing-statuses'
 import {stateItemEntries} from './missing-items'
 import type {GameState,ItemInst} from './types'
 
 /** 저장 구조만 검사한다. 현재 Def의 격자 변경은 구성 검토에서 검사한다. */
 export function storedItemStateError(s:GameState):string|null{
+ for(const c of stateActors(s)){
+  const preference=c.ammoPreference
+  if(preference!==undefined&&(!preference||typeof preference!=='object'||typeof preference.def!=='string'||typeof preference.fletchingDamaged!=='boolean'))return '탄약 선택 기록이 올바르지 않다'
+  if((c.hotbar??[]).some(ref=>ref?.kind==='item'&&ref.fletchingDamaged!==undefined&&typeof ref.fletchingDamaged!=='boolean'))return '빠른 슬롯의 탄약 상태 기록이 올바르지 않다'
+  if(c.body.wounds.some(wd=>wd.foreign?.fletchingDamaged!==undefined&&(typeof wd.foreign.fletchingDamaged!=='boolean'||wd.foreign.kind!=='arrow')))return '박힌 화살의 깃 상태 기록이 올바르지 않다'
+ }
  const entries=stateItemEntries(s),counts=new Map<number,number>()
  for(const{item}of entries)counts.set(item.uid,(counts.get(item.uid)??0)+1)
  for(const{item,path}of entries){
+  if((item.fletchingDamaged!==undefined&&typeof item.fletchingDamaged!=='boolean')||(item.loadedAmmoFletching!==undefined&&typeof item.loadedAmmoFletching!=='boolean')||(item.loadedAmmoFletching&&!item.loadedAmmo))return path+': 탄약 깃 상태 기록이 올바르지 않다'
   if(item.contents===undefined)continue
   if(!Array.isArray(item.contents)||item.count!==1)return path+': 가방 내부 물품 기록이 올바르지 않다'
   for(const child of item.contents as ItemInst[]){

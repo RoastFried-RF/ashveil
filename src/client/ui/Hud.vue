@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { quickCount, abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
@@ -24,9 +24,9 @@ const d = computed(() => {
       const err = abilityReady(w, pl, ref.id)
       return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
-    const count = quickCount(pl,ref.def)
+    const count = quickCount(pl,ref.def,ref.fletchingDamaged)
     const def = w.db.item(ref.def)
-    return { i, empty: false as const, icon: def.sprite, label: def.label, cd: 0, cdMax: 1, ok: count > 0, count, on: false, ref }
+    return { i, empty: false as const, icon: def.sprite, label: def.label+(ref.fletchingDamaged?' (깃 손상)':''), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {
     pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
@@ -42,6 +42,8 @@ const d = computed(() => {
 
 // 체력이 깎이면 잠시 옅은 잔상 막대를 남긴다
 const ghost = ref(0)
+const portraitVisible = ref(true)
+const portraitSrc = `${import.meta.env.BASE_URL}art/ashveil-wanderer-portrait.png`
 let ghostTimer: ReturnType<typeof setTimeout> | undefined
 watch(() => d.value.hp, (now, before) => {
   if (before !== undefined && now < before) {
@@ -50,64 +52,64 @@ watch(() => d.value.hp, (now, before) => {
     ghostTimer = setTimeout(() => { ghost.value = 0 }, 650)
   }
 })
+onBeforeUnmount(() => clearTimeout(ghostTimer))
 
 function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
   if (s.empty) return showTip(e, `빈 칸 ${s.i === 9 ? 0 : s.i + 1}`, [`능력 창(${primaryBindingText(preferences.keyBindings,'abilities')})이나 소지품(${primaryBindingText(preferences.keyBindings,'inventory')})에서 등록한다`])
   const w = world.value as World
   if (s.ref.kind === 'ability') { const t = abilityTip(w, w.db.ability(s.ref.id)); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기']) }
-  else { const t = itemTip(w, null, s.ref.def); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기'], t.color) }
+  else { const t = itemTip(w, null, s.ref.def); showTip(e, s.label, [...t.lines,...(s.ref.fletchingDamaged?['깃 손상 탄약만 선택한다.']:[]), '우클릭: 칸 비우기'], t.color) }
 }
 
 const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['inv','소지품','inventory'],['abil','능력','abilities'],['body','신체','body'],['journal','일지','journal'],['map','지도','map'],['craft','제작','craft'],['society','주민·세력','society']]
 </script>
 
 <template>
-  <div class="pointer-events-auto flex items-end gap-2" data-testid="hud">
-    <!-- 초상 + 막대 -->
-    <div class="df df-olive flex w-[250px] items-center gap-2">
-      <div class="df df-slot-sel relative flex h-[60px] w-[52px] shrink-0 items-end justify-center overflow-hidden bg-[#1a1712]">
-        <div class="pix origin-bottom scale-[1.8]" :style="frameCss('hero_w_down1', 1)" />
-        <span class="absolute bottom-0 right-0 rounded-sm bg-black/70 px-1 text-[10px] font-bold text-amber-200">{{ d.level }}</span>
+  <div class="hud-shell pointer-events-auto" data-testid="hud">
+    <div v-if="d.chan" class="hud-channel" data-testid="channel">
+      <Bar :value="d.chan.done" :max="d.chan.total" color="gold" :height="18" :label="`${d.chan.label} ${d.chan.done}/${d.chan.total}턴`" />
+    </div>
+
+    <div class="hud-vitals">
+      <div class="hud-portrait">
+        <div class="pix mb-4 origin-bottom scale-[2.8]" :style="frameCss('hero_w_down1', 1)" />
+        <img v-if="portraitVisible" :src="portraitSrc" alt="" @error="portraitVisible = false" />
+        <span class="hud-level">LV. {{ d.level }}</span>
       </div>
-      <div class="flex-1 space-y-1">
-        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" :title="`회복 상한 ${d.cap} (상처 sev 합의 절반만큼 묶여 있다)`" data-testid="hp-bar" />
-        <Bar :value="d.en" :max="d.enMax" color="blue" :label="`기력 ${Math.floor(d.en)} / ${d.enMax}`" />
-        <Bar :value="d.xp" :max="d.xpNext" color="gold" :height="10" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" />
+      <div class="min-w-0 flex-1 space-y-1.5">
+        <p class="hud-name">{{ d.pl.name }}</p>
+        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :height="19" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" :title="`상처로 묶인 회복 상한 ${d.cap} / ${d.hpMax}`" data-testid="hp-bar" />
+        <Bar :value="d.en" :max="d.enMax" color="blue" :height="18" :label="`기력 ${Math.floor(d.en)} / ${d.enMax}`" />
+        <Bar class="hud-xp" :value="d.xp" :max="d.xpNext" color="gold" :height="5" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" aria-label="다음 레벨까지 경험치" />
       </div>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <!-- 채널 진행 -->
-      <div v-if="d.chan" class="df df-tab !py-0.5" data-testid="channel">
-        <Bar :value="d.chan.done" :max="d.chan.total" color="gold" :height="12" :label="`${d.chan.label} ${d.chan.done}/${d.chan.total}턴`" />
-      </div>
-      <!-- 반응 정책 · 공격 방식 -->
-      <div class="flex justify-center gap-1 text-[10px]">
-        <button class="dbtn !text-[10px]" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })">반응: {{ d.policy }} <span class="text-ash-500">{{ primaryBindingText(preferences.keyBindings,'reaction') }}</span></button>
-        <button class="dbtn !text-[10px]" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })">공격: {{ d.mode }} <span class="text-ash-500">{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</span></button>
-      </div>
-      <!-- 창 버튼 -->
-      <div class="flex justify-center gap-1">
-        <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap !text-[11px]" :data-testid="`btn-${k}`" @click="toggleWin(k)">
-          {{ l }}<span class="ml-0.5 text-[9px] text-ash-400">{{ primaryBindingText(preferences.keyBindings,key) }}</span>
-          <span v-if="(k === 'char' && d.points) || (k === 'abil' && d.apoints)" class="pulse-gold absolute -right-1 -top-1 h-2.5 w-2.5 rotate-45 bg-amber-400" />
-        </button>
-      </div>
-      <!-- 빠른 슬롯 -->
-      <div class="df df-celtic !border-[12px] flex gap-[3px]" data-testid="hotbar">
-        <button
-          v-for="s in d.slots" :key="s.i" class="df relative flex h-[46px] w-[46px] items-center justify-center" :class="!s.empty && s.on ? 'df-slot-sel' : 'df-slot'"
-          :data-testid="`hotbar-${s.i}`" @click="useHotbar(s.i)" @contextmenu.prevent="!s.empty && doAct({ type: 'hotbar', index: s.i, ref: null })"
-          @mouseenter="tipSlot($event, s)" @mousemove="tipSlot($event, s)" @mouseleave="hideTip"
-        >
-          <template v-if="!s.empty">
-            <ItemIcon :name="s.icon" :size="32" :dim="!s.ok" />
-            <div v-if="s.cd > 0" class="absolute inset-0 flex items-center justify-center bg-black/65 text-sm font-bold text-[#e8d7a8]">{{ s.cd }}</div>
-            <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ s.count }}</span>
-          </template>
-          <span class="absolute left-0.5 top-0 text-[9px] font-bold text-[#a89c80]">{{ primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command) }}</span>
-        </button>
-      </div>
+    <div class="hud-context">
+      <button class="dbtn" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">반응</span> {{ d.policy }} <kbd>{{ primaryBindingText(preferences.keyBindings,'reaction') }}</kbd></button>
+      <button class="dbtn" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">공격</span> {{ d.mode }} <kbd>{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</kbd></button>
     </div>
+
+    <div class="hud-hotbar" data-testid="hotbar">
+      <button
+        v-for="s in d.slots" :key="s.i" class="df df-slot hud-slot relative flex items-center justify-center" :class="{ 'df-slot-sel': !s.empty && s.on, 'is-selected': !s.empty && s.on, 'is-empty': s.empty }"
+        :data-testid="`hotbar-${s.i}`" :aria-label="`${primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command)}: ${s.empty ? '빈 빠른 슬롯' : s.label}`" :aria-pressed="!s.empty && s.on"
+        @click="useHotbar(s.i)" @contextmenu.prevent="!s.empty && doAct({ type: 'hotbar', index: s.i, ref: null })"
+        @mouseenter="tipSlot($event, s)" @mousemove="tipSlot($event, s)" @mouseleave="hideTip"
+      >
+        <template v-if="!s.empty">
+          <ItemIcon :name="s.icon" :size="32" :dim="!s.ok" />
+          <div v-if="s.cd > 0" class="absolute inset-0 flex items-center justify-center rounded-sm bg-black/70 text-base font-bold text-[#e8d7a8]">{{ s.cd }}</div>
+          <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 rounded-sm bg-[#091114]/80 px-0.5 font-mono text-[11px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]" :data-testid="`hotbar-count-${s.i}`">{{ s.count }}</span>
+        </template>
+        <span class="hud-key">{{ primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command) }}</span>
+      </button>
+    </div>
+
+    <nav class="hud-nav" aria-label="게임 창">
+      <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap" :data-testid="`btn-${k}`" :aria-pressed="wins[k]" @click="toggleWin(k)">
+        {{ l }}<kbd>{{ primaryBindingText(preferences.keyBindings,key) }}</kbd>
+        <span v-if="(k === 'char' && d.points) || (k === 'abil' && d.apoints)" class="pulse-gold absolute right-0 top-0 h-1.5 w-1.5 rounded-full bg-amber-300" />
+      </button>
+    </nav>
   </div>
 </template>

@@ -1,9 +1,10 @@
+import {exposeFletching} from './fletching-state'
 import { rainAcidity, weatherDef } from './climate-state'
 // 08 §5: 날 마모·시위·재비 부식과 정비. 시계와 난수는 게임 상태만 쓴다.
 import { clamp, log, rng, tileAt, turnOf, TURNS_PER_DAY, TURNS_PER_HOUR, type World } from './ctx'
 import { isRaining } from './environment'
 import { armorPartsForBody, averageArmorDurability, bowProblem } from './gear-state'
-import { allItems, findItem, itemDef, qualityInfo, removeOne, storedItems } from './items'
+import { quiverItems, allItems, findItem, itemDef, qualityInfo, removeOne, storedItems } from './items'
 import { primaryMaterial, structuralDurability } from './materials'
 import { fireWarmth } from './thermal'
 import type { Activity, Creature, ItemInst, ItemDef } from './types'
@@ -112,7 +113,8 @@ export function gearTick(w: World, c: Creature,elapsed=1) {
   for (const it of storedItems(allItems(c))) {
     if(it.missingItem)continue
     const d = itemDef(w, it), held = equipped.includes(it)
-    if(it.durability!==undefined||d.apparel||d.ranged||d.book)it.gearAgedAt=turn
+    if(d.fletching)exposeFletching(w,it,exposed&&(held||quiverItems(c).includes(it)),elapsed)
+    if(it.durability!==undefined||d.apparel||d.ranged||d.book||d.fletching)it.gearAgedAt=turn
     if(d.ranged)ageBowWeather(w,it,exposed&&held,fireWarmth(w,c),elapsed)
     if (!held || !exposed || !rain || it.durability === undefined) continue
     const m = primaryMaterial(w, it)

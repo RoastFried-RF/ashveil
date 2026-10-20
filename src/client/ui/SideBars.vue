@@ -36,7 +36,7 @@ const bars = computed<BarSpec[]>(() => {
 </script>
 
 <template>
-  <div class="df df-olive pointer-events-auto flex !border-[8px] gap-1.5" data-testid="sidebars">
+  <div class="df df-olive pointer-events-auto flex gap-1.5" data-testid="sidebars">
     <div v-for="b in bars" :key="b.key" class="flex flex-col items-center gap-0.5" @mouseenter="showTip($event, b.label, b.tip)" @mousemove="showTip($event, b.label, b.tip)" @mouseleave="hideTip">
       <div class="relative h-[86px] w-[9px] overflow-hidden bg-black/70 ring-1 ring-[#3a352a]">
         <div class="absolute inset-x-0 bottom-0 transition-[height] duration-300" :style="{ height: b.frac * 100 + '%', background: color(b.level) }" />

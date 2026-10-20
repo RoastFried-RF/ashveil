@@ -13,7 +13,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <div v-if="tooltip" class="df df-celtic pointer-events-none fixed z-[9999] !border-[10px] max-w-[280px] text-xs" :style="style" data-testid="tooltip">
+  <div v-if="tooltip" class="df df-celtic pointer-events-none fixed z-[9999] max-w-[280px] text-xs" :style="style" data-testid="tooltip">
     <div class="font-title text-sm font-bold" :style="{ color: tooltip.color ?? '#e8d7a8' }">{{ tooltip.title }}</div>
     <div v-for="(l, i) in tooltip.lines" :key="i" class="text-ash-300" :class="i === tooltip.lines.length - 1 && l.length > 30 ? 'mt-1 italic text-ash-400' : ''">{{ l }}</div>
   </div>

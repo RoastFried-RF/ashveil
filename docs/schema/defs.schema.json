@@ -12947,6 +12947,31 @@
                   }
                 ]
               },
+              "fletching": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "hitPenalty": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "stackable": {
                 "anyOf": [
                   {
@@ -15942,6 +15967,17 @@
                 "required": [
                   "size",
                   "ammo"
+                ]
+              },
+              "fletching": {
+                "type": "object",
+                "properties": {
+                  "hitPenalty": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "hitPenalty"
                 ]
               },
               "stackable": {

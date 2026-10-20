@@ -1,3 +1,4 @@
+import {exposeFletching} from './fletching-state'
 // 바닥의 실물·멈춘 지역의 장비만 환경을 정산한다. 생명 활동·AI 시각은 진행시키지 않는다.
 import { rainAcidity, weatherDef, weatherWetPerTurn } from './climate-state'
 import { clamp, turnOf, type World } from './ctx'
@@ -12,12 +13,13 @@ import { THERMAL_REGIONS, THERMAL_TURNS, wetnessTick } from './thermal'
 import type { GearWeatherDef, ItemInst } from './types'
 export const gearWeatherDef=(w:World)=>w.db.get<GearWeatherDef>('GearWeather.Hearth')
 /** 공간 검사 실패는 원본을 바꾸지 않고, 성공 때 정산한 실제 상태를 옮긴다. */
-export function gearForPickup(w:World,it:ItemInst,pos:Pos,sealed=false){const copy=structuredClone(it);for(const item of storedItems([copy]))ageLooseGear(w,item,pos,sealed);return copy}
+export function gearForPickup(w:World,it:ItemInst,pos:Pos,sealed=false){const copy=structuredClone(it);for(const item of storedItems([copy]))ageLooseGear(w,item,pos,sealed,item!==copy);return copy}
 function warmth(w:World,pos:Pos){const d=gearWeatherDef(w);return w.s.map.lights.some((l)=>!l.off&&l.kind!=='torch'&&cheb(pos,l.pos)<=d.fireRadius&&hasLos(w,pos,l.pos))?15:0}
 /** 같은 UID의 마지막 실제 정산 이후만 처리해 집기·내려놓기 경계를 중복 계산하지 않는다. */
-export function ageLooseGear(w:World,it:ItemInst,pos:Pos,sealed=false){
+export function ageLooseGear(w:World,it:ItemInst,pos:Pos,sealed=false,fletchingProtected=false){
  if(it.missingItem)return
  const d=itemDef(w,it),cfg=gearWeatherDef(w),now=turnOf(w),elapsed=clamp(now-(it.gearAgedAt??now-cfg.intervalTurns),0,cfg.intervalTurns)
+ if(d.fletching){const exposed=w.s.map.kind==='surface'&&!w.s.map.tiles[pos.y*w.s.map.w+pos.x].roof;exposeFletching(w,it,!sealed&&!fletchingProtected&&exposed,it.gearAgedAt===undefined?0:elapsed);it.gearAgedAt=now}
  if(it.durability===undefined&&!d.apparel&&!d.ranged&&!d.book)return
  if(!elapsed)return
  it.gearAgedAt=now
@@ -40,8 +42,8 @@ export function gearWeatherTick(w:World){
  for(const local of mapWorlds(w)){
   for(let i=0;i<local.s.map.tiles.length;i++){
    const tile=local.s.map.tiles[i],pos={x:i%local.s.map.w,y:Math.floor(i/local.s.map.w)}
-   for(const it of storedItems(tile.items))ageLooseGear(local,it,pos)
-   for(const it of storedItems(tile.cont?.items??[]))ageLooseGear(local,it,pos,!tile.cont!.opened)
+   for(const it of storedItems(tile.items))ageLooseGear(local,it,pos,false,!tile.items.includes(it))
+   for(const it of storedItems(tile.cont?.items??[]))ageLooseGear(local,it,pos,!tile.cont!.opened,!tile.cont!.items.includes(it))
   }
   if(local.s.map===w.s.map)continue
   for(const c of local.s.creatures){

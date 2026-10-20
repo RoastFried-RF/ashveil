@@ -24,7 +24,7 @@ export function makeItem(w: World, defId: string, count = 1): ItemInst {
   if (def.stuffDefaults) it.stuff = structuredClone(def.stuffDefaults)
   if (def.apparel) it.wetness = {}
   if (def.apparel || def.attacks || def.shield || def.toolTags || def.repair || def.prosthetic) it.durability = 100
-  if (it.durability!==undefined||def.ranged||def.book)it.gearAgedAt=turnOf(w)
+  if (it.durability!==undefined||def.ranged||def.book||def.fletching)it.gearAgedAt=turnOf(w)
   if (def.attacks?.some((a) => a.damageType === 'cut' || a.damageType === 'stab')) it.edge = def.edgeStart ?? 100
   if (def.light) { it.fuel = def.light.fuelTurns; it.lit = false }
   if (def.uses!==undefined) it.uses = def.uses
@@ -57,6 +57,7 @@ export function durabilityBand(d: number): { label: string; color: string } {
 
 /** 쌓임 키 (13 §5): 같은 Def·품질·내구·오염 상태만 쌓인다. */
 export function canStack(a: ItemInst, b: ItemInst): boolean {
+  if(!!a.fletchingDamaged!==!!b.fletchingDamaged)return false
   if(a.contents||b.contents)return false
   if(a.missingItem||b.missingItem||a.def===MISSING_ITEM||b.def===MISSING_ITEM)return false
   if(JSON.stringify(a.cropHarvest)!==JSON.stringify(b.cropHarvest))return false
@@ -89,8 +90,8 @@ export function quiverItems(c:Creature):ItemInst[]{const back=c.equip.back;retur
 export function supplyItems(c:Creature):ItemInst[]{return[...c.bag,...pocketItems(c),...quiverItems(c)]}
 export const itemStorage=(def:ItemDef)=>def.storage??def.pocket??def.quiver?.size
 /** 빠른 슬롯은 배낭/착용한 주머니의 같은 종류만, 가장 덜 신선한 실제 더미부터 쓴다. */
-export function quickItem(c:Creature,def:string):ItemInst|undefined{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem).sort((a,b)=>(a.freshness??100)-(b.freshness??100)||a.uid-b.uid)[0]}
-export function quickCount(c:Creature,def:string):number{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem).reduce((n,it)=>n+it.count,0)}
+export function quickItem(c:Creature,def:string,fletchingDamaged?:boolean):ItemInst|undefined{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).sort((a,b)=>(a.freshness??100)-(b.freshness??100)||a.uid-b.uid)[0]}
+export function quickCount(c:Creature,def:string,fletchingDamaged?:boolean):number{return supplyItems(c).filter(it=>it.def===def&&!it.missingItem&&(fletchingDamaged===undefined||!!it.fletchingDamaged===fletchingDamaged)).reduce((n,it)=>n+it.count,0)}
 
 /** 환경·가치 정산용. 사용/도구 검색은 allItems의 접근 가능한 물품만 찾는다. */
 export function storedItems(items: readonly ItemInst[]): ItemInst[] {
@@ -522,6 +523,7 @@ export function itemLabel(w: World, it: ItemInst): string {
   }
   if (it.pillRemaining !== undefined) s += ` [${Math.round(it.pillRemaining * 4)}/4정]`
   if(def.rawFragment)s+=` [${it.rawGrams??0}g]`
+  if(it.fletchingDamaged)s+=' (깃 손상)'
   if (it.count > 1) s += ` ×${it.count}`
   if (it.uses !== undefined) s += ` [${it.uses}회]`
   if (def.light) s += it.lit ? ' (켜짐)' : ''

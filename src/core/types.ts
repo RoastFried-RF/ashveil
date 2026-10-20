@@ -235,6 +235,8 @@ export interface ItemDef extends DefBase {
   pocket?: [number, number]
   /** 등 슬롯의 화살 전용 격자. 착용을 마쳤을 때만 탄약에 접근한다. */
   quiver?: {size:[number,number];ammo:string[]}
+  /** 재비에 실제 노출된 화살 깃의 명중 감점. */
+  fletching?: {hitPenalty:number}
   stackable?: boolean
   /** 읽을 수 있다 (쪽지 → 소문, 06 §7.0) */
   readable?: boolean
@@ -1831,6 +1833,8 @@ export interface ItemInst {
   waterSettlesAt?: number
   waterFrozen?: boolean
   loadedAmmo?: string
+  loadedAmmoFletching?: boolean
+  fletchingDamaged?: boolean
   freshness?: number
   /** Per piece ash exposure carried from actual processed ingredients. */
   contaminantAsh?:number
@@ -1881,7 +1885,7 @@ export interface Wound {
   tendon?: boolean
   tendonAt?: number
   diseaseRisk?:{def:string;checked?:boolean}[]
-  foreign?: { kind: 'arrow' | 'fragment' | 'bullet'; ammo?: string; contam: number; pain: number }
+  foreign?: { kind: 'arrow' | 'fragment' | 'bullet'; ammo?: string; fletchingDamaged?:boolean; contam: number; pain: number }
   dislocated?: boolean
   stumpLimb?: string
   biteCareUntil?:number
@@ -2215,6 +2219,8 @@ export interface Creature {
   equip: Partial<Record<Slot, ItemInst>>
   /** 빠른 슬롯 10칸 */
   hotbar: (HotbarRef | null)[]
+  /** 선택한 실제 탄약의 종류/깃 상태. 소진 후 다른 상태로 자동 교체하지 않는다. */
+  ammoPreference?: {def:string;fletchingDamaged:boolean}
   hp: number
   level: number
   xp: number
@@ -2316,7 +2322,7 @@ export interface CrisisWatch {
 
 export interface HistoryEvent { turn: number; kind: string; text: string }
 
-export type HotbarRef = { kind: 'ability'; id: string } | { kind: 'item'; def: string }
+export type HotbarRef = { kind: 'ability'; id: string } | { kind: 'item'; def: string; fletchingDamaged?:boolean }
 
 export interface BeddingLice {source:number;at:number;until:number}
 export interface Tile {

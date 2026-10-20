@@ -14,6 +14,7 @@ const dur = computed(() => props.it.durability)
     <span v-for="i in q" :key="i" class="h-[3px] w-[3px] rounded-full" :style="{ background: QUALITY[q].color }" />
     <span v-if="q === 5" class="-mt-[3px] text-[8px] leading-none" :style="{ color: QUALITY[q].color }">★</span>
   </span>
+  <span v-if="it.fletchingDamaged" class="pointer-events-none absolute right-0.5 top-0.5 rounded bg-black/80 px-0.5 text-[9px] text-amber-200" data-testid="fletching-damaged">깃</span>
   <span v-if="it.pillRemaining !== undefined" class="pointer-events-none absolute bottom-0 right-0.5 text-[10px] font-bold text-amber-200" data-testid="pill-fraction">{{ Math.round(it.pillRemaining * 100) }}%</span>
   <span v-if="dur !== undefined && dur < 100" class="pointer-events-none absolute inset-x-1 bottom-0.5 h-[2px] bg-black/70">
     <span class="block h-full" :style="{ width: Math.max(dur, 0) + '%', background: durabilityBand(dur).color }" />

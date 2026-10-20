@@ -57,6 +57,7 @@ const GROUP_LABEL: Record<string, string> = {
 export function itemTip(w: World, it: ItemInst | null, defId?: string): { title: string; lines: string[]; color: string } {
   const d = it ? itemDef(w, it) : w.db.item(defId!)
   const lines: string[] = []
+  if(d.fletching)lines.push(it?.fletchingDamaged?`깃 손상 · 원거리 명중 −${d.fletching.hitPenalty}`:'깃 정상 · 직접 재비에 노출되면 손상된다.', '탄약 선택/빠른 슬롯은 같은 깃 상태만 사용한다. 소진해도 다른 상태를 섞어 쏘지 않는다.')
   if(d.quiver)lines.push('화살 전용1×6칸 · 등 슬롯/망토와 함께 착용 불가', '온전히 착용한 동안 실제 내부 화살을 꺼내 쏘거나 장전한다.')
   if(d.pocket)lines.push('허리 주머니2×2 · 착용 완료 후 소모품에 바로 접근', '전투 중에도 빠른 슬롯 연결은0턴이며 사용은 원래 행동 시간을 쓴다.')
   if(d.storage)lines.push(`내부 ${d.storage[0]}×${d.storage[1]}칸 · ${it?.contents?.length??0}더미 보관`, '더블클릭 또는 우클릭 → 열기. 물품은 꺼낸 뒤 사용한다. 가방을 겹쳐 넣을 수 없다.')
@@ -103,7 +104,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
     if (drug.external) lines.push('신체 창에서 겉으로 드러난 상처를 골라 바른다.')
   }
   const raw=it&&rawStock(w,it);if(raw)lines.push(`제작 원재료: ${raw.material.label} · 조각당 ${raw.unitGrams}g · 합계 ${raw.grams}g${d.rawFragment?' · 재질을 고르는 제작에 다시 쓸 수 있다':''}`)
-  if (d.ranged?.reloadTurns) lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedAmmo ? '한 발 장전됨' : '빈 석궁'} · 빈 석궁으로 사격하면 먼저 장전한다` )
+  if (d.ranged?.reloadTurns) lines.push(`장전 기본${d.ranged.reloadTurns}턴 · ${it?.loadedAmmo ? '한 발 장전됨'+(it?.loadedAmmoFletching?' (깃 손상)':'') : '빈 석궁'} · 빈 석궁으로 사격하면 먼저 장전한다` )
   if(d.apparel?.liningHost)lines.push('안감 칸1개 · 셔츠/재킷을 넣을 수 있다')
   if(d.apparel?.liner)lines.push('안감으로 착용 가능 · 겉옷과 착탈 시간이 합산된다')
   if (it && d.stuffSlots?.length) {
