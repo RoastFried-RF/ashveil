@@ -1121,6 +1121,16 @@ export interface BreakDef extends DefBase {
   startingMap?: string
 }
 
+/** 07 §5의 기본 낮은 자세. 수치는 콘텐츠에서 읽는다. */
+export interface PostureDef extends DefBase {
+  defType:'Posture'
+  label:string
+  movementTurns:number
+  meleeHit:number
+  rangedTargetHit:number
+  noiseMult:number
+}
+
 /** 기본 전투 행동의 정본 확률과 수정 가능한 비용. */
 export interface ManeuverDef extends DefBase {
   defType:'Maneuver'
@@ -1794,6 +1804,7 @@ export interface BestiaryRecord {
   fights?: { id: number; map: string; lastTurn: number }[]
 }
 export type AnyDef =
+  | PostureDef
   | ManeuverDef
   | NpcCareDef | ResidentCultivationDef | ExcavationContractDef | EscortContractDef | NpcIdentityDef | NpcSocialReportDef | NpcSocialDef | PatrolContractDef | PrisonerExchangeDef | RansomDef | NpcAbductionDef | RescueRemainsDef | RescueContractDef | RecoveryContractDef | SourceContractDef | CartographyDef | InteractionDef | NpcPsycheDef | RegionLayoutDef | KinshipDef | FieldDeviceDef | EvidenceDef | RetirementDef
   | BodyDef | WoundDef | ItemDef | CreatureDef | TerrainDef | LootTableDef | TraitDef
@@ -2265,6 +2276,7 @@ export interface Creature {
   abilityPoints: number
   abilities: string[]
   cooldowns: Record<string, number>
+  crouching?: boolean
   sneaking?: boolean
   asleep?: boolean
   /** 실제 횃불 도주에서 배운 상대만. 조회로 과거 학습을 만들지 않는다. */

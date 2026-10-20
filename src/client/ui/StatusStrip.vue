@@ -2,7 +2,7 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
-  hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef,
+  crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef,
   ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
   REGION_LABEL, STATE_LABEL, calendar, weatherLabel, type Region, type World,
 } from '../../core'
@@ -50,6 +50,7 @@ const d = computed(() => {
   if (pl.body.wounds.some((x) => x.fracture && !x.splint)) chips.push({ t: '골절', c: '#e0c0a0', tip: ['부목으로 고정'] })
   if (Object.keys(pl.body.tourniquets).length) chips.push({ t: '지혈대', c: '#e0a040', tip: ['2시간 넘기면 괴사'] })
   if (lightLevel(w, pl.pos) >= 2) chips.push({ t: LIGHT_LABEL[lightLevel(w, pl.pos)], c: '#8890a0', tip: ['내 칸이 어두우면 상대 명중 −15(어둠) · −30(칠흑)', '등불(T)을 켜면 반경 5가 밝음'] })
+  if(crouched(w,pl)){const rule=crouchRule(w)!;chips.push({t:rule.label,c:'#9fb3c8',tip:[`이동 ${rule.movementTurns}턴 · 근접 명중 ${rule.meleeHit}`,`원거리 피격 명중 ${rule.rangedTargetHit} · 발소음 ×${rule.noiseMult}`]})}
   if (pl.sneaking) chips.push({ t: '잠행', c: '#9fb3c8', tip: ['이동이 느리고 눈에 덜 띈다', '잠든 적 기습 ×1.5'] })
   if (mood(w, pl) < 25) chips.push({ t: '절망', c: '#a080a0', tip: ['기분이 바닥이다'] })
   if ((n.ash ?? 0) >= 30) chips.push({ t: (n.ash ?? 0) >= 60 ? '재·신장 위험' : '재 체기', c: '#c08040', tip: [`재 축적${(n.ash ?? 0).toFixed(1)} · 칼로리 흡수×0.9 · 매일1 감소`] })

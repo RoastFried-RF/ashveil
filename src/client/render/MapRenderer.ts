@@ -7,7 +7,7 @@ import {
   AnimatedSprite, Application, Container, Graphics, Sprite, Text, Texture, TextureStyle, type TextStyleOptions,
 } from 'pixi.js'
 import {
-  beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, player, regionState, totalBleed, turnOf, hasEffect,
+  crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, player, regionState, totalBleed, turnOf, hasEffect,
   type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
@@ -42,6 +42,7 @@ interface CView {
   flashT: number
   deadT: number
   alive: boolean
+  crouched:boolean
   unknown: boolean
   scale: number
   zzT: number
@@ -560,7 +561,7 @@ export class MapRenderer {
     const v: CView = {
       id: c.id, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
-      alive: c.alive, unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
+      alive: c.alive, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
     void w
     return v
@@ -592,6 +593,7 @@ export class MapRenderer {
       }
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
+      v.crouched=crouched(w,c)
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
       if (v.alive && !c.alive) { v.alive = false; v.deadT = 0 }
       this.drawBar(w, c, v)
@@ -616,7 +618,7 @@ export class MapRenderer {
 
   private headY(v: CView): number {
     if (v.anim) return -44
-    if (v.char) return -(v.char.headOffset ?? 22)
+    if (v.char) return -(v.char.headOffset ?? 22)*(v.crouched ? .78 : 1)
     return -15
   }
 
@@ -857,7 +859,7 @@ export class MapRenderer {
     const breathe = preferences.animationSpeed > 0 && !moving && v.alive ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy + hop)
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
-    if (v.char || v.anim) v.body.scale.set(v.scale, v.scale * breathe)
+    if (v.char || v.anim) v.body.scale.set(v.scale, v.scale * breathe*(v.crouched ? .78 : 1))
     // 피격 섬광 → 사망 → 시체
     if (!v.alive) {
       v.deadT = Math.min(1, v.deadT + dt / 380)

@@ -1,3 +1,4 @@
+import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
 import {combatManeuver} from './maneuvers'
 import {canSearchContainer,containerLocked,startContainerPry,containerPryStep} from './container-locks'
 import {obtainResidentCropSupply} from './resident-crop-supplies'
@@ -368,6 +369,7 @@ export type Action =
   | { type: 'leave' }
   | { type: 'shove'; dir: number }
   | { type: 'trip'|'disarm'; target:number }
+  | { type: 'crouch' }
   | { type: 'face'; dir: number }
   | { type: 'examineSelf' }
   | { type: 'closeDoor'; dir: number }
@@ -388,7 +390,7 @@ function isPl(c: Creature) { return c.faction === 'player' }
 export function moveTU(w: World, c: Creature, to: Pos): number {
   if(terrainAt(w,to).water==='deep'&&(!tileAt(w,to).icy||(tileAt(w,to).iceHoleUntil??0)>turnOf(w)))return 200
   if (regionPenalties(w, c).crawl) return 200
-  return c.sneaking ? 200 : 100
+  return Math.max(c.sneaking ? 200 : 100,crouched(w,c)?crouchRule(w)!.movementTurns*100:100)
 }
 
 /** 비틀거림% = clamp(0, 60, 왼다리 + 오른다리 + 지형 + 몸) (01 §5.2) */
@@ -780,7 +782,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       for (const it of Object.values(c.equip)) if (it) noise = Math.max(noise, itemDef(w, it).apparel?.noise ?? 0)
       noise += prostheticNoise(w, c)
       noise *= terr.noiseMult ?? 1
-      noise *= traitMul(w, c, 'noiseMult') * (c.sneaking ? 0.3 : 1)
+      noise *= traitMul(w, c, 'noiseMult') * walkingNoiseMultiplier(w,c)
       if (noise >= 2.5) emitNoise(w, to, Math.round(noise), c.id)
       worsenFractures(w, c, 'leg')
       spearWallReact(w, c)
@@ -840,6 +842,13 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const res = resolveAttack(w, c, t, { ranged: true,projectileDamaged })
       recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
       return { ok: true, tu: 100 }
+    }
+
+    case 'crouch': {
+      const error=toggleCrouch(w,c)
+      if(error)return FAIL(error)
+      fx(w,{k:'status',id:c.id,text:c.crouching?'웅크림':'서기',color:'#9fb3c8',turn})
+      return FREE
     }
 
     case 'trip':
@@ -981,6 +990,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (c.needs.fatigue < 15 && !(c.needs.sleepDebt ?? 0)) return FAIL('졸리지 않다')
       if (painStage(painTotal(w, c)) >= 5) return FAIL('너무 아파 잠들 수 없다')
       if (c.needs.bodyTemp < 35) return FAIL('너무 추워 잠들 수 없다. 몸부터 녹여야 한다')
+      delete c.crouching
       delete c.sleepObservation
       c.activity = { kind: 'sleep', remaining: 9600, label: '수면' }
       c.activity.woundCount = c.body.wounds.length

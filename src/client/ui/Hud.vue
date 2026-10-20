@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { quickCount, abilityReady, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
+import { quickCount, abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import { frameCss } from '../render/atlas'
 import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
@@ -44,7 +44,7 @@ const d = computed(() => {
     // 채널 진행 (12 §2.1): "붕대 감기 3/5턴"
     chan: pl.activity?.total ? { label: pl.activity.label, done: pl.activity.total - pl.activity.remaining, total: pl.activity.total } : null,
     policy: { block: '막기 우선', parry: '받아넘기기 우선', none: '반응 안 함' }[pl.reactPolicy ?? 'block'],
-    firearm, mode: wield(w, pl)?.atk.label ?? '맨손',
+    firearm, crouched: crouched(w, pl), mode: wield(w, pl)?.atk.label ?? '맨손',
     modes: (wield(w, pl)?.item ? w.db.item(wield(w, pl)!.item!.def).attacks?.length ?? 0 : 0) > 1,
   }
 })
@@ -95,7 +95,12 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
     </div>
 
     <div class="hud-context">
-      <button class="dbtn" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">반응</span> {{ d.policy }} <kbd>{{ primaryBindingText(preferences.keyBindings,'reaction') }}</kbd></button>
+      <div class="hud-policy-context" role="group" aria-label="반응 정책 및 자세">
+        <button class="dbtn" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">반응</span> {{ d.policy }} <kbd>{{ primaryBindingText(preferences.keyBindings,'reaction') }}</kbd></button>
+        <button class="dbtn hud-posture" :class="{ 'is-crouched': d.crouched }" data-testid="btn-crouch" :aria-pressed="d.crouched" :aria-label="`현재 자세: ${d.crouched ? '웅크림' : '서기'}. ${d.crouched ? '일어서기' : '웅크리기'} (${primaryBindingText(preferences.keyBindings,'crouch')})`" :title="`현재 ${d.crouched ? '웅크림' : '서기'} · ${d.crouched ? '일어서기' : '웅크리기'} (${primaryBindingText(preferences.keyBindings,'crouch')})`" @click="doAct({ type: 'crouch' })">
+          <ItemIcon name="crouch" :size="16" />{{ d.crouched ? '웅크림' : '서기' }}<kbd>{{ primaryBindingText(preferences.keyBindings,'crouch') }}</kbd>
+        </button>
+      </div>
       <div class="hud-attack-context">
         <button class="dbtn" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">공격</span> <span class="hud-mode-label">{{ d.mode }}</span> <kbd>{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</kbd></button>
         <span v-if="d.firearm" class="hud-firearm-ammo" :class="{ 'is-empty': !d.firearm.loaded, 'is-jammed': d.firearm.jammed }" role="status" aria-live="polite" aria-atomic="true" :aria-label="`${d.firearm.label}: 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ', 걸림' : !d.firearm.loaded ? ', 빈 총' : ''}`" :title="`${d.firearm.label} · 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ' · 걸림' : !d.firearm.loaded ? ' · 빈 총' : ''}`" data-testid="hud-firearm-ammo" :data-weapon-uid="d.firearm.uid" :data-loaded="d.firearm.loaded" :data-capacity="d.firearm.capacity" :data-jammed="d.firearm.jammed">
@@ -137,11 +142,16 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
 </template>
 
 <style scoped>
+.hud-context { flex-wrap: wrap; row-gap: 4px; }
+.hud-policy-context { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 3px; }
+.hud-policy-context > button { flex-shrink: 0; white-space: nowrap; }
+.hud-context .hud-posture { gap: 3px; padding-inline: 5px; }
+.hud-context .hud-posture.is-crouched { border-color: #8d9a70; background: #34483b; color: #f2e8c5; }
 .hud-nav { flex-wrap: wrap; }
 .hud-maneuvers { display: flex; flex-shrink: 0; align-items: center; gap: 3px; margin-left: 4px; padding-left: 7px; border-left: 1px solid #687052; }
 .hud-nav .hud-maneuver-button { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; min-height: 24px; padding: 2px 6px; border-color: #626d52; background: #30372980; color: #ded8ba; font-size: 10px; }
 .hud-nav .hud-maneuver-button:hover { border-color: #bea56e; background: #424832; color: #fff0c6; }
-.hud-attack-context { display: flex; min-width: 0; align-items: center; gap: 6px; }
+.hud-attack-context { display: flex; min-width: 0; max-width: 100%; align-items: center; gap: 6px; margin-left: auto; }
 .hud-attack-context > button { min-width: 0; }
 .hud-mode-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hud-firearm-ammo { display: inline-flex; flex-shrink: 0; min-height: 20px; align-items: center; gap: 5px; border: 1px solid #758164; border-radius: 3px; background: #182b29; padding: 1px 6px; color: #e2d9b9; white-space: nowrap; }

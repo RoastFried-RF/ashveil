@@ -322,3 +322,5 @@ export * from './missing-creatures'
 export * from './container-locks'
 
 export * from './maneuvers'
+
+export * from './posture'

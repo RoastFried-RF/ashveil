@@ -70,3 +70,9 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### 원본 잿빛 약탈자 캐릭터
 
 짧은 철모·가죽 조끼·해진 밧줄 허리띠를 가진 약탈자의4방향28포즈를 새 픽셀 좌표로 직접 그렸다. PNG/SVG·재현 도구·프레임 계약·해시는 [제작 기록](docs/art-reaver-original.md)에 있다.
+
+### 원본 웅크림 아이콘
+
+낮춘 상체·굽힌 무릎·두 부츠를 새 픽셀 도형으로 직접 그렸다. PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-crouch-original.md)에 있다.
+
+- 두 번째 약탈자의 얼굴 천·비대칭 어깨천·28개 동작은 ASHVEIL 원본 픽셀 좌표로 직접 제작했다. [원본·재현·출처](docs/art-reaver1-original.md), `tools/art/draw-reaver1.mjs`. 외부 이미지 픽셀을 읽거나 재색칠하지 않는다.

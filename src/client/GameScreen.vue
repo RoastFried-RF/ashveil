@@ -240,6 +240,7 @@ function onKey(raw: KeyboardEvent) {
   if (/^[0-9]$/.test(e.key)) { useHotbar(e.key === '0' ? 9 : Number(e.key) - 1); return }
   switch (e.key) {
     case '.': case ' ': case 'Numpad5': e.preventDefault(); doAct({ type: 'wait' }); break
+    case 'Crouch': doAct({type:'crouch'}); break
     case 'P': startManeuver('trip'); break
     case 'O': startManeuver('disarm'); break
     case 'p': prefix.value = 'shove'; hint.value = '밀칠 방향을 누른다 (Esc 취소)'; break

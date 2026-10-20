@@ -7,6 +7,9 @@
   "items": {
     "anyOf": [
       {
+        "$ref": "#/$defs/PostureDef"
+      },
+      {
         "$ref": "#/$defs/ManeuverDef"
       },
       {
@@ -306,6 +309,167 @@
     ]
   },
   "$defs": {
+    "PostureDef": {
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "required": [
+                  "parent"
+                ]
+              },
+              {
+                "required": [
+                  "abstract"
+                ],
+                "properties": {
+                  "abstract": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "id",
+              "defType"
+            ],
+            "properties": {
+              "defType": {
+                "const": "Posture"
+              },
+              "label": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "movementTurns": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "meleeHit": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "rangedTargetHit": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "noiseMult": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "defType",
+              "label",
+              "movementTurns",
+              "meleeHit",
+              "rangedTargetHit",
+              "noiseMult",
+              "id"
+            ],
+            "properties": {
+              "defType": {
+                "const": "Posture"
+              },
+              "label": {
+                "type": "string"
+              },
+              "movementTurns": {
+                "type": "number"
+              },
+              "meleeHit": {
+                "type": "number"
+              },
+              "rangedTargetHit": {
+                "type": "number"
+              },
+              "noiseMult": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
     "ManeuverDef": {
       "type": "object",
       "allOf": [

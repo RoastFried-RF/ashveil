@@ -1,3 +1,4 @@
+import {crouched,crouchRule} from './posture'
 import {projectileFletching} from './ranged'
 import {runScriptHooks} from './script-hooks'
 import {cancelRansom} from './ransom'
@@ -168,6 +169,8 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   if (traitAdd(w, a, 'nightOwl') > 0 && lp < 0) lp = mods?.aimed ? Math.ceil(lp / 2) : Math.min(0, lp + 5)
   add(['밝음', '어스름', '어둠', '칠흑'][lv], lp)
   if (isDown(w, d) && !helpless(d)) add('넘어진 상대', ranged ? -15 : 20)
+  if(ranged&&crouched(w,d))add('웅크린 상대',crouchRule(w)!.rangedTargetHit)
+  if(!ranged&&crouched(w,a))add('웅크림 자세',crouchRule(w)!.meleeHit)
   // 고저차 (07 §5): 단차 1 높으면 근접 +10 · 원거리 +5, 낮으면 반대
   const elev = terrainAt(w, a.pos).elevation ?? 0, delev = terrainAt(w, d.pos).elevation ?? 0
   if (elev !== delev) add(elev > delev ? '높은 자리' : '낮은 자리', (elev > delev ? 1 : -1) * (ranged ? 5 : 10))
@@ -772,6 +775,7 @@ function secondary(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numbe
 
 export function knockDown(w: World, d: Creature, isPlayer: boolean, dName: string) {
   const turn = turnOf(w)
+  delete d.crouching
   // 넘어지면 일어나기 1턴 (다리 골절 시 3턴)
   const legFx = d.body.wounds.some((x) => x.fracture && (part(w, d, x.part).region === 'lleg' || part(w, d, x.part).region === 'rleg'))
   addEffect(d, 'knockedDown', turn + (legFx ? 3 : 1) + 1)

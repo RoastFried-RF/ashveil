@@ -9,6 +9,7 @@ export const COMMANDS = [
   ['rest','10분 휴식','r',['KeyR']],['restHour','1시간 휴식','R',['Shift+KeyR']],['sleep','잠자기','z',['KeyZ','Shift+KeyZ']],
   ['shove','밀치기 방향 선택','p',['KeyP']],['closeDoor','문 닫을 방향 선택','o',['KeyO']],
   ['trip','넘어뜨리기 대상 선택','P',['Shift+KeyP']],['disarm','무장해제 대상 선택','O',['Shift+KeyO']],
+  ['crouch','웅크림·서기 전환','Crouch',['Alt+KeyC']],
   ['reaction','방어 반응 전환','v',['KeyV','Shift+KeyV']],['attackMode','공격 방식 전환','q',['KeyQ','Shift+KeyQ']],
   ['inspect','상세 정보 전환','x',['KeyX','Shift+KeyX']],['interact','물 주기·모닥불','w',['KeyW']],
   ['dry','옷 말리기','d',['KeyD']],['stairs','계단 사용','Enter',['Enter','NumpadEnter','Shift+Period','Shift+Comma']],
