@@ -2,6 +2,7 @@
 // 코어 상태는 깊고 크므로 Vue 반응성 대신 shallowRef + version 카운터를 쓴다.
 
 import { ref, shallowRef } from 'vue'
+import {gameObservation} from './game-observation'
 import {
   GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
   type Action, type DefDatabase, type DeathReport, type LoadReport, type World,
@@ -289,6 +290,7 @@ export function randomSeed(): string {
 
 // 디버그/E2E 훅: ?debug 일 때만 노출
 if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug')) {
+  ;(window as unknown as Record<string, unknown>).render_game_to_text = () => JSON.stringify(gameObservation(world.value,screen.value))
   void import('../core/bot').then(({ botDecide }) => {
     ;(window as unknown as Record<string, unknown>).__ashveil = {
       world: () => world.value,

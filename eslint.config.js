@@ -4,7 +4,7 @@ import vue from 'eslint-plugin-vue'
 import globals from 'globals'
 
 export default tseslint.config(
-  { ignores: ['dist/**', 'node_modules/**', 'public/**', 'test-results/**'] },
+  { ignores: ['dist/**', 'node_modules/**', 'public/**', 'test-results/**', 'output/**', 'tools/vendor/openai-web-game/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...vue.configs['flat/recommended'],

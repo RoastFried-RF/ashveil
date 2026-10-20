@@ -40,3 +40,9 @@
 - 타이틀: `public/art/ashveil-title.png`. ASHVEIL의 수도원·침묵한 기계 문명에 맞춰 OpenAI image_gen으로 새로 제작했다. 정확한 생성 명세와 파일 해시는 [제작 기록](docs/art-title-original.md)에 보관한다.
 - 떠돌이 초상: `public/art/ashveil-wanderer-portrait.png`. 새 원본 초상을 타이틀 생성 미리보기와 플레이 HUD에 사용한다. 제작·해시 기록은 [캐릭터 아트 문서](docs/art-wanderer-original.md)에 보관한다.
 - 주인공 동작: `public/sprites/original/`의 새 픽셀 시트. 초상과 같은 후드·스카프·구리 장식을 바탕으로 직접 그린4방향 걷기/공격 프레임이며 재생성 소스는 `tools/art/draw-wanderer.mjs`다. 기존 타사 캐릭터를 자르거나 색만 바꾼 시트가 아니다.
+
+- 보관·탄약 아이콘4종: `public/sprites/original/items/ashveil-{sack,quiver,leather-belt,arrow-bundle}.png`. 직접 설계한32×32 픽셀 원본이며 편집SVG·결정적 재생성 도구·실제 크기 검토·SHA-256은 [원본 제작 기록](docs/art-storage-items-original.md)에 보관한다.
+
+## 개발 하네스 참고 코드
+
+OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고정 커밋으로 보관했다. 원본 Apache 2.0 라이선스와 SHA-256·프로젝트 호환 변경은 [출처 기록](tools/vendor/openai-web-game/PROVENANCE.md)에 있다. 현재 공식 카탈로그의 지원 스킬로 표시하지 않으며, 프로젝트 하네스는 기존 Playwright Core를 사용한다.

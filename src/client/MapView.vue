@@ -38,7 +38,7 @@ onBeforeUnmount(() => { r?.destroy(); r = null })
 
 <template>
   <div class="relative h-full w-full overflow-hidden bg-[#070707]">
-    <div ref="host" class="h-full w-full" data-testid="map" />
+    <div ref="host" class="h-full w-full" data-testid="map" :data-ready="!loading" />
     <div v-if="loading" class="absolute inset-0 flex items-center justify-center font-title text-ash-400">그림자를 불러오는 중…</div>
   </div>
 </template>

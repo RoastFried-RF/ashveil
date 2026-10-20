@@ -47,6 +47,5 @@ function toggle(k: number) {
         </div>
       </div>
     </div>
-
   </div>
 </template>

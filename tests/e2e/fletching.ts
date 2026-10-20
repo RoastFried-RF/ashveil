@@ -28,7 +28,7 @@ try{
  target.pos={x:25,y:20};target.home=undefined;target.nextAct=1e12;target.ai.mode='hunt';target.ai.target=p.id;target.ai.alertTurn=Math.floor(w.s.time/100);target.stats.vit=30;target.hp=hpMax(w,target)
  const quiver=makeItem(w,'Item.Quiver'),bow=makeItem(w,'Item.Bow'),sack=makeItem(w,'Item.Sack'),good=makeItem(w,'Item.Arrow',2),exposed=makeItem(w,'Item.Arrow',3),hidden=makeItem(w,'Item.Arrow')
  exposed.gx=0;exposed.gy=0;quiver.contents=[exposed];hidden.gx=0;hidden.gy=0;sack.contents=[hidden]
- for(const item of[quiver,bow,sack,good])assert.equal(addToBag(w,p,item),0)
+ for(const item of[quiver,bow,sack,good,makeItem(w,'Item.LeatherBelt')])assert.equal(addToBag(w,p,item),0)
  assert.equal(equip(w,p,quiver.uid),null);assert.equal(equip(w,p,bow.uid),null)
  initializeFieldDevices(w);updatePlayerVision(w,p);const creationFx=structuredClone(w.s.fx);w.s.fx=[];const initial=JSON.parse(serialize(w.s));writeFileSync(join(out,'initial-all-arrows-intact.json'),JSON.stringify(initial));const raw=JSON.stringify(initial);assert.ok(raw.length<1_000_000)
  const check=async(phase:string)=>{await idle();rendered.push({phase,fx:structuredClone(w.s.fx)});w.s.fx=[];const actual=await read(),expected=JSON.parse(serialize(w.s));writeFileSync(join(out,phase+'-actual.json'),JSON.stringify(actual));writeFileSync(join(out,phase+'-expected.json'),JSON.stringify(expected));assert.deepEqual(actual,expected)}

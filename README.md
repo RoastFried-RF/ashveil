@@ -94,3 +94,12 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 ![원본 타이틀과 생성 화면](docs/previews/v277-title.png)
 ![새 캐릭터와 HUD 실제 플레이](docs/previews/v277-world.png)
 ![새 소지품 창](docs/previews/v277-inventory.png)
+
+## 게임 개발 스킬·하네스와 추가 원본 UI (v0.278 전체 검사 중)
+
+[프로젝트 스킬](.agents/skills/ashveil-game-development/SKILL.md)과 [공통 게임 하네스](docs/game-development-harness.md)를 설정했다. 기존 Playwright/Chromium으로 `pnpm game:check --scenario smoke --check`로 입력을 확인하고, 실행 중인 게임 URL을 전달해 실제 조작·전체 화면·읽기 전용 상태를 기록한다. 공식 과거 클라이언트의 출처/라이선스를 보존했으며 새 엔진·브라우저 패키지를 추가하지 않았다.
+
+1440×1080/1366×768 실제11단계씩·화면8장/콘솔0, 실제 탄약/187복원2·화면6장/15단계 전체 대조를 통과했다. 관찰·촬영 중 전체 게임 상태가 바뀌지 않는 것과 두 화면 크기의 전체 상태가 같은 것도 확인했다. 전체 회귀는278 동결본에서 진행 중이며 마지막 전체 검증은277의5,641개/월드30판이다.
+
+![생존 상태 행과 원본 신체 SVG](docs/previews/v278-world.png)
+![직접 그린 자루·화살통·허리띠·화살 아이콘](docs/previews/v278-inventory.png)

@@ -68,6 +68,18 @@ function regionTip(e: MouseEvent, r: Region, s: number) {
   ])
 }
 const R = (r: string) => d.value.regions.find((x) => x.r === r)!.s
+const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${REGION_LABEL[r.r]} ${STATE_LABEL[r.s]}`).join(', ')}. 클릭해서 신체 창 열기`)
+
+// 작은 신체도도 떠돌이와 같은 후드·겹친 흉갑·장갑·장화의 실루엣을 쓴다.
+// 화면 왼쪽 팔다리는 인물의 오른쪽이다. 각 경로가 독립적인 상태/호버 영역이다.
+const BODY_REGIONS: { region: Region; shape: string; detail: string }[] = [
+  { region: 'rleg', shape: 'M15 36H19L18 47 17 53V57H10V54L13 51 14 44Z', detail: 'M16 39 15 47M13 52H17M11 55H16' },
+  { region: 'lleg', shape: 'M21 36H25L26 44 27 51 30 54V57H23V53L22 47Z', detail: 'M24 39 25 47M23 52H27M24 55H29' },
+  { region: 'rarm', shape: 'M10 18 15 19 13 28 12 32 11 38H7L6 34 7 28Z', detail: 'M10 22 9 28M8 31 12 32M8 35H10' },
+  { region: 'larm', shape: 'M25 19 30 18 33 28 34 34 33 38H29L28 32 27 28Z', detail: 'M30 22 31 28M28 32 32 31M30 35H32' },
+  { region: 'torso', shape: 'M16 17 20 16 24 17 27 20 25 29 26 35 23 38H17L14 35 15 29 13 20Z', detail: 'M17 20 20 22 23 20M17 24H23M16 30H24M16 33H24M20 24V29' },
+  { region: 'head', shape: 'M15 7 18 4H22L25 7 26 13 23 17H17L14 13Z', detail: 'M17 9 20 7 23 9V13L20 15 17 13ZM18 11H22' },
+]
 </script>
 
 <template>
@@ -76,17 +88,27 @@ const R = (r: string) => d.value.regions.find((x) => x.r === r)!.s
       <div class="font-title text-[15px] font-bold leading-tight text-[#e8d7a8]" data-testid="location">{{ d.name }}<span v-if="d.depth" class="ml-1 text-xs text-ash-400">지하 {{ d.depth }}층</span></div>
       <div class="text-[11px] text-ash-300">{{ d.clock }} · <template v-if="d.surface">{{ d.weather }} · </template>{{ d.temp.toFixed(0) }}°C</div>
     </div>
-    <!-- 6부위 인형 -->
-    <button class="df df-slot relative h-[64px] w-[44px] shrink-0 bg-[#141210]" data-testid="mini-body" @click="toggleWin('body')">
-      <div class="absolute left-1/2 top-[3px] h-[11px] w-[11px] -translate-x-1/2 rounded-full" :style="{ background: STATE_COLOR[R('head')] }" @mouseenter="regionTip($event, 'head', R('head'))" @mouseleave="hideTip" />
-      <div class="absolute left-1/2 top-[15px] h-[19px] w-[13px] -translate-x-1/2 rounded-sm" :style="{ background: STATE_COLOR[R('torso')] }" @mouseenter="regionTip($event, 'torso', R('torso'))" @mouseleave="hideTip" />
-      <div class="absolute left-[5px] top-[15px] h-[18px] w-[5px] rounded-sm" :style="{ background: STATE_COLOR[R('rarm')] }" @mouseenter="regionTip($event, 'rarm', R('rarm'))" @mouseleave="hideTip" />
-      <div class="absolute right-[5px] top-[15px] h-[18px] w-[5px] rounded-sm" :style="{ background: STATE_COLOR[R('larm')] }" @mouseenter="regionTip($event, 'larm', R('larm'))" @mouseleave="hideTip" />
-      <div class="absolute left-[11px] top-[35px] h-[20px] w-[6px] rounded-sm" :style="{ background: STATE_COLOR[R('rleg')] }" @mouseenter="regionTip($event, 'rleg', R('rleg'))" @mouseleave="hideTip" />
-      <div class="absolute right-[11px] top-[35px] h-[20px] w-[6px] rounded-sm" :style="{ background: STATE_COLOR[R('lleg')] }" @mouseenter="regionTip($event, 'lleg', R('lleg'))" @mouseleave="hideTip" />
+    <button class="df df-slot mini-body relative h-[64px] w-[44px] shrink-0" data-testid="mini-body" :aria-label="bodyLabel" @click="toggleWin('body')">
+      <svg class="mini-body-drawing" viewBox="0 0 40 62" fill="none" aria-hidden="true">
+        <defs><pattern id="mini-body-injury" width="3" height="3" patternUnits="userSpaceOnUse"><path d="M-1 1 1-1M0 3 3 0M2 4 4 2" stroke="#f1d9b3" stroke-width=".65" opacity=".6" /></pattern></defs>
+        <path d="M20 2V60M4 19H36M4 38H36M11 59H29" stroke="#8fa181" stroke-width=".5" opacity=".18" pointer-events="none" />
+        <path d="M4 5V2H8M32 2H36V5M4 57V60H8M32 60H36V57" stroke="#ab9b70" stroke-width=".6" opacity=".5" pointer-events="none" />
+        <g v-for="part in BODY_REGIONS" :key="part.region" class="body-region" :data-body-region="part.region" :data-state="R(part.region)" @mouseenter="regionTip($event, part.region, R(part.region))" @mouseleave="hideTip">
+          <path :d="part.shape" :fill="STATE_COLOR[R(part.region)]" stroke="#b8c2a0" stroke-opacity=".48" stroke-width=".65" stroke-linejoin="round" />
+          <path :d="part.detail" stroke="#f0e6bf" stroke-width=".7" stroke-linejoin="round" opacity=".48" pointer-events="none" />
+          <path v-if="R(part.region) > 0" :d="part.shape" fill="url(#mini-body-injury)" :opacity="R(part.region) > 2 ? .85 : .45" pointer-events="none" />
+        </g>
+      </svg>
     </button>
     <div class="flex max-w-[46vw] flex-wrap gap-1" data-testid="status-chips">
       <span v-for="c in d.chips" :key="c.t" class="df df-tab cursor-default px-1 text-[11px] font-bold leading-4" :style="{ color: c.c }" @mouseenter="showTip($event, c.t, c.tip)" @mouseleave="hideTip">{{ c.t }}</span>
     </div>
   </div>
 </template>
+
+<style scoped>
+.mini-body { display: grid; place-items: center; cursor: pointer; box-shadow: inset 0 0 12px #0008; }
+.mini-body-drawing { display: block; width: 40px; height: 60px; }
+.body-region { cursor: help; }
+.body-region:hover > path:first-child { stroke: #f2dba0; stroke-opacity: 1; stroke-width: 1; filter: brightness(1.25); }
+</style>
