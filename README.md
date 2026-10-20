@@ -103,3 +103,10 @@ CHROMIUM_PATH=/path/to/chromium pnpm exec tsx tests/e2e/scout-room-rumors.ts tes
 
 ![생존 상태 행과 원본 신체 SVG](docs/previews/v278-world.png)
 ![직접 그린 자루·화살통·허리띠·화살 아이콘](docs/previews/v278-inventory.png)
+
+## 돌의 실제 투척 공격 (v0.279 전체 검사 완료·월드 검사 중)
+
+돌 한 개를 실제로 던져 맞히고 같은 돌을 바닥에서 회수한다. 조준/취소·왼손 기능·빠른 슬롯·실물 쌓임/저장 보존을 연결했다. 기존 유인 투척은 유지한다. 전체313파일5,668개와 실제 화면5장/전체187복원2회를 통과했고 공통 하네스 두 화면 크기의8장도 확인했다.30시드 장기 검사는 실행 중이다. [검증 근거](docs/release-v279-proof.json) · [구현 기록](docs/stone-throwing-implementation.md).
+
+![실제 왼손 돌 조준](docs/previews/v279-stone-aim.png)
+![원래 두 돌 회수](docs/previews/v279-stone-recovered.png)

@@ -6,3 +6,5 @@
 - RimWorld·Stoneshard의 고유명사·용어를 코드·문서·콘텐츠에 쓰지 않는다.
 - 변경 후 확인: `pnpm lint && pnpm test && npx vue-tsc --noEmit`. 밸런스를 바꿨으면 `pnpm sim 30 3` 결과를 `docs/sim-latest.txt`에 갱신.
 - UI 텍스트·로그는 한국어. 조사는 `이(가)/을(를)/은(는)/과(와)` 병기로 쓰면 `log()`가 자동 교정한다.
+
+- 게임 기능·UI·아트 수정은 프로젝트 [게임 개발 스킬](.agents/skills/ashveil-game-development/SKILL.md)의 실제 입력→화면/상태 관찰 절차를 적용한다. 빠른 검사는 `pnpm game:check`를 쓰고, 기존 코어·저장·전체 회귀 검증을 함께 유지한다.

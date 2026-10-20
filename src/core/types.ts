@@ -269,6 +269,8 @@ export interface ItemDef extends DefBase {
   /** 무기 막기치 / 받아넘기기치 (07 §7.1) */
   weapon?: { block: number; parry: number }
   ranged?: RangedDef
+  /** 실제 물품 한 개를 던지는 공격. 탄약·장비 슬롯을 새로 만들지 않는다. */
+  throwable?: { range: number; effective: number; attack: AttackDef }
   twoHanded?: boolean
   apparel?: {
     liningHost?: boolean

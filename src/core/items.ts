@@ -408,6 +408,8 @@ export interface Wield {
   item?: ItemInst
   arm: 'larm' | 'rarm'
   twoHanded: boolean
+  /** 손에 든 무기 대신 실제로 던지는 물품의 공격 문맥. */
+  throwing?: boolean
 }
 
 function pickMode(def: ItemDef, mode?: string, it?: ItemInst): AttackDef | undefined {

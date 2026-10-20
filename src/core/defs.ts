@@ -650,6 +650,16 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
+  for (const item of db.all<ItemDef>('Item')) if (item.throwable !== undefined) {
+    const td = item.throwable
+    if (!isObj(td) || !isObj(td.attack)) { report.errors.push(item.id + ': throwable 실제 공격/거리 구조가 필요하다'); continue }
+    for (const key of ['range', 'effective'] as const) if (!Number.isSafeInteger(td[key]) || td[key] < 1 || td[key] > 30) report.errors.push(item.id + ': throwable.' + key + '는1~30 정수여야 한다')
+    if (td.effective > td.range) report.errors.push(item.id + ': 투척 유효 사거리가 최대 사거리보다 크다')
+    const a = td.attack
+    if (!a.id || !a.label || !a.family || !['cut', 'stab', 'blunt', 'bite', 'burn'].includes(a.damageType)) report.errors.push(item.id + ': 투척 공격 이름/계열/피해 유형이 필요하다')
+    for (const [key, lo, hi] of [['damage', 1, 1000], ['pen', 0, 100], ['accuracy', -100, 100], ['energy', 0, 1000], ['noise', 0, 100]] as const) if (!Number.isSafeInteger(a[key]) || (a[key] ?? -Infinity) < lo || (a[key] ?? Infinity) > hi) report.errors.push(item.id + ': throwable.attack.' + key + ' 수치가 잘못되었다')
+    if (item.storage || item.pocket || item.quiver) report.errors.push(item.id + ': 내부 격자를 가진 물품은 공격용 투척물로 사용할 수 없다')
+  }
   for(const terrain of db.all<TerrainDef>('Terrain'))if(terrain.lock){const d=terrain.lock;if(!terrain.container||!Number.isSafeInteger(d.turns)||d.turns<1||d.turns>1200||!Number.isFinite(d.wear)||d.wear<1||d.wear>100||!Number.isSafeInteger(d.noise)||d.noise<0||d.noise>30||!Array.isArray(d.tools)||!d.tools.length||d.tools.some(tag=>!db.all<ItemDef>('Item').some(it=>it.toolTags?.includes(tag))))report.errors.push(terrain.id+': 실제 상자/도구와 유한한 잠금 작업 수치가 필요하다')}
   for(const item of db.all<ItemDef>('Item'))if(item.fragile!==undefined){
     const f=item.fragile

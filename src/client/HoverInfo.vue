@@ -3,10 +3,11 @@ import {mapVisibility,terrainAppearance,displayTile} from './map-memory'
 // 맵 위 커서 정보: 지형·물건·생물(상태·체력·명중률). Shift: 명중 공식
 import { computed } from 'vue'
 import {
-  bestiaryEntry, bestiaryStage, bestiaryDetails, knownCreatureName, canReach, cheb, creatureAt, fmtClock, hpMax, innBedAt, residentBedAt, itemDef, itemLabel, lightAt, mainWeapon, observedCondition, player, previewHit, turnOf,
+  throwQuote, bestiaryEntry, bestiaryStage, bestiaryDetails, knownCreatureName, canReach, cheb, creatureAt, fmtClock, hpMax, innBedAt, residentBedAt, itemDef, itemLabel, lightAt, mainWeapon, observedCondition, player, previewHit, turnOf,
   type Pos, type World,
 } from '../core'
 import { version, world } from './store'
+import { targeting } from './ui'
 import { machineStatus } from '../core/machines'
 import {cultivationStatus} from '../core/cultivation'
 
@@ -56,9 +57,16 @@ const d = computed(() => {
         lines.unshift(c.asleep ? '잠들어 있다 — 기습하면 95%·피해 ×1.5' : AI[c.ai.mode] ?? '')
         if(entry)lines.push(...bestiaryDetails(w,c.def).slice(0,3))
         if (stage>=2) lines.push(`(도감) 무장: ${mainWeapon(w, c) ? itemDef(w, mainWeapon(w, c)!).label : '맨몸'}`)
-        const ranged = !!mainWeapon(w, pl) && !!itemDef(w, mainWeapon(w, pl)!).ranged && cheb(pl.pos, c.pos) > 1
-        const pv = previewHit(w, pl, c, ranged)
-        if (pv) hit = { chance: pv.chance, lines: pv.lines, reach: ranged || canReach(w, pl, c) }
+        const aim = targeting.value
+        if (aim?.kind === 'throw') {
+          const quote = throwQuote(w, pl, aim.uid!, c.id)
+          if (quote.preview) hit = { chance: quote.preview.chance, lines: quote.preview.lines, reach: true }
+          else if (quote.error) lines.push(quote.error)
+        } else {
+          const ranged = !!mainWeapon(w, pl) && !!itemDef(w, mainWeapon(w, pl)!).ranged && cheb(pl.pos, c.pos) > 1
+          const pv = previewHit(w, pl, c, ranged)
+          if (pv) hit = { chance: pv.chance, lines: pv.lines, reach: ranged || canReach(w, pl, c) }
+        }
       }
     }
   }

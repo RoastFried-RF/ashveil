@@ -131,9 +131,10 @@ function narrowCorridor(w: World, p: Pos): boolean {
 
 export interface HitPreview { chance: number; lines: string[]; attack: AttackDef; wield?: Wield }
 
-export function rangedRange(w: World, a: Creature, d: Creature): number {
-  const it = wield(w, a)?.item
-  const range = it ? itemDef(w, it).ranged?.range ?? 0 : 0
+export function rangedRange(w: World, a: Creature, d: Creature, source?: Wield): number {
+  const wl = source ?? wield(w, a), it = wl?.item
+  const def = it && itemDef(w, it)
+  const range = (wl?.throwing ? def?.throwable?.range : def?.ranged?.range) ?? 0
   return range <= 0 ? 0 : range + ((terrainAt(w, a.pos).elevation ?? 0) > (terrainAt(w, d.pos).elevation ?? 0) ? 1 : 0)
 }
 
@@ -201,12 +202,13 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   const dist = cheb(a.pos, d.pos)
   if (ranged) {
     const rd = wl.item ? itemDef(w, wl.item).ranged : undefined
-    const over = Math.max(0, dist - (rd?.effective ?? rd?.range ?? 6))
+    const distance = wl.throwing && wl.item ? itemDef(w, wl.item).throwable : rd
+    const over = Math.max(0, dist - (distance?.effective ?? distance?.range ?? 6))
     let rp = over * 3
     if (traitAdd(w, a, 'rangePenaltyHalf') > 0) rp = Math.floor(rp / 2)
-    if(wl.item&&(projectileDamaged??projectileFletching(w,a,wl.item))){const ammo=rd&&w.db.tryGet<import('./types').ItemDef>(rd.ammo);add('깃 손상',-(ammo?.fletching?.hitPenalty??0))}
+    if(!wl.throwing&&wl.item&&(projectileDamaged??projectileFletching(w,a,wl.item))){const ammo=rd&&w.db.tryGet<import('./types').ItemDef>(rd.ammo);add('깃 손상',-(ammo?.fletching?.hitPenalty??0))}
     add('사거리 초과', -rp)
-    if (dist <= 1) add('인접 사격', -10)
+    if (dist <= 1 && !wl.throwing) add('인접 사격', -10)
     if (d.movedTurn !== undefined && turn - d.movedTurn <= 1) add('이동 중인 대상', -5)
     // 연기·포자 구름: 사선상 칸당 −10 (07 §2.1)
     let clouds = 0
@@ -348,6 +350,8 @@ const WOUND_FOR: Record<DamageType, string> = {
 
 export interface AttackResult { hit: boolean; damage: number; killed: boolean; woundId?: number; reacted?: string }
 export interface AttackOpts {
+  /** 투척 등 실제 공격 물품을 명시한다. 장비를 임시 교체하지 않는다. */
+  wield?: Wield
   projectileDamaged?:boolean
   ranged?: boolean
   mods?: AbilityAttackMods
@@ -405,16 +409,18 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const r = rng(w, 'combat')
   const turn = turnOf(w)
   const mods = opts.mods
-  const wl = opts.ranged ? wield(w, a, opts.mode) : meleeWield(w, a, opts.mode)
+  const wl = opts.wield ?? (opts.ranged ? wield(w, a, opts.mode) : meleeWield(w, a, opts.mode))
   const pv = previewHit(w, a, d, opts.ranged, mods, wl,true,opts.projectileDamaged)
   const res: AttackResult = { hit: false, damage: 0, killed: false }
   if (!pv || !wl) return res
   breakMercy(w,a,d)
   companionBetrayal(w,a,d)
   witnessAttack(w, a, d)
-  if(opts.ranged?cheb(a.pos,d.pos)<=rangedRange(w,a,d)&&rangedRange(w,a,d)>0&&hasLos(w,a.pos,d.pos):canReach(w,a,d))recordCombatEngagement(w,a,d)
+  if(opts.ranged?cheb(a.pos,d.pos)<=rangedRange(w,a,d,wl)&&rangedRange(w,a,d,wl)>0&&hasLos(w,a.pos,d.pos):canReach(w,a,d))recordCombatEngagement(w,a,d)
   if (d.id === w.s.playerId) w.s.autoIgnored = w.s.autoIgnored?.filter((id) => id !== a.id)
   const atk = pv.attack
+  // 투척물은 원래 상태로 바닥에 남긴다. 손에 쥔 무기의 마모만 적용한다.
+  const wornWeapon = wl.throwing ? undefined : wl.item
   machineAction(w,a,atk.damageType==='burn'?'weld':'attack')
   const detail: string[] = [...pv.lines]
   const isPlayer = a.faction === 'player' || d.faction === 'player'
@@ -543,8 +549,8 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
     if ((crumple ? 4 : 2) * ar < useful) {
       detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 튕김`)
       wearArmorPart(w, d, L.it, pd.id, blockedLoss(D))
-      wear(w, wl.item, 2)
-      edgeLoss(w, wl.item, 3)
+      wear(w, wornWeapon, 2)
+      edgeLoss(w, wornWeapon, 3)
       fx(w, { k: 'deflect', id: d.id, turn })
       emitNoise(w, d.pos, 8, d.id)
       wake(w, d, '공격받음')
@@ -562,9 +568,9 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
     } else detail.push(`${L.label}: 유효 ${useful}, roll ${ar} → 관통`)
   }
   if (mods?.armorDamage) for (const it of hitItems) wearArmorPart(w, d, it, pd.id, mods.armorDamage + traitAdd(w, a, 'splitBonus'))
-  wear(w, wl.item, 1)
+  wear(w, wornWeapon, 1)
   if (D <= 0) {
-    edgeLoss(w, wl.item, contactLoss)
+    edgeLoss(w, wornWeapon, contactLoss)
     detail.push('피해 0')
     if (isPlayer) log(w, 'combat', `${aName}의 ${label}이(가) ${dName}의 ${pd.label}에 닿았지만 상처를 내지 못했다.`, bestiaryCombatDetails(w,d,detail))
     wake(w, d, '공격받음')
@@ -577,7 +583,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const replacement = prostheticAt(w, d, pd.id)
   if (replacement) {
     damageProsthetic(w, d, pd.id, D)
-    edgeLoss(w, wl.item, contactLoss)
+    edgeLoss(w, wornWeapon, contactLoss)
     res.hit = true; res.damage = D
     fx(w, { k: 'dmg', id: d.id, v: D, turn })
     emitNoise(w, d.pos, 6, a.id)
@@ -588,7 +594,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const hpBefore = d.hp
   const out = applyWound(w, a, d, pd, D, dtype, atk, mods, detail, label)
   if(machineRules(w,d))D=out.damage
-  edgeLoss(w, wl.item, out.fracture ? Math.max(2, contactLoss) : contactLoss)
+  edgeLoss(w, wornWeapon, out.fracture ? Math.max(2, contactLoss) : contactLoss)
   d.hp -= D
   res.hit = true
   res.woundId = out.woundId

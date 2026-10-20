@@ -123,6 +123,10 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if (d.weapon) lines.push(`막기치 ${d.weapon.block} · 받아넘기기치 ${d.weapon.parry > 0 ? '+' : ''}${d.weapon.parry}`)
   if (it?.edge !== undefined && !d.ranged) lines.push(`날 상태 ${Math.round(it.edge)}% (피해 ×${((60 + it.edge * 0.4) / 100).toFixed(2)})`)
   if (d.ranged) lines.push(`유효 사거리 ${d.ranged.effective ?? d.ranged.range} · 최대 ${d.ranged.range} · 탄약 ${w.db.item(d.ranged.ammo).label}`)
+  if (d.throwable) {
+    const t = d.throwable, a = t.attack
+    lines.push(`투척 ${DMG_LABEL[a.damageType]} ${a.damage} · 관통 ${a.pen} · 정확도 ${a.accuracy} · 기력 ${a.energy}`, `유효 사거리 ${t.effective} · 최대 ${t.range} · 실제1개를 던져 바닥에서 회수`, '더블클릭/빠른 슬롯: 투척 조준 (Tab·Enter·Esc)')
+  }
   if (d.ranged && it) lines.push(`시위 ${it.bowBroken ? '끊어짐' : it.bowUnstrung ? '풀림' : '걸림'} · 습기 ${(it.bowMoisture ?? 0).toFixed(1)}% · 탄성 ${it.elasticity ?? 100}%`, '습기 30%: 피해 −10%·사거리 −1 / 60%: −25%·−3, 끊어질 수 있다')
   if (it?.rust) lines.push(`녹 ${it.rust}단계 · 가치 −${it.rust * 15}%${it.rust >= 3 && it.edge !== undefined ? ' · 날 최대 70%' : ''}`)
   if (it?.partDurability) lines.push(`부위별 내구 ${Math.min(...Object.values(it.partDurability)).toFixed(0)}~${Math.max(...Object.values(it.partDurability)).toFixed(0)}% (표시 내구는 평균)`)

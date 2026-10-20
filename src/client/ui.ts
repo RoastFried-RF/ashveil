@@ -2,7 +2,7 @@
 
 import { reactive, ref } from 'vue'
 import {
-  quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
+  throwQuote, quickItem, abilityReady, bowProblem, type DrugDef, surgeryDef, surgeryError, masteryStage, canReach, cheb, effectiveBleed, hasLos, hostile, itemDef, mainWeapon, part, player, rangedRange,
   type Action, type Creature, type HotbarRef, type ItemInst, type World,
 } from '../core'
 import { act, world } from './store'
@@ -18,7 +18,7 @@ export const hint = ref<string | null>(null)
 export const logBig = ref(false)
 export const tooltip = ref<{ x: number; y: number; title: string; lines: string[]; color?: string } | null>(null)
 
-export interface Targeting { kind: 'ability' | 'shoot'; id?: string; label: string; targets: number[]; idx: number }
+export interface Targeting { kind: 'ability' | 'shoot' | 'throw'; id?: string; uid?: number; label: string; targets: number[]; idx: number }
 export const targeting = ref<Targeting | null>(null)
 
 let zTop = 30
@@ -97,6 +97,19 @@ export function startShoot() {
   targeting.value = { kind: 'shoot', label: '사격', targets: ts.map((c) => c.id), idx: 0 }
 }
 
+/** 소지품 메뉴/더블클릭/기존 아이템 빠른 슬롯이 같은 실물 UID로 조준한다. */
+export function startThrow(uid: number): string | null {
+  const w = world.value
+  if (!w) return null
+  const pl = player(w)
+  const ts = visibleEnemies(w).filter(c => !throwQuote(w, pl, uid, c.id).error)
+  if (!ts.length) return (hint.value = '돌을 던질 수 있는 적이 없다')
+  targeting.value = { kind: 'throw', uid, label: '돌 던지기', targets: ts.map(c => c.id), idx: 0 }
+  setWin('inv', false)
+  hint.value = '돌 던지기 — 대상을 고르세요 (클릭 · Tab 순환 · Enter 확정 · Esc 취소)'
+  return null
+}
+
 export function useAbility(id: string) {
   const w = world.value
   if (!w) return
@@ -121,6 +134,7 @@ export function confirmTarget(id?: number) {
   targeting.value = null
   hint.value = null
   if (t.kind === 'shoot') doAct({ type: 'shoot', target })
+  else if (t.kind === 'throw') doAct({ type: 'throwAttack', uid: t.uid!, target })
   else doAct({ type: 'ability', id: t.id!, target })
 }
 
@@ -128,6 +142,7 @@ export function confirmTarget(id?: number) {
 export function useItem(w: World, it: ItemInst): string | null {
   const d = itemDef(w, it)
   const pl = player(w)
+  if(d.throwable)return startThrow(it.uid)
   if(d.category==='ammo')return doAct({type:'selectAmmo',uid:it.uid})
   if (d.drug?.def && w.db.get<DrugDef>(d.drug.def).external) { setWin('body', true); return (hint.value = '신체 창에서 약을 바를 상처를 고르세요.') }
   if (d.prosthetic) { prostheticInstallUid.value = it.uid; setWin('body', true); return (hint.value = '결손 부위를 골라 의수족을 설치할 수 있다.') }

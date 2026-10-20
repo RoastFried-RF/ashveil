@@ -61,6 +61,7 @@ export * from './surgery'
 export * from './medical'
 
 export * from './ranged'
+export * from './throwing'
 
 export * from './nutrition-state'
 export * from './nutrition'

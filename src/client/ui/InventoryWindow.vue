@@ -246,6 +246,7 @@ const menuItems = computed(() => {
   }
   if ((m.from === 'bag' || m.from === 'equip') && def.ranged?.reloadTurns && !m.it.loadedAmmo) out.push([`장전 (기본${def.ranged.reloadTurns}턴)`, () => doAct({ type: 'reload', uid: m.it.uid })])
   if (m.from === 'bag') {
+    if(def.throwable)out.push(['투척 공격 (1개)',()=>useItem(w,m.it)])
     if(def.category==='ammo')out.push(['탄약으로 선택',()=>useItem(w,m.it)])
     if (def.place) out.push([w.db.terrain(def.place).gather?(w.db.terrain(def.place).cultivation?.needsSoil===false?'바라보는 바닥에 심기':'바라보는 흙에 심기'):'바라보는 쪽에 설치', () => doAct({ type: 'place', uid: m.it.uid, dir: player(w).facing })])
     if (def.readable) out.push(['읽기', () => doAct({ type: 'read', uid: m.it.uid })])

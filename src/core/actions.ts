@@ -150,6 +150,7 @@ import { masteryStage, practice, studyBook } from './skills'
 import type { Surgery } from './surgery'
 import { canHeatBlade, strainProjectiles, treatmentArm, type Procedure } from './medical'
 import { finishReload, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
+import { throwAtCreature } from './throwing'
 import { bowProblem } from './gear-state'
 import { bowStringBreaks, gearCareStep, startGearCare, type GearCare } from './gear-care'
 import { beddingMapKey,packBedding } from './camping'
@@ -352,6 +353,7 @@ export type Action =
   | { type: 'fillBottle'; uid: number; pos?: Pos }
   | { type: 'pourWater'; uid: number; targetUid: number; ml: number }
   | { type: 'throw'; uid: number; target: Pos }
+  | { type: 'throwAttack'; uid: number; target: number }
   | { type: 'eatFloor' }
   | { type: 'stairs' }
   | { type: 'ability'; id: string; target?: number }
@@ -1455,6 +1457,12 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     case 'pourWater': {const error=pourWater(w,c,a.uid,a.targetUid,a.ml);return error?FAIL(error):{ok:true,tu:100}}
     case 'fillBottle': {const error=fillWaterBottle(w,c,a.uid,a.pos);return error?FAIL(error):{ok:true,tu:150}}
 
+    case 'throwAttack': {
+      const result = throwAtCreature(w, c, a.uid, a.target)
+      if(result.error)return FAIL(result.error)
+      worsenFractures(w,c,result.arm!)
+      return { ok: true, tu: 100 }
+    }
     case 'throw': {
       const it = removeOne(w, c, a.uid)
       if (!it) return FAIL('없다')
