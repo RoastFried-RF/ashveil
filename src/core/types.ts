@@ -1266,6 +1266,8 @@ export interface WorldGenDef extends DefBase {
   territory?:{maxCost:number;roadCost:number;landCost:number;riverCost:number;riseMetersPerCost:number}
   cropIrrigationTransfer?:{pathogenFraction:number;ashFraction:number}
   cropEvaporationMlPerHour?:number
+  /** 활성 지상 토양 밭의 남은 물 이동. 기존 작물에 흡수된 오염은 옮기지 않는다. */
+  cropSoilDiffusion?:{everyTurns:number;maxMlPerEdge:number}
   mapWorkers?:{surface?:string;dungeon?:string}
   forage?:{sourceTerrain:string;terrain:string;chance:number}
   pines?:{sourceTerrain:string;terrain:string;chance:number}

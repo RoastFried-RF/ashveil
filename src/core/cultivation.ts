@@ -26,6 +26,10 @@ export function cultivationEvaporationRate(w:World,p:Pos){
  if(w.s.map.kind!=='surface'||tileAt(w,p).roof||ambientTemp(w,p)<=0||isRaining(w))return 0
  return w.db.all<WorldGenDef>('WorldGen')[0]?.cropEvaporationMlPerHour??0
 }
+export function cultivationSoilDiffusionRule(w:World,p:Pos){
+ const rule=terrainAt(w,p).cultivation
+ return w.s.map.kind==='surface'&&rule&&rule.needsSoil!==false&&!rule.substrate?w.db.all<WorldGenDef>('WorldGen')[0]?.cropSoilDiffusion:undefined
+}
 export function cultivationStatus(w:World,p:Pos){
  const tile=tileAt(w,p),state=tile.cultivation,def=terrainAt(w,p),rule=def.cultivation,gather=def.gather
  if(!state)return
@@ -42,13 +46,32 @@ export function cultivationStatus(w:World,p:Pos){
  else if(fertility<=0)error='실제 토양의 비옥도가 고갈되었다'
  else if(state.waterUnits<rule!.waterMl)error='밭에 실제 물을 주어야 한다'
  const ready=valid&&(!rule!.substrate||state.remainingCycles!>0)&&state.growth>=total
- return{state,rule,gather,valid,ready,error,light,temp,fertility,total,evaporationMlPerHour:valid&&state.waterUnits>0?cultivationEvaporationRate(w,p):0,progress:total?Math.floor(state.growth/total*100):0,waterMl:total?state.waterUnits/total:0}
+ return{state,rule,gather,valid,ready,error,light,temp,fertility,total,soilDiffusion:valid?cultivationSoilDiffusionRule(w,p):undefined,evaporationMlPerHour:valid&&state.waterUnits>0?cultivationEvaporationRate(w,p):0,progress:total?Math.floor(state.growth/total*100):0,waterMl:total?state.waterUnits/total:0}
 }
 export function cultivationHarvestError(w:World,p:Pos):string|null{const d=cultivationStatus(w,p);return d&&!d.ready?d.error??'작물이 아직 다 자라지 않았다':null}
 export function resetCultivation(w:World,p:Pos){const d=cultivationStatus(w,p);if(!d?.valid||!d.ready)return;if(d.rule!.substrate)d.state.remainingCycles!--;d.state.growth=0;d.state.lastAt=turnOf(w);delete d.state.irrigation;delete tileAt(w,p).gatherAt}
+/** 한 번의 실제 경계에서 읽은 물량으로만 이동한다. 들어온 물을 같은 정산에 다시 보내지 않는다. */
+function diffuseSoilWater(w:World,list:number[],now:number){
+ const rule=w.db.all<WorldGenDef>('WorldGen')[0]?.cropSoilDiffusion
+ if(w.s.map.kind!=='surface'||!rule?.maxMlPerEdge||now%rule.everyTurns!==0)return
+ const m=w.s.map,plots=new Map<number,NonNullable<ReturnType<typeof cultivationStatus>>>(),deltas=new Map<number,number>()
+ for(const i of list){const p={x:i%m.w,y:Math.floor(i/m.w)},d=cultivationStatus(w,p);if(d?.valid&&d.state.lastAt===now-1&&d.rule!.needsSoil!==false&&!d.rule!.substrate&&d.temp>0)plots.set(i,d)}
+ for(const[i,a]of plots)for(const j of[i%m.w+1<m.w?i+1:-1,i+m.w]){
+  const b=plots.get(j);if(!b)continue
+  const [from,to,source,target]=a.waterMl>b.waterMl?[i,j,a,b]:[j,i,b,a]
+  // 네 이웃에 각각 차이의1/8만 보내므로 한 번의 동시 정산이 수위를 뒤집지 않는다.
+  const ml=Math.min(rule.maxMlPerEdge,Math.floor((source.waterMl-target.waterMl)/8))
+  if(ml<=0)continue
+  const sent=ml*source.total,received=ml*target.total,srcNext=source.state.waterUnits+(deltas.get(from)??0)-sent,dstNext=target.state.waterUnits+(deltas.get(to)??0)+received
+  if(!Number.isSafeInteger(srcNext)||!Number.isSafeInteger(dstNext)||srcNext<0||dstNext>target.rule!.waterMl*target.total)continue
+  deltas.set(from,(deltas.get(from)??0)-sent);deltas.set(to,(deltas.get(to)??0)+received)
+ }
+ for(const[i,delta]of deltas)if(delta){const s=plots.get(i)!.state;s.waterUnits+=delta;if(s.waterUnits===0)delete s.evaporationCarry}
+}
 export function cultivationTick(w:World){
  const m=w.s.map,now=turnOf(w)
  let list=indices.get(m);if(!list){list=m.tiles.flatMap((t,i)=>t.cultivation?[i]:[]);indices.set(m,list)}
+ diffuseSoilWater(w,list,now)
  for(const i of list){
   const p={x:i%m.w,y:Math.floor(i/m.w)},d=cultivationStatus(w,p)
   if(!d?.valid||d.state.lastAt>=now)continue

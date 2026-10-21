@@ -17,3 +17,5 @@ GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)�
 2026-10-20 v0.282 중간 push 후 Pages 조회를 다시 확인했으나 현재 GitHub 연동은 여전히 HTTP403 `Resource not accessible by integration`을 반환했다. 사이트 생성/배포 성공이나 공개 주소를 주장하지 않는다. 검증 브랜치와 저장소의 실제 화면 자료는 push했으며 구현/검증은 계속 진행한다.
 
 2026-10-20 main282 c79b2ed의 [Actions39510964400](https://github.com/RoastFried-RF/ashveil/actions/runs/39510964400)은 build 작업을 시작하지 못했다. 실제 check annotation은 최근 계정 결제 실패 또는 사용 한도 증가 필요를 원인으로 명시했다. deploy는 skipped이고 이번 원격 빌드/아티팩트/웹배포 성공은 주장하지 않는다. 로컬282 빌드/실제 화면·전체/월드 검증은 통과했다. 비용·한도 설정은 변경하지 않았다.
+
+2026-10-21 v0.290 c50f34f의 [Actions39532217366](https://github.com/RoastFried-RF/ashveil/actions/runs/39532217366)도 build 시작 전에 계정 결제 실패/사용 한도 오류로 차단됐다(check119000526801). deploy는 skipped이며 원격290 아티팩트/사이트 성공을 주장하지 않는다. 로컬 전체5,907개·월드30판과 실제18장으로 검증한 ZIP은 `artifacts/ashveil-v0.290-web.zip`에 있다. 비용·한도·저장소 공개 설정은 변경하지 않았다.

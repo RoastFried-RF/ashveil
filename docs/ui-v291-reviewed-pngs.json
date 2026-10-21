@@ -1,0 +1,2220 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21",
+  "reviewer": "/root/character_art",
+  "status": "PASS for the reviewed15 original PNGs and supplied finite-harness evidence; limitations explicitly separated",
+  "scope": {
+    "directlyViewedPNGCount": 15,
+    "nativeFinalPNGCount": 7,
+    "common1440PNGCount": 4,
+    "common1366PNGCount": 4,
+    "onlyProjectFileWritten": "docs/ui-v291-reviewed-pngs.json",
+    "productImageEdits": false,
+    "browserGPUHeavyCoreSimulationBuildTypeLintOrGitRun": false
+  },
+  "evidenceBoundary": [
+    "All15 originalPNG files were opened directly with view_image. No original image was edited, resaved or generated. RGB regions were decoded/cropped/compared only in memory.",
+    "UID,item count,exact water conservation,save version/RNG/whole-state equivalence come from actual JSON and matched expected JSON, not from pixels.",
+    "This reviewer read supplied run/audit/test-source artifacts; actual input/browser execution was performed by Root harness, not re-executed by the reviewer.",
+    "Native is a declared finite initial fixture resumed by actual Title Continue, distinct from the ordinary Title Start smoke runs. Legacy197 is a version-header compatibility copy of the same current finite fixture, not an original historical user save."
+  ],
+  "provenance": [
+    {
+      "path": "docs/art-v291-independent-review.json",
+      "bytes": 122118,
+      "sha256": "c037be54e847e8d09e18360ee05770990da917e81816c1c5030ef634a9dc253f"
+    },
+    {
+      "path": "docs/soil-water-v291-native-audit.json",
+      "bytes": 1309,
+      "sha256": "0778645fb2d821602ac1cb0491f5f821dbdd3d3b521788126f510c42dd89cef9"
+    },
+    {
+      "path": "docs/soil-water-v291-causal-audit.json",
+      "bytes": 886,
+      "sha256": "a10563b48f52dd2382401ca5bd80f5a2dbec33b2d0ff63403b205844bbded834"
+    },
+    {
+      "path": "docs/game-harness-v291-audit.json",
+      "bytes": 798,
+      "sha256": "106040c4ad931af5203feecd5403dfa9dc558cd76c96d3323c732d166724cf8d"
+    },
+    {
+      "path": "docs/soil-water-v291-final-source-proof.json",
+      "bytes": 2956,
+      "sha256": "fafa6d6ea189ab50e8c3d4df83069d2601b8c2131a13633c7813d3440a88d678"
+    },
+    {
+      "path": "tests/e2e/soil-water.ts",
+      "bytes": 6960,
+      "sha256": "ad0aaa08552a7c235ec65a51f6103027b6c8a4f922ca59d09b3e25aeea23b87b"
+    },
+    {
+      "path": "tests/soil-water-fixture.ts",
+      "bytes": 1668,
+      "sha256": "c61d036c916cc0f7859bee544b7a8e6aba5f3ea08b2dd24986c345f0154c416b"
+    }
+  ],
+  "entries": [
+    {
+      "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+      "bytes": 652976,
+      "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "1440×1080 실제 F2 제작·정비 화면을 직접 열었다. 두 그늘 작물 밭 좌표21,20/21,21, 각각 성장0%·관수0ml·햇빛0%·약6°C·현재증발최대0ml/시간을 읽었다. 물병 실제1000ml 및 각 밭의 물주기1000ml(1턴) 버튼이 보인다.",
+        "제작창이 실제 밭/주인공의 월드 픽셀을 가린다. 두 실제 밭의 존재/수량/지붕/빛 조건은 초기 JSON과 UI 행으로 확인하며 월드 바닥 픽셀에서 판독했다고 하지 않는다. 제작창 닫기와 관수 버튼은 화면 안이다. 아래 제작법 목록 전체는 한 화면에 다 보이지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/title198-original-two-dry-soil-plots-and-finite1000ml-actual.json",
+        "bytes": 268508,
+        "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+      "bytes": 652697,
+      "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "물주기 뒤 첫 밭 관수990ml, 둘째10ml·성장0%·현재증발0ml/시간이 UI에 표시된다. 관수 버튼이 없어졌고 레시피 목록이 위로 당겨졌다. 로그에 원래 용기에서1000ml를 실제 밭에 주었다는 문구가 보인다.",
+        "도구 미리보기에서 F2제목/거점작업 패널 일부가 검게 생략되어 보였지만 원본RGB의 제목/거점작업 영역은1420과 바이트 동일했다. 원본 파일을 수정하지 않았다. 990/10ml 수치를 UI로 읽은 범위와 원래UID45 동일성/물 보존의 전체JSON 근거를 구분한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/actual-one-turn-original1000ml-water-divides990and10-on-real-boundary-actual.json",
+        "bytes": 269733,
+        "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1422-native-actual200turn-slow-soil-water980and20.png",
+      "bytes": 653104,
+      "sha256": "023ef71de5a689cff3d37eefa9e9aab068ba6e970ce152b0b7e077fbbc4d84b0",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "실제200턴 휴식 후 두 줄이 관수980ml/20ml, 성장0%, 햇빛0%, 약6.2°C, 현재증발0ml/시간으로 보인다. 보이는 생존HUD의 피로/체온은 실제 경과 화면값이며 다른 세계 상태 전체가 휴식 전과 같다고 하지 않는다.",
+        "미리보기에서 레시피/로그/상단 패널이 생략되어 보였다. 원본RGB 제목·거점작업은1420과, 하단 레시피/로그는1421과 각각 정확히 같다. 레시피 목록의 바닥 아래 내용은 한 화면에 전부 나오지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/actual200turn-water-now980and20-no-growth-or-rain-or-evaporation-actual.json",
+        "bytes": 269781,
+        "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1423-native-small-screen-real-soil-water-rule-and-original980and20.png",
+      "bytes": 519423,
+      "sha256": "cb454a36283c9fde9283913d83597c1cb0753c9344f0128ba44f18404519bb4c",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "1366×768 화면의 F2 제목/닫기, 두 밭의980/20ml·성장0%·0ml/시간,200턴마다 인접한 네 이웃으로 최대10ml 이동한다는 안내를 직접 읽었다. 주요 물 상태 행과 닫기는 화면 안이다.",
+        "긴 제작법 목록은 모달 내부 아래쪽에서 잘려 전체를 동시에 볼 수 없다. 이 스크린샷에서 하단 모든 레시피 접근/스크롤 동작을 확인했다고 하지 않는다. 오른쪽 로그·월드 일부는 모달/HUD에 가려지고 화면 밖으로 나무 일부가 잘린다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/small-viewport-observation-whole-world-unchanged-actual.json",
+        "bytes": 269781,
+        "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1424-native-three-original-crop-item-icons-and-original-empty-bottle.png",
+      "bytes": 401818,
+      "sha256": "6e3ace44424de2b93f43dcd323f80b359ffe3c1cecdfc090bf76bbad0e0caaaf",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "1366×768 소지품 창에서 종자 봉지·둥근 뿌리·단일 밝은 흰갓이 각각1칸 자리에 구분되어 표시되고, 원래 물병은 옆1×2영역에 남아 있다. 장비창/배낭/닫기/아래HUD가 화면 안이다. 빈칸55가 보인다.",
+        "아이콘의 실제UID44/48/49와 각count1, 동일한 빈물병UID45의uses0는 해당 전체JSON으로 확인했다. 병 그림만으로0ml나 UID를 추론하지 않는다. 이는 Native초기 유한물품이며 새 게임 지급이나 실제 수확/제작으로 얻었다는 뜻이 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/actual-inventory-observation-original-seed-bag-root-and-whitecap-actual.json",
+        "bytes": 269781,
+        "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1425-native-legacy197-two-dry-plots-no-retrospective-water.png",
+      "bytes": 652976,
+      "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "legacy197호환 초기 화면에서 두 밭 관수0ml/0ml와 물병실제1000ml, 각1000ml(1턴) 버튼, 성장0%를 직접 읽었다. 현재198초기 화면과 같은 조건으로 보인다.",
+        "legacy197은 현재 유한fixture의 version 헤더만 낮춘 호환 검증이다. 과거 사용자의 역사적 저장이나 과거 날씨/물 흐름 재생의 증거로 해석하지 않는다. 두 밭이 원래 말라 있음을 UI와 JSON으로 확인했다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/legacy197-version-only-no-past-water-transfer-actual.json",
+        "bytes": 268508,
+        "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+      }
+    },
+    {
+      "path": "test-results/soil-water-browser-v291/1426-native-legacy197-real-input198-restored990and10.png",
+      "bytes": 660125,
+      "sha256": "0bc82ec015f62c22a74c84f87d329ec08ed8418b58ef9e5627436c38796382db",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "finite Native fixture / actual Title Continue input",
+      "observations": [
+        "legacy197으로 시작해 실제1턴 관수와198전체복원 뒤990/10ml·성장0%·현재증발0ml/시간이 보인다. 첫 실제관수와 같은 두 밭 수치다.",
+        "F2 상단이 생략된 도구 미리보기와 달리 원본RGB 제목/거점작업 패널이 존재한다. 물 상태 패널 전체는1421과 정확히 같다. 같은UID/저장198 및 무소급은 JSON대조 근거로 별도 기록한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/soil-water-browser-v291/whole198-restored-legacy197-real-water-input990and10-actual.json",
+        "bytes": 269733,
+        "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1440/00-title.png",
+      "bytes": 973642,
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "실제 새 떠돌이 타이틀의 원본 수도원/등불 장면,ASHVEIL표제,이름/초상·시드입력·사건흐름·배경선택을 직접 열어 확인했다. 시작 버튼 고원으로 들어선다는 화면 안에 있다.",
+        "배경선택 목록 아래쪽은 현재viewport아래로 이어진다. 모든 선택지가 한 화면에 들어온다고 하지 않는다. 실제 클릭과 무스크롤 hit test는 actions/run/layout JSON근거이며 정지화면만으로 클릭 성공을 추론하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/00-title-world.json",
+        "bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1440/01-world.png",
+      "bytes": 526501,
+      "sha256": "247b842eb2750bd757711f7dce0c9b172265a9624b01dd2bde64530da5ecd08d",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "일반 새 게임 시작 월드의 후드 떠돌이 뒷모습·횃불·길/물/저채도녹색소나무·마른나무·작은닫힌목제상자를 직접 보았다. Native관수 유한fixture와 다른 실제 새 게임이며 배낭에는종자/뿌리/흰갓이 지급되지 않는다.",
+        "월드의 어둠/미탐색영역은 넓고 하단 나무는 viewport/HUD에 일부가 가려진다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "2fc248dc08cb6c697f5727ce1166a2b2d74196e6445c3550ce7c612ccb7e4d8d"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/01-world-world.json",
+        "bytes": 4676283,
+        "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1440/02-inventory.png",
+      "bytes": 601251,
+      "sha256": "357f239dcdda93905795f2d00f8dbf56463863bc266bbaa589238f14cf314f5b",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "배낭60빈칸,창/우비 장비,32px아이콘과소지품닫기가화면안에있다. 남쪽을본후드얼굴이월드에보인다. 제작검토용새작물3종이이새게임의배낭에나타나지않음을확인했다.",
+        "소지품모달과HUD가월드일부를덮는다. UID·장비상태·실제200TU경과는전체JSON으로확인한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/02-inventory-world.json",
+        "bytes": 4683448,
+        "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1440/final.png",
+      "bytes": 601985,
+      "sha256": "1c3b143b628ad43767c2f9fd5f6f08810826415b6183a878ce569b7a5ef2707d",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "최종이미지를직접열었다. 도구미리보기에서소지품/로그일부가생략되어보일수있지만원본RGB에는패널이보존되어있다. 02-inventory와패널영역을원본RGB로대조했다.",
+        "1440소지품/로그영역은정확히같고1366소지품모서리4픽셀은최대채널1차이,로그는정확히같다. 최종관찰의전체world불변은JSON대조로별도확인한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/final-state.json",
+        "bytes": 16730,
+        "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1440/final-world.json",
+        "bytes": 4683448,
+        "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1366/00-title.png",
+      "bytes": 668804,
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "실제 새 떠돌이 타이틀의 원본 수도원/등불 장면,ASHVEIL표제,이름/초상·시드입력·사건흐름·배경선택을 직접 열어 확인했다. 시작 버튼 고원으로 들어선다는 화면 안에 있다.",
+        "배경선택 목록 아래쪽은 현재viewport아래로 이어진다. 모든 선택지가 한 화면에 들어온다고 하지 않는다. 실제 클릭과 무스크롤 hit test는 actions/run/layout JSON근거이며 정지화면만으로 클릭 성공을 추론하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/00-title-world.json",
+        "bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1366/01-world.png",
+      "bytes": 372793,
+      "sha256": "9c4208ea466526deb3e24084ce52a178f5a7bc7312565eb9d10d0b2b42d3d394",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "일반 새 게임 시작 월드의 후드 떠돌이 뒷모습·횃불·길/물/저채도녹색소나무·마른나무·작은닫힌목제상자를 직접 보았다. Native관수 유한fixture와 다른 실제 새 게임이며 배낭에는종자/뿌리/흰갓이 지급되지 않는다.",
+        "월드의 어둠/미탐색영역은 넓고 왼쪽/하단 나무는 viewport/HUD에 일부가 가려진다. 1366초기 화면은 빈빠른슬롯tooltip이 로그 위를 덮지만 화면 안에 있다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "2fc248dc08cb6c697f5727ce1166a2b2d74196e6445c3550ce7c612ccb7e4d8d"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/01-world-world.json",
+        "bytes": 4676283,
+        "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1366/02-inventory.png",
+      "bytes": 446914,
+      "sha256": "a7d7731030b37305b6d9297d2434623c394be79844bb73e6597cc19ee3b8ac29",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "배낭60빈칸,창/우비 장비,32px아이콘과소지품닫기가화면안에있다. 남쪽을본후드얼굴이월드에보인다. 제작검토용새작물3종이이새게임의배낭에나타나지않음을확인했다.",
+        "소지품모달과HUD가월드일부를덮는다. UID·장비상태·실제200TU경과는전체JSON으로확인한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/02-inventory-world.json",
+        "bytes": 4683448,
+        "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v291-final-1366/final.png",
+      "bytes": 445782,
+      "sha256": "add53aa90e911586425bad154be1d5955b84c608c7dd545666f47cfe265cc89f",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "normal new game / actual Title Start common harness",
+      "observations": [
+        "최종이미지를직접열었다. 도구미리보기에서소지품/로그일부가생략되어보일수있지만원본RGB에는패널이보존되어있다. 02-inventory와패널영역을원본RGB로대조했다.",
+        "1440소지품/로그영역은정확히같고1366소지품모서리4픽셀은최대채널1차이,로그는정확히같다. 최종관찰의전체world불변은JSON대조로별도확인한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/final-state.json",
+        "bytes": 16730,
+        "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v291-final-1366/final-world.json",
+        "bytes": 4683448,
+        "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+      }
+    }
+  ],
+  "nativeEvidence": {
+    "audit": {
+      "path": "test-results/soil-water-browser-v291/audit.json",
+      "bytes": 1309,
+      "sha256": "0778645fb2d821602ac1cb0491f5f821dbdd3d3b521788126f510c42dd89cef9",
+      "record": {
+        "save": 198,
+        "screenshots": 7,
+        "roundtrips": 3,
+        "phases": 10,
+        "actualInputTU": 20200,
+        "rows": [
+          {
+            "legacy": false,
+            "initialTime": 1459900,
+            "finalTime": 1480000,
+            "actualInputTU": 20100,
+            "seedUid": 44,
+            "originalWaterUid": 45,
+            "rootUid": 48,
+            "whitecapUid": 49,
+            "sourceWaterMl": 980,
+            "targetWaterMl": 20,
+            "ownBottleMl": 0
+          },
+          {
+            "legacy": true,
+            "initialTime": 1459900,
+            "finalTime": 1460000,
+            "actualInputTU": 100,
+            "seedUid": 44,
+            "originalWaterUid": 45,
+            "rootUid": 48,
+            "whitecapUid": 49,
+            "sourceWaterMl": 990,
+            "targetWaterMl": 10,
+            "ownBottleMl": 0
+          }
+        ],
+        "errors": [],
+        "source": "Finite two actual same-batch-seed plots placed through publicCore, roof/light0 to isolate water/no growth/evaporation/rain, declared time199-of200 and matching nextAct/lastAt not a past weather replay, original1000ml bottle/one remaining seed/root/whitecap. Actual TitleContinue/F2 water1T/whole198restore/rest200T/smallviewport/inventory. Legacy197 compatibility header on same finite fixture isolates version-only migration, not an original historical user save.10 independent WHOLE Node comparisons/3whole198restores; no post-load world/material/time/RNG injection."
+      }
+    },
+    "auditMatchesRootDocumentation": true,
+    "wholeActualExpectedChecks": [
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/actual-inventory-observation-original-seed-bag-root-and-whitecap-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/actual-inventory-observation-original-seed-bag-root-and-whitecap-expected.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/actual-one-turn-original1000ml-water-divides990and10-on-real-boundary-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/actual-one-turn-original1000ml-water-divides990and10-on-real-boundary-expected.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/actual200turn-water-now980and20-no-growth-or-rain-or-evaporation-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/actual200turn-water-now980and20-no-growth-or-rain-or-evaporation-expected.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/legacy-actual-one-turn-original1000ml-same990and10-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/legacy-actual-one-turn-original1000ml-same990and10-expected.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/legacy197-version-only-no-past-water-transfer-actual.json",
+          "bytes": 268508,
+          "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/legacy197-version-only-no-past-water-transfer-expected.json",
+          "bytes": 268508,
+          "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/small-viewport-observation-whole-world-unchanged-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/small-viewport-observation-whole-world-unchanged-expected.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/title198-original-two-dry-soil-plots-and-finite1000ml-actual.json",
+          "bytes": 268508,
+          "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/title198-original-two-dry-soil-plots-and-finite1000ml-expected.json",
+          "bytes": 268508,
+          "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-legacy197-real-water-input990and10-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-legacy197-real-water-input990and10-expected.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same-original-water990and10-and-seed-uids-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same-original-water990and10-and-seed-uids-expected.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same980and20-and-original-three-crop-items-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "expected": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same980and20-and-original-three-crop-items-expected.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "entireJSONEqual": true
+      }
+    ],
+    "wholeActualExpectedCount": 10,
+    "whole198Restores": [
+      {
+        "before": {
+          "path": "test-results/soil-water-browser-v291/actual-one-turn-original1000ml-water-divides990and10-on-real-boundary-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "restored": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same-original-water990and10-and-seed-uids-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "saveVersion": 198,
+        "entireJSONEqual": true
+      },
+      {
+        "before": {
+          "path": "test-results/soil-water-browser-v291/actual200turn-water-now980and20-no-growth-or-rain-or-evaporation-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "restored": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-same980and20-and-original-three-crop-items-actual.json",
+          "bytes": 269781,
+          "sha256": "8acc6b6d85ce298a17acbf570f64b74563bb6957e80465b6502925e01f40310c"
+        },
+        "saveVersion": 198,
+        "entireJSONEqual": true
+      },
+      {
+        "before": {
+          "path": "test-results/soil-water-browser-v291/legacy-actual-one-turn-original1000ml-same990and10-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "restored": {
+          "path": "test-results/soil-water-browser-v291/whole198-restored-legacy197-real-water-input990and10-actual.json",
+          "bytes": 269733,
+          "sha256": "6261333c29fb1a48ce66db9b66750281e7a8a3a1668f6bd6b5a200d493ecab12"
+        },
+        "saveVersion": 198,
+        "entireJSONEqual": true
+      }
+    ],
+    "restSmallInventoryWholeWorldEqual": true,
+    "initialFixtures": {
+      "finite198": {
+        "path": "test-results/soil-water-browser-v291/finite198-initial.json",
+        "bytes": 268508,
+        "sha256": "0cc8e7207595ca08ae32afecdb044c531b54ac808700a936faa7e3ceaf924216"
+      },
+      "legacy197": {
+        "path": "test-results/soil-water-browser-v291/legacy197-finite-initial.json",
+        "bytes": 268508,
+        "sha256": "dab5407fed263780a127f6fe5cb0b2d992e13c13e835bc91e019cb185b3a2cef"
+      },
+      "onlyDifferingTopLevelKeys": [
+        "version"
+      ],
+      "loaded198InitialExactlyDeclaredFixture": true,
+      "legacyLoaded198WholeExactlyCurrentLoaded198": true,
+      "boundaryTurnRemainderMod200": 199,
+      "timeBoundaryDeclaredBeforeLoad": true,
+      "notPastWeatherReplay": true,
+      "mapLight": {
+        "ambient": 0,
+        "daylightMult": 0
+      },
+      "bothPlotRoofs": true,
+      "playerInitialPosition": {
+        "x": 20,
+        "y": 20
+      },
+      "seedBatchMetadata": "Both plots retain source seedUid44; bag UID44 remains one actual seed item. This metadata is not a claim of two separate physical seed items having one UID.",
+      "sourceWaterUID": 45,
+      "rootUID": 48,
+      "whitecapUID": 49
+    },
+    "browserTimeEvidence": {
+      "mainInputTU": 20100,
+      "mainWaterActionTU": 100,
+      "mainRest200TurnsTU": 20000,
+      "legacyInputTU": 100,
+      "nativeCombinedActualInputTU": 20200,
+      "commonHarnessInputTUPerRun": 200,
+      "initialTimeTU": 1459900,
+      "mainFinalTimeTU": 1480000,
+      "legacyFinalTimeTU": 1460000,
+      "noInputTimeAttributedToInventoryViewportObservation": true
+    },
+    "actualWaterAndItemObservations": {
+      "initial": {
+        "timeTU": 1459900,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 5,
+            "gx": 1,
+            "gy": 0,
+            "water": {
+              "pathogen": 0,
+              "ash": 0,
+              "source": "처음 소지한 실제 담수"
+            }
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14599,
+            "waterUnits": 0,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 0.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14599,
+            "waterUnits": 0,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 0.0
+          }
+        ]
+      },
+      "water": {
+        "timeTU": 1460000,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 0,
+            "gx": 1,
+            "gy": 0
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14600,
+            "waterUnits": 28512000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 990.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14600,
+            "waterUnits": 288000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 10.0
+          }
+        ]
+      },
+      "rest": {
+        "timeTU": 1480000,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 0,
+            "gx": 1,
+            "gy": 0
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14800,
+            "waterUnits": 28224000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 980.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14800,
+            "waterUnits": 576000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 20.0
+          }
+        ]
+      },
+      "inventory": {
+        "timeTU": 1480000,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 0,
+            "gx": 1,
+            "gy": 0
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14800,
+            "waterUnits": 28224000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 980.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14800,
+            "waterUnits": 576000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 20.0
+          }
+        ]
+      },
+      "legacy": {
+        "timeTU": 1459900,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 5,
+            "gx": 1,
+            "gy": 0,
+            "water": {
+              "pathogen": 0,
+              "ash": 0,
+              "source": "처음 소지한 실제 담수"
+            }
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14599,
+            "waterUnits": 0,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 0.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14599,
+            "waterUnits": 0,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 0.0
+          }
+        ]
+      },
+      "legacyWater": {
+        "timeTU": 1460000,
+        "saveVersion": 198,
+        "playerPosition": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 1,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 45,
+            "def": "Item.WaterBottle",
+            "count": 1,
+            "uses": 0,
+            "gx": 1,
+            "gy": 0
+          },
+          {
+            "uid": 48,
+            "def": "Item.ShadeRoot",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 2,
+            "gy": 0
+          },
+          {
+            "uid": 49,
+            "def": "Item.Whitecap",
+            "count": 1,
+            "freshness": 100,
+            "foodAgedAt": 14402,
+            "gx": 3,
+            "gy": 0
+          }
+        ],
+        "mapAmbient": 0,
+        "mapDaylightMult": 0,
+        "plots": [
+          {
+            "coordinate": [
+              21,
+              20
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14600,
+            "waterUnits": 28512000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 990.0
+          },
+          {
+            "coordinate": [
+              21,
+              21
+            ],
+            "terrain": "Terrain.ShadePlot",
+            "roof": true,
+            "seedUid": 44,
+            "growth": 0,
+            "lastAt": 14600,
+            "waterUnits": 288000,
+            "growthTotalFromStoredSignature": 28800,
+            "waterMl": 10.0
+          }
+        ]
+      }
+    },
+    "waterConservation": {
+      "originalBottleUses": {
+        "before": 5,
+        "after": 0
+      },
+      "originalBottleMlBefore": 1000,
+      "originalBottleMlAfter": 0,
+      "afterFirstActualBoundaryMl": [
+        990,
+        10
+      ],
+      "afterNext200TurnsBoundaryMl": [
+        980,
+        20
+      ],
+      "plotCombinedMl": 1000,
+      "growthAllObserved": 0,
+      "noRainGrowthEvaporationClaimScope": "Declared roof/light0 finite isolation plus UI0ml/hour and actualJSON; not proof for arbitrary roofs,weather,growth or crop types.",
+      "originalThreeCropBagItemsExactlyPreserved": true,
+      "nativeInventoryIcons": "Direct1424 confirms dedicated seed-packet/round-root/single-whitecap icons in separate1×1positions. Count1/UID44,48,49 and emptybottleUID45 are from JSON.",
+      "ordinaryNewGameGrantsTheseItems": false
+    },
+    "suppliedCausalAudit": {
+      "file": {
+        "path": "docs/soil-water-v291-causal-audit.json",
+        "bytes": 886,
+        "sha256": "a10563b48f52dd2382401ca5bd80f5a2dbec33b2d0ff63403b205844bbded834"
+      },
+      "record": {
+        "baseline": "immutable v290-final publicCore scheduler/action with current DB+same finite198initial to isolate code behavior",
+        "current": "Root291 publicCore same original1000ml actualwater1T/rest200T",
+        "allowedDifferences": [
+          "two actual crop waterUnits fields: source loses10ml, target gains10ml per actual200boundary"
+        ],
+        "allOtherWholeStateExact": true,
+        "rows": [
+          {
+            "action": "waterCrop",
+            "actualInputTU": 100,
+            "sourceMl": 990,
+            "targetMl": 10,
+            "allOtherWholeStateExactFrozen290": true
+          },
+          {
+            "action": "rest",
+            "actualInputTU": 20100,
+            "sourceMl": 980,
+            "targetMl": 20,
+            "allOtherWholeStateExactFrozen290": true
+          }
+        ],
+        "limits": "Finite initial roof/light0/time199-of200; not actual past weather/growth replay. No claim BOTH versions are same content release or arbitrary worlds identical."
+      },
+      "reviewerReranFrozen290Comparison": false,
+      "limitation": "Read and attributed the supplied finite causality comparison; no independent world simulation,whole-project regression or arbitrary-world equivalence claim."
+    }
+  },
+  "commonHarnessEvidence": {
+    "runs": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "run": {
+          "path": "test-results/game-harness-v291-final-1440/run.json",
+          "bytes": 418,
+          "sha256": "b5edef6837a8e8cec317ff4a074eb4ea998cbb1d401140fb5c5b0f8561a42315",
+          "record": {
+            "scenario": "smoke",
+            "url": "http://localhost:4317/?debug",
+            "viewport": {
+              "width": 1440,
+              "height": 1080
+            },
+            "executablePath": "/workspace/.ashveil-tools/chromium",
+            "startedAt": "2026-10-21T02:17:36.181Z",
+            "completedSteps": 11,
+            "artifacts": [
+              "00-title",
+              "01-world",
+              "02-inventory",
+              "final"
+            ],
+            "errors": [],
+            "status": "passed",
+            "finishedAt": "2026-10-21T02:17:50.830Z"
+          }
+        },
+        "errors": {
+          "path": "test-results/game-harness-v291-final-1440/errors.json",
+          "bytes": 2,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "record": []
+        },
+        "actions": {
+          "path": "test-results/game-harness-v291-final-1440/actions.json",
+          "bytes": 1101,
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33",
+          "record": {
+            "name": "smoke",
+            "description": "실제 타이틀에서 고정 시드로 시작하고 한 턴 대기·남쪽 회전 뒤 소지품 UI를 기록한다.",
+            "steps": [
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=seed]",
+                "state": "visible"
+              },
+              {
+                "action": "fill",
+                "selector": "[data-testid=seed]",
+                "value": "ashveil-harness-smoke"
+              },
+              {
+                "action": "snapshot",
+                "name": "00-title"
+              },
+              {
+                "action": "click",
+                "selector": "[data-testid=start]",
+                "button": "left"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=map] canvas",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "01-world"
+              },
+              {
+                "action": "press",
+                "key": "Period"
+              },
+              {
+                "action": "press",
+                "key": "Control+ArrowDown"
+              },
+              {
+                "action": "press",
+                "key": "i"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=bag]",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "02-inventory"
+              }
+            ]
+          }
+        },
+        "titleLayout": {
+          "path": "test-results/game-harness-v291-final-1440/00-title-layout.json",
+          "bytes": 247,
+          "sha256": "2ed5f2bb08b7a99b2f35578f9c06f45e647e6514753b6ed5e1e3c32728e0c739",
+          "record": {
+            "viewport": {
+              "width": 1440,
+              "height": 1080
+            },
+            "start": {
+              "left": 954,
+              "top": 835.28125,
+              "right": 1240,
+              "bottom": 880.28125,
+              "fullyInViewport": true,
+              "centerIsClickable": true
+            },
+            "scrolledElements": []
+          }
+        },
+        "titleHasNoWorldLoaded": true,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "gamePhases": [
+          {
+            "phase": "01-world",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1440/01-world-world.json",
+              "bytes": 4676283,
+              "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1440/01-world-state.json",
+              "bytes": 16730,
+              "sha256": "2fc248dc08cb6c697f5727ce1166a2b2d74196e6445c3550ce7c612ccb7e4d8d"
+            },
+            "timeTU": 2160000,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 0,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21600
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {},
+                "durability": 100,
+                "gearAgedAt": 21600
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          },
+          {
+            "phase": "02-inventory",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1440/02-inventory-world.json",
+              "bytes": 4683448,
+              "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1440/02-inventory-state.json",
+              "bytes": 16730,
+              "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          },
+          {
+            "phase": "final",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1440/final-world.json",
+              "bytes": 4683448,
+              "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1440/final-state.json",
+              "bytes": 16730,
+              "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          }
+        ],
+        "fixtureCropItemsGrantedAtNewGame": false
+      },
+      {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "run": {
+          "path": "test-results/game-harness-v291-final-1366/run.json",
+          "bytes": 417,
+          "sha256": "8e63a93033d2696a79d17395e2fceab0a78435656a5342eda2618d9faf709391",
+          "record": {
+            "scenario": "smoke",
+            "url": "http://localhost:4317/?debug",
+            "viewport": {
+              "width": 1366,
+              "height": 768
+            },
+            "executablePath": "/workspace/.ashveil-tools/chromium",
+            "startedAt": "2026-10-21T02:17:51.067Z",
+            "completedSteps": 11,
+            "artifacts": [
+              "00-title",
+              "01-world",
+              "02-inventory",
+              "final"
+            ],
+            "errors": [],
+            "status": "passed",
+            "finishedAt": "2026-10-21T02:18:02.352Z"
+          }
+        },
+        "errors": {
+          "path": "test-results/game-harness-v291-final-1366/errors.json",
+          "bytes": 2,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "record": []
+        },
+        "actions": {
+          "path": "test-results/game-harness-v291-final-1366/actions.json",
+          "bytes": 1101,
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33",
+          "record": {
+            "name": "smoke",
+            "description": "실제 타이틀에서 고정 시드로 시작하고 한 턴 대기·남쪽 회전 뒤 소지품 UI를 기록한다.",
+            "steps": [
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=seed]",
+                "state": "visible"
+              },
+              {
+                "action": "fill",
+                "selector": "[data-testid=seed]",
+                "value": "ashveil-harness-smoke"
+              },
+              {
+                "action": "snapshot",
+                "name": "00-title"
+              },
+              {
+                "action": "click",
+                "selector": "[data-testid=start]",
+                "button": "left"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=map] canvas",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "01-world"
+              },
+              {
+                "action": "press",
+                "key": "Period"
+              },
+              {
+                "action": "press",
+                "key": "Control+ArrowDown"
+              },
+              {
+                "action": "press",
+                "key": "i"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=bag]",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "02-inventory"
+              }
+            ]
+          }
+        },
+        "titleLayout": {
+          "path": "test-results/game-harness-v291-final-1366/00-title-layout.json",
+          "bytes": 246,
+          "sha256": "072d30d7cbfabb1a12e69d5ea2317906b267db8cb6cb58b5da9e861ac80e3c65",
+          "record": {
+            "viewport": {
+              "width": 1366,
+              "height": 768
+            },
+            "start": {
+              "left": 913,
+              "top": 669.28125,
+              "right": 1207,
+              "bottom": 714.28125,
+              "fullyInViewport": true,
+              "centerIsClickable": true
+            },
+            "scrolledElements": []
+          }
+        },
+        "titleHasNoWorldLoaded": true,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "gamePhases": [
+          {
+            "phase": "01-world",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1366/01-world-world.json",
+              "bytes": 4676283,
+              "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1366/01-world-state.json",
+              "bytes": 16730,
+              "sha256": "2fc248dc08cb6c697f5727ce1166a2b2d74196e6445c3550ce7c612ccb7e4d8d"
+            },
+            "timeTU": 2160000,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 0,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21600
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {},
+                "durability": 100,
+                "gearAgedAt": 21600
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          },
+          {
+            "phase": "02-inventory",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1366/02-inventory-world.json",
+              "bytes": 4683448,
+              "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1366/02-inventory-state.json",
+              "bytes": 16730,
+              "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          },
+          {
+            "phase": "final",
+            "world": {
+              "path": "test-results/game-harness-v291-final-1366/final-world.json",
+              "bytes": 4683448,
+              "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+            },
+            "state": {
+              "path": "test-results/game-harness-v291-final-1366/final-state.json",
+              "bytes": 16730,
+              "sha256": "c37d336e9c383a4b9654ac74adbd95aa20eb0a02bebd3742fa0075279659aa17"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashMatchesWorldAndNativeFixture": true
+          }
+        ],
+        "fixtureCropItemsGrantedAtNewGame": false
+      }
+    ],
+    "crossViewportWholeWorldChecks": [
+      {
+        "phase": "01-world",
+        "viewport1440World": {
+          "path": "test-results/game-harness-v291-final-1440/01-world-world.json",
+          "bytes": 4676283,
+          "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+        },
+        "viewport1366World": {
+          "path": "test-results/game-harness-v291-final-1366/01-world-world.json",
+          "bytes": 4676283,
+          "sha256": "79a9a3ede8781cfdae29e91f6d649bcbe98889896bec80610d54bfbaeabd3c89"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "phase": "02-inventory",
+        "viewport1440World": {
+          "path": "test-results/game-harness-v291-final-1440/02-inventory-world.json",
+          "bytes": 4683448,
+          "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+        },
+        "viewport1366World": {
+          "path": "test-results/game-harness-v291-final-1366/02-inventory-world.json",
+          "bytes": 4683448,
+          "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "phase": "final",
+        "viewport1440World": {
+          "path": "test-results/game-harness-v291-final-1440/final-world.json",
+          "bytes": 4683448,
+          "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+        },
+        "viewport1366World": {
+          "path": "test-results/game-harness-v291-final-1366/final-world.json",
+          "bytes": 4683448,
+          "sha256": "6be290f27ca08c271fcb9d8aa09a7b5b650e0558c3db4b68f34f3ae05ccdab48"
+        },
+        "entireJSONEqual": true
+      }
+    ],
+    "sourceAudit": {
+      "path": "docs/game-harness-v291-audit.json",
+      "bytes": 798,
+      "sha256": "106040c4ad931af5203feecd5403dfa9dc558cd76c96d3323c732d166724cf8d",
+      "record": {
+        "rows": [
+          {
+            "viewport": 1440,
+            "steps": 11,
+            "screenshots": 4,
+            "actualInputTU": 200,
+            "wholeWorldUnchangedByFinalObservation": true,
+            "contentHashMatchesFrozen291": true,
+            "startFullyInViewportWithoutScroll": true,
+            "startCenterClickable": true,
+            "startBottom": 880.28125
+          },
+          {
+            "viewport": 1366,
+            "steps": 11,
+            "screenshots": 4,
+            "actualInputTU": 200,
+            "wholeWorldUnchangedByFinalObservation": true,
+            "contentHashMatchesFrozen291": true,
+            "startFullyInViewportWithoutScroll": true,
+            "startCenterClickable": true,
+            "startBottom": 714.28125
+          }
+        ],
+        "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+        "ownPreviewWrapperUsed": true,
+        "source": "immutable v291-native"
+      }
+    }
+  },
+  "previewDisplayLimitations": {
+    "nativeF2OriginalRGB": [
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+          "bytes": 652697,
+          "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "F2 title",
+        "rectangleXYXY": [
+          180,
+          80,
+          780,
+          127
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+          "bytes": 652697,
+          "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "base work",
+        "rectangleXYXY": [
+          195,
+          140,
+          765,
+          214
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1422-native-actual200turn-slow-soil-water980and20.png",
+          "bytes": 653104,
+          "sha256": "023ef71de5a689cff3d37eefa9e9aab068ba6e970ce152b0b7e077fbbc4d84b0"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "F2 title",
+        "rectangleXYXY": [
+          180,
+          80,
+          780,
+          127
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1422-native-actual200turn-slow-soil-water980and20.png",
+          "bytes": 653104,
+          "sha256": "023ef71de5a689cff3d37eefa9e9aab068ba6e970ce152b0b7e077fbbc4d84b0"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "base work",
+        "rectangleXYXY": [
+          195,
+          140,
+          765,
+          214
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1426-native-legacy197-real-input198-restored990and10.png",
+          "bytes": 660125,
+          "sha256": "0bc82ec015f62c22a74c84f87d329ec08ed8418b58ef9e5627436c38796382db"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "F2 title",
+        "rectangleXYXY": [
+          180,
+          80,
+          780,
+          127
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1426-native-legacy197-real-input198-restored990and10.png",
+          "bytes": 660125,
+          "sha256": "0bc82ec015f62c22a74c84f87d329ec08ed8418b58ef9e5627436c38796382db"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1420-native-two-actual-dry-soil-plots-and-real1000ml-water-rule.png",
+          "bytes": 652976,
+          "sha256": "b02a445596526b3bc4d08495b0b574e1eda03592c854296536c89237049d5127"
+        },
+        "region": "base work",
+        "rectangleXYXY": [
+          195,
+          140,
+          765,
+          214
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1422-native-actual200turn-slow-soil-water980and20.png",
+          "bytes": 653104,
+          "sha256": "023ef71de5a689cff3d37eefa9e9aab068ba6e970ce152b0b7e077fbbc4d84b0"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+          "bytes": 652697,
+          "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c"
+        },
+        "region": "recipe list",
+        "rectangleXYXY": [
+          195,
+          475,
+          765,
+          1068
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1422-native-actual200turn-slow-soil-water980and20.png",
+          "bytes": 653104,
+          "sha256": "023ef71de5a689cff3d37eefa9e9aab068ba6e970ce152b0b7e077fbbc4d84b0"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+          "bytes": 652697,
+          "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c"
+        },
+        "region": "log1440",
+        "rectangleXYXY": [
+          988,
+          764,
+          1428,
+          930
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/soil-water-browser-v291/1426-native-legacy197-real-input198-restored990and10.png",
+          "bytes": 660125,
+          "sha256": "0bc82ec015f62c22a74c84f87d329ec08ed8418b58ef9e5627436c38796382db"
+        },
+        "reference": {
+          "path": "test-results/soil-water-browser-v291/1421-native-original1000ml-now990and10-no-created-water.png",
+          "bytes": 652697,
+          "sha256": "b1bdc1807eb5bed2cc17b6f22b8df73431d52f19c919623496d99f058a307d5c"
+        },
+        "region": "same990/10ml crop panel",
+        "rectangleXYXY": [
+          195,
+          226,
+          765,
+          460
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      }
+    ],
+    "nativeRepresentativeRawRGB": {
+      "1421": {
+        "(250, 100)": [
+          44,
+          53,
+          44
+        ],
+        "(500, 100)": [
+          29,
+          42,
+          40
+        ],
+        "(200, 150)": [
+          26,
+          39,
+          41
+        ],
+        "(500, 200)": [
+          22,
+          33,
+          35
+        ],
+        "(500, 500)": [
+          17,
+          27,
+          30
+        ],
+        "(1100, 800)": [
+          20,
+          31,
+          31
+        ]
+      },
+      "1422": {
+        "(250, 100)": [
+          44,
+          53,
+          44
+        ],
+        "(500, 100)": [
+          29,
+          42,
+          40
+        ],
+        "(200, 150)": [
+          26,
+          39,
+          41
+        ],
+        "(500, 200)": [
+          22,
+          33,
+          35
+        ],
+        "(500, 500)": [
+          17,
+          27,
+          30
+        ],
+        "(1100, 800)": [
+          20,
+          31,
+          31
+        ]
+      },
+      "1426": {
+        "(250, 100)": [
+          44,
+          53,
+          44
+        ],
+        "(500, 100)": [
+          29,
+          42,
+          40
+        ],
+        "(200, 150)": [
+          26,
+          39,
+          41
+        ],
+        "(500, 200)": [
+          22,
+          33,
+          35
+        ],
+        "(500, 500)": [
+          17,
+          27,
+          30
+        ],
+        "(1100, 800)": [
+          20,
+          31,
+          31
+        ]
+      }
+    },
+    "genericFinalOriginalRGB": [
+      {
+        "image": {
+          "path": "test-results/game-harness-v291-final-1440/final.png",
+          "bytes": 601985,
+          "sha256": "1c3b143b628ad43767c2f9fd5f6f08810826415b6183a878ce569b7a5ef2707d"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v291-final-1440/02-inventory.png",
+          "bytes": 601251,
+          "sha256": "357f239dcdda93905795f2d00f8dbf56463863bc266bbaa589238f14cf314f5b"
+        },
+        "region": "inventory",
+        "rectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1440
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v291-final-1440/final.png",
+          "bytes": 601985,
+          "sha256": "1c3b143b628ad43767c2f9fd5f6f08810826415b6183a878ce569b7a5ef2707d"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v291-final-1440/02-inventory.png",
+          "bytes": 601251,
+          "sha256": "357f239dcdda93905795f2d00f8dbf56463863bc266bbaa589238f14cf314f5b"
+        },
+        "region": "log",
+        "rectangleXYXY": [
+          988,
+          764,
+          1428,
+          930
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1440
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v291-final-1366/final.png",
+          "bytes": 445782,
+          "sha256": "add53aa90e911586425bad154be1d5955b84c608c7dd545666f47cfe265cc89f"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v291-final-1366/02-inventory.png",
+          "bytes": 446914,
+          "sha256": "a7d7731030b37305b6d9297d2434623c394be79844bb73e6597cc19ee3b8ac29"
+        },
+        "region": "inventory",
+        "rectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "entireRGBRegionExactlyEqual": false,
+        "differentPixelCount": 4,
+        "maxChannelDelta": 1,
+        "firstDifferentPixelsXYMaxDelta": [
+          [
+            420,
+            441,
+            1
+          ],
+          [
+            420,
+            442,
+            1
+          ],
+          [
+            421,
+            442,
+            1
+          ],
+          [
+            422,
+            442,
+            1
+          ]
+        ],
+        "viewportWidth": 1366
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v291-final-1366/final.png",
+          "bytes": 445782,
+          "sha256": "add53aa90e911586425bad154be1d5955b84c608c7dd545666f47cfe265cc89f"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v291-final-1366/02-inventory.png",
+          "bytes": 446914,
+          "sha256": "a7d7731030b37305b6d9297d2434623c394be79844bb73e6597cc19ee3b8ac29"
+        },
+        "region": "log",
+        "rectangleXYXY": [
+          914,
+          452,
+          1354,
+          618
+        ],
+        "entireRGBRegionExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1366
+      }
+    ],
+    "classification": "Toolpreview omission is distinct from source-image omission. Exact comparisons are limited to listed unchanged regions; live water/temperature values,layout reflow after bottle emptying and actual log changes are not asserted identical.",
+    "imagesEdited": false
+  },
+  "occlusionAndClipping": [
+    "NativeF2modal covers world/player/actualplotpixels. PlotcoordinatesandstatesarevisibleasUIrows;physicaltile identityisJSONevidence.",
+    "At1366×768 Native1423 both crop-state rows and close remain visible, but the long recipe list is cut below the modal body. All recipes are not simultaneously visible and additional scrolling was not independently exercised.",
+    "Native1424inventoryfits and displays cropicons,while modal/HUD cover parts of dark world and log; bagwater0ml isJSONevidence,notbottlepixelinference.",
+    "Both common Titles have startbutton wholly inviewport withoutscroll according to layout, but lower backgroundchoices extend belowviewport.",
+    "Common world trees/ground can be partially hidden at viewport/HUDedges;1366initialhotbartooltipcoverspartoflog.",
+    "Only the supplied screenshot moments and input paths were reviewed; no blanket claim of all UI states,scrollpositionsor screen sizes fitting."
+  ],
+  "visualFindings": [],
+  "notVerified": [
+    "No new browser/GPU run or input replay by reviewer.",
+    "No arbitrary historical197user-save compatibility claim; only current finitefixturewith197header.",
+    "No full crop lifecycle/harvest/contamination/food aging/soil diffusion under arbitrarylight/weather/roof/frozen/salt/substrate conditions.",
+    "No functional proof of every recipe/scrollcontrol/tooltip/targetclick from these15frames.",
+    "No Core or Def modification,test/build/lint/typecheck,worldsimulation,Git or publishing performed by reviewer.",
+    "Sourceproofmanifest/sourcebytecounts are supplied Root evidence recorded byhash,not an independent rehash of all project source files in this screen review."
+  ]
+}

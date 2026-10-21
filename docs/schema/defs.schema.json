@@ -37687,6 +37687,41 @@
                   }
                 ]
               },
+              "cropSoilDiffusion": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "everyTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxMlPerEdge": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "mapWorkers": {
                 "anyOf": [
                   {
@@ -38359,6 +38394,21 @@
               },
               "cropEvaporationMlPerHour": {
                 "type": "number"
+              },
+              "cropSoilDiffusion": {
+                "type": "object",
+                "properties": {
+                  "everyTurns": {
+                    "type": "number"
+                  },
+                  "maxMlPerEdge": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "everyTurns",
+                  "maxMlPerEdge"
+                ]
               },
               "mapWorkers": {
                 "type": "object",
