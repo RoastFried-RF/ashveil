@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest'
 import {loadDb,readPackages} from '../tools/loadContent'
 import {loadMods,type PatchOp,type ModPackage} from '../src/core/defs'
-import {newGame} from '../src/core/game'
+import {newGame,SAVE_VERSION} from '../src/core/game'
 import {TURNS_PER_DAY,type World} from '../src/core/ctx'
 import {calendar,calendarAtDay,seasons} from '../src/core/climate-state'
 import {seasonalProductionMultiplier,settlementCommodity,worldSimulationTick,initializeWorldSimulation} from '../src/core/world-simulation'
@@ -38,8 +38,8 @@ describe('실제 완료일의 계절 식량 생산',()=>{
   const{w,stock}=setup();stock.reserve.Food=100000;const before=settlementCommodity(w,stock,'Food');at(w,90);expect(settlementCommodity(w,stock,'Food')).toBeCloseTo(before+160*90-180*90,7)
  })
  it('중복 일일정산과초기화는 이미기록한저장고·정산일·난수·UID를바꾸지않는다',()=>{const{w}=setup();at(w,13);const before=serialize(w.s);worldSimulationTick(w);initializeWorldSimulation(w);expect(serialize(w.s)).toBe(before)})
- it('현재198헤더의같은유한원문은버전만199로변환하고다음실제정산만진행한다',()=>{
-  const{w}=setup();const current=JSON.parse(serialize(w.s)),legacy={...current,version:198},restored=deserialize(JSON.stringify(legacy));expect(restored).toEqual({...current,version:199});const other={db,s:restored};at(w,1);at(other,1);expect(serialize(other.s)).toBe(serialize(w.s))
+ it('현재198헤더의같은유한원문은현재버전으로만변환하고다음실제정산만진행한다',()=>{
+  const{w}=setup();const current=JSON.parse(serialize(w.s)),legacy={...current,version:198},restored=deserialize(JSON.stringify(legacy));expect(restored).toEqual({...current,version:SAVE_VERSION});const other={db,s:restored};at(w,1);at(other,1);expect(serialize(other.s)).toBe(serialize(w.s))
  })
  it.each([null,{},{factions:[],seasons:{}},{factions:['missing'],seasons:{'Season.Winter':{Food:.2}}},{factions:['coalition','coalition'],seasons:{'Season.Winter':{Food:.2}}},{factions:['coalition'],seasons:{'Season.Missing':{Food:.2}}},{factions:['coalition'],seasons:{'Season.Winter':{Food:-.1}}},{factions:['coalition'],seasons:{'Season.Winter':{Food:11}}},{factions:['coalition'],seasons:{'Season.Winter':{Food:NaN}}},{factions:['coalition'],seasons:{'Season.Winter':{Food:'1'}}},{factions:['coalition'],seasons:{'Season.Winter':{Unknown:1}}},{factions:['coalition'],seasons:{'Season.Winter':{}}}])('잘못된 계절 생산 정책을 실제로더가 거절한다 %#',value=>{expect(ruleDb(value).report.errors.length).toBeGreaterThan(0)})
  it('같은저장원문의중간복원은계절경계를넘는일일정산의전체상태를보존한다',()=>{const{w}=setup();at(w,10);const copy:World={db,s:deserialize(serialize(w.s))};at(w,13);at(copy,13);expect(serialize(copy.s)).toBe(serialize(w.s))})

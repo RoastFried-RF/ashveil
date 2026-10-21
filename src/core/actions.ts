@@ -1,3 +1,4 @@
+import {brushClearingStep,startBrushClearing} from './brush-clearing'
 import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
 import {lockPickingStep,startLockPicking} from './lock-picking'
 import {combatManeuver} from './maneuvers'
@@ -316,6 +317,7 @@ export type Action =
   | { type: 'cancelWork' }
   | { type: 'collectCraft'; id: number }
   | { type: 'gather'; pos: Pos }
+  | {type:'clearBrush';pos:Pos}
   | { type: 'place'; uid: number; dir: number }
   | { type: 'packBedding'; pos: Pos }
   | {type:'putOutTerrainFire';pos:Pos}
@@ -1174,6 +1176,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (c.activity && ['craft', 'repair', 'salvage'].includes(c.activity.kind)) c.activity = undefined
       c.workJob = undefined
       return FREE
+    case 'clearBrush':{const error=startBrushClearing(w,c,a.pos);return error?FAIL(error):FREE}
     case 'gather': {
       const err = startGather(w, c, a.pos, multiTurnFactor(w, c, { dexterous: false }))
       return err ? FAIL(err) : FREE
@@ -1784,6 +1787,7 @@ export function activityStep(w: World, c: Creature): boolean {
     }
   }
   switch (act.kind) {
+    case 'clearBrush':return brushClearingStep(w,c)
     case 'magazineReload':return magazineReloadStep(w,c)
     case 'firearmCare':return firearmCareStep(w,c)
     case 'pryContainer':return act.containerPry?.method==='pick'?lockPickingStep(w,c):containerPryStep(w,c)

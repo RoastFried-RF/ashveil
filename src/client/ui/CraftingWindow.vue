@@ -20,6 +20,7 @@ import FieldDevicePanel from './FieldDevicePanel.vue'
 import MarinePanel from './MarinePanel.vue'
 import BeaconPanel from './BeaconPanel.vue'
 import AquaticPanel from './AquaticPanel.vue'
+import BrushClearingPanel from './BrushClearingPanel.vue'
 
 const tab = ref<'recipes' | 'maintenance'>('recipes')
 const category = ref('all')
@@ -73,8 +74,9 @@ function tip(e: MouseEvent, uid: number) {
     <CookingPanel />
     <BoilPanel />
     <SeasonalForagePanel />
+    <BrushClearingPanel />
     <CultivationPanel />
-    <p class="mb-2 text-xs text-ash-400">현재 작업장: {{ d.station }} · 재료는 완료할 때 소비한다. 위험하면 중단하고 진행은 남는다.</p>
+    <p class="mb-2 text-xs text-ash-400">현재 작업장: {{ d.station }} · 제작·수리 재료는 완료할 때 소비한다. 중단해도 제작·수리 진행은 남는다.</p>
     <div v-if="d.job" class="df df-tab mb-2 text-xs text-amber-200" data-testid="craft-progress">
       진행 {{ d.job.progress }}/{{ d.job.total }}턴
       <button class="dbtn ml-2" :disabled="simulating" @click="doAct({ type: 'cancelWork' })">작업 취소·진행 초기화</button>

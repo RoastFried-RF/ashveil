@@ -457,6 +457,7 @@ export interface CropRule { maxLight?:number; needsSoil?:boolean; substrate?:{it
 export interface CultivationState {dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
 export interface LockPickingRule {turns:number;wear:number;noise:number;toolTag:string;base:number;min:number;max:number;agility:number;quality:number}
 export interface TerrainDef extends DefBase {
+  clearing?:{tools:string[];turns:number;result:string;edgeLoss:number;noise:number}
   lock?:{turns:number;wear:number;noise:number;tools:string[];picking?:LockPickingRule}
   cultivation?:CropRule
   combustion?:{family:string;burnTurns:number;burnedAs:string}
@@ -2030,6 +2031,7 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number; events?: { at: number; untilTurn: number; mood?: number }[] }
 
 export interface Activity {
+  brushCut?:{map:string;region?:string;toolUid:number;signature:string}
   containerPry?:{map:string;region?:string;terrain:string;toolUid:number;signature:string;method?:'pick'}
   npcCare?:{provider:number;patient:number;woundId:number;materialUid:number;startedAt:number}
 
@@ -2096,7 +2098,7 @@ export interface Activity {
   fireUid?:number
   fireHot?:boolean
   beddingWash?:{map:string;terrain:string;uid?:number}
-  kind: 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  kind: 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */

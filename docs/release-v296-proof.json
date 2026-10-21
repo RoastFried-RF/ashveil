@@ -1,0 +1,532 @@
+{
+  "checkpoint": "v296-verified",
+  "manifestSha256": "77e5459e9d7fc5f67818e4809363f9b36588fc3fad0b77aefc4f05c4714a4cce",
+  "save": 200,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 334,
+  "samplePatches": 339,
+  "schemaFiles": 162,
+  "source": {
+    "src": {
+      "files": 675,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1051,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 233,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 508,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "nativeInputToFinal": {
+    "src": {
+      "files": 675,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    "dist": {
+      "files": 907,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    "public": {
+      "files": 508,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    "tests": {
+      "files": 1051,
+      "allBytesIdentical": false,
+      "testOnlyDifferences": [
+        "seasonal-production.test.ts",
+        "base-rest.test.ts"
+      ]
+    },
+    "tools": {
+      "files": 233,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true,
+      "testOnlyDifferences": []
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 329,
+    "passed": 6008,
+    "failed": 0,
+    "seconds": 440.371029296875,
+    "workers": 4,
+    "ranIn": "immutable v296-verified"
+  },
+  "checks": {
+    "typecheckExitCode": 0,
+    "buildExitCode": 0,
+    "lintExitCode": 0,
+    "evidence": [
+      "type-v296-native-final.log",
+      "build-v296-ui-final.log",
+      "lint-v296-final.log",
+      "brush-clearing-v296-related-final.json",
+      "sprite-assets-v296.json",
+      "defs-v296.log",
+      "validate-schema-v296.log",
+      "type-v296-test-fixes.log",
+      "lint-v296-test-fixes.log",
+      "full-v296-followup.json"
+    ],
+    "relatedFiles": 3,
+    "relatedPassed": 44,
+    "schemaFiles": 162,
+    "spriteCounts": {
+      "sheets": 107,
+      "frames": 792,
+      "animations": 7,
+      "characters": 20,
+      "ui": 26,
+      "icons": 80,
+      "creatureCharacters": 18,
+      "uniquePngFiles": 171
+    },
+    "warnings": "1oldunusedmirror,8oldduplicateIEND;initialnewunusedpwarning removed beforefinalLint",
+    "fullPending": false,
+    "postFullTestOnlyChanges": {
+      "files": [
+        "tests/seasonal-production.test.ts",
+        "tests/base-rest.test.ts"
+      ],
+      "followupFiles": 2,
+      "followupPassed": 44,
+      "old20sThirstSleepPassedMS": 18941.932362,
+      "firstFullPassed": 6006,
+      "firstFullFailed": 2,
+      "firstFullSeconds": 443.0824765625,
+      "longSleepWallClockTimeoutMS": 40000,
+      "productSourceOrGoldenChanges": false,
+      "typecheckExitCode": 0,
+      "lintExitCode": 0
+    }
+  },
+  "world": {
+    "status": "passed",
+    "measuredVersion": 296,
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 433.156769735,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo294": 30,
+    "comparison": "All30 complete RESULT rows, averageDays and causes exact previous measured294. Not entireWorldState; below1day survival does not exercise long-term ecology or economy."
+  },
+  "goldens": {
+    "baseline": 295,
+    "current": 296,
+    "scope": "ALL5WHOLEinitial/final/errors. ONLY199→200+2contenthash paths fromoptional brush action and4art bindings. These vectors never clear a bush; unchanged physical state is not proof of new clearing behavior. Actual clearing/planting/interruptions are tested separately. ALL other bodies/items/time/world/UID/RNG/errors exact295.",
+    "rows": [
+      {
+        "name": "surface",
+        "initialHash": "17c97b91",
+        "hash": "81fc8db1",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          },
+          "state": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          }
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "a3cbe4ea",
+        "hash": "515531a9",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          },
+          "state": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          }
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "63107014",
+        "hash": "59c8e7d9",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          },
+          "state": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          }
+        }
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "19aafe26",
+        "hash": "70aae761",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          },
+          "state": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          }
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "19aafe26",
+        "hash": "58c42453",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          },
+          "state": {
+            "version199To200": true,
+            "twoContentHashPathsOnly": 2,
+            "allRemainingWholeStateExact295": true
+          }
+        }
+      }
+    ]
+  },
+  "native": {
+    "save": 200,
+    "screenshots": 10,
+    "roundtrips": 3,
+    "phases": 11,
+    "actualInputTU": 2200,
+    "macheteUid": 43,
+    "seedsUid": 44,
+    "saltUid": 45,
+    "woodUid": 46,
+    "currentTimeTU": 1200,
+    "legacyTimeTU": 1000,
+    "originalFloor": [
+      {
+        "uid": 45,
+        "def": "Item.Salt",
+        "count": 3
+      },
+      {
+        "uid": 46,
+        "def": "Item.Wood",
+        "count": 2
+      }
+    ],
+    "originalGroundPos": {
+      "x": 21,
+      "y": 20
+    },
+    "finalGround": [
+      {
+        "uid": 45,
+        "def": "Item.Salt",
+        "count": 3
+      },
+      {
+        "uid": 46,
+        "def": "Item.Wood",
+        "count": 2
+      }
+    ],
+    "seedPlantedUid": 44,
+    "seedRemaining": 1,
+    "macheteEdgeAfter": 100,
+    "macheteEdgeWearAfter": 80,
+    "legacyMacheteEdge": 100,
+    "legacyMacheteEdgeWear": 80,
+    "errors": [],
+    "source": "Finite current actualgeneratedhealthyplayer/actualMachete+ShadeSeeds2/originalSalt3+Wood2 infullylitdungeon,2declaredwildbushes(onegatherAtfuture),weather/storiespaused. Originalfinitefixture isnotnormalnewgamegifts oracquisitionhistory. ActualTitleContinue/bagonlydisabled/I/equip1T/F2/clear10T/whole200restore/sameseedplant1T/whole200restore/small. Legacy199header on same currentfiniteafterequip scene, nothistoricaluser-save; actualclearotherbush10T/whole200restore/smallremainingbushcontrol. Eleven independent Node whole comparisons, no postloadworld/time/RNG/material injection. No newfruit/wood byclearing; originalflooritems preserved. Activepartialprogressrestore is coveredbyunit, not browserclaim."
+  },
+  "nativeSourceProof": {
+    "native": {
+      "phases": 11,
+      "wholeActualExpectedPairsEqual": true,
+      "screenshots": 10,
+      "saveRestores": 3,
+      "actualInputTU": 2200,
+      "errors": []
+    },
+    "execution": "Native and common executed in immutable /workspace/.ashveil-checkpoints/v296-input app index-DcrWQzdS.js, own strict4317 preview. All8source categories currentRoot equal frozeninput after execution; future finalfreeze must equal this input.",
+    "inputToCompletionSource": {
+      "src": {
+        "files": 675,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 907,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 508,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1051,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 233,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "legacy199To200HeaderOnlyWholeEquality": true,
+    "crop": {
+      "seedUid": 44,
+      "growth": 0,
+      "waterUnits": 0,
+      "sunlightFromUI": 0,
+      "onlyPlantingNotGrowthOrHarvestClaim": true
+    },
+    "originalGround": {
+      "position": {
+        "x": 21,
+        "y": 20
+      },
+      "before": [
+        {
+          "uid": 45,
+          "def": "Item.Salt",
+          "count": 3
+        },
+        {
+          "uid": 46,
+          "def": "Item.Wood",
+          "count": 2
+        }
+      ],
+      "after": [
+        {
+          "uid": 45,
+          "def": "Item.Salt",
+          "count": 3
+        },
+        {
+          "uid": 46,
+          "def": "Item.Wood",
+          "count": 2
+        }
+      ],
+      "allWholeItemsExact": true,
+      "noNewFruitWoodOrCashCreatedByClearing": true
+    },
+    "genericRows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "genericAllThreeWholeStatesIdenticalAcrossViewports": true,
+    "rootDirectPngReview": "All10FINALNative and2FINALcommonTitle originals opened. First10Native and first2titles also reviewed separately; final source is current input. Independent FINAL18 review pending at audit creation.",
+    "earlierInputs": "FirstNative10/3/11/2200 passed then directreview found genericF2 craftprogress retention wording ambiguous for brushcancel. OnlytwoVue texts changed: brushcancel restarts, genericprogress scopedtocraft/repair. Core/Defs/actualtime unchanged. FinalNative andcommon rerun instead of claiming firstimagesusefinalruntime. FirstNode preflight planting was correctly blocked by grounditems; no rule change, initial northplant/eastoriginalflooritems split."
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "allThreeWholeStatesIdenticalAcrossViewports": true,
+    "source": {
+      "src": {
+        "files": 675,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 907,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 508,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1051,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 233,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "execution": "Native and common executed in immutable /workspace/.ashveil-checkpoints/v296-input app index-DcrWQzdS.js, own strict4317 preview. All8source categories currentRoot equal frozeninput after execution; future finalfreeze must equal this input."
+  },
+  "screenshots": {
+    "directIndependentReview": 18,
+    "finalNative": 10,
+    "finalGeneric": 8,
+    "firstVisualRunExcluded": true,
+    "reviewSha256": "5d23e7aa5118f6c76f4989d20fe333ec2120c598ec7189b8707cdc40dc6b890e"
+  },
+  "assets": {
+    "valid": true,
+    "counts": {
+      "sheets": 107,
+      "frames": 792,
+      "animations": 7,
+      "characters": 20,
+      "ui": 26,
+      "icons": 80,
+      "creatureCharacters": 18,
+      "uniquePngFiles": 171
+    },
+    "errors": [],
+    "warnings": [
+      "icon leather_coat: tiles/leather_coat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon oilcloth_cloak: tiles/oilcloth_cloak.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon bones: tiles/bones.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon cloth: tiles/cloth.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon raw_meat: tiles/raw_meat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon knife: tiles/knife.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon dried_apple: tiles/dried_apple.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon food_cheese: tiles/food_cheese.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다"
+    ],
+    "loadOrder": [
+      "core"
+    ],
+    "scriptsExecuted": false,
+    "scope": "Actual sheet PNG header/chunk CRC/frame bounds/animation+character references/UI paths and resolved Item+Ability icon files. Pixel appearance, PNG decompression, hardcoded renderer keys, font/audio and reproduction tools remain separate checks."
+  },
+  "art": {
+    "independentReviewSha256": "b203e555140eb9187e1d9e5efa8691690df6097e97c0e10a7308c5d3d4b7b71c",
+    "description": "CC0 original32px machete/bare thornbush,2PNG-SVG pairs+16px+contact; independent pixel/rights/reproduction preservation. Prior499public/all existing manifest values preserved; 9public/2sheets2frames/4rawbindings added. Actual Machete/Ab.Blade.DeepCut and AshBerryBush sprite/visual scale0.7, old pink tint removed; other7old mushroom consumers preserved."
+  },
+  "gameplay": "Optional Terrain.clearing: actual held main/offhand Machete with edge/durability, adjacent visible clearable wild AshBerryBush only. Proposed10T with existing body/light modifiers, Earth result, one existing material edgeLoss1, actual perturn noise4. Preserve original floor items/UID, nofruit/wood/cash output. Cancel restarts fulltime, activepartial whole200restore unit-tested. Changedmap/region/terrain/rule/toolUID interrupts; cultivated/placed/storage/devices/fire/partialburn refused. Format199→200 versiononly. No retroactive gifts/refill/production.",
+  "validationLimits": "Finite initial actualgeneratedhealthyplayer/dungeon/Machete43/Seeds44x2/two declaredbushes/original eastSalt45x3+Wood46x2. Fullylit dungeon gives work10T but crop sunlight0/water0/growth0: only planting proven, not harvest. Legacy199 header is same current finite afterequip scene, not historical user-save. Actualequip1T+clearnorth10T+plant1T, separatelegacycleareast10T,3whole200restores/11wholepairs/2200TU. No postloadworld/time/RNG/material injection. Manualcancel/activepartialrestore covered byunit, not browser. Remainingnorthbush may be playeroccluded; eastwholematerialsJSON proves preservation, screenshot top icon does not identify both items. All18FINAL originals independently reviewed, toolpreview omissions checked against rawRGB. Native/common ran immutable296-input; all product categories byteexact final; only base-rest/seasonal-production tests differ after firstFull. FullX1–X4/70yearhistory/famine/migration/generalmodassets/productionready completion not claimed.",
+  "firstFull296": {
+    "passed": 6006,
+    "failed": 2,
+    "files": 329,
+    "seconds": 443.0824765625,
+    "failure1": "Seasonal198-header test hardcoded199 instead of current200; expected current SAVE_VERSION whole equality.",
+    "failure2": "Actual thousands-of-scheduler-inputs thirst sleep exceeded20s in4workers. Related2files44PASS with original20s in2workers; thirst18.942s. Changed only this long test wall-clock40s, actual gameinput/time/assertions identical.",
+    "retained": "test-results/full-v296.json/log; final Full rerun immutable v296-verified."
+  },
+  "earlierFailures": "Firstunit29 had4wrong fixture10T assumptions: roofedsurface actual12T fromexistinglight1.2, no producttimingchange; finalfullylitfixture+explicitdimlight test30PASS. Firstrelated43/44 expected old329CLI length, updated334 and final44PASS. InitialNativeNode triedplanting on flooritems: existingplacerule correctly rejected; split initialnorth planting/east material preservation, no rulechange. First10Native+8generic passed; actualscreens revealed ambiguous genericcancel text, scoped to crafting/repair and added clearrestart warning, reran all18FINAL. Lint0errors/1oldwarning,8oldduplicateIENDwarnings, existingVitelargebundlewarning."
+}

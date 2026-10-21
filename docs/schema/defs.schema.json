@@ -21443,6 +21443,133 @@
               "defType"
             ],
             "properties": {
+              "clearing": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "tools": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "turns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "result": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "edgeLoss": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "noise": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "lock": {
                 "anyOf": [
                   {
@@ -22472,6 +22599,36 @@
               "id"
             ],
             "properties": {
+              "clearing": {
+                "type": "object",
+                "properties": {
+                  "tools": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "turns": {
+                    "type": "number"
+                  },
+                  "result": {
+                    "type": "string"
+                  },
+                  "edgeLoss": {
+                    "type": "number"
+                  },
+                  "noise": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "tools",
+                  "turns",
+                  "result",
+                  "edgeLoss",
+                  "noise"
+                ]
+              },
               "lock": {
                 "type": "object",
                 "properties": {

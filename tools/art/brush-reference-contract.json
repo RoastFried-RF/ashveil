@@ -1,0 +1,169 @@
+{
+  "captured": "2026-10-21",
+  "scope": "read-only raw definitions and renderer contract,not Core/game execution; no old image pixels included",
+  "targets": {
+    "Item.Machete": {
+      "source": "src/content/core/defs/items-weapons.json",
+      "raw": {
+        "defType": "Item",
+        "id": "Item.Machete",
+        "parent": "Item.Weapon",
+        "label": "철판 마체테",
+        "description": "개척기 농기구를 갈아 만든 칼.",
+        "sprite": "machete",
+        "weight": 0.9,
+        "value": 30,
+        "size": [
+          1,
+          3
+        ],
+        "attacks": [
+          {
+            "id": "slash",
+            "label": "내려베기",
+            "damageType": "cut",
+            "damage": 11,
+            "pen": 10,
+            "accuracy": 8,
+            "energy": 6,
+            "family": "blade",
+            "noise": 6,
+            "bleedMult": 1.0
+          }
+        ],
+        "weapon": {
+          "block": 10,
+          "parry": 10
+        },
+        "toolTags": [
+          "blade"
+        ],
+        "salvage": {
+          "material": "Item.IronScrap",
+          "count": 6,
+          "turns": 100,
+          "attr": "str",
+          "tools": [
+            "hammer"
+          ]
+        },
+        "repair": {
+          "material": "Item.IronScrap",
+          "unitsPer10": 0.25,
+          "turns": 200,
+          "attr": "str",
+          "tools": [
+            "hammer"
+          ]
+        },
+        "material": "Material.Steel"
+      }
+    },
+    "Terrain.AshBerryBush": {
+      "source": "src/content/core/defs/plant-foods.json",
+      "raw": {
+        "defType": "Terrain",
+        "id": "Terrain.AshBerryBush",
+        "parent": "Terrain.Earth",
+        "label": "잿딸기 덤불",
+        "description": "여름에만 열매가 열린다. 채집 뒤 새 열매를 기다려야 한다.",
+        "sprites": [
+          "mushrooms"
+        ],
+        "gather": {
+          "item": "Item.AshBerry",
+          "count": 5,
+          "turns": 12,
+          "regrowTurns": 57600,
+          "seasons": [
+            "Season.Summer"
+          ]
+        },
+        "visual": {
+          "sprite": "mushrooms",
+          "scale": 0.35,
+          "tint": 12021378
+        }
+      }
+    }
+  },
+  "oldFrame": [
+    "dw_env",
+    132,
+    0,
+    80,
+    64
+  ],
+  "oldSheet": "sprites/dw_env.png",
+  "oldOpaqueBoundsExclusive": [
+    12,
+    12,
+    69,
+    52
+  ],
+  "oldFrameAt035": [
+    28,
+    22.4
+  ],
+  "oldOpaqueSizeAt035": [
+    19.95,
+    14
+  ],
+  "renderer": {
+    "worldTile": 16,
+    "visualAnchor": [
+      0.5,
+      0.96
+    ],
+    "visualPositionTileOffset": [
+      8,
+      16
+    ],
+    "baseVisualScale": 0.35,
+    "oldTint": "0xb76e82",
+    "regrowingMultiplier": 0.6,
+    "regrowingCondition": "gather && (cultivation ? growth < regrowTurns : gatherAt > currentTurn)",
+    "winterAloneDoesNotSelectGrowthScale": true,
+    "zIndex": "tile.y*16+16-.5",
+    "groundSelection": "floorSprite uses existing grass/dirt on normal surface independently of the visual texture"
+  },
+  "references": [
+    {
+      "path": "docs/CANON.md",
+      "sha256": "fc6dcde298c5bdf18b1e648507abdd4b29c2d990b7a4c888a2957d7b586f72f7"
+    },
+    {
+      "path": "docs/design/13-inventory.md",
+      "sha256": "acb89b5afc035794deb2b0234c75dd0ee118d3ecb8f0fefc3ff0e123fc0c48e5"
+    },
+    {
+      "path": "src/content/core/defs/items-weapons.json",
+      "sha256": "ecefb821becdc6cfb82202441087651d4bcead5092eedb5c445cd7ca4da995d0"
+    },
+    {
+      "path": "src/content/core/defs/plant-foods.json",
+      "sha256": "cff11607508aed9842b1c18330589ccc7ae91e7487090dce9c9f5dde88bf0a27"
+    },
+    {
+      "path": "src/client/render/MapRenderer.ts",
+      "sha256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721"
+    },
+    {
+      "path": "src/client/ui/InventoryWindow.vue",
+      "sha256": "0da9b351376a544ebf1b58580ac643386292918fbe74b914455fe7be5e285f9f"
+    },
+    {
+      "path": "src/client/render/atlas.ts",
+      "sha256": "f68336e5073afa4e7a0003662d4e960d6abb7d16ab7fe6675bb519e48f287882"
+    },
+    {
+      "path": "src/client/sprites.json",
+      "sha256": "67cb01c6abae2d91051851e49a00def88052868b0cc3e41e9e5670f82e479586"
+    }
+  ],
+  "helperReuse": {
+    "source": "own prior CC0 icon Canvas/PNG/SVG/contact helpers from ashveil-bow-art",
+    "geometryReused": false,
+    "existingOrExternalImageInputs": []
+  }
+}

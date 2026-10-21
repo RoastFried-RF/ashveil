@@ -22,3 +22,9 @@ GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)�
 
 
 v0.292(main da7007e) 자동배포 확인: https://github.com/RoastFried-RF/ashveil/actions/runs/39536728279 에서 build/check119014964439가 실행단계0개로 실패했고 deploy는 skipped다. 실제 annotation은 “The job was not started because recent account payments have failed or your spending limit needs to be increased.”다. 로컬 빌드/5,936개/13장/2전체복원 통과와 원격배포는 구분한다. Ubuntu26전환 notice는 별도 안내이며 결제실패 원인을 대체하지 않는다. 자금·사용한도·공개범위를 바꾸지 않았다.
+
+## v0.295 최신 배포 확인 · 2026-10-21
+
+main 5ddcedcaac83bfc685d7420a75d470d88cacb187의 [Actions39543439010](https://github.com/RoastFried-RF/ashveil/actions/runs/39543439010)에서 build119036172690은 실행단계0개로 실패하고 deploy119036188165는건너뛰었다. 실제 annotation은 “The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the Billing & plans section in your settings”다. Ubuntu26이전공지와별도문제다. 공개사이트주소는확인하지못했다. 로컬검증빌드 v0.295 ZIP16,565,897bytes/SHA256 c7635c270a2d61ed4203c738ea4f77c15751eb14c039f5c4d3ad6d4e3e1d959e의898dist파일은동결빌드와모두동일하다. 계정결제·지출한도변경은수행하지않았다.
+
+임시 정적 미리보기도 검증완료295/dist만4318에서시도했으나 localhost.run의SSH접속이Connection refused로끝나 공개주소를받지못했다. 시스템SSH의로컬기계용include소유자오류와별도로,해당로컬경로전용설정이원격호스트와무관함을읽고빈SSH클라이언트설정/개인키·비밀번호인증없이시도한실제연결결과다. 사용한자체4318서버는종료했고 기존5173/다른서버는건드리지않았다. 새공개URL을확인했다고주장하지않는다.

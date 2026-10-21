@@ -120,3 +120,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - 사냥 활·여분 활시위32PNG/SVG·16px폼: 프로젝트 신규좌표원본 CC0-1.0, 상업/수정/재배포/2차패키지 허용. tools/art/bow-LICENSE.txt 및 docs/art-bow-original.md.
 
 - 플레이어 전용 잿빛 여행자28포즈: 직접 작성한 새 픽셀 좌표, CC0-1.0. [원본/재현](docs/art-player-wanderer-original.md) · tools/art/player-LICENSE.txt.
+
+- 철판 마체테·열매 없는 잿딸기 가시관목: 새 픽셀 좌표 원본, CC0-1.0. [원본/재현](docs/art-brush-originals.md) · tools/art/brush-LICENSE.txt.
