@@ -43,11 +43,22 @@
     "ranIn": "immutable v286-final"
   },
   "world": {
-    "status": "pending",
+    "status": "passed",
     "overworld": true,
     "runs": 30,
     "maxDays": 3,
-    "workers": 4
+    "workers": 4,
+    "seconds": 436.32434486999995,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo284": 22,
+    "wholeResultRowsChanged": 8,
+    "allEightAffectedRowsExact284WhenOnlyNewDoorPlacementSkipped": true,
+    "counterfactualSeconds": 162.533874127
   },
   "goldens": "ALL5 WHOLE initial/final/errors audited against284. Initial8metadata paths only. Noncombat4 physical final unchanged except actual optional locks at surface852/freeze1499. Combat953paths/81errors changed after input13 due real NPC locked-door avoidance; player alive/HP115/38,25 preserved. Readonly DB diagnostic skipping ONLY new lock placement restores ENTIRE physical final and ALL81errors exact284. Full causal evidence golden-v286-diff.json;284 vectors archived once.",
   "native": {

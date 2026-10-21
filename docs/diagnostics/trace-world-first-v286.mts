@@ -1,0 +1,16 @@
+import {resolve} from 'node:path'
+import {pathToFileURL} from 'node:url'
+import {readFileSync,writeFileSync} from 'node:fs'
+import {isDeepStrictEqual} from 'node:util'
+const get=(dir:string,p:string)=>import(pathToFileURL(resolve(dir,p)).href)
+const engines=await Promise.all(['/workspace/.ashveil-checkpoints/v284-final','/workspace/.ashveil-checkpoints/v286-final'].map(async dir=>({dir,...await get(dir,'tools/loadContent.ts'),...await get(dir,'src/core/game.ts'),...await get(dir,'src/core/bot.ts')})))
+const databases=engines.map(e=>e.loadDb().db)
+const old=JSON.parse(readFileSync('/workspace/ashveil/docs/sim-latest.json','utf8')),now=JSON.parse(readFileSync('/workspace/ashveil/test-results/sim-v286/summary.json','utf8')),seeds=now.rows.filter((r:any)=>!isDeepStrictEqual(r,old.rows.find((o:any)=>o.seed===r.seed))).map((r:any)=>r.seed)
+function norm(s:any){s=structuredClone(s);for(const k of['version','loadHash','contentDefinitions','contentMods','contentItemShapes'])delete s[k];const visit=(o:any)=>{if(!o||typeof o!=='object')return;if(o.t==='Terrain.RustedDoorClosed'){o.t='Terrain.DoorClosed';delete o.locked}if(o.t==='Terrain.RustedDoorOpen'){o.t='Terrain.DoorOpen';delete o.locked}for(const v of Object.values(o))visit(v)};visit(s);return s}
+function differences(a:any,b:any,path='',out:any[]=[]):any[]{if(isDeepStrictEqual(a,b))return out;if(out.length>=18)return out;if(!a||!b||typeof a!=='object'||typeof b!=='object'||Array.isArray(a)!==Array.isArray(b)){out.push({path,old:a,new:b});return out}if(Array.isArray(a)&&a.length!==b.length){out.push({path,oldLength:a.length,newLength:b.length});return out}for(const k of new Set([...Object.keys(a),...Object.keys(b)])){differences(a[k],b[k],path+'/'+k,out);if(out.length>=18)break}return out}
+const rows=[]
+for(const seed of seeds){const worlds=engines.map((e,i)=>({db:databases[i],s:e.newGame(databases[i],{seed,overworld:true})}));worlds.forEach((w,i)=>engines[i].runUntilInput(w));if(!isDeepStrictEqual(norm(worlds[0].s),norm(worlds[1].s)))throw Error(seed+' initial physical difference beyond explicit optional locks');let first:any
+ for(let i=0;i<1500;i++){const actions=worlds.map((w,j)=>engines[j].botDecide(w)),before=worlds.map(w=>({time:w.s.time,map:w.s.map.id,player:w.s.creatures.find((c:any)=>c.id===w.s.playerId)!.pos})),errors=worlds.map((w,j)=>{const e=engines[j],error=e.playerAct(w,actions[j]);if(error)e.playerAct(w,{type:'wait'});return error}),a=norm(worlds[0].s),b=norm(worlds[1].s);if(!isDeepStrictEqual(a,b)){const s=worlds[1].s;first={actionIndex:i,actions,before,errors,actualLockedDoors:s.map.tiles.flatMap((t:any,n:number)=>t.t==='Terrain.RustedDoorClosed'?[{index:n,x:n%s.map.w,y:Math.floor(n/s.map.w),locked:t.locked}]:[]),differences:differences(a,b)};break}if(worlds.some(w=>w.s.over))break}
+ if(!first)throw Error(seed+' first difference not reached');rows.push({seed,initialWholePhysicalStateExactExceptExplicitLocks:true,first});console.log(seed,JSON.stringify(first).slice(0,1400))
+}
+writeFileSync('/workspace/ashveil/test-results/sim-v286-first-differences.json',JSON.stringify({scope:'Same actual bot action loop in immutable284 and286. Entire physical world normalized ONLY version/content metadata and explicit new optional door terrain/locked fields. Records earliest actual divergence, not later symptom.',rows},null,2)+'\n')

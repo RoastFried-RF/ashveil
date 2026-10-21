@@ -1,0 +1,4390 @@
+{
+  "from": 284,
+  "to": 286,
+  "mode": "world",
+  "runs": 30,
+  "comparison": "ALL30 complete RESULT rows, averageDays and causes; not entire WorldState",
+  "allRowsIdentical": false,
+  "identicalRows": 22,
+  "changedRows": 8,
+  "oldAverage": 0.4675023148148149,
+  "newAverage": 0.4886215277777779,
+  "oldCauses": {
+    "저체온": 20,
+    "치명상": 4,
+    "과다 출혈": 6
+  },
+  "newCauses": {
+    "저체온": 21,
+    "치명상": 2,
+    "과다 출혈": 7
+  },
+  "causalAudit": "All8 affected entire RESULT rows exact284 in read-only DB counterfactual suppressing ONLY new optional door placement. Earliest physical divergence is NPC path change in5, bot route choice in3. No production edits or forced reference outcomes.",
+  "rows": [
+    {
+      "seed": "sim-0",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-1",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-2",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-2",
+        "cause": "치명상",
+        "days": 0.014722222222222222,
+        "level": 2,
+        "map": "crypt1",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 12,
+            "per": 10,
+            "vit": 11,
+            "wil": 9
+          },
+          "age": {
+            "years": 30,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.ClumsyHands",
+            "Trait.Loner",
+            "Trait.LightSleeper"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50449,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21649,
+                  "untilTurn": 50449
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309712,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21712,
+                  "untilTurn": 309712,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 45846,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21846,
+                  "untilTurn": 45846,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108398,
+              "count": 5,
+              "events": [
+                {
+                  "at": 21998,
+                  "untilTurn": 108398,
+                  "mood": -4
+                },
+                {
+                  "at": 21939,
+                  "untilTurn": 108339,
+                  "mood": -4
+                },
+                {
+                  "at": 21902,
+                  "untilTurn": 108302,
+                  "mood": -4
+                },
+                {
+                  "at": 21897,
+                  "untilTurn": 108297,
+                  "mood": -4
+                },
+                {
+                  "at": 21743,
+                  "untilTurn": 108143,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.DangerousVictory",
+              "untilTurn": 79598,
+              "count": 2,
+              "events": [
+                {
+                  "at": 21998,
+                  "untilTurn": 79598
+                },
+                {
+                  "at": 21939,
+                  "untilTurn": 79539
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24420,
+              "count": 1,
+              "events": [
+                {
+                  "at": 22020,
+                  "untilTurn": 24420
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223622,
+              "count": 1,
+              "events": [
+                {
+                  "at": 22022,
+                  "untilTurn": 223622,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -83.43,
+            "waterDeficit": 57,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.5554907118061756,
+            "waterRemainder": 0.8645833333333317,
+            "scurvy": 0,
+            "fatigue": 22.567708333332995,
+            "bodyTemp": 36.94007421875,
+            "wetness": 0,
+            "energy": 4.5,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0,
+              "head": 0,
+              "hands": 0,
+              "feet": 0
+            },
+            "thermal": {
+              "turns": 24,
+              "delta": 0.005604335937500152
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.8249999999999997,
+            "low": 10.9375,
+            "high": 24.5875,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 0,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 28,
+            "y": 27
+          },
+          "equipment": [
+            {
+              "def": "Item.PipeClub",
+              "durability": 21
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 0
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-2",
+        "cause": "치명상",
+        "days": 0.012083333333333333,
+        "level": 2,
+        "map": "crypt1",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 12,
+            "per": 10,
+            "vit": 11,
+            "wil": 9
+          },
+          "age": {
+            "years": 30,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.ClumsyHands",
+            "Trait.Loner",
+            "Trait.LightSleeper"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50449,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21649,
+                  "untilTurn": 50449
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309735,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21735,
+                  "untilTurn": 309735,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 45797,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21797,
+                  "untilTurn": 45797,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24208,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21808,
+                  "untilTurn": 24208
+                }
+              ]
+            },
+            {
+              "def": "Thought.DangerousVictory",
+              "untilTurn": 79424,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21824,
+                  "untilTurn": 79424
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108312,
+              "count": 5,
+              "events": [
+                {
+                  "at": 21912,
+                  "untilTurn": 108312,
+                  "mood": -4
+                },
+                {
+                  "at": 21824,
+                  "untilTurn": 108224,
+                  "mood": -4
+                },
+                {
+                  "at": 21809,
+                  "untilTurn": 108209,
+                  "mood": -4
+                },
+                {
+                  "at": 21802,
+                  "untilTurn": 108202,
+                  "mood": -4
+                },
+                {
+                  "at": 21735,
+                  "untilTurn": 108135,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223544,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21944,
+                  "untilTurn": 223544,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -64.11,
+            "waterDeficit": 45,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.23094513888949209,
+            "waterRemainder": 0.7638888888888895,
+            "scurvy": 0,
+            "fatigue": 22.091145833333048,
+            "bodyTemp": 36.90005,
+            "wetness": 0,
+            "energy": 7.8,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0,
+              "head": 0,
+              "hands": 0,
+              "feet": 0
+            },
+            "thermal": {
+              "turns": 148,
+              "delta": -0.021662500000000008
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.8249999999999997,
+            "low": 10.9375,
+            "high": 24.5875,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 0,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 31,
+            "y": 30
+          },
+          "equipment": [
+            {
+              "def": "Item.PipeClub",
+              "durability": 45
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 99.11111111111111,
+              "partDurability": {
+                "Chest": 100,
+                "Abdomen": 92,
+                "Pelvis": 100,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "LeftThigh": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 0
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 74,
+        "actions": [
+          {
+            "type": "stairs"
+          },
+          {
+            "type": "stairs"
+          }
+        ],
+        "before": [
+          {
+            "time": 2166700,
+            "map": "surface",
+            "player": {
+              "x": 32,
+              "y": 5
+            }
+          },
+          {
+            "time": 2166700,
+            "map": "surface",
+            "player": {
+              "x": 32,
+              "y": 5
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 1287,
+            "x": 39,
+            "y": 26,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/1287/t",
+            "old": "Terrain.DoorOpen",
+            "new": "Terrain.DoorClosed"
+          },
+          {
+            "path": "/creatures/6/pos/x",
+            "old": 38,
+            "new": 37
+          },
+          {
+            "path": "/creatures/6/pos/y",
+            "old": 25,
+            "new": 24
+          },
+          {
+            "path": "/creatures/6/facing",
+            "old": 3,
+            "new": 7
+          },
+          {
+            "path": "/creatures/6/needs/kcal",
+            "old": -0.05,
+            "new": -0.07
+          },
+          {
+            "path": "/creatures/6/needs/kcalRemainder",
+            "old": 0.4563492063492065,
+            "new": 0.6388888888888902
+          },
+          {
+            "path": "/creatures/6/needs/waterRemainder",
+            "old": 0.08680555555555557,
+            "new": 0.10416666666666667
+          },
+          {
+            "path": "/creatures/6/needs/thermal/delta",
+            "old": -0.0009875,
+            "new": -0.00048750000000000003
+          },
+          {
+            "path": "/creatures/6/ai/path",
+            "oldLength": 15,
+            "newLength": 29
+          },
+          {
+            "path": "/creatures/6/movedTurn",
+            "new": 21667
+          },
+          {
+            "path": "/creatures/7/pos/x",
+            "old": 39,
+            "new": 37
+          },
+          {
+            "path": "/creatures/7/pos/y",
+            "old": 25,
+            "new": 23
+          },
+          {
+            "path": "/creatures/7/facing",
+            "old": 3,
+            "new": 7
+          },
+          {
+            "path": "/creatures/7/ai/path",
+            "oldLength": 16,
+            "newLength": 28
+          },
+          {
+            "path": "/noiseEvents",
+            "oldLength": 1,
+            "newLength": 0
+          },
+          {
+            "path": "/fx/0/id",
+            "old": 41,
+            "new": 1
+          },
+          {
+            "path": "/fx/0/from/x",
+            "old": 55,
+            "new": 12
+          },
+          {
+            "path": "/fx/0/from/y",
+            "old": 12,
+            "new": 30
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-3",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-4",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-5",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-6",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-7",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-8",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-9",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-10",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-11",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-12",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-13",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-13",
+        "cause": "과다 출혈",
+        "days": 0.011527777777777777,
+        "level": 1,
+        "map": "surface",
+        "background": "Bg.Deserter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 12,
+            "agi": 10,
+            "per": 10,
+            "vit": 9,
+            "wil": 9
+          },
+          "age": {
+            "years": 24,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Loner",
+            "Trait.ColdBlooded",
+            "Trait.HeatResistant"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24173,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21773,
+                  "untilTurn": 24173
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223467,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21867,
+                  "untilTurn": 223467,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -42.23,
+            "waterDeficit": 33,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.9864807098769823,
+            "waterRemainder": 0.2795138888888899,
+            "scurvy": 0,
+            "fatigue": 21.765624999999623,
+            "bodyTemp": 36.8865960421,
+            "wetness": 7.66649999999991,
+            "energy": 90,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 26.05999999999959,
+              "head": 0,
+              "hands": 0,
+              "feet": 46.06000000000051
+            },
+            "thermal": {
+              "turns": 132,
+              "delta": -0.06898571274999998
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.6382740000000005,
+            "low": 13.404314999999999,
+            "high": 27.680863,
+            "air": -3.5,
+            "feels": 7.5,
+            "windChill": 0,
+            "heat": 8,
+            "shelter": 3,
+            "evaporation": 0,
+            "innerWetness": 7.66649999999991,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 32,
+            "y": 5
+          },
+          "equipment": [
+            {
+              "def": "Item.RebarSpear",
+              "durability": 93,
+              "edge": 93,
+              "edgeWear": 0
+            },
+            {
+              "def": "Item.PaddedJacket",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 46.06000000000051
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-13",
+        "cause": "저체온",
+        "days": 0.6388888888888888,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Deserter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 12,
+            "agi": 11,
+            "per": 10,
+            "vit": 9,
+            "wil": 9
+          },
+          "age": {
+            "years": 24,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Loner",
+            "Trait.ColdBlooded",
+            "Trait.HeatResistant"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.BlandFood",
+              "untilTurn": 38045,
+              "count": 2,
+              "events": [
+                {
+                  "at": 33245,
+                  "untilTurn": 38045,
+                  "mood": -2
+                },
+                {
+                  "at": 30028,
+                  "untilTurn": 34828,
+                  "mood": -2
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 236400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 34800,
+                  "untilTurn": 236400,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 44764,
+              "count": 2,
+              "events": [
+                {
+                  "at": 37564,
+                  "untilTurn": 44764,
+                  "mood": -4
+                },
+                {
+                  "at": 36467,
+                  "untilTurn": 43667,
+                  "mood": -4
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -643.96,
+            "waterDeficit": 413,
+            "protein": 94.34,
+            "vitamin": 100,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.7469207175285995,
+            "waterRemainder": 0.10590277777778434,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.99163529360001,
+            "wetness": 0,
+            "energy": 95,
+            "stress": 38.52,
+            "sleepDebt": 2.5458333333333245,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0,
+              "head": 0,
+              "hands": 0,
+              "feet": 0
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "dietHistory": [
+              {
+                "at": 26315,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 29392,
+                "kcal": 70,
+                "proteinKcal": 0
+              },
+              {
+                "at": 30028,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 33245,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 36467,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 37564,
+                "kcal": 120,
+                "proteinKcal": 12
+              }
+            ],
+            "lastDietMeal": {
+              "at": 37564,
+              "kcal": 120,
+              "proteinKcal": 12,
+              "uid": 43,
+              "def": "Item.AshCap"
+            },
+            "lastMealKcal": 120,
+            "ash": 2.2,
+            "waterExposure": {
+              "ml": 100,
+              "pathogenMl": 7000
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.6999999999999997,
+            "low": 13.25,
+            "high": 27.65,
+            "air": -4.9,
+            "feels": 6.6,
+            "windChill": 3.5,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 0,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 10,
+            "y": 39
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 51,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 4,
+            "snap": {
+              "turn": 39991,
+              "hp": 89,
+              "hungerStage": 1,
+              "thirstStage": 0,
+              "wounds": 4,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 9
+          },
+          "equipment": [
+            {
+              "def": "Item.RebarSpear",
+              "durability": 85,
+              "edge": 85,
+              "edgeWear": 0
+            },
+            {
+              "def": "Item.PaddedJacket",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 0
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 139,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 6
+          },
+          {
+            "type": "move",
+            "dir": 6
+          }
+        ],
+        "before": [
+          {
+            "time": 2172400,
+            "map": "crypt1",
+            "player": {
+              "x": 18,
+              "y": 18
+            }
+          },
+          {
+            "time": 2172400,
+            "map": "crypt1",
+            "player": {
+              "x": 18,
+              "y": 18
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 1114,
+            "x": 10,
+            "y": 23,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/creatures/6/pos/y",
+            "old": 23,
+            "new": 25
+          },
+          {
+            "path": "/creatures/6/facing",
+            "old": 1,
+            "new": 3
+          },
+          {
+            "path": "/creatures/6/ai/path",
+            "oldLength": 12,
+            "newLength": 20
+          },
+          {
+            "path": "/fx/78/to/y",
+            "old": 23,
+            "new": 25
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-14",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-15",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-16",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-16",
+        "cause": "과다 출혈",
+        "days": 0.004548611111111111,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 9,
+            "per": 12,
+            "vit": 6,
+            "wil": 13
+          },
+          "age": {
+            "years": 27,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Neat",
+            "Trait.Paranoid"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24108,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21708,
+                  "untilTurn": 24108
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223324,
+              "count": 2,
+              "events": [
+                {
+                  "at": 21724,
+                  "untilTurn": 223324,
+                  "mood": -12
+                },
+                {
+                  "at": 21718,
+                  "untilTurn": 223318,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -16.18,
+            "waterDeficit": 12,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.4629028935186934,
+            "waterRemainder": 0.8559027777777779,
+            "scurvy": 0,
+            "fatigue": 20.68229166666651,
+            "bodyTemp": 37,
+            "wetness": 8.271499999999977,
+            "energy": 98,
+            "stress": 55,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.259999999999895,
+              "head": 0,
+              "hands": 0,
+              "feet": 48.26000000000008
+            },
+            "thermal": {
+              "turns": 131,
+              "delta": -0.07129096
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.6271800000000005,
+            "low": 11.432049999999998,
+            "high": 24.68641,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 8.271499999999977,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 6
+          },
+          "activity": {
+            "kind": "treat",
+            "treat": "bandage",
+            "remaining": 2,
+            "total": 11,
+            "uid": 7,
+            "woundId": 99,
+            "label": "천 조각 — 붕대 감기",
+            "seenHostiles": [
+              63
+            ],
+            "woundCount": 7,
+            "snap": {
+              "turn": 21713,
+              "hp": 8.375,
+              "hungerStage": 0,
+              "thirstStage": 0,
+              "wounds": 7,
+              "hostiles": [
+                63
+              ],
+              "bloodStage": 1,
+              "painStage": 4,
+              "regions": [
+                2,
+                2,
+                0,
+                0,
+                3,
+                0
+              ],
+              "bleeding": true,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 0,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 9
+          },
+          "equipment": [
+            {
+              "def": "Item.PipeClub",
+              "durability": 100
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 99.11111111111111,
+              "partDurability": {
+                "Chest": 92,
+                "Abdomen": 100,
+                "Pelvis": 100,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "LeftThigh": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 28.259999999999895
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-16",
+        "cause": "과다 출혈",
+        "days": 0.013645833333333333,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 9,
+            "per": 12,
+            "vit": 6,
+            "wil": 13
+          },
+          "age": {
+            "years": 27,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Neat",
+            "Trait.Paranoid"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309784,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21784,
+                  "untilTurn": 309784,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108288,
+              "count": 2,
+              "events": [
+                {
+                  "at": 21888,
+                  "untilTurn": 108288,
+                  "mood": -4
+                },
+                {
+                  "at": 21784,
+                  "untilTurn": 108184,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223585,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21985,
+                  "untilTurn": 223585,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24385,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21985,
+                  "untilTurn": 24385
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -54.36,
+            "waterDeficit": 41,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.644485879630107,
+            "waterRemainder": 0.8489583333333348,
+            "scurvy": 0,
+            "fatigue": 22.140624999999577,
+            "bodyTemp": 36.9050675875,
+            "wetness": 7.5509999999998865,
+            "energy": 9,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 25.639999999999485,
+              "head": 0,
+              "hands": 0,
+              "feet": 45.640000000000605
+            },
+            "thermal": {
+              "turns": 193,
+              "delta": -0.03987077518749993
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.6455200000000034,
+            "low": 11.386199999999992,
+            "high": 24.677239999999998,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 7.5509999999998865,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 20,
+            "y": 14
+          },
+          "equipment": [
+            {
+              "def": "Item.PipeClub",
+              "durability": 88
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 25.639999999999485
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 98,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 7
+          },
+          {
+            "type": "move",
+            "dir": 4
+          }
+        ],
+        "before": [
+          {
+            "time": 2168800,
+            "map": "crypt1",
+            "player": {
+              "x": 5,
+              "y": 18
+            }
+          },
+          {
+            "time": 2168800,
+            "map": "crypt1",
+            "player": {
+              "x": 5,
+              "y": 18
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 295,
+            "x": 7,
+            "y": 6,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/579/seen",
+            "old": true
+          },
+          {
+            "path": "/map/tiles/579/observed",
+            "old": {
+              "terrain": "Terrain.KtWall",
+              "at": 21689
+            }
+          },
+          {
+            "path": "/map/tiles/580/seen",
+            "old": true
+          },
+          {
+            "path": "/map/tiles/580/observed",
+            "old": {
+              "terrain": "Terrain.KtWall",
+              "at": 21689
+            }
+          },
+          {
+            "path": "/map/tiles/581/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/582/seen",
+            "old": true
+          },
+          {
+            "path": "/map/tiles/582/observed",
+            "old": {
+              "terrain": "Terrain.KtWall",
+              "at": 21689
+            }
+          },
+          {
+            "path": "/map/tiles/583/seen",
+            "old": true
+          },
+          {
+            "path": "/map/tiles/583/observed",
+            "old": {
+              "terrain": "Terrain.KtWall",
+              "at": 21689
+            }
+          },
+          {
+            "path": "/map/tiles/627/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/628/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/630/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/631/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/632/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/674/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/680/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/722/observed/at",
+            "old": 21689,
+            "new": 21688
+          },
+          {
+            "path": "/map/tiles/723/observed/at",
+            "old": 21689,
+            "new": 21688
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-17",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-18",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-19",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-20",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-20",
+        "cause": "치명상",
+        "days": 0.003125,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 9,
+            "per": 12,
+            "vit": 7,
+            "wil": 12
+          },
+          "age": {
+            "years": 24,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Paranoid",
+            "Trait.Nervous",
+            "Trait.Neat"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50439,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21639,
+                  "untilTurn": 50439
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24089,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21689,
+                  "untilTurn": 24089
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -12.2,
+            "waterDeficit": 9,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.11078032407418448,
+            "waterRemainder": 0.5659722222222215,
+            "scurvy": 0,
+            "fatigue": 20.479166666666565,
+            "bodyTemp": 37,
+            "wetness": 8.33199999999999,
+            "energy": 87.25,
+            "stress": 10,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.47999999999996,
+              "head": 0,
+              "hands": 0,
+              "feet": 48.48000000000002
+            },
+            "thermal": {
+              "turns": 90,
+              "delta": -0.05247458499999998
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.62564,
+            "low": 11.4359,
+            "high": 24.68718,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 8.33199999999999,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 11,
+            "y": 14
+          },
+          "equipment": [
+            {
+              "def": "Item.PipeClub",
+              "durability": 100
+            },
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 98.77777777777777,
+              "partDurability": {
+                "Chest": 97,
+                "Abdomen": 100,
+                "Pelvis": 100,
+                "LeftUpperArm": 92,
+                "LeftForearm": 100,
+                "LeftThigh": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 28.47999999999996
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-20",
+        "cause": "과다 출혈",
+        "days": 0.009166666666666667,
+        "level": 1,
+        "map": "surface",
+        "background": "Bg.Scavenger",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 9,
+            "per": 12,
+            "vit": 7,
+            "wil": 12
+          },
+          "age": {
+            "years": 24,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Paranoid",
+            "Trait.Nervous",
+            "Trait.Neat"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50439,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21639,
+                  "untilTurn": 50439
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24089,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21689,
+                  "untilTurn": 24089
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223368,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21768,
+                  "untilTurn": 223368,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -28.86,
+            "waterDeficit": 24,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.18828159722257531,
+            "waterRemainder": 0.045138888888889284,
+            "scurvy": 0,
+            "fatigue": 21.38281249999969,
+            "bodyTemp": 36.9097935,
+            "wetness": 7.853499999999931,
+            "energy": 110,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 26.73999999999969,
+              "head": 0,
+              "hands": 0,
+              "feet": 46.740000000000364
+            },
+            "thermal": {
+              "turns": 64,
+              "delta": -0.02503015999999997
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 2.637820000000002,
+            "low": 11.405449999999995,
+            "high": 24.681089999999998,
+            "air": -3.5,
+            "feels": 7.5,
+            "windChill": 0,
+            "heat": 8,
+            "shelter": 3,
+            "evaporation": 0,
+            "innerWetness": 7.853499999999931,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 32,
+            "y": 5
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 111,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 7,
+            "snap": {
+              "turn": 21771,
+              "hp": 55.14285714285711,
+              "hungerStage": 0,
+              "thirstStage": 0,
+              "wounds": 7,
+              "hostiles": [],
+              "bloodStage": 3,
+              "painStage": 1,
+              "regions": [
+                1,
+                0,
+                0,
+                0,
+                2,
+                0
+              ],
+              "bleeding": true,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 0,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 9
+          },
+          "equipment": [
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 26.73999999999969
+              }
+            },
+            {
+              "def": "Item.Gloves",
+              "durability": 100,
+              "wetness": {
+                "hands": 0
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            },
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 100,
+              "edge": 100
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 83,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 6
+          },
+          {
+            "type": "move",
+            "dir": 6
+          }
+        ],
+        "before": [
+          {
+            "time": 2167300,
+            "map": "crypt1",
+            "player": {
+              "x": 14,
+              "y": 16
+            }
+          },
+          {
+            "time": 2167300,
+            "map": "crypt1",
+            "player": {
+              "x": 14,
+              "y": 16
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 970,
+            "x": 10,
+            "y": 20,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/creatures/7/ai/path",
+            "oldLength": 9,
+            "newLength": 8
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-21",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-21",
+        "cause": "저체온",
+        "days": 1.7777777777777777,
+        "level": 2,
+        "map": "surface",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 9,
+            "per": 10,
+            "vit": 11,
+            "wil": 12
+          },
+          "age": {
+            "years": 20,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronStomach",
+            "Trait.Loner"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309703,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21703,
+                  "untilTurn": 309703,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108113,
+              "count": 2,
+              "events": [
+                {
+                  "at": 21713,
+                  "untilTurn": 108113,
+                  "mood": -4
+                },
+                {
+                  "at": 21703,
+                  "untilTurn": 108103,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.DangerousVictory",
+              "untilTurn": 79313,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21713,
+                  "untilTurn": 79313
+                }
+              ]
+            },
+            {
+              "def": "Thought.SunBreak",
+              "untilTurn": 76200,
+              "count": 1,
+              "events": [
+                {
+                  "at": 47400,
+                  "untilTurn": 76200
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 271000,
+              "count": 1,
+              "events": [
+                {
+                  "at": 69400,
+                  "untilTurn": 271000,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -2656.53,
+            "waterDeficit": 391,
+            "protein": 88.17,
+            "vitamin": 98,
+            "hygiene": 84,
+            "nutritionDay": 2,
+            "kcalRemainder": 0.10493464839299094,
+            "waterRemainder": 0.19270833333334192,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.894981799250008,
+            "wetness": 51.93999999999818,
+            "energy": 110,
+            "stress": 60.97200000000001,
+            "sleepDebt": 19.09999999999075,
+            "skinWetness": {
+              "torso": 51.93999999999818,
+              "arms": 51.93999999999818,
+              "legs": 51.93999999999818,
+              "head": 51.93999999999818,
+              "hands": 51.93999999999818,
+              "feet": 51.93999999999818
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "dietHistory": [
+              {
+                "at": 26427,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 27301,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 28182,
+                "kcal": 70,
+                "proteinKcal": 0
+              },
+              {
+                "at": 28622,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 31772,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 34925,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 35971,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 37057,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 38143,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 39231,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 40319,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 42063,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 43841,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 45739,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 47743,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 49053,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 50340,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 51822,
+                "kcal": 120,
+                "proteinKcal": 12
+              }
+            ],
+            "lastDietMeal": {
+              "at": 51822,
+              "kcal": 120,
+              "proteinKcal": 12,
+              "uid": 150,
+              "def": "Item.AshCap"
+            },
+            "lastMealKcal": 120,
+            "ash": 5.6,
+            "waterExposure": {
+              "ml": 300,
+              "pathogenMl": 21000
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.8137970000000363,
+            "low": 13.465507499999909,
+            "high": 25.09310149999998,
+            "air": -3.8,
+            "feels": 6.199999999999999,
+            "windChill": 2,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 51.93999999999818,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 39
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 19,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 5,
+            "snap": {
+              "turn": 72759,
+              "hp": 101,
+              "hungerStage": 2,
+              "thirstStage": 0,
+              "wounds": 5,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 41
+          },
+          "equipment": [
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 51.93999999999818,
+                "arms": 51.93999999999818,
+                "legs": 51.93999999999818
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 51.93999999999818
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            },
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 53.333333333333265,
+              "edge": 70,
+              "edgeWear": 0,
+              "corrosion": 559.9999999998809,
+              "rust": 3
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-21",
+        "cause": "저체온",
+        "days": 1.7708333333333333,
+        "level": 1,
+        "map": "surface",
+        "background": "Bg.Hunter",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 8,
+            "per": 10,
+            "vit": 11,
+            "wil": 12
+          },
+          "age": {
+            "years": 20,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.IronStomach",
+            "Trait.Loner"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.SunBreak",
+              "untilTurn": 76200,
+              "count": 1,
+              "events": [
+                {
+                  "at": 47400,
+                  "untilTurn": 76200
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 270800,
+              "count": 1,
+              "events": [
+                {
+                  "at": 69200,
+                  "untilTurn": 270800,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -3002.58,
+            "waterDeficit": 384,
+            "protein": 89.84,
+            "vitamin": 98,
+            "hygiene": 84,
+            "nutritionDay": 2,
+            "kcalRemainder": 0.8285209099021049,
+            "waterRemainder": 0.06770833333334836,
+            "scurvy": 0,
+            "fatigue": 100,
+            "bodyTemp": 27.85853352425002,
+            "wetness": 63.93999999999863,
+            "energy": 110,
+            "stress": 58.304,
+            "sleepDebt": 24.99583333331872,
+            "skinWetness": {
+              "torso": 63.93999999999863,
+              "arms": 63.93999999999863,
+              "legs": 63.93999999999863,
+              "head": 63.93999999999863,
+              "hands": 63.93999999999863,
+              "feet": 63.93999999999863
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "dietHistory": [
+              {
+                "at": 26615,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 27509,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 28410,
+                "kcal": 70,
+                "proteinKcal": 0
+              },
+              {
+                "at": 28860,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 32082,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 35306,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 36374,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 37484,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 38595,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 39707,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 41047,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 42480,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 43595,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 44712,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 46445,
+                "kcal": 120,
+                "proteinKcal": 12
+              },
+              {
+                "at": 47986,
+                "kcal": 120,
+                "proteinKcal": 12
+              }
+            ],
+            "lastMealKcal": 0,
+            "ash": 8.8,
+            "waterExposure": {
+              "ml": 400,
+              "pathogenMl": 28000
+            },
+            "poisoning": {
+              "until": 89980,
+              "vomitAt": [
+                75980
+              ]
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.5743970000000271,
+            "low": 14.064007499999931,
+            "high": 25.212801499999987,
+            "air": -3.9,
+            "feels": 6.1,
+            "windChill": 2,
+            "heat": 15,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 63.93999999999863,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 6,
+            "y": 39
+          },
+          "activity": {
+            "kind": "rest",
+            "remaining": 51,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 3,
+            "snap": {
+              "turn": 72591,
+              "hp": 104,
+              "hungerStage": 2,
+              "thirstStage": 0,
+              "wounds": 3,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 9
+          },
+          "equipment": [
+            {
+              "def": "Item.LeatherCoat",
+              "durability": 99.33333333333333,
+              "partDurability": {
+                "Chest": 100,
+                "Abdomen": 100,
+                "Pelvis": 100,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "LeftThigh": 94,
+                "RightUpperArm": 100,
+                "RightForearm": 100,
+                "RightThigh": 100
+              },
+              "wetness": {
+                "torso": 63.93999999999863,
+                "arms": 63.93999999999863,
+                "legs": 63.93999999999863
+              }
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 63.93999999999863
+              }
+            },
+            {
+              "def": "Item.LeatherBelt",
+              "durability": 100,
+              "wetness": {}
+            },
+            {
+              "def": "Item.HuntingKnife",
+              "durability": 86.66666666666663,
+              "edge": 70,
+              "edgeWear": 0,
+              "corrosion": 559.9999999998809,
+              "rust": 3
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 76,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 0
+          },
+          {
+            "type": "move",
+            "dir": 5
+          }
+        ],
+        "before": [
+          {
+            "time": 2166700,
+            "map": "crypt1",
+            "player": {
+              "x": 38,
+              "y": 23
+            }
+          },
+          {
+            "time": 2166700,
+            "map": "crypt1",
+            "player": {
+              "x": 38,
+              "y": 23
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 614,
+            "x": 38,
+            "y": 12,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/854/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/901/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/902/observed/at",
+            "old": 21668,
+            "new": 21667
+          },
+          {
+            "path": "/map/tiles/903/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/949/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/950/observed/at",
+            "old": 21668,
+            "new": 21667
+          },
+          {
+            "path": "/map/tiles/951/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/998/observed/at",
+            "old": 21668,
+            "new": 21667
+          },
+          {
+            "path": "/map/tiles/1045/observed/at",
+            "old": 21668,
+            "new": 21666
+          },
+          {
+            "path": "/map/tiles/1046/observed/at",
+            "old": 21668,
+            "new": 21667
+          },
+          {
+            "path": "/map/tiles/1093/observed/at",
+            "old": 21668,
+            "new": 21667
+          },
+          {
+            "path": "/map/tiles/1140/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/1140/observed",
+            "new": {
+              "terrain": "Terrain.KtWall",
+              "at": 21668
+            }
+          },
+          {
+            "path": "/map/tiles/1184/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/1184/observed",
+            "new": {
+              "terrain": "Terrain.Statue",
+              "at": 21668
+            }
+          },
+          {
+            "path": "/map/tiles/1185/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/1185/observed",
+            "new": {
+              "terrain": "Terrain.Statue",
+              "at": 21668
+            }
+          },
+          {
+            "path": "/map/tiles/1186/seen",
+            "new": true
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-22",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-23",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-23",
+        "cause": "저체온",
+        "days": 0.4722222222222222,
+        "level": 1,
+        "map": "surface",
+        "background": "Bg.GuildMerchant",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 11,
+            "per": 12,
+            "vit": 7,
+            "wil": 11
+          },
+          "age": {
+            "years": 41,
+            "nextBirthday": 2613600,
+            "masteryMult": 0.8
+          },
+          "traits": [
+            "Trait.SmallEater",
+            "Trait.Sensitive"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 39749,
+              "count": 1,
+              "events": [
+                {
+                  "at": 32549,
+                  "untilTurn": 39749,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawDeath",
+              "untilTurn": 39502,
+              "count": 3,
+              "events": [
+                {
+                  "at": 33502,
+                  "untilTurn": 39502
+                },
+                {
+                  "at": 33302,
+                  "untilTurn": 39302
+                },
+                {
+                  "at": 29302,
+                  "untilTurn": 35302
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 235400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 33800,
+                  "untilTurn": 235400,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -636.37,
+            "waterDeficit": 555,
+            "protein": 92.17,
+            "vitamin": 100,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.44453377312491327,
+            "waterRemainder": 0.40104166666668783,
+            "scurvy": 0,
+            "fatigue": 90.84114583332075,
+            "bodyTemp": 27.944840866999993,
+            "wetness": 100,
+            "energy": 105,
+            "stress": 41.016,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100,
+              "head": 100,
+              "hands": 100,
+              "feet": 100
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "dietHistory": [
+              {
+                "at": 27111,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 28134,
+                "kcal": 70,
+                "proteinKcal": 0
+              },
+              {
+                "at": 28869,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 32549,
+                "kcal": 120,
+                "proteinKcal": 12
+              }
+            ],
+            "lastDietMeal": {
+              "at": 32549,
+              "kcal": 120,
+              "proteinKcal": 12,
+              "uid": 46,
+              "def": "Item.AshCap"
+            },
+            "lastMealKcal": 120
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.0979999999999999,
+            "low": 15.255,
+            "high": 25.451,
+            "air": -8.7,
+            "feels": -13.45,
+            "windChill": 1.75,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 100,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 22,
+            "y": 20
+          },
+          "equipment": [
+            {
+              "def": "Item.PaddedJacket",
+              "quality": 2,
+              "durability": 99,
+              "partDurability": {
+                "Neck": 100,
+                "Chest": 100,
+                "Abdomen": 100,
+                "Pelvis": 100,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 92
+              },
+              "wetness": {
+                "torso": 100,
+                "arms": 100
+              }
+            },
+            {
+              "def": "Item.RustyKnife",
+              "durability": 93,
+              "edge": 59,
+              "edgeWear": 0,
+              "corrosion": 721.0499999998912,
+              "rust": 3
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 100
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-23",
+        "cause": "저체온",
+        "days": 0.4722222222222222,
+        "level": 1,
+        "map": "surface",
+        "background": "Bg.GuildMerchant",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 11,
+            "per": 12,
+            "vit": 7,
+            "wil": 11
+          },
+          "age": {
+            "years": 41,
+            "nextBirthday": 2613600,
+            "masteryMult": 0.8
+          },
+          "traits": [
+            "Trait.SmallEater",
+            "Trait.Sensitive"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50441,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21641,
+                  "untilTurn": 50441
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 39756,
+              "count": 1,
+              "events": [
+                {
+                  "at": 32556,
+                  "untilTurn": 39756,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 235400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 33800,
+                  "untilTurn": 235400,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawDeath",
+              "untilTurn": 39863,
+              "count": 3,
+              "events": [
+                {
+                  "at": 33863,
+                  "untilTurn": 39863
+                },
+                {
+                  "at": 33463,
+                  "untilTurn": 39463
+                },
+                {
+                  "at": 29263,
+                  "untilTurn": 35263
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": false
+          },
+          "needs": {
+            "kcal": -635.61,
+            "waterDeficit": 554,
+            "protein": 92.17,
+            "vitamin": 100,
+            "hygiene": 92,
+            "nutritionDay": 1,
+            "kcalRemainder": 0.17123932729152536,
+            "waterRemainder": 0.8715277777777991,
+            "scurvy": 0,
+            "fatigue": 90.84114583332075,
+            "bodyTemp": 27.970245766749994,
+            "wetness": 100,
+            "energy": 105,
+            "stress": 40.664,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100,
+              "head": 100,
+              "hands": 100,
+              "feet": 100
+            },
+            "thermal": {
+              "turns": 0,
+              "delta": 0
+            },
+            "dietHistory": [
+              {
+                "at": 27120,
+                "kcal": 140,
+                "proteinKcal": 88
+              },
+              {
+                "at": 28141,
+                "kcal": 70,
+                "proteinKcal": 0
+              },
+              {
+                "at": 28876,
+                "kcal": 350,
+                "proteinKcal": 40
+              },
+              {
+                "at": 32556,
+                "kcal": 120,
+                "proteinKcal": 12
+              }
+            ],
+            "lastDietMeal": {
+              "at": 32556,
+              "kcal": 120,
+              "proteinKcal": 12,
+              "uid": 46,
+              "def": "Item.AshCap"
+            },
+            "lastMealKcal": 120
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.0979999999999999,
+            "low": 15.255,
+            "high": 25.451,
+            "air": -8.7,
+            "feels": -13.45,
+            "windChill": 1.75,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 3,
+            "innerWetness": 100,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 22,
+            "y": 20
+          },
+          "equipment": [
+            {
+              "def": "Item.PaddedJacket",
+              "quality": 2,
+              "durability": 99,
+              "partDurability": {
+                "Neck": 100,
+                "Chest": 100,
+                "Abdomen": 100,
+                "Pelvis": 100,
+                "LeftUpperArm": 100,
+                "LeftForearm": 100,
+                "RightUpperArm": 100,
+                "RightForearm": 92
+              },
+              "wetness": {
+                "torso": 100,
+                "arms": 100
+              }
+            },
+            {
+              "def": "Item.RustyKnife",
+              "durability": 93,
+              "edge": 59,
+              "edgeWear": 0,
+              "corrosion": 721.0499999998912,
+              "rust": 3
+            },
+            {
+              "def": "Item.Boots",
+              "durability": 100,
+              "wetness": {
+                "feet": 100
+              }
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 86,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 5
+          },
+          {
+            "type": "move",
+            "dir": 3
+          }
+        ],
+        "before": [
+          {
+            "time": 2167400,
+            "map": "crypt1",
+            "player": {
+              "x": 9,
+              "y": 5
+            }
+          },
+          {
+            "time": 2167400,
+            "map": "crypt1",
+            "player": {
+              "x": 9,
+              "y": 5
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 585,
+            "x": 9,
+            "y": 12,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/106/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/106/observed",
+            "new": {
+              "terrain": "Terrain.KtWall",
+              "at": 21675
+            }
+          },
+          {
+            "path": "/map/tiles/109/observed/at",
+            "old": 21674,
+            "new": 21675
+          },
+          {
+            "path": "/map/tiles/110/observed/at",
+            "old": 21674,
+            "new": 21675
+          },
+          {
+            "path": "/map/tiles/147/observed/at",
+            "old": 21675,
+            "new": 21670
+          },
+          {
+            "path": "/map/tiles/154/observed/at",
+            "old": 21674,
+            "new": 21675
+          },
+          {
+            "path": "/map/tiles/158/observed/at",
+            "old": 21674,
+            "new": 21675
+          },
+          {
+            "path": "/map/tiles/159/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/159/observed",
+            "new": {
+              "terrain": "Terrain.KtFloor",
+              "at": 21675
+            }
+          },
+          {
+            "path": "/map/tiles/195/observed/at",
+            "old": 21675,
+            "new": 21672
+          },
+          {
+            "path": "/map/tiles/196/observed/at",
+            "old": 21675,
+            "new": 21671
+          },
+          {
+            "path": "/map/tiles/197/observed/at",
+            "old": 21675,
+            "new": 21670
+          },
+          {
+            "path": "/map/tiles/198/observed/at",
+            "old": 21675,
+            "new": 21671
+          },
+          {
+            "path": "/map/tiles/206/observed/at",
+            "old": 21674,
+            "new": 21675
+          },
+          {
+            "path": "/map/tiles/207/seen",
+            "new": true
+          },
+          {
+            "path": "/map/tiles/207/observed",
+            "new": {
+              "terrain": "Terrain.KtFloor",
+              "at": 21675
+            }
+          },
+          {
+            "path": "/map/tiles/243/observed/at",
+            "old": 21675,
+            "new": 21674
+          },
+          {
+            "path": "/map/tiles/244/observed/at",
+            "old": 21675,
+            "new": 21674
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-24",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-24",
+        "cause": "치명상",
+        "days": 0.005625,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Boatman",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 12,
+            "per": 10,
+            "vit": 8,
+            "wil": 10
+          },
+          "age": {
+            "years": 29,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.LightSleeper",
+            "Trait.IronStomach",
+            "Trait.Pessimist"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50438,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21638,
+                  "untilTurn": 50438
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24161,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21761,
+                  "untilTurn": 24161
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -23.48,
+            "waterDeficit": 17,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.769355208333522,
+            "waterRemainder": 0.9253472222222223,
+            "scurvy": 0,
+            "fatigue": 20.893229166666497,
+            "bodyTemp": 37,
+            "wetness": 7.955249999999989,
+            "energy": 0.75,
+            "stress": 10,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 27.10999999999997,
+              "head": 0,
+              "hands": 0,
+              "feet": 47.10999999999984
+            },
+            "thermal": {
+              "turns": 162,
+              "delta": -0.13906737812500003
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.0525575,
+            "low": 15.36860625,
+            "high": 25.47372125,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 7.955249999999989,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 40,
+            "y": 12
+          },
+          "equipment": [
+            {
+              "def": "Item.Pole",
+              "durability": 98
+            },
+            {
+              "def": "Item.OiledRaincoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 27.10999999999997
+              }
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-24",
+        "cause": "치명상",
+        "days": 0.005555555555555556,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Boatman",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 10,
+            "agi": 12,
+            "per": 10,
+            "vit": 8,
+            "wil": 10
+          },
+          "age": {
+            "years": 29,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.LightSleeper",
+            "Trait.IronStomach",
+            "Trait.Pessimist"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50438,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21638,
+                  "untilTurn": 50438
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24158,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21758,
+                  "untilTurn": 24158
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223359,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21759,
+                  "untilTurn": 223359,
+                  "mood": -8.399999999999999
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": false,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -22.84,
+            "waterDeficit": 17,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.4726436342594553,
+            "waterRemainder": 0.5173611111111109,
+            "scurvy": 0,
+            "fatigue": 20.87499999999983,
+            "bodyTemp": 37,
+            "wetness": 7.988249999999986,
+            "energy": 2.25,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 27.229999999999954,
+              "head": 0,
+              "hands": 0,
+              "feet": 47.22999999999989
+            },
+            "thermal": {
+              "turns": 160,
+              "delta": -0.133006544375
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.0523475,
+            "low": 15.36913125,
+            "high": 25.47382625,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 7.988249999999986,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 40,
+            "y": 12
+          },
+          "equipment": [
+            {
+              "def": "Item.Pole",
+              "durability": 99
+            },
+            {
+              "def": "Item.OiledRaincoat",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 27.229999999999954
+              }
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 76,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 6
+          },
+          {
+            "type": "move",
+            "dir": 6
+          }
+        ],
+        "before": [
+          {
+            "time": 2166900,
+            "map": "crypt1",
+            "player": {
+              "x": 36,
+              "y": 12
+            }
+          },
+          {
+            "time": 2166900,
+            "map": "crypt1",
+            "player": {
+              "x": 36,
+              "y": 12
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 551,
+            "x": 23,
+            "y": 11,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/692/t",
+            "old": "Terrain.DoorClosed",
+            "new": "Terrain.DoorOpen"
+          },
+          {
+            "path": "/creatures/6/pos/x",
+            "old": 22,
+            "new": 21
+          },
+          {
+            "path": "/creatures/6/pos/y",
+            "old": 12,
+            "new": 13
+          },
+          {
+            "path": "/creatures/6/facing",
+            "old": 1,
+            "new": 5
+          },
+          {
+            "path": "/creatures/6/needs/kcal",
+            "old": -0.45,
+            "new": -0.43
+          },
+          {
+            "path": "/creatures/6/needs/kcalRemainder",
+            "old": 0.8333333333333401,
+            "new": 0.6507936507936565
+          },
+          {
+            "path": "/creatures/6/needs/waterRemainder",
+            "old": 0.7552083333333334,
+            "new": 0.7378472222222223
+          },
+          {
+            "path": "/creatures/6/needs/thermal/delta",
+            "old": -0.007887500000000002,
+            "new": -0.008387500000000003
+          },
+          {
+            "path": "/creatures/6/ai/path",
+            "oldLength": 13,
+            "newLength": 25
+          },
+          {
+            "path": "/creatures/6/movedTurn",
+            "old": 21669,
+            "new": 21662
+          },
+          {
+            "path": "/noiseEvents",
+            "oldLength": 0,
+            "newLength": 1
+          },
+          {
+            "path": "/fx/0/id",
+            "old": 1,
+            "new": 4
+          },
+          {
+            "path": "/fx/0/from/x",
+            "old": 9,
+            "new": 55
+          },
+          {
+            "path": "/fx/0/from/y",
+            "old": 36,
+            "new": 9
+          },
+          {
+            "path": "/fx/0/to/x",
+            "old": 10,
+            "new": 55
+          },
+          {
+            "path": "/fx/0/to/y",
+            "old": 35,
+            "new": 8
+          },
+          {
+            "path": "/fx/0/turn",
+            "old": 21609,
+            "new": 21608
+          },
+          {
+            "path": "/fx/1/from/x",
+            "old": 10,
+            "new": 9
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-25",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-26",
+      "entireResultRowIdentical": false,
+      "old": {
+        "seed": "sim-26",
+        "cause": "치명상",
+        "days": 0.004409722222222222,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Excommunicate",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 7,
+            "per": 10,
+            "vit": 11,
+            "wil": 13
+          },
+          "age": {
+            "years": 38,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Pious",
+            "Trait.Reckless"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50444,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21644,
+                  "untilTurn": 50444
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24125,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21725,
+                  "untilTurn": 24125
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -17.94,
+            "waterDeficit": 13,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.46400482253103803,
+            "waterRemainder": 0.7413194444444449,
+            "scurvy": 0,
+            "fatigue": 20.692708333333197,
+            "bodyTemp": 37,
+            "wetness": 8.21374999999999,
+            "energy": 40.89999999999998,
+            "stress": 10,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.049999999999965,
+              "head": 0,
+              "hands": 0,
+              "feet": 48.04999999999995
+            },
+            "thermal": {
+              "turns": 127,
+              "delta": -0.09801105999999994
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.8509125,
+            "low": 13.37271875,
+            "high": 25.07454375,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 8.21374999999999,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 29,
+            "y": 5
+          },
+          "equipment": [
+            {
+              "def": "Item.RagShirt",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0
+              }
+            },
+            {
+              "def": "Item.Hood",
+              "durability": 100,
+              "wetness": {
+                "head": 0
+              }
+            },
+            {
+              "def": "Item.OilclothCloak",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 28.049999999999965
+              }
+            },
+            {
+              "def": "Item.BoneCharm"
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "new": {
+        "seed": "sim-26",
+        "cause": "과다 출혈",
+        "days": 0.005138888888888889,
+        "level": 1,
+        "map": "crypt1",
+        "background": "Bg.Excommunicate",
+        "final": {
+          "overworld": {
+            "position": {
+              "x": 24,
+              "y": 76
+            },
+            "currentRegion": "Region.GreyCloister",
+            "visited": [
+              "Region.GreyCloister"
+            ],
+            "scenes": []
+          },
+          "stats": {
+            "str": 9,
+            "agi": 7,
+            "per": 10,
+            "vit": 11,
+            "wil": 13
+          },
+          "age": {
+            "years": 38,
+            "nextBirthday": 2613600,
+            "masteryMult": 1
+          },
+          "traits": [
+            "Trait.Pious",
+            "Trait.Reckless"
+          ],
+          "aftermath": {},
+          "thoughts": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50444,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21644,
+                  "untilTurn": 50444
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309706,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21706,
+                  "untilTurn": 309706,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108106,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21706,
+                  "untilTurn": 108106,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.DangerousVictory",
+              "untilTurn": 79306,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21706,
+                  "untilTurn": 79306
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24139,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21739,
+                  "untilTurn": 24139
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223341,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21741,
+                  "untilTurn": 223341,
+                  "mood": -6
+                }
+              ]
+            }
+          ],
+          "psycheWatch": {
+            "lowHp": false,
+            "blood": true,
+            "afraid": false,
+            "severe": true
+          },
+          "needs": {
+            "kcal": -24.03,
+            "waterDeficit": 17,
+            "protein": 100,
+            "vitamin": 100,
+            "hygiene": 100,
+            "nutritionDay": 0,
+            "kcalRemainder": 0.21510964506192032,
+            "waterRemainder": 0.5173611111111118,
+            "scurvy": 0,
+            "fatigue": 20.84114583333319,
+            "bodyTemp": 37,
+            "wetness": 8.117499999999987,
+            "energy": 15.5,
+            "stress": 25,
+            "sleepDebt": 0,
+            "skinWetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 27.69999999999996,
+              "head": 0,
+              "hands": 0,
+              "feet": 47.69999999999992
+            },
+            "thermal": {
+              "turns": 148,
+              "delta": -0.10318032937499995
+            }
+          },
+          "thermal": {
+            "antipyretic": 0,
+            "falseWarmth": 0,
+            "alcoholHeatLoss": 1,
+            "shiveringKcalFloor": -6000,
+            "insulation": 1.8515249999999999,
+            "low": 13.371187500000001,
+            "high": 25.0742375,
+            "air": 6,
+            "feels": 6,
+            "windChill": 0,
+            "heat": 0,
+            "shelter": 0,
+            "evaporation": 0,
+            "innerWetness": 8.117499999999987,
+            "activity": "rest"
+          },
+          "pos": {
+            "x": 29,
+            "y": 5
+          },
+          "equipment": [
+            {
+              "def": "Item.RagShirt",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0
+              }
+            },
+            {
+              "def": "Item.Hood",
+              "durability": 100,
+              "wetness": {
+                "head": 0
+              }
+            },
+            {
+              "def": "Item.OilclothCloak",
+              "durability": 100,
+              "wetness": {
+                "torso": 0,
+                "arms": 0,
+                "legs": 27.69999999999996
+              }
+            },
+            {
+              "def": "Item.BoneCharm"
+            },
+            {
+              "def": "Item.Lantern"
+            }
+          ]
+        }
+      },
+      "counterfactualEntireRowExact284": true,
+      "firstActualDifference": {
+        "actionIndex": 83,
+        "actions": [
+          {
+            "type": "move",
+            "dir": 5
+          },
+          {
+            "type": "move",
+            "dir": 5
+          }
+        ],
+        "before": [
+          {
+            "time": 2167200,
+            "map": "crypt1",
+            "player": {
+              "x": 26,
+              "y": 4
+            }
+          },
+          {
+            "time": 2167200,
+            "map": "crypt1",
+            "player": {
+              "x": 26,
+              "y": 4
+            }
+          }
+        ],
+        "errors": [
+          null,
+          null
+        ],
+        "actualLockedDoors": [
+          {
+            "index": 691,
+            "x": 19,
+            "y": 14,
+            "locked": true
+          }
+        ],
+        "differences": [
+          {
+            "path": "/map/tiles/691/t",
+            "old": "Terrain.DoorOpen",
+            "new": "Terrain.DoorClosed"
+          },
+          {
+            "path": "/creatures/4/pos/x",
+            "old": 19,
+            "new": 17
+          },
+          {
+            "path": "/creatures/4/pos/y",
+            "old": 15,
+            "new": 17
+          },
+          {
+            "path": "/creatures/4/facing",
+            "old": 1,
+            "new": 5
+          },
+          {
+            "path": "/creatures/4/ai/path",
+            "oldLength": 15,
+            "newLength": 35
+          },
+          {
+            "path": "/creatures/5/pos/x",
+            "old": 18,
+            "new": 17
+          },
+          {
+            "path": "/creatures/5/pos/y",
+            "old": 15,
+            "new": 16
+          },
+          {
+            "path": "/creatures/5/facing",
+            "old": 1,
+            "new": 5
+          },
+          {
+            "path": "/creatures/5/needs/kcal",
+            "old": -0.36,
+            "new": -0.38
+          },
+          {
+            "path": "/creatures/5/needs/kcalRemainder",
+            "old": 0.011904761904765415,
+            "new": 0.19444444444444997
+          },
+          {
+            "path": "/creatures/5/needs/waterRemainder",
+            "old": 0.6336805555555556,
+            "new": 0.6510416666666666
+          },
+          {
+            "path": "/creatures/5/needs/thermal/delta",
+            "old": -0.007900000000000003,
+            "new": -0.007400000000000002
+          },
+          {
+            "path": "/creatures/5/ai/path",
+            "oldLength": 14,
+            "newLength": 36
+          },
+          {
+            "path": "/creatures/5/movedTurn",
+            "new": 21672
+          },
+          {
+            "path": "/creatures/6/pos/x",
+            "old": 17,
+            "new": 16
+          },
+          {
+            "path": "/creatures/6/pos/y",
+            "old": 15,
+            "new": 17
+          },
+          {
+            "path": "/creatures/6/facing",
+            "old": 1,
+            "new": 4
+          },
+          {
+            "path": "/creatures/6/ai/path",
+            "oldLength": 18,
+            "newLength": 35
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-27",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-28",
+      "entireResultRowIdentical": true
+    },
+    {
+      "seed": "sim-29",
+      "entireResultRowIdentical": true
+    }
+  ]
+}
