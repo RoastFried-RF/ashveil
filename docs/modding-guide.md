@@ -446,3 +446,15 @@ ItemCompWorker에 onProstheticInstalled/onProstheticRemoved/onProstheticServiced
 ## 실제 시드와 모드로 헤드리스 실행
 
 `pnpm sim:run run --seed 검사시드 --mods sample-patrol-contract --days 3 --bots 3 --json --out test-results/my-run.json`은 실제 선택 모드로 세 봇을 실행하고 해시/사인/사건/오류 보고서를 만든다. 한 봇은 입력한 시드를 그대로 쓰며 여러 봇은 `검사시드:0`부터 쓴다. `--dungeon`은 기존 던전만, 기본값은 월드다. 기존 보고서는 덮지 않는다. [옵션/검증 범위](sim-run-implementation.md).
+
+## 주민이 개인 곡물로 조리하도록 설정
+
+`ResidentProvision.Hearth.cooking`은 주민의 기존 기본 그릇 조리법을 선택한다. 현재는 `Recipe.Oatmeal`처럼 `boiledMeal.unheated`가 있는 기본 조리법을 지원한다. 역할·준비 문턱·남길 물·생활비·한 물품의 구매 상한과 재시도 간격을 함께 지정한다.
+
+```json
+{"op":"replace","target":"ResidentProvision.Hearth","path":"/cooking","value":{"recipes":["Recipe.Oatmeal"],"roles":["civilian","guard"],"homeRadius":3,"prepareBelowKcal":500,"reserveWaterMl":300,"reserveMoney":5,"maxUnitPrice":25,"retryTurns":1200}}
+```
+
+주민은 가진 곡물만 쓰고 부족한 그릇/키트/장작을 상점 곁에서 실제 돈·재고·배낭 공간으로 확인한다. 상점 목표 재고는 새 세계의 유한 초기 물품이며 옛 각인에 물품이나 돈을 채우지 않는다. 자기 모닥불 설치·점화와 실제 가열·회수·섭취는 기존 행동을 쓴다. 규칙을 끄려면 선택적 `cooking`을 제거한다. 이미 올린 음식과 물품을 소급 삭제하지 않는다.
+
+`WorldSimulation.Hearth.nutritionKcalPerFoodUnit`은 실제 주민 식사 한 회분을 요약 Food 소비와 연결한다(기본2500kcal=1Food). 탄 음식은 실제 줄어든 열량만 기록하고 개인 일일 소비 한도를 넘기지 않는다. 이 필드를 없애면 기존 물품별 `items` 환산을 쓴다. 재사용 그릇 음식을 요약 `items`의 Food 재고로 등록하면 요약 소비가 용기까지 소모할 수 있으므로 실제 섭취 연결에는 이 열량 환산을 쓴다. 다른 사람의 현재 조리 진행/연료·원격 재고는 공개 UI에 추가하지 않는다. [구현 및 검증 범위](resident-cooking-implementation.md).

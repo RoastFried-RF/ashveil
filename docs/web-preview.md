@@ -44,3 +44,7 @@ main4c0749d8c1e5c96239bd211604ed9e6c04c0656a의 [Actions39551024374](https://git
 ## v0.299 실제 원격 확인 (다음 큰 게시에 포함할 기록)
 
 main5b47f73200be6adc4cbd146f7372a382b0bfbd3e의 [Actions39561309446](https://github.com/RoastFried-RF/ashveil/actions/runs/39561309446)은build119092981460이실행단계0개로실패하고deploy119093002379는건너뛰었다. 실제annotation은최근계정결제실패또는지출한도증가필요를원인으로명시한다. Ubuntu26이전notice와별도문제이며공개플레이URL은없다. 로컬299검증/ZIP과원격배포를구분하고, 인증/결제/한도/저장소공개설정은바꾸지않았다. 사용자큰묶음요청에따라이원격확인문서만을위한추가작은push는하지않는다.
+
+## v0.300 원격 확인 · 다음 큰 묶음에 포함
+
+main733419c37c6242f581a5c042ff87d570ecb551fb의 [Actions39566538764](https://github.com/RoastFried-RF/ashveil/actions/runs/39566538764)은build119110060909가실행0단계로실패하고deploy119110083681은건너뛰었다. 실제annotation은최근계정결제실패또는지출한도증가필요를명시한다. 검증된로컬300ZIP은991dist파일과모두같고16,680,075bytes/SHA256 f2f6b6e0a127be5d4d053313928c1b94a4c64a5436dfa31dedd88ca94d7ad944다. 공개사이트성공은확인하지못했다. 결제/한도/인증설정은변경하지않았고,사용자요청에따라이확인기록만별도push하지않는다.

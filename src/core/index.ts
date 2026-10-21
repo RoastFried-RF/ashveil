@@ -235,6 +235,7 @@ export * from './cooking-state'
 export * from './cooking'
 
 export * from './unheated-meal'
+export * from './resident-cooking'
 
 export * from './boil-state'
 export * from './resident-hygiene'

@@ -1,0 +1,818 @@
+{
+  "status": "COMPLETE_28_DIRECT_PNG_VISUAL_REVIEW_NO_BLOCKING_ISSUE_FOUND",
+  "reviewDateUTC": "2026-10-21",
+  "reviewRoot": "/workspace/ashveil",
+  "executionIdentity": {
+    "checkpoint": "/workspace/.ashveil-checkpoints/v301-permissions",
+    "bundle": "index-BF15v5qP.js",
+    "save": 204,
+    "identityEvidence": "Coordinator-provided execution identity and docs/resident-cooking-v301-native-audit.json; reviewer did not execute the bundle."
+  },
+  "reviewer": {
+    "agent": "art_ui_review_v301",
+    "role": "Independent art/UI visual reviewer",
+    "originalAssetCreator": false,
+    "authorshipRelationship": "이번 그릇·귀리·조리 원본의 제작자가 아니다. 기존 원본 적용만 독립 검토했으며 원본·게임 소스·PNG를 만들거나 수정하지 않았다. 원화의 법적 저작권 또는 외부 출처에 대한 별도 감사를 수행하지 않았다."
+  },
+  "method": {
+    "directlyOpenedPNGCount": 28,
+    "openingTool": "view_image, each PNG individually, original file path",
+    "metadata": "Original PNG file byte count, SHA256 and PNG IHDR width/height only; no pixel loop.",
+    "imageEdits": "None. No crop, composition, color/brightness correction or reshoot.",
+    "workPerformed": "Read-only direct image inspection, small source/JSON reads, PNG metadata hashes, and writing this report only.",
+    "runtimeChecksPerformedByReviewer": false,
+    "excludedFolders": [
+      "test-results/resident-cooking-browser-v301-first",
+      "test-results/resident-cooking-browser-v301-final"
+    ],
+    "didNotRun": [
+      "Browser",
+      "GPU",
+      "Type",
+      "Build",
+      "Full",
+      "World",
+      "test suites",
+      "Git",
+      "heavy pixel loops"
+    ]
+  },
+  "summary": {
+    "blockingVisualIssueFound": false,
+    "blockingIssueScope": "28개 직접 연 PNG에서 보이는 원본 적용·가독성·배치·노출된 조작부 범위에 한정한다. 전체 게임 기능 또는 회귀 검증의 승인 의미가 아니다.",
+    "actualAssetApplication": [
+      "주민1512/1513에서 original_hearth_raw_oatmeal에 대응하는 실제 raw 그릇 아이콘과 정성적 덜 익음 상태가 보인다.",
+      "자기1496/1497에서 raw와 익은 죽의 표면 차이 및 자기 전용 회수·대기 버튼이 보인다.",
+      "자기1495/1498에서 빈 그릇 아이콘,1498 빈 그릇 툴팁, 귀리 곡물 스택과 수량이 보인다.",
+      "1494 월드에서 성숙한 귀리 밭 스프라이트가 잔디와 구별되어 보인다."
+    ],
+    "foreignPrivacyVisible": [
+      "1512/1513의 타인 음식 행은 아직 익지 않음과 회수 불가를 표시하며 정확한 타인 진행이나 음식 조작 버튼을 보여주지 않는다.",
+      "1512/1513/1515의 타인 불은 불이 타고 있음·관리 권한 없음으로 표시되며 정확한 타인 잔여 연료·땔감 선택·불 끄기 조작을 보여주지 않는다.",
+      "1511 제작 화면에는 타인 음식 행이 보이지 않는다. 실제 원거리·시야 조건은 정적 소스 근거다."
+    ],
+    "ownPlayerUIVisible": [
+      "1496은 자기 음식1/400턴·399턴 기다리기·덜 익은 음식 내리기 버튼을 표시한다.",
+      "1497은 익음·음식 회수·올려 둔 채10분 쉬기 버튼을 표시한다.",
+      "1493/1496/1497의 자기 불에는 정확한 자기 연료 안내와 땔감 선택·불 끄기 버튼이 보인다. 실제 작동 성공은 별도 감사 JSON 근거다."
+    ],
+    "coverageLimits": [
+      "주민8장은 주민의 익은 그릇 행과 NPC 배낭의 빈 그릇을 직접 보여주지 않는다. 이 상태를 화면 관찰로 주장하지 않는다.",
+      "PNG만으로 그릇·불 UID, 실제 소유자ID, 식사 횟수·영양·돈·재·병원체·시간·세이브·복원 일치·미완료 휴식 재개를 검증할 수 없다.",
+      "소형 제작 모달의 상단 관련 안내·음식 행·닫기 버튼은 읽히지만 레시피 하단과 배경 HUD 일부는 가려진다. 해당 가려진 범위의 기능을 평가하지 않았다.",
+      "두 공통 타이틀은 아래 배경 목록이 viewport 밖으로 이어진다. 공통1366 월드의 hover 툴팁은 로그 일부를 가린다. 이 관찰 범위에서 주요 조작을 막는 문제는 보이지 않는다."
+    ]
+  },
+  "staticSourceFindings": [
+    {
+      "source": "src/client/ui/CookingPanel.vue",
+      "finding": "Own batches remain eligible. Other batches require Chebyshev distance<=1, canSee and hasLos. Other rows use base item label and qualitative burnt/ready/not-ready state; numeric progress, reason, take/wait/rest controls occur only in own branch. The shared neglect/burn rule is a general rule, not another actor exact progress."
+    },
+    {
+      "source": "src/client/ui/CampfirePanel.vue",
+      "finding": "An access-error fire displays qualitative burning/extinguished plus error. Exact remaining fuel and fuel selector/fuel/out controls are in the no-error branch. This is a static rendering check, not a new runtime permission test."
+    },
+    {
+      "source": "src/client/ui/ItemIcon.vue",
+      "finding": "Cooking rows call ItemIcon with itemDef sprite at32px. The icon uses atlas frame bounds or iconUrl fallback; screenshot row shows an actual resolved icon."
+    },
+    {
+      "source": "src/content/core/patches/oatmeal-original.json",
+      "finding": "Item.Bowl→original_hearth_bowl, Item.UnheatedOatmealBowl→original_hearth_raw_oatmeal, Item.OatmealBowl→original_hearth_oatmeal."
+    },
+    {
+      "source": "src/content/core/patches/oat-original.json",
+      "finding": "Item.Oats→original_hearth_oats and Item.OatSeed→original_hearth_oat_seed."
+    }
+  ],
+  "sourceFilesRead": [
+    {
+      "path": "src/client/ui/CookingPanel.vue",
+      "root": "/workspace/.ashveil-checkpoints/v301-permissions",
+      "bytes": 2614,
+      "sha256": "349612be9af1a0248828f43d499a1375598bb9a79e39a4d490fbdb3b5bbe7991",
+      "read": "complete static text only"
+    },
+    {
+      "path": "src/client/ui/CampfirePanel.vue",
+      "root": "/workspace/.ashveil-checkpoints/v301-permissions",
+      "bytes": 2295,
+      "sha256": "210ff52ec3af7ab26ef4861f6e15d46d5975545a17a76f21db338f43a8e67bb5",
+      "read": "complete static text only"
+    },
+    {
+      "path": "src/client/ui/ItemIcon.vue",
+      "root": "/workspace/.ashveil-checkpoints/v301-permissions",
+      "bytes": 1193,
+      "sha256": "f9abb6a4b7a49708b3aadb8c01f66026b3fc56c4d93aab6046596c0905429982",
+      "read": "complete static text only"
+    },
+    {
+      "path": "src/content/core/patches/oatmeal-original.json",
+      "root": "/workspace/.ashveil-checkpoints/v301-permissions",
+      "bytes": 383,
+      "sha256": "6b55f92127fd7b7b13fa5d96ad6fc21d5975b7a1d3c129c003faf7c106517252",
+      "read": "complete static text only"
+    },
+    {
+      "path": "src/content/core/patches/oat-original.json",
+      "root": "/workspace/.ashveil-checkpoints/v301-permissions",
+      "bytes": 188,
+      "sha256": "4263e8728c15eb728f7dbca4975be65f05b00cfb26b393c6cb49963140a2a340",
+      "read": "complete static text only"
+    }
+  ],
+  "jsonEvidenceRead": [
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/audit.json",
+      "bytes": 40680,
+      "sha256": "298a0322bf2b739b8c6b71c955354953f3a5c59bde2768ee60a09e5b8692a406",
+      "evidenceType": "producer/coordinator JSON; not independent runtime proof by visual reviewer",
+      "summary": {
+        "save": 204,
+        "screenshots": 8,
+        "roundtrips": 4,
+        "phases": 15,
+        "actualInputTU": 52700,
+        "pendingResumeTU": 30300,
+        "errors": []
+      }
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/audit.json",
+      "bytes": 3556,
+      "sha256": "d088cba2000949504c810c11e2e8aa1063893dadc276acd58600047ea9948881",
+      "evidenceType": "producer/coordinator JSON; not independent runtime proof by visual reviewer",
+      "summary": {
+        "save": 204,
+        "screenshots": 12,
+        "roundtrips": 6,
+        "phases": 23,
+        "actualInputTU": 43200,
+        "errors": []
+      }
+    },
+    {
+      "path": "docs/resident-cooking-v301-native-audit.json",
+      "bytes": 51006,
+      "sha256": "52a9b28f16dc21d81d4f4c604184b04cc9a735d2f2b6f50c770865edea5a402e",
+      "evidenceType": "producer/coordinator JSON; not independent runtime proof by visual reviewer",
+      "summary": {
+        "status": "PASS_FINAL_NATIVE_WHOLE_SCOPE",
+        "checkpoint": "immutable v301-permissions",
+        "app": "index-BF15v5qP.js",
+        "save": 204,
+        "screenshots": 20,
+        "roundtrips": 10,
+        "wholePairs": 38,
+        "actualKeyboardMouseInputTU": 95900,
+        "actualPendingTitleResumeTU": 30300,
+        "combinedNativeTU": 126200,
+        "all38WholeActualExpectedPairsExact": true
+      },
+      "readingBoundary": {
+        "claimField": "actualFuelUseOnlyAfterIgnitionCompletion",
+        "reportedValue": true,
+        "producerFuelEvidenceBoundary": "Existing UID-bound fireWorkStep and resource/ledger tests plus final whole states. No separate Native screenshot or persisted phase isolates the wood UID immediately before ignition completion.",
+        "reviewerLimit": "감사 JSON만 다시 읽었다. 목재 UID의 점화 완료 직전 단계는 별도 Native 화면이나 저장 단계로 격리되어 있지 않다. 근거는 기존 UID 결합 fireWorkStep 및 자원 수량·장부 검사와 최종 whole 상태이며, 검토자가 새 실행이나 연료 UID 시각 검증을 수행한 것은 아니다."
+      }
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1440/run.json",
+      "bytes": 418,
+      "sha256": "d3004301a43e55364a28066cbf3e35abcea8315b303e61022401fbaba8336c87",
+      "evidenceType": "producer run JSON; not reviewer-run browser",
+      "summary": {
+        "scenario": "smoke",
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "completedSteps": 11,
+        "status": "passed",
+        "errors": [],
+        "startedAt": "2026-10-21T16:08:53.085Z",
+        "finishedAt": "2026-10-21T16:09:12.425Z"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1366/run.json",
+      "bytes": 417,
+      "sha256": "f07353ced42fd766135040248cd27110c1c7720854c56e7632d492a6a21aeb3e",
+      "evidenceType": "producer run JSON; not reviewer-run browser",
+      "summary": {
+        "scenario": "smoke",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "completedSteps": 11,
+        "status": "passed",
+        "errors": [],
+        "startedAt": "2026-10-21T16:09:12.727Z",
+        "finishedAt": "2026-10-21T16:09:27.699Z"
+      }
+    }
+  ],
+  "jsonOnlyClaims": {
+    "wholeWorldAndSave": "Coordinator audit reports38 exact whole-state pairs and10 whole SAVE204 roundtrips for resident+oat; reviewer read JSON only and did not independently rerun comparisons.",
+    "residentTiming": "Resident audit reports52700 actual inputTU,30300 pending resumeTU,400 hot turns and qualitative-only foreign row.",
+    "oatTiming": "Oat audit reports43200 actual inputTU,6 roundtrips,23 phases,errors[]. Near-ripe scene declares earlier growth; this is not a five-calendar-day playthrough.",
+    "commonHarness": "Each common viewport run.json reports11 completed steps,passed,errors[].",
+    "resourceContinuity": "Bowl UID reuse, preserved grain separation, nutrient/contaminant/money accounting, one-time meal and legacy migration are audit-state claims, not pixel observations."
+  },
+  "screenshots": [
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1510-native-original-idle-resident-before-real-shopping-and-cooking.png",
+      "bytes": 881221,
+      "sha256": "5c658e1a26d6e3270c98f41beefb336ad4d1898c93c77952e8f70edb4aa3b9c9",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "월드에 관찰자와 어두운 주민 실루엣, 기존 HUD가 보인다. 화면에 조리 모달이나 조리 음식 행은 없다.",
+        "기존 픽셀 월드와 청록·회갈색 HUD의 외형이 유지된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "월드의 시야 밖은 검게 가려져 있다. NPC 배낭과 조리·상점 상태는 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "이 한 장으로 주민의 유휴 상태, 돈, 곡물, 조리 전 이력을 확인할 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1511-native-distant-crafting-hides-other-residents-cooking-batch.png",
+      "bytes": 899646,
+      "sha256": "7d7f54827396bb1daca7d4def1f2f7b96ac10e56e9609942ba68fbf4c0db60b4",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "제작·정비 모달의 거점 안내, 물 끓이기, 레시피 목록이 보인다. 다른 사람 음식 행과 그릇 아이콘은 보이지 않는다.",
+        "음식 진행 수치와 회수·기다리기 버튼도 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달이 왼쪽 중앙의 인물·주변 월드와 하단 HUD 일부를 가린다. 레시피는 화면 아래로 이어진다."
+      ],
+      "readingLimits": [
+        "원거리라는 위치 관계와 실제 숨긴 배치의 존재는 PNG만으로 확정할 수 없다. 거리·시야 필터는 정적 소스와 감사 JSON 근거로 분리한다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1512-native-original-raw-bowl-on-actual-resident-fire-with-no-steal-button.png",
+      "bytes": 959464,
+      "sha256": "63a75b9d1d30d80b36db67cc47a0f37ee1103f4e4eda8e59226e4827ad895e45",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "조리 음식 행에 회갈색 그릇 테두리와 낱알이 보이는 덜 익은 귀리죽 아이콘이 정상 표시된다. 아이콘은 행 텍스트와 겹치지 않는다.",
+        "행은 덜 익은 귀리죽 그릇 · 38,23 · 아직 익지 않음이며, 아래에 다른 사람이 올린 음식 · 회수할 수 없다가 보인다.",
+        "타인 불은 38,23 · 불이 타고 있음 및 이 모닥불을 관리할 권한이 없다로 표시된다. 정확한 잔여 연료·음식 진행 수치·타인 음식 버튼·타인 불 조작 버튼은 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "모달 뒤 실제 주민·불 타일과 하단 HUD 일부가 가려진다. 레시피 하단은 화면 밖이다."
+      ],
+      "readingLimits": [
+        "아이콘과 정성적 덜 익음 표시는 직접 관찰했다. 실제 소유자 ID, 거리 수치, 조리 시간, 그릇 UID, 회수 시도 결과는 이 PNG만으로 알 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1513-native-same-resident-batch-after-whole-save-restore.png",
+      "bytes": 966473,
+      "sha256": "51dc697de637b3552f189ad834944fe82a1b0e2586049884e3f18ad864eb52d1",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "1512와 같은 위치의 덜 익은 귀리죽 그릇 아이콘·정성 상태·타인 회수 불가 문구가 보인다.",
+        "타인 불의 정성적 연소 상태와 관리 권한 없음이 보이며, 정확한 연료·음식 진행·타인 조작부는 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달이 인물·불 타일과 하단 HUD 일부를 가린다. 레시피 아래는 화면 밖이다."
+      ],
+      "readingLimits": [
+        "시각적 행의 일관성은 확인했다. 저장 복원 또는 동일 UID라는 사실은 감사 JSON의 주장으로만 기록한다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1514-native-real-resident-meal-finished-after-four-hundred-hot-turns.png",
+      "bytes": 1026318,
+      "sha256": "088b0616ad3367e99e3a91e0380f3ffba3a61ca8478d02af8cf0ea5a5edd5de2",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "모달 없는 월드에서 두 인물과 타는 불, 주변 광원이 보인다. HUD와 로그가 겹치지 않는다.",
+        "음식 행·익은 그릇 인벤토리·빈 그릇 툴팁은 화면에 없다."
+      ],
+      "occludedOrOutsideFrame": [
+        "시야 밖은 검고, NPC 소지품·조리 상태는 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "먹기 행위, 정확한 400 hot turns, 익은 음식 회수와 빈 그릇 반환은 화면만으로 입증되지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1515-native-small-restored-resident-fire-after-real-meal.png",
+      "bytes": 714050,
+      "sha256": "46a4ec5b29e6f1fa87668e99db4a1b287ec17a4cbd4f9626325d2bd3e76c7664",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "1366×768에서 제작 모달 상단과 타인 불 연소·관리 권한 없음 문구가 완전히 읽힌다.",
+        "조리 음식 행은 없으며 타인 연료 수치·조작 버튼도 보이지 않는다. 닫기 버튼은 화면 안에 있다."
+      ],
+      "occludedOrOutsideFrame": [
+        "높이가 작은 창에서 레시피 목록 아래가 모달의 하단 경계 밖으로 이어진다. 인물·불과 하단 HUD 왼쪽이 모달에 가려진다."
+      ],
+      "readingLimits": [
+        "현재 보이는 상단 안내의 가독성만 확인했다. 아래 레시피의 스크롤 조작 가능성이나 식사 상태는 이 정지화면으로 검증하지 않았다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1516-native-pending-rest-continues-once-with-original-empty-bowl.png",
+      "bytes": 913806,
+      "sha256": "f308dcc7a134211b1b9ba4201edc83a2ff3cd8425deabca1401bc8eb1136218a",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "제작 모달에는 거점 안내·물 끓이기·레시피가 보이고, 주민 음식 행·타인 불 관리 행은 보이지 않는다.",
+        "물 끓이기의 비활성 버튼과 레시피 아이콘이 기존 스타일로 표시된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "모달이 주민과 인물 주변 월드 및 하단 HUD 일부를 가린다. 주민 소지품은 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "빈 그릇 아이콘·주민 UID·미완료 휴식의 단 한 번 재개는 화면에서 직접 읽을 수 없다. 해당 상태는 감사 JSON 전용 근거다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/resident-cooking-browser-v301-permissions-final/1517-native-legacy203-to204-no-invented-bowl-fire-money-or-meal.png",
+      "bytes": 880970,
+      "sha256": "55eca67fda1d9d7d821ee34c09000b892f61d7505825ba9d6b9e8d4b0a14b8f6",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "초기와 유사한 두 인물 및 기존 월드/HUD가 보이고 조리창은 열려 있지 않다.",
+        "가시 범위에서 새 그릇 아이콘이나 주민 불은 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "검은 시야 밖과 주민 배낭·돈·세이브 버전은 보이지 않는다."
+      ],
+      "readingLimits": [
+        "그릇·불·돈·식사가 발명되지 않았다는 전체 상태의 부재 증명 및 203→204 변환은 PNG만으로 할 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "bytes": 749953,
+      "sha256": "269d9c5c7cb04c4effed988e4efa1a52bff45999af6685acf3dc60d02611ceba",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품 그리드에 황갈색 귀리/종자 형태의 픽셀 아이콘과 수량이 보이고 귀리 씨앗 ×3 툴팁이 읽힌다.",
+        "툴팁에 성장 햇빛·온도·실제 물 1000ml 조건이 보인다. 물병 아이콘도 정상 표시된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "툴팁이 배낭 그리드 일부를 가리고 인벤토리 모달이 플레이어 상부와 월드를 가린다."
+      ],
+      "readingLimits": [
+        "씨앗·곡물의 획득 이력과 내부 ID는 보이지 않는다. 아이콘의 실제 원본 자산 연결은 정적 패치에서 별도로 확인했다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1490-native-actual-new-oat-plot-needs-real-water-not-a-free-timer.png",
+      "bytes": 780219,
+      "sha256": "0a5e9265215e8fec5bf3dd6eea1205d68600f51253bff3eb3f50d4ff02227948",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "재배 작물 패널에서 귀리 밭 21,20 · 성장0% · 관수0ml 및 물을 주어야 한다는 안내가 읽힌다.",
+        "물병의 1000ml 물 주기 버튼, 햇빛·온도·증발 안내가 패널 경계 안에 표시된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달 뒤 밭 타일·인물이 가려지고 하단 레시피는 화면 아래로 이어진다."
+      ],
+      "readingLimits": [
+        "심기 입력이 실제 수행됐는지, 총 성장 시간과 물 보존은 정지화면만으로 확정하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1491-native-real-thousand-ml-spent-original-bottle-and-first-sunlit-growth.png",
+      "bytes": 789011,
+      "sha256": "3914faedccf8eb6866733d57b2a7e8e0737130a61f740d78f641d1a0c1fdb227",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "재배 패널에 관수999.99ml, 햇빛72%, 5.8°C, 현재 환경에서 자라고 있다는 문구가 읽힌다.",
+        "로그에 원래 물 용기에서 1000ml를 실제 밭에 주었다는 메시지가 보인다."
+      ],
+      "occludedOrOutsideFrame": [
+        "실제 밭의 외형과 물병 소지품 상세는 제작 모달에 가려진다. 레시피 하단은 화면 밖이다."
+      ],
+      "readingLimits": [
+        "로그 메시지와 현재 표시값을 관찰했다. 내부 물량 차감·성장 첫 턴의 전체 상태 정합성은 감사 JSON에 의존한다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1492-native-small-restored-original-oat-plot-and-finite-water.png",
+      "bytes": 624381,
+      "sha256": "c599034c870d1c6be89f06421b9c1a64c5082e8a553517a138c1127aa1c9c516",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "1366×768에서도 재배 패널의 성장0%, 관수999.99ml, 환경·성장 문구와 모달 닫기 버튼이 보인다.",
+        "패널 텍스트와 버튼의 가로 넘침은 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "아래 레시피는 소형 모달 하단에서 잘린 범위로 이어진다. 하단 HUD 일부와 밭·인물은 가려진다."
+      ],
+      "readingLimits": [
+        "상단 재배 정보의 소형 가독성을 확인했다. 저장 복원·병의 실제 잔량·숨은 레시피 범위는 화면만으로 확인할 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1493-native-declared-last-three-valid-growth-turns-and-original-irrigation-dose.png",
+      "bytes": 787317,
+      "sha256": "13803ac21238f50972e5488ae8cd790a70a90facd9966403c18dd93f0b3af1cb",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "자기 모닥불 패널에는 연료 약120분 남음, 땔감 선택, 땔감 넣기, 불 끄기 버튼이 보인다.",
+        "재배 패널에 성장99%, 관수0.02ml, 관수에서 묻은 오염·수확물에 남는다는 노란 안내가 보인다. 자기 불의 수치와 조작 UI는 주민 타인불 화면과 구별된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달이 밭·인물과 하단 HUD 일부를 가리고 레시피 하단은 화면 밖이다."
+      ],
+      "readingLimits": [
+        "성장99% 표시는 관찰했다. 마지막 3개 유효 성장 턴이라는 정확한 내부 값과 이전 성장 이력은 표시되지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1494-native-real-three-final-growth-turns-original-mature-oat-plant.png",
+      "bytes": 899876,
+      "sha256": "9ee66dd933525e33f15728421b4499179cbabf7adc5210a5d40dbfbc3f61e4cb",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "월드에서 플레이어 오른쪽의 성숙한 황갈색 줄기·낱알 모양 귀리 밭 스프라이트가 배경 잔디와 구별되어 보인다.",
+        "왼쪽 불과 따뜻한 광원이 보이며 월드와 HUD가 정렬되어 있다."
+      ],
+      "occludedOrOutsideFrame": [
+        "재배 패널·성장 수치·소지품은 열려 있지 않다. 시야 밖은 검다."
+      ],
+      "readingLimits": [
+        "성숙 외형은 직접 관찰했다. 정확히 3턴 입력해 도달했는지와 이전 성장량은 감사 JSON 근거다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1495-native-five-real-oats-original-water-dose-and-two-clean-grains-kept-separate.png",
+      "bytes": 760453,
+      "sha256": "6c315494b92ad4fde34ab393a2a17b01a2abb590ed0bff34413b596177af6559",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품에서 귀리 아이콘의 ×2 및 ×5 스택과 빈 그릇 아이콘이 각각 보인다.",
+        "귀리 ×5 툴팁에 재 노출0.04·조리/보존으로 사라지지 않음·오염20ml·병원체60이 읽힌다. 수량 표시는 아이콘 하단에 겹침 없이 읽힌다."
+      ],
+      "occludedOrOutsideFrame": [
+        "툴팁이 오른쪽 배낭 그리드를 가리고 인벤토리 모달이 상부 월드를 가린다."
+      ],
+      "readingLimits": [
+        "×2 스택은 보이나 그 스택의 깨끗함은 별도 툴팁이 없어 직접 읽지 못했다. 실제 수확량·관수 전파와 UID는 JSON 근거로만 다룬다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1496-native-original-one-grain-raw-mixture-retains-real-crop-pathogens.png",
+      "bytes": 777134,
+      "sha256": "e8ba783b9dde8a3a051f667d286f5fc5a2697bcd3bae4f9af72797f9cd085491",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "자기 조리 음식 행에 낱알이 남은 덜 익은 귀리죽 그릇 아이콘과 [1회] · 19,20 · 1/400턴이 보인다.",
+        "덜 익은 음식 내리기와 곁에서 익을 때까지 기다리기 (399턴) 버튼이 보인다. 자기 불은 약119분 잔여 연료 및 관리 버튼을 표시한다.",
+        "물병은 실제380ml로 표시되며 각 상자와 버튼이 가로 경계 안에 들어간다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달이 실제 불·밭·인물과 하단 HUD 일부를 가린다. 레시피 하단은 보이지 않는다."
+      ],
+      "readingLimits": [
+        "원본 raw 그릇 적용과 자기 전용 수치·컨트롤의 존재는 화면 근거다. 실제 병원체 보존·원래 그릇 UID·버튼 실행 결과는 이 화면에서 읽을 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1497-native-four-hundred-real-hot-turns-keep-grain-ash-and-original-bowl.png",
+      "bytes": 776260,
+      "sha256": "f9be196e43b5544081d2f30f41c3733f52d4388b4964a26cb1a23b4623a119c7",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "자기 조리 행이 밝고 고른 죽 표면의 익은 그릇 아이콘으로 바뀌고 귀리죽 그릇 [1회] · 19,20 · 익음으로 표시된다.",
+        "음식 회수와 음식을 올려 둔 채10분 쉬기 버튼이 보인다. 자기 불은 약99분 및 관리 버튼을 유지한다.",
+        "1496의 낱알이 드러난 raw 아이콘과 익은 아이콘의 내용물 차이를 32px 행에서 구별할 수 있다."
+      ],
+      "occludedOrOutsideFrame": [
+        "제작 모달이 실제 불·밭·인물과 하단 HUD 일부를 가린다. 레시피 하단은 화면 밖이다."
+      ],
+      "readingLimits": [
+        "익음 상태와 회수 버튼은 직접 확인했다. 정확한 400 hot turns, 오염·재의 수치, UID 연속성, 회수 성공은 감사 JSON 근거다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1498-native-small-restored-same-empty-bowl-four-harvest-grains-two-clean-grains.png",
+      "bytes": 534557,
+      "sha256": "adbfc78c4445a458004b4228f2b597e5030f45b9c5a9bed20b3f8950b78385c8",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "1366×768 소지품에서 내용물이 없는 어두운 빈 그릇 아이콘과 빈 그릇 툴팁이 보인다. 툴팁은 내구81%와 재사용 설명을 표시한다.",
+        "배낭의 귀리 ×4, 발밑의 귀리 ×2가 서로 다른 영역에 보인다. 발밑 패널과 모두 줍기 버튼이 화면 안에 완전히 들어간다."
+      ],
+      "occludedOrOutsideFrame": [
+        "툴팁이 배낭 일부를 가리고 인벤토리 모달이 상부 월드와 로그 일부를 가린다."
+      ],
+      "readingLimits": [
+        "빈 그릇이라는 현재 상태는 읽힌다. 같은 원래 UID라는 사실·식사 횟수·×2의 청결도는 화면만으로 알 수 없다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1499-native-legacy202-original-near-deadline-oat-plot-no-invented-past-water.png",
+      "bytes": 865088,
+      "sha256": "a959f9823db2d64fb4fc5a63e0aaba2ded77351b509deadc11a88dd8b0570277",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "플레이어 오른쪽에 낮은 황갈색 작물 타일이 보이고 불이나 조리창은 열려 있지 않다.",
+        "기존 월드와 HUD 표시가 안정적으로 유지된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "작물 상태 패널, 내부 만료 시각, 관수 이력, 인벤토리는 보이지 않는다. 시야 밖은 검다."
+      ],
+      "readingLimits": [
+        "스프라이트는 관찰했으나 legacy202 버전·기존 타이머·과거 물 주기 부재는 PNG만으로 확인되지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/oat-cultivation-browser-v301-final/1500-native-legacy202-to203-original-timed-crop-five-new-two-original-grains.png",
+      "bytes": 728747,
+      "sha256": "240501f7bb69bb6c3b7f831a2f873d30f388c3b1adac02fa71423aeb5a181744",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품에서 귀리 ×5 툴팁 및 별도 ×2 곡물 스택이 보인다. 그릇이나 새 조리 음식 행은 보이지 않는다.",
+        "곡물 아이콘은 다른 귀리 화면과 일관된 황갈색 픽셀 형태로 표시된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "툴팁과 모달이 배낭 일부 및 월드 상부를 가린다. 재배 내부 상태는 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "5개와 2개 스택은 보인다. 이전·새 곡물의 UID, legacy 변환 버전, 내부 타이머는 감사 JSON으로만 구분한다. 파일명 속 203은 실제 최종 SAVE204 표기를 대신하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1440/00-title.png",
+      "bytes": 973642,
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "타이틀 원화·ASHVEIL 제목·시드 입력·사건 흐름·배경 선택·캐릭터 카드가 보인다.",
+        "고원으로 들어선다 버튼과 설정 버튼은 화면 안에 보이고, 원화와 텍스트의 주된 대비가 유지된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "배경 선택 목록은 화면 아래로 이어져 아래 선택지는 보이지 않는다. 제목 원화는 화면 비율에 맞춘 구성으로 일부가 프레임 밖이다."
+      ],
+      "readingLimits": [
+        "이 타이틀 화면은 조리·그릇·재료 UI의 검증 근거가 아니다. 화면 밖 선택지의 접근 가능성은 정지화면에서 검증하지 않았다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1440/01-world.png",
+      "bytes": 525200,
+      "sha256": "ddfa8fc851d299f30594e8c2d5f4846d17a6d7f154d34c6b3b1c50e426d594fb",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "월드에 플레이어·불·보관함과 어두운 시야 경계가 보이고, 위치·상태·로그·퀵슬롯 HUD가 분리되어 있다.",
+        "월드와 하단 HUD·우측 로그의 주된 텍스트가 겹치지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "대부분의 시야 밖은 검고 NPC·조리 상태 패널은 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "일반 월드 가독성의 보조 근거다. 조리 자산 적용·저장·소유권 또는 입력 성공을 이 화면만으로 판단하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1440/02-inventory.png",
+      "bytes": 600617,
+      "sha256": "d9cac1df85278ac6a3705a8a49ba13eb1954a252434b18e761791e3c3885c320",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품 모달의 장비 아이콘·빈 배낭 그리드·닫기 버튼·빈 칸60 표시가 경계 안에 들어간다.",
+        "장비와 그리드의 픽셀 아이콘 가장자리가 정상 표시되고 조리 재료는 이 인벤토리에 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "인벤토리가 상부 월드를 가린다."
+      ],
+      "readingLimits": [
+        "기본 인벤토리 배치의 보조 근거다. 음식·그릇·귀리의 적용 여부를 이 빈 배낭 화면에서 판단하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1440/final.png",
+      "bytes": 605042,
+      "sha256": "124d615a215b297a08c04a619ccc8aeca0148f10b35b7edf6333147b10eaf159",
+      "dimensions": {
+        "width": 1440,
+        "height": 1080
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품 모달이 열린 상태로 장비·빈 배낭 그리드·하단 HUD와 우측 로그가 유지되어 있다.",
+        "1440×1080에서 모달과 하단 HUD·우측 로그가 주요 조작부를 가리지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "인벤토리가 상부 월드를 가리고 조리 패널은 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "공통 시나리오 종료 화면의 표시만 확인했다. 입력11개 완료·오류0은 run.json에 기록된 결과이며 이 검토자가 실행한 결과는 아니다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1366/00-title.png",
+      "bytes": 668811,
+      "sha256": "41c34c6bebb567e39d1cd79bc5a4aaf2ab1eddd6238039c28993bba7b5ead88d",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "타이틀 원화·ASHVEIL 제목·시드 입력·사건 흐름·배경 선택·캐릭터 카드가 보인다.",
+        "고원으로 들어선다 버튼과 설정 버튼은 화면 안에 보이고, 원화와 텍스트의 주된 대비가 유지된다."
+      ],
+      "occludedOrOutsideFrame": [
+        "배경 선택 목록은 화면 아래로 이어져 아래 선택지는 보이지 않는다. 제목 원화는 화면 비율에 맞춘 구성으로 일부가 프레임 밖이다."
+      ],
+      "readingLimits": [
+        "이 타이틀 화면은 조리·그릇·재료 UI의 검증 근거가 아니다. 화면 밖 선택지의 접근 가능성은 정지화면에서 검증하지 않았다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1366/01-world.png",
+      "bytes": 371435,
+      "sha256": "6a2b575cbd6bc5ac28a89f479c9ce6570863268a96ce3d426aa67be3f4a0dad5",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "월드에 플레이어·불·보관함과 어두운 시야 경계가 보이고, 위치·상태·로그·퀵슬롯 HUD가 분리되어 있다.",
+        "소형 화면에서 빈 퀵슬롯 hover 툴팁이 로그 일부에 걸쳐 보이지만 HUD 버튼과 퀵슬롯을 막지는 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "대부분의 시야 밖은 검고 NPC·조리 상태 패널은 열려 있지 않다.",
+        "빈 칸0 hover 툴팁이 우측 로그 일부를 가린다."
+      ],
+      "readingLimits": [
+        "일반 월드 가독성의 보조 근거다. 조리 자산 적용·저장·소유권 또는 입력 성공을 이 화면만으로 판단하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1366/02-inventory.png",
+      "bytes": 446745,
+      "sha256": "063e03361e195a7c6ef69d01506692e8e4bdade44a6bb80dc8063adffdfae8f7",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품 모달의 장비 아이콘·빈 배낭 그리드·닫기 버튼·빈 칸60 표시가 경계 안에 들어간다.",
+        "장비와 그리드의 픽셀 아이콘 가장자리가 정상 표시되고 조리 재료는 이 인벤토리에 보이지 않는다."
+      ],
+      "occludedOrOutsideFrame": [
+        "인벤토리가 상부 월드를 가린다."
+      ],
+      "readingLimits": [
+        "기본 인벤토리 배치의 보조 근거다. 음식·그릇·귀리의 적용 여부를 이 빈 배낭 화면에서 판단하지 않는다."
+      ],
+      "blockingVisualIssue": false
+    },
+    {
+      "path": "test-results/game-harness-v301-final-1366/final.png",
+      "bytes": 446462,
+      "sha256": "6b0025360cdb7b2e0e4a7e76f92d22e3f682813560a3fcbc35c05559b3752727",
+      "dimensions": {
+        "width": 1366,
+        "height": 768
+      },
+      "directlyOpenedWith": "view_image",
+      "observationsVisibleInPNG": [
+        "소지품 모달이 열린 상태로 장비·빈 배낭 그리드·하단 HUD와 우측 로그가 유지되어 있다.",
+        "소형 화면에서도 모달 닫기 버튼과 하단 메뉴가 화면 안에 있다."
+      ],
+      "occludedOrOutsideFrame": [
+        "인벤토리가 상부 월드를 가리고 조리 패널은 열려 있지 않다."
+      ],
+      "readingLimits": [
+        "공통 시나리오 종료 화면의 표시만 확인했다. 입력11개 완료·오류0은 run.json에 기록된 결과이며 이 검토자가 실행한 결과는 아니다."
+      ],
+      "blockingVisualIssue": false
+    }
+  ]
+}

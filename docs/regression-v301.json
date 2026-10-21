@@ -1,0 +1,3538 @@
+{
+  "checkpoint": "v301-guard-final",
+  "manifestSha256": "76c47a3ed1dc79c848ee89cb497b26df0df6b80541dba6187d2d68bc4beee7d9",
+  "save": 204,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 368,
+  "samplePatches": 373,
+  "schemaFiles": 162,
+  "api": "1.4.0",
+  "source": {
+    "src": {
+      "files": 687,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1075,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 271,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 592,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "fullNativeAndFinalSource": {
+    "src": {
+      "files": 687,
+      "allBytesIdentical": true
+    },
+    "dist": {
+      "files": 991,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 592,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1075,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 271,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 333,
+    "passed": 6105,
+    "failed": 0,
+    "seconds": 920.7433793945313,
+    "workers": 2,
+    "ranIn": "immutable v301-guard-input; all8 source groups byte-exact final"
+  },
+  "world": {
+    "status": "passed",
+    "measuredVersion": 301,
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 577.3849119949999,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "comparisonWithActual299": {
+      "fromMeasuredVersion": 299,
+      "toMeasuredVersion": 301,
+      "all30ResultRowsEqual": true,
+      "averageDaysEqual": true,
+      "causesEqual": true,
+      "changedRows": [],
+      "scope": "Actual30 world RESULT rows/average/causes only. Not wholeWorldState or longfamine/agriculture equality."
+    },
+    "ranIn": "immutable v301-permissions before final nonresident-site metadata guard; balance identical to final; all5wholegold initial/final/errors exactly equal before/after guard; both baseNPC placement producers require nonempty residentSite. FinalFull/32feature/all28browser separately rerun on final guard snapshot. No second World measurement invented."
+  },
+  "checks": {
+    "buildExitCode": 0,
+    "typecheckExitCode": 0,
+    "lintExitCode": 0,
+    "defValidationExitCode": 0,
+    "schemaValidationExitCode": 0,
+    "spriteValidationExitCode": 0,
+    "save": 204,
+    "definitions": 884,
+    "items": 206,
+    "recipes": 88,
+    "patches": 368,
+    "samplePatches": 373,
+    "schemaFiles": 162,
+    "api": "1.4.0",
+    "app": "index-LhJUFQqW.js",
+    "newFeatureTests": {
+      "files": 1,
+      "passed": 32,
+      "failed": 0,
+      "seconds": 21.5702529296875
+    },
+    "earlierRelated": {
+      "files": 5,
+      "passed": 111,
+      "failed": 0,
+      "scope": "Earlier26feature tests plus existing provisions/campfire/produce/CLI before4health+contamination+nextmeal additions; earlier31feature separate; final32 guard regression separately verified. Not a disjoint sum."
+    },
+    "goldenFeatureIsolated": {
+      "files": 2,
+      "passed": 40,
+      "failed": 0,
+      "scope": "30feature+10gold before final nextmeal case; final31feature and final guard32 and forthcoming full cover final."
+    },
+    "nativeResident": {
+      "screenshots": 8,
+      "roundtrips": 4,
+      "wholePairs": 15,
+      "keyboardTU": 52700,
+      "pendingResumeTU": 30300,
+      "errors": []
+    },
+    "fullPending": false,
+    "worldPending": false,
+    "earlierFailures": "Firstfeature26:25passed/1waterwalk loop failed, actualhomegateordering corrected without timeoutchanges. Concurrent build/lint/schema+2workerfeature/gold run39passed/1original5sec timeout; isolated40passed sameconstraints, fixture serialization cache avoids repeated setupwalks, final31passed. FirstNative4PNG failure: incorrect expectation of emptybowl after600turns; actual firstmeal followed by legitimate nextmeal using samebowl. Test corrected to actual125finalwaits, added nextmeal conservationtest. SecondNative8passed but directly viewed CampfirePanel exposed otherfire outbutton/exactfuel; original coreaccess reused in UI, controls/fuel hidden. All earlier outputs preserved and excluded from final8. One initial Type caught guessed refill action; corrected to actual fillBottle. FinalbuildType0/lint0errors1oldwarning. Final no-world/nonresident undefined===undefined metadata guard corrected, 32nd regression added; old/new actual place reproduction verifies all other whole world fields exact. Fresh final build, Native and Full use guard snapshot. Initial pnpm test flag parsing failed before tests began; pnpm exec vitest used successfully.",
+    "goldenCaptureExitCode": 0,
+    "all5WholeGoldensExactBeforeAndAfterMetadataGuard": true,
+    "nativeResidentExitCode": 0,
+    "nativePlayerOatExitCode": 0,
+    "commonTwoViewportExitCode": 0,
+    "nativeWholeAuditExitCode": 0,
+    "commonWholeAuditExitCode": 0,
+    "environmentContextRefresh": "Tool session handle was lost during the environment context refresh, but the original OS Vitest process remained alive and its log continued advancing (observed PID20600 and155/333 passed). No suite restart, no overwritten partial log. Node24.19.0, tools, frozen snapshots and all Native evidence retained.",
+    "finalFull": {
+      "files": 333,
+      "passed": 6105,
+      "failed": 0,
+      "skipped": 0,
+      "todo": 0,
+      "workers": 2,
+      "seconds": 920.7433793945313
+    }
+  },
+  "goldens": {
+    "baseline": 300,
+    "current": 301,
+    "scope": "ALL5 complete initial/final/errors: ONLY203to204/version and2contenthash fields; World2 additionally finite2Kit/coalition market and strictly sequential extra marketstackUID offsets/nextItemId. Everyother whole field/RNG/body/action/error exact300. Actual resident cooking behavior independently covered by new finite whole tests and Native; these golden vectors do not cover NPC graincooking.",
+    "rows": [
+      {
+        "name": "surface",
+        "initialHash": "004b6922",
+        "hash": "3a8b3b9c",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          },
+          "state": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          }
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "4287c045",
+        "hash": "83f0dc2e",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          },
+          "state": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          }
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "8bb480a1",
+        "hash": "9445dff2",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          },
+          "state": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [],
+            "newMarketStackAllocations": 0,
+            "allRemainingWholeStateExact300": true
+          }
+        }
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "d58dcd05",
+        "hash": "04c4038c",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [
+              {
+                "site": "Region.ShepherdDale",
+                "added": {
+                  "uid": 1099511627797,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 0
+              },
+              {
+                "site": "Region.Settlement10",
+                "added": {
+                  "uid": 1099511627859,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 1
+              },
+              {
+                "site": "Region.Settlement11",
+                "added": {
+                  "uid": 1099511627881,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 2
+              },
+              {
+                "site": "Region.Settlement12",
+                "added": {
+                  "uid": 1099511627903,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 3
+              },
+              {
+                "site": "Region.Settlement13",
+                "added": {
+                  "uid": 1099511627925,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 4
+              },
+              {
+                "site": "Region.Settlement14",
+                "added": {
+                  "uid": 1099511627947,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 5
+              },
+              {
+                "site": "Region.Settlement15",
+                "added": {
+                  "uid": 1099511627969,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 6
+              },
+              {
+                "site": "Region.Settlement16",
+                "added": {
+                  "uid": 1099511627991,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 7
+              },
+              {
+                "site": "Region.Settlement17",
+                "added": {
+                  "uid": 1099511628013,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 8
+              },
+              {
+                "site": "Region.Settlement18",
+                "added": {
+                  "uid": 1099511628035,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 9
+              },
+              {
+                "site": "Region.Settlement19",
+                "added": {
+                  "uid": 1099511628057,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 10
+              },
+              {
+                "site": "Region.Settlement20",
+                "added": {
+                  "uid": 1099511628079,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 11
+              },
+              {
+                "site": "Region.Settlement21",
+                "added": {
+                  "uid": 1099511628101,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 12
+              },
+              {
+                "site": "Region.Settlement22",
+                "added": {
+                  "uid": 1099511628123,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 13
+              },
+              {
+                "site": "Region.Settlement23",
+                "added": {
+                  "uid": 1099511628145,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 14
+              },
+              {
+                "site": "Region.Settlement24",
+                "added": {
+                  "uid": 1099511628167,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 15
+              },
+              {
+                "site": "Region.Settlement25",
+                "added": {
+                  "uid": 1099511628189,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 16
+              },
+              {
+                "site": "Region.Settlement26",
+                "added": {
+                  "uid": 1099511628211,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 17
+              },
+              {
+                "site": "Region.Settlement27",
+                "added": {
+                  "uid": 1099511628233,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 18
+              },
+              {
+                "site": "Region.Settlement28",
+                "added": {
+                  "uid": 1099511628255,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 19
+              },
+              {
+                "site": "Region.Settlement29",
+                "added": {
+                  "uid": 1099511628277,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 20
+              },
+              {
+                "site": "Region.Settlement30",
+                "added": {
+                  "uid": 1099511628299,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 21
+              },
+              {
+                "site": "Region.Settlement31",
+                "added": {
+                  "uid": 1099511628321,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 22
+              },
+              {
+                "site": "Region.Settlement32",
+                "added": {
+                  "uid": 1099511628343,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 23
+              },
+              {
+                "site": "Region.Settlement33",
+                "added": {
+                  "uid": 1099511628365,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 24
+              }
+            ],
+            "newMarketStackAllocations": 25,
+            "allRemainingWholeStateExact300": true
+          },
+          "state": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [
+              {
+                "site": "Region.ShepherdDale",
+                "added": {
+                  "uid": 1099511627797,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 0
+              },
+              {
+                "site": "Region.Settlement10",
+                "added": {
+                  "uid": 1099511627859,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 1
+              },
+              {
+                "site": "Region.Settlement11",
+                "added": {
+                  "uid": 1099511627881,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 2
+              },
+              {
+                "site": "Region.Settlement12",
+                "added": {
+                  "uid": 1099511627903,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 3
+              },
+              {
+                "site": "Region.Settlement13",
+                "added": {
+                  "uid": 1099511627925,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 4
+              },
+              {
+                "site": "Region.Settlement14",
+                "added": {
+                  "uid": 1099511627947,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 5
+              },
+              {
+                "site": "Region.Settlement15",
+                "added": {
+                  "uid": 1099511627969,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 6
+              },
+              {
+                "site": "Region.Settlement16",
+                "added": {
+                  "uid": 1099511627991,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 7
+              },
+              {
+                "site": "Region.Settlement17",
+                "added": {
+                  "uid": 1099511628013,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 8
+              },
+              {
+                "site": "Region.Settlement18",
+                "added": {
+                  "uid": 1099511628035,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 9
+              },
+              {
+                "site": "Region.Settlement19",
+                "added": {
+                  "uid": 1099511628057,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 10
+              },
+              {
+                "site": "Region.Settlement20",
+                "added": {
+                  "uid": 1099511628079,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 11
+              },
+              {
+                "site": "Region.Settlement21",
+                "added": {
+                  "uid": 1099511628101,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 12
+              },
+              {
+                "site": "Region.Settlement22",
+                "added": {
+                  "uid": 1099511628123,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 13
+              },
+              {
+                "site": "Region.Settlement23",
+                "added": {
+                  "uid": 1099511628145,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 14
+              },
+              {
+                "site": "Region.Settlement24",
+                "added": {
+                  "uid": 1099511628167,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 15
+              },
+              {
+                "site": "Region.Settlement25",
+                "added": {
+                  "uid": 1099511628189,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 16
+              },
+              {
+                "site": "Region.Settlement26",
+                "added": {
+                  "uid": 1099511628211,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 17
+              },
+              {
+                "site": "Region.Settlement27",
+                "added": {
+                  "uid": 1099511628233,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 18
+              },
+              {
+                "site": "Region.Settlement28",
+                "added": {
+                  "uid": 1099511628255,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 19
+              },
+              {
+                "site": "Region.Settlement29",
+                "added": {
+                  "uid": 1099511628277,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 20
+              },
+              {
+                "site": "Region.Settlement30",
+                "added": {
+                  "uid": 1099511628299,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 21
+              },
+              {
+                "site": "Region.Settlement31",
+                "added": {
+                  "uid": 1099511628321,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 22
+              },
+              {
+                "site": "Region.Settlement32",
+                "added": {
+                  "uid": 1099511628343,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 23
+              },
+              {
+                "site": "Region.Settlement33",
+                "added": {
+                  "uid": 1099511628365,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 24
+              }
+            ],
+            "newMarketStackAllocations": 25,
+            "allRemainingWholeStateExact300": true
+          }
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "d58dcd05",
+        "hash": "a984dbdc",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [
+              {
+                "site": "Region.ShepherdDale",
+                "added": {
+                  "uid": 1099511627797,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 0
+              },
+              {
+                "site": "Region.Settlement10",
+                "added": {
+                  "uid": 1099511627859,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 1
+              },
+              {
+                "site": "Region.Settlement11",
+                "added": {
+                  "uid": 1099511627881,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 2
+              },
+              {
+                "site": "Region.Settlement12",
+                "added": {
+                  "uid": 1099511627903,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 3
+              },
+              {
+                "site": "Region.Settlement13",
+                "added": {
+                  "uid": 1099511627925,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 4
+              },
+              {
+                "site": "Region.Settlement14",
+                "added": {
+                  "uid": 1099511627947,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 5
+              },
+              {
+                "site": "Region.Settlement15",
+                "added": {
+                  "uid": 1099511627969,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 6
+              },
+              {
+                "site": "Region.Settlement16",
+                "added": {
+                  "uid": 1099511627991,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 7
+              },
+              {
+                "site": "Region.Settlement17",
+                "added": {
+                  "uid": 1099511628013,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 8
+              },
+              {
+                "site": "Region.Settlement18",
+                "added": {
+                  "uid": 1099511628035,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 9
+              },
+              {
+                "site": "Region.Settlement19",
+                "added": {
+                  "uid": 1099511628057,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 10
+              },
+              {
+                "site": "Region.Settlement20",
+                "added": {
+                  "uid": 1099511628079,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 11
+              },
+              {
+                "site": "Region.Settlement21",
+                "added": {
+                  "uid": 1099511628101,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 12
+              },
+              {
+                "site": "Region.Settlement22",
+                "added": {
+                  "uid": 1099511628123,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 13
+              },
+              {
+                "site": "Region.Settlement23",
+                "added": {
+                  "uid": 1099511628145,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 14
+              },
+              {
+                "site": "Region.Settlement24",
+                "added": {
+                  "uid": 1099511628167,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 15
+              },
+              {
+                "site": "Region.Settlement25",
+                "added": {
+                  "uid": 1099511628189,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 16
+              },
+              {
+                "site": "Region.Settlement26",
+                "added": {
+                  "uid": 1099511628211,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 17
+              },
+              {
+                "site": "Region.Settlement27",
+                "added": {
+                  "uid": 1099511628233,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 18
+              },
+              {
+                "site": "Region.Settlement28",
+                "added": {
+                  "uid": 1099511628255,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 19
+              },
+              {
+                "site": "Region.Settlement29",
+                "added": {
+                  "uid": 1099511628277,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 20
+              },
+              {
+                "site": "Region.Settlement30",
+                "added": {
+                  "uid": 1099511628299,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 21
+              },
+              {
+                "site": "Region.Settlement31",
+                "added": {
+                  "uid": 1099511628321,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 22
+              },
+              {
+                "site": "Region.Settlement32",
+                "added": {
+                  "uid": 1099511628343,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 23
+              },
+              {
+                "site": "Region.Settlement33",
+                "added": {
+                  "uid": 1099511628365,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 24
+              }
+            ],
+            "newMarketStackAllocations": 25,
+            "allRemainingWholeStateExact300": true
+          },
+          "state": {
+            "version203To204Only": true,
+            "twoContentHashFieldsChanged": true,
+            "newLoadHash": "sha256-34a8db4adb7aaa56446b99bafbac19a398ca069bf412267201e3a68ae0b167dd",
+            "newFiniteCoalitionStock": [
+              {
+                "site": "Region.ShepherdDale",
+                "added": {
+                  "uid": 1099511627797,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 0
+              },
+              {
+                "site": "Region.Settlement10",
+                "added": {
+                  "uid": 1099511627859,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 1
+              },
+              {
+                "site": "Region.Settlement11",
+                "added": {
+                  "uid": 1099511627881,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 2
+              },
+              {
+                "site": "Region.Settlement12",
+                "added": {
+                  "uid": 1099511627903,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 3
+              },
+              {
+                "site": "Region.Settlement13",
+                "added": {
+                  "uid": 1099511627925,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 4
+              },
+              {
+                "site": "Region.Settlement14",
+                "added": {
+                  "uid": 1099511627947,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 5
+              },
+              {
+                "site": "Region.Settlement15",
+                "added": {
+                  "uid": 1099511627969,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 6
+              },
+              {
+                "site": "Region.Settlement16",
+                "added": {
+                  "uid": 1099511627991,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 7
+              },
+              {
+                "site": "Region.Settlement17",
+                "added": {
+                  "uid": 1099511628013,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 8
+              },
+              {
+                "site": "Region.Settlement18",
+                "added": {
+                  "uid": 1099511628035,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 9
+              },
+              {
+                "site": "Region.Settlement19",
+                "added": {
+                  "uid": 1099511628057,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 10
+              },
+              {
+                "site": "Region.Settlement20",
+                "added": {
+                  "uid": 1099511628079,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 11
+              },
+              {
+                "site": "Region.Settlement21",
+                "added": {
+                  "uid": 1099511628101,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 12
+              },
+              {
+                "site": "Region.Settlement22",
+                "added": {
+                  "uid": 1099511628123,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 13
+              },
+              {
+                "site": "Region.Settlement23",
+                "added": {
+                  "uid": 1099511628145,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 14
+              },
+              {
+                "site": "Region.Settlement24",
+                "added": {
+                  "uid": 1099511628167,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 15
+              },
+              {
+                "site": "Region.Settlement25",
+                "added": {
+                  "uid": 1099511628189,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 16
+              },
+              {
+                "site": "Region.Settlement26",
+                "added": {
+                  "uid": 1099511628211,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 17
+              },
+              {
+                "site": "Region.Settlement27",
+                "added": {
+                  "uid": 1099511628233,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 18
+              },
+              {
+                "site": "Region.Settlement28",
+                "added": {
+                  "uid": 1099511628255,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 19
+              },
+              {
+                "site": "Region.Settlement29",
+                "added": {
+                  "uid": 1099511628277,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 20
+              },
+              {
+                "site": "Region.Settlement30",
+                "added": {
+                  "uid": 1099511628299,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 21
+              },
+              {
+                "site": "Region.Settlement31",
+                "added": {
+                  "uid": 1099511628321,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 22
+              },
+              {
+                "site": "Region.Settlement32",
+                "added": {
+                  "uid": 1099511628343,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 23
+              },
+              {
+                "site": "Region.Settlement33",
+                "added": {
+                  "uid": 1099511628365,
+                  "def": "Item.CampfireKit",
+                  "count": 2
+                },
+                "priorAllocationOffset": 24
+              }
+            ],
+            "newMarketStackAllocations": 25,
+            "allRemainingWholeStateExact300": true
+          }
+        }
+      }
+    ]
+  },
+  "metadataGuard": {
+    "reproduction": {
+      "oldCreatesResidentMemoryWithoutRegion": true,
+      "finalDoesNotCreateMemory": true,
+      "actualNonresidentPlacementSucceededInBoth": true,
+      "allRemainingWholeWorldExact": true,
+      "oldMemory": {
+        "map": "surface",
+        "pos": {
+          "x": 40,
+          "y": 19
+        },
+        "uid": 112
+      }
+    },
+    "all5WholeGoldensExactBeforeAndAfter": true,
+    "captureSha256": "992db6d1ca1e9332cb6403b912b3b46e71ecaa44bc314d7a236f05150162dd6d"
+  },
+  "native": {
+    "status": "PASS_FINAL_NATIVE_WHOLE_SCOPE",
+    "checkpoint": "immutable v301-guard-input",
+    "app": "index-LhJUFQqW.js",
+    "save": 204,
+    "source": {
+      "src": {
+        "files": 687,
+        "allRootBytesExactFrozen": true
+      },
+      "dist": {
+        "files": 991,
+        "allRootBytesExactFrozen": true
+      },
+      "public": {
+        "files": 592,
+        "allRootBytesExactFrozen": true
+      },
+      "tests": {
+        "files": 1075,
+        "allRootBytesExactFrozen": true
+      },
+      "mods": {
+        "files": 86,
+        "allRootBytesExactFrozen": true
+      },
+      "tools": {
+        "files": 271,
+        "allRootBytesExactFrozen": true
+      },
+      ".agents": {
+        "files": 1,
+        "allRootBytesExactFrozen": true
+      },
+      ".github": {
+        "files": 1,
+        "allRootBytesExactFrozen": true
+      }
+    },
+    "screenshots": 20,
+    "roundtrips": 10,
+    "wholePairs": 38,
+    "actualKeyboardMouseInputTU": 95900,
+    "actualPendingTitleResumeTU": 30300,
+    "combinedNativeTU": 126200,
+    "main": {
+      "save": 204,
+      "screenshots": 8,
+      "roundtrips": 4,
+      "phases": 15,
+      "actualInputTU": 52700,
+      "pendingResumeTU": 30300,
+      "rows": [
+        {
+          "originalActors": [
+            1,
+            67,
+            76,
+            85,
+            95
+          ],
+          "originalResident": 95,
+          "originalHome": {
+            "x": 37,
+            "y": 20
+          },
+          "declaredRuralHome": {
+            "x": 40,
+            "y": 20
+          },
+          "declaredInitialIdleFarmer": true,
+          "originalBottles": [
+            {
+              "uid": 103,
+              "uses": 5
+            },
+            {
+              "uid": 104,
+              "uses": 5
+            }
+          ],
+          "declaredInitialSeedKit": 2,
+          "declaredInitialSeedOwner": "player",
+          "seedUid": 109,
+          "declaredNoonAndAllResidentsActiveSchedule": true,
+          "actualObserverWalkTurns": 12,
+          "noClaimOfEarlierFarmOrEarlierTwelveHourWait": true,
+          "initialRendererFx": [
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 47
+              },
+              "to": {
+                "x": 31,
+                "y": 46
+              },
+              "turn": 21678
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 46
+              },
+              "to": {
+                "x": 30,
+                "y": 45
+              },
+              "turn": 21679
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 45
+              },
+              "to": {
+                "x": 29,
+                "y": 44
+              },
+              "turn": 21680
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 44
+              },
+              "to": {
+                "x": 28,
+                "y": 43
+              },
+              "turn": 21681
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 43
+              },
+              "to": {
+                "x": 27,
+                "y": 42
+              },
+              "turn": 21682
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 42
+              },
+              "to": {
+                "x": 26,
+                "y": 41
+              },
+              "turn": 21683
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 41
+              },
+              "to": {
+                "x": 25,
+                "y": 40
+              },
+              "turn": 21684
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 40
+              },
+              "to": {
+                "x": 24,
+                "y": 39
+              },
+              "turn": 21685
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 39
+              },
+              "to": {
+                "x": 23,
+                "y": 38
+              },
+              "turn": 21686
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 38
+              },
+              "to": {
+                "x": 23,
+                "y": 37
+              },
+              "turn": 21687
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 37
+              },
+              "to": {
+                "x": 22,
+                "y": 36
+              },
+              "turn": 21688
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 36
+              },
+              "to": {
+                "x": 21,
+                "y": 35
+              },
+              "turn": 21689
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 35
+              },
+              "to": {
+                "x": 20,
+                "y": 34
+              },
+              "turn": 21690
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 20,
+                "y": 34
+              },
+              "to": {
+                "x": 21,
+                "y": 33
+              },
+              "turn": 21691
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 33
+              },
+              "to": {
+                "x": 22,
+                "y": 32
+              },
+              "turn": 21692
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 32
+              },
+              "to": {
+                "x": 23,
+                "y": 31
+              },
+              "turn": 21693
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 31
+              },
+              "to": {
+                "x": 24,
+                "y": 30
+              },
+              "turn": 21694
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 30
+              },
+              "to": {
+                "x": 25,
+                "y": 29
+              },
+              "turn": 21695
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 29
+              },
+              "to": {
+                "x": 26,
+                "y": 28
+              },
+              "turn": 21696
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 28
+              },
+              "to": {
+                "x": 27,
+                "y": 27
+              },
+              "turn": 21697
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 27
+              },
+              "to": {
+                "x": 28,
+                "y": 26
+              },
+              "turn": 21698
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 26
+              },
+              "to": {
+                "x": 29,
+                "y": 25
+              },
+              "turn": 21699
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 25
+              },
+              "to": {
+                "x": 30,
+                "y": 24
+              },
+              "turn": 21700
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 24
+              },
+              "to": {
+                "x": 31,
+                "y": 23
+              },
+              "turn": 21701
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 23
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21703
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 31,
+                "y": 21
+              },
+              "turn": 21704
+            },
+            {
+              "k": "xp",
+              "id": 1,
+              "v": 5,
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 21
+              },
+              "to": {
+                "x": 30,
+                "y": 20
+              },
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 20
+              },
+              "to": {
+                "x": 30,
+                "y": 19
+              },
+              "turn": 21706
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 19
+              },
+              "to": {
+                "x": 31,
+                "y": 20
+              },
+              "turn": 21707
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 20
+              },
+              "to": {
+                "x": 32,
+                "y": 21
+              },
+              "turn": 21708
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 21
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21709
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 33,
+                "y": 23
+              },
+              "turn": 21710
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 33,
+                "y": 23
+              },
+              "to": {
+                "x": 34,
+                "y": 23
+              },
+              "turn": 21711
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 34,
+                "y": 23
+              },
+              "to": {
+                "x": 35,
+                "y": 23
+              },
+              "turn": 21712
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 35,
+                "y": 23
+              },
+              "to": {
+                "x": 36,
+                "y": 23
+              },
+              "turn": 21713
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 36,
+                "y": 23
+              },
+              "to": {
+                "x": 37,
+                "y": 23
+              },
+              "turn": 21714
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 37,
+                "y": 23
+              },
+              "to": {
+                "x": 38,
+                "y": 23
+              },
+              "turn": 21715
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 38,
+                "y": 23
+              },
+              "to": {
+                "x": 39,
+                "y": 23
+              },
+              "turn": 21716
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 39,
+                "y": 23
+              },
+              "to": {
+                "x": 40,
+                "y": 22
+              },
+              "turn": 21717
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 40,
+                "y": 22
+              },
+              "to": {
+                "x": 41,
+                "y": 21
+              },
+              "turn": 21718
+            }
+          ],
+          "declaredInitialOats": {
+            "uid": 110,
+            "count": 3
+          },
+          "declaredInitialPersonalCash": 100,
+          "initialBank": 1000,
+          "originalStock": [
+            {
+              "id": "Item.Hardtack",
+              "uid": 1099511627776,
+              "count": 20
+            },
+            {
+              "id": "Item.DriedApple",
+              "uid": 1099511627777,
+              "count": 12
+            },
+            {
+              "id": "Item.Jerky",
+              "uid": 1099511627778,
+              "count": 12
+            },
+            {
+              "id": "Item.WaterBottle",
+              "uid": 1099511627779,
+              "count": 8
+            },
+            {
+              "id": "Item.Cloth",
+              "uid": 1099511627780,
+              "count": 18
+            },
+            {
+              "id": "Item.Bandage",
+              "uid": 1099511627781,
+              "count": 18
+            },
+            {
+              "id": "Item.Wood",
+              "uid": 1099511627782,
+              "count": 20
+            },
+            {
+              "id": "Item.Leather",
+              "uid": 1099511627783,
+              "count": 8
+            },
+            {
+              "id": "Item.Egg",
+              "uid": 1099511627784,
+              "count": 6
+            },
+            {
+              "id": "Item.CabbageSeed",
+              "uid": 1099511627785,
+              "count": 4
+            },
+            {
+              "id": "Item.CeramicJar",
+              "uid": 1099511627786,
+              "count": 3
+            },
+            {
+              "id": "Item.Note",
+              "uid": 1099511627787,
+              "count": 6
+            },
+            {
+              "id": "Item.Ink",
+              "uid": 1099511627788,
+              "count": 8
+            },
+            {
+              "id": "Item.Oats",
+              "uid": 1099511627789,
+              "count": 10
+            },
+            {
+              "id": "Item.OatSeed",
+              "uid": 1099511627790,
+              "count": 4
+            },
+            {
+              "id": "Item.Bowl",
+              "uid": 1099511627791,
+              "count": 4
+            },
+            {
+              "id": "Item.RawPotato",
+              "uid": 1099511627792,
+              "count": 6
+            },
+            {
+              "id": "Item.PotatoSeed",
+              "uid": 1099511627793,
+              "count": 3
+            },
+            {
+              "id": "Item.Turnip",
+              "uid": 1099511627794,
+              "count": 6
+            },
+            {
+              "id": "Item.TurnipSeed",
+              "uid": 1099511627795,
+              "count": 3
+            },
+            {
+              "id": "Item.Cheese",
+              "uid": 1099511627796,
+              "count": 4
+            },
+            {
+              "id": "Item.CampfireKit",
+              "uid": 1099511627797,
+              "count": 2
+            }
+          ],
+          "suppliedItems": [],
+          "stashedOriginalFood": [
+            {
+              "uid": 101,
+              "def": "Item.Hardtack",
+              "count": 2
+            }
+          ],
+          "declaredHungryHealthyIdleResident": true,
+          "onlyOriginalObserverAndResidentScheduled": true,
+          "noClaimOfNormalAcquisitionOrEarlierStarvation": true,
+          "originalBowlUid": 111,
+          "originalFireUid": 112,
+          "remainingGrains": 2,
+          "actualMealFoodUnits": 0.12,
+          "actualFuelUnits": 0.15,
+          "actualPersonalCash": 83,
+          "actualBank": 1017,
+          "originalMoneyTotalPreserved": true,
+          "finiteCookingWaterSpentMl": 220,
+          "actualHotTurns": 400,
+          "actualFinalWaitTurns": 125,
+          "noExactProgressOrControlsForOtherFood": true
+        },
+        {
+          "originalActors": [
+            1,
+            67,
+            76,
+            85,
+            95
+          ],
+          "originalResident": 95,
+          "originalHome": {
+            "x": 37,
+            "y": 20
+          },
+          "declaredRuralHome": {
+            "x": 40,
+            "y": 20
+          },
+          "declaredInitialIdleFarmer": true,
+          "originalBottles": [
+            {
+              "uid": 103,
+              "uses": 5
+            },
+            {
+              "uid": 104,
+              "uses": 5
+            }
+          ],
+          "declaredInitialSeedKit": 2,
+          "declaredInitialSeedOwner": "player",
+          "seedUid": 109,
+          "declaredNoonAndAllResidentsActiveSchedule": true,
+          "actualObserverWalkTurns": 12,
+          "noClaimOfEarlierFarmOrEarlierTwelveHourWait": true,
+          "initialRendererFx": [
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 47
+              },
+              "to": {
+                "x": 31,
+                "y": 46
+              },
+              "turn": 21678
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 46
+              },
+              "to": {
+                "x": 30,
+                "y": 45
+              },
+              "turn": 21679
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 45
+              },
+              "to": {
+                "x": 29,
+                "y": 44
+              },
+              "turn": 21680
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 44
+              },
+              "to": {
+                "x": 28,
+                "y": 43
+              },
+              "turn": 21681
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 43
+              },
+              "to": {
+                "x": 27,
+                "y": 42
+              },
+              "turn": 21682
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 42
+              },
+              "to": {
+                "x": 26,
+                "y": 41
+              },
+              "turn": 21683
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 41
+              },
+              "to": {
+                "x": 25,
+                "y": 40
+              },
+              "turn": 21684
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 40
+              },
+              "to": {
+                "x": 24,
+                "y": 39
+              },
+              "turn": 21685
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 39
+              },
+              "to": {
+                "x": 23,
+                "y": 38
+              },
+              "turn": 21686
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 38
+              },
+              "to": {
+                "x": 23,
+                "y": 37
+              },
+              "turn": 21687
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 37
+              },
+              "to": {
+                "x": 22,
+                "y": 36
+              },
+              "turn": 21688
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 36
+              },
+              "to": {
+                "x": 21,
+                "y": 35
+              },
+              "turn": 21689
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 35
+              },
+              "to": {
+                "x": 20,
+                "y": 34
+              },
+              "turn": 21690
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 20,
+                "y": 34
+              },
+              "to": {
+                "x": 21,
+                "y": 33
+              },
+              "turn": 21691
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 33
+              },
+              "to": {
+                "x": 22,
+                "y": 32
+              },
+              "turn": 21692
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 32
+              },
+              "to": {
+                "x": 23,
+                "y": 31
+              },
+              "turn": 21693
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 31
+              },
+              "to": {
+                "x": 24,
+                "y": 30
+              },
+              "turn": 21694
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 30
+              },
+              "to": {
+                "x": 25,
+                "y": 29
+              },
+              "turn": 21695
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 29
+              },
+              "to": {
+                "x": 26,
+                "y": 28
+              },
+              "turn": 21696
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 28
+              },
+              "to": {
+                "x": 27,
+                "y": 27
+              },
+              "turn": 21697
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 27
+              },
+              "to": {
+                "x": 28,
+                "y": 26
+              },
+              "turn": 21698
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 26
+              },
+              "to": {
+                "x": 29,
+                "y": 25
+              },
+              "turn": 21699
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 25
+              },
+              "to": {
+                "x": 30,
+                "y": 24
+              },
+              "turn": 21700
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 24
+              },
+              "to": {
+                "x": 31,
+                "y": 23
+              },
+              "turn": 21701
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 23
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21703
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 31,
+                "y": 21
+              },
+              "turn": 21704
+            },
+            {
+              "k": "xp",
+              "id": 1,
+              "v": 5,
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 21
+              },
+              "to": {
+                "x": 30,
+                "y": 20
+              },
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 20
+              },
+              "to": {
+                "x": 30,
+                "y": 19
+              },
+              "turn": 21706
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 19
+              },
+              "to": {
+                "x": 31,
+                "y": 20
+              },
+              "turn": 21707
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 20
+              },
+              "to": {
+                "x": 32,
+                "y": 21
+              },
+              "turn": 21708
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 21
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21709
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 33,
+                "y": 23
+              },
+              "turn": 21710
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 33,
+                "y": 23
+              },
+              "to": {
+                "x": 34,
+                "y": 23
+              },
+              "turn": 21711
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 34,
+                "y": 23
+              },
+              "to": {
+                "x": 35,
+                "y": 23
+              },
+              "turn": 21712
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 35,
+                "y": 23
+              },
+              "to": {
+                "x": 36,
+                "y": 23
+              },
+              "turn": 21713
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 36,
+                "y": 23
+              },
+              "to": {
+                "x": 37,
+                "y": 23
+              },
+              "turn": 21714
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 37,
+                "y": 23
+              },
+              "to": {
+                "x": 38,
+                "y": 23
+              },
+              "turn": 21715
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 38,
+                "y": 23
+              },
+              "to": {
+                "x": 39,
+                "y": 23
+              },
+              "turn": 21716
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 39,
+                "y": 23
+              },
+              "to": {
+                "x": 40,
+                "y": 22
+              },
+              "turn": 21717
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 40,
+                "y": 22
+              },
+              "to": {
+                "x": 41,
+                "y": 21
+              },
+              "turn": 21718
+            }
+          ],
+          "declaredInitialOats": {
+            "uid": 110,
+            "count": 3
+          },
+          "declaredInitialPersonalCash": 100,
+          "initialBank": 1000,
+          "originalStock": [
+            {
+              "id": "Item.Hardtack",
+              "uid": 1099511627776,
+              "count": 20
+            },
+            {
+              "id": "Item.DriedApple",
+              "uid": 1099511627777,
+              "count": 12
+            },
+            {
+              "id": "Item.Jerky",
+              "uid": 1099511627778,
+              "count": 12
+            },
+            {
+              "id": "Item.WaterBottle",
+              "uid": 1099511627779,
+              "count": 8
+            },
+            {
+              "id": "Item.Cloth",
+              "uid": 1099511627780,
+              "count": 18
+            },
+            {
+              "id": "Item.Bandage",
+              "uid": 1099511627781,
+              "count": 18
+            },
+            {
+              "id": "Item.Wood",
+              "uid": 1099511627782,
+              "count": 20
+            },
+            {
+              "id": "Item.Leather",
+              "uid": 1099511627783,
+              "count": 8
+            },
+            {
+              "id": "Item.Egg",
+              "uid": 1099511627784,
+              "count": 6
+            },
+            {
+              "id": "Item.CabbageSeed",
+              "uid": 1099511627785,
+              "count": 4
+            },
+            {
+              "id": "Item.CeramicJar",
+              "uid": 1099511627786,
+              "count": 3
+            },
+            {
+              "id": "Item.Note",
+              "uid": 1099511627787,
+              "count": 6
+            },
+            {
+              "id": "Item.Ink",
+              "uid": 1099511627788,
+              "count": 8
+            },
+            {
+              "id": "Item.Oats",
+              "uid": 1099511627789,
+              "count": 10
+            },
+            {
+              "id": "Item.OatSeed",
+              "uid": 1099511627790,
+              "count": 4
+            },
+            {
+              "id": "Item.Bowl",
+              "uid": 1099511627791,
+              "count": 4
+            },
+            {
+              "id": "Item.RawPotato",
+              "uid": 1099511627792,
+              "count": 6
+            },
+            {
+              "id": "Item.PotatoSeed",
+              "uid": 1099511627793,
+              "count": 3
+            },
+            {
+              "id": "Item.Turnip",
+              "uid": 1099511627794,
+              "count": 6
+            },
+            {
+              "id": "Item.TurnipSeed",
+              "uid": 1099511627795,
+              "count": 3
+            },
+            {
+              "id": "Item.Cheese",
+              "uid": 1099511627796,
+              "count": 4
+            },
+            {
+              "id": "Item.CampfireKit",
+              "uid": 1099511627797,
+              "count": 2
+            }
+          ],
+          "suppliedItems": [
+            {
+              "id": "Item.Bowl",
+              "uid": 111
+            },
+            {
+              "id": "Item.CampfireKit",
+              "uid": 112
+            },
+            {
+              "id": "Item.Wood",
+              "uid": 113
+            }
+          ],
+          "stashedOriginalFood": [
+            {
+              "uid": 101,
+              "def": "Item.Hardtack",
+              "count": 2
+            }
+          ],
+          "declaredHungryHealthyIdleResident": true,
+          "onlyOriginalObserverAndResidentScheduled": true,
+          "noClaimOfNormalAcquisitionOrEarlierStarvation": true,
+          "actualPendingResumeTU": 30300,
+          "actualPendingTurns": 303
+        },
+        {
+          "originalActors": [
+            1,
+            67,
+            76,
+            85,
+            95
+          ],
+          "originalResident": 95,
+          "originalHome": {
+            "x": 37,
+            "y": 20
+          },
+          "declaredRuralHome": {
+            "x": 40,
+            "y": 20
+          },
+          "declaredInitialIdleFarmer": true,
+          "originalBottles": [
+            {
+              "uid": 103,
+              "uses": 5
+            },
+            {
+              "uid": 104,
+              "uses": 5
+            }
+          ],
+          "declaredInitialSeedKit": 2,
+          "declaredInitialSeedOwner": "player",
+          "seedUid": 109,
+          "declaredNoonAndAllResidentsActiveSchedule": true,
+          "actualObserverWalkTurns": 12,
+          "noClaimOfEarlierFarmOrEarlierTwelveHourWait": true,
+          "initialRendererFx": [
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 47
+              },
+              "to": {
+                "x": 31,
+                "y": 46
+              },
+              "turn": 21678
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 46
+              },
+              "to": {
+                "x": 30,
+                "y": 45
+              },
+              "turn": 21679
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 45
+              },
+              "to": {
+                "x": 29,
+                "y": 44
+              },
+              "turn": 21680
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 44
+              },
+              "to": {
+                "x": 28,
+                "y": 43
+              },
+              "turn": 21681
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 43
+              },
+              "to": {
+                "x": 27,
+                "y": 42
+              },
+              "turn": 21682
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 42
+              },
+              "to": {
+                "x": 26,
+                "y": 41
+              },
+              "turn": 21683
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 41
+              },
+              "to": {
+                "x": 25,
+                "y": 40
+              },
+              "turn": 21684
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 40
+              },
+              "to": {
+                "x": 24,
+                "y": 39
+              },
+              "turn": 21685
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 39
+              },
+              "to": {
+                "x": 23,
+                "y": 38
+              },
+              "turn": 21686
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 38
+              },
+              "to": {
+                "x": 23,
+                "y": 37
+              },
+              "turn": 21687
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 37
+              },
+              "to": {
+                "x": 22,
+                "y": 36
+              },
+              "turn": 21688
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 36
+              },
+              "to": {
+                "x": 21,
+                "y": 35
+              },
+              "turn": 21689
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 35
+              },
+              "to": {
+                "x": 20,
+                "y": 34
+              },
+              "turn": 21690
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 20,
+                "y": 34
+              },
+              "to": {
+                "x": 21,
+                "y": 33
+              },
+              "turn": 21691
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 21,
+                "y": 33
+              },
+              "to": {
+                "x": 22,
+                "y": 32
+              },
+              "turn": 21692
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 22,
+                "y": 32
+              },
+              "to": {
+                "x": 23,
+                "y": 31
+              },
+              "turn": 21693
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 23,
+                "y": 31
+              },
+              "to": {
+                "x": 24,
+                "y": 30
+              },
+              "turn": 21694
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 24,
+                "y": 30
+              },
+              "to": {
+                "x": 25,
+                "y": 29
+              },
+              "turn": 21695
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 25,
+                "y": 29
+              },
+              "to": {
+                "x": 26,
+                "y": 28
+              },
+              "turn": 21696
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 26,
+                "y": 28
+              },
+              "to": {
+                "x": 27,
+                "y": 27
+              },
+              "turn": 21697
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 27,
+                "y": 27
+              },
+              "to": {
+                "x": 28,
+                "y": 26
+              },
+              "turn": 21698
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 28,
+                "y": 26
+              },
+              "to": {
+                "x": 29,
+                "y": 25
+              },
+              "turn": 21699
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 29,
+                "y": 25
+              },
+              "to": {
+                "x": 30,
+                "y": 24
+              },
+              "turn": 21700
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 24
+              },
+              "to": {
+                "x": 31,
+                "y": 23
+              },
+              "turn": 21701
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 23
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21703
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 31,
+                "y": 21
+              },
+              "turn": 21704
+            },
+            {
+              "k": "xp",
+              "id": 1,
+              "v": 5,
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 21
+              },
+              "to": {
+                "x": 30,
+                "y": 20
+              },
+              "turn": 21705
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 20
+              },
+              "to": {
+                "x": 30,
+                "y": 19
+              },
+              "turn": 21706
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 30,
+                "y": 19
+              },
+              "to": {
+                "x": 31,
+                "y": 20
+              },
+              "turn": 21707
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 31,
+                "y": 20
+              },
+              "to": {
+                "x": 32,
+                "y": 21
+              },
+              "turn": 21708
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 21
+              },
+              "to": {
+                "x": 32,
+                "y": 22
+              },
+              "turn": 21709
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 32,
+                "y": 22
+              },
+              "to": {
+                "x": 33,
+                "y": 23
+              },
+              "turn": 21710
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 33,
+                "y": 23
+              },
+              "to": {
+                "x": 34,
+                "y": 23
+              },
+              "turn": 21711
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 34,
+                "y": 23
+              },
+              "to": {
+                "x": 35,
+                "y": 23
+              },
+              "turn": 21712
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 35,
+                "y": 23
+              },
+              "to": {
+                "x": 36,
+                "y": 23
+              },
+              "turn": 21713
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 36,
+                "y": 23
+              },
+              "to": {
+                "x": 37,
+                "y": 23
+              },
+              "turn": 21714
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 37,
+                "y": 23
+              },
+              "to": {
+                "x": 38,
+                "y": 23
+              },
+              "turn": 21715
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 38,
+                "y": 23
+              },
+              "to": {
+                "x": 39,
+                "y": 23
+              },
+              "turn": 21716
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 39,
+                "y": 23
+              },
+              "to": {
+                "x": 40,
+                "y": 22
+              },
+              "turn": 21717
+            },
+            {
+              "k": "move",
+              "id": 1,
+              "from": {
+                "x": 40,
+                "y": 22
+              },
+              "to": {
+                "x": 41,
+                "y": 21
+              },
+              "turn": 21718
+            }
+          ],
+          "declaredInitialOats": {
+            "uid": 110,
+            "count": 3
+          },
+          "declaredInitialPersonalCash": 100,
+          "initialBank": 1000,
+          "originalStock": [
+            {
+              "id": "Item.Hardtack",
+              "uid": 1099511627776,
+              "count": 20
+            },
+            {
+              "id": "Item.DriedApple",
+              "uid": 1099511627777,
+              "count": 12
+            },
+            {
+              "id": "Item.Jerky",
+              "uid": 1099511627778,
+              "count": 12
+            },
+            {
+              "id": "Item.WaterBottle",
+              "uid": 1099511627779,
+              "count": 8
+            },
+            {
+              "id": "Item.Cloth",
+              "uid": 1099511627780,
+              "count": 18
+            },
+            {
+              "id": "Item.Bandage",
+              "uid": 1099511627781,
+              "count": 18
+            },
+            {
+              "id": "Item.Wood",
+              "uid": 1099511627782,
+              "count": 20
+            },
+            {
+              "id": "Item.Leather",
+              "uid": 1099511627783,
+              "count": 8
+            },
+            {
+              "id": "Item.Egg",
+              "uid": 1099511627784,
+              "count": 6
+            },
+            {
+              "id": "Item.CabbageSeed",
+              "uid": 1099511627785,
+              "count": 4
+            },
+            {
+              "id": "Item.CeramicJar",
+              "uid": 1099511627786,
+              "count": 3
+            },
+            {
+              "id": "Item.Note",
+              "uid": 1099511627787,
+              "count": 6
+            },
+            {
+              "id": "Item.Ink",
+              "uid": 1099511627788,
+              "count": 8
+            },
+            {
+              "id": "Item.Oats",
+              "uid": 1099511627789,
+              "count": 10
+            },
+            {
+              "id": "Item.OatSeed",
+              "uid": 1099511627790,
+              "count": 4
+            },
+            {
+              "id": "Item.Bowl",
+              "uid": 1099511627791,
+              "count": 4
+            },
+            {
+              "id": "Item.RawPotato",
+              "uid": 1099511627792,
+              "count": 6
+            },
+            {
+              "id": "Item.PotatoSeed",
+              "uid": 1099511627793,
+              "count": 3
+            },
+            {
+              "id": "Item.Turnip",
+              "uid": 1099511627794,
+              "count": 6
+            },
+            {
+              "id": "Item.TurnipSeed",
+              "uid": 1099511627795,
+              "count": 3
+            },
+            {
+              "id": "Item.Cheese",
+              "uid": 1099511627796,
+              "count": 4
+            },
+            {
+              "id": "Item.CampfireKit",
+              "uid": 1099511627797,
+              "count": 2
+            }
+          ],
+          "suppliedItems": [],
+          "stashedOriginalFood": [
+            {
+              "uid": 101,
+              "def": "Item.Hardtack",
+              "count": 2
+            }
+          ],
+          "declaredHungryHealthyIdleResident": true,
+          "onlyOriginalObserverAndResidentScheduled": true,
+          "noClaimOfNormalAcquisitionOrEarlierStarvation": true,
+          "legacy203VersionOnly": true
+        }
+      ],
+      "errors": [],
+      "source": "Three finite original generated resident scenes, explicit hungry/cash/grain/scheduling and optional supplied utensils. RealTitleContinue, actual2x200rest/final-realwaits/observerwalk/readonlynearbycooking/whole204restore, pendingfinite-rest actual earlierNodeinput plus realTitleContinue resume, legacy203header currentfinite scene. Independent Node whole states after every phase; no postload state/time/RNG/item injection. Main purchases/placement/100turnignite/400hotturns/take/eat use realNPCscheduler; near UI only shows qualitative food state without NPCprogress or controls. Initialcash/grain declared, not normal acquisition or farming."
+    },
+    "existingPlayerOat": {
+      "save": 204,
+      "screenshots": 12,
+      "roundtrips": 6,
+      "phases": 23,
+      "actualInputTU": 43200,
+      "rows": [
+        {
+          "phase": "seed",
+          "polluted": false,
+          "initialTime": 1440000,
+          "declaredSeedCount": 3,
+          "originalSeedUid": 47,
+          "originalWaterUid": 48,
+          "declaredWaterMl": 1000,
+          "declaredCleanGrain": {
+            "uid": 49,
+            "count": 2
+          },
+          "nearRipeIsDeclaredInitialState": false,
+          "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+          "mode": "seed",
+          "legacyNearDeadlineDeclared": false
+        },
+        {
+          "phase": "nearRipe",
+          "polluted": true,
+          "initialTime": 1440200,
+          "declaredSeedCount": 3,
+          "originalSeedUid": 47,
+          "originalWaterUid": 48,
+          "declaredWaterMl": 1000,
+          "declaredCleanGrain": {
+            "uid": 49,
+            "count": 2
+          },
+          "nearRipeIsDeclaredInitialState": true,
+          "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+          "mode": "nearRipe",
+          "cooking": {
+            "bowlUid": 53,
+            "bottleUid": 54,
+            "kitUid": 51,
+            "woodUid": 52,
+            "fireUid": 51,
+            "pos": {
+              "x": 19,
+              "y": 20
+            }
+          },
+          "legacyNearDeadlineDeclared": false,
+          "extraInitialCookingMaterials": "OriginalnewKit1/Wood1/Bowl1quality3dur81/freshwater600ml; actualKernelplace/fireworkfinish in finiteinitialscene, no worldclock advance or pastnormalplay claim. Originalcrop1000ml separate and already spent.",
+          "harvestedUid": 55,
+          "harvestedCount": 5,
+          "remainingHarvested": 4,
+          "cleanSetAside": 2,
+          "originalBowlUid": 53,
+          "actualHotTurns": 400,
+          "rawExposureMetadataMl": 240,
+          "rawPathogen": 5,
+          "actualNutritiveMealWaterMl": 220
+        },
+        {
+          "phase": "seed",
+          "polluted": false,
+          "initialTime": 1440000,
+          "declaredSeedCount": 3,
+          "originalSeedUid": 47,
+          "originalWaterUid": 48,
+          "declaredWaterMl": 1000,
+          "declaredCleanGrain": {
+            "uid": 49,
+            "count": 2
+          },
+          "nearRipeIsDeclaredInitialState": false,
+          "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+          "mode": "legacy202",
+          "legacyNearDeadlineDeclared": true
+        }
+      ],
+      "errors": [],
+      "source": "Threefiniteinitialscenes loadedviarealTitleContinue. Actualkey/mouseplant/water3growthwaits/harvest12T/grainsetaside/prepare1T/399remaininghotT/take1T/eat1T/legacydeadline1T/harvest12T; independentNodeWHOLEaftereachphase. DeclarednearRipeinitialgrowthtotal-3, not143997pastvalidturns or5calendar-dayplay. Actualcrop1000ml+separateinitialcooking600ml;20mlpergrainisexistingexposuremetadata, noextra nutritionalwater beyond220ml. Legacy202header samecurrentfinite oldtimedplot, not historicaluserfile. No postloadworld/time/RNG/material injection, noNPCproduction/fullfamine/ecologycompletion."
+    },
+    "all38WholeActualExpectedPairsExact": true,
+    "legacy203VersionOnlyWholeEquality": true,
+    "pendingRestResumesOnceWholeEquality": true,
+    "actualPersonalAndMarketMoneyPreserved": true,
+    "originalBowlUidReusedAndTwoGrainsRetained": true,
+    "actualFuelUseOnlyAfterIgnitionCompletion": true,
+    "fuelEvidenceBoundary": "Existing UID-bound fireWorkStep and resource/ledger tests plus final whole states. No separate Native screenshot or persisted phase isolates wood UID immediately before ignition completion.",
+    "privacy": "Actual nearby cooking UI has raworiginalbowl and qualitative state only; no otherfoodcontrols, no otherfirecontrols, no exactotherfuel/progress. Initial/distantF2 excludes the resident batch. Original ownplayercooking reverified by23wholeOatphases/6restores/12PNG.",
+    "limits": "Threefiniteoriginalresident scenes declare cash100/grain3/hunger/schedule/optionalutensils, not normalacquisition. Actual shopping/placement/ignition400hotturns/meal run viaNPCscheduler during real playerinput. Pending303rest earlier Nodeinput plus actualTitleContinue; no postloadworld/time/RNG/item injection. Oat nearripe fixture explicitly declares earlier growth; not5calendar-dayplay. Food success proven bywholeworld/diet/ledger, not PNGalone. Earlier4PNGfailure and8PNGprepermissionrun excluded fromfinal20. Full/World/commonviewport verification separate."
+  },
+  "common": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "screenshots": 4,
+        "steps": 11,
+        "actualInputTU": 200,
+        "finalObservationWholePure": true,
+        "startFullyVisibleAndCenterClickableWithoutScroll": true,
+        "whole300SameExceptVersionTwoHashesAndFiniteKitStockAllocations": true
+      },
+      {
+        "viewport": 1366,
+        "screenshots": 4,
+        "steps": 11,
+        "actualInputTU": 200,
+        "finalObservationWholePure": true,
+        "startFullyVisibleAndCenterClickableWithoutScroll": true,
+        "whole300SameExceptVersionTwoHashesAndFiniteKitStockAllocations": true
+      }
+    ],
+    "allThreeWholeWorldsEqualAcrossViewports": true,
+    "allSixWholeWorldsExact300ExceptVersionTwoHashesAndFiniteKitStockAllocations": true,
+    "all23PlayerOatWholeWorldsExact300ExceptVersionAndTwoContentHashes": true,
+    "checkpoint": "immutable v301-guard-input",
+    "app": "index-LhJUFQqW.js",
+    "note": "Generic smoke includes overworld: strictly normalized only2newKit per coalition market plus sequential extra marketstackUID/nextItemId allocations. All other whole fields/RNG exact300. PlayerOat scenes have nooverworld and onlyversion/2hash changes."
+  },
+  "screenshots": {
+    "finalResident": 8,
+    "existingOwnPlayerOat": 12,
+    "common": 8,
+    "total": 28,
+    "all28DirectArtUIReview": true,
+    "reviewSha256": "0252697b6ff2a7fce8e53a5714fa4acc58f3531a29c783e3d8b2b847642eb66a",
+    "machineAuditSha256": "8b1a3856adee94ddd889c185d342834cf1d845e02ea5fc02aac6ea2d34ebdb1a"
+  },
+  "art": "Existing128sheets/813frames/192PNGs reused unchanged from300; no newart/rights claim. Public592/mods86/tools271 allbyteexact300. Source assets validated; all28actualfinal PNG independently opened.",
+  "gameplay": "Resident real own grain/money/water/bowl/kit/wood→actual shop acquisition/placement/100turnignition/400hotturns/take/meal. Samebowl reused for nextmeal when still belowpreparationtarget; finitecounts/cash preserved. Nutrition actualkcal/2500 and completedwood only credited once up to dailycaps. Ownedfire memory, localobservation and readonlyotherfood display; no otherfood/fire controls or preciseotherprogress/fuel.203to204 versiononly, no oldcash/tools/firehistory/meal credit backfill.",
+  "validationLimits": "Threefiniteoriginalresident scenes declare cash100/grain3/hunger/schedule/optionalutensils, not normalacquisition. Actual shopping/placement/ignition400hotturns/meal run viaNPCscheduler during real playerinput. Pending303rest earlier Nodeinput plus actualTitleContinue; no postloadworld/time/RNG/item injection. Oat nearripe fixture explicitly declares earlier growth; not5calendar-dayplay. Food success proven bywholeworld/diet/ledger, not PNGalone. Earlier4PNGfailure and8PNGprepermissionrun excluded fromfinal20. Full/World/commonviewport verification separate. BasicRecipe.Oatmeal only bydefault; factions need actualsupplies/means, no freeuniversalNPCkitchens. If fuel lost midmeal, originalrawbowl/progress retrieved and existingrawfoodchoices apply; no auto-reignite/re-cook completion claim. Newworldmeasures30seeds3days, notfullfamine/migration/NPCagriculture/ecology/70yearhistory/allX1-X4/1000runs/humanplay completion.",
+  "batchPublicationPolicy": "Userrequested larger completed implementation/review batches. Shopping, ownfire cooking, actualnutrition/fuel ledger, localUIprivacy and legacy/save/full/world evidence published once together.",
+  "earlierFailures": "Firstfeature26:25passed/1waterwalk loop failed, actualhomegateordering corrected without timeoutchanges. Concurrent build/lint/schema+2workerfeature/gold run39passed/1original5sec timeout; isolated40passed sameconstraints, fixture serialization cache avoids repeated setupwalks, final31passed. FirstNative4PNG failure: incorrect expectation of emptybowl after600turns; actual firstmeal followed by legitimate nextmeal using samebowl. Test corrected to actual125finalwaits, added nextmeal conservationtest. SecondNative8passed but directly viewed CampfirePanel exposed otherfire outbutton/exactfuel; original coreaccess reused in UI, controls/fuel hidden. All earlier outputs preserved and excluded from final8. One initial Type caught guessed refill action; corrected to actual fillBottle. FinalbuildType0/lint0errors1oldwarning. Final no-world/nonresident undefined===undefined metadata guard corrected, 32nd regression added; old/new actual place reproduction verifies all other whole world fields exact. Fresh final build, Native and Full use guard snapshot. Initial pnpm test flag parsing failed before tests began; pnpm exec vitest used successfully.",
+  "freeze": {
+    "guard-input": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v301-guard-input",
+      "files": 5284,
+      "copied": 14,
+      "linkedFromImmutablePrevious": 5270,
+      "duplicateBytesAvoided": 148673009,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v301-guard-input-manifest.json"
+    },
+    "guard-final": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v301-guard-final",
+      "files": 5287,
+      "copied": 4,
+      "linkedFromImmutablePrevious": 5283,
+      "duplicateBytesAvoided": 152036268,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v301-guard-final-manifest.json"
+    }
+  }
+}

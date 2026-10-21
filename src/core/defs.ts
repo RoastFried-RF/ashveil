@@ -883,6 +883,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if (d.population.gamma + d.population.mu > 1000) report.errors.push(`${d.id}: 회복/사망 합이1000을 넘음`)
   }
   for (const d of db.all<WorldSimulationDef>('WorldSimulation')) {
+    if(d.nutritionKcalPerFoodUnit!==undefined&&(!Number.isFinite(d.nutritionKcalPerFoodUnit)||d.nutritionKcalPerFoodUnit<1||d.nutritionKcalPerFoodUnit>100000))report.errors.push(d.id+': nutritionKcalPerFoodUnit 오류')
     if(d.seasonalProduction!==undefined){
       const rule=d.seasonalProduction
       if(!isObj(rule)||!Array.isArray(rule.factions)||!rule.factions.length||rule.factions.some(f=>typeof f!=='string'||!keys.has(f))||new Set(rule.factions).size!==rule.factions.length||!isObj(rule.seasons)||!Object.keys(rule.seasons).length)report.errors.push(d.id+': seasonalProduction의 실제 세력/계절 사전이 필요하다')
@@ -1274,6 +1275,12 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     }
   }
   for (const d of db.all<ResidentProvisionDef>('ResidentProvision')) {
+    if(d.cooking!==undefined){const q=d.cooking;if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': cooking 객체 필요');else{
+      if(!Array.isArray(q.recipes)||!q.recipes.length||new Set(q.recipes).size!==q.recipes.length)report.errors.push(d.id+': cooking.recipes 오류')
+      else for(const id of q.recipes){need(d.id,id,'Recipe');const r=db.tryGet<RecipeDef>(id);if(!r?.basic||!r.boiledMeal?.unheated||r.output.count!==1||r.inputs.filter(i=>i.item!==r.boiledMeal?.vessel).length===0||r.workTurns>7200)report.errors.push(d.id+': cooking 실제 기본 그릇 조리법 필요')}
+      if(!Array.isArray(q.roles)||!q.roles.length||new Set(q.roles).size!==q.roles.length||q.roles.some(role=>!['civilian','guard'].includes(role)))report.errors.push(d.id+': cooking.roles 오류')
+      for(const[key,lo,hi]of[['homeRadius',1,6],['prepareBelowKcal',-1000,2500],['reserveWaterMl',0,2000],['reserveMoney',0,100000],['maxUnitPrice',1,100000],['retryTurns',1,28800]]as const)if(!Number.isSafeInteger(q[key])||q[key]<lo||q[key]>hi)report.errors.push(d.id+': cooking.'+key+' 오류')
+    }}
     need(d.id,d.terrain,'Terrain'); need(d.id,d.food,'Item')
     if (!db.tryGet<TerrainDef>(d.terrain)?.residentDepot) report.errors.push(`${d.id}: terrain은 주민 배급 창고여야 함`)
     const food = db.tryGet<ItemDef>(d.food), unit = db.tryGet<WorldSimulationDef>('WorldSimulation.Hearth')?.items[d.food]

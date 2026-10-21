@@ -601,6 +601,7 @@ export interface ResidentProvisionDef extends DefBase {
   requestBelowKcal: number
   dailyFoodUnits: number
   retryTurns: number
+  cooking?: { recipes:string[]; roles:CreatureDef['ai'][]; homeRadius:number; prepareBelowKcal:number; reserveWaterMl:number; reserveMoney:number; maxUnitPrice:number; retryTurns:number }
 }
 export interface ResidentWaterDef extends DefBase {
   defType: 'ResidentWater'
@@ -1620,6 +1621,7 @@ export interface CaravanRules {encounterStopTurns:number;intervalDays:number;fee
 export interface CaravanHome {id:number;pos:Pos;home?:Pos;room?:number;mapId?:string;traderSite?:string;residentSite?:string}
 export interface CaravanState {robbedBy?:string;id:string;origin:string;destination:string;leader:number;members:number[];homes:CaravanHome[];market:string;position:Pos;route:Pos[];index:number;nextMove:number;phase:'departing'|'outbound'|'returning'|'arriving'|'completed'|'raided';actors?:Creature[];deployed?:boolean;pausedTurns?:number;encounteredCell?:Pos;stopUntil?:number;leftAt?:number;noticedAt?:number;lost?:number[];departure:number;arrival?:number;returned?:number;item:string;quantity:number;predictedProfit:number;fee:number;capital:number;paid:number}
 export interface WorldSimulationDef extends DefBase {
+  nutritionKcalPerFoodUnit?:number
   seasonalProduction?:{factions:string[];seasons:Record<string,Partial<Record<Commodity,number>>>}
   rumors?:RumorNetworkRules
   roadRaids?:RoadRaidRules
@@ -2217,6 +2219,8 @@ export interface Creature {
   residentConsumption?: { day: number; units: Partial<Record<Commodity, number>> }
   residentRation?: { day: number; units: number }
   residentSupplyAfter?: number
+  residentCookingSupplyAfter?: number
+  residentCookingFire?: {map:string;region:string;pos:Pos;uid:number}
   welcomedActors?:number[]
   expulsion?:{site:string;faction:string;by:number;at:number;leftAt?:number}
   residentPlot?:{pos:Pos;seedUid:number;terrain:string;map:string;region:string}

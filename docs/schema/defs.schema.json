@@ -43604,6 +43604,16 @@
               "defType"
             ],
             "properties": {
+              "nutritionKcalPerFoodUnit": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "seasonalProduction": {
                 "anyOf": [
                   {
@@ -44512,6 +44522,9 @@
               "id"
             ],
             "properties": {
+              "nutritionKcalPerFoodUnit": {
+                "type": "number"
+              },
               "seasonalProduction": {
                 "type": "object",
                 "properties": {
@@ -49430,6 +49443,257 @@
                   }
                 ]
               },
+              "cooking": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "recipes": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "roles": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "enum": [
+                                    "player",
+                                    "packHunter",
+                                    "raider",
+                                    "skittish",
+                                    "guard",
+                                    "boss",
+                                    "civilian"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "player",
+                                            "packHunter",
+                                            "raider",
+                                            "skittish",
+                                            "guard",
+                                            "boss",
+                                            "civilian"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "homeRadius": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "prepareBelowKcal": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reserveWaterMl": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reserveMoney": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxUnitPrice": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "retryTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "id": {
                 "type": "string"
               },
@@ -49501,6 +49765,59 @@
               },
               "retryTurns": {
                 "type": "number"
+              },
+              "cooking": {
+                "type": "object",
+                "properties": {
+                  "recipes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "player",
+                        "packHunter",
+                        "raider",
+                        "skittish",
+                        "guard",
+                        "boss",
+                        "civilian"
+                      ]
+                    }
+                  },
+                  "homeRadius": {
+                    "type": "number"
+                  },
+                  "prepareBelowKcal": {
+                    "type": "number"
+                  },
+                  "reserveWaterMl": {
+                    "type": "number"
+                  },
+                  "reserveMoney": {
+                    "type": "number"
+                  },
+                  "maxUnitPrice": {
+                    "type": "number"
+                  },
+                  "retryTurns": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "recipes",
+                  "roles",
+                  "homeRadius",
+                  "prepareBelowKcal",
+                  "reserveWaterMl",
+                  "reserveMoney",
+                  "maxUnitPrice",
+                  "retryTurns"
+                ]
               },
               "id": {
                 "type": "string"

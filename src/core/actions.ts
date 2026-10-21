@@ -41,6 +41,7 @@ import {learnTorchRetreat} from './animal-fear'
 import {fatigueBand} from './fatigue-state'
 import {cancelBoil} from './boil-state'
 import {prepareUnheatedMeal} from './unheated-meal'
+import {obtainResidentCookingSupply,checkResidentCookingFire} from './resident-cooking'
 import {stageCooking,takeCooking} from './cooking'
 import {cookingRules,foodKcal} from './cooking-state'
 import {dropFragile} from './fragile'
@@ -94,7 +95,7 @@ import { takeResidentFuel } from './resident-purification'
 import {acquireResidentVessel} from './resident-vessels'
 import { buyClinicSupplies } from './clinic-supply'
 import { takeResidentRation } from './resident-provisions'
-import { recordResidentUse } from './world-simulation'
+import { recordResidentMeal } from './world-simulation'
 import { residentBedError, residentWakeTarget } from './resident-rest'
 import { dirtyHands, finishHandWash, handHygieneDef, washHandsError } from './hand-hygiene'
 import { drinkVolume, spendDrinkVolume } from './wash-water'
@@ -202,6 +203,8 @@ export type Action =
   | { type: 'washHands' }
   | { type:'residentCropSupply';target:number }
   | { type:'residentProduce';target:number }
+  | { type:'residentCookingSupply';target:number }
+  | { type:'residentCookingCheck' }
   | { type:'giveResidentSeed';target:number;uid:number }
   | { type: 'residentPlotCheck' }
   | { type: 'residentRation' }
@@ -617,6 +620,8 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     }
     case 'residentCropSupply':{const target=creatureById(w,a.target);const error=target?obtainResidentCropSupply(w,c,target):'재배 재료를 구할 실제 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'residentProduce':{const target=creatureById(w,a.target);const error=target?offerResidentProduce(w,c,target):'수확물을 옮길 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
+    case 'residentCookingSupply':{const target=creatureById(w,a.target);const error=target?obtainResidentCookingSupply(w,c,target):'조리 물품을 구할 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
+    case 'residentCookingCheck':{const error=checkResidentCookingFire(w,c);return error?FAIL(error):{ok:true,tu:100}}
     case 'giveResidentSeed':{const target=creatureById(w,a.target);const error=target?giveResidentSeed(w,c,target,a.uid):'종자를 받을 주민이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'residentPlotCheck':{const error=forgetResidentPlot(w,c);return error?FAIL(error):{ok:true,tu:100}}
     case 'residentRation': {
@@ -1683,7 +1688,7 @@ function consumeForCore(w:World,provider:Creature,c:Creature,uid:number):ActResu
     if(def.food.raw&&def.food.rawDisease&&def.food.rawDisease.chance>0)exposeDisease(w,c,def.food.rawDisease.def,def.food.rawDisease.chance,{kind:'실제 날고기 섭취',turn,itemUid:it.uid,foodDef:it.def},diseaseStream('food.'+c.id))
     const poisoned = foodPoison(w, c, it,provider)
     if (!poisoned && c.needs.kcal > 0) addThought(w, c, 'Thought.Fed')
-    recordResidentUse(w, c, it.def, 1)
+    recordResidentMeal(w, c, it)
     consumeFoodServing(w,provider,it)
     if (isPl(c)) {
       log(w, 'info', `${def.label}을(를) 먹었다.`)

@@ -3,6 +3,7 @@ import {throwQuote} from './throwing'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
 import {residentCultivationDecision} from './resident-cultivation'
+import {residentCookingDecision} from './resident-cooking'
 import {npcCareAction} from './npc-care'
 import {scriptAITargetScores} from './script-ai'
 import {activeEscort,contractEscortGoal} from './escort-contracts'
@@ -122,6 +123,9 @@ function residentFoodAction(w: World, c: Creature): Action | null {
     const food = c.bag.find((it) => readyFood(w,c,it) && !itemDef(w, it).food!.raw) ?? c.bag.find((it) => readyFood(w,c,it))
     if (food) return handState(w, c) === 'dirty' && !washHandsError(w, c) ? { type: 'washHands' } : { type: 'consume', uid: food.uid }
   }
+  const cooking=residentCookingDecision(w,c)
+  if(cooking?.action)return cooking.action
+  if(cooking?.goal){const step=stepToward(w,c,cooking.goal);if(step)return step}
   const depot = residentProvisionGoal(w, c)
   if (!depot) return null
   if (cheb(c.pos, depot) <= 1 && hasLos(w, c.pos, depot)) return { type: 'residentRation' }

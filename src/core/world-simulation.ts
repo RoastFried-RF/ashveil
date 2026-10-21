@@ -7,8 +7,9 @@ import { towerSoilFertility } from './tower-consequences'
 import { climateDef,calendarAtDay } from './climate-state'
 import {announceOutbreakChange} from './public-outbreak-news'
 import {announceFoodSupply} from './public-food-supply'
+import {foodKcal} from './cooking-state'
 import type {RumorConnectionBatch} from './rumor-network'
-import type { Commodity, Creature, DiseaseDef, PopulationRates, PopulationState, WorldSettlement, WorldSimulationDef } from './types'
+import type { Commodity, Creature, DiseaseDef, ItemInst, PopulationRates, PopulationState, WorldSettlement, WorldSimulationDef } from './types'
 type ResolvedSimulation = Omit<WorldSimulationDef, 'disease'> & { disease: WorldSimulationDef['disease'] & PopulationRates }
 const defCache = new WeakMap<World['db'], ResolvedSimulation>()
 export function worldSimulationDef(w: World): ResolvedSimulation {
@@ -78,16 +79,25 @@ function consumeReserve(w: World, s: WorldSettlement, commodity: Commodity, amou
 }
 /** 실제 주민이 소비한 물품은 같은 날의 요약 인구 소비에서 한 번만 뺀다. 개인별 기본 배급량까지만 인정한다. */
 export function recordResidentUse(w: World, c: Creature, item: string, count: number) {
+  const unit = worldSimulationDef(w).items[item]
+  if(!unit||!Number.isSafeInteger(count)||count<=0)return
+  recordResidentCommodity(w,c,unit.commodity,unit.units*count)
+}
+/** 실제 먹은 한 회분 열량만 인정한다. 그릇 음식을 거래 재고 Food로 등록하지 않는다. */
+export function recordResidentMeal(w:World,c:Creature,it:ItemInst){
+  const perUnit=worldSimulationDef(w).nutritionKcalPerFoodUnit
+  if(perUnit===undefined){recordResidentUse(w,c,it.def,1);return}
+  recordResidentCommodity(w,c,'Food',foodKcal(w,it)/perUnit)
+}
+function recordResidentCommodity(w:World,c:Creature,commodity:Commodity,units:number){
   const site = c.residentSite, settlement = site && w.s.overworld?.simulation?.settlements[site]
-  if (!settlement || !c.alive || c.id === w.s.playerId || site !== w.s.overworld?.currentRegion&&!c.companion&&!c.captivity || !Number.isSafeInteger(count) || count <= 0) return
-  const d = worldSimulationDef(w), unit = d.items[item]
-  if (!unit) return
-  const cap = d.consumption[unit.commodity] ?? 0, day = dayOf(w), prior = c.residentConsumption?.day === day ? c.residentConsumption.units : {}, old = prior[unit.commodity] ?? 0
-  const next = Math.min(cap, quantize(old + unit.units * count)), delta = quantize(next - old)
+  if (!settlement || !c.alive || c.id === w.s.playerId || site !== w.s.overworld?.currentRegion&&!c.companion&&!c.captivity || !Number.isFinite(units)||units<=0) return
+  const d = worldSimulationDef(w),cap = d.consumption[commodity] ?? 0, day = dayOf(w), prior = c.residentConsumption?.day === day ? c.residentConsumption.units : {}, old = prior[commodity] ?? 0
+  const next = Math.min(cap, quantize(old + units)), delta = quantize(next - old)
   if (delta <= 0) return
-  c.residentConsumption = { day, units: { ...prior, [unit.commodity]: next } }
+  c.residentConsumption = { day, units: { ...prior, [commodity]: next } }
   const used = settlement.residentConsumption?.day === day ? settlement.residentConsumption.units : {}
-  settlement.residentConsumption = { day, units: { ...used, [unit.commodity]: quantize((used[unit.commodity] ?? 0) + delta) } }
+  settlement.residentConsumption = { day, units: { ...used, [commodity]: quantize((used[commodity] ?? 0) + delta) } }
 }
 /** 실제 주민의 사망을 조사 인구 안에서 한 번만 옮긴다. N은 사망을 포함하므로 줄이지 않는다. */
 export function recordResidentDeath(w:World,c:Creature):boolean{

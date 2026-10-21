@@ -1,0 +1,5 @@
+[
+  {"op":"add","target":"ResidentProvision.Hearth","path":"/cooking","value":{"recipes":["Recipe.Oatmeal"],"roles":["civilian","guard"],"homeRadius":3,"prepareBelowKcal":500,"reserveWaterMl":300,"reserveMoney":5,"maxUnitPrice":25,"retryTurns":1200}},
+  {"op":"add","target":"Stock.coalition","path":"/entries/-","value":{"item":"Item.CampfireKit","target":2,"dailyProduction":0,"dailyConsumption":0}},
+  {"op":"add","target":"WorldSimulation.Hearth","path":"/nutritionKcalPerFoodUnit","value":2500}
+]

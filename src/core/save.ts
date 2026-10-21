@@ -385,6 +385,8 @@ export function deserialize(json: string): GameState {
   if(s.version===201)s.version=202
   // 기존 귀리 밭의 수확 시각/물품은 유지하고 과거 햇빛·물·오염을 추정하지 않는다.
   if(s.version===202)s.version=203
+  // 과거 조리/구매·연료/식사 소비는 추정하지 않는다. 다음 실제 행동부터 적용한다.
+  if(s.version===203)s.version=204
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
   if(s.defSchemaVersion!==undefined&&(!Number.isSafeInteger(s.defSchemaVersion)||s.defSchemaVersion<=0))throw new Error('각인의 정의 스키마 버전 기록 형식이 올바르지 않다')
