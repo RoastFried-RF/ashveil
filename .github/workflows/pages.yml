@@ -11,6 +11,9 @@ on:
       - 'pnpm-lock.yaml'
       - 'vite.config.ts'
       - 'tsconfig.json'
+      - 'tools/sprite-validation.ts'
+      - 'tools/validate-sprites.ts'
+      - 'tests/sprite-assets.test.ts'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -34,6 +37,8 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vitest run tests/sprite-assets.test.ts --maxWorkers=1
+      - run: pnpm validate-sprites
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -112,3 +112,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - ASHVEIL 원본 목제 보관함: 직접 제작한 닫힘·열림16px와 별도 소지품32px. [출처·재현](docs/art-storage-chest-original.md).
 
 - ASHVEIL 원본 종자 봉지·그늘뿌리·흰갓: 직접 제작한32px PNG/SVG. [출처·재현](docs/art-crop-icons-original.md).
+
+- ASHVEIL 원본 녹슨 칼·기본 손도끼·철근 창: 직접 제작한32px PNG/SVG. [출처·재현](docs/art-basic-weapons-original.md).

@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.291** · 각인198. 전체5,929개·실제15장·저장 전체복원3·월드30판 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
+**현재 상태: 프로토타입 v0.292** · 각인198. 전체5,936개·실제13장·저장 전체복원2 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -189,3 +189,9 @@ F2에서 실제 도구·성공률·시간/마모/소음을 보고 잠금을 푼�
 
 ![실제 물1000ml의990/10 분배](docs/previews/v291-1421-native-original1000ml-now990and10-no-created-water.png)
 ![원본 종자 봉지·그늘뿌리·흰갓](docs/previews/v291-1424-native-three-original-crop-item-icons-and-original-empty-bottle.png)
+
+## 리소스 검사·기본 무기 원본 (v0.292)
+
+개발 하네스가 PNG·프레임·아이콘 참조를 빌드 전에 검사한다. 녹슨 칼·손도끼·철근 창을 새 원본으로 표시한다. [검증 근거](docs/release-v292-proof.json).
+
+![실제 원본 무기3](docs/previews/v292-1427-native-original-knife32-hatchet64-and-rebar-spear32-in-actual-bag.png)
