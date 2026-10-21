@@ -43,11 +43,19 @@
     "ranIn": "immutable v287-final"
   },
   "world": {
-    "status": "pending",
+    "status": "passed",
     "overworld": true,
     "runs": 30,
     "maxDays": 3,
-    "workers": 4
+    "workers": 4,
+    "seconds": 430.884049199,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo286": 30
   },
   "goldens": "ALL5 WHOLE initial/final/error vectors audited vs286. Exactly3metadata paths(version194→195+2hashes) plus original pill batches new pillAge and independent items.pill-aging RNG. ALL remaining WHOLE physical/time/old RNG/UID/errors exact286.286 vectors archived once; no claim that future real pill consumption has unchanged effects.",
   "native": {
