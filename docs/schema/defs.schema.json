@@ -19341,6 +19341,31 @@
                   }
                 ]
               },
+              "characterAliases": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$inherit": {
+                        "const": false
+                      }
+                    },
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "sleepChance": {
                 "anyOf": [
                   {
@@ -21030,6 +21055,13 @@
                     }
                   }
                 ]
+              },
+              "characterAliases": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {
+                  "type": "string"
+                }
               },
               "sleepChance": {
                 "type": "number"

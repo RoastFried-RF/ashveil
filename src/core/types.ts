@@ -394,6 +394,8 @@ export interface CreatureDef extends DefBase {
   xp?: number
   /** 스프라이트 manifest 캐릭터 키 (여러 개면 무작위) */
   char?: string | string[]
+  /** 저장된 sprite를 바꾸지 않는 표시용 캐릭터 별칭. 한 단계만 적용한다. */
+  characterAliases?: Record<string, string>
   /** 배치 시 잠들어 있을 확률 */
   sleepChance?: number
   /** 화면 표시 배율 (보스 등) */

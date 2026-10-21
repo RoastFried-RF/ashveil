@@ -1,0 +1,54 @@
+{
+  "created": "2026-10-21",
+  "method": "Original authored integer-coordinate flagstone outlines, six wear motifs, four crack paths and independently placed damp/ash marks.",
+  "externalImageInputs": [],
+  "externalPixelExtraction": false,
+  "tracingOrRecoloring": false,
+  "generatedImageInputs": false,
+  "generator": "tools/art/draw-monastery-floor.py",
+  "generatorSHA256": "011b9e59ffe3fbdbe47f8fafdae388676933fd4ef12bcbb2c3dbe0e797cb0faf",
+  "ownToolReuse": "Standard-library Canvas/PNG/SVG/contact/font patterns from own original resident/character tools. No floor image pixels were read.",
+  "paletteColors": 11,
+  "alpha": "fully opaque floor; no alpha gaps or black atlas gutters",
+  "nativeDensity": "1 authored pixel=1 native world pixel before existing integer camera zoom",
+  "lighting": "No baked torch, fixed directional cast shadow, gloss, glow or purple contamination. Existing renderer lighting stays separate.",
+  "status": "Isolated original art prepared; not registered or tested in the game.",
+  "integration": "Replace only kt_floor sheet URL with the provided original; four frame keys and rectangles remain byte-equivalent. Do not replace cd_tiles, walls, terrain Def or renderer.",
+  "files": [
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor.png",
+      "bytes": 5807,
+      "sha256": "bf5013c830e807ab529cce411da955191e5cb28b1a6b6d9de9ee5a30e5caf457"
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor.svg",
+      "bytes": 500087,
+      "sha256": "890a364117b2b549274474bd875e8587a3ae95d6c772b697ea36fc79a1a455f7"
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-sampler.png",
+      "bytes": 11950,
+      "sha256": "c9bbfd49d5e35d61628d0f3826affa020781072038744639fd90083ddf034db6"
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-contact.png",
+      "bytes": 41311,
+      "sha256": "43a2e0fcfdc6effcb59b4f18afe4e7a90331443ae8fd2c6c41de4b1cf962d9df"
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-palette.json",
+      "bytes": 201,
+      "sha256": "9dd354e06cc9e0b801f0c9d6ce5574d73a7db40bb8e7f719808ffe08a6e0ce1e"
+    },
+    {
+      "path": "tools/art/monastery-floor-manifest.fragment.json",
+      "bytes": 451,
+      "sha256": "dd5ac30985ec28276bc9331c6b739026e5e9f67bdbddb2fab7bb8c97c51a1009"
+    },
+    {
+      "path": "tools/art/monastery-floor-contract.json",
+      "bytes": 2032,
+      "sha256": "790eb29e9fd374db1753c07a56cdc3e8704a3ed07f5ac97cba8426b3a87def5f"
+    }
+  ]
+}

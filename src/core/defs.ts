@@ -652,6 +652,9 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
+  for (const d of db.all<CreatureDef>('Creature')) if (d.characterAliases !== undefined) {
+    if (!isObj(d.characterAliases) || Object.entries(d.characterAliases).some(([key,value]) => !key.trim() || typeof value !== 'string' || !value.trim())) report.errors.push(d.id + ': characterAliases는 비어 있지 않은 외형 키/표시 키 대응이어야 함')
+  }
   for(const item of db.all<ItemDef>('Item')){
     if(item.powder!==undefined&&(typeof item.powder!=='boolean'||item.powder&&item.category!=='ammo'))report.errors.push(item.id+': 화약은 실제 탄약 회분이어야 한다')
     if(item.cartridge!==undefined){

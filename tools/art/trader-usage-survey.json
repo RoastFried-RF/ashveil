@@ -1,0 +1,230 @@
+{
+  "scope": "Read-only raw Creature definition inheritance snapshot; content patches are not evaluated by this art tool. No simulation or runtime world was instantiated.",
+  "actualTraderDefinitions": [
+    {
+      "id": "Creature.LanternMerchant",
+      "source": "src/content/core/defs/saltrim-coast.json",
+      "rawDefinition": {
+        "defType": "Creature",
+        "id": "Creature.LanternMerchant",
+        "parent": "Creature.SettlementTrader",
+        "label": "형제단 소금 장부지기",
+        "faction": "lantern"
+      },
+      "inheritanceChain": [
+        "Creature.Human",
+        "Creature.Settler",
+        "Creature.SettlementTrader",
+        "Creature.LanternMerchant"
+      ],
+      "rawInheritedFields": {
+        "char": "hero",
+        "loadout": {
+          "slots": [
+            {
+              "items": [
+                "Item.RagShirt"
+              ]
+            },
+            {
+              "items": [
+                "Item.LeatherCoat"
+              ]
+            },
+            {
+              "items": [
+                "Item.Boots"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hood"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hardtack"
+              ],
+              "count": [
+                3,
+                3
+              ]
+            },
+            {
+              "items": [
+                "Item.WaterBottle"
+              ],
+              "count": [
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        "faction": "lantern",
+        "body": "Body.Humanoid",
+        "sizeClass": "medium",
+        "ai": "civilian",
+        "inn": "Inn.Hearth"
+      }
+    },
+    {
+      "id": "Creature.SettlementTrader",
+      "source": "src/content/core/defs/society.json",
+      "rawDefinition": {
+        "defType": "Creature",
+        "id": "Creature.SettlementTrader",
+        "parent": "Creature.Settler",
+        "label": "상인",
+        "ai": "civilian",
+        "inn": "Inn.Hearth"
+      },
+      "inheritanceChain": [
+        "Creature.Human",
+        "Creature.Settler",
+        "Creature.SettlementTrader"
+      ],
+      "rawInheritedFields": {
+        "char": "hero",
+        "loadout": {
+          "slots": [
+            {
+              "items": [
+                "Item.RagShirt"
+              ]
+            },
+            {
+              "items": [
+                "Item.LeatherCoat"
+              ]
+            },
+            {
+              "items": [
+                "Item.Boots"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hood"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hardtack"
+              ],
+              "count": [
+                3,
+                3
+              ]
+            },
+            {
+              "items": [
+                "Item.WaterBottle"
+              ],
+              "count": [
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        "faction": "coalition",
+        "body": "Body.Humanoid",
+        "sizeClass": "medium",
+        "ai": "civilian",
+        "inn": "Inn.Hearth"
+      }
+    },
+    {
+      "id": "Creature.SignalistMerchant",
+      "source": "src/content/core/defs/field-devices.json",
+      "rawDefinition": {
+        "defType": "Creature",
+        "id": "Creature.SignalistMerchant",
+        "parent": "Creature.SettlementTrader",
+        "label": "신호회 부품 교환원",
+        "faction": "signalists",
+        "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+      },
+      "inheritanceChain": [
+        "Creature.Human",
+        "Creature.Settler",
+        "Creature.SettlementTrader",
+        "Creature.SignalistMerchant"
+      ],
+      "rawInheritedFields": {
+        "char": "hero",
+        "loadout": {
+          "slots": [
+            {
+              "items": [
+                "Item.RagShirt"
+              ]
+            },
+            {
+              "items": [
+                "Item.LeatherCoat"
+              ]
+            },
+            {
+              "items": [
+                "Item.Boots"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hood"
+              ]
+            },
+            {
+              "items": [
+                "Item.Hardtack"
+              ],
+              "count": [
+                3,
+                3
+              ]
+            },
+            {
+              "items": [
+                "Item.WaterBottle"
+              ],
+              "count": [
+                2,
+                2
+              ]
+            }
+          ]
+        },
+        "faction": "signalists",
+        "body": "Body.Humanoid",
+        "sizeClass": "medium",
+        "ai": "civilian",
+        "inn": "Inn.Hearth",
+        "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+      }
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/content/core/defs/creatures.json",
+      "sha256": "6e7fb95a1ab39a2b3b2b0200187a38de72dad7519545bcf53ec4b83a4e0b5e48"
+    },
+    {
+      "path": "src/content/core/defs/field-devices.json",
+      "sha256": "ddd3b557576d2551db085b92f40c02265792c28878cc332a30a1bfe8687a334b"
+    },
+    {
+      "path": "src/content/core/defs/saltrim-coast.json",
+      "sha256": "fe8157f03c340b1d2cb9346f733242f8a4972af4cf53cff945c04ca37d0f6318"
+    },
+    {
+      "path": "src/content/core/defs/society.json",
+      "sha256": "d0627be923bda9376b695045229b1c4fc110d6e6376ffbd92f810e2d32311ea1"
+    }
+  ],
+  "existingRawChar": "hero",
+  "proposedVisualChar": "resident_trader",
+  "proposedVisualCharPreviouslyPresent": false,
+  "integrationNote": "Root owns the current characterAliases implementation; the new role art does not change saved sprite, ownership, faction, stock, needs, traits or existing hero pixels."
+}

@@ -1,4 +1,5 @@
 import {mapAppearance,displayTile} from '../map-memory'
+import {creatureSprite} from './creature-sprite'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -26,6 +27,7 @@ const FONT: TextStyleOptions = {
 
 interface CView {
   id: number
+  selectedSprite: string
   root: Container
   body: Sprite
   shadow: Graphics
@@ -533,7 +535,8 @@ export class MapRenderer {
   private makeView(w: World, c: Creature): CView {
     const root = new Container()
     const shadow = new Graphics().ellipse(0, 0, 6, 2).fill({ color: 0x000000, alpha: 0.45 })
-    const ch = chars[c.sprite]
+    const selectedSprite = creatureSprite(w,c)
+    const ch = chars[selectedSprite]
     let body: Sprite
     let anim: Texture[] | undefined
     let scale = 1
@@ -542,8 +545,8 @@ export class MapRenderer {
       body.anchor.set(ch.anchor[0], ch.anchor[1])
       scale = ch.renderScale ?? 0.72
       if (ch.shadow) shadow.clear().ellipse(0, 0, ch.shadow[0], ch.shadow[1]).fill({ color: 0x000000, alpha: 0.5 })
-    } else if (animFrames(c.sprite).length) {
-      anim = animFrames(c.sprite)
+    } else if (animFrames(selectedSprite).length) {
+      anim = animFrames(selectedSprite)
       body = new AnimatedSprite(anim)
       ;(body as AnimatedSprite).animationSpeed = 0.1
       ;(body as AnimatedSprite).play()
@@ -551,9 +554,9 @@ export class MapRenderer {
       scale = 0.75
       shadow.clear().ellipse(0, 0, 18, 4).fill({ color: 0x000000, alpha: 0.5 })
     } else {
-      body = new Sprite(hasFrame(c.sprite) ? tex(c.sprite) : icon(c.sprite))
+      body = new Sprite(hasFrame(selectedSprite) ? tex(selectedSprite) : icon(selectedSprite))
       body.anchor.set(0.5, 0.9)
-      if (!hasFrame(c.sprite)) { body.width = T; body.height = T; scale = body.scale.x }
+      if (!hasFrame(selectedSprite)) { body.width = T; body.height = T; scale = body.scale.x }
     }
     if (ch || anim) body.scale.set(scale)
     const bar = new Graphics()
@@ -561,7 +564,7 @@ export class MapRenderer {
     root.addChild(shadow, body, bar, marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
+      id: c.id, selectedSprite, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -578,13 +581,14 @@ export class MapRenderer {
       const i = c.pos.y * w.s.map.w + c.pos.x
       const shown = c.id === pl.id || vis.has(i)
       let v = this.views.get(c.id)
+      if (v && v.selectedSprite !== creatureSprite(w,c)) { v.root.destroy({children:true});this.views.delete(c.id);v=undefined }
       if (!shown) {
         if (v && c.alive) { v.root.visible = false }
         if (v && !c.alive && !w.s.map.tiles[i].seen) v.root.visible = false
         if (!v) continue
       }
       if (!v) { v = this.makeView(w, c); this.views.set(c.id, v) }
-      if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??c.sprite]
+      if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]
       seen.add(c.id)
       v.root.visible = shown || (!c.alive && !!w.s.map.tiles[i].seen)
       if (v.to.x !== c.pos.x || v.to.y !== c.pos.y) {

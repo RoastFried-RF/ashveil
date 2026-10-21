@@ -1,6 +1,6 @@
 {
   "sheets": {
-    "kt_floor": "sprites/kt_floor.png",
+    "kt_floor": "sprites/original/ashveil-monastery-floor.png",
     "kt_moss": "sprites/kt_moss.png",
     "kt_walls": "sprites/kt_walls.png",
     "kt_props": "sprites/kt_props.png",
@@ -68,7 +68,21 @@
     "amalgam_walk": "sprites/original/ashveil-amalgam-walk.png",
     "amalgam_atk": "sprites/original/ashveil-amalgam-attack.png",
     "original_shade_chief": "sprites/original/ashveil-shade-chief-walk.png",
-    "original_shade_chief_atk": "sprites/original/ashveil-shade-chief-attack.png"
+    "original_shade_chief_atk": "sprites/original/ashveil-shade-chief-attack.png",
+    "resident_worker": "sprites/original/ashveil-resident-walk.png",
+    "resident_worker_atk": "sprites/original/ashveil-resident-attack.png",
+    "original_pill_white": "sprites/original/items/pill_white.png",
+    "original_pill_yellow": "sprites/original/items/pill_yellow.png",
+    "original_pill_blue": "sprites/original/items/pill_blue.png",
+    "original_pill_black": "sprites/original/items/pill_black.png",
+    "original_pill_green": "sprites/original/items/pill_green.png",
+    "original_pill_magenta": "sprites/original/items/pill_magenta.png",
+    "resident_healer": "sprites/original/ashveil-healer-walk.png",
+    "resident_healer_atk": "sprites/original/ashveil-healer-attack.png",
+    "resident_guard": "sprites/original/ashveil-guard-walk.png",
+    "resident_guard_atk": "sprites/original/ashveil-guard-attack.png",
+    "resident_trader": "sprites/original/ashveil-trader-walk.png",
+    "resident_trader_atk": "sprites/original/ashveil-trader-attack.png"
   },
   "frames": {
     "kt_floor_q0": [
@@ -4438,6 +4452,832 @@
       120,
       32,
       40
+    ],
+    "resident_worker_w_down0": [
+      "resident_worker",
+      0,
+      0,
+      24,
+      32
+    ],
+    "resident_worker_w_down1": [
+      "resident_worker",
+      24,
+      0,
+      24,
+      32
+    ],
+    "resident_worker_w_down2": [
+      "resident_worker",
+      48,
+      0,
+      24,
+      32
+    ],
+    "resident_worker_a_down0": [
+      "resident_worker_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "resident_worker_a_down1": [
+      "resident_worker_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "resident_worker_a_down2": [
+      "resident_worker_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "resident_worker_a_down3": [
+      "resident_worker_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "resident_worker_w_left0": [
+      "resident_worker",
+      0,
+      32,
+      24,
+      32
+    ],
+    "resident_worker_w_left1": [
+      "resident_worker",
+      24,
+      32,
+      24,
+      32
+    ],
+    "resident_worker_w_left2": [
+      "resident_worker",
+      48,
+      32,
+      24,
+      32
+    ],
+    "resident_worker_a_left0": [
+      "resident_worker_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "resident_worker_a_left1": [
+      "resident_worker_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "resident_worker_a_left2": [
+      "resident_worker_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "resident_worker_a_left3": [
+      "resident_worker_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "resident_worker_w_right0": [
+      "resident_worker",
+      0,
+      64,
+      24,
+      32
+    ],
+    "resident_worker_w_right1": [
+      "resident_worker",
+      24,
+      64,
+      24,
+      32
+    ],
+    "resident_worker_w_right2": [
+      "resident_worker",
+      48,
+      64,
+      24,
+      32
+    ],
+    "resident_worker_a_right0": [
+      "resident_worker_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "resident_worker_a_right1": [
+      "resident_worker_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "resident_worker_a_right2": [
+      "resident_worker_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "resident_worker_a_right3": [
+      "resident_worker_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "resident_worker_w_up0": [
+      "resident_worker",
+      0,
+      96,
+      24,
+      32
+    ],
+    "resident_worker_w_up1": [
+      "resident_worker",
+      24,
+      96,
+      24,
+      32
+    ],
+    "resident_worker_w_up2": [
+      "resident_worker",
+      48,
+      96,
+      24,
+      32
+    ],
+    "resident_worker_a_up0": [
+      "resident_worker_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "resident_worker_a_up1": [
+      "resident_worker_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "resident_worker_a_up2": [
+      "resident_worker_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "resident_worker_a_up3": [
+      "resident_worker_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "pill_white": [
+      "original_pill_white",
+      0,
+      0,
+      32,
+      32
+    ],
+    "pill_yellow": [
+      "original_pill_yellow",
+      0,
+      0,
+      32,
+      32
+    ],
+    "pill_blue": [
+      "original_pill_blue",
+      0,
+      0,
+      32,
+      32
+    ],
+    "pill_black": [
+      "original_pill_black",
+      0,
+      0,
+      32,
+      32
+    ],
+    "pill_green": [
+      "original_pill_green",
+      0,
+      0,
+      32,
+      32
+    ],
+    "pill_magenta": [
+      "original_pill_magenta",
+      0,
+      0,
+      32,
+      32
+    ],
+    "resident_healer_w_down0": [
+      "resident_healer",
+      0,
+      0,
+      24,
+      32
+    ],
+    "resident_healer_w_down1": [
+      "resident_healer",
+      24,
+      0,
+      24,
+      32
+    ],
+    "resident_healer_w_down2": [
+      "resident_healer",
+      48,
+      0,
+      24,
+      32
+    ],
+    "resident_healer_a_down0": [
+      "resident_healer_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "resident_healer_a_down1": [
+      "resident_healer_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "resident_healer_a_down2": [
+      "resident_healer_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "resident_healer_a_down3": [
+      "resident_healer_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "resident_healer_w_left0": [
+      "resident_healer",
+      0,
+      32,
+      24,
+      32
+    ],
+    "resident_healer_w_left1": [
+      "resident_healer",
+      24,
+      32,
+      24,
+      32
+    ],
+    "resident_healer_w_left2": [
+      "resident_healer",
+      48,
+      32,
+      24,
+      32
+    ],
+    "resident_healer_a_left0": [
+      "resident_healer_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "resident_healer_a_left1": [
+      "resident_healer_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "resident_healer_a_left2": [
+      "resident_healer_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "resident_healer_a_left3": [
+      "resident_healer_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "resident_healer_w_right0": [
+      "resident_healer",
+      0,
+      64,
+      24,
+      32
+    ],
+    "resident_healer_w_right1": [
+      "resident_healer",
+      24,
+      64,
+      24,
+      32
+    ],
+    "resident_healer_w_right2": [
+      "resident_healer",
+      48,
+      64,
+      24,
+      32
+    ],
+    "resident_healer_a_right0": [
+      "resident_healer_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "resident_healer_a_right1": [
+      "resident_healer_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "resident_healer_a_right2": [
+      "resident_healer_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "resident_healer_a_right3": [
+      "resident_healer_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "resident_healer_w_up0": [
+      "resident_healer",
+      0,
+      96,
+      24,
+      32
+    ],
+    "resident_healer_w_up1": [
+      "resident_healer",
+      24,
+      96,
+      24,
+      32
+    ],
+    "resident_healer_w_up2": [
+      "resident_healer",
+      48,
+      96,
+      24,
+      32
+    ],
+    "resident_healer_a_up0": [
+      "resident_healer_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "resident_healer_a_up1": [
+      "resident_healer_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "resident_healer_a_up2": [
+      "resident_healer_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "resident_healer_a_up3": [
+      "resident_healer_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "resident_guard_w_down0": [
+      "resident_guard",
+      0,
+      0,
+      24,
+      32
+    ],
+    "resident_guard_w_down1": [
+      "resident_guard",
+      24,
+      0,
+      24,
+      32
+    ],
+    "resident_guard_w_down2": [
+      "resident_guard",
+      48,
+      0,
+      24,
+      32
+    ],
+    "resident_guard_a_down0": [
+      "resident_guard_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "resident_guard_a_down1": [
+      "resident_guard_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "resident_guard_a_down2": [
+      "resident_guard_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "resident_guard_a_down3": [
+      "resident_guard_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "resident_guard_w_left0": [
+      "resident_guard",
+      0,
+      32,
+      24,
+      32
+    ],
+    "resident_guard_w_left1": [
+      "resident_guard",
+      24,
+      32,
+      24,
+      32
+    ],
+    "resident_guard_w_left2": [
+      "resident_guard",
+      48,
+      32,
+      24,
+      32
+    ],
+    "resident_guard_a_left0": [
+      "resident_guard_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "resident_guard_a_left1": [
+      "resident_guard_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "resident_guard_a_left2": [
+      "resident_guard_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "resident_guard_a_left3": [
+      "resident_guard_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "resident_guard_w_right0": [
+      "resident_guard",
+      0,
+      64,
+      24,
+      32
+    ],
+    "resident_guard_w_right1": [
+      "resident_guard",
+      24,
+      64,
+      24,
+      32
+    ],
+    "resident_guard_w_right2": [
+      "resident_guard",
+      48,
+      64,
+      24,
+      32
+    ],
+    "resident_guard_a_right0": [
+      "resident_guard_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "resident_guard_a_right1": [
+      "resident_guard_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "resident_guard_a_right2": [
+      "resident_guard_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "resident_guard_a_right3": [
+      "resident_guard_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "resident_guard_w_up0": [
+      "resident_guard",
+      0,
+      96,
+      24,
+      32
+    ],
+    "resident_guard_w_up1": [
+      "resident_guard",
+      24,
+      96,
+      24,
+      32
+    ],
+    "resident_guard_w_up2": [
+      "resident_guard",
+      48,
+      96,
+      24,
+      32
+    ],
+    "resident_guard_a_up0": [
+      "resident_guard_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "resident_guard_a_up1": [
+      "resident_guard_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "resident_guard_a_up2": [
+      "resident_guard_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "resident_guard_a_up3": [
+      "resident_guard_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "resident_trader_w_down0": [
+      "resident_trader",
+      0,
+      0,
+      24,
+      32
+    ],
+    "resident_trader_w_down1": [
+      "resident_trader",
+      24,
+      0,
+      24,
+      32
+    ],
+    "resident_trader_w_down2": [
+      "resident_trader",
+      48,
+      0,
+      24,
+      32
+    ],
+    "resident_trader_a_down0": [
+      "resident_trader_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "resident_trader_a_down1": [
+      "resident_trader_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "resident_trader_a_down2": [
+      "resident_trader_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "resident_trader_a_down3": [
+      "resident_trader_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "resident_trader_w_left0": [
+      "resident_trader",
+      0,
+      32,
+      24,
+      32
+    ],
+    "resident_trader_w_left1": [
+      "resident_trader",
+      24,
+      32,
+      24,
+      32
+    ],
+    "resident_trader_w_left2": [
+      "resident_trader",
+      48,
+      32,
+      24,
+      32
+    ],
+    "resident_trader_a_left0": [
+      "resident_trader_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "resident_trader_a_left1": [
+      "resident_trader_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "resident_trader_a_left2": [
+      "resident_trader_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "resident_trader_a_left3": [
+      "resident_trader_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "resident_trader_w_right0": [
+      "resident_trader",
+      0,
+      64,
+      24,
+      32
+    ],
+    "resident_trader_w_right1": [
+      "resident_trader",
+      24,
+      64,
+      24,
+      32
+    ],
+    "resident_trader_w_right2": [
+      "resident_trader",
+      48,
+      64,
+      24,
+      32
+    ],
+    "resident_trader_a_right0": [
+      "resident_trader_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "resident_trader_a_right1": [
+      "resident_trader_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "resident_trader_a_right2": [
+      "resident_trader_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "resident_trader_a_right3": [
+      "resident_trader_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "resident_trader_w_up0": [
+      "resident_trader",
+      0,
+      96,
+      24,
+      32
+    ],
+    "resident_trader_w_up1": [
+      "resident_trader",
+      24,
+      96,
+      24,
+      32
+    ],
+    "resident_trader_w_up2": [
+      "resident_trader",
+      48,
+      96,
+      24,
+      32
+    ],
+    "resident_trader_a_up0": [
+      "resident_trader_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "resident_trader_a_up1": [
+      "resident_trader_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "resident_trader_a_up2": [
+      "resident_trader_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "resident_trader_a_up3": [
+      "resident_trader_atk",
+      96,
+      120,
+      32,
+      40
     ]
   },
   "anims": {
@@ -5637,6 +6477,302 @@
         4
       ],
       "healthBarWidth": 24
+    },
+    "resident_worker": {
+      "walk": {
+        "down": [
+          "resident_worker_w_down0",
+          "resident_worker_w_down1",
+          "resident_worker_w_down2"
+        ],
+        "left": [
+          "resident_worker_w_left0",
+          "resident_worker_w_left1",
+          "resident_worker_w_left2"
+        ],
+        "right": [
+          "resident_worker_w_right0",
+          "resident_worker_w_right1",
+          "resident_worker_w_right2"
+        ],
+        "up": [
+          "resident_worker_w_up0",
+          "resident_worker_w_up1",
+          "resident_worker_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "resident_worker_w_down1"
+        ],
+        "left": [
+          "resident_worker_w_left1"
+        ],
+        "right": [
+          "resident_worker_w_right1"
+        ],
+        "up": [
+          "resident_worker_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "resident_worker_a_down0",
+          "resident_worker_a_down1",
+          "resident_worker_a_down2",
+          "resident_worker_a_down3"
+        ],
+        "left": [
+          "resident_worker_a_left0",
+          "resident_worker_a_left1",
+          "resident_worker_a_left2",
+          "resident_worker_a_left3"
+        ],
+        "right": [
+          "resident_worker_a_right0",
+          "resident_worker_a_right1",
+          "resident_worker_a_right2",
+          "resident_worker_a_right3"
+        ],
+        "up": [
+          "resident_worker_a_up0",
+          "resident_worker_a_up1",
+          "resident_worker_a_up2",
+          "resident_worker_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 28
+    },
+    "resident_healer": {
+      "walk": {
+        "down": [
+          "resident_healer_w_down0",
+          "resident_healer_w_down1",
+          "resident_healer_w_down2"
+        ],
+        "left": [
+          "resident_healer_w_left0",
+          "resident_healer_w_left1",
+          "resident_healer_w_left2"
+        ],
+        "right": [
+          "resident_healer_w_right0",
+          "resident_healer_w_right1",
+          "resident_healer_w_right2"
+        ],
+        "up": [
+          "resident_healer_w_up0",
+          "resident_healer_w_up1",
+          "resident_healer_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "resident_healer_w_down1"
+        ],
+        "left": [
+          "resident_healer_w_left1"
+        ],
+        "right": [
+          "resident_healer_w_right1"
+        ],
+        "up": [
+          "resident_healer_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "resident_healer_a_down0",
+          "resident_healer_a_down1",
+          "resident_healer_a_down2",
+          "resident_healer_a_down3"
+        ],
+        "left": [
+          "resident_healer_a_left0",
+          "resident_healer_a_left1",
+          "resident_healer_a_left2",
+          "resident_healer_a_left3"
+        ],
+        "right": [
+          "resident_healer_a_right0",
+          "resident_healer_a_right1",
+          "resident_healer_a_right2",
+          "resident_healer_a_right3"
+        ],
+        "up": [
+          "resident_healer_a_up0",
+          "resident_healer_a_up1",
+          "resident_healer_a_up2",
+          "resident_healer_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 28
+    },
+    "resident_guard": {
+      "walk": {
+        "down": [
+          "resident_guard_w_down0",
+          "resident_guard_w_down1",
+          "resident_guard_w_down2"
+        ],
+        "left": [
+          "resident_guard_w_left0",
+          "resident_guard_w_left1",
+          "resident_guard_w_left2"
+        ],
+        "right": [
+          "resident_guard_w_right0",
+          "resident_guard_w_right1",
+          "resident_guard_w_right2"
+        ],
+        "up": [
+          "resident_guard_w_up0",
+          "resident_guard_w_up1",
+          "resident_guard_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "resident_guard_w_down1"
+        ],
+        "left": [
+          "resident_guard_w_left1"
+        ],
+        "right": [
+          "resident_guard_w_right1"
+        ],
+        "up": [
+          "resident_guard_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "resident_guard_a_down0",
+          "resident_guard_a_down1",
+          "resident_guard_a_down2",
+          "resident_guard_a_down3"
+        ],
+        "left": [
+          "resident_guard_a_left0",
+          "resident_guard_a_left1",
+          "resident_guard_a_left2",
+          "resident_guard_a_left3"
+        ],
+        "right": [
+          "resident_guard_a_right0",
+          "resident_guard_a_right1",
+          "resident_guard_a_right2",
+          "resident_guard_a_right3"
+        ],
+        "up": [
+          "resident_guard_a_up0",
+          "resident_guard_a_up1",
+          "resident_guard_a_up2",
+          "resident_guard_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 28
+    },
+    "resident_trader": {
+      "walk": {
+        "down": [
+          "resident_trader_w_down0",
+          "resident_trader_w_down1",
+          "resident_trader_w_down2"
+        ],
+        "left": [
+          "resident_trader_w_left0",
+          "resident_trader_w_left1",
+          "resident_trader_w_left2"
+        ],
+        "right": [
+          "resident_trader_w_right0",
+          "resident_trader_w_right1",
+          "resident_trader_w_right2"
+        ],
+        "up": [
+          "resident_trader_w_up0",
+          "resident_trader_w_up1",
+          "resident_trader_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "resident_trader_w_down1"
+        ],
+        "left": [
+          "resident_trader_w_left1"
+        ],
+        "right": [
+          "resident_trader_w_right1"
+        ],
+        "up": [
+          "resident_trader_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "resident_trader_a_down0",
+          "resident_trader_a_down1",
+          "resident_trader_a_down2",
+          "resident_trader_a_down3"
+        ],
+        "left": [
+          "resident_trader_a_left0",
+          "resident_trader_a_left1",
+          "resident_trader_a_left2",
+          "resident_trader_a_left3"
+        ],
+        "right": [
+          "resident_trader_a_right0",
+          "resident_trader_a_right1",
+          "resident_trader_a_right2",
+          "resident_trader_a_right3"
+        ],
+        "up": [
+          "resident_trader_a_up0",
+          "resident_trader_a_up1",
+          "resident_trader_a_up2",
+          "resident_trader_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 28
     }
   },
   "ui": {

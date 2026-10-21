@@ -1,0 +1,185 @@
+{
+  "scope": "Isolated original general monastery flagstone only; no game/build/browser/GPU execution.",
+  "result": "PASS",
+  "nativeTile": [
+    16,
+    16
+  ],
+  "sheet": [
+    256,
+    256
+  ],
+  "frameKeys": [
+    "kt_floor_q0",
+    "kt_floor_q1",
+    "kt_floor_q2",
+    "kt_floor_q3"
+  ],
+  "macroVariantCount": 4,
+  "nativeAddressableSamples": 256,
+  "distinctNativeSamplePixels": 241,
+  "pngCRCAndRGBAValid": true,
+  "alphaValues": [
+    255
+  ],
+  "paletteOnly": true,
+  "paletteColors": 11,
+  "svgRectangleCount": 8159,
+  "svgMatchesEveryRGBAPixel": true,
+  "noSVGExternalImageOrReference": true,
+  "allMacroFramesDistinct": true,
+  "allNativeSubRectanglesInBoundsAndReassembleExactly": true,
+  "allOrderedMacroPairsMatchBothAxes": [
+    {
+      "from": 0,
+      "to": 0,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 0,
+      "to": 1,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 0,
+      "to": 2,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 0,
+      "to": 3,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 1,
+      "to": 0,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 1,
+      "to": 1,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 1,
+      "to": 2,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 1,
+      "to": 3,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 2,
+      "to": 0,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 2,
+      "to": 1,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 2,
+      "to": 2,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 3,
+      "to": 0,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 3,
+      "to": 1,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 3,
+      "to": 2,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    },
+    {
+      "from": 3,
+      "to": 3,
+      "leftRightEdgeMatches": true,
+      "topBottomEdgeMatches": true
+    }
+  ],
+  "edgePairChecks": 32,
+  "samplerMatchesCurrentRendererQAnd16pxSubRule": true,
+  "samplerTilesChecked": 640,
+  "samplerSize": [
+    512,
+    320
+  ],
+  "contactSize": [
+    1056,
+    1060
+  ],
+  "sourceHashesMatch": true,
+  "nativeRGBRange": {
+    "min": 52,
+    "max": 123
+  },
+  "unchangedContract": "Only kt_floor sheet URL is proposed. Existing frame keys/rectangles retained. CdFloor20, walls, Def, mapgen, rendering and lighting excluded.",
+  "nativeFiles": [
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-contact.png",
+      "sha256": "43a2e0fcfdc6effcb59b4f18afe4e7a90331443ae8fd2c6c41de4b1cf962d9df",
+      "bytes": 41311
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-palette.json",
+      "sha256": "9dd354e06cc9e0b801f0c9d6ce5574d73a7db40bb8e7f719808ffe08a6e0ce1e",
+      "bytes": 201
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-sampler.png",
+      "sha256": "c9bbfd49d5e35d61628d0f3826affa020781072038744639fd90083ddf034db6",
+      "bytes": 11950
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor-source.json",
+      "sha256": "e4e4789952d8bf3c107835b43aabbbdbcfa83598342569492a229cee27ab5f69",
+      "bytes": 2542
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor.png",
+      "sha256": "bf5013c830e807ab529cce411da955191e5cb28b1a6b6d9de9ee5a30e5caf457",
+      "bytes": 5807
+    },
+    {
+      "path": "public/sprites/original/ashveil-monastery-floor.svg",
+      "sha256": "890a364117b2b549274474bd875e8587a3ae95d6c772b697ea36fc79a1a455f7",
+      "bytes": 500087
+    }
+  ],
+  "notVerified": [
+    "Actual engine display or browser input",
+    "Baked asset against all real lighting/preferences",
+    "Game integration/Def/memory/save regressions",
+    "Visual blending with existing walls and contaminated floors"
+  ]
+}

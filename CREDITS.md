@@ -94,3 +94,13 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - 융합체의 살아 있는 환자 실루엣/기존6+방향형28포즈와 수리 드론의6족/냉각판/공구·활성/정지32포즈는 자체 픽셀 좌표로 직접 그렸다. [융합체 원본·출처](docs/art-amalgam-original.md) · [드론 원본·출처](docs/art-drone-original.md).
 
 - 그늘 우두머리의 작은 인간 외형·옷깃·꿰맨 앞자락과28포즈는 자체 픽셀 좌표로 직접 그렸다. [출처/재현](docs/art-shade-chief-original.md).
+
+- 주민 전용28포즈와 실제 알약6종은 자체 픽셀 좌표로 직접 제작했다. 플레이어hero와 별도 자산이며 약물효과 문양을 넣지 않았다. [주민원본](docs/art-resident-original.md) · [알약원문](tools/art/pills/SOURCE.md).
+
+- 의원/간병인의 묶은 머리·생활복·앞치마와28포즈는 새 정수 픽셀 좌표로 직접 그렸다. [원본/출처/재현](docs/art-healer-original.md).
+
+- 주민 경비의 넓은 어깨·짧은 천 외투/묶은 소매와28포즈는 직접 작성한 픽셀 좌표다. [원본/출처](docs/art-guard-original.md).
+
+- ASHVEIL 원본 상인 28자세: 프로젝트를 위해 직접 제작. [출처와 재현](docs/art-trader-original.md).
+
+- ASHVEIL 수도원 석판 원본: 직접 작성한4매크로·256샘플. [출처와 재현](docs/art-monastery-floor-original.md).
