@@ -4,7 +4,7 @@ import {activityStep,consumeFor,perform} from '../src/core/actions'
 import {boiledMealQuote,warmMealGain} from '../src/core/boiled-meal'
 import {craftError,startCraft} from '../src/core/crafting'
 import {campfireAt,extinguishCampfire,startFireWork} from '../src/core/campfire'
-import {tileAt,turnOf,TURNS_PER_HOUR} from '../src/core/ctx'
+import {tileAt,TURNS_PER_HOUR} from '../src/core/ctx'
 import {ageFood} from '../src/core/food-safety'
 import {waterSafetyDef,treatedWater} from '../src/core/water-state'
 import {drinkVolume} from '../src/core/wash-water'
@@ -15,6 +15,7 @@ import {readPackages} from '../tools/loadContent'
 import type {RecipeDef} from '../src/core/types'
 import {finishBase} from './base-camp-fixture'
 import {boiledMealFixture as setup} from './boiled-meal-fixture'
+import {cultivationStatus} from '../src/core/cultivation'
 function cook(d:ReturnType<typeof setup>){expect(startCraft(d.w,d.p,d.recipe,1)).toBeNull();finishBase(d.w,d.p);return d.p.bag.find(i=>i.uid===d.bowl.uid)!}
 describe('원래 곡물·실제 물과 같은 그릇의 따뜻한 귀리죽',()=>{
  it('견적은 실제 원래 물220ml/그릇과 같은 유한 불을 읽기만 한다',()=>{
@@ -80,8 +81,8 @@ describe('원래 곡물·실제 물과 같은 그릇의 따뜻한 귀리죽',()=
  it('규칙 변경은 같은 원래 진행을 새 물량/조리 결과로 바꾸지 않는다',()=>{
   const d=setup();startCraft(d.w,d.p,d.recipe,1);activityStep(d.w,d.p);d.w.db=loadMods([...readPackages(),{manifest:{id:'changed.meal',name:'다른 죽',version:'1'},defs:[],patches:[{op:'replace',target:d.recipe,path:'/boiledMeal/waterMl',value:221}]}],['changed.meal']).db;activityStep(d.w,d.p);expect(d.p.activity).toBeUndefined();expect(d.oats.count).toBe(3);expect(drinkVolume(d.w,d.bottle)).toBe(1000)
  })
- it('실제 씨앗을 심으면 원래 흙/성장 시각과 귀리5묶음 수확을 연결한다',()=>{
-  const d=setup(),seed=d.add('Item.OatSeed'),pos={x:20,y:19};expect(perform(d.w,d.p,{type:'place',uid:seed.uid,dir:0}).ok).toBe(true);const tile=tileAt(d.w,pos);expect(tile.t).toBe('Terrain.OatPlot');expect(tile.gatherAt).toBeGreaterThan(turnOf(d.w));expect(perform(d.w,d.p,{type:'gather',pos}).ok).toBe(false);d.s.time=tile.gatherAt!*100;expect(perform(d.w,d.p,{type:'gather',pos}).ok).toBe(true);finishBase(d.w,d.p);expect(d.p.bag.filter(i=>i.def==='Item.Oats').reduce((n,i)=>n+i.count,0)).toBe(8)
+ it('새 귀리 종자는 실제 성장 상태로 시작하며 시각만 넘겨 수확하지 못한다',()=>{
+  const d=setup(),seed=d.add('Item.OatSeed'),pos={x:20,y:19};expect(perform(d.w,d.p,{type:'place',uid:seed.uid,dir:0}).ok).toBe(true);const tile=tileAt(d.w,pos);expect(tile.t).toBe('Terrain.OatPlot');expect(tile.gatherAt).toBeUndefined();expect(cultivationStatus(d.w,pos)).toMatchObject({valid:true,ready:false,waterMl:0});expect(perform(d.w,d.p,{type:'gather',pos}).ok).toBe(false);d.s.time+=144000*100;expect(perform(d.w,d.p,{type:'gather',pos}).ok).toBe(false);expect(d.oats.count).toBe(3)
  })
  it('구형72의 몸/원래 물품/진행을 보존하고 가짜 뜨거운 음식을 만들지 않는다',()=>{
   const d=setup(),old=JSON.parse(serialize(d.s));old.version=72;const restored=deserialize(JSON.stringify(old));expect({...restored,version:72}).toEqual(old);expect(restored.version).toBe(SAVE_VERSION)

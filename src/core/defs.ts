@@ -897,6 +897,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       if(!isObj(r))report.errors.push(`${d.id}: rumors 규정 오류`)
       else{
         if(r.publicOutbreaks!==undefined&&typeof r.publicOutbreaks!=='boolean')report.errors.push(`${d.id}: rumors.publicOutbreaks 참/거짓 필요`)
+        if(r.publicFoodSupply!==undefined&&typeof r.publicFoodSupply!=='boolean')report.errors.push(`${d.id}: rumors.publicFoodSupply 참/거짓 필요`)
         if(r.publicNames!==undefined&&typeof r.publicNames!=='boolean')report.errors.push(`${d.id}: rumors.publicNames 참/거짓 필요`)
         if(r.landRoutes!==undefined&&typeof r.landRoutes!=='boolean')report.errors.push(`${d.id}: rumors.landRoutes 참/거짓 필요`)
         if(r.firstImpressionCap!==undefined){if(typeof r.firstImpressionCap!=='number')report.errors.push(`${d.id}: rumors.firstImpressionCap 숫자 필요`);else range(d.id,'rumors.firstImpressionCap',r.firstImpressionCap,0,100,true)}

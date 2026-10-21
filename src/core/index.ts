@@ -95,6 +95,7 @@ export * from './economy'
 export * from './settlements'
 export * from './world-simulation'
 export * from './settlement-supply'
+export * from './public-food-supply'
 export * from './drug-state'
 export * from './pharmacology'
 

@@ -1,0 +1,112 @@
+{
+  "created": "2026-10-21",
+  "scope": "격리 아트 제작을 위한 Root 원문 읽기 스냅샷. 실제 Def DB/월드/패치 엔진 검증 아님.",
+  "referenceFiles": [
+    {
+      "path": "CLAUDE.md",
+      "sha256": "f22335fe7cdf0bc62f9521e8a739d6294bfd25457299ce8b3ab7774e5c230258"
+    },
+    {
+      "path": "docs/CANON.md",
+      "sha256": "fc6dcde298c5bdf18b1e648507abdd4b29c2d990b7a4c888a2957d7b586f72f7"
+    },
+    {
+      "path": "src/content/core/defs/oatmeal.json",
+      "sha256": "4238d7744433d332d241cf872b6bd5e71c69337d548474aee4c26aad5881853b"
+    },
+    {
+      "path": "src/client/ui/ItemIcon.vue",
+      "sha256": "f9abb6a4b7a49708b3aadb8c01f66026b3fc56c4d93aab6046596c0905429982"
+    },
+    {
+      "path": "src/client/sprites.json",
+      "sha256": "38f12e7bdbbdff82222ea0dc051c1282fc7fbc0468549c08d585308df21e163b"
+    },
+    {
+      "path": "docs/art-egg-originals.md",
+      "sha256": "4d960b71a2285f6f0863e462c0ff71c97343406acd51379aa16cc9f2991303a2"
+    },
+    {
+      "path": "docs/art-crop-icons-original.md",
+      "sha256": "4236e60b801360f774eb5d801970768d06add3012babe1cf983a2d6d99f50119"
+    },
+    {
+      "path": "tools/art/egg-manifest.fragment.json",
+      "sha256": "f66a649503b754669522c9e6beb0de550ed753aeabea22dc6cd4171ac712ea7d"
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-egg-palette.json",
+      "sha256": "35dfd6d829ffefe12b43aa088fcfad2f0d6daf695bfc75e52a340a5f5bc401ca"
+    }
+  ],
+  "rawTargets": [
+    {
+      "defType": "Item",
+      "id": "Item.Oats",
+      "label": "귀리",
+      "description": "죽을 끓일 실제 곡물.",
+      "sprite": "ash_cap",
+      "category": "misc",
+      "weight": 0,
+      "value": 5,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5
+    },
+    {
+      "defType": "Item",
+      "id": "Item.OatSeed",
+      "label": "귀리 씨앗",
+      "description": "빈 흙에 심으면 귀리가 자란다.",
+      "sprite": "ash_cap",
+      "category": "misc",
+      "weight": 0,
+      "value": 5,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "place": "Terrain.OatPlot"
+    }
+  ],
+  "contextIdsPreserved": [
+    "Item.Bowl",
+    "Item.OatmealBowl",
+    "Terrain.OatPlot",
+    "Recipe.Oatmeal"
+  ],
+  "proposedPublicKeys": {
+    "Item.Oats": "original_hearth_oats",
+    "Item.OatSeed": "original_hearth_oat_seed"
+  },
+  "newKeysAbsentInCapturedRootManifest": true,
+  "nativeSize": [
+    32,
+    32
+  ],
+  "smallPreviewSize": [
+    16,
+    16
+  ],
+  "sharedArtGroundBottomEdge": 30,
+  "optionalArtFootPoint": [
+    16,
+    30
+  ],
+  "view": "정면에서 조금 위를 내려다보는 기존 물품 도트 시점",
+  "visualOnly": true,
+  "integrationApplied": false,
+  "uiContract": "ItemIcon은 요청한 정사각형 크기에 max(frame.w,frame.h) 비율로 맞추고 가운데 정렬한다. 이번 조각은 완전한32px 프레임만 제공한다.",
+  "semanticLimits": [
+    "실제 스택 수량을 알갱이 수로 표현하지 않음",
+    "곡물은 조리 재료이며 새 생식 기능/영양을 만들지 않음",
+    "씨앗 주머니와 이삭은 발아율·수확·신선도·청결 보장 아님",
+    "Terrain.OatPlot/Recipe.Oatmeal/Bowl/OatmealBowl 변경 없음"
+  ],
+  "helperReuseDisclosure": "자체 CC0 Canvas/PNG/SVG/최근접 도구 코드와 공통 재질색 일부만 재사용. 기존 음식/주머니의 그림 좌표·픽셀은 복사하지 않고 새로 작성."
+}

@@ -381,6 +381,10 @@ export function deserialize(json: string): GameState {
   if(s.version===199)s.version=200
   // 과거 수급 부족이나 사망을 소급 정산하지 않는다. 다음 실제 완료일에만 장부를 쓴다.
   if(s.version===200)s.version=201
+  // 과거 식량 부족의 공고나 주민 지식을 새로 만들지 않는다.
+  if(s.version===201)s.version=202
+  // 기존 귀리 밭의 수확 시각/물품은 유지하고 과거 햇빛·물·오염을 추정하지 않는다.
+  if(s.version===202)s.version=203
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
   if(s.defSchemaVersion!==undefined&&(!Number.isSafeInteger(s.defSchemaVersion)||s.defSchemaVersion<=0))throw new Error('각인의 정의 스키마 버전 기록 형식이 올바르지 않다')

@@ -321,7 +321,8 @@ export function finishGather(w: World, c: Creature) {
   const fertility=def.soilDependent?towerSoilFertility(w):1
   if(fertility<=0)return
   dirtyHands(w, c)
-  const contamination=w.db.item(def.item).food?cropHarvestContaminants(w,p,def.count):{}
+  // 직접 먹지 않는 실제 재배 곡물도 관수에서 옮은 오염을 조리 재료까지 보존한다.
+  const contamination=tileAt(w,p).cultivation||w.db.item(def.item).food?cropHarvestContaminants(w,p,def.count):{}
   const origin=w.db.item(def.item).food?residentHarvestOrigin(w,c,p):undefined
   receive(w,c,def.item,def.count,undefined,undefined,undefined,undefined,undefined,undefined,undefined,contamination.ash,undefined,contamination.water,origin)
   if(tileAt(w,p).cultivation)resetCultivation(w,p)

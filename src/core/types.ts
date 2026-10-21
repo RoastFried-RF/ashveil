@@ -1647,6 +1647,8 @@ export interface PopulationState {
   deathCarry: number
 }
 export interface WorldSettlement {
+  /** 실제 새 정산에서 공개한 배급 공고의 마지막 상태. 구형 이력을 소급하지 않는다. */
+  supplyNotice?: { day: number; unmet: boolean }
   /** 마지막 완료일의 실제 공동 소비 정산. 과거 미기록 날짜는 소급하지 않는다. */
   lastSupply?: { day: number; population: number; commodities: Partial<Record<Commodity, SettlementSupplyLine>> }
   residentDeaths?: number[]
@@ -1669,7 +1671,7 @@ export interface SettlementSupplyLine {
   residentUsed: number
 }
 export type RumorDistortion='count'|'place'|'faction'|'when'
-export interface RumorNetworkRules {landRoutes?:boolean;publicNames?:boolean;firstImpressionCap?:number;publicOutbreaks?:boolean;cellsPerDay:number;chatterDays:[number,number];accuracyLoss:[number,number];minAccuracy:number;maxAgeDays:number;neighbors:number;countMultiplier:number;distortionWeights:[number,number,number,number,number];suspicionPerPer:number;factions:string[]}
+export interface RumorNetworkRules {landRoutes?:boolean;publicNames?:boolean;firstImpressionCap?:number;publicOutbreaks?:boolean;publicFoodSupply?:boolean;cellsPerDay:number;chatterDays:[number,number];accuracyLoss:[number,number];minAccuracy:number;maxAgeDays:number;neighbors:number;countMultiplier:number;distortionWeights:[number,number,number,number,number];suspicionPerPer:number;factions:string[]}
 export interface RumorPacket {key:string;from:string;to:string;due:number;rumor:Rumor}
 export interface RumorNetworkState {towns:Record<string,Rumor[]>;pending:RumorPacket[];seen:Record<string,number>;sent:Record<string,number>}
 export interface WorldSimulationState { nextItemId?: number; marketDay: number; day: number; settlements: Record<string, WorldSettlement> }

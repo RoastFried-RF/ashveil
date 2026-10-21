@@ -1,0 +1,96 @@
+{
+  "created": "2026-10-21",
+  "scope": "읽기 시점 지형 원문/렌더러 관찰. 실제 게임 실행 아님.",
+  "referenceFiles": [
+    {
+      "path": "CLAUDE.md",
+      "sha256": "f22335fe7cdf0bc62f9521e8a739d6294bfd25457299ce8b3ab7774e5c230258"
+    },
+    {
+      "path": "docs/CANON.md",
+      "sha256": "fc6dcde298c5bdf18b1e648507abdd4b29c2d990b7a4c888a2957d7b586f72f7"
+    },
+    {
+      "path": "src/content/core/defs/oatmeal.json",
+      "sha256": "4238d7744433d332d241cf872b6bd5e71c69337d548474aee4c26aad5881853b"
+    },
+    {
+      "path": "src/client/render/MapRenderer.ts",
+      "sha256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721"
+    }
+  ],
+  "rawTerrain": {
+    "defType": "Terrain",
+    "id": "Terrain.OatPlot",
+    "parent": "Terrain.Floor",
+    "label": "귀리 밭",
+    "sprites": [
+      "mushrooms"
+    ],
+    "passable": true,
+    "opaque": false,
+    "gather": {
+      "item": "Item.Oats",
+      "count": 5,
+      "turns": 12,
+      "regrowTurns": 144000,
+      "soilDependent": true
+    },
+    "visual": {
+      "sprite": "mushrooms",
+      "scale": 0.3,
+      "tint": 11704912
+    }
+  },
+  "key": "original_hearth_oat_plot",
+  "nativeSize": [
+    32,
+    32
+  ],
+  "smallSize": [
+    16,
+    16
+  ],
+  "sharedGroundBottomEdge": 30,
+  "optionalArtFootPoint": [
+    16,
+    30
+  ],
+  "rendererObserved": {
+    "anchor": [
+      0.5,
+      0.96
+    ],
+    "worldPositionFromTile": [
+      8,
+      16
+    ],
+    "baseScaleFromDef": 0.3,
+    "immatureMultiplier": 0.6,
+    "matureMultiplier": 1,
+    "tintFromDef": 11704912,
+    "condition": "terr.gather && (tile.cultivation ? growth < regrowTurns : gatherAt > turnOf(w))",
+    "wholeFrameScales": true
+  },
+  "recommendationOnly": {
+    "baseScale": 0.65,
+    "tint": "omit or white for authored colors",
+    "matureFrameWorldSize": [
+      20.8,
+      20.8
+    ],
+    "immatureFrameWorldSize": [
+      12.48,
+      12.48
+    ],
+    "nativeAnchorY": 30.72,
+    "nativeBottomEdgeMinusAnchor": -0.72,
+    "matureBottomEdgeMinusAnchorWorld": -0.468,
+    "notADefPatch": true
+  },
+  "samePaletteAsOwnOatPack": true,
+  "ownOatPaletteSha256": "c4ef8fbfff9f395b4a75c439b4a164c554dc143296088972d9d9365c0c64874c",
+  "reuse": "자체 일반 도트/PNG/SVG 도구와18재질색만 재사용. 기존 알곡/주머니 geometry·픽셀 복사/확대 없음.",
+  "visualOnly": true,
+  "integrationApplied": false
+}

@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "checkpoint": "immutable v299-input",
+  "app": "index-CU7c7wuV.js",
+  "save": 203,
+  "native": {
+    "screenshots": 12,
+    "roundtrips": 6,
+    "phases": 23,
+    "actualInputTU": 43200,
+    "errors": []
+  },
+  "all23WholeActualExpectedPairsEqual": true,
+  "all6WholeSaveRestoresEqual": true,
+  "legacy202To203VersionOnlyWholeEquality": true,
+  "inputToCompletionSource": {
+    "src": {
+      "files": 681,
+      "allBytesIdentical": true
+    },
+    "dist": {
+      "files": 943,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 544,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1066,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 256,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "finiteSources": {
+    "seedUid": 47,
+    "seedCountBefore": 3,
+    "seedCountAfter": 2,
+    "irrigationBottleUid": 48,
+    "initialIrrigationMl": 1000,
+    "originalCleanGrainUid": 49,
+    "originalCleanGrainCount": 2,
+    "originalFireUid": 51,
+    "originalWoodUid": 52,
+    "originalBowlUid": 53,
+    "originalCookingBottleUid": 54,
+    "originalCookingWaterMl": 600,
+    "harvestGrainUid": 55,
+    "harvestCount": 5,
+    "harvestRemaining": 4,
+    "cookingWaterRemainingMl": 380
+  },
+  "cultivation": {
+    "totalRequiredValidGrowthTurns": 144000,
+    "firstPlantActualTU": 100,
+    "firstWaterActualTU": 100,
+    "firstValidGrowthTurns": 1,
+    "firstWaterUnits": 143998880,
+    "nearRipeDeclaredInitialGrowth": 143997,
+    "nearRipeDeclaredInitialWaterUnits": 3360,
+    "actualFinalGrowthTurns": 3,
+    "harvestActualTU": 1200,
+    "harvestDosePerGrain": {
+      "exposureWaterMl": 20,
+      "pathogenConcentration": 60,
+      "ashDose": 0.04
+    },
+    "cleanGrainsPreservedSeparate": true
+  },
+  "cooking": {
+    "oneHarvestGrainConsumed": true,
+    "rawProgress": 1,
+    "actualRemainingHotTurns": 399,
+    "totalActualHotTurns": 400,
+    "originalBowlUidQualityDurabilityPreserved": true,
+    "rawExposureMetadataMl": 240,
+    "rawPathogen": 5,
+    "nutritiveMealWaterMl": 220,
+    "cookingFreshWaterConsumedMl": 220,
+    "boiledPathogenRemoved": true,
+    "ashDoseRemains": 0.04,
+    "actualMealKcalBeforeNormalMetabolism": 300,
+    "originalCleanGrainOnFloor": 2
+  },
+  "limits": "Threefiniteinitialscenes loadedviarealTitleContinue. Actualkey/mouseplant/water3growthwaits/harvest12T/grainsetaside/prepare1T/399remaininghotT/take1T/eat1T/legacydeadline1T/harvest12T; independentNodeWHOLEaftereachphase. DeclarednearRipeinitialgrowthtotal-3, not143997pastvalidturns or5calendar-dayplay. Actualcrop1000ml+separateinitialcooking600ml;20mlpergrainisexistingexposuremetadata, noextra nutritionalwater beyond220ml. Legacy202header samecurrentfinite oldtimedplot, not historicaluserfile. No postloadworld/time/RNG/material injection, noNPCproduction/fullfamine/ecologycompletion.",
+  "rootDirectlyViewedNativePNGs": [
+    1489,
+    1490,
+    1494,
+    1495,
+    1497
+  ],
+  "independentVisualReview": "Separate original-art agent review; see ui-v299-oat-art-review.json. First run succeeded; no postload edits, forced success, or screenshot retouching."
+}
