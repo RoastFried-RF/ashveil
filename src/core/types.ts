@@ -1263,6 +1263,7 @@ export interface ClimateDef extends DefBase {
 }
 
 export interface WorldGenDef extends DefBase {
+  territory?:{maxCost:number;roadCost:number;landCost:number;riverCost:number;riseMetersPerCost:number}
   cropIrrigationTransfer?:{pathogenFraction:number;ashFraction:number}
   cropEvaporationMlPerHour?:number
   mapWorkers?:{surface?:string;dungeon?:string}
@@ -2557,6 +2558,8 @@ export interface StorytellerState {
 }
 
 export interface WorldCell {
+  /** 새 월드의 초기 육로 영향권. 구형 세계에는 소급하지 않는다. */
+  territory?:string
   altitude: number
   rain: number
   temperature: number
@@ -2569,7 +2572,7 @@ export interface WorldCell {
   oldRoad?: boolean
   resources: { wood: number; herbs: number; ore: number; game: number; scrap: number }
 }
-export interface WorldObservation {at:number;source:'initial'|'arrival'|'survey';cell:Pick<WorldCell,'altitude'|'temperature'|'veil'|'biome'|'sea'|'road'|'oldRoad'|'river'|'lake'>}
+export interface WorldObservation {at:number;source:'initial'|'arrival'|'survey';cell:Pick<WorldCell,'altitude'|'temperature'|'veil'|'biome'|'sea'|'road'|'oldRoad'|'river'|'lake'|'territory'>}
 export interface WorldTower { id: string; cell: Pos; output: number; radius: number; history?: { turn: number; output: number }[]; shutdown?:TowerShutdown }
 export interface TowerShutdown {turn:number;seasonTurns:number;startOutput:number;radius:number;veilTarget:number;sunBonus:number;soilDelayTurns:number;soilCollapseTurns:number;neighborBoosts:{id:string;amount:number}[]}
 export interface WorldSite { id: string; label: string; description: string; cell: Pos; kind: RegionSiteDef['kind']; faction?: string; population?: number; facilities?: boolean }

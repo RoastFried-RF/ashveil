@@ -1,0 +1,1519 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21T01:37:29.959792+00:00",
+  "reviewer": "character_art",
+  "status": "passed direct review of16 final PNGs with explicit modal-scroll, input-evidence and preview limitations",
+  "scope": {
+    "directlyViewedPNGCount": 16,
+    "nativeFinalSecondPNGCount": 8,
+    "common1440PNGCount": 4,
+    "common1366PNGCount": 4,
+    "excludedEarlierNativeDirectory": "test-results/world-territories-browser-v289 (first not included)",
+    "productImageEdits": false,
+    "browserGPUHeavyProjectChecksOrGitRun": false,
+    "onlyProjectFileWrittenInThisRenderedReview": "docs/ui-v289-reviewed-pngs.json"
+  },
+  "provenance": [
+    {
+      "path": "test-results/world-territories-browser-v289-second/audit.json",
+      "sha256": "e038771d660e45ecdd1f61da74f7f499dfd932d0709cef4f1f0adde3f347fe2f"
+    },
+    {
+      "path": "docs/world-territories-v289-native-audit.json",
+      "sha256": "e038771d660e45ecdd1f61da74f7f499dfd932d0709cef4f1f0adde3f347fe2f"
+    },
+    {
+      "path": "docs/game-harness-v289-audit.json",
+      "sha256": "89efb1730c1d1c0295a3befdea1bc7e524fbd07b9bf99f16fd0f3c91ee771551"
+    },
+    {
+      "path": "test-results/world-territories-v289-native-source-proof.json",
+      "sha256": "92ff7ad1a3a0c3954ad9ec9099545496e50db2214f7ce507d8802a4e47a561ff"
+    }
+  ],
+  "evidenceBoundary": {
+    "pixels": "Directly observed panel/text/selection/dated-record/icon/color/occlusion and viewport bounds in these16 original stills.",
+    "JSON": "Exact version, owner/observations, UID, uses, time and fullWorld comparisons are actual/expected JSON evidence, not pixel guesses.",
+    "inputAudit": "Real TitleContinue/tab/border/zoom/canvaspick/recenter/survey/pour sequence is supplied audit evidence. Reviewer did not replay pointer events or verify raw coordinates in a separate screen.",
+    "fixtureHistory": "Main explicitly contains an old guild record differing from actual coalition. No claim past movement, territory change or crafting occurred. Seven items/300ml/emptybucket are finite test conditions, not normal new-game gifts."
+  },
+  "entries": [
+    {
+      "path": "test-results/world-territories-browser-v289-second/1402-native-actual-boundary-shows-only-dated-old-territory-record.png",
+      "sha256": "80a1f197979004500f73e71f245c05c8e1f0198c2092b8bded6388cff7cdd3a1",
+      "bytes": 321249,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "선택 좌표(3,40), 날짜 있는 지형 관찰과 당시 영향권 고물길드 문구가 읽힌다. 확대 지도·노란 선택 테두리/흰 위치 점·경계 표시 토글·전체 지도/내 위치 컨트롤이 보인다. 현재 실제coalition은 JSON 사실이며 관찰 전 UI가 미리 공개했다고 주장하지 않는다.",
+        "1440×1080에서 지도 창/닫기·캔버스·주변 지형 기록 갱신(1턴)·종이 지도 설명/비활성 버튼이 화면 안에 보인다. 하단 여백이 작고 underlying HUD는 일부 가린다.",
+        "Audit에 실제zoom/canvaspick/recenter입력이 기록되어 있고 관련 phase wholeWorld 불변이다. 중간 다른좌표 선택PNG나 원시 클릭좌표는 이 최종 스틸로 확인하지 않았다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/read-only-old-territory-observed-border-zoom-and-actual-canvas-picking-actual.json",
+        "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a",
+        "timeTU": 4320000,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1403-native-actual-one-turn-observation-current-real-land-influence.png",
+      "sha256": "4ef4abb4452de2f1e2e91c38ac97e654eed6c753912185d6cfb9b1ae31607fd1",
+      "bytes": 326108,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "실제 관찰 뒤 같은 선택 지점의 당시 영향권이 고원 촌락연합으로 바뀐 화면을 직접 확인했다. 로그에 주변 지형을 실제로 살펴 기록을 갱신했다는 문구가 보인다.",
+        "날짜 있는 기록·경계/확대 컨트롤·관찰 버튼이 보이며 정확한100TU와 실제owner/record값은 JSON 근거다. 미관찰 영역 전체의 현재owner가 공개된 것으로 해석하지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/actual-one-turn-survey-updates-only-real-nearby-territory-records-actual.json",
+        "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9",
+        "timeTU": 4320100,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1404-native-seven-real-vessel-salt-eye-cell-draught-and-ampoule-icons.png",
+      "sha256": "c4c94c6986d591343d861343f85c09d6cd7674c8153e4437c9e0a84cbd0d8b3e",
+      "bytes": 286787,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "소금결정·인공유리눈·두접점전원셀·둥근약초탕·가는앰플·닫힌물병·나무양동이7원본을 소지품에서 직접 확인했다. 물병1×2와양동이2×2점유, 전체창테두리/닫기가 보인다.",
+        "그림에 고정 수량/물 수면/수질/효능/충전 정답 표식은 보이지 않는다. 유한 초기300ml/빈양동이/UID는 JSON·audit 사실이며 정상새게임지급을 뜻하지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/actual-one-turn-survey-updates-only-real-nearby-territory-records-actual.json",
+        "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9",
+        "timeTU": 4320100,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1405-native-real300ml-transfer-keeps-original-bottle-and-bucket-uids.png",
+      "sha256": "567db337db7596a26d6021690ea44eb99a534040c2938db786609c73a106c98a",
+      "bytes": 291784,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "붓기 뒤에도 같은7아이콘과 동일 물병/양동이 외형이 남고, 로그에 물300ml를 옮겼으며 소금/오염도 함께 옮겼다는 문구가 보인다.",
+        "UID75/76·실제uses1.5→0/0→1.5와 전달량은 JSON/audit로 확인했다. 소지품 창·하단HUD·로그가 화면안에 보이며 검은 월드배경으로 상태 손실을 추정하지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/actual-one-turn-pour-original300ml-to-same-empty-wood-bucket-actual.json",
+        "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa",
+        "timeTU": 4320200,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1406-native-whole196-restored-same-boundary-and-original-records.png",
+      "sha256": "f2722607c9cd5c691e99d0ae93267e8414a9e8b1a0564e7a2fc300a82e6cb776",
+      "bytes": 325748,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "복원 뒤 날짜 있는 기록/선택(3,40)/당시 영향권 고원 촌락연합과 확대지도가 보인다. 경계토글은 이 스틸에서꺼져있어1402켜짐과 구분된다.",
+        "지도창과 하단 관찰/종이 지도 컨트롤이1440×1080에 보인다. 시각 토글을 실제 세력 변화로 해석하지 않고 저장복원 일치는 관련 actual JSON에서 확인했다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/whole196-restored-same-original-territories-and-dated-observations-actual.json",
+        "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9",
+        "timeTU": 4320100,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1407-native-small-screen-dated-territory-record-and-real-map.png",
+      "sha256": "d687b45dbd6f6eac261c212ae9b29420c396fa16aaad31c1b70f64560d892675",
+      "bytes": 264391,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "1366×768에서 지도창외곽/고정제목·닫기·상단선택정보/당시영향권/확대/내위치/경계토글은 보인다.",
+        "긴 본문은 아래쪽에서 잘려 전체캔버스와 하단관찰·종이지도버튼이 현재스크롤위치에동시에보이지 않는다. 창은HUD/로그일부를가린다. 작은화면전체무클리핑PASS로표시하지 않는다.",
+        "해상도변경후 wholeWorld/7UID/관찰/300ml상태불변은JSON근거다. 이스틸에서스크롤입력을재생하지않았다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/small-world-map-read-only-same-entire196-actual.json",
+        "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa",
+        "timeTU": 4320200,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1408-native-legacy195-no-invented-territories-or-past-records.png",
+      "sha256": "b3739b6208024f2a97e1edaa32914c78f7bb9fd8aec3539155a532b2b047beb2",
+      "bytes": 279203,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "옛195호환fixture의 지도에서 당시영향권기록없음을확인했다. 지형관찰기록은남고 임의세력이름은붙지않는다.",
+        "전체축척에드문알려진장소점과작은관찰지형영역이보인다. 선택지점확대/내위치/경계토글이있고 아래본문은현재스크롤위치에서잘린다. 미기록영향권과기존지형관찰을구분한다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/legacy195-only-version-upgraded-no-territories-invented-actual.json",
+        "sha256": "d11abd212c70d108fdcb2c39e85577e404342a4a962917fe5585322113164579",
+        "timeTU": 4320000,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/world-territories-browser-v289-second/1409-native-legacy-real-survey-preserves-unknown-initial-territory.png",
+      "sha256": "ce5196fd7c01f3f3504f2078ff4541923736f9d494e33fc6c26c6c3bf772e058",
+      "bytes": 282817,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native second finite fixture via actual Title Continue; not normal new-game grants",
+      "observations": [
+        "옛195세계에서실제관찰후에도 당시영향권기록없음이유지된다. 실제관찰갱신로그가보여도새과거소유기록을생성했다는뜻은아니다.",
+        "본문이아래로스크롤된화면이다. 하단관찰(1턴)/종이지도설명/비활성그리기버튼이보이는대신상단선택정보일부가고정제목아래에서잘린다. 제목/닫기는남아있다.",
+        "실제cells와worldObservations에territory필드가끝까지없고version만196으로옮겨졌는지는JSON근거다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/world-territories-browser-v289-second/actual-legacy-survey-does-not-create-initial-territories-actual.json",
+        "sha256": "6702a1717fd52c079533d856ae3748a426d958380e688ffbc0c80831246442d3",
+        "timeTU": 4320100,
+        "version": 196,
+        "association": "Related named flow state; exact screenshot clock is not inferred from pixels."
+      },
+      "notVerifiedByImageAlone": [
+        "Exact hiddenUID/owner/volume/version/fullWorld equality",
+        "Reviewer replay of click or scroll input",
+        "All map regions, scroll positions and UI combinations"
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1440/00-title.png",
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "bytes": 973642,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "수도원계곡원본/ASHVEIL, 시드ashveil-harness-smoke입력, 배경선택·떠돌이초상/능력미리보기와시작버튼을직접확인했다.",
+        "시작버튼전체가화면안에있다. 아래쪽배경선택지일부는화면경계아래로이어져모든선택지무스크롤동시노출을주장하지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/00-title-state.json",
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c",
+        "mode": "title"
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "layoutEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/00-title-layout.json",
+        "sha256": "2ed5f2bb08b7a99b2f35578f9c06f45e647e6514753b6ed5e1e3c32728e0c739"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1440/01-world.png",
+      "sha256": "6afed2faa272d4104437fff47fb883ba9901a7ebb9324663ada5b38651f61dac",
+      "bytes": 532033,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "정상새게임의수도원앞뜰에서기존후드플레이어의등/불빛·길·물/식생과초상·핫바가보인다. Native의경계·7물품검증실과다른시작흐름이다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/01-world-state.json",
+        "sha256": "3c439ca82715217211ba17df26a285d470895878f26f37e29453f69033740767",
+        "mode": "game",
+        "timeTU": 2160000
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/01-world-world.json",
+        "sha256": "09f0bb798a7244b1f757dc782b5c6f7f0517ccb7fbeefedf020fc9a9c6aa4234"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1440/02-inventory.png",
+      "sha256": "cbe8f439ea680b6cf12b350539ee95616cd804e7811775fdc14f26d9a38c61e3",
+      "bytes": 610170,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "소지품창전체·빈배낭60칸·장대/겉옷아이콘과남향플레이어의밝은얼굴·청록후드, 하단초상/핫바/메뉴가보인다. 정상새게임가방은비어있으며Native7검증물품은없다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/02-inventory-state.json",
+        "sha256": "20e581d7f6d36f93b09541685ea9622e8cac959b6f2b1b062770046d29403682",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/02-inventory-world.json",
+        "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1440/final.png",
+      "sha256": "ebda8fba47c1c2faaed488e11be90b1c0d95424f150519719a9c75ad5aa04925",
+      "bytes": 608898,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "소지품창전체·빈배낭60칸·장대/겉옷아이콘과남향플레이어의밝은얼굴·청록후드, 하단초상/핫바/메뉴가보인다. 정상새게임가방은비어있으며Native7검증물품은없다.",
+        "도구preview의창/로그생략여부는원본RGB로대조했다.1440소지품/로그는02와동일,1366로그는동일이고소지품은모서리1픽셀최대RGB1차이만있어실제패널내용이원본에있다. 이미지편집하지않았다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/final-state.json",
+        "sha256": "20e581d7f6d36f93b09541685ea9622e8cac959b6f2b1b062770046d29403682",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1440/final-world.json",
+        "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1366/00-title.png",
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "bytes": 668804,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "수도원계곡원본/ASHVEIL, 시드ashveil-harness-smoke입력, 배경선택·떠돌이초상/능력미리보기와시작버튼을직접확인했다.",
+        "시작버튼전체가화면안에있다. 아래쪽배경선택지일부는화면경계아래로이어져모든선택지무스크롤동시노출을주장하지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/00-title-state.json",
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c",
+        "mode": "title"
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "layoutEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/00-title-layout.json",
+        "sha256": "072d30d7cbfabb1a12e69d5ea2317906b267db8cb6cb58b5da9e861ac80e3c65"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1366/01-world.png",
+      "sha256": "bba376a0d3abe06a02d3a4275c5c6935bb752f38164099b0c7403dac2abc50c0",
+      "bytes": 378600,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "정상새게임의수도원앞뜰에서기존후드플레이어의등/불빛·길·물/식생과초상·핫바가보인다. Native의경계·7물품검증실과다른시작흐름이다.",
+        "빈칸0 핫바안내툴팁이오른쪽로그위에떠있지만화면안에보인다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/01-world-state.json",
+        "sha256": "3c439ca82715217211ba17df26a285d470895878f26f37e29453f69033740767",
+        "mode": "game",
+        "timeTU": 2160000
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/01-world-world.json",
+        "sha256": "09f0bb798a7244b1f757dc782b5c6f7f0517ccb7fbeefedf020fc9a9c6aa4234"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1366/02-inventory.png",
+      "sha256": "6a6112b8ffe73d3c7859be7023156fcde33ec681980df1dae423bf65f22dfb03",
+      "bytes": 453785,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "소지품창전체·빈배낭60칸·장대/겉옷아이콘과남향플레이어의밝은얼굴·청록후드, 하단초상/핫바/메뉴가보인다. 정상새게임가방은비어있으며Native7검증물품은없다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/02-inventory-state.json",
+        "sha256": "20e581d7f6d36f93b09541685ea9622e8cac959b6f2b1b062770046d29403682",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/02-inventory-world.json",
+        "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v289-final-1366/final.png",
+      "sha256": "3a761cf6c8c54fdab7792f024e964ffd8bda49aa4bb462bd7c4a0797727e6bb5",
+      "bytes": 453151,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start; separate from Native finite fixture",
+      "observations": [
+        "소지품창전체·빈배낭60칸·장대/겉옷아이콘과남향플레이어의밝은얼굴·청록후드, 하단초상/핫바/메뉴가보인다. 정상새게임가방은비어있으며Native7검증물품은없다.",
+        "도구preview의창/로그생략여부는원본RGB로대조했다.1440소지품/로그는02와동일,1366로그는동일이고소지품은모서리1픽셀최대RGB1차이만있어실제패널내용이원본에있다. 이미지편집하지않았다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/final-state.json",
+        "sha256": "20e581d7f6d36f93b09541685ea9622e8cac959b6f2b1b062770046d29403682",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByImageAlone": [
+        "Click replay or hiddenWorld equality",
+        "World-map territory UI inside this generic smoke flow",
+        "All menu/tooltip/viewport combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v289-final-1366/final-world.json",
+        "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+      }
+    }
+  ],
+  "nativeEvidence": {
+    "auditCounts": {
+      "save": 196,
+      "screenshots": 8,
+      "roundtrips": 3,
+      "phases": 10,
+      "errors": []
+    },
+    "auditRows": [
+      {
+        "legacy": false,
+        "initialTime": 4320000,
+        "finalTime": 4320200,
+        "actualInputTU": 200,
+        "index": 5123,
+        "old": "guild",
+        "current": "coalition",
+        "items": [
+          {
+            "uid": 70,
+            "def": "Item.Salt"
+          },
+          {
+            "uid": 71,
+            "def": "Item.GlassEye"
+          },
+          {
+            "uid": 72,
+            "def": "Item.PowerCell"
+          },
+          {
+            "uid": 73,
+            "def": "Item.HealthDraught"
+          },
+          {
+            "uid": 74,
+            "def": "Item.PurificationAmpoule"
+          },
+          {
+            "uid": 75,
+            "def": "Item.WaterBottle"
+          },
+          {
+            "uid": 76,
+            "def": "Item.WaterBucket"
+          }
+        ],
+        "bottleMl": 0,
+        "bucketMl": 300
+      },
+      {
+        "legacy": true,
+        "initialTime": 4320000,
+        "finalTime": 4320100,
+        "actualInputTU": 100,
+        "index": 5123,
+        "old": "guild",
+        "current": "coalition",
+        "items": [
+          {
+            "uid": 70,
+            "def": "Item.Salt"
+          },
+          {
+            "uid": 71,
+            "def": "Item.GlassEye"
+          },
+          {
+            "uid": 72,
+            "def": "Item.PowerCell"
+          },
+          {
+            "uid": 73,
+            "def": "Item.HealthDraught"
+          },
+          {
+            "uid": 74,
+            "def": "Item.PurificationAmpoule"
+          },
+          {
+            "uid": 75,
+            "def": "Item.WaterBottle"
+          },
+          {
+            "uid": 76,
+            "def": "Item.WaterBucket"
+          }
+        ],
+        "bottleMl": 300,
+        "bucketMl": 0
+      }
+    ],
+    "mainFixture": {
+      "path": "test-results/world-territories-browser-v289-second/initial-finite196-real-boundary-old-record-and-seven-original-items.json",
+      "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+    },
+    "legacyFixture": {
+      "path": "test-results/world-territories-browser-v289-second/initial-finite195-no-territories.json",
+      "sha256": "6f4e697c2f659b9a2876ad371cc25dcb971aad39087742113d6a5fdc2662e56c"
+    },
+    "mainInitialWholeEqualsActual": true,
+    "zoomBorderCanvasPickRecenterWholeUnchanged": true,
+    "coordinatePicking": {
+      "auditDescribesActualCanvasPickAndRecenter": true,
+      "readOnlyActualPhase": {
+        "path": "test-results/world-territories-browser-v289-second/read-only-old-territory-observed-border-zoom-and-actual-canvas-picking-actual.json",
+        "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+      },
+      "capturedSelectedCoordinate": [
+        3,
+        40
+      ],
+      "selectedIndex": 5123,
+      "limit": "Capture is recentered. No intermediate remote-cell PNG/raw click coordinate is inferred from these stills."
+    },
+    "datedKnowledge": {
+      "currentActualTerritory": "coalition",
+      "initialRecordedTerritory": "guild",
+      "afterSurveyRecordedTerritory": "coalition",
+      "beforeAt": 43200,
+      "afterAt": 43200,
+      "note": "Explicit fixture record/truth difference; no invented actual pastownership event. Observation timestamp43200 is whole game turn before100TU action completion."
+    },
+    "times": {
+      "mainInitial": 4320000,
+      "mainAfterSurvey": 4320100,
+      "mainAfterPour": 4320200,
+      "mainInputTU": 200,
+      "legacyInitial": 4320000,
+      "legacyAfterSurvey": 4320100,
+      "legacyInputTU": 100,
+      "combinedSeparateFixtureInputTU": 300
+    },
+    "wholeActualExpectedChecks": [
+      {
+        "phase": "actual-legacy-survey-does-not-create-initial-territories",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/actual-legacy-survey-does-not-create-initial-territories-actual.json",
+          "sha256": "6702a1717fd52c079533d856ae3748a426d958380e688ffbc0c80831246442d3"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/actual-legacy-survey-does-not-create-initial-territories-expected.json",
+          "sha256": "6702a1717fd52c079533d856ae3748a426d958380e688ffbc0c80831246442d3"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320100,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": null,
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true
+          }
+        },
+        "territoryCellCount": 0,
+        "territoryRecordCount": 0,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "actual-one-turn-pour-original300ml-to-same-empty-wood-bucket",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/actual-one-turn-pour-original300ml-to-same-empty-wood-bucket-actual.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/actual-one-turn-pour-original300ml-to-same-empty-wood-bucket-expected.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320200,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "coalition"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "actual-one-turn-survey-updates-only-real-nearby-territory-records",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/actual-one-turn-survey-updates-only-real-nearby-territory-records-actual.json",
+          "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/actual-one-turn-survey-updates-only-real-nearby-territory-records-expected.json",
+          "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320100,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "coalition"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "actual196-loaded-original-boundary-and-old-observation",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/actual196-loaded-original-boundary-and-old-observation-actual.json",
+          "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/actual196-loaded-original-boundary-and-old-observation-expected.json",
+          "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320000,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "guild"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "legacy-whole196-restored-same-original-world-and-unknown-territories",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/legacy-whole196-restored-same-original-world-and-unknown-territories-actual.json",
+          "sha256": "6702a1717fd52c079533d856ae3748a426d958380e688ffbc0c80831246442d3"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/legacy-whole196-restored-same-original-world-and-unknown-territories-expected.json",
+          "sha256": "6702a1717fd52c079533d856ae3748a426d958380e688ffbc0c80831246442d3"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320100,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": null,
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true
+          }
+        },
+        "territoryCellCount": 0,
+        "territoryRecordCount": 0,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "legacy195-only-version-upgraded-no-territories-invented",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/legacy195-only-version-upgraded-no-territories-invented-actual.json",
+          "sha256": "d11abd212c70d108fdcb2c39e85577e404342a4a962917fe5585322113164579"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/legacy195-only-version-upgraded-no-territories-invented-expected.json",
+          "sha256": "d11abd212c70d108fdcb2c39e85577e404342a4a962917fe5585322113164579"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320000,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": null,
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true
+          }
+        },
+        "territoryCellCount": 0,
+        "territoryRecordCount": 0,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "read-only-old-territory-observed-border-zoom-and-actual-canvas-picking",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/read-only-old-territory-observed-border-zoom-and-actual-canvas-picking-actual.json",
+          "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/read-only-old-territory-observed-border-zoom-and-actual-canvas-picking-expected.json",
+          "sha256": "028b25d9a36ada4928a2ad20bfc2d6a6f3b250dd73ca1641390b640dde57e70a"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320000,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "guild"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "small-world-map-read-only-same-entire196",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/small-world-map-read-only-same-entire196-actual.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/small-world-map-read-only-same-entire196-expected.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320200,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "coalition"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "whole196-restored-same-original-territories-and-dated-observations",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/whole196-restored-same-original-territories-and-dated-observations-actual.json",
+          "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/whole196-restored-same-original-territories-and-dated-observations-expected.json",
+          "sha256": "213cdf7c4a8064eeffc09c93bb6047f7fbbc1f8cb09aec9e8b6a28f5d6ccfcf9"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320100,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "coalition"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      },
+      {
+        "phase": "whole196-restored-same-seven-uids-and-actual300ml-only",
+        "actual": {
+          "path": "test-results/world-territories-browser-v289-second/whole196-restored-same-seven-uids-and-actual300ml-only-actual.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "expected": {
+          "path": "test-results/world-territories-browser-v289-second/whole196-restored-same-seven-uids-and-actual300ml-only-expected.json",
+          "sha256": "5710479c31e9ad6248448b5862eaa62e9b56ac66091866785b50a502bde976aa"
+        },
+        "wholeJSONEqual": true,
+        "version": 196,
+        "timeTU": 4320200,
+        "position": {
+          "x": 3,
+          "y": 40
+        },
+        "selectedCurrentTerritory": "coalition",
+        "selectedRecordedObservation": {
+          "at": 43200,
+          "source": "survey",
+          "cell": {
+            "altitude": 448,
+            "temperature": 4.6,
+            "veil": 0,
+            "biome": "Biome.Farmland",
+            "sea": false,
+            "river": true,
+            "territory": "coalition"
+          }
+        },
+        "territoryCellCount": 5130,
+        "territoryRecordCount": 42,
+        "terrainObservationCount": 49
+      }
+    ],
+    "wholeActualExpectedCount": 10,
+    "whole196Restores": [
+      {
+        "before": "actual-one-turn-survey-updates-only-real-nearby-territory-records",
+        "restored": "whole196-restored-same-original-territories-and-dated-observations",
+        "wholeJSONEqual": true,
+        "timeTU": 4320100
+      },
+      {
+        "before": "actual-one-turn-pour-original300ml-to-same-empty-wood-bucket",
+        "restored": "whole196-restored-same-seven-uids-and-actual300ml-only",
+        "wholeJSONEqual": true,
+        "timeTU": 4320200
+      },
+      {
+        "before": "actual-legacy-survey-does-not-create-initial-territories",
+        "restored": "legacy-whole196-restored-same-original-world-and-unknown-territories",
+        "wholeJSONEqual": true,
+        "timeTU": 4320100
+      }
+    ],
+    "smallViewportWholeWorldUnchanged": true,
+    "waterAndItems": {
+      "initialItems": [
+        {
+          "uid": 70,
+          "def": "Item.Salt",
+          "count": 1,
+          "gx": 0,
+          "gy": 0
+        },
+        {
+          "uid": 71,
+          "def": "Item.GlassEye",
+          "count": 1,
+          "durability": 100,
+          "gearAgedAt": 43200,
+          "gx": 1,
+          "gy": 0
+        },
+        {
+          "uid": 72,
+          "def": "Item.PowerCell",
+          "count": 1,
+          "gx": 2,
+          "gy": 0
+        },
+        {
+          "uid": 73,
+          "def": "Item.HealthDraught",
+          "count": 1,
+          "gx": 3,
+          "gy": 0
+        },
+        {
+          "uid": 74,
+          "def": "Item.PurificationAmpoule",
+          "count": 1,
+          "gx": 4,
+          "gy": 0
+        },
+        {
+          "uid": 75,
+          "def": "Item.WaterBottle",
+          "count": 1,
+          "uses": 1.5,
+          "water": {
+            "pathogen": 0,
+            "ash": 0,
+            "source": "유한 초기 식수300ml"
+          },
+          "gx": 5,
+          "gy": 0
+        },
+        {
+          "uid": 76,
+          "def": "Item.WaterBucket",
+          "count": 1,
+          "uses": 0,
+          "gx": 6,
+          "gy": 0
+        }
+      ],
+      "afterPourItems": [
+        {
+          "uid": 70,
+          "def": "Item.Salt",
+          "count": 1,
+          "gx": 0,
+          "gy": 0
+        },
+        {
+          "uid": 71,
+          "def": "Item.GlassEye",
+          "count": 1,
+          "durability": 100,
+          "gearAgedAt": 43202,
+          "gx": 1,
+          "gy": 0
+        },
+        {
+          "uid": 72,
+          "def": "Item.PowerCell",
+          "count": 1,
+          "gx": 2,
+          "gy": 0
+        },
+        {
+          "uid": 73,
+          "def": "Item.HealthDraught",
+          "count": 1,
+          "gx": 3,
+          "gy": 0
+        },
+        {
+          "uid": 74,
+          "def": "Item.PurificationAmpoule",
+          "count": 1,
+          "gx": 4,
+          "gy": 0
+        },
+        {
+          "uid": 75,
+          "def": "Item.WaterBottle",
+          "count": 1,
+          "uses": 0,
+          "gx": 5,
+          "gy": 0
+        },
+        {
+          "uid": 76,
+          "def": "Item.WaterBucket",
+          "count": 1,
+          "uses": 1.5,
+          "gx": 6,
+          "gy": 0,
+          "water": {
+            "pathogen": 0,
+            "ash": 0,
+            "source": "유한 초기 식수300ml"
+          }
+        }
+      ],
+      "allSevenOriginalUIDsDefsCountsPreserved": true,
+      "nonVesselFieldChangesDuringActual200TU": {
+        "70": {},
+        "71": {
+          "gearAgedAt": {
+            "before": 43200,
+            "after": 43202
+          }
+        },
+        "72": {},
+        "73": {},
+        "74": {}
+      },
+      "nonVesselNote": "Four non-vessels are whole-value identical; GlassEye UID71 keeps count1/durability100 but gearAgedAt advances43200→43202. Normal elapsed-time bookkeeping is not mislabeled full item-value invariance.",
+      "auditVolumeMl": {
+        "bottleBefore": 300,
+        "bucketBefore": 0,
+        "bottleAfter": 0,
+        "bucketAfter": 300
+      },
+      "actualUses": {
+        "bottleUID": 75,
+        "bucketUID": 76,
+        "before": [
+          1.5,
+          0
+        ],
+        "after": [
+          0,
+          1.5
+        ]
+      },
+      "sameContainerArtDoesNotRevealFillOrPurity": true
+    },
+    "legacy195Compatibility": {
+      "initialVersion": 195,
+      "loadedVersion": 196,
+      "wholeFixtureDiffersOnlyVersion": true,
+      "noCellTerritoryInventedAtLoadSurveyRestore": true,
+      "noObservationTerritoryInventedAtLoadSurveyRestore": true,
+      "existingTerrainObservationCount": 49,
+      "unknownIsNotRetroactive": "Actual survey retains terrain knowledge but cannot invent initial owner or past territory records absent from legacy data."
+    }
+  },
+  "commonHarnessEvidence": {
+    "runs": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "run": {
+          "path": "test-results/game-harness-v289-final-1440/run.json",
+          "sha256": "97cc7fe9e36188a817032289945661139fe206e1a7aed37445150c13f2d700da"
+        },
+        "actions": {
+          "path": "test-results/game-harness-v289-final-1440/actions.json",
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33"
+        },
+        "errors": {
+          "path": "test-results/game-harness-v289-final-1440/errors.json",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "statusFromSuppliedRun": "passed",
+        "errorsArray": [],
+        "completedSteps": 11,
+        "actualInputTU": 200,
+        "titleWorldLoaded": false,
+        "seed": "ashveil-harness-smoke",
+        "startingBag": [],
+        "startingEquipment": {
+          "main": {
+            "uid": 2,
+            "def": "Item.Pole",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 21600
+          },
+          "back": {
+            "uid": 3,
+            "def": "Item.OiledRaincoat",
+            "count": 1,
+            "wetness": {},
+            "durability": 100,
+            "gearAgedAt": 21600
+          }
+        },
+        "timeTU": {
+          "initial": 2160000,
+          "inventory": 2160200,
+          "final": 2160200
+        },
+        "facing": {
+          "initial": 0,
+          "afterWaitAndSouthTurn": 4
+        },
+        "finalObservationWholeWorldUnchanged": true,
+        "startLayout": {
+          "viewport": {
+            "width": 1440,
+            "height": 1080
+          },
+          "start": {
+            "left": 954,
+            "top": 835.28125,
+            "right": 1240,
+            "bottom": 880.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        },
+        "clickEvidence": "Supplied completed actions click start and reach game; layout independently reports center clickable/no scroll. Reviewer did not drive the browser.",
+        "inputSequence": [
+          {
+            "action": "fill",
+            "selector": "[data-testid=seed]",
+            "value": "ashveil-harness-smoke"
+          },
+          {
+            "action": "click",
+            "selector": "[data-testid=start]",
+            "button": "left"
+          },
+          {
+            "action": "press",
+            "key": "Period"
+          },
+          {
+            "action": "press",
+            "key": "Control+ArrowDown"
+          },
+          {
+            "action": "press",
+            "key": "i"
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "run": {
+          "path": "test-results/game-harness-v289-final-1366/run.json",
+          "sha256": "c5511afc09844ca2a3d28c24c1b1e42058fabb0094c5239bf330d29925f269fc"
+        },
+        "actions": {
+          "path": "test-results/game-harness-v289-final-1366/actions.json",
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33"
+        },
+        "errors": {
+          "path": "test-results/game-harness-v289-final-1366/errors.json",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "statusFromSuppliedRun": "passed",
+        "errorsArray": [],
+        "completedSteps": 11,
+        "actualInputTU": 200,
+        "titleWorldLoaded": false,
+        "seed": "ashveil-harness-smoke",
+        "startingBag": [],
+        "startingEquipment": {
+          "main": {
+            "uid": 2,
+            "def": "Item.Pole",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 21600
+          },
+          "back": {
+            "uid": 3,
+            "def": "Item.OiledRaincoat",
+            "count": 1,
+            "wetness": {},
+            "durability": 100,
+            "gearAgedAt": 21600
+          }
+        },
+        "timeTU": {
+          "initial": 2160000,
+          "inventory": 2160200,
+          "final": 2160200
+        },
+        "facing": {
+          "initial": 0,
+          "afterWaitAndSouthTurn": 4
+        },
+        "finalObservationWholeWorldUnchanged": true,
+        "startLayout": {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "start": {
+            "left": 913,
+            "top": 669.28125,
+            "right": 1207,
+            "bottom": 714.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        },
+        "clickEvidence": "Supplied completed actions click start and reach game; layout independently reports center clickable/no scroll. Reviewer did not drive the browser.",
+        "inputSequence": [
+          {
+            "action": "fill",
+            "selector": "[data-testid=seed]",
+            "value": "ashveil-harness-smoke"
+          },
+          {
+            "action": "click",
+            "selector": "[data-testid=start]",
+            "button": "left"
+          },
+          {
+            "action": "press",
+            "key": "Period"
+          },
+          {
+            "action": "press",
+            "key": "Control+ArrowDown"
+          },
+          {
+            "action": "press",
+            "key": "i"
+          }
+        ]
+      }
+    ],
+    "crossViewportWholeWorldChecks": [
+      {
+        "phase": "01-world",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v289-final-1440/01-world-world.json",
+          "sha256": "09f0bb798a7244b1f757dc782b5c6f7f0517ccb7fbeefedf020fc9a9c6aa4234"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v289-final-1366/01-world-world.json",
+          "sha256": "09f0bb798a7244b1f757dc782b5c6f7f0517ccb7fbeefedf020fc9a9c6aa4234"
+        }
+      },
+      {
+        "phase": "02-inventory",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v289-final-1440/02-inventory-world.json",
+          "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v289-final-1366/02-inventory-world.json",
+          "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+        }
+      },
+      {
+        "phase": "final",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v289-final-1440/final-world.json",
+          "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v289-final-1366/final-world.json",
+          "sha256": "f50af603e05f20b066ff3caa23eb476d0d49c43c74caa8c5953cf51b2b3d3093"
+        }
+      }
+    ]
+  },
+  "visualFindings": [],
+  "previewDisplayLimitations": [
+    {
+      "image": {
+        "path": "test-results/game-harness-v289-final-1440/final.png",
+        "sha256": "ebda8fba47c1c2faaed488e11be90b1c0d95424f150519719a9c75ad5aa04925"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v289-final-1440/02-inventory.png",
+        "sha256": "cbe8f439ea680b6cf12b350539ee95616cd804e7811775fdc14f26d9a38c61e3"
+      },
+      "toolPreviewObservation": "1440inventory/log or1366log appeared omitted/dark; original files were inspected without writing any image.",
+      "rawReadOnlyComparison": {
+        "mode": "RGB",
+        "inventoryRectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "pixelsCompared": 246180,
+        "exactlyEqual": true,
+        "differentPixelsXYMaxChannelDelta": [],
+        "maxChannelDelta": 0,
+        "logRectangleXYXY": [
+          988,
+          764,
+          1428,
+          930
+        ],
+        "logExactlyEqual": true,
+        "representativeInventoryRGB": {
+          "(750, 100)": [
+            30,
+            43,
+            41
+          ],
+          "(750, 250)": [
+            17,
+            20,
+            18
+          ],
+          "(1000, 400)": [
+            16,
+            24,
+            26
+          ]
+        }
+      },
+      "classification": "Source panels present; tool preview limitation. Report tiny border difference exactly instead of calling both complete byte matches."
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v289-final-1366/final.png",
+        "sha256": "3a761cf6c8c54fdab7792f024e964ffd8bda49aa4bb462bd7c4a0797727e6bb5"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v289-final-1366/02-inventory.png",
+        "sha256": "6a6112b8ffe73d3c7859be7023156fcde33ec681980df1dae423bf65f22dfb03"
+      },
+      "toolPreviewObservation": "1440inventory/log or1366log appeared omitted/dark; original files were inspected without writing any image.",
+      "rawReadOnlyComparison": {
+        "mode": "RGB",
+        "inventoryRectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "pixelsCompared": 246180,
+        "exactlyEqual": false,
+        "differentPixelsXYMaxChannelDelta": [
+          [
+            422,
+            442,
+            1
+          ]
+        ],
+        "maxChannelDelta": 1,
+        "logRectangleXYXY": [
+          914,
+          452,
+          1354,
+          618
+        ],
+        "logExactlyEqual": true,
+        "representativeInventoryRGB": {
+          "(750, 100)": [
+            30,
+            43,
+            41
+          ],
+          "(750, 250)": [
+            17,
+            20,
+            18
+          ],
+          "(1000, 400)": [
+            16,
+            24,
+            26
+          ]
+        }
+      },
+      "classification": "Source panels present; tool preview limitation. Report tiny border difference exactly instead of calling both complete byte matches."
+    }
+  ],
+  "modalClippingObservations": [
+    {
+      "images": [
+        1402,
+        1403,
+        1406
+      ],
+      "observation": "1440mapwindow fits with narrow bottom margin; canvas/survey/papermap controls visible; underlyingHUD partly occluded."
+    },
+    {
+      "images": [
+        1407,
+        1408
+      ],
+      "observation": "1366fixedheader/close/upperdetails visible; body clips mapbottom/lowercontrols at current scroll position. Not all-content-simultaneously-visible success."
+    },
+    {
+      "images": [
+        1409
+      ],
+      "observation": "Different scrolledbody position shows lower survey/papermapcontrols while upperselectiondetails clip belowfixedheader. This records actual scrollcoverage."
+    },
+    {
+      "images": [
+        "common titles both viewports"
+      ],
+      "observation": "Start button fullyvisible/hittesttrue/no scroll; lowerbackgroundoptions extend belowviewport."
+    }
+  ],
+  "notVerified": [
+    "Reviewer did not replay click/scroll; exact intermediate canvas target is audit-only without an additional capture.",
+    "Actual past territory expansion, travel or ownership changes; stale record is explicit fixture data.",
+    "All world cells, mapscroll positions/offscreencontrols, papermap crafting, multiday simulation, settlement interactions.",
+    "All waterquantities/qualitytransfers or drug/prostheticitemeffects.",
+    "All tooltips/accessibilitypalettes/menus/other viewports.",
+    "Full regression/deployment/public site state."
+  ]
+}

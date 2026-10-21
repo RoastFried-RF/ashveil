@@ -1,5 +1,6 @@
 // 월드 지형과 경로. 지역 내부 한 턴의 길이에는 영향을 주지 않는다.
 import { clamp, rng, turnOf, type World } from './ctx'
+import {buildWorldTerritories} from './world-territories'
 import type { Pos } from './geom'
 import type { BiomeDef, OverworldState, RegionSiteDef, WorldCell, WorldGenDef, WorldSite, WorldTower, WorldObservation } from './types'
 
@@ -210,6 +211,8 @@ export function generateOverworld(w: World): OverworldState {
     if (!linked) break // 바다로 분리된 섬의 배편은 별도 이동 시스템에서 연결한다.
   }
   appendExpansionSites(w,m)
+  const territories=buildWorldTerritories(w,m)
+  territories.forEach((owner,i)=>{if(owner!==undefined)m.cells[i].territory=owner})
   revealWorld(m,turnOf(w),'initial')
   return m
 }
@@ -241,7 +244,7 @@ export function revealWorld(m: OverworldState,at?:number,source:WorldObservation
   const seen = new Set(m.seen)
   for (let y = Math.max(0, m.position.y - 3); y <= Math.min(m.h - 1, m.position.y + 3); y++) for (let x = Math.max(0, m.position.x - 3); x <= Math.min(m.w - 1, m.position.x + 3); x++) {
     const i=y*m.w+x;seen.add(i)
-    if(at!==undefined&&Number.isFinite(at)&&at>=0){const c=m.cells[i]!;(m.worldObservations??={})[i]={at,source,cell:{altitude:c.altitude,temperature:c.temperature,veil:c.veil,biome:c.biome,sea:c.sea,...(c.road?{road:true}:{}),...(c.oldRoad?{oldRoad:true}:{}),...(c.river?{river:true}:{}),...(c.lake?{lake:true}:{})}}}
+    if(at!==undefined&&Number.isFinite(at)&&at>=0){const c=m.cells[i]!;(m.worldObservations??={})[i]={at,source,cell:{altitude:c.altitude,temperature:c.temperature,veil:c.veil,biome:c.biome,sea:c.sea,...(c.road?{road:true}:{}),...(c.oldRoad?{oldRoad:true}:{}),...(c.river?{river:true}:{}),...(c.lake?{lake:true}:{}),...(c.territory!==undefined?{territory:c.territory}:{})}}}
   }
   m.seen = [...seen].sort((a, b) => a - b)
 }

@@ -8,7 +8,7 @@ import {cartographyDef} from './cartography'
 import {learnRumor} from './rumor-state'
 import {inBounds,log,turnOf,type World} from './ctx'
 import type {Creature,Rumor,WorldCell,WorldObservation} from './types'
-function geography(c:WorldCell):WorldObservation['cell']{return{altitude:c.altitude,temperature:c.temperature,veil:c.veil,biome:c.biome,sea:c.sea,...(c.road?{road:true}:{}),...(c.oldRoad?{oldRoad:true}:{}),...(c.river?{river:true}:{}),...(c.lake?{lake:true}:{})}}
+function geography(c:WorldCell):WorldObservation['cell']{return{altitude:c.altitude,temperature:c.temperature,veil:c.veil,biome:c.biome,sea:c.sea,...(c.road?{road:true}:{}),...(c.oldRoad?{oldRoad:true}:{}),...(c.river?{river:true}:{}),...(c.lake?{lake:true}:{}),...(c.territory!==undefined?{territory:c.territory}:{})}}
 export function observeNpcWorld(w:World,c:Creature):void{
  const m=w.s.overworld
  if(!m||m.currentRegion||w.s.map.kind!=='surface'||!w.s.map.worldCell||!eq(w.s.map.worldCell,m.position))return

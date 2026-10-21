@@ -37577,6 +37577,71 @@
               "defType"
             ],
             "properties": {
+              "territory": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "maxCost": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "roadCost": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "landCost": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "riverCost": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "riseMetersPerCost": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "cropIrrigationTransfer": {
                 "anyOf": [
                   {
@@ -38250,6 +38315,33 @@
               "id"
             ],
             "properties": {
+              "territory": {
+                "type": "object",
+                "properties": {
+                  "maxCost": {
+                    "type": "number"
+                  },
+                  "roadCost": {
+                    "type": "number"
+                  },
+                  "landCost": {
+                    "type": "number"
+                  },
+                  "riverCost": {
+                    "type": "number"
+                  },
+                  "riseMetersPerCost": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "maxCost",
+                  "roadCost",
+                  "landCost",
+                  "riverCost",
+                  "riseMetersPerCost"
+                ]
+              },
               "cropIrrigationTransfer": {
                 "type": "object",
                 "properties": {

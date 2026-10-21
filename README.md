@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.288** · 각인195. 전체5,874개·실제14장·저장 전체복원2 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
+**현재 상태: 프로토타입 v0.289** · 각인196. 전체5,892개·실제16장·저장 전체복원3 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -168,3 +168,10 @@ F2에서 실제 도구·성공률·시간/마모/소음을 보고 잠금을 푼�
 
 ![실제 주민 네 역할과 원본 석판](docs/previews/v288-1396-native-original-player-and-retiree-preserved-resident-healer-displays.png)
 ![실제 정제 원본과 부분 시음](docs/previews/v288-1398-native-original-tablet-quarter-sample-and-three-quarter-remainder.png)
+
+## 실제 육로 영향권·지도 확대·원본7물품 (v0.289)
+
+새월드에서 바다·도로·고도를 따라 초기영향권을 계산하고 당시 기록만 지도에 남긴다. 확대/내위치복귀와 원래 좌표 클릭을 지원한다. [검증 근거](docs/release-v289-proof.json).
+
+![실제 확대지도와 당시 영향권](docs/previews/v289-1402-native-actual-boundary-shows-only-dated-old-territory-record.png)
+![실제 물 용기·소금·의안·전원셀·약품 원본](docs/previews/v289-1404-native-seven-real-vessel-salt-eye-cell-draught-and-ampoule-icons.png)

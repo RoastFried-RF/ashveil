@@ -1396,6 +1396,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for (const [group, row] of Object.entries(d.weatherRows)) { for (const [key, value] of Object.entries(row)) range(d.id, `${group}.${key}`, value, 0); if (Object.values(row).reduce((n, v) => n + v, 0) <= 0) report.errors.push(`${d.id}: 날씨 행 가중치 오류`) }
   }
   for (const d of db.all<WorldGenDef>('WorldGen')) {
+    if(d.territory!==undefined){if(!d.territory||typeof d.territory!=='object'||Array.isArray(d.territory))report.errors.push(d.id+': territory 객체가 필요하다');else{for(const key of ['maxCost','roadCost','landCost','riseMetersPerCost']as const)range(d.id,'territory.'+key,d.territory[key],1,key==='maxCost'?2000:10000,true);range(d.id,'territory.riverCost',d.territory.riverCost,0,10000,true)}}
     if(d.cropIrrigationTransfer!==undefined){if(!d.cropIrrigationTransfer||typeof d.cropIrrigationTransfer!=='object'||Array.isArray(d.cropIrrigationTransfer))report.errors.push(d.id+': cropIrrigationTransfer 객체가 필요하다');else for(const key of ['pathogenFraction','ashFraction']as const){const v=d.cropIrrigationTransfer[key];if(!Number.isFinite(v)||v<0||v>1)report.errors.push(d.id+': cropIrrigationTransfer.'+key+'는0~1이어야 한다')}}
     if(d.cropEvaporationMlPerHour!==undefined&&(!Number.isSafeInteger(d.cropEvaporationMlPerHour)||d.cropEvaporationMlPerHour<0||d.cropEvaporationMlPerHour>1000))report.errors.push(d.id+': cropEvaporationMlPerHour는0~1000의 정수여야 한다')
     need(d.id, d.startRegion, 'RegionSite')

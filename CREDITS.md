@@ -104,3 +104,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - ASHVEIL 원본 상인 28자세: 프로젝트를 위해 직접 제작. [출처와 재현](docs/art-trader-original.md).
 
 - ASHVEIL 수도원 석판 원본: 직접 작성한4매크로·256샘플. [출처와 재현](docs/art-monastery-floor-original.md).
+
+- ASHVEIL 물 용기2종·비정제5종 원본: 직접 제작. [물용기](docs/art-water-vessels-original.md) · [비정제](docs/art-nonpill-icons-original.md).
