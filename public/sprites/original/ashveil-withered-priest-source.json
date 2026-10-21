@@ -1,0 +1,93 @@
+{
+  "created": "2026-10-20",
+  "method": "original manually authored integer-coordinate human sprite poses",
+  "source": "tools/art/draw-withered-priest.py",
+  "inputs": [],
+  "sourceSha256": "9ef2179ed25e0016ed5c284f341f9e551b32cafe0b0a878b814d18902c69cb0b",
+  "externalImageInputs": false,
+  "modifiedExistingImages": false,
+  "legacyContract": {
+    "walkCell": [
+      24,
+      32
+    ],
+    "walkCount": 12,
+    "idleColumn": 1,
+    "legacyAttackExists": false,
+    "previousAnchor": [
+      0.5,
+      0.92
+    ],
+    "legacySheet": "mon1_withered",
+    "legacyX": [
+      144,
+      168,
+      192
+    ],
+    "legacyY": [
+      128,
+      160,
+      192,
+      224
+    ]
+  },
+  "newContent": {
+    "walkCount": 12,
+    "attackCount": 16,
+    "attackCell": [
+      32,
+      40
+    ],
+    "bodyOffsetInAttack": [
+      4,
+      8
+    ],
+    "bodyHeight": 27,
+    "walkGroundY": 31,
+    "attackGroundY": 39
+  },
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "status": "prepared art and merge fragment, not registered in the game",
+  "files": [
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-walk.png",
+      "bytes": 1550,
+      "sha256": "852db89c4239057c77dc431c837c61148e1a82c0201690f5eeb6d4709e992030"
+    },
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-attack.png",
+      "bytes": 2299,
+      "sha256": "1b8d9a7b8bfed8c44da28c5ea92b0d6a544916bd3b1d2c6a88bf61285b31a6f5"
+    },
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-walk.svg",
+      "bytes": 135472,
+      "sha256": "03706efd67e695625d283514ca092fd86b7fdb82a790f6b24b34ba942698df95"
+    },
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-attack.svg",
+      "bytes": 203934,
+      "sha256": "ed2bf502c5158585a7e6e899af5b72fdb216febdc6f4bd96ca4151b9d3bcc922"
+    },
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-contact.png",
+      "bytes": 16472,
+      "sha256": "2f2d77b052f2afcd51f11a2befbb25990bbc558c55b4bd56de41ee8c3812bc16"
+    },
+    {
+      "file": "public/sprites/original/ashveil-withered-priest-palette.json",
+      "bytes": 399,
+      "sha256": "dad818212319a3cbf83e999847c50af9e2761f20dc858fe2d0f2932f9dfb1234"
+    },
+    {
+      "file": "tools/art/withered-priest-manifest.fragment.json",
+      "bytes": 4950,
+      "sha256": "bdd3a7f5bf99896e30fe1895407fd6063563d1f44416bc9be9f09295cbac67dd"
+    }
+  ]
+}

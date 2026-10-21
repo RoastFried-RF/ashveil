@@ -1735,6 +1735,7 @@ export interface WorldMapDocument {surveyedAt?:number;commission?:string;title:s
 export interface MapDocument {landmarks?:{x:number;y:number;kind:'water';label:string}[];title:string;author:string;mapId:string;kind:'surface'|'dungeon';depth:number;w:number;h:number;writtenAt:number;reliability:number;error:number;cartographer?:{id:number;name:string;seed:string};commission?:string;surveyedAt?:number;stairs?:{x:number;y:number;label:string}[];rooms:{roomIndex?:number;type?:string;name:string;x:number;y:number;w:number;h:number}[]}
 
 export interface KnowledgeDef extends DefBase {
+  pillAging?: { minPotency: number; maxPotency: number; spoilChance: number; spoiledEffect: string; spoiledAmount: number; noticePer: number }
   appraisal?:{feeRate:number;honesty:number;relationPerPoint:number;factionHonesty:Record<string,number>}
   defType: 'Knowledge'
   examineTurns: number
@@ -1855,6 +1856,8 @@ export interface ItemInst {
   lit?: boolean
   /** 일부만 남은 알약. 분수 정제는 count1이며 더미에 합치지 않는다. */
   pillRemaining?: number
+  /** 같은 발굴 더미의 효력0~100%와 변질. 필드 없는 과거 정제는 기존100% 효과를 보존한다. */
+  pillAge?: { potency: number; spoiled: boolean }
   uses?: number
   dirty?: boolean
   readPages?: number

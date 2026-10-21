@@ -1,6 +1,7 @@
 import {firearmRates} from '../core/firearms'
 import {qualityFromScore} from '../core/crafting'
 import {foodKcal,cookingRules} from '../core/cooking-state'
+import {pillAgeLines} from '../core/pill-aging'
 // 툴팁 문구: 아이템·능력·수정치를 한국어로 풀어 쓴다
 
 import { waterVesselForDef,drinkVolume, turnOf, pillBelief, knowledgeDef, readingPageTurns, drugPreview, type DrugDef, waterLines, player, ambientTemp, foodFreshness, freshnessBand, FRESHNESS_LABEL, rotRate, masteryStage, stuffProfile, rawStock, structuralDurability, durabilityBand, hasQuality, itemDef, itemLabel, qualityInfo, temperatureDelta, thermalState, type ProstheticDef, type AbilityDef, type Creature, type ItemDef, type ItemInst, type World, thirstBand } from '../core'
@@ -90,6 +91,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
     lines.push(`${a.label}: ${DMG_LABEL[a.damageType] ?? a.damageType} ${Number(a.damage.toFixed(2))} · 관통 ${a.pen} · 정확도 +${a.accuracy} · 기력 ${a.energy}`)
   }
   if (d.unidentified === 'pill') {
+    if (it) lines.push(...pillAgeLines(w, player(w), it))
     const belief = pillBelief(w,d.id), rules = knowledgeDef(w)
     if (belief?.confidence === 'likely' && belief.belief) lines.push(`추정 효능: ${w.db.pill(belief.belief).description}`)
     if (belief?.ruledOut.length) lines.push(`관찰로 배제: ${belief.ruledOut.map((id) => w.db.pill(id).label).join(', ')}`)
@@ -99,7 +101,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   const drugId = d.unidentified ? w.s.knowledge.pillKnown[d.id] ? w.db.pill(w.s.knowledge.pillKnown[d.id]).drug : undefined : d.drug?.def
   if (drugId) {
     const drug = w.db.get<DrugDef>(drugId), preview = drugPreview(w, player(w), drugId)
-    lines.push(`${drug.external ? '외용' : '복용'} · 지속${drug.durationTurns / 1200}시간${drug.pain ? ` · 현재 통증−${preview.pain.toFixed(1)}` : ''}`)
+    lines.push(`${drug.external ? '외용' : '복용'} · ${d.unidentified ? '원래 약 기준 ' : ''}지속${drug.durationTurns / 1200}시간${drug.pain ? ` · ${d.unidentified ? '100% 효력의' : '현재'} 통증−${preview.pain.toFixed(1)}` : ''}`)
     if (drug.family) lines.push(`현재 내성${preview.tolerance.toFixed(1)}/100 · 이번 의존 위험${(preview.addiction * 100).toFixed(1)}%`)
     if (drug.consciousness || drug.breathing) lines.push(`의식 감점${drug.consciousness} · 호흡−${drug.breathing}`)
     if (drug.external) lines.push('신체 창에서 겉으로 드러난 상처를 골라 바른다.')

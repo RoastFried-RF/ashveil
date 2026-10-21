@@ -27,7 +27,7 @@ function setup() {
   return {w,p}
 }
 function dose(w:World,id:string) { expect(administerDrug(w,player(w),'Drug.'+id)).toBeNull() }
-function add(w:World,id:string,count=1) {const it=makeItem(w,'Item.'+id,count);expect(addToBag(w,player(w),it)).toBe(0);return it}
+function add(w:World,id:string,count=1) {const it=makeItem(w,'Item.'+id,count);if(w.db.item(it.def).unidentified==='pill')it.pillAge={potency:100,spoiled:false};expect(addToBag(w,player(w),it)).toBe(0);return it}
 function wound(w:World,part='LeftForearm',severity=5) {return addWound(w,player(w),{part,def:'Wound.Cut',severity,source:'검증 상처'}).wound}
 function dependent(w:World,family:'analgesic'|'alcohol'|'stimulant',elapsed:number) { const p=player(w); p.drugs={active:[],tolerance:{},lastDose:{[family]:turnOf(w)-elapsed},addicted:[family],toleranceAt:turnOf(w),revision:0} }
 function finish(w:World) {let n=0;while(w.s.simulationPending&&n++<10000)runUntilInput(w,200);expect(n).toBeLessThan(10000)}

@@ -14,6 +14,9 @@ export interface CharDef {
   renderScale?: number
   /** 지면부터 머리 위 상태 표시까지의 월드 픽셀 높이. */
   headOffset?: number
+  /** 방향형 대형 생물도 원래 몸 크기의 그림자·체력 막대를 유지한다. */
+  shadow?: [number, number]
+  healthBarWidth?: number
 }
 export type Dir = 'down' | 'left' | 'right' | 'up'
 

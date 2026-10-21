@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.286** · 각인194. 전체5,846개·실제16장·월드30판 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
+**현재 상태: 프로토타입 v0.287 검증 중** · 각인195. 전체5,863개·실제15장 검증 완료·월드30판 검사 중. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -154,3 +154,10 @@ F2에서 실제 도구·성공률·시간/마모/소음을 보고 잠금을 푼�
 ![정밀 도구의 실제 실패 비용](docs/previews/v286-1382-native-actual-failed-pick-original-lock-remains-after-ten-turns.png)
 ![원본 문이 별도 행동으로 열린 상태](docs/previews/v286-1385-native-actual-original-door-open-frame-after-separate-one-turn.png)
 ![작은 화면의 원본 도구와 문](docs/previews/v286-1388-native-small-screen-original-lockpick-tools-and-restored-doors.png)
+
+## 발굴 정제 노화·살아 있는 원본 (v0.287 검증 중)
+
+같은 약 외형이라도 더미 보존 상태는 다를 수 있다. 실제 분량·효력과 관찰 가능한 단서를 사용하며 과거 정제는 소급 약화하지 않는다. [검증 근거](docs/release-v287-proof.json).
+
+![실제 살아 있는 환자·포자·융합체·드론 원본](docs/previews/v287-1389-native-original-living-patients-spores-boss-and-active-inert-drones.png)
+![실제 부분 시음과 남은 정제](docs/previews/v287-1391-native-actual-half-potency-quarter-sample-and-same-batch-remainder.png)

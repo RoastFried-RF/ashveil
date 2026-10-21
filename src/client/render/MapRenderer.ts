@@ -42,6 +42,7 @@ interface CView {
   flashT: number
   deadT: number
   alive: boolean
+  mechanical: boolean
   crouched:boolean
   unknown: boolean
   scale: number
@@ -540,6 +541,7 @@ export class MapRenderer {
       body = new Sprite(tex(ch.idle.down[0]))
       body.anchor.set(ch.anchor[0], ch.anchor[1])
       scale = ch.renderScale ?? 0.72
+      if (ch.shadow) shadow.clear().ellipse(0, 0, ch.shadow[0], ch.shadow[1]).fill({ color: 0x000000, alpha: 0.5 })
     } else if (animFrames(c.sprite).length) {
       anim = animFrames(c.sprite)
       body = new AnimatedSprite(anim)
@@ -561,7 +563,7 @@ export class MapRenderer {
     const v: CView = {
       id: c.id, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
-      alive: c.alive, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
+      alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
     void w
     return v
@@ -594,6 +596,7 @@ export class MapRenderer {
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
       v.crouched=crouched(w,c)
+      v.mechanical=!!c.body.machine
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
       if (v.alive && !c.alive) { v.alive = false; v.deadT = 0 }
       this.drawBar(w, c, v)
@@ -609,7 +612,7 @@ export class MapRenderer {
     const max = hpMax(w, c)
     const frac = Math.max(0, Math.min(1, c.hp / max))
     const top = this.headY(v)
-    const bw = v.anim ? 24 : 14
+    const bw = v.char?.healthBarWidth ?? (v.anim ? 24 : 14)
     g.rect(-bw / 2 - 1, top - 4, bw + 2, 3).fill({ color: 0x0a0806, alpha: 0.85 })
     g.rect(-bw / 2, top - 3, bw * frac, 1).fill(frac > 0.5 ? paletteColor('health') : frac > 0.25 ? paletteColor('danger') : paletteColor('warn'))
     // 출혈 중이면 아래에 가는 붉은 선
@@ -727,7 +730,7 @@ export class MapRenderer {
     const t = new Text({ text, style: { ...FONT, fontSize: size * 4, fill: color, stroke: { color: '#120c08', width: 6 } }, resolution: 1 })
     t.scale.set(0.25)
     t.anchor.set(0.5, 1)
-    t.position.set(p.x * T + T / 2 + (k % 2 ? 4 : -4) * Math.min(1, k), p.y * T - (v?.anim ? 40 : 18) - (k % 5) * 6)
+    t.position.set(p.x * T + T / 2 + (k % 2 ? 4 : -4) * Math.min(1, k), p.y * T + (v ? this.headY(v) + 4 : -18) - (k % 5) * 6)
     this.floatLayer.addChild(t)
     this.floaters.push({ t, vy: -0.022, life: 0, max: 1100 + k * 120 })
   }
@@ -856,7 +859,7 @@ export class MapRenderer {
     }
     // 절뚝임: 걸음 후반에 1px 주저앉는다
     const hop = moving ? -Math.sin(v.t * Math.PI) * 1.5 + (v.limp && v.t > 0.5 ? 1 : 0) : 0
-    const breathe = preferences.animationSpeed > 0 && !moving && v.alive ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
+    const breathe = preferences.animationSpeed > 0 && !moving && v.alive && !v.mechanical ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy + hop)
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
     if (v.char || v.anim) v.body.scale.set(v.scale, v.scale * breathe*(v.crouched ? .78 : 1))

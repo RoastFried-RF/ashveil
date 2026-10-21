@@ -1,0 +1,93 @@
+{
+  "checkpoint": "v287-final",
+  "manifestSha256": "5615f662339c92ea44e86aa920e0118a26cfdacb00a34524d961a7cc0b1c8575",
+  "save": 195,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 297,
+  "schemaFiles": 162,
+  "source": {
+    "src": {
+      "files": 655,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1014,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 115,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 355,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 321,
+    "passed": 5863,
+    "failed": 0,
+    "seconds": 659.1124697265625,
+    "workers": 2,
+    "ranIn": "immutable v287-final"
+  },
+  "world": {
+    "status": "pending",
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4
+  },
+  "goldens": "ALL5 WHOLE initial/final/error vectors audited vs286. Exactly3metadata paths(version194→195+2hashes) plus original pill batches new pillAge and independent items.pill-aging RNG. ALL remaining WHOLE physical/time/old RNG/UID/errors exact286.286 vectors archived once; no claim that future real pill consumption has unchanged effects.",
+  "native": {
+    "screenshots": 7,
+    "wholeRoundtrips": 3,
+    "wholeStatePhases": 10,
+    "actualInputTU": 700,
+    "errors": 0
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen287": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen287": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+    "ownPreviewWrapperUsed": true
+  },
+  "all15PngIndependentlyViewed": true,
+  "art": "7original packs/8chars/208frames/16PNG-SVG pairs/53copiedpublicfiles independently verified. Living Withered/Priest, two Spore variants, large Amalgam with preserved6legacy/anims plusnew28directional, active/inert6legDrone and ShadeChief. Original56 prior sheet files and unrelatedchars/anims preserved. Large shadow18x4/HP24/head-basedfloaters; mechanical bodies do not breathe. Root ALL7Native+2titles viewed; independent all15 final PNG reviewed.",
+  "validation": "Build with VueType+schema162/0errors/Defs884/206Items/88Recipes/297patches passed. Lint0errors/1unused original-art mirror helper warning. Targeted4files95 andCLI4, finalgolden+aging2files27 passed.",
+  "originalFailures": "First2files56:33pass23fail real invalid loot.pill-aging domain; corrected to existing allowed items.pill-aging without weakening RNG rules. Second48pass8 old100% dose expectations; old identity/pharmacology fixtures explicitly100/unspoiled preserving old numerical expectations, new17cases cover real50%/spoiled/legacy. Type failures in new split destination and Native people array corrected. Mechanical pulse first attempt referenced c outside animateView; build stopped prefreeze/browser, corrected CView.mechanical read-only snapshot and rebuilt. Native first passed7wholephases/2restores/5PNG then wrong same600TU NPC scheduling assumption failed; actual scheduler player-first tie preserved, added real Period1T to700 and reran same product. Raw failures preserved.",
+  "excluded": "Future288 resident/healer appearance aliases and six original pill icons are NOT included."
+}

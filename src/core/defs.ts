@@ -1301,6 +1301,20 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for(const y of d.yields){need(d.id,y.item,'Item');range(d.id,'yields.count',y.count,1,Infinity,true)}
   }
   for (const d of db.all<KnowledgeDef>('Knowledge')) {
+    if (d.pillAging !== undefined) {
+      const a = d.pillAging
+      if (!isObj(a)) report.errors.push(d.id + ': pillAging 구조 오류')
+      else {
+        for (const key of ['minPotency', 'maxPotency', 'noticePer', 'spoilChance', 'spoiledAmount'] as const) {
+          if (!Number.isFinite(a[key])) report.errors.push(d.id + ': pillAging.' + key + ' 유한값 필요')
+          else range(d.id, 'pillAging.' + key, a[key], key === 'spoilChance' ? 0 : Number.MIN_VALUE, key === 'spoilChance' || key === 'spoiledAmount' ? 1 : 100, key === 'minPotency' || key === 'maxPotency' || key === 'noticePer')
+        }
+        if (a.minPotency > a.maxPotency) report.errors.push(d.id + ': pillAging 효력 구간 뒤집힘')
+        need(d.id, a.spoiledEffect, 'PillEffect')
+        const spoiled = db.tryGet<PillEffectDef>(a.spoiledEffect)
+        if (spoiled?.effect !== 'toxin' || spoiled.drug) report.errors.push(d.id + ': pillAging 변질 효과는 약물 투여가 없는 독이어야 함')
+      }
+    }
     if(d.appraisal!==undefined){const a=d.appraisal;if(!isObj(a))report.errors.push(d.id+': appraisal 구조 오류');else{for(const key of ['feeRate','honesty','relationPerPoint']as const){if(!Number.isFinite(a[key]))report.errors.push(d.id+': appraisal.'+key+' 필요');else range(d.id,'appraisal.'+key,a[key],key==='feeRate'?.01:0,key==='relationPerPoint'?.01:1)}if(!isObj(a.factionHonesty))report.errors.push(d.id+': appraisal.factionHonesty 필요');else for(const [f,v]of Object.entries(a.factionHonesty)){if(!db.all<FactionDef>('Faction').some(d=>d.key===f))report.errors.push(d.id+': appraisal 없는 세력 '+f);range(d.id,'appraisal.factionHonesty.'+f,v,0,1)}}}
     for (const key of ['examineTurns','tasteTurns','pageTurns','literacyBooks'] as const) range(d.id,key,d[key],1,Infinity,true)
     for (const key of ['tasteBonus','baseChance','chancePerPoint','minChance','maxChance','masteryScore','defaultDifficulty','noticeablePain'] as const) range(d.id,key,d[key],0,100)

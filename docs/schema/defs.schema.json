@@ -45652,6 +45652,81 @@
               "defType"
             ],
             "properties": {
+              "pillAging": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "minPotency": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxPotency": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "spoilChance": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "spoiledEffect": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "spoiledAmount": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "noticePer": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "appraisal": {
                 "anyOf": [
                   {
@@ -45995,6 +46070,37 @@
               "id"
             ],
             "properties": {
+              "pillAging": {
+                "type": "object",
+                "properties": {
+                  "minPotency": {
+                    "type": "number"
+                  },
+                  "maxPotency": {
+                    "type": "number"
+                  },
+                  "spoilChance": {
+                    "type": "number"
+                  },
+                  "spoiledEffect": {
+                    "type": "string"
+                  },
+                  "spoiledAmount": {
+                    "type": "number"
+                  },
+                  "noticePer": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "minPotency",
+                  "maxPotency",
+                  "spoilChance",
+                  "spoiledEffect",
+                  "spoiledAmount",
+                  "noticePer"
+                ]
+              },
               "appraisal": {
                 "type": "object",
                 "properties": {

@@ -23,7 +23,8 @@ function setup(){
  w.s.map.lights=[{pos:{...p.pos},radius:6,kind:'campfire'}];invalidateLights(w)
  return {w,p}
 }
-function pill(w:World,effect:string,count=1){const it=makeItem(w,'Item.PillWhite',count);expect(addToBag(w,player(w),it)).toBe(0);w.s.knowledge.pillMap[it.def]='Pill.'+effect;return it}
+// 종류 감별/분량의 기존 계약은 명시적인100%·미변질 표본으로 검사한다. 노화 표본은 pill-aging.test.ts에서 별도 검사한다.
+function pill(w:World,effect:string,count=1){const it=makeItem(w,'Item.PillWhite',count);it.pillAge={potency:100,spoiled:false};expect(addToBag(w,player(w),it)).toBe(0);w.s.knowledge.pillMap[it.def]='Pill.'+effect;return it}
 function add(w:World,id:string){const it=makeItem(w,'Item.'+id);expect(addToBag(w,player(w),it)).toBe(0);return it}
 function finish(w:World){let n=0;while(w.s.simulationPending&&n++<10000)runUntilInput(w,200);expect(n).toBeLessThan(10000)}
 function roll(w:World,percent:number){w.s.rng['world.knowledge']=[Math.floor(percent/100*4294967296),0,0,0]}
@@ -65,7 +66,7 @@ describe('규칙은 공개되고 알약의 정체는 관찰로 배운다',()=>{
   const x=setup(),vit=pill(x.w,'Vitamin');addWound(x.w,x.p,{def:'Wound.Cut',part:'LeftForearm',severity:20,source:'검증'});usePill(x.w,x.p,vit);expect(pillBelief(x.w,vit.def)?.ruledOut).toContain('Pill.Analgesic')
  })
  it('NPC 복용은 몸에 적용되지만 플레이어에게 비밀 지식을 주지 않는다',()=>{
-  const {w}=setup(),npc=createCreature(w,'Creature.Reaver',{x:21,y:20}),it=makeItem(w,'Item.PillWhite');w.s.knowledge.pillMap[it.def]='Pill.Stimulant';npc.bag=[it];npc.needs.fatigue=80;usePill(w,npc,it);expect(npc.needs.fatigue).toBe(40);expect(w.s.knowledge.pillKnown[it.def]).toBeUndefined();expect(w.s.knowledge.pillBeliefs).toBeUndefined()
+  const {w}=setup(),npc=createCreature(w,'Creature.Reaver',{x:21,y:20}),it=makeItem(w,'Item.PillWhite');it.pillAge={potency:100,spoiled:false};w.s.knowledge.pillMap[it.def]='Pill.Stimulant';npc.bag=[it];npc.needs.fatigue=80;usePill(w,npc,it);expect(npc.needs.fatigue).toBe(40);expect(w.s.knowledge.pillKnown[it.def]).toBeUndefined();expect(w.s.knowledge.pillBeliefs).toBeUndefined()
  })
  it('감별 활동은6턴이며 약을 소비하지 않는다',()=>{
   const {w,p}=setup(),it=pill(w,'Vitamin'),start=w.s.time;expect(playerAct(w,{type:'examine',uid:it.uid})).toBeNull();finish(w);expect(w.s.time-start).toBe(600);expect(p.bag).toContain(it)

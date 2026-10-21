@@ -1,0 +1,184 @@
+{
+  "format": "ashveil-original-art-integrity-v1",
+  "character": "living wasted patient",
+  "frameCount": 28,
+  "distinctPoseCount": 28,
+  "png": {
+    "walk": {
+      "width": 72,
+      "height": 128,
+      "opaquePixels": 3108,
+      "transparentPixels": 6108
+    },
+    "attack": {
+      "width": 128,
+      "height": 160,
+      "opaquePixels": 4256,
+      "transparentPixels": 16224
+    },
+    "contact": {
+      "width": 768,
+      "height": 1584,
+      "opaquePixels": 1216512,
+      "transparentPixels": 0
+    }
+  },
+  "checks": [
+    "all frame rectangles in bounds",
+    "28 distinct poses",
+    "palette-only RGBA",
+    "binary transparency",
+    "fixed boot floor in all poses",
+    "walk/attack floor anchor equality",
+    "PNG CRC and scanline decoding",
+    "byte-for-byte deterministic output"
+  ],
+  "files": {
+    "public/sprites/original/ashveil-withered-walk.png": {
+      "bytes": 1874,
+      "sha256": "c3e74657bd067f4e1383fbd50e5928469244c8a3a33afdce57dafad3b3c877b6"
+    },
+    "public/sprites/original/ashveil-withered-attack.png": {
+      "bytes": 2095,
+      "sha256": "5a37f565e3dd3a4d9ac6d965faf6cd6dd26896c061bddc3fd582c3cc355ba872"
+    },
+    "public/sprites/original/ashveil-withered-walk.svg": {
+      "bytes": 96461,
+      "sha256": "8da9e5d7fffc286e7ee9cb38026a1d62a00469c29b3a1b1a813bcc4735e29ae1"
+    },
+    "public/sprites/original/ashveil-withered-attack.svg": {
+      "bytes": 131292,
+      "sha256": "fa1fae9b162cf717d64a9dcbfa09590ccae4bc70732a3150e371f7982bdd3587"
+    },
+    "public/sprites/original/ashveil-withered-contact.png": {
+      "bytes": 38516,
+      "sha256": "d1d1695b5bc174e480071a43ee30c6f193e3ff1ce8bf95df193eccf929d36bea"
+    },
+    "public/sprites/original/ashveil-withered-palette.json": {
+      "bytes": 599,
+      "sha256": "95847a0169dd24a73dcb77f6e5ce7a97468d5163e8a82450eff6d7f4db618035"
+    },
+    "public/sprites/original/ashveil-withered-frames.json": {
+      "bytes": 6483,
+      "sha256": "5ed7a3980e7c6294bc4106c12f0decd76c20b746e161e0097e35377644491f57"
+    }
+  },
+  "source": {
+    "path": "tools/art/draw-withered.mjs",
+    "sha256": "b1f0f7e88a2197acbc3643ef6313752c4e97a1a3e5947240c3be96f24baab194"
+  },
+  "poses": [
+    {
+      "name": "withered_w_down0",
+      "sha256": "aef2e70a8a49d4f34378a6198860ec520c34213ee4ebcaa2d06021aec0299147"
+    },
+    {
+      "name": "withered_w_down1",
+      "sha256": "df34ce5dbe7d8aacd23ef01f2fcf2353c7a0f5f7c11815355627b27dade58487"
+    },
+    {
+      "name": "withered_w_down2",
+      "sha256": "2597fe39d2a5a6baa49b952af5e2b4c1f1521b1d22449002c4360de800c016bc"
+    },
+    {
+      "name": "withered_w_left0",
+      "sha256": "a9e9c3e34d8a9cc36d24cfc2e71ea3e3da0eaa1ea7b9b24903e7c269641ddf2f"
+    },
+    {
+      "name": "withered_w_left1",
+      "sha256": "9d6d76cf943615d14a499862fd706d2f773be6e687f3495583061f43438a966b"
+    },
+    {
+      "name": "withered_w_left2",
+      "sha256": "985aad6027928053fd777cce308ee53d52241e8e5be1cdaa4171c781aa0df11f"
+    },
+    {
+      "name": "withered_w_right0",
+      "sha256": "200ab16ff087d7b1190518d59e107a55f67869be7bb218a2d6ee9cdb5da973a3"
+    },
+    {
+      "name": "withered_w_right1",
+      "sha256": "fd5a0c8590ddf8f61e32d0907f593bd5bf57ec305090c13a76db03c4405e5a25"
+    },
+    {
+      "name": "withered_w_right2",
+      "sha256": "2c58a27b2be042cbee09a8c98538515af61093433a60a0300eb3db1d9cc658d4"
+    },
+    {
+      "name": "withered_w_up0",
+      "sha256": "4fddc814d60ca02a244a4a650f5c440962720006e12ac16260ef1402abf9baab"
+    },
+    {
+      "name": "withered_w_up1",
+      "sha256": "2d0a473159a3d21cf4c1e2682523e7f923a41bd89ef1486f9cd2d2a942eb80fc"
+    },
+    {
+      "name": "withered_w_up2",
+      "sha256": "58ed853c56dea4fea82b4816c34b0cee00b6c20b769626742408ee742f7657ac"
+    },
+    {
+      "name": "withered_a_down0",
+      "sha256": "bc22322f4fc808f546a8a74517217226f598cb6867524836b3fae1f1b424217f"
+    },
+    {
+      "name": "withered_a_down1",
+      "sha256": "a291e82a5473d7a5ec04ed22c04051274d7a95689dd1f7d8c4e1275e79340ead"
+    },
+    {
+      "name": "withered_a_down2",
+      "sha256": "ecfead83968545f88c7a4390695264b9cb13a2d8c750d241f2a9b2cfe73aed4f"
+    },
+    {
+      "name": "withered_a_down3",
+      "sha256": "afece94fd4bf55f6125bd936d28407af1ac9fce986dad211eb515896a477d301"
+    },
+    {
+      "name": "withered_a_left0",
+      "sha256": "359520c873bae061455922d9bd46a558dc96f5b461a502dc3bc17f9d9dcfda23"
+    },
+    {
+      "name": "withered_a_left1",
+      "sha256": "6824f5ceb802c41820321c803305928aceea8c20ccd3221d02003c5e3b5f8d5c"
+    },
+    {
+      "name": "withered_a_left2",
+      "sha256": "c264f9397b51d4680c9c00605b1c3d03ebe465cde3f69541799bd2ae8be567e4"
+    },
+    {
+      "name": "withered_a_left3",
+      "sha256": "06c0aa4717d48f34d42f788401c0904b220c55eafb520ebf34e8bfad2d6e2668"
+    },
+    {
+      "name": "withered_a_right0",
+      "sha256": "d3f13ffd55cdee1491140fb8253ed2760018447ddf01a0983e5dd747914093d6"
+    },
+    {
+      "name": "withered_a_right1",
+      "sha256": "4b9f8e77eca13579c289d0f87a4663abe3d5bc17c9f457dd17e94060c95c265f"
+    },
+    {
+      "name": "withered_a_right2",
+      "sha256": "e5585a99ed20d25df63dd3f94a1dd90582223b3a9912f487aa7db16b2349c18a"
+    },
+    {
+      "name": "withered_a_right3",
+      "sha256": "627ba569ab5dee5532ab39bb617939a80a2e968a2192299fe82a48cb654c3e04"
+    },
+    {
+      "name": "withered_a_up0",
+      "sha256": "299f092760c96718b14311b5107a12c7fc69867e6ed9ac5dcd29d42f65de1ffd"
+    },
+    {
+      "name": "withered_a_up1",
+      "sha256": "e3019075c54345cb2577ad70f90ce166c4e96fe4cfd98a5489fc0b42cc4034ca"
+    },
+    {
+      "name": "withered_a_up2",
+      "sha256": "7408fc17cb7a13c99e4735ee7fe65a28269f7f42d7302162bdbb1a351883ca59"
+    },
+    {
+      "name": "withered_a_up3",
+      "sha256": "1c82a4f3b960d7dbdda35c0359c1726badd9bea44cd27699cd2bbc0fcd47af37"
+    }
+  ]
+}

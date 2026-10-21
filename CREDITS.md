@@ -86,3 +86,11 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - 그늘 사람 나머지 두 외형도 자체 픽셀 좌표로 작성했다. [shade2 원본/출처](docs/art-shade2-original.md) · [shade3 원본/출처](docs/art-shade3-original.md). 공용 외부 시트의 픽셀을 추출·재색칠하지 않는다.
 
 - 정밀 잠금 도구의 갈고리/장력쇠는 자체 좌표로 그렸다. [원본/출처/재현](docs/art-lockpick-original.md), `tools/art/lockpick/draw-lockpick.py`.
+
+- 말라붙은 자/사제/포자 인간 첫 외형은 자체 정수 픽셀 좌표로 직접 제작했다. 살아 있는 환자·순례자 설정에 맞춘 얼굴/옷과28포즈 원본이며 외부 시트 픽셀을 읽거나 재색칠하지 않는다. [환자](docs/art-withered-original.md) · [사제](docs/art-withered-priest-original.md) · [포자 인간](docs/art-spore0-original.md).
+
+- 포자 인간 두 번째 외형도 자체좌표로 제작한28포즈 원본이다. 회백색 긴 옷·자주색 두건·층진 피막으로 구분했다. [출처/재현](docs/art-spore1-original.md).
+
+- 융합체의 살아 있는 환자 실루엣/기존6+방향형28포즈와 수리 드론의6족/냉각판/공구·활성/정지32포즈는 자체 픽셀 좌표로 직접 그렸다. [융합체 원본·출처](docs/art-amalgam-original.md) · [드론 원본·출처](docs/art-drone-original.md).
+
+- 그늘 우두머리의 작은 인간 외형·옷깃·꿰맨 앞자락과28포즈는 자체 픽셀 좌표로 직접 그렸다. [출처/재현](docs/art-shade-chief-original.md).

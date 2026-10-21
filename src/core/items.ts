@@ -1,6 +1,7 @@
 import {MISSING_ITEM} from './missing-items'
 import {equipmentSnapshot,runEquipmentWorkers} from './script-item'
 import { pillBelief } from './knowledge-state'
+import { makePillAge } from './pill-aging'
 import { prostheticAt, prostheticGrip } from './prosthetic-state'
 import { clothingRemoveSlots } from './lining-state'
 // 아이템: 격자 배낭 + 장비 슬롯 + 빠른 슬롯
@@ -19,6 +20,7 @@ export function makeItem(w: World, defId: string, count = 1): ItemInst {
   const def = w.db.item(defId)
   if((def.storage||def.pocket||def.quiver)&&count!==1)throw new Error('가방은 한 인스턴스에 하나씩 생성해야 한다')
   const it: ItemInst = { uid: w.s.nextId++, def: defId, count }
+  if (def.unidentified === 'pill') { const age = makePillAge(w); if (age) it.pillAge = age }
   if(def.storage||def.pocket||def.quiver)it.contents=[]
   if (def.food?.freshHours || def.drink?.freshHours) { it.freshness = 100; it.foodAgedAt = turnOf(w) }
   if (def.stuffDefaults) it.stuff = structuredClone(def.stuffDefaults)
@@ -58,6 +60,7 @@ export function durabilityBand(d: number): { label: string; color: string } {
 
 /** 쌓임 키 (13 §5): 같은 Def·품질·내구·오염 상태만 쌓인다. */
 export function canStack(a: ItemInst, b: ItemInst): boolean {
+  if ((a.pillAge?.potency ?? 100) !== (b.pillAge?.potency ?? 100) || !!a.pillAge?.spoiled !== !!b.pillAge?.spoiled) return false
   if((a.powderWetness!==undefined||b.powderWetness!==undefined)&&a.gearAgedAt!==b.gearAgedAt)return false
   if((a.powderWetness??0)!==(b.powderWetness??0)||a.loadedRound||b.loadedRound||a.loadedCartridges||b.loadedCartridges)return false
   if(!!a.fletchingDamaged!==!!b.fletchingDamaged)return false

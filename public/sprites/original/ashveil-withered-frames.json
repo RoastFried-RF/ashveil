@@ -1,0 +1,367 @@
+{
+  "format": "ashveil-atlas-fragment-v1",
+  "status": "prepared-not-installed",
+  "character": "withered",
+  "provenance": "Original pixel geometry authored in tools/art/draw-withered.mjs. No external sprite pixels are read.",
+  "sheets": {
+    "withered": "sprites/original/ashveil-withered-walk.png",
+    "withered_atk": "sprites/original/ashveil-withered-attack.png"
+  },
+  "frames": {
+    "withered_w_down0": [
+      "withered",
+      0,
+      0,
+      24,
+      32
+    ],
+    "withered_w_down1": [
+      "withered",
+      24,
+      0,
+      24,
+      32
+    ],
+    "withered_w_down2": [
+      "withered",
+      48,
+      0,
+      24,
+      32
+    ],
+    "withered_w_left0": [
+      "withered",
+      0,
+      32,
+      24,
+      32
+    ],
+    "withered_w_left1": [
+      "withered",
+      24,
+      32,
+      24,
+      32
+    ],
+    "withered_w_left2": [
+      "withered",
+      48,
+      32,
+      24,
+      32
+    ],
+    "withered_w_right0": [
+      "withered",
+      0,
+      64,
+      24,
+      32
+    ],
+    "withered_w_right1": [
+      "withered",
+      24,
+      64,
+      24,
+      32
+    ],
+    "withered_w_right2": [
+      "withered",
+      48,
+      64,
+      24,
+      32
+    ],
+    "withered_w_up0": [
+      "withered",
+      0,
+      96,
+      24,
+      32
+    ],
+    "withered_w_up1": [
+      "withered",
+      24,
+      96,
+      24,
+      32
+    ],
+    "withered_w_up2": [
+      "withered",
+      48,
+      96,
+      24,
+      32
+    ],
+    "withered_a_down0": [
+      "withered_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down1": [
+      "withered_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down2": [
+      "withered_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down3": [
+      "withered_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "withered_a_left0": [
+      "withered_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left1": [
+      "withered_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left2": [
+      "withered_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left3": [
+      "withered_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "withered_a_right0": [
+      "withered_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right1": [
+      "withered_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right2": [
+      "withered_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right3": [
+      "withered_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "withered_a_up0": [
+      "withered_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up1": [
+      "withered_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up2": [
+      "withered_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up3": [
+      "withered_atk",
+      96,
+      120,
+      32,
+      40
+    ]
+  },
+  "chars": {
+    "withered": {
+      "walk": {
+        "down": [
+          "withered_w_down0",
+          "withered_w_down1",
+          "withered_w_down2"
+        ],
+        "left": [
+          "withered_w_left0",
+          "withered_w_left1",
+          "withered_w_left2"
+        ],
+        "right": [
+          "withered_w_right0",
+          "withered_w_right1",
+          "withered_w_right2"
+        ],
+        "up": [
+          "withered_w_up0",
+          "withered_w_up1",
+          "withered_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "withered_w_down1"
+        ],
+        "left": [
+          "withered_w_left1"
+        ],
+        "right": [
+          "withered_w_right1"
+        ],
+        "up": [
+          "withered_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "withered_a_down0",
+          "withered_a_down1",
+          "withered_a_down2",
+          "withered_a_down3"
+        ],
+        "left": [
+          "withered_a_left0",
+          "withered_a_left1",
+          "withered_a_left2",
+          "withered_a_left3"
+        ],
+        "right": [
+          "withered_a_right0",
+          "withered_a_right1",
+          "withered_a_right2",
+          "withered_a_right3"
+        ],
+        "up": [
+          "withered_a_up0",
+          "withered_a_up1",
+          "withered_a_up2",
+          "withered_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 25
+    }
+  },
+  "contract": {
+    "existingWalkFrameCount": 12,
+    "existingAttackFrameCount": 0,
+    "preservedWalkNames": [
+      "withered_w_down0",
+      "withered_w_down1",
+      "withered_w_down2",
+      "withered_w_left0",
+      "withered_w_left1",
+      "withered_w_left2",
+      "withered_w_right0",
+      "withered_w_right1",
+      "withered_w_right2",
+      "withered_w_up0",
+      "withered_w_up1",
+      "withered_w_up2"
+    ],
+    "newAttackNames": [
+      "withered_a_down0",
+      "withered_a_down1",
+      "withered_a_down2",
+      "withered_a_down3",
+      "withered_a_left0",
+      "withered_a_left1",
+      "withered_a_left2",
+      "withered_a_left3",
+      "withered_a_right0",
+      "withered_a_right1",
+      "withered_a_right2",
+      "withered_a_right3",
+      "withered_a_up0",
+      "withered_a_up1",
+      "withered_a_up2",
+      "withered_a_up3"
+    ],
+    "existingIdle": "walk frame 1 in each direction",
+    "extension": "Optional CharDef.attack is already supported by the current renderer; this fragment adds frames, not a Core action."
+  },
+  "layout": {
+    "rowOrder": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ],
+    "walkCell": [
+      24,
+      32
+    ],
+    "walkSheet": [
+      72,
+      128
+    ],
+    "walkPoses": [
+      "left-step",
+      "idle",
+      "right-step"
+    ],
+    "attackCell": [
+      32,
+      40
+    ],
+    "attackSheet": [
+      128,
+      160
+    ],
+    "attackPoses": [
+      "ready",
+      "lift",
+      "strike",
+      "reset"
+    ],
+    "attackBodyOffset": [
+      4,
+      8
+    ],
+    "floor": {
+      "walk": 31,
+      "attack": 39,
+      "attackMinusBodyOffset": 31
+    },
+    "note": "Preserves existing 12 withered_w_* names and idle sequences. Adds 16 withered_a_* poses through optional CharDef.attack; existing withered had no attack frames. Uses two new sheet keys and does not replace shared mon1_withered, withered_priest, other creatures, hero or Core definitions."
+  }
+}

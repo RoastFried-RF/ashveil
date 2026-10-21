@@ -18,14 +18,14 @@
     "dw_env": "sprites/dw_env.png",
     "dw_tree_dead": "sprites/dw_tree_dead.png",
     "cd_tiles": "sprites/cd_tiles.png",
-    "amalgam": "sprites/amalgam.png",
+    "amalgam": "sprites/original/ashveil-amalgam-legacy.png",
     "cd_veina1": "sprites/cd_veina1.png",
     "cd_littleeyes": "sprites/cd_littleeyes.png",
     "cd_urn_1": "sprites/cd_urn_1.png",
     "cd_statue_b1": "sprites/cd_statue_b1.png",
     "x72_misc": "sprites/x72_misc.png",
-    "tender_drone": "sprites/tender_drone.png",
-    "tender_drone_inert": "sprites/tender_drone_inert.png",
+    "tender_drone": "sprites/original/ashveil-drone-walk.png",
+    "tender_drone_inert": "sprites/original/ashveil-drone-inert.png",
     "ashveil_sack": "sprites/original/items/ashveil-sack.png",
     "ashveil_quiver": "sprites/original/items/ashveil-quiver.png",
     "ashveil_leather_belt": "sprites/original/items/ashveil-leather-belt.png",
@@ -55,7 +55,20 @@
     "shade2_atk": "sprites/original/ashveil-shade2-attack.png",
     "shade3": "sprites/original/ashveil-shade3-walk.png",
     "shade3_atk": "sprites/original/ashveil-shade3-attack.png",
-    "original_lockpick": "sprites/original/items/lockpick.png"
+    "original_lockpick": "sprites/original/items/lockpick.png",
+    "withered": "sprites/original/ashveil-withered-walk.png",
+    "withered_atk": "sprites/original/ashveil-withered-attack.png",
+    "withered_priest": "sprites/original/ashveil-withered-priest-walk.png",
+    "withered_priest_atk": "sprites/original/ashveil-withered-priest-attack.png",
+    "original_spore0": "sprites/original/ashveil-spore0-walk.png",
+    "original_spore0_atk": "sprites/original/ashveil-spore0-attack.png",
+    "original_spore1": "sprites/original/ashveil-spore1-walk.png",
+    "original_spore1_atk": "sprites/original/ashveil-spore1-attack.png",
+    "tender_drone_atk": "sprites/original/ashveil-drone-attack.png",
+    "amalgam_walk": "sprites/original/ashveil-amalgam-walk.png",
+    "amalgam_atk": "sprites/original/ashveil-amalgam-attack.png",
+    "original_shade_chief": "sprites/original/ashveil-shade-chief-walk.png",
+    "original_shade_chief_atk": "sprites/original/ashveil-shade-chief-attack.png"
   },
   "frames": {
     "kt_floor_q0": [
@@ -1522,85 +1535,85 @@
       32
     ],
     "shade_chief_w_down0": [
-      "mon1",
-      72,
+      "original_shade_chief",
+      0,
       0,
       24,
       32
     ],
     "shade_chief_w_down1": [
-      "mon1",
-      96,
+      "original_shade_chief",
+      24,
       0,
       24,
       32
     ],
     "shade_chief_w_down2": [
-      "mon1",
-      120,
+      "original_shade_chief",
+      48,
       0,
       24,
       32
     ],
     "shade_chief_w_left0": [
-      "mon1",
-      72,
+      "original_shade_chief",
+      0,
       32,
       24,
       32
     ],
     "shade_chief_w_left1": [
-      "mon1",
-      96,
+      "original_shade_chief",
+      24,
       32,
       24,
       32
     ],
     "shade_chief_w_left2": [
-      "mon1",
-      120,
+      "original_shade_chief",
+      48,
       32,
       24,
       32
     ],
     "shade_chief_w_right0": [
-      "mon1",
-      72,
+      "original_shade_chief",
+      0,
       64,
       24,
       32
     ],
     "shade_chief_w_right1": [
-      "mon1",
-      96,
+      "original_shade_chief",
+      24,
       64,
       24,
       32
     ],
     "shade_chief_w_right2": [
-      "mon1",
-      120,
+      "original_shade_chief",
+      48,
       64,
       24,
       32
     ],
     "shade_chief_w_up0": [
-      "mon1",
-      72,
+      "original_shade_chief",
+      0,
       96,
       24,
       32
     ],
     "shade_chief_w_up1": [
-      "mon1",
-      96,
+      "original_shade_chief",
+      24,
       96,
       24,
       32
     ],
     "shade_chief_w_up2": [
-      "mon1",
-      120,
+      "original_shade_chief",
+      48,
       96,
       24,
       32
@@ -1690,338 +1703,338 @@
       32
     ],
     "withered_w_down0": [
-      "mon1_withered",
-      72,
-      128,
+      "withered",
+      0,
+      0,
       24,
       32
     ],
     "withered_w_down1": [
-      "mon1_withered",
-      96,
-      128,
+      "withered",
+      24,
+      0,
       24,
       32
     ],
     "withered_w_down2": [
-      "mon1_withered",
-      120,
-      128,
+      "withered",
+      48,
+      0,
       24,
       32
     ],
     "withered_w_left0": [
-      "mon1_withered",
-      72,
-      160,
+      "withered",
+      0,
+      32,
       24,
       32
     ],
     "withered_w_left1": [
-      "mon1_withered",
-      96,
-      160,
+      "withered",
+      24,
+      32,
       24,
       32
     ],
     "withered_w_left2": [
-      "mon1_withered",
-      120,
-      160,
+      "withered",
+      48,
+      32,
       24,
       32
     ],
     "withered_w_right0": [
-      "mon1_withered",
-      72,
-      192,
+      "withered",
+      0,
+      64,
       24,
       32
     ],
     "withered_w_right1": [
-      "mon1_withered",
-      96,
-      192,
+      "withered",
+      24,
+      64,
       24,
       32
     ],
     "withered_w_right2": [
-      "mon1_withered",
-      120,
-      192,
+      "withered",
+      48,
+      64,
       24,
       32
     ],
     "withered_w_up0": [
-      "mon1_withered",
-      72,
-      224,
+      "withered",
+      0,
+      96,
       24,
       32
     ],
     "withered_w_up1": [
-      "mon1_withered",
+      "withered",
+      24,
       96,
-      224,
       24,
       32
     ],
     "withered_w_up2": [
-      "mon1_withered",
-      120,
-      224,
+      "withered",
+      48,
+      96,
       24,
       32
     ],
     "withered_priest_w_down0": [
-      "mon1_withered",
-      144,
-      128,
+      "withered_priest",
+      0,
+      0,
       24,
       32
     ],
     "withered_priest_w_down1": [
-      "mon1_withered",
-      168,
-      128,
+      "withered_priest",
+      24,
+      0,
       24,
       32
     ],
     "withered_priest_w_down2": [
-      "mon1_withered",
-      192,
-      128,
+      "withered_priest",
+      48,
+      0,
       24,
       32
     ],
     "withered_priest_w_left0": [
-      "mon1_withered",
-      144,
-      160,
+      "withered_priest",
+      0,
+      32,
       24,
       32
     ],
     "withered_priest_w_left1": [
-      "mon1_withered",
-      168,
-      160,
+      "withered_priest",
+      24,
+      32,
       24,
       32
     ],
     "withered_priest_w_left2": [
-      "mon1_withered",
-      192,
-      160,
+      "withered_priest",
+      48,
+      32,
       24,
       32
     ],
     "withered_priest_w_right0": [
-      "mon1_withered",
-      144,
-      192,
+      "withered_priest",
+      0,
+      64,
       24,
       32
     ],
     "withered_priest_w_right1": [
-      "mon1_withered",
-      168,
-      192,
+      "withered_priest",
+      24,
+      64,
       24,
       32
     ],
     "withered_priest_w_right2": [
-      "mon1_withered",
-      192,
-      192,
+      "withered_priest",
+      48,
+      64,
       24,
       32
     ],
     "withered_priest_w_up0": [
-      "mon1_withered",
-      144,
-      224,
+      "withered_priest",
+      0,
+      96,
       24,
       32
     ],
     "withered_priest_w_up1": [
-      "mon1_withered",
-      168,
-      224,
+      "withered_priest",
+      24,
+      96,
       24,
       32
     ],
     "withered_priest_w_up2": [
-      "mon1_withered",
-      192,
-      224,
+      "withered_priest",
+      48,
+      96,
       24,
       32
     ],
     "spore0_w_down0": [
-      "mon2",
+      "original_spore0",
       0,
-      128,
+      0,
       24,
       32
     ],
     "spore0_w_down1": [
-      "mon2",
+      "original_spore0",
       24,
-      128,
+      0,
       24,
       32
     ],
     "spore0_w_down2": [
-      "mon2",
+      "original_spore0",
       48,
-      128,
+      0,
       24,
       32
     ],
     "spore0_w_left0": [
-      "mon2",
+      "original_spore0",
       0,
-      160,
+      32,
       24,
       32
     ],
     "spore0_w_left1": [
-      "mon2",
+      "original_spore0",
       24,
-      160,
+      32,
       24,
       32
     ],
     "spore0_w_left2": [
-      "mon2",
+      "original_spore0",
       48,
-      160,
+      32,
       24,
       32
     ],
     "spore0_w_right0": [
-      "mon2",
+      "original_spore0",
       0,
-      192,
+      64,
       24,
       32
     ],
     "spore0_w_right1": [
-      "mon2",
+      "original_spore0",
       24,
-      192,
+      64,
       24,
       32
     ],
     "spore0_w_right2": [
-      "mon2",
+      "original_spore0",
       48,
-      192,
+      64,
       24,
       32
     ],
     "spore0_w_up0": [
-      "mon2",
+      "original_spore0",
       0,
-      224,
+      96,
       24,
       32
     ],
     "spore0_w_up1": [
-      "mon2",
+      "original_spore0",
       24,
-      224,
+      96,
       24,
       32
     ],
     "spore0_w_up2": [
-      "mon2",
+      "original_spore0",
       48,
-      224,
+      96,
       24,
       32
     ],
     "spore1_w_down0": [
-      "mon2",
-      72,
-      128,
+      "original_spore1",
+      0,
+      0,
       24,
       32
     ],
     "spore1_w_down1": [
-      "mon2",
-      96,
-      128,
+      "original_spore1",
+      24,
+      0,
       24,
       32
     ],
     "spore1_w_down2": [
-      "mon2",
-      120,
-      128,
+      "original_spore1",
+      48,
+      0,
       24,
       32
     ],
     "spore1_w_left0": [
-      "mon2",
-      72,
-      160,
+      "original_spore1",
+      0,
+      32,
       24,
       32
     ],
     "spore1_w_left1": [
-      "mon2",
-      96,
-      160,
+      "original_spore1",
+      24,
+      32,
       24,
       32
     ],
     "spore1_w_left2": [
-      "mon2",
-      120,
-      160,
+      "original_spore1",
+      48,
+      32,
       24,
       32
     ],
     "spore1_w_right0": [
-      "mon2",
-      72,
-      192,
+      "original_spore1",
+      0,
+      64,
       24,
       32
     ],
     "spore1_w_right1": [
-      "mon2",
-      96,
-      192,
+      "original_spore1",
+      24,
+      64,
       24,
       32
     ],
     "spore1_w_right2": [
-      "mon2",
-      120,
-      192,
+      "original_spore1",
+      48,
+      64,
       24,
       32
     ],
     "spore1_w_up0": [
-      "mon2",
-      72,
-      224,
+      "original_spore1",
+      0,
+      96,
       24,
       32
     ],
     "spore1_w_up1": [
-      "mon2",
+      "original_spore1",
+      24,
       96,
-      224,
       24,
       32
     ],
     "spore1_w_up2": [
-      "mon2",
-      120,
-      224,
+      "original_spore1",
+      48,
+      96,
       24,
       32
     ],
@@ -2832,7 +2845,7 @@
     ],
     "tender_drone": [
       "tender_drone",
-      0,
+      32,
       0,
       32,
       32
@@ -3445,6 +3458,986 @@
       0,
       32,
       32
+    ],
+    "withered_a_down0": [
+      "withered_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down1": [
+      "withered_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down2": [
+      "withered_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "withered_a_down3": [
+      "withered_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "withered_a_left0": [
+      "withered_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left1": [
+      "withered_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left2": [
+      "withered_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "withered_a_left3": [
+      "withered_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "withered_a_right0": [
+      "withered_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right1": [
+      "withered_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right2": [
+      "withered_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "withered_a_right3": [
+      "withered_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "withered_a_up0": [
+      "withered_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up1": [
+      "withered_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up2": [
+      "withered_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "withered_a_up3": [
+      "withered_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "withered_priest_a_down0": [
+      "withered_priest_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "withered_priest_a_down1": [
+      "withered_priest_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "withered_priest_a_down2": [
+      "withered_priest_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "withered_priest_a_down3": [
+      "withered_priest_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "withered_priest_a_left0": [
+      "withered_priest_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "withered_priest_a_left1": [
+      "withered_priest_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "withered_priest_a_left2": [
+      "withered_priest_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "withered_priest_a_left3": [
+      "withered_priest_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "withered_priest_a_right0": [
+      "withered_priest_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "withered_priest_a_right1": [
+      "withered_priest_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "withered_priest_a_right2": [
+      "withered_priest_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "withered_priest_a_right3": [
+      "withered_priest_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "withered_priest_a_up0": [
+      "withered_priest_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "withered_priest_a_up1": [
+      "withered_priest_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "withered_priest_a_up2": [
+      "withered_priest_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "withered_priest_a_up3": [
+      "withered_priest_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "spore0_a_down0": [
+      "original_spore0_atk",
+      0,
+      0,
+      24,
+      32
+    ],
+    "spore0_a_down1": [
+      "original_spore0_atk",
+      24,
+      0,
+      24,
+      32
+    ],
+    "spore0_a_down2": [
+      "original_spore0_atk",
+      48,
+      0,
+      24,
+      32
+    ],
+    "spore0_a_down3": [
+      "original_spore0_atk",
+      72,
+      0,
+      24,
+      32
+    ],
+    "spore0_a_left0": [
+      "original_spore0_atk",
+      0,
+      32,
+      24,
+      32
+    ],
+    "spore0_a_left1": [
+      "original_spore0_atk",
+      24,
+      32,
+      24,
+      32
+    ],
+    "spore0_a_left2": [
+      "original_spore0_atk",
+      48,
+      32,
+      24,
+      32
+    ],
+    "spore0_a_left3": [
+      "original_spore0_atk",
+      72,
+      32,
+      24,
+      32
+    ],
+    "spore0_a_right0": [
+      "original_spore0_atk",
+      0,
+      64,
+      24,
+      32
+    ],
+    "spore0_a_right1": [
+      "original_spore0_atk",
+      24,
+      64,
+      24,
+      32
+    ],
+    "spore0_a_right2": [
+      "original_spore0_atk",
+      48,
+      64,
+      24,
+      32
+    ],
+    "spore0_a_right3": [
+      "original_spore0_atk",
+      72,
+      64,
+      24,
+      32
+    ],
+    "spore0_a_up0": [
+      "original_spore0_atk",
+      0,
+      96,
+      24,
+      32
+    ],
+    "spore0_a_up1": [
+      "original_spore0_atk",
+      24,
+      96,
+      24,
+      32
+    ],
+    "spore0_a_up2": [
+      "original_spore0_atk",
+      48,
+      96,
+      24,
+      32
+    ],
+    "spore0_a_up3": [
+      "original_spore0_atk",
+      72,
+      96,
+      24,
+      32
+    ],
+    "spore1_a_down0": [
+      "original_spore1_atk",
+      0,
+      0,
+      24,
+      32
+    ],
+    "spore1_a_down1": [
+      "original_spore1_atk",
+      24,
+      0,
+      24,
+      32
+    ],
+    "spore1_a_down2": [
+      "original_spore1_atk",
+      48,
+      0,
+      24,
+      32
+    ],
+    "spore1_a_down3": [
+      "original_spore1_atk",
+      72,
+      0,
+      24,
+      32
+    ],
+    "spore1_a_left0": [
+      "original_spore1_atk",
+      0,
+      32,
+      24,
+      32
+    ],
+    "spore1_a_left1": [
+      "original_spore1_atk",
+      24,
+      32,
+      24,
+      32
+    ],
+    "spore1_a_left2": [
+      "original_spore1_atk",
+      48,
+      32,
+      24,
+      32
+    ],
+    "spore1_a_left3": [
+      "original_spore1_atk",
+      72,
+      32,
+      24,
+      32
+    ],
+    "spore1_a_right0": [
+      "original_spore1_atk",
+      0,
+      64,
+      24,
+      32
+    ],
+    "spore1_a_right1": [
+      "original_spore1_atk",
+      24,
+      64,
+      24,
+      32
+    ],
+    "spore1_a_right2": [
+      "original_spore1_atk",
+      48,
+      64,
+      24,
+      32
+    ],
+    "spore1_a_right3": [
+      "original_spore1_atk",
+      72,
+      64,
+      24,
+      32
+    ],
+    "spore1_a_up0": [
+      "original_spore1_atk",
+      0,
+      96,
+      24,
+      32
+    ],
+    "spore1_a_up1": [
+      "original_spore1_atk",
+      24,
+      96,
+      24,
+      32
+    ],
+    "spore1_a_up2": [
+      "original_spore1_atk",
+      48,
+      96,
+      24,
+      32
+    ],
+    "spore1_a_up3": [
+      "original_spore1_atk",
+      72,
+      96,
+      24,
+      32
+    ],
+    "tender_drone_w_down0": [
+      "tender_drone",
+      0,
+      0,
+      32,
+      32
+    ],
+    "tender_drone_w_down1": [
+      "tender_drone",
+      32,
+      0,
+      32,
+      32
+    ],
+    "tender_drone_w_down2": [
+      "tender_drone",
+      64,
+      0,
+      32,
+      32
+    ],
+    "tender_drone_a_down0": [
+      "tender_drone_atk",
+      0,
+      0,
+      40,
+      40
+    ],
+    "tender_drone_a_down1": [
+      "tender_drone_atk",
+      40,
+      0,
+      40,
+      40
+    ],
+    "tender_drone_a_down2": [
+      "tender_drone_atk",
+      80,
+      0,
+      40,
+      40
+    ],
+    "tender_drone_a_down3": [
+      "tender_drone_atk",
+      120,
+      0,
+      40,
+      40
+    ],
+    "tender_drone_i_down": [
+      "tender_drone_inert",
+      0,
+      0,
+      32,
+      32
+    ],
+    "tender_drone_w_left0": [
+      "tender_drone",
+      0,
+      32,
+      32,
+      32
+    ],
+    "tender_drone_w_left1": [
+      "tender_drone",
+      32,
+      32,
+      32,
+      32
+    ],
+    "tender_drone_w_left2": [
+      "tender_drone",
+      64,
+      32,
+      32,
+      32
+    ],
+    "tender_drone_a_left0": [
+      "tender_drone_atk",
+      0,
+      40,
+      40,
+      40
+    ],
+    "tender_drone_a_left1": [
+      "tender_drone_atk",
+      40,
+      40,
+      40,
+      40
+    ],
+    "tender_drone_a_left2": [
+      "tender_drone_atk",
+      80,
+      40,
+      40,
+      40
+    ],
+    "tender_drone_a_left3": [
+      "tender_drone_atk",
+      120,
+      40,
+      40,
+      40
+    ],
+    "tender_drone_i_left": [
+      "tender_drone_inert",
+      0,
+      32,
+      32,
+      32
+    ],
+    "tender_drone_w_right0": [
+      "tender_drone",
+      0,
+      64,
+      32,
+      32
+    ],
+    "tender_drone_w_right1": [
+      "tender_drone",
+      32,
+      64,
+      32,
+      32
+    ],
+    "tender_drone_w_right2": [
+      "tender_drone",
+      64,
+      64,
+      32,
+      32
+    ],
+    "tender_drone_a_right0": [
+      "tender_drone_atk",
+      0,
+      80,
+      40,
+      40
+    ],
+    "tender_drone_a_right1": [
+      "tender_drone_atk",
+      40,
+      80,
+      40,
+      40
+    ],
+    "tender_drone_a_right2": [
+      "tender_drone_atk",
+      80,
+      80,
+      40,
+      40
+    ],
+    "tender_drone_a_right3": [
+      "tender_drone_atk",
+      120,
+      80,
+      40,
+      40
+    ],
+    "tender_drone_i_right": [
+      "tender_drone_inert",
+      0,
+      64,
+      32,
+      32
+    ],
+    "tender_drone_w_up0": [
+      "tender_drone",
+      0,
+      96,
+      32,
+      32
+    ],
+    "tender_drone_w_up1": [
+      "tender_drone",
+      32,
+      96,
+      32,
+      32
+    ],
+    "tender_drone_w_up2": [
+      "tender_drone",
+      64,
+      96,
+      32,
+      32
+    ],
+    "tender_drone_a_up0": [
+      "tender_drone_atk",
+      0,
+      120,
+      40,
+      40
+    ],
+    "tender_drone_a_up1": [
+      "tender_drone_atk",
+      40,
+      120,
+      40,
+      40
+    ],
+    "tender_drone_a_up2": [
+      "tender_drone_atk",
+      80,
+      120,
+      40,
+      40
+    ],
+    "tender_drone_a_up3": [
+      "tender_drone_atk",
+      120,
+      120,
+      40,
+      40
+    ],
+    "tender_drone_i_up": [
+      "tender_drone_inert",
+      0,
+      96,
+      32,
+      32
+    ],
+    "amalgam_w_down0": [
+      "amalgam_walk",
+      0,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_down1": [
+      "amalgam_walk",
+      80,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_down2": [
+      "amalgam_walk",
+      160,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_left0": [
+      "amalgam_walk",
+      0,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_left1": [
+      "amalgam_walk",
+      80,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_left2": [
+      "amalgam_walk",
+      160,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_right0": [
+      "amalgam_walk",
+      0,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_right1": [
+      "amalgam_walk",
+      80,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_right2": [
+      "amalgam_walk",
+      160,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_up0": [
+      "amalgam_walk",
+      0,
+      192,
+      80,
+      64
+    ],
+    "amalgam_w_up1": [
+      "amalgam_walk",
+      80,
+      192,
+      80,
+      64
+    ],
+    "amalgam_w_up2": [
+      "amalgam_walk",
+      160,
+      192,
+      80,
+      64
+    ],
+    "amalgam_a_down0": [
+      "amalgam_atk",
+      0,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down1": [
+      "amalgam_atk",
+      96,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down2": [
+      "amalgam_atk",
+      192,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down3": [
+      "amalgam_atk",
+      288,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_left0": [
+      "amalgam_atk",
+      0,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left1": [
+      "amalgam_atk",
+      96,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left2": [
+      "amalgam_atk",
+      192,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left3": [
+      "amalgam_atk",
+      288,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_right0": [
+      "amalgam_atk",
+      0,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right1": [
+      "amalgam_atk",
+      96,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right2": [
+      "amalgam_atk",
+      192,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right3": [
+      "amalgam_atk",
+      288,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_up0": [
+      "amalgam_atk",
+      0,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up1": [
+      "amalgam_atk",
+      96,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up2": [
+      "amalgam_atk",
+      192,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up3": [
+      "amalgam_atk",
+      288,
+      240,
+      96,
+      80
+    ],
+    "shade_chief_a_down0": [
+      "original_shade_chief_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "shade_chief_a_down1": [
+      "original_shade_chief_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "shade_chief_a_down2": [
+      "original_shade_chief_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "shade_chief_a_down3": [
+      "original_shade_chief_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "shade_chief_a_left0": [
+      "original_shade_chief_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "shade_chief_a_left1": [
+      "original_shade_chief_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "shade_chief_a_left2": [
+      "original_shade_chief_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "shade_chief_a_left3": [
+      "original_shade_chief_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "shade_chief_a_right0": [
+      "original_shade_chief_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "shade_chief_a_right1": [
+      "original_shade_chief_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "shade_chief_a_right2": [
+      "original_shade_chief_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "shade_chief_a_right3": [
+      "original_shade_chief_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "shade_chief_a_up0": [
+      "original_shade_chief_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "shade_chief_a_up1": [
+      "original_shade_chief_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "shade_chief_a_up2": [
+      "original_shade_chief_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "shade_chief_a_up3": [
+      "original_shade_chief_atk",
+      96,
+      120,
+      32,
+      40
     ]
   },
   "anims": {
@@ -4051,8 +5044,40 @@
       },
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.96875
+      ],
+      "attack": {
+        "down": [
+          "shade_chief_a_down0",
+          "shade_chief_a_down1",
+          "shade_chief_a_down2",
+          "shade_chief_a_down3"
+        ],
+        "left": [
+          "shade_chief_a_left0",
+          "shade_chief_a_left1",
+          "shade_chief_a_left2",
+          "shade_chief_a_left3"
+        ],
+        "right": [
+          "shade_chief_a_right0",
+          "shade_chief_a_right1",
+          "shade_chief_a_right2",
+          "shade_chief_a_right3"
+        ],
+        "up": [
+          "shade_chief_a_up0",
+          "shade_chief_a_up1",
+          "shade_chief_a_up2",
+          "shade_chief_a_up3"
+        ]
+      },
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 22
     },
     "shade3": {
       "walk": {
@@ -4165,10 +5190,42 @@
           "withered_w_up1"
         ]
       },
+      "attack": {
+        "down": [
+          "withered_a_down0",
+          "withered_a_down1",
+          "withered_a_down2",
+          "withered_a_down3"
+        ],
+        "left": [
+          "withered_a_left0",
+          "withered_a_left1",
+          "withered_a_left2",
+          "withered_a_left3"
+        ],
+        "right": [
+          "withered_a_right0",
+          "withered_a_right1",
+          "withered_a_right2",
+          "withered_a_right3"
+        ],
+        "up": [
+          "withered_a_up0",
+          "withered_a_up1",
+          "withered_a_up2",
+          "withered_a_up3"
+        ]
+      },
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 25
     },
     "withered_priest": {
       "walk": {
@@ -4207,10 +5264,42 @@
           "withered_priest_w_up1"
         ]
       },
+      "attack": {
+        "down": [
+          "withered_priest_a_down0",
+          "withered_priest_a_down1",
+          "withered_priest_a_down2",
+          "withered_priest_a_down3"
+        ],
+        "left": [
+          "withered_priest_a_left0",
+          "withered_priest_a_left1",
+          "withered_priest_a_left2",
+          "withered_priest_a_left3"
+        ],
+        "right": [
+          "withered_priest_a_right0",
+          "withered_priest_a_right1",
+          "withered_priest_a_right2",
+          "withered_priest_a_right3"
+        ],
+        "up": [
+          "withered_priest_a_up0",
+          "withered_priest_a_up1",
+          "withered_priest_a_up2",
+          "withered_priest_a_up3"
+        ]
+      },
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 27
     },
     "spore0": {
       "walk": {
@@ -4251,8 +5340,40 @@
       },
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.9375
+      ],
+      "attack": {
+        "down": [
+          "spore0_a_down0",
+          "spore0_a_down1",
+          "spore0_a_down2",
+          "spore0_a_down3"
+        ],
+        "left": [
+          "spore0_a_left0",
+          "spore0_a_left1",
+          "spore0_a_left2",
+          "spore0_a_left3"
+        ],
+        "right": [
+          "spore0_a_right0",
+          "spore0_a_right1",
+          "spore0_a_right2",
+          "spore0_a_right3"
+        ],
+        "up": [
+          "spore0_a_up0",
+          "spore0_a_up1",
+          "spore0_a_up2",
+          "spore0_a_up3"
+        ]
+      },
+      "attackAnchor": [
+        0.5,
+        0.9375
+      ],
+      "renderScale": 1,
+      "headOffset": 27
     },
     "spore1": {
       "walk": {
@@ -4293,76 +5414,229 @@
       },
       "anchor": [
         0.5,
-        0.92
-      ]
+        0.9375
+      ],
+      "attack": {
+        "down": [
+          "spore1_a_down0",
+          "spore1_a_down1",
+          "spore1_a_down2",
+          "spore1_a_down3"
+        ],
+        "left": [
+          "spore1_a_left0",
+          "spore1_a_left1",
+          "spore1_a_left2",
+          "spore1_a_left3"
+        ],
+        "right": [
+          "spore1_a_right0",
+          "spore1_a_right1",
+          "spore1_a_right2",
+          "spore1_a_right3"
+        ],
+        "up": [
+          "spore1_a_up0",
+          "spore1_a_up1",
+          "spore1_a_up2",
+          "spore1_a_up3"
+        ]
+      },
+      "attackAnchor": [
+        0.5,
+        0.9375
+      ],
+      "renderScale": 1,
+      "headOffset": 26
     },
     "tender_drone": {
       "walk": {
         "down": [
-          "tender_drone"
+          "tender_drone_w_down0",
+          "tender_drone_w_down1",
+          "tender_drone_w_down2"
         ],
         "left": [
-          "tender_drone"
+          "tender_drone_w_left0",
+          "tender_drone_w_left1",
+          "tender_drone_w_left2"
         ],
         "right": [
-          "tender_drone"
+          "tender_drone_w_right0",
+          "tender_drone_w_right1",
+          "tender_drone_w_right2"
         ],
         "up": [
-          "tender_drone"
+          "tender_drone_w_up0",
+          "tender_drone_w_up1",
+          "tender_drone_w_up2"
         ]
       },
       "idle": {
         "down": [
-          "tender_drone"
+          "tender_drone_w_down1"
         ],
         "left": [
-          "tender_drone"
+          "tender_drone_w_left1"
         ],
         "right": [
-          "tender_drone"
+          "tender_drone_w_right1"
         ],
         "up": [
-          "tender_drone"
+          "tender_drone_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "tender_drone_a_down0",
+          "tender_drone_a_down1",
+          "tender_drone_a_down2",
+          "tender_drone_a_down3"
+        ],
+        "left": [
+          "tender_drone_a_left0",
+          "tender_drone_a_left1",
+          "tender_drone_a_left2",
+          "tender_drone_a_left3"
+        ],
+        "right": [
+          "tender_drone_a_right0",
+          "tender_drone_a_right1",
+          "tender_drone_a_right2",
+          "tender_drone_a_right3"
+        ],
+        "up": [
+          "tender_drone_a_up0",
+          "tender_drone_a_up1",
+          "tender_drone_a_up2",
+          "tender_drone_a_up3"
         ]
       },
       "anchor": [
         0.5,
-        0.8
-      ]
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 0.75,
+      "headOffset": 17
     },
     "tender_drone_inert": {
       "walk": {
         "down": [
-          "tender_drone_inert"
+          "tender_drone_i_down"
         ],
         "left": [
-          "tender_drone_inert"
+          "tender_drone_i_left"
         ],
         "right": [
-          "tender_drone_inert"
+          "tender_drone_i_right"
         ],
         "up": [
-          "tender_drone_inert"
+          "tender_drone_i_up"
         ]
       },
       "idle": {
         "down": [
-          "tender_drone_inert"
+          "tender_drone_i_down"
         ],
         "left": [
-          "tender_drone_inert"
+          "tender_drone_i_left"
         ],
         "right": [
-          "tender_drone_inert"
+          "tender_drone_i_right"
         ],
         "up": [
-          "tender_drone_inert"
+          "tender_drone_i_up"
         ]
       },
       "anchor": [
         0.5,
-        0.8
-      ]
+        0.96875
+      ],
+      "renderScale": 0.75,
+      "headOffset": 17
+    },
+    "amalgam": {
+      "walk": {
+        "down": [
+          "amalgam_w_down0",
+          "amalgam_w_down1",
+          "amalgam_w_down2"
+        ],
+        "left": [
+          "amalgam_w_left0",
+          "amalgam_w_left1",
+          "amalgam_w_left2"
+        ],
+        "right": [
+          "amalgam_w_right0",
+          "amalgam_w_right1",
+          "amalgam_w_right2"
+        ],
+        "up": [
+          "amalgam_w_up0",
+          "amalgam_w_up1",
+          "amalgam_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "amalgam_w_down1"
+        ],
+        "left": [
+          "amalgam_w_left1"
+        ],
+        "right": [
+          "amalgam_w_right1"
+        ],
+        "up": [
+          "amalgam_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "amalgam_a_down0",
+          "amalgam_a_down1",
+          "amalgam_a_down2",
+          "amalgam_a_down3"
+        ],
+        "left": [
+          "amalgam_a_left0",
+          "amalgam_a_left1",
+          "amalgam_a_left2",
+          "amalgam_a_left3"
+        ],
+        "right": [
+          "amalgam_a_right0",
+          "amalgam_a_right1",
+          "amalgam_a_right2",
+          "amalgam_a_right3"
+        ],
+        "up": [
+          "amalgam_a_up0",
+          "amalgam_a_up1",
+          "amalgam_a_up2",
+          "amalgam_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.984375
+      ],
+      "attackAnchor": [
+        0.5,
+        0.9875
+      ],
+      "renderScale": 1,
+      "headOffset": 52,
+      "shadow": [
+        18,
+        4
+      ],
+      "healthBarWidth": 24
     }
   },
   "ui": {

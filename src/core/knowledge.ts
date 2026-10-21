@@ -6,6 +6,7 @@ import { masteryStage, practice } from './skills'
 import { addEffect, effectiveStat, traitAdd } from './traits'
 import { addThought } from './thoughts'
 import { knowledgeDef, pillBelief, recordPill } from './knowledge-state'
+import { pillPotency } from './pill-aging'
 import type { Creature, ItemInst, PillBelief, PillEffectDef } from './types'
 export function identification(w: World, c: Creature, appearance: string, taste = false) {
   const d = knowledgeDef(w), secret = w.s.knowledge.pillMap[appearance], effect = w.db.pill(secret)
@@ -52,14 +53,19 @@ export function usePill(w:World,c:Creature,it:ItemInst,taste=false):string|null 
   if(!d.unidentified||!id)return '알약이 아니다'
   if(!c.alive)return '죽은 사람은 약을 쓸 수 없다'
   if(!taste&&!findItem(c,it.uid))return '사용할 알약이 없다'
-  const amount=taste?Math.min(knowledgeDef(w).tasteFraction,it.pillRemaining??1):it.pillRemaining??1
-  const before=context(w,c),effect=w.db.pill(id),known=!!w.s.knowledge.pillKnown[it.def]
+  if(it.pillAge?.spoiled&&!knowledgeDef(w).pillAging)return '이 변질 정제를 처리할 규칙이 없다'
+  const rule=knowledgeDef(w).pillAging,spoiled=!!it.pillAge?.spoiled&&!!rule
+  const fraction=taste?Math.min(knowledgeDef(w).tasteFraction,it.pillRemaining??1):it.pillRemaining??1
+  const amount=fraction*pillPotency(it)*(spoiled?rule!.spoiledAmount:1)
+  const before=context(w,c),effect=w.db.pill(spoiled?rule!.spoiledEffect:id),known=!!w.s.knowledge.pillKnown[it.def]&&!spoiled
   if(effect.drug){const err=administerDrug(w,c,effect.drug,it.def,amount,undefined,known);if(err)return err}
   else applyPillEffect(w,c,effect.effect,effect.durationTurns,amount)
   if(!taste)removeOne(w,c,it.uid)
   if(c.id===w.s.playerId){
     log(w,'info',`${d.label}을(를) ${taste?'조금 맛보았다':'삼켰다'}.`)
-    if(!known){
+    if(spoiled){
+      recordPill(w,it.def,taste?'taste':'use','이번 정제에서 불쾌한 반응이 나타났다. 이 더미의 상태를 외형 전체의 정체로 단정할 수 없다.')
+    } else if(!known){
       if(noticeable(w,c,effect,before))discover(w,c,it.def,taste?'taste':'use')
       else {
         const b=recordPill(w,it.def,taste?'taste':'use','눈에 띄는 변화가 없었다.')
@@ -78,6 +84,7 @@ export function usePill(w:World,c:Creature,it:ItemInst,taste=false):string|null 
 export function tasteError(w:World,c:Creature,uid:number):string|null {
   const it=findItem(c,uid)
   if(!it||itemDef(w,it).unidentified!=='pill')return '맛볼 알약이 없다'
+  if(it.pillAge?.spoiled&&!knowledgeDef(w).pillAging)return '이 변질 정제를 처리할 규칙이 없다'
   const effect = w.db.pill(w.s.knowledge.pillMap[it.def])
   if (effect.drug && w.db.get<import('./types').DrugDef>(effect.drug).external) return '외용약은 맛볼 수 없다'
   if(!c.alive)return '죽은 사람은 약을 맛볼 수 없다'
@@ -100,6 +107,6 @@ export function finishTaste(w:World,c:Creature,uid:number):string|null {
   else removeOne(w,c,uid)
   // 방금 줄인 남은 양 대신 항상 실제 시음량을 투여한다.
   const error=usePill(w,c,{...sample,pillRemaining:fraction},true);if(error)return error
-  if(c.id===w.s.playerId&&!w.s.knowledge.pillKnown[sample.def])identifyPill(w,c,sample.def,true)
+  if(c.id===w.s.playerId&&!w.s.knowledge.pillKnown[sample.def]&&!sample.pillAge?.spoiled)identifyPill(w,c,sample.def,true)
   return null
 }
