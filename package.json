@@ -21,7 +21,8 @@
     "mod:package": "tsx tools/package-mod.ts",
     "defs": "tsx tools/ashveil-defs.ts",
     "sim:run": "tsx tools/ashveil-sim.ts",
-    "game:check": "node tools/game-harness.mjs"
+    "game:check": "node tools/game-harness.mjs",
+    "game:preview-check": "tsx tools/game-harness-preview.ts"
   },
   "dependencies": {
     "@fontsource/gowun-batang": "^5.3.0",

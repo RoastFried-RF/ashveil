@@ -440,7 +440,7 @@ export class MapRenderer {
         s.position.set(px, py)
         if (terr.station.id === 'forge') s.tint = 0xa07050
       } else if (terr.door) {
-        s = new Sprite(tex(terr.door === 'open' ? 'door_open' : 'door_closed'))
+        s = new Sprite(tex(terr.sprites?.[0]??(terr.door === 'open' ? 'door_open' : 'door_closed')))
         s.anchor.set(0, 1)
         s.position.set(px, py + T)
       } else if (terr.container && !terr.wall && tile.t !== 'Terrain.Sarcophagus') {

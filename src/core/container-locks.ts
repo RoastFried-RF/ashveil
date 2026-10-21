@@ -16,7 +16,9 @@ export function containerPryQuote(w:World,c:Creature,pos:Pos,toolUid?:number){
  const fail=(error:string)=>({error,tool:undefined,turns:0,signature:''})
  if(!Number.isSafeInteger(pos.x)||!Number.isSafeInteger(pos.y)||!inBounds(w,pos)||cheb(c.pos,pos)>1||!hasLos(w,c.pos,pos)||!canSee(w,c,pos)||diagonalBlocked(w,c.pos,pos.x-c.pos.x,pos.y-c.pos.y))return fail('보이는 상자 곁에서 작업해야 한다')
  const def=terrainAt(w,pos),cfg=def.lock
- if(!def.container||!containerLocked(w,pos))return fail('잠긴 상자가 없다')
+ const door=def.door==='closed'
+ if((!def.container&&!door)||!containerLocked(w,pos))return fail('잠긴 상자가 없다')
+ if(door&&(def.sealed||def.keyItem))return fail('열쇠·기계 봉인은 이 작업으로 해제할 수 없다')
  if(!cfg)return fail('원래 상자의 잠금 정의를 복원해야 한다')
  if(!c.alive||c.asleep||c.unconscious||capacity(w,c,'manipulation')<.2)return fail('깨어서 도구를 쓸 손이 필요하다')
  const tool=toolUid===undefined?containerLockTool(w,c,def):findItem(c,toolUid)
@@ -27,7 +29,7 @@ export function containerPryQuote(w:World,c:Creature,pos:Pos,toolUid?:number){
 }
 export function startContainerPry(w:World,c:Creature,pos:Pos):string|null{
  const quote=containerPryQuote(w,c,pos);if(quote.error)return quote.error
- c.activity={kind:'pryContainer',target:{...pos},remaining:quote.turns,total:quote.turns,label:'상자 잠금쇠 벌리기',containerPry:{map:w.s.map.id,region:w.s.overworld?.currentRegion,terrain:terrainAt(w,pos).id,toolUid:quote.tool!.uid,signature:quote.signature}}
+ c.activity={kind:'pryContainer',target:{...pos},remaining:quote.turns,total:quote.turns,label:terrainAt(w,pos).door?'문 잠금쇠 벌리기':'상자 잠금쇠 벌리기',containerPry:{map:w.s.map.id,region:w.s.overworld?.currentRegion,terrain:terrainAt(w,pos).id,toolUid:quote.tool!.uid,signature:quote.signature}}
  return null
 }
 /** 공통 활동 루프가 한 턴을 센 뒤 호출한다. 완료 전에는 내용물을 생성/열지 않는다. */
@@ -40,7 +42,7 @@ export function containerPryStep(w:World,c:Creature):boolean{
  if(act.remaining>0)return false
  quote.tool!.durability=Math.max(0,(quote.tool!.durability??0)-cfg.wear)
  tileAt(w,pos!).locked=false
- if(c.id===w.s.playerId)log(w,'good','같은 상자의 잠금쇠를 벌렸다. 이제 수색할 수 있다.')
+ if(c.id===w.s.playerId)log(w,'good',terrainAt(w,pos!).door?'같은 문의 잠금쇠를 벌렸다. 이제 문을 열 수 있다.':'같은 상자의 잠금쇠를 벌렸다. 이제 수색할 수 있다.')
  c.activity=undefined;return true
 }
-export function nearbyContainerLocks(w:World,c:Creature){return[{x:0,y:0},...DIRS].map(d=>({x:c.pos.x+d.x,y:c.pos.y+d.y})).filter(pos=>inBounds(w,pos)&&canSee(w,c,pos)&&terrainAt(w,pos).container&&containerLocked(w,pos)).map(pos=>({pos,label:terrainAt(w,pos).label,quote:containerPryQuote(w,c,pos)}))}
+export function nearbyContainerLocks(w:World,c:Creature){return[{x:0,y:0},...DIRS].map(d=>({x:c.pos.x+d.x,y:c.pos.y+d.y})).filter(pos=>inBounds(w,pos)&&canSee(w,c,pos)&&(terrainAt(w,pos).container||terrainAt(w,pos).door==='closed')&&containerLocked(w,pos)).map(pos=>({pos,door:terrainAt(w,pos).door==='closed',label:terrainAt(w,pos).label,quote:containerPryQuote(w,c,pos)}))}

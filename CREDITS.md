@@ -76,3 +76,13 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 낮춘 상체·굽힌 무릎·두 부츠를 새 픽셀 도형으로 직접 그렸다. PNG/SVG·재현 도구·해시는 [제작 기록](docs/art-crouch-original.md)에 있다.
 
 - 두 번째 약탈자의 얼굴 천·비대칭 어깨천·28개 동작은 ASHVEIL 원본 픽셀 좌표로 직접 제작했다. [원본·재현·출처](docs/art-reaver1-original.md), `tools/art/draw-reaver1.mjs`. 외부 이미지 픽셀을 읽거나 재색칠하지 않는다.
+
+- 그늘 사람 첫 외형은 직접 작성한 픽셀 좌표/누더기/작은 인간형 원본이다. 기존12보행과 새16공격을 구분해 연결했다. [출처/재현](docs/art-shade0-original.md), `tools/art/draw-shade0.mjs`.
+
+- 그늘 사람 두 번째 외형도 직접 작성한 픽셀 원본이며 얼굴 천·비대칭 청록 수선으로 구분했다. [원본·재현·출처](docs/art-shade1-original.md), `tools/art/draw-shade1.py`.
+
+- 낡은 문 닫힘16×32/열림16×16은 자체 정수 좌표와 팔레트로 그렸다. [원본·출처](docs/art-rusted-door-original.md), `tools/art/rusted-door/draw-rusted-door.py`.
+
+- 그늘 사람 나머지 두 외형도 자체 픽셀 좌표로 작성했다. [shade2 원본/출처](docs/art-shade2-original.md) · [shade3 원본/출처](docs/art-shade3-original.md). 공용 외부 시트의 픽셀을 추출·재색칠하지 않는다.
+
+- 정밀 잠금 도구의 갈고리/장력쇠는 자체 좌표로 그렸다. [원본/출처/재현](docs/art-lockpick-original.md), `tools/art/lockpick/draw-lockpick.py`.

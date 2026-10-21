@@ -5,8 +5,8 @@ import { DIRS, type Pos } from './geom'
 
 function passableForPath(w: World, p: Pos): boolean {
   if (!inBounds(w, p)) return false
-  const t = w.db.terrain(w.s.map.tiles[p.y * w.s.map.w + p.x].t)
-  return t.passable || t.door === 'closed'&&!t.sealed
+  const tile=w.s.map.tiles[p.y*w.s.map.w+p.x],t = w.db.terrain(tile.t)
+  return t.passable || t.door === 'closed'&&!t.sealed&&!tile.locked
 }
 
 export function diagonalBlocked(w: World, from: Pos, dx: number, dy: number): boolean {
@@ -37,7 +37,9 @@ export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number
     const cp = { x: cur.k % W, y: Math.floor(cur.k / W) }
     for (const d of DIRS) {
       const np = { x: cp.x + d.x, y: cp.y + d.y }
-      if(!inBounds(w,np)||w.db.terrain(w.s.map.tiles[key(np)].t).sealed)continue
+      if(!inBounds(w,np))continue
+      const tile=w.s.map.tiles[key(np)],def=w.db.terrain(tile.t)
+      if(def.sealed||def.door==='closed'&&tile.locked)continue
       const nk = key(np)
       if(opts.avoidCells?.has(nk))continue
       if (nk !== goal && !passableForPath(w, np)) continue

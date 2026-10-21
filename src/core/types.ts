@@ -453,8 +453,9 @@ export interface BeaconState {uid:number;fuelUntil:number;inbox:BeaconReceipt[]}
 export interface SignalPacket {key:string;rumor:Rumor;from:BeaconAddress;to:BeaconAddress;sentAt:number;lastAt:number;progress:number;total:number;signature:string;toSignature:string;deliveredAt?:number;failed?:string}
 export interface CropRule { maxLight?:number; needsSoil?:boolean; substrate?:{item:string;cycles:number;turns:number}; minLight:number; minTemp:number; maxTemp:number; waterMl:number; maxSalinity:number; rainMlPerHour:number }
 export interface CultivationState {dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
+export interface LockPickingRule {turns:number;wear:number;noise:number;toolTag:string;base:number;min:number;max:number;agility:number;quality:number}
 export interface TerrainDef extends DefBase {
-  lock?:{turns:number;wear:number;noise:number;tools:string[]}
+  lock?:{turns:number;wear:number;noise:number;tools:string[];picking?:LockPickingRule}
   cultivation?:CropRule
   combustion?:{family:string;burnTurns:number;burnedAs:string}
   needles?:{item:string;count:number;turns:number;regrowTurns:number}
@@ -2020,7 +2021,7 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number; events?: { at: number; untilTurn: number; mood?: number }[] }
 
 export interface Activity {
-  containerPry?:{map:string;region?:string;terrain:string;toolUid:number;signature:string}
+  containerPry?:{map:string;region?:string;terrain:string;toolUid:number;signature:string;method?:'pick'}
   npcCare?:{provider:number;patient:number;woundId:number;materialUid:number;startedAt:number}
 
   excavation?:{contract:string;progress:number;mapId:string;region:string}

@@ -21518,6 +21518,16 @@
                           }
                         ]
                       },
+                      "picking": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/$defs/Inherited_LockPickingRule"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "$inherit": {
                         "const": false
                       }
@@ -22447,6 +22457,9 @@
                     "items": {
                       "type": "string"
                     }
+                  },
+                  "picking": {
+                    "$ref": "#/$defs/LockPickingRule"
                   }
                 },
                 "required": [
@@ -22734,6 +22747,49 @@
             }
           }
         }
+      ]
+    },
+    "LockPickingRule": {
+      "type": "object",
+      "properties": {
+        "turns": {
+          "type": "number"
+        },
+        "wear": {
+          "type": "number"
+        },
+        "noise": {
+          "type": "number"
+        },
+        "toolTag": {
+          "type": "string"
+        },
+        "base": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "agility": {
+          "type": "number"
+        },
+        "quality": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "turns",
+        "wear",
+        "noise",
+        "toolTag",
+        "base",
+        "min",
+        "max",
+        "agility",
+        "quality"
       ]
     },
     "CropRule": {
@@ -58428,6 +58484,104 @@
           ]
         },
         "wil": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
+    "Inherited_LockPickingRule": {
+      "type": "object",
+      "properties": {
+        "turns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wear": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "noise": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "toolTag": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "base": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "min": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "max": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agility": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quality": {
           "anyOf": [
             {
               "type": "number"

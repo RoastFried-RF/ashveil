@@ -1,4 +1,5 @@
 import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
+import {lockPickingStep,startLockPicking} from './lock-picking'
 import {combatManeuver} from './maneuvers'
 import {canSearchContainer,containerLocked,startContainerPry,containerPryStep} from './container-locks'
 import {obtainResidentCropSupply} from './resident-crop-supplies'
@@ -326,6 +327,7 @@ export type Action =
   | { type: 'mergeItem'; uid: number; into: number; n?: number; freshnessApproval?:string }
   | { type: 'search'; includeEmpty?: boolean; pos?:Pos }
   | {type:'pryContainer';pos:Pos}
+  | {type:'pickLock';pos:Pos}
   | {type:'refillMask';uid:number;filterUid:number}
   | { type: 'lootTake'; uid: number }
   | { type: 'openBag'; uid: number }
@@ -748,7 +750,9 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if(machineRules(w,c)&&capacity(w,c,'moving')<=0)return FAIL('구동부가 작동하지 않는다')
       if (terr.water === 'deep' && c.traumas?.some((t) => t.def === 'Trauma.Water')) return FAIL('물 공포 때문에 깊은 물에 들어갈 수 없다')
       if (terr.door === 'closed') {
+        if(diagonalBlocked(w,c.pos,d.x,d.y))return FAIL('모서리 너머의 문은 열 수 없다')
         if(terr.sealed)return FAIL('기계적으로 봉인된 문이다. 곁의 봉인 기구를 살펴야 한다')
+        if(tileAt(w,to).locked)return FAIL('잠금쇠가 걸려 있다. 곁에서 F2의 잠금쇠 작업을 해야 한다')
         if(terr.keyItem&&!allItems(c).some(i=>i.def===terr.keyItem&&i.count>0))return FAIL(fixJosa(`${w.db.item(terr.keyItem).label}이(가) 필요하다`))
         tileAt(w, to).t = terr.openAs??'Terrain.DoorOpen'
         invalidateLights(w)
@@ -893,6 +897,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const d = DIRS[a.dir]
       const p = d && { x: c.pos.x + d.x, y: c.pos.y + d.y }
       if (!p || !inBounds(w, p) || terrainAt(w, p).door !== 'open') return FAIL('닫을 문이 없다')
+      if(diagonalBlocked(w,c.pos,d.x,d.y))return FAIL('모서리 너머의 문은 닫을 수 없다')
       if (creatureAt(w, p) || tileAt(w, p).items.length) return FAIL('문틀이 막혀 있다')
       tileAt(w, p).t = terrainAt(w,p).closeAs??'Terrain.DoorClosed'
       invalidateLights(w)
@@ -1234,6 +1239,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       const err=startDissection(w,c,a.target,turns);return err?FAIL(err):FREE
     }
     case 'pryContainer': {const error=startContainerPry(w,c,a.pos);return error?FAIL(error):FREE}
+    case 'pickLock': {const error=startLockPicking(w,c,a.pos);return error?FAIL(error):FREE}
     case 'search': {
       if(a.pos&&(!inBounds(w,a.pos)||cheb(c.pos,a.pos)>1||!hasLos(w,c.pos,a.pos)||!canSee(w,c,a.pos)||diagonalBlocked(w,c.pos,a.pos.x-c.pos.x,a.pos.y-c.pos.y)||!terrainAt(w,a.pos).container))return FAIL('보이는 상자 곁에서 수색해야 한다')
       // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
@@ -1780,7 +1786,7 @@ export function activityStep(w: World, c: Creature): boolean {
   switch (act.kind) {
     case 'magazineReload':return magazineReloadStep(w,c)
     case 'firearmCare':return firearmCareStep(w,c)
-    case 'pryContainer':return containerPryStep(w,c)
+    case 'pryContainer':return act.containerPry?.method==='pick'?lockPickingStep(w,c):containerPryStep(w,c)
     case 'ransom':
     case 'ransomWait':return ransomStep(w,c)
     case 'brewTea':return brewStep(w,c)

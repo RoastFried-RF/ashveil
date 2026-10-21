@@ -1,0 +1,184 @@
+{
+  "format": "ashveil-original-art-integrity-v1",
+  "character": "small human shade-folk",
+  "frameCount": 28,
+  "distinctPoseCount": 28,
+  "png": {
+    "walk": {
+      "width": 72,
+      "height": 128,
+      "opaquePixels": 2580,
+      "transparentPixels": 6636
+    },
+    "attack": {
+      "width": 128,
+      "height": 160,
+      "opaquePixels": 3533,
+      "transparentPixels": 16947
+    },
+    "contact": {
+      "width": 768,
+      "height": 1584,
+      "opaquePixels": 1216512,
+      "transparentPixels": 0
+    }
+  },
+  "checks": [
+    "all frame rectangles in bounds",
+    "28 distinct poses",
+    "palette-only RGBA",
+    "binary transparency",
+    "fixed boot floor in all poses",
+    "walk/attack floor anchor equality",
+    "PNG CRC and scanline decoding",
+    "byte-for-byte deterministic output"
+  ],
+  "files": {
+    "public/sprites/original/ashveil-shade0-walk.png": {
+      "bytes": 1684,
+      "sha256": "943934a8ddfb4a8b2f54302ffd111ff3f0dbccef979b1ff133b690d8cf6af45c"
+    },
+    "public/sprites/original/ashveil-shade0-attack.png": {
+      "bytes": 1890,
+      "sha256": "cf240e0c5f945ecfa09ac15a04076fbfcb4d6ea7b59f2ba9ab8e4f68ee7e6f98"
+    },
+    "public/sprites/original/ashveil-shade0-walk.svg": {
+      "bytes": 76756,
+      "sha256": "c5e55d2a6d9150589dd9fdc10060bfe583316dad15879eec8b074c2ebf63838c"
+    },
+    "public/sprites/original/ashveil-shade0-attack.svg": {
+      "bytes": 106632,
+      "sha256": "bacbdd22fc9970513dcd55add6633d80943b02ef9ed6f5ef952f1476c6c59141"
+    },
+    "public/sprites/original/ashveil-shade0-contact.png": {
+      "bytes": 37411,
+      "sha256": "fdac70131592f602ccfbf209794f4244e52304aaa233216a9f152eb420c4cf37"
+    },
+    "public/sprites/original/ashveil-shade0-palette.json": {
+      "bytes": 559,
+      "sha256": "7eccc2e9af97d011f340a0fc167174fa49d0bb393975619f1b93cf275de32549"
+    },
+    "public/sprites/original/ashveil-shade0-frames.json": {
+      "bytes": 6211,
+      "sha256": "aa84763403e74857d8dc1b7144baf4ac273e1ff873a4bbb6e3bfc9b762915751"
+    }
+  },
+  "source": {
+    "path": "tools/art/draw-shade0.mjs",
+    "sha256": "1918496e01049e44ecea3f6944310dc1682263c62226df7090d33e01110bce6d"
+  },
+  "poses": [
+    {
+      "name": "shade0_w_down0",
+      "sha256": "882ccde19c94517187c91c9593b54a33e2129dace8f1394c1ddea95b567a4da6"
+    },
+    {
+      "name": "shade0_w_down1",
+      "sha256": "6732b652b58719ce57f879d4d739cebdcd1a3f1f31a18f7ec2d62eeaece73916"
+    },
+    {
+      "name": "shade0_w_down2",
+      "sha256": "6be5270d33d9ad5029f929b3ebea62b7dacad306c207b8ac77aaaf7be30a0e5d"
+    },
+    {
+      "name": "shade0_w_left0",
+      "sha256": "e86ba92c5f75365970a5fdef543423cf52cef20b4f370ed5bd2d4b23d31e847b"
+    },
+    {
+      "name": "shade0_w_left1",
+      "sha256": "a7d2eb4fb015f38c7d6e761451afc6e4f6ddbfaceb67a39e272e5acc3e2bf774"
+    },
+    {
+      "name": "shade0_w_left2",
+      "sha256": "6591142ef97b1bec66cb6a6e90f6dff5a8e6559c5ff2b708019fee841756f722"
+    },
+    {
+      "name": "shade0_w_right0",
+      "sha256": "e3296052440aeb23051d581a952d67ff5b75f96949cb3200ccaeb915e5f47034"
+    },
+    {
+      "name": "shade0_w_right1",
+      "sha256": "bbea3bbf6930cc43a15fea8c1525983f65a844ceccd539b1cd48aba18b08ecee"
+    },
+    {
+      "name": "shade0_w_right2",
+      "sha256": "6c8aaa0835c5a7b4dc69f000282f8779288dcd00252e3680eb98125132b43829"
+    },
+    {
+      "name": "shade0_w_up0",
+      "sha256": "60fda0a8f286edb2529628088c68a4dba01a19a8aebd799ae487fb726f83239b"
+    },
+    {
+      "name": "shade0_w_up1",
+      "sha256": "966eb242e6e7a85492557cf2254a67d6f5cb99cb622ad6ae6f7819903486e4e9"
+    },
+    {
+      "name": "shade0_w_up2",
+      "sha256": "86ab57b21ae888acf2a48dca414cbb22135018de65a4a105509d8ec7216902cc"
+    },
+    {
+      "name": "shade0_a_down0",
+      "sha256": "ce6fd26dbaddd3f9283e7e8e46eda61600954aca8eb8f3a1d67b4b1ca1f3415f"
+    },
+    {
+      "name": "shade0_a_down1",
+      "sha256": "1a8a93cfa1719c72f7b483a143c132142b881de340d415b7add520bee8a75813"
+    },
+    {
+      "name": "shade0_a_down2",
+      "sha256": "f7b39a3603d4287146545ca2a8a56990d2bd045e02cf955b842e43ae90650f9d"
+    },
+    {
+      "name": "shade0_a_down3",
+      "sha256": "a1532745d6e6edef9d4f7c14a8cc1078aa1b45ca05c2d36a2ccef7f232ac3ab4"
+    },
+    {
+      "name": "shade0_a_left0",
+      "sha256": "1acc535c85a0e6d674e77cabf8099f24d60702cd6a9f5c292d0ea6ee5aa96eb0"
+    },
+    {
+      "name": "shade0_a_left1",
+      "sha256": "61ec7d1716b1393f91793085ce8666ee8f0fdbde7b221dce32701f501f2f2e0c"
+    },
+    {
+      "name": "shade0_a_left2",
+      "sha256": "a40e639ee295574c0903ba91f2368ff940b6d5eb9104a3974bc8daec2572b5a9"
+    },
+    {
+      "name": "shade0_a_left3",
+      "sha256": "e3b824abda22c8260bd3e5b3fda813c1639a3adfdf6919687f9ee1c5c5a4c02f"
+    },
+    {
+      "name": "shade0_a_right0",
+      "sha256": "c7abe0e69b4515ed0e0913d66d41e6fca157db33f16291a4abd73b51bb71114c"
+    },
+    {
+      "name": "shade0_a_right1",
+      "sha256": "573c10f7928bdca5c98d5e5c8626a300df772916e0cca0d616f37f454fe6579f"
+    },
+    {
+      "name": "shade0_a_right2",
+      "sha256": "4df4d25cc96f327ffe0baf889f9c07eefefe4843bec4b45970494f3d70b6c474"
+    },
+    {
+      "name": "shade0_a_right3",
+      "sha256": "24e316370850d5e9153262362ff68d9634f15a858d2ba20d137df240fea9599e"
+    },
+    {
+      "name": "shade0_a_up0",
+      "sha256": "afb804e0fa8fca41d62a4516a1c3e8766270901e200bd44c0a192acaaf777590"
+    },
+    {
+      "name": "shade0_a_up1",
+      "sha256": "c7bce53302ee61d1762a501f41838f98a7df60b88f1f2b533d4cded6b8d34280"
+    },
+    {
+      "name": "shade0_a_up2",
+      "sha256": "211c167b240916d0c935683808b7e73130a76f8bb7c76438b3779aa099b111e3"
+    },
+    {
+      "name": "shade0_a_up3",
+      "sha256": "5359d69c52be129158042bcb4eaf5f2e53e02b04646e51c1c7b7f1e2a3136edf"
+    }
+  ]
+}

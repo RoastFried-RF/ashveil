@@ -324,3 +324,5 @@ export * from './container-locks'
 export * from './maneuvers'
 
 export * from './posture'
+export * from './door-locks'
+export * from './lock-picking'

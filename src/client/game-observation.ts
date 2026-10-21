@@ -7,7 +7,7 @@ export function gameObservation(w:World|null,screen:'title'|'game'){
  const p=player(w),appearance=mapAppearance(w),map=w.s.map
  const tiles=[...appearance.visible].sort((a,b)=>a-b).map(index=>{
   const tile=map.tiles[index],id=appearance.terrain[index]!,terrain=w.db.terrain(id)
-  return{x:index%map.w,y:Math.floor(index/map.w),terrain:terrain.label,passable:terrain.passable,...(terrain.door?{door:terrain.door}:{}),...(tile.cont?{container:{opened:tile.cont.opened}}:{}),...(tile.items.length?{items:tile.items.map(i=>({label:w.db.item(i.def).label,count:i.count}))}:{})}
+  return{x:index%map.w,y:Math.floor(index/map.w),terrain:terrain.label,passable:terrain.passable,...(terrain.door?{door:terrain.door,...(tile.locked!==undefined?{locked:tile.locked}:{})}:{}),...(tile.cont?{container:{opened:tile.cont.opened}}:{}),...(tile.items.length?{items:tile.items.map(i=>({label:w.db.item(i.def).label,count:i.count}))}:{})}
  })
  return{
   mode:w.s.over?'report':'game',coordinates:'타일 좌표: 왼쪽 위(0,0), x는 오른쪽, y는 아래쪽; facing은 북쪽0부터 시계방향8방위',

@@ -684,7 +684,13 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for (const [key, lo, hi] of [['damage', 1, 1000], ['pen', 0, 100], ['accuracy', -100, 100], ['energy', 0, 1000], ['noise', 0, 100]] as const) if (!Number.isSafeInteger(a[key]) || (a[key] ?? -Infinity) < lo || (a[key] ?? Infinity) > hi) report.errors.push(item.id + ': throwable.attack.' + key + ' 수치가 잘못되었다')
     if (item.storage || item.pocket || item.quiver) report.errors.push(item.id + ': 내부 격자를 가진 물품은 공격용 투척물로 사용할 수 없다')
   }
-  for(const terrain of db.all<TerrainDef>('Terrain'))if(terrain.lock){const d=terrain.lock;if(!terrain.container||!Number.isSafeInteger(d.turns)||d.turns<1||d.turns>1200||!Number.isFinite(d.wear)||d.wear<1||d.wear>100||!Number.isSafeInteger(d.noise)||d.noise<0||d.noise>30||!Array.isArray(d.tools)||!d.tools.length||d.tools.some(tag=>!db.all<ItemDef>('Item').some(it=>it.toolTags?.includes(tag))))report.errors.push(terrain.id+': 실제 상자/도구와 유한한 잠금 작업 수치가 필요하다')}
+  for(const terrain of db.all<TerrainDef>('Terrain'))if(terrain.lock){const d=terrain.lock;if((!terrain.container&&(terrain.door!=='closed'||terrain.sealed||terrain.keyItem))||!Number.isSafeInteger(d.turns)||d.turns<1||d.turns>1200||!Number.isFinite(d.wear)||d.wear<1||d.wear>100||!Number.isSafeInteger(d.noise)||d.noise<0||d.noise>30||!Array.isArray(d.tools)||!d.tools.length||d.tools.some(tag=>!db.all<ItemDef>('Item').some(it=>it.toolTags?.includes(tag))))report.errors.push(terrain.id+': 실제 상자/도구와 유한한 잠금 작업 수치가 필요하다')}
+  for(const terrain of db.all<TerrainDef>('Terrain'))if(terrain.lock?.picking!==undefined){
+    const rule=terrain.lock.picking
+    if(!isObj(rule)){report.errors.push(terrain.id+': 정밀 잠금 작업 구조가 필요하다');continue}
+    for(const key of ['turns','wear','noise','base','min','max','agility','quality']as const)if(!Number.isSafeInteger(rule[key]))report.errors.push(terrain.id+': 정밀 잠금 '+key+'는 유한 정수여야 한다')
+    if(rule.turns<1||rule.turns>1200||rule.wear<1||rule.wear>100||rule.noise<0||rule.noise>30||rule.min<5||rule.max>95||rule.max<rule.min||rule.base<rule.min||rule.base>rule.max||rule.agility<0||rule.agility>20||rule.quality<0||rule.quality>20||typeof rule.toolTag!=='string'||!db.all<ItemDef>('Item').some(item=>item.toolTags?.includes(rule.toolTag)))report.errors.push(terrain.id+': 실제 도구와 유한한 정밀 잠금 수치가 필요하다')
+  }
   for(const item of db.all<ItemDef>('Item'))if(item.fragile!==undefined){
     const f=item.fragile
     if(!isObj(f))report.errors.push(item.id+': fragile 구조 오류')

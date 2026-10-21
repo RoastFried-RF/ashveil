@@ -45,8 +45,8 @@ export const QUALITY = [
 
 export const qualityOf = (it?: ItemInst): number => it?.quality ?? 1
 export const qualityInfo = (it?: ItemInst) => QUALITY[qualityOf(it)]
-/** 품질이 의미 있는 아이템: 무기·방어구·방패 */
-export const hasQuality = (def: ItemDef) => !!(def.apparel || def.attacks || def.shield)
+/** 품질이 의미 있는 아이템: 무기·방어구·방패·정밀 잠금 도구 */
+export const hasQuality = (def: ItemDef) => !!(def.apparel || def.attacks || def.shield || def.toolTags?.includes('lockpick'))
 
 /** 내구 구간 (13 §10): 60~100 · 30~59 닳음 · 1~29 부서지기 직전 · 0 파손 */
 export function durabilityBand(d: number): { label: string; color: string } {

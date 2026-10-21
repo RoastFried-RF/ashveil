@@ -1,4 +1,5 @@
 import {plantPines} from './pines'
+import {installOptionalDoorLock} from './door-locks'
 import {applyScriptMapGen,type ScriptMapGenOptions} from './script-mapgen'
 // 지도 생성 (14 §2~§7): 지상(수도원 앞뜰 64×48, 구역 4) + 지하 3층(회랑·납골당·오염된 성소).
 // 적은 정해진 장소(방·야영지)에만 배치된다. 생성은 층마다 한 번이고 이후 변화는 상태로 저장된다.
@@ -466,6 +467,7 @@ function generateDungeonCore(w: World, depth: number): GenResult {
   })
 
   m.rooms = rooms.map(({ kind: _k, ...R }) => R)
+  installOptionalDoorLock(w,m,up,rooms.filter(room=>room.kind==='guard'))
   for(const tile of m.tiles)if(w.db.terrain(tile.t).lock)tile.locked=true
   return { map: m, start: { x: up.x, y: up.y }, spawns }
 }
