@@ -1,0 +1,1008 @@
+{
+  "format": "ashveil-independent-art-review-v1",
+  "reviewDate": "2026-10-21T01:54:16.131406+00:00",
+  "reviewer": "character_art",
+  "status": "passed independent static forest2/storage3 integration review; actual game screenshots/input/build verification not performed by this review",
+  "snapshot": {
+    "root": "/workspace/ashveil",
+    "baseline": "/workspace/.ashveil-checkpoints/v289-final",
+    "manifest": {
+      "path": "src/client/sprites.json",
+      "sha256": "ea1b8215c7a9fc4f1d87ed12f0e61d93d3cf151760d9576bd0799d01978c56da",
+      "bytes": 109237
+    },
+    "baselineManifest": {
+      "path": "/workspace/.ashveil-checkpoints/v289-final/src/client/sprites.json",
+      "sha256": "bb9bf270ed45f49e704a9258b26e799a9a9c4735f547467205c5f23efe686c24",
+      "bytes": 108303
+    },
+    "renderer": {
+      "path": "src/client/render/MapRenderer.ts",
+      "sha256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721",
+      "bytes": 42709
+    },
+    "baselineRenderer": {
+      "path": "/workspace/.ashveil-checkpoints/v289-final/src/client/render/MapRenderer.ts",
+      "sha256": "04f56938e9c27a721ae6b34171957f9d5bb459db9edd82b73040c8461cd7bf34",
+      "bytes": 42472
+    },
+    "inventoryUI": {
+      "path": "src/client/ui/InventoryWindow.vue",
+      "sha256": "0da9b351376a544ebf1b58580ac643386292918fbe74b914455fe7be5e285f9f",
+      "bytes": 32932
+    }
+  },
+  "scope": {
+    "sourcePacks": 2,
+    "newSheets": 5,
+    "newFrames": 5,
+    "PNGSVGPairs": 5,
+    "directlyOpenedPNGCount": 10,
+    "oldPublicFilesChecked": 439,
+    "onlyProjectFileWritten": "docs/art-v290-independent-review.json",
+    "productSharedImageCoreDefGitEdits": false,
+    "browserGPUHeavyProjectChecksOrGitRun": false
+  },
+  "findings": [],
+  "manifestDifferences": {
+    "anims": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "chars": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "ui": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "sheets": {
+      "added": [
+        "original_forest_dead",
+        "original_forest_pine",
+        "original_storage_chest0",
+        "original_storage_chest2",
+        "original_storage_chest_item"
+      ],
+      "changed": [],
+      "removed": []
+    },
+    "frames": {
+      "added": [
+        "original_dead_tree",
+        "original_pine_tree",
+        "original_storage_chest0",
+        "original_storage_chest2",
+        "original_storage_chest_item"
+      ],
+      "changed": [],
+      "removed": []
+    }
+  },
+  "sourceFragments": [
+    {
+      "source": {
+        "path": "/workspace/ashveil-forest-art/tools/art/forest-manifest.fragment.json",
+        "sha256": "bc983e7d0fb79718ea59ff6d5eef7a97ce7f0bbfe0451eadd79bd01cabb0bf4b",
+        "bytes": 383
+      },
+      "root": {
+        "path": "tools/art/forest-manifest.fragment.json",
+        "sha256": "bc983e7d0fb79718ea59ff6d5eef7a97ce7f0bbfe0451eadd79bd01cabb0bf4b",
+        "bytes": 383
+      },
+      "actualManifestAllValuesEqual": true,
+      "keys": {
+        "sheets": [
+          "original_forest_pine",
+          "original_forest_dead"
+        ],
+        "frames": [
+          "original_pine_tree",
+          "original_dead_tree"
+        ]
+      }
+    },
+    {
+      "source": {
+        "path": "/workspace/ashveil-storage-chest-art/tools/art/storage-chest-manifest.fragment.json",
+        "sha256": "8cec16cb7754e2f5d51ec72c8be263a84bdd9d8581e9048520e5748b48e0ee6c",
+        "bytes": 629
+      },
+      "root": {
+        "path": "tools/art/storage-chest-manifest.fragment.json",
+        "sha256": "8cec16cb7754e2f5d51ec72c8be263a84bdd9d8581e9048520e5748b48e0ee6c",
+        "bytes": 629
+      },
+      "actualManifestAllValuesEqual": true,
+      "keys": {
+        "sheets": [
+          "original_storage_chest0",
+          "original_storage_chest2",
+          "original_storage_chest_item"
+        ],
+        "frames": [
+          "original_storage_chest0",
+          "original_storage_chest2",
+          "original_storage_chest_item"
+        ]
+      }
+    }
+  ],
+  "exactSourceCopyChecks": {
+    "count": 29,
+    "allEqual": true,
+    "files": [
+      {
+        "source": "/workspace/ashveil-forest-art/docs/art-forest-verification.json",
+        "root": "docs/art-forest-verification.json",
+        "sha256": "cb4f777cea9c9db27361bcd20d2a92f1e5775cb12a2735286c8fef41380567d9",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-dead-tree-map-review.png",
+        "root": "public/sprites/original/ashveil-dead-tree-map-review.png",
+        "sha256": "a6398ab844248e3da4bd04e1c6feb507303f63dff992534231edce974c0cba99",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-dead-tree.png",
+        "root": "public/sprites/original/ashveil-dead-tree.png",
+        "sha256": "8e29343544d00ba38ef52cd47ea838c277b9f1466bca446d65b8141ee4c86551",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-dead-tree.svg",
+        "root": "public/sprites/original/ashveil-dead-tree.svg",
+        "sha256": "cece0f4a84113453b3642fa1f54f9c107735eb78b449fe58fcdabf0e10faf4b4",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-forest-contact.png",
+        "root": "public/sprites/original/ashveil-forest-contact.png",
+        "sha256": "9fb74002da5c3293a20e11db4f11e2b147626fc73375e2f496258f368fc28da2",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-forest-palette.json",
+        "root": "public/sprites/original/ashveil-forest-palette.json",
+        "sha256": "fc979a6dd12d20134fd7c46f70b2564e6c15f68f10867318546a8b2279853ec8",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-forest-source.json",
+        "root": "public/sprites/original/ashveil-forest-source.json",
+        "sha256": "44c0f195ea8b593c1bed8ab784a48b4ffd7630d06c80237ebfc9e9aad31195e5",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-pine-tree-map-review.png",
+        "root": "public/sprites/original/ashveil-pine-tree-map-review.png",
+        "sha256": "6c7253ae2e9be84a8b57df7b0ec819739f5bb5ebdcb8ea70355513b64590f3bc",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-pine-tree.png",
+        "root": "public/sprites/original/ashveil-pine-tree.png",
+        "sha256": "f43c5bc9c52c69b751a05b4f6022565795ae4c2094bb84af8e1aa70d45b97075",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/public/sprites/original/ashveil-pine-tree.svg",
+        "root": "public/sprites/original/ashveil-pine-tree.svg",
+        "sha256": "0ad9cf2398e253b69050554fe9902635fc4d76050a0c3e5b177c06fb61987f47",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/tools/art/check-forest.py",
+        "root": "tools/art/check-forest.py",
+        "sha256": "22afd8384f4879a852963a6d593507739884eabf12883a4d656495881c73bdff",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/tools/art/draw-forest.py",
+        "root": "tools/art/draw-forest.py",
+        "sha256": "cabf3a090809e94130c37a3f3c27c6ddd43f5f720e5408a0d92d44cb918b583c",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/tools/art/forest-manifest.fragment.json",
+        "root": "tools/art/forest-manifest.fragment.json",
+        "sha256": "bc983e7d0fb79718ea59ff6d5eef7a97ce7f0bbfe0451eadd79bd01cabb0bf4b",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-forest-art/tools/art/forest-usage-survey.json",
+        "root": "tools/art/forest-usage-survey.json",
+        "sha256": "ec10665b11f0db7a514578097224571be9248f8b00ca33459c405ca3192970d5",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/docs/art-storage-chest-verification.json",
+        "root": "docs/art-storage-chest-verification.json",
+        "sha256": "de46224c826c105595f3c48d082e5eeea2c9488afeebc4af0335cde708ee5c62",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-closed.png",
+        "root": "public/sprites/original/ashveil-storage-chest-closed.png",
+        "sha256": "147ea2fa3823259254a40b5a1abf6325063316ae63f822ac9cc815fc53455dc1",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-closed.svg",
+        "root": "public/sprites/original/ashveil-storage-chest-closed.svg",
+        "sha256": "dda8f9028ccac4669e0505515f005602b2fd3761c539cd26d07b11bd1330710f",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-contact.png",
+        "root": "public/sprites/original/ashveil-storage-chest-contact.png",
+        "sha256": "21c67f28e285bdcd3f659538403cda655c1608ab3ec2d1897e6fdfa2e919708d",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-item-16.png",
+        "root": "public/sprites/original/ashveil-storage-chest-item-16.png",
+        "sha256": "8b02da3aa231b92690b2c1dbe583db6a82966c36e6e781f0b97f4e60753b3d07",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-item.png",
+        "root": "public/sprites/original/ashveil-storage-chest-item.png",
+        "sha256": "3cf9fe6fc334539425fa75bf591a69fd82b79491bf7616dd1f5d7a94e0746465",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-item.svg",
+        "root": "public/sprites/original/ashveil-storage-chest-item.svg",
+        "sha256": "7776f2af710eb8b76df00453d755f52bce57f681593ac69bacce396f284f8e4e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-open.png",
+        "root": "public/sprites/original/ashveil-storage-chest-open.png",
+        "sha256": "3cfd9b00f618ef68eba736171231ac1dbdb19265f4bb59a4b19da1885a33942c",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-open.svg",
+        "root": "public/sprites/original/ashveil-storage-chest-open.svg",
+        "sha256": "81f85f9ba2b07dfc82c748dbb22bc945df07bf5a873dfdabc677c7c9e1a66844",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-palette.json",
+        "root": "public/sprites/original/ashveil-storage-chest-palette.json",
+        "sha256": "e9457b8e90003db0d08e3c7f432185d4a9a35da2881b2ac80b9f1b7646cf5b3a",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/public/sprites/original/ashveil-storage-chest-source.json",
+        "root": "public/sprites/original/ashveil-storage-chest-source.json",
+        "sha256": "7b2c3ee879ec4c81e8ef15bab3ad580f08e1fec69f70720fefd65d962cdc4494",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/tools/art/check-storage-chest.py",
+        "root": "tools/art/check-storage-chest.py",
+        "sha256": "225c8e09664578b6ee50092aef76153cdf591290b24ee48e4b3d06a556a608b7",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/tools/art/draw-storage-chest.py",
+        "root": "tools/art/draw-storage-chest.py",
+        "sha256": "bcafbf97720afce009e7f0aedc6ada992cc5a8c81e45d3f48658c75696ac69d4",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/tools/art/storage-chest-manifest.fragment.json",
+        "root": "tools/art/storage-chest-manifest.fragment.json",
+        "sha256": "8cec16cb7754e2f5d51ec72c8be263a84bdd9d8581e9048520e5748b48e0ee6c",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-storage-chest-art/tools/art/storage-chest-usage-survey.json",
+        "root": "tools/art/storage-chest-usage-survey.json",
+        "sha256": "e3defd17930a812bd52c2ec36ef868878b7efd5b5a6a9a7707082be36f25294d",
+        "equal": true
+      }
+    ],
+    "RootDocumentationAppendicesOnly": [
+      {
+        "source": {
+          "path": "/workspace/ashveil-forest-art/docs/art-forest-original.md",
+          "sha256": "0232053ad48a4b02d70700587114095d00d8091a637bddd61afcefc6317d7366",
+          "bytes": 10800
+        },
+        "root": {
+          "path": "docs/art-forest-original.md",
+          "sha256": "3b21b8bd6a14217ba0426c773a4381a35b02ee05d6d24b60d329b516ab37f9f1",
+          "bytes": 11313
+        },
+        "originalPrefixBytePreserved": true,
+        "rootAddedAppendix": "\n## v0.290 적용\n\nRoot가 contact를 직접 열고 새2시트/2frame만 적용했다. PineTree의 실제visual.sprite와 Tree의sprites를 별도patch로 연결했다. Tree렌더러는 기존 tree_dead 기본키를 쓰는 역사적혼합표현은 보존하며 별도로 지정한sprite를 읽는다. 기존±.42배·anchor(.5,.96)/tint 및Pine배율1을 유지한다. Blackwood·stump공유물품과옛프레임/파일은 바꾸지 않는다. 실제게임·원본독립검토·전체검증은별도진행한다.\n"
+      },
+      {
+        "source": {
+          "path": "/workspace/ashveil-storage-chest-art/docs/art-storage-chest-original.md",
+          "sha256": "1b040079290bb37198664eebeffe7d62c685dab3fd4e48758ea6ec64b667cc5d",
+          "bytes": 10273
+        },
+        "root": {
+          "path": "docs/art-storage-chest-original.md",
+          "sha256": "f3cdf1e463132c9c437c4c79b2e3a644289ae647f05cfb2b8aed54f1f252b0dc",
+          "bytes": 10768
+        },
+        "originalPrefixBytePreserved": true,
+        "rootAddedAppendix": "\n## Root 통합 기록\n\n2026-10-21 Root에서 위 고립 원본 파일을 바이트 그대로 복사하고 신규3키만 등록했다. `storage-chest-original.json`의 두 sprite 패치로 Stash와 StorageChest에만 연결했다. 기존 Chest·GuardChest·BoatHold·ZeroVaultChest·Altar·CoracleKit와 기존 공유 시트는 보존했다. 위 미등록·미수행 표현은 원본 제작 단계의 기록이며 통합 후 실제 화면·저장 검증은 별도 실행 기록으로 남긴다.\n"
+      }
+    ]
+  },
+  "independentPixelChecks": [
+    {
+      "frame": "original_pine_tree",
+      "png": {
+        "path": "public/sprites/original/ashveil-pine-tree.png",
+        "sha256": "f43c5bc9c52c69b751a05b4f6022565795ae4c2094bb84af8e1aa70d45b97075",
+        "bytes": 973
+      },
+      "svg": {
+        "path": "public/sprites/original/ashveil-pine-tree.svg",
+        "sha256": "0ad9cf2398e253b69050554fe9902635fc4d76050a0c3e5b177c06fb61987f47",
+        "bytes": 39176
+      },
+      "size": [
+        80,
+        96
+      ],
+      "allChunkCRCsValid": true,
+      "RGBAColorType6": true,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "paletteOnly": true,
+      "paletteColors": 15,
+      "SVGEveryRGBAPixelMatches": true,
+      "boundsExclusive": [
+        6,
+        6,
+        73,
+        92
+      ],
+      "boundsInclusive": [
+        6,
+        6,
+        72,
+        91
+      ],
+      "opaqueHeight": 86
+    },
+    {
+      "frame": "original_dead_tree",
+      "png": {
+        "path": "public/sprites/original/ashveil-dead-tree.png",
+        "sha256": "8e29343544d00ba38ef52cd47ea838c277b9f1466bca446d65b8141ee4c86551",
+        "bytes": 948
+      },
+      "svg": {
+        "path": "public/sprites/original/ashveil-dead-tree.svg",
+        "sha256": "cece0f4a84113453b3642fa1f54f9c107735eb78b449fe58fcdabf0e10faf4b4",
+        "bytes": 59795
+      },
+      "size": [
+        80,
+        96
+      ],
+      "allChunkCRCsValid": true,
+      "RGBAColorType6": true,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "paletteOnly": true,
+      "paletteColors": 15,
+      "SVGEveryRGBAPixelMatches": true,
+      "boundsExclusive": [
+        6,
+        4,
+        75,
+        92
+      ],
+      "boundsInclusive": [
+        6,
+        4,
+        74,
+        91
+      ],
+      "opaqueHeight": 88
+    },
+    {
+      "frame": "original_storage_chest0",
+      "png": {
+        "path": "public/sprites/original/ashveil-storage-chest-closed.png",
+        "sha256": "147ea2fa3823259254a40b5a1abf6325063316ae63f822ac9cc815fc53455dc1",
+        "bytes": 192
+      },
+      "svg": {
+        "path": "public/sprites/original/ashveil-storage-chest-closed.svg",
+        "sha256": "dda8f9028ccac4669e0505515f005602b2fd3761c539cd26d07b11bd1330710f",
+        "bytes": 4815
+      },
+      "size": [
+        16,
+        16
+      ],
+      "allChunkCRCsValid": true,
+      "RGBAColorType6": true,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "SVGEveryRGBAPixelMatches": true,
+      "boundsExclusive": [
+        1,
+        5,
+        15,
+        16
+      ],
+      "boundsInclusive": [
+        1,
+        5,
+        14,
+        15
+      ],
+      "opaqueHeight": 11
+    },
+    {
+      "frame": "original_storage_chest2",
+      "png": {
+        "path": "public/sprites/original/ashveil-storage-chest-open.png",
+        "sha256": "3cfd9b00f618ef68eba736171231ac1dbdb19265f4bb59a4b19da1885a33942c",
+        "bytes": 206
+      },
+      "svg": {
+        "path": "public/sprites/original/ashveil-storage-chest-open.svg",
+        "sha256": "81f85f9ba2b07dfc82c748dbb22bc945df07bf5a873dfdabc677c7c9e1a66844",
+        "bytes": 5748
+      },
+      "size": [
+        16,
+        16
+      ],
+      "allChunkCRCsValid": true,
+      "RGBAColorType6": true,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "SVGEveryRGBAPixelMatches": true,
+      "boundsExclusive": [
+        1,
+        1,
+        15,
+        16
+      ],
+      "boundsInclusive": [
+        1,
+        1,
+        14,
+        15
+      ],
+      "opaqueHeight": 15
+    },
+    {
+      "frame": "original_storage_chest_item",
+      "png": {
+        "path": "public/sprites/original/ashveil-storage-chest-item.png",
+        "sha256": "3cf9fe6fc334539425fa75bf591a69fd82b79491bf7616dd1f5d7a94e0746465",
+        "bytes": 305
+      },
+      "svg": {
+        "path": "public/sprites/original/ashveil-storage-chest-item.svg",
+        "sha256": "7776f2af710eb8b76df00453d755f52bce57f681593ac69bacce396f284f8e4e",
+        "bytes": 12551
+      },
+      "size": [
+        32,
+        32
+      ],
+      "allChunkCRCsValid": true,
+      "RGBAColorType6": true,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "SVGEveryRGBAPixelMatches": true,
+      "boundsExclusive": [
+        3,
+        7,
+        29,
+        29
+      ],
+      "boundsInclusive": [
+        3,
+        7,
+        28,
+        28
+      ],
+      "opaqueHeight": 22
+    }
+  ],
+  "baselinePreservation": {
+    "allPreexistingManifestKeysAndValuesUnchanged": true,
+    "allCharsAnimsUIUnchanged": true,
+    "all439OldPublicFilesByteEqual": true,
+    "publicFileListAndSHA256Digest": "13d8853bcf595918a04714478ecd71554665b8e42a012c04d0d4368e31239224",
+    "oldSheetCount": 90,
+    "legacyNamesPreserved": [
+      "tree",
+      "tree_dead",
+      "dw_env",
+      "dw_tree_dead",
+      "objects",
+      "chest0",
+      "chest1",
+      "chest2",
+      "chest_red0",
+      "chest_red1",
+      "chest_red2",
+      "chest_open",
+      "public/tiles/chest.png",
+      "public/tiles/stump.png"
+    ],
+    "selectedRawDefinitionsPreserved": [
+      {
+        "definition": "Terrain.Tree",
+        "source": {
+          "path": "src/content/core/defs/terrain.json",
+          "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311",
+          "bytes": 11795
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.PineTree",
+        "source": {
+          "path": "src/content/core/defs/pine-tea.json",
+          "sha256": "b89f1f956ba1188426be7988eb3d2e9e2d6a6dc06acc6356c14db7b28e7a5b5d",
+          "bytes": 1560
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.BlackwoodTree",
+        "source": {
+          "path": "src/content/core/defs/blackwood.json",
+          "sha256": "70d96600d3dcd9e6422b3d38bd21db0ad8ad7cd1c37ec1f5b937d5d43437a4ca",
+          "bytes": 13431
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.Chest",
+        "source": {
+          "path": "src/content/core/defs/terrain.json",
+          "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311",
+          "bytes": 11795
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.GuardChest",
+        "source": {
+          "path": "src/content/core/defs/terrain.json",
+          "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311",
+          "bytes": 11795
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.Stash",
+        "source": {
+          "path": "src/content/core/defs/terrain.json",
+          "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311",
+          "bytes": 11795
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.BoatHold",
+        "source": {
+          "path": "src/content/core/defs/watercraft.json",
+          "sha256": "bb34d26415285e6c081f8f50b6e3641801fefd85aa898a38367d62065e7b1cce",
+          "bytes": 2857
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.ZeroVaultChest",
+        "source": {
+          "path": "src/content/core/defs/zero-vault.json",
+          "sha256": "db88d71f71d47b47dd6549f68b3fde6c785e523eb00678b6b275bac41a0fe105",
+          "bytes": 8880
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Terrain.Altar",
+        "source": {
+          "path": "src/content/core/defs/terrain.json",
+          "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311",
+          "bytes": 11795
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.StorageChest",
+        "source": {
+          "path": "src/content/core/defs/base-camp.json",
+          "sha256": "7068d22961b3ec4544f6f616f1534e13e3eab41c9d308f95f6df50a1d5339803",
+          "bytes": 793
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.CoracleKit",
+        "source": {
+          "path": "src/content/core/defs/watercraft.json",
+          "sha256": "bb34d26415285e6c081f8f50b6e3641801fefd85aa898a38367d62065e7b1cce",
+          "bytes": 2857
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.Wood",
+        "source": {
+          "path": "src/content/core/defs/crafting.json",
+          "sha256": "d9b195e70adc37176790dac989bc302a3733c27006be8a94b51452816688bec1",
+          "bytes": 30536
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.PegLeg",
+        "source": {
+          "path": "src/content/core/defs/prosthetics.json",
+          "sha256": "b648c7d8a20c60d8059cb875e3c9c82fd45f7231ee44cdb2772675e47e7a7371",
+          "bytes": 7042
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.CampfireKit",
+        "source": {
+          "path": "src/content/core/defs/campfire.json",
+          "sha256": "b4386d7a5dd577cfe63a8bbbb24fa0fa8c1d626c447f583dbd8eeb243c5a2679",
+          "bytes": 907
+        },
+        "rawDefinitionEqualV289": true
+      },
+      {
+        "definition": "Item.WhitecapCulture",
+        "source": {
+          "path": "src/content/core/defs/whitecap.json",
+          "sha256": "0c6df48dc8a1caf9a5035fb6378523e514f331709588d5a30eec6bb899f1aa6c",
+          "bytes": 2627
+        },
+        "rawDefinitionEqualV289": true
+      }
+    ]
+  },
+  "exactArtPatches": {
+    "forest": {
+      "path": "src/content/core/patches/forest-original.json",
+      "sha256": "44aaed087e1ad276132006b3c74b73965b5f2fb2df64e28d2cd94b394e0b5c6a",
+      "bytes": 263,
+      "operations": [
+        {
+          "op": "replace",
+          "target": "Terrain.Tree",
+          "path": "/sprites",
+          "value": [
+            "original_dead_tree"
+          ]
+        },
+        {
+          "op": "replace",
+          "target": "Terrain.PineTree",
+          "path": "/visual/sprite",
+          "value": "original_pine_tree"
+        }
+      ]
+    },
+    "storage": {
+      "path": "src/content/core/patches/storage-chest-original.json",
+      "sha256": "90f851a1b56789d4f3676eab79ca7565e99edb783192b087da79338530bc03b8",
+      "bytes": 272,
+      "operations": [
+        {
+          "op": "replace",
+          "target": "Terrain.Stash",
+          "path": "/sprites",
+          "value": [
+            "original_storage_chest0"
+          ]
+        },
+        {
+          "op": "replace",
+          "target": "Item.StorageChest",
+          "path": "/sprite",
+          "value": "original_storage_chest_item"
+        }
+      ]
+    },
+    "scopeNote": "Only these4 art property changes reviewed. Other290 physical fire/world changes are outside this art review, not claimed unchanged."
+  },
+  "forestContract": {
+    "nativeFrame": [
+      80,
+      96
+    ],
+    "anchor": [
+      0.5,
+      0.96
+    ],
+    "anchorNative": [
+      40,
+      92.16
+    ],
+    "groundLastOpaqueRow": 91,
+    "groundBoundary": 92,
+    "nativeAnchorGroundGap": 0.16,
+    "deadStatic": {
+      "scaleX": "h%2 ? .42 : -.42",
+      "scaleY": 0.42,
+      "fullFrameWorldPixels": [
+        33.6,
+        40.32
+      ],
+      "tint": "0x9a9a92",
+      "positionOffset": [
+        8,
+        16
+      ],
+      "groundBoundaryVsAnchorWorldGap": 0.0672
+    },
+    "pineDynamic": {
+      "baseScale": 1,
+      "fullFrameWorldPixels": [
+        80,
+        96
+      ],
+      "tint": "0x75a36a",
+      "positionOffset": [
+        8,
+        16
+      ],
+      "genericGatherScaleBranchPreserved": "Existing visual path may multiply by.6 for harvest/cultivation state; actual state-dependent display not executed."
+    },
+    "staticTreeOriginalOverride": "A first sprites key other than tree_dead uses the declared list and h%length. Current patch list has only original_dead_tree, so both legacy25% alternatives select the new dead tree while existing mirror/scale/anchor/tint stay unchanged.",
+    "legacyDefaultFallback": "Absent/empty sprites or default first tree_dead retains old h%4===0?tree:tree_dead selection. No frame/global source replacement.",
+    "blackwoodPreservation": "Blackwood retains explicit visual.sprite tree/scale.4. staticObject exits early for terr.visual; dynamic visual wins over inherited Tree sprites, so new dead-tree art is not applied to Blackwood.",
+    "stumpConsumers": [
+      "Item.Wood",
+      "Item.PegLeg",
+      "Item.CampfireKit",
+      "Item.WhitecapCulture"
+    ],
+    "offlineScaleChecks": [
+      {
+        "path": "public/sprites/original/ashveil-pine-tree-map-review.png",
+        "sha256": "6c7253ae2e9be84a8b57df7b0ec819739f5bb5ebdcb8ea70355513b64590f3bc",
+        "bytes": 408,
+        "size": [
+          34,
+          40
+        ],
+        "sourceScale": 0.42,
+        "nearestSourceCenterExact": true,
+        "meaning": "Offline art review only; PineTree actual base scale remains1, not.42."
+      },
+      {
+        "path": "public/sprites/original/ashveil-dead-tree-map-review.png",
+        "sha256": "a6398ab844248e3da4bd04e1c6feb507303f63dff992534231edce974c0cba99",
+        "bytes": 403,
+        "size": [
+          34,
+          40
+        ],
+        "sourceScale": 0.42,
+        "nearestSourceCenterExact": true,
+        "meaning": "Offline art review only; PineTree actual base scale remains1, not.42."
+      }
+    ]
+  },
+  "storageContract": {
+    "worldFrames": [
+      "original_storage_chest0",
+      "original_storage_chest2"
+    ],
+    "worldNative": [
+      16,
+      16
+    ],
+    "anchor": [
+      0.5,
+      1
+    ],
+    "anchorNative": [
+      8,
+      16
+    ],
+    "scale": 1,
+    "positionOffset": [
+      8,
+      16
+    ],
+    "lastOpaqueRow": 15,
+    "groundBoundary": 16,
+    "sameBottomRows11Through15EveryRGBAPixel": true,
+    "opening": "Existing opened=!!tile.searched; first terrain sprite base changes suffix0→2 only when that frame exists. New key names meet this rule. No new frame1 or animation.",
+    "openedTint": "Existing0x8a8478; not baked in PNG",
+    "portableItem": {
+      "definition": "Item.StorageChest",
+      "sprite": "original_storage_chest_item",
+      "native": [
+        32,
+        32
+      ],
+      "itemGrid": [
+        3,
+        2
+      ],
+      "inventoryCELL": 38,
+      "actualDisplayPixels": 64,
+      "gridRectanglePixels": [
+        112,
+        74
+      ],
+      "UI64Fits112x74": true,
+      "sourceInventoryUIByteUnchangedV289": true,
+      "preview16": {
+        "path": "public/sprites/original/ashveil-storage-chest-item-16.png",
+        "sha256": "8b02da3aa231b92690b2c1dbe583db6a82966c36e6e781f0b97f4e60753b3d07",
+        "bytes": 201,
+        "nearestCenterExact": true
+      }
+    },
+    "preservedOtherConsumers": [
+      {
+        "target": "Terrain.Chest",
+        "selectedBase": "chest0"
+      },
+      {
+        "target": "Terrain.GuardChest",
+        "selectedBase": "chest0"
+      },
+      {
+        "target": "Terrain.BoatHold",
+        "selectedBase": "chest0 (inherited)"
+      },
+      {
+        "target": "Terrain.ZeroVaultChest",
+        "selectedBase": "chest0 (inherited)"
+      },
+      {
+        "target": "Terrain.Altar",
+        "selectedBase": "chest_red0"
+      },
+      {
+        "target": "Item.CoracleKit",
+        "sprite": "chest (old tile)"
+      }
+    ],
+    "selectedStashOnly": "New Terrain.Stash child sprites do not alter parent Chest or sibling/other children. New item-specific original_storage_chest_item does not replace shared chest tile."
+  },
+  "reviewedRendererDelta": "--- v289/MapRenderer.ts\n+++ reviewed/MapRenderer.ts\n@@ -325,7 +325,9 @@\n     }\n     switch (t) {\n       case 'Terrain.Tree': {\n-        const s = add(new Sprite(tex(h % 4 === 0 ? 'tree' : 'tree_dead')), 0.5, 0.96)\n+        // 기존 기본 키의 혼합 표현은 보존하고, 콘텐츠가 지정한 별도 수목 원본은 실제로 읽는다.\n+        const chosen=terr.sprites?.[0],key=chosen&&chosen!=='tree_dead'?terr.sprites[h%terr.sprites.length]:(h%4===0?'tree':'tree_dead')\n+        const s = add(new Sprite(tex(key)), 0.5, 0.96)\n         s.scale.set(h % 2 ? 0.42 : -0.42, 0.42)\n         s.position.set(px + T / 2, py + T)\n         s.tint = 0x9a9a92\n",
+  "sourceReproduction": {
+    "rootReportedChecks": [
+      {
+        "tool": "draw-forest.py --check",
+        "generatedFiles": 11,
+        "result": "PASS"
+      },
+      {
+        "tool": "draw-storage-chest.py --check",
+        "generatedFiles": 12,
+        "result": "PASS"
+      }
+    ],
+    "reviewerReranGenerators": false,
+    "independentWork": "Reviewer separately decoded PNG/CRC/alpha, reconstructed SVG, measured bounds/anchors, compared scale previews/item16/bottom rows and every old public byte."
+  },
+  "directlyViewedPNGs": [
+    {
+      "path": "public/sprites/original/ashveil-forest-contact.png",
+      "sha256": "9fb74002da5c3293a20e11db4f11e2b147626fc73375e2f496258f368fc28da2",
+      "bytes": 11321,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-storage-chest-contact.png",
+      "sha256": "21c67f28e285bdcd3f659538403cda655c1608ab3ec2d1897e6fdfa2e919708d",
+      "bytes": 7322,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-pine-tree.png",
+      "sha256": "f43c5bc9c52c69b751a05b4f6022565795ae4c2094bb84af8e1aa70d45b97075",
+      "bytes": 973,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-dead-tree.png",
+      "sha256": "8e29343544d00ba38ef52cd47ea838c277b9f1466bca446d65b8141ee4c86551",
+      "bytes": 948,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-storage-chest-closed.png",
+      "sha256": "147ea2fa3823259254a40b5a1abf6325063316ae63f822ac9cc815fc53455dc1",
+      "bytes": 192,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-storage-chest-open.png",
+      "sha256": "3cfd9b00f618ef68eba736171231ac1dbdb19265f4bb59a4b19da1885a33942c",
+      "bytes": 206,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-storage-chest-item.png",
+      "sha256": "3cf9fe6fc334539425fa75bf591a69fd82b79491bf7616dd1f5d7a94e0746465",
+      "bytes": 305,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-storage-chest-item-16.png",
+      "sha256": "8b02da3aa231b92690b2c1dbe583db6a82966c36e6e781f0b97f4e60753b3d07",
+      "bytes": 201,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-pine-tree-map-review.png",
+      "sha256": "6c7253ae2e9be84a8b57df7b0ec819739f5bb5ebdcb8ea70355513b64590f3bc",
+      "bytes": 408,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    },
+    {
+      "path": "public/sprites/original/ashveil-dead-tree-map-review.png",
+      "sha256": "a6398ab844248e3da4bd04e1c6feb507303f63dff992534231edce974c0cba99",
+      "bytes": 403,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image"
+    }
+  ],
+  "visualObservations": [
+    "Pine and bare dead tree have distinct low-saturation silhouettes, visible trunk/root geometry and no fixed terrain shadow, glow, fruit/resource-count marker.",
+    "Chest closed/open states show different lid geometry with the same lower body, and the portable32px icon is drawn separately from16px world frames.",
+    "Contact/mirror/scale panels are art review examples, not actual renderer screenshots. PNG bounds in source docs use inclusive maxima; report includes both inclusive and exclusive bounds to avoid off-by-one interpretation."
+  ],
+  "notVerified": [
+    "Actual game screenshots, input/restore, rendering with real tint/light/occlusion, native-scale Pine vs dead-tree composition.",
+    "Actual searched open transition, inventory drag/rotation/placement or crate contents.",
+    "Core fire/combustion/water/resource/ownership/save behavior or general290 implementation.",
+    "Build/type/lint/full regression/deployment."
+  ]
+}

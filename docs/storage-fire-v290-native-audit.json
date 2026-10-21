@@ -1,0 +1,51 @@
+{
+  "save": 197,
+  "screenshots": 10,
+  "roundtrips": 6,
+  "phases": 20,
+  "actualInputTU": 90700,
+  "rows": [
+    {
+      "salvage": false,
+      "initialTime": 1440000,
+      "finalTime": 1530500,
+      "actualInputTU": 90500,
+      "initialCorePreparationTU": 0,
+      "chestUid": 72,
+      "sourceKitUid": 69,
+      "expectedItemUids": [
+        78,
+        73,
+        74,
+        75,
+        76
+      ],
+      "nestedUid": 77,
+      "finalTerrain": "Terrain.KtFloor",
+      "finalWaterMl": 300,
+      "ownBagWaterMl": 1000
+    },
+    {
+      "salvage": true,
+      "initialTime": 1470400,
+      "finalTime": 1470600,
+      "actualInputTU": 200,
+      "initialCorePreparationTU": 30400,
+      "chestUid": 72,
+      "sourceKitUid": 69,
+      "expectedItemUids": [
+        78,
+        73,
+        74,
+        75,
+        76
+      ],
+      "nestedUid": 77,
+      "finalTerrain": "Terrain.Stash",
+      "finalWaterMl": 300,
+      "ownBagWaterMl": 500
+    }
+  ],
+  "errors": [],
+  "source": "Finite actual placed closed preloaded chest/original4contents+nestedCloth andseparate groundWood; actual initial unlit kit/originalWood3/own1000ml bottle; two explicit initial tree-art tiles. Main uses original default0.02 policy, realF2 ignition100T/SE2/rest200×4/NW2+N/recoveronlyoriginalwaterUID FREE/smallviewport. Second finite burning initial is produced via real Node public100T+SE2/rest200/NW2 (304T), then browser does real500ml1T salvage/free search/one south step; a finite spare portable chest is declared after initial Node preparation. No claim browser performed second preparation, past placement or crafting.20 independent entire Node state comparisons/6whole197restores; no post-load world/time/RNG/material/item injection. Only normal rendererFX consumption."
+}

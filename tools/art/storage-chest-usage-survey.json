@@ -1,0 +1,623 @@
+{
+  "created": "2026-10-21",
+  "scope": "Read-only Root working-tree storage-chest source survey; no game simulation or existing image pixel input.",
+  "item": {
+    "defType": "Item",
+    "id": "Item.StorageChest",
+    "label": "목제 보관함",
+    "description": "직접 만든 보관함. 비어 있는 땅에 설치하고 주변을 정비해 거점으로 쓸 수 있다.",
+    "sprite": "chest",
+    "category": "misc",
+    "weight": 8,
+    "value": 12,
+    "size": [
+      3,
+      2
+    ],
+    "place": "Terrain.Stash",
+    "material": "Material.Wood"
+  },
+  "recipe": {
+    "defType": "Recipe",
+    "id": "Recipe.StorageChest",
+    "label": "목제 보관함 만들기",
+    "category": "woodwork",
+    "primaryAttr": "str",
+    "basic": true,
+    "workTurns": 120,
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 4
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.StorageChest",
+      "count": 1
+    },
+    "mastery": "survival"
+  },
+  "terrain": {
+    "defType": "Terrain",
+    "id": "Terrain.Stash",
+    "parent": "Terrain.Chest",
+    "label": "야영지 보관함",
+    "description": "12×8 칸. 짐을 두고 다닐 수 있다.",
+    "container": "Loot.Empty",
+    "sprites": [
+      "chest0"
+    ],
+    "lootGrid": [
+      12,
+      8
+    ],
+    "openTurns": 0,
+    "openNoise": 0
+  },
+  "terrainParent": {
+    "defType": "Terrain",
+    "id": "Terrain.Chest",
+    "parent": "Terrain.Container",
+    "label": "궤짝",
+    "sprites": [
+      "chest0"
+    ],
+    "container": "Loot.Chest",
+    "lootGrid": [
+      6,
+      4
+    ],
+    "openTurns": 1,
+    "openNoise": 2,
+    "cover": 15
+  },
+  "material": {
+    "defType": "Material",
+    "id": "Material.Wood",
+    "label": "잿나무",
+    "category": "Wood",
+    "density": 0.7,
+    "sharpness": 10,
+    "hardness": 20,
+    "toughness": 50,
+    "insulation": 0,
+    "wetLoss": 0,
+    "corrosionResist": 50,
+    "flammability": 2,
+    "valuePerKg": 0.5
+  },
+  "spriteConsumers": [
+    {
+      "id": "Item.StorageChest",
+      "source": "src/content/core/defs/base-camp.json",
+      "references": [
+        {
+          "jsonPath": "/sprite",
+          "key": "chest"
+        }
+      ],
+      "definition": {
+        "defType": "Item",
+        "id": "Item.StorageChest",
+        "label": "목제 보관함",
+        "description": "직접 만든 보관함. 비어 있는 땅에 설치하고 주변을 정비해 거점으로 쓸 수 있다.",
+        "sprite": "chest",
+        "category": "misc",
+        "weight": 8,
+        "value": 12,
+        "size": [
+          3,
+          2
+        ],
+        "place": "Terrain.Stash",
+        "material": "Material.Wood"
+      }
+    },
+    {
+      "id": "Terrain.Chest",
+      "source": "src/content/core/defs/terrain.json",
+      "references": [
+        {
+          "jsonPath": "/sprites/0",
+          "key": "chest0"
+        }
+      ],
+      "definition": {
+        "defType": "Terrain",
+        "id": "Terrain.Chest",
+        "parent": "Terrain.Container",
+        "label": "궤짝",
+        "sprites": [
+          "chest0"
+        ],
+        "container": "Loot.Chest",
+        "lootGrid": [
+          6,
+          4
+        ],
+        "openTurns": 1,
+        "openNoise": 2,
+        "cover": 15
+      }
+    },
+    {
+      "id": "Terrain.GuardChest",
+      "source": "src/content/core/defs/terrain.json",
+      "references": [
+        {
+          "jsonPath": "/sprites/0",
+          "key": "chest0"
+        }
+      ],
+      "definition": {
+        "defType": "Terrain",
+        "id": "Terrain.GuardChest",
+        "parent": "Terrain.Chest",
+        "label": "경비실 상자",
+        "container": "Loot.GuardChest",
+        "sprites": [
+          "chest0"
+        ],
+        "lootGrid": [
+          6,
+          4
+        ],
+        "openTurns": 1,
+        "openNoise": 2,
+        "cover": 15
+      }
+    },
+    {
+      "id": "Terrain.Stash",
+      "source": "src/content/core/defs/terrain.json",
+      "references": [
+        {
+          "jsonPath": "/sprites/0",
+          "key": "chest0"
+        }
+      ],
+      "definition": {
+        "defType": "Terrain",
+        "id": "Terrain.Stash",
+        "parent": "Terrain.Chest",
+        "label": "야영지 보관함",
+        "description": "12×8 칸. 짐을 두고 다닐 수 있다.",
+        "container": "Loot.Empty",
+        "sprites": [
+          "chest0"
+        ],
+        "lootGrid": [
+          12,
+          8
+        ],
+        "openTurns": 0,
+        "openNoise": 0
+      }
+    },
+    {
+      "id": "Item.CoracleKit",
+      "source": "src/content/core/defs/watercraft.json",
+      "references": [
+        {
+          "jsonPath": "/sprite",
+          "key": "chest"
+        }
+      ],
+      "definition": {
+        "defType": "Item",
+        "id": "Item.CoracleKit",
+        "label": "접은 통가죽배",
+        "description": "나무틀과 꿰맨 가죽의 소형 배. 실제 부두에서 펴고 띄운다. 정원4명과 별도 화물함을 갖는다.",
+        "sprite": "chest",
+        "category": "tool",
+        "weight": 0,
+        "size": [
+          3,
+          3
+        ],
+        "value": 180,
+        "watercraft": {
+          "seats": 4,
+          "turnsPerCell": 600,
+          "launchTurns": 1,
+          "minDurability": 10,
+          "wearPerHour": 0.2,
+          "deckTerrain": "Terrain.BoatDeck",
+          "waterTerrain": "Terrain.SeaDeep",
+          "cargoTerrain": "Terrain.BoatHold",
+          "cargoPos": [
+            7,
+            6
+          ],
+          "deck": [
+            6,
+            4,
+            6,
+            5
+          ],
+          "anchor": [
+            8,
+            6
+          ],
+          "weather": {
+            "clear": 1,
+            "overcast": 1,
+            "deepOvercast": 1.1,
+            "ashrain": 1.2,
+            "frostfog": 1.5,
+            "ashsnow": 1.4,
+            "ashstorm": 0,
+            "ashgale": 0
+          },
+          "repair": {
+            "item": "Item.Wood",
+            "count": 1,
+            "turns": 120,
+            "restore": 20
+          }
+        },
+        "repair": {
+          "material": "Item.Wood",
+          "unitsPer10": 1,
+          "turns": 120,
+          "attr": "per",
+          "tools": [
+            "needle"
+          ]
+        }
+      }
+    }
+  ],
+  "legacyFrames": {
+    "chest0": [
+      "objects",
+      0,
+      16,
+      16,
+      16
+    ],
+    "chest1": [
+      "objects",
+      16,
+      16,
+      16,
+      16
+    ],
+    "chest2": [
+      "objects",
+      32,
+      16,
+      16,
+      16
+    ],
+    "chest_red0": [
+      "objects",
+      0,
+      48,
+      16,
+      16
+    ],
+    "chest_red1": [
+      "objects",
+      16,
+      48,
+      16,
+      16
+    ],
+    "chest_red2": [
+      "objects",
+      32,
+      48,
+      16,
+      16
+    ]
+  },
+  "legacyAnimation": {
+    "frames": [
+      "chest0",
+      "chest1",
+      "chest2"
+    ],
+    "fps": 10
+  },
+  "objectsSheetFrameCount": 20,
+  "legacyItemIcon": {
+    "path": "public/tiles/chest.png",
+    "size": [
+      32,
+      32
+    ],
+    "sha256": "73ac50552ced1f01d18946e0bd4645caa1be2a4faa857e8ae1797348d5393bca",
+    "pixelsReadForDrawing": false
+  },
+  "storageFirePatch": [
+    {
+      "op": "add",
+      "target": "Terrain.Stash",
+      "path": "/combustion",
+      "value": {
+        "family": "wood-stash",
+        "burnTurns": 600,
+        "burnedAs": "Terrain.Earth"
+      }
+    },
+    {
+      "op": "replace",
+      "target": "Terrain.Stash",
+      "path": "/description",
+      "value": "12×8 칸. 목제 보관함은 불씨에 타며 소진되면 안의 원래 물품은 같은 자리에 남는다. 실제 물로 불을 끌 수 있다."
+    }
+  ],
+  "renderer": {
+    "worldCell": [
+      16,
+      16
+    ],
+    "anchor": [
+      0.5,
+      1
+    ],
+    "anchorPixel": [
+      8,
+      16
+    ],
+    "scale": 1,
+    "position": "[tile.x*16+8,tile.y*16+16]",
+    "openSelection": "opened=!!tile.searched; if hasFrame(base.replace(/0$/,\"2\")) use that frame",
+    "openedTint": "0x8a8478",
+    "stateMeaning": "searched/open appearance; no empty, lock or loot-quality guarantee"
+  },
+  "inventoryUI": {
+    "itemGrid": [
+      3,
+      2
+    ],
+    "cellPixels": 38,
+    "itemRectangle": [
+      112,
+      74
+    ],
+    "iconPixels": 64,
+    "sourceIconPixels": [
+      32,
+      32
+    ]
+  },
+  "sourceFiles": [
+    {
+      "path": "src/client/sprites.json",
+      "sha256": "a4649422e74c0945e0384a2a9a64a3a2a76328a66e7766d31452db0c74ed6763"
+    },
+    {
+      "path": "src/client/render/MapRenderer.ts",
+      "sha256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721"
+    },
+    {
+      "path": "src/client/render/atlas.ts",
+      "sha256": "37306b3a9e52548001e4a71d2d44614a4c7859d8719a62e695db0a95c92cba0a"
+    },
+    {
+      "path": "src/client/ui/ItemIcon.vue",
+      "sha256": "f9abb6a4b7a49708b3aadb8c01f66026b3fc56c4d93aab6046596c0905429982"
+    },
+    {
+      "path": "src/client/ui/InventoryWindow.vue",
+      "sha256": "0da9b351376a544ebf1b58580ac643386292918fbe74b914455fe7be5e285f9f"
+    },
+    {
+      "path": "src/content/core/defs/base-camp.json",
+      "sha256": "7068d22961b3ec4544f6f616f1534e13e3eab41c9d308f95f6df50a1d5339803"
+    },
+    {
+      "path": "src/content/core/defs/terrain.json",
+      "sha256": "6ffecdd7087a3283b9412301c05eaa6e6f04918279fa09f2900e6b77d8bb6311"
+    },
+    {
+      "path": "src/content/core/defs/watercraft.json",
+      "sha256": "bb34d26415285e6c081f8f50b6e3641801fefd85aa898a38367d62065e7b1cce"
+    },
+    {
+      "path": "src/content/core/patches/storage-fire.json",
+      "sha256": "fe1ff85d78cf3cd6d634fd8023aab8257655f58356fbdf38584f9640b4ec47f5"
+    },
+    {
+      "path": "src/core/base-camp.ts",
+      "sha256": "b424cc1467b54acb63e4dff4099b5fc819097faa82edaf85a879e5b85874b7a9"
+    },
+    {
+      "path": "docs/CANON.md",
+      "sha256": "fc6dcde298c5bdf18b1e648507abdd4b29c2d990b7a4c888a2957d7b586f72f7"
+    },
+    {
+      "path": "docs/design/13-inventory.md",
+      "sha256": "acb89b5afc035794deb2b0234c75dd0ee118d3ecb8f0fefc3ff0e123fc0c48e5"
+    },
+    {
+      "path": "docs/design/08-items-and-crafting.md",
+      "sha256": "82e5e907930da845d1c9584e7516d5829895e16c9dd753959c58c1b5a801c92f"
+    },
+    {
+      "path": "src/content/core/defs/zero-vault.json",
+      "sha256": "db88d71f71d47b47dd6549f68b3fde6c785e523eb00678b6b275bac41a0fe105"
+    }
+  ],
+  "integrationApplied": false,
+  "resolvedChestTerrainFamily": [
+    {
+      "id": "Terrain.Altar",
+      "source": "src/content/core/defs/terrain.json",
+      "parent": "Terrain.Chest",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.Altar",
+        "parent": "Terrain.Chest",
+        "label": "제단 상자",
+        "container": "Loot.Altar",
+        "sprites": [
+          "chest_red0"
+        ],
+        "lootGrid": [
+          4,
+          3
+        ],
+        "openTurns": 1,
+        "openNoise": 2,
+        "elevation": 1,
+        "cover": 15
+      },
+      "resolvedSprites": [
+        "chest_red0"
+      ],
+      "resolvedContainer": "Loot.Altar",
+      "resolvedLootGrid": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "Terrain.BoatHold",
+      "source": "src/content/core/defs/watercraft.json",
+      "parent": "Terrain.Chest",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.BoatHold",
+        "parent": "Terrain.Chest",
+        "label": "배의 화물함",
+        "description": "이 배에 실제로 싣고 움직이는 짐이다.",
+        "lootGrid": [
+          4,
+          4
+        ],
+        "openTurns": 1
+      },
+      "resolvedSprites": [
+        "chest0"
+      ],
+      "resolvedContainer": "Loot.Chest",
+      "resolvedLootGrid": [
+        4,
+        4
+      ]
+    },
+    {
+      "id": "Terrain.Chest",
+      "source": "src/content/core/defs/terrain.json",
+      "parent": "Terrain.Container",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.Chest",
+        "parent": "Terrain.Container",
+        "label": "궤짝",
+        "sprites": [
+          "chest0"
+        ],
+        "container": "Loot.Chest",
+        "lootGrid": [
+          6,
+          4
+        ],
+        "openTurns": 1,
+        "openNoise": 2,
+        "cover": 15
+      },
+      "resolvedSprites": [
+        "chest0"
+      ],
+      "resolvedContainer": "Loot.Chest",
+      "resolvedLootGrid": [
+        6,
+        4
+      ]
+    },
+    {
+      "id": "Terrain.GuardChest",
+      "source": "src/content/core/defs/terrain.json",
+      "parent": "Terrain.Chest",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.GuardChest",
+        "parent": "Terrain.Chest",
+        "label": "경비실 상자",
+        "container": "Loot.GuardChest",
+        "sprites": [
+          "chest0"
+        ],
+        "lootGrid": [
+          6,
+          4
+        ],
+        "openTurns": 1,
+        "openNoise": 2,
+        "cover": 15
+      },
+      "resolvedSprites": [
+        "chest0"
+      ],
+      "resolvedContainer": "Loot.GuardChest",
+      "resolvedLootGrid": [
+        6,
+        4
+      ]
+    },
+    {
+      "id": "Terrain.Stash",
+      "source": "src/content/core/defs/terrain.json",
+      "parent": "Terrain.Chest",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.Stash",
+        "parent": "Terrain.Chest",
+        "label": "야영지 보관함",
+        "description": "12×8 칸. 짐을 두고 다닐 수 있다.",
+        "container": "Loot.Empty",
+        "sprites": [
+          "chest0"
+        ],
+        "lootGrid": [
+          12,
+          8
+        ],
+        "openTurns": 0,
+        "openNoise": 0
+      },
+      "resolvedSprites": [
+        "chest0"
+      ],
+      "resolvedContainer": "Loot.Empty",
+      "resolvedLootGrid": [
+        12,
+        8
+      ]
+    },
+    {
+      "id": "Terrain.ZeroVaultChest",
+      "source": "src/content/core/defs/zero-vault.json",
+      "parent": "Terrain.Chest",
+      "rawDefinition": {
+        "defType": "Terrain",
+        "id": "Terrain.ZeroVaultChest",
+        "parent": "Terrain.Chest",
+        "label": "0호 금고 기록 보관함",
+        "lootCrime": {
+          "faction": "guard",
+          "delta": -15,
+          "reason": "0호 금고의 원본 기록을 가져감",
+          "provoke": true
+        }
+      },
+      "resolvedSprites": [
+        "chest0"
+      ],
+      "resolvedContainer": "Loot.Chest",
+      "resolvedLootGrid": [
+        6,
+        4
+      ]
+    }
+  ],
+  "sharedConsumptionNote": "Five direct references plus inherited BoatHold and ZeroVaultChest chest0 users; Altar inherits Chest but explicitly uses chest_red0. New keys are scoped only to Stash and StorageChest."
+}

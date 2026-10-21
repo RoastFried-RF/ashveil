@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.289** · 각인196. 전체5,892개·실제16장·저장 전체복원3 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
+**현재 상태: 프로토타입 v0.290** · 각인197. 전체5,907개·실제18장·저장 전체복원6·월드30판 통합 검증 완료. 전체 후속 구현은 계속 진행한다. [진행 상황](docs/progress.md) · [구현 현황](docs/prototype.md) · [전체 로드맵](docs/expansion-roadmap.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -175,3 +175,10 @@ F2에서 실제 도구·성공률·시간/마모/소음을 보고 잠금을 푼�
 
 ![실제 확대지도와 당시 영향권](docs/previews/v289-1402-native-actual-boundary-shows-only-dated-old-territory-record.png)
 ![실제 물 용기·소금·의안·전원셀·약품 원본](docs/previews/v289-1404-native-seven-real-vessel-salt-eye-cell-draught-and-ampoule-icons.png)
+
+## 목제 보관함 화재·원본5종 (v0.290)
+
+실제500ml로불을끄면부분연료와내용물을보존한다. 소진되면원래물품은같은UID로원래바닥에남는다. [검증 근거](docs/release-v290-proof.json).
+
+![실제 보관함 발화와 수목 원본](docs/previews/v290-1411-native-default002-spark-original-wood-chest-burns-with-original-forest.png)
+![실제 소지품 원본과 열린 보관함](docs/previews/v290-1419-native-original-portable-chest64-and-restored-open-chest.png)

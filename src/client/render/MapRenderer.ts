@@ -325,7 +325,9 @@ export class MapRenderer {
     }
     switch (t) {
       case 'Terrain.Tree': {
-        const s = add(new Sprite(tex(h % 4 === 0 ? 'tree' : 'tree_dead')), 0.5, 0.96)
+        // 기존 기본 키의 혼합 표현은 보존하고, 콘텐츠가 지정한 별도 수목 원본은 실제로 읽는다.
+        const chosen=terr.sprites?.[0],key=chosen&&chosen!=='tree_dead'?terr.sprites[h%terr.sprites.length]:(h%4===0?'tree':'tree_dead')
+        const s = add(new Sprite(tex(key)), 0.5, 0.96)
         s.scale.set(h % 2 ? 0.42 : -0.42, 0.42)
         s.position.set(px + T / 2, py + T)
         s.tint = 0x9a9a92

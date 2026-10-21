@@ -6,7 +6,7 @@ import {campfireDef,fireTurnsLeft} from './campfire'
 import {weatherWetPerTurn} from './climate-state'
 import {inBounds,log,rng,tileAt,turnOf,type World} from './ctx'
 import {canSee,hasLos,invalidateLights} from './fov'
-import {cheb,type Pos} from './geom'
+import {cheb,eq,type Pos} from './geom'
 import {diagonalBlocked} from './path'
 import {spendWashWater,washWaterSupply} from './wash-water'
 import type {Creature} from './types'
@@ -57,7 +57,14 @@ export function terrainFireTick(w:World){
    const ps=bodyDef(w,c).parts.filter(p=>!p.internal&&!isMissing(w,c,p.id)),part=ps.find(p=>p.region==='torso')??ps[0];if(!part)continue
    const hit=addWound(w,c,{def:'Wound.Burn',part:part.id,severity:d.damage,source:'나무와 지형의 화재',sourceId:f.id});c.hp=Math.max(0,c.hp-hit.damage);if(c.hp<=0)killCreature(w,c,'화재')
   }
-  if(f.remaining<=0){const b=w.db.terrain(t.t).combustion!;t.t=t.placed?.base??b.burnedAs;delete t.placed;delete t.gatherAt;delete t.cultivation;delete t.regrowAt;delete t.needleGatherAt;delete t.combustionRemaining;remove(w,light.pos)}
+  if(f.remaining<=0){
+   const b=w.db.terrain(t.t).combustion!
+   // 소진된 나무 용기의 이미 존재하던 실물은 같은 UID/상태로 그 자리에 남는다.
+   // 합치기/전리품 재추첨/내용물 복제 없이 격자 좌표만 제거한다.
+   if(t.cont){for(const item of t.cont.items){delete item.gx;delete item.gy;delete item.rot;t.items.push(item)}delete t.cont}
+   if(w.s.loot?.kind==='cont'&&eq(w.s.loot.pos,light.pos))w.s.loot={pos:{...light.pos},kind:'floor'}
+   t.t=t.placed?.base??b.burnedAs;delete t.placed;delete t.locked;delete t.gatherAt;delete t.cultivation;delete t.regrowAt;delete t.needleGatherAt;delete t.combustionRemaining;remove(w,light.pos)
+  }
  }
  if(now%d.checkTurns!==0)return
  for(const light of original){
