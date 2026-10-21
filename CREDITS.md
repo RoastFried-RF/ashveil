@@ -132,3 +132,9 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 귀리 알곡과 씨앗 주머니2종의 정수 좌표 원본을 직접 제작했다. CC0-1.0 [라이선스](tools/art/oat-LICENSE.txt) · [제작·재현·검토 자료](docs/art-oat-originals.md). 32px PNG/SVG와16px검토본을함께보관하며기존외부저작자표기는유지한다.
 
 귀리밭 원본1종도 직접 새 정수 도형으로 제작했다. CC0-1.0 [별도라이선스](tools/art/oat-plot-LICENSE.txt) · [제작·재현 자료](docs/art-oat-plot-original.md). 기존 그늘 작물·버섯·외부 제작자 표기는 유지한다.
+
+- 원본 도기 그릇·덜 익은 귀리죽·익은 귀리죽3종: ASHVEIL 자체 제작, CC0-1.0. 같은 새 그릇 도형/새 내용물 좌표, PNG/SVG·16px·제작기·출처·재현 기록은 `docs/art-oatmeal-originals.md`, 별도 라이선스는 `tools/art/oatmeal-LICENSE.txt`. 그림은 현재 열·오염·안전을 보증하지 않는다.
+
+- 원본 목재·고철·실 꾸러미·무두질 가죽·숯5종: ASHVEIL 자체 새 정수좌표 제작, CC0-1.0. `docs/art-material-originals.md`, `tools/art/material-LICENSE.txt` 참조. 기존외부저작자·공유그림을보존하며수량/장착/열/살균을그림으로보증하지않는다.
+
+- 원본 천조각·붕대·횃불·미점화모닥불꾸러미·돌조각5종: ASHVEIL 자체 새 정수좌표 제작, CC0-1.0. `docs/art-survival-originals.md`, `tools/art/survival-LICENSE.txt` 참조. 횃불 그림은 현재점화/연료를뜻하지않으며별도상태표시를사용한다.
