@@ -64,10 +64,14 @@ export function rumorConnections(w:World,site:string):{site:string;distance:numb
   return[{site:s.id,distance:route?route.cells.length:Math.abs(s.cell.x-from.cell.x)+Math.abs(s.cell.y-from.cell.y)}]
  }).sort((a,b)=>a.distance-b.distance||(a.site<b.site?-1:a.site>b.site?1:0)).slice(0,d.neighbors)
 }
-function forward(w:World,site:string,r:Rumor,at:number):void{
+/** 하나의 동기 정산 안에서만 쓴다. 정산 중 지리/Def를 바꾸지 않으며 저장·다음 호출에 남기지 않는다. */
+export type RumorConnectionBatch=Map<string,ReturnType<typeof rumorConnections>>
+function forward(w:World,site:string,r:Rumor,at:number,batch?:RumorConnectionBatch):void{
  const m=w.s.overworld!,state=m.rumorNetwork!,d=rumorNetworkRules(w)!,from=sites(w).find(s=>s.id===site)
  if(!from)return
- for(const{site:to,distance}of rumorConnections(w,site)){
+ let connections=batch?.get(site)
+ if(!connections){connections=rumorConnections(w,site);batch?.set(site,connections)}
+ for(const{site:to,distance}of connections){
   const root=r.relay!.root,edge=key(root,site,to)
   if(state.sent[edge]!==undefined||state.seen[key(root,to)]!==undefined)continue
   state.sent[edge]=r.writtenAt
@@ -86,7 +90,7 @@ export function postRumor(w:World,c:Creature,speaker:Creature,id:string):string|
  return null
 }
 /** 실제 공개 사건/행동의 생성 지점에서만 호출한다. 옛 기록을 검색해 소급 게시하지 않는다. */
-export function publishPublicRumor(w:World,site:string,rumor:Rumor,at=turnOf(w)):boolean{
+export function publishPublicRumor(w:World,site:string,rumor:Rumor,at=turnOf(w),batch?:RumorConnectionBatch):boolean{
  const m=w.s.overworld
  if(!m||!sites(w).some(s=>s.id===site)||!Number.isFinite(at)||at<0||at>turnOf(w)||!alive(w,rumor,at))return false
  const r=structuredClone(rumor),root=r.relay?.root??key(r.regionId??'',r.id)
@@ -94,19 +98,19 @@ export function publishPublicRumor(w:World,site:string,rumor:Rumor,at=turnOf(w))
  m.rumorNetwork??={towns:{},pending:[],seen:{},sent:{}}
  r.relay??={root,origin:site,accuracy:100,distortions:[]};delete r.relay.suspected;r.foundAt=at
  m.rumorNetwork.seen[key(root,site)]=r.writtenAt;(m.rumorNetwork.towns[site]??=[]).push(r)
- forward(w,site,r,at)
+ forward(w,site,r,at,batch)
  return true
 }
 export function rumorNetworkTick(w:World):void{
  const state=w.s.overworld?.rumorNetwork;if(!state)return
  const d=rumorNetworkRules(w);if(!d)return
- const now=turnOf(w)
+ const now=turnOf(w),batch:RumorConnectionBatch=new Map()
  state.pending.sort((a,b)=>a.due-b.due||(a.key<b.key?-1:a.key>b.key?1:0))
  while(state.pending[0]&&state.pending[0].due<=now){
   const packet=state.pending.shift()!,r=packet.rumor,root=r.relay?.root
   if(!root||!alive(w,r,packet.due)||state.seen[key(root,packet.to)]!==undefined||!sites(w).some(s=>s.id===packet.to))continue
   state.seen[key(root,packet.to)]=r.writtenAt;(state.towns[packet.to]??=[]).push(r)
-  forward(w,packet.to,r,packet.due)
+  forward(w,packet.to,r,packet.due,batch)
   state.pending.sort((a,b)=>a.due-b.due||(a.key<b.key?-1:a.key>b.key?1:0))
  }
  state.pending=state.pending.filter(p=>alive(w,p.rumor,now))

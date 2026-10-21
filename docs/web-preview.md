@@ -1,6 +1,6 @@
 # 웹 플레이 미리보기
 
-v0.275는 통합 검증을 마친 최신 배포 기준이다. 원격 main에 구현 코드를 올렸으며, 이후 검증 구간도 같은 방식으로 push한다. 작업 중 코드를 마지막 검증 완료 버전으로 표기하지 않는다.
+최신 검증 완료 버전은 [README](../README.md)와 [진행 기록](progress.md)에 표시한다. 검증된 구현 단위마다 원격 main에 push하며, 작업 중인 코드를 검증 완료 버전으로 표시하지 않는다. 아래는 실제 배포 시도와 제한의 날짜별 기록이다.
 
 GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)을 준비했다. Node.js24·pnpm9.15.9로 잠금 파일 설치 후 타입 검사와 Vite 빌드를 수행하고, dist만 Pages 아티팩트에 올린다. main의 앱 변경과 수동 실행으로 갱신한다. 저장소 공개 설정은 변경하지 않는다.
 
@@ -32,3 +32,7 @@ main 5ddcedcaac83bfc685d7420a75d470d88cacb187의 [Actions39543439010](https://gi
 ## v0.296 게시 확인
 
 main d31186a1a9c70bf329ad49b116aa9a80b36100d6을push한뒤Actions [39547880473](https://github.com/RoastFried-RF/ashveil/actions/runs/39547880473)을조회했다. build119050073099는0단계실행/실패, deploy119050087500는0단계/건너뜀이며검사주석은계정결제실패또는사용량한도였다. Ubuntu26이행notice는별도이며배포실패원인으로해석하지않는다. 공개URL검증은없고검증된v0.296 ZIP은907dist파일과정확히일치한다.
+
+## v0.297 게시 확인 · 2026-10-21
+
+main4c0749d8c1e5c96239bd211604ed9e6c04c0656a의 [Actions39551024374](https://github.com/RoastFried-RF/ashveil/actions/runs/39551024374)을실제조회했다. build119060006522는실행0단계/실패, deploy119060024524는실행0단계/건너뜀이었다. 실제검사주석은계정결제실패또는지출한도증가필요를명시했다. Ubuntu26이행notice와구분하며이번원격빌드·아티팩트·공개URL성공을주장하지않는다. 로컬검증v0.297 ZIP은919dist파일과전바이트일치하며16,592,433bytes/SHA256 f6b6a184c76ff4414e3422e07bc62eb60daa047c25902a262a532cef810bddcf다. 결제·한도·공개범위는변경하지않았다.

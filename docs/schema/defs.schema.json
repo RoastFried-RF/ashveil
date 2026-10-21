@@ -44820,6 +44820,9 @@
         "publicOutbreaks": {
           "type": "boolean"
         },
+        "publicFoodSupply": {
+          "type": "boolean"
+        },
         "cellsPerDay": {
           "type": "number"
         },
@@ -60631,6 +60634,16 @@
           ]
         },
         "publicOutbreaks": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "publicFoodSupply": {
           "anyOf": [
             {
               "type": "boolean"

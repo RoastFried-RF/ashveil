@@ -124,3 +124,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - 철판 마체테·열매 없는 잿딸기 가시관목: 새 픽셀 좌표 원본, CC0-1.0. [원본/재현](docs/art-brush-originals.md) · tools/art/brush-LICENSE.txt.
 
 - 정착지 식량 꾸러미3상태 원본(CC0-1.0): 직접 제작32px PNG/SVG·16px·재현 코드. `tools/art/pantry-LICENSE.txt`, `docs/art-pantry-originals.md` 참조.
+
+- 달걀/깨진달걀 원본(CC0-1.0): 직접제작32px PNG/SVG·16px·재현도구. `tools/art/egg-LICENSE.txt`, `docs/art-egg-originals.md` 참조.

@@ -6,6 +6,8 @@ import { exposeDisease } from './conditions'
 import { towerSoilFertility } from './tower-consequences'
 import { climateDef,calendarAtDay } from './climate-state'
 import {announceOutbreakChange} from './public-outbreak-news'
+import {announceFoodSupply} from './public-food-supply'
+import type {RumorConnectionBatch} from './rumor-network'
 import type { Commodity, Creature, DiseaseDef, PopulationRates, PopulationState, WorldSettlement, WorldSimulationDef } from './types'
 type ResolvedSimulation = Omit<WorldSimulationDef, 'disease'> & { disease: WorldSimulationDef['disease'] & PopulationRates }
 const defCache = new WeakMap<World['db'], ResolvedSimulation>()
@@ -124,6 +126,8 @@ export function worldSimulationTick(w: World) {
   const m = w.s.overworld, sim = m?.simulation
   if (!m || !sim) return
   const today = dayOf(w), d = worldSimulationDef(w)
+  // 같은 일괄 정산의 지리는 고정이다. 공고마다 같은 육로를 다시 탐색하지 않는다.
+  const rumorRoutes:RumorConnectionBatch|undefined=sim.day<today?new Map():undefined
   while (sim.day < today) {
     sim.day++
     const previous = structuredClone(sim.settlements)
@@ -154,6 +158,7 @@ export function worldSimulationTick(w: World) {
       for (const { s: destination } of destinations) if (destination.population.S && rng(w, `world.epidemic.${source.site}.${destination.site}`).chance(infectionSeedChance(w, source, destination))) introduceInfection(w, destination.site, 1, sim.day)
     }
     for (const s of Object.values(sim.settlements)) updateQuarantine(w, s, sim.day)
+    for (const s of Object.values(sim.settlements)) announceFoodSupply(w,s,sim.day*TURNS_PER_DAY,rumorRoutes)
     economyTick(w, sim.day)
   }
 }
