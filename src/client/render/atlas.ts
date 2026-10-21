@@ -2,6 +2,7 @@
 
 import { Assets, Rectangle, Texture } from 'pixi.js'
 import manifest from '../sprites.json'
+import {modTextureUrl} from '../mod-texture-display'
 
 export interface CharDef {
   walk: Record<Dir, string[]>
@@ -35,18 +36,23 @@ export const uiUrls = M.ui
 const sheets = new Map<string, Texture>()
 const cache = new Map<string, Texture>()
 const icons = new Map<string, Texture>()
+let atlasGeneration=0
 
 export function base(): string {
   return import.meta.env.BASE_URL
 }
 
 export async function loadAtlas(iconNames: string[]) {
+  const ticket=++atlasGeneration
   const b = base()
   const sheetUrls = Object.entries(M.sheets).map(([k, v]) => [k, b + v] as const)
-  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]).map((n) => [n, `${b}tiles/${n}.png`] as const)
+  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]).map((n) => [n, iconUrl(n)] as const)
   const all = await Assets.load([...sheetUrls.map((x) => x[1]), ...iconUrls.map((x) => x[1])])
+  if(ticket!==atlasGeneration)return false
   for (const [k, u] of sheetUrls) sheets.set(k, all[u] as Texture)
+  icons.clear()
   for (const [k, u] of iconUrls) if (all[u]) icons.set(k, all[u] as Texture)
+  return true
 }
 
 /** sprites.json 프레임 이름 → 텍스처 */
@@ -89,7 +95,7 @@ export function animFrames(name: string): Texture[] {
 
 /** 아이템·능력 아이콘 URL (Vue UI용) */
 export function iconUrl(name: string): string {
-  return `${base()}tiles/${name}.png`
+  return modTextureUrl(name)??`${base()}tiles/${name}.png`
 }
 
 /** sprites.json 프레임을 CSS 배경으로 (Vue 초상화 등) */

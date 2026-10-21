@@ -114,3 +114,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - ASHVEIL 원본 종자 봉지·그늘뿌리·흰갓: 직접 제작한32px PNG/SVG. [출처·재현](docs/art-crop-icons-original.md).
 
 - ASHVEIL 원본 녹슨 칼·기본 손도끼·철근 창: 직접 제작한32px PNG/SVG. [출처·재현](docs/art-basic-weapons-original.md).
+
+- 모드 원본 텍스처 예제의 소금 봉지16×16 PNG/SVG: 프로젝트 신규좌표 제작, CC0-1.0. 상업/수정/재배포/2차패키지 허용. `mods/sample-original-textures/LICENSE.txt`, `tools/art/mod-texture/README.md`.

@@ -1,6 +1,7 @@
 import {parseContentJson} from '../core/content-json'
 import {packagesFromFiles,type ModPackage,type ModManifest} from '../core/defs'
 import {MOD_PACKAGE_BYTES,MOD_PACKAGE_FILES,supportedModFile,validInstallableModId,safeModFilePath} from '../core/mod-package-files'
+import {encodeModFile} from '../core/mod-textures'
 
 export interface ModFile {path:string;bytes:Uint8Array}
 export interface ImportedMod {id:string;files:Record<string,string>;package:ModPackage;bytes:number;format:'zip'|'tar.gz'|'folder'}
@@ -24,7 +25,7 @@ export function modFromFiles(input:readonly ModFile[],format:ImportedMod['format
   if(!file.path.startsWith(prefix))fail('한 모드 폴더 밖의 파일이다: '+file.path)
   const relative=file.path.slice(prefix.length);pathName(relative)
   if(!supportedModFile(relative,manifest))fail('지원하지 않는 콘텐츠 파일: '+relative)
-  files[relative]=decoder.decode(file.bytes)
+  files[relative]=encodeModFile(relative,file.bytes)
  }
  const parsed=packagesFromFiles(Object.fromEntries(Object.entries(files).map(([path,source])=>['mods/'+manifest.id+'/'+path,source])))
  if(parsed.length!==1||parsed[0].manifest.id!==manifest.id)fail('단일 모드로 해석할 수 없다')

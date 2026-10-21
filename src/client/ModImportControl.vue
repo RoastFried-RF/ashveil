@@ -41,6 +41,7 @@ async function reload(){busy.value=true;error.value='';cancel();try{await modIns
     <section v-if="review" class="space-y-2 border border-amber-800 p-3" data-testid="mod-import-review">
       <p class="text-amber-100">{{ review.name }} · {{ review.id }} · {{ review.version }}</p>
       <p>{{ review.format }} · {{ review.files }}파일 · {{ review.bytes }}바이트</p>
+      <p v-if="review.textures" class="text-moss-300">16×16 원본 PNG {{ review.textures }}개 포함</p>
       <p v-if="review.previousVersion" class="text-amber-200">기존 {{ review.previousVersion }} → {{ review.version }} 교체</p>
       <p v-if="review.scripts" class="text-amber-200">스크립트 포함 · 격리 실행기 검사 완료</p>
       <p>검증한 필수 모드 순서: {{ review.loadedMods.join(' → ') }}</p>

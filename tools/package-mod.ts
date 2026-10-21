@@ -6,6 +6,7 @@ import {fileURLToPath} from 'node:url'
 import {gzipSync} from 'node:zlib'
 import {spawnSync} from 'node:child_process'
 import {zipContent} from './zip-content'
+import {encodeModFile} from '../src/core/mod-textures'
 import {readPackages} from './loadContent'
 import{validModDependency,requiredModClosure,loadMods,packagesFromFiles}from'../src/core/defs'
 import {MOD_PACKAGE_BYTES,MOD_PACKAGE_FILES,supportedModFile,validInstallableModId,safeModFilePath} from '../src/core/mod-package-files'
@@ -24,7 +25,7 @@ export function packageMod(id:string,options:{root?:string;out?:string;scriptHos
   if(!safeModFilePath([folder,...rel.split(sep)].join('/')))throw Error('안전한 콘텐츠 상대 경로가 아니다: '+rel)
   if(stat.isSymbolicLink())throw Error('패키지에 심볼릭 링크를 넣을 수 없다: '+rel)
   if(!realpathSync(file).startsWith(realpathSync(source)+sep))throw Error('모드 폴더 밖의 파일이다: '+rel)
-  if(stat.isDirectory()){if(!['defs','patches','migrations',...([1,2].includes(metadata.scripts?.stage)?['scripts']:[])].includes(rel.split(sep)[0]!))throw Error('지원하지 않는 콘텐츠 폴더다: '+rel);walk(file)}
+  if(stat.isDirectory()){if(!['defs','patches','migrations','textures',...([1,2].includes(metadata.scripts?.stage)?['scripts']:[])].includes(rel.split(sep)[0]!))throw Error('지원하지 않는 콘텐츠 폴더다: '+rel);walk(file)}
   else if(stat.isFile()){
    if(!supportedModFile(rel.split(sep).join('/'),metadata))throw Error('현재 콘텐츠 패키지에서 지원하지 않는 파일이다: '+rel)
    files.push(join(folder,rel))
@@ -34,7 +35,7 @@ export function packageMod(id:string,options:{root?:string;out?:string;scriptHos
  const total=files.reduce((n,p)=>n+lstatSync(join(mods,p)).size,0);if(total>MOD_PACKAGE_BYTES||files.length>MOD_PACKAGE_FILES)throw Error('콘텐츠 패키지는 8MiB/512파일 이하여야 한다')
  const contents=files.map(path=>({path,bytes:readFileSync(join(mods,path))})),fileHashes=contents.map(({path,bytes})=>({path,sha256:createHash('sha256').update(bytes).digest('hex')}))
  if(typeof metadata.name!=='string'||!metadata.name.trim()||typeof metadata.version!=='string'||!metadata.version.trim()||['dependencies','optionalDependencies','loadAfter','loadBefore','incompatibleWith'].some(k=>metadata[k]!==undefined&&(!Array.isArray(metadata[k])||metadata[k].some((v:unknown)=>k==='dependencies'||k==='optionalDependencies'?!validModDependency(v):typeof v!=='string'||!v))))throw Error('manifest의 이름/버전/의존 목록을 확인해야 한다')
- const packages=readPackages(root).filter(pkg=>pkg.manifest.id!==id),decoder=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}),target=packagesFromFiles(Object.fromEntries(contents.map(({path,bytes})=>['mods/'+path.split(sep).join('/'),decoder.decode(bytes)])));packages.push(...target)
+ const packages=readPackages(root).filter(pkg=>pkg.manifest.id!==id),target=packagesFromFiles(Object.fromEntries(contents.map(({path,bytes})=>['mods/'+path.split(sep).join('/'),encodeModFile(path.split(sep).slice(1).join('/'),bytes)])));packages.push(...target)
  const{db,report}=loadMods(packages,requiredModClosure(packages,[id]));if(report.errors.length)throw Error('모드 로더 검증 실패:\n'+report.errors.join('\n'))
  if(db.scriptSources.length){if(!options.scriptHost)throw Error('스크립트 패키지에는 격리 실행기 검사가 필요하다');const errors=configureScriptHost(db,options.scriptHost);if(errors.length)throw Error('스크립트 검사 실패:\n'+errors.join('\n'))}
  const manifest=target[0].manifest,version=String(manifest.version).replace(/[^0-9A-Za-z.+_-]/g,'_'),format=options.format??(options.out?.endsWith('.zip')?'zip':'tar.gz'),out=resolve(options.out??join(root,'test-results/mod-packages',id+'-'+version+'.'+format))

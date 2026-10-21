@@ -1,7 +1,8 @@
 // 클라이언트 상태: 코어 World를 감싸고, 행동마다 version을 올려 화면을 갱신한다.
 // 코어 상태는 깊고 크므로 Vue 반응성 대신 shallowRef + version 카운터를 쓴다.
 
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, watch } from 'vue'
+import {setDisplayedModTextures} from './mod-texture-display'
 import {gameObservation} from './game-observation'
 import {
   GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
@@ -21,6 +22,7 @@ import {packages,modInstallation} from './mod-catalog'
 export {packages} from './mod-catalog'
 
 export const world = shallowRef<World | null>(null)
+watch(world,w=>setDisplayedModTextures(w?.db.modTextures??{}),{flush:'sync'})
 export const version = ref(0)
 export const simulating = ref(false)
 export const starting=ref(false)

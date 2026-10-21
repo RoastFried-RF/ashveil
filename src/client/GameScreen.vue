@@ -344,7 +344,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="relative h-full w-full select-none overflow-hidden bg-black">
-    <MapView :opts="opts" @hover="hover = $event" @click="onClick" />
+    <MapView :key="w.db.loadHash" :opts="opts" @hover="hover = $event" @click="onClick" />
 
     <!-- 위험: 화면 가장자리 붉은 기운 -->
     <div v-if="danger > 0" class="pointer-events-none absolute inset-0" :style="{ opacity: danger, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(120,0,0,.55) 100%)', animation: preferences.warningPulse ? 'danger-vignette 1.6s ease-in-out infinite' : 'none' }" />

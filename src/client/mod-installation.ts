@@ -2,12 +2,13 @@ import {loadMods,requiredModClosure,type ModPackage} from '../core/defs'
 import {canonicalContent,sha256} from '../core/load-hash'
 import {modFromFiles,type ImportedMod} from './mod-archive'
 import type {InstalledMod,ModDisk} from './mod-disk'
+import {decodeModFile} from '../core/mod-textures'
 
-export interface ModInstallReview {token:string;id:string;name:string;version:string;previousVersion?:string;previousHash?:string;hash:string;loadedMods:string[];files:number;bytes:number;scripts:boolean;warnings:string[];format:ImportedMod['format']}
+export interface ModInstallReview {token:string;id:string;name:string;version:string;previousVersion?:string;previousHash?:string;hash:string;loadedMods:string[];files:number;bytes:number;textures:number;scripts:boolean;warnings:string[];format:ImportedMod['format']}
 const filesDigest=(files:Record<string,string>)=>sha256(JSON.stringify(Object.entries(files).sort(([a],[b])=>a<b?-1:a>b?1:0)))
 const parseRecord=(record:InstalledMod)=>{
  if(!record||typeof record.id!=='string'||!record.files||typeof record.files!=='object'||Object.values(record.files).some(value=>typeof value!=='string')||record.digest!==filesDigest(record.files))throw Error('설치된 모드 원문 체크섬이 다르다')
- const imported=modFromFiles(Object.entries(record.files).map(([path,source])=>({path,bytes:new TextEncoder().encode(source)})),record.format)
+ const imported=modFromFiles(Object.entries(record.files).map(([path,source])=>({path,bytes:decodeModFile(path,source)})),record.format)
  if(imported.id!==record.id)throw Error('설치된 모드 ID와 원문이 다르다')
  return imported
 }
@@ -46,7 +47,7 @@ export function createModInstallation(packages:ModPackage[],disk:ModDisk,changed
     await initialize();const record:InstalledMod={id:input.id,files:structuredClone(input.files),digest:filesDigest(input.files),format:input.format},key=catalogKey(),at=revision,{imported,db,report,own}=await validate(record)
     if(at!==revision||key!==catalogKey())throw Error('검사 중 모드 목록이 바뀌었다. 다시 검토해야 한다')
     const previous=packages.find(pkg=>pkg.manifest.id===record.id),previousDb=previous?loadMods(packages,requiredModClosure(packages,[record.id])).db:undefined
-    const review:ModInstallReview={token:sha256(record.digest+'\n'+epoch+'\n'+revision+'\n'+key),id:record.id,name:imported.package.manifest.name,version:own.version,previousVersion:previous?.manifest.version,previousHash:previousDb?.modManifest()?.find(p=>p.id===record.id)?.hash,hash:own.hash,loadedMods:[...db.loadedMods],files:Object.keys(record.files).length,bytes:imported.bytes,scripts:!!db.scriptSources.length,warnings:[...report.warnings],format:record.format}
+    const review:ModInstallReview={token:sha256(record.digest+'\n'+epoch+'\n'+revision+'\n'+key),id:record.id,name:imported.package.manifest.name,version:own.version,previousVersion:previous?.manifest.version,previousHash:previousDb?.modManifest()?.find(p=>p.id===record.id)?.hash,hash:own.hash,loadedMods:[...db.loadedMods],files:Object.keys(record.files).length,bytes:imported.bytes,textures:Object.keys(imported.package.textures??{}).length,scripts:!!db.scriptSources.length,warnings:[...report.warnings],format:record.format}
     pending={review:structuredClone(review),record,catalog:key};return structuredClone(review)
    }finally{busy=false}
   },

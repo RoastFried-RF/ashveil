@@ -3,6 +3,7 @@ import {resolveDefinitionRenames}from'./definition-renames'
 import {contentLoadHash,freezeDefinition} from './load-hash'
 import {definitionSchemaIssues} from './definition-schema'
 import {parseContentJson} from './content-json'
+import {checkedModTextures,isModTexturePath} from './mod-textures'
 import {originTree,originFields,type DefinitionOriginTree,type DefinitionFieldSource,type DefinitionFieldOrigin} from './definition-provenance'
 import {HOOK_API_VERSION,supportsHookApi,versionInRange,validVersionRange} from './script-api'
 import {hashString} from './rng'
@@ -58,6 +59,8 @@ export interface ModPackage {
   patches: PatchOp[]
   scripts?:{file:string;source:string}[]
   renames?:Record<string,string>
+  /** textures/ 아래16×16 정적 PNG. 정규 base64 원문을 콘텐츠 해시에 포함한다. */
+  textures?:Record<string,string>
 }
 
 /** 개발 도구에서만 요청하는 읽기 전용 로드 결과. 게임 각인/모드 해시에 넣지 않는다. */
@@ -90,11 +93,15 @@ export function packagesFromFiles(files: Record<string, unknown>): ModPackage[] 
   }
   for (const [path, input] of Object.entries(files).sort(([a],[b])=>a<b?-1:a>b?1:0)) {
     const norm = path.replace(/\\/g, '/')
-    const m = norm.match(/([^/]+)\/(manifest\.json|defs\/.+\.json|patches\/.+\.json|scripts\/.+\.js|migrations\/rename\.json)$/)
+    const m = norm.match(/([^/]+)\/(manifest\.json|defs\/.+\.json|patches\/.+\.json|scripts\/.+\.js|migrations\/rename\.json|textures\/.+\.png)$/)
     if (!m) continue
     const [, folder, rest] = m
     const pkg = get(folder)
     try{
+      if(rest.startsWith('textures/')){
+        if(!isModTexturePath(rest)||typeof input!=='string')throw Error('텍스처는 안전한 PNG 경로와 base64 원문이어야 한다')
+        ;(pkg.textures??={})[rest]=input;continue
+      }
       if(rest.startsWith('scripts/')){
         if(typeof input!=='string')throw Error('스크립트 원문은 문자열이어야 한다')
         ;(pkg.scripts??=[]).push({file:rest,source:input});continue
@@ -429,14 +436,16 @@ export class DefDatabase {
   readonly loadHash:string
   readonly loadedMods:string[]
   readonly scriptSources:ScriptSource[]
+  readonly modTextures:Readonly<Record<string,string>>
   scriptHost?:ScriptHost
   scriptModules:ScriptModule[]=[]
   constructor(defs: AnyDef[],loadedMods:string[],scriptSources:ScriptSource[]=[],identity?:unknown,renames:Record<string,string>={},packages?:readonly ModPackage[]) {
     this.loadHash=contentLoadHash(identity??{defs,loadedMods,scriptSources,...(Object.keys(renames).length?{renames}:{})})
     if(packages)this.packageRecords=freezeDefinition(packages.map(pkg=>({id:pkg.manifest.id,version:pkg.manifest.version,hash:contentLoadHash(pkg)})))
     this.definitionRenames=freezeDefinition({...renames});Object.defineProperty(this,'definitionRenames',{writable:false,configurable:false})
+    this.modTextures=freezeDefinition(Object.assign({},...(packages??[]).map(pkg=>{try{return checkedModTextures(pkg.manifest.id,pkg.textures)}catch{return{}}})))
     this.loadedMods=freezeDefinition([...loadedMods]);this.scriptSources=freezeDefinition(structuredClone(scriptSources))
-    for(const key of ['loadHash','loadedMods','scriptSources','packageRecords'])Object.defineProperty(this,key,{writable:false,configurable:false})
+    for(const key of ['loadHash','loadedMods','scriptSources','packageRecords','modTextures'])Object.defineProperty(this,key,{writable:false,configurable:false})
     for (const original of defs) {
       const d=freezeDefinition(structuredClone(original))
       this.map.set(d.id, d)
@@ -483,6 +492,7 @@ export function loadMods(pkgs: ModPackage[], enabled?: string[],options?:Definit
   const manifestIds=new Set<string>()
   for(const p of active){if(manifestIds.has(p.manifest.id))report.errors.push(`모드 ID 중복 '${p.manifest.id}'`);manifestIds.add(p.manifest.id)}
   const ordered = topoSort(active, report,enabled)
+  for(const pkg of ordered)try{checkedModTextures(pkg.manifest.id,pkg.textures)}catch(error){report.errors.push(pkg.manifest.id+': '+(error as Error).message)}
   report.order = ordered.map((p) => p.manifest.id)
   const loadedIds = new Set(report.order)
   const scriptSources:ScriptSource[]=[]
@@ -601,6 +611,7 @@ export function loadMods(pkgs: ModPackage[], enabled?: string[],options?:Definit
   }
   const db = new DefDatabase(final, report.order,scriptSources,ordered,resolveDefinitionRenames(ordered,final,report.errors),ordered)
   validateRefs(db, report)
+  for(const d of final){const value=d.defType==='Item'?(d as ItemDef).sprite:d.defType==='Ability'?(d as AbilityDef).icon:undefined;if(typeof value==='string'&&value.startsWith('mod:')&&!Object.hasOwn(db.modTextures,value))report.errors.push(d.id+': 활성 모드 텍스처 없음 '+value)}
   if(inspection)options!.capture!(structuredClone({raw:Object.fromEntries(raw),resolved:Object.fromEntries(resolved),sources:Object.fromEntries(inspection.sources),patches:inspection.patches,...(inspection.audit?{audit:inspection.audit}:{}),...(resolvedOrigins?{fields:Object.fromEntries([...resolvedOrigins].map(([id,tree])=>[id,originFields(resolved.get(id)!,tree)]))}:{})}))
   return { db, report }
 }

@@ -2,6 +2,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadMods, packagesFromFiles, type ModPackage } from '../src/core/defs'
+import {isModTexturePath,encodeModFile} from '../src/core/mod-textures'
 
 function walk(dir: string, out: Record<string, unknown>) {
   for (const f of readdirSync(dir)) {
@@ -9,6 +10,7 @@ function walk(dir: string, out: Record<string, unknown>) {
     if (statSync(p).isDirectory()) walk(p, out)
     else if (f.endsWith('.json')) out[p] = readFileSync(p, 'utf8')
     else if(f.endsWith('.js')&&p.split('/').includes('scripts'))out[p]=readFileSync(p,'utf8')
+    else if(p.includes('/textures/')&&isModTexturePath('textures/'+p.split('/textures/').at(-1)!))out[p]=encodeModFile('textures/'+p.split('/textures/').at(-1)!,readFileSync(p))
   }
 }
 

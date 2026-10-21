@@ -19,3 +19,6 @@ GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)�
 2026-10-20 main282 c79b2ed의 [Actions39510964400](https://github.com/RoastFried-RF/ashveil/actions/runs/39510964400)은 build 작업을 시작하지 못했다. 실제 check annotation은 최근 계정 결제 실패 또는 사용 한도 증가 필요를 원인으로 명시했다. deploy는 skipped이고 이번 원격 빌드/아티팩트/웹배포 성공은 주장하지 않는다. 로컬282 빌드/실제 화면·전체/월드 검증은 통과했다. 비용·한도 설정은 변경하지 않았다.
 
 2026-10-21 v0.290 c50f34f의 [Actions39532217366](https://github.com/RoastFried-RF/ashveil/actions/runs/39532217366)도 build 시작 전에 계정 결제 실패/사용 한도 오류로 차단됐다(check119000526801). deploy는 skipped이며 원격290 아티팩트/사이트 성공을 주장하지 않는다. 로컬 전체5,907개·월드30판과 실제18장으로 검증한 ZIP은 `artifacts/ashveil-v0.290-web.zip`에 있다. 비용·한도·저장소 공개 설정은 변경하지 않았다.
+
+
+v0.292(main da7007e) 자동배포 확인: https://github.com/RoastFried-RF/ashveil/actions/runs/39536728279 에서 build/check119014964439가 실행단계0개로 실패했고 deploy는 skipped다. 실제 annotation은 “The job was not started because recent account payments have failed or your spending limit needs to be increased.”다. 로컬 빌드/5,936개/13장/2전체복원 통과와 원격배포는 구분한다. Ubuntu26전환 notice는 별도 안내이며 결제실패 원인을 대체하지 않는다. 자금·사용한도·공개범위를 바꾸지 않았다.

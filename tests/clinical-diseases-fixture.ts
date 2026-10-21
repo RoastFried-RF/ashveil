@@ -5,8 +5,8 @@ import {invalidateLights,updatePlayerVision} from '../src/core/fov'
 import {makeItem,addToBag} from '../src/core/items'
 import {db} from './helpers'
 import {newGame} from '../src/core/game'
-export function clinicalDiseaseFixture(seed='clinical-bite-0',overworld=true){
- const w:World={db,s:newGame(db,{seed,overworld})},s=w.s,p=player(w)
+export function clinicalDiseaseFixture(seed='clinical-bite-0',overworld=true,contentDb=db){
+ const w:World={db:contentDb,s:newGame(contentDb,{seed,overworld})},s=w.s,p=player(w)
  p.pos={x:20,y:20};p.traits=[];p.abilities=[];p.effects=[];p.thoughts=[];p.equip={};p.bag=[];p.body.wounds=[];p.age=undefined;p.stats={str:10,agi:10,vit:10,per:10,wil:10};p.skills={medicine:50};p.money=1000
  Object.assign(p.needs,{bodyTemp:37,energy:100,fatigue:0,kcal:2500,waterDeficit:0,protein:100,vitamin:100,hygiene:100})
  s.creatures=[p];s.time=12*TURNS_PER_HOUR*100;p.nextAct=s.time;s.weather='clear';s.weatherUntil=1e12;s.wind={x:0,y:0}
