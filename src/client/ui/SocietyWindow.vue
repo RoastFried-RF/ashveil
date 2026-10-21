@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {itemTip} from '../info'
 import {worldMapMarketValue} from '../../core/world-map-prices'
+import {calendar} from '../../core/climate-state'
+import {seasonalProductionMultiplier} from '../../core/world-simulation'
 import { computed, ref } from 'vue'
 import { factionAvailable, bargainChance, firstImpressionReply, clinicDef, isCompanion, economyDef, factionDef, itemDef, itemLabel, marketFor, nearbyPeople, player, reputation, reputationBand, tradeAccess, tradePrice, tradeQuote, turnOf, visiblePrisoners, type FactionDef, type TradeLine, type ItemInst, type World } from '../../core'
 import { primaryBindingText } from '../keybindings'
@@ -36,6 +38,7 @@ import EvidencePanel from './EvidencePanel.vue'
 import RumorNetworkPanel from './RumorNetworkPanel.vue'
 import NpcCartographyPanel from './NpcCartographyPanel.vue'
 import ResidentCultivationPanel from './ResidentCultivationPanel.vue'
+const services=ref<HTMLElement>(),trade=ref<HTMLElement>()
 const tab = ref<'people' | 'factions'>('people')
 const buy = ref<TradeLine[]>([]), sell = ref<TradeLine[]>([])
 const data = computed(() => {
@@ -43,7 +46,9 @@ const data = computed(() => {
   const w = world.value as World, p = player(w), people = nearbyPeople(w)
   const selected = people.find((c) => c.id === socialTarget.value) ?? people[0]
   const market = selected && marketFor(w, selected)
+  const foodMult=market&&!market.mobile?seasonalProductionMultiplier(w,w.s.overworld?.sites.find(site=>site.id===market.site)?.faction,'Food'):1
   return { w, p, people, prisoners:visiblePrisoners(w), selected, market, currency: economyDef(w).currency,
+    seasonalFood:foodMult!==1?{season:calendar(w).season.label,mult:foodMult}:undefined,
     caravan:selected?.caravan?w.s.overworld?.caravans?.find(c=>c.id===selected.caravan):undefined,
     quote: selected ? tradeQuote(w, p, selected, buy.value, sell.value) : null,
     access: selected ? tradeAccess(w, p, selected) : null,
@@ -86,35 +91,13 @@ function exchange() {
         <p v-if="data.selected.age" class="my-1 text-xs text-ash-400" data-testid="resident-age">연령대 · {{ Math.floor(data.selected.age.years/10)*10 }}대</p>
         <p v-if="data.firstReply" class="my-2 text-xs text-ash-300" data-testid="first-impression">{{ data.firstReply }}</p>
         <button class="dbtn" :disabled="simulating" data-testid="talk-person" @click="doAct({ type: 'talk', target: data.selected.id })">이야기 나누기 (1턴)</button>
+        <button class="dbtn ml-2" data-testid="resident-services-open" @click="services?.scrollIntoView({block:'start'})">도움·의뢰 보기</button>
         <p v-if="data.caravan" class="my-2 text-xs text-amber-200" data-testid="mobile-caravan">실제로 이동 중인 교역 상점 · 원래 화물과 유한 현금을 가지고 있다. 이동 상점은 재입고되지 않는다.<template v-if="data.caravan.stopUntil!==undefined"> {{ data.caravan.stopUntil>turnOf(data.w)?` 잠시 정차 중 · ${data.caravan.stopUntil-turnOf(data.w)}턴 뒤 출발한다.`:'길을 계속 걷고 있다. 가까이 있을 때 거래할 수 있다.' }}</template></p>
-        <EvidencePanel :person-id="data.selected.id" />
-        <RumorNetworkPanel :person-id="data.selected.id" />
-        <ResidentCultivationPanel :target="data.selected" />
-        <NpcCartographyPanel :person-id="data.selected.id" />
-        <BountyQuestionPanel :person-id="data.selected.id" />
-        <CompanionPanel :person-id="data.selected.id" />
-        <CompanionRecoveryPanel :person-id="data.selected.id" />
-        <NpcRelationsPanel :person-id="data.selected.id" />
-        <NpcPsychePanel :person-id="data.selected.id" />
-        <ResidentHygienePanel :person-id="data.selected.id" />
-        <TeachingPanel :teacher-id="data.selected.id" />
-        <ClinicPanel v-if="clinicDef(data.w, data.selected)" :doctor-id="data.selected.id" />
         <template v-if="data.market">
-          <AppraisalPanel :trader-id="data.selected.id" />
-          <InnPanel v-if="!data.market.mobile" :keeper-id="data.selected.id" />
-          <ContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <BountyPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <ExcavationContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <EscortContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <PatrolContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <SourceContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <RecoveryContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <RescueContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <InvestigationPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
-          <MapCommissionPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
           <button class="dbtn ml-2" :disabled="!!data.access || simulating" data-testid="bargain" @click="doAct({ type: 'bargain', target: data.selected.id })">흥정 {{ data.chance }}% (1턴)</button>
           <p v-if="data.access" class="my-2 text-xs text-red-300">{{ data.access }}</p>
-          <div class="my-2 grid grid-cols-2 gap-3">
+          <p v-if="data.seasonalFood&&!data.access" class="my-2 text-xs text-moss-300" data-testid="seasonal-food-production">{{ data.seasonalFood.season }} 촌락 식량 생산 ×{{ data.seasonalFood.mult }} · 저장고와 거래 가격에 반영됩니다.</p>
+          <div ref="trade" class="my-2 grid grid-cols-2 gap-3">
             <div>
               <h3 class="mb-1 text-sm font-bold">상인 물품 <span class="ml-2 text-xs text-ash-400" data-testid="market-cash">금고 {{ data.market.money }}{{ data.currency }}</span></h3><div class="max-h-[35vh] overflow-y-auto" data-testid="trade-stock">
                 <div v-for="it in data.market.items" :key="it.uid" class="my-1 flex items-center gap-1 border-b border-ash-700 pb-1 text-xs" :data-def="it.def" :data-trade-uid="it.uid" @mouseenter="tradeTip($event,it,true)" @mouseleave="hideTip">
@@ -138,6 +121,35 @@ function exchange() {
             <button class="dbtn-gold mt-2" :disabled="simulating || !!data.quote.error || (!buy.length && !sell.length)" data-testid="trade-confirm" @click="exchange">거래 확정 (1턴)</button>
           </div>
         </template>
+        <section ref="services" class="mt-4 border-t border-ash-600 pt-3" aria-label="주민의 도움과 의뢰" data-testid="resident-services">
+          <div class="mb-2 flex items-center justify-between gap-2"><h3 class="font-title text-sm text-amber-100">도움과 의뢰</h3><button v-if="data.market" class="dbtn text-xs" data-testid="resident-trade-open" @click="trade?.scrollIntoView({block:'start'})">거래로 돌아가기</button></div>
+          <EvidencePanel :person-id="data.selected.id" />
+          <RumorNetworkPanel :person-id="data.selected.id" />
+          <ResidentCultivationPanel :target="data.selected" />
+          <NpcCartographyPanel :person-id="data.selected.id" />
+          <BountyQuestionPanel :person-id="data.selected.id" />
+          <CompanionPanel :person-id="data.selected.id" />
+          <CompanionRecoveryPanel :person-id="data.selected.id" />
+          <NpcRelationsPanel :person-id="data.selected.id" />
+          <NpcPsychePanel :person-id="data.selected.id" />
+          <ResidentHygienePanel :person-id="data.selected.id" />
+          <TeachingPanel :teacher-id="data.selected.id" />
+          <ClinicPanel v-if="clinicDef(data.w, data.selected)" :doctor-id="data.selected.id" />
+          <template v-if="data.market">
+            <AppraisalPanel :trader-id="data.selected.id" />
+            <InnPanel v-if="!data.market.mobile" :keeper-id="data.selected.id" />
+            <ContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <BountyPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <ExcavationContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <EscortContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <PatrolContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <SourceContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <RecoveryContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <RescueContractPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <InvestigationPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+            <MapCommissionPanel v-if="!data.market.mobile" :trader-id="data.selected.id" />
+          </template>
+        </section>
       </template>
     </template>
     <template v-else>

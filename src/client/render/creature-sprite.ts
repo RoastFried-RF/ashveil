@@ -1,8 +1,9 @@
 import type {World} from '../../core/ctx'
 import type {Creature} from '../../core/types'
 
-/** 저장된 외형 선택은 보존하고 현재 Def가 지정한 표시 대체만 한 번 적용한다. */
+/** 저장 선택을 보존한다. 명시한 Def 대응을 우선하고 기본 플레이어만 새 원본으로 표시한다. */
 export function creatureSprite(w:World,c:Creature):string{
   const aliases=w.db.creature(c.def).characterAliases
-  return aliases&&Object.hasOwn(aliases,c.sprite)?aliases[c.sprite]:c.sprite
+  if(aliases&&Object.hasOwn(aliases,c.sprite))return aliases[c.sprite]
+  return c.id===w.s.playerId&&c.sprite==='hero'?'original_wanderer_hero':c.sprite
 }

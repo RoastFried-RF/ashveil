@@ -116,3 +116,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - ASHVEIL 원본 녹슨 칼·기본 손도끼·철근 창: 직접 제작한32px PNG/SVG. [출처·재현](docs/art-basic-weapons-original.md).
 
 - 모드 원본 텍스처 예제의 소금 봉지16×16 PNG/SVG: 프로젝트 신규좌표 제작, CC0-1.0. 상업/수정/재배포/2차패키지 허용. `mods/sample-original-textures/LICENSE.txt`, `tools/art/mod-texture/README.md`.
+
+- 사냥 활·여분 활시위32PNG/SVG·16px폼: 프로젝트 신규좌표원본 CC0-1.0, 상업/수정/재배포/2차패키지 허용. tools/art/bow-LICENSE.txt 및 docs/art-bow-original.md.
+
+- 플레이어 전용 잿빛 여행자28포즈: 직접 작성한 새 픽셀 좌표, CC0-1.0. [원본/재현](docs/art-player-wanderer-original.md) · tools/art/player-LICENSE.txt.

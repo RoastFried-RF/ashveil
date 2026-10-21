@@ -154,7 +154,7 @@ async function cont(token?:string) {
             <div v-if="preview" data-testid="creation-preview">
               <div class="title-passport-top">
                 <div class="title-portrait">
-                  <div class="pix mb-2 origin-bottom scale-[4]" :style="frameCss('hero_w_down1', 1)" />
+                  <div class="pix mb-2 origin-bottom scale-[4]" :style="frameCss('original_wanderer_hero_w_down0', 1)" />
                   <img v-if="portraitVisible" :src="`${publicBase}art/ashveil-wanderer-portrait.png`" alt="떠돌이 초상" @error="portraitVisible = false" />
                 </div>
                 <div class="min-w-0">

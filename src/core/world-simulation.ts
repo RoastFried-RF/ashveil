@@ -4,7 +4,7 @@ import { factionDef } from './diplomacy'
 import { createMarket, economyTick } from './economy'
 import { exposeDisease } from './conditions'
 import { towerSoilFertility } from './tower-consequences'
-import { climateDef } from './climate-state'
+import { climateDef,calendarAtDay } from './climate-state'
 import {announceOutbreakChange} from './public-outbreak-news'
 import type { Commodity, Creature, DiseaseDef, PopulationRates, PopulationState, WorldSettlement, WorldSimulationDef } from './types'
 type ResolvedSimulation = Omit<WorldSimulationDef, 'disease'> & { disease: WorldSimulationDef['disease'] & PopulationRates }
@@ -16,6 +16,12 @@ export function worldSimulationDef(w: World): ResolvedSimulation {
 }
 const dayOf = (w: World) => Math.floor(turnOf(w) / TURNS_PER_DAY)
 const quantize = (v: number) => Math.round(v * 1e9) / 1e9
+/** 달력·선택한 공개 세력의 생산 정책만 조회한다. 저장고·날씨·난수를 읽거나 바꾸지 않는다. */
+export function seasonalProductionMultiplier(w:World,faction:string|undefined,commodity:Commodity,elapsedDay=dayOf(w)):number{
+  const rule=worldSimulationDef(w).seasonalProduction
+  if(!rule||!faction||!rule.factions.includes(faction))return 1
+  return rule.seasons[calendarAtDay(w,elapsedDay).season.id]?.[commodity]??1
+}
 export function initializeWorldSimulation(w: World) {
   const m = w.s.overworld
   if (!m) return
@@ -123,7 +129,8 @@ export function worldSimulationTick(w: World) {
       const p = s.population, alive = p.S + p.I + p.R
       for (const key of new Set([...Object.keys(s.production), ...Object.keys(d.consumption)] as Commodity[])) {
         const site=m.sites.find(site=>site.id===s.site),fertility=site&&climateDef(w).towerStop?.soilCommodities.includes(key)?towerSoilFertility(w,site.cell,sim.day*TURNS_PER_DAY):1
-        s.reserve[key] = quantize((s.reserve[key] ?? 0) + (s.production[key] ?? 0)*fertility)
+        // sim.day는 끝난 날의 다음 날짜다. 장기간 이동도 각 완료 날짜를 따로 계산한다.
+        s.reserve[key] = quantize((s.reserve[key] ?? 0) + (s.production[key] ?? 0)*fertility*seasonalProductionMultiplier(w,site?.faction,key,sim.day-1))
         const actual = s.residentConsumption?.day === sim.day - 1 ? s.residentConsumption.units[key] ?? 0 : 0
         const amount = Math.max(0, alive * (d.consumption[key] ?? 0) - actual) + (s.consumptionCarry[key] ?? 0), whole = Math.floor(amount + 1e-9)
         s.consumptionCarry[key] = quantize(amount - whole)

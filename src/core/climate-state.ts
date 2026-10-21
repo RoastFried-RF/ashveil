@@ -19,14 +19,16 @@ export const climateDef = (w: World) => w.db.get<ClimateDef>('Climate.Hearth')
 export function seasons(w: World): SeasonDef[] { let list = seasonLists.get(w.db); if (!list) { list = w.db.all<SeasonDef>('Season').slice().sort((a, b) => a.order - b.order); seasonLists.set(w.db, list) }; return list }
 export const weatherDef = (w: World): WeatherDef => w.db.all<WeatherDef>('Weather').find((d) => d.weather === w.s.weather)!
 export function calendar(w: World) {
-  return cached(w, 'calendar', () => {
+  return cached(w, 'calendar', () => calendarAtDay(w,Math.floor(turnOf(w)/TURNS_PER_DAY)))
+}
+/** 지난 일일 정산도 그 날짜의 계절을 사용한다. 현재 날씨·현재 시각을 바꾸지 않는다. */
+export function calendarAtDay(w:World,elapsedDay:number){
   const list = seasons(w), yearDays = list.reduce((n, s) => n + s.lengthDays, 0)
-  const elapsed = Math.floor(turnOf(w) / TURNS_PER_DAY) + climateDef(w).startDay - 1
+  const elapsed = elapsedDay + climateDef(w).startDay - 1
   const day = ((elapsed % yearDays) + yearDays) % yearDays + 1
   let offset = 0
   for (const season of list) { if (day <= offset + season.lengthDays) return { year: Math.floor(elapsed / yearDays), day, yearDays, season, seasonDay: day - offset }; offset += season.lengthDays }
   throw new Error('계절 길이 오류')
-  })
 }
 export function seasonPhase(w: World, day = calendar(w).day): number {
   const list = seasons(w), yearDays = list.reduce((n, s) => n + s.lengthDays, 0), knots: [number, number][] = []

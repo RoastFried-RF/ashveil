@@ -883,6 +883,15 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if (d.population.gamma + d.population.mu > 1000) report.errors.push(`${d.id}: 회복/사망 합이1000을 넘음`)
   }
   for (const d of db.all<WorldSimulationDef>('WorldSimulation')) {
+    if(d.seasonalProduction!==undefined){
+      const rule=d.seasonalProduction
+      if(!isObj(rule)||!Array.isArray(rule.factions)||!rule.factions.length||rule.factions.some(f=>typeof f!=='string'||!keys.has(f))||new Set(rule.factions).size!==rule.factions.length||!isObj(rule.seasons)||!Object.keys(rule.seasons).length)report.errors.push(d.id+': seasonalProduction의 실제 세력/계절 사전이 필요하다')
+      else for(const[season,values]of Object.entries(rule.seasons)){
+        need(d.id,season,'Season')
+        if(!isObj(values)||!Object.keys(values).length){report.errors.push(d.id+': seasonalProduction.'+season+' 물자 계수가 필요하다');continue}
+        for(const[commodity,value]of Object.entries(values))if(!['Food','Fuel','Metal','Medicine','Ammo','Salt'].includes(commodity)||typeof value!=='number'||!Number.isFinite(value)||value<0||value>10)report.errors.push(d.id+': seasonalProduction.'+season+'.'+commodity+'는0~10의 물자 생산 배율이어야 한다')
+      }
+    }
     if(d.rumors!==undefined){
       const r=d.rumors
       if(!isObj(r))report.errors.push(`${d.id}: rumors 규정 오류`)

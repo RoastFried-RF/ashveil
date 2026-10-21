@@ -35,11 +35,11 @@ describe('전역 저장고와 정착지 SIR', () => {
     const a=createCreature(w,'Creature.Reaver',{x:20,y:20}),b=createCreature(copy,'Creature.Reaver',{x:20,y:20})
     expect(a).toEqual(b); expect(w.s.rng).toEqual(copy.s.rng)
   })
-  it('180명 기준 식량2400/연료600/소금90에서 하루 생산−소비를 보존한다', () => {
+  it('180명 기준 가을 식량2400+160×2.3−180과 연료600/소금90의 하루 생산−소비를 보존한다', () => {
     const { w,settlement } = setup(); expect(settlement.population.total).toBe(180)
     expect(settlementCommodity(w,settlement,'Food')).toBe(2400); expect(settlementCommodity(w,settlement,'Fuel')).toBe(600)
     advanceDay(w,1)
-    expect(settlementCommodity(w,settlement,'Food')).toBe(2380); expect(settlementCommodity(w,settlement,'Fuel')).toBe(598); expect(settlementCommodity(w,settlement,'Salt')).toBe(81)
+    expect(settlementCommodity(w,settlement,'Food')).toBe(2588); expect(settlementCommodity(w,settlement,'Fuel')).toBe(598); expect(settlementCommodity(w,settlement,'Salt')).toBe(81)
   })
   it('시장 입고가 저장고 물자를 실제로 차감하고 없는 물자를 만들지 않는다', () => {
     const { w,m,site,settlement } = setup(), market=m.markets![site.id], before=settlementCommodity(w,settlement,'Food')
