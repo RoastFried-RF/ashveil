@@ -4,6 +4,12 @@
 
 OpenAI의 삭제 전 `develop-web-game`을 검토한 뒤 기존 `playwright-core`와 프로젝트 구조에 맞게 구성했다. 공식 최신 카탈로그에는 그 스킬이 없으며, 보관한 원본을 유지보수 중인 공식 기능으로 표시하지 않는다. [원본 출처·수정 경계·SHA-256](../tools/vendor/openai-web-game/PROVENANCE.md)과 Apache 2.0 라이선스를 함께 보관한다. 프로젝트 스킬은 [.agents/skills/ashveil-game-development/SKILL.md](../.agents/skills/ashveil-game-development/SKILL.md)다.
 
+## 고정 빌드와 골든 전체 상태 캡처
+
+`pnpm game:freeze --output /workspace/.ashveil-checkpoints/새이름 --reuse /workspace/.ashveil-checkpoints/이전불변본`은 작업본의 실제 바이트를 고정한다. 이전 불변본과 같은 파일만 hardlink로 재사용하고 작업본과는 연결하지 않는다. 작업 중 원본이 바뀌거나 기존 출력이 있으면 실패한다. 각 파일의 SHA-256 명세를 옆에 기록한다. 결과 디렉터리는 이후 편집하지 말고 검사·게시 입력으로만 사용한다. 이 방식으로 반복 빌드의 중복 디스크 사용을 줄인다.
+
+`pnpm golden:capture test-results/새이름.json`은 현재 고정 명령5묶음의 전체 초기/최종 상태와 오류·해시를 기록한다. 기대 fixture와 기존 결과를 고치지 않는다. 이전 전체 결과와 차이를 검토한 뒤 기대값을 갱신해야 한다. 브라우저 검증을 대체하지 않는다.
+
 ## 실행
 
 새 패키지·엔진·브라우저 설치가 필요하지 않다. 이미 설치한 `playwright-core`를 사용한다. 브라우저는 `--executable-path`, `CHROMIUM_PATH`, `/workspace/.ashveil-tools/chromium`, Playwright의 기존 설치 경로 순으로 찾는다. 명시한 경로가 없으면 실패하며 자동 다운로드하지 않는다. 현재 workspace shim은 기존 Chromium 실행 환경을 제공한다.

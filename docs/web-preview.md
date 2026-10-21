@@ -28,3 +28,7 @@ v0.292(main da7007e) 자동배포 확인: https://github.com/RoastFried-RF/ashve
 main 5ddcedcaac83bfc685d7420a75d470d88cacb187의 [Actions39543439010](https://github.com/RoastFried-RF/ashveil/actions/runs/39543439010)에서 build119036172690은 실행단계0개로 실패하고 deploy119036188165는건너뛰었다. 실제 annotation은 “The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the Billing & plans section in your settings”다. Ubuntu26이전공지와별도문제다. 공개사이트주소는확인하지못했다. 로컬검증빌드 v0.295 ZIP16,565,897bytes/SHA256 c7635c270a2d61ed4203c738ea4f77c15751eb14c039f5c4d3ad6d4e3e1d959e의898dist파일은동결빌드와모두동일하다. 계정결제·지출한도변경은수행하지않았다.
 
 임시 정적 미리보기도 검증완료295/dist만4318에서시도했으나 localhost.run의SSH접속이Connection refused로끝나 공개주소를받지못했다. 시스템SSH의로컬기계용include소유자오류와별도로,해당로컬경로전용설정이원격호스트와무관함을읽고빈SSH클라이언트설정/개인키·비밀번호인증없이시도한실제연결결과다. 사용한자체4318서버는종료했고 기존5173/다른서버는건드리지않았다. 새공개URL을확인했다고주장하지않는다.
+
+## v0.296 게시 확인
+
+main d31186a1a9c70bf329ad49b116aa9a80b36100d6을push한뒤Actions [39547880473](https://github.com/RoastFried-RF/ashveil/actions/runs/39547880473)을조회했다. build119050073099는0단계실행/실패, deploy119050087500는0단계/건너뜀이며검사주석은계정결제실패또는사용량한도였다. Ubuntu26이행notice는별도이며배포실패원인으로해석하지않는다. 공개URL검증은없고검증된v0.296 ZIP은907dist파일과정확히일치한다.

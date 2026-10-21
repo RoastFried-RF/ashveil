@@ -55,13 +55,14 @@ export function settlementCommodity(w: World, s: WorldSettlement, commodity: Com
   const d = worldSimulationDef(w), market = w.s.overworld?.markets?.[s.site]
   return quantize((s.reserve[commodity] ?? 0) + (market?.items ?? []).reduce((n, it) => { const unit = d.items[it.def]; return n + (unit?.commodity === commodity ? unit.units * it.count : 0) }, 0))
 }
-function consumeReserve(w: World, s: WorldSettlement, commodity: Commodity, amount: number) {
+/** 원래 저장고와 시장에서 실제로 소비한 양만 반환한다. 부족분은 만들어 채우지 않는다. */
+function consumeReserve(w: World, s: WorldSettlement, commodity: Commodity, amount: number):number {
   const fromReserve = Math.min(s.reserve[commodity] ?? 0, amount)
   s.reserve[commodity] = quantize((s.reserve[commodity] ?? 0) - fromReserve)
   let left = quantize(amount - fromReserve)
-  if (left <= 0) return
+  if (left <= 0) return amount
   const market = w.s.overworld!.markets?.[s.site], d = worldSimulationDef(w)
-  if (!market) return
+  if (!market) return fromReserve
   for (const it of market.items) {
     const unit = d.items[it.def]
     if (unit?.commodity !== commodity || left <= 0) continue
@@ -71,6 +72,7 @@ function consumeReserve(w: World, s: WorldSettlement, commodity: Commodity, amou
     left = Math.max(0, quantize(left - consumed))
   }
   market.items = market.items.filter((it) => it.count > 0)
+  return quantize(amount-left)
 }
 /** 실제 주민이 소비한 물품은 같은 날의 요약 인구 소비에서 한 번만 뺀다. 개인별 기본 배급량까지만 인정한다. */
 export function recordResidentUse(w: World, c: Creature, item: string, count: number) {
@@ -127,15 +129,20 @@ export function worldSimulationTick(w: World) {
     const previous = structuredClone(sim.settlements)
     for (const s of Object.values(sim.settlements)) {
       const p = s.population, alive = p.S + p.I + p.R
+      const supply:NonNullable<WorldSettlement['lastSupply']>={day:sim.day-1,population:alive,commodities:{}}
       for (const key of new Set([...Object.keys(s.production), ...Object.keys(d.consumption)] as Commodity[])) {
         const site=m.sites.find(site=>site.id===s.site),fertility=site&&climateDef(w).towerStop?.soilCommodities.includes(key)?towerSoilFertility(w,site.cell,sim.day*TURNS_PER_DAY):1
         // sim.day는 끝난 날의 다음 날짜다. 장기간 이동도 각 완료 날짜를 따로 계산한다.
-        s.reserve[key] = quantize((s.reserve[key] ?? 0) + (s.production[key] ?? 0)*fertility*seasonalProductionMultiplier(w,site?.faction,key,sim.day-1))
+        const before=s.reserve[key]??0
+        s.reserve[key] = quantize(before + (s.production[key] ?? 0)*fertility*seasonalProductionMultiplier(w,site?.faction,key,sim.day-1))
+        const produced=quantize(s.reserve[key]!-before)
         const actual = s.residentConsumption?.day === sim.day - 1 ? s.residentConsumption.units[key] ?? 0 : 0
         const amount = Math.max(0, alive * (d.consumption[key] ?? 0) - actual) + (s.consumptionCarry[key] ?? 0), whole = Math.floor(amount + 1e-9)
         s.consumptionCarry[key] = quantize(amount - whole)
-        consumeReserve(w, s, key, whole)
+        const supplied=consumeReserve(w, s, key, whole)
+        supply.commodities[key]={produced,requested:whole,supplied,unmet:quantize(whole-supplied),residentUsed:actual}
       }
+      s.lastSupply=supply
       if (s.residentConsumption && s.residentConsumption.day < sim.day) s.residentConsumption = undefined
       sirDay(p, d.disease)
     }

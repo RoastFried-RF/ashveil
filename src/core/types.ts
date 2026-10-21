@@ -1647,6 +1647,8 @@ export interface PopulationState {
   deathCarry: number
 }
 export interface WorldSettlement {
+  /** 마지막 완료일의 실제 공동 소비 정산. 과거 미기록 날짜는 소급하지 않는다. */
+  lastSupply?: { day: number; population: number; commodities: Partial<Record<Commodity, SettlementSupplyLine>> }
   residentDeaths?: number[]
   residentConsumption?: { day: number; units: Partial<Record<Commodity, number>> }
   site: string
@@ -1658,6 +1660,13 @@ export interface WorldSettlement {
   quarantined: boolean
   changes: { day: number; kind: 'quarantine' | 'reopen'; applied: boolean;publicAnnounced?:boolean }[]
   playerEntryDay?: number
+}
+export interface SettlementSupplyLine {
+  produced: number
+  requested: number
+  supplied: number
+  unmet: number
+  residentUsed: number
 }
 export type RumorDistortion='count'|'place'|'faction'|'when'
 export interface RumorNetworkRules {landRoutes?:boolean;publicNames?:boolean;firstImpressionCap?:number;publicOutbreaks?:boolean;cellsPerDay:number;chatterDays:[number,number];accuracyLoss:[number,number];minAccuracy:number;maxAgeDays:number;neighbors:number;countMultiplier:number;distortionWeights:[number,number,number,number,number];suspicionPerPer:number;factions:string[]}
