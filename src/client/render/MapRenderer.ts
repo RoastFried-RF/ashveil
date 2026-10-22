@@ -2,6 +2,7 @@ import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
 import {groundObjectArt,isGroundCrop} from './terrain-art'
 import {treeArt} from './forest-art'
+import {livingTreeArt} from './living-art'
 import {projectVisibleFog} from './projected-fog'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
@@ -452,9 +453,10 @@ export class MapRenderer {
         s=new Sprite(tex(groundArt));s.anchor.set(.5,1);s.position.set(px+T/2,py+T)
         if(isGroundCrop(terr))s.scale.set(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1)
       } else if (terr.visual) {
-        s=new Sprite(tex(terr.visual.sprite));s.anchor.set(.5,.96);s.position.set(px+T/2,py+T)
-        s.scale.set(terr.visual.scale*(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1))
-        if(terr.visual.tint!==undefined)s.tint=terr.visual.tint
+        const art=livingTreeArt(terr,h),texture=tex(art?.sprite??terr.visual.sprite)
+        s=new Sprite(texture);s.anchor.set(...(art?.anchor??[.5,.96] as [number,number]));s.position.set(px+T/2,py+T)
+        s.scale.set((art?art.worldHeight/texture.height:terr.visual.scale)*(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1))
+        if(!art&&terr.visual.tint!==undefined)s.tint=terr.visual.tint
       } else if (terr.station) {
         s = new Sprite(tex('crate_closed'))
         s.width = T; s.height = T

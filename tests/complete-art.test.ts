@@ -3,6 +3,7 @@ import {readFileSync} from 'node:fs'
 import {loadDb} from '../tools/loadContent'
 import {mapIconKeys,terrainArtFrames} from '../src/client/render/terrain-art'
 import {forestArtFrames} from '../src/client/render/forest-art'
+import {livingArtFrames} from '../src/client/render/living-art'
 import type {ItemDef,AbilityDef,CreatureDef,TerrainDef} from '../src/core/types'
 
 const {db,report}=loadDb()
@@ -26,7 +27,7 @@ describe('전수 조사한 기본 게임 원본 리소스 연결',()=>{
   expect(missing).toEqual([])
  })
  it('지형 선언·지상 바닥·생활 물체·기본 행동 그림도 전부 원본으로 해석한다',()=>{
-  const keys=[...mapIconKeys,...terrainArtFrames,...forestArtFrames,...db.all<TerrainDef>('Terrain').flatMap(d=>[...d.sprites,...(d.visual?[d.visual.sprite]:[])]),'shove','trip','disarm','crouch']
+  const keys=[...mapIconKeys,...terrainArtFrames,...forestArtFrames,...livingArtFrames,...db.all<TerrainDef>('Terrain').flatMap(d=>[...d.sprites,...(d.visual?[d.visual.sprite]:[])]),'shove','trip','disarm','crouch']
   expect([...new Set(keys)].filter(key=>!original(key))).toEqual([])
   expect(Object.values(manifest.sheets).filter(url=>!url.includes('/original/'))).toEqual([])
   expect(Object.values(manifest.ui).filter(url=>!url.includes('/original/'))).toEqual([])

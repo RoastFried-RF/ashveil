@@ -1,0 +1,120 @@
+{
+  "sheet": "av_living_trees_v308",
+  "file": "sprites/original/direction-v308/living-trees.png",
+  "sourceSize": [
+    1024,
+    1024
+  ],
+  "variants": [
+    {
+      "sprite": "living_pine_aged_v308",
+      "frame": [
+        80,
+        47,
+        359,
+        441
+      ],
+      "worldHeight": 56,
+      "anchor": [
+        0.487465,
+        0.99093
+      ]
+    },
+    {
+      "sprite": "living_pine_lean_v308",
+      "frame": [
+        605,
+        40,
+        338,
+        451
+      ],
+      "worldHeight": 58,
+      "anchor": [
+        0.47929,
+        0.991131
+      ]
+    },
+    {
+      "sprite": "living_blackwood_fork_v308",
+      "frame": [
+        58,
+        617,
+        389,
+        386
+      ],
+      "worldHeight": 44,
+      "anchor": [
+        0.51671,
+        0.989637
+      ]
+    },
+    {
+      "sprite": "living_blackwood_lean_v308",
+      "frame": [
+        567,
+        624,
+        398,
+        377
+      ],
+      "worldHeight": 41,
+      "anchor": [
+        0.512563,
+        0.98939
+      ]
+    }
+  ],
+  "families": [
+    {
+      "terrain": "Terrain.PineTree",
+      "default": {
+        "sprite": "original_pine_tree",
+        "scale": 1,
+        "tint": 7709546
+      },
+      "variants": [
+        {
+          "sprite": "living_pine_aged_v308",
+          "worldHeight": 56,
+          "anchor": [
+            0.487465,
+            0.99093
+          ]
+        },
+        {
+          "sprite": "living_pine_lean_v308",
+          "worldHeight": 58,
+          "anchor": [
+            0.47929,
+            0.991131
+          ]
+        }
+      ]
+    },
+    {
+      "terrain": "Terrain.BlackwoodTree",
+      "default": {
+        "sprite": "tree",
+        "scale": 0.4,
+        "tint": 7361650
+      },
+      "variants": [
+        {
+          "sprite": "living_blackwood_fork_v308",
+          "worldHeight": 44,
+          "anchor": [
+            0.51671,
+            0.989637
+          ]
+        },
+        {
+          "sprite": "living_blackwood_lean_v308",
+          "worldHeight": 41,
+          "anchor": [
+            0.512563,
+            0.98939
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -146,3 +146,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## v0.307 수목 변주 원본
 
 고사목4종은 OpenAI image generation으로 만든 새 원본이며 생성한 첫 배치를 같은 도구로 재배치했다. 다른 게임의 픽셀은 입력/추적/복사하지 않았다. 생산 PNG는 픽셀 수정 없이 그대로 사용하고 atlas 영역/지면 앵커만 연결했다. [출처·해시](tools/art/direction-v307/provenance.json) · [CC0 고지](tools/art/direction-v307/LICENSE.txt). 다른 나무·인물·지형과 기존 호환 프레임은 유지한다.
+
+## v0.308 생목 원본
+
+소나무/검은잎나무 네 원본은 새 SVG 경로·가지 좌표·솔잎/잎 무리를 구성하고 Inkscape로 생성했다. 다른 이미지의 입력이나 기존 PNG 픽셀 편집은 없다. [원본·재현](tools/art/direction-v308/README.md) · [출처](tools/art/direction-v308/provenance.json) · [CC0](tools/art/direction-v308/LICENSE.txt). 이미지 생성 도구의 두 실패 호출은 이 SVG 제작과 구분해 기록한다.
