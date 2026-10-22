@@ -1,5 +1,6 @@
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
+import {groundObjectArt,isGroundCrop} from './terrain-art'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -283,21 +284,24 @@ export class MapRenderer {
 
   private floorSprite(w: World, t: string, x: number, y: number, h: number, surface: boolean): Container {
     const terrain=w.db.terrain(t)
-    if(terrain.floor==='deck'){const g=new Graphics().rect(0,0,T,T).fill(0x735435);for(const yy of [0,5,10,15])g.moveTo(0,yy).lineTo(T,yy).stroke({color:0x3b2d22,width:.6});const join=h%2?4:11;g.moveTo(join,0).lineTo(join,5).stroke({color:0x3b2d22,width:.5});return g}
+    if(terrain.id==='Terrain.BoatFrame')return new Sprite(icon('water_shallow'))
+    if(terrain.floor==='deck')return new Sprite(tex(`deck${h%3}`))
     if (t === 'Terrain.CdFloor') {
       const s = new Sprite(tex(`cd_floor${h % 20}`))
       return s
     }
-    if (surface && t !== 'Terrain.KtFloor' && t !== 'Terrain.Rubble' && !w.db.terrain(t).stairs) {
+    if ((surface||terrain.water||terrain.floor==='earth') && t !== 'Terrain.KtFloor' && t !== 'Terrain.Rubble' && !terrain.stairs) {
       let name: string
       if (terrain.water) name = terrain.water==='deep'?'water_deep':'water_shallow'
-      else if (t === 'Terrain.Path' || t === 'Terrain.Mud') name = `dirt${h % 3}`
-      else name = h % 9 === 0 ? 'grassdirt0' : 'grass0'
+      else if (t === 'Terrain.Mud'||t==='Terrain.BogMud'||t==='Terrain.CoastalMud') name = `mud${h%4}`
+      else if (t === 'Terrain.Path') name = `dirt${h % 3}`
+      else if (!surface) name = `dirt${h%3}`
+      else name = h % 9 === 0 ? `grassdirt${(h>>>4)%3}` : `grass${(h>>>3)%3}`
       const s = new Sprite(icon(name))
       s.width = T; s.height = T
       // 같은 결의 풀을 미세한 명도 차로만 흩뜨려 바둑판 무늬를 피한다
-      const k = 0x80 + (h % 12)
-      s.tint = terrain.water ? 0xffffff : t === 'Terrain.Mud' ? 0x6a5948 : t === 'Terrain.Path' ? 0x9a9488 : (k << 16) | ((k + 6) << 8) | (k - 8)
+      const k = 0xf4 + (h % 10)
+      s.tint = terrain.water || name.startsWith('mud') ? 0xffffff : (k << 16) | ((k + 2) << 8) | (k - 3)
       return s
     }
     // KT 석판: 8×8칸 블록마다 사분면을 고르고 그 안을 16px로 샘플링 → 이음매 없는 큰 무늬
@@ -316,7 +320,7 @@ export class MapRenderer {
       this.objs.addChild(s)
       return s
     }
-    if(terr.visual)return // 상태가 바뀌는 밭을 포함해 보이는 지형 표현은 동적 경로에서 그린다.
+    if(terr.visual||groundObjectArt(terr))return // 밭·작업대·생활 물체는 동적 경로에서 그린다.
     if (terr.stairs) {
       const s = new Sprite(tex(terr.stairs === 'down' ? 'floor_stairs' : 'floor_ladder'))
       s.position.set(px, py)
@@ -383,11 +387,8 @@ export class MapRenderer {
       const h = hash(x, y)
       const px = x * T, py = y * T
       if(terr.wallMark){
-        const crack=new Graphics().moveTo(px+10,py+1).lineTo(px+6,py+5).lineTo(px+9,py+8).lineTo(px+5,py+12).lineTo(px+6,py+15).stroke({color:0x15120e,width:3})
-        if(terr.wallMark==='sealedCrack'){
-          crack.poly([px+3,py+11,px+7,py+7,px+12,py+10,px+14,py+15,px+2,py+15]).fill(0x71685b)
-          crack.moveTo(px+7,py+8).lineTo(px+8,py+13).lineTo(px+3,py+12).moveTo(px+8,py+13).lineTo(px+13,py+12).stroke({color:0x383229,width:1})
-        }else crack.moveTo(px+11,py+1).lineTo(px+7,py+5).lineTo(px+10,py+8).lineTo(px+6,py+12).stroke({color:0xa7946e,width:1})
+        const crack=new Sprite(tex(terr.wallMark==='sealedCrack'?'complete_wall_sealed':'complete_wall_crack'))
+        crack.position.set(px,py)
         this.dyn.addChild(crack)
       }
       if (tile.icy || tile.snow) {
@@ -409,32 +410,30 @@ export class MapRenderer {
         this.dyn.addChild(g)
       }
       if(tile.t==='Terrain.Campfire'||terr.beacon){
-        const coal=new Graphics().ellipse(px+T/2,py+T-3,T*.4,T*.16).fill(0x50463c)
+        const coal=new Sprite(tex(terr.beacon?'complete_beacon':'complete_campfire_cold'))
+        coal.position.set(px,py)
         this.dyn.addChild(coal)
         if(vis.has(i)&&map.lights.some((l)=>(l.kind==='campfire'||l.kind==='beacon')&&!l.off&&l.pos.x===x&&l.pos.y===y)){
-          const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
+          const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
           this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
         }
       }
-      if(tile.terrainFire&&vis.has(i)){const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
+      if(tile.terrainFire&&vis.has(i)){const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
       let s: Sprite | null = null
+      const groundArt=groundObjectArt(terr,!!tile.searched)
       if (terr.bedding) {
-        const bed = new Graphics().roundRect(px + 1, py + 2, T - 2, T - 4, 2).fill(0x694e32)
-        bed.rect(px + 3, py + 4, T - 6, T - 8).fill(terr.bedding.insulation ? 0x6e7950 : 0xa28b5d)
-        bed.rect(px + 3, py + 3, T - 6, 3).fill(0xc1b59a)
+        const bed = new Sprite(tex(groundArt!));bed.position.set(px,py)
         this.dyn.addChild(bed)
         const scorch=beddingScorch(tile)
-        if(scorch)this.dyn.addChild(new Graphics().roundRect(px+1,py+2,T-2,T-4,2).fill({color:0x18100a,alpha:Math.min(.85,scorch/100)}))
+        if(scorch){const charred=new Sprite(tex('complete_bed_scorched'));charred.position.set(px,py);charred.alpha=Math.min(.85,scorch/100);this.dyn.addChild(charred)}
         if(tile.beddingFire){
-          const frames=animFrames('torch_stand'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
+          const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);this.dyn.addChild(flame)
           this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
         }
       }
-      if (terr.residentWell) {
-        const well = new Graphics().circle(px + T / 2, py + T / 2, T * .34).fill(0x8c8170)
-        well.circle(px + T / 2, py + T / 2, T * .23).fill(0x254654)
-        well.rect(px + T * .16, py + T * .13, T * .68, T * .1).fill(0x654d32)
-        this.dyn.addChild(well)
+      if (groundArt&&!terr.bedding) {
+        s=new Sprite(tex(groundArt));s.anchor.set(.5,1);s.position.set(px+T/2,py+T)
+        if(isGroundCrop(terr))s.scale.set(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1)
       } else if (terr.visual) {
         s=new Sprite(tex(terr.visual.sprite));s.anchor.set(.5,.96);s.position.set(px+T/2,py+T)
         s.scale.set(terr.visual.scale*(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1))
@@ -461,7 +460,7 @@ export class MapRenderer {
         else if (opened) s.tint = 0x8a8478
       } else if (tile.t === 'Terrain.Sarcophagus' && tile.searched) {
         // 열린 석관: 앞면에 어두운 틈
-        const g = new Graphics().rect(px + 3, py + 4, 10, 3).fill({ color: 0x050403, alpha: 0.85 })
+        const g = new Sprite(tex('complete_sarcophagus_open'));g.position.set(px,py)
         g.zIndex = py + T
         g.label = 'dyn'
         this.objs.addChild(g)

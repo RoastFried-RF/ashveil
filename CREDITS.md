@@ -138,3 +138,5 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 - 원본 목재·고철·실 꾸러미·무두질 가죽·숯5종: ASHVEIL 자체 새 정수좌표 제작, CC0-1.0. `docs/art-material-originals.md`, `tools/art/material-LICENSE.txt` 참조. 기존외부저작자·공유그림을보존하며수량/장착/열/살균을그림으로보증하지않는다.
 
 - 원본 천조각·붕대·횃불·미점화모닥불꾸러미·돌조각5종: ASHVEIL 자체 새 정수좌표 제작, CC0-1.0. `docs/art-survival-originals.md`, `tools/art/survival-LICENSE.txt` 참조. 횃불 그림은 현재점화/연료를뜻하지않으며별도상태표시를사용한다.
+
+- v0.302 전체 리소스 조사 후 지형·벽·소품·생활 물체·아이콘·동물·적·UI를 새 정수 픽셀 좌표로 직접 제작했다. 편집 가능한 SVG/팔레트/생성기와 재현 검증을 함께 제공한다. [통합 내역](docs/art-complete-v302.md) · [CC0-1.0](tools/art/complete-LICENSE.txt). 기존 자체 캐릭터와 아이콘 원본은 유지하며, 사용 경로에서 빠진 외부 PNG도 역사적 파일과 원저작자 표기를 보존한다.

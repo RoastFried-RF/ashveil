@@ -32,8 +32,8 @@ function pngSize(bytes:Buffer){
  if(!ended||!hasData)throw Error('PNG 픽셀 데이터/종료 청크가 없다')
  return{width,height,repeatedEnd}
 }
-export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:Iterable<string>=[],creatureCharacters:Iterable<string>=[],modTextures:Readonly<Record<string,string>>={}){
- const errors:string[]=[],warnings:string[]=[],counts={sheets:0,frames:0,animations:0,characters:0,ui:0,icons:0,creatureCharacters:0,uniquePngFiles:0},files=new Map<string,ReturnType<typeof pngSize>|null>(),modFiles=new Set<string>()
+export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:Iterable<string>=[],creatureCharacters:Iterable<string>=[],modTextures:Readonly<Record<string,string>>={},renderReferences:Iterable<string>=[]){
+ const errors:string[]=[],warnings:string[]=[],counts={sheets:0,frames:0,animations:0,characters:0,ui:0,icons:0,creatureCharacters:0,renderReferences:0,uniquePngFiles:0},files=new Map<string,ReturnType<typeof pngSize>|null>(),modFiles=new Set<string>()
  const file=(url:unknown,where:string)=>{
   if(typeof url!=='string'||!url||/[\\?#%]/.test(url)||[...url].some(c=>c.charCodeAt(0)<32||c.charCodeAt(0)===127)||url.startsWith('/')||/^[a-z]+:/i.test(url)||url.split('/').some(p=>p==='..'||p==='.'||!p)){errors.push(where+': public 아래의 상대 PNG 경로가 필요하다');return null}
   const path=resolve(publicRoot,url),rel=relative(resolve(publicRoot),path)
@@ -65,6 +65,12 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
  for(const[key,url]of Object.entries(ui)){counts.ui++;file(url,'UI '+key)}
  for(const key of new Set(icons)){counts.icons++;if(key.startsWith('mod:')){const match=key.match(/^mod:([^/]+)\/(.+)$/);try{if(!match||!Object.hasOwn(modTextures,key))throw Error('활성 모드 텍스처가 없다');checkedModTextures(match[1]!,{[match[2]!]:modTextures[key]});modFiles.add(key)}catch(error){errors.push('icon '+key+': '+(error as Error).message)}}else if(!Object.hasOwn(frames,key))file('tiles/'+key+'.png','icon '+key)}
  for(const key of new Set(creatureCharacters)){counts.creatureCharacters++;if(!Object.hasOwn(chars,key))errors.push('Creature: 등록되지 않은 char '+key)}
+ for(const key of new Set(renderReferences)){
+  counts.renderReferences++
+  if(Object.hasOwn(frames,key)||Object.hasOwn(chars,key)||Object.hasOwn(anims,key))continue
+  if(key.startsWith('mod:')){const match=key.match(/^mod:([^/]+)\/(.+)$/);try{if(!match||!Object.hasOwn(modTextures,key))throw Error('활성 모드 텍스처가 없다');checkedModTextures(match[1]!,{[match[2]!]:modTextures[key]});modFiles.add(key)}catch(error){errors.push('render '+key+': '+(error as Error).message)}}
+  else file('tiles/'+key+'.png','render '+key)
+ }
  counts.uniquePngFiles=[...files.values()].filter(Boolean).length+modFiles.size
  return{valid:errors.length===0,counts,errors,warnings}
 }

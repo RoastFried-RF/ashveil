@@ -32,7 +32,7 @@ onBeforeUnmount(up)
     <div class="window-heading" @pointerdown="down">
       <span class="font-title window-title">{{ title }}</span>
       <button class="window-close" title="닫기 (Esc)" aria-label="닫기 (Esc)" @pointerdown.stop @click="emit('close')">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m2 2 8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.5" /></svg>
+        <span class="window-close-mark" aria-hidden="true" />
       </button>
     </div>
     <div class="window-content" :style="{ maxHeight: `calc(100dvh - ${pos.y + 54}px)` }">

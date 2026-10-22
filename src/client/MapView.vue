@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // Pixi 맵 렌더러를 감싼다. 행동마다(version) 동기화, 커서·대상 표시는 props 로.
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import type { ItemDef, Pos, AbilityDef } from '../core'
+import type { ItemDef, Pos, AbilityDef, CreatureDef } from '../core'
 import { loadAtlas } from './render/atlas'
+import { mapIconKeys } from './render/terrain-art'
 import { MapRenderer, type RenderOpts } from './render/MapRenderer'
 import { preferences } from './preferences'
 import { version, world } from './store'
@@ -14,12 +15,11 @@ const loading = ref(true)
 let r: MapRenderer | null = null
 let disposed=false
 
-const GROUND = ['grass0', 'grass1', 'grass2', 'grassdirt0', 'grassdirt1', 'grassdirt2', 'dirt0', 'dirt1', 'dirt2', 'ash0', 'ash1', 'ash2', 'ash3', 'water_shallow', 'water_deep', 'blood0', 'blood1', 'blood2', 'blood3', 'blood_pool', 'murk_leech']
-
 onMounted(async () => {
   const w = world.value
   if (!host.value || !w) return
-  const icons = [...GROUND, ...w.db.all<ItemDef>('Item').map((i) => i.sprite), ...w.db.all<AbilityDef>('Ability').map((a) => a.icon)]
+  const creatureIcons=w.db.all<CreatureDef>('Creature').filter(c=>!c.char).flatMap(c=>Array.isArray(c.sprite)?c.sprite:c.sprite?[c.sprite]:[])
+  const icons = [...mapIconKeys, ...creatureIcons, ...w.db.all<ItemDef>('Item').map((i) => i.sprite), ...w.db.all<AbilityDef>('Ability').map((a) => a.icon)]
   if(!await loadAtlas(icons)||disposed)return
   const renderer = new MapRenderer(host.value)
   renderer.onHover = (p) => emit('hover', p)

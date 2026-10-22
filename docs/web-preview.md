@@ -48,3 +48,9 @@ main5b47f73200be6adc4cbd146f7372a382b0bfbd3e의 [Actions39561309446](https://git
 ## v0.300 원격 확인 · 다음 큰 묶음에 포함
 
 main733419c37c6242f581a5c042ff87d570ecb551fb의 [Actions39566538764](https://github.com/RoastFried-RF/ashveil/actions/runs/39566538764)은build119110060909가실행0단계로실패하고deploy119110083681은건너뛰었다. 실제annotation은최근계정결제실패또는지출한도증가필요를명시한다. 검증된로컬300ZIP은991dist파일과모두같고16,680,075bytes/SHA256 f2f6b6e0a127be5d4d053313928c1b94a4c64a5436dfa31dedd88ca94d7ad944다. 공개사이트성공은확인하지못했다. 결제/한도/인증설정은변경하지않았고,사용자요청에따라이확인기록만별도push하지않는다.
+
+## v0.301 원격 확인 · 다음 큰 게시에 포함
+
+main `3f2622418b606bcb33a1adc76956c60b114360af`을 push한 뒤 [Actions39640078522](https://github.com/RoastFried-RF/ashveil/actions/runs/39640078522)를 실제 확인했다. build119360976933은 실행 단계0개로 실패했고 deploy119361012688은 건너뛰었다. 실제 주석은 최근 계정 결제 실패 또는 지출 한도 증가 필요를 명시한다. Ubuntu26 이전 공지와 별개다. 공개 플레이 URL은 확인하지 못했다.
+
+검증된 v0.301 ZIP은 빌드991파일과 전부 같으며 16691338bytes, SHA256 `a963e72e8e90f96e401bdc5f6135ef68b19568aff605d764415579f69d74c91e`다. 결제·한도·인증 설정은 변경하지 않았다. 사용자 요청에 따라 이 원격 확인 기록만을 위한 작은 추가 push는 하지 않는다.

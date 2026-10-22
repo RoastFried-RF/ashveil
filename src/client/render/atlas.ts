@@ -46,7 +46,7 @@ export async function loadAtlas(iconNames: string[]) {
   const ticket=++atlasGeneration
   const b = base()
   const sheetUrls = Object.entries(M.sheets).map(([k, v]) => [k, b + v] as const)
-  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]).map((n) => [n, iconUrl(n)] as const)
+  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]&&!M.chars[n]&&!M.anims[n]).map((n) => [n, iconUrl(n)] as const)
   const all = await Assets.load([...sheetUrls.map((x) => x[1]), ...iconUrls.map((x) => x[1])])
   if(ticket!==atlasGeneration)return false
   for (const [k, u] of sheetUrls) sheets.set(k, all[u] as Texture)

@@ -27,6 +27,15 @@ describe('직접 굽기의 실제 지각/생존 음식 품질과 원본 음식 �
  it('완료 직전 전체 각인은 같은 다음 한 번의 품질 난수와 결과를 보존한다',()=>{const d=setup();perform(d.w,d.p,{type:'cook',uid:d.raw.uid});for(let i=0;i<199;i++)activityStep(d.w,d.p);const copy={db:d.w.db,s:deserialize(serialize(d.s))};for(const w of[d.w,copy])activityStep(w,player(w));expect(copy.s).toEqual(JSON.parse(serialize(d.s)));expect(copy.s.version).toBe(SAVE_VERSION)})
  it('구형80 완성 음식에는 과거 Q를 추정하지 않는다',()=>{const d=setup(),food=d.add('Item.BakedPotato'),old=JSON.parse(serialize(d.s));old.version=80;const copy=deserialize(JSON.stringify(old));expect({...copy,version:80}).toEqual(old);expect(player({db:d.w.db,s:copy}).bag.find(i=>i.uid===food.uid)!.foodQ).toBeUndefined()})
  it('구형80 실제 진행 중 조리도 기록된 남은1턴 뒤에만 음식Q를 만든다',()=>{const d=setup();perform(d.w,d.p,{type:'cook',uid:d.raw.uid});for(let i=0;i<199;i++)activityStep(d.w,d.p);const old=JSON.parse(serialize(d.s));old.version=80;delete old.creatures.find((c:typeof d.p)=>c.id===d.p.id).activity.cookQualityBase;const copy={db:d.w.db,s:deserialize(JSON.stringify(old))};expect(player(copy).activity!.remaining).toBe(1);activityStep(copy,player(copy));expect(player(copy).bag.find(i=>i.def==='Item.BakedPotato')!.foodQ).toBeTypeOf('number')})
- it('치즈와 잿딸기는 서로 다른 실제 원본32×32 PNG이며 버섯 그림을 쓰지 않는다',()=>{const d=setup();expect(d.w.db.item('Item.Cheese').sprite).toBe('food_cheese');expect(d.w.db.item('Item.AshBerry').sprite).toBe('food_strawberry');const a=readFileSync('public/tiles/food_cheese.png'),b=readFileSync('public/tiles/food_strawberry.png');for(const img of[a,b]){expect(img.readUInt32BE(16)).toBe(32);expect(img.readUInt32BE(20)).toBe(32)}expect(a.equals(b)).toBe(false)})
+ it('치즈와 잿딸기는 서로 다른 자체 원본32×32 프레임이며 버섯 그림을 쓰지 않는다',()=>{
+  const d=setup(),keys=['complete_item_cheese','complete_item_ash_berry']
+  expect([d.w.db.item('Item.Cheese').sprite,d.w.db.item('Item.AshBerry').sprite]).toEqual(keys)
+  const m=JSON.parse(readFileSync('src/client/sprites.json','utf8')),frames=keys.map(key=>m.frames[key])
+  for(const frame of frames){expect(frame.slice(3)).toEqual([32,32]);expect(m.sheets[frame[0]]).toContain('/original/')}
+  expect(frames[0]).not.toEqual(frames[1])
+  const [a,b]=keys.map(key=>readFileSync('public/sprites/original/complete/items/'+key+'.png'))
+  for(const img of[a,b]){expect(img!.readUInt32BE(16)).toBe(32);expect(img!.readUInt32BE(20)).toBe(32)}
+  expect(a!.equals(b!)).toBe(false)
+ })
  it('보관한 원본 출처의 SHA-256과 PNG 내용이 일치하며 라이선스를 보존한다',()=>{const m=JSON.parse(readFileSync('tools/art/food-sources.json','utf8'));expect(m.modified).toBe(false);for(const i of m.icons)expect(createHash('sha256').update(readFileSync(i.file)).digest('hex')).toBe(i.sha256);expect(readFileSync(m.licenseFile,'utf8')).toContain('public')})
 })

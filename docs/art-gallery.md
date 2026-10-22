@@ -14,3 +14,19 @@
 - [UI 변경·실제 화면 검증과 발견한 문제](ui-original-art-implementation.md)
 
 277 화면은1440×1080·1366×768에서 타이틀→새 게임→대기/제자리 회전→소지품을 확인했다. 깃 손상과 상태별 탄약 선택은 실제 사격3회·전체187 저장 복원2회·15단계 전체 상태 비교로 별도 검증했다. 전체 회귀·월드 결과는 최종 검증 문서를 따른다.
+
+## v0.302 전체 연결 원화
+
+352개 정의와 UI26종의 원본을 [378항목 도감](previews/v302-art-catalog.html)에서 검색하고 방향·동작·외형을 선택할 수 있다. [제작기와 출처](art-complete-v302.md) · [83PNG 독립 검토](art-complete-v302-independent-review.json) · [최종 검증](release-v302-proof.json).
+
+![생활 물체 원화의 실제 사용](previews/v302-art-1601-domestic-actual-original-art.png)
+
+![동물·두목·궁수의 실제 표시](previews/v302-art-1601-creatures-actual-original-art.png)
+
+![지하 소품 원화의 실제 사용](previews/v302-art-1601-props-actual-original-art.png)
+
+위 세 방은 선언된 유한 초기 장면이며 정상 획득/성장/전투 완료를 뜻하지 않는다. 일반 새게임·실제 입력 화면은 아래 두 해상도와 같은 빌드다.
+
+![일반 새 게임1440](previews/v302-1440-01-world.png)
+
+![일반 소지품1366](previews/v302-1366-02-inventory.png)

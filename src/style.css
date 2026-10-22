@@ -258,3 +258,43 @@ kbd {
 /* 접근성: 경고는 움직임 없이도 색·문구·테두리가 남는다. */
 html[data-no-pulse="true"] .animate-pulse, html[data-no-pulse="true"] .pulse-gold { animation: none !important; }
 html[data-instant="true"] * { transition-duration: 0s !important; }
+
+/* 직접 제작한 원본 피부. 기존 border/padding/박스 크기와 접근성 채움색은 보존한다. */
+.df.df-celtic, .df.df-olive, .df.df-gold, .df.df-parch {
+  border-image-slice: 6 fill;
+  border-image-width: 6px;
+  border-image-repeat: repeat;
+}
+.df.df-celtic { border-image-source: var(--ui-celtic); }
+.df.df-olive { border-image-source: var(--ui-celtic2); }
+.df.df-gold { border-image-source: var(--ui-frame); }
+.df.df-parch { border-image-source: var(--ui-parchment); }
+.df-slot, .df-slot-olive, .df-slot-sel, .hud-slot.is-selected,
+.df-btn, .df-btn-olive, .df-btn-sel, .dbtn, .dbtn-gold,
+.df-tab, .df-tab-olive, .df-tab-sel {
+  border-image-slice: 4 fill;
+  border-image-width: 4px;
+  border-image-repeat: repeat;
+}
+.df-slot { border-image-source: var(--ui-slot); }
+.df-slot-olive { border-image-source: var(--ui-slot_olive); }
+.df-slot-sel, .hud-slot.is-selected { border-image-source: var(--ui-slot_sel); }
+.df-btn, .dbtn { border-image-source: var(--ui-btn); }
+.df-btn-olive { border-image-source: var(--ui-btn_olive); }
+.df-btn-sel, .dbtn-gold, .dbtn:hover:not(:disabled), .dbtn-gold:hover:not(:disabled) { border-image-source: var(--ui-btn_sel); }
+.df-tab { border-image-source: var(--ui-tab); }
+.df-tab-olive { border-image-source: var(--ui-tab_olive); }
+.df-tab-sel { border-image-source: var(--ui-tab_sel); }
+.df-bar::after, .df-bar-gold::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 0 solid transparent;
+  border-image-source: var(--ui-bar_frame);
+  border-image-slice: 3;
+  border-image-width: 3px;
+  border-image-repeat: repeat;
+}
+.df-bar-gold::after { border-image-source: var(--ui-bar_frame_gold); border-image-slice: 4; border-image-width: 4px; }
+.window-close-mark { display: block; width: 28px; height: 28px; background: var(--ui-xmark) center / 28px 28px no-repeat; image-rendering: pixelated; }
