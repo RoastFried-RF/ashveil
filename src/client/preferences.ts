@@ -3,6 +3,7 @@ import { normalizeBindings, type Command, type KeyBindings } from './keybindings
 import { reactive, ref, watch } from 'vue'
 
 export interface Preferences {
+  mapZoom: 'auto' | 'vision' | 1 | 2 | 3 | 4
   speechEnabled:boolean
   speechRate:number
   keyRepeatMode:'system'|'limited'|'once'
@@ -19,11 +20,12 @@ export interface Preferences {
   palette: 'standard' | 'redgreen' | 'blueyellow'
 }
 export const PREFERENCES_KEY = 'ashveil.preferences.v1'
-export const DEFAULT_PREFERENCES: Preferences = { speechEnabled:false, speechRate:1, keyRepeatMode:'system', keyRepeatDelay:500, keyRepeatInterval:125, keyBindings: {}, logFontSize: 12, animationSpeed: 1, screenShake: true, torchFlicker: true, hitFlash: true, warningPulse: true, floaters: 'normal', palette: 'standard' }
+export const DEFAULT_PREFERENCES: Preferences = { mapZoom:'auto', speechEnabled:false, speechRate:1, keyRepeatMode:'system', keyRepeatDelay:500, keyRepeatInterval:125, keyBindings: {}, logFontSize: 12, animationSpeed: 1, screenShake: true, torchFlicker: true, hitFlash: true, warningPulse: true, floaters: 'normal', palette: 'standard' }
 export function normalizePreferences(raw: unknown): Preferences {
   const p = { ...DEFAULT_PREFERENCES, keyBindings:{} as KeyBindings }
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return p
   const r = raw as Record<string, unknown>
+  if (['auto', 'vision', 1, 2, 3, 4].includes(r.mapZoom as Preferences['mapZoom'])) p.mapZoom = r.mapZoom as Preferences['mapZoom']
   p.keyBindings=normalizeBindings(r.keyBindings)
   if(typeof r.speechEnabled==='boolean')p.speechEnabled=r.speechEnabled
   if(typeof r.speechRate==='number'&&Number.isFinite(r.speechRate))p.speechRate=Math.round(Math.max(.5,Math.min(2,r.speechRate))*10)/10

@@ -49,9 +49,11 @@ describe('정본 특성과 호환', () => {
     const { w, pl } = setup(), c = hostile(w); pl.stats.per = 11
     const hit = previewHit(w, pl, c)!.chance, q = treatQuality(w, pl, 0).q, sight = sightRange(w, pl), init = initiative(pl, w), r = db.get<RecipeDef>('Recipe.Bandage'), cq = craftingQuality(w, pl, r, 15)
     pl.traits = ['Trait.Sensitive']; expect(effectiveStat(w, pl, 'per')).toBe(12); expect(pl.stats.per).toBe(11)
-    expect(previewHit(w, pl, c)!.chance).toBe(hit + 2); expect(sightRange(w, pl)).toBe(sight + 1); expect(initiative(pl, w)).toBe(init + 1)
+    expect(previewHit(w, pl, c)!.chance).toBe(hit + 2); expect(sightRange(w, pl)).toBe(sight); expect(initiative(pl, w)).toBe(init + 1)
     expect(treatQuality(w, pl, 0).q).toBeGreaterThan(q)
     expect(craftingQuality(w, pl, r, 15)).toBe(cq + 2)
+    pl.traits = []; pl.stats.per = 14; const thresholdSight = sightRange(w, pl)
+    pl.traits = ['Trait.Sensitive']; expect(sightRange(w, pl)).toBe(thresholdSight + 1); expect(pl.stats.per).toBe(14)
   })
   it('얕은 잠·깊은 잠·편집증은 실제 수면 질에 곱해진다', () => {
     const { w, pl } = setup(), base = sleepQuality(w, pl)
@@ -103,8 +105,8 @@ describe('정본 특성과 호환', () => {
     const { w, pl } = setup(), c = hostile(w); equip(w, 'Item.Bow'); const base = previewHit(w, pl, c, true)!.chance
     pl.traits = ['Trait.KeenEyed']; expect(previewHit(w, pl, c, true)!.chance).toBe(base + 5)
     pl.traits = ['Trait.Nearsighted']; expect(previewHit(w, pl, c, true)!.chance).toBe(base - 10)
-    c.pos = { x: 26, y: 20 }; expect(canSee(w, pl, c.pos)).toBe(false)
-    c.pos = { x: 25, y: 20 }; expect(canSee(w, pl, c.pos)).toBe(true)
+    c.pos = { x: 28, y: 20 }; expect(canSee(w, pl, c.pos)).toBe(false)
+    c.pos = { x: 27, y: 20 }; expect(canSee(w, pl, c.pos)).toBe(true)
   })
 })
 

@@ -1,0 +1,6 @@
+[
+  { "op": "replace", "target": "Creature.Human", "path": "/sightRange", "value": 12 },
+  { "op": "replace", "target": "Creature.Human", "path": "/lightThreshold", "value": 0.5 },
+  { "op": "add", "target": "Creature.Human", "path": "/vision", "value": { "maxRange": 15, "perceptionStep": 5, "perceptionBonus": 0.05, "darkPenalty": 6 } },
+  { "op": "replace", "target": "Weather.Clear", "path": "/sightMult", "value": 1 }
+]

@@ -18875,6 +18875,61 @@
                   }
                 ]
               },
+              "vision": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "maxRange": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "perceptionStep": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "perceptionBonus": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "darkPenalty": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "scentSense": {
                 "anyOf": [
                   {
@@ -20976,6 +21031,29 @@
               },
               "sightRange": {
                 "type": "number"
+              },
+              "vision": {
+                "type": "object",
+                "properties": {
+                  "maxRange": {
+                    "type": "number"
+                  },
+                  "perceptionStep": {
+                    "type": "number"
+                  },
+                  "perceptionBonus": {
+                    "type": "number"
+                  },
+                  "darkPenalty": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "maxRange",
+                  "perceptionStep",
+                  "perceptionBonus",
+                  "darkPenalty"
+                ]
               },
               "scentSense": {
                 "type": "number"

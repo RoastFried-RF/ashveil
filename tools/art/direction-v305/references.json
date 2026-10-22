@@ -1,0 +1,72 @@
+{
+  "dateUTC": "2026-10-22",
+  "purpose": "Visual analysis only. Reference art is not bundled with game assets.",
+  "references": [
+    {
+      "name": "Eslabong",
+      "storeUrl": "https://store.steampowered.com/app/4560660/",
+      "sourceApi": "https://store.steampowered.com/api/appdetails?appids=4560660&l=koreana",
+      "reviewedImages": [
+        {
+          "file": "test-results/references-v305/eslabong-0.jpg",
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4560660/ae5f131dab9552c08be9132b55eeb8a25d41c855/ss_ae5f131dab9552c08be9132b55eeb8a25d41c855.1920x1080.jpg?t=1792515727",
+          "sha256": "2afe545a7a700f8e22884b559634b9fdd32a7a6211c2fb437a2b7581d49ed3d8"
+        },
+        {
+          "file": "test-results/references-v305/eslabong-1.jpg",
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4560660/130a022cf5ee1713894ed3db0facd725fa4ff21e/ss_130a022cf5ee1713894ed3db0facd725fa4ff21e.1920x1080.jpg?t=1792515727",
+          "sha256": "a5f0e2d48b6b709ef3f3886a53abd06f13eacc19065f043c4ddc091ebd2b2269"
+        },
+        {
+          "file": "test-results/references-v305/eslabong-2.jpg",
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4560660/cc7036b2c1b772339a3b822706f4e4f1b5209f6b/ss_cc7036b2c1b772339a3b822706f4e4f1b5209f6b.1920x1080.jpg?t=1792515727",
+          "sha256": "d0bab2ab4ef3122021bca947656fe82610630a13388373006cf64632f5911c8b"
+        }
+      ]
+    },
+    {
+      "name": "RimWorld",
+      "storeUrl": "https://store.steampowered.com/app/294100/",
+      "sourceApi": "https://store.steampowered.com/api/appdetails?appids=294100&l=koreana",
+      "reviewedImages": [
+        {
+          "file": "test-results/references-v305/rimworld-0.jpg",
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/294100/80e383ef19353058791efe17a6485849246c9c17/ss_80e383ef19353058791efe17a6485849246c9c17.1920x1080.jpg?t=1782756789",
+          "sha256": "dc230064ab79ceb0dcf9530d5475b536c6567b1d987f65239cc2fbf22b59772b"
+        },
+        {
+          "file": "test-results/references-v305/rimworld-1.jpg",
+          "url": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/294100/a6158c5cef23ac8157b37dd3eb17f3c2d2649e93/ss_a6158c5cef23ac8157b37dd3eb17f3c2d2649e93.1920x1080.jpg?t=1782756789",
+          "sha256": "9eb458a908ecac8ba192a214c47b7a0f6e9e310ad974bf4b9c9909918469ddaa"
+        }
+      ]
+    },
+    {
+      "name": "Stoneshard",
+      "storeUrl": "https://store.steampowered.com/app/625960/",
+      "reviewedImages": [
+        {
+          "file": "test-results/references-v303/stoneshard-0.jpg",
+          "sha256": "a3720fd08ed7adcabf9bc4f3ab1a3b50935b6c268c9c2a52b8f6b620e2f03eab"
+        }
+      ],
+      "sourceManifest": "tools/art/direction-v303/references.json"
+    }
+  ],
+  "accessLimits": [
+    {
+      "site": "Pinterest",
+      "url": "https://www.pinterest.com/search/pins/?q=dark%20fantasy%20pixel%20art%20rpg",
+      "http": 200,
+      "result": "Public search HTML received; generic Pinterest title and login links. No attributable individual artwork visually reviewed or used.",
+      "responseSha256": "5c0243cf4802373e87982a7ea1c5c5c5d3a7f5cab8175dc47dcb2cf9994965b6"
+    },
+    {
+      "site": "Pixiv",
+      "url": "https://www.pixiv.net/tags/%E3%83%89%E3%83%83%E3%83%88%E7%B5%B5/artworks",
+      "http": 403,
+      "result": "Access refused; no artwork reviewed, no authentication bypass.",
+      "responseSha256": "8bcb7557a9780128d4184f1e81bff948f0b26f4eaeaa8a0516aa9196c19c0f82"
+    }
+  ]
+}

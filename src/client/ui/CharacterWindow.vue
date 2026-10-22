@@ -2,7 +2,7 @@
 // 캐릭터: 초상·배경·특성 / 능력치(+포인트) / 파생치 / 숙달
 import { computed } from 'vue'
 import {
-  attackScore, currentAttack, energyMax, evasion, hpMax, insulation, mood, player, sightRange, masteryCount, masteryNext, masteryStage, MASTERY_LABEL, xpToNext, xpTotalFor,
+  attackScore, currentAttack, darkSightRange, energyMax, evasion, hpMax, insulation, mood, player, sightRange, masteryCount, masteryNext, masteryStage, MASTERY_LABEL, xpToNext, xpTotalFor,
   STAT_LABEL, regenerationPeriod, traitMul, effectiveStat, traitAdd, traumaLabel, traumaHelp, type Stats, type World,
 } from '../../core'
 import { frameCss } from '../render/atlas'
@@ -15,7 +15,7 @@ import Win from './Win.vue'
 const STAT_TIP: Record<keyof Stats, string> = {
   str: '근접 피해, 넘어뜨리기·밀치기',
   agi: '공격치 +1.5/점, 회피치 +2/점, 받아넘기기',
-  per: '공격치 +1/점, 시야, 기척',
+  per: '공격치 +1/점, 지각 15부터 5점마다 기본 시야 +5%, 기척',
   vit: '최대 체력 +5/점, 출혈·감염 저항',
   wil: '최대 기력 +5/점, 통증·스트레스 저항',
 }
@@ -40,7 +40,7 @@ const d = computed(() => {
       ['공격치', atk ? attackScore(w, pl, atk).toFixed(1) : '-'], ['회피치', evasion(w, pl).toFixed(1)],
       ['문해', ['문맹', '더듬더듬', '읽음', '학자'][pl.literacy ?? (pl.literate ? 2 : 0)]], ['완독', `${pl.booksRead?.length ?? 0}권`],
       ...(pl.literacyLessons ? [['글자 수업', `${pl.literacyLessons.days.length}일 수료`]] : []),
-      ['시야', sightRange(w, pl)], ['전신 단열', insulation(w, pl).toFixed(3)], ['기분', mood(w, pl).toFixed(0)],
+      ['시야', `${sightRange(w, pl)}칸 · 어둠 ${darkSightRange(w, pl)}칸`], ['전신 단열', insulation(w, pl).toFixed(3)], ['기분', mood(w, pl).toFixed(0)],
       ['무기', atk ? `${atk.label} ${atk.damage}` : '맨손'],
     ] as [string, string | number][],
     skills: (['medicine', 'survival'] as const).map((k) => ({ label: `${MASTERY_LABEL[k]} 숙달`, lv: `${masteryStage(w, pl, k)}단계 (${masteryCount(pl, k)}/${masteryNext(w, pl, k) ?? '최고'})` })),

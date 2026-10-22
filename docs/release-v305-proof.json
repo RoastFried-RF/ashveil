@@ -1,0 +1,885 @@
+{
+  "version": 305,
+  "dateKST": "2026-10-23",
+  "save": 204,
+  "api": "1.4.0",
+  "runtimeCheckpoint": "/workspace/.ashveil-checkpoints/v305-vision-test-final",
+  "nativeAndInitialFullCheckpoint": "/workspace/.ashveil-checkpoints/v305-vision-dark-boundary-final",
+  "initialFullManifestSha256": "10113280489808e65a744192bbca7f1e26c4c13b27c7afe68853f0f613562c35",
+  "finalCheckManifestSha256": "c7a7254d48051c7f9df39bd52e1678c4363c185d040a016d321977526c72157f",
+  "source": {
+    "src": {
+      "files": 692,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    "public": {
+      "files": 1838,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    "dist": {
+      "files": 2237,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    "tests": {
+      "files": 1093,
+      "rootBytesExactFinalCheckedSource": true
+    },
+    "tools": {
+      "files": 308,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    "mods": {
+      "files": 86,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    ".agents": {
+      "files": 1,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    },
+    ".github": {
+      "files": 1,
+      "rootBytesExactFinalCheckedSource": true,
+      "nativeFullFinalBytesExact": true
+    }
+  },
+  "full": {
+    "uniqueFiles": 338,
+    "uniqueTests": 6145,
+    "singleWholeRunPassed": false,
+    "initial": {
+      "files": 338,
+      "passedFiles": 334,
+      "fullyPassedFileTests": 6072,
+      "passedIndividualTests": 6096,
+      "failedIndividualTests": 48,
+      "seconds": 885.7559821777344,
+      "workerLimit": 2,
+      "failedFiles": [
+        "captive-witnesses.test.ts",
+        "definition-validation-cli.test.ts",
+        "prisoner-witnesses.test.ts",
+        "throwing.test.ts"
+      ]
+    },
+    "recheck": {
+      "files": 4,
+      "tests": 73,
+      "passed": 73,
+      "seconds": 28.492863037109377,
+      "workerLimit": 1,
+      "changedFiles": [
+        "tests/prisoner-witnesses-fixture.ts",
+        "tests/definition-validation-cli.test.ts",
+        "tests/throwing.test.ts"
+      ],
+      "changes": "One declared privacy wall for the two witness files, actual+4 patch counts, dark visibility negative case adapted and a positive six-tile throwing case added. No runtime/Def/test timeout changes after first whole run."
+    },
+    "runtime": {
+      "src": {
+        "files": 692,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      "dist": {
+        "files": 2237,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      "public": {
+        "files": 1838,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      "tools": {
+        "files": 308,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesExactNativeFullAndRecheck": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesExactNativeFullAndRecheck": true
+      }
+    },
+    "limits": "Aggregate of334 fully passing files from the initial whole run plus4 fully passing files from the final recheck.48 initial assertion/setup failures retained; not a single green whole run. Every test depending on the changed shared witness fixture is rechecked."
+  },
+  "native": [
+    {
+      "width": 1440,
+      "height": 1080,
+      "wholePairs": 28,
+      "restores": 3,
+      "screenshots": 15,
+      "declaredInitialFixtures": 5,
+      "realActions": 12,
+      "actionTUAcrossDeclaredScenes": 1200,
+      "auditSha256": "73f78357b8f2852dd596732df006d2b3535de3186c5469a249b58c13d929a4f5",
+      "audit": "/workspace/.ashveil-checkpoints/v305-vision-dark-boundary-final/test-results/native-vision-v305-1440/audit.json",
+      "errors": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "wholePairs": 28,
+      "restores": 3,
+      "screenshots": 15,
+      "declaredInitialFixtures": 5,
+      "realActions": 12,
+      "actionTUAcrossDeclaredScenes": 1200,
+      "auditSha256": "f8c4b824f3590a9a478637e09a17dd41988e3262fda7c86a1bc5a6f58ebd49d4",
+      "audit": "/workspace/.ashveil-checkpoints/v305-vision-dark-boundary-final/test-results/native-vision-v305-1366/audit.json",
+      "errors": []
+    }
+  ],
+  "common": {
+    "screenshots": 8,
+    "stepsPerResolution": 11,
+    "errors": []
+  },
+  "screenReview": {
+    "checkpoint": "/workspace/.ashveil-checkpoints/v305-vision-dark-boundary-final",
+    "reviewer": "primary agent",
+    "images": [
+      {
+        "file": "test-results/native-vision-v305-1440/1901-day-12-wall.png",
+        "sha256": "773b7e8fb0d96d1bda86daeccf97924fb7918e6d67dd428f3ee65f5c7d9057a5",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1902-character-ranges.png",
+        "sha256": "31c982c84e61e2a141dd540a63e8a47ff7d2d90cd60ceaabf2b5042bd04601dc",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1903-day-step-memory.png",
+        "sha256": "57d2c45ed3785f67c9f6426012bf952e3e67e62c5cecd8d8c74817ab2046e00a",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1904-dark-6-remote-light.png",
+        "sha256": "296b0bc7cab8dd3187019ec7448570508da934472f7a019a41b5f14ccf19140f",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1905-torch-lit-materials.png",
+        "sha256": "a573e2575590da3c40774d7b410284b57fd7d6a31cb7d29b426753cedcd6ff8c",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1906-dark-step-memory.png",
+        "sha256": "c50a6a2d9c47fd4d75a815c46a09de5091ed633fd96096ee6f066421746eebdb",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1907-fog-reduced-range.png",
+        "sha256": "96995f2f9685c27188bc16756b422a99b30636cb363da3a5edb558a4e7b49d20",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1908-blind-no-terrain.png",
+        "sha256": "5fdcc9c994fecc2e8ee4c021da56c31619edc52c7a3e3c759a88e74fe268b5af",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1909-whole-vision-fit.png",
+        "sha256": "5f12eec7b1fdf9362891745bfafce22689ea8326d0b14562a04e814abc1e9055",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1911-manual-zoom-1.png",
+        "sha256": "587f07c9adf368f92a1206df8ba9602dc99dff56584dea0628cf822a327f28d0",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1912-manual-zoom-2.png",
+        "sha256": "4c4daad39b55b19a8a3ac9608a099a7c5a590c647b8b2ba608a55061d051e87c",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1913-manual-zoom-3.png",
+        "sha256": "93f83401ff004bec986d42fbfc2c3d68fcb86624c967875638b0c570b923b321",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1914-manual-zoom-4.png",
+        "sha256": "382135e1c11c238a47f4af87be6a950a9f53a466dc7d27eda5cf00e46a6cc8d8",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1915-v304-content-review.png",
+        "sha256": "df88b22265b0ec5761faf331e83348cb50d890e9642a2f7292ed57df4403c1f9",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1440/1916-v304-new-vision.png",
+        "sha256": "bfea34a8eb55b07772b269574bec2f031543c3a50801ad72f8323ae84486696f",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1901-day-12-wall.png",
+        "sha256": "6ce54b01b53f73036d7aa7c556ce672bed68f436078586ffc634d06dda3b0603",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1902-character-ranges.png",
+        "sha256": "882ef9588ba2352ad58b6117c89b9a6c26f59fa9e3bd05b1016ae635c47af439",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1903-day-step-memory.png",
+        "sha256": "ee2bedadb498dc61ee5793b204742bd4e49a92168061afa5a5c3cbad59bf7a4b",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1904-dark-6-remote-light.png",
+        "sha256": "c6274e67133d6afff5ccf946eeff050727a3e338f795b1b3ce171a71139c7110",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1905-torch-lit-materials.png",
+        "sha256": "3b4eada78ee53af52a19e1e49627f5b064385f1185817bc9d68b7c73ecfd7daa",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1906-dark-step-memory.png",
+        "sha256": "10802bf3c1f78ab2b1a57f5b7d05eeed1211428cf482e99fea6c54d02e17a22e",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1907-fog-reduced-range.png",
+        "sha256": "e99c64312e59878be0e81620f27fdaf9826eacd9bff24dadbbf6f22b67b4719a",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1908-blind-no-terrain.png",
+        "sha256": "0a514af33d7f4ac3af676d3588756ca5aa92f96dfe8783581817f129f4b45c4c",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1909-whole-vision-fit.png",
+        "sha256": "d7242b89a4daee06c52bfb84098546b6bf1d6251c0104a3632f272769754d6ac",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1911-manual-zoom-1.png",
+        "sha256": "0492583b368cb0868b2ba387783bdff08184d1b7283be901aa4e7f9ba5fd4731",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1912-manual-zoom-2.png",
+        "sha256": "54c577c2ce5aee9be5549716ab7045ccb55ef426f2a12ca2229501cdc73f2b0a",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1913-manual-zoom-3.png",
+        "sha256": "a15b0aec9f40c3e7e7be9c87ea11e7a1eabf0fda3d443266f7d3daceb45899a1",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1914-manual-zoom-4.png",
+        "sha256": "9179e4c5f2d66d5516a803a7d3f12c29ed9fcb5490cd342253da167cf2bf7d1b",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1915-v304-content-review.png",
+        "sha256": "df4f6b1c8b84637d9d1f05e207ecdaac09135b08b0847a994c5c665b5508da7f",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/native-vision-v305-1366/1916-v304-new-vision.png",
+        "sha256": "8cdfaf6a4491be9f3bba2c2a41a64c4bedeca3e69bf7a5ea57513671f6763535",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1440/00-title.png",
+        "sha256": "eeaa53224935f4627210857d97b1d0fe98dd89398725c8207011fd7b3931f0ac",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1440/01-world.png",
+        "sha256": "fd577982f3783d8a9c6f389f4e3bba6de1530bf601ee4f97de8585886e5edd9a",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1440/02-inventory.png",
+        "sha256": "53ae77c7834e7f79b8d0b454a1009e7fb6a41ca26ed71ebaf96b883ea32868f7",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1440/final.png",
+        "sha256": "9bb18762adc662a800e546fe91ec7f9a76bdb4f63c8382530d791a2e592d4b17",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1366/00-title.png",
+        "sha256": "cafdd9d34032c1326325d0c7637c38767f7c1be7449684a802cdc08f0191ca9a",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1366/01-world.png",
+        "sha256": "e9d31d22be76b3f8b198598ab049d32c635b36cad0d9b8baa38a753bedf0de20",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1366/02-inventory.png",
+        "sha256": "d9f98b343826dd9215753c28b64819491a68e31205401c9c6f018d309dda14da",
+        "openedIndividually": true
+      },
+      {
+        "file": "test-results/smoke-v305-1366/final.png",
+        "sha256": "30c0b5efcaba174cdc93c73f74250fb319c6c51cad32bbb943216e1020702274",
+        "openedIndividually": true
+      }
+    ],
+    "count": 38,
+    "notes": "All30 Native and8 common PNGs opened individually. Flat diagnostic fields are declared initial fixtures; common smoke is a real new-game start. Circle edges, wall occlusion, dark/torch material contrast, character ranges, manual scales, and content review/continue checked. References are separate and not counted here."
+  },
+  "goldens": {
+    "vectors": 5,
+    "captureSha256": "1d8e2d6559f993a7ebc78d577834641e7636b6fde20ca7cd64011e36f253bd47",
+    "audit": {
+      "baseline": "test-results/goldens-v304-final.json",
+      "candidate": "test-results/vision-v305-golden-candidate2.json",
+      "rules": "Only content hashes, current visible array and actual map tile seen/observed fields are globally allowed. Exactly the recorded discovery log, two5XP display timings and WonderfulView event timings are individually inspected/allowed. Every remaining state field must deeply equal; commands/errors are unchanged. This is fixed-input equivalence outside the intentional visibility effects, not general bot behavior equivalence.",
+      "rows": [
+        {
+          "name": "surface",
+          "commands": 80,
+          "errorsExact": true,
+          "phases": {
+            "initial": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            },
+            "state": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": [
+                {
+                  "discoveryLogOld": [
+                    {
+                      "turn": 21647,
+                      "kind": "info",
+                      "text": "수도원 입구를 찾았다."
+                    },
+                    {
+                      "turn": 21665,
+                      "kind": "info",
+                      "text": "서고를 찾았다."
+                    }
+                  ],
+                  "discoveryLogNew": [
+                    {
+                      "turn": 21643,
+                      "kind": "info",
+                      "text": "수도원 입구를 찾았다."
+                    },
+                    {
+                      "turn": 21663,
+                      "kind": "info",
+                      "text": "서고를 찾았다."
+                    }
+                  ]
+                },
+                {
+                  "discoveryXpFxOld": [
+                    {
+                      "k": "xp",
+                      "id": 1,
+                      "v": 5,
+                      "turn": 21647
+                    },
+                    {
+                      "k": "xp",
+                      "id": 1,
+                      "v": 5,
+                      "turn": 21665
+                    }
+                  ],
+                  "discoveryXpFxNew": [
+                    {
+                      "k": "xp",
+                      "id": 1,
+                      "v": 5,
+                      "turn": 21643
+                    },
+                    {
+                      "k": "xp",
+                      "id": 1,
+                      "v": 5,
+                      "turn": 21663
+                    }
+                  ]
+                },
+                {
+                  "creature": 1,
+                  "discoveryThoughtOld": [
+                    {
+                      "def": "Thought.WonderfulView",
+                      "untilTurn": 50447,
+                      "count": 1,
+                      "events": [
+                        {
+                          "at": 21647,
+                          "untilTurn": 50447
+                        }
+                      ]
+                    }
+                  ],
+                  "discoveryThoughtNew": [
+                    {
+                      "def": "Thought.WonderfulView",
+                      "untilTurn": 50443,
+                      "count": 1,
+                      "events": [
+                        {
+                          "at": 21643,
+                          "untilTurn": 50443
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "dungeon-combat",
+          "commands": 81,
+          "errorsExact": true,
+          "phases": {
+            "initial": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            },
+            "state": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            }
+          }
+        },
+        {
+          "name": "freeze-reentry",
+          "commands": 147,
+          "errorsExact": true,
+          "phases": {
+            "initial": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            },
+            "state": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": [
+                {
+                  "discoveryLogOld": [
+                    {
+                      "turn": 21603,
+                      "kind": "info",
+                      "text": "서고를 찾았다."
+                    },
+                    {
+                      "turn": 21640,
+                      "kind": "info",
+                      "text": "수도원 입구를 찾았다."
+                    }
+                  ],
+                  "discoveryLogNew": [
+                    {
+                      "turn": 21602,
+                      "kind": "info",
+                      "text": "서고를 찾았다."
+                    },
+                    {
+                      "turn": 21640,
+                      "kind": "info",
+                      "text": "수도원 입구를 찾았다."
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "world-journey",
+          "commands": 28,
+          "errorsExact": true,
+          "phases": {
+            "initial": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            },
+            "state": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            }
+          }
+        },
+        {
+          "name": "world-climate-return",
+          "commands": 30,
+          "errorsExact": true,
+          "phases": {
+            "initial": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            },
+            "state": {
+              "exactAfterExplicitVisionAllowances": true,
+              "timeExact": true,
+              "nextIdExact": true,
+              "allRngExact": true,
+              "details": []
+            }
+          }
+        }
+      ]
+    }
+  },
+  "world": {
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 378.40881741899994,
+    "averageDays": 0.3777708333333332,
+    "causes": {
+      "치명상": 11,
+      "저체온": 13,
+      "과다 출혈": 6
+    },
+    "diff": {
+      "baseline": "docs/sim-v304.json",
+      "candidate": "docs/sim-v305.json",
+      "runs": 30,
+      "wholeResultRowsEqual304": false,
+      "averageDaysEqual304": false,
+      "causesEqual304": false,
+      "changedRows": [
+        {
+          "seed": "sim-0",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.8333333333333334,
+          "afterDays": 0.0059375,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-1",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.3819444444444444,
+          "afterDays": 0.005,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-2",
+          "beforeCause": "치명상",
+          "afterCause": "저체온",
+          "beforeDays": 0.012083333333333333,
+          "afterDays": 1.1041666666666667,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-3",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.3888888888888889,
+          "afterDays": 0.004548611111111111,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-4",
+          "beforeCause": "과다 출혈",
+          "afterCause": "과다 출혈",
+          "beforeDays": 0.004166666666666667,
+          "afterDays": 0.00375,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-5",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 2.6319444444444446,
+          "afterDays": 2.7291666666666665,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-6",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.3680555555555556,
+          "afterDays": 0.3680555555555556,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-7",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.3055555555555556,
+          "afterDays": 0.00625,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-8",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.2777777777777778,
+          "afterDays": 0.2777777777777778,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-9",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.7013888888888888,
+          "afterDays": 0.7152777777777778,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-10",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.5416666666666666,
+          "afterDays": 0.5555555555555556,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-11",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.4652777777777778,
+          "afterDays": 0.003993055555555555,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-12",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.375,
+          "afterDays": 0.3263888888888889,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-13",
+          "beforeCause": "저체온",
+          "afterCause": "과다 출혈",
+          "beforeDays": 0.6388888888888888,
+          "afterDays": 0.010833333333333334,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-14",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 1.2361111111111112,
+          "afterDays": 1.6180555555555556,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-15",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.4027777777777778,
+          "afterDays": 0.004131944444444444,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-16",
+          "beforeCause": "과다 출혈",
+          "afterCause": "저체온",
+          "beforeDays": 0.013645833333333333,
+          "afterDays": 1.1527777777777777,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-17",
+          "beforeCause": "과다 출혈",
+          "afterCause": "과다 출혈",
+          "beforeDays": 0.005590277777777777,
+          "afterDays": 0.006631944444444445,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-18",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.4236111111111111,
+          "afterDays": 0.4236111111111111,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-19",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.7638888888888888,
+          "afterDays": 0.9166666666666666,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-20",
+          "beforeCause": "과다 출혈",
+          "afterCause": "저체온",
+          "beforeDays": 0.009166666666666667,
+          "afterDays": 0.4861111111111111,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-21",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 1.7708333333333333,
+          "afterDays": 0.017256944444444443,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-22",
+          "beforeCause": "과다 출혈",
+          "afterCause": "치명상",
+          "beforeDays": 0.005486111111111111,
+          "afterDays": 0.003611111111111111,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-23",
+          "beforeCause": "저체온",
+          "afterCause": "과다 출혈",
+          "beforeDays": 0.4722222222222222,
+          "afterDays": 0.16989583333333333,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-24",
+          "beforeCause": "치명상",
+          "afterCause": "치명상",
+          "beforeDays": 0.005555555555555556,
+          "afterDays": 0.006736111111111111,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-25",
+          "beforeCause": "과다 출혈",
+          "afterCause": "치명상",
+          "beforeDays": 0.007534722222222222,
+          "afterDays": 0.0053125,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-27",
+          "beforeCause": "저체온",
+          "afterCause": "저체온",
+          "beforeDays": 0.375,
+          "afterDays": 0.3819444444444444,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-28",
+          "beforeCause": "저체온",
+          "afterCause": "과다 출혈",
+          "beforeDays": 0.6527777777777778,
+          "afterDays": 0.00875,
+          "wholeResultRowEqual": false
+        },
+        {
+          "seed": "sim-29",
+          "beforeCause": "저체온",
+          "afterCause": "치명상",
+          "beforeDays": 0.5833333333333334,
+          "afterDays": 0.009791666666666667,
+          "wholeResultRowEqual": false
+        }
+      ],
+      "limits": "Compares every field of all30 actual result rows, including final needs/body-related values/equipment. Does not claim whole WorldState equality, long-term balance completion or human play assessment."
+    },
+    "summarySha256": "64afbe6c7590db84558dac17f1d9c652a57037f66415acd2a2db4d92a096bae9"
+  },
+  "validations": [
+    {
+      "name": "typecheck",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "name": "lint",
+      "logSha256": "953c1449dece148a7c3b8e17c94779281cfe19197e5be32fcffb23463f980cd8",
+      "passed": true
+    },
+    {
+      "name": "defs",
+      "logSha256": "c859f0f87cdd959bd0cf555643dd66bc3b67ffd35344c17c0c7f608dca8618c6",
+      "passed": true
+    },
+    {
+      "name": "schema",
+      "logSha256": "836e69306ebba99c9737b998724c9ee67184acf82bce4628d799c1319c64c216",
+      "passed": true
+    },
+    {
+      "name": "sprites",
+      "logSha256": "3057e5899f96a5df8cfdc8e9fdab430485c367d7e206370f3fa2aa2fb965a4fa",
+      "passed": true
+    }
+  ],
+  "lintNote": "Zero errors; one pre-existing unused mirror warning in tools/art/draw-amalgam.mjs.",
+  "originalArtUnchanged": true,
+  "zip": {
+    "version": 305,
+    "distFiles": 2237,
+    "bytes": 26599390,
+    "sha256": "2b21a76c2c02c597de154466f7c52085c7ea2214a426125c657d2c02a3a96c13",
+    "allDistFilesExactCheckedBuild": true,
+    "additionalMetadata": [
+      "시작하기.txt",
+      "CREDITS.md",
+      "리소스-도감.html",
+      "미술-설명.md",
+      "illustrations-provenance.json",
+      "licenses/complete-LICENSE.txt",
+      "licenses/material-LICENSE.txt",
+      "licenses/oatmeal-LICENSE.txt",
+      "licenses/survival-LICENSE.txt",
+      "licenses/direction-v303-LICENSE.txt",
+      "조작-변경.md",
+      "시야-배율.md"
+    ],
+    "website": "https://roastfried-rf.github.io/ashveil/",
+    "websiteCheckedAfterPush": false
+  },
+  "limits": "Finite initial vision/lighting/blindness fixtures and a declared imprint generated by actual frozen v304 source. Real Title loading/keys/mouse and independent Node whole comparisons, no postload world/time/RNG injection. Common smoke is actual new-game play. No claim of natural injury/acquisition for diagnostic fixtures, touch/gamepad/human testing, whole WorldState equality, new art production or whole v1.0/X1-X4 completion.",
+  "publicationPolicy": "One large main push after checks; real Pages verification afterward. No small publication-record-only push."
+}

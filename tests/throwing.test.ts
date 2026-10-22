@@ -152,10 +152,15 @@ describe('투척의 가시성·공간·손·저장 경계', () => {
   })
   it('기억만 남은/어둠 속/자신/죽은/없는/경계 밖 대상은 무료 정보나 피해를 주지 않는다', () => {
     const remembered = setup(); tileAt(remembered.w, remembered.target.pos).seen = true; remembered.s.visible = []; unchangedFailure(remembered)
-    const dark = setup(); dark.s.map.ambient = 0; invalidateLights(dark.w); unchangedFailure(dark)
+    const dark = setup(); dark.s.map.ambient = 0; dark.p.traits = ['Trait.Nearsighted']; dark.target.pos = { x: 26, y: 20 }; invalidateLights(dark.w); unchangedFailure(dark)
     const d = setup(); unchangedFailure(d, d.stone.uid, d.p.id); unchangedFailure(d, d.stone.uid, -1)
     d.target.alive = false; unchangedFailure(d); d.target.alive = true
     for (const x of [-1, d.s.map.w, 20.5, NaN, Infinity]) { d.target.pos.x = x; unchangedFailure(d) }
+  })
+  it('칠흑이어도 실제로 보이는6칸 경계의 대상에는 원래 돌 한 개를 던질 수 있다', () => {
+    const d = setup(); d.s.map.ambient = 0; d.target.pos = { x: 26, y: 20 }; invalidateLights(d.w); updatePlayerVision(d.w, d.p)
+    expect(throwQuote(d.w, d.p, d.stone.uid, d.target.id).error).toBeNull()
+    expect(attack(d).ok).toBe(true); expect(d.stone.count).toBe(1)
   })
   it('닫힌 자루/없어진 UID/다른 물품을 선택해도 다른 돌을 자동 소비하지 않는다', () => {
     const d = setup(), sack = makeItem(d.w, 'Item.Sack'), inside = makeItem(d.w, 'Item.Stone'); inside.gx = 0; inside.gy = 0; sack.contents = [inside]; addToBag(d.w, d.p, sack)

@@ -24,6 +24,10 @@ onBeforeUnmount(() => {cancelContentAdoption();previousFocus?.focus()})
   <div class="fixed inset-0 z-[6000] flex items-start justify-center bg-black/65" role="dialog" aria-modal="true" aria-label="화면·접근성 설정">
     <Win title="화면·접근성 설정" :x="Math.max(8, (width - 460) / 2)" :y="70" :width="460" testid="win-settings" @close="preferencesOpen = false">
       <div class="space-y-4 p-2 text-sm text-ash-200">
+        <label class="flex items-center justify-between">지도 배율
+          <select v-model="p.mapZoom" class="bg-ash-800 p-1" aria-label="지도 배율" data-testid="map-zoom"><option value="auto">화면에 맞춤</option><option value="vision">전체 시야 맞춤</option><option :value="1">1배 · 넓게</option><option :value="2">2배</option><option :value="3">3배</option><option :value="4">4배 · 크게</option></select>
+        </label>
+        <p class="text-xs text-ash-400">‘전체 시야 맞춤’은 주변을 넓게 보여 준다. 배율은 보이는 거리나 턴을 바꾸지 않는다.</p>
         <label class="block">기록 글자 크기: {{ p.logFontSize }}px
           <input v-model.number="p.logFontSize" type="range" min="12" max="24" step="1" class="block w-full" aria-label="기록 글자 크기" />
         </label>

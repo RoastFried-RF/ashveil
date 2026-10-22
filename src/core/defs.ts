@@ -663,6 +663,10 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
+  for (const d of db.all<CreatureDef>('Creature')) if (d.vision !== undefined) {
+    const v = d.vision
+    if (!isObj(v) || !Number.isSafeInteger(v.maxRange) || v.maxRange < 1 || v.maxRange > 100 || !Number.isSafeInteger(v.perceptionStep) || v.perceptionStep < 1 || !Number.isFinite(v.perceptionBonus) || v.perceptionBonus < 0 || v.perceptionBonus > 1 || !Number.isSafeInteger(v.darkPenalty) || v.darkPenalty < 0 || v.darkPenalty > v.maxRange) report.errors.push(d.id + ': vision은 유한한 최대 거리1~100/양의 지각 구간/보너스0~1/최대 거리 이하의 어둠 감소가 필요하다')
+  }
   for (const d of db.all<CreatureDef>('Creature')) if (d.characterAliases !== undefined) {
     if (!isObj(d.characterAliases) || Object.entries(d.characterAliases).some(([key,value]) => !key.trim() || typeof value !== 'string' || !value.trim())) report.errors.push(d.id + ': characterAliases는 비어 있지 않은 외형 키/표시 키 대응이어야 함')
   }

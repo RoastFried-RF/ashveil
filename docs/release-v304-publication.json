@@ -1,0 +1,175 @@
+{
+  "version": 304,
+  "checkedAtUTC": "2026-10-22T19:12:52.119161+00:00",
+  "commit": "6f0674fef4ec8bb7d9ef3e8325dc301186e1c0b1",
+  "url": "https://roastfried-rf.github.io/ashveil/",
+  "ci": {
+    "conclusion": "success",
+    "databaseId": 39837285836,
+    "headSha": "6f0674fef4ec8bb7d9ef3e8325dc301186e1c0b1",
+    "jobs": [
+      {
+        "completedAt": "2026-10-22T19:07:57Z",
+        "conclusion": "success",
+        "databaseId": 120028800403,
+        "name": "build",
+        "startedAt": "2026-10-22T19:07:11Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm/action-setup@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm install --frozen-lockfile",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm exec vitest run tests/sprite-assets.test.ts --maxWorkers=1",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm validate-sprites",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm build",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run pnpm/action-setup@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/39837285836/job/120028800403"
+      },
+      {
+        "completedAt": "2026-10-22T19:08:13Z",
+        "conclusion": "success",
+        "databaseId": 120029224732,
+        "name": "deploy",
+        "startedAt": "2026-10-22T19:08:02Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/configure-pages@v5",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Publish playable preview",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 4,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/39837285836/job/120029224732"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/39837285836"
+  },
+  "publisherClean": true,
+  "normalMainPush": true,
+  "publishedFilesExactFinalSnapshot": 5989,
+  "snapshot": "/workspace/.ashveil-checkpoints/v304-controls-publication-ready",
+  "snapshotManifestSha256": "b86b083fbc066bf65038d21555855a80fc424ebf556947e16da39e6c6a560e38",
+  "publicAuditPath": "test-results/pages-v304-live-final/audit.json",
+  "publicAuditSha256": "1d61dd7817fe4d1d42026ebe34c4449949d44d825ce95f65bdd51d20cc952092",
+  "actualPublicTitle": "v0.304",
+  "actualStartInventoryBodyAndShiftN": true,
+  "publicInitialArtResponses": 91,
+  "publicUniqueOriginalFilesSha256Matched": 89,
+  "screenshots": [
+    {
+      "path": "test-results/pages-v304-live-final/01-live-title.png",
+      "sha256": "7d2c28c19b4d3030015cd82d2c17cb43219578352bc0162e2dc91c8b1103282d",
+      "actuallyOpenedAndReviewed": true
+    },
+    {
+      "path": "test-results/pages-v304-live-final/02-live-world-1440.png",
+      "sha256": "056df6546e32ce53cd08049bc0ee7bf5d6c572cc4184c28122da8af939c197a4",
+      "actuallyOpenedAndReviewed": true
+    },
+    {
+      "path": "test-results/pages-v304-live-final/03-live-inventory-1366.png",
+      "sha256": "ad941fdc6339e124951309b3db71dc2a4bf86024878955a361b465c3b667ae0c",
+      "actuallyOpenedAndReviewed": true
+    },
+    {
+      "path": "test-results/pages-v304-live-final/04-live-anatomy-1366.png",
+      "sha256": "85c8e84ae44a73b9d5bb672093af0e0ce2658e05e001cb50923b6cf5dae12fae",
+      "actuallyOpenedAndReviewed": true
+    }
+  ],
+  "errors": [],
+  "limits": "Fresh isolated browser context, real title seed/start/inventory/body clicks, normal UI only. Browser original-image responses all HTTP200; same public URLs fetched read-only inside the same-origin browser context and SHA-256 hashed with crypto.subtle because remote DevTools response.body is unsupported and Node direct fetch does not use the environment proxy. No debug state export. These four deployment screenshots are separate from local controls/common regression screenshots. Original v303 art is intentionally retained in v304. Initial pages-v304-live functional/hash checks passed but the first inventory shot caught a pending close-icon download; this final run waits for network/image decoding before that screenshot. Both raw runs are retained; final screenshot count is four. Shift+N opens the society window through the actual default binding.",
+  "documentationFollowup": "Post-push evidence queued locally for the next large change; no small documentation-only push."
+}

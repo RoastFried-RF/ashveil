@@ -386,6 +386,8 @@ export interface CreatureDef extends DefBase {
   morale: number
   lightThreshold: number
   sightRange: number
+  /** 구간별 지각 보너스와 어둠의 고정 거리 감소. 없으면 기존 종의 시야 규칙을 유지한다. */
+  vision?: { maxRange: number; perceptionStep: number; perceptionBonus: number; darkPenalty: number }
   scentSense?: number
   loadout?: { slots: { items: string[]; chance?: number; count?: [number, number] }[] }
   hunger?: [number, number]

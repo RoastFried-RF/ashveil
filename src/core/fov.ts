@@ -131,9 +131,20 @@ export function lightThreshold(w: World, c: Creature): number {
 }
 
 export function sightRange(w: World, c: Creature): number {
-  const base = w.db.creature(c.def).sightRange + traitAdd(w, c, 'sightRange') + Math.floor((effectiveStat(w, c, 'per') - 10) / 2) - (c.breakdown?.kind === 'cry' ? 2 : 0)
+  const def = w.db.creature(c.def), vision = def.vision
+  const perception = effectiveStat(w, c, 'per') - 10
+  const statRange = vision
+    ? def.sightRange * (1 + Math.max(0, Math.floor(perception / vision.perceptionStep)) * vision.perceptionBonus)
+    : def.sightRange + Math.floor(perception / 2)
+  const base = Math.min(vision?.maxRange ?? Infinity, statRange + traitAdd(w, c, 'sightRange') - (c.breakdown?.kind === 'cry' ? 2 : 0))
   const weather = weatherSight(w), protectedEyes = Object.values(c.equip).some((it) => it && w.db.item(it.def).apparel?.eyeProtection)
-  return Math.max(1, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight'))))
+  return Math.max(1, Math.min(vision?.maxRange ?? Infinity, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight')))))
+}
+
+/** 광원이 닿지 않는 곳을 볼 수 있는 거리. 조명된 대상은 전체 시야 범위를 사용한다. */
+export function darkSightRange(w: World, c: Creature, range = sightRange(w, c)): number {
+  const penalty = w.db.creature(c.def).vision?.darkPenalty
+  return penalty === undefined ? 1 : Math.max(1, range - penalty)
 }
 
 /** 관찰자가 대상 위치를 볼 수 있는가 (거리·시선·조명·잠행) */
@@ -143,13 +154,22 @@ export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>, ba
   const d = cheb(viewer.pos, p)
   if (d <= 1) return true
   let range = baseRange ?? sightRange(w, viewer)
+  const vision = w.db.creature(viewer.def).vision
+  if (d > range || vision && dist2(viewer.pos, p) > range * range) return false
+  const lit = lightAt(w, p) >= lightThreshold(w, viewer)
+  if (!lit) {
+    if (!vision) return false
+    range = darkSightRange(w, viewer, range)
+  }
   const target = creatureAt(w, p)
   if (target?.sneaking && target.id !== viewer.id) range = Math.floor(range * 0.6)
   if (d > 5) range = Math.max(5, Math.floor(range * traitMul(w, viewer, 'farSightMult')))
   if (d > range) return false
+  // 그림자 투사와 직접 관찰 판정이 동일한 원형 범위를 사용한다.
+  if (vision && dist2(viewer.pos, p) > range * range) return false
   if (fov) { if (!fov.has(idx(w, p))) return false }
   else if (!hasLos(w, viewer.pos, p)) return false
-  return lightAt(w, p) >= lightThreshold(w, viewer)
+  return true
 }
 
 export function updatePlayerVision(w: World, pl: Creature) {

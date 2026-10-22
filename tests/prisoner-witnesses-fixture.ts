@@ -14,6 +14,9 @@ function prepared():World{
  town.creatures=town.creatures.filter(c=>c!==witness);s.creatures.push(witness);witness.mapId=s.map.id;witness.pos={x:22,y:20};witness.home={...witness.pos};witness.asleep=false;witness.unconscious=false;witness.activity=undefined;witness.ai.mode='guard';witness.nextAct=s.time+100
  if(witness.equip.off){const it=witness.equip.off;delete witness.equip.off;if(addToBag(w,witness,it))throw Error('original witness offhand cannot fit in own bag')}
  witness.equip.off=p.equip.off;delete p.equip.off;Object.assign(witness.needs,{kcal:1000,waterDeficit:0,fatigue:10,bodyTemp:37})
+ // 12칸 시야에서는 예전의11칸 간격도 보인다. 비공개 목격 장면은 실제 벽으로 분리한다.
+ // 남쪽 대화와 북쪽 직접 재관찰은 그대로 유지하며 원래 인원/물품/시각을 바꾸지 않는다.
+ for(let x=0;x<s.map.w;x++)tileAt(w,{x,y:25}).t='Terrain.RuinWall'
  invalidateLights(w);updatePlayerVision(w,p);for(let i=0;!witness.prisonerSightings?.[victim.id]&&i<3;i++){const error=playerAct(w,{type:'wait'});if(error)throw Error(error)}
  if(!witness.prisonerSightings?.[victim.id]||s.knowledge.prisonerSightings?.[victim.id])throw Error('actual witness-only first observation was not private')
  witnessId=witness.id;victimId=victim.id;template=serialize(s);return{db:w.db,s:deserialize(template)}
@@ -21,7 +24,7 @@ function prepared():World{
 export function prisonerWitnessesFixture(phase:PrisonerWitnessPhase='ready'){
  const w=prepared(),s=w.s,p=player(w),witness=s.creatures.find(c=>c.id===witnessId)!,victim=s.creatures.find(c=>c.id===victimId)!,at=witness.prisonerSightings![victim.id]!.at
  const act=(a:Parameters<typeof playerAct>[1],budget?:number)=>{const error=playerAct(w,a,budget);if(error)throw Error(error)}
- const proof={phase,originalWitnessId:witness.id,originalVictimId:victim.id,originalActorIds:s.creatures.map(c=>c.id),actualWitnessObservationAt:at,declaredInitialWitnessLocationLampHolderAndConversationLocation:true,notClaimingWitnessInterregionJourneyOrNaturalAbductionHistory:true}
+ const proof={phase,originalWitnessId:witness.id,originalVictimId:victim.id,originalActorIds:s.creatures.map(c=>c.id),actualWitnessObservationAt:at,declaredPrivacyWallRow:25,declaredInitialWitnessLocationLampHolderAndConversationLocation:true,notClaimingWitnessInterregionJourneyOrNaturalAbductionHistory:true}
  const finish=()=>({w,s,p,witness,victim,act,proof:{...proof,initialRendererFx:s.fx.splice(0)}})
  if(phase==='private')return finish()
  witness.pos={x:21,y:31};witness.home={...witness.pos};witness.nextAct=s.time+28800*100;invalidateLights(w);updatePlayerVision(w,p)

@@ -60,8 +60,8 @@ describe('4계절·지역 기후와8날씨', () => {
   it('폭풍·서리안개가 실제 시야를 줄이고 재바람은 풍속과 눈 자극을 더한다', () => {
     const w = setup(), p = player(w), base = sightRange(w, p), normal = windStrength(w, p)
     w.s.weather = 'ashstorm'; expect(sightRange(w, p)).toBeLessThan(base); expect(ambientNoise(w)).toBe(6)
-    w.s.weather = 'frostfog'; expect(sightRange(w, p)).toBe(3)
-    w.s.weather = 'ashgale'; expect(windStrength(w, p)).toBe(normal + 2); expect(sightRange(w, p)).toBe(3)
+    w.s.weather = 'frostfog'; expect(sightRange(w, p)).toBe(4)
+    w.s.weather = 'ashgale'; expect(windStrength(w, p)).toBe(normal + 2); expect(sightRange(w, p)).toBe(4)
     tileAt(w, p.pos).roof = true; expect(windStrength(w, p)).toBe(0)
   })
   it('폭풍은 냄새 발생을1/4로 씻고 금속을 재비의 두 배로 부식시킨다', () => {

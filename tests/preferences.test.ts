@@ -2,6 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { DEFAULT_PREFERENCES, normalizePreferences } from '../src/client/preferences'
 
 describe('화면 설정 호환', () => {
+  it('지도 배율은 정수1~4/자동/전체 시야만 복원하고 구형 기본 배율을 유지한다', () => {
+    expect(normalizePreferences({}).mapZoom).toBe('auto')
+    for (const mapZoom of ['auto', 'vision', 1, 2, 3, 4]) expect(normalizePreferences({ mapZoom }).mapZoom).toBe(mapZoom)
+    for (const mapZoom of [0, 5, 1.5, '2', null, {}, NaN, Infinity]) expect(normalizePreferences({ mapZoom }).mapZoom).toBe('auto')
+  })
   it('손상·구버전 설정은 알려진 필드만 복원한다', () => {
     for (const raw of [null, 4, [], '잘못된 설정']) expect(normalizePreferences(raw)).toEqual(DEFAULT_PREFERENCES)
     expect(normalizePreferences({ logFontSize: 20, oldSetting: true, palette: 'redgreen' })).toEqual({ ...DEFAULT_PREFERENCES, logFontSize: 20, palette: 'redgreen' })

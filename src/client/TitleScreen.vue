@@ -229,7 +229,7 @@ async function cont(token?:string) {
       </section>
 
       <footer class="title-footer">
-        ASHVEIL · v0.304 · 잿빛 수도원 원본 미술<br />
+        ASHVEIL · v0.305 · 시야와 빛<br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />
         보존 자료 출처: <a class="underline" href="https://pingupollas.itch.io/knowledge-temple" target="_blank" rel="noopener">Knowledge Temple</a> · <a class="underline" href="https://pingupollas.itch.io/crawling-depths" target="_blank" rel="noopener">Crawling Depths</a> by pingupollas · <a class="underline" href="https://arex-v.itch.io/damp-dungeons" target="_blank" rel="noopener">Damp Dungeons</a> by arex-v · <a class="underline" href="https://kaishido.itch.io/dark-world" target="_blank" rel="noopener">Dark World</a> by kaishido · <a class="underline" href="https://0x72.itch.io/dungeontileset-ii" target="_blank" rel="noopener">Dungeon Tileset II</a> by 0x72 · <a class="underline" href="https://hypnobius.itch.io/dark-ages-ui" target="_blank" rel="noopener">Dark Ages UI</a> by hypnobius · DCSS 32×32 (CC0)<br />인물과 장소가 이어가는 생존 이야기
       </footer>
