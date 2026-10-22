@@ -9,11 +9,12 @@ import { preferences } from './preferences'
 import { version, world } from './store'
 
 const props = defineProps<{ opts: RenderOpts }>()
-const emit = defineEmits<{ hover: [p: Pos | null]; click: [p: Pos, button: number] }>()
+const emit = defineEmits<{ hover: [p: Pos | null]; click: [p: Pos, button: number, ctrl: boolean] }>()
 const host = ref<HTMLDivElement>()
 const loading = ref(true)
 let r: MapRenderer | null = null
 let disposed=false
+let resizeObserver:ResizeObserver|undefined
 
 onMounted(async () => {
   const w = world.value
@@ -23,12 +24,14 @@ onMounted(async () => {
   if(!await loadAtlas(icons)||disposed)return
   const renderer = new MapRenderer(host.value)
   renderer.onHover = (p) => emit('hover', p)
-  renderer.onClick = (p, b) => emit('click', p, b)
+  renderer.onClick = (p, b, ctrl) => emit('click', p, b, ctrl)
   await renderer.init()
   if(disposed){renderer.destroy();return}
   r=renderer
   r.setOpts(props.opts)
   if (world.value) r.sync(world.value)
+  resizeObserver=new ResizeObserver(()=>{if(r&&world.value)r.sync(world.value)})
+  resizeObserver.observe(host.value)
   loading.value = false
 })
 
@@ -36,12 +39,12 @@ watch(preferences, () => { if (r && world.value) r.sync(world.value) })
 watch(version, () => { if (r && world.value) r.sync(world.value) })
 watch(() => props.opts, (o) => r?.setOpts(o), { deep: true })
 
-onBeforeUnmount(() => { disposed=true;r?.destroy(); r = null })
+onBeforeUnmount(() => { disposed=true;resizeObserver?.disconnect();r?.destroy(); r = null })
 </script>
 
 <template>
   <div class="relative h-full w-full overflow-hidden bg-[#070707]">
-    <div ref="host" class="h-full w-full" data-testid="map" :data-ready="!loading" />
+    <div ref="host" class="h-full w-full outline-none" tabindex="0" aria-label="게임 지도" data-testid="map" :data-ready="!loading" @pointerdown="host?.focus({preventScroll:true})" />
     <div v-if="loading" class="absolute inset-0 flex items-center justify-center font-title text-ash-400">그림자를 불러오는 중…</div>
   </div>
 </template>

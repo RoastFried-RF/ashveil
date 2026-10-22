@@ -35,13 +35,13 @@ function fixture(buddy=false){
  return{...data,captor,victim,food,water}
 }
 try{
- const d=fixture(),{w,p,victim,rope,food,water}=d,page=await open(w);await page.keyboard.press('n');const row=page.locator(`[data-prisoner-id="${victim.id}"]`)
+ const d=fixture(),{w,p,victim,rope,food,water}=d,page=await open(w);await page.keyboard.press('Shift+n');const row=page.locator(`[data-prisoner-id="${victim.id}"]`)
  await row.locator('[data-prisoner-action=release]').click();await idle(page);let state=await read(page,victim.id)
  assert.equal(state.target.unconscious,true);assert.equal(state.target.captivity,undefined)
  await page.keyboard.press('Escape')
  for(let i=0;state.target.unconscious&&i<150;i++){await page.keyboard.press('Numpad5');await idle(page);state=await read(page,victim.id)}
  assert.equal(state.target.unconscious,false);assert.ok(cheb(state.p.pos,state.target.pos)<=1)
- await page.keyboard.press('n');await row.locator(`[data-care-uid="${food.uid}"]`).click();await idle(page);await row.locator(`[data-care-uid="${water.uid}"]`).click();await idle(page)
+ await page.keyboard.press('Shift+n');await row.locator(`[data-care-uid="${food.uid}"]`).click();await idle(page);await row.locator(`[data-care-uid="${water.uid}"]`).click();await idle(page)
  const cared=await read(page,victim.id);assert.equal(cared.target.rescue!.acknowledged,true);assert.equal(cared.target.rescue!.care![p.id].kcal,350);assert.ok(cared.target.rescue!.care![p.id].water>=200)
  const talk=row.locator('[data-prisoner-recruit=talk]'),invite=row.locator('[data-prisoner-recruit=invite]');assert.match(await talk.textContent()??'',/0\/1일/);assert.equal(await talk.isEnabled(),true);assert.equal(await invite.isEnabled(),false)
  await page.screenshot({path:`${out}/173-freed-awake-real-care-consent.png`})
@@ -54,7 +54,7 @@ try{
  await panel.locator('summary').first().click();await panel.locator('[data-testid=companion-dismiss]').click();await idle(page);const dismissed=await read(page,victim.id);assert.equal(dismissed.target.companion!.status,'dismissed')
  assert.equal(await invite.isEnabled(),true);await invite.click();await idle(page);const rejoined=await read(page,victim.id)
  assert.equal(rejoined.target.companion!.paidUntil,joined.target.companion!.paidUntil);assert.equal(rejoined.target.companion!.trialUntil,joined.target.companion!.trialUntil);assert.equal(rejoined.target.companion!.hiredAt,joined.target.companion!.hiredAt);assert.deepEqual([rejoined.p.money,rejoined.target.money],[joined.p.money,joined.target.money]);await page.screenshot({path:`${out}/176-returning-companion-keeps-original-deadlines.png`})
- const saved=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));assert.equal(JSON.parse(saved).version,SAVE_VERSION);await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.reload();await page.click('[data-testid=continue]');await page.waitForSelector('[data-testid=map] canvas');const restored=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));writeFileSync(`${out}/before.json`,saved);writeFileSync(`${out}/restored.json`,restored);assert.deepEqual(JSON.parse(restored),JSON.parse(saved));await page.keyboard.press('n');await page.screenshot({path:`${out}/177-freed-recruitment-restored.png`})
+ const saved=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));assert.equal(JSON.parse(saved).version,SAVE_VERSION);await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.reload();await page.click('[data-testid=continue]');await page.waitForSelector('[data-testid=map] canvas');const restored=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));writeFileSync(`${out}/before.json`,saved);writeFileSync(`${out}/restored.json`,restored);assert.deepEqual(JSON.parse(restored),JSON.parse(saved));await page.keyboard.press('Shift+n');await page.screenshot({path:`${out}/177-freed-recruitment-restored.png`})
  assert.deepEqual(errors,[]);console.log('OK: actual free rescue/wake/care/hour/consent/invite/same body/returning contract/save33')
 }catch(error){for(const[i,page]of browser.contexts().flatMap((c)=>c.pages()).entries()){await page.screenshot({path:`${out}/failure-${i}.png`}).catch(()=>{});writeFileSync(`${out}/failure-${i}.txt`,await page.textContent('body')??'')}console.error(errors);throw error}
 finally{await browser.close();if(server.pid)process.kill(-server.pid)}

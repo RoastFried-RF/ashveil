@@ -16,7 +16,7 @@ async function initial(w:World){const p=await browser.newPage({viewport:{width:1
 async function close(p:Page){for(let i=0;i<6&&await p.locator('[data-testid^="win-"]:visible').count();i++)await p.keyboard.press('Escape')}
 async function shot(p:Page,name:string){await p.waitForTimeout(800);await p.screenshot({path:out+'/'+name+'.png'})}
 async function restore(p:Page,label:string){await close(p);const before=await read(p);assert.equal(before.version,SAVE_VERSION);await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');const after=await read(p);assert.deepEqual(after,before);writeFileSync(out+'/'+label+'-before.json',JSON.stringify(before));writeFileSync(out+'/'+label+'-after.json',JSON.stringify(after));return after}
-async function select(p:Page,id:number){await close(p);await p.keyboard.press('n');await p.getByTestId('win-society').waitFor();await p.locator('[data-person-id="'+id+'"]').click()}
+async function select(p:Page,id:number){await close(p);await p.keyboard.press('Shift+n');await p.getByTestId('win-society').waitFor();await p.locator('[data-person-id="'+id+'"]').click()}
 async function approach(p:Page,d:ReturnType<typeof firstImpressionsFixture>,id:number){await close(p);for(let i=0;i<40;i++){const s=await read(p),w={db:d.w.db,s},target=s.creatures.find(c=>c.id===id)!,step=meetingStep(w,target);if(!step)return;await p.keyboard.press(['ArrowUp','Numpad9','ArrowRight','Numpad3','ArrowDown','Numpad1','ArrowLeft','Numpad7'][step.dir]);await idle(p)}throw Error('actual native resident approach budget')}
 let page:Page|undefined
 try{

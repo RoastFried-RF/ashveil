@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 격자 소지품: 장비 인형(11칸) + 10×6 격자 배낭 + 루팅 창. 끌어서 옮기기·장착·버리기.
 import { foodMergeQuote,isWaterVessel,waterCapacity,cookingQuote,nearbyCampfires,nearbyIce, nearbySnow } from '../../core'
-import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   corpseMoneyQuote, economyDef, bestiaryEntry, knownCreatureName, dissectionChance, dissectionError, bestiaryDef, waterSafetyDef, waterPourQuote, drinkVolume, WATER_TREATMENT_LABEL, BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, knowledgeDef, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type WaterTreatment, type ItemInst, type Slot, type World,
 } from '../../core'
@@ -11,6 +11,9 @@ import { itemHotbarRef, assignHotbar, doAct, hideTip, hint, showTip, useItem, wi
 import ItemBadges from './ItemBadges.vue'
 import ItemIcon from './ItemIcon.vue'
 import Win from './Win.vue'
+import {cycleFocus,focusableIn} from '../input-context'
+import {preferencesOpen} from '../preferences'
+import {definitionInspectorOpen} from '../definition-inspector-ui'
 
 const CELL = 38
 const DOLL: (Slot | null)[][] = [['neck', 'head', 'back'], ['main', 'chest', 'off'], ['ring1', 'hands', 'ring2'], ['belt', 'feet', 'lining']]
@@ -37,20 +40,24 @@ const d = computed(() => {
 interface Drag { from: 'bag' | 'equip' | 'loot' | 'floor'; it: ItemInst; slot?: Slot; gdx: number; gdy: number; x: number; y: number; moved: boolean; sx: number; sy: number; rot: boolean }
 const drag = ref<Drag | null>(null)
 const menu = ref<{ x: number; y: number; it: ItemInst; from: Drag['from']; slot?: Slot } | null>(null)
+const menuRoot=ref<HTMLElement|null>(null)
+let menuOrigin:HTMLElement|null=null,foodMergeOrigin:HTMLElement|null=null
+let dismissClickCleanup:(()=>void)|undefined
 const foodMerge=ref<{uid:number;into:number;n?:number;signature:string;description:string}|null>(null)
-function closeFoodMerge(){foodMerge.value=null;window.removeEventListener('keydown',foodMergeKey,true)}
+function closeFoodMerge(){foodMerge.value=null;window.removeEventListener('keydown',foodMergeKey,true);if(foodMergeOrigin?.isConnected)foodMergeOrigin.focus({preventScroll:true})}
 function foodMergeKey(e:KeyboardEvent){
   if(!foodMerge.value)return
   e.stopImmediatePropagation()
   if(e.key==='Escape'){e.preventDefault();closeFoodMerge();return}
-  if(e.key==='Tab'||e.ctrlKey||e.metaKey)return
+  if(e.key==='Tab'){const root=document.querySelector<HTMLElement>('[data-testid=food-merge-confirmation]');if(root)cycleFocus(root,e);return}
+  if(e.ctrlKey||e.metaKey)return
   if((e.key==='Enter'||e.key===' ')&&(e.target as HTMLElement)?.closest('[data-testid=food-merge-confirmation] button'))return
   e.preventDefault()
 }
 onBeforeUnmount(()=>window.removeEventListener('keydown',foodMergeKey,true))
 function requestMerge(uid:number,into:number,n?:number){
   const w=world.value as World,quote=foodMergeQuote(w,player(w),uid,into,n)
-  if(!quote.error&&quote.needsConsent){foodMerge.value={uid,into,n,signature:quote.signature,description:quote.description};window.addEventListener('keydown',foodMergeKey,true);void nextTick(()=>document.querySelector<HTMLButtonElement>('[data-testid=food-merge-cancel]')?.focus());return null}
+  if(!quote.error&&quote.needsConsent){foodMergeOrigin=document.activeElement instanceof HTMLElement?document.activeElement:null;foodMerge.value={uid,into,n,signature:quote.signature,description:quote.description};window.addEventListener('keydown',foodMergeKey,true);void nextTick(()=>document.querySelector<HTMLButtonElement>('[data-testid=food-merge-cancel]')?.focus());return null}
   return act({type:'mergeItem',uid,into,n})
 }
 function confirmFoodMerge(){
@@ -61,10 +68,13 @@ function confirmFoodMerge(){
 
 function down(e: PointerEvent, from: Drag['from'], it: ItemInst, slot?: Slot) {
   if (e.button !== 0) return
+  cancelDrag();closeMenu(false)
+  ;(e.currentTarget as HTMLElement).focus({preventScroll:true})
   const el = (e.currentTarget as HTMLElement).getBoundingClientRect()
   drag.value = { from, it, slot, gdx: Math.floor((e.clientX - el.left) / CELL), gdy: Math.floor((e.clientY - el.top) / CELL), x: e.clientX, y: e.clientY, moved: false, sx: e.clientX, sy: e.clientY, rot: (from === 'bag' || from === 'loot') && !!it.rot }
   window.addEventListener('pointermove', move)
   window.addEventListener('pointerup', up)
+  window.addEventListener('pointercancel',cancelDrag)
   window.addEventListener('keydown', rotKey, true)
   window.addEventListener('contextmenu', rotCtx, true)
 }
@@ -80,6 +90,7 @@ function move(e: PointerEvent) {
 function cellAt(sel: string, x: number, y: number, gw: number, gh: number): [number, number] | null {
   const el = document.querySelector(sel)
   if (!el) return null
+  if(document.elementFromPoint(x,y)?.closest('[data-testid=bag],[data-testid=loot-grid]')!==el)return null
   const r = el.getBoundingClientRect()
   const cx = Math.floor((x - r.left - 2) / CELL), cy = Math.floor((y - r.top - 2) / CELL)
   return cx >= 0 && cy >= 0 && cx < gw && cy < gh ? [cx, cy] : null
@@ -126,11 +137,16 @@ function rotate() {
   g.gdx = 0
   g.gdy = 0
 }
-function rotKey(e: KeyboardEvent) {
-  if (!drag.value?.moved || (e.key !== 'r' && e.key !== 'R')) return
-  e.preventDefault()
-  e.stopImmediatePropagation()
-  rotate()
+function rotKey(e:KeyboardEvent){
+  if(!drag.value)return
+  e.preventDefault();e.stopImmediatePropagation()
+  if(e.key==='Escape'){cancelDrag();return}
+  if(drag.value.moved&&e.code==='KeyR'&&!e.repeat)rotate()
+}
+function cancelDrag(){
+  drag.value=null;hover.value=null
+  window.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);window.removeEventListener('pointercancel',cancelDrag)
+  window.removeEventListener('keydown',rotKey,true);window.removeEventListener('contextmenu',rotCtx,true)
 }
 function rotCtx(e: MouseEvent) {
   if (!drag.value?.moved) return
@@ -140,16 +156,12 @@ function rotCtx(e: MouseEvent) {
 }
 function up(e: PointerEvent) {
   if (e.button !== 0) return
-  window.removeEventListener('pointermove', move)
-  window.removeEventListener('pointerup', up)
-  window.removeEventListener('keydown', rotKey, true)
-  window.removeEventListener('contextmenu', rotCtx, true)
-  const g = drag.value
-  drag.value = null
-  hover.value = null
+  const g=drag.value
+  cancelDrag()
   if (!g || !g.moved) return
   const w = world.value as World
   const tgt = dropTarget(g, e)
+  if(tgt&&!tgt.ok){hint.value='놓을 공간이 없다';return}
   if (tgt?.grid === 'bag' && g.from === 'bag') {
     const n = splitN(e, g.it)
     const err = tgt.merge ? requestMerge(g.it.uid,tgt.merge.uid,n)
@@ -186,7 +198,10 @@ function up(e: PointerEvent) {
     assignHotbar(itemHotbarRef(world.value as World,g.it))
   }
 }
-onBeforeUnmount(() => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('keydown', rotKey, true); window.removeEventListener('contextmenu', rotCtx, true) })
+function cancelPointer(){cancelDrag();closeMenu(false);dismissClickCleanup?.()}
+watch([preferencesOpen,definitionInspectorOpen],([settings,inspector])=>{if(settings||inspector){cancelPointer();if(foodMerge.value)closeFoodMerge()}},{flush:'sync'})
+onMounted(()=>window.addEventListener('blur',cancelPointer))
+onBeforeUnmount(()=>{cancelPointer();window.removeEventListener('blur',cancelPointer)})
 
 /** 같은 칸에 착용 중인 장비와 비교 (12 §2.3 I 창 비교) */
 function compare(w: World, it: ItemInst): string[] {
@@ -228,10 +243,55 @@ function dbl(it: ItemInst, from: Drag['from'], slot?: Slot) {
   if(itemDef(w,it).storage)return doAct({type:'openBag',uid:it.uid})
   useItem(w, it)
 }
-function ctx(e: MouseEvent, it: ItemInst, from: Drag['from'], slot?: Slot) {
-  hideTip()
-  menu.value = { x: e.clientX, y: e.clientY, it, from, slot }
+function closeMenu(restore=true){
+  menu.value=null
+  window.removeEventListener('keydown',menuKey,true);document.removeEventListener('pointerdown',outsideMenu,true);window.removeEventListener('resize',clampMenu)
+  if(restore&&menuOrigin?.isConnected)menuOrigin.focus({preventScroll:true})
 }
+function clampMenu(){
+ const m=menu.value,el=menuRoot.value;if(!m||!el)return
+ const rect=el.getBoundingClientRect();m.x=Math.max(8,Math.min(m.x,window.innerWidth-rect.width-8));m.y=Math.max(8,Math.min(m.y,window.innerHeight-rect.height-8))
+}
+function outsideMenu(e:PointerEvent){
+ if(!menu.value||menuRoot.value?.contains(e.target as Node))return
+ closeMenu();e.preventDefault();e.stopImmediatePropagation()
+ // Prevent the click following this pointerdown from activating the control behind it.
+ dismissClickCleanup?.()
+ let timer:ReturnType<typeof setTimeout>|undefined
+ const clear=()=>{clearTimeout(timer);document.removeEventListener('click',consume,true);document.removeEventListener('pointerup',released,true);document.removeEventListener('pointercancel',clear,true);document.removeEventListener('pointerdown',nextPointer,true);dismissClickCleanup=undefined}
+ const consume=(event:MouseEvent)=>{event.preventDefault();event.stopImmediatePropagation();clear()}
+ const released=()=>{timer=setTimeout(clear,0)}
+ const nextPointer=(event:PointerEvent)=>{if(event!==e)clear()}
+ dismissClickCleanup=clear
+ document.addEventListener('click',consume,true);document.addEventListener('pointerup',released,true);document.addEventListener('pointercancel',clear,true);document.addEventListener('pointerdown',nextPointer,true)
+}
+function menuKey(e:KeyboardEvent){
+ const root=menuRoot.value;if(!menu.value||!root)return
+ e.stopImmediatePropagation()
+ if(e.key==='Escape'){e.preventDefault();closeMenu();return}
+ if(e.key==='Tab'){cycleFocus(root,e);return}
+ const controls=focusableIn(root),at=controls.indexOf(document.activeElement as HTMLElement)
+ if(['ArrowDown','ArrowUp','Home','End'].includes(e.key)){
+  e.preventDefault();const i=e.key==='Home'?0:e.key==='End'?controls.length-1:at<0?(e.key==='ArrowUp'?controls.length-1:0):(at+(e.key==='ArrowUp'?-1:1)+controls.length)%controls.length;controls[i]?.focus();return
+ }
+ if((e.key==='Enter'||e.key===' ')&&root.contains(document.activeElement)){if(e.repeat)e.preventDefault();return}
+ e.preventDefault()
+}
+function ctx(e:{clientX:number;clientY:number;currentTarget:EventTarget|null},it:ItemInst,from:Drag['from'],slot?:Slot){
+ hideTip();cancelDrag();closeMenu(false)
+ menuOrigin=e.currentTarget instanceof HTMLElement?e.currentTarget:null
+ menu.value={x:e.clientX,y:e.clientY,it,from,slot}
+ window.addEventListener('keydown',menuKey,true);document.addEventListener('pointerdown',outsideMenu,true);window.addEventListener('resize',clampMenu)
+ void nextTick(()=>{clampMenu();menuRoot.value?.querySelector<HTMLElement>('button')?.focus({preventScroll:true})})
+}
+function itemAccess(it:ItemInst,from:Drag['from'],slot?:Slot){return{
+ role:'button',tabindex:0,'aria-label':itemLabel(d.value.w,it)+' · Enter: 메뉴','data-inventory-item':it.uid,
+ onKeydown:(e:KeyboardEvent)=>{
+  if(!['Enter',' ','ContextMenu'].includes(e.key)&&!(e.shiftKey&&e.key==='F10'))return
+  e.preventDefault();e.stopPropagation();if(e.repeat)return
+  const box=(e.currentTarget as HTMLElement).getBoundingClientRect();ctx({clientX:box.left,clientY:box.bottom,currentTarget:e.currentTarget},it,from,slot)
+ },
+}}
 const menuItems = computed(() => {
   const m = menu.value
   if (!m) return []
@@ -296,7 +356,7 @@ const menuItems = computed(() => {
   else out.push(['줍기', () => doAct({ type: 'pickup', uid: m.it.uid })])
   return out
 })
-function pick(f: () => void) { menu.value = null; f() }
+function pick(f: () => void) { closeMenu();f() }
 
 function size(it: ItemInst): [number, number] {
   return itemSize(world.value as World, it)
@@ -316,7 +376,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 </script>
 
 <template>
-  <Win title="소지품" :x="420" :y="70" :width="660" testid="win-inv" @close="wins.inv = false" @pointerdown="menu = null">
+  <Win title="소지품" :x="420" :y="70" :width="660" testid="win-inv" @close="wins.inv = false">
     <div class="flex flex-wrap gap-3">
       <!-- 장비 인형 -->
       <div class="relative shrink-0">
@@ -327,7 +387,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
               <div v-if="s" class="df relative flex h-full w-full items-center justify-center" :class="d.pl.equip[s] ? 'df-slot-sel' : 'df-slot'" data-drop="slot" :data-slot="s" :data-testid="`slot-${s}`">
                 <template v-if="d.pl.equip[s]">
                   <div
-                    class="flex h-full w-full cursor-grab items-center justify-center" @pointerdown="down($event, 'equip', d.pl.equip[s]!, s)" @dblclick="dbl(d.pl.equip[s]!, 'equip', s)"
+                    class="flex h-full w-full cursor-grab items-center justify-center" v-bind="itemAccess(d.pl.equip[s]!,'equip',s)" @pointerdown="down($event, 'equip', d.pl.equip[s]!, s)" @dblclick="dbl(d.pl.equip[s]!, 'equip', s)"
                     @contextmenu.prevent="ctx($event, d.pl.equip[s]!, 'equip', s)" @mouseenter="tip($event, d.pl.equip[s]!)" @mousemove="tip($event, d.pl.equip[s]!)" @mouseleave="hideTip"
                   >
                     <ItemIcon :name="d.w.db.item(d.pl.equip[s]!.def).sprite" :size="32" />
@@ -354,7 +414,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
           <div
             v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-            :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`" :data-uid="it.uid"
+            :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`" :data-uid="it.uid" v-bind="itemAccess(it,'bag')"
             :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
@@ -388,8 +448,8 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
       <div v-if="d.lootEq.length" class="mb-1 flex flex-wrap items-center gap-1">
         <span class="text-[10px] text-ash-500">입고 있는 것 (벗기기 = 탈 턴):</span>
         <div
-          v-for="e in d.lootEq" :key="e.it.uid" class="df df-slot relative flex h-[40px] w-[40px] cursor-grab items-center justify-center" :data-testid="`loot-${e.it.def}`"
-          @pointerdown="down($event, 'loot', e.it)" @dblclick="dbl(e.it, 'loot')" @mouseenter="tip($event, e.it)" @mouseleave="hideTip"
+          v-for="e in d.lootEq" :key="e.it.uid" class="df df-slot relative flex h-[40px] w-[40px] cursor-grab items-center justify-center" :data-testid="`loot-${e.it.def}`" v-bind="itemAccess(e.it,'loot')"
+          @pointerdown="down($event, 'loot', e.it)" @dblclick="dbl(e.it, 'loot')" @contextmenu.prevent="ctx($event,e.it,'loot')" @mouseenter="tip($event, e.it)" @mouseleave="hideTip"
         >
           <ItemIcon :name="d.w.db.item(e.it.def).sprite" :size="28" />
           <ItemBadges :w="d.w" :it="e.it" />
@@ -403,9 +463,9 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         <div v-if="hover?.grid === 'loot'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" />
         <div
           v-for="it in d.grid.items.filter((x) => x.gx !== undefined)" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-          :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`loot-${it.def}`"
+          :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`loot-${it.def}`" v-bind="itemAccess(it,'loot')"
           :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
-          @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
+          @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @contextmenu.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
         >
           <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
           <ItemBadges :w="d.w" :it="it" />
@@ -417,8 +477,8 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         <p v-if="!d.loot.length" class="text-xs text-ash-500">비어 있다.</p>
         <div class="flex flex-wrap gap-1">
           <div
-            v-for="it in d.loot" :key="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" :data-testid="`loot-${it.def}`"
-            @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @click.right.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mouseleave="hideTip"
+            v-for="it in d.loot" :key="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" :data-testid="`loot-${it.def}`" v-bind="itemAccess(it,'loot')"
+            @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @contextmenu.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mouseleave="hideTip"
           >
             <ItemIcon :name="d.w.db.item(it.def).sprite" />
             <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
@@ -429,7 +489,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
     <div v-else-if="d.floor.length" class="df df-olive mt-2">
       <div class="mb-1 flex items-center justify-between"><span class="font-title text-sm text-[#e8d7a8]">발밑</span><button class="dbtn" @click="doAct({ type: 'pickup' })">모두 줍기 (G)</button></div>
       <div class="flex flex-wrap gap-1">
-        <div v-for="it in d.floor" :key="it.uid" :data-floor-uid="it.uid" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" @pointerdown="down($event, 'floor', it)" @dblclick="dbl(it, 'floor')" @mouseenter="tip($event, it)" @mouseleave="hideTip">
+        <div v-for="it in d.floor" :key="it.uid" :data-floor-uid="it.uid" v-bind="itemAccess(it,'floor')" class="df df-slot relative flex h-[46px] w-[46px] cursor-grab items-center justify-center" @pointerdown="down($event, 'floor', it)" @dblclick="dbl(it, 'floor')" @contextmenu.prevent="ctx($event,it,'floor')" @mouseenter="tip($event, it)" @mouseleave="hideTip">
           <ItemIcon :name="d.w.db.item(it.def).sprite" />
           <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8]">{{ it.count }}</span>
         </div>
@@ -450,7 +510,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" /></div>
         <span class="absolute -bottom-4 left-0 whitespace-nowrap text-[10px] text-amber-200 [text-shadow:0_1px_0_#000]">R·우클릭: 돌리기</span>
       </div>
-      <div v-if="menu" class="df df-celtic fixed z-[9998] min-w-[120px]" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>
+      <div v-if="menu" ref="menuRoot" role="dialog" aria-label="물품 행동" data-testid="item-menu" class="df df-celtic fixed z-[9998] max-h-[calc(100dvh-16px)] max-w-[calc(100vw-16px)] min-w-[120px] overflow-y-auto" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>
         <div class="mb-1 border-b border-[#4a4436] text-xs text-[#e8d7a8]">{{ itemLabel(d.w, menu.it) }}</div>
         <button v-for="[l, f] in menuItems" :key="l" class="block w-full px-1 py-0.5 text-left text-xs text-ash-100 hover:bg-[#3a3428] hover:text-amber-200" @click="pick(f)">{{ l }}</button>
       </div>

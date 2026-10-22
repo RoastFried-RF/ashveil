@@ -18,7 +18,7 @@ export function diagonalBlocked(w: World, from: Pos, dx: number, dy: number): bo
   return !pa && !pb
 }
 
-export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number; avoidCreatures?: boolean; selfId?: number; avoidWater?:boolean;avoidCells?:ReadonlySet<number> } = {}): Pos[] | null {
+export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number; avoidCreatures?: boolean; selfId?: number; avoidWater?:boolean;avoidCells?:ReadonlySet<number>;preferStraight?:boolean } = {}): Pos[] | null {
   const W = w.s.map.w
   const maxNodes = opts.maxNodes ?? 2500
   const key = (p: Pos) => p.y * W + p.x
@@ -27,10 +27,14 @@ export function findPath(w: World, from: Pos, to: Pos, opts: { maxNodes?: number
   const g = new Map<number, number>([[key(from), 0]])
   const came = new Map<number, number>()
   const h = (k: number) => Math.max(Math.abs((k % W) - to.x), Math.abs(Math.floor(k / W) - to.y))
+  const deviation=(k:number)=>Math.abs((k%W-from.x)*(to.y-from.y)-(Math.floor(k/W)-from.y)*(to.x-from.x))
   let expanded = 0
   while (open.length && expanded < maxNodes) {
     let bi = 0
-    for (let i = 1; i < open.length; i++) if (open[i].f < open[bi].f || (open[i].f === open[bi].f && open[i].k < open[bi].k)) bi = i
+    for(let i=1;i<open.length;i++){
+      const a=open[i],b=open[bi],line=opts.preferStraight?deviation(a.k)-deviation(b.k):0,remaining=opts.preferStraight?h(a.k)-h(b.k):0
+      if(a.f<b.f||a.f===b.f&&(line<0||line===0&&(remaining<0||remaining===0&&a.k<b.k)))bi=i
+    }
     const cur = open.splice(bi, 1)[0]
     if (cur.k === goal) break
     expanded++

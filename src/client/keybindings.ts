@@ -1,7 +1,7 @@
 // 물리 키 코드를 사용하므로 한글 입력 상태에서도 같은 위치의 게임 키가 동작한다.
 export const COMMANDS = [
   ['north','북쪽','ArrowUp',['ArrowUp','KeyK','Numpad8']],['northEast','북동쪽','u',['KeyU','Numpad9']],
-  ['east','동쪽','ArrowRight',['ArrowRight','KeyL','Numpad6']],['southEast','남동쪽','n',['Numpad3']],
+  ['east','동쪽','ArrowRight',['ArrowRight','KeyL','Numpad6']],['southEast','남동쪽','n',['KeyN','Numpad3']],
   ['south','남쪽','ArrowDown',['ArrowDown','KeyJ','Numpad2']],['southWest','남서쪽','b',['KeyB','Numpad1']],
   ['west','서쪽','ArrowLeft',['ArrowLeft','KeyH','Numpad4']],['northWest','북서쪽','y',['KeyY','Numpad7']],
   ['wait','한 턴 대기','.',['Period','Space','Shift+Space','Numpad5']],['pickup','줍기','g',['KeyG','Comma']],
@@ -16,7 +16,7 @@ export const COMMANDS = [
   ['shoot','사격 조준·확정','f',['KeyF']],['light','등불 켜기·끄기','t',['KeyT']],
   ['character','캐릭터 창','c',['KeyC','Shift+KeyC']],['inventory','소지품 창','i',['KeyI','Shift+KeyI']],
   ['abilities','능력 창','K',['Shift+KeyK']],['body','신체 창','B',['Shift+KeyB']],['journal','일지','J',['Shift+KeyJ']],
-  ['map','지도','m',['KeyM','Shift+KeyM']],['craft','제작·정비','F2',['F2']],['society','주민·세력','n',['KeyN','Shift+KeyN']],
+  ['map','지도','m',['KeyM','Shift+KeyM']],['craft','제작·정비','F2',['F2']],['society','주민·세력','n',['Shift+KeyN']],
   ['log','기록 크게','L',['Shift+KeyL']],['help','조작법','?',['Shift+Slash']],['sortBag','배낭 자동 정렬','s',['Ctrl+KeyS']],
   ['readAloud','현재 툴팁·기록 읽기','ReadAloud',['Alt+KeyR']],['stopReading','음성 읽기 멈춤','StopReading',['Alt+KeyS']],
   ['hotbar1','빠른 칸 1','1',['Digit1']],['hotbar2','빠른 칸 2','2',['Digit2']],['hotbar3','빠른 칸 3','3',['Digit3']],

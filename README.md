@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.303** · 각인204. 참고작의 가독성·재질·분위기를 분석해 전체1,266프레임·UI26개와 타이틀·초상·신체 스케치를 재설계했다. 전체6,110개·실제게임36화면·도감12화면 검증. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [미술 내역](docs/art-direction-v303.md) · [원화 도감](docs/previews/v303-art-catalog.html) · [진행 상황](docs/progress.md).
+**현재 상태: 프로토타입 v0.304** · 각인204. 창·메뉴·끌기·반복 입력·클릭 이동의 조작을 집중 개선했다. 전체6,127개 검증(시간 초과 재검 포함), 실제 조작26화면·전체상태188쌍과 월드30판 검증. 기본 `N`은 남동, 주민·동료는 `Shift+N`이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [조작 변경](docs/controls-v304.md) · [미술 내역](docs/art-direction-v303.md) · [진행 상황](docs/progress.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -36,9 +36,9 @@
 
 통합 검증을 마친 원본 아트/UI 웹 빌드에서 실제 새 게임을 시작해 촬영한 화면이다.
 
-![실제 새 게임 화면](docs/previews/v277-world.png)
+![실제 새 게임 화면](docs/previews/v304-1440-01-world.png)
 
-[소지품 화면](docs/previews/v271-inventory.png) · [웹 배포 상태와 Pages 설정](docs/web-preview.md). 자동 빌드는 성공했으며 공개 주소는 Pages 활성화 후 확인한다.
+[소지품 화면](docs/previews/v304-1440-02-inventory.png) · [현재 공개 게임](https://roastfried-rf.github.io/ashveil/) · [실제 배포 기록](docs/web-preview.md).
 
 ## 실행
 
@@ -49,7 +49,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-방향키/숫자패드로 이동·공격하고 맵 클릭으로 자동 이동한다. `1~0` 빠른 슬롯, `C` 캐릭터, `I` 소지품, `N` 주민/동료, `M` 지도, `Shift+K/B/J` 능력/신체/일지, `F2` 제작/정비, `F3` 설정, `.` 대기, `r` 휴식, `z` 수면, `?` 도움말. 키 설정은 게임 안에서 바꿀 수 있다.
+방향키/숫자패드로 이동·공격하고 맵 클릭으로 자동 이동한다. `1~0` 빠른 슬롯, `C` 캐릭터, `I` 소지품, `N` 남동 이동, `Shift+N` 주민/동료, `M` 지도, `Shift+K/B/J` 능력/신체/일지, `F2` 제작/정비, `F3` 설정, `.` 대기, `r` 휴식, `z` 수면, `?` 도움말. 키 설정은 게임 안에서 바꿀 수 있다.
 
 ## 검증
 

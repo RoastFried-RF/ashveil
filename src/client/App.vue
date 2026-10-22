@@ -12,8 +12,9 @@ import { definitionInspectorOpen } from './definition-inspector-ui'
 
 watch(screen,()=>stopSpeech())
 function settingsKey(e: KeyboardEvent) {
+  if(e.repeat&&(e.key==='Enter'||e.key===' ')&&e.target instanceof HTMLElement&&e.target.closest('button,summary,[role="button"]')){e.preventDefault();e.stopImmediatePropagation();return}
   if (definitionInspectorOpen.value) {
-    if (e.key === 'Escape' || e.key === 'F3') { e.preventDefault(); e.stopImmediatePropagation(); definitionInspectorOpen.value = false; if(e.key==='F3')preferencesOpen.value=true }
+    if (e.key === 'Escape' || e.key === 'F3') { e.preventDefault(); e.stopImmediatePropagation();if(e.repeat)return; definitionInspectorOpen.value = false; if(e.key==='F3')preferencesOpen.value=true }
     if (e.key === 'Tab') {
       e.preventDefault(); e.stopImmediatePropagation()
       const controls=[...document.querySelectorAll<HTMLElement>('[data-testid="definition-inspector"] button, [data-testid="definition-inspector"] input, [data-testid="definition-inspector"] textarea, [data-testid="definition-inspector"] select, [data-testid="definition-inspector"] summary')].filter(el=>el.offsetParent!==null&&!el.matches(':disabled'))
@@ -23,6 +24,7 @@ function settingsKey(e: KeyboardEvent) {
     return
   }
   if(bindingCapture.value)return
+  if(e.key==='F3'&&e.repeat){e.preventDefault();e.stopImmediatePropagation();return}
   if (e.key === 'F3') { e.preventDefault(); e.stopImmediatePropagation(); preferencesOpen.value = !preferencesOpen.value; return }
   if (preferencesOpen.value) {
     if (e.key === 'Tab') {
@@ -31,7 +33,7 @@ function settingsKey(e: KeyboardEvent) {
       const at = controls.indexOf(document.activeElement as HTMLElement)
       controls[(at + (e.shiftKey ? controls.length - 1 : 1)) % controls.length]?.focus()
     }
-    if (e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); preferencesOpen.value = false }
+    if (e.key === 'Escape'&&!e.repeat) { e.preventDefault(); e.stopImmediatePropagation(); preferencesOpen.value = false }
   }
 }
 watchEffect(() => {

@@ -18,7 +18,7 @@ const idle=()=>page.waitForFunction(()=>{const{s}=(window as unknown as Hook).__
 let screenshots=0,roundtrips=0,phases=0,actualInputTU=0
 const close=async()=>{for(let i=0;i<8&&await page.locator('[data-testid^="win-"]:visible').count();i++)await page.keyboard.press('Escape')}
 const shot=async(name:string)=>{await page.mouse.move(100,40);await page.screenshot({path:join(out,name+'.png')});screenshots++}
-const panel=async()=>{await close();await page.keyboard.press('n');await page.getByTestId('resident-depot').waitFor();await page.getByTestId('resident-depot').scrollIntoViewIfNeeded()}
+const panel=async()=>{await close();await page.keyboard.press('Shift+n');await page.getByTestId('resident-depot').waitFor();await page.getByTestId('resident-depot').scrollIntoViewIfNeeded()}
 const check=async(w:World,name:string)=>{await idle();w.s.fx=[];const actual=await read(),expected=JSON.parse(serialize(w.s));writeFileSync(join(out,name+'-actual.json'),JSON.stringify(actual));writeFileSync(join(out,name+'-expected.json'),JSON.stringify(expected));assert.deepEqual(actual,expected);phases++}
 const restore=async(w:World,name:string)=>{await close();await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.reload();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await check(w,name);roundtrips++;await panel()}
 try{

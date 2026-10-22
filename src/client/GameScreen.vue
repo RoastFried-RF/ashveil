@@ -2,12 +2,13 @@
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  maneuverQuote, adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
+  maneuverQuote, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
   allItems, autoBlocked, autoSnap, autoStop, turnOf, type Pos, type World,
 } from '../core'
 import {readVisibleText,stopSpeech} from './speech'
+import {cycleFocus,editableTarget,directionOf,repeatableCommand} from './input-context'
 import {KeyRepeatGate} from './key-repeat'
-import { COMMANDS, bindingText, resolveGameKey } from './keybindings'
+import { COMMANDS, bindingText, resolveGameKey, type Command } from './keybindings'
 import { definitionInspectorOpen } from './definition-inspector-ui'
 import { preferences, preferencesOpen } from './preferences'
 import HoverInfo from './HoverInfo.vue'
@@ -28,9 +29,10 @@ import MapWindow from './ui/MapWindow.vue'
 import SideBars from './ui/SideBars.vue'
 import StatusStrip from './ui/StatusStrip.vue'
 import Tooltip from './ui/Tooltip.vue'
-import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startManeuver, startShoot, socialTarget, targeting, toggleWin, useHotbar, wins } from './ui'
+import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startManeuver, startShoot, socialTarget, targeting, toggleWin, useHotbar, wins, resetGameUI, type WinKey } from './ui'
 import { computeBanners } from './warnings'
 
+resetGameUI()
 const hover = ref<Pos | null>(null)
 const shift = ref(false)
 const help = ref(false)
@@ -93,7 +95,7 @@ const opts = computed<RenderOpts>(() => {
 })
 
 // 루팅 창이 열리면 소지품 창도 연다
-watch(() => { void version.value; return !!world.value?.s.loot }, (open) => { if (open) setWin('inv', true) })
+watch(() => { void version.value; return world.value?.s.loot }, (loot) => { if (loot) setWin('inv', true) })
 
 // 층 이름 카드 · 방 이름 (12 §2.5: 1.5초)
 const card = ref<{ big: string; small: string } | null>(null)
@@ -119,10 +121,11 @@ watch(() => {
 })
 
 // P0 치명 경고: 새로 뜨면 이동 키 1회를 무시하고 확인을 받는다 (12 §6)
+const keyRepeat=new KeyRepeatGate()
 const p0Ack = ref(true)
 watch(() => { void version.value; return world.value ? computeBanners(world.value).filter((b) => b.p === 0).map((b) => b.text.replace(/\d+/g, '')).join('|') : '' }, (now, before) => {
-  if (now && now !== before) p0Ack.value = false
-})
+  if(now&&now!==before){p0Ack.value=false;stopTravel();keyRepeat.clear()}
+},{immediate:true})
 
 function stopTravel() {
   travel.value = null
@@ -132,18 +135,19 @@ function stopTravel() {
 /** 먼 칸 클릭: 경로를 따라 한 걸음씩. 위협 T1~T6(01 §6.2)이 생기면 멈추고, 멈춘 뒤 3턴은 다시 못 쓴다 */
 function startTravel(dest: Pos) {
   resumeDest.value = null
+  if(!allowMovement())return
   const ww = w.value
   const pl = player(ww)
   const wait = autoBlocked(ww)
   if (wait > 0) { hint.value = `위협이 가시지 않았다 — ${wait}턴 뒤 자동 이동 가능`; return }
-  const path = findPath(ww, pl.pos, dest, { avoidCreatures: true, selfId: pl.id })
+  const path = findPath(ww, pl.pos, dest, { avoidCreatures: true, selfId: pl.id, preferStraight: true })
   if (!path?.length) { hint.value = '갈 수 없다'; return }
   travel.value = path
   const snap = autoSnap(ww)
   clearInterval(travelTimer)
-  travelTimer = setInterval(() => {
+  const step = () => {
     const cur = world.value
-    if (!cur || cur.s.over || !travel.value?.length) return stopTravel()
+    if (!cur || cur.s.over || document.hidden || preferencesOpen.value || definitionInspectorOpen.value || help.value || !travel.value?.length) return stopTravel()
     const me = player(cur)
     const next = travel.value[0]
     const dir = DIRS.findIndex((d) => d.x === next.x - me.pos.x && d.y === next.y - me.pos.y)
@@ -158,7 +162,9 @@ function startTravel(dest: Pos) {
       hint.value = `${why} — 멈춤`
       stopTravel()
     }
-  }, 95)
+  }
+  travelTimer=setInterval(step,95)
+  step()
 }
 
 function ignoreAndResume() {
@@ -171,148 +177,132 @@ function ignoreAndResume() {
 watch(preferencesOpen, (open) => { if (open) stopTravel() })
 const prefix = ref<'shove' | 'close' | null>(null)
 
-const KEYMAP: Record<string, number> = {
-  ArrowUp: 0, ArrowRight: 2, ArrowDown: 4, ArrowLeft: 6,
-  k: 0, u: 1, l: 2, n: 3, j: 4, b: 5, h: 6, y: 7,
-  Numpad8: 0, Numpad9: 1, Numpad6: 2, Numpad3: 3, Numpad2: 4, Numpad1: 5, Numpad4: 6, Numpad7: 7,
+const WINDOW_COMMANDS:Partial<Record<Command,WinKey>>={character:'char',inventory:'inv',abilities:'abil',body:'body',journal:'journal',map:'map',craft:'craft',society:'society'}
+function clearPrefix(){if(prefix.value){prefix.value=null;hint.value=null}}
+function clearKeys(){keyRepeat.clear();shift.value=false;clearPrefix()}
+function suspendInput(){stopTravel();clearKeys()}
+watch([preferencesOpen,definitionInspectorOpen,help],([settings,inspector,helpOpen])=>{if(settings||inspector||helpOpen)suspendInput()},{flush:'sync'})
+watch(()=>Object.values(wins),()=>{if(Object.values(wins).some(Boolean))suspendInput()},{flush:'sync'})
+watch(targeting,t=>{if(t){suspendInput();document.querySelector<HTMLElement>('[data-testid=map]')?.focus({preventScroll:true})}},{flush:'sync'})
+function allowMovement(){
+ if(p0Ack.value)return true
+ p0Ack.value=true;keyRepeat.clear();hint.value='⚠ 치명 경고 — 확인했다. 다시 누르면 움직인다'
+ return false
 }
-
-const keyRepeat=new KeyRepeatGate()
-watch([preferencesOpen,definitionInspectorOpen],()=>keyRepeat.clear())
-function clearKeys(){keyRepeat.clear();shift.value=false}
-function onKey(raw: KeyboardEvent) {
-  if (preferencesOpen.value || definitionInspectorOpen.value) return
-  if (help.value) {
-    if (raw.key === 'Escape') { raw.preventDefault(); help.value = false }
-    else if (raw.key === 'Tab') {
-      raw.preventDefault()
-      const controls = [...(helpDialog.value?.querySelectorAll<HTMLElement>('button,input,select,summary') ?? [])].filter(el => el.offsetParent !== null && !el.matches(':disabled'))
-      const at = controls.indexOf(document.activeElement as HTMLElement)
-      controls[(at + (raw.shiftKey ? controls.length - 1 : 1)) % controls.length]?.focus()
-    }
-    return
+function onFocusIn(e:FocusEvent){if(e.target instanceof HTMLElement&&e.target.closest('.window-shell,button,summary,a[href],input,textarea,select,[contenteditable="true"]'))suspendInput()}
+function onUiPointer(e:PointerEvent){if(e.target instanceof HTMLElement&&e.target.closest('button,input,select,textarea,[role="dialog"],[role="menu"]'))suspendInput()}
+function onKey(raw:KeyboardEvent){
+ if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value)return
+ if(help.value){
+  if(raw.key==='Escape'&&!raw.repeat){raw.preventDefault();help.value=false}
+  else if(raw.key==='Tab'&&helpDialog.value)cycleFocus(helpDialog.value,raw)
+  return
+ }
+ if(raw.key==='Escape'){
+  raw.preventDefault();if(raw.repeat)return
+  const travelling=!!travel.value;stopTravel();keyRepeat.clear();hideTip();resumeDest.value=null
+  if(prefix.value){clearPrefix();return}
+  if(targeting.value){targeting.value=null;hint.value=null;return}
+  if(travelling)return
+  if(closeTopWin())return
+  if(w.value.s.loot)doAct({type:'lootClose'})
+  else if(player(w.value).activity)doAct({type:'stopActivity'})
+  return
+ }
+ if(editableTarget(raw.target))return
+ if(raw.key==='Shift'){shift.value=true;return}
+ const element=raw.target instanceof HTMLElement?raw.target:null
+ // Enter/Space on a real control activate that control once, not a game action.
+ if((raw.key==='Enter'||raw.key===' ')&&element?.closest('button,summary,[role="button"]')){if(raw.repeat)raw.preventDefault();return}
+ const t=targeting.value
+ if(t&&!raw.ctrlKey&&!raw.altKey&&(raw.key==='Tab'||raw.key==='Enter'&&!raw.shiftKey)){
+  raw.preventDefault()
+  if(raw.key==='Tab')t.idx=(t.idx+(raw.shiftKey?t.targets.length-1:1))%t.targets.length
+  else if(!raw.repeat)confirmTarget()
+  return
+ }
+ const mapped=resolveGameKey(raw,preferences.keyBindings);if(!mapped)return
+ raw.preventDefault()
+ if(raw.repeat&&!repeatableCommand(mapped.command))return
+ if(!keyRepeat.accept(raw,performance.now(),preferences))return
+ const command=mapped.command,dir=directionOf(command),travelling=!!travel.value
+ stopTravel();hideTip();resumeDest.value=null
+ if(dir===null)clearPrefix()
+ if(command==='readAloud'){readVisibleText();return}
+ if(command==='stopReading'){stopSpeech();return}
+ if(over.value)return
+ const win=WINDOW_COMMANDS[command]
+ if(win){targeting.value=null;toggleWin(win);return}
+ if(command==='help'){help.value=true;return}
+ if(command==='log'){logBig.value=!logBig.value;return}
+ if(command==='inspect'){shift.value=!shift.value;return}
+ if(command==='sortBag'){if(wins.inv)doAct({type:'sortBag'});return}
+ // A window's controls keep the keyboard; click the map to resume movement.
+ const inWindow=!!element?.closest('.window-shell')||document.activeElement===document.body&&Object.values(wins).some(Boolean)
+ const inventoryCommand=wins.inv&&(command==='lootAll'||command==='pickup'||command==='wait'&&raw.code==='Space')
+ const aimCommand=command==='shoot'||command==='trip'||command==='disarm'||command.startsWith('hotbar')
+ if(inWindow&&!inventoryCommand&&!aimCommand){keyRepeat.clear();return}
+ if(dir!==null){
+  targeting.value=null
+  if(prefix.value){const p=prefix.value;clearPrefix();keyRepeat.clear();doAct(p==='shove'?{type:'shove',dir}:{type:'closeDoor',dir});return}
+  if(mapped.ctrlKey){keyRepeat.clear();doAct({type:'face',dir});return}
+  if(mapped.shiftKey){keyRepeat.clear();doAct({type:'shove',dir});return}
+  if(allowMovement())doAct({type:'move',dir})
+  return
+ }
+ if(command.startsWith('hotbar')){useHotbar(command==='hotbar0'?9:Number(command.slice(-1))-1);return}
+ switch(command){
+  case 'wait':
+   if(travelling)return
+   if(wins.inv&&raw.code==='Space'){if(w.value.s.loot)doAct({type:'lootAll'});return}
+   doAct({type:'wait'});break
+  case 'crouch':doAct({type:'crouch'});break
+  case 'trip':startManeuver('trip');break
+  case 'disarm':startManeuver('disarm');break
+  case 'shove':prefix.value='shove';hint.value='밀칠 방향을 누른다 (Esc 취소)';break
+  case 'closeDoor':prefix.value='close';hint.value='닫을 문 방향을 누른다 (Esc 취소)';break
+  case 'reaction':doAct({type:'reactPolicy'});break
+  case 'attackMode':doAct({type:'attackMode'});break
+  case 'interact':{
+   const pl=player(w.value),t=w.value.s.creatures.find(o=>o.alive&&cheb(o.pos,pl.pos)<=1&&w.value.db.creature(o.def).thirsty&&o.ai.mode!=='calm')
+   if(t)doAct({type:'giveWater',target:t.id})
+   else if(w.value.s.map.lights.some(L=>L.kind==='campfire'&&cheb(L.pos,pl.pos)<=1))doAct({type:'toggleFire'})
+   else hint.value='물을 줄 상대도, 끄거나 켤 모닥불도 없다'
+   break
   }
-  const element=raw.target instanceof HTMLElement?raw.target:null
-  if(element?.matches('input,textarea,select,[contenteditable=true]'))return
-  if((raw.key==='Enter'||raw.key===' ')&&element?.closest('button,summary')&&!(raw.key==='Enter'&&targeting.value))return
-  const mapped=resolveGameKey(raw,preferences.keyBindings)
-  const fixed=raw.key==='Escape'||raw.key==='Shift'||!!targeting.value&&(raw.key==='Tab'||raw.key==='Enter')
-  if(!mapped&&!fixed)return
-  if(mapped)raw.preventDefault()
-  if(mapped&&!keyRepeat.accept(raw,performance.now(),preferences))return
-  if(mapped?.command==='readAloud'||mapped?.command==='stopReading'){if(!raw.repeat){if(mapped.command==='readAloud')readVisibleText();else stopSpeech()}return}
-  const e=mapped?{...mapped,target:raw.target,preventDefault:()=>raw.preventDefault()}:raw
-  if(mapped?.command==='sortBag'){
-    if(wins.inv&&!over.value)doAct({type:'sortBag'})
-    return
+  case 'pickup':doAct({type:'pickup'});break
+  case 'search':doAct({type:'search',includeEmpty:true});break
+  case 'lootAll':if(wins.inv&&w.value.s.loot)doAct({type:'lootAll'});break
+  case 'rest':doAct({type:'rest',turns:200});break
+  case 'restHour':doAct({type:'rest',turns:1200});break
+  case 'sleep':doAct({type:'sleep'});break
+  case 'dry':doAct({type:'dry'});break
+  case 'stairs':if(onStairs.value)doAct({type:'stairs'});break
+  case 'shoot':if(t)confirmTarget();else startShoot();break
+  case 'light':{
+   const lamp=allItems(player(w.value)).find(i=>itemDef(w.value,i).light)
+   if(lamp)doAct({type:'toggleLight',uid:lamp.uid});else hint.value='등불이 없다'
+   break
   }
-  if (preferencesOpen.value || definitionInspectorOpen.value) return
-  resumeDest.value = null
-  if (e.key === 'Shift') { shift.value = true; return }
-  if ((e.target as HTMLElement)?.tagName === 'INPUT') return
-  if (over.value) return
-  stopTravel()
-  hideTip()
-  if (e.key === 'Escape') {
-    if (prefix.value) { prefix.value = null; hint.value = null; return }
-    if (targeting.value) { targeting.value = null; hint.value = null; return }
-    if (help.value) { help.value = false; return }
-    if (closeTopWin()) return
-    if (w.value.s.loot) doAct({ type: 'lootClose' })
-    else if (player(w.value).activity) doAct({ type: 'stopActivity' })
-    return
-  }
-  // 소지품 창: Ctrl+S 자동 정렬, Space 모두 가져가기
-  if (wins.inv && e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); doAct({ type: 'sortBag' }); return }
-  if (e.key === ' ' && w.value.s.loot) { e.preventDefault(); doAct({ type: 'lootAll' }); return }
-  if (e.key === 'F2') { e.preventDefault(); toggleWin('craft'); return }
-  if (e.key === '?') { help.value = !help.value; return }
-  const t = targeting.value
-  if (t && (e.key === 'Tab' || e.key === 'Enter' || e.key === 'f')) {
-    e.preventDefault()
-    if (e.key === 'Tab') t.idx = (t.idx + (e.shiftKey ? t.targets.length - 1 : 1)) % t.targets.length
-    else confirmTarget()
-    return
-  }
-  // 창 단축키는 대문자/소문자 모두. 단, 이동키(hjklyubn)와 겹치는 j·k·b 는 Shift 없이 이동
-  const lower = e.key.toLowerCase()
-  if (!e.ctrlKey && !e.metaKey) {
-    if (lower === 'c') { toggleWin('char'); return }
-    if (lower === 'i') { toggleWin('inv'); return }
-    if (lower === 'n') { toggleWin('society'); return }
-    if (lower === 'm') { toggleWin('map'); return }
-    if (e.key === 'K') { toggleWin('abil'); return }
-    if (e.key === 'B') { toggleWin('body'); return }
-    if (e.key === 'J') { toggleWin('journal'); return }
-  }
-  // 방향 키(넘패드·방향키 이름은 Shift와 무관, vi 키는 소문자만)
-  const dirKey = e.code.startsWith('Numpad') ? e.code : e.key.startsWith('Arrow') ? e.key : e.key
-  if (dirKey in KEYMAP && !e.metaKey) {
-    e.preventDefault()
-    targeting.value = null
-    const dir = KEYMAP[dirKey]
-    const viKey = /^[hjklyubn]$/.test(e.key)
-    if (prefix.value) {
-      const p = prefix.value
-      prefix.value = null
-      hint.value = null
-      doAct(p === 'shove' ? { type: 'shove', dir } : { type: 'closeDoor', dir })
-      return
-    }
-    if (e.ctrlKey) { doAct({ type: 'face', dir }); return } // 제자리 방향 전환 1턴
-    if (e.shiftKey && !viKey) { doAct({ type: 'shove', dir }); return } // Shift + 넘패드·방향키 = 밀치기
-    if (!p0Ack.value) { p0Ack.value = true; hint.value = '⚠ 치명 경고 — 확인했다. 다시 누르면 움직인다'; return }
-    doAct({ type: 'move', dir })
-    return
-  }
-  if (/^[0-9]$/.test(e.key)) { useHotbar(e.key === '0' ? 9 : Number(e.key) - 1); return }
-  switch (e.key) {
-    case '.': case ' ': case 'Numpad5': e.preventDefault(); doAct({ type: 'wait' }); break
-    case 'Crouch': doAct({type:'crouch'}); break
-    case 'P': startManeuver('trip'); break
-    case 'O': startManeuver('disarm'); break
-    case 'p': prefix.value = 'shove'; hint.value = '밀칠 방향을 누른다 (Esc 취소)'; break
-    case 'o': prefix.value = 'close'; hint.value = '닫을 문 방향을 누른다 (Esc 취소)'; break
-    case 'v': case 'V': doAct({ type: 'reactPolicy' }); break
-    case 'q': case 'Q': doAct({ type: 'attackMode' }); break
-    case 'x': case 'X': shift.value = !shift.value; break
-    case 'w': {
-      const pl = player(w.value)
-      const t = w.value.s.creatures.find((o) => o.alive && cheb(o.pos, pl.pos) <= 1 && w.value.db.creature(o.def).thirsty && o.ai.mode !== 'calm')
-      if (t) doAct({ type: 'giveWater', target: t.id })
-      else if (w.value.s.map.lights.some((L) => L.kind === 'campfire' && cheb(L.pos, pl.pos) <= 1)) doAct({ type: 'toggleFire' })
-      else hint.value = '물을 줄 상대도, 끄거나 켤 모닥불도 없다'
-      break
-    }
-    case 'g': case ',': doAct({ type: 'pickup' }); break
-    case 's': doAct({ type: 'search', includeEmpty: true }); break
-    case 'e': if (w.value.s.loot) doAct({ type: 'lootAll' }); break
-    case 'r': doAct({ type: 'rest', turns: 200 }); break
-    case 'R': doAct({ type: 'rest', turns: 1200 }); break
-    case 'z': case 'Z': doAct({ type: 'sleep' }); break
-    case 'd': doAct({ type: 'dry' }); break
-    case '>': case '<': case 'Enter': if (onStairs.value) doAct({ type: 'stairs' }); break
-    case 'L': logBig.value = !logBig.value; break
-    case 'f': startShoot(); break
-    case 't': {
-      const lamp = allItems(player(w.value)).find((i) => itemDef(w.value, i).light)
-      if (lamp) doAct({ type: 'toggleLight', uid: lamp.uid })
-      else hint.value = '등불이 없다'
-      break
-    }
-    case '?': help.value = !help.value; break
-  }
+ }
 }
-function onKeyUp(e: KeyboardEvent) { keyRepeat.release(e.code);if (e.key === 'Shift') shift.value = false }
+function onKeyUp(e:KeyboardEvent){keyRepeat.release(e.code);if(e.key==='Shift')shift.value=false}
 
-function onClick(p: Pos, button: number) {
+function onClick(p: Pos, button: number, ctrl=false) {
+  if(preferencesOpen.value||definitionInspectorOpen.value||help.value||over.value)return
   resumeDest.value = null
+  clearPrefix()
   hideTip()
-  if (button === 2) { stopTravel(); targeting.value = null; return }
+  if(button===2){
+    stopTravel();clearPrefix();targeting.value=null;hint.value=null
+    if(ctrl){const pl=player(w.value),dx=Math.sign(p.x-pl.pos.x),dy=Math.sign(p.y-pl.pos.y),dir=DIRS.findIndex(d=>d.x===dx&&d.y===dy);if(dir>=0)doAct({type:'face',dir})}
+    return
+  }
   if (button !== 0) return
   const ww = w.value
   const pl = player(ww)
   const c = creatureAt(ww, p)
+  const corpse=[...ww.s.creatures].reverse().find(o=>!o.alive&&eqPos(o.pos,p))
   const t = targeting.value
   if (t) {
     if (c && t.targets.includes(c.id)) confirmTarget(c.id)
@@ -336,17 +326,16 @@ function onClick(p: Pos, button: number) {
   if (d === 0) {
     if (terrainAt(ww, p).stairs) doAct({ type: 'stairs' })
     else if (ww.s.map.exits.some((e) => e.x === p.x && e.y === p.y)) doAct({ type: 'leave' })
-    else if (adjacentCorpse(ww, pl, false, true) && eqPos(adjacentCorpse(ww, pl, false, true)!.pos, p)) doAct({ type: 'search', includeEmpty: true })
+    else if(corpse)doAct({type:'search',includeEmpty:true,target:corpse.id})
     else if (ww.s.map.tiles[p.y * ww.s.map.w + p.x].items.length) doAct({ type: 'pickup' })
     else doAct({ type: 'wait' })
     return
   }
   if (d === 1) {
     const terr = terrainAt(ww, p)
-    if (terr.container && adjacentContainer(ww, pl, true)) { doAct({ type: 'search', includeEmpty: true }); return }
-    const corpse = adjacentCorpse(ww, pl, false, true)
-    if (corpse && eqPos(corpse.pos, p) && !creatureAt(ww, p)) { doAct({ type: 'search', includeEmpty: true }); return }
-    doAct({ type: 'move', dir: DIRS.findIndex((x) => x.x === p.x - pl.pos.x && x.y === p.y - pl.pos.y) })
+    if(corpse&&!c){doAct({type:'search',includeEmpty:true,target:corpse.id});return}
+    if(terr.container){doAct({type:'search',includeEmpty:true,pos:p});return}
+    if(allowMovement())doAct({ type: 'move', dir: DIRS.findIndex((x) => x.x === p.x - pl.pos.x && x.y === p.y - pl.pos.y) })
     return
   }
   const terr = terrainAt(ww, p)
@@ -357,8 +346,10 @@ function onClick(p: Pos, button: number) {
 onMounted(() => {
   hudObserver = new ResizeObserver(entries => { hudDockHeight.value = Math.ceil(entries[0].contentRect.height) })
   if (hudDock.value) hudObserver.observe(hudDock.value)
-  window.addEventListener('blur',clearKeys)
-  document.addEventListener('visibilitychange',clearKeys)
+  window.addEventListener('blur',suspendInput)
+  document.addEventListener('focusin',onFocusIn)
+  document.addEventListener('pointerdown',onUiPointer,true)
+  document.addEventListener('visibilitychange',suspendInput)
   window.addEventListener('keydown', onKey)
   window.addEventListener('keyup', onKeyUp)
 })
@@ -366,8 +357,10 @@ onBeforeUnmount(() => {
   hudObserver?.disconnect()
   stopTravel()
   keyRepeat.clear()
-  window.removeEventListener('blur',clearKeys)
-  document.removeEventListener('visibilitychange',clearKeys)
+  window.removeEventListener('blur',suspendInput)
+  document.removeEventListener('focusin',onFocusIn)
+  document.removeEventListener('pointerdown',onUiPointer,true)
+  document.removeEventListener('visibilitychange',suspendInput)
   window.removeEventListener('keydown', onKey)
   window.removeEventListener('keyup', onKeyUp)
 })
@@ -424,6 +417,7 @@ onBeforeUnmount(() => {
       <div ref="helpDialog" class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
         <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">고원에서 살아남기</h2><button class="dbtn" aria-label="조작법 닫기" @click="help = false">닫기</button></div>
         <p>맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.</p>
+        <p>창에 초점이 있으면 방향키로 캐릭터가 움직이지 않는다. 지도를 클릭하면 이동 입력을 다시 받는다. Esc는 메뉴·끌기를 먼저 취소한다.</p>
         <p>Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.</p>
         <p>방향에 Ctrl을 더하면 제자리 회전, Shift를 더하면 밀친다. 접두 키를 쓴 뒤 방향을 골라도 된다.</p>
         <div class="grid grid-cols-2 gap-x-3 gap-y-1" data-testid="current-keybindings"><div v-for="[id,label] in COMMANDS" :key="id"><span>{{ label }}: </span><kbd>{{ bindingText(preferences.keyBindings,id) }}</kbd></div></div>

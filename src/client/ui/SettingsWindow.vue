@@ -47,7 +47,7 @@ onBeforeUnmount(() => {cancelContentAdoption();previousFocus?.focus()})
             <label class="my-2 block">처음 반복까지 {{ p.keyRepeatDelay }}ms<input v-model.number="p.keyRepeatDelay" type="range" min="0" max="2000" step="50" class="block w-full" aria-label="처음 반복 지연" data-testid="key-repeat-delay" /></label>
             <label class="my-2 block">반복 간격 {{ p.keyRepeatInterval }}ms<input v-model.number="p.keyRepeatInterval" type="range" min="50" max="1000" step="25" class="block w-full" aria-label="키 반복 간격" data-testid="key-repeat-interval" /></label>
           </template>
-          <p class="text-xs text-ash-400">실제로 눌려 들어오는 게임 키에만 적용한다. ‘한 번만’은 키를 떼고 다시 눌러야 다음 행동을 실행한다.</p>
+          <p class="text-xs text-ash-400">이동·대기에 적용한다. ‘한 번만’은 키를 떼고 다시 눌러야 한다. 창·물품·전투 확정은 한 번 눌렀을 때 한 번만 실행한다.</p>
         </details>
         <details class="border-y border-ash-600 py-2" data-testid="speech-settings">
           <summary class="cursor-pointer font-title">기록·툴팁 읽기 지원</summary>

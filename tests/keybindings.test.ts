@@ -9,7 +9,7 @@ describe('키 배정과 실제 게임 키 변환',()=>{
     for(const[id,,,keys]of COMMANDS)for(const chord of keys){expect(used.has(chord)).toBe(false);used.add(chord);const parts=chord.split('+'),code=parts.pop()!;expect(resolveGameKey(input(code,{ctrlKey:parts.includes('Ctrl'),altKey:parts.includes('Alt'),shiftKey:parts.includes('Shift')}),{})?.command).toBe(id)}
   })
   it('한글/대문자/넘패드 잠금의 키 이름이 달라도 물리 코드로8방향을 구별한다',()=>{
-    expect(resolveGameKey(input('KeyK',{key:'ㅏ'}),{})?.key).toBe('ArrowUp');expect(resolveGameKey(input('KeyK',{key:'K'}),{})?.command).toBe('north');expect(resolveGameKey(input('Numpad3',{key:'PageDown'}),{})?.command).toBe('southEast');expect(resolveGameKey(input('KeyN'),{})?.command).toBe('society')
+    expect(resolveGameKey(input('KeyK',{key:'ㅏ'}),{})?.key).toBe('ArrowUp');expect(resolveGameKey(input('KeyK',{key:'K'}),{})?.command).toBe('north');expect(resolveGameKey(input('Numpad3',{key:'PageDown'}),{})?.command).toBe('southEast');expect(resolveGameKey(input('KeyN'),{})?.command).toBe('southEast');expect(resolveGameKey(input('KeyN',{shiftKey:true}),{})?.command).toBe('society')
   })
   it('재배정한 키만 작동하며 제거한 기본 별칭은 다른 게임 행동으로 새지 않는다',()=>{
     const bindings:KeyBindings={inventory:['F11'],east:['Backslash']};expect(resolveGameKey(input('F11'),bindings)?.key).toBe('i');for(const code of ['KeyI','ArrowRight','KeyL','Numpad6'])expect(resolveGameKey(input(code),bindings)).toBeNull();expect(resolveGameKey(input('Backslash'),bindings)?.key).toBe('ArrowRight');expect(resolveGameKey(input('KeyI',{shiftKey:true}),bindings)).toBeNull()

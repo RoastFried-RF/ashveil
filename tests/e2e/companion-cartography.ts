@@ -19,7 +19,7 @@ async function initial(w:World){
 async function restore(p:Page,label:string){const before=await read(p);assert.equal(before.version,SAVE_VERSION);await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');const after=await read(p);writeFileSync(outDir+'/'+label+'-before.json',JSON.stringify(before));writeFileSync(outDir+'/'+label+'-after.json',JSON.stringify(after));assert.deepEqual(after,before)}
 let page:Page|undefined,screenshots=0
 async function close(p:Page){for(let i=0;i<8&&await p.locator('[data-testid^="win-"]:visible').count();i++)await p.keyboard.press('Escape')}
-async function panel(p:Page){await close(p);await p.keyboard.press('n');await p.getByTestId('win-society').waitFor();const details=p.getByTestId('companion-panel');if(!await details.evaluate(e=>(e as HTMLDetailsElement).open))await details.locator('summary').first().click();await p.getByTestId('companion-cartography').scrollIntoViewIfNeeded()}
+async function panel(p:Page){await close(p);await p.keyboard.press('Shift+n');await p.getByTestId('win-society').waitFor();const details=p.getByTestId('companion-panel');if(!await details.evaluate(e=>(e as HTMLDetailsElement).open))await details.locator('summary').first().click();await p.getByTestId('companion-cartography').scrollIntoViewIfNeeded()}
 async function shot(p:Page,name:string,kind:'companion'|'map'|'inventory'='companion'){await p.waitForTimeout(600);await p.getByTestId(kind==='companion'?'companion-cartography':kind==='map'?'win-map':'win-inv').screenshot({path:outDir+'/'+name+'.png',animations:'disabled'});screenshots++}
 try{
  const rows:unknown[]=[]

@@ -1,6 +1,6 @@
 # 웹 플레이 미리보기
 
-**2026-10-22 현재:** 사용자가 저장소를 공개로 전환하고 Pages를 활성화했다. `visibility=public`, `has_pages=true`, `build_type=workflow`와 실제 HTTP200을 확인했다. [플레이 주소](https://roastfried-rf.github.io/ashveil/)에서 현재 v0.302 빌드가 열린다. 아래 실패 기록은 당시 관측 이력이며, v0.303 새 미술 묶음은 검증 후 같은 주소에 배포한다.
+**2026-10-22 현재:** 공개 저장소와 GitHub Actions Pages에서 [v0.303 게임](https://roastfried-rf.github.io/ashveil/)을 플레이할 수 있다. main `bc30246`의 build·deploy 성공과 공개 사이트의 HTTP200·버전·실제 게임 시작·소지품·신체 창을 확인했다. 아래 실패 기록은 당시 관측 이력이다.
 
 최신 검증 완료 버전은 [README](../README.md)와 [진행 기록](progress.md)에 표시한다. 검증된 큰 기능 묶음마다 원격 main에 push하며, 작업 중인 코드를 검증 완료 버전으로 표시하지 않는다. 아래는 실제 배포 시도와 제한의 날짜별 기록이다.
 
@@ -62,3 +62,9 @@ main `3f2622418b606bcb33a1adc76956c60b114360af`을 push한 뒤 [Actions396400785
 main `c6718dd56c9fb8fcf139f9f4a441570b06e9f7ac`의 [Actions39729441951](https://github.com/RoastFried-RF/ashveil/actions/runs/39729441951)은 build119660865857이 실행0단계로 실패했고 deploy119660881212는 건너뛰었다. 실제 주석은 최근 계정 결제 실패 또는 지출 한도 증가 필요를 명시한다. Ubuntu26 이전 공지와 별개이며 공개 플레이 URL은 확인하지 못했다. 결제·한도·인증 설정은 바꾸지 않았다.
 
 검증된 웹 ZIP은1477dist파일과 모두 같고18,300,223bytes/SHA256 `e07fb10432c21a71c61f1878981d0ffc9e405625c3dc1d5d6faa215b59bc93db`다. 원본 도감은511,252bytes/SHA256 `664886e418262a97c26597f5e777bee16b36f8b76556ebd1b8572299a2a99535`, 이미지166개/378항목을 포함한다. 사용자 요청에 따라 이 배포 실패 기록만을 위한 작은 추가 push는 하지 않는다.
+
+## v0.303 공개 배포 성공 · 다음 큰 게시에 포함
+
+main `bc30246fc887d44d6b3e88370dd102b16be41ab9`의 [Actions39742082221](https://github.com/RoastFried-RF/ashveil/actions/runs/39742082221)은 build119701506542·deploy119701941030 모두 성공했다. 새 미술 원본을 적용한 타이틀(v0.303), 실제 새 게임, 소지품과 신체 창을 두 해상도에서 열고 실제 PNG4장을 직접 확인했다. 브라우저 오류는0개다. 최초 원화 응답91회는 모두HTTP200이며, 고유URL89개의 공개 응답을 같은 출처 브라우저 fetch로 읽어 SHA256이 최종 검증본과 같음을 확인했다. 이4장은 로컬 게임36+도감12장 집계와 별도다.
+
+최초 DevTools 응답 본문 읽기와 이후 Node 직접 fetch는 환경의 전송 방식 때문에 실패했다. 해당 진단 시도의 PNG는 최종 성공 수에 포함하지 않으며, 같은 출처 브라우저에서 읽고 해시한 세 번째 실행을 최종 근거로 보존한다. 게임 소스·원화는 수정하지 않았다. `test-results/publication-v303-complete.json` 및 `test-results/pages-v303-live-v3/audit.json`에 실제 원격/화면/바이트 근거를 남겼다. 이 사후 기록만을 위한 작은 추가 push는 하지 않는다.

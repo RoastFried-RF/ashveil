@@ -330,7 +330,7 @@ export type Action =
   | { type: 'gearCare'; uid: number; care: GearCare }
   | { type: 'splitItem'; uid: number; n: number; gx: number; gy: number; rot?: boolean }
   | { type: 'mergeItem'; uid: number; into: number; n?: number; freshnessApproval?:string }
-  | { type: 'search'; includeEmpty?: boolean; pos?:Pos }
+  | { type: 'search'; includeEmpty?: boolean; pos?:Pos; target?:number }
   | {type:'pryContainer';pos:Pos}
   | {type:'pickLock';pos:Pos}
   | {type:'refillMask';uid:number;filterUid:number}
@@ -1249,12 +1249,14 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     case 'pryContainer': {const error=startContainerPry(w,c,a.pos);return error?FAIL(error):FREE}
     case 'pickLock': {const error=startLockPicking(w,c,a.pos);return error?FAIL(error):FREE}
     case 'search': {
+      const selectedCorpse=a.target===undefined?undefined:w.s.creatures.find(o=>o.id===a.target)
+      if(a.target!==undefined&&(!selectedCorpse||selectedCorpse.alive||cheb(c.pos,selectedCorpse.pos)>1||!hasLos(w,c.pos,selectedCorpse.pos)||!canSee(w,c,selectedCorpse.pos)||diagonalBlocked(w,c.pos,selectedCorpse.pos.x-c.pos.x,selectedCorpse.pos.y-c.pos.y)||a.pos!==undefined))return FAIL('보이는 시체 곁에서 수색해야 한다')
       if(a.pos&&(!inBounds(w,a.pos)||cheb(c.pos,a.pos)>1||!hasLos(w,c.pos,a.pos)||!canSee(w,c,a.pos)||diagonalBlocked(w,c.pos,a.pos.x-c.pos.x,a.pos.y-c.pos.y)||!terrainAt(w,a.pos).container))return FAIL('보이는 상자 곁에서 수색해야 한다')
       // 시체 먼저 (첫 수색 2턴, 소음 2), 그다음 아직 안 뒤진 용기 → 이미 연 용기 (13 §8.1)
       // 안 뒤진 시체 먼저 (이웃에 시체가 여럿이면 이미 뒤진 것만 계속 여는 일이 없게)
-      const corpse = a.pos?undefined:adjacentCorpse(w, c, true, a.includeEmpty) ?? adjacentCorpse(w, c, false, a.includeEmpty)
+      const corpse = selectedCorpse ?? (a.pos?undefined:adjacentCorpse(w, c, true, a.includeEmpty) ?? adjacentCorpse(w, c, false, a.includeEmpty))
       const adjacent=adjacentContainer(w,c)
-      if (corpse && (!adjacent||!canSearchContainer(w,c,adjacent))) {
+      if (corpse && (selectedCorpse||!adjacent||!canSearchContainer(w,c,adjacent))) {
         if (corpse.searched) { w.s.loot = { pos: { ...corpse.pos }, kind: 'corpse', id: corpse.id }; return FREE }
         const n = channelTurns(w, c, searchBase(w, c, 2), { dexterous: false })
         if (n === null) return FAIL('손이 말을 듣지 않는다')

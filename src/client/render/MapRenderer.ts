@@ -107,7 +107,7 @@ export class MapRenderer {
   private shake = 0
   private ready = false
   onHover: (p: Pos | null) => void = () => {}
-  onClick: (p: Pos, button: number) => void = () => {}
+  onClick: (p: Pos, button: number, ctrl: boolean) => void = () => {}
 
   constructor(host: HTMLElement) {
     this.host = host
@@ -126,7 +126,7 @@ export class MapRenderer {
     const cv = this.app.canvas
     cv.addEventListener('pointermove', (e) => this.onHover(this.tileAt(e)))
     cv.addEventListener('pointerleave', () => this.onHover(null))
-    cv.addEventListener('pointerdown', (e) => { const p = this.tileAt(e); if (p) this.onClick(p, e.button) })
+    cv.addEventListener('pointerdown', (e) => { const p = this.tileAt(e); if (p) this.onClick(p, e.button, e.ctrlKey || e.metaKey) })
     cv.addEventListener('contextmenu', (e) => e.preventDefault())
     this.app.ticker.add((tk) => this.tick(tk.deltaMS))
     this.ready = true

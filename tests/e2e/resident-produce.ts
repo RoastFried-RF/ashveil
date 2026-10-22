@@ -21,7 +21,7 @@ async function action(p:Page,a:Action,input:()=>Promise<unknown>,db:World['db'],
 async function restore(p:Page,name:string){await close(p);const before=await read(p);assert.equal(before.version,SAVE_VERSION);await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.reload();await p.getByTestId('continue').click();await p.waitForSelector('[data-testid=map] canvas');await idle(p);const actual=await read(p);assert.deepEqual(actual,before);writeFileSync(out+'/'+name+'-restore.json',JSON.stringify({before,actual}));wholeRoundtrips++}
 
 async function settled(p:Page){await p.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));await p.waitForTimeout(300)}
-async function shop(p:Page,id:number){await close(p);await p.keyboard.press('n');await p.getByTestId('win-society').waitFor();await p.locator('[data-person-id="'+id+'"]').click();await p.getByTestId('trade-stock').scrollIntoViewIfNeeded();await settled(p)}
+async function shop(p:Page,id:number){await close(p);await p.keyboard.press('Shift+n');await p.getByTestId('win-society').waitFor();await p.locator('[data-person-id="'+id+'"]').click();await p.getByTestId('trade-stock').scrollIntoViewIfNeeded();await settled(p)}
 async function shot(p:Page,name:string){await settled(p);await p.screenshot({path:out+'/'+name+'.png',animations:'disabled'});screenshots++}
 const actor=(s:World['s'],id:number)=>s.creatures.find(c=>c.id===id)!
 try{

@@ -10,7 +10,7 @@ import { act, world } from './store'
 export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal' | 'map' | 'craft' | 'society'
 export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false, map: false, craft: false, society: false })
 /** 연 순서 (Esc는 가장 위 창부터, 동시에 3개까지, 12 §2.3) */
-export const winOrder: WinKey[] = []
+export const winOrder=reactive<WinKey[]>([])
 export const socialTarget = ref<number | null>(null)
 export const prostheticInstallUid = ref<number | null>(null)
 export const hint = ref<string | null>(null)
@@ -40,7 +40,20 @@ export function setWin(k: WinKey, open: boolean) {
   while (winOrder.length > 3) wins[winOrder.shift()!] = false
 }
 
-/** 가장 위(마지막에 연) 창을 닫는다 */
+/** A new game/continue cannot inherit a previous screen's targets or item UI. */
+export function resetGameUI(){
+ for(const k of Object.keys(wins)as WinKey[])wins[k]=false
+ winOrder.length=0;targeting.value=null;socialTarget.value=null;prostheticInstallUid.value=null;hint.value=null;tooltip.value=null
+}
+
+/** Clicking or focusing a window makes it the same top window for Escape. */
+export function raiseWin(k:WinKey){
+ if(!wins[k])return
+ const i=winOrder.indexOf(k);if(i>=0)winOrder.splice(i,1)
+ winOrder.push(k)
+}
+
+/** 가장 위(마지막에 활성화한) 창을 닫는다 */
 export function closeTopWin(): boolean {
   for (let i = winOrder.length - 1; i >= 0; i--) {
     const k = winOrder[i]
@@ -94,6 +107,7 @@ export function startShoot() {
   if (problem) { hint.value = problem; return }
   const ts = validTargets(w)
   if (!ts.length) { hint.value = '쏠 수 있는 적이 없다'; return }
+  setWin('inv',false);setWin('abil',false)
   targeting.value = { kind: 'shoot', label: '사격', targets: ts.map((c) => c.id), idx: 0 }
 }
 
@@ -132,6 +146,7 @@ export function useAbility(id: string) {
   if (d.target === 'enemy' || d.attack) {
     const ts = validTargets(w, id)
     if (!ts.length) { hint.value = `${d.label}: 닿는 적이 없다`; return }
+    setWin('abil',false);setWin('inv',false)
     targeting.value = { kind: 'ability', id, label: d.label, targets: ts.map((c) => c.id), idx: 0 }
     hint.value = `${d.label} — 대상을 고르세요 (클릭 · Tab 순환 · Enter 확정 · Esc 취소)`
     return

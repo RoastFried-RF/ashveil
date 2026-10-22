@@ -24,7 +24,7 @@ const check=async(w:World,name:string)=>{await idle();w.s.fx=[];const actual=awa
 const restore=async(w:World,name:string)=>{await close();await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.reload();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await check(w,name);roundtrips++}
 const initial=async(w:World,name:string,legacy=false)=>{const raw=JSON.parse(serialize(w.s));if(legacy)raw.version=201;writeFileSync(join(out,name+'-finite-initial.json'),JSON.stringify(raw));await page.setViewportSize({width:1440,height:1080});await page.evaluate(s=>localStorage.setItem('ashveil.imprint.v1',s),JSON.stringify(raw));await page.reload();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await check(w,name+'-title-initial')}
 const act=async(w:World,a:Action,input:()=>Promise<unknown>,name:string)=>{const at=w.s.time;assert.equal(playerAct(w,a),null);await input();await check(w,name);actualInputTU+=w.s.time-at}
-const social=async(id:number)=>{await close();await page.keyboard.press('n');await page.getByTestId('win-society').waitFor();await page.locator('[data-person-id="'+id+'"]').click()}
+const social=async(id:number)=>{await close();await page.keyboard.press('Shift+n');await page.getByTestId('win-society').waitFor();await page.locator('[data-person-id="'+id+'"]').click()}
 const inv=async()=>{await close();await page.keyboard.press('i');await page.getByTestId('win-inv').waitFor()}
 const tip=async(uid:number,floor=false)=>{await inv();await page.getByTestId('win-inv').locator('['+(floor?'data-floor-uid':'data-uid')+'="'+uid+'"]').hover();await page.getByTestId('tooltip').waitFor()}
 try{
