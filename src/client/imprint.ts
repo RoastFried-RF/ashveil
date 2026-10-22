@@ -11,7 +11,7 @@ export interface ImprintDisk {
 }
 export interface ImprintMirror { get(): string | null; set(value: string): void }
 
-export function browserDisk(): ImprintDisk {
+export function browserDisk(slot = 'current'): ImprintDisk {
   let opened: Promise<IDBDatabase> | undefined
   function open() {
     return opened ??= new Promise<IDBDatabase>((resolve, reject) => {
@@ -31,7 +31,7 @@ export function browserDisk(): ImprintDisk {
       const db = await open()
       return new Promise<ImprintRecord | undefined>((resolve, reject) => {
         const tx = db.transaction('imprint', 'readonly')
-        const req = tx.objectStore('imprint').get('current')
+        const req = tx.objectStore('imprint').get(slot)
         tx.oncomplete = () => resolve(req.result as ImprintRecord | undefined)
         tx.onabort = () => reject(tx.error ?? new Error('각인을 읽을 수 없다'))
         tx.onerror = () => { /* onabort에서 처리 */ }
@@ -41,7 +41,7 @@ export function browserDisk(): ImprintDisk {
       const db = await open()
       return new Promise<void>((resolve, reject) => {
         const tx = db.transaction('imprint', 'readwrite', { durability: 'strict' })
-        tx.objectStore('imprint').put(record, 'current')
+        tx.objectStore('imprint').put(record, slot)
         tx.oncomplete = () => resolve()
         tx.onabort = () => reject(tx.error ?? new Error('각인을 저장할 수 없다'))
         tx.onerror = () => { /* onabort에서 처리 */ }

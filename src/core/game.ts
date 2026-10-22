@@ -1,4 +1,5 @@
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
+import { IMPRINT_MODE, saveModeDef } from './save-modes'
 import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
 import {initializeScriptState,scriptDayTick} from './script-hooks'
 import {cancelRansom} from './ransom'
@@ -90,10 +91,10 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 204
+export const SAVE_VERSION = 205
 export { START_TURN } from './ctx'
 
-export interface NewGameOptions { scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
+export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
 
 function emptyMap(): MapState {
   return { id: '', name: '', kind: 'surface', depth: 0, ambient: 0, w: 1, h: 1, tiles: [], exits: [], links: [], rooms: [], props: [], lights: [] }
@@ -125,11 +126,14 @@ function populate(w: World, gen: GenResult): Creature[] {
 }
 
 export function newGame(db: DefDatabase, opts: NewGameOptions): GameState {
+  const mode = saveModeDef(db, opts.saveMode)
   const records=db.modManifest()
   const rngState: GameState['rng'] = {}
   for (const s of RNG_STREAMS) rngState[s] = seedState(opts.seed, s)
   const s: GameState = {
     version: SAVE_VERSION,
+    ...(mode.id !== IMPRINT_MODE ? { saveMode: mode.id } : {}),
+    ...(!mode.achievements ? { achievementsDisabled: true } : {}),
     gameVersion:GAME_VERSION,
     defSchemaVersion:DEF_SCHEMA_VERSION,
     ...(records?{contentMods:records}:{}),

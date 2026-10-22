@@ -9,8 +9,8 @@ import {reviewSeedShare} from '../core/seed-share'
 import {modInstallation,packagesRevision} from './mod-catalog'
 import { preferencesOpen } from './preferences'
 import { frameCss } from './render/atlas'
-import { newGame, player, economyDef, STAT_LABEL, type BackgroundDef, type Stats } from '../core'
-import { createSeedCode, startSharedSeed, inspectDb, chronicle, continueImprint, imprintMods, reviewImprintMods, pendingContentReview, cancelContentReview, hasImprint, saveError, packages, randomSeed, starting, startNew } from './store'
+import { IMPRINT_MODE, newGame, player, economyDef, STAT_LABEL, type BackgroundDef, type Stats, type SaveModeDef } from '../core'
+import { checkpointSummaries, beginCheckpointLoad, pendingCheckpoint, createSeedCode, startSharedSeed, inspectDb, chronicle, continueImprint, imprintMods, reviewImprintMods, pendingContentReview, cancelContentReview, hasImprint, saveError, packages, randomSeed, starting, startNew } from './store'
 
 const seed = ref(randomSeed())
 const publicBase = import.meta.env.BASE_URL
@@ -19,6 +19,12 @@ const titleArtVisible = ref(true)
 const titleArtUrl = new URL('art/direction-v303/monastery-title.png', new URL(publicBase, document.baseURI)).href
 const bg = ref<string>('')
 const storyteller=ref('')
+const saveMode=ref(IMPRINT_MODE)
+const saveModes=computed(()=>selectedDb.value.all<SaveModeDef>('SaveMode'))
+const selectedSaveMode=computed(()=>saveModes.value.find(m=>m.id===saveMode.value))
+const savedCheckpoints=ref<Awaited<ReturnType<typeof checkpointSummaries>>>([])
+let checkpointListGeneration=0
+async function refreshCheckpoints(){const ticket=++checkpointListGeneration,rows=await checkpointSummaries(saveModes.value.filter(m=>m.manual!=='none'));if(ticket===checkpointListGeneration)savedCheckpoints.value=rows}
 const storyProfiles=computed(()=>loadErrors.value.length?[]:selectedDb.value.event('Event.ReaverPatrol').director?.profiles??[])
 const err = ref<string | null>(null)
 const mods = ref<string[]>([])
@@ -29,7 +35,7 @@ const imprintSelectionOpen=ref(false),imprintSelection=ref<string[]>([]),savedIm
 const unavailableImprintMods=computed(()=>savedImprintMods.value.filter(id=>!optionalMods.value.some(p=>p.manifest.id===id)))
 watch(()=>imprintSelection.value.join('\n'),()=>cancelContentReview())
 const loading = ref(true)
-onMounted(async () => { try{await modInstallation.initialize()}catch(error){err.value=(error as Error).message}finally{imprint.value = await hasImprint(); loading.value = false} })
+onMounted(async () => { try{await modInstallation.initialize()}catch(error){err.value=(error as Error).message}finally{imprint.value = await hasImprint();await refreshCheckpoints(); loading.value = false} })
 const chron = ref(chronicle())
 
 const creationRoll = ref<0 | 1>(0)
@@ -42,13 +48,14 @@ const selectedLoad = computed(() => {void packagesRevision.value;return inspectD
 const selectedDb = computed(() => selectedLoad.value.db)
 const loadErrors = computed(() => selectedLoad.value.report.errors)
 const backgrounds = computed(() => selectedDb.value.all<BackgroundDef>('Background'))
+watch(()=>saveModes.value.map(m=>m.id).join('\n'),()=>{void refreshCheckpoints()})
 watch([seed, bg, () => mods.value.join(',')], () => { if(!applyingSharedCode){creationRoll.value = 0;sharedCode.value=null} },{flush:'sync'})
-watch([storyteller,creationRoll],()=>{if(!applyingSharedCode)sharedCode.value=null},{flush:'sync'})
+watch([storyteller,creationRoll,saveMode],()=>{if(!applyingSharedCode)sharedCode.value=null},{flush:'sync'})
 const preview = computed(() => {
   try {
     if(loadErrors.value.length)return null
     const db = selectedDb.value
-    const s = newGame(db, {scriptPreview:true, seed: sharedReview.value?.shared.seed??(seed.value.trim() || fallbackSeed), background: bg.value || undefined, characterRoll: creationRoll.value })
+    const s = newGame(db, {scriptPreview:true, seed: sharedReview.value?.shared.seed??(seed.value.trim() || fallbackSeed), background: bg.value || undefined, characterRoll: creationRoll.value,saveMode:saveMode.value })
     const pl = player({ db, s })
     return { pl, currency: economyDef({ db, s }).currency, background: db.background(pl.background!).label, traits: pl.traits.map((id) => db.trait(id)), stats: (Object.keys(STAT_LABEL) as (keyof Stats)[]).map((key) => ({ label: STAT_LABEL[key], value: pl.stats[key] })) }
   } catch { return null }
@@ -56,12 +63,12 @@ const preview = computed(() => {
 
 async function start() {
   err.value = null
-  try { if(sharedCode.value)await startSharedSeed(sharedCode.value);else await startNew(seed.value.trim() || fallbackSeed, bg.value || undefined, mods.value, creationRoll.value,storyteller.value||undefined) }
+  try { if(sharedCode.value)await startSharedSeed(sharedCode.value);else await startNew(seed.value.trim() || fallbackSeed, bg.value || undefined, mods.value, creationRoll.value,storyteller.value||undefined,saveMode.value) }
   catch(e){err.value=(e as Error).message}
 }
-function shareCurrent(){if(sharedCode.value)return sharedCode.value;return createSeedCode(seed.value.trim()||fallbackSeed,bg.value||undefined,mods.value,creationRoll.value,storyteller.value||undefined)}
+function shareCurrent(){if(sharedCode.value)return sharedCode.value;return createSeedCode(seed.value.trim()||fallbackSeed,bg.value||undefined,mods.value,creationRoll.value,storyteller.value||undefined,saveMode.value)}
 function applyShared(code:string){
- try{const review=reviewSeedShare(code,packages);if(review.errors.length)throw Error(review.errors.join('\n'));const s=review.shared;applyingSharedCode=true;seed.value=s.seed;bg.value=s.background??'';mods.value=s.mods.filter(mod=>mod.id!=='core').map(mod=>mod.id);storyteller.value=s.storyteller??'';creationRoll.value=s.characterRoll;sharedCode.value=code;err.value=null}catch(error){err.value=(error as Error).message}finally{applyingSharedCode=false}
+ try{const review=reviewSeedShare(code,packages);if(review.errors.length)throw Error(review.errors.join('\n'));const s=review.shared;applyingSharedCode=true;seed.value=s.seed;bg.value=s.background??'';mods.value=s.mods.filter(mod=>mod.id!=='core').map(mod=>mod.id);storyteller.value=s.storyteller??'';saveMode.value=s.saveMode??IMPRINT_MODE;creationRoll.value=s.characterRoll;sharedCode.value=code;err.value=null}catch(error){err.value=(error as Error).message}finally{applyingSharedCode=false}
 }
 async function openImprintSelection(){
  loading.value=true;err.value=null;cancelContentReview()
@@ -113,8 +120,13 @@ async function cont(token?:string) {
         <div class="flex gap-2"><button class="dbtn-gold" data-testid="imprint-mods-review" :disabled="loading" @click="reviewSelection">선택한 구성 검토</button><button class="dbtn" :disabled="loading" @click="imprintSelectionOpen=false;cancelContentReview()">닫기</button></div>
       </section>
 
-      <ContentChangeReview :review="pendingContentReview" :loading="loading" @cancel="cancelContentReview();err=null" @accept="cont" />
+      <ContentChangeReview :review="pendingCheckpoint?null:pendingContentReview" :loading="loading" @cancel="cancelContentReview();err=null" @accept="cont" />
 
+      <section v-if="savedCheckpoints.length" class="df df-celtic mb-4 space-y-2 text-xs" data-testid="title-checkpoints">
+        <h2 class="font-title text-base text-amber-100">남겨 둔 저장 지점</h2>
+        <p>원정에서 직접 저장한 표석·탐구 기록을 불러온다. 현재 자동 기록은 복원 확인 후 덮어쓴다.</p>
+        <div class="space-y-2"><div v-for="mode in savedCheckpoints" :key="mode.id" class="flex flex-wrap items-center gap-2"><button class="dbtn" :data-testid="`title-checkpoint-${mode.id}`" :disabled="loading||starting" @click="beginCheckpointLoad(mode.id)">{{ mode.label }} 저장 지점 불러오기</button><span class="text-ash-400">{{ mode.summary }}</span></div></div>
+      </section>
       <section class="df df-celtic title-creation">
         <header class="title-section-heading">
           <h2 class="font-title">새 떠돌이</h2>
@@ -134,6 +146,11 @@ async function cont(token?:string) {
               <span class="title-field-label">사건 흐름</span>
               <select v-model="storyteller" data-testid="story-persona" class="w-full p-2 text-xs"><option value="">기존 고정 장소 규칙</option><option v-for="p in storyProfiles" :key="p.key" :value="p.key">{{ p.label }}</option></select>
               <p class="title-field-note">{{ storyProfiles.find(p=>p.key===storyteller)?.description??'장소의 기존 순찰 규칙을 따른다.' }} 적은 실제 출발지 인원에서만 움직인다.</p>
+            </label>
+            <label class="block">
+              <span class="title-field-label">저장 방식</span>
+              <select v-model="saveMode" data-testid="save-mode" class="w-full p-2 text-xs"><option v-for="mode in saveModes" :key="mode.id" :value="mode.id">{{ mode.label }}{{ mode.achievements?' · 기본':' · 업적 없음' }}</option></select>
+              <p class="title-field-note" data-testid="save-mode-description">{{ selectedSaveMode?.description }} 원정 중에는 방식을 바꿀 수 없다.</p>
             </label>
             <div>
               <span class="title-field-label">지나온 삶</span>
@@ -173,7 +190,7 @@ async function cont(token?:string) {
             </div>
             <p v-else class="p-4 text-xs leading-6 text-red-300">선택한 모드와 배경으로 떠돌이를 생성할 수 없다.</p>
             <div class="title-start-panel border-t border-ash-700 p-4">
-              <p class="text-xs leading-6 text-ash-300">각인은 하나. 행동은 자동으로 기록되며,<br />죽은 떠돌이는 연대기에 남는다.</p>
+              <p class="text-xs leading-6 text-ash-300">{{ selectedSaveMode?.manual==='none'?'각인은 하나. 행동은 자동 기록되며, 죽으면 삭제된다.':'현재 원정은 자동 기록된다. 복원할 지점은 F3 설정에서 직접 저장해야 한다.' }}</p>
               <button class="dbtn-gold title-start" data-testid="start" :disabled="!preview || loading || starting || !!loadErrors.length || !!sharedErrors.length" @click="start">{{ starting?'준비 중…':'고원으로 들어선다' }} <span v-if="!starting" class="ml-2" aria-hidden="true">→</span></button>
               <p v-if="err" class="mt-3 text-xs leading-5 text-blood-300" role="alert">{{ err }}</p>
               <div v-if="loadErrors.length" role="alert" class="mt-3 rounded border border-blood-700 p-2 text-xs text-blood-300" data-testid="mod-errors">
@@ -222,6 +239,7 @@ async function cont(token?:string) {
             <template v-else>
               <div v-if="c.kind==='retire'" class="text-moss-300">은퇴 · {{ c.report.title }}</div>
               <div class="text-ash-200">{{ c.report.epitaph }}</div>
+              <div v-if="c.saveModeLabel" class="text-amber-200">{{ c.saveModeLabel }} 방식</div>
               <div class="text-ash-400">{{ c.report.background }} · {{ c.report.traits.join(', ') }} · 시드 {{ c.seed }}</div>
             </template>
           </li>
@@ -229,7 +247,7 @@ async function cont(token?:string) {
       </section>
 
       <footer class="title-footer">
-        ASHVEIL · v0.305 · 시야와 빛<br />
+        ASHVEIL · v0.306 · 표석과 탐구<br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />
         보존 자료 출처: <a class="underline" href="https://pingupollas.itch.io/knowledge-temple" target="_blank" rel="noopener">Knowledge Temple</a> · <a class="underline" href="https://pingupollas.itch.io/crawling-depths" target="_blank" rel="noopener">Crawling Depths</a> by pingupollas · <a class="underline" href="https://arex-v.itch.io/damp-dungeons" target="_blank" rel="noopener">Damp Dungeons</a> by arex-v · <a class="underline" href="https://kaishido.itch.io/dark-world" target="_blank" rel="noopener">Dark World</a> by kaishido · <a class="underline" href="https://0x72.itch.io/dungeontileset-ii" target="_blank" rel="noopener">Dungeon Tileset II</a> by 0x72 · <a class="underline" href="https://hypnobius.itch.io/dark-ages-ui" target="_blank" rel="noopener">Dark Ages UI</a> by hypnobius · DCSS 32×32 (CC0)<br />인물과 장소가 이어가는 생존 이야기
       </footer>

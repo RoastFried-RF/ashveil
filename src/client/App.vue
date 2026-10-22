@@ -3,7 +3,8 @@ import { onBeforeUnmount, onMounted, watch, watchEffect } from 'vue'
 import GameScreen from './GameScreen.vue'
 import TitleScreen from './TitleScreen.vue'
 import { uiUrls, base } from './render/atlas'
-import { screen } from './store'
+import { screen, pendingCheckpoint, cancelCheckpoint } from './store'
+import CheckpointDialog from './CheckpointDialog.vue'
 import { bindingCapture, paletteColor, preferences, preferencesOpen } from './preferences'
 import {stopSpeech} from './speech'
 import SettingsWindow from './ui/SettingsWindow.vue'
@@ -13,6 +14,16 @@ import { definitionInspectorOpen } from './definition-inspector-ui'
 watch(screen,()=>stopSpeech())
 function settingsKey(e: KeyboardEvent) {
   if(e.repeat&&(e.key==='Enter'||e.key===' ')&&e.target instanceof HTMLElement&&e.target.closest('button,summary,[role="button"]')){e.preventDefault();e.stopImmediatePropagation();return}
+  if(pendingCheckpoint.value){
+    if(e.key==='Escape'||e.key==='F3'){e.preventDefault();e.stopImmediatePropagation();if(!e.repeat)cancelCheckpoint()}
+    if(e.key==='Tab'){
+      e.preventDefault();e.stopImmediatePropagation()
+      const controls=[...document.querySelectorAll<HTMLElement>('[data-testid="checkpoint-dialog"] button, [data-testid="checkpoint-dialog"] input, [data-testid="checkpoint-dialog"] select, [data-testid="checkpoint-dialog"] summary')].filter(el=>el.offsetParent!==null&&!el.matches(':disabled'))
+      const at=controls.indexOf(document.activeElement as HTMLElement)
+      controls[(at+(e.shiftKey?controls.length-1:1))%controls.length]?.focus()
+    }
+    return
+  }
   if (definitionInspectorOpen.value) {
     if (e.key === 'Escape' || e.key === 'F3') { e.preventDefault(); e.stopImmediatePropagation();if(e.repeat)return; definitionInspectorOpen.value = false; if(e.key==='F3')preferencesOpen.value=true }
     if (e.key === 'Tab') {
@@ -53,6 +64,7 @@ onBeforeUnmount(() => {stopSpeech();window.removeEventListener('keydown', settin
 </script>
 
 <template>
+  <CheckpointDialog v-if="pendingCheckpoint" />
   <SettingsWindow v-if="preferencesOpen" />
   <DefinitionInspector v-if="definitionInspectorOpen" />
   <TitleScreen v-if="screen === 'title'" />

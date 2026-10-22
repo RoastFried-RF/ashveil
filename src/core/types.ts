@@ -16,6 +16,16 @@ export interface DefBase {
   _mod?: string
 }
 
+export interface SaveModeDef extends DefBase {
+  defType: 'SaveMode'
+  label: string
+  description: string
+  manual: 'none' | 'shelter' | 'free'
+  anchorDistance: number
+  restoreAfterDeath: boolean
+  achievements: boolean
+}
+
 export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn' | 'gunshot'
 export type ArmorCategory = 'sharp' | 'blunt' | 'heat'
 export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool'
@@ -1828,6 +1838,7 @@ export interface BestiaryRecord {
   fights?: { id: number; map: string; lastTurn: number }[]
 }
 export type AnyDef =
+  | SaveModeDef
   | PostureDef
   | ManeuverDef
   | NpcCareDef | ResidentCultivationDef | ExcavationContractDef | EscortContractDef | NpcIdentityDef | NpcSocialReportDef | NpcSocialDef | PatrolContractDef | PrisonerExchangeDef | RansomDef | NpcAbductionDef | RescueRemainsDef | RescueContractDef | RecoveryContractDef | SourceContractDef | CartographyDef | InteractionDef | NpcPsycheDef | RegionLayoutDef | KinshipDef | FieldDeviceDef | EvidenceDef | RetirementDef
@@ -2652,6 +2663,8 @@ export interface OverworldState {
 }
 
 export interface GameState {
+  /** 새 원정에서 선택한 저장 방식. 과거 각인의 부재는 기본 각인 방식이다. */
+  saveMode?: string
   gameVersion?:string
   defSchemaVersion?:number
   contentMods?:{id:string;version:string;hash:string}[]

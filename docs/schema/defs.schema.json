@@ -7,6 +7,9 @@
   "items": {
     "anyOf": [
       {
+        "$ref": "#/$defs/SaveModeDef"
+      },
+      {
         "$ref": "#/$defs/PostureDef"
       },
       {
@@ -309,6 +312,176 @@
     ]
   },
   "$defs": {
+    "SaveModeDef": {
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "required": [
+                  "parent"
+                ]
+              },
+              {
+                "required": [
+                  "abstract"
+                ],
+                "properties": {
+                  "abstract": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "id",
+              "defType"
+            ],
+            "properties": {
+              "defType": {
+                "const": "SaveMode"
+              },
+              "label": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "manual": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "none",
+                      "shelter",
+                      "free"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "anchorDistance": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "restoreAfterDeath": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "achievements": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "defType",
+              "label",
+              "description",
+              "manual",
+              "anchorDistance",
+              "restoreAfterDeath",
+              "achievements",
+              "id"
+            ],
+            "properties": {
+              "defType": {
+                "const": "SaveMode"
+              },
+              "label": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "manual": {
+                "enum": [
+                  "none",
+                  "shelter",
+                  "free"
+                ]
+              },
+              "anchorDistance": {
+                "type": "number"
+              },
+              "restoreAfterDeath": {
+                "type": "boolean"
+              },
+              "achievements": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
     "PostureDef": {
       "type": "object",
       "allOf": [
@@ -40616,9 +40789,9 @@
                 "anyOf": [
                   {
                     "enum": [
+                      "none",
                       "rain",
                       "snow",
-                      "none",
                       "fog"
                     ]
                   },
@@ -40820,9 +40993,9 @@
               },
               "precipitation": {
                 "enum": [
+                  "none",
                   "rain",
                   "snow",
-                  "none",
                   "fog"
                 ]
               },

@@ -10,6 +10,7 @@ import{GAME_VERSION,DEF_SCHEMA_VERSION}from'../../core/content-version'
 import { contentCompatibility } from '../../core/content-compatibility'
 import KeyBindingSettings from './KeyBindingSettings.vue'
 import LiveContentReload from '../LiveContentReload.vue'
+import CheckpointControls from '../CheckpointControls.vue'
 const contentStatus=computed(()=>{void version.value;return world.value?contentCompatibility(world.value.s,world.value.db):null})
 const adoptionError=ref('')
 async function confirmAdoption(){const token=pendingContentAdoption.value?.token;adoptionError.value=token?(await adoptCurrentContent(token)??''):'현재 검토가 없다'}
@@ -24,6 +25,7 @@ onBeforeUnmount(() => {cancelContentAdoption();previousFocus?.focus()})
   <div class="fixed inset-0 z-[6000] flex items-start justify-center bg-black/65" role="dialog" aria-modal="true" aria-label="화면·접근성 설정">
     <Win title="화면·접근성 설정" :x="Math.max(8, (width - 460) / 2)" :y="70" :width="460" testid="win-settings" @close="preferencesOpen = false">
       <div class="space-y-4 p-2 text-sm text-ash-200">
+        <CheckpointControls v-if="screen==='game'" />
         <label class="flex items-center justify-between">지도 배율
           <select v-model="p.mapZoom" class="bg-ash-800 p-1" aria-label="지도 배율" data-testid="map-zoom"><option value="auto">화면에 맞춤</option><option value="vision">전체 시야 맞춤</option><option :value="1">1배 · 넓게</option><option :value="2">2배</option><option :value="3">3배</option><option :value="4">4배 · 크게</option></select>
         </label>

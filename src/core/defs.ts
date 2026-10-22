@@ -326,6 +326,7 @@ export function applyPatch(def:Record<string,unknown>,op:PatchOp,trace?:PatchOri
 
 // defType 별 필수 필드
 const REQUIRED: Record<string, string[]> = {
+  SaveMode: ['label', 'description', 'manual', 'anchorDistance', 'restoreAfterDeath', 'achievements'],
   Cartography:['label','noteReliability','noteError'],
   Interaction:['label','category','event','formula'],
   NpcPsyche:['label','thoughtScale','acuteMult','historyLimit','events'],
@@ -662,6 +663,9 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
 
   const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
+  }
+  for (const d of db.all<import('./types').SaveModeDef>('SaveMode')) {
+    if (!['none','shelter','free'].includes(d.manual) || !Number.isSafeInteger(d.anchorDistance) || d.anchorDistance < 0 || d.anchorDistance > 3 || d.manual === 'shelter' && d.anchorDistance < 1 || d.manual !== 'shelter' && d.anchorDistance !== 0 || typeof d.restoreAfterDeath !== 'boolean' || typeof d.achievements !== 'boolean' || (d.manual === 'none') === d.restoreAfterDeath || d.achievements && (d.manual !== 'none' || d.restoreAfterDeath)) report.errors.push(d.id + ': 저장 방식의 수동 저장/거리0~3/사망 복원/업적 정책이 모순된다')
   }
   for (const d of db.all<CreatureDef>('Creature')) if (d.vision !== undefined) {
     const v = d.vision

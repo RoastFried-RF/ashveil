@@ -1,16 +1,17 @@
 // 클라이언트 상태: 코어 World를 감싸고, 행동마다 version을 올려 화면을 갱신한다.
 // 코어 상태는 깊고 크므로 Vue 반응성 대신 shallowRef + version 카운터를 쓴다.
 
-import { ref, shallowRef, watch } from 'vue'
+import { ref, shallowRef, triggerRef, watch } from 'vue'
 import {setDisplayedModTextures} from './mod-texture-display'
 import {gameObservation} from './game-observation'
 import {
-  GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
+  IMPRINT_MODE, currentSaveMode, saveModeDef, checkpointQuote, GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
   type Action, type DefDatabase, type DeathReport, type LoadReport, type World,
 } from '../core'
 
 import {applyContentTransition} from '../core/content-transition'
 import { imprintStorage } from './imprint'
+import { checkpointStorage } from './checkpoints'
 import {encodeSeedShare,makeSeedShare,reviewSeedShare} from '../core/seed-share'
 
 export const saveStatus = ref<'idle' | 'saving' | 'saved' | 'error'>('idle')
@@ -95,7 +96,9 @@ export async function adoptCurrentContent(token:string):Promise<string|null>{
  }finally{contentAdopting.value=false}
 }
 
-export type ChronicleEntry = { at: string; seed: string; report: DeathReport; kind: 'death' | 'escape' | 'retire';retirement?:import('../core').RetirementRecord }|{at:string;seed:string;kind:'content';turn:number;from:string;to:string}
+export type ChronicleEntry = { at: string; seed: string; report: DeathReport; kind: 'death' | 'escape' | 'retire';retirement?:import('../core').RetirementRecord;saveMode?:string;saveModeLabel?:string }|{at:string;seed:string;kind:'content';turn:number;from:string;to:string}
+
+function legacyFor(seed:string,mode:string){return chronicle().flatMap(entry=>entry.seed===seed&&entry.kind==='retire'&&(entry.saveMode??IMPRINT_MODE)===mode&&entry.retirement?.legacy?[entry.retirement.legacy]:[])}
 
 function safeGet(key: string): string | null {
   try { return localStorage.getItem(key) } catch { return null }
@@ -127,21 +130,21 @@ export async function hasImprint(): Promise<boolean> {
   try { return !!await imprintStorage.read() } catch (e) { saveStatus.value = 'error'; saveError.value = (e as Error).message; return false }
 }
 
-export async function startNew(seed: string, background: string | undefined, mods: string[], characterRoll: 0 | 1 = 0,storyteller?:string) {
+export async function startNew(seed: string, background: string | undefined, mods: string[], characterRoll: 0 | 1 = 0,storyteller?:string,saveMode=IMPRINT_MODE) {
  const ticket=++startGeneration;starting.value=true
  try{
   const db=await buildGameDb(mods);if(ticket!==startGeneration)return
-  const legacyResidents=chronicle().flatMap(entry=>entry.seed===seed&&entry.kind==='retire'&&entry.retirement?.legacy?[entry.retirement.legacy]:[])
-  const s=newGame(db,{seed,background,mods:db.loadedMods,characterRoll,storyteller,overworld:true,legacyResidents}),w={db,s}
+  const legacyResidents=legacyFor(seed,saveMode)
+  const s=newGame(db,{seed,background,mods:db.loadedMods,characterRoll,storyteller,saveMode,overworld:true,legacyResidents}),w={db,s}
   runUntilInput(w);pendingContentReview.value=null;cancelContentAdoption();world.value=w;version.value++;screen.value='game';void saveImprint()
  }finally{if(ticket===startGeneration)starting.value=false}
 }
 
 /** 공유 문자열에는 생성 당시 선택과 실제로 허용된 정보 전용 은퇴 인물만 넣는다. */
-export function createSeedCode(seed:string,background:string|undefined,mods:string[],characterRoll:0|1,storyteller?:string):string{
- const db=buildDb(mods),legacyResidents=chronicle().flatMap(entry=>entry.seed===seed&&entry.kind==='retire'&&entry.retirement?.legacy?[entry.retirement.legacy]:[])
- const preview=newGame(db,{scriptPreview:true,seed,background,characterRoll,storyteller,overworld:true,legacyResidents})
- return encodeSeedShare(makeSeedShare(db,{seed,background,characterRoll,storyteller,legacyResidents:preview.overworld?.legacyResidents??[]}))
+export function createSeedCode(seed:string,background:string|undefined,mods:string[],characterRoll:0|1,storyteller?:string,saveMode=IMPRINT_MODE):string{
+ const db=buildDb(mods),legacyResidents=legacyFor(seed,saveMode)
+ const preview=newGame(db,{scriptPreview:true,seed,background,characterRoll,storyteller,saveMode,overworld:true,legacyResidents})
+ return encodeSeedShare(makeSeedShare(db,{seed,background,characterRoll,storyteller,saveMode,legacyResidents:preview.overworld?.legacyResidents??[]}))
 }
 export async function startSharedSeed(code:string){
  const ticket=++startGeneration;starting.value=true
@@ -151,7 +154,7 @@ export async function startSharedSeed(code:string){
   const review=reviewSeedShare(code,packages);if(review.errors.length)throw Error('공유한 세계를 시작할 수 없다:\n'+review.errors.join('\n'))
   const shared=review.shared,db=await buildGameDb(shared.mods.map(mod=>mod.id));if(ticket!==startGeneration)return
   if(db.loadHash!==shared.loadHash)throw Error('공유 검토 뒤 콘텐츠가 바뀌었다. 다시 확인해야 한다')
-  const s=newGame(db,{seed:shared.seed,background:shared.background,mods:db.loadedMods,characterRoll:shared.characterRoll,storyteller:shared.storyteller,overworld:true,legacyResidents:shared.legacyResidents}),w={db,s}
+  const s=newGame(db,{seed:shared.seed,background:shared.background,mods:db.loadedMods,characterRoll:shared.characterRoll,storyteller:shared.storyteller,saveMode:shared.saveMode,overworld:true,legacyResidents:shared.legacyResidents}),w={db,s}
   runUntilInput(w);pendingContentReview.value=null;cancelContentAdoption();world.value=w;version.value++;screen.value='game';void saveImprint()
  }finally{if(ticket===startGeneration)starting.value=false}
 }
@@ -164,13 +167,74 @@ export async function imprintMods():Promise<string[]>{
 }
 /** 다른 모드 선택은 반드시 먼저 검토한다. 같은 구성도 검토만으로 진입하지 않는다. */
 export const reviewImprintMods=(mods:readonly string[])=>continueImprint(undefined,mods,true)
-export async function continueImprint(acceptedToken?:string,requestedMods?:readonly string[],reviewOnly=false): Promise<string | null> {
+
+export const checkpointBusy=ref(false)
+export const checkpointError=ref('')
+export const pendingCheckpoint=shallowRef<{mode:string;label:string;seed:string;turn:number;name:string;raw:string|null;mods:string[]}|null>(null)
+export async function checkpointSummaries(modes:readonly {id:string;label:string}[]){
+ const rows=await Promise.all(modes.map(async mode=>{
+  try{const raw=await checkpointStorage(mode.id).read();if(!raw)return null;const s=deserialize(raw);return{...mode,summary:`${s.creatures.find(c=>c.id===s.playerId)?.name??'떠돌이'} · ${s.seed} · ${Math.floor(s.time/100)}턴`}}
+  catch{return{...mode,summary:'기록을 읽지 못했다. 불러오기에서 오류를 확인해야 한다'}}
+ }))
+ return rows.filter(row=>row!==null)
+}
+export function cancelCheckpoint(){pendingCheckpoint.value=null;checkpointError.value='';cancelContentReview()}
+function checkpointReadiness(){return starting.value||simulating.value||world.value?.s.simulationPending||contentReloading.value||contentAdopting.value?'진행 중인 계산/저장을 마친 뒤 이용해야 한다':null}
+export async function saveCheckpoint():Promise<string|null>{
+ if(checkpointBusy.value||pendingCheckpoint.value)return '다른 저장 지점 작업을 마쳐야 한다'
+ const blocked=checkpointReadiness();if(blocked)return blocked
+ const w=world.value;if(!w||screen.value!=='game')return '플레이 중인 세계가 필요하다'
+ const quote=checkpointQuote(w);if(quote.error)return quote.error
+ checkpointBusy.value=true
+ try{await checkpointStorage(quote.mode.id).write(serialize(w.s));return null}catch(error){return '저장 지점을 남기지 못했다: '+(error as Error).message}finally{checkpointBusy.value=false}
+}
+export async function reviewCheckpoint(mods?:readonly string[]):Promise<void>{
+ const pending=pendingCheckpoint.value;if(!pending?.raw||checkpointBusy.value)return
+ checkpointBusy.value=true;checkpointError.value='';cancelContentReview()
+ try{
+  const error=await continueImprint(undefined,mods??pending.mods,true,{raw:pending.raw,mode:pending.mode})
+  if(pendingCheckpoint.value===pending)checkpointError.value=pendingContentReview.value?'':error??''
+ }finally{checkpointBusy.value=false}
+}
+export async function beginCheckpointLoad(mode:string):Promise<void>{
+ if(checkpointBusy.value||pendingCheckpoint.value)return
+ const blocked=checkpointReadiness();if(blocked){checkpointError.value=blocked;return}
+ cancelContentReview();cancelLiveContentReview();cancelContentAdoption()
+ const pending={mode,label:mode,seed:'',turn:0,name:'',raw:null as string|null,mods:[] as string[]}
+ pendingCheckpoint.value=pending;checkpointError.value='';checkpointBusy.value=true
+ try{
+  const raw=await checkpointStorage(mode).read();if(pendingCheckpoint.value!==pending)return
+  if(!raw)throw Error('이 방식의 저장 지점이 없다. 먼저 원정 중 수동 저장해야 한다')
+  const s=deserialize(raw);if((s.saveMode??IMPRINT_MODE)!==mode||s.over)throw Error('선택한 방식의 살아 있는 원정 기록이 아니다')
+  Object.assign(pending,{raw,seed:s.seed,turn:Math.floor(s.time/100),mods:s.mods.filter(id=>id!=='core')});triggerRef(pendingCheckpoint)
+  const db=buildDb(s.mods.filter(id=>id!=='core')),policy=saveModeDef(db,mode)
+  if(policy.manual==='none'||!policy.restoreAfterDeath)throw Error('이 방식은 저장 지점을 복원할 수 없다')
+  Object.assign(pending,{raw,label:policy.label,seed:s.seed,turn:Math.floor(s.time/100),name:player({db,s}).name,mods:s.mods.filter(id=>id!=='core')});triggerRef(pendingCheckpoint)
+ }catch(error){if(pendingCheckpoint.value===pending)checkpointError.value=(error as Error).message}finally{checkpointBusy.value=false}
+ if(pendingCheckpoint.value===pending&&pending.raw)await reviewCheckpoint()
+}
+export async function confirmCheckpoint(token:string):Promise<void>{
+ const pending=pendingCheckpoint.value;if(!pending?.raw||checkpointBusy.value)return
+ checkpointBusy.value=true;checkpointError.value=''
+ try{
+  const raw=await checkpointStorage(pending.mode).read();if(pendingCheckpoint.value!==pending)return
+  if(raw!==pending.raw){cancelContentReview();checkpointError.value='검토 뒤 저장 지점이 바뀌었다. 닫고 다시 불러와야 한다';return}
+  const error=await continueImprint(token,undefined,false,{raw,mode:pending.mode})
+  if(pendingCheckpoint.value!==pending)return
+  if(error)checkpointError.value=error
+  // 자동 기록 저장 실패도 이미 복원한 세계는 유지한다. 다시 승인을 눌러 중복 복원하지 않는다.
+  if(!error||!pendingContentReview.value){pendingCheckpoint.value=null;if(world.value?.s.simulationPending)resumeSimulation(world.value)}
+ }catch(error){if(pendingCheckpoint.value===pending)checkpointError.value=(error as Error).message}finally{checkpointBusy.value=false}
+}
+
+export async function continueImprint(acceptedToken?:string,requestedMods?:readonly string[],reviewOnly=false,source?:{raw:string;mode:string}): Promise<string | null> {
+  if(pendingCheckpoint.value&&!source)return '저장 지점 복원 검토를 먼저 닫아야 한다'
   if(acceptedToken&&acceptedToken!==pendingContentReview.value?.token)return '현재 검토 중인 콘텐츠 변경이 아니다. 다시 확인해야 한다.'
   const selected=requestedMods===undefined?(acceptedToken?[...pendingContentReview.value!.selectedMods]:undefined):[...requestedMods]
   if(selected?.some(id=>typeof id!=='string'))return '선택한 모드 목록 형식이 올바르지 않다'
   const ticket=++startGeneration;starting.value=false
   try {
-    const raw = await imprintStorage.read()
+    const raw = source?.raw ?? await imprintStorage.read()
     if(ticket!==startGeneration)return '다른 요청으로 각인 불러오기를 취소했다'
     if (!raw) return '각인이 없다'
     if(typeof indexedDB!=='undefined')await modInstallation.initialize()
@@ -179,6 +243,8 @@ export async function continueImprint(acceptedToken?:string,requestedMods?:reado
     const legacyDungeon = (JSON.parse(raw) as {version:number}).version <= 3
     const s = deserialize(raw)
     const db = buildDb((selected??s.mods).filter((m) => m !== 'core'))
+    const mode=saveModeDef(db,s.saveMode)
+    if(source&&((s.saveMode??IMPRINT_MODE)!==source.mode||mode.manual==='none'||!mode.restoreAfterDeath||s.over||!s.creatures.find(c=>c.id===s.playerId)?.alive))return '이 방식의 살아 있는 원정 저장 지점이 아니다'
     const compatibility=contentChangeReview(s,db),token=sha256(raw+'\n'+db.loadHash),review={...compatibility,token,selectedMods:[...db.loadedMods].filter(id=>id!=='core'),canContinue:compatibility.canContinue||compatibility.status==='same'&&compatibility.recoveryErrors.length===0}
     if(acceptedToken&&acceptedToken!==token){pendingContentReview.value=review;return '검토한 뒤 각인 또는 콘텐츠가 바뀌었다. 다시 확인해야 한다.'}
     const changed=compatibility.status==='changed'
@@ -191,6 +257,7 @@ export async function continueImprint(acceptedToken?:string,requestedMods?:reado
     if(db.scriptSources.length){const{attachQuickJSScripts}=await import('../scripting/attach');await attachQuickJSScripts(db)}
     if(ticket!==startGeneration)return '다른 요청으로 각인 불러오기를 취소했다'
     const candidate:World = { db, s }
+    if(!mode.achievements)s.achievementsDisabled=true
     initializeScriptState(candidate)
     if(legacyDungeon)enableOverworld(candidate)
     initializeClimate(candidate)
@@ -199,13 +266,16 @@ export async function continueImprint(acceptedToken?:string,requestedMods?:reado
     initializeFieldDevices(candidate)
     updatePlayerVision(candidate, player(candidate))
     if(changed){const list=chronicle();list.unshift({at:new Date().toISOString(),seed:s.seed,kind:'content',turn:Math.floor(s.time/100),from:compatibility.recorded!,to:db.loadHash});safeSet(CHRONICLE_KEY,JSON.stringify(list.slice(0,50)))}
+    clearTimeout(saveTimer)
+    clearTimeout(simulationTimer)
     pendingContentReview.value=null
     cancelContentAdoption()
     world.value = candidate
     version.value++
     screen.value = 'game'
-    if (s.simulationPending) resumeSimulation(world.value)
-    if(changed)void saveImprint()
+    if (s.simulationPending&&!source) resumeSimulation(world.value)
+    if(source){await saveImprint();if(saveStatus.value==='error')return '저장 지점은 복원했지만 자동 기록을 저장하지 못했다: '+saveError.value}
+    else if(changed)void saveImprint()
     return null
   } catch (e) {
     return `각인을 읽지 못했다: ${(e as Error).message}`
@@ -253,6 +323,7 @@ function resumeSimulation(w: World) {
 export function act(a: Action, immediate = false): string | null {
   const w = world.value
   if (!w || w.s.over) return null
+  if(pendingCheckpoint.value||checkpointBusy.value)return '저장 지점 검토/저장을 마쳐야 한다'
   if (w.s.simulationPending && a.type !== 'stopActivity') return '시간이 흐르는 중이다'
   if (a.type === 'stopActivity') clearTimeout(simulationTimer)
   const err = playerAct(w, a, immediate ? undefined : 200)
@@ -265,7 +336,8 @@ export function act(a: Action, immediate = false): string | null {
 function recordChronicle(w: World) {
   if (!w.s.over) return
   const list = chronicle()
-  list.unshift({ at: new Date().toISOString(), seed: w.s.seed, report: w.s.over.report, kind: w.s.over.kind,...(w.s.over.retirement?{retirement:w.s.over.retirement}:{}) })
+  const mode=currentSaveMode(w)
+  list.unshift({ at: new Date().toISOString(), seed: w.s.seed, report: w.s.over.report, kind: w.s.over.kind,saveMode:mode.id,saveModeLabel:mode.label,...(w.s.over.retirement?{retirement:w.s.over.retirement}:{}) })
   safeSet(CHRONICLE_KEY, JSON.stringify(list.slice(0, 50)))
 }
 

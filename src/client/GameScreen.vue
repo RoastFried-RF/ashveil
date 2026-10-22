@@ -15,7 +15,8 @@ import HoverInfo from './HoverInfo.vue'
 import LogPanel from './LogPanel.vue'
 import MapView from './MapView.vue'
 import type { RenderOpts } from './render/MapRenderer'
-import { abandonToTitle, saveImprint, saveStatus, saveError, version, simulating, world } from './store'
+import { abandonToTitle, saveImprint, saveStatus, saveError, version, simulating, world, pendingCheckpoint } from './store'
+import CheckpointControls from './CheckpointControls.vue'
 import AbilityWindow from './ui/AbilityWindow.vue'
 import BodyWindow from './ui/BodyWindow.vue'
 import CraftingWindow from './ui/CraftingWindow.vue'
@@ -33,6 +34,7 @@ import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, start
 import { computeBanners } from './warnings'
 
 resetGameUI()
+watch(world,()=>resetGameUI())
 const hover = ref<Pos | null>(null)
 const shift = ref(false)
 const help = ref(false)
@@ -147,7 +149,7 @@ function startTravel(dest: Pos) {
   clearInterval(travelTimer)
   const step = () => {
     const cur = world.value
-    if (!cur || cur.s.over || document.hidden || preferencesOpen.value || definitionInspectorOpen.value || help.value || !travel.value?.length) return stopTravel()
+    if (!cur || cur.s.over || document.hidden || preferencesOpen.value || definitionInspectorOpen.value || pendingCheckpoint.value || help.value || !travel.value?.length) return stopTravel()
     const me = player(cur)
     const next = travel.value[0]
     const dir = DIRS.findIndex((d) => d.x === next.x - me.pos.x && d.y === next.y - me.pos.y)
@@ -181,7 +183,7 @@ const WINDOW_COMMANDS:Partial<Record<Command,WinKey>>={character:'char',inventor
 function clearPrefix(){if(prefix.value){prefix.value=null;hint.value=null}}
 function clearKeys(){keyRepeat.clear();shift.value=false;clearPrefix()}
 function suspendInput(){stopTravel();clearKeys()}
-watch([preferencesOpen,definitionInspectorOpen,help],([settings,inspector,helpOpen])=>{if(settings||inspector||helpOpen)suspendInput()},{flush:'sync'})
+watch([preferencesOpen,definitionInspectorOpen,help,pendingCheckpoint],([settings,inspector,helpOpen,checkpoint])=>{if(settings||inspector||helpOpen||checkpoint)suspendInput()},{flush:'sync'})
 watch(()=>Object.values(wins),()=>{if(Object.values(wins).some(Boolean))suspendInput()},{flush:'sync'})
 watch(targeting,t=>{if(t){suspendInput();document.querySelector<HTMLElement>('[data-testid=map]')?.focus({preventScroll:true})}},{flush:'sync'})
 function allowMovement(){
@@ -192,7 +194,7 @@ function allowMovement(){
 function onFocusIn(e:FocusEvent){if(e.target instanceof HTMLElement&&e.target.closest('.window-shell,button,summary,a[href],input,textarea,select,[contenteditable="true"]'))suspendInput()}
 function onUiPointer(e:PointerEvent){if(e.target instanceof HTMLElement&&e.target.closest('button,input,select,textarea,[role="dialog"],[role="menu"]'))suspendInput()}
 function onKey(raw:KeyboardEvent){
- if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value)return
+ if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value)return
  if(help.value){
   if(raw.key==='Escape'&&!raw.repeat){raw.preventDefault();help.value=false}
   else if(raw.key==='Tab'&&helpDialog.value)cycleFocus(helpDialog.value,raw)
@@ -289,7 +291,7 @@ function onKey(raw:KeyboardEvent){
 function onKeyUp(e:KeyboardEvent){keyRepeat.release(e.code);if(e.key==='Shift')shift.value=false}
 
 function onClick(p: Pos, button: number, ctrl=false) {
-  if(preferencesOpen.value||definitionInspectorOpen.value||help.value||over.value)return
+  if(preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value||help.value||over.value)return
   resumeDest.value = null
   clearPrefix()
   hideTip()
@@ -444,6 +446,7 @@ onBeforeUnmount(() => {
         <div><h3 class="mb-1 font-title text-amber-300">마지막 기록</h3><ul class="space-y-0.5 font-mono text-[11px] text-ash-300"><li v-for="(l, i) in over.report.chain" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">그때의 몸</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.vitals" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">기록</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.stats" :key="i">{{ l }}</li></ul></div>
+        <CheckpointControls ended />
         <div class="text-center"><button class="dbtn-gold !px-4 !text-sm" @click="abandonToTitle">연대기에 새기고 돌아가기</button></div>
       </div>
     </div>
