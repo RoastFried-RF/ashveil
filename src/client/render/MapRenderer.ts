@@ -1,6 +1,8 @@
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
 import {groundObjectArt,isGroundCrop} from './terrain-art'
+import {treeArt} from './forest-art'
+import {projectVisibleFog} from './projected-fog'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -89,6 +91,7 @@ export class MapRenderer {
   private floatLayer = new Container()
   private rain = new Graphics()
   private darkCanvas = document.createElement('canvas')
+  private shadeCanvas = document.createElement('canvas')
   private glowCanvas = document.createElement('canvas')
   private views = new Map<number, CView>()
   private floaters: Floater[] = []
@@ -98,6 +101,8 @@ export class MapRenderer {
   private renderedMap: World['s']['map'] | null = null
   private renderedTerrain: (string|undefined)[] = []
   private displayVisible:ReadonlySet<number>=new Set()
+  private staticFogProps:{index:number;sprite:Sprite}[]=[]
+  private dynamicFogProps:{index:number;sprite:Sprite}[]=[]
   private cam = { x: 0, y: 0 }
   private camInit = false
   private zoom = 3
@@ -198,6 +203,7 @@ export class MapRenderer {
   }
 
   private buildStatic(w: World) {
+    this.staticFogProps=[]
     this.clear(this.ground); this.clear(this.deco); this.clear(this.walls)
     const creatureRoots = new Set([...this.views.values()].map(v => v.root))
     for (const child of [...this.objs.children]) if (!creatureRoots.has(child as Container)) {
@@ -327,6 +333,7 @@ export class MapRenderer {
       s.anchor.set(ax, ay)
       s.zIndex = z
       this.objs.addChild(s)
+      if(terr.opaque)this.staticFogProps.push({index:y*w.s.map.w+x,sprite:s})
       return s
     }
     if(terr.visual||groundObjectArt(terr))return // 밭·작업대·생활 물체는 동적 경로에서 그린다.
@@ -338,12 +345,12 @@ export class MapRenderer {
     }
     switch (t) {
       case 'Terrain.Tree': {
-        // 기존 기본 키의 혼합 표현은 보존하고, 콘텐츠가 지정한 별도 수목 원본은 실제로 읽는다.
-        const chosen=terr.sprites?.[0],key=chosen&&chosen!=='tree_dead'?terr.sprites[h%terr.sprites.length]:(h%4===0?'tree':'tree_dead')
-        const s = add(new Sprite(tex(key)), 0.5, 0.96)
-        s.scale.set(h % 2 ? 0.42 : -0.42, 0.42)
+        const art=treeArt(terr.sprites,h),texture=tex(art.sprite)
+        const s = add(new Sprite(texture), art.anchor[0], art.anchor[1])
+        const scale=art.scale??art.worldHeight!/texture.height
+        s.scale.set(art.flip?-scale:scale,scale)
         s.position.set(px + T / 2, py + T)
-        s.tint = 0x9a9a92
+        s.tint = art.tint
         break
       }
       case 'Terrain.Rock': {
@@ -382,6 +389,7 @@ export class MapRenderer {
   // ── 동적: 문·용기·피·바닥 물건 ─────────────────────────
 
   private buildDynamic(w: World) {
+    this.dynamicFogProps=[]
     this.dynamicAnimated=[]
     this.clear(this.dyn)
     for (const ch of [...this.objs.children]) if (ch.label === 'dyn') { this.objs.removeChild(ch); ch.destroy() }
@@ -474,7 +482,7 @@ export class MapRenderer {
         g.label = 'dyn'
         this.objs.addChild(g)
       }
-      if (s) { s.zIndex = py + T - 0.5; s.label = 'dyn'; this.objs.addChild(s) }
+      if (s) { s.zIndex = py + T - 0.5; s.label = 'dyn'; this.objs.addChild(s);if(terr.opaque)this.dynamicFogProps.push({index:i,sprite:s}) }
       if (tile.items.length && vis.has(i)) {
         const it = tile.items[tile.items.length - 1]
         const ic = new Sprite(icon(w.db.item(it.def).sprite))
@@ -491,8 +499,8 @@ export class MapRenderer {
 
   private updateLight(w: World) {
     const map = w.s.map
-    for (const cv of [this.darkCanvas, this.glowCanvas]) { cv.width = map.w; cv.height = map.h }
-    const dctx = this.darkCanvas.getContext('2d')!
+    for (const cv of [this.shadeCanvas, this.glowCanvas]) { cv.width = map.w; cv.height = map.h }
+    const dctx = this.shadeCanvas.getContext('2d')!
     const gctx = this.glowCanvas.getContext('2d')!
     const dimg = dctx.createImageData(map.w, map.h)
     const gimg = gctx.createImageData(map.w, map.h)
@@ -530,8 +538,17 @@ export class MapRenderer {
     }
     dctx.putImageData(dimg, 0, 0)
     gctx.putImageData(gimg, 0, 0)
+    const projected=[...this.staticFogProps,...this.dynamicFogProps].filter(row=>vis.has(row.index)&&row.sprite.height>T).sort((a,b)=>a.sprite.zIndex-b.sprite.zIndex)
+    this.darkCanvas.width=map.w*(projected.length?T:1);this.darkCanvas.height=map.h*(projected.length?T:1)
+    const full=this.darkCanvas.getContext('2d')!
+    if(!projected.length)full.putImageData(dimg,0,0)
+    else{
+      full.imageSmoothingEnabled=true;full.drawImage(this.shadeCanvas,0,0,this.darkCanvas.width,this.darkCanvas.height)
+      for(const row of projected)projectVisibleFog(full,row.sprite,dimg.data[row.index*4+3]!/255)
+    }
     for (const [s, cv] of [[this.dark, this.darkCanvas], [this.glow, this.glowCanvas]] as const) {
-      s.texture.destroy(false)
+      // 두 텍스처는 이 렌더러 전용 캔버스다. 이전 GPU 소스도 함께 해제한다.
+      s.texture.destroy(true)
       const t = Texture.from(cv, true)
       t.source.scaleMode = 'linear'
       s.texture = t
