@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   maneuverQuote, adjacentContainer, adjacentCorpse, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
   allItems, autoBlocked, autoSnap, autoStop, turnOf, type Pos, type World,
@@ -34,6 +34,23 @@ import { computeBanners } from './warnings'
 const hover = ref<Pos | null>(null)
 const shift = ref(false)
 const help = ref(false)
+const hudDock = ref<HTMLElement | null>(null)
+const hudDockHeight = ref(190)
+let hudObserver: ResizeObserver | undefined
+const helpDialog = ref<HTMLElement | null>(null)
+let helpOrigin: HTMLElement | null = null
+watch(help, async open => {
+  if (open) {
+    helpOrigin = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    stopTravel()
+    clearKeys()
+    await nextTick()
+    helpDialog.value?.querySelector<HTMLElement>('button')?.focus()
+  } else {
+    await nextTick()
+    if (helpOrigin?.isConnected) helpOrigin.focus()
+  }
+})
 const travel = ref<Pos[] | null>(null)
 const resumeDest = ref<Pos | null>(null)
 let travelTimer: ReturnType<typeof setInterval> | undefined
@@ -67,6 +84,7 @@ const opts = computed<RenderOpts>(() => {
   const ww = w.value
   const pos = (id: number) => ww.s.creatures.find((c) => c.id === id)?.pos
   return {
+    hudHeight: hudDockHeight.value,
     hover: hover.value,
     targets: t ? t.targets.map(pos).filter((p): p is Pos => !!p) : [],
     selected: t ? pos(t.targets[t.idx]) ?? null : null,
@@ -164,6 +182,16 @@ watch([preferencesOpen,definitionInspectorOpen],()=>keyRepeat.clear())
 function clearKeys(){keyRepeat.clear();shift.value=false}
 function onKey(raw: KeyboardEvent) {
   if (preferencesOpen.value || definitionInspectorOpen.value) return
+  if (help.value) {
+    if (raw.key === 'Escape') { raw.preventDefault(); help.value = false }
+    else if (raw.key === 'Tab') {
+      raw.preventDefault()
+      const controls = [...(helpDialog.value?.querySelectorAll<HTMLElement>('button,input,select,summary') ?? [])].filter(el => el.offsetParent !== null && !el.matches(':disabled'))
+      const at = controls.indexOf(document.activeElement as HTMLElement)
+      controls[(at + (raw.shiftKey ? controls.length - 1 : 1)) % controls.length]?.focus()
+    }
+    return
+  }
   const element=raw.target instanceof HTMLElement?raw.target:null
   if(element?.matches('input,textarea,select,[contenteditable=true]'))return
   if((raw.key==='Enter'||raw.key===' ')&&element?.closest('button,summary')&&!(raw.key==='Enter'&&targeting.value))return
@@ -327,12 +355,15 @@ function onClick(p: Pos, button: number) {
 }
 
 onMounted(() => {
+  hudObserver = new ResizeObserver(entries => { hudDockHeight.value = Math.ceil(entries[0].contentRect.height) })
+  if (hudDock.value) hudObserver.observe(hudDock.value)
   window.addEventListener('blur',clearKeys)
   document.addEventListener('visibilitychange',clearKeys)
   window.addEventListener('keydown', onKey)
   window.addEventListener('keyup', onKeyUp)
 })
 onBeforeUnmount(() => {
+  hudObserver?.disconnect()
   stopTravel()
   keyRepeat.clear()
   window.removeEventListener('blur',clearKeys)
@@ -343,7 +374,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative h-full w-full select-none overflow-hidden bg-black">
+  <div class="relative h-full w-full select-none overflow-hidden bg-black" :style="{ '--hud-dock-height': hudDockHeight + 'px' }">
     <MapView :key="w.db.loadHash" :opts="opts" @hover="hover = $event" @click="onClick" />
 
     <!-- 위험: 화면 가장자리 붉은 기운 -->
@@ -366,13 +397,13 @@ onBeforeUnmount(() => {
     <div v-if="activity" class="game-notice pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
     <div v-if="targeting" class="game-notice pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span v-if="maneuverPreview && !maneuverPreview.error">· {{ maneuverPreview.chance }}% · 기력 {{ maneuverPreview.cost }}</span><span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
 
-    <div class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
+    <div ref="hudDock" class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
       <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ onStairs }}(으)로 ( &gt; )</button></div>
       <div v-if="hint" class="game-notice pointer-events-auto max-w-md cursor-pointer text-xs font-semibold" data-testid="hint" @click="hint = null">{{ hint }}</div>
       <button v-if="resumeDest && w.s.autoThreat !== undefined" class="dbtn pointer-events-auto !text-xs" data-testid="ignore-threat" @click="ignoreAndResume">이번 개체를 무시하고 계속 (공격·3칸 접근 시 해제)</button>
       <Hud />
     </div>
-    <div class="game-log pointer-events-none absolute bottom-[150px] right-3 2xl:bottom-3"><LogPanel /></div>
+    <div class="game-log pointer-events-none absolute right-3"><LogPanel /></div>
 
     <CraftingWindow v-if="wins.craft" />
     <SocietyWindow v-if="wins.society" />
@@ -390,7 +421,7 @@ onBeforeUnmount(() => {
     <Tooltip />
 
     <div v-if="help" class="absolute inset-0 z-[5000] flex items-center justify-center bg-black/70 p-4" @click="help = false">
-      <div class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
+      <div ref="helpDialog" class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
         <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">고원에서 살아남기</h2><button class="dbtn" aria-label="조작법 닫기" @click="help = false">닫기</button></div>
         <p>맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.</p>
         <p>Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.</p>

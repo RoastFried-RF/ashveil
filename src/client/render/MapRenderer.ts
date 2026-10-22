@@ -59,6 +59,7 @@ interface PropAnimation { s: Sprite; frames: Texture[]; fps: number; phase: numb
 interface Floater { t: Text; vy: number; life: number; max: number }
 
 export interface RenderOpts {
+  hudHeight?: number
   hover?: Pos | null
   targets?: Pos[]
   selected?: Pos | null
@@ -812,9 +813,12 @@ export class MapRenderer {
     let tx = Wpx / 2 - (pp.x + 0.5) * s
     // 하단 HUD가 가리는 만큼 플레이어를 화면 세로 중앙보다 1칸 위에 둔다 (12 §2.4)
     let ty = Hpx / 2 - (pp.y + 0.5) * s - s
+    // At a map's south edge the old clamp could push the player under the HUD.
+    // Reserve the measured client overlay only; game visibility remains unchanged.
+    const usableHeight = Hpx - (this.opts.hudHeight ? Math.min(Hpx * .45, this.opts.hudHeight) + 24 : 0)
     const mw = w.s.map.w * s, mh = w.s.map.h * s
     tx = mw < Wpx ? (Wpx - mw) / 2 : Math.min(0, Math.max(Wpx - mw, tx))
-    ty = mh < Hpx ? (Hpx - mh) / 2 : Math.min(0, Math.max(Hpx - mh, ty))
+    ty = mh < usableHeight ? (usableHeight - mh) / 2 : Math.min(0, Math.max(usableHeight - mh, ty))
     if (!this.camInit) { this.cam = { x: tx, y: ty }; this.camInit = true }
     const k = immediate ? 1 : 1 - Math.pow(0.0001, dt * preferences.animationSpeed / 1000)
     this.cam.x += (tx - this.cam.x) * k

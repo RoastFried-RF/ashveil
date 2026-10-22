@@ -10,8 +10,9 @@ import {
 import { parasiteRemovalQuote } from '../../core/parasites'
 import { STATE_COLOR } from '../info'
 import { act, version, world } from '../store'
-import { doAct, hideTip, showTip, wins, prostheticInstallUid } from '../ui'
+import { doAct, showTip, wins, prostheticInstallUid } from '../ui'
 import Bar from './Bar.vue'
+import BodyDiagram from './BodyDiagram.vue'
 import Win from './Win.vue'
 
 const REGION_EFFECT: Record<Region, string> = {
@@ -116,15 +117,6 @@ const d = computed(() => {
 })
 const FRACTURE = { hairline: '금', simple: '단순', compound: '복합' }
 const R = (r: Region) => d.value.regions.find((x) => x.r === r)!
-/** 색약 대응 무늬 (12 §4): 멀쩡 빈칸 · 타박 점 · 부상 사선 · 중상 격자 · 불구 × */
-const PATTERN = [
-  'none',
-  'radial-gradient(circle, rgba(0,0,0,.45) 1px, transparent 1.5px) 0 0/5px 5px',
-  'repeating-linear-gradient(45deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px)',
-  'repeating-linear-gradient(0deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px), repeating-linear-gradient(90deg, rgba(0,0,0,.45) 0 1px, transparent 1px 5px)',
-  'linear-gradient(45deg, transparent 45%, rgba(0,0,0,.7) 45% 55%, transparent 55%), linear-gradient(-45deg, transparent 45%, rgba(0,0,0,.7) 45% 55%, transparent 55%)',
-]
-const fill = (r: Region) => ({ background: PATTERN[R(r).s] === 'none' ? STATE_COLOR[R(r).s] : `${PATTERN[R(r).s]}, ${STATE_COLOR[R(r).s]}` })
 function rtip(e: MouseEvent, r: Region) {
   const x = R(r)
   showTip(e, `${x.label}: ${STATE_LABEL[x.s]}`, [`부위 체력 ${Math.round(x.h * 100)}%`, `상처 ${x.wounds}개`, `영향: ${REGION_EFFECT[r]}`])
@@ -138,15 +130,10 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
       <!-- 6부위 인형 -->
       <div class="w-[170px] shrink-0">
         <div class="inset relative mx-auto h-[220px] w-[150px]" data-testid="body-doll">
-          <div class="absolute left-1/2 top-[8px] h-[38px] w-[38px] -translate-x-1/2 rounded-full border border-black/50" :style="fill('head')" @mouseenter="rtip($event, 'head')" @mouseleave="hideTip" />
-          <div class="absolute left-1/2 top-[50px] h-[70px] w-[46px] -translate-x-1/2 rounded-md border border-black/50" :style="fill('torso')" @mouseenter="rtip($event, 'torso')" @mouseleave="hideTip" />
-          <div class="absolute left-[22px] top-[52px] h-[66px] w-[16px] rotate-[8deg] rounded-md border border-black/50" :style="fill('rarm')" @mouseenter="rtip($event, 'rarm')" @mouseleave="hideTip" />
-          <div class="absolute right-[22px] top-[52px] h-[66px] w-[16px] -rotate-[8deg] rounded-md border border-black/50" :style="fill('larm')" @mouseenter="rtip($event, 'larm')" @mouseleave="hideTip" />
-          <div class="absolute left-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="fill('rleg')" @mouseenter="rtip($event, 'rleg')" @mouseleave="hideTip" />
-          <div class="absolute right-[50px] top-[124px] h-[82px] w-[20px] rounded-md border border-black/50" :style="fill('lleg')" @mouseenter="rtip($event, 'lleg')" @mouseleave="hideTip" />
+          <BodyDiagram :states="Object.fromEntries(d.regions.map(r=>[r.r,r.s]))" @region="rtip" />
         </div>
         <div class="mt-1 grid grid-cols-2 gap-x-2">
-          <div v-for="x in d.regions" :key="x.r" class="flex justify-between"><span class="text-ash-400">{{ x.label }}</span><b :style="{ color: STATE_COLOR[x.s] === '#4a1612' ? '#c04030' : STATE_COLOR[x.s] }">{{ STATE_LABEL[x.s] }}</b></div>
+          <div v-for="x in d.regions" :key="x.r" class="flex justify-between"><span class="text-ash-400">{{ x.label }}</span><b :style="{ color: x.s === 0 ? '#c4b79a' : STATE_COLOR[x.s] === '#4a1612' ? '#ec9276' : STATE_COLOR[x.s] === '#b2402c' ? '#e98d70' : STATE_COLOR[x.s] }">{{ STATE_LABEL[x.s] }}</b></div>
         </div>
         <div v-if="d.pen.length" class="mt-1 text-[11px] text-amber-300">{{ d.pen.join(' · ') }}</div>
       </div>

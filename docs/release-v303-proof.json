@@ -1,0 +1,314 @@
+{
+  "version": 303,
+  "dateUTC": "2026-10-22",
+  "save": 204,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 547,
+  "api": "1.4.0",
+  "checkpoint": "/workspace/.ashveil-checkpoints/v303-publish-input",
+  "fullInputManifestSha256": "0f098cb0c88c5434c99201465eae36a1a37cf68aac00cb9f164617bb45dbe374",
+  "source": {
+    "src": {
+      "files": 690,
+      "allBytesExactFullAndNative": true
+    },
+    "public": {
+      "files": 1838,
+      "allBytesExactFullAndNative": true
+    },
+    "dist": {
+      "files": 2237,
+      "allBytesExactFullAndNative": true
+    },
+    "tests": {
+      "files": 1083,
+      "allBytesExactFullAndNative": true
+    },
+    "tools": {
+      "files": 307,
+      "allBytesExactFullAndNative": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesExactFullAndNative": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesExactFullAndNative": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesExactFullAndNative": true
+    }
+  },
+  "full": {
+    "singleCompleteRun": true,
+    "files": 334,
+    "passed": 6110,
+    "failed": 0,
+    "pending": 0,
+    "reportSha256": "499d54035429ce1ee261e58573451477fe8eb96ff70d5f205d6729545a10de69",
+    "logSha256": "75d06552fc5a86cfbe92d4dd4991f8950624a69c457044e63e33d91b5ee0ba77"
+  },
+  "checks": {
+    "typecheck": "vue-tsc --noEmit within final successful pnpm build",
+    "build": true,
+    "lintErrors": 0,
+    "lintKnownPriorWarnings": 1,
+    "sprites": {
+      "uniquePNGs": 105,
+      "sheets": 79,
+      "frames": 1266,
+      "animations": 8,
+      "characters": 28,
+      "ui": 26,
+      "warnings": 0
+    },
+    "schemaLogSha256": "c2c45c2eb60d778eec6b4e194f2c0718b994a4a1ee0b17072a13753b05397461"
+  },
+  "sourceAudit": {
+    "file": "docs/art-direction-v303-source-final-audit.json",
+    "sha256": "e398195fda1a1b37ed4655c1bd0ee1f37d41fe0af7f39aebfc0a09fc2b68d665",
+    "changedFrames": 1266,
+    "changedUI": 26,
+    "old1078PublicFilesByteExact": true,
+    "core294AndContent283AndMods86ByteExactV302": true
+  },
+  "goldens": {
+    "version": 303,
+    "vectors": 5,
+    "allInitialFinalErrorsAndHashesExactV302": true,
+    "actualSha256": "93dabd8d47963fef1f1692fdd7fdbb5140b87c278bbbd2450f9baa2026842606",
+    "priorSha256": "93dabd8d47963fef1f1692fdd7fdbb5140b87c278bbbd2450f9baa2026842606",
+    "expectedFixturesChanged": false
+  },
+  "native": {
+    "file": "docs/art-direction-v303-native-audit.json",
+    "sha256": "f532391e8d4f2275c1a78e35f801e7c3d8403bb6e929a9e1c2cae626504b251d",
+    "screenshots": 48,
+    "actualGameScreenshots": 36,
+    "catalogueScreenshots": 12,
+    "wholePairs": 44,
+    "saveRestores": 13,
+    "inputTU": 900,
+    "errors": []
+  },
+  "review": {
+    "file": "docs/art-direction-v303-independent-review.json",
+    "sha256": "56b44c4b796652bf75fee1aac6cbcf6a3b9500da9ebabe0f11b4022766d455bb",
+    "sourceImages": 63,
+    "runtimeImages": 48,
+    "totalImages": 111,
+    "blockers": []
+  },
+  "publishedPhotos": [
+    {
+      "path": "docs/previews/v303-art-direction-1701-help-readable-and-no-turn.png",
+      "sha256": "4412a3d2c37485d50c992443aa719726f33197e985d6ae2f7b230e5b61ac8642"
+    },
+    {
+      "path": "docs/previews/v303-art-direction-1702-small-settings-scroll-end-and-focus.png",
+      "sha256": "bef083d11ac93acc59d51ca86883986b2ca1262d7025be78f4c8c8570d667009"
+    },
+    {
+      "path": "docs/previews/v303-art-direction-1703-small-hud-colorblind-health-energy-xp.png",
+      "sha256": "cc65db428b1dfdc420a425d60095c087810b3fdd969491b3a53bb88326be034b"
+    },
+    {
+      "path": "docs/previews/v303-art-direction-1704-small-ability-carvings-and-labels.png",
+      "sha256": "b6f68039d1f8464eee47d9a64f3fb5642bea95354659a8b80d6f88a36ca65815"
+    },
+    {
+      "path": "docs/previews/v303-art-direction-1705-small-original-anatomy-and-six-states.png",
+      "sha256": "dab70f06166caa7f7f2479e4913368eec04cc8177db90b987efa14cc0e6ed93a"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-creatures-actual-original-art.png",
+      "sha256": "de6ee36dd9cb1c220193f1734b30c855f8bf9b23eb8cbc39ada32a3fb52da536"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-crops-actual-original-art.png",
+      "sha256": "04a28403bcea4b3d584bd2b81f096020f91b70a78a1375f753477ef622d6d08f"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-devices-actual-original-art.png",
+      "sha256": "6e0b6026d59a94d3270990c9bdf515592c0b7870b40eebd25e25f34ca36be998"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-domestic-actual-original-art.png",
+      "sha256": "4fa935a0e3ba2862c96febfc3898f2ba2d896db28c8fa9c518fcccd76bf4188a"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-dungeon-actual-original-art.png",
+      "sha256": "0328cafb87e62325d7f46cf8339bdda211f0d75d274b0fda1caf9dca3974dbdc"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-ground-actual-original-art.png",
+      "sha256": "48eff3a6422477f99a09dc938e72256bf559e74a20fc7d35b2c772e6d71bd2c9"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-inventory-actual-original-art.png",
+      "sha256": "7174a69e0fe1f95f70d9c999e11a2a1180e7af9ef59b5dd9f4c7186f203048ba"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-props-actual-original-art.png",
+      "sha256": "0d76dd050b9bdfcc2fa8b6dad35989f3971f165112784dc96b96f96ea2aa3679"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1601-stations-actual-original-art.png",
+      "sha256": "7c62e0fb4ea2df30b80ced5a3215fb058eb1309caa9376617c8293f3c99d60cf"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1602-creatures-after-four-real-face-turns.png",
+      "sha256": "5c882f1d0dd4b23dda6aeba3363b1c895bb6745b2f0e294ccbb03398e5b5cc3e"
+    },
+    {
+      "path": "docs/previews/v303-complete-art-1603-small-new-inventory-ui.png",
+      "sha256": "21abb3164282447b1da0e9c3bfbc527e9b4c7316f14b766893d2172f416c31b0"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1501-native-eleven-original-material-stacks-and-empty-clay-bowl.png",
+      "sha256": "453be8cd414967aa507826dec8d0a1f8dd5fd79040172d3d2becc81bff445f15"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1502-native-distinct-torn-cloth-and-bandage-original-counts.png",
+      "sha256": "a0228a726a65969c51a6cc24617f1cafa3a447523bd4ad4115616585c9381464"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1503-native-original-flameless-torch-icon-real-lit-marker-and-fuel.png",
+      "sha256": "79e7d823ece8208e6849082d84df620d7ef4eedbfe80ec2787e9aa5525c7bea3"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1504-native-same-original-unlit-torch-finite-fuel-and-separate-marker.png",
+      "sha256": "1fec796335785197aac3f51e00ddf6c4424c60e320c5091742e6cfaa458a08d2"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1505-native-actual-portable-wood-and-scrap-floor-sprites.png",
+      "sha256": "a4e87d7299a02b3689c31ecd33767fe23cb66d91571988e4202da045476af2cc"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1506-native-same-three-original-wood-pieces-on-floor-and-finite-materials.png",
+      "sha256": "8eca80ed98150149a4675fc91770550802cb0640aa3915862749d0a7f6a54f48"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1507-native-campfire-kit-original-recipe-icon-and-actual-missing-wood.png",
+      "sha256": "becf90d74f0a76d80d45f490c3486e7d1a4a9e7341e4e32e2ed08a438cbd9852"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1508-native-eight-ability-icons-reuse-existing-spear-bow-and-arrow-originals.png",
+      "sha256": "50bbc5a72d0238f5af13a876992e1d5183670c054aa8f1572b3c8b2dbadc150a"
+    },
+    {
+      "path": "docs/previews/v303-original-materials-1509-native-small-restored-original-materials-and-floor-stacks.png",
+      "sha256": "e5d38b634367c5c7625636403f59261b12533832c392c71ef1ffe1606c20f39a"
+    },
+    {
+      "path": "docs/previews/v303-art-legacy-1610-actual-v301-content-change-review.png",
+      "sha256": "a9989e1ff052f5df97f4562a05ef4e5d7586cec53e050f924534c0af5f3912ab"
+    },
+    {
+      "path": "docs/previews/v303-art-legacy-1611-same-v301-original-stacks-with-new-ui.png",
+      "sha256": "3c88259138cb8eb439962e9666f8d8269a39ea2f9e6be71f9ece3493f7bdfb3f"
+    },
+    {
+      "path": "docs/previews/v303-art-legacy-1612-restored-reviewed-v301-world.png",
+      "sha256": "91e976875c51c1b608903ad29f36573f7cb387d561591ba06b3f18bb5964abe5"
+    },
+    {
+      "path": "docs/previews/v303-1440-00-title.png",
+      "sha256": "eeaa53224935f4627210857d97b1d0fe98dd89398725c8207011fd7b3931f0ac"
+    },
+    {
+      "path": "docs/previews/v303-1440-01-world.png",
+      "sha256": "5e7aeaa97224686138fc71bb9e767dd7750849db75aa57d9a557e197d18558ab"
+    },
+    {
+      "path": "docs/previews/v303-1440-02-inventory.png",
+      "sha256": "d7ff62d5e96535f7f04b8333182769279c8bc585cb0e7acda8a556cba37352ed"
+    },
+    {
+      "path": "docs/previews/v303-1440-final.png",
+      "sha256": "86ec333f0c8abf3c2788b5daf3016676f8ab18872629dbe39050bb0dc3e4b5aa"
+    },
+    {
+      "path": "docs/previews/v303-1366-00-title.png",
+      "sha256": "cafdd9d34032c1326325d0c7637c38767f7c1be7449684a802cdc08f0191ca9a"
+    },
+    {
+      "path": "docs/previews/v303-1366-01-world.png",
+      "sha256": "0409a2421b2358c0197edc18be24821fbbdf674ae29c64b62869c5df5ad37f10"
+    },
+    {
+      "path": "docs/previews/v303-1366-02-inventory.png",
+      "sha256": "0fe6f7b1f6f1821d377ac1e4eabc8f5912f0c868a2c6de737c65f93531bd1d93"
+    },
+    {
+      "path": "docs/previews/v303-1366-final.png",
+      "sha256": "b91190d829cdd53a1bb329025fec4709eb95079d4fc5fdb259df3804d7797990"
+    },
+    {
+      "path": "docs/previews/v303-catalog-abilities-0.png",
+      "sha256": "6b98061ce7f12d37b2898b567138d2619d107944b802fbf452c27c6b92327f37"
+    },
+    {
+      "path": "docs/previews/v303-catalog-creatures-0.png",
+      "sha256": "f42e5184d5ecb2e8ef2b1e4bff4d3d2502979b44d1d5a0a32fcb448c2152c76c"
+    },
+    {
+      "path": "docs/previews/v303-catalog-creatures-attack-up.png",
+      "sha256": "86f6598f914c2541c703daa1f028fb598fea34664a11e24866dc47ba11166c48"
+    },
+    {
+      "path": "docs/previews/v303-catalog-creatures-mobile.png",
+      "sha256": "fbca9347b004266102ec4ea9efb5cb9f903ff8658916ac551cfe4fbf46156573"
+    },
+    {
+      "path": "docs/previews/v303-catalog-items-0.png",
+      "sha256": "88df0047b011ca7b9c6bf89d8ab060cde80a8d73dea95398177918893a4eea47"
+    },
+    {
+      "path": "docs/previews/v303-catalog-items-1.png",
+      "sha256": "19712fd71675a9fba7f5d315b515c15d5e3c87d75ee8c5f23311f1561e2f7c77"
+    },
+    {
+      "path": "docs/previews/v303-catalog-items-2.png",
+      "sha256": "9613c99d2f0e8be5f01940b4fa6b3f3ea8c8045a880f8980df7011d2ad4bfc87"
+    },
+    {
+      "path": "docs/previews/v303-catalog-items-3.png",
+      "sha256": "ad35436f7ebed43e53fecb9199fe980031609e477e883679d5230dc3045c7f9e"
+    },
+    {
+      "path": "docs/previews/v303-catalog-items-4.png",
+      "sha256": "52db8bc871eed2a7fee9e680a615a03b95a127bb0cee31b7bfc23aa1bd4ccbd8"
+    },
+    {
+      "path": "docs/previews/v303-catalog-terrains-0.png",
+      "sha256": "10ed4888e7a7e3d1026a497797c3ef3580dc6dd3a0ee208978784eea3906e31f"
+    },
+    {
+      "path": "docs/previews/v303-catalog-terrains-1.png",
+      "sha256": "8facb9d2a7b94dc5c751f3020a295b7dedd2d91d80c91c8cd634f1b4be98ea79"
+    },
+    {
+      "path": "docs/previews/v303-catalog-ui-0.png",
+      "sha256": "779bb1bc6c717930a11a7248319b8178f5a9ae49c40dc3b07a39fae913dd408c"
+    }
+  ],
+  "catalogue": {
+    "path": "artifacts/ashveil-v0.303-art-catalog-final.html",
+    "bytes": 466782,
+    "sha256": "54e7fb0e0542546ccbca7f23f6cc9fcfd6785963aef89311134e89892fc7317b",
+    "entries": 378,
+    "embeddedPNGs": 105
+  },
+  "world": {
+    "rerunV303": false,
+    "lastActualWorldBatch": "v301,30 seeds,max3days",
+    "reason": "Pure original art/client UI/camera work. Core294 files and all283 content files byte exact v302. v302 nonappearance content was byte exact v301."
+  },
+  "limits": "Finite declared art scenes and material stacks, paused NPCs/prior contact/mature crop appearance; not normal acquisition/growth/AI/combat. Anatomy scene is healthy and declared initial XP40%; no injured-body claim. Real title loads/input/save restores, independent Node whole comparisons. Catalogue exact embedded HTML via fresh blank page setContent; file URL policy remains blocked. No World balance rerun.",
+  "publicationPolicy": "One large normal main push after local final checks. User enabled public Pages; actual v303 deploy is checked after push separately."
+}

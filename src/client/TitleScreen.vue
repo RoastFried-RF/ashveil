@@ -16,7 +16,7 @@ const seed = ref(randomSeed())
 const publicBase = import.meta.env.BASE_URL
 const portraitVisible = ref(true)
 const titleArtVisible = ref(true)
-const titleArtUrl = new URL('art/ashveil-title.png', new URL(publicBase, document.baseURI)).href
+const titleArtUrl = new URL('art/direction-v303/monastery-title.png', new URL(publicBase, document.baseURI)).href
 const bg = ref<string>('')
 const storyteller=ref('')
 const storyProfiles=computed(()=>loadErrors.value.length?[]:selectedDb.value.event('Event.ReaverPatrol').director?.profiles??[])
@@ -155,7 +155,7 @@ async function cont(token?:string) {
               <div class="title-passport-top">
                 <div class="title-portrait">
                   <div class="pix mb-2 origin-bottom scale-[4]" :style="frameCss('original_wanderer_hero_w_down0', 1)" />
-                  <img v-if="portraitVisible" :src="`${publicBase}art/ashveil-wanderer-portrait.png`" alt="떠돌이 초상" @error="portraitVisible = false" />
+                  <img v-if="portraitVisible" :src="`${publicBase}art/direction-v303/wanderer-portrait.png`" alt="떠돌이 초상" @error="portraitVisible = false" />
                 </div>
                 <div class="min-w-0">
                   <p class="title-eyebrow mb-2">떠돌이의 각인</p>
@@ -229,8 +229,9 @@ async function cont(token?:string) {
       </section>
 
       <footer class="title-footer">
+        ASHVEIL · v0.303 · 잿빛 수도원 원본 미술<br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />
-        그래픽: <a class="underline" href="https://pingupollas.itch.io/knowledge-temple" target="_blank" rel="noopener">Knowledge Temple</a> · <a class="underline" href="https://pingupollas.itch.io/crawling-depths" target="_blank" rel="noopener">Crawling Depths</a> by pingupollas · <a class="underline" href="https://arex-v.itch.io/damp-dungeons" target="_blank" rel="noopener">Damp Dungeons</a> by arex-v · <a class="underline" href="https://kaishido.itch.io/dark-world" target="_blank" rel="noopener">Dark World</a> by kaishido · <a class="underline" href="https://0x72.itch.io/dungeontileset-ii" target="_blank" rel="noopener">Dungeon Tileset II</a> by 0x72 · <a class="underline" href="https://hypnobius.itch.io/dark-ages-ui" target="_blank" rel="noopener">Dark Ages UI</a> by hypnobius · DCSS 32×32 (CC0)<br />인물과 장소가 이어가는 생존 이야기
+        보존 자료 출처: <a class="underline" href="https://pingupollas.itch.io/knowledge-temple" target="_blank" rel="noopener">Knowledge Temple</a> · <a class="underline" href="https://pingupollas.itch.io/crawling-depths" target="_blank" rel="noopener">Crawling Depths</a> by pingupollas · <a class="underline" href="https://arex-v.itch.io/damp-dungeons" target="_blank" rel="noopener">Damp Dungeons</a> by arex-v · <a class="underline" href="https://kaishido.itch.io/dark-world" target="_blank" rel="noopener">Dark World</a> by kaishido · <a class="underline" href="https://0x72.itch.io/dungeontileset-ii" target="_blank" rel="noopener">Dungeon Tileset II</a> by 0x72 · <a class="underline" href="https://hypnobius.itch.io/dark-ages-ui" target="_blank" rel="noopener">Dark Ages UI</a> by hypnobius · DCSS 32×32 (CC0)<br />인물과 장소가 이어가는 생존 이야기
       </footer>
     </main>
   </div>
@@ -243,7 +244,7 @@ async function cont(token?:string) {
   .title-wordmark { margin-top: 18px; font-size: 70px; line-height: 1; }
   .title-subtitle { margin-top: 8px; font-size: 14px; line-height: 1.4; }
   .title-intro { margin-top: 8px; font-size: 11px; line-height: 1.6; }
-  .title-hero-art { object-position: right 78%; }
+  .title-hero-art { object-position: right 52%; }
   .title-section-heading { padding-bottom: 11px; }
   .title-creation-grid { margin-top: 14px; }
   .title-passport-top { gap: 12px; padding: 12px; }

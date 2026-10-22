@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.302** · 각인204. 타일·캐릭터·적·생활 물체·물품/능력·UI의 전체 리소스 조사와 원화 적용 완료. 전체6,110개·실제 게임31화면·도감12화면 검증. [원화 내역](docs/art-complete-v302.md) · [원화 도감 다운로드](docs/previews/v302-art-catalog.html) · [진행 상황](docs/progress.md) · [전체 로드맵](docs/expansion-roadmap.md).
+**현재 상태: 프로토타입 v0.303** · 각인204. 참고작의 가독성·재질·분위기를 분석해 전체1,266프레임·UI26개와 타이틀·초상·신체 스케치를 재설계했다. 전체6,110개·실제게임36화면·도감12화면 검증. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [미술 내역](docs/art-direction-v303.md) · [원화 도감](docs/previews/v303-art-catalog.html) · [진행 상황](docs/progress.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -247,3 +247,11 @@ PNG를 포함한 모드 폴더·ZIP·tar.gz를 같은 원본/해시로 가져온
 ![새 동물과 두목·궁수](docs/previews/v302-art-1601-creatures-actual-original-art.png)
 
 ![새 지하 소품과 지형](docs/previews/v302-art-1601-props-actual-original-art.png)
+
+## 벤치마킹에 따른 미술 전면 재설계 (v0.303)
+
+낮은 대비의 낡은 지면, 성인 체형과 역할별 장비, 실제 구조가 읽히는 생활 도구, 먹색 철·양피지 UI로 통일했다. 참고작 그림을 복제하지 않고 새 정수 좌표 원본을 제작했다. 신체 창은 여섯 부위의 해부 스케치를 사용한다. [방향·출처·검증](docs/art-direction-v303.md).
+
+![새 지형·인물·HUD](docs/previews/v303-1440-01-world.png)
+
+![새 신체 스케치와 상태 표시](docs/previews/v303-art-direction-1705-small-original-anatomy-and-six-states.png)

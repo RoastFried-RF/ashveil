@@ -261,11 +261,11 @@ const d = computed(() => {
         <p v-if="!d.events.length" class="text-ash-500">아직 없다.</p>
       </template>
       <template v-else-if="tab === 'chron'">
-        <div v-for="(h, i) in d.chron" :key="i" class="font-mono text-[11px] leading-5"><span class="text-ash-600">{{ h.when }}</span> <span class="text-ash-200">{{ h.text }}</span></div>
+        <div v-for="(h, i) in d.chron" :key="i" class="font-mono text-[11px] leading-5"><span class="text-ash-400">{{ h.when }}</span> <span class="text-ash-200">{{ h.text }}</span></div>
         <p v-if="!d.chron.length" class="text-ash-500">아직 없다.</p>
       </template>
       <template v-else>
-        <div v-for="(e, i) in d.log" :key="i" :class="KIND_CLASS[e.kind]" class="font-mono text-[11px] leading-5"><span class="text-ash-600">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}</div>
+        <div v-for="(e, i) in d.log" :key="i" :class="KIND_CLASS[e.kind]" class="font-mono text-[11px] leading-5"><span class="text-ash-400">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}</div>
       </template>
     </div>
   </Win>

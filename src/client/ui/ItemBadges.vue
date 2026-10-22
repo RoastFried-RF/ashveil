@@ -36,7 +36,7 @@ const firearm = computed(() => {
 </template>
 
 <style scoped>
-.item-firearm-ammo { border: 1px solid #718064; border-radius: 2px; background: #0b1915ed; padding: 1px 3px; color: #e9dfbc; font: 600 9px var(--font-mono); line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.item-firearm-ammo { border: 1px solid #8a7755; border-radius: 0; background: #211b17ed; padding: 1px 3px; color: #e9dfbc; font: 600 9px var(--font-mono); line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .item-firearm-ammo.is-empty { border-color: var(--state-warn); color: #ebc68a; }
 .item-firearm-ammo.is-jammed { border-color: var(--state-danger); background: #39251f; color: #ffdab0; }
 </style>

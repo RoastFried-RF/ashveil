@@ -35,7 +35,7 @@ for(const url of new Set([...Object.values(m.sheets),...Object.values(m.ui)])){
  const data=readFileSync('public/'+url);images[url]='data:image/png;base64,'+data.toString('base64');sourceImages[url]={bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')}
 }
 for(const row of rows)if(row.frame&&!m.frames[row.frame])throw Error(row.id+': 프레임 없음 '+row.frame)
-const data={version:302,rows,frames:m.frames,sheets:m.sheets,images,sourceImages,counts:Object.fromEntries(['items','terrains','creatures','abilities','ui'].map(k=>[k,rows.filter(r=>r.kind===k).length]))}
+const data={version:303,rows,frames:m.frames,sheets:m.sheets,images,sourceImages,counts:Object.fromEntries(['items','terrains','creatures','abilities','ui'].map(k=>[k,rows.filter(r=>r.kind===k).length]))}
 const html=readFileSync('tools/art/catalog-template.html','utf8').replace('/*__ART_DATA__*/',JSON.stringify(data).replace(/</g,'\\u003c'))
 mkdirSync(dirname(resolve(output)),{recursive:true});writeFileSync(output,html)
 console.log(JSON.stringify({output,bytes:Buffer.byteLength(html),counts:data.counts,embeddedOriginalPNGs:Object.keys(images).length,offline:true,containsGameState:false}))

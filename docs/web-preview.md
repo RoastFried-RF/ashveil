@@ -1,12 +1,14 @@
 # 웹 플레이 미리보기
 
+**2026-10-22 현재:** 사용자가 저장소를 공개로 전환하고 Pages를 활성화했다. `visibility=public`, `has_pages=true`, `build_type=workflow`와 실제 HTTP200을 확인했다. [플레이 주소](https://roastfried-rf.github.io/ashveil/)에서 현재 v0.302 빌드가 열린다. 아래 실패 기록은 당시 관측 이력이며, v0.303 새 미술 묶음은 검증 후 같은 주소에 배포한다.
+
 최신 검증 완료 버전은 [README](../README.md)와 [진행 기록](progress.md)에 표시한다. 검증된 큰 기능 묶음마다 원격 main에 push하며, 작업 중인 코드를 검증 완료 버전으로 표시하지 않는다. 아래는 실제 배포 시도와 제한의 날짜별 기록이다.
 
 GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)을 준비했다. Node.js24·pnpm9.15.9로 잠금 파일 설치 후 타입 검사와 Vite 빌드를 수행하고, dist만 Pages 아티팩트에 올린다. main의 앱 변경과 수동 실행으로 갱신한다. 저장소 공개 설정은 변경하지 않는다.
 
 실제 [GitHub Actions 실행](https://github.com/RoastFried-RF/ashveil/actions/runs/39480877885)은 설치·타입 검사·Vite 빌드·Pages 아티팩트 생성을 통과했다. 공개 단계는 `Get Pages site failed / Not Found`로 실패했다.
 
-현재 클라우드에 제공된 GitHub 인증으로 Pages API를 호출하면 `Resource not accessible by integration`(HTTP403)이 반환된다. 임시 Cloudflare 주소 생성도 환경의 네트워크 정책에서 HTTP403으로 차단되었다. 따라서 지금 사용할 수 있다고 확인한 외부 플레이 URL은 없다.
+초기 배포 시 클라우드에 제공된 GitHub 인증으로 Pages API를 호출하면 `Resource not accessible by integration`(HTTP403)이 반환된다. 임시 Cloudflare 주소 생성도 환경의 네트워크 정책에서 HTTP403으로 차단되었다. 따라서 그 시점에는 외부 플레이 URL을 확인하지 못했다.
 
 저장소 관리자가 [Settings → Pages](https://github.com/RoastFried-RF/ashveil/settings/pages)에서 Source를 **GitHub Actions**로 지정하면, [Playable preview 워크플로](https://github.com/RoastFried-RF/ashveil/actions/workflows/pages.yml)를 실행해 배포할 수 있다. 비공개 저장소의 Pages 지원 여부는 계정 요금제에도 따른다. 설정을 마친 뒤 성공한 deploy 작업의 환경 URL이 실제 플레이 주소다. 배포 성공 전에는 예상 URL을 동작하는 사이트로 안내하지 않는다.
 
@@ -54,3 +56,9 @@ main733419c37c6242f581a5c042ff87d570ecb551fb의 [Actions39566538764](https://git
 main `3f2622418b606bcb33a1adc76956c60b114360af`을 push한 뒤 [Actions39640078522](https://github.com/RoastFried-RF/ashveil/actions/runs/39640078522)를 실제 확인했다. build119360976933은 실행 단계0개로 실패했고 deploy119361012688은 건너뛰었다. 실제 주석은 최근 계정 결제 실패 또는 지출 한도 증가 필요를 명시한다. Ubuntu26 이전 공지와 별개다. 공개 플레이 URL은 확인하지 못했다.
 
 검증된 v0.301 ZIP은 빌드991파일과 전부 같으며 16691338bytes, SHA256 `a963e72e8e90f96e401bdc5f6135ef68b19568aff605d764415579f69d74c91e`다. 결제·한도·인증 설정은 변경하지 않았다. 사용자 요청에 따라 이 원격 확인 기록만을 위한 작은 추가 push는 하지 않는다.
+
+## v0.302 원격 확인 · 다음 큰 게시에 포함
+
+main `c6718dd56c9fb8fcf139f9f4a441570b06e9f7ac`의 [Actions39729441951](https://github.com/RoastFried-RF/ashveil/actions/runs/39729441951)은 build119660865857이 실행0단계로 실패했고 deploy119660881212는 건너뛰었다. 실제 주석은 최근 계정 결제 실패 또는 지출 한도 증가 필요를 명시한다. Ubuntu26 이전 공지와 별개이며 공개 플레이 URL은 확인하지 못했다. 결제·한도·인증 설정은 바꾸지 않았다.
+
+검증된 웹 ZIP은1477dist파일과 모두 같고18,300,223bytes/SHA256 `e07fb10432c21a71c61f1878981d0ffc9e405625c3dc1d5d6faa215b59bc93db`다. 원본 도감은511,252bytes/SHA256 `664886e418262a97c26597f5e777bee16b36f8b76556ebd1b8572299a2a99535`, 이미지166개/378항목을 포함한다. 사용자 요청에 따라 이 배포 실패 기록만을 위한 작은 추가 push는 하지 않는다.

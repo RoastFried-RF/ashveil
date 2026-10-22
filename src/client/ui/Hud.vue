@@ -52,7 +52,7 @@ const d = computed(() => {
 // 체력이 깎이면 잠시 옅은 잔상 막대를 남긴다
 const ghost = ref(0)
 const portraitVisible = ref(true)
-const portraitSrc = `${import.meta.env.BASE_URL}art/ashveil-wanderer-portrait.png`
+const portraitSrc = `${import.meta.env.BASE_URL}art/direction-v303/wanderer-portrait.png`
 let ghostTimer: ReturnType<typeof setTimeout> | undefined
 watch(() => d.value.hp, (now, before) => {
   if (before !== undefined && now < before) {
@@ -86,11 +86,11 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
         <img v-if="portraitVisible" :src="portraitSrc" alt="" @error="portraitVisible = false" />
         <span class="hud-level">LV. {{ d.level }}</span>
       </div>
-      <div class="min-w-0 flex-1 space-y-1.5">
+      <div class="hud-gauges min-w-0 flex-1">
         <p class="hud-name">{{ d.pl.name }}</p>
         <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :height="19" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" :title="`상처로 묶인 회복 상한 ${d.cap} / ${d.hpMax}`" data-testid="hp-bar" />
         <Bar :value="d.en" :max="d.enMax" color="blue" :height="18" :label="`기력 ${Math.floor(d.en)} / ${d.enMax}`" />
-        <Bar class="hud-xp" :value="d.xp" :max="d.xpNext" color="gold" :height="5" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" aria-label="다음 레벨까지 경험치" />
+        <Bar class="hud-xp" :value="d.xp" :max="d.xpNext" color="gold" :height="8" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" aria-label="다음 레벨까지 경험치" />
       </div>
     </div>
 
@@ -121,7 +121,7 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
         <template v-if="!s.empty">
           <ItemIcon :name="s.icon" :size="32" :dim="!s.ok" />
           <div v-if="s.cd > 0" class="absolute inset-0 flex items-center justify-center rounded-sm bg-black/70 text-base font-bold text-[#e8d7a8]">{{ s.cd }}</div>
-          <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 rounded-sm bg-[#091114]/80 px-0.5 font-mono text-[11px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]" :data-testid="`hotbar-count-${s.i}`">{{ s.count }}</span>
+          <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 rounded-sm bg-[#171416]/80 px-0.5 font-mono text-[11px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]" :data-testid="`hotbar-count-${s.i}`">{{ s.count }}</span>
         </template>
         <span class="hud-key">{{ primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command) }}</span>
       </button>
@@ -146,15 +146,15 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
 .hud-policy-context { display: flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 3px; }
 .hud-policy-context > button { flex-shrink: 0; white-space: nowrap; }
 .hud-context .hud-posture { gap: 3px; padding-inline: 5px; }
-.hud-context .hud-posture.is-crouched { border-color: #8d9a70; background: #34483b; color: #f2e8c5; }
+.hud-context .hud-posture.is-crouched { border-color: #8d9a70; background: #40372b; color: #f2e8c5; }
 .hud-nav { flex-wrap: wrap; }
 .hud-maneuvers { display: flex; flex-shrink: 0; align-items: center; gap: 3px; margin-left: 4px; padding-left: 7px; border-left: 1px solid #687052; }
-.hud-nav .hud-maneuver-button { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; min-height: 24px; padding: 2px 6px; border-color: #626d52; background: #30372980; color: #ded8ba; font-size: 10px; }
-.hud-nav .hud-maneuver-button:hover { border-color: #bea56e; background: #424832; color: #fff0c6; }
+.hud-nav .hud-maneuver-button { display: inline-flex; align-items: center; gap: 3px; flex: 0 0 auto; min-height: 24px; padding: 2px 6px; border-color: #716249; background: #332b2180; color: #ded8ba; font-size: 10px; }
+.hud-nav .hud-maneuver-button:hover { border-color: #bea56e; background: #4a3c2b; color: #fff0c6; }
 .hud-attack-context { display: flex; min-width: 0; max-width: 100%; align-items: center; gap: 6px; margin-left: auto; }
 .hud-attack-context > button { min-width: 0; }
 .hud-mode-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.hud-firearm-ammo { display: inline-flex; flex-shrink: 0; min-height: 20px; align-items: center; gap: 5px; border: 1px solid #758164; border-radius: 3px; background: #182b29; padding: 1px 6px; color: #e2d9b9; white-space: nowrap; }
+.hud-firearm-ammo { display: inline-flex; flex-shrink: 0; min-height: 20px; align-items: center; gap: 5px; border: 1px solid #758164; border-radius: 3px; background: #28211d; padding: 1px 6px; color: #e2d9b9; white-space: nowrap; }
 .hud-firearm-ammo > svg { color: #c0a46e; }
 .hud-firearm-count { font: 600 11px var(--font-mono); font-variant-numeric: tabular-nums; }
 .hud-firearm-unit { margin-left: 2px; color: #aab8a6; font: 10px var(--font-sans); }

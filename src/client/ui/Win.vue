@@ -35,7 +35,7 @@ onBeforeUnmount(up)
         <span class="window-close-mark" aria-hidden="true" />
       </button>
     </div>
-    <div class="window-content" :style="{ maxHeight: `calc(100dvh - ${pos.y + 54}px)` }">
+    <div class="window-content">
       <slot />
     </div>
   </div>

@@ -27,7 +27,7 @@ function settingsKey(e: KeyboardEvent) {
   if (preferencesOpen.value) {
     if (e.key === 'Tab') {
       e.preventDefault(); e.stopImmediatePropagation()
-      const controls = [...document.querySelectorAll<HTMLElement>('[data-testid="win-settings"] button, [data-testid="win-settings"] input, [data-testid="win-settings"] select, [data-testid="win-settings"] summary')].filter((el) => el.offsetParent !== null)
+      const controls = [...document.querySelectorAll<HTMLElement>('[data-testid="win-settings"] button, [data-testid="win-settings"] input, [data-testid="win-settings"] select, [data-testid="win-settings"] summary')].filter((el) => el.offsetParent !== null && !el.matches(':disabled'))
       const at = controls.indexOf(document.activeElement as HTMLElement)
       controls[(at + (e.shiftKey ? controls.length - 1 : 1)) % controls.length]?.focus()
     }

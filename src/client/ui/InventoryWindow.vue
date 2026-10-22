@@ -335,7 +335,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
                   <ItemBadges :w="d.w" :it="d.pl.equip[s]!" />
                   <span v-if="d.pl.equip[s]!.lit" class="absolute right-0.5 top-0 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
                 </template>
-                <span v-else class="pointer-events-none text-[10px] text-[#6a6252]">{{ SLOT_LABEL[s] }}</span>
+                <span v-else class="pointer-events-none text-[10px] text-[#b3a182]">{{ SLOT_LABEL[s] }}</span>
               </div>
             </div>
           </template>

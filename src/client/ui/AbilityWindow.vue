@@ -76,7 +76,7 @@ const linkPath = (l: { i: number; j: number }) => {
         <template v-for="(x, i) in t.list" :key="x.a.id">
           <div v-if="i > 0" class="h-2 w-0.5" :class="x.learned ? 'bg-amber-500' : 'bg-[#3a3428]'" />
           <button
-            class="df relative flex h-[50px] w-[50px] shrink-0 items-center justify-center" :data-testid="`ab-${x.a.id}`"
+            class="df relative flex h-[50px] w-[50px] shrink-0 items-center justify-center" :data-testid="`ab-${x.a.id}`" :aria-label="`${x.a.label} · ${x.a.tier}단계 · ${x.learned ? '배움' : x.why ? `배울 수 없음: ${x.why}` : '배우기'}`" :title="x.a.label"
             :class="[x.learned ? 'df-slot-sel' : 'df-slot', !x.learned && !x.why ? 'pulse-gold' : '']"
             @click="click(x)" @contextmenu.prevent="x.learned && x.a.kind !== 'passive' && assignHotbar({ kind: 'ability', id: x.a.id })"
             @mouseenter="tip($event, x)" @mousemove="tip($event, x)" @mouseleave="hideTip"

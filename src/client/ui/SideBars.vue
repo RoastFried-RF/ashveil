@@ -53,12 +53,12 @@ const bars = computed<BarSpec[]>(() => {
 
 <style scoped>
 .needs-panel[data-testid="sidebars"] { display: grid; width: 158px; gap: 0; padding: 6px 9px; }
-.needs-row { display: grid; grid-template-columns: 34px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #73806b18; cursor: help; }
+.needs-row { display: grid; grid-template-columns: 34px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #a08b641c; cursor: help; }
 .needs-row:last-child { border-bottom: 0; }
-.needs-label { color: #bac4b5; font-size: 10px; line-height: 1.2; white-space: nowrap; }
+.needs-label { color: #c7baa0; font-size: 10px; line-height: 1.2; white-space: nowrap; }
 .needs-value { overflow: hidden; color: #e1decb; font-size: 10px; line-height: 1.2; text-align: right; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .needs-row[data-level="2"] .needs-label::after { color: #e6c991; content: "!"; }
-.needs-meter { position: relative; height: 5px; overflow: hidden; border: 1px solid #5c685643; border-radius: 1px; background: #050c0e; }
+.needs-meter { position: relative; height: 5px; overflow: hidden; border: 1px solid #9a805447; border-radius: 1px; background: #100f11; }
 .needs-fill { position: absolute; inset: 0 auto 0 0; transition: width .3s; }
 .needs-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: #080d0c9c; }
 .needs-center { position: absolute; top: 0; bottom: 0; width: 1px; background: #d8d8bfc7; }
