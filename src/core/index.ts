@@ -135,6 +135,7 @@ export * from './companions'
 export * from './companion-care'
 export * from './companion-clinical'
 export * from './recipe-renames'
+export * from './discovery-archive'
 
 export * from './companion-bond-state'
 export * from './companion-bonds'

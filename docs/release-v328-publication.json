@@ -1,0 +1,197 @@
+{
+  "version": 328,
+  "commit": "2dd770a76eab691c4f62560d48e4e4bde36c38ed",
+  "verifiedAtUTC": "2026-10-23T19:36:41.310890+00:00",
+  "url": "https://roastfried-rf.github.io/ashveil/",
+  "motion": "https://roastfried-rf.github.io/ashveil/artbook/motion/",
+  "checkpoint": "/workspace/.ashveil-checkpoints/v328-companion-procedures-publication-r1",
+  "pages": {
+    "conclusion": "success",
+    "headSha": "2dd770a76eab691c4f62560d48e4e4bde36c38ed",
+    "jobs": [
+      {
+        "completedAt": "2026-10-23T19:27:31Z",
+        "conclusion": "success",
+        "databaseId": 120612428818,
+        "name": "build",
+        "startedAt": "2026-10-23T19:26:24Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm/action-setup@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm install --frozen-lockfile",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm exec vitest run tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm validate-sprites",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm build",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run pnpm/action-setup@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40011409992/job/120612428818"
+      },
+      {
+        "completedAt": "2026-10-23T19:30:28Z",
+        "conclusion": "success",
+        "databaseId": 120612949536,
+        "name": "deploy",
+        "startedAt": "2026-10-23T19:30:01Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/configure-pages@v5",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Publish playable preview",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 4,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40011409992/job/120612949536"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40011409992"
+  },
+  "publicSamples": [
+    {
+      "path": "index.html",
+      "sha256": "a9a592c52787bee9cbec0d4dd1771e00bb703ec23ae68f3d94933cc642e2fe96",
+      "bytes": 1423,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/index.html",
+      "sha256": "d853d3d56ed42e37d177a5141a201de64c02528a78603cb9439ca58b059132b3",
+      "bytes": 12195,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/index.html",
+      "sha256": "94d9f0070c49870da75789118f26512d0336d440f0e110116fc1ee4ecc112dbf",
+      "bytes": 15577,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/catalog.json",
+      "sha256": "04cdc65996eaa4b0f0c63bc7d504af56d0958860b2f10b61e6bfe0c30cead461",
+      "bytes": 2622788,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/equipment-motion.js",
+      "sha256": "4a76a6607a39e922fb9a8cf7717d8e5ddcc443daf69cbc38b98d53b2b8bb9a8e",
+      "bytes": 6857,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/catalog.json",
+      "sha256": "7e3dafc8d07caff5526be39ba53aaa78cc1e8c6e0f269acc19c5ff555b4f99ed",
+      "bytes": 3894467,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-locomotion-front-left.png",
+      "sha256": "c08c6fb9ec94a2c451afb62f7063b16613dfaa18a54b10c6792bfdff8d07df33",
+      "bytes": 1948296,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-combat-right-back.png",
+      "sha256": "b24b9521a4cd2d69fc1dddefa93faf103b27a3446467cda98032326ecab0e462",
+      "bytes": 1828870,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "./assets/index-C6DIAi5a.js",
+      "sha256": "d5690274c575d48a63c51c8f6608d2fa33dbd4f3b9e1396c4c46f00339dcf3b8",
+      "bytes": 4816518,
+      "matchesFrozenBuild": true
+    }
+  ],
+  "scope": "Main HTML/entry JS, artbook HTML/catalog, motion HTML/catalog/shared JS and two existing PNG samples match the frozen build. Full regression/World remain deferred."
+}

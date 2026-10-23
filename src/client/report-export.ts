@@ -1,4 +1,5 @@
 import type {DeathReport} from '../core/types'
+import {DISCOVERY_KIND_LABEL} from '../core/discovery-archive'
 
 export interface ReportExport {report:DeathReport;seed:string;modeLabel?:string}
 export function formatExpeditionReport({report:r,seed,modeLabel}:ReportExport){
@@ -9,6 +10,7 @@ export function formatExpeditionReport({report:r,seed,modeLabel}:ReportExport){
   '마지막 기록',...r.chain.map(line=>'· '+line),'',
   '그때의 몸',...r.vitals.map(line=>'· '+line),'',
   '원정 기록',...r.stats.map(line=>'· '+line),'',
+  ...(r.discoveries?['이 생애의 발견·학습 기록 (당시 지식/주장, 읽기 전용)',...r.discoveries.records.flatMap(row=>[`[${DISCOVERY_KIND_LABEL[row.kind]}] ${row.title}`,...row.details.map(line=>'  · '+line)]),...(r.discoveries.omitted?[`기술 한도를 넘어 요약에서 생략한 발견 ${r.discoveries.omitted}개`]:[]),'새 인물의 지식·능력·물품으로 옮기지 않는다.','']:[]),
  ].join('\n')
 }
 export function downloadExpeditionReport(value:ReportExport){

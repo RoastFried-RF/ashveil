@@ -1,0 +1,159 @@
+{
+  "version": 329,
+  "save": 212,
+  "dateUTC": "2026-10-23",
+  "mode": "implementation first development preview",
+  "implemented": [
+    "historical discovery/learning/belief summary in ended-life reports and text exports",
+    "knowledge canon: no knowledge/skill/item grants to the next character",
+    "never read secret pill mapping or unseen current terrain to correct historical claims",
+    "archive categories/search/10-row pagination with explicit technical omission counts",
+    "all stored chronicle entries are reachable with kind/search/8-life pagination; no inferred old discoveries"
+  ],
+  "checks": {
+    "types": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/types-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "targetedLint": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "defs": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/defs-final.txt",
+      "sha256": "3902d2ae270874b13043392b7eb5025dcf2b428ebff28725addd92bd3f0515c7"
+    },
+    "schema": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/schema-final.txt",
+      "sha256": "6fe34ac1d29e3320461e39cdbb00e2f68f317c7e228924528b32e9e5f23c6286"
+    },
+    "build": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/build-final.txt",
+      "sha256": "cdcec959e8b9b80838aced3764ba75fe8cdd4dca947e6589e2fe337c251e8622"
+    },
+    "targetedTests": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v329/targeted-final.txt",
+      "sha256": "da7e12b041debe66de3195d47eb868f25649bdc0d0f916975877c17d4e69a72b"
+    }
+  },
+  "tests": {
+    "files": 4,
+    "passed": 30,
+    "fullRegression": false,
+    "saveScope": "unchanged212 optional report field; old reports remain without inferred archive; new character knowledge/recipes/books/field notes/mastery exactly match independent fresh generation in actual UI; not all historical release saves"
+  },
+  "actualInput": {
+    "finiteInitial": true,
+    "noPostLoadWorldWrites": true,
+    "runs": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "actualWaitInputs": 1,
+        "actualDeathTU": 2160200,
+        "enemy": 66,
+        "discoveries": 19,
+        "wrongBeliefRetained": true,
+        "downloadedReport": true,
+        "olderChroniclePage": true,
+        "legacyNotInferred": true,
+        "newCharacterKnowledgeExactlyFresh": true,
+        "errors": []
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "actualWaitInputs": 1,
+        "actualDeathTU": 2160200,
+        "enemy": 66,
+        "discoveries": 19,
+        "wrongBeliefRetained": true,
+        "downloadedReport": true,
+        "olderChroniclePage": true,
+        "legacyNotInferred": true,
+        "newCharacterKnowledgeExactlyFresh": true,
+        "errors": []
+      }
+    ],
+    "errors": [],
+    "scope": "Two actual wait/combat deaths, report download, old-page/search/filter/pagination and fresh-character knowledge comparisons. Earlier history and known/believed facts are declared initial fixtures; no prior natural discoveries claimed."
+  },
+  "openedPNGs": [
+    {
+      "path": "test-results/autonomy-v329/native-first/archive-1366-death-belief.png",
+      "sha256": "d0b76645d1524618221c3f2015a57d8ca1daae34c93fb84a14a645d32aea7b62"
+    },
+    {
+      "path": "test-results/autonomy-v329/native-first/archive-1366-chronicle-discoveries.png",
+      "sha256": "b0bc4dc391c246080a0ead50d955850ab8d12b9d63e452480f292532a4faef3a"
+    },
+    {
+      "path": "test-results/autonomy-v329/native-first/archive-1440-older-page.png",
+      "sha256": "30816a13d4ebb022009951292babb04e1c5a667fe6cb1ceb3288de8433eab608"
+    },
+    {
+      "path": "test-results/autonomy-v329/native-first/archive-1366-legacy-empty.png",
+      "sha256": "1d30f2b2b91c214a6b39fb58786b8b5049058911b96a19ef149ab323f2e12ea8"
+    }
+  ],
+  "changesFrom328": [
+    {
+      "group": "src/core",
+      "oldFiles": 305,
+      "newFiles": 306,
+      "changedExisting": [
+        "src/core/index.ts",
+        "src/core/report.ts",
+        "src/core/types.ts"
+      ],
+      "added": [
+        "src/core/discovery-archive.ts"
+      ],
+      "removed": [],
+      "byteIdentical": false
+    },
+    {
+      "group": "src/content",
+      "oldFiles": 293,
+      "newFiles": 293,
+      "changedExisting": [],
+      "added": [],
+      "removed": [],
+      "byteIdentical": true
+    },
+    {
+      "group": "mods",
+      "oldFiles": 89,
+      "newFiles": 89,
+      "changedExisting": [],
+      "added": [],
+      "removed": [],
+      "byteIdentical": true
+    },
+    {
+      "group": "public/sprites",
+      "oldFiles": 1943,
+      "newFiles": 1943,
+      "changedExisting": [],
+      "added": [],
+      "removed": [],
+      "byteIdentical": true
+    }
+  ],
+  "newPNGs": 0,
+  "priorFailures": [],
+  "deferred": [
+    "Full regression, World30 and World1000",
+    "all historical release-save compatibility",
+    "every knowledge/mod/map/device combination and storage/device capacity",
+    "full original books/maps are not reconstructed from a bounded historical summary",
+    "all remaining X1-X4 and v1 release gates",
+    "external human evaluation"
+  ]
+}

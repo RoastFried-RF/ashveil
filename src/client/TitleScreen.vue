@@ -4,7 +4,7 @@ import { openDefinitionInspector } from './definition-inspector-ui'
 import ModOrderControl from './ModOrderControl.vue'
 import ModImportControl from './ModImportControl.vue'
 import SeedShareControl from './SeedShareControl.vue'
-import ReportActions from './ui/ReportActions.vue'
+import ChroniclePanel from './ui/ChroniclePanel.vue'
 import ContentChangeReview from './ContentChangeReview.vue'
 import {reviewSeedShare} from '../core/seed-share'
 import {modInstallation,packagesRevision} from './mod-catalog'
@@ -230,24 +230,10 @@ async function cont(token?:string) {
         <ModImportControl :disabled="loading||starting" @changed="cancelContentReview()" />
       </div>
 
-      <section v-if="chron.length" class="df df-celtic mt-4 space-y-3" data-testid="chronicle">
-        <h2 class="font-title text-lg font-bold text-[#e8d7a8]">연대기</h2>
-        <ul class="grid gap-3 text-xs sm:grid-cols-2">
-          <li v-for="c in chron.slice(0, 12)" :key="c.at" class="border-l-2 pl-3 leading-5" :class="c.kind !== 'death' ? 'border-moss-500' : 'border-blood-500'">
-            <template v-if="c.kind==='content'"><div class="text-amber-200">모드 변경됨 · {{ c.turn }}턴 · 시드 {{ c.seed }}</div><p class="break-all font-mono text-[10px]">{{ c.from }} → {{ c.to }}</p></template>
-            <template v-else>
-              <div :class="c.kind==='death'?'text-blood-300':'text-moss-300'">{{ c.kind==='retire'?'은퇴':c.kind==='death'?'사망':'원정의 끝' }} · {{ c.report.title }}</div>
-              <div class="text-ash-200">{{ c.report.epitaph }}</div>
-              <div v-if="c.saveModeLabel" class="text-amber-200">{{ c.saveModeLabel }} 방식</div>
-              <div class="text-ash-400">{{ c.report.background }} · {{ c.report.traits.join(', ') }} · 시드 {{ c.seed }}</div>
-              <details class="mt-2 text-ash-300"><summary class="cursor-pointer text-[#bba36f]">전체 생애 기록</summary><p class="mt-2 text-amber-200">마지막 기록</p><p v-for="(line,i) in c.report.chain" :key="'chain-'+i" class="text-[11px]">{{ line }}</p><p class="mt-2 text-amber-200">그때의 몸</p><p v-for="(line,i) in c.report.vitals" :key="'body-'+i" class="text-[11px]">{{ line }}</p><p class="mt-2 text-amber-200">원정 기록</p><p v-for="(line,i) in c.report.stats" :key="'stat-'+i" class="text-[11px]">{{ line }}</p><ReportActions :report="c.report" :seed="c.seed" :mode-label="c.saveModeLabel" /></details>
-            </template>
-          </li>
-        </ul>
-      </section>
+      <ChroniclePanel :entries="chron" />
 
       <footer class="title-footer">
-        ASHVEIL · v0.328-dev · 잿빛 숲<br />
+        ASHVEIL · v0.329-dev · 잿빛 숲<br />
         <a class="underline" :href="`${publicBase}artbook/`" target="_blank" rel="noopener">캐릭터·물품 원화 도감</a><br />
         <a class="underline" :href="`${publicBase}artbook/motion/`" target="_blank" rel="noopener">캐릭터 동작 전후 비교</a> · <a class="underline" :href="`${publicBase}artbook/comparison/`" target="_blank" rel="noopener">인물·지형 비교</a><br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />

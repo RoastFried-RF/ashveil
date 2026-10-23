@@ -2,6 +2,7 @@
 import {ref} from 'vue'
 import type {DeathReport} from '../../core/types'
 import {downloadExpeditionReport,formatExpeditionReport} from '../report-export'
+import DiscoveryArchiveView from './DiscoveryArchiveView.vue'
 const props=defineProps<{report:DeathReport;seed:string;modeLabel?:string}>()
 const message=ref(''),copying=ref(false)
 async function copy(){
@@ -13,6 +14,7 @@ async function copy(){
 function download(){try{downloadExpeditionReport(props);message.value='보고서 파일을 준비했다.'}catch{message.value='보고서 파일을 만들지 못했다.'}}
 </script>
 <template>
+  <DiscoveryArchiveView :archive="report.discoveries" />
   <div class="report-actions" data-testid="report-actions"><div><button class="dbtn" :disabled="copying" @click="copy">{{ copying?'복사 중…':'보고서 복사' }}</button><button class="dbtn" @click="download">보고서 파일 저장</button></div><p v-if="message" role="status">{{ message }}</p></div>
 </template>
 <style scoped>

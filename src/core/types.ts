@@ -2760,7 +2760,11 @@ export type FxEvent =
   | { k: 'level'; id: number; turn: number }
   | { k: 'xp'; id: number; v: number; turn: number }
 
+export type DiscoveryKind='bestiary'|'identification'|'recipe'|'book'|'map'|'fieldNote'|'rumor'|'interaction'
+export interface DiscoveryArchive {format:1;at:number;records:{kind:DiscoveryKind;id:string;title:string;details:string[]}[];omitted:number}
 export interface DeathReport {
+  /** Historical display only. Never installed into a new character's knowledge. */
+  discoveries?:DiscoveryArchive
   title: string
   name: string
   background: string

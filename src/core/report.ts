@@ -5,6 +5,7 @@ import { clock, fmtClock, START_TURN, turnOf, TURNS_PER_DAY, type World } from '
 import { WEATHER_LABEL } from './environment'
 import { allItems, itemLabel } from './items'
 import type { Creature, DeathReport } from './types'
+import {buildDiscoveryArchive} from './discovery-archive'
 
 export function buildReport(w: World, c: Creature, kind: 'death' | 'escape' | 'retire', cause: string): DeathReport {
   const turn = turnOf(w)
@@ -40,6 +41,7 @@ export function buildReport(w: World, c: Creature, kind: 'death' | 'escape' | 'r
     ? `떠돌이 ${c.name}, ${day}일차. 회색 고원 폐허를 벗어나 동쪽 길로 사라졌다.`
     : `떠돌이 ${c.name}, ${day}일차. ${cause}${killer}. 마지막으로 먹은 것: ${lastMeal}.`
   return {
+    discoveries:buildDiscoveryArchive(w,c),
     title: kind === 'retire'?'떠돌이를 내려놓다':kind === 'escape' ? '고원을 벗어나다' : '여기 잠들다',
     name: c.name,
     background: bg,

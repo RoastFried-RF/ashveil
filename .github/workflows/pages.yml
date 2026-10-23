@@ -38,7 +38,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1
+      - run: pnpm exec vitest run tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/discovery-archive.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1
       - run: pnpm validate-sprites
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v3
