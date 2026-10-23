@@ -15,7 +15,8 @@ const out=process.argv[2]??'test-results/art-scene-v319';mkdirSync(out,{recursiv
 const{w,s,p}=prisonerFixture();s.overworld=undefined;s.maps={};s.offCreatures={};s.creatures=[p];s.map.kind='dungeon';s.map.depth=3;s.map.name='원화 검토용 유한 초기 방';s.map.ambient=.72;s.map.lights=[];s.weather='clear';s.weatherUntil=1e12;s.fx=[]
 for(const tile of s.map.tiles)Object.assign(tile,{t:'Terrain.KtFloor',roof:true,seen:true,items:[],cultivation:undefined,cropResidue:undefined})
 p.bag=[];p.facing=4;p.equip={main:makeItem(w,'Item.RustyKnife'),off:makeItem(w,'Item.Torch')};p.equip.off!.lit=true;p.equip.off!.fuel=3000;p.hotbar=Array(10).fill(null);p.needs.nutritionDay=Math.floor(s.time/(1200*100))
-for(const id of ['Item.Pole','Item.Bow','Item.Greatsword','Item.Hatchet','Item.Arrow','Item.Bandage'])assert.equal(addToBag(w,p,makeItem(w,id)),0)
+const inventory=process.argv.includes('--equipment320')?['Item.LeatherCoat','Item.SteelMail','Item.Hood','Item.Gloves','Item.Lantern','Item.CharcoalFilter','Item.Quiver']:['Item.Pole','Item.Bow','Item.Greatsword','Item.Hatchet','Item.Arrow','Item.Bandage']
+for(const id of inventory)assert.equal(addToBag(w,p,makeItem(w,id)),0)
 const guard=createCreature(w,'Creature.SettlementGuard',{x:21,y:20},'마라 · 원화 검토 경비');guard.sprite='hero';guard.facing=4;guard.met=true;guard.ai.mode='calm';guard.nextAct=s.time+1e9;s.creatures.push(guard)
 for(const[id,x,y,facing]of [['Creature.AshHound',17,20,6],['Creature.BurrowRat',17,23,2],['Creature.TenderDrone',24,21,4],['Creature.Amalgam',25,17,4]]as const){const c=createCreature(w,id,{x,y});c.facing=facing;c.met=true;c.nextAct=s.time+1e9;s.creatures.push(c)}
 invalidateLights(w);updatePlayerVision(w,p);const initial=serialize(s);writeFileSync(join(out,'finite-initial.json'),initial)

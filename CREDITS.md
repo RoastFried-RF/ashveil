@@ -170,3 +170,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### v0.319 위키 분류 조사와 자체 원화
 
 사람19종·비인간형7종·무기/탄약30종·픽셀 초상19종을 직접 작성한 SVG/PNG로 연결했다. [제작 원본과 CC0](tools/art/direction-v319/) · [조사·전체 매핑/정확한 검토 범위](docs/wiki-resource-study-v319.md) · [공개 도감](https://roastfried-rf.github.io/ashveil/artbook/). Stoneshard Wiki는 실루엣·재질·역할·아이콘 비율의 참고 자료다. 해당 게임의 픽셀·트레이싱은 포함하지 않는다. 위키 메타데이터는 [별도 권리 고지](tools/research/stoneshard-v319/NOTICE.md)를 따르며 ASHVEIL 원화 CC0로 재허가하지 않는다.
+
+### v0.320 옷·장신구·생활 도구
+
+직접 작성한50종 SVG/PNG는 [제작 원본과 CC0](tools/art/direction-v320/)로 제공한다. [조사·실제 매핑·검토와 제한](docs/equipment-art-v320.md).319의 분류/실루엣/재질 참고를 이어서 ASHVEIL 자체 좌표로 그렸으며 외부 이미지 입력이나 트레이싱이 없다.

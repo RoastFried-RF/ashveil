@@ -1,0 +1,761 @@
+{
+  "version": 320,
+  "license": "CC0-1.0",
+  "source": "draw-equipment.mjs",
+  "imageInput": false,
+  "referenceStudy": "../../research/stoneshard-v319/",
+  "method": "Original explicit SVG geometry, integer pixel clusters, rasterized by Inkscape. Grid proportions from actual ASHVEIL definitions.",
+  "materialChoices": "Staggered open chain links, mended cloth seams, short wool fibers, worn leather edges, bent iron and strapped field kits. Lantern remains unlit in its base icon.",
+  "items": [
+    {
+      "id": "Item.Hood",
+      "label": "두건",
+      "frame": "complete_item_hood",
+      "width": 48,
+      "height": 24,
+      "grid": [
+        2,
+        1
+      ],
+      "design": [
+        "hood",
+        "ash"
+      ]
+    },
+    {
+      "id": "Item.AshMask",
+      "label": "방진 면포",
+      "frame": "complete_item_ash_mask",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "mask",
+        "linen"
+      ]
+    },
+    {
+      "id": "Item.LeatherCoat",
+      "label": "가죽 코트",
+      "frame": "complete_item_leather_coat",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "coat",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.LeatherApron",
+      "label": "가죽 앞치마",
+      "frame": "complete_item_leather_apron",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "apron",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.OilclothCloak",
+      "label": "방수포 망토",
+      "frame": "complete_item_oilcloth_cloak",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "cloak",
+        "ash"
+      ]
+    },
+    {
+      "id": "Item.OiledRaincoat",
+      "label": "기름 먹인 천 우비",
+      "frame": "complete_item_oiled_raincoat",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "raincoat",
+        "ash"
+      ]
+    },
+    {
+      "id": "Item.FieldMat",
+      "label": "풀·가지 깔개",
+      "frame": "complete_item_field_mat",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Bedroll",
+      "label": "침낭",
+      "frame": "complete_item_bedroll",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.StrawBed",
+      "label": "짚 침대",
+      "frame": "complete_item_straw_bed",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Bed",
+      "label": "나무 침대",
+      "frame": "complete_item_bed",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.GoodBed",
+      "label": "좋은 침대",
+      "frame": "complete_item_good_bed",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Needle",
+      "label": "바늘",
+      "frame": "complete_item_needle",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Tongs",
+      "label": "쇠집게",
+      "frame": "complete_item_tongs",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.StoneHammer",
+      "label": "돌망치",
+      "frame": "complete_item_stone_hammer",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.IronHammer",
+      "label": "쇠망치",
+      "frame": "complete_item_iron_hammer",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.WorkbenchKit",
+      "label": "작업대 조립품",
+      "frame": "complete_item_workbench_kit",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.ForgeKit",
+      "label": "대장간 조립품",
+      "frame": "complete_item_forge_kit",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.LoomKit",
+      "label": "베틀 조립품",
+      "frame": "complete_item_loom_kit",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.TanningVatKit",
+      "label": "무두질 통 조립품",
+      "frame": "complete_item_tanning_vat_kit",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.ArtisanKit",
+      "label": "장인 작업대 조립품",
+      "frame": "complete_item_artisan_kit",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.GunOil",
+      "label": "총기 기름",
+      "frame": "gun_oil",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.SharpeningStone",
+      "label": "숫돌",
+      "frame": "complete_item_sharpening_stone",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.BowString",
+      "label": "여분 활시위",
+      "frame": "original_bow_string",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.RagShirt",
+      "label": "누더기 옷",
+      "frame": "complete_item_rag_shirt",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "shirt",
+        "linen"
+      ]
+    },
+    {
+      "id": "Item.PaddedJacket",
+      "label": "누빔 재킷",
+      "frame": "complete_item_padded_jacket",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "padded",
+        "wool"
+      ]
+    },
+    {
+      "id": "Item.ScrapMail",
+      "label": "고철 사슬옷",
+      "frame": "complete_item_scrap_mail",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "mail",
+        "rust"
+      ]
+    },
+    {
+      "id": "Item.ScrapHelmet",
+      "label": "고철 투구",
+      "frame": "complete_item_scrap_helmet",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "helmet",
+        "rust"
+      ]
+    },
+    {
+      "id": "Item.Boots",
+      "label": "가죽 장화",
+      "frame": "complete_item_boots",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "boots",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.Gloves",
+      "label": "작업 장갑",
+      "frame": "complete_item_gloves",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "gloves",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.LeatherBelt",
+      "label": "가죽 허리띠",
+      "frame": "ashveil_leather_belt",
+      "width": 48,
+      "height": 24,
+      "grid": [
+        2,
+        1
+      ],
+      "design": [
+        "belt",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.BoneCharm",
+      "label": "뼈 부적",
+      "frame": "complete_item_bone_charm",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.SealRing",
+      "label": "녹슨 인장 반지",
+      "frame": "complete_item_seal_ring",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Lantern",
+      "label": "기름 등불",
+      "frame": "complete_item_lantern",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.LampOil",
+      "label": "등잔 기름",
+      "frame": "complete_item_lamp_oil",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Lockpick",
+      "label": "정밀 잠금 도구",
+      "frame": "lockpick",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.CustomShirt",
+      "label": "짜 맞춘 셔츠",
+      "frame": "complete_item_custom_shirt",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "shirt",
+        "ash"
+      ]
+    },
+    {
+      "id": "Item.CustomMail",
+      "label": "재질을 고른 사슬옷",
+      "frame": "complete_item_custom_mail",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "mail",
+        "iron"
+      ]
+    },
+    {
+      "id": "Item.CustomCoat",
+      "label": "재질을 고른 가죽 코트",
+      "frame": "complete_item_custom_coat",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "coat",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.IronMail",
+      "label": "연철 사슬옷",
+      "frame": "complete_item_iron_mail",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "mail",
+        "iron"
+      ]
+    },
+    {
+      "id": "Item.SteelMail",
+      "label": "강철 사슬옷",
+      "frame": "complete_item_steel_mail",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "mail",
+        "steel"
+      ]
+    },
+    {
+      "id": "Item.WoolShirt",
+      "label": "양모 셔츠",
+      "frame": "complete_item_wool_shirt",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "shirt",
+        "wool"
+      ]
+    },
+    {
+      "id": "Item.WolfCoat",
+      "label": "재늑대 가죽 코트",
+      "frame": "complete_item_wolf_coat",
+      "width": 48,
+      "height": 72,
+      "grid": [
+        2,
+        3
+      ],
+      "design": [
+        "furcoat",
+        "wool"
+      ]
+    },
+    {
+      "id": "Item.WoolGloves",
+      "label": "양모 장갑",
+      "frame": "complete_item_wool_gloves",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "gloves",
+        "wool"
+      ]
+    },
+    {
+      "id": "Item.OilclothShirt",
+      "label": "기름 먹인 천 셔츠",
+      "frame": "complete_item_oilcloth_shirt",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "shirt",
+        "ash"
+      ]
+    },
+    {
+      "id": "Item.PowerCell",
+      "label": "개척 전원셀",
+      "frame": "original_power_cell",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.Quiver",
+      "label": "가죽 화살통",
+      "frame": "ashveil_quiver",
+      "width": 48,
+      "height": 48,
+      "grid": [
+        2,
+        2
+      ],
+      "design": [
+        "quiver",
+        "leather"
+      ]
+    },
+    {
+      "id": "Item.ClothFilter",
+      "label": "천 여과포",
+      "frame": "complete_item_cloth_filter",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.CharcoalFilter",
+      "label": "숯·모래 여과통",
+      "frame": "complete_item_charcoal_filter",
+      "width": 24,
+      "height": 48,
+      "grid": [
+        1,
+        2
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.WaterPill",
+      "label": "개척기 정수정",
+      "frame": "complete_item_water_pill",
+      "width": 24,
+      "height": 24,
+      "grid": [
+        1,
+        1
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    },
+    {
+      "id": "Item.CoracleKit",
+      "label": "접은 통가죽배",
+      "frame": "complete_item_coracle_kit",
+      "width": 72,
+      "height": 72,
+      "grid": [
+        3,
+        3
+      ],
+      "design": [
+        "field-tool",
+        "authored-specific-geometry"
+      ]
+    }
+  ]
+}

@@ -31,6 +31,7 @@ const M = manifest as unknown as {
   anims: Record<string, { frames: string[]; fps: number }>
   chars: Record<string, CharDef>
   ui: Record<string, string>
+  sheetSizes?:Record<string,[number,number]>
 }
 
 export const anims = M.anims
@@ -46,6 +47,7 @@ for(const[sheet,x,y,w,h]of Object.values(M.frames)){
   const prior=sheetExtent.get(sheet)??{width:0,height:0}
   sheetExtent.set(sheet,{width:Math.max(prior.width,x+w),height:Math.max(prior.height,y+h)})
 }
+for(const[sheet,[width,height]]of Object.entries(M.sheetSizes??{}))sheetExtent.set(sheet,{width,height})
 
 export function base(): string {
   return import.meta.env.BASE_URL

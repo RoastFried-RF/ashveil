@@ -1,5 +1,5 @@
 {
-  "version": "0.319-dev",
+  "version": "0.320-dev",
   "note": "독립 원화 미리보기. 실제 세계의 이동·장비·시야·발견 상태는 진행하지 않는다. 지형 정의와 전체 프레임에는 호환/기억/상태별 표현도 포함한다.",
   "sheets": {
     "av_direction_terrain_floor_v303": "sprites/original/direction-v303/terrain/floor.png",
@@ -170,7 +170,690 @@
     "av319_tender_drone_inert": "sprites/original/direction-v319/av319_tender_drone_inert.png",
     "av319_amalgam": "sprites/original/direction-v319/av319_amalgam.png",
     "av319_weapons": "sprites/original/direction-v319/weapons.png",
-    "av319_portraits": "sprites/original/direction-v319/portraits.png"
+    "av319_portraits": "sprites/original/direction-v319/portraits.png",
+    "av320_equipment": "sprites/original/direction-v320/equipment.png"
+  },
+  "sheetSizes": {
+    "av_direction_terrain_floor_v303": [
+      256,
+      256
+    ],
+    "av_direction_terrain_moss_v303": [
+      192,
+      160
+    ],
+    "av_direction_terrain_walls_v303": [
+      128,
+      80
+    ],
+    "av_direction_terrain_depth_v303": [
+      128,
+      48
+    ],
+    "av_direction_terrain_misc_v303": [
+      128,
+      16
+    ],
+    "av_direction_terrain_ground_v303": [
+      128,
+      64
+    ],
+    "av_direction_terrain_doors_v303": [
+      64,
+      32
+    ],
+    "kt_props": [
+      368,
+      150
+    ],
+    "kt_brazier": [
+      248,
+      130
+    ],
+    "objects": [
+      250,
+      66
+    ],
+    "dw_env": [
+      212,
+      96
+    ],
+    "dw_tree_dead": [
+      80,
+      96
+    ],
+    "cd_veina1": [
+      376,
+      34
+    ],
+    "cd_littleeyes": [
+      574,
+      34
+    ],
+    "cd_urn_1": [
+      16,
+      16
+    ],
+    "cd_statue_b1": [
+      48,
+      48
+    ],
+    "original_forest_pine": [
+      80,
+      96
+    ],
+    "original_forest_dead": [
+      80,
+      96
+    ],
+    "original_storage_chest0": [
+      16,
+      16
+    ],
+    "original_storage_chest2": [
+      16,
+      16
+    ],
+    "original_ashberry_bush": [
+      32,
+      32
+    ],
+    "original_pantry_full": [
+      32,
+      32
+    ],
+    "original_pantry_low": [
+      32,
+      32
+    ],
+    "original_pantry_empty": [
+      32,
+      32
+    ],
+    "original_hearth_oat_plot": [
+      32,
+      32
+    ],
+    "complete_props_ground": [
+      250,
+      52
+    ],
+    "direction_v303_items": [
+      512,
+      480
+    ],
+    "amalgam": [
+      576,
+      64
+    ],
+    "amalgam_atk": [
+      384,
+      320
+    ],
+    "amalgam_walk": [
+      240,
+      256
+    ],
+    "complete_ash_hound_alpha_attack": [
+      64,
+      64
+    ],
+    "complete_ash_hound_alpha_walk": [
+      48,
+      64
+    ],
+    "complete_ash_hound_attack": [
+      64,
+      64
+    ],
+    "complete_ash_hound_walk": [
+      48,
+      64
+    ],
+    "complete_burrow_rat_attack": [
+      64,
+      64
+    ],
+    "complete_burrow_rat_walk": [
+      48,
+      64
+    ],
+    "complete_murk_leech_attack": [
+      64,
+      64
+    ],
+    "complete_murk_leech_walk": [
+      48,
+      64
+    ],
+    "complete_reaver_archer_attack": [
+      96,
+      128
+    ],
+    "complete_reaver_archer_walk": [
+      72,
+      128
+    ],
+    "complete_reaver_chief_attack": [
+      96,
+      128
+    ],
+    "complete_reaver_chief_walk": [
+      72,
+      128
+    ],
+    "hero": [
+      72,
+      128
+    ],
+    "hero_atk": [
+      128,
+      160
+    ],
+    "original_shade_chief": [
+      72,
+      128
+    ],
+    "original_shade_chief_atk": [
+      128,
+      160
+    ],
+    "original_spore0": [
+      72,
+      128
+    ],
+    "original_spore0_atk": [
+      96,
+      128
+    ],
+    "original_spore1": [
+      72,
+      128
+    ],
+    "original_spore1_atk": [
+      96,
+      128
+    ],
+    "original_wanderer_hero": [
+      72,
+      128
+    ],
+    "original_wanderer_hero_atk": [
+      128,
+      160
+    ],
+    "reaver0": [
+      72,
+      128
+    ],
+    "reaver0_atk": [
+      128,
+      160
+    ],
+    "reaver1": [
+      72,
+      128
+    ],
+    "reaver1_atk": [
+      128,
+      160
+    ],
+    "resident_guard": [
+      72,
+      128
+    ],
+    "resident_guard_atk": [
+      128,
+      160
+    ],
+    "resident_healer": [
+      72,
+      128
+    ],
+    "resident_healer_atk": [
+      128,
+      160
+    ],
+    "resident_trader": [
+      72,
+      128
+    ],
+    "resident_trader_atk": [
+      128,
+      160
+    ],
+    "resident_worker": [
+      72,
+      128
+    ],
+    "resident_worker_atk": [
+      128,
+      160
+    ],
+    "shade0": [
+      72,
+      128
+    ],
+    "shade0_atk": [
+      128,
+      160
+    ],
+    "shade1": [
+      72,
+      128
+    ],
+    "shade1_atk": [
+      128,
+      160
+    ],
+    "shade2": [
+      72,
+      128
+    ],
+    "shade2_atk": [
+      128,
+      160
+    ],
+    "shade3": [
+      72,
+      128
+    ],
+    "shade3_atk": [
+      128,
+      160
+    ],
+    "tender_drone": [
+      96,
+      128
+    ],
+    "tender_drone_atk": [
+      160,
+      160
+    ],
+    "tender_drone_inert": [
+      32,
+      128
+    ],
+    "withered": [
+      72,
+      128
+    ],
+    "withered_atk": [
+      128,
+      160
+    ],
+    "withered_priest": [
+      72,
+      128
+    ],
+    "withered_priest_atk": [
+      128,
+      160
+    ],
+    "av_forest_trees_v307": [
+      1254,
+      1254
+    ],
+    "av_living_trees_v308": [
+      1024,
+      1024
+    ],
+    "av_ground_v311": [
+      192,
+      192
+    ],
+    "av_crops_v313": [
+      320,
+      448
+    ],
+    "av_soil_residue_v315": [
+      64,
+      64
+    ],
+    "av316_original_wanderer_hero": [
+      384,
+      256
+    ],
+    "av316_original_wanderer_hero_attack": [
+      256,
+      320
+    ],
+    "av316_hero": [
+      384,
+      256
+    ],
+    "av316_hero_attack": [
+      256,
+      320
+    ],
+    "av316_resident_worker": [
+      384,
+      256
+    ],
+    "av316_resident_worker_attack": [
+      256,
+      320
+    ],
+    "av316_resident_healer": [
+      384,
+      256
+    ],
+    "av316_resident_healer_attack": [
+      256,
+      320
+    ],
+    "av316_resident_guard": [
+      384,
+      256
+    ],
+    "av316_resident_guard_attack": [
+      256,
+      320
+    ],
+    "av316_resident_trader": [
+      384,
+      256
+    ],
+    "av316_resident_trader_attack": [
+      256,
+      320
+    ],
+    "av316_reaver0": [
+      384,
+      256
+    ],
+    "av316_reaver0_attack": [
+      256,
+      320
+    ],
+    "av316_reaver1": [
+      384,
+      256
+    ],
+    "av316_reaver1_attack": [
+      256,
+      320
+    ],
+    "av316_complete_reaver_chief": [
+      384,
+      256
+    ],
+    "av316_complete_reaver_chief_attack": [
+      256,
+      320
+    ],
+    "av316_complete_reaver_archer": [
+      384,
+      256
+    ],
+    "av316_complete_reaver_archer_attack": [
+      256,
+      320
+    ],
+    "av316_shade0": [
+      384,
+      256
+    ],
+    "av316_shade0_attack": [
+      256,
+      320
+    ],
+    "av316_shade1": [
+      384,
+      256
+    ],
+    "av316_shade1_attack": [
+      256,
+      320
+    ],
+    "av316_shade2": [
+      384,
+      256
+    ],
+    "av316_shade2_attack": [
+      256,
+      320
+    ],
+    "av316_shade3": [
+      384,
+      256
+    ],
+    "av316_shade3_attack": [
+      256,
+      320
+    ],
+    "av316_shade_chief": [
+      384,
+      256
+    ],
+    "av316_shade_chief_attack": [
+      256,
+      320
+    ],
+    "av316_withered": [
+      384,
+      256
+    ],
+    "av316_withered_attack": [
+      256,
+      320
+    ],
+    "av316_withered_priest": [
+      384,
+      256
+    ],
+    "av316_withered_priest_attack": [
+      256,
+      320
+    ],
+    "av316_spore0": [
+      384,
+      256
+    ],
+    "av316_spore0_attack": [
+      256,
+      320
+    ],
+    "av316_spore1": [
+      384,
+      256
+    ],
+    "av316_spore1_attack": [
+      256,
+      320
+    ],
+    "av319_original_wanderer_hero": [
+      384,
+      256
+    ],
+    "av319_original_wanderer_hero_attack": [
+      256,
+      320
+    ],
+    "av319_hero": [
+      384,
+      256
+    ],
+    "av319_hero_attack": [
+      256,
+      320
+    ],
+    "av319_resident_worker": [
+      384,
+      256
+    ],
+    "av319_resident_worker_attack": [
+      256,
+      320
+    ],
+    "av319_resident_healer": [
+      384,
+      256
+    ],
+    "av319_resident_healer_attack": [
+      256,
+      320
+    ],
+    "av319_resident_guard": [
+      384,
+      256
+    ],
+    "av319_resident_guard_attack": [
+      256,
+      320
+    ],
+    "av319_resident_trader": [
+      384,
+      256
+    ],
+    "av319_resident_trader_attack": [
+      256,
+      320
+    ],
+    "av319_reaver0": [
+      384,
+      256
+    ],
+    "av319_reaver0_attack": [
+      256,
+      320
+    ],
+    "av319_reaver1": [
+      384,
+      256
+    ],
+    "av319_reaver1_attack": [
+      256,
+      320
+    ],
+    "av319_complete_reaver_chief": [
+      384,
+      256
+    ],
+    "av319_complete_reaver_chief_attack": [
+      256,
+      320
+    ],
+    "av319_complete_reaver_archer": [
+      384,
+      256
+    ],
+    "av319_complete_reaver_archer_attack": [
+      256,
+      320
+    ],
+    "av319_shade0": [
+      384,
+      256
+    ],
+    "av319_shade0_attack": [
+      256,
+      320
+    ],
+    "av319_shade1": [
+      384,
+      256
+    ],
+    "av319_shade1_attack": [
+      256,
+      320
+    ],
+    "av319_shade2": [
+      384,
+      256
+    ],
+    "av319_shade2_attack": [
+      256,
+      320
+    ],
+    "av319_shade3": [
+      384,
+      256
+    ],
+    "av319_shade3_attack": [
+      256,
+      320
+    ],
+    "av319_shade_chief": [
+      384,
+      256
+    ],
+    "av319_shade_chief_attack": [
+      256,
+      320
+    ],
+    "av319_withered": [
+      384,
+      256
+    ],
+    "av319_withered_attack": [
+      256,
+      320
+    ],
+    "av319_withered_priest": [
+      384,
+      256
+    ],
+    "av319_withered_priest_attack": [
+      256,
+      320
+    ],
+    "av319_spore0": [
+      384,
+      256
+    ],
+    "av319_spore0_attack": [
+      256,
+      320
+    ],
+    "av319_spore1": [
+      384,
+      256
+    ],
+    "av319_spore1_attack": [
+      256,
+      320
+    ],
+    "av319_ash_hound": [
+      1152,
+      256
+    ],
+    "av319_ash_hound_alpha": [
+      1152,
+      256
+    ],
+    "av319_burrow_rat": [
+      768,
+      160
+    ],
+    "av319_murk_leech": [
+      576,
+      128
+    ],
+    "av319_tender_drone": [
+      1344,
+      416
+    ],
+    "av319_tender_drone_inert": [
+      1344,
+      416
+    ],
+    "av319_amalgam": [
+      1920,
+      512
+    ],
+    "av319_weapons": [
+      640,
+      336
+    ],
+    "av319_portraits": [
+      320,
+      320
+    ],
+    "av320_equipment": [
+      800,
+      440
+    ]
   },
   "frames": {
     "kt_floor_q0": [
@@ -2967,18 +3650,18 @@
       32
     ],
     "ashveil_quiver": [
-      "direction_v303_items",
-      192,
-      352,
-      32,
-      32
+      "av320_equipment",
+      404,
+      356,
+      48,
+      48
     ],
     "ashveil_leather_belt": [
-      "direction_v303_items",
-      0,
-      160,
-      32,
-      32
+      "av320_equipment",
+      724,
+      180,
+      48,
+      24
     ],
     "ashveil_arrow_bundle": [
       "av319_weapons",
@@ -3009,11 +3692,11 @@
       24
     ],
     "gun_oil": [
-      "direction_v303_items",
-      384,
-      96,
-      32,
-      32
+      "av320_equipment",
+      4,
+      180,
+      24,
+      24
     ],
     "revolver": [
       "av319_weapons",
@@ -3555,11 +4238,11 @@
       40
     ],
     "lockpick": [
-      "direction_v303_items",
-      32,
-      256,
-      32,
-      32
+      "av320_equipment",
+      324,
+      268,
+      24,
+      48
     ],
     "withered_a_down0": [
       "withered_atk",
@@ -5396,11 +6079,11 @@
       32
     ],
     "original_power_cell": [
-      "direction_v303_items",
-      128,
-      352,
-      32,
-      32
+      "av320_equipment",
+      324,
+      356,
+      24,
+      24
     ],
     "original_health_draught": [
       "direction_v303_items",
@@ -5501,11 +6184,11 @@
       72
     ],
     "original_bow_string": [
-      "direction_v303_items",
-      64,
-      128,
-      32,
-      32
+      "av320_equipment",
+      164,
+      180,
+      24,
+      24
     ],
     "original_wanderer_hero_w_down0": [
       "original_wanderer_hero",
@@ -7545,18 +8228,18 @@
       32
     ],
     "complete_item_hood": [
-      "direction_v303_items",
-      0,
-      0,
-      32,
-      32
+      "av320_equipment",
+      4,
+      4,
+      48,
+      24
     ],
     "complete_item_ash_mask": [
-      "direction_v303_items",
-      32,
-      0,
-      32,
-      32
+      "av320_equipment",
+      84,
+      4,
+      24,
+      24
     ],
     "complete_item_light_crossbow": [
       "av319_weapons",
@@ -7580,32 +8263,32 @@
       96
     ],
     "complete_item_leather_coat": [
-      "direction_v303_items",
-      192,
-      0,
-      32,
-      32
+      "av320_equipment",
+      164,
+      4,
+      48,
+      72
     ],
     "complete_item_leather_apron": [
-      "direction_v303_items",
-      224,
-      0,
-      32,
-      32
+      "av320_equipment",
+      244,
+      4,
+      48,
+      72
     ],
     "complete_item_oilcloth_cloak": [
-      "direction_v303_items",
-      256,
-      0,
-      32,
-      32
+      "av320_equipment",
+      324,
+      4,
+      48,
+      48
     ],
     "complete_item_oiled_raincoat": [
-      "direction_v303_items",
-      288,
-      0,
-      32,
-      32
+      "av320_equipment",
+      404,
+      4,
+      48,
+      48
     ],
     "complete_item_note": [
       "direction_v303_items",
@@ -7657,39 +8340,39 @@
       32
     ],
     "complete_item_field_mat": [
-      "direction_v303_items",
-      160,
-      32,
-      32,
-      32
+      "av320_equipment",
+      484,
+      4,
+      48,
+      48
     ],
     "complete_item_bedroll": [
-      "direction_v303_items",
-      192,
-      32,
-      32,
-      32
+      "av320_equipment",
+      564,
+      4,
+      48,
+      72
     ],
     "complete_item_straw_bed": [
-      "direction_v303_items",
-      224,
-      32,
-      32,
-      32
+      "av320_equipment",
+      644,
+      4,
+      48,
+      72
     ],
     "complete_item_bed": [
-      "direction_v303_items",
-      256,
-      32,
-      32,
-      32
+      "av320_equipment",
+      724,
+      4,
+      48,
+      72
     ],
     "complete_item_good_bed": [
-      "direction_v303_items",
-      288,
-      32,
-      32,
-      32
+      "av320_equipment",
+      4,
+      92,
+      48,
+      72
     ],
     "complete_item_medical_bag": [
       "direction_v303_items",
@@ -7741,67 +8424,67 @@
       32
     ],
     "complete_item_needle": [
-      "direction_v303_items",
-      256,
-      64,
-      32,
-      32
+      "av320_equipment",
+      84,
+      92,
+      24,
+      24
     ],
     "complete_item_tongs": [
-      "direction_v303_items",
-      288,
-      64,
-      32,
-      32
+      "av320_equipment",
+      164,
+      92,
+      24,
+      48
     ],
     "complete_item_stone_hammer": [
-      "direction_v303_items",
-      320,
-      64,
-      32,
-      32
+      "av320_equipment",
+      244,
+      92,
+      24,
+      48
     ],
     "complete_item_iron_hammer": [
-      "direction_v303_items",
-      352,
-      64,
-      32,
-      32
+      "av320_equipment",
+      324,
+      92,
+      24,
+      48
     ],
     "complete_item_workbench_kit": [
-      "direction_v303_items",
-      384,
-      64,
-      32,
-      32
+      "av320_equipment",
+      404,
+      92,
+      48,
+      48
     ],
     "complete_item_forge_kit": [
-      "direction_v303_items",
-      416,
-      64,
-      32,
-      32
+      "av320_equipment",
+      484,
+      92,
+      48,
+      48
     ],
     "complete_item_loom_kit": [
-      "direction_v303_items",
-      448,
-      64,
-      32,
-      32
+      "av320_equipment",
+      564,
+      92,
+      48,
+      48
     ],
     "complete_item_tanning_vat_kit": [
-      "direction_v303_items",
-      480,
-      64,
-      32,
-      32
+      "av320_equipment",
+      644,
+      92,
+      48,
+      48
     ],
     "complete_item_artisan_kit": [
-      "direction_v303_items",
-      0,
-      96,
-      32,
-      32
+      "av320_equipment",
+      724,
+      92,
+      48,
+      48
     ],
     "complete_item_craft_manual": [
       "direction_v303_items",
@@ -7874,67 +8557,67 @@
       32
     ],
     "complete_item_sharpening_stone": [
-      "direction_v303_items",
-      32,
-      128,
-      32,
-      32
+      "av320_equipment",
+      84,
+      180,
+      24,
+      24
     ],
     "complete_item_rag_shirt": [
-      "direction_v303_items",
-      320,
-      128,
-      32,
-      32
+      "av320_equipment",
+      244,
+      180,
+      48,
+      48
     ],
     "complete_item_padded_jacket": [
-      "direction_v303_items",
-      352,
-      128,
-      32,
-      32
+      "av320_equipment",
+      324,
+      180,
+      48,
+      72
     ],
     "complete_item_scrap_mail": [
-      "direction_v303_items",
-      384,
-      128,
-      32,
-      32
+      "av320_equipment",
+      404,
+      180,
+      48,
+      72
     ],
     "complete_item_scrap_helmet": [
-      "direction_v303_items",
-      416,
-      128,
-      32,
-      32
+      "av320_equipment",
+      484,
+      180,
+      48,
+      48
     ],
     "complete_item_boots": [
-      "direction_v303_items",
-      448,
-      128,
-      32,
-      32
+      "av320_equipment",
+      564,
+      180,
+      48,
+      48
     ],
     "complete_item_gloves": [
-      "direction_v303_items",
-      480,
-      128,
-      32,
-      32
+      "av320_equipment",
+      644,
+      180,
+      24,
+      48
     ],
     "complete_item_bone_charm": [
-      "direction_v303_items",
-      32,
-      160,
-      32,
-      32
+      "av320_equipment",
+      4,
+      268,
+      24,
+      24
     ],
     "complete_item_seal_ring": [
-      "direction_v303_items",
-      64,
-      160,
-      32,
-      32
+      "av320_equipment",
+      84,
+      268,
+      24,
+      24
     ],
     "complete_item_tourniquet": [
       "direction_v303_items",
@@ -7986,18 +8669,18 @@
       32
     ],
     "complete_item_lantern": [
-      "direction_v303_items",
-      96,
-      192,
-      32,
-      32
+      "av320_equipment",
+      164,
+      268,
+      24,
+      48
     ],
     "complete_item_lamp_oil": [
-      "direction_v303_items",
-      160,
-      192,
-      32,
-      32
+      "av320_equipment",
+      244,
+      268,
+      24,
+      24
     ],
     "complete_item_bones": [
       "direction_v303_items",
@@ -8196,25 +8879,25 @@
       48
     ],
     "complete_item_custom_shirt": [
-      "direction_v303_items",
-      352,
-      256,
-      32,
-      32
+      "av320_equipment",
+      404,
+      268,
+      48,
+      48
     ],
     "complete_item_custom_mail": [
-      "direction_v303_items",
-      384,
-      256,
-      32,
-      32
+      "av320_equipment",
+      484,
+      268,
+      48,
+      72
     ],
     "complete_item_custom_coat": [
-      "direction_v303_items",
-      416,
-      256,
-      32,
-      32
+      "av320_equipment",
+      564,
+      268,
+      48,
+      72
     ],
     "complete_item_material_manual": [
       "direction_v303_items",
@@ -8287,46 +8970,46 @@
       72
     ],
     "complete_item_iron_mail": [
-      "direction_v303_items",
-      256,
-      288,
-      32,
-      32
+      "av320_equipment",
+      644,
+      268,
+      48,
+      72
     ],
     "complete_item_steel_mail": [
-      "direction_v303_items",
-      288,
-      288,
-      32,
-      32
+      "av320_equipment",
+      724,
+      268,
+      48,
+      72
     ],
     "complete_item_wool_shirt": [
-      "direction_v303_items",
-      320,
-      288,
-      32,
-      32
+      "av320_equipment",
+      4,
+      356,
+      48,
+      48
     ],
     "complete_item_wolf_coat": [
-      "direction_v303_items",
-      352,
-      288,
-      32,
-      32
+      "av320_equipment",
+      84,
+      356,
+      48,
+      72
     ],
     "complete_item_wool_gloves": [
-      "direction_v303_items",
-      384,
-      288,
-      32,
-      32
+      "av320_equipment",
+      164,
+      356,
+      24,
+      48
     ],
     "complete_item_oilcloth_shirt": [
-      "direction_v303_items",
-      416,
-      288,
-      32,
-      32
+      "av320_equipment",
+      244,
+      356,
+      48,
+      48
     ],
     "complete_item_missing_placeholder": [
       "direction_v303_items",
@@ -8518,25 +9201,25 @@
       32
     ],
     "complete_item_cloth_filter": [
-      "direction_v303_items",
-      64,
-      384,
-      32,
-      32
+      "av320_equipment",
+      484,
+      356,
+      24,
+      24
     ],
     "complete_item_charcoal_filter": [
-      "direction_v303_items",
-      96,
-      384,
-      32,
-      32
+      "av320_equipment",
+      564,
+      356,
+      24,
+      48
     ],
     "complete_item_water_pill": [
-      "direction_v303_items",
-      128,
-      384,
-      32,
-      32
+      "av320_equipment",
+      644,
+      356,
+      24,
+      24
     ],
     "complete_item_sand": [
       "direction_v303_items",
@@ -8546,11 +9229,11 @@
       32
     ],
     "complete_item_coracle_kit": [
-      "direction_v303_items",
-      224,
-      384,
-      32,
-      32
+      "av320_equipment",
+      724,
+      356,
+      72,
+      72
     ],
     "complete_item_coastal_boat_manual": [
       "direction_v303_items",

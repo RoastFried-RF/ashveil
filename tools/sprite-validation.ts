@@ -46,6 +46,16 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
  for(const key of['sheets','frames','anims','chars','ui']){const row=manifest[key];if(!object(row)){errors.push('sprites.json.'+key+' 객체가 필요하다');records[key]={}}else records[key]=row}
  const{sheets,frames,anims,chars,ui}=records as Record<'sheets'|'frames'|'anims'|'chars'|'ui',RecordValue>,sizes=new Map<string,ReturnType<typeof pngSize>|null>()
  for(const[key,url]of Object.entries(sheets)){counts.sheets++;sizes.set(key,file(url,'sheet '+key))}
+ if(manifest.sheetSizes!==undefined){
+  if(!object(manifest.sheetSizes))errors.push('sheetSizes: 시트별 PNG 크기 객체가 필요하다')
+  else{
+   for(const key of Object.keys(manifest.sheetSizes))if(!Object.hasOwn(sheets,key))errors.push('sheetSizes: 등록되지 않은 sheet '+key)
+   for(const key of Object.keys(sheets)){
+    const row=manifest.sheetSizes[key],actual=sizes.get(key)
+    if(!Array.isArray(row)||row.length!==2||!row.every(n=>Number.isSafeInteger(n)&&n>0)||actual&&(row[0]!==actual.width||row[1]!==actual.height))errors.push('sheetSizes '+key+': 실제 PNG 너비/높이와 같아야 한다')
+   }
+  }
+ }
  for(const[key,row]of Object.entries(frames)){
   counts.frames++
   if(!Array.isArray(row)||row.length!==5||typeof row[0]!=='string'||!row.slice(1).every(Number.isSafeInteger)){errors.push('frame '+key+': [sheet,x,y,width,height] 정수5항목이 필요하다');continue}
