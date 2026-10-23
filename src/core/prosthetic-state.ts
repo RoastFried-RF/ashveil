@@ -4,6 +4,7 @@ import { ambientTemp } from './environment'
 import type { Creature, ProstheticDef, ProstheticState } from './types'
 
 export function prostheticAt(w: World, c: Creature, id: string): { root: string; state: ProstheticState; rule: ProstheticDef } | undefined {
+  if (!c.body.prosthetics) return undefined
   const parts = w.db.body(c.body.def).parts
   let current: string | undefined = id
   while (current) {

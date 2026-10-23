@@ -4,23 +4,32 @@ import { nutritionStat } from './nutrition-state'
 import type { World } from './ctx'
 import type { AbilityDef, BackgroundDef, Creature, ItemInst, Stats, GrowthDef } from './types'
 
-function* modSources(w: World, c: Creature): Generator<Partial<Record<string, number>>> {
+type ModifierMode = 'mul' | 'add' | 'override'
+function combine(value: number | undefined, next: unknown, mode: ModifierMode): number | undefined {
+  if (typeof next !== 'number') return value
+  return mode === 'mul' ? value! * next : mode === 'add' ? value! + next : next
+}
+
+// 원래 원천 순서를 유지한다. 질의마다 generator/중간 수정치 객체를 만들거나
+// 턴 단위 캐시를 쓰지 않아 같은 TU의 장비·특성·배운 능력 변화도 바로 읽는다.
+function modifier(w: World, c: Creature, key: string, mode: ModifierMode): number | undefined {
+  let value: number | undefined = mode === 'mul' ? 1 : mode === 'add' ? 0 : undefined
   if (c.age) {
     const growth = w.db.tryGet<GrowthDef>('Growth.Human')
-    const band = growth?.ageBands.filter((b) => b.min <= c.age!.years).sort((a, b) => b.min - a.min)[0]
-    if (band?.mods) yield band.mods
-    if (c.age.senses) yield { sightCap: .9, hearingCap: .9 }
+    let band: GrowthDef['ageBands'][number] | undefined
+    for (const candidate of growth?.ageBands ?? []) {
+      if (candidate.min <= c.age.years && (!band || candidate.min > band.min)) band = candidate
+    }
+    value = combine(value, band?.mods?.[key], mode)
+    if (c.age.senses && (key === 'sightCap' || key === 'hearingCap')) value = combine(value, .9, mode)
   }
 
   for (const t of c.traits) {
-    const m = w.db.trait(t).mods
-    if (m) yield m
+    value = combine(value, w.db.trait(t).mods?.[key], mode)
   }
-  const cm = w.db.creature(c.def).mods
-  if (cm) yield cm
+  value = combine(value, w.db.creature(c.def).mods?.[key], mode)
   if (c.background) {
-    const bm = w.db.tryGet<BackgroundDef>(c.background)?.mods
-    if (bm) yield bm
+    value = combine(value, w.db.tryGet<BackgroundDef>(c.background)?.mods?.[key], mode)
   }
   // 갈래 패시브는 그 계열 무기로 싸울 때만 (15 §7)
   let fam: string | undefined | null = null
@@ -31,13 +40,13 @@ function* modSources(w: World, c: Creature): Generator<Partial<Record<string, nu
       if (fam === null) fam = mainFamily(w, c)
       if (fam !== d.weapon) continue
     }
-    yield d.mods
+    value = combine(value, d.mods[key], mode)
   }
   for (const it of Object.values(c.equip ?? {}) as (ItemInst | undefined)[]) {
     if (!it) continue
-    const m = w.db.item(it.def).mods
-    if (m) yield m
+    value = combine(value, w.db.item(it.def).mods?.[key], mode)
   }
+  return value
 }
 
 function mainFamily(w: World, c: Creature): string | undefined {
@@ -48,23 +57,17 @@ function mainFamily(w: World, c: Creature): string | undefined {
 
 /** 곱연산 수정치 (기본 1) */
 export function traitMul(w: World, c: Creature, key: string): number {
-  let v = 1
-  for (const m of modSources(w, c)) if (typeof m[key] === 'number') v *= m[key]!
-  return v
+  return modifier(w, c, key, 'mul')!
 }
 
 /** 합연산 수정치 (기본 0) */
 export function traitAdd(w: World, c: Creature, key: string): number {
-  let v = 0
-  for (const m of modSources(w, c)) if (typeof m[key] === 'number') v += m[key]!
-  return v
+  return modifier(w, c, key, 'add')!
 }
 
 /** 덮어쓰기형 (없으면 undefined) */
 export function traitOverride(w: World, c: Creature, key: string): number | undefined {
-  let v: number | undefined
-  for (const m of modSources(w, c)) if (typeof m[key] === 'number') v = m[key]
-  return v
+  return modifier(w, c, key, 'override')
 }
 
 export function hasEffect(c: Creature, kind: string, turn: number): boolean {

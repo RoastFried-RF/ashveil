@@ -10,7 +10,12 @@ export function metabolicSize(w: World, c: Creature): number {
   const d = w.db.creature(c.def)
   return Math.max(.01, (d.metabolicScale ?? (d.weightKg ?? 70) / 70) * traitMul(w, c, 'bodySizeMult'))
 }
-function band(list: NutritionBand[], deficit: number) { return list.filter((b) => b.deficit <= deficit).at(-1)! }
+function band(list: NutritionBand[], deficit: number) {
+  // 마지막 일치 항목을 쓰던 의미를 보존하며 정렬하거나 중간 배열을 만들지 않는다.
+  let i = list.length - 1
+  while (i >= 0 && !(list[i].deficit <= deficit)) i--
+  return list[i]!
+}
 export function hungerBand(w: World, c: Creature) { return band(nutritionDef(w).hunger, Math.max(0, -c.needs.kcal) / metabolicSize(w, c)) }
 export function thirstBand(w: World, c: Creature) { return band(nutritionDef(w).thirst, c.needs.waterDeficit) }
 export function hungerStage(w: World, c: Creature) { return nutritionDef(w).hunger.indexOf(hungerBand(w, c)) }

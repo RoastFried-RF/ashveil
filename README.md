@@ -4,7 +4,7 @@
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.308** · 저장205. 소나무/검은잎나무 네 원본과 크기를 개선했다. 전체6,181개 검증·두 화면 크기 실제24화면/전체상태30쌍·복원4회. 기본 시야12칸·어둠6칸, 각인/표석/탐구 및 지도 배율1~4배를 지원한다. **v1.0.0까지 후속 확장 포함 개발 중**이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [원화·검증](docs/living-v308.md) · [진행 상황](docs/progress.md) · [출시 기준](docs/v1-execution.md).
+**현재 상태: 프로토타입 v0.309** · 저장205. 원정 계산의 반복 작업을 줄이고 최대 도달 층/레벨 관찰 도구를 연결했다. 전체6,201개·월드30판·실제24화면/전체상태30쌍·복원4회를 검증했다. 기본 시야12칸·어둠6칸, 각인/표석/탐구 및 지도 배율1~4배를 지원한다. **v1.0.0까지 후속 확장 포함 개발 중**이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [측정·범위](docs/performance-v309.md) · [진행 상황](docs/progress.md) · [출시 기준](docs/v1-execution.md).
 
 ## 현재 플레이할 수 있는 것
 
@@ -36,7 +36,7 @@
 
 통합 검증을 마친 원본 아트/UI 웹 빌드에서 실제 새 게임을 시작해 촬영한 화면이다.
 
-![실제 새 게임 화면](docs/previews/v308-1440-01-world.png)
+![실제 새 게임 화면](docs/previews/v309-1440-01-world.png)
 
 [소지품 화면](docs/previews/v304-1440-02-inventory.png) · [현재 공개 게임](https://roastfried-rf.github.io/ashveil/) · [실제 배포 기록](docs/web-preview.md).
 
@@ -62,6 +62,10 @@ pnpm validate-schema
 pnpm build
 pnpm sim:batch 30 3 test-results/sim --world
 ```
+
+수도원 자연 원정의 최대 도달 층/레벨·사인 집계는 불변 검증본에서
+`pnpm sim:expedition /절대경로/새결과 1000 3`으로 실행한다.
+[고정·측정 조건](docs/performance-v309.md)을 따른다.
 
 Schema 검사는 Python3와 [검사 의존성](tools/requirements-schema.txt)이 필요하다.
 

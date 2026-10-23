@@ -30,6 +30,7 @@ import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } fr
 import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wound, WoundDef } from './types'
 
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
+const fingerCache = new WeakMap<BodyDef, readonly string[]>()
 
 // 몸 상태에서 나오는 값(의식·기능 능력치·부위 상태·통증)은 같은 상태면 같은 값이다.
 // 상태 지문은 그 값들이 읽는 입력을 빠짐없이 담아야 한다 — 하나라도 반올림하거나 빠뜨리면
@@ -38,7 +39,15 @@ const memo = new WeakMap<Creature, { db: World['db']; key: string; m: Map<string
 
 /** 캐시가 읽는 동상 입력은 손가락 1도 이상 여부다. 노출·발가락 값의 직렬화는 불필요하다. */
 function frozenHands(w: World, c: Creature): boolean {
-  for (const id in c.frostbite) if (c.frostbite[id].grade >= 1 && tryPart(w, c, id)?.groups.includes('finger')) return true
+  if (!c.frostbite) return false
+  const def = bodyDef(w, c)
+  let fingers = fingerCache.get(def)
+  if (!fingers) {
+    fingers = def.parts.filter(p => p.groups.includes('finger')).map(p => p.id)
+    fingerCache.set(def, fingers)
+  }
+  // 몸 정의만 불변 캐시한다. 동상 등급은 같은 TU에도 항상 원래 몸에서 읽는다.
+  for (const id of fingers) if ((c.frostbite[id]?.grade ?? 0) >= 1) return true
   return false
 }
 
