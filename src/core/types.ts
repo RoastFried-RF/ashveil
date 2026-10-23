@@ -1518,6 +1518,7 @@ export interface CompanionBond {
 export type CompanionAidMode='off'|'firstAid'|'rescue'
 export interface CompanionAidRule {supplyMemoryTurns?:number;range:number;rallyRadius:number;dragTurns:number;dragEnergy:number;dragBleedMax:number;minMedicine:number;minBleed:number;washContam:number;washAfterTurns:number;minBodyTemp:number;maxBodyTemp:number}
 export interface CompanionDef extends DefBase {
+  clinical?:string
   aid?:CompanionAidRule
   defType:'Companion';label:string;hireFee:number;dailyWage:number;maxMembers:number;minReputation:number
   followDistance:number;joinRadius:number;arrivalRadius:number;defendRadius:number
@@ -2077,6 +2078,8 @@ export interface Effect { kind: string; untilTurn: number; magnitude?: number }
 export interface Thought { def: string; untilTurn: number; count: number; events?: { at: number; untilTurn: number; mood?: number }[] }
 
 export interface Activity {
+  /** Explicit one-off companion consultation, bound to the original clinical policy. */
+  companionClinical?:string
   brushCut?:{map:string;region?:string;toolUid:number;signature:string}
   containerPry?:{map:string;region?:string;terrain:string;toolUid:number;signature:string;method?:'pick'}
   npcCare?:{provider:number;patient:number;woundId:number;materialUid:number;startedAt:number}

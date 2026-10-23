@@ -1,4 +1,4 @@
-import {isCompanion} from './companion-state'
+import {companionClinicalRule,isCompanion} from './companion-state'
 import {hasItemWorkerMethod,runItemAppliedWorker} from './script-item'
 import {recordNpcCare} from './npc-care-state'
 import {rememberLifeEvent} from './life-memories'
@@ -66,6 +66,7 @@ export function externalTreatmentError(w: World, c: Creature, act: Activity): st
   if (!patient) return '환자가 없다'
   const access = treatmentAccess(w, c, patient)
   if (access) return access
+  if(act.companionClinical&&(!isCompanion(w,c)||c.companion!.status!=='employed'||c.companion!.paidUntil<=turnOf(w)||patient.id!==w.s.playerId||companionClinicalRule(w)?.id!==act.companionClinical||hostileAware(w,c)||hostileAware(w,patient)))return '부탁한 진료의 동행·급료·규칙 또는 안전이 달라졌다'
   if(act.companionAid&&(!isCompanion(w,c)||c.companion!.status!=='employed'||c.companion!.paidUntil<=turnOf(w)||!['firstAid','rescue'].includes(c.companion!.aid?.mode??'off')||patient.id!==w.s.playerId&&!isCompanion(w,patient)||hostileAware(w,c)||hostileAware(w,patient)))return '상호 돌봄 지침·급료·동행 또는 안전이 달라졌다'
   if (channelTurns(w, c, 1, { arm: treatmentArm(w, c) }) === null) return '시술자가 손을 쓸 수 없다'
   if (patient.activity?.kind !== 'careWait' || patient.activity.healerId !== c.id) return '환자가 진료를 중단했다'

@@ -53378,6 +53378,16 @@
               "defType"
             ],
             "properties": {
+              "clinical": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "aid": {
                 "anyOf": [
                   {
@@ -53567,6 +53577,9 @@
               "id"
             ],
             "properties": {
+              "clinical": {
+                "type": "string"
+              },
               "aid": {
                 "$ref": "#/$defs/CompanionAidRule"
               },

@@ -1,4 +1,5 @@
 import {rememberMeeting} from './first-impressions'
+import {companionClinicalRule} from './companion-state'
 import {scurvyLines} from './scurvy-state'
 import {airLines,ashLungStage} from './air-state'
 import {diseaseLines} from './disease-state'
@@ -94,7 +95,7 @@ export function requestClinic(w: World, patient: Creature, doctor: Creature, req
 
 /** 검사 종료 때의 임상 소견만 보관한다. 기록을 읽어도 현재 몸의 숨겨진 값은 다시 조회하지 않는다. */
 export function finishDiagnostic(w: World, doctor: Creature, act: Activity) {
-  const patient = creatureById(w, act.patientId), rule = clinicDef(w, doctor)
+  const patient = creatureById(w, act.patientId), rule = act.companionClinical?companionClinicalRule(w):clinicDef(w, doctor)
   if (!patient || !rule || externalTreatmentError(w, doctor, act)) return
   const mastery = masteryStage(w, doctor, 'medicine')
   if (mastery < rule.examination.mastery) { if (patient.id === w.s.playerId) log(w, 'warn', '시술자의 의료 숙달이 부족해 진찰을 마치지 못했다.'); return }

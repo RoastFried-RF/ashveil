@@ -50,6 +50,7 @@ export const actionMotions={
  "collectSnow":"work",
  "commandCompanion":null,
  "companionCare":"use",
+ "companionClinical":"interact",
  "companionMap":"interact",
  "companionRecoveryAssign":"interact",
  "companionRecoveryCollect":"interact",

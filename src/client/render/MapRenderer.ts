@@ -751,7 +751,7 @@ export class MapRenderer {
         if(v.equipment[index]?.uid!==held?.uid)v.equipmentAge[index]=0
         v.equipment[index]=held?equipmentSpec(itemDef(w,held),held.uid,!!held.lit&&(held.fuel??0)>0):null
       }
-      v.handsBusy=c.activity?.kind==='rescueDrag'||!!c.activity?.companionAid
+      v.handsBusy=c.activity?.kind==='rescueDrag'||!!c.activity?.companionAid||!!c.activity?.companionClinical
       const low=crouched(w,c)
       if(low!==v.crouched&&!v.prone&&c.alive&&wasShown)requestPose(v.pose,low?'crouchDown':'stand')
       v.crouched=low

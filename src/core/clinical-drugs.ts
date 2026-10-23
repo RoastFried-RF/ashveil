@@ -1,4 +1,5 @@
 import { woundHandContact } from './hand-hygiene'
+import {companionClinicalRule} from './companion-state'
 // 의사 소유의 실제 약 한 몫을 환자에게 투여한다. 약효 계산은 자가 복용과 같다.
 import { capacity, isMissing, part } from './body'
 import { channelTurns } from './action-time'
@@ -15,7 +16,7 @@ export function clinicalDoseError(w: World, doctor: Creature, patient: Creature,
   const access = treatmentAccess(w, doctor, patient)
   if (access) return access
   const it = uid === undefined ? undefined : doctor.bag.find((i) => i.uid === uid), prescription = it && policy.prescriptions.find((p) => p.item === it.def)
-  if (!it || !prescription || it.count < 1 || (it.uses ?? 1) <= 0) return '의사에게 그 처방약이 남아 있지 않다'
+  if (!it || !prescription || !Number.isSafeInteger(it.count) || it.count < 1 || it.missingItem || it.half || it.dirty || !Number.isFinite(it.durability ?? 100) || (it.durability ?? 100) <= 0 || !Number.isFinite(it.uses ?? 1) || (it.uses ?? 1) < 1) return '시술자에게 사용할 수 있는 원래 처방약이 남아 있지 않다'
   if (it.waterFrozen) return '얼어 있는 약은 먼저 녹여야 한다'
   if (masteryStage(w, doctor, 'medicine') < prescription.mastery) return `이 약에는 의료 숙달${prescription.mastery}단계가 필요하다`
   const d = itemDef(w, it), drug = d.drug?.def && w.db.tryGet<DrugDef>(d.drug.def)
@@ -55,7 +56,7 @@ export function clinicalDosePlan(w: World, doctor: Creature, patient: Creature, 
 }
 
 export function finishClinicalDose(w: World, doctor: Creature, act: Activity) {
-  const patient = creatureById(w, act.patientId), id = w.db.creature(doctor.def).clinic, policy = id && w.db.tryGet<ClinicDef>(id)
+  const patient = creatureById(w, act.patientId), id = w.db.creature(doctor.def).clinic, policy = act.companionClinical?companionClinicalRule(w):id && w.db.tryGet<ClinicDef>(id)
   const error = !patient || !policy ? '환자나 처방이 없다' : externalTreatmentError(w, doctor, act) ?? clinicalDoseError(w, doctor, patient, policy, act.uid, act.woundId)
   if (error || !patient) { if (act.patientId === w.s.playerId) log(w, 'warn', `투약 중단: ${error}.`); return }
   const it = findItem(doctor, act.uid!)!, d = itemDef(w, it), drug = w.db.get<DrugDef>(d.drug!.def!)

@@ -1,0 +1,179 @@
+{
+  "version": 326,
+  "save": 211,
+  "dateUTC": "2026-10-23",
+  "mode": "implementation first development preview",
+  "implemented": [
+    "explicit paid-companion field examination using real clinical time/quality and historical findings",
+    "explicit original-UID one-time oral/topical clinical dosing with reviewed risk/consumption bindings",
+    "reject stale consultation review and interrupt on original supply/contract/patient/safety changes",
+    "same clinical pharmacology and reports without conjuring stock or moving consultation fees"
+  ],
+  "checks": {
+    "types": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/types-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "targetedLint": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "defs": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/defs-final.txt",
+      "sha256": "3902d2ae270874b13043392b7eb5025dcf2b428ebff28725addd92bd3f0515c7"
+    },
+    "schema": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/schema-final.txt",
+      "sha256": "331df6130d71e783cc4c23495f7bcd1ada223a138a83b734739c871de4040013"
+    },
+    "build": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/build-final.txt",
+      "sha256": "d19ca7d751504237dd94a8a8aa1c57eae1af16e7bb613d5830ef156530fe8a22"
+    },
+    "targetedTests": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v326/targeted-final.txt",
+      "sha256": "806c199874bead18eab840db0425d83b715f2c7db947e64ff2b32f3729337c54"
+    }
+  },
+  "tests": {
+    "files": 6,
+    "passed": 90,
+    "fullRegression": false,
+    "saveScope": "210 header-only migration without inferred request; exact211 partial topical dose round trip/resume whole-state equality; not all historical release saves"
+  },
+  "actualInput": {
+    "finiteInitial": true,
+    "noPostLoadWorldWrites": true,
+    "runs": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "beforeTU": 1440000,
+        "afterTU": 1441300,
+        "examiner": 67,
+        "originalDrug": 77,
+        "remainingDoses": 1,
+        "report": {
+          "at": 14409,
+          "examinerId": 67,
+          "examiner": "정착지 경비",
+          "mastery": 4,
+          "quality": 61,
+          "findings": [
+            "왼 전완: 베임",
+            "맥을 짚은 소견: 혈액 손실 약 10% 미만."
+          ]
+        },
+        "errors": []
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "beforeTU": 1440000,
+        "afterTU": 1441300,
+        "examiner": 67,
+        "originalDrug": 77,
+        "remainingDoses": 1,
+        "report": {
+          "at": 14409,
+          "examinerId": 67,
+          "examiner": "정착지 경비",
+          "mastery": 4,
+          "quality": 61,
+          "findings": [
+            "왼 전완: 베임",
+            "맥을 짚은 소견: 혈액 손실 약 10% 미만."
+          ]
+        },
+        "errors": []
+      }
+    ],
+    "errors": [],
+    "scope": "Two explicit diagnosis/topical dose UI runs. Initial supplies and wound are declared; not full regression or every drug/body permutation."
+  },
+  "openedPNGs": [
+    {
+      "path": "test-results/autonomy-v326/native-final/consult-1440-diagnose-review.png",
+      "sha256": "cca5f4a3119347ad37b9cf80f08401b89c38acb5ea6e160228581898756625d7"
+    },
+    {
+      "path": "test-results/autonomy-v326/native-final/consult-1366-report.png",
+      "sha256": "8a29264c46379a619526926a433b80548f17ddc90deae49180aa0d7d33f7964e"
+    }
+  ],
+  "changesFrom325": [
+    {
+      "group": "src/core",
+      "oldFiles": 302,
+      "newFiles": 303,
+      "changedExisting": [
+        "src/core/actions.ts",
+        "src/core/clinic.ts",
+        "src/core/clinical-drugs.ts",
+        "src/core/companion-state.ts",
+        "src/core/defs.ts",
+        "src/core/game.ts",
+        "src/core/index.ts",
+        "src/core/save.ts",
+        "src/core/treatment.ts",
+        "src/core/types.ts"
+      ],
+      "added": [
+        "src/core/companion-clinical.ts"
+      ],
+      "removed": [],
+      "byteIdentical": false
+    },
+    {
+      "group": "src/content",
+      "oldFiles": 292,
+      "newFiles": 293,
+      "changedExisting": [],
+      "added": [
+        "src/content/core/patches/companion-clinical.json"
+      ],
+      "removed": [],
+      "byteIdentical": false
+    },
+    {
+      "group": "mods",
+      "oldFiles": 86,
+      "newFiles": 86,
+      "changedExisting": [],
+      "added": [],
+      "removed": [],
+      "byteIdentical": true
+    },
+    {
+      "group": "public/sprites",
+      "oldFiles": 1943,
+      "newFiles": 1943,
+      "changedExisting": [],
+      "added": [],
+      "removed": [],
+      "byteIdentical": true
+    }
+  ],
+  "newPNGs": 0,
+  "priorFailures": [
+    {
+      "localOutput": "test-results/autonomy-v326/targeted-first.txt",
+      "reason": "One assertion expected the generic word wound instead of the actual Cut label. Corrected the expected clinical finding to the actual left forearm cut; no core change needed for that failure."
+    }
+  ],
+  "deferred": [
+    "Full regression, World30 and World1000",
+    "all historical release-save compatibility",
+    "all oral drugs, wounds, body/safety/contract permutations and natural frequency",
+    "repeated care/surgical plans, other patient selection and remote stretcher travel",
+    "global raw-material reservations, workshop ownership/fuel",
+    "all remaining X1-X4 and v1 release gates",
+    "external human evaluation"
+  ]
+}
