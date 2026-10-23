@@ -5,12 +5,13 @@ import {
   attackScore, currentAttack, darkSightRange, energyMax, evasion, hpMax, insulation, mood, player, sightRange, masteryCount, masteryNext, masteryStage, MASTERY_LABEL, xpToNext, xpTotalFor,
   STAT_LABEL, regenerationPeriod, traitMul, effectiveStat, traitAdd, traumaLabel, traumaHelp, type Stats, type World,
 } from '../../core'
-import { frameCss } from '../render/atlas'
+import { creatureSprite } from '../render/creature-sprite'
 import { modLines } from '../info'
 import { version, world } from '../store'
 import { doAct, hideTip, showTip, wins } from '../ui'
 import Bar from './Bar.vue'
 import Win from './Win.vue'
+import CharacterPortrait from './CharacterPortrait.vue'
 
 const STAT_TIP: Record<keyof Stats, string> = {
   str: '근접 피해, 넘어뜨리기·밀치기',
@@ -28,6 +29,7 @@ const d = computed(() => {
   const prev = xpTotalFor(pl.level)
   return {
     pl,
+    portrait: creatureSprite(w, pl),
     prayer: traitAdd(w, pl, 'prayerRelief') > 0 || pl.background === 'Bg.Excommunicate',
     traumas: (pl.traumas ?? []).map((t) => ({ label: traumaLabel(w, t), score: t.overcome, active: t.active, help: traumaHelp(w, t) })),
     hunters: (pl.fearlessAgainst ?? []).map((id) => w.db.creature(id).label),
@@ -53,7 +55,7 @@ const d = computed(() => {
   <Win title="캐릭터" :x="16" :y="80" :width="430" testid="win-char" @close="wins.char = false">
     <div class="flex gap-3">
       <div class="df df-slot-sel flex h-[112px] w-[84px] shrink-0 items-end justify-center overflow-hidden bg-[#1a1712]">
-        <div class="pix origin-bottom scale-[3]" :style="frameCss('av319_original_wanderer_hero_idle_down0', .5)" />
+        <CharacterPortrait :name="d.portrait" fill />
       </div>
       <div class="min-w-0 flex-1 space-y-1">
         <div class="font-title text-lg font-bold text-[#e8d7a8]">{{ d.pl.name }} <span class="text-sm text-ash-400">레벨 {{ d.pl.level }}</span></div>

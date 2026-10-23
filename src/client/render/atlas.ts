@@ -22,6 +22,8 @@ export interface CharDef {
   heldItems?:boolean
   /** Separately authored portrait frame; full-body idle is the fallback. */
   portrait?:string
+  /** Immutable generated atlases may use different crop sizes; each pose keeps its foot pivot. */
+  frameTransforms?:Record<string,{anchor:[number,number];scale:number}>
 }
 export type Dir = 'down' | 'left' | 'right' | 'up'
 

@@ -1,0 +1,290 @@
+{
+  "version": 321,
+  "save": 208,
+  "dateKST": "2026-10-23",
+  "mode": "implementation-first development preview",
+  "art": {
+    "source": "tools/art/direction-v321/",
+    "newUnmodifiedGeneratedPNGs": 31,
+    "distinctBodyModels": 13,
+    "characterRegistrations": 28,
+    "bodyPoses": 624,
+    "portraitFrames": 8,
+    "replacedMaterialFrameKeys": 52,
+    "materialSheets": 4,
+    "newPNGBytes": 56898834,
+    "externalGamePixelsInstalled": false,
+    "handPlacedSVGRevision": false,
+    "rejectedAtlases": 6,
+    "sheets": 201,
+    "frames": 4117,
+    "ui": 26,
+    "uniquePNGs": 227,
+    "limits": [
+      "Role variants share13 models; not28 unique designs.",
+      "Existing trees, props, items, abilities and UI art mostly retained.",
+      "Atlas storage/load memory and transfer optimization not benchmarked."
+    ]
+  },
+  "coreContentModsSameAs320": [
+    {
+      "group": "src/core",
+      "files": 300,
+      "byteIdenticalTo320": true
+    },
+    {
+      "group": "src/content",
+      "files": 290,
+      "byteIdenticalTo320": true
+    },
+    {
+      "group": "mods",
+      "files": 86,
+      "byteIdenticalTo320": true
+    }
+  ],
+  "checks": {
+    "types": {
+      "exit": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localOutput": "test-results/art-quality-v321/types-publication.txt"
+    },
+    "clientAndToolsLint": {
+      "exit": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "localOutput": "test-results/art-quality-v321/lint-publication.txt"
+    },
+    "sprites": {
+      "exit": 0,
+      "outputSha256": "c97adc609d6d923117e8ca0150c952dd896c9ca01c8b2a13a692f2eacaa355f2",
+      "localOutput": "test-results/art-quality-v321/sprites-final.txt"
+    },
+    "build": {
+      "exit": 0,
+      "outputSha256": "cc466e473893aab484cbea9031aca6dc8726240545cc962fd182d7344f853abd",
+      "localOutput": "test-results/art-quality-v321/build-publication-r2.txt"
+    }
+  },
+  "actualGame": {
+    "finalSceneRuns": 6,
+    "resolutions": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ]
+    ],
+    "scenes": [
+      "room",
+      "field",
+      "torch"
+    ],
+    "sameBeforeAfterInitialImprintBytes": true,
+    "finiteInitialFixture": true,
+    "postLoadWorldWrites": false,
+    "actualStep": {
+      "actualKey": "ArrowRight",
+      "costTU": 100,
+      "from": {
+        "x": 20,
+        "y": 20
+      },
+      "to": {
+        "x": 21,
+        "y": 20
+      }
+    },
+    "characterWindowFixReviewed": true,
+    "errors": [],
+    "scope": "Presentation comparison and actual1step/C only; not combat/world/save regression.",
+    "boatFrameFix": {
+      "finiteInitialRuns": 1,
+      "resolution": [
+        1440,
+        1080
+      ],
+      "opened": true,
+      "errors": [],
+      "scope": "BoatFrame shallow-water floor bounded to one world cell; not sailing/crafting regression."
+    }
+  },
+  "artbook": {
+    "poseDisplayChecks": 48,
+    "checksPerModel": "4directions x3modes x4selected frames",
+    "screensCreatedAndOpened": 9,
+    "comparisonControls": "all3scenes at2sizes; previous-only/new-only/slider",
+    "errors": []
+  },
+  "finalScreensActuallyOpened": [
+    {
+      "path": "test-results/art-quality-v321/final/room-1440.png",
+      "sha256": "6aa68d837b1dced4fccf8eb18a43338d770e1c5342b864acd359212cb4492b73"
+    },
+    {
+      "path": "test-results/art-quality-v321/final/room-1366.png",
+      "sha256": "85ac33c7be7f122b2a9bc3b4422706f27d882eb5888277150a7478a345b732ee"
+    },
+    {
+      "path": "test-results/art-quality-v321/final/field-1440.png",
+      "sha256": "90c749921b5e40bd2ab3dca782fc3105da80d9d5395dcb51f19df63f62c47537"
+    },
+    {
+      "path": "test-results/art-quality-v321/final/field-1366.png",
+      "sha256": "bed75b91a7537db887e6ea459de1029aba86c8f3a8dabd10a9185bd79b8d45a8"
+    },
+    {
+      "path": "test-results/art-quality-v321/final/torch-1440.png",
+      "sha256": "9539b322a593d348bb949d77cf093c144f4b29f6b0b47eea7fab8b1d490f4183"
+    },
+    {
+      "path": "test-results/art-quality-v321/final/torch-1366.png",
+      "sha256": "11c42a16082eefb1dccdfab9b69d3cf80ac0106d916f0cf8ce578cc31aac7dcd"
+    },
+    {
+      "path": "test-results/art-quality-v321/character-fix/character-window.png",
+      "sha256": "d9ef40872ed0a9ed3609820d3f83b1c0cbdfb4b7229247e33e17c296b1ace198"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/idle-down.png",
+      "sha256": "34ce9a6647f88b3707fc0a1bfeb22f8704de7e6c8b54c7da4a7220c954c0d245"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/walk-left.png",
+      "sha256": "99980628afa4f673b25e967156f0d9a94a0303640225f11a3425983a9488107a"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/attack-down.png",
+      "sha256": "869034446f3f3ed5cb46c77eac7f34ccd1340f9a2571039b098bb17763c08283"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/attack-left.png",
+      "sha256": "4ca3e7697b33871dee63bfb3120cb9d0826da643816d3428980f72aefef8abc8"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/attack-right.png",
+      "sha256": "ccb935756cf818d38e0300ad9d5758bd433715bd71b941ea2c23dc4accc1d7a6"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/attack-up.png",
+      "sha256": "c37c98d65e926ddfa6975b83e9432e65a18864b319798a7dc92e8e84de4f2c91"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/portraits.png",
+      "sha256": "3a9a323b23630956398967e9d0949af9508a705983cec381eba62b48bdba72b0"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/comparison-field.png",
+      "sha256": "4798a590986c70be80f1ccad2ad037239e30f5275b44dc7de867a7994a36acbc"
+    },
+    {
+      "path": "test-results/art-quality-v321/artbook/comparison-mobile.png",
+      "sha256": "1ce72ad54f20a86fc38871f85e52e29e13e06aca8266cf63141f0f4fea2c1983"
+    },
+    {
+      "path": "test-results/art-quality-v321/boat-fix/field-1440.png",
+      "sha256": "4e5effefde71c6d055724c5fa3fb8b9fa75c9e4969188357a6e086b0cacf9af3"
+    }
+  ],
+  "publicComparison": {
+    "version": 321,
+    "sameInitialImprintBytes": true,
+    "finiteInitialScenes": true,
+    "noPostLoadWorldWrites": true,
+    "screens": [
+      {
+        "stage": "before",
+        "scene": "room",
+        "width": 1440,
+        "file": "before-room-1440.png",
+        "sha256": "b5ee76b8cb1729b60bd471af67e91683802e1b8b01a05b6d378b93de2b3f6baa"
+      },
+      {
+        "stage": "before",
+        "scene": "room",
+        "width": 1366,
+        "file": "before-room-1366.png",
+        "sha256": "3f2cd6c16418f3b1fe54996e37dd76780f5313bec33cabe4f5880fd844d31800"
+      },
+      {
+        "stage": "before",
+        "scene": "field",
+        "width": 1440,
+        "file": "before-field-1440.png",
+        "sha256": "444de6a0ee18f06206a658b8223167d46a4054c6e15f66dcff1cef4c8a1b6ba6"
+      },
+      {
+        "stage": "before",
+        "scene": "field",
+        "width": 1366,
+        "file": "before-field-1366.png",
+        "sha256": "734da1230e27b1c1131c38c5df556d87d54b170fc70766fd7d91e3f9f0c84024"
+      },
+      {
+        "stage": "before",
+        "scene": "torch",
+        "width": 1440,
+        "file": "before-torch-1440.png",
+        "sha256": "6fba2dd93f741b1edab8b68c7e6d75d1c8cc9b1db0ca9d0120ef8be883280cce"
+      },
+      {
+        "stage": "before",
+        "scene": "torch",
+        "width": 1366,
+        "file": "before-torch-1366.png",
+        "sha256": "777d3a3f2cc43ba41cc3f6a87727e08c19e79627091da85184051751c93752b3"
+      },
+      {
+        "stage": "after",
+        "scene": "room",
+        "width": 1440,
+        "file": "after-room-1440.png",
+        "sha256": "6aa68d837b1dced4fccf8eb18a43338d770e1c5342b864acd359212cb4492b73"
+      },
+      {
+        "stage": "after",
+        "scene": "room",
+        "width": 1366,
+        "file": "after-room-1366.png",
+        "sha256": "85ac33c7be7f122b2a9bc3b4422706f27d882eb5888277150a7478a345b732ee"
+      },
+      {
+        "stage": "after",
+        "scene": "field",
+        "width": 1440,
+        "file": "after-field-1440.png",
+        "sha256": "90c749921b5e40bd2ab3dca782fc3105da80d9d5395dcb51f19df63f62c47537"
+      },
+      {
+        "stage": "after",
+        "scene": "field",
+        "width": 1366,
+        "file": "after-field-1366.png",
+        "sha256": "bed75b91a7537db887e6ea459de1029aba86c8f3a8dabd10a9185bd79b8d45a8"
+      },
+      {
+        "stage": "after",
+        "scene": "torch",
+        "width": 1440,
+        "file": "after-torch-1440.png",
+        "sha256": "9539b322a593d348bb949d77cf093c144f4b29f6b0b47eea7fab8b1d490f4183"
+      },
+      {
+        "stage": "after",
+        "scene": "torch",
+        "width": 1366,
+        "file": "after-torch-1366.png",
+        "sha256": "11c42a16082eefb1dccdfab9b69d3cf80ac0106d916f0cf8ce578cc31aac7dcd"
+      }
+    ]
+  },
+  "sourceIntegrity": {
+    "all31PNGBytesMatchGeneratedOriginals": true,
+    "metadata": "tools/art/direction-v321/generated-sources.json"
+  },
+  "defs": "not rerun: content and mods byte-identical to320",
+  "fullWorld1000SaveRegression": "not-run per user implementation-first direction",
+  "v1Release": "not complete; existing roadmap and human evaluation gates remain"
+}

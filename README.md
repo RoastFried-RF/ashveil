@@ -1,6 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.320-dev·저장208**이다. 옷·장신구·생활 도구50종도 새 원화로 연결해 새 물품 그림은80종이다. [적용 범위](docs/equipment-art-v320.md). 위키 전체 파일/문서 목록을 조사하고 자체 몸체26종·초상19종·무기/탄약30종과 공개 원화 도감을 연결했다. [조사·적용 범위](docs/wiki-resource-study-v319.md). 거점의 완성품 최소 재고 유지와 동료의 붕대·세척·부목 부탁을 연결했다. [최소 재고 구현/검증 대기](docs/base-craft-stock-v318.md). [동료 응급 처치 구현/검증 대기](docs/companion-care-v317.md). 대각선 이동·휴대 광원 동기화와 인물19종/실제 장비 표시도 보강했다. [이동·인물 변경과 확인 범위](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [새 밭 관리](docs/crop-management-v315.md) · [갈림길·실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
+현재 개발 미리보기는 **v0.321-dev·저장208**이다. 인물·생물13모델의624동작/초상8종과 석재·야외·벽·물 타일을 새 원화로 바꾸고 형태·재질·명암을 개선했다.13모델을 기존28캐릭터에 연결하며 역할별 변형은 공유한다. [조사·정확한 범위](docs/art-quality-v321.md) · [같은 게임 장면 전후 비교](https://roastfried-rf.github.io/ashveil/artbook/comparison/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+
+v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 
 > 규칙은 투명하게, 세계는 끝없이 낯설게.
 
@@ -36,11 +38,11 @@
 
 ## 화면 미리보기
 
-통합 검증을 마친 원본 아트/UI 웹 빌드에서 실제 새 게임을 시작해 촬영한 화면이다.
+v0.321의 실제 게임 렌더러에서 원화 비교용 유한 초기 장면을 불러온 화면이다. 자연 탐험이나 전체 회귀 완료 화면과 구분한다.
 
-![실제 새 게임 화면](docs/previews/v311-ground-day.png)
+![v0.321 실제 야외 원화 검토 화면](public/artbook/comparison/after-field-1440.png)
 
-[소지품 화면](docs/previews/v304-1440-02-inventory.png) · [현재 공개 게임](https://roastfried-rf.github.io/ashveil/) · [실제 배포 기록](docs/web-preview.md).
+[이전 통합 검증의 자연 새 게임 화면](docs/previews/v311-ground-day.png) · [현재 공개 게임](https://roastfried-rf.github.io/ashveil/) · [실제 배포 기록](docs/web-preview.md).
 
 ## 실행
 

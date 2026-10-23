@@ -73,6 +73,12 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
+  if(row.frameTransforms!==undefined){
+   if(!object(row.frameTransforms))errors.push('char '+key+'.frameTransforms: 포즈별 객체가 필요하다')
+   else for(const[frame,value]of Object.entries(row.frameTransforms)){
+    if(!Object.hasOwn(frames,frame)||!object(value)||!Array.isArray(value.anchor)||value.anchor.length!==2||!value.anchor.every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1)||typeof value.scale!=='number'||!Number.isFinite(value.scale)||value.scale<=0)errors.push('char '+key+'.frameTransforms.'+frame+': 실제 frame/0~1발 위치/양수 배율이 필요하다')
+   }
+  }
  }
  for(const[key,url]of Object.entries(ui)){counts.ui++;file(url,'UI '+key)}
  for(const key of new Set(icons)){counts.icons++;if(key.startsWith('mod:')){const match=key.match(/^mod:([^/]+)\/(.+)$/);try{if(!match||!Object.hasOwn(modTextures,key))throw Error('활성 모드 텍스처가 없다');checkedModTextures(match[1]!,{[match[2]!]:modTextures[key]});modFiles.add(key)}catch(error){errors.push('icon '+key+': '+(error as Error).message)}}else if(!Object.hasOwn(frames,key))file('tiles/'+key+'.png','icon '+key)}

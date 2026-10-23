@@ -270,11 +270,13 @@ export class MapRenderer {
         if (faceDown) {
           const name = tile.t === 'Terrain.Shelf' ? `shelf${h % 24}` : `wall_face${h % 8}`
           const s = new Sprite(tex(name))
+          s.width=T;s.height=T
           s.position.set(px, py)
           if (ruin) s.tint = 0xa89c88
           this.walls.addChild(s)
         } else {
           const s = new Sprite(tex('wall_top'))
+          s.width=T;s.height=T
           s.position.set(px, py)
           if (ruin) s.tint = 0x8a8070
           this.walls.addChild(s)
@@ -324,10 +326,17 @@ export class MapRenderer {
 
   private floorSprite(w: World, t: string, x: number, y: number, h: number, surface: boolean): Container {
     const terrain=w.db.terrain(t)
-    if(terrain.id==='Terrain.BoatFrame')return new Sprite(icon('water_shallow'))
+    if(terrain.id==='Terrain.BoatFrame'){
+      const texture=tex('water_shallow'),cell=texture.width>=256?texture.width/8:0
+      const s=new Sprite(cell?sub('water_shallow',(x&7)*cell,(y&7)*cell,cell,cell):icon('water_shallow'))
+      s.width=T;s.height=T;if(cell)s.tint=0xabb9bd
+      return s
+    }
     if(terrain.floor==='deck')return new Sprite(tex(`deck${h%3}`))
     if (t === 'Terrain.CdFloor') {
       const s = new Sprite(tex(`cd_floor${h % 20}`))
+      s.width=T;s.height=T
+      if(s.texture.width>16)s.tint=0x969ba0
       return s
     }
     if ((surface||terrain.water||terrain.floor==='earth') && t !== 'Terrain.KtFloor' && t !== 'Terrain.Rubble' && !terrain.stairs) {
@@ -337,16 +346,38 @@ export class MapRenderer {
       else if (t === 'Terrain.Path') name = `dirt${h % 3}`
       else if (!surface) name = `dirt${h%3}`
       else name = h % 9 === 0 ? `grassdirt${(h>>>4)%3}` : `grass${(h>>>3)%3}`
-      const s = new Sprite(icon(name))
+      const texture=tex(name)
+      const cell=texture.width>=256?texture.width/8:0
+      const s = new Sprite(cell?sub(name,(x&7)*cell,(y&7)*cell,cell,cell):icon(name))
       s.width = T; s.height = T
       // 같은 결의 풀을 미세한 명도 차로만 흩뜨려 바둑판 무늬를 피한다
       const k = 0xf4 + (h % 10)
       s.tint = terrain.water || name.startsWith('mud') ? 0xffffff : (k << 16) | ((k + 2) << 8) | (k - 3)
+      if(cell)s.tint=terrain.water?0xabb9bd:0xb5b6ad
+      if(terrain.water&&cell){
+        // Only known displayed neighbors shape the bank; unseen terrain stays private.
+        const land=(dx:number,dy:number)=>{
+          const nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=w.s.map.w||ny>=w.s.map.h)return false
+          const id=this.renderedTerrain[ny*w.s.map.w+nx];return !!id&&!w.db.terrain(id).water
+        }
+        const north=land(0,-1),east=land(1,0),south=land(0,1),west=land(-1,0)
+        if(north||east||south||west){
+          const box=new Container(),mud=tex('mud0'),unit=mud.width>=256?mud.width/8:0
+          const bank=new Sprite(unit?sub('mud0',(x&7)*unit,(y&7)*unit,unit,unit):mud);bank.width=T;bank.height=T;bank.tint=0xaaa69b
+          const l=west?1.6:0,r=east?T-1.6:T,t=north?1.6:0,b=south?T-1.6:T
+          const nw=north&&west?1.5:0,ne=north&&east?1.5:0,se=south&&east?1.5:0,sw=south&&west?1.5:0
+          const mask=new Graphics().poly([l+nw,t,(l+r)/2,t+(north?(h&1)*.4:0),r-ne,t,r,t+ne,r,(t+b)/2,r,b-se,r-se,b,(l+r)/2,b-(south?((h>>>1)&1)*.4:0),l+sw,b,l,b-sw,l,(t+b)/2,l,t+nw]).fill(0xffffff)
+          box.addChild(bank,s,mask);s.mask=mask;return box
+        }
+      }
       return s
     }
     // KT 석판: 8×8칸 블록마다 사분면을 고르고 그 안을 16px로 샘플링 → 이음매 없는 큰 무늬
     const q = hash(x >> 3, y >> 3) % 4
-    const s = new Sprite(sub(`kt_floor_q${q}`, (x & 7) * 16, (y & 7) * 16, 16, 16))
+    const key=`kt_floor_q${q}`,cell=tex(key).width/8
+    const s = new Sprite(sub(key,(x&7)*cell,(y&7)*cell,cell,cell))
+    s.width=T;s.height=T
+    if(cell>16)s.tint=0x969ba0
     if (t === 'Terrain.Rubble') s.tint = 0x9a9080
     return s
   }
@@ -617,8 +648,9 @@ export class MapRenderer {
     let scale = 1
     if (ch) {
       body = new Sprite(tex(ch.idle.down[0]))
-      body.anchor.set(ch.anchor[0], ch.anchor[1])
-      scale = ch.renderScale ?? 0.72
+      const transform=ch.frameTransforms?.[ch.idle.down[0]]
+      body.anchor.set(...(transform?.anchor??ch.anchor))
+      scale = transform?.scale??ch.renderScale??0.72
       if (ch.shadow) shadow.clear().ellipse(0, 0, ch.shadow[0], ch.shadow[1]).fill({ color: 0x000000, alpha: 0.5 })
     } else if (animFrames(selectedSprite).length) {
       anim = animFrames(selectedSprite)
@@ -680,7 +712,7 @@ export class MapRenderer {
       for(const [index,slot]of (['main','off']as const).entries()){
         const hand=v.hands[index],held=c.equip[slot]
         hand.visible=!!v.char?.heldItems&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
-        if(hand.visible&&held){hand.texture=tex(itemDef(w,held).sprite);hand.scale.set(14/Math.max(hand.texture.width,hand.texture.height))}
+        if(hand.visible&&held){const item=itemDef(w,held);hand.texture=tex(item.sprite);const length=v.char?.frameTransforms?Math.max(8,Math.min(22,Math.max(...item.size)*5.5)):14;hand.scale.set(length/Math.max(hand.texture.width,hand.texture.height))}
       }
       v.crouched=crouched(w,c)
       v.mechanical=!!c.body.machine
@@ -948,6 +980,7 @@ export class MapRenderer {
       ox += (Math.random() - 0.5) * 2 * v.flashT
     }
     const ch = v.char
+    let bodyScale=v.scale
     if (ch) {
       let frame: string
       if (v.attackT >= 0 && ch.attack) {
@@ -964,6 +997,8 @@ export class MapRenderer {
         v.body.anchor.set(ch.anchor[0], ch.anchor[1])
       }
       v.body.texture = tex(frame)
+      const transform=ch.frameTransforms?.[frame]
+      if(transform){v.body.anchor.set(...transform.anchor);bodyScale=transform.scale}
     }
     // 절뚝임: 걸음 후반에 1px 주저앉는다
     const hop = moving&&v.limp ? Math.max(0,Math.sin(v.motion.stride*Math.PI))*.65 : 0
@@ -973,12 +1008,12 @@ export class MapRenderer {
     for(const[index,hand]of v.hands.entries()){
       const sign=index===0?-1:1,side=v.dir==='left'||v.dir==='right',facing=v.dir==='left'?-1:1
       const swing=moving?Math.sin(v.motion.stride*Math.PI)*1.5*sign:0,attack=v.attackT>=0&&index===0?Math.sin(v.attackT*Math.PI):0
-      hand.position.set(side?facing*(index===0?4:1):sign*(v.dir==='up'?-6:6),-10+swing+hop-attack*4)
+      hand.position.set(side?facing*(index===0?4:1):sign*(v.dir==='up'?-6:6),(ch?.frameTransforms?-15:-10)+swing+hop-attack*4)
       hand.rotation=(side?facing*.18:sign*.12)+attack*facing*.9
       hand.alpha=v.dir==='up'?.8:1
     }
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
-    if (v.char || v.anim) v.body.scale.set(v.scale, v.scale*(v.crouched ? .78 : 1))
+    if (v.char || v.anim) v.body.scale.set(bodyScale,bodyScale*(v.crouched ? .78 : 1))
     // 피격 섬광 → 사망 → 시체
     if (!v.alive) {
       v.deadT = Math.min(1, v.deadT + dt / 380)
