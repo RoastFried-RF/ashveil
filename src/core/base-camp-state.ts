@@ -1,8 +1,10 @@
-import { inBounds, terrainAt, tileAt, type World } from './ctx'
+import { inBounds, terrainAt, tileAt,turnOf, type World } from './ctx'
 import { capacity } from './body'
 import { hostile } from './diplomacy'
 import { canSee } from './fov'
 import { cheb } from './geom'
+import {findItem} from './items'
+import {materialPlanPresent} from './material-crafting'
 import type { BaseCampDef, Creature, RecipeDef } from './types'
 export const baseCampDef=(w:World)=>w.db.get<BaseCampDef>('BaseCamp.Hearth')
 /** 실제로 끝낸 배정 제작만 센다. 취소/다른 지도/바뀐 명령은 완료로 세지 않는다. */
@@ -22,8 +24,8 @@ export function baseCraftActive(w:World,c:Creature){
 export function baseCraftStock(w:World,c:Creature){
  const base=w.s.map.baseCamp,task=base?.tasks[c.id]
  if(!task||task.craftTarget===undefined)return
- const out={error:null as string|null,target:task.craftTarget,stock:0,carried:0,needed:0,batches:0,label:''},r=task.recipe&&w.db.tryGet<RecipeDef>(task.recipe)
- if(task.kind!=='craft'||!r||r.defType!=='Recipe'||r.passiveTurns||!Number.isSafeInteger(task.craftTarget)||task.craftTarget<1||task.craftTarget>baseCampDef(w).maxBatches||!Number.isSafeInteger(r.output.count)||r.output.count<1||r.inputs.some(input=>input.item===r.output.item)){
+ const out={error:null as string|null,target:task.craftTarget,stock:0,carried:0,incoming:0,needed:0,batches:0,label:''},r=task.recipe&&w.db.tryGet<RecipeDef>(task.recipe)
+ if(task.kind!=='craft'||!r||r.defType!=='Recipe'||r.passiveTurns||w.db.tryGet(r.output.item)?.defType!=='Item'||!Number.isSafeInteger(task.craftTarget)||task.craftTarget<1||task.craftTarget>baseCampDef(w).maxBatches||!Number.isSafeInteger(r.output.count)||r.output.count<1||r.inputs.some(input=>input.item===r.output.item)){
   out.error='최소 재고 제작법과 원래 목표 수량을 확인해야 한다';return out
  }
  if(!base||!inBounds(w,base.store)||terrainAt(w,base.store).id!==baseCampDef(w).storeTerrain||tileAt(w,base.store).placed?.item.uid!==base.storeUid){out.error='원래 거점 보관함을 확인해야 한다';return out}
@@ -31,7 +33,20 @@ export function baseCraftStock(w:World,c:Creature){
  if([...stock,...carried].some(item=>!Number.isSafeInteger(item.count)||item.count<1)){out.error='실제 완성품 수량을 확인해야 한다';return out}
  out.label=w.db.item(r.output.item).label;out.stock=stock.reduce((n,item)=>n+item.count,0);out.carried=carried.reduce((n,item)=>n+item.count,0)
  if(!Number.isSafeInteger(out.stock+out.carried)){out.error='실제 완성품 수량을 기록할 수 없다';return out}
- out.needed=Math.max(0,out.target-out.stock-out.carried);out.batches=Math.ceil(out.needed/r.output.count)
+ // Other paid workers' actual carried output and material-bound started batches are commitments,
+ // not stock. Unstarted queue entries and absent/dead/unpaid workers promise no output.
+ for(const other of w.s.creatures){
+  if(other.id===c.id||!other.alive||other.captivity||other.mapId!==undefined&&other.mapId!==w.s.map.id||other.companion?.employer!==base.owner||other.companion.status!=='employed'||other.companion.paidUntil<=turnOf(w)||other.companion.order!=='defend'||cheb(other.pos,base.store)>baseCampDef(w).radius)continue
+  const assigned=base.tasks[other.id],recipe=assigned?.kind==='craft'&&assigned.recipe?w.db.tryGet<RecipeDef>(assigned.recipe):undefined
+  if(!assigned||!recipe||recipe.output.item!==r.output.item)continue
+  const carried=other.bag.filter(i=>i.def===r.output.item&&!i.missingItem).reduce((n,i)=>n+i.count,0)
+  if(!Number.isSafeInteger(carried)||carried<0){out.error='다른 작업자의 실제 완성품 수량을 확인해야 한다';return out}
+  out.incoming+=carried
+  const job=other.workJob
+  if(job?.baseOrder===assigned.id&&job.recipe===recipe.id&&job.inputs.every(input=>{const item=findItem(other,input.uid);return !!item&&!item.missingItem&&item.def===input.def&&item.count>=input.count})&&(!recipe.materialInputs?.length||!!job.materialPlan&&materialPlanPresent(w,other,job.materialPlan,job.inputs)))out.incoming+=recipe.output.count
+ }
+ if(!Number.isSafeInteger(out.stock+out.carried+out.incoming)){out.error='거점 작업자의 합산 물량을 확인해야 한다';return out}
+ out.needed=Math.max(0,out.target-out.stock-out.carried-out.incoming);out.batches=Math.ceil(out.needed/r.output.count)
  return out
 }
 /** Replenishment is evaluated on actual NPC work decisions, including a batch already begun. */

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed,ref,watch} from 'vue'
-import {companionAccess,companionAidRule,companionCareQuote,isMissing,itemDef,itemLabel,part,player,woundDef,type CompanionCareKind,type CompanionCareRequest,type World} from '../../core'
+import {baseStoreError,companionAccess,companionAidRule,companionCareQuote,isMissing,itemDef,itemLabel,part,player,woundDef,type CompanionCareKind,type CompanionCareRequest,type World} from '../../core'
 import {simulating,version,world} from '../store'
 import {doAct} from '../ui'
 const props=defineProps<{personId:number}>(),selected=ref<CompanionCareRequest|null>(null)
@@ -15,7 +15,7 @@ const data=computed(()=>{
  const wound=wounds.find(wound=>wound.id===selected.value?.woundId),option=wound?.options.find(option=>option.kind===selected.value?.kind)
  const supplies=p.bag.filter(it=>!it.missingItem&&!it.dirty&&!itemDef(w,it).medical?.dirty&&['bandage','disinfect','splint'].includes(itemDef(w,it).medical?.kind??'')&&(it.uses??1)>0).map(it=>({uid:it.uid,count:it.count,label:itemLabel(w,it)}))
  const aid=c.companion?.aid,rally=aid?.anchor,here=rally?.map===w.s.map.id&&rally?.region===w.s.overworld?.currentRegion
- return{aidRule:companionAidRule(w),aidMode:aid?.mode??'off',rally:rally?(here?`현재 지도 (${rally.pos.x}, ${rally.pos.y})`:'다른 지도에 지정됨 · 현장에서 다시 지시'):undefined,working:c.activity?.kind==='rescueDrag'?'쓰러진 동료를 옮기는 중':c.activity?.patientId!==undefined?'동료 처치 중':undefined,wounds,chosen:wound&&option?{...wound,...option}:null,supplies,access:companionAccess(w,c)}
+ return{depot:!!aid?.suppliesFromBase,depotAccess:baseStoreError(w,c,false),errand:aid?.supply?.phase==='take'?'거점에서 의료 물품을 가져오는 중':aid?.supply?.phase==='returning'?'마지막으로 확인한 환자에게 돌아가는 중':null,aidRule:companionAidRule(w),aidMode:aid?.mode??'off',rally:rally?(here?`현재 지도 (${rally.pos.x}, ${rally.pos.y})`:'다른 지도에 지정됨 · 현장에서 다시 지시'):undefined,working:c.activity?.kind==='rescueDrag'?'쓰러진 동료를 옮기는 중':c.activity?.patientId!==undefined?'동료 처치 중':undefined,wounds,chosen:wound&&option?{...wound,...option}:null,supplies,access:companionAccess(w,c)}
 })
 watch(()=>props.personId,()=>{selected.value=null})
 watch(version,()=>{selected.value=null})
@@ -29,6 +29,12 @@ function confirm(){const wound=data.value.chosen;if(!wound||wound.quote.error)re
       <p class="my-1 text-ash-300">안전할 때 자기 물품으로 나와 동료들의 출혈을 먼저 돌보고, 오염된 상처와 골절도 처치한다. 쓰러진 사람에게는 음식이나 물을 억지로 먹이지 않는다.</p>
       <p v-if="data.rally" class="my-1">안전 집결지 · {{ data.rally }}</p>
       <p v-if="data.working" class="my-1 text-amber-100">{{ data.working }}</p>
+      <p v-if="data.errand" class="my-1 text-amber-100">{{ data.errand }}</p>
+      <div v-if="data.aidMode!=='off'" class="my-2 border-t border-ash-700 pt-2" data-testid="companion-aid-depot">
+        <p class="my-1">거점 창고 의료 보급 · {{ data.depot?'허락함':'허락하지 않음' }}</p>
+        <p class="my-1 text-ash-400">상처를 직접 확인하고 필요한 깨끗한 물품만 한 개씩 가져온다. 창고가 바뀌거나 환자를 찾지 못하면 중단하며, 이미 가져온 실물은 동료에게 남는다.</p>
+        <button class="dbtn" :disabled="simulating||!!data.access||!data.depot&&!!data.depotAccess" :title="!data.depot?data.depotAccess??'본인의 실제 거점 의료 물품을 사용하도록 허락한다':''" data-testid="companion-aid-depot-toggle" @click="doAct({type:'setCompanionAidDepot',target:personId,allow:!data.depot})">{{ data.depot?'창고 자동 보급 중지':'창고 의료 물품 사용 허락' }} (1턴)</button>
+      </div>
       <p class="my-1 text-ash-400">구조를 맡기면 현재 내 위치를 집결지로 기억한다. 관찰한 {{ data.aidRule.range }}칸 안에서 응급 처치 후, 출혈이 가라앉은 실신자를 한 칸씩 옮긴다. 물품·기력·급료와 안전한 길이 필요하다.</p>
       <div class="my-2 flex flex-wrap gap-1">
         <button class="dbtn" :disabled="simulating||!!data.access" data-testid="companion-aid-first" @click="doAct({type:'setCompanionAid',target:personId,mode:'firstAid'})">응급 처치 맡기기 (1턴)</button>

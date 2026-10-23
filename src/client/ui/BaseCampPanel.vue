@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseOrderLabel, baseCraftStock, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type BaseTaskRequest,type RecipeDef, type TerrainDef, type Creature,type World } from '../../core'
+import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseOrderProblem, baseOrderLabel, baseCraftStock, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type BaseTaskRequest,type RecipeDef, type TerrainDef, type Creature,type World } from '../../core'
 import { simulating, version, world } from '../store'
 import { doAct, setWin } from '../ui'
 const queueKinds=ref<Record<number,BaseTaskRequest['kind']>>({})
@@ -38,7 +38,7 @@ function openStore(){doAct({type:'baseOpen'});setWin('inv',true)}
         <p v-if="m.c.activity?.kind==='gearSwap'&&canSee(d.w,player(d.w),m.c.pos)&&hasLos(d.w,player(d.w).pos,m.c.pos)" class="my-1 text-ash-300">갈아입는 중 · {{ m.c.activity.label }} {{ m.c.activity.remaining }}턴 남음</p>
         <p v-if="m.c.asleep" class="my-1 text-ash-300">수면 중 · 피로 {{ Math.floor(m.c.needs.fatigue) }}</p>
         <p class="my-1 text-ash-400">{{ m.status }}</p>
-        <p v-if="m.task?.craftTarget!==undefined" class="my-1 text-amber-100" data-testid="base-craft-stock-target">완성품 최소{{ m.task.craftTarget }}개 유지<span v-if="stockGoal(m.c)&&!stockGoal(m.c)!.error"> · 창고{{ stockGoal(m.c)!.stock }}개 / 운반 중{{ stockGoal(m.c)!.carried }}개 / 부족{{ stockGoal(m.c)!.needed }}개</span></p>
+        <p v-if="m.task?.craftTarget!==undefined" class="my-1 text-amber-100" data-testid="base-craft-stock-target">완성품 최소{{ m.task.craftTarget }}개 유지<span v-if="stockGoal(m.c)&&!stockGoal(m.c)!.error"> · 창고{{ stockGoal(m.c)!.stock }}개 / 운반 중{{ stockGoal(m.c)!.carried }}개 / 다른 작업자 운반·착수{{ stockGoal(m.c)!.incoming }}개 / 부족{{ stockGoal(m.c)!.needed }}개</span></p>
         <select v-model="recipes[m.c.id]" class="my-1 max-w-64 bg-[#211e18] p-1" :aria-label="`${m.c.name} 제작법`"><option :value="undefined" disabled>제작법 선택</option><option v-for="r in m.recipes" :key="r.id" :value="r.id">{{ r.label }}</option></select>
         <input v-model.number="batches[m.c.id]" type="number" min="1" :max="baseCampDef(d.w).maxBatches" class="mx-1 w-14 bg-[#211e18] p-1" :aria-label="`${m.c.name} 제작 횟수·창고 목표 수량`" placeholder="1" />
         <button class="dbtn m-1" :disabled="simulating||!!m.error||!recipes[m.c.id]||m.c.companion!.status==='unpaid'" :title="m.error??''" data-base-order="craft" @click="doAct({type:'baseAssign',target:m.c.id,kind:'craft',recipe:recipes[m.c.id],batches:batches[m.c.id]??1})">제작 배정·재개 (1턴)</button>
@@ -73,7 +73,7 @@ function openStore(){doAct({type:'baseOpen'});setWin('inv',true)}
           <p v-if="!queued(m.c.id).length" class="text-ash-400">대기 중인 작업이 없다.</p>
           <ol class="my-2 space-y-2">
             <li v-for="(task,index) in queued(m.c.id)" :key="task.id" :data-base-queued-order="task.id" class="border-t border-ash-800 pt-2">
-              <p>{{ index+1 }}. {{ baseOrderLabel(d.w,task) }}</p>
+              <p>{{ index+1 }}. {{ baseOrderLabel(d.w,task) }}</p><p v-if="baseOrderProblem(d.w,task)" class="my-1 text-amber-200">{{ baseOrderProblem(d.w,task) }}</p>
               <button class="dbtn mr-1" :disabled="simulating||!!m.error||index===0" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'up'})">앞으로 (1턴)</button>
               <button class="dbtn mr-1" :disabled="simulating||!!m.error||index===queued(m.c.id).length-1" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'down'})">뒤로 (1턴)</button>
               <button class="dbtn" :disabled="simulating||!!m.error" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'remove'})">목록에서 빼기 (1턴)</button>

@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.324-dev·저장209**이다. 동료의 상호 응급 처치·실신자 집결지 구조와 거점 작업 대기열/순서 편집을 연결했다. [구현·제약](docs/companion-work-v324.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/) · [동작·장비 비교](https://roastfried-rf.github.io/ashveil/artbook/motion/).
+현재 개발 미리보기는 **v0.325-dev·저장210**이다. 동료가 별도 허락받은 창고의 실제 의료 물품을 가져와 처치하고, 줄어든 재고를 거점 제작으로 보충한다. 여러 제작자의 착수·운반 물량을 고려하고, 없어진 제작법의 작업은 안전하게 대기한다. [구현·제약](docs/companion-supply-v325.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

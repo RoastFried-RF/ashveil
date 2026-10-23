@@ -1,5 +1,5 @@
 import {enqueueBaseTask,editBaseQueue} from './base-camp'
-import {setCompanionAid,startCompanionAid,startCompanionDrag,companionDragStep} from './companion-aid'
+import {setCompanionAidDepot,planCompanionAidSupply,takeCompanionAidSupply,setCompanionAid,startCompanionAid,startCompanionDrag,companionDragStep} from './companion-aid'
 import {brushClearingStep,startBrushClearing} from './brush-clearing'
 import {beginActionObservation,finishActionObservation} from './action-observations'
 import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
@@ -174,6 +174,9 @@ import { addEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, HotbarRef, ItemInst, Slot, Stats, WaterTreatment, ProstheticOperation, MaterialSelection } from './types'
 
 export type Action =
+  | {type:'setCompanionAidDepot';target:number;allow:boolean}
+  | {type:'companionAidSupplyPlan';target:number}
+  | {type:'companionAidSupplyTake';uid:number}
   | {type:'baseQueueAdd';target:number;request:import('./types').BaseTaskRequest}
   | {type:'baseQueueEdit';target:number;id:number;operation:'up'|'down'|'remove'}
   | {type:'setCompanionAid';target:number;mode:import('./types').CompanionAidMode}
@@ -663,6 +666,9 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       const err = rentInnBed(w, c, keeper, a.bed, a.expectedFee,a.periods)
       return err ? FAIL(err) : { ok: true, tu: 100 }
     }
+    case 'setCompanionAidDepot':{if(c.id!==w.s.playerId)return FAIL('직접 동료에게 창고 사용을 허락해야 한다');const target=creatureById(w,a.target),error=target?setCompanionAidDepot(w,target,a.allow):'동료가 현장에 없다';return error?FAIL(error):{ok:true,tu:100}}
+    case 'companionAidSupplyPlan':{if(c.id===w.s.playerId)return FAIL('동료의 현장 의료 보급 판단이다');const target=creatureById(w,a.target),error=target?planCompanionAidSupply(w,c,target):'환자가 현장에 없다';return error?FAIL(error):FREE}
+    case 'companionAidSupplyTake':{if(c.id===w.s.playerId)return FAIL('동료의 실제 의료 보급 작업이다');const error=takeCompanionAidSupply(w,c,a.uid);return error?FAIL(error):{ok:true,tu:100}}
     case 'setCompanionAid':{
       if(c.id!==w.s.playerId)return FAIL('직접 곁의 동료에게 구조 지침을 정해야 한다')
       const provider=creatureById(w,a.target),error=provider?setCompanionAid(w,provider,a.mode):'동료가 현장에 없다';return error?FAIL(error):{ok:true,tu:100}

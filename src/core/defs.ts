@@ -1125,6 +1125,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       const r=d.aid
       if(!r||typeof r!=='object'||Array.isArray(r))report.errors.push(d.id+': aid 객체 필요')
       else{
+        if(r.supplyMemoryTurns!==undefined&&(!Number.isSafeInteger(r.supplyMemoryTurns)||r.supplyMemoryTurns<1||r.supplyMemoryTurns>28800))report.errors.push(d.id+': aid.supplyMemoryTurns 오류')
         for(const[key,lo,hi]of[['range',1,16],['rallyRadius',1,32],['dragTurns',1,100],['dragEnergy',0,100],['minMedicine',0,5],['washContam',1,100],['washAfterTurns',1,28800]]as const)if(!Number.isSafeInteger(r[key])||r[key]<lo||r[key]>hi)report.errors.push(d.id+': aid.'+key+' 오류')
         for(const[key,lo,hi]of[['minBleed',.001,100],['dragBleedMax',0,100],['minBodyTemp',30,37],['maxBodyTemp',37,42]]as const)if(!Number.isFinite(r[key])||r[key]<lo||r[key]>hi)report.errors.push(d.id+': aid.'+key+' 오류')
         if(r.minBodyTemp>=r.maxBodyTemp)report.errors.push(d.id+': aid 체온 범위 오류')

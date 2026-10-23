@@ -154,6 +154,7 @@ export function approachBaseStore(w:World,c:Creature):Pos|undefined{
 }
 function currentBaseWork(w:World,c:Creature,threats:Creature[]):{action?:Action;goal?:Pos}|null{
  const base=w.s.map.baseCamp,task=base?.tasks[c.id]
+ if(task&&baseOrderProblem(w,task))return {action:{type:'wait'}}
  if(!task||task.kind==='guard'||baseStoreError(w,c,false)||!isCompanion(w,c)||c.companion!.status!=='employed'||c.companion!.order!=='defend'||threats.some((o)=>!o.asleep&&!o.unconscious&&!o.captivity&&o.ai.mode!=='surrender'))return null
  if(task.kind==='fire')return baseFireDecision(w,c)
  if(task.kind==='water')return baseWaterDecision(w,c)
@@ -189,6 +190,7 @@ function currentBaseWork(w:World,c:Creature,threats:Creature[]):{action?:Action;
 export function baseTaskStatus(w:World,c:Creature):string{
  const task=w.s.map.baseCamp?.tasks[c.id]
  if(!task)return '배정 없음'
+ const problem=baseOrderProblem(w,task);if(problem)return problem
  if(c.companion?.status!=='employed')return '급료를 기다린다'
  if(c.companion.order!=='defend')return '다른 지시를 따르는 중이다'
  const error=baseStoreError(w,c,false);if(error)return error
@@ -240,6 +242,7 @@ export function baseOrderLabel(w:World,t:BaseTask){
  return `${t.item&&w.db.tryGet<ItemDef>(t.item)?.label||'사라진 물품'} · ${t.targetStock??0}개 ${t.kind==='haul'?'운반':'채집'}`
 }
 function queueSatisfied(w:World,c:Creature,t:BaseTask):boolean{
+ if(baseOrderProblem(w,t))return false
  if(c.activity||c.workJob?.baseOrder===t.id)return false
  if(t.kind==='craft'){
   const r=w.db.tryGet<RecipeDef>(t.recipe??'');if(!r)return false
@@ -258,7 +261,7 @@ function advanceBaseQueue(w:World,c:Creature,blocked=false){
  const base=w.s.map.baseCamp,queue=base?.queues?.[c.id],active=base?.tasks[c.id]
  if(!base||!queue?.length||c.activity||c.workJob&&c.workJob.baseOrder===active?.id||baseStoreError(w,c,false)||c.companion?.order!=='defend'||c.companion.status!=='employed')return false
  if(active&&!blocked&&!queueSatisfied(w,c,active))return false
- let index=queue.findIndex(t=>!queueSatisfied(w,c,t));if(index<0&&(!active||active.kind==='craft'&&active.craftTarget===undefined&&active.remaining<=0))index=0;if(index<0)return false
+ let index=queue.findIndex(t=>!baseOrderProblem(w,t)&&!queueSatisfied(w,c,t));if(index<0&&(!active||active.kind==='craft'&&active.craftTarget===undefined&&active.remaining<=0))index=queue.findIndex(t=>!baseOrderProblem(w,t));if(index<0)return false
  const next=queue.splice(index,1)[0]
  if(active&&!(active.kind==='craft'&&active.craftTarget===undefined&&active.remaining<=0))queue.push(active)
  base.tasks[c.id]=next
@@ -276,4 +279,16 @@ export function baseWorkDecision(w:World,c:Creature,threats:Creature[]):{action?
   result=currentBaseWork(w,c,threats)
  }
  return result
+}
+
+
+export function baseOrderProblem(w:World,t:BaseTask):string|null{
+ if(!['craft','guard','haul','gather','water','fire'].includes(t.kind)||!Number.isSafeInteger(t.id)||!Number.isSafeInteger(t.remaining)||t.remaining<0)return '원래 작업 지시의 종류와 수량을 확인해야 한다'
+ if(t.kind==='craft'){
+  const r=t.recipe&&w.db.tryGet<RecipeDef>(t.recipe)
+  if(!r||r.defType!=='Recipe')return '현재 구성에 이 제작법이 없다. 구성을 복원하거나 지시를 취소해야 한다'
+  if(r.passiveTurns||w.db.tryGet(r.output.item)?.defType!=='Item'||r.inputs.some(input=>w.db.tryGet(input.item)?.defType!=='Item'))return '현재 구성에서 원래 제작 재료와 완성품을 확인해야 한다'
+ }
+ if((t.kind==='haul'||t.kind==='gather')&&(!t.item||w.db.tryGet(t.item)?.defType!=='Item'))return '현재 구성에 맡긴 물품 종류가 없다. 구성을 복원하거나 지시를 취소해야 한다'
+ return null
 }

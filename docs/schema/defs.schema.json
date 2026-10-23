@@ -53638,6 +53638,9 @@
     "CompanionAidRule": {
       "type": "object",
       "properties": {
+        "supplyMemoryTurns": {
+          "type": "number"
+        },
         "range": {
           "type": "number"
         },
@@ -62528,6 +62531,16 @@
     "Inherited_CompanionAidRule": {
       "type": "object",
       "properties": {
+        "supplyMemoryTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "range": {
           "anyOf": [
             {

@@ -1516,7 +1516,7 @@ export interface CompanionBond {
   heard?:{turn:number;attitude:'trust'|'neutral'|'uneasy'|'leaving'}
 }
 export type CompanionAidMode='off'|'firstAid'|'rescue'
-export interface CompanionAidRule {range:number;rallyRadius:number;dragTurns:number;dragEnergy:number;dragBleedMax:number;minMedicine:number;minBleed:number;washContam:number;washAfterTurns:number;minBodyTemp:number;maxBodyTemp:number}
+export interface CompanionAidRule {supplyMemoryTurns?:number;range:number;rallyRadius:number;dragTurns:number;dragEnergy:number;dragBleedMax:number;minMedicine:number;minBleed:number;washContam:number;washAfterTurns:number;minBodyTemp:number;maxBodyTemp:number}
 export interface CompanionDef extends DefBase {
   aid?:CompanionAidRule
   defType:'Companion';label:string;hireFee:number;dailyWage:number;maxMembers:number;minReputation:number
@@ -1525,7 +1525,7 @@ export interface CompanionDef extends DefBase {
 }
 export type CompanionOrder='follow'|'hold'|'defend'
 export interface CompanionContract {
-  aid?:{mode:CompanionAidMode;anchor:{pos:Pos;map:string;region?:string}}
+  aid?:{mode:CompanionAidMode;suppliesFromBase?:boolean;supply?:{patient:number;woundId:number;kind:string;pos:Pos;map:string;region?:string;seenAt:number;storeUid:number;materialUid:number;item:string;phase:'take'|'returning'};anchor:{pos:Pos;map:string;region?:string}}
   trialUntil?:number
   bond?:CompanionBond
   employer:number;originSite?:string;originMap:string;originHome?:Pos
