@@ -20,7 +20,11 @@ export const diplomacyDef = (w: World) => w.db.get<DiplomacyDef>('Diplomacy.Hear
 export const factionAvailable=(w:World,f:FactionDef)=>!f.unlock||!!w.s.overworld?.society?.unlocks?.includes(f.unlock)
 export function reputation(w: World, faction: string): number {
   const base = factionDef(w, faction)?.playerStart ?? 0
-  return w.s.overworld?.society?.reputation[faction] ?? diplomacyDef(w).background[player(w).background ?? '']?.[faction] ?? base
+  const recorded=w.s.overworld?.society?.reputation[faction]
+  if(recorded!==undefined)return recorded
+  const pl=player(w),background=diplomacyDef(w).background[pl.background??'']?.[faction]??base
+  const bonus=pl.traits.reduce((n,id)=>n+(w.db.trait(id).initialReputation?.[faction]??0),0)
+  return bonus===0?background:clamp(background+bonus,-100,100)
 }
 export function reputationBand(w: World, faction: string) {
   const value = reputation(w, faction), bands = diplomacyDef(w).bands

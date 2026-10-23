@@ -1616,6 +1616,21 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for(const d of db.all<ItemDef>('Item'))for(const id of d.book?.interactions??[])need(d.id,id,'Interaction')
   for(const d of db.all<RecipeDef>('Recipe'))if(d.interaction&&!db.all<InteractionDef>('Interaction').some(i=>i.event===d.interaction))report.errors.push(d.id+': 상호작용 사건의 Def가 필요함')
   for (const t of db.all<TraitDef>('Trait')) {
+    const resonance=t.resonance
+    if(resonance!==undefined){
+      if(!isObj(resonance)||['faction','radius','towerRadius'].some(key=>!(key in resonance))||!Number.isFinite(resonance.radius)||!Number.isFinite(resonance.towerRadius))report.errors.push(t.id+': 정비음 감지는 세력·지역 반경·탑 지역 반경이 필요함')
+      else{
+        if(!db.all<FactionDef>('Faction').some(f=>f.key===resonance.faction))report.errors.push(t.id+': 정비음 감지의 실제 세력이 필요함')
+        range(t.id,'resonance.radius',resonance.radius,1,128,true);range(t.id,'resonance.towerRadius',resonance.towerRadius,0,128,true)
+      }
+    }
+    if(t.initialReputation!==undefined){
+      if(!isObj(t.initialReputation))report.errors.push(t.id+': 초기 평판은 세력별 수치여야 함')
+      else for(const[faction,value]of Object.entries(t.initialReputation)){
+        if(!db.all<FactionDef>('Faction').some(f=>f.key===faction)||!Number.isFinite(value))report.errors.push(t.id+': 초기 평판의 실제 세력과 유한 수치가 필요함')
+        else range(t.id,'initialReputation.'+faction,value,-100,100)
+      }
+    }
     range(t.id,'overeatAt',t.mods?.overeatAt,0,Number.MAX_SAFE_INTEGER)
     range(t.id,'aloneRadius',t.mods?.aloneRadius,0,20,true);range(t.id,'neatEdgeThreshold',t.mods?.neatEdgeThreshold,0,100)
     range(t.id, 'weight', t.weight, 0)
@@ -1691,8 +1706,8 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       else for(const all of condition.any){
         if(!Array.isArray(all)||!all.length||all.length>16){report.errors.push(t.id+': 조건 대안의 범위가 비었거나 너무 많음');continue}
         for(const band of all){
-          if(!isObj(band)||!['bodyTemp','innerWetness','painStage','rest','sleepDebt','hygiene','bloodLoss','knownInfection','woundInfection','fever','tourniquetHours','frostbiteGrade','restFireDistance','ashExposure','lightLevel','adjacentThreats','latentBiteAche'].includes(band.metric)){report.errors.push(t.id+': 알 수 없는 조건 지표');continue}
-          const limits:Record<string,[number,number]>={bodyTemp:[0,60],innerWetness:[0,100],painStage:[0,5],rest:[0,100],sleepDebt:[0,10000],hygiene:[0,100],bloodLoss:[0,1],knownInfection:[0,100],woundInfection:[0,100],fever:[0,60],tourniquetHours:[0,10000],frostbiteGrade:[0,4],restFireDistance:[0,100],ashExposure:[0,1],lightLevel:[0,3],adjacentThreats:[0,100],latentBiteAche:[0,100]}
+          if(!isObj(band)||!['bodyTemp','innerWetness','painStage','rest','sleepDebt','hygiene','bloodLoss','knownInfection','woundInfection','fever','tourniquetHours','frostbiteGrade','restFireDistance','ashExposure','lightLevel','adjacentThreats','latentBiteAche','machineResonance','towerResonance'].includes(band.metric)){report.errors.push(t.id+': 알 수 없는 조건 지표');continue}
+          const limits:Record<string,[number,number]>={bodyTemp:[0,60],innerWetness:[0,100],painStage:[0,5],rest:[0,100],sleepDebt:[0,10000],hygiene:[0,100],bloodLoss:[0,1],knownInfection:[0,100],woundInfection:[0,100],fever:[0,60],tourniquetHours:[0,10000],frostbiteGrade:[0,4],restFireDistance:[0,100],ashExposure:[0,1],lightLevel:[0,3],adjacentThreats:[0,100],latentBiteAche:[0,100],machineResonance:[0,1],towerResonance:[0,1]}
           const [low,high]=limits[band.metric]!
           if(band.min===undefined&&band.max===undefined)report.errors.push(t.id+': 조건 범위의 경계가 필요함')
           for(const key of ['min','max']as const)if(band[key]!==undefined)range(t.id,'condition.'+key,band[key],low,high)

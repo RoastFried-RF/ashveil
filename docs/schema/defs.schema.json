@@ -23924,6 +23924,76 @@
                   }
                 ]
               },
+              "resonance": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "faction": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "radius": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "towerRadius": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "initialReputation": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "$inherit": {
+                        "const": false
+                      }
+                    },
+                    "additionalProperties": {
+                      "anyOf": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "id": {
                 "type": "string"
               },
@@ -23973,6 +24043,32 @@
               },
               "weight": {
                 "type": "number"
+              },
+              "resonance": {
+                "type": "object",
+                "properties": {
+                  "faction": {
+                    "type": "string"
+                  },
+                  "radius": {
+                    "type": "number"
+                  },
+                  "towerRadius": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "faction",
+                  "radius",
+                  "towerRadius"
+                ]
+              },
+              "initialReputation": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": {
+                  "type": "number"
+                }
               },
               "id": {
                 "type": "string"
@@ -26805,7 +26901,9 @@
             "ashExposure",
             "lightLevel",
             "adjacentThreats",
-            "latentBiteAche"
+            "latentBiteAche",
+            "machineResonance",
+            "towerResonance"
           ]
         },
         "min": {

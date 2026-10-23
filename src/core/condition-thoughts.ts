@@ -1,5 +1,6 @@
 // 현재 상태를 순수 조회한다. 조건 사고는 기억·난수·시간·UID를 만들지 않는다.
 import {latentBiteClues} from './disease-state'
+import {resonanceState} from './resonance'
 import {canReach} from './combat'
 import {hostile} from './diplomacy'
 import {capacity} from './body'
@@ -13,6 +14,7 @@ import type {Creature,ThoughtDef,ThoughtRange} from './types'
 
 export function conditionThoughts(w:World,c:Creature):string[]{
  const values:Partial<Record<ThoughtRange['metric'],number>>={}
+ let resonance:ReturnType<typeof resonanceState>|undefined
  const read=(metric:ThoughtRange['metric'])=>{
   if(values[metric]!==undefined)return values[metric]!
   const n=c.needs,turn=turnOf(w)
@@ -33,6 +35,7 @@ export function conditionThoughts(w:World,c:Creature):string[]{
    case 'ashExposure':value=isRaining(w)&&!tileAt(w,c.pos).roof?1:0;break
    case 'lightLevel':value=lightLevel(w,c.pos);break
    case 'latentBiteAche':value=latentBiteClues(w,c).length;break
+   case 'machineResonance':case 'towerResonance':resonance??=resonanceState(w,c);value=Number(metric==='machineResonance'?resonance.machine:resonance.tower);break
    case 'adjacentThreats':value=w.s.creatures.filter(o=>o.id!==c.id&&o.alive&&!o.asleep&&!o.unconscious&&!o.captivity&&o.ai.mode!=='surrender'&&o.breakdown?.kind!=='catatonia'&&capacity(w,o,'consciousness')>=.3&&cheb(c.pos,o.pos)<=1&&hostile(w,c,o)&&canSee(w,c,o.pos)&&canReach(w,o,c)).length;break
   }
   values[metric]=value

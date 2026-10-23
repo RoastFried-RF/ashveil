@@ -2,7 +2,7 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
-  crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef,
+  crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef, resonanceState,
   ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
   REGION_LABEL, STATE_LABEL, calendar, weatherLabel, type Region, type World,
 } from '../../core'
@@ -26,6 +26,9 @@ const d = computed(() => {
   const turn = turnOf(w)
   const diet=dietStatus(w,pl)
   const chips: { t: string; c: string; tip: string[] }[] = []
+  const resonance=resonanceState(w,pl)
+  if(resonance.machine)chips.push({t:'기계 정비음',c:'#a8b7bd',tip:['가느다란 고음이 들린다. 가까운 곳에 작동 중인 기계가 있다.','소리만으로 위치나 종류를 알 수는 없다.']})
+  if(resonance.tower)chips.push({t:'탑의 고음',c:'#c0a080',tip:['탑의 높은 울림이 귀를 찌른다. 이 지역에 있는 동안 두통으로 기분이 내려간다.']})
   if(hallucinating(w,pl))chips.push({t:'환각',c:'#c090c0',tip:['잠 부족으로 지각이 흐려졌다. 충분한 수면으로 부채를 갚아야 한다.']})
   if(diet.active)chips.push({t:'살코기 굶주림',c:'#c08040',tip:['최근'+diet.windowDays+'일 식사 중 단백질 열량 '+(diet.fraction*100).toFixed(1)+'%','설사 · 열량 흡수 ×'+diet.absorption+' · 수분 소모 증가']})
   if (pl.breakdown) chips.push({ t: `붕괴: ${w.db.get(pl.breakdown.def).label}`, c: '#d080b0', tip: [`${Math.max(0, pl.breakdown.until - turn)}턴 남음`] })

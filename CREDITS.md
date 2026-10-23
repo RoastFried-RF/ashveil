@@ -150,3 +150,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## v0.308 생목 원본
 
 소나무/검은잎나무 네 원본은 새 SVG 경로·가지 좌표·솔잎/잎 무리를 구성하고 Inkscape로 생성했다. 다른 이미지의 입력이나 기존 PNG 픽셀 편집은 없다. [원본·재현](tools/art/direction-v308/README.md) · [출처](tools/art/direction-v308/provenance.json) · [CC0](tools/art/direction-v308/LICENSE.txt). 이미지 생성 도구의 두 실패 호출은 이 SVG 제작과 구분해 기록한다.
+
+## v0.311 풀·풀흙·맨흙 원화
+
+새로 그린9개64px 바닥 프레임과 편집 가능한 SVG/그리기 소스는 `tools/art/direction-v311/`에 있다. PNG는 `public/sprites/original/direction-v311/ground.png`. 기여 권리 범위에서 CC0-1.0으로 제공한다. [라이선스](tools/art/direction-v311/LICENSE.txt) · [출처와 해시](tools/art/direction-v311/provenance.json). 공식 Stoneshard 야영지와 Eslabong 전투 화면의 바닥/인물 대비를 참고했고 해당 게임의 그림·색상 샘플·픽셀은 포함하지 않았다. 기존 원화의 출처 기록은 보존한다.

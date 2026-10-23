@@ -35,9 +35,9 @@ function equip(w: ReturnType<typeof makeWorld>, def: string) { const p = player(
 function val(w: ReturnType<typeof makeWorld>, id: string) { return activeThoughts(w, player(w)).find((t) => t.def === id)?.mood }
 
 describe('정본 특성과 호환', () => {
-  it('37종만 시작 추첨하며 호환4종·공포 사냥꾼·후천적 건망은 남아 있다', () => {
+  it('울림 듣는 자를 포함한38종을 시작 추첨하며 호환4종·공포 사냥꾼·후천적 건망은 남아 있다', () => {
     const active = db.all<TraitDef>('Trait').filter((t) => (t.weight ?? 1) > 0)
-    expect(active).toHaveLength(37); expect(db.all('Trait')).toHaveLength(43)
+    expect(active).toHaveLength(38); expect(db.all('Trait')).toHaveLength(44)
     const { w } = setup(), bg = db.background('Bg.Excommunicate')
     for (let i = 0; i < 200; i++) {
       const picked = pickTraits(w, bg, 3); expect(picked).toHaveLength(3)

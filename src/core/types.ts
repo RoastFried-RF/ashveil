@@ -535,6 +535,10 @@ export interface TraitDef extends DefBase {
   conflicts?: string[]
   mods?: Partial<Record<string, number>>
   weight?: number
+  /** 현재 귀로 듣는 정비음. 반경은 지역 칸, towerRadius는 월드 셀이다. */
+  resonance?: { faction: string; radius: number; towerRadius: number }
+  /** 사회의 초기 평판을 만들 때만 더한다. 이미 기록한 평판은 바꾸지 않는다. */
+  initialReputation?: Partial<Record<string, number>>
 }
 
 export interface BackgroundDef extends DefBase {
@@ -922,7 +926,7 @@ export type NpcStressKind='hurt'|'nearDeath'|'allyDeath'|'leaderDeath'|'killedHu
 export interface NpcPsycheDef extends DefBase {defType:'NpcPsyche';label:string;thoughtScale:number;acuteMult:number;historyLimit:number;events:Record<NpcStressKind,number>}
 
 export interface ThoughtRange {
-  metric: 'bodyTemp' | 'innerWetness' | 'painStage' | 'rest' | 'sleepDebt' | 'hygiene' | 'bloodLoss' | 'knownInfection' | 'woundInfection' | 'fever' | 'tourniquetHours' | 'frostbiteGrade' | 'restFireDistance' | 'ashExposure' | 'lightLevel' | 'adjacentThreats' | 'latentBiteAche'
+  metric: 'bodyTemp' | 'innerWetness' | 'painStage' | 'rest' | 'sleepDebt' | 'hygiene' | 'bloodLoss' | 'knownInfection' | 'woundInfection' | 'fever' | 'tourniquetHours' | 'frostbiteGrade' | 'restFireDistance' | 'ashExposure' | 'lightLevel' | 'adjacentThreats' | 'latentBiteAche' | 'machineResonance' | 'towerResonance'
   min?: number
   max?: number
   minExclusive?: boolean
