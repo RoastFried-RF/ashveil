@@ -1,4 +1,4 @@
-// 스프라이트 아틀라스: sprites.json(시트·프레임·애니·캐릭터) + DCSS 아이템 아이콘(tiles/*.png)
+// 자체 원본 아틀라스와 기존 그림 키 호환용 tiles/*.png.
 
 import { Assets, Rectangle, Texture } from 'pixi.js'
 import manifest from '../sprites.json'
@@ -18,6 +18,10 @@ export interface CharDef {
   /** 방향형 대형 생물도 원래 몸 크기의 그림자·체력 막대를 유지한다. */
   shadow?: [number, number]
   healthBarWidth?: number
+  /** Draw this body's real main/off items separately; its artwork has no assumed weapon. */
+  heldItems?:boolean
+  /** Separately authored portrait frame; full-body idle is the fallback. */
+  portrait?:string
 }
 export type Dir = 'down' | 'left' | 'right' | 'up'
 
@@ -122,5 +126,6 @@ export function frameCss(name: string, scale: number): Record<string, string> {
 /** Vue 아이콘도 실제 제공된 시트의 같은 영역을 읽는다. */
 export function iconFrame(name:string){
   const f=M.frames[name]
-  return f?{url:base()+M.sheets[f[0]],x:f[1],y:f[2],w:f[3],h:f[4]}:undefined
+  const extent=f&&sheetExtent.get(f[0])
+  return f?{url:base()+M.sheets[f[0]],x:f[1],y:f[2],w:f[3],h:f[4],sheetWidth:extent!.width,sheetHeight:extent!.height}:undefined
 }

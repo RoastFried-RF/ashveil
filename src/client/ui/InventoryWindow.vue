@@ -382,7 +382,7 @@ function outline(h: Hover) {
   return { left: h.gx * CELL + 'px', top: h.gy * CELL + 'px', width: a * CELL + 'px', height: b * CELL + 'px' }
 }
 const OUTLINE = (h: Hover) => (h.merge ? 'border-amber-300 bg-amber-300/10' : h.ok ? 'border-[#6aa84f] bg-[#6aa84f]/15' : 'border-[#d8402e] bg-[#d8402e]/15')
-const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a, b) >= 2 ? 64 : 32 }
+const iconBox = (it: ItemInst) => { const [a,b]=itemDef(world.value as World,it).size;return{width:a*CELL-6,height:b*CELL-6} }
 </script>
 
 <template>
@@ -430,7 +430,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
             :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
-            <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
+            <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" v-bind="iconBox(it)" /></div>
             <ItemBadges :w="d.w" :it="it" />
             <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
             <span v-if="it.lit" class="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
@@ -479,7 +479,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
           @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @contextmenu.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
         >
-          <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" :size="iconSize(it)" /></div>
+          <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" v-bind="iconBox(it)" /></div>
           <ItemBadges :w="d.w" :it="it" />
           <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
         </div>
@@ -519,7 +519,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         </div>
       </div>
       <div v-if="drag?.moved" class="pointer-events-none fixed z-[9998] flex items-center justify-center border border-amber-400/70 bg-amber-200/10" :style="{ left: drag.x - drag.gdx * CELL - CELL / 2 + 'px', top: drag.y - drag.gdy * CELL - CELL / 2 + 'px', width: dragSize[0] * CELL + 'px', height: dragSize[1] * CELL + 'px' }">
-        <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" /></div>
+        <div :style="{ transform: drag.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(drag.it.def).sprite" v-bind="iconBox(drag.it)" /></div>
         <span class="absolute -bottom-4 left-0 whitespace-nowrap text-[10px] text-amber-200 [text-shadow:0_1px_0_#000]">R·우클릭: 돌리기</span>
       </div>
       <div v-if="menu" ref="menuRoot" role="dialog" aria-label="물품 행동" data-testid="item-menu" class="df df-celtic fixed z-[9998] max-h-[calc(100dvh-16px)] max-w-[calc(100vw-16px)] min-w-[120px] overflow-y-auto" :style="{ left: menu.x + 'px', top: menu.y + 'px' }" @pointerdown.stop>

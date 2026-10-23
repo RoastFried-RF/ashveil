@@ -166,3 +166,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### v0.316 상세 인물 원화
 
 직접 작성한19종/38SVG·PNG/912프레임을 인간형 캐릭터에 연결했다. [제작 코드](tools/art/direction-v316/draw-people.mjs) · [출처와 디자인](tools/art/direction-v316/provenance.json) · [CC0](tools/art/direction-v316/LICENSE.txt). 외부 이미지 픽셀·트레이싱 없이 SVG를 작성하고 Inkscape로 렌더링했다. 이전 원본과 별도 회화 초상화의 출처는 보존한다.
+
+### v0.319 위키 분류 조사와 자체 원화
+
+사람19종·비인간형7종·무기/탄약30종·픽셀 초상19종을 직접 작성한 SVG/PNG로 연결했다. [제작 원본과 CC0](tools/art/direction-v319/) · [조사·전체 매핑/정확한 검토 범위](docs/wiki-resource-study-v319.md) · [공개 도감](https://roastfried-rf.github.io/ashveil/artbook/). Stoneshard Wiki는 실루엣·재질·역할·아이콘 비율의 참고 자료다. 해당 게임의 픽셀·트레이싱은 포함하지 않는다. 위키 메타데이터는 [별도 권리 고지](tools/research/stoneshard-v319/NOTICE.md)를 따르며 ASHVEIL 원화 CC0로 재허가하지 않는다.

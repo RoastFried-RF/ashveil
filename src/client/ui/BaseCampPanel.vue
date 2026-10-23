@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type RecipeDef, type TerrainDef, type World } from '../../core'
+import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseCraftStock, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type RecipeDef, type TerrainDef, type Creature,type World } from '../../core'
 import { simulating, version, world } from '../store'
 import { doAct, setWin } from '../ui'
 const fires=ref<Record<number,string>>({})
@@ -13,6 +13,7 @@ const fireOptions=computed(()=>{void version.value;const w=world.value as World;
 function fireChoice(id:number){return fireOptions.value.find((f)=>String(f.uid)===fires.value[id])}
 function bedChoice(id:number){return bedOptions.value.find((b)=>String(b.uid)===beds.value[id])}
 function assignBed(id:number){const bed=bedChoice(id);if(bed)doAct({type:'baseBed',target:id,pos:bed.pos})}
+function stockGoal(c:Creature){const w=world.value as World;return !baseCommandError(w,c)&&!baseStoreError(w,player(w))?baseCraftStock(w,c):undefined}
 function openStore(){doAct({type:'baseOpen'});setWin('inv',true)}
 </script>
 <template>
@@ -29,13 +30,16 @@ function openStore(){doAct({type:'baseOpen'});setWin('inv',true)}
         <div><button v-for="i in d.stock" :key="i.uid" class="dbtn m-1" :disabled="simulating" :data-base-take="i.uid" @click="doAct({type:'baseTransfer',direction:'take',uid:i.uid})">{{ i.label }} ×{{ i.count }} 꺼내기</button></div>
       </details>
       <div v-for="m in d.members" :key="m.c.id" :data-base-worker="m.c.id" class="my-2 border-t border-ash-700 pt-2">
-        <p>{{ m.c.name }} · {{ m.task?.kind==='guard'?'거점 방어':m.task?.kind==='fire'?'실제 모닥불 관리':m.task?.recipe?`${d.w.db.get<RecipeDef>(m.task.recipe).label} ${m.task.remaining}회 남음`:m.task?.kind==='water'?`식수 ${m.task.remaining}ml 보충 남음`:m.task?.item?`${d.w.db.item(m.task.item).label} ${m.task.remaining}개 ${m.task.kind==='haul'?'운반':'채집'} 남음`:'배정 없음' }} · {{ m.c.companion!.status==='unpaid'?'급료 대기':'급료 유효' }}</p>
+        <p>{{ m.c.name }} · {{ m.task?.kind==='guard'?'거점 방어':m.task?.kind==='fire'?'실제 모닥불 관리':m.task?.recipe?`${d.w.db.get<RecipeDef>(m.task.recipe).label} ${m.task.craftTarget!==undefined?`최소${m.task.craftTarget}개 유지`:`${m.task.remaining}회 남음`}`:m.task?.kind==='water'?`식수 ${m.task.remaining}ml 보충 남음`:m.task?.item?`${d.w.db.item(m.task.item).label} ${m.task.remaining}개 ${m.task.kind==='haul'?'운반':'채집'} 남음`:'배정 없음' }} · {{ m.c.companion!.status==='unpaid'?'급료 대기':'급료 유효' }}</p>
         <p v-if="m.c.activity?.kind==='gearSwap'&&canSee(d.w,player(d.w),m.c.pos)&&hasLos(d.w,player(d.w).pos,m.c.pos)" class="my-1 text-ash-300">갈아입는 중 · {{ m.c.activity.label }} {{ m.c.activity.remaining }}턴 남음</p>
         <p v-if="m.c.asleep" class="my-1 text-ash-300">수면 중 · 피로 {{ Math.floor(m.c.needs.fatigue) }}</p>
         <p class="my-1 text-ash-400">{{ m.status }}</p>
+        <p v-if="m.task?.craftTarget!==undefined" class="my-1 text-amber-100" data-testid="base-craft-stock-target">완성품 최소{{ m.task.craftTarget }}개 유지<span v-if="stockGoal(m.c)&&!stockGoal(m.c)!.error"> · 창고{{ stockGoal(m.c)!.stock }}개 / 운반 중{{ stockGoal(m.c)!.carried }}개 / 부족{{ stockGoal(m.c)!.needed }}개</span></p>
         <select v-model="recipes[m.c.id]" class="my-1 max-w-64 bg-[#211e18] p-1" :aria-label="`${m.c.name} 제작법`"><option :value="undefined" disabled>제작법 선택</option><option v-for="r in m.recipes" :key="r.id" :value="r.id">{{ r.label }}</option></select>
         <input v-model.number="batches[m.c.id]" type="number" min="1" :max="baseCampDef(d.w).maxBatches" class="mx-1 w-14 bg-[#211e18] p-1" :aria-label="`${m.c.name} 제작 횟수·창고 목표 수량`" placeholder="1" />
         <button class="dbtn m-1" :disabled="simulating||!!m.error||!recipes[m.c.id]||m.c.companion!.status==='unpaid'" :title="m.error??''" data-base-order="craft" @click="doAct({type:'baseAssign',target:m.c.id,kind:'craft',recipe:recipes[m.c.id],batches:batches[m.c.id]??1})">제작 배정·재개 (1턴)</button>
+        <button class="dbtn m-1" :disabled="simulating||!!m.error||!recipes[m.c.id]||m.c.companion!.status==='unpaid'" :title="m.error??'입력한 수량을 같은 품목의 최소 재고로 유지한다. 재고가 줄면 실제 재료와 노동으로 다시 생산한다.'" data-base-order="craftStock" @click="doAct({type:'baseAssign',target:m.c.id,kind:'craftStock',recipe:recipes[m.c.id],batches:batches[m.c.id]??1})">완성품 최소 재고 유지 (1턴)</button>
+        <p class="my-1 text-ash-400">최소 재고는 같은 품목의 개수 기준이며 품질·신선도는 구분하지 않는다. 한 묶음씩 완성하고, 이미 시작한 작업은 마친다. 재료·급료·작업장·창고 공간이 없으면 기다린다.</p>
         <button class="dbtn m-1" :disabled="simulating||!!m.error||m.c.companion!.status==='unpaid'" :title="m.error??''" data-base-order="guard" @click="doAct({type:'baseAssign',target:m.c.id,kind:'guard'})">거점 방어 (1턴)</button>
         <div class="my-1">
           <select v-model="resources[m.c.id]" class="max-w-56 bg-[#211e18] p-1" :aria-label="`${m.c.name} 운반·채집 물품`"><option :value="undefined" disabled>운반·채집할 물품</option><option v-for="i in materialOptions" :key="i.id" :value="i.id">{{ i.label }}</option></select>

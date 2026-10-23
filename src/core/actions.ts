@@ -195,7 +195,7 @@ export type Action =
   | {type:'baseRaidLoot'}
   | {type:'claimBase';pos:Pos}
   | {type:'baseOpen'}
-  | {type:'baseAssign';target:number;kind:'craft'|'guard'|'haul'|'gather'|'water'|'fire'|'cancel';recipe?:string;batches?:number;item?:string;firePos?:Pos}
+  | {type:'baseAssign';target:number;kind:'craft'|'craftStock'|'guard'|'haul'|'gather'|'water'|'fire'|'cancel';recipe?:string;batches?:number;item?:string;firePos?:Pos}
   | {type:'baseTransfer';direction:'take'|'put';uid:number;count?:number}
   | {type:'baseCraft'}
   | { type:'recruitPrisoner';target:number }

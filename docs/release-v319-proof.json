@@ -1,0 +1,243 @@
+{
+  "version": 319,
+  "save": 208,
+  "mode": "implementation-first development preview",
+  "research": {
+    "endpoint": "https://stoneshard.com/w/api.php",
+    "counts": {
+      "images": 3937,
+      "articles": 4372,
+      "categories": 288,
+      "file-usages": 22977
+    },
+    "fileCategories": 86,
+    "complete": true,
+    "queriedAt": "2026-10-23T06:51:20.227Z",
+    "scope": "Complete current nonredirect main article titles, category inventory, uploaded file metadata, global file-usage records (join fromid to article pageid for main-namespace usage), and all nonempty file category memberships. Inventory completeness is not a claim that every pixel or animation has been visually reviewed.",
+    "externalPixelsInstalled": false
+  },
+  "referenceImagesVisuallyReviewed": 601,
+  "sourcePixelsInstalled": false,
+  "assetAudit": {
+    "items": 206,
+    "creatures": 33,
+    "terrains": 85,
+    "abilities": 28,
+    "registeredSheets": 169,
+    "registeredFrames": 3485,
+    "registeredAnims": 8,
+    "registeredChars": 28,
+    "registeredUi": 26,
+    "nonOriginalSheets": 0,
+    "unusedSheets": 0,
+    "nonOriginalItems": 0,
+    "nonOriginalAbilities": 0,
+    "nonOriginalUI": 0,
+    "sharedItemIconGroups": 0
+  },
+  "projectMapping": {
+    "newItemBindings": 30,
+    "newCreatureBindings": 33,
+    "retainedTerrainDefinitions": 85,
+    "retainedAbilityDefinitions": 28,
+    "retainedUI": 26,
+    "creaturesWithoutRegisteredRole": []
+  },
+  "coreContentModsUnchangedFrom318": [
+    {
+      "group": "src/core",
+      "files": 300,
+      "sameAs318": true
+    },
+    {
+      "group": "src/content",
+      "files": 290,
+      "sameAs318": true
+    },
+    {
+      "group": "mods",
+      "files": 86,
+      "sameAs318": true
+    }
+  ],
+  "checks": {
+    "types": {
+      "command": "node node_modules/vue-tsc/bin/vue-tsc.js --noEmit",
+      "exit": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lint": {
+      "command": "targeted eslint including client, art/research generators and focused inspectors",
+      "exit": 0,
+      "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "defs": {
+      "command": "node --import tsx tools/validate-defs.ts",
+      "exit": 0,
+      "outputSha256": "5959e19883c67d1290920713c6ccf0caa9178c07db08ee0da62aa200598d118c"
+    },
+    "sprites": {
+      "command": "node --import tsx tools/validate-sprites.ts",
+      "exit": 0,
+      "outputSha256": "3a7f252cbbaff0b1eba8ba09b10526b3d139677836e7b0b3bb962d480b93ddb9"
+    },
+    "build": {
+      "command": "node node_modules/vite/bin/vite.js build",
+      "exit": 0,
+      "outputSha256": "0c0ddf284cb78bd205b9597e5e6c067c70d396c97c54b37c51078b0571549b5b"
+    }
+  },
+  "artbook": {
+    "nativePNGs": true,
+    "screens": [
+      "actors-idle-down.png",
+      "actors-idle-left.png",
+      "actors-idle-right.png",
+      "actors-idle-up.png",
+      "actors-walk-up.png",
+      "actors-attack-up.png",
+      "portraits.png",
+      "weapons.png",
+      "terrain-first-page.png",
+      "abilities-first-page.png",
+      "ui-first-page.png",
+      "mobile-actor.png"
+    ],
+    "errors": [],
+    "scope": "Original artbook display review only; no core/world/save tests."
+  },
+  "actualGame": {
+    "finiteInitial": true,
+    "noPostLoadWorldWrites": true,
+    "runs": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "head": {
+          "x": 768,
+          "y": 438
+        },
+        "headHover": "마라 · 원화 검토 경비\n멀쩡해 보인다\n밝기 94%\n아직 관찰하지 못했다\n명중 80% · Shift: 공식",
+        "transparentHover": "석판 바닥\n밝기 87%",
+        "timeCost": 100,
+        "playerUnmoved": true
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "head": {
+          "x": 688,
+          "y": 316
+        },
+        "headHover": "마라 · 원화 검토 경비\n멀쩡해 보인다\n밝기 94%\n아직 관찰하지 못했다\n명중 80% · Shift: 공식",
+        "transparentHover": "석판 바닥\n밝기 87%",
+        "timeCost": 100,
+        "playerUnmoved": true
+      }
+    ],
+    "errors": [],
+    "scope": "Two-size original-art/portrait/inventory and opaque-head selection diagnosis, one actual talk per initial imprint. Not full regression, whole-state comparison or new save compatibility."
+  },
+  "openedFinalScreens": [
+    {
+      "folder": "art-scene-v319-final",
+      "name": "1440-title.png",
+      "sha256": "1099bacce418719d6c1b8d5575a74bd7cdf1243f263717531230a48110808f39",
+      "opened": true
+    },
+    {
+      "folder": "art-scene-v319-final",
+      "name": "1366-inventory.png",
+      "sha256": "b3d57993cfd46d9355ac87bc7cdbd6181ed481c63e1f38782fd492b76bc8c4bd",
+      "opened": true
+    },
+    {
+      "folder": "art-scene-v319-final",
+      "name": "1366-head-click-society.png",
+      "sha256": "87ab046617807edbcfa0ff33a06a7c21deda54a5cbb6898b1162b7e08e942be3",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-idle-down.png",
+      "sha256": "f6c361af9ed969e262893791772d3e71399934f5720e572db948b0dc08ba4e7c",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-idle-left.png",
+      "sha256": "5de376aa8dd1c4b5c16ddb105571a288215bee9f7aa437ed07bca0f16a8b5c6e",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-idle-right.png",
+      "sha256": "e20a5601f76b95596c3a85b34a8144922da916d55eb4f24c9bf6b0ca5d5f740e",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-idle-up.png",
+      "sha256": "9c547baa0826a4a7b50fd11a6b00f35cb94a2e25500802b9b8164bdb7d68e352",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-walk-up.png",
+      "sha256": "ba524878e049e0b17bbf0f5f4436e6a67229595e3958596d34c4ff17f011facb",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "actors-attack-up.png",
+      "sha256": "f59c93920752412d6896dba2b745c8964cf377800d258927fb18987a9e7ccf99",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "portraits.png",
+      "sha256": "e3bc048e2e442f809f4c18ba24bfa7962dbc7f8a286462cd3d5240f6ad962081",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "weapons.png",
+      "sha256": "ef1110304a29f931c3cfdf654aa4c96ec3163a4e9bb28d56c893ff82aeb8f685",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "terrain-first-page.png",
+      "sha256": "d27638b3e057602e1632ae71506003bcd5b55953304faaa68ffa2f624c1065fd",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "abilities-first-page.png",
+      "sha256": "6d8ecba5d8d0ba578d8119e10f396ddcb7a9efd03337f22b27887d4ead79b139",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "ui-first-page.png",
+      "sha256": "ca65e10d14eedc341bee1b7c7ff64116759283bf51da383c449d2c4d8a2aac20",
+      "opened": true
+    },
+    {
+      "folder": "artbook-v319-final-clean",
+      "name": "mobile-actor.png",
+      "sha256": "ed4546d8c0e740c4a8f61ecfe91e62ca880ba213a1ac0b7a89dbc670199cb9e6",
+      "opened": true
+    }
+  ],
+  "fullRegression": "not-run",
+  "world30": "not-run",
+  "expedition1000": "remains paused; not restarted",
+  "new208WholeSaveCases": "not-run",
+  "notes": [
+    "The large preview also includes unpublished318 minimum stock crafting, with its behavior/save verification deferred.",
+    "First artbook attempt exposed undefined terrain previews; fixed representative routing. A favicon404 was fixed with a local data icon.",
+    "First art scene used hostile dungeon default; corrected finite initial calm guard. No post-load world writes.",
+    "This is not a v1.0.0 release."
+  ]
+}

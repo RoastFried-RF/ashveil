@@ -14,6 +14,8 @@ import NpcRelationsPanel from './NpcRelationsPanel.vue'
 import NpcPsychePanel from './NpcPsychePanel.vue'
 import AppraisalPanel from './AppraisalPanel.vue'
 import ItemIcon from './ItemIcon.vue'
+import CharacterPortrait from './CharacterPortrait.vue'
+import {creatureSprite} from '../render/creature-sprite'
 import ClinicPanel from './ClinicPanel.vue'
 import PrisonerPanel from './PrisonerPanel.vue'
 import CompanionPanel from './CompanionPanel.vue'
@@ -87,6 +89,7 @@ function exchange() {
       <p v-if="!data.people.length&&!data.prisoners.length" class="text-sm">곁에 대화할 사람이 없다. 정착지에서 주민에게 다가가자.</p>
       <div class="flex flex-wrap gap-1"><button v-for="c in data.people" :key="c.id" :data-person-id="c.id" class="dbtn" :class="{ 'df-btn-sel': data.selected?.id === c.id }" @click="choose(c.id)">{{ c.name }}</button></div>
       <template v-if="data.selected">
+        <div class="my-2 flex items-center gap-3"><CharacterPortrait :name="creatureSprite(data.w,data.selected)" :width="48" :height="60" /><p class="font-title text-ash-100">{{ data.selected.name }}</p></div>
         <p class="my-2 text-xs"><span v-if="isCompanion(data.w,data.selected)">동료 · 원소속 </span>{{ factionDef(data.w, data.selected.faction)?.label }} · 국가 관계 {{ reputationBand(data.w, data.selected.faction).label }}</p>
         <p v-if="data.selected.age" class="my-1 text-xs text-ash-400" data-testid="resident-age">연령대 · {{ Math.floor(data.selected.age.years/10)*10 }}대</p>
         <p v-if="data.firstReply" class="my-2 text-xs text-ash-300" data-testid="first-impression">{{ data.firstReply }}</p>

@@ -61,6 +61,8 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const mode of['walk','idle',...(row.attack!==undefined?['attack']:[])]){const poses=row[mode];if(!object(poses)){errors.push('char '+key+'.'+mode+': 방향별 객체가 필요하다');continue}for(const dir of directions)frameList(poses[dir],'char '+key+'.'+mode+'.'+dir)}
   for(const name of['anchor',...(row.attackAnchor!==undefined?['attackAnchor']:[])]){const anchor=row[name];if(!Array.isArray(anchor)||anchor.length!==2||!anchor.every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1))errors.push('char '+key+'.'+name+': 0~1의 좌표2개가 필요하다')}
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
+  if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
+  if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
  }
  for(const[key,url]of Object.entries(ui)){counts.ui++;file(url,'UI '+key)}
  for(const key of new Set(icons)){counts.icons++;if(key.startsWith('mod:')){const match=key.match(/^mod:([^/]+)\/(.+)$/);try{if(!match||!Object.hasOwn(modTextures,key))throw Error('활성 모드 텍스처가 없다');checkedModTextures(match[1]!,{[match[2]!]:modTextures[key]});modFiles.add(key)}catch(error){errors.push('icon '+key+': '+(error as Error).message)}}else if(!Object.hasOwn(frames,key))file('tiles/'+key+'.png','icon '+key)}

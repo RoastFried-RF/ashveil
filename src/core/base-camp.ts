@@ -5,7 +5,7 @@ import { baseLogisticsDecision } from './base-logistics'
 // 실제 보관함을 거점으로 삼고 동료가 자기 몸/배낭으로 작업한다.
 import { channelTurns, multiTurnFactor } from './action-time'
 import type { Action } from './actions'
-import { baseCampDef, refreshBaseLogistics } from './base-camp-state'
+import { baseCampDef, baseCraftStock, refreshBaseCraftStock, refreshBaseLogistics } from './base-camp-state'
 import { capacity } from './body'
 import { isCompanion } from './companion-state'
 import { craftError, stockMaterialQuote, startCraft, workshop } from './crafting'
@@ -98,33 +98,41 @@ export function baseCommandError(w:World,c:Creature):string|null{
  if(w.s.creatures.some((o)=>o.alive&&!o.unconscious&&!o.asleep&&!o.captivity&&o.ai.mode!=='surrender'&&hostile(w,p,o)&&canSee(w,p,o.pos)))return '전투 중에는 새 작업을 배정할 수 없다'
  return null
 }
-export function assignBaseTask(w:World,c:Creature,kind:'craft'|'guard'|'haul'|'gather'|'water'|'fire'|'cancel',recipe?:string,batches=1,item?:string,firePos?:Pos):string|null{
+export function assignBaseTask(w:World,c:Creature,kind:'craft'|'craftStock'|'guard'|'haul'|'gather'|'water'|'fire'|'cancel',recipe?:string,batches=1,item?:string,firePos?:Pos):string|null{
  const error=baseCommandError(w,c);if(error)return error
- if(!['craft','guard','haul','gather','water','fire','cancel'].includes(kind))return '알 수 없는 거점 작업이다'
+ if(!['craft','craftStock','guard','haul','gather','water','fire','cancel'].includes(kind))return '알 수 없는 거점 작업이다'
+ const crafting=kind==='craft'||kind==='craftStock'
  const base=w.s.map.baseCamp!,old=base.tasks[c.id]
  if(kind!=='cancel'&&c.companion!.status!=='employed')return '급료를 먼저 건네야 한다'
  if(c.activity&&(!old||c.workJob?.baseOrder!==old.id&&c.activity.baseOrder!==old.id))return '하던 일을 먼저 마쳐야 한다'
- if(kind==='craft'){
+ if(crafting){
   const r=recipe&&w.db.tryGet<RecipeDef>(recipe)
   if(!r||!r.basic&&!c.recipes?.includes(r.id)||r.passiveTurns||!Number.isSafeInteger(batches)||batches<1||batches>baseCampDef(w).maxBatches)return '알고 있는 즉시 제작법과 작업 횟수를 확인해야 한다'
   if(c.workJob&&c.workJob.baseOrder!==old?.id)return '다른 작업의 남은 진행을 먼저 정리해야 한다'
+  if(kind==='craftStock'&&(r.inputs.some(input=>input.item===r.output.item)||!Number.isSafeInteger(r.output.count)||r.output.count<1))return '입력과 완성품이 다른 개수 제작법에 최소 재고를 맡겨야 한다'
+  if(kind==='craftStock'){
+   const shadow:World={db:w.db,s:{...w.s,map:{...w.s.map,baseCamp:{...base,tasks:{...base.tasks,[c.id]:{id:old?.id??w.s.nextId,kind:'craft',recipe:r.id,craftTarget:batches,remaining:0}}}}}}
+   const stock=baseCraftStock(shadow,c);if(stock?.error)return stock.error
+  }
  }
  if(kind==='fire'&&(!firePos||!nearbyCampfires(w,player(w)).some((p)=>eq(p,firePos))||diagonalBlocked(w,player(w).pos,firePos.x-player(w).pos.x,firePos.y-player(w).pos.y)||campfireAt(w,firePos)?.tile.placed?.owner!==base.owner||cheb(firePos,base.store)>baseCampDef(w).radius))return '곁에 직접 설치한 거점 모닥불을 확인해야 한다'
  if(kind==='water'&&(!Number.isSafeInteger(batches)||batches<1||batches>baseCampDef(w).maxBatches))return '식수 목표 단위를 확인해야 한다'
  if((kind==='haul'||kind==='gather')&&(!item||!w.db.has(item)||w.db.get(item).defType!=='Item'||!Number.isSafeInteger(batches)||batches<1||batches>baseCampDef(w).maxBatches))return '실제 물품 종류와 목표 수량을 확인해야 한다'
  if(c.activity?.baseOrder===old?.id&&c.activity)stopActivity(w,c)
- const resuming=kind==='craft'&&old?.kind==='craft'&&old.recipe===recipe&&c.workJob?.baseOrder===old.id
+ const resuming=crafting&&old?.kind==='craft'&&old.recipe===recipe&&c.workJob?.baseOrder===old.id
  if(old&&c.workJob?.baseOrder===old.id){stopActivity(w,c);if(!resuming)c.workJob=undefined}
  if(kind==='cancel'){delete base.tasks[c.id];c.companion!.order='hold';c.companion!.anchor={...c.pos};return null}
- base.tasks[c.id]={id:resuming?old!.id:w.s.nextId++,kind,firePos:kind==='fire'?{...firePos!}:undefined,fireUid:kind==='fire'?campfireAt(w,firePos!)!.uid:undefined,fireTarget:kind==='fire'?campfireDef(w).workerTarget:undefined,recipe:kind==='craft'?recipe:undefined,item:kind==='haul'||kind==='gather'?item:undefined,targetStock:kind==='haul'||kind==='gather'?batches:undefined,waterTarget:kind==='water'?batches*baseWaterDef(w).unitMl:undefined,remaining:kind==='guard'?0:batches}
+ base.tasks[c.id]={id:resuming?old!.id:w.s.nextId++,kind:kind==='craftStock'?'craft':kind,craftTarget:kind==='craftStock'?batches:undefined,firePos:kind==='fire'?{...firePos!}:undefined,fireUid:kind==='fire'?campfireAt(w,firePos!)!.uid:undefined,fireTarget:kind==='fire'?campfireDef(w).workerTarget:undefined,recipe:crafting?recipe:undefined,item:kind==='haul'||kind==='gather'?item:undefined,targetStock:kind==='haul'||kind==='gather'?batches:undefined,waterTarget:kind==='water'?batches*baseWaterDef(w).unitMl:undefined,remaining:kind==='guard'?0:batches}
+ if(kind==='craftStock')refreshBaseCraftStock(w,c)
  refreshBaseLogistics(w,item)
  refreshBaseWater(w)
  c.companion!.order='defend';c.companion!.anchor={...base.store};c.ai.path=undefined
- log(w,'info',`${c.name}에게 ${kind==='guard'?'거점 방어':kind==='fire'?'실제 모닥불 땔감 보급과 점화':kind==='craft'?`${w.db.get<RecipeDef>(recipe!).label} ${batches}회`:kind==='water'?`식수 ${batches*baseWaterDef(w).unitMl}ml 보급`:`${w.db.item(item!).label} 창고 목표${batches}개 ${kind==='haul'?'운반':'채집'}`}을(를) 맡겼다. 실제 급료와 식량·시간이 필요하다.`);return null
+ log(w,'info',`${c.name}에게 ${kind==='guard'?'거점 방어':kind==='fire'?'실제 모닥불 땔감 보급과 점화':kind==='craftStock'?`${w.db.get<RecipeDef>(recipe!).label} 완성품 최소${batches}개 유지`:kind==='craft'?`${w.db.get<RecipeDef>(recipe!).label} ${batches}회`:kind==='water'?`식수 ${batches*baseWaterDef(w).unitMl}ml 보급`:`${w.db.item(item!).label} 창고 목표${batches}개 ${kind==='haul'?'운반':'채집'}`}을(를) 맡겼다. 실제 급료와 식량·시간이 필요하다.`);return null
 }
 export function startBaseCraft(w:World,c:Creature):string|null{
  const base=w.s.map.baseCamp,task=base?.tasks[c.id],error=baseStoreError(w,c,false)
  if(error)return error
+ const stock=refreshBaseCraftStock(w,c);if(stock?.error)return stock.error
  if(!task||task.kind!=='craft'||task.remaining<=0||c.companion?.status!=='employed'||cheb(c.pos,base!.store)>baseCampDef(w).radius)return '유효한 실제 제작 배정이 없다'
  if(c.workJob&&c.workJob.baseOrder!==task.id)return '다른 작업을 먼저 정리해야 한다'
  const failure=startCraft(w,c,task.recipe!,multiTurnFactor(w,c));if(failure)return failure
@@ -140,6 +148,7 @@ export function baseWorkDecision(w:World,c:Creature,threats:Creature[]):{action?
  if(task.kind==='fire')return baseFireDecision(w,c)
  if(task.kind==='water')return baseWaterDecision(w,c)
  if(task.kind==='haul'||task.kind==='gather')return baseLogisticsDecision(w,c)
+ if(refreshBaseCraftStock(w,c)?.error)return {action:{type:'wait'}}
  const r=w.db.get<RecipeDef>(task.recipe!),output=c.bag.find((i)=>i.def===r.output.item)
  if(output){if(!beside(w,c,base!.store))return{goal:approachBaseStore(w,c)};return transferBase(w,c,'put',output.uid,undefined,true)?{action:{type:'wait'}}:{action:{type:'baseTransfer',direction:'put',uid:output.uid}}}
  if(task.remaining<=0)return null
@@ -180,7 +189,10 @@ export function baseTaskStatus(w:World,c:Creature):string{
  if(c.activity?.kind==='craft')return `작업 중 ${c.workJob?.progress??0}/${c.workJob?.total??0}턴`
  const r=w.db.get<RecipeDef>(task.recipe!),output=c.bag.find((i)=>i.def===r.output.item)
  if(output)return beside(w,c,w.s.map.baseCamp!.store)?transferBase(w,c,'put',output.uid,undefined,true)??'완성한 물품을 창고로 옮긴다':'완성한 물품을 창고로 나른다'
- if(task.remaining<=0)return '배정한 제작과 납품을 마쳤다'
+ const stock=baseCraftStock(w,c)
+ if(stock?.error)return stock.error
+ if(stock&&!stock.needed)return `최소 재고${stock.target}개를 채웠다. 꺼내 쓰면 다시 생산한다`
+ if(!stock&&task.remaining<=0)return '배정한 제작과 납품을 마쳤다'
  const missing=r.inputs.find((i)=>c.bag.filter((b)=>b.def===i.item).reduce((n,b)=>n+b.count,0)<i.count)
  if(missing){const item=tileAt(w,w.s.map.baseCamp!.store).cont?.items.find((i)=>i.def===missing.item);return item?'실제 창고 재료를 배낭으로 나른다':`${w.db.item(missing.item).label} 재료를 기다린다`}
  if(r.materialInputs?.length){if(c.workJob?.recipe===r.id&&(!c.workJob.materialPlan||!materialPlanPresent(w,c,c.workJob.materialPlan,c.workJob.inputs)))return '예약한 실제 원재료를 다시 확인하고 작업을 취소해야 한다';const quote=stockMaterialQuote(w,c,r,tileAt(w,w.s.map.baseCamp!.store).cont?.items??[]);if(quote.error)return quote.error;if(quote.plan?.bindings.some(binding=>!c.bag.some(it=>it.uid===binding.uid)))return '실제 창고 원재료를 배낭으로 나른다'}

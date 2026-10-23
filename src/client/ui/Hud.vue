@@ -2,7 +2,7 @@
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { quickCount, abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
-import { frameCss } from '../render/atlas'
+import {creatureSprite} from '../render/creature-sprite'
 import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
 import { preferences } from '../preferences'
@@ -10,6 +10,7 @@ import { version, world } from '../store'
 import { doAct, hideTip, showTip, startManeuver, toggleWin, useHotbar, wins, type WinKey } from '../ui'
 import Bar from './Bar.vue'
 import ItemIcon from './ItemIcon.vue'
+import CharacterPortrait from './CharacterPortrait.vue'
 
 const d = computed(() => {
   void version.value
@@ -38,7 +39,7 @@ const d = computed(() => {
     return { i, empty: false as const, icon: def.sprite, label: def.label+(ref.fletchingDamaged?' (깃 손상)':''), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {
-    pl, hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
+    pl,portrait:creatureSprite(w,pl), hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
     xp: pl.xp - xpTotalFor(pl.level), xpNext: xpToNext(pl.level) - xpTotalFor(pl.level), level: pl.level, slots,
     points: pl.statPoints, apoints: pl.abilityPoints, wounds: pl.body.wounds.length, cap: hpCap(w, pl),
     // 채널 진행 (12 §2.1): "붕대 감기 3/5턴"
@@ -51,8 +52,6 @@ const d = computed(() => {
 
 // 체력이 깎이면 잠시 옅은 잔상 막대를 남긴다
 const ghost = ref(0)
-const portraitVisible = ref(true)
-const portraitSrc = `${import.meta.env.BASE_URL}art/direction-v303/wanderer-portrait.png`
 let ghostTimer: ReturnType<typeof setTimeout> | undefined
 watch(() => d.value.hp, (now, before) => {
   if (before !== undefined && now < before) {
@@ -82,8 +81,7 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
 
     <div class="hud-vitals">
       <div class="hud-portrait">
-        <div class="pix mb-4 origin-bottom scale-[2.8]" :style="frameCss('av316_original_wanderer_hero_idle_down0', .5)" />
-        <img v-if="portraitVisible" :src="portraitSrc" alt="" @error="portraitVisible = false" />
+        <CharacterPortrait :name="d.portrait" fill />
         <span class="hud-level">LV. {{ d.level }}</span>
       </div>
       <div class="hud-gauges min-w-0 flex-1">

@@ -9,13 +9,12 @@ import ContentChangeReview from './ContentChangeReview.vue'
 import {reviewSeedShare} from '../core/seed-share'
 import {modInstallation,packagesRevision} from './mod-catalog'
 import { preferencesOpen } from './preferences'
-import { frameCss } from './render/atlas'
+import CharacterPortrait from './ui/CharacterPortrait.vue'
 import { IMPRINT_MODE, newGame, player, economyDef, STAT_LABEL, type BackgroundDef, type Stats, type SaveModeDef } from '../core'
 import { checkpointSummaries, beginCheckpointLoad, pendingCheckpoint, createSeedCode, startSharedSeed, inspectDb, chronicle, continueImprint, imprintMods, reviewImprintMods, pendingContentReview, cancelContentReview, hasImprint, saveError, packages, randomSeed, starting, startNew } from './store'
 
 const seed = ref(randomSeed())
 const publicBase = import.meta.env.BASE_URL
-const portraitVisible = ref(true)
 const titleArtVisible = ref(true)
 const titleArtUrl = new URL('art/direction-v303/monastery-title.png', new URL(publicBase, document.baseURI)).href
 const bg = ref<string>('')
@@ -172,8 +171,7 @@ async function cont(token?:string) {
             <div v-if="preview" data-testid="creation-preview">
               <div class="title-passport-top">
                 <div class="title-portrait">
-                  <div class="pix mb-2 origin-bottom scale-[4]" :style="frameCss('av316_original_wanderer_hero_idle_down0', .5)" />
-                  <img v-if="portraitVisible" :src="`${publicBase}art/direction-v303/wanderer-portrait.png`" alt="떠돌이 초상" @error="portraitVisible = false" />
+                  <CharacterPortrait name="original_wanderer_hero" fill />
                 </div>
                 <div class="min-w-0">
                   <p class="title-eyebrow mb-2">떠돌이의 각인</p>
@@ -249,7 +247,8 @@ async function cont(token?:string) {
       </section>
 
       <footer class="title-footer">
-        ASHVEIL · v0.317-dev · 잿빛 숲<br />
+        ASHVEIL · v0.319-dev · 잿빛 숲<br />
+        <a class="underline" :href="`${publicBase}artbook/`" target="_blank" rel="noopener">캐릭터·물품 원화 도감</a><br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />
         보존 자료 출처: <a class="underline" href="https://pingupollas.itch.io/knowledge-temple" target="_blank" rel="noopener">Knowledge Temple</a> · <a class="underline" href="https://pingupollas.itch.io/crawling-depths" target="_blank" rel="noopener">Crawling Depths</a> by pingupollas · <a class="underline" href="https://arex-v.itch.io/damp-dungeons" target="_blank" rel="noopener">Damp Dungeons</a> by arex-v · <a class="underline" href="https://kaishido.itch.io/dark-world" target="_blank" rel="noopener">Dark World</a> by kaishido · <a class="underline" href="https://0x72.itch.io/dungeontileset-ii" target="_blank" rel="noopener">Dungeon Tileset II</a> by 0x72 · <a class="underline" href="https://hypnobius.itch.io/dark-ages-ui" target="_blank" rel="noopener">Dark Ages UI</a> by hypnobius · DCSS 32×32 (CC0)<br />인물과 장소가 이어가는 생존 이야기
       </footer>

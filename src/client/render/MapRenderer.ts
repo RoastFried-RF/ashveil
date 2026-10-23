@@ -6,6 +6,7 @@ import {livingTreeArt} from './living-art'
 import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
+import {spritePixelHit} from './sprite-hit'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -137,9 +138,9 @@ export class MapRenderer {
     this.world.addChild(this.ground, this.deco, this.walls, this.dyn, this.objs, this.glow, this.dark, this.overlay, this.floatLayer)
     this.app.stage.addChild(this.world, this.rain)
     const cv = this.app.canvas
-    cv.addEventListener('pointermove', (e) => this.onHover(this.tileAt(e)))
+    cv.addEventListener('pointermove', (e) => this.onHover(this.creatureAtPointer(e)??this.tileAt(e)))
     cv.addEventListener('pointerleave', () => this.onHover(null))
-    cv.addEventListener('pointerdown', (e) => { const p = this.tileAt(e); if (p) this.onClick(p, e.button, e.ctrlKey || e.metaKey) })
+    cv.addEventListener('pointerdown', (e) => { const p = this.creatureAtPointer(e)??this.tileAt(e); if (p) this.onClick(p, e.button, e.ctrlKey || e.metaKey) })
     cv.addEventListener('contextmenu', (e) => e.preventDefault())
     this.app.ticker.add((tk) => this.tick(tk.deltaMS))
     this.ready = true
@@ -159,6 +160,21 @@ export class MapRenderer {
     const w = this.w
     if (!w || x < 0 || y < 0 || x >= w.s.map.w || y >= w.s.map.h) return null
     return { x, y }
+  }
+
+  private creatureAtPointer(e:PointerEvent):Pos|null{
+    const w=this.w;if(!w)return null
+    const rect=this.app.canvas.getBoundingClientRect(),point={x:e.clientX-rect.left,y:e.clientY-rect.top}
+    const visible=[...this.views.values()].filter(view=>view.root.visible).sort((a,b)=>b.root.zIndex-a.root.zIndex)
+    for(const view of visible){
+      const actor=w.s.creatures.find(actor=>actor.id===view.id)
+      if(!actor||actor.id!==w.s.playerId&&!this.displayVisible.has(actor.pos.y*w.s.map.w+actor.pos.x))continue
+      if(![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
+      // An opaque prop drawn in front still owns its visible pixels.
+      if(this.objs.children.some(child=>child instanceof Sprite&&child.zIndex>view.root.zIndex&&child.visible&&child.alpha>=.95&&spritePixelHit(child,point)))return null
+      return{...actor.pos}
+    }
+    return null
   }
 
   setOpts(o: RenderOpts) {
@@ -500,8 +516,8 @@ export class MapRenderer {
       if (tile.items.length && vis.has(i)) {
         const it = tile.items[tile.items.length - 1]
         const ic = new Sprite(icon(w.db.item(it.def).sprite))
-        ic.width = 12; ic.height = 12
-        ic.position.set(px + 2, py + 3)
+        ic.scale.set(12/Math.max(ic.texture.width,ic.texture.height))
+        ic.position.set(px+(T-ic.width)/2,py+T-2-ic.height)
         const sh = new Graphics().ellipse(px + 8, py + 14, 5, 1.6).fill({ color: 0x000000, alpha: 0.4 })
         this.dyn.addChild(sh, ic)
         if (tile.items.length > 1) this.dyn.addChild(new Graphics().rect(px + 12, py + 2, 2, 2).fill(0xe8d080))
@@ -663,7 +679,7 @@ export class MapRenderer {
       // New bodies contain no invented weapons. Display only the visible actor's real held items.
       for(const [index,slot]of (['main','off']as const).entries()){
         const hand=v.hands[index],held=c.equip[slot]
-        hand.visible=!!v.char?.idle.down[0]?.startsWith('av316_')&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
+        hand.visible=!!v.char?.heldItems&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
         if(hand.visible&&held){hand.texture=tex(itemDef(w,held).sprite);hand.scale.set(14/Math.max(hand.texture.width,hand.texture.height))}
       }
       v.crouched=crouched(w,c)
