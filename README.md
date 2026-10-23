@@ -259,3 +259,5 @@ PNG를 포함한 모드 폴더·ZIP·tar.gz를 같은 원본/해시로 가져온
 ![새 지형·인물·HUD](docs/previews/v303-1440-01-world.png)
 
 ![새 신체 스케치와 상태 표시](docs/previews/v303-art-direction-1705-small-original-anatomy-and-six-states.png)
+
+개발 미리보기 v0.313-dev: 작물 성장 원화31프레임·채소 물리 재배·제작/지도/계약/소지품 탐색·원정 준비 수첩을 큰 묶음으로 구현했다. [새 기능과 검증 대기 범위](docs/feature-ui-v313.md). 기존312의 통합 검증과 구분하며, 사용자 지시에 따라 회귀/실제 화면 테스트는 후속 묶음으로 진행한다.

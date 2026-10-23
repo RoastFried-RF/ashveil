@@ -16,6 +16,9 @@ export const prostheticInstallUid = ref<number | null>(null)
 export const hint = ref<string | null>(null)
 /** 기록 창 크게 보기 (Shift+L, 12 §8) */
 export const logBig = ref(false)
+export const craftSection=ref<'recipes'|'maintenance'|'field'>('recipes')
+export const journalSection=ref<'prisoners'|'interactions'|'contracts'|'log'|'beast'|'pill'|'needs'|'rumor'|'events'|'chron'|'medical'>('needs')
+export const trackedContract=ref<string|null>(null)
 export const tooltip = ref<{ x: number; y: number; title: string; lines: string[]; color?: string } | null>(null)
 
 export interface Targeting { kind: 'ability' | 'shoot' | 'throw' | 'trip' | 'disarm'; id?: string; uid?: number; label: string; targets: number[]; idx: number }
@@ -43,7 +46,7 @@ export function setWin(k: WinKey, open: boolean) {
 /** A new game/continue cannot inherit a previous screen's targets or item UI. */
 export function resetGameUI(){
  for(const k of Object.keys(wins)as WinKey[])wins[k]=false
- winOrder.length=0;targeting.value=null;socialTarget.value=null;prostheticInstallUid.value=null;hint.value=null;tooltip.value=null
+ craftSection.value='recipes';journalSection.value='needs';trackedContract.value=null;winOrder.length=0;targeting.value=null;socialTarget.value=null;prostheticInstallUid.value=null;hint.value=null;tooltip.value=null
 }
 
 /** Clicking or focusing a window makes it the same top window for Escape. */

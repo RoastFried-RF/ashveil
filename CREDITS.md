@@ -154,3 +154,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ## v0.311 풀·풀흙·맨흙 원화
 
 새로 그린9개64px 바닥 프레임과 편집 가능한 SVG/그리기 소스는 `tools/art/direction-v311/`에 있다. PNG는 `public/sprites/original/direction-v311/ground.png`. 기여 권리 범위에서 CC0-1.0으로 제공한다. [라이선스](tools/art/direction-v311/LICENSE.txt) · [출처와 해시](tools/art/direction-v311/provenance.json). 공식 Stoneshard 야영지와 Eslabong 전투 화면의 바닥/인물 대비를 참고했고 해당 게임의 그림·색상 샘플·픽셀은 포함하지 않았다. 기존 원화의 출처 기록은 보존한다.
+
+### v0.313 작물 성장 단계 원화 (구현 중)
+
+귀리·그늘뿌리·흰갓버섯·양배추·감자·순무의31프레임은 이 프로젝트에서 직접 작성한 SVG 경로다. [제작 원본](tools/art/direction-v313/draw-crops.mjs)·[CC0](tools/art/direction-v313/LICENSE.txt)·[출처/검토 상태](tools/art/direction-v313/provenance.json). 참고작의 이미지·팔레트·문양을 복제하지 않았다. 게임 장면 검토는 구현 묶음 뒤 진행한다.

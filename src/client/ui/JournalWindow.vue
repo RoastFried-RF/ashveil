@@ -10,7 +10,7 @@ import {
 import { KIND_CLASS } from '../format'
 import { temperatureTip } from '../info'
 import { act, simulating, version, world } from '../store'
-import { wins } from '../ui'
+import {journalSection as tab,trackedContract,wins} from '../ui'
 import Bar from './Bar.vue'
 import Win from './Win.vue'
 import NpcRelationsPanel from './NpcRelationsPanel.vue'
@@ -18,7 +18,8 @@ import StoryDirectorPanel from './StoryDirectorPanel.vue'
 
 // 탭 (12 §2.3): 지식 · 도감 · 소문 · 사건 · 연대기 (+ 생존 상태 · 전체 기록)
 type Tab = 'prisoners' | 'interactions' | 'contracts' | 'log' | 'beast' | 'pill' | 'needs' | 'rumor' | 'events' | 'chron' | 'medical'
-const tab = ref<Tab>('needs')
+const contractQuery=ref('')
+const contractStatus=ref<'active'|'all'|'closed'>('active')
 const TABS: [Tab, string][] = [['needs', '생존'], ['contracts','계약'], ['prisoners','구조 단서'], ['pill', '지식'], ['interactions','상호작용'], ['beast', '도감'], ['medical', '진료'], ['rumor', '소문'], ['events', '사건'], ['chron', '연대기'], ['log', '기록']]
 const EVENT_LABEL: Record<string, string> = { 'Event.ReaverPatrol': '약탈자 순찰', 'Event.ReaverSearch': '약탈자 수색대 출발', 'Event.StashRaided': '야영지 보관함 약탈', 'Event.Reoccupy': '던전 재점거' }
 
@@ -91,11 +92,12 @@ const d = computed(() => {
     })),
   }
 })
+const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==='all'||(contractStatus.value==='active'?r.status==='active':r.status!=='active'))&&(!contractQuery.value.trim()||(r.label+' '+r.issuer).normalize('NFKC').toLocaleLowerCase('ko').includes(contractQuery.value.trim().normalize('NFKC').toLocaleLowerCase('ko')))).sort((a,b)=>Number(b.id===trackedContract.value)-Number(a.id===trackedContract.value)||Number(a.status!=='active')-Number(b.status!=='active')||a.deadline-b.deadline))
 </script>
 
 <template>
   <Win title="일지" :x="200" :y="90" :width="620" testid="win-journal" @close="wins.journal = false">
-    <StoryDirectorPanel />
+    <StoryDirectorPanel v-if="tab==='events'" />
     <div class="mb-2 flex flex-wrap gap-1">
       <button v-for="[k, l] in TABS" :key="k" class="df shrink-0 whitespace-nowrap px-2 text-xs" :class="tab === k ? 'df-tab-sel text-amber-100' : 'df-tab text-ash-300'" @click="tab = k">{{ l }}</button>
     </div>
@@ -149,8 +151,10 @@ const d = computed(() => {
       </template>
       <template v-else-if="tab === 'contracts'">
         <p class="mb-2 text-ash-400">납품과 취소는 의뢰한 정착지의 상인 곁에서 N 장부로 처리한다. 진행 중인 보수는 시장 장부에 맡겨져 있다.</p>
-        <p v-if="!d.contracts.length">맡은 계약이 없다.</p>
-        <div v-for="r in d.contracts" :key="r.id" class="my-2 border-b border-ash-700 pb-2" data-testid="journal-contract">
+        <div class="contract-tools"><input v-model="contractQuery" type="search" placeholder="계약·의뢰인 찾기" aria-label="계약 검색"><select v-model="contractStatus" aria-label="계약 상태"><option value="active">진행 중</option><option value="closed">마친 계약</option><option value="all">전체</option></select></div>
+        <p v-if="!contracts.length" class="contract-empty">표시할 계약이 없다. 상태 필터와 검색어를 확인하자.</p>
+        <div v-for="r in contracts" :key="r.id" class="my-2 border-b border-ash-700 pb-2" data-testid="journal-contract">
+          <div class="contract-card-top"><span :class="{'contract-urgent':r.status==='active'&&r.deadline-d.now<28800}">{{ r.status==='active'?'남은 '+Math.max(0,Math.ceil((r.deadline-d.now)/1200))+'시간':'마친 기록' }}</span><button v-if="r.status==='active'" class="dbtn" :aria-pressed="trackedContract===r.id" :data-track-contract="r.id" @click="trackedContract=trackedContract===r.id?null:r.id">{{ trackedContract===r.id?'수첩에서 내리기':'수첩에 고정' }}</button></div>
           <p>{{ r.label }} · {{ r.issuer }} · {{ {active:'진행 중',completed:r.kind==='escort'||r.kind==='patrol'||r.kind==='investigate'||r.kind==='eliminate'||r.kind==='sealSource'||r.kind==='rescue'?'보고 완료':'납품 완료',cancelled:'취소',expired:'기한 지남'}[r.status] }}</p>
           <p v-if="r.kind!=='excavate'&&r.kind!=='escort'&&r.kind!=='patrol'&&r.kind!=='investigate'&&r.kind!=='surveyMap'&&r.kind!=='eliminate'&&r.kind!=='sealSource'&&r.kind!=='recover'&&r.kind!=='rescue'">{{ world!.db.item(r.item).label }} {{ r.count }}개 · 보수 {{ r.reward }}{{ d.currency }} · 예치 {{ r.escrow }}{{ d.currency }}</p>
           <template v-if="r.kind==='excavate'">
@@ -270,3 +274,7 @@ const d = computed(() => {
     </div>
   </Win>
 </template>
+
+<style scoped>
+.contract-tools{display:flex;gap:8px;margin-block:12px}.contract-tools input{flex:1;min-width:0}.contract-tools input,.contract-tools select{border:1px solid #62553c;background:#1d1c17;color:#d6c9aa;padding:8px;font-size:11px}.contract-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;color:#9eac8a;font-size:10px}.contract-card-top .contract-urgent{color:#dba073}.contract-empty{border:1px dashed #62553c;color:#b2a68b;padding:20px;text-align:center}
+</style>

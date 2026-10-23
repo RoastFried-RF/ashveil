@@ -15,6 +15,16 @@ import {cycleFocus,focusableIn} from '../input-context'
 import {preferencesOpen} from '../preferences'
 import {definitionInspectorOpen} from '../definition-inspector-ui'
 
+const itemSearch=ref('')
+const itemGroup=ref('all')
+const groups=[['all','전체'],['food','먹을 것'],['medical','의료'],['gear','장비'],['material','재료']] as const
+function matchesItem(it:ItemInst){
+ const w=world.value as World,def=itemDef(w,it),q=itemSearch.value.trim().normalize('NFKC').toLocaleLowerCase('ko')
+ const group=itemGroup.value
+ const category=group==='all'||(group==='food'?!!def.food||!!def.drink:group==='medical'?def.category==='medical'||def.category==='drug':group==='gear'?!!def.slot||!!def.attacks:!!def.rawMaterial||!!def.rawFragment)
+ return category&&(!q||itemLabel(w,it).normalize('NFKC').toLocaleLowerCase('ko').includes(q))
+}
+const searchMatches=computed(()=>{void version.value;return player(world.value as World).bag.filter(matchesItem).length})
 const CELL = 38
 const DOLL: (Slot | null)[][] = [['neck', 'head', 'back'], ['main', 'chest', 'off'], ['ring1', 'hands', 'ring2'], ['belt', 'feet', 'lining']]
 
@@ -377,6 +387,8 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
 
 <template>
   <Win title="소지품" :x="420" :y="70" :width="660" testid="win-inv" @close="wins.inv = false">
+    <div class="inventory-search"><input v-model="itemSearch" type="search" placeholder="지닌 물품 찾기" aria-label="소지품 이름 검색" data-testid="inventory-search"><button v-if="itemSearch||itemGroup!=='all'" class="dbtn" @click="itemSearch='';itemGroup='all'">해제</button></div>
+    <div class="inventory-groups"><button v-for="[id,label] in groups" :key="id" :aria-pressed="itemGroup===id" :class="{'is-active':itemGroup===id}" @click="itemGroup=id">{{ label }}</button><span v-if="itemSearch||itemGroup!=='all'">배낭 {{ searchMatches }}개 더미 표시 · 위치 유지</span></div>
     <div class="flex flex-wrap gap-3">
       <!-- 장비 인형 -->
       <div class="relative shrink-0">
@@ -387,7 +399,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
               <div v-if="s" class="df relative flex h-full w-full items-center justify-center" :class="d.pl.equip[s] ? 'df-slot-sel' : 'df-slot'" data-drop="slot" :data-slot="s" :data-testid="`slot-${s}`">
                 <template v-if="d.pl.equip[s]">
                   <div
-                    class="flex h-full w-full cursor-grab items-center justify-center" v-bind="itemAccess(d.pl.equip[s]!,'equip',s)" @pointerdown="down($event, 'equip', d.pl.equip[s]!, s)" @dblclick="dbl(d.pl.equip[s]!, 'equip', s)"
+                    class="flex h-full w-full cursor-grab items-center justify-center" :class="{'inventory-unmatched':!matchesItem(d.pl.equip[s]!)}" v-bind="itemAccess(d.pl.equip[s]!,'equip',s)" @pointerdown="down($event, 'equip', d.pl.equip[s]!, s)" @dblclick="dbl(d.pl.equip[s]!, 'equip', s)"
                     @contextmenu.prevent="ctx($event, d.pl.equip[s]!, 'equip', s)" @mouseenter="tip($event, d.pl.equip[s]!)" @mousemove="tip($event, d.pl.equip[s]!)" @mouseleave="hideTip"
                   >
                     <ItemIcon :name="d.w.db.item(d.pl.equip[s]!.def).sprite" :size="32" />
@@ -414,7 +426,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
           <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
           <div
             v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-            :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`item-${it.def}`" :data-uid="it.uid" v-bind="itemAccess(it,'bag')"
+            :class="{'opacity-30':drag?.it.uid===it.uid&&drag.moved,'inventory-unmatched':!matchesItem(it),'inventory-matched':(itemSearch||itemGroup!=='all')&&matchesItem(it)}" :data-testid="`item-${it.def}`" :data-uid="it.uid" v-bind="itemAccess(it,'bag')"
             :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
             @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
           >
@@ -463,7 +475,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
         <div v-if="hover?.grid === 'loot'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" />
         <div
           v-for="it in d.grid.items.filter((x) => x.gx !== undefined)" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-          :class="drag?.it.uid === it.uid && drag.moved ? 'opacity-30' : ''" :data-testid="`loot-${it.def}`" v-bind="itemAccess(it,'loot')"
+          :class="{'opacity-30':drag?.it.uid===it.uid&&drag.moved,'inventory-unmatched':!matchesItem(it),'inventory-matched':(itemSearch||itemGroup!=='all')&&matchesItem(it)}" :data-testid="`loot-${it.def}`" v-bind="itemAccess(it,'loot')"
           :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
           @pointerdown="down($event, 'loot', it)" @dblclick="dbl(it, 'loot')" @contextmenu.prevent="ctx($event, it, 'loot')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
         >
@@ -517,3 +529,7 @@ const iconSize = (it: ItemInst) => { const [a, b] = size(it); return Math.min(a,
     </Teleport>
   </Win>
 </template>
+
+<style scoped>
+.inventory-search{display:flex;gap:8px;margin-bottom:8px}.inventory-search input{flex:1;min-width:0;border:1px solid #62553d;background:#191b17;color:#d9ccb0;padding:8px 10px;font-size:11px}.inventory-groups{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:13px}.inventory-groups button{font-size:10px;border:1px solid #4b4431;padding:4px 9px;color:#a89f85;background:#212119}.inventory-groups button.is-active{color:#dfc994;border-color:#9d8351;background:#3b3221}.inventory-groups span{color:#a19679;font-size:9px;margin-left:auto}.inventory-unmatched{opacity:.32;filter:saturate(.2)}.inventory-matched{outline:1px solid #c4ab71;outline-offset:-2px}
+</style>

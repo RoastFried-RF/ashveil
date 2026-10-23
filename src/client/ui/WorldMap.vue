@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { eq, observedCaravans, observedRoadRaids, player, settlementEntryError, seaRoute, worldIndex, worldRoute, type BiomeDef, type Pos, type RegionSiteDef, type World } from '../../core'
+import { allItems,itemDef,metabolicSize,nutritionDef,eq, observedCaravans, observedRoadRaids, player, settlementEntryError, seaRoute, worldIndex, worldRoute, type BiomeDef, type Pos, type RegionSiteDef, type World } from '../../core'
+import {drinkVolume} from '../../core/wash-water'
 import { simulating, version, world } from '../store'
 import { doAct, hint } from '../ui'
 import {worldObservation,worldSurveyError} from '../../core/world-observations'
@@ -29,6 +30,15 @@ const paperMaps=computed(()=>{void version.value;return knownWorldMapDocuments(w
 const paperClaims=computed(()=>{void version.value;return worldMapClaims(w.value)})
 const selectedClaims=computed(()=>{const pos=selected.value;return pos?paperClaims.value.filter(o=>o.index===worldIndex(m.value,pos)):[]})
 const hours = (n: number) => { const minutes = Math.ceil(n * 60); return `${Math.floor(minutes / 60)}시간 ${minutes % 60}분` }
+const reserveHours=ref(6)
+const provision=computed(()=>{
+ void version.value
+ if(!route.value||!selected.value||eq(selected.value,m.value.position))return
+ const c=player(w.value),rule=nutritionDef(w.value),items=allItems(c),time=route.value.hours+reserveHours.value
+ const kcal=items.reduce((n,i)=>n+(itemDef(w.value,i).food?.kcal??0)*i.count,0)
+ const water=items.filter(i=>!itemDef(w.value,i).drink?.alcohol&&!i.waterFrozen).reduce((n,i)=>n+drinkVolume(w.value,i),0)
+ return{time,kcal:Math.floor(kcal),water:Math.floor(water),needKcal:Math.ceil(rule.kcalPerDay*metabolicSize(w.value,c)*rule.activity.walk*time/24),needWater:Math.ceil(rule.waterPerDay*time/24)}
+})
 function choose(p: Pos) { selected.value = { ...p } }
 function pick(e: MouseEvent) {
   const rect = cv.value!.getBoundingClientRect()
@@ -96,6 +106,11 @@ watch([version, selected,showTerritories,nearby], () => nextTick(draw))
       <p v-else class="text-ash-400" data-testid="world-unrecorded">지형과 관찰 시각이 남아 있지 않다. 직접 살펴보거나 여행해서 기록하자.</p>
       <p v-for="claim in selectedClaims" :key="claim.claimId" :class="claim.status==='contradicted'||claim.conflict?'text-red-300':claim.origin==='rumor'?'text-amber-200':'text-sky-300'" data-testid="world-map-claim" :data-origin="claim.origin">{{ claim.title }} · {{ w.db.get<BiomeDef>(claim.cell.biome).label }} · 당시 장막{{ claim.cell.veil }}/기온{{ claim.cell.temperature }}°C · 관찰 {{ fmtClock(claim.seenAt) }} · {{ claim.origin==='document'?'작성':'보고 원기록' }} {{ fmtClock(claim.writtenAt) }} · {{ claim.source }}<span v-if="claim.origin==='document'"> · 신뢰도{{ claim.reliability }}/오차±{{ claim.error }}</span> · {{ claim.status==='verified'?'직접 본 기록과 일치':claim.status==='contradicted'?'직접 본 기록과 다름':'미확인 주장' }}{{ claim.conflict?' · 기록끼리 충돌':'' }}</p>
       <p v-if="route">{{ route.cells.length * 2 }}km · 예상{{ hours(route.hours) }} {{ w.s.map.vessel?'(노 젓기·날씨에 따른 바닷길)':'(당시 관찰/종이 지도 기록으로 예상)' }}</p>
+      <section v-if="provision" class="route-provisions" aria-label="여행 보급 예상" data-testid="route-provisions">
+        <div class="route-provisions-head"><strong>길을 떠나기 전에</strong><label>여유 <select v-model.number="reserveHours" aria-label="여행 여유 시간"><option :value="0">없음</option><option :value="6">6시간</option><option :value="12">12시간</option><option :value="24">하루</option></select></label></div>
+        <div class="route-provision-grid"><div :class="{'is-short':provision.kcal<provision.needKcal}"><span>음식 열량</span><strong>{{ provision.kcal.toLocaleString() }} <small>kcal</small></strong><p>기본 필요 약 {{ provision.needKcal.toLocaleString() }}kcal</p></div><div :class="{'is-short':provision.water<provision.needWater}"><span>지닌 음료</span><strong>{{ provision.water.toLocaleString() }} <small>ml</small></strong><p>기본 필요 약 {{ provision.needWater.toLocaleString() }}ml</p></div></div>
+        <p class="route-provision-note">예상 이동+여유 {{ hours(provision.time) }} 기준. 음식의 생식·부패, 물의 수질을 확인하자. 추위·더위·부상·질병은 소모를 늘린다.</p>
+      </section>
       <p v-else class="text-ash-400">{{ w.s.map.vessel?'배로 갈 바닷길과 부두를 확인하자.':'기록된 지형만으로 경로를 예상할 수 없다. 실제로 여행하며 확인할 수 있다.' }}</p>
       <button v-if="!m.currentRegion && selected && !eq(selected,m.position)" class="dbtn-gold" :disabled="simulating" data-testid="world-travel" @click="travel">{{ w.s.map.vessel?'이곳으로 배 젓기':'이곳으로 걷기' }}</button>
       <button v-if="!m.currentRegion && m.travel && !player(w).activity" class="dbtn" :disabled="simulating" data-testid="resume-world-travel" @click="doAct({ type: 'travel', target: m.travel.destination })">가던 길 계속 ({{ hours(m.travel.totalRemaining / 1200) }})</button>
@@ -114,3 +129,7 @@ watch([version, selected,showTerritories,nearby], () => nextTick(draw))
     <WorldMapWritingPanel />
   </div>
 </template>
+
+<style scoped>
+.route-provisions{margin-block:10px;border:1px solid #5a503b;background:#1b1d17;padding:12px}.route-provisions-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.route-provisions-head strong{font-size:12px;font-weight:400;color:#d5c7a5}.route-provisions-head label{font-size:10px;color:#a79a7c}.route-provisions-head select{background:#24241c;border:1px solid #64573e;color:#d3c49f;padding:3px 6px;margin-left:5px}.route-provision-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.route-provision-grid>div{border-left:2px solid #6c805b;padding-left:9px}.route-provision-grid span{display:block;font-size:10px;color:#a5aa90}.route-provision-grid strong{display:block;font-size:18px;font-weight:400;color:#d9d1ae;margin-top:3px}.route-provision-grid small{font-size:10px}.route-provision-grid p{font-size:10px;color:#9b967f;margin-top:3px}.route-provision-grid .is-short{border-color:#bb8757}.route-provision-grid .is-short strong{color:#dcad7e}.route-provision-note{font-size:10px;line-height:1.7;color:#a49a80;margin-top:12px}
+</style>

@@ -3,6 +3,7 @@ import {creatureSprite} from './creature-sprite'
 import {groundObjectArt,isGroundCrop} from './terrain-art'
 import {treeArt} from './forest-art'
 import {livingTreeArt} from './living-art'
+import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
@@ -438,6 +439,7 @@ export class MapRenderer {
       }
       if(tile.terrainFire&&vis.has(i)){const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
       let s: Sprite | null = null
+      const crop=cropArt(terr,tile,vis.has(i),turnOf(w))
       const groundArt=groundObjectArt(terr,!!tile.searched)
       if (terr.bedding) {
         const bed = new Sprite(tex(groundArt!));bed.position.set(px,py)
@@ -449,7 +451,9 @@ export class MapRenderer {
           this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
         }
       }
-      if (groundArt&&!terr.bedding) {
+      if(crop){
+        const texture=tex(crop.sprite);s=new Sprite(texture);s.anchor.set(.5,1);s.position.set(px+T/2,py+T);s.scale.set(crop.worldHeight/texture.height)
+      } else if (groundArt&&!terr.bedding) {
         s=new Sprite(tex(groundArt));s.anchor.set(.5,1);s.position.set(px+T/2,py+T)
         if(isGroundCrop(terr))s.scale.set(terr.gather&&(tile.cultivation?tile.cultivation.growth<terr.gather.regrowTurns:(tile.gatherAt??0)>turnOf(w))?.6:1)
       } else if (terr.visual) {

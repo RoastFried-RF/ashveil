@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from 'vue'
-import {player,terrainAt,tileAt,inBounds,type World} from '../../core'
+import {player,terrainAt,tileAt,inBounds,turnOf,type World} from '../../core'
 import {cultivationStatus,cultivationWaterQuote,cultivationSubstrateQuote} from '../../core/cultivation'
 import {canSee,hasLos} from '../../core/fov'
 import {diagonalBlocked} from '../../core/path'
@@ -9,7 +9,9 @@ import {drinkVolume} from '../../core/wash-water'
 import {isWaterVessel} from '../../core/water-vessels'
 import {world,version,simulating} from '../store'
 import {doAct} from '../ui'
-const rows=computed(()=>{void version.value;const w=world.value as World,c=player(w);return[{x:0,y:0},...DIRS].map(v=>({x:c.pos.x+v.x,y:c.pos.y+v.y})).filter(p=>inBounds(w,p)&&tileAt(w,p).cultivation&&canSee(w,c,p)&&hasLos(w,c.pos,p)&&!diagonalBlocked(w,c.pos,p.x-c.pos.x,p.y-c.pos.y)).map(pos=>{const status=cultivationStatus(w,pos)!;return{pos,label:terrainAt(w,pos).label,status,substrates:status.rule?.substrate?c.bag.filter(i=>i.def===status.rule!.substrate!.item).map(i=>({uid:i.uid,label:w.db.item(i.def).label,...cultivationSubstrateQuote(w,c,pos,i.uid)})):[],water:c.bag.filter(i=>isWaterVessel(w,i)&&drinkVolume(w,i)>0).map(i=>{const ml=Math.min(drinkVolume(w,i),Math.floor((status.rule?.waterMl??0)-status.waterMl));return{uid:i.uid,label:w.db.item(i.def).label,...cultivationWaterQuote(w,c,pos,i.uid,ml)}})}})})
+import {cropArt} from '../render/crop-art'
+import ItemIcon from './ItemIcon.vue'
+const rows=computed(()=>{void version.value;const w=world.value as World,c=player(w);return[{x:0,y:0},...DIRS].map(v=>({x:c.pos.x+v.x,y:c.pos.y+v.y})).filter(p=>inBounds(w,p)&&tileAt(w,p).cultivation&&canSee(w,c,p)&&hasLos(w,c.pos,p)&&!diagonalBlocked(w,c.pos,p.x-c.pos.x,p.y-c.pos.y)).map(pos=>{const status=cultivationStatus(w,pos)!;return{pos,label:terrainAt(w,pos).label,art:cropArt(terrainAt(w,pos),tileAt(w,pos),true,turnOf(w)),status,substrates:status.rule?.substrate?c.bag.filter(i=>i.def===status.rule!.substrate!.item).map(i=>({uid:i.uid,label:w.db.item(i.def).label,...cultivationSubstrateQuote(w,c,pos,i.uid)})):[],water:c.bag.filter(i=>isWaterVessel(w,i)&&drinkVolume(w,i)>0).map(i=>{const ml=Math.min(drinkVolume(w,i),Math.floor((status.rule?.waterMl??0)-status.waterMl));return{uid:i.uid,label:w.db.item(i.def).label,...cultivationWaterQuote(w,c,pos,i.uid,ml)}})}})})
 </script>
 <template>
   <section v-if="rows.length" class="mb-3 border border-ash-700 p-2 text-xs" data-testid="cultivation-panel">
@@ -17,10 +19,15 @@ const rows=computed(()=>{void version.value;const w=world.value as World,c=playe
     <p class="text-ash-400">물은 성장과 증발에 각각 쓰인다. 지붕 아래·비·0°C 이하에서는 증발하지 않는다.</p>
     <p v-if="(world as World).s.overworld&&(world as World).s.map.kind==='surface'&&!(world as World).s.map.vessel" class="text-ash-400" data-testid="surface-crop-away-rule">자리를 떠난 밭도 그 지역의 비·햇빛·추위에 따라 자란다. 남은 물과 빗물만 쓰며, 돌아와 직접 수확해야 한다.</p>
     <div v-for="row in rows" :key="row.pos.x+','+row.pos.y" class="my-2" :data-crop="row.pos.x+','+row.pos.y">
-      <p>{{ row.label }} {{ row.pos.x }},{{ row.pos.y }} · 성장{{ row.status.progress }}% · 관수{{ Math.round(row.status.waterMl*100)/100 }}ml</p>
-      <p>햇빛{{ Math.round(row.status.light*1000)/10 }}% · {{ row.status.temp }}°C · 현재 증발 최대{{ row.status.evaporationMlPerHour }}ml/시간</p>
-      <p v-if="row.status.soilDiffusion?.maxMlPerEdge" class="text-ash-400">지상 토양 밭은 {{ row.status.soilDiffusion.everyTurns }}턴마다 맞닿은 네 이웃과 남은 물을 최대 {{ row.status.soilDiffusion.maxMlPerEdge }}ml씩 나눈다. 영하·배양목은 제외하며 이미 작물에 옮은 오염은 남는다.</p>
-      <p v-if="row.status.rule?.substrate">배지 수확 {{ row.status.state.remainingCycles }}/{{ row.status.rule.substrate.cycles }}회 남음 · 햇빛 {{ (row.status.rule.maxLight??1)*100 }}% 이하</p>
+      <div class="crop-heading"><ItemIcon v-if="row.art" :name="row.art.sprite" :size="42" /><div><strong>{{ row.label }}</strong><span>{{ row.pos.x }},{{ row.pos.y }} · {{ row.status.ready?'수확 가능':row.status.progress>=65?'여무는 중':row.status.progress>=25?'잎이 자라는 중':'새싹·배양 초기' }}</span></div><b>{{ row.status.progress }}%</b></div>
+      <div class="crop-meter" role="progressbar" :aria-label="row.label+' 성장'" :aria-valuenow="row.status.progress" aria-valuemin="0" aria-valuemax="100"><i :style="{width:row.status.progress+'%'}" /></div>
+      <p class="crop-water">관수 {{ Math.round(row.status.waterMl*100)/100 }}/{{ row.status.rule?.waterMl }}ml <span>햇빛 {{ Math.round(row.status.light*1000)/10 }}% · {{ row.status.temp }}°C</span></p>
+      <details class="crop-rules">
+        <summary>재배 조건·토양 살피기</summary>
+        <p>성장 햇빛 {{ (row.status.rule?.minLight??0)*100 }}~{{ (row.status.rule?.maxLight??1)*100 }}% · {{ row.status.rule?.minTemp }}~{{ row.status.rule?.maxTemp }}°C · 현재 증발 최대 {{ row.status.evaporationMlPerHour }}ml/시간</p>
+        <p v-if="row.status.soilDiffusion?.maxMlPerEdge" class="text-ash-400">지상 토양 밭은 {{ row.status.soilDiffusion.everyTurns }}턴마다 맞닿은 네 이웃과 남은 물을 최대 {{ row.status.soilDiffusion.maxMlPerEdge }}ml씩 나눈다. 영하·배양목은 제외하며 이미 작물에 옮은 오염은 남는다.</p>
+        <p v-if="row.status.rule?.substrate">배지 수확 {{ row.status.state.remainingCycles }}/{{ row.status.rule.substrate.cycles }}회 남음 · 햇빛 {{ (row.status.rule.maxLight??1)*100 }}% 이하</p>
+      </details>
       <div v-if="row.status.state.remainingCycles===0">
         <p v-if="!row.substrates.length">배낭의 실제 목재 하나가 필요하다.</p>
         <button v-for="source in row.substrates" :key="source.uid" class="dbtn" data-testid="crop-substrate" :disabled="simulating||!!source.error" @click="doAct({type:'refreshCropSubstrate',pos:row.pos,uid:source.uid})">{{ source.label }} 하나로 배지 교체 ({{ row.status.rule!.substrate!.turns }}턴)</button>
@@ -37,3 +44,7 @@ const rows=computed(()=>{void version.value;const w=world.value as World,c=playe
     </div>
   </section>
 </template>
+
+<style scoped>
+.crop-heading{display:flex;align-items:center;gap:10px;padding:8px 0 3px}.crop-heading>div{flex:1;min-width:0}.crop-heading strong{display:block;color:#ddd0b1;font-size:13px}.crop-heading span{display:block;color:#a89e84;font-size:10px;margin-top:3px}.crop-heading b{color:#b9c39c;font-size:15px;font-weight:400}.crop-meter{height:5px;background:#191e18;border:1px solid #424c37;margin:5px 0 8px}.crop-meter i{display:block;height:100%;background:#8b9c69}.crop-water{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;color:#a7b9ba;font-size:11px}.crop-water span{color:#b0a78e}.crop-rules{font-size:10px;color:#9f967f;line-height:1.8;margin:7px 0}.crop-rules summary{cursor:pointer;color:#b4a27d}
+</style>

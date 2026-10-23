@@ -30,6 +30,7 @@ import Banners from './ui/Banners.vue'
 import MapWindow from './ui/MapWindow.vue'
 import SideBars from './ui/SideBars.vue'
 import StatusStrip from './ui/StatusStrip.vue'
+import ExpeditionGuide from './ui/ExpeditionGuide.vue'
 import Tooltip from './ui/Tooltip.vue'
 import { closeTopWin, confirmTarget, doAct, hideTip, hint, logBig, setWin, startManeuver, startShoot, socialTarget, targeting, toggleWin, useHotbar, wins, resetGameUI, type WinKey } from './ui'
 import { computeBanners } from './warnings'
@@ -386,6 +387,7 @@ onBeforeUnmount(() => {
       <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
       <div v-if="saveStatus === 'error'" class="df df-celtic max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
       <Banners />
+      <ExpeditionGuide v-if="!over&&!hover&&!targeting" />
       <HoverInfo v-if="hover" :pos="hover" :detail="shift" />
     </div>
 

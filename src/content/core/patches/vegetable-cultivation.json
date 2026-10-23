@@ -1,0 +1,77 @@
+[
+  {
+    "op": "add",
+    "target": "Terrain.CabbagePlot",
+    "path": "/cultivation",
+    "value": {
+      "minLight": 0.12,
+      "minTemp": 2,
+      "maxTemp": 32,
+      "waterMl": 1200,
+      "maxSalinity": 2,
+      "rainMlPerHour": 120
+    }
+  },
+  {
+    "op": "add",
+    "target": "Terrain.CabbagePlot",
+    "path": "/description",
+    "value": "새로 심은 양배추는 햇빛12% 이상·2~32°C·성장 주기당 물1200ml로 자란다. 비·증발·토양 수분 이동과 관수 오염을 적용한다. 예전 밭의 수확 시각은 유지한다."
+  },
+  {
+    "op": "replace",
+    "target": "Item.CabbageSeed",
+    "path": "/description",
+    "value": "빈 흙에 심는다. 새 양배추 밭은 햇빛12% 이상·2~32°C·유효 성장5일·실제 물1200ml가 필요하다."
+  },
+  {
+    "op": "add",
+    "target": "Terrain.PotatoPlot",
+    "path": "/cultivation",
+    "value": {
+      "minLight": 0.12,
+      "minTemp": 3,
+      "maxTemp": 32,
+      "waterMl": 1000,
+      "maxSalinity": 2,
+      "rainMlPerHour": 120
+    }
+  },
+  {
+    "op": "add",
+    "target": "Terrain.PotatoPlot",
+    "path": "/description",
+    "value": "새로 심은 감자는 햇빛12% 이상·3~32°C·성장 주기당 물1000ml로 자란다. 비·증발·토양 수분 이동과 관수 오염을 적용한다. 예전 밭의 수확 시각은 유지한다."
+  },
+  {
+    "op": "replace",
+    "target": "Item.PotatoSeed",
+    "path": "/description",
+    "value": "빈 흙에 심는다. 새 감자 밭은 햇빛12% 이상·3~32°C·유효 성장5일·실제 물1000ml가 필요하다."
+  },
+  {
+    "op": "add",
+    "target": "Terrain.TurnipPlot",
+    "path": "/cultivation",
+    "value": {
+      "minLight": 0.1,
+      "minTemp": 0,
+      "maxTemp": 32,
+      "waterMl": 800,
+      "maxSalinity": 2,
+      "rainMlPerHour": 120
+    }
+  },
+  {
+    "op": "add",
+    "target": "Terrain.TurnipPlot",
+    "path": "/description",
+    "value": "새로 심은 순무는 햇빛10% 이상·0~32°C·성장 주기당 물800ml로 자란다. 비·증발·토양 수분 이동과 관수 오염을 적용한다. 예전 밭의 수확 시각은 유지한다."
+  },
+  {
+    "op": "replace",
+    "target": "Item.TurnipSeed",
+    "path": "/description",
+    "value": "빈 흙에 심는다. 새 순무 밭은 햇빛10% 이상·0~32°C·유효 성장5일·실제 물800ml가 필요하다."
+  }
+]
