@@ -19,6 +19,7 @@ import {planNpcAbduction,finishNpcAbduction,observeAbductionTarget} from './npc-
 import {acceptRescue,reportRescue,rescueRemainsQuote,surveyRescueRemains} from './rescue-contracts'
 import {player} from './ctx'
 import {assignCompanionRecovery,collectRecoveryCargo,companionRecoveryFetch,companionRecoveryReturn,companionRecoverySearchError,stopCompanionRecovery} from './companion-recovery'
+import {requestCompanionCare,type CompanionCareRequest} from './companion-care'
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
 import {acceptBounty,questionBounty,reportBounty,surveyBounty} from './bounty-contracts'
@@ -272,6 +273,7 @@ export type Action =
   | { type:'wakePrisoner';target:number }
   | { type:'prisoner';target:number;operation:import('./types').PrisonerOperation;ropeUid?:number }
   | { type:'hireCompanion';target:number }
+  | {type:'companionCare';target:number;request:CompanionCareRequest;expectedUid:number;expectedTurns:number;expectedQuality:number}
   | { type:'payCompanion';target:number }
   | { type:'dismissCompanion';target:number }
   | { type:'commandCompanion';target:number;order:import('./types').CompanionOrder }
@@ -643,6 +645,12 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (!keeper) return FAIL('침대 주인을 찾을 수 없다')
       const err = rentInnBed(w, c, keeper, a.bed, a.expectedFee,a.periods)
       return err ? FAIL(err) : { ok: true, tu: 100 }
+    }
+    case 'companionCare':{
+      if(c.id!==w.s.playerId)return FAIL('내 동료에게만 응급 처치를 부탁할 수 있다')
+      const provider=creatureById(w,a.target);if(!provider)return FAIL('동료가 곁에 없다')
+      const error=requestCompanionCare(w,provider,a.request,a.expectedUid,a.expectedTurns,a.expectedQuality)
+      return error?FAIL(error):FREE
     }
     case 'clinic': {
       const doctor = creatureById(w, a.target)

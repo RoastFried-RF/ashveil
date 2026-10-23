@@ -132,6 +132,7 @@ export * from './cold-confusion'
 
 export * from './companion-state'
 export * from './companions'
+export * from './companion-care'
 
 export * from './companion-bond-state'
 export * from './companion-bonds'

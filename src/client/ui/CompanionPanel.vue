@@ -4,6 +4,7 @@ import { companionAccess, hireQuote, isCompanion, itemLabel, player, turnOf, typ
 import { simulating, version, world } from '../store'
 import { doAct } from '../ui'
 import CompanionCartographyPanel from './CompanionCartographyPanel.vue'
+import CompanionCarePanel from './CompanionCarePanel.vue'
 const props=defineProps<{personId:number}>()
 const data=computed(()=>{void version.value;const w=world.value as World,c=w.s.creatures.find((c)=>c.id===props.personId)!;const now=turnOf(w),trial=Math.max(0,Math.ceil(((c.companion?.trialUntil??0)-now)/1200)),afterTrial=Math.max(0,Math.ceil(((c.companion?.paidUntil??0)-Math.max(now,c.companion?.trialUntil??0))/1200));return{w,c,trial,afterTrial,bound:isCompanion(w,c),quote:hireQuote(w,c),access:companionAccess(w,c),hours:Math.max(0,Math.ceil(((c.companion?.paidUntil??0)-turnOf(w))/1200)),bag:player(w).bag}})
 </script>
@@ -23,6 +24,7 @@ const data=computed(()=>{void version.value;const w=world.value as World,c=w.s.c
       </div>
       <details class="mt-2 text-xs"><summary>배낭 물품 건네기 · 한 묶음/1턴</summary><button v-for="item in data.bag" :key="item.uid" class="dbtn m-1" :disabled="simulating||!!data.access" :data-give-uid="item.uid" @click="doAct({type:'giveCompanion',target:personId,uid:item.uid})">{{ itemLabel(data.w,item) }} ×{{ item.count }}</button></details>
       <CompanionCartographyPanel :person-id="personId" />
+      <CompanionCarePanel :person-id="personId" />
       <p v-if="data.access" class="my-1 text-xs text-red-300">{{ data.access }}</p>
     </template>
     <template v-else>
