@@ -439,7 +439,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   // 기본 공격은 무기 기력 전부, 능력은 능력 비용으로 대체 (07 §2.7 · §6)
   if (!opts.paid && !opts.counter) a.needs.energy = Math.max(0, a.needs.energy - atk.energy * (a.breakdown?.kind === 'berserk' ? 1.5 : 1))
   a.facing = dirIndex(d.pos.x - a.pos.x, d.pos.y - a.pos.y)
-  fx(w, { k: 'attack', id: a.id, target: d.id, turn })
+  fx(w, { k: 'attack', id: a.id, target: d.id, turn,...(opts.ranged?{ranged:true,...(wl.throwing?{throwing:true}:{})}:{}) })
   emitNoise(w, a.pos, atk.noise ?? 6, a.id)
   d.ai.alertTurn = turn
   noteFight(w, a, d)

@@ -46,6 +46,7 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
  for(const key of['sheets','frames','anims','chars','ui']){const row=manifest[key];if(!object(row)){errors.push('sprites.json.'+key+' 객체가 필요하다');records[key]={}}else records[key]=row}
  const{sheets,frames,anims,chars,ui}=records as Record<'sheets'|'frames'|'anims'|'chars'|'ui',RecordValue>,sizes=new Map<string,ReturnType<typeof pngSize>|null>()
  for(const[key,url]of Object.entries(sheets)){counts.sheets++;sizes.set(key,file(url,'sheet '+key))}
+ if(manifest.characterSheetHistory!==undefined&&(!Array.isArray(manifest.characterSheetHistory)||manifest.characterSheetHistory.some(key=>typeof key!=='string'||!Object.hasOwn(sheets,key))))errors.push('characterSheetHistory: 등록된 sheet 목록이 필요하다')
  if(manifest.sheetSizes!==undefined){
   if(!object(manifest.sheetSizes))errors.push('sheetSizes: 시트별 PNG 크기 객체가 필요하다')
   else{
@@ -73,10 +74,20 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
+  if(row.motions!==undefined){
+   if(!object(row.motions))errors.push('char '+key+'.motions: 동작별 객체가 필요하다')
+   else for(const[name,poses]of Object.entries(row.motions)){
+    if(!['block','hurt','crouchDown','crouchWalk','stand','work','use','fall','rise','sleep','shoot','throw','interact'].includes(name))errors.push('char '+key+'.motions: 알 수 없는 동작 '+name)
+    if(!object(poses))errors.push('char '+key+'.motions.'+name+': 방향별 객체가 필요하다')
+    else for(const dir of directions)frameList(poses[dir],'char '+key+'.motions.'+name+'.'+dir)
+   }
+  }
   if(row.frameTransforms!==undefined){
    if(!object(row.frameTransforms))errors.push('char '+key+'.frameTransforms: 포즈별 객체가 필요하다')
    else for(const[frame,value]of Object.entries(row.frameTransforms)){
     if(!Object.hasOwn(frames,frame)||!object(value)||!Array.isArray(value.anchor)||value.anchor.length!==2||!value.anchor.every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1)||typeof value.scale!=='number'||!Number.isFinite(value.scale)||value.scale<=0)errors.push('char '+key+'.frameTransforms.'+frame+': 실제 frame/0~1발 위치/양수 배율이 필요하다')
+    if(object(value)&&value.mainHand!==undefined&&(!Array.isArray(value.mainHand)||value.mainHand.length!==2||!value.mainHand.every(n=>typeof n==='number'&&Number.isFinite(n))))errors.push('char '+key+'.frameTransforms.'+frame+'.mainHand: 유한 좌표2개가 필요하다')
+    if(object(value)&&value.flipX!==undefined&&typeof value.flipX!=='boolean')errors.push('char '+key+'.frameTransforms.'+frame+'.flipX: boolean이 필요하다')
    }
   }
  }

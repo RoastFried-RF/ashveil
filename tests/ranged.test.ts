@@ -26,6 +26,7 @@ describe('석궁 장전의 시간·탄약·저장', () => {
     const { w, p, bow, ammo, target } = setup(), energy = p.needs.energy, hp = target.hp
     expect(perform(w, p, { type: 'shoot', target: target.id }).ok).toBe(true)
     expect(p.activity?.kind).toBe('reload'); expect(p.activity?.total).toBe(4); expect(ammo.count).toBe(6); expect(p.needs.energy).toBe(energy); expect(target.hp).toBe(hp)
+    expect(w.s.fx.some(e=>e.k==='attack'&&e.id===p.id)).toBe(false)
     finish(w); expect(ammo.count).toBe(5); expect(bow.loadedAmmo).toBe('Item.Bolt'); expect(projectileReady(w, p, bow)).toBe(true)
   })
   it('중단은 탄약을 남기고 중간 저장 후 완료 상태는 같다', () => {
@@ -36,6 +37,7 @@ describe('석궁 장전의 시간·탄약·저장', () => {
   it('장전한 탄약만 한 발 쓰고 다음 사격 입력은 다시 장전한다', () => {
     const { w, p, bow, ammo, target } = setup(); perform(w, p, { type: 'reload', uid: bow.uid }); finish(w)
     expect(perform(w, p, { type: 'shoot', target: target.id }).ok).toBe(true); expect(bow.loadedAmmo).toBeUndefined(); expect(ammo.count).toBe(5)
+    expect(w.s.fx.find(e=>e.k==='attack'&&e.id===p.id)).toMatchObject({ranged:true})
     const energy = p.needs.energy; expect(perform(w, p, { type: 'shoot', target: target.id }).ok).toBe(true); expect(p.activity?.kind).toBe('reload'); expect(p.needs.energy).toBe(energy)
   })
   it('마지막 탄약이 배낭에서 사라져도 장전된 한 발은 쏠 수 있다', () => {

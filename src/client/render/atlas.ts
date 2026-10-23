@@ -3,6 +3,7 @@
 import { Assets, Rectangle, Texture } from 'pixi.js'
 import manifest from '../sprites.json'
 import {modTextureUrl} from '../mod-texture-display'
+import type {MotionName} from './character-motion'
 
 export interface CharDef {
   walk: Record<Dir, string[]>
@@ -23,7 +24,8 @@ export interface CharDef {
   /** Separately authored portrait frame; full-body idle is the fallback. */
   portrait?:string
   /** Immutable generated atlases may use different crop sizes; each pose keeps its foot pivot. */
-  frameTransforms?:Record<string,{anchor:[number,number];scale:number}>
+  frameTransforms?:Record<string,{anchor:[number,number];scale:number;mainHand?:[number,number];flipX?:boolean}>
+  motions?:Partial<Record<Exclude<MotionName,'walk'|'idle'|'attack'>,Record<Dir,string[]>>>
 }
 export type Dir = 'down' | 'left' | 'right' | 'up'
 
@@ -34,6 +36,7 @@ const M = manifest as unknown as {
   chars: Record<string, CharDef>
   ui: Record<string, string>
   sheetSizes?:Record<string,[number,number]>
+  characterSheetHistory?:string[]
 }
 
 export const anims = M.anims
@@ -58,7 +61,15 @@ export function base(): string {
 export async function loadAtlas(iconNames: string[]) {
   const ticket=++atlasGeneration
   const b = base()
-  const sheetUrls = Object.entries(M.sheets).map(([k, v]) => [k, b + v] as const)
+  const retired=new Set(M.characterSheetHistory??[]),required=new Set<string>()
+  const need=(key:string)=>{const frame=M.frames[key];if(frame)required.add(frame[0])}
+  for(const character of Object.values(M.chars)){
+    for(const clip of [character.walk,character.idle,character.attack,...Object.values(character.motions??{})])if(clip)for(const frames of Object.values(clip))frames.forEach(need)
+    if(character.portrait)need(character.portrait)
+  }
+  for(const animation of Object.values(M.anims))animation.frames.forEach(need)
+  iconNames.forEach(need)
+  const sheetUrls = Object.entries(M.sheets).filter(([key])=>!retired.has(key)||required.has(key)).map(([k, v]) => [k, b + v] as const)
   const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]&&!M.chars[n]&&!M.anims[n]).map((n) => [n, iconUrl(n)] as const)
   const all = await Assets.load([...sheetUrls.map((x) => x[1]), ...iconUrls.map((x) => x[1])])
   if(ticket!==atlasGeneration)return false

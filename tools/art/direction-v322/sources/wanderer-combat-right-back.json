@@ -1,0 +1,519 @@
+{
+  "attempts": [
+    {
+      "original": "/workspace/generated_images/exec-af80b8dd-0b4a-444c-8633-b1eec950d5e1.png",
+      "sha256": "73193bd7fa834d94dd5595a37b379465faffcdc06f60505d9845c7b04e668718",
+      "input": "public/sprites/original/direction-v321/wanderer.png",
+      "prompt": "Edit own Ashveil character animation from attached reference. Same person, clothes, face, adult proportions and detailed pixel painting. Transparent PNG. EXACTLY FOUR horizontal rows, EXACTLY EIGHT isolated full-body sprites in EVERY row (32sprites total). Each sprite fully separate with generous transparent gutters. No text, labels, grid, props, shadows or cropping. Same scale and anatomy throughout. Do not add extra rows or columns. Only TWO directions: first2rows RIGHT, last2rows BACK view. Row1:8 smooth attack frames from guard through anticipation, extension, impact, followthrough, retract to guard. Row2:first4 defensive BLOCK frames (raise arms, brace, recoil, recover), last4 HURT frames (recoil, lean back, return halfway, neutral). Row3:8 BACK-view attack frames. Row4:first4BACK-view block then4BACK-view hurt. Feet remain planted. Hands empty, game draws weapons. No gore. Smooth small differences between adjacent poses. Atlas is four rows by eight columns with visible transparent gaps. Exactly32 separate figures. Preserve reference identity; no redesign.",
+      "accepted": false,
+      "installed": null,
+      "reason": "('Expected separated pose columns', PosixPath('/workspace/generated_images/exec-af80b8dd-0b4a-444c-8633-b1eec950d5e1.png'), 0, [[22, 171], [205, 359], [383, 538], [560, 1080], [1110, 1259], [1293, 1426]])"
+    },
+    {
+      "original": "/workspace/generated_images/exec-a2a6d09a-90f7-455f-99ac-316433bb79f1.png",
+      "sha256": "b24b9521a4cd2d69fc1dddefa93faf103b27a3446467cda98032326ecab0e462",
+      "input": "public/sprites/original/direction-v321/wanderer.png",
+      "prompt": "Edit own Ashveil character animation from attached reference. Same person, clothes, face, adult proportions and detailed pixel painting. Transparent PNG. EXACTLY FOUR horizontal rows, EXACTLY EIGHT isolated full-body sprites in EVERY row (32sprites total). Each sprite fully separate with generous transparent gutters. No text, labels, grid, props, shadows or cropping. Same scale and anatomy throughout. Do not add extra rows or columns. Only TWO directions: first2rows RIGHT, last2rows BACK view. Row1:8 smooth attack frames from guard through anticipation, extension, impact, followthrough, retract to guard. Row2:first4 defensive BLOCK frames (raise arms, brace, recoil, recover), last4 HURT frames (recoil, lean back, return halfway, neutral). Row3:8 BACK-view attack frames. Row4:first4BACK-view block then4BACK-view hurt. Feet remain planted. Hands empty, game draws weapons. No gore. Smooth small differences between adjacent poses. Atlas is four rows by eight columns with visible transparent gaps. Exactly32 separate figures. Preserve reference identity; no redesign. CRITICAL spacing: draw all figures SMALLER and leave at least25percent of each cell width transparent on both sides. Even fully extended arms or a horizontal lying body must fit inside65percent of cell width. Keep equal head size across all poses. No silhouette may touch a neighbor.",
+      "accepted": true,
+      "installed": "public/sprites/original/direction-v322/wanderer-combat-right-back.png",
+      "poses": [
+        [
+          {
+            "frame": [
+              35,
+              52,
+              122,
+              215
+            ],
+            "anchor": [
+              0.48360655737704916,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 0,
+            "column": 0
+          },
+          {
+            "frame": [
+              207,
+              52,
+              137,
+              215
+            ],
+            "anchor": [
+              0.5036496350364964,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 0,
+            "column": 1
+          },
+          {
+            "frame": [
+              386,
+              54,
+              148,
+              213
+            ],
+            "anchor": [
+              0.49324324324324326,
+              0.9906103286384976
+            ],
+            "bodyHeight": 209,
+            "row": 0,
+            "column": 2
+          },
+          {
+            "frame": [
+              564,
+              55,
+              176,
+              212
+            ],
+            "anchor": [
+              0.48295454545454547,
+              0.9905660377358491
+            ],
+            "bodyHeight": 208,
+            "row": 0,
+            "column": 3
+          },
+          {
+            "frame": [
+              756,
+              54,
+              173,
+              213
+            ],
+            "anchor": [
+              0.4682080924855491,
+              0.9906103286384976
+            ],
+            "bodyHeight": 209,
+            "row": 0,
+            "column": 4
+          },
+          {
+            "frame": [
+              937,
+              55,
+              147,
+              212
+            ],
+            "anchor": [
+              0.4217687074829932,
+              0.9905660377358491
+            ],
+            "bodyHeight": 208,
+            "row": 0,
+            "column": 5
+          },
+          {
+            "frame": [
+              1124,
+              55,
+              130,
+              212
+            ],
+            "anchor": [
+              0.47692307692307695,
+              0.9905660377358491
+            ],
+            "bodyHeight": 208,
+            "row": 0,
+            "column": 6
+          },
+          {
+            "frame": [
+              1306,
+              54,
+              115,
+              214
+            ],
+            "anchor": [
+              0.5217391304347826,
+              0.9906542056074766
+            ],
+            "bodyHeight": 210,
+            "row": 0,
+            "column": 7
+          }
+        ],
+        [
+          {
+            "frame": [
+              34,
+              322,
+              126,
+              215
+            ],
+            "anchor": [
+              0.5079365079365079,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 1,
+            "column": 0
+          },
+          {
+            "frame": [
+              212,
+              323,
+              136,
+              214
+            ],
+            "anchor": [
+              0.5220588235294118,
+              0.9906542056074766
+            ],
+            "bodyHeight": 210,
+            "row": 1,
+            "column": 1
+          },
+          {
+            "frame": [
+              395,
+              322,
+              137,
+              214
+            ],
+            "anchor": [
+              0.45985401459854014,
+              0.9906542056074766
+            ],
+            "bodyHeight": 210,
+            "row": 1,
+            "column": 2
+          },
+          {
+            "frame": [
+              575,
+              322,
+              139,
+              215
+            ],
+            "anchor": [
+              0.460431654676259,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 1,
+            "column": 3
+          },
+          {
+            "frame": [
+              785,
+              326,
+              136,
+              211
+            ],
+            "anchor": [
+              0.40441176470588236,
+              0.990521327014218
+            ],
+            "bodyHeight": 207,
+            "row": 1,
+            "column": 4
+          },
+          {
+            "frame": [
+              957,
+              326,
+              147,
+              210
+            ],
+            "anchor": [
+              0.4013605442176871,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 1,
+            "column": 5
+          },
+          {
+            "frame": [
+              1132,
+              323,
+              126,
+              214
+            ],
+            "anchor": [
+              0.46825396825396826,
+              0.9906542056074766
+            ],
+            "bodyHeight": 210,
+            "row": 1,
+            "column": 6
+          },
+          {
+            "frame": [
+              1306,
+              322,
+              115,
+              215
+            ],
+            "anchor": [
+              0.5130434782608696,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 1,
+            "column": 7
+          }
+        ],
+        [
+          {
+            "frame": [
+              41,
+              585,
+              120,
+              216
+            ],
+            "anchor": [
+              0.44166666666666665,
+              0.9907407407407407
+            ],
+            "bodyHeight": 212,
+            "row": 2,
+            "column": 0
+          },
+          {
+            "frame": [
+              210,
+              590,
+              134,
+              210
+            ],
+            "anchor": [
+              0.5,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 2,
+            "column": 1
+          },
+          {
+            "frame": [
+              386,
+              586,
+              146,
+              215
+            ],
+            "anchor": [
+              0.4863013698630137,
+              0.9906976744186047
+            ],
+            "bodyHeight": 211,
+            "row": 2,
+            "column": 2
+          },
+          {
+            "frame": [
+              565,
+              591,
+              180,
+              210
+            ],
+            "anchor": [
+              0.3888888888888889,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 2,
+            "column": 3
+          },
+          {
+            "frame": [
+              767,
+              591,
+              142,
+              210
+            ],
+            "anchor": [
+              0.5,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 2,
+            "column": 4
+          },
+          {
+            "frame": [
+              940,
+              591,
+              150,
+              210
+            ],
+            "anchor": [
+              0.5133333333333333,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 2,
+            "column": 5
+          },
+          {
+            "frame": [
+              1131,
+              587,
+              125,
+              214
+            ],
+            "anchor": [
+              0.464,
+              0.9906542056074766
+            ],
+            "bodyHeight": 210,
+            "row": 2,
+            "column": 6
+          },
+          {
+            "frame": [
+              1304,
+              585,
+              114,
+              216
+            ],
+            "anchor": [
+              0.4824561403508772,
+              0.9907407407407407
+            ],
+            "bodyHeight": 212,
+            "row": 2,
+            "column": 7
+          }
+        ],
+        [
+          {
+            "frame": [
+              42,
+              837,
+              122,
+              210
+            ],
+            "anchor": [
+              0.47540983606557374,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 3,
+            "column": 0
+          },
+          {
+            "frame": [
+              218,
+              837,
+              132,
+              210
+            ],
+            "anchor": [
+              0.44696969696969696,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 3,
+            "column": 1
+          },
+          {
+            "frame": [
+              394,
+              840,
+              140,
+              207
+            ],
+            "anchor": [
+              0.5,
+              0.9903381642512077
+            ],
+            "bodyHeight": 203,
+            "row": 3,
+            "column": 2
+          },
+          {
+            "frame": [
+              571,
+              840,
+              133,
+              207
+            ],
+            "anchor": [
+              0.48120300751879697,
+              0.9903381642512077
+            ],
+            "bodyHeight": 203,
+            "row": 3,
+            "column": 3
+          },
+          {
+            "frame": [
+              773,
+              845,
+              145,
+              202
+            ],
+            "anchor": [
+              0.4413793103448276,
+              0.9900990099009901
+            ],
+            "bodyHeight": 198,
+            "row": 3,
+            "column": 4
+          },
+          {
+            "frame": [
+              946,
+              842,
+              156,
+              205
+            ],
+            "anchor": [
+              0.42948717948717946,
+              0.9902439024390244
+            ],
+            "bodyHeight": 201,
+            "row": 3,
+            "column": 5
+          },
+          {
+            "frame": [
+              1129,
+              840,
+              132,
+              207
+            ],
+            "anchor": [
+              0.4696969696969697,
+              0.9903381642512077
+            ],
+            "bodyHeight": 203,
+            "row": 3,
+            "column": 6
+          },
+          {
+            "frame": [
+              1307,
+              837,
+              111,
+              210
+            ],
+            "anchor": [
+              0.4774774774774775,
+              0.9904761904761905
+            ],
+            "bodyHeight": 206,
+            "row": 3,
+            "column": 7
+          }
+        ]
+      ]
+    }
+  ],
+  "id": "wanderer-combat-right-back",
+  "role": "wanderer",
+  "mode": "combat",
+  "directions": [
+    "right",
+    "up"
+  ],
+  "accepted": true
+}

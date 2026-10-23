@@ -2742,7 +2742,7 @@ export type FxEvent =
   | { k: 'dmg'; id: number; v: number; crit?: boolean; text?: string; turn: number }
   | { k: 'miss' | 'block' | 'parry' | 'deflect'; id: number; turn: number }
   | { k: 'status'; id: number; text: string; color: string; turn: number }
-  | { k: 'attack'; id: number; target: number; turn: number }
+  | { k: 'attack'; id: number; target: number; turn: number; ranged?:boolean;throwing?:boolean }
   | { k: 'move'; id: number; from: Pos; to: Pos; turn: number }
   | { k: 'death'; id: number; turn: number }
   | { k: 'level'; id: number; turn: number }

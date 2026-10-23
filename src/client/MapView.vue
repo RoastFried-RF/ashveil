@@ -6,6 +6,7 @@ import { loadAtlas } from './render/atlas'
 import { mapIconKeys } from './render/terrain-art'
 import { MapRenderer, type RenderOpts } from './render/MapRenderer'
 import { preferences } from './preferences'
+import {startActionObservation} from '../core/action-observations'
 import { version, world } from './store'
 
 const props = defineProps<{ opts: RenderOpts }>()
@@ -15,12 +16,14 @@ const loading = ref(true)
 let r: MapRenderer | null = null
 let disposed=false
 let resizeObserver:ResizeObserver|undefined
+let stopObserving:(()=>void)|undefined
 const debugWindow=window as unknown as {render_game_presentation?:()=>ReturnType<MapRenderer['presentation']>|null}
 const observePresentation=()=>r?.presentation()??null
 
 onMounted(async () => {
   const w = world.value
   if (!host.value || !w) return
+  stopObserving=startActionObservation(w)
   const creatureIcons=w.db.all<CreatureDef>('Creature').filter(c=>!c.char).flatMap(c=>Array.isArray(c.sprite)?c.sprite:c.sprite?[c.sprite]:[])
   const icons = [...mapIconKeys, ...creatureIcons, ...w.db.all<ItemDef>('Item').map((i) => i.sprite), ...w.db.all<AbilityDef>('Ability').map((a) => a.icon)]
   if(!await loadAtlas(icons)||disposed)return
@@ -43,7 +46,7 @@ watch(preferences, () => { if (r && world.value) r.sync(world.value) })
 watch(version, () => { if (r && world.value) r.sync(world.value) })
 watch(() => props.opts, (o) => r?.setOpts(o), { deep: true })
 
-onBeforeUnmount(() => { disposed=true;emit('motion',false);resizeObserver?.disconnect();r?.destroy(); r = null;if(debugWindow.render_game_presentation===observePresentation)delete debugWindow.render_game_presentation })
+onBeforeUnmount(() => { disposed=true;stopObserving?.();emit('motion',false);resizeObserver?.disconnect();r?.destroy(); r = null;if(debugWindow.render_game_presentation===observePresentation)delete debugWindow.render_game_presentation })
 </script>
 
 <template>

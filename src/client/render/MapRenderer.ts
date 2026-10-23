@@ -7,6 +7,8 @@ import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 import {spritePixelHit} from './sprite-hit'
+import {advancePose,clearPoses,createPoseClock,motionDurations,poseFrame,requestPose,type MotionName,type PoseClock} from './character-motion'
+import {activityMotion,takeActionPresentations} from './action-presentation'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -22,7 +24,6 @@ import { paletteColor, preferences } from '../preferences'
 import { animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
 
 export const T = 16
-const ATTACK_MS = 280
 
 const FONT: TextStyleOptions = {
   fontFamily: '"Gowun Batang", "Noto Serif KR", serif',
@@ -36,6 +37,22 @@ interface CView {
   selectedSprite: string
   root: Container
   body: Sprite
+  previousBody:Sprite
+  actionItem:Sprite
+  pose:PoseClock
+  poseName:MotionName
+  poseFrame:string
+  poseDirection:Dir
+  transition:number
+  asleep:boolean
+  prone:boolean
+  groundT:number
+  activity:MotionName|null
+  activityTime:number
+  held:[boolean,boolean]
+  guarding:boolean
+  annotationHead:number
+  poseWasCue:boolean
   hands:[Sprite,Sprite]
   shadow: Graphics
   bar: Graphics
@@ -216,7 +233,15 @@ export class MapRenderer {
     this.buildDynamic(w)
     this.syncCreatures(w)
     this.updateLight(w)
+    const resolvedAttacks=new Set(w.s.fx.filter(event=>event.k==='attack').map(event=>event.id))
     this.consumeFx(w)
+    for(const cue of takeActionPresentations(w,resolvedAttacks)){
+      const view=this.views.get(cue.actor)
+      if(!view?.root.visible||!view.alive||view.prone)continue
+      if(cue.direction)view.dir=cue.direction
+      if(cue.kind==='throw'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='throw'){view.pose.current.prop=cue.prop;continue}
+      requestPose(view.pose,cue.kind,cue.prop)
+    }
     this.notifyPlayerMotion()
     this.drawOverlay()
   }
@@ -670,10 +695,12 @@ export class MapRenderer {
     const marks = new Graphics()
     const hands:[Sprite,Sprite]=[new Sprite(Texture.EMPTY),new Sprite(Texture.EMPTY)]
     for(const hand of hands){hand.anchor.set(.5,.78);hand.visible=false}
-    root.addChild(shadow, body,...hands, bar, marks)
+    const previousBody=new Sprite(Texture.EMPTY),actionItem=new Sprite(Texture.EMPTY)
+    previousBody.visible=false;actionItem.visible=false;actionItem.anchor.set(.5,.65)
+    root.addChild(shadow,previousBody,body,...hands,actionItem,bar,marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, body,previousBody,actionItem,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -699,11 +726,11 @@ export class MapRenderer {
       }
       if (v && v.selectedSprite !== creatureSprite(w,c)) { v.root.destroy({children:true});this.views.delete(c.id);v=undefined }
       if (!v) { v = this.makeView(w, c); this.views.set(c.id, v) }
-      if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]
+      if(c.body.machine){const active=chars[v.selectedSprite];v.char=active?.motions?.fall?active:chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]}
       seen.add(c.id)
       v.root.visible = true
       const moves=w.s.fx.filter((e):e is Extract<FxEvent,{k:'move'}>=>e.k==='move'&&e.id===c.id)
-      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
+      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.transition=0}
       else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
       else observeWalk(v.motion,c.pos,moves)
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
@@ -712,9 +739,18 @@ export class MapRenderer {
       for(const [index,slot]of (['main','off']as const).entries()){
         const hand=v.hands[index],held=c.equip[slot]
         hand.visible=!!v.char?.heldItems&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
+        v.held[index]=!!v.char?.heldItems&&!v.unknown&&!!held&&!held.half&&!held.missingItem
         if(hand.visible&&held){const item=itemDef(w,held);hand.texture=tex(item.sprite);const length=v.char?.frameTransforms?Math.max(8,Math.min(22,Math.max(...item.size)*5.5)):14;hand.scale.set(length/Math.max(hand.texture.width,hand.texture.height))}
       }
-      v.crouched=crouched(w,c)
+      const low=crouched(w,c)
+      if(low!==v.crouched&&!v.prone&&c.alive&&wasShown)requestPose(v.pose,low?'crouchDown':'stand')
+      v.crouched=low
+      const prone=!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w)))
+      if(prone&&!v.prone){v.groundT=wasShown?0:1;clearPoses(v.pose)}
+      if(!prone&&v.prone&&c.alive&&wasShown)requestPose(v.pose,'rise')
+      v.prone=prone;v.asleep=!!c.asleep
+      const activity=activityMotion(c.activity);if(activity!==v.activity)v.activityTime=0;v.activity=activity
+      v.guarding=c.ai.mode==='surrender'||!!hasEffect(c,'parryStance',turnOf(w))||!!hasEffect(c,'spearWall',turnOf(w))
       v.mechanical=!!c.body.machine
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
       if (v.alive && !c.alive) { v.alive = false; v.deadT = wasShown && c.deathTurn === turnOf(w) ? 0 : 1 }
@@ -726,6 +762,7 @@ export class MapRenderer {
 
   private drawBar(w: World, c: Creature, v: CView) {
     const g = v.bar
+    v.annotationHead=this.headY(v);v.bar.y=0;v.marks.y=0
     g.clear()
     if (!c.alive || c.faction === 'player') return
     const max = hpMax(w, c)
@@ -740,7 +777,7 @@ export class MapRenderer {
 
   private headY(v: CView): number {
     if (v.anim) return -44
-    if (v.char) return -(v.char.headOffset ?? 22)*(v.crouched ? .78 : 1)
+    if (v.char) return -Math.max((v.char.headOffset ?? 22)*(v.prone ? .3 : v.crouched ? .78 : 1),v.body.anchor.y*v.body.texture.height*Math.abs(v.body.scale.y)-v.body.y+2)
     return -15
   }
 
@@ -814,13 +851,17 @@ export class MapRenderer {
       case 'attack': {
         const t = w.s.creatures.find((x) => x.id === e.target)
         if (t) {
-          v.attackVec = { x: Math.sign(t.pos.x - c.pos.x), y: Math.sign(t.pos.y - c.pos.y) }
+          const dx=t.pos.x-c.pos.x,dy=t.pos.y-c.pos.y,length=Math.hypot(dx,dy)||1
+          v.attackVec = { x:dx/length,y:dy/length }
           v.dir = v.attackVec.x > 0 ? 'right' : v.attackVec.x < 0 ? 'left' : v.attackVec.y < 0 ? 'up' : 'down'
         }
-        v.attackT = 0
+        const mode=e.throwing?'throw':e.ranged?'shoot':'attack'
+        v.attackT = mode==='attack'?0:-1
+        requestPose(v.pose,mode)
         break
       }
       case 'dmg': {
+        if(v.alive&&!v.prone)requestPose(v.pose,'hurt')
         v.flashT = preferences.hitFlash && preferences.animationSpeed > 0 ? 1 : 0
         if (c.id === pl.id && preferences.screenShake && preferences.animationSpeed > 0) this.shake = Math.min(6, 2 + e.v / 6)
         // 내가 준 피해 흰색, 받은 피해 주황 (12 §2.5)
@@ -829,9 +870,9 @@ export class MapRenderer {
         break
       }
       case 'miss': this.float(c, '빗나감', '#a8a39a', k, 6); break
-      case 'block': this.float(c, '막음', '#9fc0e0', k, 6); this.spark(c, 0xd0d8e0); break
-      case 'parry': this.float(c, '받아넘김', '#e0d090', k, 6); this.spark(c, 0xf0e0a0); break
-      case 'deflect': this.float(c, '튕겨냄', '#c0c8d0', k, 6); this.spark(c, 0xe0e8f0); break
+      case 'block': requestPose(v.pose,'block');this.float(c, '막음', '#9fc0e0', k, 6); this.spark(c, 0xd0d8e0); break
+      case 'parry': requestPose(v.pose,'block');this.float(c, '받아넘김', '#e0d090', k, 6); this.spark(c, 0xf0e0a0); break
+      case 'deflect': requestPose(v.pose,'block');this.float(c, '튕겨냄', '#c0c8d0', k, 6); this.spark(c, 0xe0e8f0); break
       case 'status': this.float(c, e.text, e.color, k, 6); break
       case 'death': this.float(c, c.id === pl.id ? '사망' : '쓰러짐', '#c03028', k, 7); break
       case 'level': this.float(c, '레벨 업!', '#ffd870', k, 9); this.spark(c, 0xffe080, 14); break
@@ -945,7 +986,7 @@ export class MapRenderer {
   }
 
   private notifyPlayerMotion(){
-    const view=this.w&&this.views.get(this.w.s.playerId),busy=!!view&&walking(view.motion)&&preferences.animationSpeed!==0
+    const view=this.w&&this.views.get(this.w.s.playerId),busy=!!view&&(walking(view.motion)||!!view.pose.current&&['attack','shoot','throw'].includes(view.pose.current.kind))&&preferences.animationSpeed!==0
     if(busy!==this.playerMoving){this.playerMoving=busy;this.onPlayerMotion(busy)}
   }
 
@@ -956,47 +997,57 @@ export class MapRenderer {
     if(!v)return null
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
-    return{logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.scale}:null,screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
-    if (preferences.animationSpeed === 0) { advanceWalk(v.motion,0,true); v.attackT = -1; v.deadT = v.alive ? -1 : 1 }
+    const instant=preferences.animationSpeed===0
+    if (instant) { advanceWalk(v.motion,0,true);v.deadT=v.alive?-1:1;v.groundT=1;v.transition=0 }
+    advancePose(v.pose,dt,instant)
+    v.activityTime=instant?0:v.activityTime+dt
     advanceWalk(v.motion,dt)
     const p = this.viewPos(v)
     const moving = walking(v.motion)
-    if(v.attackT<0){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
+    if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/motionDurations.fall)}
+    if(v.prone){clearPoses(v.pose);v.groundT=Math.min(1,v.groundT+dt/motionDurations.fall)}
+    if(moving&&v.pose.current&&['work','use','interact','rise','stand','crouchDown'].includes(v.pose.current.kind))clearPoses(v.pose)
+    if(!v.pose.current){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
+    v.attackT=v.pose.current?.kind==='attack'?v.pose.current.elapsed/motionDurations.attack:-1
     let ox = 0, oy = 0
     // 공격: 캐릭터 시트에 공격 프레임이 있으면 재생, 없으면 대상 쪽으로 찌르듯 튀어나감
     if (v.attackT >= 0) {
-      v.attackT += dt / ATTACK_MS
       const a = Math.min(1, v.attackT)
-      const lunge = Math.sin(a * Math.PI) * 5
+      const lunge = Math.sin(a * Math.PI) * (v.char?.motions?1.25:5)
       ox += v.attackVec.x * lunge
       oy += v.attackVec.y * lunge
-      if (v.attackT >= 1) v.attackT = -1
     }
     if (v.flashT > 0) {
       v.flashT = Math.max(0, v.flashT - dt / 220)
-      ox += (Math.random() - 0.5) * 2 * v.flashT
+      ox += (Math.random() - 0.5) * (v.char?.motions?.hurt?.6:2) * v.flashT
     }
     const ch = v.char
     let bodyScale=v.scale
+    let mode:MotionName='idle',phase=0,loop=false
     if (ch) {
-      let frame: string
-      if (v.attackT >= 0 && ch.attack) {
-        const fr = ch.attack[v.dir]
-        frame = fr[Math.min(fr.length - 1, Math.floor(v.attackT * fr.length))]
-        v.body.anchor.set(ch.attackAnchor?.[0] ?? 0.5, ch.attackAnchor?.[1] ?? 0.78)
-      } else if (moving) {
-        const fr = ch.walk[v.dir]
-        frame = fr[Math.floor(v.motion.stride/2*fr.length)%fr.length]
-        v.body.anchor.set(ch.anchor[0], ch.anchor[1])
-      } else {
-        const idle=ch.idle[v.dir]
-        frame=idle[preferences.animationSpeed===0?0:Math.floor((this.time+v.zzT)/650)%idle.length]
-        v.body.anchor.set(ch.anchor[0], ch.anchor[1])
+      if(!v.alive){mode='fall';phase=v.deadT}
+      else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/motionDurations.sleep:v.groundT}
+      else if(v.pose.current){mode=v.pose.current.kind;phase=v.pose.current.elapsed/motionDurations[mode]}
+      else if(moving){mode=v.crouched?'crouchWalk':'walk';phase=v.motion.stride/2;loop=true}
+      else if(v.activity&&v.activity!=='walk'&&v.activity!=='idle'&&v.activity!=='sleep'){mode=v.activity;phase=mode==='shoot'?.34:v.activityTime/motionDurations[mode];loop=mode!=='shoot'}
+      else if(v.guarding){mode='block';phase=.34}
+      else if(v.crouched){mode='crouchWalk';phase=0}
+      else{phase=instant?0:(this.time+(v.id*37)%1000)/motionDurations.idle;loop=true}
+      if(instant){phase=!v.alive||v.prone&&!v.asleep?1:0;loop=false}
+      const clip=(name:MotionName)=>name==='idle'?ch.idle[v.dir]:name==='walk'?ch.walk[v.dir]:name==='attack'?ch.attack?.[v.dir]:ch.motions?.[name]?.[v.dir]
+      const frames=clip(mode)??(mode==='crouchWalk'?clip('walk'):['shoot','throw'].includes(mode)?clip('attack'):undefined)??ch.idle[v.dir]
+      const frame=frames[poseFrame(frames.length,phase,loop)]
+      // Blend only a state/facing transition. Each gait pose stays crisp and singular.
+      if(!instant&&v.poseFrame&&(v.poseName!==mode||v.poseDirection!==v.dir||v.poseWasCue!==!!v.pose.current)){
+        v.previousBody.texture=v.body.texture;v.previousBody.anchor.copyFrom(v.body.anchor);v.previousBody.scale.copyFrom(v.body.scale);v.previousBody.position.copyFrom(v.body.position);v.previousBody.rotation=v.body.rotation;v.transition=65
       }
+      v.poseName=mode;v.poseDirection=v.dir;v.poseFrame=frame;v.poseWasCue=!!v.pose.current
       v.body.texture = tex(frame)
+      v.body.anchor.set(...(mode==='attack'&&ch.attackAnchor?ch.attackAnchor:ch.anchor))
       const transform=ch.frameTransforms?.[frame]
       if(transform){v.body.anchor.set(...transform.anchor);bodyScale=transform.scale}
     }
@@ -1005,28 +1056,44 @@ export class MapRenderer {
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy)
     v.lightPos={x:p.x+ox/T,y:p.y+oy/T}
     v.body.y=hop
+    const utility=!!v.pose.current?.prop&&['work','use'].includes(mode),fallProgress=!v.alive?v.deadT:v.prone?v.groundT:0
     for(const[index,hand]of v.hands.entries()){
+      hand.visible=v.held[index]&&!utility&&(v.alive&&!v.prone||fallProgress>0&&fallProgress<.8)
       const sign=index===0?-1:1,side=v.dir==='left'||v.dir==='right',facing=v.dir==='left'?-1:1
       const swing=moving?Math.sin(v.motion.stride*Math.PI)*1.5*sign:0,attack=v.attackT>=0&&index===0?Math.sin(v.attackT*Math.PI):0
-      hand.position.set(side?facing*(index===0?4:1):sign*(v.dir==='up'?-6:6),(ch?.frameTransforms?-15:-10)+swing+hop-attack*4)
+      const using=mode==='use',working=mode==='work',aiming=mode==='shoot',reaching=mode==='interact'||mode==='throw'
+      const reach=aiming?8:reaching?6:using?3:working?5:4
+      const handY=aiming?-22:using?-21:working?-14:v.crouched?-11:ch?.frameTransforms?-15:-10
+      hand.position.set(side?facing*(index===0?reach:reach*.45):sign*(v.dir==='up'?-6:using||aiming?3:6),handY+swing+hop-attack*4)
+      const wrist=index===0?ch?.frameTransforms?.[v.poseFrame]?.mainHand:undefined
+      if(wrist)hand.position.set(wrist[0]*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),wrist[1]*(v.crouched?.78:1)+hop)
+      if(fallProgress>0){hand.y+=fallProgress*15;hand.alpha=Math.max(0,1-fallProgress)}
       hand.rotation=(side?facing*.18:sign*.12)+attack*facing*.9
-      hand.alpha=v.dir==='up'?.8:1
+      if(!fallProgress)hand.alpha=v.dir==='up'?.8:1
     }
+    const cue=v.pose.current
+    v.actionItem.visible=!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
+    if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=0}
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
-    if (v.char || v.anim) v.body.scale.set(bodyScale,bodyScale*(v.crouched ? .78 : 1))
+    if (v.char || v.anim) v.body.scale.set(bodyScale*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),bodyScale*(v.crouched&&!['crouchWalk','crouchDown','stand'].includes(mode)&&!v.prone ? .78 : 1))
+    v.bar.y=this.headY(v)-v.annotationHead;v.marks.y=v.bar.y
     // 피격 섬광 → 사망 → 시체
     if (!v.alive) {
-      v.deadT = Math.min(1, v.deadT + dt / 380)
-      v.body.rotation = (Math.PI / 2) * v.deadT * (v.id % 2 ? 1 : -1)
+      v.body.rotation = ch?.motions?.fall?0:(Math.PI / 2) * v.deadT * (v.id % 2 ? 1 : -1)
       v.body.tint = v.unknown ? 0x202028 : 0x705050
       v.body.alpha = 1 - v.deadT * 0.25
       v.shadow.alpha = 1 - v.deadT
       v.bar.visible = false
       v.marks.visible = false
     } else {
+      const tilt=mode==='hurt'?.035*(v.dir==='left'?1:-1):mode==='work'?.024*Math.cos(phase*Math.PI):mode==='throw'?.025*(v.dir==='left'?-1:1):0
+      v.body.rotation=Math.sin(phase*Math.PI)*tilt;v.body.alpha=1
       v.body.tint = v.unknown ? 0x202028 : v.flashT > 0.5 ? 0xffffff : v.flashT > 0 ? 0xff7060 : 0xffffff
       if (!v.unknown && v.flashT > 0.5) v.body.tint = 0xffb0a0
     }
+    v.transition=instant?0:Math.max(0,v.transition-dt)
+    v.previousBody.visible=v.transition>0
+    if(v.previousBody.visible){const amount=v.transition/65;v.previousBody.alpha=amount;v.previousBody.tint=v.body.tint;v.body.alpha*=1-amount}
     // 잠든 적: Zz
     if (v.alive && this.w) {
       const c = this.w.s.creatures.find((x) => x.id === v.id)

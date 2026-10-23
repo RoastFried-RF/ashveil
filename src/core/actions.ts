@@ -1,4 +1,5 @@
 import {brushClearingStep,startBrushClearing} from './brush-clearing'
+import {beginActionObservation,finishActionObservation} from './action-observations'
 import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
 import {lockPickingStep,startLockPicking} from './lock-picking'
 import {combatManeuver} from './maneuvers'
@@ -569,6 +570,13 @@ function lootRemove(w: World, uid: number): ItemInst | undefined {
 }
 
 export function perform(w: World, c: Creature, a: Action): ActResult {
+  const observation=beginActionObservation(w,c,a)
+  let success=false
+  try{const result=performAction(w,c,a);success=result.ok;return result}
+  finally{finishActionObservation(observation,success)}
+}
+
+function performAction(w: World, c: Creature, a: Action): ActResult {
   if(!['drop','moveItem','lootPut','lootTake','lootMove'].includes(a.type)&&Object.entries(a).some(([key,value])=>(key==='uid'||key.endsWith('Uid'))&&typeof value==='number'&&!!findItem(c,value)?.missingItem))return FAIL('원래 정의를 복원해야 이 물품을 사용할 수 있다')
   const turn = turnOf(w)
   const r = rng(w, 'ai')
