@@ -13,6 +13,8 @@ export const SECONDS_PER_TURN = 3
 export interface World {
   db: DefDatabase
   s: GameState
+  /** 과거 재배 조회의 실행 순서 경계. 연속 경과 시간은 s.time을 그대로 쓴다. 저장하지 않는다. */
+  climateHistoryCutoff?:number
 }
 
 export function rng(w: World, stream: RngStream): Rng {

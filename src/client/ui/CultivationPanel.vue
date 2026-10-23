@@ -15,6 +15,7 @@ const rows=computed(()=>{void version.value;const w=world.value as World,c=playe
   <section v-if="rows.length" class="mb-3 border border-ash-700 p-2 text-xs" data-testid="cultivation-panel">
     <p>재배 작물 · 실제 빛과 기온·물</p>
     <p class="text-ash-400">물은 성장과 증발에 각각 쓰인다. 지붕 아래·비·0°C 이하에서는 증발하지 않는다.</p>
+    <p v-if="(world as World).s.overworld&&(world as World).s.map.kind==='surface'&&!(world as World).s.map.vessel" class="text-ash-400" data-testid="surface-crop-away-rule">자리를 떠난 밭도 그 지역의 비·햇빛·추위에 따라 자란다. 남은 물과 빗물만 쓰며, 돌아와 직접 수확해야 한다.</p>
     <div v-for="row in rows" :key="row.pos.x+','+row.pos.y" class="my-2" :data-crop="row.pos.x+','+row.pos.y">
       <p>{{ row.label }} {{ row.pos.x }},{{ row.pos.y }} · 성장{{ row.status.progress }}% · 관수{{ Math.round(row.status.waterMl*100)/100 }}ml</p>
       <p>햇빛{{ Math.round(row.status.light*1000)/10 }}% · {{ row.status.temp }}°C · 현재 증발 최대{{ row.status.evaporationMlPerHour }}ml/시간</p>

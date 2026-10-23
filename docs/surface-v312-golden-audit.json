@@ -1,0 +1,127 @@
+{
+  "source": "/workspace/.ashveil-checkpoints/v312-surface-final-r2",
+  "reference": "/workspace/.ashveil-checkpoints/v311-resonance-ground-publication-recorded",
+  "allFiveInitialAndFinalEntireWorldsExact311ExceptSave205to206": true,
+  "expectedCommandsOrErrorsChanged": false,
+  "vectors": [
+    {
+      "name": "surface",
+      "diffs": {
+        "initial": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "state": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "diffs": {
+        "initial": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "state": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "diffs": {
+        "initial": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "state": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "name": "world-journey",
+      "diffs": {
+        "initial": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "state": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "errors": []
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "diffs": {
+        "initial": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "state": [
+          [
+            "/version",
+            205,
+            206
+          ]
+        ],
+        "errors": []
+      }
+    }
+  ],
+  "captures": [
+    {
+      "file": "/workspace/ashveil/test-results/goldens-v311-candidate-r2.json",
+      "sha256": "e6402319d7200138713d1c25e12b777ae953fc45a5605bb59e692fec6ad305f5"
+    },
+    {
+      "file": "/workspace/ashveil/test-results/goldens-v312-candidate.json",
+      "sha256": "d59a405c87758dc0ea1c2f277a878989f1ca0981bfe07123b81a51f68456a1d2"
+    }
+  ],
+  "fixtureFilesRetained": [
+    "tests/fixtures/golden-v311.json",
+    "tests/fixtures/world-golden-v311.json"
+  ],
+  "finalCaptureEntireExactEarlier206Candidate": true,
+  "finalCapture": {
+    "file": "/workspace/ashveil/test-results/goldens-v312-final.json",
+    "sha256": "d59a405c87758dc0ea1c2f277a878989f1ca0981bfe07123b81a51f68456a1d2"
+  }
+}

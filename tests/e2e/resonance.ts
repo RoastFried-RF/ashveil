@@ -8,6 +8,7 @@ import {resonanceFixture} from '../resonance-fixture'
 import {resonanceSpireFixture} from '../resonance-spire-fixture'
 import {activeThoughts,deserialize,player,playerAct,resonanceState,serialize,type World} from '../../src/core'
 import {applyContentTransition} from '../../src/core/content-transition'
+import {SAVE_VERSION} from '../../src/core/game'
 
 const out=process.argv[2],width=Number(process.argv[3]??1440),height=width===1366?768:1080
 if(!out||existsSync(out))throw Error('Fresh output directory required')
@@ -47,7 +48,7 @@ try{
  await page.keyboard.press('F2');const panel=page.getByTestId('field-device-'+tower.device.uid);await panel.scrollIntoViewIfNeeded();await shot('2411-real-original-code-stop-job')
  await input('actual120-turn-tower-stop',{type:'deviceWork',pos:tower.pos,uid:tower.device.uid,operation:'stop'},()=>panel.locator('[data-device-operation="stop"]').click());assert.equal((actions.at(-1)as{tu:number}).tu,12000);assert.equal(resonanceState(w,player(w)).tower,false);assert.ok(!activeThoughts(w,player(w)).some(t=>t.def==='Thought.TowerResonance'));assert.equal(tower.device.energy,20);assert.ok(player(w).bag.some(i=>i.uid===tower.plate.uid));await shot('2412-stopped-original-tower-headache-removed');await page.keyboard.press('Escape');await shot('2413-stopped-status');await restore('stopped205-restored');await shot('2414-stopped-restored')
  if(process.argv[4]){
-  const raw=readFileSync(process.argv[4],'utf8'),s=deserialize(raw),legacy:World={db:w.db,s};assert.equal(s.version,205);assert.equal(applyContentTransition(legacy),null)
+  const raw=readFileSync(process.argv[4],'utf8'),s=deserialize(raw),legacy:World={db:w.db,s};assert.equal(s.version,SAVE_VERSION);assert.equal(applyContentTransition(legacy),null)
   await initial(legacy,{original205Raw:process.argv[4],noTraitOrBodyInjection:true},'old205-content-transition',raw,true);await shot('2421-old205-original-body-kept');await page.getByTestId('map').focus();await input('old205-actual-wait',{type:'wait'},()=>page.keyboard.press('Period'));await shot('2422-old205-after-actual-wait');await restore('old205-current-config-restored');await shot('2423-old205-current-restored')
  }
  assert.deepEqual(errors,[]);const audit={width,height,wholePairs:checks.length,restores,checks,images,actions,fixtures,errors};writeFileSync(join(out,'audit.json'),JSON.stringify(audit,null,2));console.log(JSON.stringify({width,wholePairs:checks.length,restores,images:images.length,errors}))

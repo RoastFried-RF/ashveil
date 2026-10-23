@@ -6,12 +6,12 @@ import type { SeasonDef, WorldGenDef, WorldTower } from './types'
 const distance=(a:Pos,b:Pos)=>Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 export function towerHistoryOutput(t:WorldTower,cutoff:number){let output=t.history?.[0]?.output??t.output;for(const entry of t.history??[]){if(entry.turn>cutoff)break;output=entry.output}return output}
 export function shutdownProgress(t:WorldTower,cutoff:number){return t.shutdown?clamp((cutoff-t.shutdown.turn)/t.shutdown.seasonTurns,0,1):0}
-export function atmosphericTowers(w:World,cutoff=turnOf(w)):WorldTower[]{
+export function atmosphericTowers(w:World,cutoff=turnOf(w),historyCutoff=cutoff):WorldTower[]{
  const towers=w.s.overworld!.towers
  return towers.map(t=>{
-  const stopped=t.shutdown&&cutoff>=t.shutdown.turn
-  let output=stopped?t.shutdown!.startOutput*(1-shutdownProgress(t,cutoff)):towerHistoryOutput(t,cutoff)
-  if(!stopped)for(const source of towers){const stop=source.shutdown;if(!stop||cutoff<stop.turn)continue;const boost=stop.neighborBoosts.find(b=>b.id===t.id);if(boost)output-=boost.amount*(1-shutdownProgress(source,cutoff))}
+  const stopped=t.shutdown&&historyCutoff>=t.shutdown.turn
+  let output=stopped?t.shutdown!.startOutput*(1-shutdownProgress(t,cutoff)):towerHistoryOutput(t,historyCutoff)
+  if(!stopped)for(const source of towers){const stop=source.shutdown;if(!stop||historyCutoff<stop.turn)continue;const boost=stop.neighborBoosts.find(b=>b.id===t.id);if(boost)output-=boost.amount*(1-shutdownProgress(source,cutoff))}
   return {...t,output:clamp(output,0,100)}
  })
 }

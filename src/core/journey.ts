@@ -1,4 +1,4 @@
-import {markDormantCultivation} from './cultivation-dormant'
+import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
 import {recordOrderedDeparture} from './social-replies'
 import {worldSurveyError} from './world-observations'
 import {plantPines} from './pines'
@@ -105,6 +105,7 @@ function loadRoad(w: World,party:Creature[]=[]){
   }
   placeParty(w,party,{x:8,y:6}); p.mapId = w.s.map.id
   syncRegionalWeather(w)
+  if(stored&&w.s.map.leftAt!==undefined)settleDormantCultivation(w,w.s.map,w.s.map.leftAt)
   if (!stored) initializeClimateMap(w)
   invalidateLights(w)
 }

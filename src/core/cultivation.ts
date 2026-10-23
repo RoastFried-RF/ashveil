@@ -1,4 +1,4 @@
-// 실제 빛/기온/유한 물로 자란다. 일정한 지하 정산도 실제 이탈 이후만 적용하고 과거 날씨를 추정하지 않는다.
+// 실제 빛/기온/유한 물로 자란다. 휴면 정산은 이 모듈의 같은 규칙과 실제 이탈 기록을 쓴다.
 import {capacity} from './body'
 import {removeOne} from './items'
 import type {ItemInst} from './types'
@@ -12,9 +12,17 @@ import {drinkVolume,spendDrinkVolume} from './wash-water'
 import {waterQuality,waterSalinity,waterSafetyDef} from './water-state'
 import {isWaterVessel,waterCapacity} from './water-vessels'
 import {towerSoilFertility} from './tower-consequences'
-import type {Creature,MapState,WorldGenDef} from './types'
+import type {Creature,CultivationState,MapState,TerrainDef,WorldGenDef} from './types'
 const indices=new WeakMap<MapState,number[]>()
-const signature=(w:World,p:Pos)=>JSON.stringify({terrain:tileAt(w,p).t,rule:terrainAt(w,p).cultivation,gather:terrainAt(w,p).gather})
+// DefDatabase는 정의를 깊게 동결한다. 같은 DB/지형의 규칙 문자열은 매 턴 다시 만들지 않는다.
+const signatures=new WeakMap<World['db'],Map<string,string>>()
+function signature(w:World,p:Pos){
+ const id=tileAt(w,p).t;let cache=signatures.get(w.db)
+ if(!cache){cache=new Map();signatures.set(w.db,cache)}
+ let value=cache.get(id)
+ if(value===undefined){const def=terrainAt(w,p);value=JSON.stringify({terrain:id,rule:def.cultivation,gather:def.gather});cache.set(id,value)}
+ return value
+}
 export function plantCultivation(w:World,p:Pos,seedUid:number,ownerId?:number,source?:ItemInst){
  const tile=tileAt(w,p),def=terrainAt(w,p)
  if(!def.cultivation||!def.gather||source&&cropStarterError(w,source))return false
@@ -30,21 +38,24 @@ export function cultivationSoilDiffusionRule(w:World,p:Pos){
  const rule=terrainAt(w,p).cultivation
  return w.s.map.kind==='surface'&&rule&&rule.needsSoil!==false&&!rule.substrate?w.db.all<WorldGenDef>('WorldGen')[0]?.cropSoilDiffusion:undefined
 }
+function growthError(state:CultivationState,rule:NonNullable<TerrainDef['cultivation']>,total:number,light:number,temp:number,fertility:number):string|null{
+ if(rule.substrate&&state.remainingCycles===0)return '배지가 소진되었다. 실제 목재로 교체해야 한다'
+ if(state.growth>=total)return null
+ if(light<rule.minLight)return '작물이 자랄 실제 햇빛이 부족하다'
+ if(rule.maxLight!==undefined&&light>rule.maxLight)return '이 작물에는 실제 햇빛이 너무 강하다'
+ if(temp<rule.minTemp||temp>rule.maxTemp)return '작물이 자랄 온도 범위를 벗어났다'
+ if(fertility<=0)return '실제 토양의 비옥도가 고갈되었다'
+ return state.waterUnits<rule.waterMl?'밭에 실제 물을 주어야 한다':null
+}
 export function cultivationStatus(w:World,p:Pos){
  const tile=tileAt(w,p),state=tile.cultivation,def=terrainAt(w,p),rule=def.cultivation,gather=def.gather
  if(!state)return
- let error:string|null=null
+ let error:string|null
  const total=gather?.regrowTurns??0,waterCapacityUnits=rule&&total?rule.waterMl*total:0
  const valid=(state.dormantAt===undefined||Number.isSafeInteger(state.dormantAt)&&state.dormantAt>=0&&state.dormantAt<=turnOf(w))&&(rule?.substrate?Number.isSafeInteger(state.remainingCycles)&&state.remainingCycles!>=0&&state.remainingCycles!<=rule.substrate.cycles:state.remainingCycles===undefined)&&(state.ownerId===undefined||Number.isSafeInteger(state.ownerId)&&state.ownerId>0)&&validCropIrrigation(state)&&!!rule&&!!gather&&state.terrain===tile.t&&state.signature===signature(w,p)&&Number.isSafeInteger(state.seedUid)&&state.seedUid>0&&Number.isFinite(state.growth)&&state.growth>=0&&state.growth<=total&&Number.isSafeInteger(state.waterUnits)&&state.waterUnits>=0&&state.waterUnits<=waterCapacityUnits&&Number.isSafeInteger(state.lastAt)&&state.lastAt>=0&&state.lastAt<=turnOf(w)&&(state.evaporationCarry===undefined||Number.isSafeInteger(state.evaporationCarry)&&state.evaporationCarry>=0&&state.evaporationCarry<1200)
  const light=w.s.map.kind==='surface'?daylight(w)*(w.s.map.daylightMult??1)*(tile.roof?.45:1):0,temp=ambientTemp(w,p),fertility=gather?.soilDependent?towerSoilFertility(w):1
  if(!valid)error='원래 작물과 성장 규칙을 확인해야 한다'
- else if(rule!.substrate&&state.remainingCycles===0)error='배지가 소진되었다. 실제 목재로 교체해야 한다'
- else if(state.growth>=total)error=null
- else if(light<rule!.minLight)error='작물이 자랄 실제 햇빛이 부족하다'
- else if(rule!.maxLight!==undefined&&light>rule!.maxLight)error='이 작물에는 실제 햇빛이 너무 강하다'
- else if(temp<rule!.minTemp||temp>rule!.maxTemp)error='작물이 자랄 온도 범위를 벗어났다'
- else if(fertility<=0)error='실제 토양의 비옥도가 고갈되었다'
- else if(state.waterUnits<rule!.waterMl)error='밭에 실제 물을 주어야 한다'
+ else error=growthError(state,rule!,total,light,temp,fertility)
  const ready=valid&&(!rule!.substrate||state.remainingCycles!>0)&&state.growth>=total
  return{state,rule,gather,valid,ready,error,light,temp,fertility,total,soilDiffusion:valid?cultivationSoilDiffusionRule(w,p):undefined,evaporationMlPerHour:valid&&state.waterUnits>0?cultivationEvaporationRate(w,p):0,progress:total?Math.floor(state.growth/total*100):0,waterMl:total?state.waterUnits/total:0}
 }
@@ -68,6 +79,20 @@ function diffuseSoilWater(w:World,list:number[],now:number){
  }
  for(const[i,delta]of deltas)if(delta){const s=plots.get(i)!.state;s.waterUnits+=delta;if(s.waterUnits===0)delete s.evaporationCarry}
 }
+type CropStatus=NonNullable<ReturnType<typeof cultivationStatus>>
+function applyCropTurn(w:World,d:CropStatus,now:number,rain:boolean,canGrow:()=>boolean){
+  // 정지한 다른 층/지역의 지난 시간을 현재 날씨로 소급 계산하지 않는다.
+  d.state.lastAt=now
+  if(rain){const before=d.state.waterUnits,next=Math.min(d.rule!.waterMl*d.total,before+Math.round(d.rule!.rainMlPerHour*d.total/1200)),ml=(next-before)/d.total,quality=waterSafetyDef(w).sources.rain;if(!cropIrrigationError(w,d.state,quality,ml)){d.state.waterUnits=next;recordCropIrrigation(w,d.state,quality,ml)}}
+  if(d.state.waterUnits>0&&d.evaporationMlPerHour>0){
+   const loss=(d.state.evaporationCarry??0)+d.evaporationMlPerHour*d.total,units=Math.min(d.state.waterUnits,Math.floor(loss/1200)),carry=loss%1200
+   d.state.waterUnits-=units
+   if(d.state.waterUnits>0&&carry)d.state.evaporationCarry=carry;else delete d.state.evaporationCarry
+  }
+  if(d.state.waterUnits<=0)delete d.state.evaporationCarry
+  if(d.ready||!canGrow())return
+  d.state.waterUnits-=d.rule!.waterMl;d.state.growth=Math.min(d.total,d.state.growth+d.fertility);if(d.state.waterUnits===0)delete d.state.evaporationCarry
+}
 export function cultivationTick(w:World){
  const m=w.s.map,now=turnOf(w)
  let list=indices.get(m);if(!list){list=m.tiles.flatMap((t,i)=>t.cultivation?[i]:[]);indices.set(m,list)}
@@ -75,18 +100,23 @@ export function cultivationTick(w:World){
  for(const i of list){
   const p={x:i%m.w,y:Math.floor(i/m.w)},d=cultivationStatus(w,p)
   if(!d?.valid||d.state.lastAt>=now)continue
-  // 정지한 다른 층/지역의 지난 시간을 현재 날씨로 소급 계산하지 않는다.
-  d.state.lastAt=now
-  if(m.kind==='surface'&&isRaining(w)&&!tileAt(w,p).roof){const before=d.state.waterUnits,next=Math.min(d.rule!.waterMl*d.total,before+Math.round(d.rule!.rainMlPerHour*d.total/1200)),ml=(next-before)/d.total,quality=waterSafetyDef(w).sources.rain;if(!cropIrrigationError(w,d.state,quality,ml)){d.state.waterUnits=next;recordCropIrrigation(w,d.state,quality,ml)}}
-  if(d.state.waterUnits>0&&d.evaporationMlPerHour>0){
-   const loss=(d.state.evaporationCarry??0)+d.evaporationMlPerHour*d.total,units=Math.min(d.state.waterUnits,Math.floor(loss/1200)),carry=loss%1200
-   d.state.waterUnits-=units
-   if(d.state.waterUnits>0&&carry)d.state.evaporationCarry=carry;else delete d.state.evaporationCarry
+  applyCropTurn(w,d,now,m.kind==='surface'&&isRaining(w)&&!tileAt(w,p).roof,()=>!cultivationStatus(w,p)!.error)
+ }
+}
+/** 이탈 서명을 확인한 정지 지도 안에서만 사용한다. 정의/지붕/주인은 이 호출 중 바뀌지 않는다. */
+export function prepareSurfaceCultivation(w:World){
+ if(w.s.map.kind!=='surface')return()=>cultivationTick(w)
+ const m=w.s.map,rows=m.tiles.flatMap((tile,i)=>{if(!tile.cultivation)return[];const d=cultivationStatus(w,{x:i%m.w,y:Math.floor(i/m.w)});return d?.valid?[{i,roof:tile.roof,d}]:[]}),list=rows.map(row=>row.i),evaporation=w.db.all<WorldGenDef>('WorldGen')[0]?.cropEvaporationMlPerHour??0,usesSoil=rows.some(row=>row.d.gather?.soilDependent)
+ const validResources=(d:CropStatus)=>Number.isFinite(d.state.growth)&&d.state.growth>=0&&d.state.growth<=d.total&&Number.isSafeInteger(d.state.waterUnits)&&d.state.waterUnits>=0&&d.state.waterUnits<=d.rule!.waterMl*d.total&&(d.state.evaporationCarry===undefined||Number.isSafeInteger(d.state.evaporationCarry)&&d.state.evaporationCarry>=0&&d.state.evaporationCarry<1200)&&validCropIrrigation(d.state)
+ const prepared=rows.map(row=>({...row,canGrow:()=>validResources(row.d)&&!growthError(row.d.state,row.d.rule!,row.d.total,row.d.light,row.d.temp,row.d.fertility)}))
+ return()=>{
+  const now=turnOf(w);diffuseSoilWater(w,list,now)
+  const light=daylight(w)*(m.daylightMult??1),temp=ambientTemp(w),fertility=usesSoil?towerSoilFertility(w):1,rain=isRaining(w)
+  for(const row of prepared){
+   const d=row.d;if(d.state.lastAt>=now||!validResources(d))continue
+   d.light=light*(row.roof?.45:1);d.temp=temp;d.fertility=d.gather?.soilDependent?fertility:1;d.ready=(!d.rule!.substrate||d.state.remainingCycles!>0)&&d.state.growth>=d.total;d.evaporationMlPerHour=!row.roof&&temp>0&&!rain?evaporation:0
+   applyCropTurn(w,d,now,rain&&!row.roof,row.canGrow)
   }
-  if(d.state.waterUnits<=0)delete d.state.evaporationCarry
-  if(d.ready)continue
-  if(cultivationStatus(w,p)!.error)continue
-  d.state.waterUnits-=d.rule!.waterMl;d.state.growth=Math.min(d.total,d.state.growth+d.fertility);if(d.state.waterUnits===0)delete d.state.evaporationCarry
  }
 }
 export function cultivationWaterQuote(w:World,c:Creature,p:Pos,uid:number,ml:number){

@@ -9,7 +9,7 @@ const derived = new WeakMap<World['s'], Derived>()
 const seasonLists = new WeakMap<World['db'], SeasonDef[]>()
 function cached<T>(w: World, name: string, read: () => T): T {
   const p = w.s.map.worldCell ?? w.s.overworld?.position
-  const key = `${turnOf(w)}:${w.s.weather}:${p?.x},${p?.y}:${w.s.overworld?.climateRevision ?? 0}`
+  const key = `${turnOf(w)}:${w.s.weather}:${p?.x},${p?.y}:${w.s.overworld?.climateRevision ?? 0}:${w.climateHistoryCutoff??''}`
   let hit = derived.get(w.s)
   if (!hit || hit.db !== w.db || hit.key !== key) { hit = { db: w.db, key, values: new Map() }; derived.set(w.s, hit) }
   if (!hit.values.has(name)) hit.values.set(name, read())
@@ -47,15 +47,15 @@ export function sunTimes(w: World): { sunrise: number; sunset: number } {
 }
 export function climateCell(w: World, p = w.s.map.worldCell ?? w.s.overworld!.position, cutoff = turnOf(w)): WorldCell {
   const m = w.s.overworld!, c = m.cells[worldIndex(m, p)]
-  if (!m.towers.some((t) => t.shutdown || t.history?.length && t.history.at(-1)!.turn > cutoff)) return c
-  const towers = atmosphericTowers(w,cutoff)
+  if (w.climateHistoryCutoff===undefined&&!m.towers.some((t) => t.shutdown || t.history?.length && t.history.at(-1)!.turn > cutoff)) return c
+  const towers = atmosphericTowers(w,cutoff,Math.min(cutoff,w.climateHistoryCutoff??cutoff))
   const veil = stoppedVeil(w,p,veilAt(towers, p),cutoff)
   return { ...c, veil, temperature: climateMean(p.y, m.h, c.altitude, veil) }
 }
 export function veilConcentration(w: World, p = w.s.map.worldCell ?? w.s.overworld!.position, cutoff = turnOf(w)): number {
   const m = w.s.overworld!, d = climateDef(w), c = climateCell(w, p, cutoff), day = Math.floor(turnOf(w) / TURNS_PER_DAY)
   let extra = -seasonPhase(w) * d.veilAmplitude
-  for (const surge of m.surges ?? []) { if ((surge.turn ?? surge.day * TURNS_PER_DAY) > cutoff) continue; const tower = m.towers.find((t) => t.id === surge.tower); if (!tower) continue; const distance = Math.sqrt((p.x - tower.cell.x) ** 2 + (p.y - tower.cell.y) ** 2); extra += Math.max(0, surge.amount - Math.max(0, day - surge.day) * d.eruptionDecay) * Math.max(0, tower.radius - distance) / tower.radius }
+  for (const surge of m.surges ?? []) { if ((surge.turn ?? surge.day * TURNS_PER_DAY) > Math.min(cutoff,w.climateHistoryCutoff??cutoff)) continue; const tower = m.towers.find((t) => t.id === surge.tower); if (!tower) continue; const distance = Math.sqrt((p.x - tower.cell.x) ** 2 + (p.y - tower.cell.y) ** 2); extra += Math.max(0, surge.amount - Math.max(0, day - surge.day) * d.eruptionDecay) * Math.max(0, tower.radius - distance) / tower.radius }
   return Math.round(clamp(c.veil + extra*(1-towerClearingProgress(w,p,cutoff)), 0, 100) * 10) / 10
 }
 export function regionalTemperature(w: World): number {

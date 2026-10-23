@@ -467,6 +467,8 @@ export interface BeaconState {uid:number;fuelUntil:number;inbox:BeaconReceipt[]}
 export interface SignalPacket {key:string;rumor:Rumor;from:BeaconAddress;to:BeaconAddress;sentAt:number;lastAt:number;progress:number;total:number;signature:string;toSignature:string;deliveredAt?:number;failed?:string}
 export interface CropRule { maxLight?:number; needsSoil?:boolean; substrate?:{item:string;cycles:number;turns:number}; minLight:number; minTemp:number; maxTemp:number; waterMl:number; maxSalinity:number; rainMlPerHour:number }
 export interface CultivationState {dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
+/** 실제 지상 이탈 시점의 지역 날씨. 정산용 복사본에서만 난수를 진행한다. */
+export interface SurfaceCultivationState {at:number;cell:Pos;weather:Weather;until:number;wind:Pos;rng:RngState;loadHash:string;signature:string}
 export interface LockPickingRule {turns:number;wear:number;noise:number;toolTag:string;base:number;min:number;max:number;agility:number;quality:number}
 export interface TerrainDef extends DefBase {
   clearing?:{tools:string[];turns:number;result:string;edgeLoss:number;noise:number}
@@ -2499,6 +2501,7 @@ export interface MapState {
   innBeds?: { id: string; keeper: number; terrain: string; pos: Pos; lease?: { tenant: number; until: number } }[]
   worldCell?: Pos
   leftAt?: number
+  surfaceCultivation?: SurfaceCultivationState
   batches?: CraftBatch[]
   cooking?:CookingBatch[]
   /** 다음 포자 만료 시각: 동적 시야·광원 캐시 무효화 */
