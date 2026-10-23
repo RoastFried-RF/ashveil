@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "ASHVEIL — hardcore turn-based RPG × story-generating sandbox (prototype)",
+  "description": "ASHVEIL \u2014 hardcore turn-based RPG \u00d7 story-generating sandbox (prototype)",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -26,7 +26,9 @@
     "sim:run": "tsx tools/ashveil-sim.ts",
     "game:check": "node tools/game-harness.mjs",
     "game:preview-check": "tsx tools/game-harness-preview.ts",
-    "game:freeze": "python3 tools/freeze-checkpoint.py"
+    "game:freeze": "python3 tools/freeze-checkpoint.py",
+    "art:motion:audit": "tsx tools/art/motion-workbench.ts",
+    "art:motion:export": "tsx tools/art/export-public-artbook.ts && tsx tools/art/export-motion-comparison.ts"
   },
   "dependencies": {
     "@fontsource/gowun-batang": "^5.3.0",

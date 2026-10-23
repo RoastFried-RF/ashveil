@@ -7,7 +7,8 @@ import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 import {spritePixelHit} from './sprite-hit'
-import {advancePose,clearPoses,createPoseClock,motionDurations,poseFrame,requestPose,type MotionName,type PoseClock} from './character-motion'
+import {advancePose,clearPoses,createPoseClock,motionDurations,poseDuration,poseFrame,requestPose,type MotionName,type PoseClock} from './character-motion'
+import {attackBodyPhase,attackDuration,attackStyle,actionStage,equipmentSpec,heldPose,supportHand,type HeldEquipment,type EquipmentAction} from './equipment-motion'
 import {activityMotion,takeActionPresentations} from './action-presentation'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
@@ -18,7 +19,7 @@ import {
 } from 'pixi.js'
 import {
   crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
-  type Creature, type FxEvent, type Pos, type World,
+  meleeWield,wield,type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
 import { animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
@@ -50,6 +51,10 @@ interface CView {
   activity:MotionName|null
   activityTime:number
   held:[boolean,boolean]
+  equipment:[HeldEquipment|null,HeldEquipment|null]
+  equipmentAge:[number,number]
+  gearEffects:Graphics
+  gripCovers:Graphics
   guarding:boolean
   annotationHead:number
   poseWasCue:boolean
@@ -696,11 +701,13 @@ export class MapRenderer {
     const hands:[Sprite,Sprite]=[new Sprite(Texture.EMPTY),new Sprite(Texture.EMPTY)]
     for(const hand of hands){hand.anchor.set(.5,.78);hand.visible=false}
     const previousBody=new Sprite(Texture.EMPTY),actionItem=new Sprite(Texture.EMPTY)
+    const gearEffects=new Graphics(),gripCovers=new Graphics()
     previousBody.visible=false;actionItem.visible=false;actionItem.anchor.set(.5,.65)
-    root.addChild(shadow,previousBody,body,...hands,actionItem,bar,marks)
+    root.sortableChildren=true;shadow.zIndex=-5;previousBody.zIndex=0;body.zIndex=1;gearEffects.zIndex=2;gripCovers.zIndex=5;actionItem.zIndex=6;bar.zIndex=8;marks.zIndex=9
+    root.addChild(shadow,previousBody,body,gearEffects,...hands,gripCovers,actionItem,bar,marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body,previousBody,actionItem,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, body,previousBody,actionItem,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -740,7 +747,8 @@ export class MapRenderer {
         const hand=v.hands[index],held=c.equip[slot]
         hand.visible=!!v.char?.heldItems&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
         v.held[index]=!!v.char?.heldItems&&!v.unknown&&!!held&&!held.half&&!held.missingItem
-        if(hand.visible&&held){const item=itemDef(w,held);hand.texture=tex(item.sprite);const length=v.char?.frameTransforms?Math.max(8,Math.min(22,Math.max(...item.size)*5.5)):14;hand.scale.set(length/Math.max(hand.texture.width,hand.texture.height))}
+        if(v.equipment[index]?.uid!==held?.uid)v.equipmentAge[index]=0
+        v.equipment[index]=held?equipmentSpec(itemDef(w,held),held.uid,!!held.lit&&(held.fuel??0)>0):null
       }
       const low=crouched(w,c)
       if(low!==v.crouched&&!v.prone&&c.alive&&wasShown)requestPose(v.pose,low?'crouchDown':'stand')
@@ -856,8 +864,11 @@ export class MapRenderer {
           v.dir = v.attackVec.x > 0 ? 'right' : v.attackVec.x < 0 ? 'left' : v.attackVec.y < 0 ? 'up' : 'down'
         }
         const mode=e.throwing?'throw':e.ranged?'shoot':'attack'
+        const used=e.ranged?wield(w,c):meleeWield(w,c),item=used?.item
+        const weapon=item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined
+        const equipment:EquipmentAction={style:attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
         v.attackT = mode==='attack'?0:-1
-        requestPose(v.pose,mode)
+        requestPose(v.pose,mode,undefined,{duration:attackDuration(equipment.style,weapon),equipment})
         break
       }
       case 'dmg': {
@@ -997,7 +1008,7 @@ export class MapRenderer {
     if(!v)return null
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
-    return{logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
@@ -1005,14 +1016,15 @@ export class MapRenderer {
     if (instant) { advanceWalk(v.motion,0,true);v.deadT=v.alive?-1:1;v.groundT=1;v.transition=0 }
     advancePose(v.pose,dt,instant)
     v.activityTime=instant?0:v.activityTime+dt
-    advanceWalk(v.motion,dt)
+    advanceWalk(v.motion,dt,false,(v.crouched?v.char?.gait?.crouchWalk??motionDurations.crouchWalk:v.char?.gait?.walk??motionDurations.walk)/2)
     const p = this.viewPos(v)
     const moving = walking(v.motion)
     if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/motionDurations.fall)}
     if(v.prone){clearPoses(v.pose);v.groundT=Math.min(1,v.groundT+dt/motionDurations.fall)}
     if(moving&&v.pose.current&&['work','use','interact','rise','stand','crouchDown'].includes(v.pose.current.kind))clearPoses(v.pose)
     if(!v.pose.current){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
-    v.attackT=v.pose.current?.kind==='attack'?v.pose.current.elapsed/motionDurations.attack:-1
+    if(v.pose.current?.equipment){v.dir=v.pose.current.equipment.direction;v.attackVec=v.pose.current.equipment.vector}
+    v.attackT=v.pose.current?.kind==='attack'?v.pose.current.elapsed/poseDuration(v.pose.current):-1
     let ox = 0, oy = 0
     // 공격: 캐릭터 시트에 공격 프레임이 있으면 재생, 없으면 대상 쪽으로 찌르듯 튀어나감
     if (v.attackT >= 0) {
@@ -1031,7 +1043,7 @@ export class MapRenderer {
     if (ch) {
       if(!v.alive){mode='fall';phase=v.deadT}
       else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/motionDurations.sleep:v.groundT}
-      else if(v.pose.current){mode=v.pose.current.kind;phase=v.pose.current.elapsed/motionDurations[mode]}
+      else if(v.pose.current){mode=v.pose.current.kind;phase=v.pose.current.elapsed/poseDuration(v.pose.current)}
       else if(moving){mode=v.crouched?'crouchWalk':'walk';phase=v.motion.stride/2;loop=true}
       else if(v.activity&&v.activity!=='walk'&&v.activity!=='idle'&&v.activity!=='sleep'){mode=v.activity;phase=mode==='shoot'?.34:v.activityTime/motionDurations[mode];loop=mode!=='shoot'}
       else if(v.guarding){mode='block';phase=.34}
@@ -1040,10 +1052,10 @@ export class MapRenderer {
       if(instant){phase=!v.alive||v.prone&&!v.asleep?1:0;loop=false}
       const clip=(name:MotionName)=>name==='idle'?ch.idle[v.dir]:name==='walk'?ch.walk[v.dir]:name==='attack'?ch.attack?.[v.dir]:ch.motions?.[name]?.[v.dir]
       const frames=clip(mode)??(mode==='crouchWalk'?clip('walk'):['shoot','throw'].includes(mode)?clip('attack'):undefined)??ch.idle[v.dir]
-      const frame=frames[poseFrame(frames.length,phase,loop)]
+      const frame=frames[poseFrame(frames.length,mode==='attack'?attackBodyPhase(phase):phase,loop)]
       // Blend only a state/facing transition. Each gait pose stays crisp and singular.
       if(!instant&&v.poseFrame&&(v.poseName!==mode||v.poseDirection!==v.dir||v.poseWasCue!==!!v.pose.current)){
-        v.previousBody.texture=v.body.texture;v.previousBody.anchor.copyFrom(v.body.anchor);v.previousBody.scale.copyFrom(v.body.scale);v.previousBody.position.copyFrom(v.body.position);v.previousBody.rotation=v.body.rotation;v.transition=65
+        v.previousBody.texture=v.body.texture;v.previousBody.anchor.copyFrom(v.body.anchor);v.previousBody.scale.copyFrom(v.body.scale);v.previousBody.position.copyFrom(v.body.position);v.previousBody.rotation=v.body.rotation;v.transition=120
       }
       v.poseName=mode;v.poseDirection=v.dir;v.poseFrame=frame;v.poseWasCue=!!v.pose.current
       v.body.texture = tex(frame)
@@ -1056,21 +1068,7 @@ export class MapRenderer {
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy)
     v.lightPos={x:p.x+ox/T,y:p.y+oy/T}
     v.body.y=hop
-    const utility=!!v.pose.current?.prop&&['work','use'].includes(mode),fallProgress=!v.alive?v.deadT:v.prone?v.groundT:0
-    for(const[index,hand]of v.hands.entries()){
-      hand.visible=v.held[index]&&!utility&&(v.alive&&!v.prone||fallProgress>0&&fallProgress<.8)
-      const sign=index===0?-1:1,side=v.dir==='left'||v.dir==='right',facing=v.dir==='left'?-1:1
-      const swing=moving?Math.sin(v.motion.stride*Math.PI)*1.5*sign:0,attack=v.attackT>=0&&index===0?Math.sin(v.attackT*Math.PI):0
-      const using=mode==='use',working=mode==='work',aiming=mode==='shoot',reaching=mode==='interact'||mode==='throw'
-      const reach=aiming?8:reaching?6:using?3:working?5:4
-      const handY=aiming?-22:using?-21:working?-14:v.crouched?-11:ch?.frameTransforms?-15:-10
-      hand.position.set(side?facing*(index===0?reach:reach*.45):sign*(v.dir==='up'?-6:using||aiming?3:6),handY+swing+hop-attack*4)
-      const wrist=index===0?ch?.frameTransforms?.[v.poseFrame]?.mainHand:undefined
-      if(wrist)hand.position.set(wrist[0]*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),wrist[1]*(v.crouched?.78:1)+hop)
-      if(fallProgress>0){hand.y+=fallProgress*15;hand.alpha=Math.max(0,1-fallProgress)}
-      hand.rotation=(side?facing*.18:sign*.12)+attack*facing*.9
-      if(!fallProgress)hand.alpha=v.dir==='up'?.8:1
-    }
+    this.animateEquipment(v,mode,phase,moving,hop,dt)
     const cue=v.pose.current
     v.actionItem.visible=!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
     if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=0}
@@ -1093,7 +1091,7 @@ export class MapRenderer {
     }
     v.transition=instant?0:Math.max(0,v.transition-dt)
     v.previousBody.visible=v.transition>0
-    if(v.previousBody.visible){const amount=v.transition/65;v.previousBody.alpha=amount;v.previousBody.tint=v.body.tint;v.body.alpha*=1-amount}
+    if(v.previousBody.visible){const amount=v.transition/120;v.previousBody.alpha=amount;v.previousBody.tint=v.body.tint;v.body.alpha*=1-amount}
     // 잠든 적: Zz
     if (v.alive && this.w) {
       const c = this.w.s.creatures.find((x) => x.id === v.id)
@@ -1103,6 +1101,56 @@ export class MapRenderer {
           v.zzT = 0
           this.float(c, 'z', '#b8c4d8', 0, 6)
         }
+      }
+    }
+  }
+
+  private animateEquipment(v:CView,mode:MotionName,phase:number,moving:boolean,hop:number,dt:number){
+    const effects=v.gearEffects,covers=v.gripCovers;effects.clear();covers.clear()
+    const action=v.pose.current?.equipment,transform=v.char?.frameTransforms?.[v.poseFrame],bodyRatio=(v.char?.headOffset??35)/35,utility=!!v.pose.current?.prop&&['use','work'].includes(mode),fall=!v.alive?v.deadT:v.prone?v.groundT:0
+    effects.zIndex=v.dir==='up'?.5:2;covers.zIndex=v.dir==='up'?.8:5
+    let supporting=false
+    for(const index of[0,1]as const){
+      const hand=v.hands[index],item=action?.slot===index?action.weapon??v.equipment[index]:v.equipment[index]
+      v.equipmentAge[index]=preferences.animationSpeed===0?180:Math.min(180,v.equipmentAge[index]+dt)
+      hand.visible=!!item&&v.held[index]&&!utility&&(v.alive&&!v.prone||fall>0&&fall<.8)&&!(index===1&&supporting)
+      if(!hand.visible||!item)continue
+      const wrist=index===0?transform?.mainHand:undefined
+      const pose=heldPose({item,slot:index,direction:v.dir,mode,phase,stride:v.motion.stride,moving,crouched:v.crouched,action,wrist:wrist?[wrist[0]*(transform?.flipX?-1:1),wrist[1]*(v.crouched?.78:1)]:undefined})
+      hand.visible=pose.visible;if(!pose.visible)continue
+      hand.texture=tex(item.sprite);hand.anchor.set(...item.grip);hand.scale.set(item.length*bodyRatio/Math.max(hand.texture.width,hand.texture.height));hand.position.set(pose.x*(wrist?1:bodyRatio),pose.y*(wrist?1:bodyRatio)+hop+fall*15+(1-v.equipmentAge[index]/180)*3)
+      hand.rotation=pose.angle-item.axis;hand.alpha=pose.alpha*(1-fall)*Math.min(1,v.equipmentAge[index]/120);hand.zIndex=pose.behind?.7:3+index*.1
+      // A small cuff occludes the handle at the actual grip; the source body's arm stays intact.
+      covers.ellipse(hand.x,hand.y,1.2*bodyRatio,.9*bodyRatio).fill({color:0x807261,alpha:hand.alpha})
+      if(index===0&&item.twoHanded&&['attack','shoot','block','work'].includes(mode)&&(!action||action.slot===0)){
+        supporting=true;v.hands[1].visible=false
+        const support=supportHand({...pose,x:hand.x,y:hand.y},item)
+        covers.moveTo(support.x-1,support.y+1).lineTo(support.x+1,support.y-1).stroke({color:0x504638,width:2.4*bodyRatio,alpha:hand.alpha})
+        covers.ellipse(support.x,support.y,1.3*bodyRatio,bodyRatio).fill({color:0x95816a,alpha:hand.alpha})
+      }
+      const length=item.length*bodyRatio
+      // Vertical source art points toward its top; use distance from grip to tip.
+      const reach=length*(item.axis===0?1-item.grip[0]:item.grip[1]),end={x:hand.x+Math.cos(pose.angle)*reach,y:hand.y+Math.sin(pose.angle)*reach}
+      if(mode==='attack'&&action?.slot===index&&phase>.31&&phase<.68&&action.style!=='thrust'){
+        const arc=action.style==='chop'||action.style==='smash'?.48:.65,sign=action.vector.x<0?-1:1
+        for(let n=0;n<7;n++){
+          const a=pose.angle-sign*arc*(1-n/7),b=pose.angle-sign*arc*(1-(n+1)/7),radius=reach
+          effects.moveTo(hand.x+Math.cos(a)*radius,hand.y+Math.sin(a)*radius).lineTo(hand.x+Math.cos(b)*radius,hand.y+Math.sin(b)*radius).stroke({color:0xc1b69d,width:.7,alpha:(n+1)/7*.22})
+        }
+      }
+      if(mode==='attack'&&action?.slot===index&&action.style==='thrust'&&phase>.37&&phase<.62)effects.moveTo(end.x-Math.cos(pose.angle)*4,end.y-Math.sin(pose.angle)*4).lineTo(end.x,end.y).stroke({color:0xc1b69d,width:.6,alpha:.25})
+      if(mode==='shoot'&&index===0&&item.kind==='bow'){
+        const pull=phase<.44?Math.sin(phase/.44*Math.PI/2)*3:0
+        const c=Math.cos(pose.angle),s=Math.sin(pose.angle),span=10*bodyRatio
+        effects.moveTo(hand.x-c+s*span,hand.y-s-c*span).lineTo(hand.x-c*pull,hand.y-s*pull).lineTo(hand.x+c-s*span,hand.y+s+c*span).stroke({color:0xbab095,width:.5,alpha:.6})
+      }
+      if(mode==='shoot'&&phase>.39&&phase<.52&&index===0&&['rifle','pistol'].includes(item.kind))effects.star(end.x,end.y,5,2.6,1.1,pose.angle).fill({color:0xe7b875,alpha:.75})
+      if(item.lit&&item.kind==='torch'){
+        const flicker=preferences.torchFlicker?Math.sin(this.time/90)*.3:0
+        effects.poly([end.x-1,end.y+1,end.x-1.4,end.y-1,end.x+flicker,end.y-3.4,end.x+1.4,end.y-.4,end.x+1,end.y+1]).fill({color:0xd9a352,alpha:.9})
+      }else if(item.lit&&item.kind==='lantern'){
+        const drop=length*(.65-item.grip[1])
+        effects.circle(hand.x-Math.cos(pose.angle)*drop,hand.y-Math.sin(pose.angle)*drop,1.1).fill({color:0xe3b063,alpha:.8})
       }
     }
   }

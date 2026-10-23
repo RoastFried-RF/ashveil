@@ -2,8 +2,8 @@ import {describe,it,expect} from 'vitest'
 import {advancePose,clearPoses,createPoseClock,motionDurations,poseFrame,requestPose} from '../src/client/render/character-motion'
 
 describe('character presentation timing',()=>{
- it('adding poses preserves the duration and both alternating foot contacts',()=>{
-  expect(motionDurations.walk).toBe(300)
+ it('uses a deliberate walking cadence with both alternating foot contacts',()=>{
+  expect(motionDurations.walk).toBe(720)
   expect([0,.25,.5,.75].map(t=>poseFrame(12,t,true))).toEqual([0,3,6,9])
   expect(poseFrame(12,1,true)).toBe(0)
   expect(poseFrame(8,1)).toBe(7)
@@ -21,9 +21,9 @@ describe('character presentation timing',()=>{
  it('burst attacks have a bounded queue and retain time left over at a clip boundary',()=>{
   const clock=createPoseClock();for(let i=0;i<20;i++)requestPose(clock,'attack')
   expect(clock.queue).toHaveLength(2)
-  for(let i=0;i<3;i++)advancePose(clock,90)
-  advancePose(clock,30)
-  expect(clock.current?.elapsed).toBe(20);expect(clock.queue).toHaveLength(1)
+  for(let i=0;i<5;i++)advancePose(clock,90)
+  advancePose(clock,60)
+  expect(clock.current?.elapsed).toBe(30);expect(clock.queue).toHaveLength(1)
  })
  it('repeated work observations do not restart at the first image',()=>{
   const clock=createPoseClock();requestPose(clock,'work');advancePose(clock,90);requestPose(clock,'work')

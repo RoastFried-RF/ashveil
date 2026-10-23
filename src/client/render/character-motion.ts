@@ -2,14 +2,15 @@
 export const motionNames=['idle','walk','attack','block','hurt','crouchDown','crouchWalk','stand','work','use','fall','rise','sleep','shoot','throw','interact']as const
 export type MotionName=typeof motionNames[number]
 export type ActionPose=Exclude<MotionName,'idle'|'walk'|'crouchWalk'|'fall'|'sleep'>
-export const motionDurations:Record<MotionName,number>={idle:1300,walk:300,attack:280,block:220,hurt:240,crouchDown:180,crouchWalk:300,stand:180,work:700,use:650,fall:420,rise:360,sleep:2400,shoot:340,throw:340,interact:380}
+export const motionDurations:Record<MotionName,number>={idle:3200,walk:720,attack:480,block:300,hurt:320,crouchDown:240,crouchWalk:1000,stand:240,work:1000,use:850,fall:520,rise:600,sleep:3600,shoot:500,throw:500,interact:460}
 const priority:Record<ActionPose,number>={attack:3,block:5,hurt:6,crouchDown:2,stand:2,work:1,use:2,rise:4,shoot:3,throw:3,interact:2}
-export interface PoseCue {kind:ActionPose;elapsed:number;prop?:string}
+export interface PoseCue {kind:ActionPose;elapsed:number;prop?:string;duration?:number;equipment?:import('./equipment-motion').EquipmentAction}
+export const poseDuration=(cue:PoseCue)=>cue.duration??motionDurations[cue.kind]
 export interface PoseClock {current:PoseCue|null;queue:PoseCue[]}
 export const createPoseClock=():PoseClock=>({current:null,queue:[]})
 export function clearPoses(clock:PoseClock){clock.current=null;clock.queue=[]}
-export function requestPose(clock:PoseClock,kind:ActionPose,prop?:string){
- const cue:PoseCue={kind,elapsed:0,prop},active=clock.current
+export function requestPose(clock:PoseClock,kind:ActionPose,prop?:string,options?:Pick<PoseCue,'duration'|'equipment'>){
+ const cue:PoseCue={kind,elapsed:0,prop,...options},active=clock.current
  if(!active){clock.current=cue;return}
  if(kind==='stand'&&active.kind==='crouchDown'||kind==='crouchDown'&&active.kind==='stand'){
   clock.current={kind,elapsed:Math.max(0,motionDurations[kind]*(1-active.elapsed/motionDurations[active.kind])-1e-6),prop};clock.queue=[];return
@@ -27,9 +28,9 @@ export function advancePose(clock:PoseClock,dt:number,instant=false){
  if(instant){clearPoses(clock);return}
  let remaining=Math.max(0,Math.min(96,dt))
  while(clock.current&&remaining>0){
-  const cue=clock.current,part=Math.min(remaining,motionDurations[cue.kind]-cue.elapsed)
+  const cue=clock.current,part=Math.min(remaining,poseDuration(cue)-cue.elapsed)
   cue.elapsed+=part;remaining-=part
-  if(cue.elapsed>=motionDurations[cue.kind])clock.current=clock.queue.shift()??null
+  if(cue.elapsed>=poseDuration(cue))clock.current=clock.queue.shift()??null
  }
 }
 export function poseFrame(count:number,phase:number,loop=false){

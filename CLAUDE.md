@@ -8,3 +8,4 @@
 - UI 텍스트·로그는 한국어. 조사는 `이(가)/을(를)/은(는)/과(와)` 병기로 쓰면 `log()`가 자동 교정한다.
 
 - 게임 기능·UI·아트 수정은 프로젝트 [게임 개발 스킬](.agents/skills/ashveil-game-development/SKILL.md)의 실제 입력→화면/상태 관찰 절차를 적용한다. 빠른 검사는 `pnpm game:check`를 쓰고, 기존 코어·저장·전체 회귀 검증을 함께 유지한다.
+- 캐릭터·보행·무기·자세 동작 제작은 [캐릭터 동작 스킬](.agents/skills/ashveil-character-motion/SKILL.md)의 거리/시간·발 접지·손잡이·공격 계열·원화 의미 검토 절차를 함께 적용한다.

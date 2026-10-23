@@ -1,6 +1,6 @@
 import type {Pos} from '../../core/geom'
 
-export const WALK_STEP_MS=150
+export const WALK_STEP_MS=360
 export interface WalkMotion {from:Pos;to:Pos;t:number;queue:Pos[];stride:number}
 const equal=(a:Pos,b:Pos)=>a.x===b.x&&a.y===b.y
 const adjacent=(a:Pos,b:Pos)=>Math.max(Math.abs(a.x-b.x),Math.abs(a.y-b.y))<=1
@@ -23,12 +23,12 @@ export function observeWalk(m:WalkMotion,destination:Pos,moves:readonly {from:Po
  if(m.t===1&&m.queue.length){m.from={...m.to};m.to=m.queue.shift()!;m.t=0}
 }
 
-export function advanceWalk(m:WalkMotion,dt:number,instant=false){
+export function advanceWalk(m:WalkMotion,dt:number,instant=false,stepMs=WALK_STEP_MS){
  if(instant){resetWalk(m,m.queue.at(-1)??m.to);return}
  // A slow browser frame cannot jump straight to a distant logical destination.
- const catchUp=Math.min(3,1+Math.max(0,m.queue.length-1)*.35)
+ const catchUp=Math.min(1.2,1+Math.max(0,m.queue.length-1)*.04)
  let remaining=Math.max(0,Math.min(96/catchUp,dt))
- const duration=WALK_STEP_MS/catchUp
+ const duration=Math.max(120,stepMs)/catchUp
  while(remaining>0&&walking(m)){
   if(m.t===1){m.from={...m.to};m.to=m.queue.shift()!;m.t=0}
   const part=Math.min(1-m.t,remaining/duration)

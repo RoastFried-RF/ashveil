@@ -21,6 +21,7 @@ export interface CharDef {
   healthBarWidth?: number
   /** Draw this body's real main/off items separately; its artwork has no assumed weapon. */
   heldItems?:boolean
+  gait?:{walk:number;crouchWalk:number}
   /** Separately authored portrait frame; full-body idle is the fallback. */
   portrait?:string
   /** Immutable generated atlases may use different crop sizes; each pose keeps its foot pivot. */

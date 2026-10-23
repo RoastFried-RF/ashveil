@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.322-dev·저장208**이다.13모델/28캐릭터에16동작 계열을 연결하고 걷기·공격 프레임과 자세 전환·장비 부착을 보완했다. 새99PNG와3,168프레임키를 등록하며 일부 좌우 포즈는 반전 메타데이터를 공유한다. [정확한 구현·검토 범위](docs/animation-v322.md) · [동작 비교·프레임 재생](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 개발 미리보기는 **v0.323-dev·저장208**이다. 보행 한 주기를 0.72초로 늘리고 생물별 속도를 구분했다. 손잡이를 기준으로 무기를 들고 베기·찌르기·도끼·둔기·양손 무기·사격의 준비와 회복을 연결한다. [구현·검토 범위](docs/motion-v323.md) · [동작·장비 비교](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

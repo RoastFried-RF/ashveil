@@ -74,6 +74,8 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
+  const gait=row.gait
+  if(gait!==undefined&&(!object(gait)||!['walk','crouchWalk'].every(name=>typeof gait[name]==='number'&&Number.isFinite(gait[name])&&gait[name]>=200&&gait[name]<=5000)))errors.push('char '+key+'.gait: 동작별200~5000ms 주기가 필요하다')
   if(row.motions!==undefined){
    if(!object(row.motions))errors.push('char '+key+'.motions: 동작별 객체가 필요하다')
    else for(const[name,poses]of Object.entries(row.motions)){
