@@ -3,7 +3,7 @@ import type {GameState} from './types'
 import {log,type World} from './ctx'
 import {stateActors} from './missing-statuses'
 
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 const scenes=(s:GameState)=>[s,...Object.values(s.overworld?.scenes??{})]
 const actorLists=(s:GameState)=>scenes(s).flatMap(scene=>[scene.creatures,...Object.values(scene.offCreatures)])
 const maps=(s:GameState)=>[...new Set(scenes(s).flatMap(scene=>[scene.map,...Object.values(scene.maps)]))]

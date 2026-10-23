@@ -1,6 +1,7 @@
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import {resolveDefinitionRenames}from'./definition-renames'
 import {contentLoadHash,freezeDefinition} from './load-hash'
+import {recipeContract} from './recipe-contract'
 import {definitionSchemaIssues} from './definition-schema'
 import {parseContentJson} from './content-json'
 import {checkedModTextures,isModTexturePath} from './mod-textures'
@@ -458,6 +459,7 @@ export class DefDatabase {
   modManifest():{id:string;version:string;hash:string}[]|undefined{return this.packageRecords?this.packageRecords.map(row=>({...row})):undefined}
   has(id: string): boolean { return this.map.has(id) }
   definitionManifest():Record<string,string>{return Object.fromEntries([...this.map].sort(([a],[b])=>a<b?-1:a>b?1:0).map(([id,d])=>[id,d.defType]))}
+  recipeContractManifest():Record<string,string>{return Object.fromEntries(this.all<RecipeDef>('Recipe').sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(d=>[d.id,recipeContract(d)]))}
   itemShapeManifest():Record<string,{size:[number,number];maxStack:number;label:string;storage?:[number,number]}>{return Object.fromEntries(this.all<ItemDef>('Item').sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0).map(d=>[d.id,{size:[...d.size] as[number,number],maxStack:d.stackable?d.maxStack??5:1,label:d.label,...((d.storage??d.pocket??d.quiver?.size)?{storage:[...(d.storage??d.pocket??d.quiver?.size)!] as[number,number]}:{})}]))}
   get<T extends AnyDef = AnyDef>(id: string): T {
     const d = this.map.get(id)

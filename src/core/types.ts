@@ -2701,6 +2701,8 @@ export interface GameState {
   /** 해시가 기록된 실제 구성의 Def ID/종류. 삭제 복구는 별도 정책을 거친다. */
   contentDefinitions?:Record<string,string>
   contentItemShapes?:Record<string,{size:[number,number];maxStack:number;label:string;storage?:[number,number]}>
+  /** Exact recorded mechanical recipe rules; never inferred from a different configuration. */
+  contentRecipeContracts?:Record<string,string>
   contentChanges?:{turn:number;from:string;to:string}[]
   achievementsDisabled?:boolean
   scriptState?:import('./script-contracts').ScriptState

@@ -92,7 +92,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 211
+export const SAVE_VERSION = 212
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -141,6 +141,7 @@ export function newGame(db: DefDatabase, opts: NewGameOptions): GameState {
     loadHash:db.loadHash,
     contentDefinitions:db.definitionManifest(),
     contentItemShapes:db.itemShapeManifest(),
+    contentRecipeContracts:db.recipeContractManifest(),
     seed: opts.seed,
     mods: [...(opts.mods ?? db.loadedMods)],
     time: START_TURN * TU_PER_TURN,

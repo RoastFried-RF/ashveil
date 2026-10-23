@@ -2,7 +2,7 @@ import type{DefDatabase}from'./defs'
 import type{GameState}from'./types'
 import{log,type World}from'./ctx'
 import{stateActors}from'./missing-statuses'
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 export function stateStorytellers(s:GameState){return[...new Set([s.storyteller,...Object.values(s.overworld?.scenes??{}).map(x=>x.storyteller)])]}
 function purge(s:GameState,ids:Set<string>){
  const counts={scheduled:0,queued:0,callbacks:0}

@@ -2,7 +2,7 @@ import type{DefDatabase}from'./defs'
 import type{GameState,BreakDef,TraumaDef}from'./types'
 import{stateActors}from'./missing-statuses'
 const kinds=new Set(['Wound','Disease','Thought','Trait','Break','Trauma'])
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 function mutate(s:GameState,aliases:ReadonlyMap<string,string>,errors:string[]=[]){
  let records=0;const rename=(id:string,kind:string)=>{const to=aliases.get(id);if(to){if(s.contentDefinitions?.[id]!==kind){errors.push(id+': 상태 기록의 실제 종류가 '+kind+'와 다르다');return id}records++;return to}return id}
  for(const c of stateActors(s)){

@@ -458,3 +458,7 @@ ItemCompWorker에 onProstheticInstalled/onProstheticRemoved/onProstheticServiced
 주민은 가진 곡물만 쓰고 부족한 그릇/키트/장작을 상점 곁에서 실제 돈·재고·배낭 공간으로 확인한다. 상점 목표 재고는 새 세계의 유한 초기 물품이며 옛 각인에 물품이나 돈을 채우지 않는다. 자기 모닥불 설치·점화와 실제 가열·회수·섭취는 기존 행동을 쓴다. 규칙을 끄려면 선택적 `cooking`을 제거한다. 이미 올린 음식과 물품을 소급 삭제하지 않는다.
 
 `WorldSimulation.Hearth.nutritionKcalPerFoodUnit`은 실제 주민 식사 한 회분을 요약 Food 소비와 연결한다(기본2500kcal=1Food). 탄 음식은 실제 줄어든 열량만 기록하고 개인 일일 소비 한도를 넘기지 않는다. 이 필드를 없애면 기존 물품별 `items` 환산을 쓴다. 재사용 그릇 음식을 요약 `items`의 Food 재고로 등록하면 요약 소비가 용기까지 소모할 수 있으므로 실제 섭취 연결에는 이 열량 환산을 쓴다. 다른 사람의 현재 조리 진행/연료·원격 재고는 공개 UI에 추가하지 않는다. [구현 및 검증 범위](resident-cooking-implementation.md).
+
+## 제작법 ID의 명시적 이행
+
+`migrations/rename.json`의 Recipe 이행은 배운 제작법·현재 작업·지도 가공 배치·거점 지시/대기열을 지원한다. 착수한 작업은 저장212의 원래 규칙 해시와 현재 해석 규칙이 같아야 한다. 재료·노동·출력/가공 규칙이 다르거나 원래 기록이 없으면 진행을 추정하지 않는다. [계약·예제와 제한](recipe-renames-v327.md)을 확인한다.

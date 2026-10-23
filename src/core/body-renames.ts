@@ -1,7 +1,7 @@
 import type{DefDatabase}from'./defs'
 import type{BodyDef,CreatureDef,GameState}from'./types'
 import{stateActors}from'./missing-statuses'
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 function mutate(s:GameState,aliases:ReadonlyMap<string,string>){let bodies=0;for(const c of stateActors(s)){const to=aliases.get(c.body.def);if(to){c.body.def=to;bodies++}}return bodies}
 /** 같은 부위 집합과 현재 개체 계약을 유지하는 몸 ID만 옮긴다. 몸을 다시 만들지 않는다. */
 export function bodyRenamePlan(s:GameState,db:DefDatabase){

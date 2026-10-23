@@ -3,7 +3,7 @@ import type{Creature,GameState}from'./types'
 import{log,type World}from'./ctx'
 
 const kinds=new Set(['Wound','Disease','Thought','Trait','Break','Trauma'])
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 const pointer=(key:string)=>key.replace(/~/g,'~0').replace(/\//g,'~1')
 /** 저장된 실제 몸/배낭/정신 구조를 갖춘 개체만 대상으로 한다. */
 export function stateActors(s:GameState){

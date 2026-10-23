@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.326-dev·저장211**이다. 유급 동료에게 진찰과 특정 약1회 투여를 직접 부탁하고 당시 소견을 기록한다. 기존 의료 보급·최소 재고 협업을 유지한다. [구현·제약](docs/companion-clinical-v326.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
+현재 개발 미리보기는 **v0.327-dev·저장212**이다. 모드의 명시적 제작법 ID 이행을 배운 지식·원래 착수 진행·거점 지시/대기열에 연결하고, 재료·출력·노동 규칙이 달라진 작업은 검토에서 막는다. 동료 진찰/투약·의료 보급/최소 재고 협업을 유지한다. [구현·제약](docs/recipe-renames-v327.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

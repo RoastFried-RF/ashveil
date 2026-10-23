@@ -401,6 +401,8 @@ export function deserialize(json: string): GameState {
   if(s.version===209)s.version=210
   // v211 binds explicit companion consultations to their original clinical policy.
   if(s.version===210)s.version=211
+  // v212 records current mechanical recipe contracts; old saves gain no inferred prior rules.
+  if(s.version===211)s.version=212
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -408,6 +410,7 @@ export function deserialize(json: string): GameState {
   if(s.contentMods!==undefined&&(!Array.isArray(s.contentMods)||!s.contentMods.length||s.contentMods.some(m=>!m||typeof m.id!=='string'||!m.id.trim()||typeof m.version!=='string'||!m.version.trim()||typeof m.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(m.hash))||new Set(s.contentMods.map(m=>m.id)).size!==s.contentMods.length))throw new Error('각인의 개별 모드 내용 기록 형식이 올바르지 않다')
   if(s.contentItemShapes!==undefined&&(!s.contentItemShapes||typeof s.contentItemShapes!=='object'||Array.isArray(s.contentItemShapes)||Object.values(s.contentItemShapes).some(v=>!validRecordedItemShape(v))))throw new Error('각인의 원래 물품 크기 기록 형식이 올바르지 않다')
   if(s.contentDefinitions!==undefined&&(!s.contentDefinitions||typeof s.contentDefinitions!=='object'||Array.isArray(s.contentDefinitions)||Object.values(s.contentDefinitions).some(v=>typeof v!=='string'||!v)))throw new Error('각인의 콘텐츠 정의 목록 형식이 올바르지 않다')
+  if(s.contentRecipeContracts!==undefined&&(!s.contentRecipeContracts||typeof s.contentRecipeContracts!=='object'||Array.isArray(s.contentRecipeContracts)||Object.values(s.contentRecipeContracts).some(v=>typeof v!=='string'||!/^sha256-[0-9a-f]{64}$/.test(v))))throw new Error('각인의 원래 제작법 규칙 기록 형식이 올바르지 않다')
   if(s.contentChanges!==undefined&&(!Array.isArray(s.contentChanges)||s.contentChanges.some(c=>!c||!Number.isSafeInteger(c.turn)||c.turn<0||typeof c.from!=='string'||!/^sha256-[0-9a-f]{64}$/.test(c.from)||typeof c.to!=='string'||!/^sha256-[0-9a-f]{64}$/.test(c.to))))throw new Error('각인의 콘텐츠 변경 이력 형식이 올바르지 않다')
   if(s.achievementsDisabled!==undefined&&typeof s.achievementsDisabled!=='boolean')throw new Error('각인의 업적 상태 형식이 올바르지 않다')
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')

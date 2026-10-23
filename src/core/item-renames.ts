@@ -1,7 +1,7 @@
 import type{DefDatabase}from'./defs'
 import type{GameState}from'./types'
 import{stateItemEntries,validRecordedItemShape,validMissingItemRecord,restoreMissingItem,missingItemReferences}from'./missing-items'
-const historical=new Set(['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const historical=new Set(['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 function mutate(s:GameState,aliases:ReadonlyMap<string,string>){
  for(const{item}of stateItemEntries(s)){const target=aliases.get(item.missingItem?.def??item.def);if(!target)continue;if(item.missingItem)restoreMissingItem(item,target);else item.def=target}
  const seen=new WeakSet<object>(),walk=(value:unknown,root=false)=>{if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);for(const[key,entry]of Object.entries(value)){if(root&&historical.has(key)||['missingItem','note','cropHarvest'].includes(key))continue;if(key==='def'&&typeof entry==='string'&&aliases.has(entry))(value as Record<string,unknown>)[key]=aliases.get(entry)!;else walk(entry)}}
@@ -16,7 +16,7 @@ export function itemRenamePlan(s:GameState,db:DefDatabase){
   if(db.has(from))continue
   const stored=entries.filter(e=>e.item.missingItem?.def===from),oldType=s.contentDefinitions?.[from]??(stored.length?'Item':undefined)
   if(oldType===undefined)continue
-  if(['Wound','Disease','Thought','Trait','Break','Trauma','PlaceEvent','Creature','Body'].includes(oldType))continue
+  if(['Wound','Disease','Thought','Trait','Break','Trauma','PlaceEvent','Creature','Body','Recipe'].includes(oldType))continue
   if(oldType!=='Item'||db.tryGet(to)?.defType!=='Item'){errors.push(from+' → '+to+': 물품 외 종류의 ID 이행이 필요하다');continue}
   aliases.set(from,to);renamed.push({from,to})
  }

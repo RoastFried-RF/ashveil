@@ -1,7 +1,7 @@
 import type{DefDatabase}from'./defs'
 import type{BestiaryRecord,CreatureDef,GameState}from'./types'
 import{stateActors}from'./missing-statuses'
-const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'])
+const headers=new Set(['contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 const maps=(s:GameState)=>[...new Set([s.map,...Object.values(s.maps),...Object.values(s.overworld?.scenes??{}).flatMap(x=>[x.map,...Object.values(x.maps)])])]
 const sources=(s:GameState)=>[...new Set([...(s.sources??[]),...Object.values(s.overworld?.scenes??{}).flatMap(x=>x.sources??[])])]
 function mutate(s:GameState,aliases:ReadonlyMap<string,string>,errors:string[]=[]){

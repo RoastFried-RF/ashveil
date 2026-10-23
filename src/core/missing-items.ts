@@ -14,7 +14,7 @@ export function stateItemEntries(s:GameState):ItemEntry[]{
   }
   for(const[key,entry]of Object.entries(value)){
    if(key==='inputs'&&path.endsWith('/processing'))continue
-   if(!path&&['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'].includes(key))continue
+   if(!path&&['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'].includes(key))continue
    walk(entry,path+'/'+key.replace(/~/g,'~0').replace(/\//g,'~1'))
   }
  }
@@ -31,7 +31,7 @@ export function missingItemReferences(s:GameState,ids:Set<string>){
   if(!value||typeof value!=='object'||seen.has(value))return
   seen.add(value)
   for(const[key,entry]of Object.entries(value)){
-   if(!path&&['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentChanges','log','knowledge','over'].includes(key)||key==='missingItem')continue
+   if(!path&&['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'].includes(key)||key==='missingItem')continue
    const next=path+'/'+key.replace(/~/g,'~0').replace(/\//g,'~1')
    if(typeof entry==='string'&&ids.has(entry)&&!(items.has(value)&&key==='def')||typeof entry==='number'&&uids.has(entry)&&!items.has(value)&&(key==='uid'||key.endsWith('Uid')))refs.push(next)
    else walk(entry,next)

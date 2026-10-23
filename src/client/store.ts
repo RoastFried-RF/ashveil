@@ -90,7 +90,7 @@ export async function adoptCurrentContent(token:string):Promise<string|null>{
  const mods=w.db.modManifest();if(!mods)return '실제 패키지 기록을 확인할 수 없다'
  contentAdopting.value=true
  try{
-  Object.assign(w.s,{loadHash:w.db.loadHash,gameVersion:GAME_VERSION,defSchemaVersion:DEF_SCHEMA_VERSION,contentMods:mods,contentDefinitions:w.db.definitionManifest(),contentItemShapes:w.db.itemShapeManifest(),mods:[...w.db.loadedMods],contentAdoptedAt:{turn:Math.floor(w.s.time/100),hash:w.db.loadHash},achievementsDisabled:true})
+  Object.assign(w.s,{loadHash:w.db.loadHash,gameVersion:GAME_VERSION,defSchemaVersion:DEF_SCHEMA_VERSION,contentMods:mods,contentDefinitions:w.db.definitionManifest(),contentItemShapes:w.db.itemShapeManifest(),contentRecipeContracts:w.db.recipeContractManifest(),mods:[...w.db.loadedMods],contentAdoptedAt:{turn:Math.floor(w.s.time/100),hash:w.db.loadHash},achievementsDisabled:true})
   const list=chronicle();list.unshift({at:new Date().toISOString(),seed:w.s.seed,kind:'content',turn:Math.floor(w.s.time/100),from:'이전 구성 기록 없음',to:w.db.loadHash});safeSet(CHRONICLE_KEY,JSON.stringify(list.slice(0,50)))
   cancelContentAdoption();version.value++;await saveImprint();return saveStatus.value==='error'?'현재 구성은 기록했지만 각인을 저장하지 못했다: '+saveError.value:null
  }finally{contentAdopting.value=false}

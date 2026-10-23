@@ -15,6 +15,11 @@ const emit=defineEmits<{accept:[token:string];cancel:[]}>()
     <p v-if="!review.hasRecord" class="text-red-300">이 각인에는 원래 정의 목록이 없다. 원래 구성으로 복원해 불러온 뒤 다시 저장해야 한다.</p>
     <template v-else><p>사라졌거나 종류가 바뀐 정의 {{ review.missing.length }}개 · 새 정의 {{ review.added.length }}개</p><ul v-if="review.missing.length" class="max-h-40 overflow-auto text-red-300"><li v-for="d in review.missing" :key="d.id">{{ d.id }} · {{ d.type }}</li></ul></template>
     <p v-if="review.renamed.length">원래 ID를 이행할 물품 {{ review.renameItems }}더미</p><p v-for="rename in review.renamed" :key="rename.from" class="break-all text-amber-200">{{ rename.from }} → {{ rename.to }}</p>
+    <section v-if="review.renamedRecipes.length" class="my-2 border border-ash-700 p-2" data-testid="recipe-renames-review">
+      <p>제작법 ID 이행: 배운 지식 {{ review.renameRecipeRecords.known }} · 착수 작업 {{ review.renameRecipeRecords.jobs }} · 가공 배치 {{ review.renameRecipeRecords.batches }} · 거점 지시 {{ review.renameRecipeRecords.orders }} · 대기 지시 {{ review.renameRecipeRecords.queued }}개.</p>
+      <p>착수한 작업은 기록된 재료·출력·노동·가공 규칙이 같을 때만 이어 간다. 물품UID·개수·품질·진행·시간·난수는 보존한다.</p>
+      <p v-for="rename in review.renamedRecipes" :key="rename.from" class="break-all text-amber-200">{{ rename.from }} → {{ rename.to }}</p>
+    </section>
     <section v-if="review.renamedBodies.length" data-testid="body-renames-review">
       <p>같은 기록으로 ID를 이행할 몸 {{ review.renameBodyRecords }}개. 부위 ID·혈액·HP·상처·절단·의수족·전원을 새로 만들지 않는다.</p>
       <p v-for="rename in review.renamedBodies" :key="rename.from" class="break-all text-amber-200">{{ rename.from }} → {{ rename.to }}</p>
