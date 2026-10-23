@@ -610,16 +610,18 @@ export class MapRenderer {
       const i = c.pos.y * w.s.map.w + c.pos.x
       const shown = c.id === pl.id || vis.has(i)
       let v = this.views.get(c.id)
-      if (v && v.selectedSprite !== creatureSprite(w,c)) { v.root.destroy({children:true});this.views.delete(c.id);v=undefined }
+      const wasShown = !!v?.root.visible
       if (!shown) {
-        if (v && c.alive) { v.root.visible = false }
-        if (v && !c.alive && !w.s.map.tiles[i].seen) v.root.visible = false
-        if (!v) continue
+        // 시체를 포함한 동적 개체는 현재 관찰 범위에서만 그린다. 숨은 개체의
+        // 사망/이동/장비·표식 변화로 이전에 만든 뷰를 갱신하지 않는다.
+        if (v) { v.root.visible = false; seen.add(c.id) }
+        continue
       }
+      if (v && v.selectedSprite !== creatureSprite(w,c)) { v.root.destroy({children:true});this.views.delete(c.id);v=undefined }
       if (!v) { v = this.makeView(w, c); this.views.set(c.id, v) }
       if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]
       seen.add(c.id)
-      v.root.visible = shown || (!c.alive && !!w.s.map.tiles[i].seen)
+      v.root.visible = true
       if (v.to.x !== c.pos.x || v.to.y !== c.pos.y) {
         const cur = this.viewPos(v)
         v.from = cur
@@ -631,7 +633,7 @@ export class MapRenderer {
       v.crouched=crouched(w,c)
       v.mechanical=!!c.body.machine
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
-      if (v.alive && !c.alive) { v.alive = false; v.deadT = 0 }
+      if (v.alive && !c.alive) { v.alive = false; v.deadT = wasShown && c.deathTurn === turnOf(w) ? 0 : 1 }
       this.drawBar(w, c, v)
       this.drawMarks(w, c, v)
     }

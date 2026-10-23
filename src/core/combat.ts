@@ -894,6 +894,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
   }
   if(!machineRules(w,c))t.blood = Math.min(400, t.blood + 60)
   const pl = player(w)
+  const witnessedDeath = pl.alive && canSee(w, pl, c.pos)
   if(isCompanion(w,c))for(const observer of w.s.creatures){
     if(observer.id===c.id||!observer.alive||observer.asleep||observer.unconscious||observer.id!==pl.id&&!isCompanion(w,observer)||!canSee(w,observer,c.pos))continue
     rememberLifeEvent(w,observer,'companionDeath')
@@ -905,10 +906,10 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
     const rule=w.db.creature(c.def).meatDrop,base=rule?.count??3,count=byPlayer?traumaMeat(w,pl,c,base):base
     if(count>0)t.items.push(makeItem(w,rule?.item??'Item.RawMeat',count))
   }
-  if (c.id !== pl.id && pl.alive) traumaVictory(w, pl, c, c.body.wounds.at(-1)?.sourceId === pl.id || !!c.lastAttacker?.startsWith(pl.name))
+  if (c.id !== pl.id && pl.alive && (byPlayer || witnessedDeath)) traumaVictory(w, pl, c, c.body.wounds.at(-1)?.sourceId === pl.id || !!c.lastAttacker?.startsWith(pl.name))
   fx(w, { k: 'death', id: c.id, turn })
   if (c.id !== pl.id) {
-    if (pl.alive) {
+    if (pl.alive && (byPlayer || witnessedDeath)) {
       const b = (w.s.knowledge.bestiary[c.def] ??= { seen: 0, fought: 0, killed: 0 })
       // 사망 원인 기여: 플레이어가 준 상처가 하나라도 남아 있으면 전액 (15 §3)
       if (byPlayer) {
@@ -924,7 +925,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
         awardDefeat(w, pl, c, 1, '처치')
       } else addThought(w, pl, 'Thought.SawDeath', traitOverride(w, pl, 'deathMood'))
     }
-    log(w, 'combat', `${knownCreatureName(w,c)}이(가) 쓰러졌다. (${cause})`)
+    if (witnessedDeath) log(w, 'combat', `${knownCreatureName(w,c)}이(가) 쓰러졌다. (${cause})`)
   }
   // 사기 사건 (07 §8): 시야 내 아군 사망 −15(30턴 반감), 우두머리 사망 −30, 처치한 쪽 +5
   const leader = !!w.db.creature(c.def).leader

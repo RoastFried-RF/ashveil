@@ -2,10 +2,11 @@
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  maneuverQuote, eq as eqPos, bloodLoss, canReach, cheb, creatureAt, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
+  maneuverQuote, bloodLoss, canReach, cheb, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
   allItems, autoBlocked, autoSnap, autoStop, turnOf, type Pos, type World,
 } from '../core'
 import {readVisibleText,stopSpeech} from './speech'
+import {observedClickActors} from './map-click-actors'
 import {cycleFocus,editableTarget,directionOf,repeatableCommand} from './input-context'
 import {KeyRepeatGate} from './key-repeat'
 import { COMMANDS, bindingText, resolveGameKey, type Command } from './keybindings'
@@ -303,8 +304,7 @@ function onClick(p: Pos, button: number, ctrl=false) {
   if (button !== 0) return
   const ww = w.value
   const pl = player(ww)
-  const c = creatureAt(ww, p)
-  const corpse=[...ww.s.creatures].reverse().find(o=>!o.alive&&eqPos(o.pos,p))
+  const { actor: c, corpse } = observedClickActors(ww, p)
   const t = targeting.value
   if (t) {
     if (c && t.targets.includes(c.id)) confirmTarget(c.id)
