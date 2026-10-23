@@ -82,7 +82,7 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
 
     <div class="hud-vitals">
       <div class="hud-portrait">
-        <div class="pix mb-4 origin-bottom scale-[2.8]" :style="frameCss('original_wanderer_hero_w_down0', 1)" />
+        <div class="pix mb-4 origin-bottom scale-[2.8]" :style="frameCss('av316_original_wanderer_hero_idle_down0', .5)" />
         <img v-if="portraitVisible" :src="portraitSrc" alt="" @error="portraitVisible = false" />
         <span class="hud-level">LV. {{ d.level }}</span>
       </div>

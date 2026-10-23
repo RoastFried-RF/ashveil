@@ -53,7 +53,7 @@ const d = computed(() => {
   <Win title="캐릭터" :x="16" :y="80" :width="430" testid="win-char" @close="wins.char = false">
     <div class="flex gap-3">
       <div class="df df-slot-sel flex h-[112px] w-[84px] shrink-0 items-end justify-center overflow-hidden bg-[#1a1712]">
-        <div class="pix origin-bottom scale-[3]" :style="frameCss('original_wanderer_hero_w_down0', 1)" />
+        <div class="pix origin-bottom scale-[3]" :style="frameCss('av316_original_wanderer_hero_idle_down0', .5)" />
       </div>
       <div class="min-w-0 flex-1 space-y-1">
         <div class="font-title text-lg font-bold text-[#e8d7a8]">{{ d.pl.name }} <span class="text-sm text-ash-400">레벨 {{ d.pl.level }}</span></div>

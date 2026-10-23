@@ -162,3 +162,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### v0.315 밭 잔재 원화 (구현 중)
 
 직접 작성한64px SVG1프레임을 정리한 밭의 잔재에 연결했다. [제작 원본](tools/art/direction-v315/soil-residue.svg) · [CC0](tools/art/direction-v315/LICENSE.txt) · [검토 상태](tools/art/direction-v315/provenance.json). 외부 이미지·추적·팔레트 샘플을 쓰지 않았다.
+
+### v0.316 상세 인물 원화
+
+직접 작성한19종/38SVG·PNG/912프레임을 인간형 캐릭터에 연결했다. [제작 코드](tools/art/direction-v316/draw-people.mjs) · [출처와 디자인](tools/art/direction-v316/provenance.json) · [CC0](tools/art/direction-v316/LICENSE.txt). 외부 이미지 픽셀·트레이싱 없이 SVG를 작성하고 Inkscape로 렌더링했다. 이전 원본과 별도 회화 초상화의 출처는 보존한다.

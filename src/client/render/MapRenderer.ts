@@ -5,6 +5,7 @@ import {treeArt} from './forest-art'
 import {livingTreeArt} from './living-art'
 import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
+import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 // 다크 판타지 맵 렌더러 (Pixi 8)
 // 층: 바닥 → 장식·피 → 벽 → [물체·생물 y정렬] → 빛(가산) → 어둠(부드러운 시야) → 커서·대상 → 떠오르는 글자
 // 코어 상태는 읽기만 한다. 연출은 w.s.fx 이벤트를 소비해서 만든다.
@@ -13,14 +14,13 @@ import {
   AnimatedSprite, Application, Container, Graphics, Sprite, Text, Texture, TextureStyle, type TextStyleOptions,
 } from 'pixi.js'
 import {
-  crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
+  crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
   type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
 import { animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
 
 export const T = 16
-const MOVE_MS = 150
 const ATTACK_MS = 280
 
 const FONT: TextStyleOptions = {
@@ -35,14 +35,14 @@ interface CView {
   selectedSprite: string
   root: Container
   body: Sprite
+  hands:[Sprite,Sprite]
   shadow: Graphics
   bar: Graphics
   marks: Graphics
   char?: CharDef
   anim?: Texture[]
-  from: Pos
-  to: Pos
-  t: number
+  motion:WalkMotion
+  lightPos:Pos
   dir: Dir
   attackT: number
   attackVec: Pos
@@ -105,6 +105,10 @@ export class MapRenderer {
   private displayVisible:ReadonlySet<number>=new Set()
   private staticFogProps:{index:number;sprite:Sprite}[]=[]
   private dynamicFogProps:{index:number;sprite:Sprite}[]=[]
+  private fixedLevels=new Float32Array()
+  private fixedGlow=new Uint8ClampedArray()
+  private lightMasks=new Map<string,Uint8Array>()
+  private lightKey=''
   private cam = { x: 0, y: 0 }
   private camInit = false
   private zoom = 3
@@ -113,6 +117,8 @@ export class MapRenderer {
   private opts: RenderOpts = {}
   private shake = 0
   private ready = false
+  onPlayerMotion: (moving:boolean) => void = () => {}
+  private playerMoving=false
   onHover: (p: Pos | null) => void = () => {}
   onClick: (p: Pos, button: number, ctrl: boolean) => void = () => {}
 
@@ -192,9 +198,10 @@ export class MapRenderer {
       this.buildStatic(w)
     }
     this.buildDynamic(w)
+    this.syncCreatures(w)
     this.updateLight(w)
     this.consumeFx(w)
-    this.syncCreatures(w)
+    this.notifyPlayerMotion()
     this.drawOverlay()
   }
 
@@ -505,62 +512,80 @@ export class MapRenderer {
   // ── 빛·어둠: 타일당 1px 캔버스를 선형 확대해서 부드럽게 ────
 
   private updateLight(w: World) {
-    const map = w.s.map
-    for (const cv of [this.shadeCanvas, this.glowCanvas]) { cv.width = map.w; cv.height = map.h }
-    const dctx = this.shadeCanvas.getContext('2d')!
-    const gctx = this.glowCanvas.getContext('2d')!
-    const dimg = dctx.createImageData(map.w, map.h)
-    const gimg = gctx.createImageData(map.w, map.h)
-    const vis = this.displayVisible
-    for (let y = 0; y < map.h; y++) for (let x = 0; x < map.w; x++) {
-      const i = y * map.w + x
-      const o = i * 4
-      let a: number
-      if (vis.has(i)) {
-        const l = lightAt(w, { x, y })
-        a = Math.max(0, Math.min(0.55, 0.6 - l * 1.0))
-      } else if (map.tiles[i].seen) a = 0.74
-      else a = 1
-      dimg.data[o] = 4; dimg.data[o + 1] = 4; dimg.data[o + 2] = 8; dimg.data[o + 3] = Math.round(a * 255)
-    }
-    // 불빛: 보이는 광원 주변을 따뜻하게
-    for (const L of map.lights) {
-      if(L.off)continue
-      if (!vis.has(L.pos.y * map.w + L.pos.x)) continue
-      const col = L.kind === 'taint' ? [150, 40, 70] : [255, 140, 60]
-      for (let dy = -L.radius; dy <= L.radius; dy++) for (let dx = -L.radius; dx <= L.radius; dx++) {
-        const x = L.pos.x + dx, y = L.pos.y + dy
-        if (x < 0 || y < 0 || x >= map.w || y >= map.h) continue
-        const d = Math.sqrt(dx * dx + dy * dy)
-        if (d > L.radius) continue
-        const i = y * map.w + x
-        if (!vis.has(i)) continue
-        const k = (1 - d / L.radius) * 0.55
-        const o = i * 4
-        gimg.data[o] = Math.min(255, gimg.data[o] + col[0] * k)
-        gimg.data[o + 1] = Math.min(255, gimg.data[o + 1] + col[1] * k)
-        gimg.data[o + 2] = Math.min(255, gimg.data[o + 2] + col[2] * k)
-        gimg.data[o + 3] = 255
+    const map=w.s.map,visible=this.displayVisible
+    // Fixed lighting is sampled through a read-only context; original actors stay untouched.
+    const fixed:World={db:w.db,s:{...w.s,creatures:[]}}
+    this.fixedLevels=new Float32Array(map.w*map.h)
+    this.fixedGlow=new Uint8ClampedArray(map.w*map.h*4)
+    this.lightMasks.clear();this.lightKey=''
+    for(let y=0;y<map.h;y++)for(let x=0;x<map.w;x++)if(visible.has(y*map.w+x))this.fixedLevels[y*map.w+x]=lightAt(fixed,{x,y})
+    for(const source of map.lights){
+      if(source.off||!visible.has(source.pos.y*map.w+source.pos.x))continue
+      const color=source.kind==='taint'?[150,40,70]:[255,140,60]
+      for(let y=Math.max(0,source.pos.y-source.radius);y<=Math.min(map.h-1,source.pos.y+source.radius);y++)for(let x=Math.max(0,source.pos.x-source.radius);x<=Math.min(map.w-1,source.pos.x+source.radius);x++){
+        const i=y*map.w+x,d=Math.hypot(x-source.pos.x,y-source.pos.y)
+        if(d>source.radius||!visible.has(i)||!hasLos(w,source.pos,{x,y}))continue
+        const k=(1-d/source.radius)*.55,o=i*4
+        for(let c=0;c<3;c++)this.fixedGlow[o+c]=Math.min(255,this.fixedGlow[o+c]+color[c]*k)
+        this.fixedGlow[o+3]=255
       }
     }
-    dctx.putImageData(dimg, 0, 0)
-    gctx.putImageData(gimg, 0, 0)
-    const projected=[...this.staticFogProps,...this.dynamicFogProps].filter(row=>vis.has(row.index)&&row.sprite.height>T).sort((a,b)=>a.sprite.zIndex-b.sprite.zIndex)
-    this.darkCanvas.width=map.w*(projected.length?T:1);this.darkCanvas.height=map.h*(projected.length?T:1)
-    const full=this.darkCanvas.getContext('2d')!
-    if(!projected.length)full.putImageData(dimg,0,0)
-    else{
-      full.imageSmoothingEnabled=true;full.drawImage(this.shadeCanvas,0,0,this.darkCanvas.width,this.darkCanvas.height)
-      for(const row of projected)projectVisibleFog(full,row.sprite,dimg.data[row.index*4+3]!/255)
+    this.drawLight(w,true)
+  }
+
+  /** Carried light, feet and camera sample the same presentation position each frame. */
+  private drawLight(w:World,force=false){
+    const map=w.s.map,vis=this.displayVisible
+    const carriers=w.s.creatures.flatMap(c=>{
+      if(!c.alive)return[]
+      const light=lightSource(w,c);if(!light)return[]
+      const view=this.views.get(c.id),shown=!!view?.root.visible
+      const position=shown?view!.lightPos:c.pos
+      const from=shown?view!.motion.from:c.pos,to=shown?view!.motion.to:c.pos
+      return[{id:c.id,logical:c.pos,position,from,to,radius:light.radius,shown}]
+    })
+    const key=carriers.map(c=>`${c.id}:${c.position.x.toFixed(4)},${c.position.y.toFixed(4)}:${c.radius}`).join('|')
+    if(!force&&key===this.lightKey)return
+    this.lightKey=key
+    for(const cv of [this.shadeCanvas,this.glowCanvas])if(cv.width!==map.w||cv.height!==map.h){cv.width=map.w;cv.height=map.h}
+    const dc=this.shadeCanvas.getContext('2d')!,gc=this.glowCanvas.getContext('2d')!,dimg=dc.createImageData(map.w,map.h),gimg=gc.createImageData(map.w,map.h)
+    const levels=this.fixedLevels.slice();gimg.data.set(this.fixedGlow)
+    for(const source of carriers){
+      const {position,radius,from,to,logical}=source
+      const maskKey=`${source.id}:${from.x},${from.y}:${to.x},${to.y}:${logical.x},${logical.y}:${radius}`
+      let mask=this.lightMasks.get(maskKey)
+      if(!mask){
+        mask=new Uint8Array(map.w*map.h)
+        const left=Math.max(0,Math.floor(Math.min(from.x,to.x)-radius-1)),right=Math.min(map.w-1,Math.ceil(Math.max(from.x,to.x)+radius+1))
+        const top=Math.max(0,Math.floor(Math.min(from.y,to.y)-radius-1)),bottom=Math.min(map.h-1,Math.ceil(Math.max(from.y,to.y)+radius+1))
+        for(let y=top;y<=bottom;y++)for(let x=left;x<=right;x++){
+          const i=y*map.w+x,p={x,y}
+          if(vis.has(i)&&hasLos(w,logical,p)&&hasLos(w,from,p)&&hasLos(w,to,p))mask[i]=1
+        }
+        this.lightMasks.set(maskKey,mask)
+      }
+      for(let y=Math.max(0,Math.floor(position.y-radius-1));y<=Math.min(map.h-1,Math.ceil(position.y+radius+1));y++)for(let x=Math.max(0,Math.floor(position.x-radius-1));x<=Math.min(map.w-1,Math.ceil(position.x+radius+1));x++){
+        const i=y*map.w+x;if(!mask[i])continue
+        const d=Math.hypot(x-position.x,y-position.y);if(d>radius+1)continue
+        levels[i]=Math.max(levels[i],d<=radius?.7+.3*(1-d/(radius+1)):.55)
+        if(source.shown&&d<radius){const k=(1-d/radius)*.30,o=i*4;for(const[c,color]of [255,153,76].entries())gimg.data[o+c]=Math.min(255,gimg.data[o+c]+color*k);gimg.data[o+3]=255}
+      }
     }
-    for (const [s, cv] of [[this.dark, this.darkCanvas], [this.glow, this.glowCanvas]] as const) {
-      // 두 텍스처는 이 렌더러 전용 캔버스다. 이전 GPU 소스도 함께 해제한다.
-      s.texture.destroy(true)
-      const t = Texture.from(cv, true)
-      t.source.scaleMode = 'linear'
-      s.texture = t
-      s.width = map.w * T
-      s.height = map.h * T
+    for(let i=0;i<map.tiles.length;i++){
+      const alpha=vis.has(i)?Math.max(0,Math.min(.55,.6-levels[i])):map.tiles[i].seen?.74:1,o=i*4
+      dimg.data[o]=4;dimg.data[o+1]=4;dimg.data[o+2]=8;dimg.data[o+3]=Math.round(alpha*255)
+    }
+    dc.putImageData(dimg,0,0);gc.putImageData(gimg,0,0)
+    const projected=[...this.staticFogProps,...this.dynamicFogProps].filter(row=>vis.has(row.index)&&row.sprite.height>T).sort((a,b)=>a.sprite.zIndex-b.sprite.zIndex)
+    const width=map.w*(projected.length?T:1),height=map.h*(projected.length?T:1)
+    if(this.darkCanvas.width!==width||this.darkCanvas.height!==height){this.darkCanvas.width=width;this.darkCanvas.height=height}
+    const full=this.darkCanvas.getContext('2d')!;full.clearRect(0,0,width,height)
+    if(!projected.length)full.putImageData(dimg,0,0)
+    else{full.imageSmoothingEnabled=true;full.drawImage(this.shadeCanvas,0,0,width,height);for(const row of projected)projectVisibleFog(full,row.sprite,dimg.data[row.index*4+3]/255)}
+    for(const[sprite,canvas]of [[this.dark,this.darkCanvas],[this.glow,this.glowCanvas]]as const){
+      if(sprite.texture.source.pixelWidth!==canvas.width||sprite.texture.source.pixelHeight!==canvas.height){sprite.texture.destroy(true);sprite.texture=Texture.from(canvas,true);sprite.texture.source.scaleMode='linear'}
+      else sprite.texture.source.update()
+      sprite.width=map.w*T;sprite.height=map.h*T
     }
   }
 
@@ -595,14 +620,16 @@ export class MapRenderer {
     if (ch || anim) body.scale.set(scale)
     const bar = new Graphics()
     const marks = new Graphics()
-    root.addChild(shadow, body, bar, marks)
+    const hands:[Sprite,Sprite]=[new Sprite(Texture.EMPTY),new Sprite(Texture.EMPTY)]
+    for(const hand of hands){hand.anchor.set(.5,.78);hand.visible=false}
+    root.addChild(shadow, body,...hands, bar, marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body, shadow, bar, marks, char: ch, anim, from: { ...c.pos }, to: { ...c.pos }, t: 1,
+      id: c.id, selectedSprite, root, body,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
-    void w
+    root.position.set(c.pos.x*T+T/2,c.pos.y*T+T-2)
     return v
   }
 
@@ -627,14 +654,18 @@ export class MapRenderer {
       if(c.body.machine)v.char=chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]
       seen.add(c.id)
       v.root.visible = true
-      if (v.to.x !== c.pos.x || v.to.y !== c.pos.y) {
-        const cur = this.viewPos(v)
-        v.from = cur
-        v.to = { ...c.pos }
-        v.t = Math.abs(cur.x - c.pos.x) + Math.abs(cur.y - c.pos.y) > 2.5 ? 1 : 0
-      }
+      const moves=w.s.fx.filter((e):e is Extract<FxEvent,{k:'move'}>=>e.k==='move'&&e.id===c.id)
+      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
+      else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
+      else observeWalk(v.motion,c.pos,moves)
       if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
+      // New bodies contain no invented weapons. Display only the visible actor's real held items.
+      for(const [index,slot]of (['main','off']as const).entries()){
+        const hand=v.hands[index],held=c.equip[slot]
+        hand.visible=!!v.char?.idle.down[0]?.startsWith('av316_')&&c.alive&&!v.unknown&&!!held&&!held.half&&!held.missingItem
+        if(hand.visible&&held){hand.texture=tex(itemDef(w,held).sprite);hand.scale.set(14/Math.max(hand.texture.width,hand.texture.height))}
+      }
       v.crouched=crouched(w,c)
       v.mechanical=!!c.body.machine
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
@@ -700,8 +731,7 @@ export class MapRenderer {
   }
 
   private viewPos(v: CView): Pos {
-    const t = Math.min(1, v.t)
-    return { x: v.from.x + (v.to.x - v.from.x) * t, y: v.from.y + (v.to.y - v.from.y) * t }
+    return walkPosition(v.motion)
   }
 
   // ── 연출 이벤트 ─────────────────────────────────────
@@ -826,8 +856,10 @@ export class MapRenderer {
     for (const v of this.views.values()) {
       if (!preferences.hitFlash || immediate) v.flashT = 0
       if (v.body instanceof AnimatedSprite) { v.body.animationSpeed = 0.1 * preferences.animationSpeed; if (immediate) v.body.stop(); else if (!v.body.playing) v.body.play() }
-      this.animateView(v, dt * (preferences.animationSpeed || 1))
+      this.animateView(v, Math.min(48,dt) * (preferences.animationSpeed || 1))
     }
+    this.drawLight(w)
+    this.notifyPlayerMotion()
     // 떠오르는 글자·불꽃
     for (let i = this.floaters.length - 1; i >= 0; i--) {
       const f = this.floaters[i] as Floater & { vx?: number }
@@ -855,9 +887,8 @@ export class MapRenderer {
     tx = mw < Wpx ? (Wpx - mw) / 2 : Math.min(0, Math.max(Wpx - mw, tx))
     ty = mh < usableHeight ? (usableHeight - mh) / 2 : Math.min(0, Math.max(usableHeight - mh, ty))
     if (!this.camInit) { this.cam = { x: tx, y: ty }; this.camInit = true }
-    const k = immediate ? 1 : 1 - Math.pow(0.0001, dt * preferences.animationSpeed / 1000)
-    this.cam.x += (tx - this.cam.x) * k
-    this.cam.y += (ty - this.cam.y) * k
+    // Walking is already interpolated. A second camera tween creates visible trailing.
+    this.cam.x=tx;this.cam.y=ty
     let sx = 0, sy = 0
     if (!preferences.screenShake || immediate) this.shake = 0
     if (this.shake > 0.05) { sx = (Math.random() - 0.5) * this.shake; sy = (Math.random() - 0.5) * this.shake; this.shake *= Math.pow(0.002, dt / 1000) }
@@ -865,11 +896,27 @@ export class MapRenderer {
     this.drawRain(w, dt)
   }
 
+  private notifyPlayerMotion(){
+    const view=this.w&&this.views.get(this.w.s.playerId),busy=!!view&&walking(view.motion)&&preferences.animationSpeed!==0
+    if(busy!==this.playerMoving){this.playerMoving=busy;this.onPlayerMotion(busy)}
+  }
+
+  /** Local ?debug observation of the player's presentation only; never advances the world. */
+  presentation(){
+    if(!this.w)return null
+    const p=player(this.w),v=this.views.get(p.id)
+    if(!v)return null
+    const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
+    const feetScreen=v.root.getGlobalPosition()
+    return{logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.scale}:null,screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+  }
+
   private animateView(v: CView, dt: number) {
-    if (preferences.animationSpeed === 0) { v.t = 1; v.attackT = -1; v.deadT = v.alive ? -1 : 1 }
-    if (v.t < 1) v.t = Math.min(1, v.t + dt / MOVE_MS)
+    if (preferences.animationSpeed === 0) { advanceWalk(v.motion,0,true); v.attackT = -1; v.deadT = v.alive ? -1 : 1 }
+    advanceWalk(v.motion,dt)
     const p = this.viewPos(v)
-    const moving = v.t < 1
+    const moving = walking(v.motion)
+    if(v.attackT<0){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
     let ox = 0, oy = 0
     // 공격: 캐릭터 시트에 공격 프레임이 있으면 재생, 없으면 대상 쪽으로 찌르듯 튀어나감
     if (v.attackT >= 0) {
@@ -893,20 +940,29 @@ export class MapRenderer {
         v.body.anchor.set(ch.attackAnchor?.[0] ?? 0.5, ch.attackAnchor?.[1] ?? 0.78)
       } else if (moving) {
         const fr = ch.walk[v.dir]
-        frame = fr[Math.floor(v.t * 3) % fr.length]
+        frame = fr[Math.floor(v.motion.stride/2*fr.length)%fr.length]
         v.body.anchor.set(ch.anchor[0], ch.anchor[1])
       } else {
-        frame = ch.idle[v.dir][0]
+        const idle=ch.idle[v.dir]
+        frame=idle[preferences.animationSpeed===0?0:Math.floor((this.time+v.zzT)/650)%idle.length]
         v.body.anchor.set(ch.anchor[0], ch.anchor[1])
       }
       v.body.texture = tex(frame)
     }
     // 절뚝임: 걸음 후반에 1px 주저앉는다
-    const hop = moving ? -Math.sin(v.t * Math.PI) * 1.5 + (v.limp && v.t > 0.5 ? 1 : 0) : 0
-    const breathe = preferences.animationSpeed > 0 && !moving && v.alive && !v.mechanical ? 1 + Math.sin((this.time + v.zzT) / 420) * 0.018 : 1
-    v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy + hop)
+    const hop = moving&&v.limp ? Math.max(0,Math.sin(v.motion.stride*Math.PI))*.65 : 0
+    v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy)
+    v.lightPos={x:p.x+ox/T,y:p.y+oy/T}
+    v.body.y=hop
+    for(const[index,hand]of v.hands.entries()){
+      const sign=index===0?-1:1,side=v.dir==='left'||v.dir==='right',facing=v.dir==='left'?-1:1
+      const swing=moving?Math.sin(v.motion.stride*Math.PI)*1.5*sign:0,attack=v.attackT>=0&&index===0?Math.sin(v.attackT*Math.PI):0
+      hand.position.set(side?facing*(index===0?4:1):sign*(v.dir==='up'?-6:6),-10+swing+hop-attack*4)
+      hand.rotation=(side?facing*.18:sign*.12)+attack*facing*.9
+      hand.alpha=v.dir==='up'?.8:1
+    }
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
-    if (v.char || v.anim) v.body.scale.set(v.scale, v.scale * breathe*(v.crouched ? .78 : 1))
+    if (v.char || v.anim) v.body.scale.set(v.scale, v.scale*(v.crouched ? .78 : 1))
     // 피격 섬광 → 사망 → 시체
     if (!v.alive) {
       v.deadT = Math.min(1, v.deadT + dt / 380)

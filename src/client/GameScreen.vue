@@ -58,6 +58,7 @@ watch(help, async open => {
     if (helpOrigin?.isConnected) helpOrigin.focus()
   }
 })
+const playerMoving=ref(false)
 const travel = ref<Pos[] | null>(null)
 const resumeDest = ref<Pos | null>(null)
 let travelTimer: ReturnType<typeof setInterval> | undefined
@@ -153,13 +154,17 @@ function startTravel(dest: Pos) {
   const step = () => {
     const cur = world.value
     if (!cur || cur.s.over || document.hidden || preferencesOpen.value || definitionInspectorOpen.value || pendingCheckpoint.value || help.value || !travel.value?.length) return stopTravel()
+    if(playerMoving.value||simulating.value)return
     const me = player(cur)
     const next = travel.value[0]
     const dir = DIRS.findIndex((d) => d.x === next.x - me.pos.x && d.y === next.y - me.pos.y)
     if (dir < 0) return stopTravel()
+    const wasDoor=terrainAt(cur,next).door==='closed'
     const err = doAct({ type: 'move', dir })
     if (err) return stopTravel()
-    travel.value = travel.value.slice(1)
+    const actual=player(cur).pos
+    if(actual.x===next.x&&actual.y===next.y)travel.value=travel.value.slice(1)
+    else if(!wasDoor||terrainAt(cur,next).door!=='open')return stopTravel()
     const why = autoStop(world.value!, snap)
     if (why) {
       if (world.value!.s.autoThreat !== undefined) resumeDest.value = { ...dest }
@@ -168,7 +173,7 @@ function startTravel(dest: Pos) {
       stopTravel()
     }
   }
-  travelTimer=setInterval(step,95)
+  travelTimer=setInterval(step,16)
   step()
 }
 
@@ -248,6 +253,7 @@ function onKey(raw:KeyboardEvent){
  const aimCommand=command==='shoot'||command==='trip'||command==='disarm'||command.startsWith('hotbar')
  if(inWindow&&!inventoryCommand&&!aimCommand){keyRepeat.clear();return}
  if(dir!==null){
+  if(raw.repeat&&playerMoving.value)return
   targeting.value=null
   if(prefix.value){const p=prefix.value;clearPrefix();keyRepeat.clear();doAct(p==='shove'?{type:'shove',dir}:{type:'closeDoor',dir});return}
   if(mapped.ctrlKey){keyRepeat.clear();doAct({type:'face',dir});return}
@@ -372,7 +378,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="relative h-full w-full select-none overflow-hidden bg-black" :style="{ '--hud-dock-height': hudDockHeight + 'px' }">
-    <MapView :key="w.db.loadHash" :opts="opts" @hover="hover = $event" @click="onClick" />
+    <MapView :key="w.db.loadHash" :opts="opts" @hover="hover = $event" @click="onClick" @motion="playerMoving=$event" />
 
     <!-- 위험: 화면 가장자리 붉은 기운 -->
     <div v-if="danger > 0" class="pointer-events-none absolute inset-0" :style="{ opacity: danger, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(120,0,0,.55) 100%)', animation: preferences.warningPulse ? 'danger-vignette 1.6s ease-in-out infinite' : 'none' }" />

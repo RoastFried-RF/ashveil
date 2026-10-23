@@ -37,6 +37,11 @@ const sheets = new Map<string, Texture>()
 const cache = new Map<string, Texture>()
 const icons = new Map<string, Texture>()
 let atlasGeneration=0
+const sheetExtent=new Map<string,{width:number;height:number}>()
+for(const[sheet,x,y,w,h]of Object.values(M.frames)){
+  const prior=sheetExtent.get(sheet)??{width:0,height:0}
+  sheetExtent.set(sheet,{width:Math.max(prior.width,x+w),height:Math.max(prior.height,y+h)})
+}
 
 export function base(): string {
   return import.meta.env.BASE_URL
@@ -102,12 +107,13 @@ export function iconUrl(name: string): string {
 export function frameCss(name: string, scale: number): Record<string, string> {
   const f = M.frames[name]
   if (!f) return {}
+  const{width,height}=sheetExtent.get(f[0])!
   return {
     width: `${f[3] * scale}px`,
     height: `${f[4] * scale}px`,
     backgroundImage: `url(${base()}${M.sheets[f[0]]})`,
     backgroundPosition: `-${f[1] * scale}px -${f[2] * scale}px`,
-    backgroundSize: 'auto',
+    backgroundSize: scale===1?'auto':`${width*scale}px ${height*scale}px`,
     imageRendering: 'pixelated',
   }
 }

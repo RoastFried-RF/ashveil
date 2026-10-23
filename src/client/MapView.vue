@@ -9,12 +9,14 @@ import { preferences } from './preferences'
 import { version, world } from './store'
 
 const props = defineProps<{ opts: RenderOpts }>()
-const emit = defineEmits<{ hover: [p: Pos | null]; click: [p: Pos, button: number, ctrl: boolean] }>()
+const emit = defineEmits<{ hover: [p: Pos | null]; click: [p: Pos, button: number, ctrl: boolean]; motion:[moving:boolean] }>()
 const host = ref<HTMLDivElement>()
 const loading = ref(true)
 let r: MapRenderer | null = null
 let disposed=false
 let resizeObserver:ResizeObserver|undefined
+const debugWindow=window as unknown as {render_game_presentation?:()=>ReturnType<MapRenderer['presentation']>|null}
+const observePresentation=()=>r?.presentation()??null
 
 onMounted(async () => {
   const w = world.value
@@ -23,11 +25,13 @@ onMounted(async () => {
   const icons = [...mapIconKeys, ...creatureIcons, ...w.db.all<ItemDef>('Item').map((i) => i.sprite), ...w.db.all<AbilityDef>('Ability').map((a) => a.icon)]
   if(!await loadAtlas(icons)||disposed)return
   const renderer = new MapRenderer(host.value)
+  renderer.onPlayerMotion=moving=>emit('motion',moving)
   renderer.onHover = (p) => emit('hover', p)
   renderer.onClick = (p, b, ctrl) => emit('click', p, b, ctrl)
   await renderer.init()
   if(disposed){renderer.destroy();return}
   r=renderer
+  if(new URLSearchParams(window.location.search).has('debug'))debugWindow.render_game_presentation=observePresentation
   r.setOpts(props.opts)
   if (world.value) r.sync(world.value)
   resizeObserver=new ResizeObserver(()=>{if(r&&world.value)r.sync(world.value)})
@@ -39,7 +43,7 @@ watch(preferences, () => { if (r && world.value) r.sync(world.value) })
 watch(version, () => { if (r && world.value) r.sync(world.value) })
 watch(() => props.opts, (o) => r?.setOpts(o), { deep: true })
 
-onBeforeUnmount(() => { disposed=true;resizeObserver?.disconnect();r?.destroy(); r = null })
+onBeforeUnmount(() => { disposed=true;emit('motion',false);resizeObserver?.disconnect();r?.destroy(); r = null;if(debugWindow.render_game_presentation===observePresentation)delete debugWindow.render_game_presentation })
 </script>
 
 <template>
