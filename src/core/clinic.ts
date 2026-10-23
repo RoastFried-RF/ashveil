@@ -24,23 +24,15 @@ export const clinicDef = (w: World, doctor: Creature) => {
   return id ? w.db.tryGet<ClinicDef>(id) : undefined
 }
 
-export function clinicQuote(w: World, patient: Creature, doctor: Creature, request: ClinicRequest): ClinicQuote {
-  const out: ClinicQuote = { error: null, fee: 0, turns: 0, quality: 0, lines: [] }, rule = clinicDef(w, doctor)
-  const fail = (msg: string) => { out.error = msg; return out }
-  if (!rule) return fail('진료하는 사람이 아니다')
-  const access = treatmentAccess(w, doctor, patient)
-  if (access) return fail(access)
-  if (patient.id === doctor.id || patient.unconscious || patient.asleep || capacity(w, patient, 'consciousness') < .5) return fail('의식이 또렷해야 진료를 부탁할 수 있다')
-  if (patient.activity || doctor.activity) return fail('하던 일을 마친 뒤 진료를 부탁해야 한다')
-  if (hostileAware(w, doctor) || hostileAware(w, patient)) return fail('교전 중에는 진료할 수 없다')
-  const rep = reputationBand(w, doctor.faction)
-  if (patient.id === w.s.playerId && !rep.trade) return fail('이 세력은 진료를 거절한다')
+/** Pure clinical work plan, shared by paid settlement care and explicit companion requests. */
+export function clinicalPlan(w:World,patient:Creature,doctor:Creature,request:ClinicRequest,rule:ClinicDef):ClinicQuote{
+  const out:ClinicQuote={error:null,fee:0,turns:0,quality:0,lines:[]},fail=(error:string)=>{out.error=error;return out}
   if (request.kind !== 'dose' && !Object.hasOwn(rule.fees, request.kind)) return fail('제공하지 않는 진료다')
   const wd = patient.body.wounds.find((x) => x.id === request.woundId)
   if (wd?.internal) return fail('몸속 상처는 먼저 진찰이 필요하다')
   if (request.woundId !== undefined && !wd) return fail('그 상처가 없다')
   if (wd && wd.healed >= wd.severity && !['tendon', 'reduce', 'extract'].includes(request.kind)) return fail('이미 아문 상처다')
-  const actor: Creature = { ...doctor, activity: undefined }
+  const actor: Creature = { ...doctor, activity: undefined }, shadow:World={db:w.db,s:{...w.s,log:[...w.s.log]}}
   let tool = 0, suturing = false, fee: number
   if (request.kind === 'dose') {
     const plan = clinicalDosePlan(w, doctor, patient, rule, request.uid, request.woundId)
@@ -55,7 +47,7 @@ export function clinicQuote(w: World, patient: Creature, doctor: Creature, reque
       if (n === null) return fail('시술자가 손을 쓸 수 없다')
       actor.activity = { kind: 'diagnose', patientId: patient.id, remaining: n, total: n, label: '진찰' }
     } else if (isProcedure(request.kind)) {
-      const result = startProcedure(w, actor, request.kind, request.woundId, request.part, patient)
+      const result = startProcedure(shadow, actor, request.kind, request.woundId, request.part, patient)
       if (!result.ok) return fail(result.msg!)
       tool = procedureDef(w, request.kind).toolBonus
     } else {
@@ -63,7 +55,7 @@ export function clinicQuote(w: World, patient: Creature, doctor: Creature, reque
       const it = doctor.bag.filter((i) => (i.uses ?? 1) > 0 && (surgery ? i.def === surgery.supply : itemDef(w, i).medical?.kind === request.kind))
         .sort((a, b) => (itemDef(w, b).medical?.tool ?? 0) - (itemDef(w, a).medical?.tool ?? 0) || a.uid - b.uid)[0]
       if (!it) return fail('의사에게 필요한 처치 물품이 남아 있지 않다')
-      const result = startTreatment(w, actor, it.uid, request.woundId, request.part, surgery?.kind, patient)
+      const result = startTreatment(shadow, actor, it.uid, request.woundId, request.part, surgery?.kind, patient)
       if (!result.ok) return fail(result.msg!)
       tool = surgery ? surgery.toolBonus + [-5, 0, 3, 5, 8, 10][qualityOf(findItem(actor, actor.activity!.toolUid!)!)] : itemDef(w, it).medical?.tool ?? 0
       suturing = !!surgery
@@ -72,6 +64,25 @@ export function clinicQuote(w: World, patient: Creature, doctor: Creature, reque
   out.activity = actor.activity
   out.turns = actor.activity!.total! + Math.ceil(Math.max(0, doctor.nextAct - w.s.time) / 100)
   if (request.kind !== 'dose') { const quality = treatQuality(w, doctor, tool, wd, { patient, part: request.part, suturing }); out.quality = quality.q; out.lines = quality.lines }
+  out.fee=fee
+  return out
+}
+
+export function clinicQuote(w: World, patient: Creature, doctor: Creature, request: ClinicRequest): ClinicQuote {
+  const out: ClinicQuote = { error: null, fee: 0, turns: 0, quality: 0, lines: [] }, rule = clinicDef(w, doctor)
+  const fail = (msg: string) => { out.error = msg; return out }
+  if (!rule) return fail('진료하는 사람이 아니다')
+  const access = treatmentAccess(w, doctor, patient)
+  if (access) return fail(access)
+  if (patient.id === doctor.id || patient.unconscious || patient.asleep || capacity(w, patient, 'consciousness') < .5) return fail('의식이 또렷해야 진료를 부탁할 수 있다')
+  if (patient.activity || doctor.activity) return fail('하던 일을 마친 뒤 진료를 부탁해야 한다')
+  if (hostileAware(w, doctor) || hostileAware(w, patient)) return fail('교전 중에는 진료할 수 없다')
+  const rep = reputationBand(w, doctor.faction)
+  if (patient.id === w.s.playerId && !rep.trade) return fail('이 세력은 진료를 거절한다')
+  const plan=clinicalPlan(w,patient,doctor,request,rule)
+  if(plan.error)return plan
+  Object.assign(out,plan)
+  const fee=plan.fee
   out.fee = Math.ceil(fee * (patient.id === w.s.playerId ? rep.price : 1))
   if ((patient.money ?? 0) < out.fee) return fail('진료비가 부족하다')
   return out

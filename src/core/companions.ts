@@ -24,11 +24,11 @@ import { worldGenDef } from './overworld'
 import { addToBag, gridAdd, itemDef } from './items'
 import { diagonalBlocked } from './path'
 import type { CompanionOrder, Creature, MapState } from './types'
-export function companionAccess(w:World,c:Creature,allowActivity?:'drawMap'|'drawWorldMap'|'search'):string|null{
+export function companionAccess(w:World,c:Creature,allowActivity?:'drawMap'|'drawWorldMap'|'search'|'clinical'):string|null{
   const p=player(w)
   if(!p.alive||!c.alive||p.id===c.id||!w.s.creatures.includes(c))return '곁에 있는 살아 있는 사람이어야 한다'
   if(p.captivity||c.captivity)return '먼저 결박을 풀어야 한다'
-  if(p.asleep||c.asleep||p.unconscious||c.unconscious||p.activity||c.activity&&c.activity.kind!==allowActivity)return '깨어 있고 다른 일을 하지 않아야 한다'
+  if(p.asleep||c.asleep||p.unconscious||c.unconscious||p.activity||c.activity&&c.activity.kind!==allowActivity&&!(allowActivity==='clinical'&&c.activity.companionClinical))return '깨어 있고 다른 일을 하지 않아야 한다'
   if(capacity(w,p,'consciousness')<.5||capacity(w,c,'consciousness')<.5||capacity(w,p,'hearing')<.2||capacity(w,c,'hearing')<.2)return '대화를 주고받기 어렵다'
   if(cheb(p.pos,c.pos)>1||!hasLos(w,p.pos,c.pos)||diagonalBlocked(w,p.pos,c.pos.x-p.pos.x,c.pos.y-p.pos.y)||!canSee(w,p,c.pos))return '서로 보이는 바로 곁에서 이야기해야 한다'
   if(hostile(w,p,c))return '적대하는 사람과 계약할 수 없다'

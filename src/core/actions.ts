@@ -23,7 +23,7 @@ import {acceptRescue,reportRescue,rescueRemainsQuote,surveyRescueRemains} from '
 import {player} from './ctx'
 import {assignCompanionRecovery,collectRecoveryCargo,companionRecoveryFetch,companionRecoveryReturn,companionRecoverySearchError,stopCompanionRecovery} from './companion-recovery'
 import {requestCompanionCare,type CompanionCareRequest} from './companion-care'
-import {requestCompanionClinical,type CompanionClinicalRequest} from './companion-clinical'
+import {cancelCompanionClinical,requestCompanionClinical,type CompanionClinicalRequest} from './companion-clinical'
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
 import {acceptBounty,questionBounty,reportBounty,surveyBounty} from './bounty-contracts'
@@ -287,6 +287,7 @@ export type Action =
   | { type:'hireCompanion';target:number }
   | {type:'companionCare';target:number;request:CompanionCareRequest;expectedUid:number;expectedTurns:number;expectedQuality:number}
   | {type:'companionClinical';target:number;request:CompanionClinicalRequest;expected:string}
+  | {type:'cancelCompanionClinical';target:number;patient:number}
   | { type:'payCompanion';target:number }
   | { type:'dismissCompanion';target:number }
   | { type:'commandCompanion';target:number;order:import('./types').CompanionOrder }
@@ -680,9 +681,13 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       if(c.id===w.s.playerId)return FAIL('상호 구조를 맡긴 동료의 실제 작업이다')
       const patient=creatureById(w,a.target),error=patient?(a.type==='companionDrag'?startCompanionDrag(w,c,patient,a.to):startCompanionAid(w,c,patient)):'환자가 현장에 없다';return error?FAIL(error):FREE
     }
+    case 'cancelCompanionClinical':{
+      if(c.id!==w.s.playerId)return FAIL('직접 부탁한 진료의 중단을 지시해야 한다')
+      const provider=creatureById(w,a.target),error=provider?cancelCompanionClinical(w,provider,a.patient):'시술자가 곁에 없다';return error?FAIL(error):{ok:true,tu:100}
+    }
     case 'companionClinical':{
       if(c.id!==w.s.playerId)return FAIL('직접 곁의 동료에게 진찰·투약을 부탁해야 한다')
-      const provider=creatureById(w,a.target),error=provider?requestCompanionClinical(w,provider,a.request,a.expected):'동료가 곁에 없다';return error?FAIL(error):FREE
+      const provider=creatureById(w,a.target),error=provider?requestCompanionClinical(w,provider,a.request,a.expected):'동료가 곁에 없다';return error?FAIL(error):a.request.patient===undefined||a.request.patient===c.id?FREE:{ok:true,tu:100}
     }
     case 'companionCare':{
       if(c.id!==w.s.playerId)return FAIL('내 동료에게만 응급 처치를 부탁할 수 있다')
