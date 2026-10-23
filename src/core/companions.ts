@@ -1,3 +1,4 @@
+import {companionAidDecision} from './companion-aid'
 import {companionRecoveryDecision} from './companion-recovery'
 import {readyFood} from './open-food-state'
 import {rememberMeeting} from './first-impressions'
@@ -59,7 +60,7 @@ export function hireCompanion(w:World,c:Creature):string|null{
 /** 실제 동의 뒤 같은 인물을 동행자로 기록한다. 지급되지 않은 돈/장비를 생성하지 않는다. */
 export function enlistRecruit(w:World,c:Creature,probationDays:number){
  const p=player(w),now=turnOf(w),old=c.companion,returning=old?.employer===p.id,paidUntil=returning?old.paidUntil:now+probationDays*TURNS_PER_DAY
- c.companion={bond:old?.bond,employer:p.id,originSite:old?.originSite??c.residentSite,originMap:old?.originMap??w.s.map.id,originHome:old?.originHome??(c.home&&{...c.home}),status:paidUntil>now?'employed':'unpaid',order:paidUntil>now?'follow':'hold',hiredAt:returning?old.hiredAt:now,trialUntil:returning?old.trialUntil:paidUntil,paidUntil,lastLeader:{...p.pos},anchor:{...c.pos}}
+ c.companion={aid:old?.aid,bond:old?.bond,employer:p.id,originSite:old?.originSite??c.residentSite,originMap:old?.originMap??w.s.map.id,originHome:old?.originHome??(c.home&&{...c.home}),status:paidUntil>now?'employed':'unpaid',order:paidUntil>now?'follow':'hold',hiredAt:returning?old.hiredAt:now,trialUntil:returning?old.trialUntil:paidUntil,paidUntil,lastLeader:{...p.pos},anchor:{...c.pos}}
  ensureCompanionBond(w,c,firstImpressionScore(w,p,c));hearCompanionBond(w,c)
  c.home=undefined;c.ai.path=undefined;c.ai.target=undefined;c.ai.mode='guard';c.met=true
  c.attackedBy=c.attackedBy?.filter((id)=>id!==p.id);p.attackedBy=p.attackedBy?.filter((id)=>id!==c.id)
@@ -127,6 +128,7 @@ export function companionDecision(w:World,c:Creature,threats:Creature[]):{action
   const supply=baseWorkerSupply(w,c);if(supply)return supply
   const rest=baseRestDecision(w,c,threats);if(rest)return rest
   if(c.needs.fatigue>=d.sleepAt&&c.needs.bodyTemp>=35&&(c.drowsyUntil??0)<=turnOf(w))return{action:{type:'sleep'}}
+  const aid=companionAidDecision(w,c);if(aid)return aid
   const recovery=companionRecoveryDecision(w,c);if(recovery)return recovery
   const work=baseWorkDecision(w,c,threats);if(work)return work
   const base=w.s.map.baseCamp

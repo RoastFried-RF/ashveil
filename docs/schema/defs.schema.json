@@ -53378,6 +53378,16 @@
               "defType"
             ],
             "properties": {
+              "aid": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Inherited_CompanionAidRule"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "defType": {
                 "const": "Companion"
               },
@@ -53557,6 +53567,9 @@
               "id"
             ],
             "properties": {
+              "aid": {
+                "$ref": "#/$defs/CompanionAidRule"
+              },
               "defType": {
                 "const": "Companion"
               },
@@ -53620,6 +53633,57 @@
             }
           }
         }
+      ]
+    },
+    "CompanionAidRule": {
+      "type": "object",
+      "properties": {
+        "range": {
+          "type": "number"
+        },
+        "rallyRadius": {
+          "type": "number"
+        },
+        "dragTurns": {
+          "type": "number"
+        },
+        "dragEnergy": {
+          "type": "number"
+        },
+        "dragBleedMax": {
+          "type": "number"
+        },
+        "minMedicine": {
+          "type": "number"
+        },
+        "minBleed": {
+          "type": "number"
+        },
+        "washContam": {
+          "type": "number"
+        },
+        "washAfterTurns": {
+          "type": "number"
+        },
+        "minBodyTemp": {
+          "type": "number"
+        },
+        "maxBodyTemp": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "range",
+        "rallyRadius",
+        "dragTurns",
+        "dragEnergy",
+        "dragBleedMax",
+        "minMedicine",
+        "minBleed",
+        "washContam",
+        "washAfterTurns",
+        "minBodyTemp",
+        "maxBodyTemp"
       ]
     },
     "CompanionBondDef": {
@@ -55457,6 +55521,16 @@
               "defType"
             ],
             "properties": {
+              "queueLimit": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "defType": {
                 "const": "BaseCamp"
               },
@@ -55548,6 +55622,9 @@
               "id"
             ],
             "properties": {
+              "queueLimit": {
+                "type": "number"
+              },
               "defType": {
                 "const": "BaseCamp"
               },
@@ -62437,6 +62514,124 @@
                   ]
                 }
               ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
+    "Inherited_CompanionAidRule": {
+      "type": "object",
+      "properties": {
+        "range": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rallyRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dragTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dragEnergy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dragBleedMax": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minMedicine": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minBleed": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "washContam": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "washAfterTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minBodyTemp": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxBodyTemp": {
+          "anyOf": [
+            {
+              "type": "number"
             },
             {
               "type": "null"

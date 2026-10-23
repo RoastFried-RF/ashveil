@@ -358,7 +358,7 @@ const REQUIRED: Record<string, string[]> = {
   BaseWater:['label','unitMl','maxAsh','methods'],
   BaseLogistics:['label','pickupTurns','minFreshness'],
   BaseDefense:['label','faction','sourceWaypoint','firstDelayTurns','intervalTurns','planningTurns','timeoutTurns','chance','minMembers','maxMembers','sourceRadius','noticeRadius','lootStacks'],
-  BaseCamp:['label','storeTerrain','claimTurns','radius','maxBatches'],
+  BaseCamp:['queueLimit','label','storeTerrain','claimTurns','radius','maxBatches'],
   NpcCustody:['label','roles','ropeRecipe','careBelowKcal','drinkAbove','minFreshness'],
   Rescue:['label','mercyTurns','restTurns','bond'],
   Recruitment:['label','conversationTurns','days','careKcal','careWater','minMorale','probationDays','inviteTurns'],
@@ -366,7 +366,7 @@ const REQUIRED: Record<string, string[]> = {
   PrisonerCare: ['label','sleepAt','wakeAt','wakeTurns','awakeTurns','guardRadius','struggleTurns','escapeChance','ropeWear'],
   Prisoner: ['label','rope','bindTurns','releaseTurns','interrogateTurns','executeTurns','releaseReputation','executeReputation','mercyTurns','exaggerationChance','exaggerationMult','rumorLow','rumorHigh'],
   CompanionBond: ['label','initial','min','max','leaveAt','periodTurns','range','together','sharedTrait','positivePerDay','wage','arrears','betrayal','moraleDivisor','moraleCap','personalities','conflicts'],
-  Companion: ['label','hireFee','dailyWage','maxMembers','minReputation','followDistance','joinRadius','arrivalRadius','defendRadius','eatBelow','drinkAbove','sleepAt','wakeAt'],
+  Companion: ['aid','label','hireFee','dailyWage','maxMembers','minReputation','followDistance','joinRadius','arrivalRadius','defendRadius','eatBelow','drinkAbove','sleepAt','wakeAt'],
   ColdConfusion: ['label','temperature','consciousness','intervalTurns','chance','slots'],
   FactionRelations: ['label','returnPerDay','events'],
   Investigation: ['label','refreshDays','deadlineBufferDays','baseReward','distanceReward','threatReward','threatPerDepth','wealthMult','reputation'],
@@ -1076,6 +1076,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
    if(d.minMembers>d.maxMembers)report.errors.push(`${d.id}: 병력 범위 순서가 잘못됨`)
   }
   for(const d of db.all<BaseCampDef>('BaseCamp')){
+   if(d.queueLimit!==undefined&&(!Number.isSafeInteger(d.queueLimit)||d.queueLimit<1||d.queueLimit>20))report.errors.push(d.id+': queueLimit는1~20정수여야 한다')
    need(d.id,d.storeTerrain,'Terrain');const terrain=db.tryGet<TerrainDef>(d.storeTerrain)
    if(terrain&&(!terrain.container||terrain.container!=='Loot.Empty'||!terrain.lootGrid))report.errors.push(`${d.id}: 실제 빈 저장고 지형이어야 함`)
    for(const[key,min,max]of[['claimTurns',1,28800],['radius',1,12],['maxBatches',1,99]]as const){if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}가 필요함`);else range(d.id,key,d[key],min,max,true)}
@@ -1120,6 +1121,15 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for(const d of db.all<CompanionDef>('Companion')){
     for(const[key,min,max]of[['hireFee',1,100000],['dailyWage',1,100000],['maxMembers',1,8],['minReputation',-100,100],['followDistance',1,4],['arrivalRadius',1,6],['defendRadius',1,12],['eatBelow',0,2500],['drinkAbove',0,2000],['sleepAt',1,100],['wakeAt',0,99]]as const){if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}가 필요함`);else range(d.id,key,d[key],min,max,true)}
     if(d.joinRadius<d.followDistance||d.sleepAt<=d.wakeAt)report.errors.push(`${d.id}: 동행 거리/수면 임계 순서가 잘못됨`)
+    if(d.aid!==undefined){
+      const r=d.aid
+      if(!r||typeof r!=='object'||Array.isArray(r))report.errors.push(d.id+': aid 객체 필요')
+      else{
+        for(const[key,lo,hi]of[['range',1,16],['rallyRadius',1,32],['dragTurns',1,100],['dragEnergy',0,100],['minMedicine',0,5],['washContam',1,100],['washAfterTurns',1,28800]]as const)if(!Number.isSafeInteger(r[key])||r[key]<lo||r[key]>hi)report.errors.push(d.id+': aid.'+key+' 오류')
+        for(const[key,lo,hi]of[['minBleed',.001,100],['dragBleedMax',0,100],['minBodyTemp',30,37],['maxBodyTemp',37,42]]as const)if(!Number.isFinite(r[key])||r[key]<lo||r[key]>hi)report.errors.push(d.id+': aid.'+key+' 오류')
+        if(r.minBodyTemp>=r.maxBodyTemp)report.errors.push(d.id+': aid 체온 범위 오류')
+      }
+    }
   }
   for(const d of db.all<ColdConfusionDef>('ColdConfusion')){
     for(const[key,min,max,integer]of[['temperature',28,36,false],['consciousness',0,1,false],['intervalTurns',1,28800,true],['chance',0,1,false]]as const){if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}가 필요함`);else range(d.id,key,d[key],min,max,integer)}

@@ -1476,9 +1476,10 @@ export interface BaseWaterDef extends DefBase {defType:'BaseWater';label:string;
 export interface BaseLogisticsDef extends DefBase {defType:'BaseLogistics';label:string;pickupTurns:number;minFreshness:number;cultivation?:{doseMl:number;waterBelowMl:number;reserveWaterMl:number}}
 export interface BaseDefenseDef extends DefBase {defType:'BaseDefense';label:string;faction:string;sourceWaypoint:string;firstDelayTurns:number;intervalTurns:number;planningTurns:number;timeoutTurns:number;chance:number;minMembers:number;maxMembers:number;sourceRadius:number;noticeRadius:number;lootStacks:number}
 export interface BaseRaid {id:number;started:number;ended?:number;retreatAt?:number;phase:'active'|'repelled'|'looted'|'withdrawn';detected?:boolean;attackers:number[];visited:number[];disengaged:number[];stolen:{by:number;uid:number;def:string;count:number}[]}
-export interface BaseCampDef extends DefBase {defType:'BaseCamp';label:string;storeTerrain:string;claimTurns:number;radius:number;maxBatches:number}
+export interface BaseCampDef extends DefBase {queueLimit?:number;defType:'BaseCamp';label:string;storeTerrain:string;claimTurns:number;radius:number;maxBatches:number}
+export interface BaseTaskRequest {kind:'craft'|'craftStock'|'guard'|'haul'|'gather'|'water'|'fire';recipe?:string;batches?:number;item?:string;firePos?:Pos}
 export interface BaseTask {id:number;kind:'craft'|'guard'|'haul'|'gather'|'water'|'fire';craftTarget?:number;firePos?:Pos;fireUid?:number;fireTarget?:number;recipe?:string;item?:string;targetStock?:number;waterTarget?:number;waterBottle?:number;remaining:number}
-export interface BaseCampState {beds?:Record<number,{tenant:number;pos:Pos;preparedAfterWake?:number}>;raidHeard?:{id:number;at:number;phase:'sighted'|'repelled'|'stolen'};raidIntel?:{by:number;faction:string;at:number;reportedAt?:number};nextRaid?:number;raid?:BaseRaid;owner:number;at:number;store:Pos;storeUid?:number;tasks:Record<number,BaseTask>}
+export interface BaseCampState {queues?:Record<number,BaseTask[]>;beds?:Record<number,{tenant:number;pos:Pos;preparedAfterWake?:number}>;raidHeard?:{id:number;at:number;phase:'sighted'|'repelled'|'stolen'};raidIntel?:{by:number;faction:string;at:number;reportedAt?:number};nextRaid?:number;raid?:BaseRaid;owner:number;at:number;store:Pos;storeUid?:number;tasks:Record<number,BaseTask>}
 export interface PrisonerExchangeDef extends DefBase {defType:'PrisonerExchange';label:string;turns:number}
 export interface RansomDef extends DefBase {defType:'Ransom';label:string;price:number;turns:number}
 export interface NpcAbductionDef extends DefBase {defType:'NpcAbduction';label:string;roles:string[];approachRange:number;homeRadius:number;minKcal:number;maxWaterDeficit:number;maxFatigue:number}
@@ -1514,13 +1515,17 @@ export interface CompanionBond {
   events:{turn:number;kind:'firstImpression'|'together'|'conflict'|'wage'|'arrears'|'betrayal'|'rescue';delta:number;text:string}[]
   heard?:{turn:number;attitude:'trust'|'neutral'|'uneasy'|'leaving'}
 }
+export type CompanionAidMode='off'|'firstAid'|'rescue'
+export interface CompanionAidRule {range:number;rallyRadius:number;dragTurns:number;dragEnergy:number;dragBleedMax:number;minMedicine:number;minBleed:number;washContam:number;washAfterTurns:number;minBodyTemp:number;maxBodyTemp:number}
 export interface CompanionDef extends DefBase {
+  aid?:CompanionAidRule
   defType:'Companion';label:string;hireFee:number;dailyWage:number;maxMembers:number;minReputation:number
   followDistance:number;joinRadius:number;arrivalRadius:number;defendRadius:number
   eatBelow:number;drinkAbove:number;sleepAt:number;wakeAt:number
 }
 export type CompanionOrder='follow'|'hold'|'defend'
 export interface CompanionContract {
+  aid?:{mode:CompanionAidMode;anchor:{pos:Pos;map:string;region?:string}}
   trialUntil?:number
   bond?:CompanionBond
   employer:number;originSite?:string;originMap:string;originHome?:Pos
@@ -2139,7 +2144,9 @@ export interface Activity {
   fireUid?:number
   fireHot?:boolean
   beddingWash?:{map:string;terrain:string;uid?:number}
-  kind: 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  companionAid?:boolean
+  aidOrigin?:{actor:Pos;patient:Pos}
+  kind: 'rescueDrag' | 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */

@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseCraftStock, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type RecipeDef, type TerrainDef, type Creature,type World } from '../../core'
+import { canSee, hasLos, campfireAt, nearbyCampfires, baseCampDef, baseOrderLabel, baseCraftStock, baseRestDef, baseWaterDef, baseCommandError, baseBedQuote, baseBedTenant, nearbyBaseBeds, baseStoreError, baseTaskStatus, claimBaseQuote, cheb, itemLabel, nearbyBaseStores, player, type BaseTaskRequest,type RecipeDef, type TerrainDef, type Creature,type World } from '../../core'
 import { simulating, version, world } from '../store'
 import { doAct, setWin } from '../ui'
+const queueKinds=ref<Record<number,BaseTaskRequest['kind']>>({})
+const queueLabels:Record<BaseTaskRequest['kind'],string>={craft:'횟수 제작',craftStock:'완성품 최소 재고',guard:'거점 방어',haul:'바닥 물품 운반',gather:'채집·작물 돌봄',water:'식수 보급',fire:'모닥불 관리'}
 const fires=ref<Record<number,string>>({})
 const beds=ref<Record<number,string>>({})
 const resources=ref<Record<number,string>>({}),recipes=ref<Record<number,string>>({}),batches=ref<Record<number,number>>({})
@@ -10,6 +12,8 @@ const d=computed(()=>{void version.value;const w=world.value as World,p=player(w
 const materialOptions=computed(()=>{void version.value;const w=world.value as World,ids=new Set([...player(w).bag.map((i)=>i.def),...w.db.all<RecipeDef>('Recipe').filter((r)=>r.basic).flatMap((r)=>r.inputs.map((i)=>i.item)),...w.db.all<TerrainDef>('Terrain').flatMap((t)=>t.gather?[t.gather.item]:[])]);return [...ids].sort().map((id)=>({id,label:w.db.item(id).label}))})
 const bedOptions=computed(()=>{void version.value;const w=world.value as World;return nearbyBaseBeds(w).map((pos)=>({pos,uid:w.s.map.tiles[pos.y*w.s.map.w+pos.x].placed!.item.uid,tenant:baseBedTenant(w,pos),label:w.db.terrain(w.s.map.tiles[pos.y*w.s.map.w+pos.x].t).label}))})
 const fireOptions=computed(()=>{void version.value;const w=world.value as World;return nearbyCampfires(w,player(w)).map((pos)=>({pos,uid:campfireAt(w,pos)!.uid}))})
+function enqueue(id:number){const kind=queueKinds.value[id]??'craft',fire=fireChoice(id);doAct({type:'baseQueueAdd',target:id,request:{kind,recipe:recipes.value[id],batches:batches.value[id]??1,item:resources.value[id],firePos:fire?.pos}})}
+function queued(id:number){return d.value.base?.queues?.[id]??[]}
 function fireChoice(id:number){return fireOptions.value.find((f)=>String(f.uid)===fires.value[id])}
 function bedChoice(id:number){return bedOptions.value.find((b)=>String(b.uid)===beds.value[id])}
 function assignBed(id:number){const bed=bedChoice(id);if(bed)doAct({type:'baseBed',target:id,pos:bed.pos})}
@@ -57,7 +61,26 @@ function openStore(){doAct({type:'baseOpen'});setWin('inv',true)}
           <button class="dbtn m-1" :disabled="simulating||!bedChoice(m.c.id)||!!baseBedQuote(d.w,bedChoice(m.c.id)!.pos,m.c).error" :title="bedChoice(m.c.id)?baseBedQuote(d.w,bedChoice(m.c.id)!.pos,m.c).error??'같은 실제 침구를 이 동료에게 허락한다.':''" data-base-bed="assign" @click="assignBed(m.c.id)">침구 사용 허락 ({{ baseRestDef(d.w).assignTurns }}턴)</button>
           <button class="dbtn m-1" :disabled="simulating||!bedChoice(m.c.id)||!!baseBedQuote(d.w,bedChoice(m.c.id)!.pos).error" data-base-bed="release" @click="bedChoice(m.c.id)&&doAct({type:'baseBed',pos:bedChoice(m.c.id)!.pos})">사용 허가 해제 ({{ baseRestDef(d.w).assignTurns }}턴)</button>
         </div>
-        <button v-if="m.task" class="dbtn m-1" :disabled="simulating||!!m.error" :title="m.error??''" data-base-order="cancel" @click="doAct({type:'baseAssign',target:m.c.id,kind:'cancel'})">작업 취소 (1턴)</button>
+        <button v-if="m.task" class="dbtn m-1" :disabled="simulating||!!m.error" :title="m.error??''" data-base-order="cancel" @click="doAct({type:'baseAssign',target:m.c.id,kind:'cancel'})">작업·대기열 취소 (1턴)</button>
+
+        <details v-if="baseCampDef(d.w).queueLimit" class="my-3 border border-ash-700 bg-black/20 p-2" :data-base-queue="m.c.id">
+          <summary class="cursor-pointer text-amber-100">다음 작업 순서 · {{ queued(m.c.id).length }}/{{ baseCampDef(d.w).queueLimit }}</summary>
+          <p class="my-2 text-ash-400">위에서 제작법·수량·물품·모닥불을 고른 뒤 대기열에 넣는다. 하던 배치는 마치고 납품한 뒤 이어 간다. 재료가 막히면 다른 대기 작업을 살펴보고, 재고 유지 작업은 필요할 때 돌아온다.</p>
+          <div class="my-2 flex flex-wrap gap-1">
+            <select v-model="queueKinds[m.c.id]" class="max-w-56 bg-[#211e18] p-1" :aria-label="`${m.c.name} 다음 작업 종류`"><option :value="undefined">횟수 제작</option><option v-for="(label,kind) in queueLabels" :key="kind" :value="kind">{{ label }}</option></select>
+            <button class="dbtn-gold" :disabled="simulating||!!m.error||queued(m.c.id).length>=(baseCampDef(d.w).queueLimit??0)||m.c.companion!.status==='unpaid'" data-testid="base-queue-add" @click="enqueue(m.c.id)">다음 작업에 추가 (1턴)</button>
+          </div>
+          <p v-if="!queued(m.c.id).length" class="text-ash-400">대기 중인 작업이 없다.</p>
+          <ol class="my-2 space-y-2">
+            <li v-for="(task,index) in queued(m.c.id)" :key="task.id" :data-base-queued-order="task.id" class="border-t border-ash-800 pt-2">
+              <p>{{ index+1 }}. {{ baseOrderLabel(d.w,task) }}</p>
+              <button class="dbtn mr-1" :disabled="simulating||!!m.error||index===0" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'up'})">앞으로 (1턴)</button>
+              <button class="dbtn mr-1" :disabled="simulating||!!m.error||index===queued(m.c.id).length-1" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'down'})">뒤로 (1턴)</button>
+              <button class="dbtn" :disabled="simulating||!!m.error" @click="doAct({type:'baseQueueEdit',target:m.c.id,id:task.id,operation:'remove'})">목록에서 빼기 (1턴)</button>
+            </li>
+          </ol>
+          <p class="my-1 text-ash-400">작업 취소·동행/대기 명령·계약 종료는 남은 대기 지시도 취소한다. 이미 들고 있는 재료와 완성품은 동료에게 남는다.</p>
+        </details>
         <p v-if="m.error" class="text-ash-400">{{ m.error }}</p>
       </div>
     </template>

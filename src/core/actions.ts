@@ -1,3 +1,5 @@
+import {enqueueBaseTask,editBaseQueue} from './base-camp'
+import {setCompanionAid,startCompanionAid,startCompanionDrag,companionDragStep} from './companion-aid'
 import {brushClearingStep,startBrushClearing} from './brush-clearing'
 import {beginActionObservation,finishActionObservation} from './action-observations'
 import {crouched,crouchRule,toggleCrouch,walkingNoiseMultiplier} from './posture'
@@ -172,6 +174,11 @@ import { addEffect, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, HotbarRef, ItemInst, Slot, Stats, WaterTreatment, ProstheticOperation, MaterialSelection } from './types'
 
 export type Action =
+  | {type:'baseQueueAdd';target:number;request:import('./types').BaseTaskRequest}
+  | {type:'baseQueueEdit';target:number;id:number;operation:'up'|'down'|'remove'}
+  | {type:'setCompanionAid';target:number;mode:import('./types').CompanionAidMode}
+  | {type:'autoCompanionAid';target:number}
+  | {type:'companionDrag';target:number;to:Pos}
   | {type:'worldRaidLoot'}
   | {type:'rescueWater';target:number}
   | {type:'beaconFuel';pos:Pos;uid:number;fuelUid:number}
@@ -614,6 +621,8 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'baseOpen': {const error=openBaseStore(w,c);return error?FAIL(error):FREE}
     case 'baseTransfer': {const error=transferBase(w,c,a.direction,a.uid,a.count);return error?FAIL(error):{ok:true,tu:100}}
     case 'baseCraft': {const error=startBaseCraft(w,c);return error?FAIL(error):FREE}
+    case 'baseQueueAdd':
+    case 'baseQueueEdit':{if(c.id!==w.s.playerId)return FAIL('직접 동료의 작업 순서를 정해야 한다');const target=creatureById(w,a.target),error=target?(a.type==='baseQueueAdd'?enqueueBaseTask(w,target,a.request):editBaseQueue(w,target,a.id,a.operation)):'곁의 동료가 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'baseAssign': {if(c.id!==w.s.playerId)return FAIL('직접 동료에게 지시해야 한다');const target=creatureById(w,a.target);const error=target?assignBaseTask(w,target,a.kind,a.recipe,a.batches,a.item,a.firePos):'곁의 동료가 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'feedPrisoner':case 'wakePrisoner':{const target=w.s.creatures.find((c)=>c.id===a.target);if(!target)return FAIL('돌볼 상대가 없다');return a.type==='feedPrisoner'?feedPrisoner(w,c,target,a.uid):wakePrisoner(w,c,target)}
     case 'prisoner': {const target=w.s.creatures.find((c)=>c.id===a.target);const error=target?startPrisonerAction(w,c,target,a.operation,a.ropeUid):'대상이 이곳에 없다';return error?FAIL(error):FREE}
@@ -653,6 +662,15 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       if (!keeper) return FAIL('침대 주인을 찾을 수 없다')
       const err = rentInnBed(w, c, keeper, a.bed, a.expectedFee,a.periods)
       return err ? FAIL(err) : { ok: true, tu: 100 }
+    }
+    case 'setCompanionAid':{
+      if(c.id!==w.s.playerId)return FAIL('직접 곁의 동료에게 구조 지침을 정해야 한다')
+      const provider=creatureById(w,a.target),error=provider?setCompanionAid(w,provider,a.mode):'동료가 현장에 없다';return error?FAIL(error):{ok:true,tu:100}
+    }
+    case 'autoCompanionAid':
+    case 'companionDrag':{
+      if(c.id===w.s.playerId)return FAIL('상호 구조를 맡긴 동료의 실제 작업이다')
+      const patient=creatureById(w,a.target),error=patient?(a.type==='companionDrag'?startCompanionDrag(w,c,patient,a.to):startCompanionAid(w,c,patient)):'환자가 현장에 없다';return error?FAIL(error):FREE
     }
     case 'companionCare':{
       if(c.id!==w.s.playerId)return FAIL('내 동료에게만 응급 처치를 부탁할 수 있다')
@@ -1937,6 +1955,7 @@ export function activityStep(w: World, c: Creature): boolean {
     case 'reload':
       if (act.remaining <= 0) finishReload(w, c, act)
       break
+    case 'rescueDrag':return companionDragStep(w,c)
     case 'careWait': {
       const healer = creatureById(w, act.healerId)
       if (healer?.activity?.patientId === c.id) {

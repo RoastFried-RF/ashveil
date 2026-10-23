@@ -247,7 +247,7 @@ async function cont(token?:string) {
       </section>
 
       <footer class="title-footer">
-        ASHVEIL · v0.323-dev · 잿빛 숲<br />
+        ASHVEIL · v0.324-dev · 잿빛 숲<br />
         <a class="underline" :href="`${publicBase}artbook/`" target="_blank" rel="noopener">캐릭터·물품 원화 도감</a><br />
         <a class="underline" :href="`${publicBase}artbook/motion/`" target="_blank" rel="noopener">캐릭터 동작 전후 비교</a> · <a class="underline" :href="`${publicBase}artbook/comparison/`" target="_blank" rel="noopener">인물·지형 비교</a><br />
         글꼴: 고운바탕 · <a class="underline" :href="`${publicBase}fonts/gowun-batang-OFL.txt`" target="_blank" rel="noopener">SIL Open Font License 1.1</a><br />

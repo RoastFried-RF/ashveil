@@ -2,6 +2,10 @@
 import type {Action} from '../../core'
 import type {ActionPose} from './character-motion'
 export const actionMotions={
+ "baseQueueAdd":null,"baseQueueEdit":null,
+ "setCompanionAid":null,
+ "autoCompanionAid":"use",
+ "companionDrag":"work",
  "ability":"attack",
  "attack":null,
  "attackMode":null,

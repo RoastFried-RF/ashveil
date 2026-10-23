@@ -395,6 +395,8 @@ export function deserialize(json: string): GameState {
   if(s.version===206)s.version=207
   // v208 adds opt-in craft stock targets; existing finite orders gain no inferred target.
   if(s.version===207)s.version=208
+  // v209 stores opt-in companion aid, per-tile rescue progress and pending base orders; no old consent is inferred.
+  if(s.version===208)s.version=209
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')

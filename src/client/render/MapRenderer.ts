@@ -52,6 +52,7 @@ interface CView {
   activityTime:number
   held:[boolean,boolean]
   equipment:[HeldEquipment|null,HeldEquipment|null]
+  handsBusy:boolean
   equipmentAge:[number,number]
   gearEffects:Graphics
   gripCovers:Graphics
@@ -707,7 +708,7 @@ export class MapRenderer {
     root.addChild(shadow,previousBody,body,gearEffects,...hands,gripCovers,actionItem,bar,marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body,previousBody,actionItem,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, body,previousBody,actionItem,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -750,6 +751,7 @@ export class MapRenderer {
         if(v.equipment[index]?.uid!==held?.uid)v.equipmentAge[index]=0
         v.equipment[index]=held?equipmentSpec(itemDef(w,held),held.uid,!!held.lit&&(held.fuel??0)>0):null
       }
+      v.handsBusy=c.activity?.kind==='rescueDrag'||!!c.activity?.companionAid
       const low=crouched(w,c)
       if(low!==v.crouched&&!v.prone&&c.alive&&wasShown)requestPose(v.pose,low?'crouchDown':'stand')
       v.crouched=low
@@ -1113,7 +1115,7 @@ export class MapRenderer {
     for(const index of[0,1]as const){
       const hand=v.hands[index],item=action?.slot===index?action.weapon??v.equipment[index]:v.equipment[index]
       v.equipmentAge[index]=preferences.animationSpeed===0?180:Math.min(180,v.equipmentAge[index]+dt)
-      hand.visible=!!item&&v.held[index]&&!utility&&(v.alive&&!v.prone||fall>0&&fall<.8)&&!(index===1&&supporting)
+      hand.visible=!!item&&v.held[index]&&!v.handsBusy&&!utility&&(v.alive&&!v.prone||fall>0&&fall<.8)&&!(index===1&&supporting)
       if(!hand.visible||!item)continue
       const wrist=index===0?transform?.mainHand:undefined
       const pose=heldPose({item,slot:index,direction:v.dir,mode,phase,stride:v.motion.stride,moving,crouched:v.crouched,action,wrist:wrist?[wrist[0]*(transform?.flipX?-1:1),wrist[1]*(v.crouched?.78:1)]:undefined})

@@ -336,3 +336,5 @@ export * from './resonance'
 
 export * from './expedition-endings'
 export * from './research'
+
+export * from './companion-aid'

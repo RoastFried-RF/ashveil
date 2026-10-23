@@ -43,6 +43,7 @@ export function refreshBaseCraftStock(w:World,c:Creature){
 }
 export function clearBaseTask(w:World,c:Creature){
  const base=w.s.map.baseCamp,old=base?.tasks[c.id]
+ if(base?.queues)delete base.queues[c.id]
  if(!old)return
  if(c.activity?.baseOrder===old.id)c.activity=undefined
  if(c.workJob?.baseOrder===old.id){if(c.activity?.kind==='craft')c.activity=undefined;c.workJob=undefined}

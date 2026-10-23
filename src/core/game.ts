@@ -1,3 +1,4 @@
+import {urgentCompanionAid} from './companion-aid'
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import { IMPRINT_MODE, saveModeDef } from './save-modes'
 import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
@@ -91,7 +92,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 208
+export const SAVE_VERSION = 209
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -546,6 +547,7 @@ export function runUntilInput(w: World, maxSteps = 300000, untilTU?: number) {
       actor.nextAct+=result.ok?Math.max(TU_PER_TURN,result.tu):TU_PER_TURN
       continue
     }
+    if(urgentCompanionAid(w,actor))stopActivity(w,actor)
     if (actor.activity) {
       if (actor.activity.kind === 'sleep') {
         const why = interrupted(w, actor)
