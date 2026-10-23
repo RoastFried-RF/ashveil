@@ -391,6 +391,8 @@ export function deserialize(json: string): GameState {
   if(s.version===204)s.version=205
   // 지상 이탈 날씨는 다음 실제 출발 때부터만 기록한다. 과거 성장/물을 소급하지 않는다.
   if(s.version===205)s.version=206
+  // 원래 바닥/폐작물 잔재는 다음 실제 파종·정리부터만 기록한다.
+  if(s.version===206)s.version=207
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')

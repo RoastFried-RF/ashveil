@@ -37,7 +37,8 @@ const d = computed(() => {
     if (residentBedAt(w, p)) lines.push('주민 개인 침대 · 손님은 여관 침대를 빌려야 한다')
     if (bed) lines.push(bed.lease?.tenant === w.s.playerId && bed.lease.until > turnOf(w) ? `빌린 침대 · ${fmtClock(bed.lease.until)}까지 · Z 수면` : '여관 침대 · 주인 곁에서 N으로 대여')
     lines.push(`밝기 ${Math.round(lightAt(w, p) * 100)}%`)
-    if(tile.cultivation){const crop=cultivationStatus(w,p)!;lines.push(`성장${crop.progress}% · 관수${Math.round(crop.waterMl*100)/100}ml · 증발 최대${crop.evaporationMlPerHour}ml/시간 · ${crop.ready?'수확 가능':crop.error??'자라는 중'}`);if(crop.rule?.substrate)lines.push(`배지 수확 ${crop.state.remainingCycles}/${crop.rule.substrate.cycles}회 남음`);if(crop.state.ownerId&&crop.state.ownerId!==player(w).id)lines.push('타인이 심은 밭');if(crop.state.irrigation)lines.push('관수에서 옮은 오염 · 수확물에 남는다')}
+    if(tile.cropResidue)lines.push('정리한 밭의 잔재 · 다시 심으면 남은 오염도 옮는다')
+    if(tile.cultivation){const crop=cultivationStatus(w,p)!;lines.push(`성장${crop.progress}% · 관수${Math.round(crop.waterMl*100)/100}ml · 증발 최대${crop.evaporationMlPerHour}ml/시간 · ${crop.ready?'수확 가능':crop.error??'자라는 중'}`);if(crop.rule?.substrate)lines.push(`배지 수확 ${crop.state.remainingCycles}/${crop.rule.substrate.cycles}회 남음`);if(crop.state.ownerId&&crop.state.ownerId!==player(w).id)lines.push('타인이 심은 밭');if(crop.state.irrigation)lines.push('물·밭 잔재에서 옮은 오염 · 수확물에 남는다')}
     if(terr.gather&&!tile.cultivation&&(tile.gatherAt??0)>turnOf(w))lines.push(`다음 수확까지 ${Math.ceil((tile.gatherAt!-turnOf(w))/1200)}시간`)
     if (tile.blood > 4) lines.push(tile.blood > 120 ? '피 웅덩이' : '핏자국')
     if (tile.items.length) lines.push('물건: ' + tile.items.map((it) => itemLabel(w, it)).join(', '))

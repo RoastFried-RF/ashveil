@@ -158,3 +158,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### v0.313 작물 성장 단계 원화 (구현 중)
 
 귀리·그늘뿌리·흰갓버섯·양배추·감자·순무의31프레임은 이 프로젝트에서 직접 작성한 SVG 경로다. [제작 원본](tools/art/direction-v313/draw-crops.mjs)·[CC0](tools/art/direction-v313/LICENSE.txt)·[출처/검토 상태](tools/art/direction-v313/provenance.json). 참고작의 이미지·팔레트·문양을 복제하지 않았다. 게임 장면 검토는 구현 묶음 뒤 진행한다.
+
+### v0.315 밭 잔재 원화 (구현 중)
+
+직접 작성한64px SVG1프레임을 정리한 밭의 잔재에 연결했다. [제작 원본](tools/art/direction-v315/soil-residue.svg) · [CC0](tools/art/direction-v315/LICENSE.txt) · [검토 상태](tools/art/direction-v315/provenance.json). 외부 이미지·추적·팔레트 샘플을 쓰지 않았다.

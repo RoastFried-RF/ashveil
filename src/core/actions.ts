@@ -22,7 +22,7 @@ import {assignCompanionRecovery,collectRecoveryCargo,companionRecoveryFetch,comp
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
 import {acceptBounty,questionBounty,reportBounty,surveyBounty} from './bounty-contracts'
-import {plantCultivation,waterCultivation,cropStarterError,cultivationSubstrateQuote,refreshCultivationSubstrate} from './cultivation'
+import {plantCultivation,waterCultivation,cropPlantingError,cropUprootQuote,uprootCultivation,cultivationSubstrateQuote,refreshCultivationSubstrate} from './cultivation'
 import {buyNpcWorldMap} from './npc-world-cartography'
 import {commandCompanionWorldMap} from './companion-world-cartography'
 import {readMerchantMap} from './merchant-map-reading'
@@ -176,6 +176,7 @@ export type Action =
   | {type:'beaconSend';pos:Pos;uid:number;to:import('./types').BeaconAddress;rumorKey:string}
   | {type:'beaconRead';pos:Pos;uid:number}
   | {type:'finishExpedition';ending:string;expected:string}
+  | {type:'uprootCrop';pos:Pos;expectedSeed:number}
   | {type:'retire';target:number;expectedSavings?:number}
   | {type:'discloseEvidence';target:number;rule:string}
   | {type:'deviceWork';pos:Pos;uid:number;operation:string}
@@ -1203,6 +1204,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       return err ? FAIL(err) : { ok: true, tu: 100 }
     }
     case 'refreshCropSubstrate':{const q=cultivationSubstrateQuote(w,c,a.pos,a.uid);if(q.error)return FAIL(q.error);const error=refreshCultivationSubstrate(w,c,a.pos,a.uid);return error?FAIL(error):{ok:true,tu:q.rule!.turns*100}}
+    case 'uprootCrop':{const q=cropUprootQuote(w,c,a.pos);if(q.error)return FAIL(q.error);const error=uprootCultivation(w,c,a.pos,a.expectedSeed);return error?FAIL(error):{ok:true,tu:q.turns*100}}
     case 'waterCrop':{const error=waterCultivation(w,c,a.pos,a.uid,a.ml);return error?FAIL(error):{ok:true,tu:100}}
     case 'place': {
       if(capacity(w,c,'manipulation')<.2)return FAIL('설치할 손을 쓸 수 없다')
@@ -1212,13 +1214,13 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
       if (!inBounds(w, p) || !hasLos(w,c.pos,p) || diagonalBlocked(w,c.pos,dir.x,dir.y) || !terrainAt(w, p).passable || terrainAt(w, p).water || terrainAt(w, p).stairs || terrainAt(w, p).container || terrainAt(w, p).station || terrainAt(w, p).bedding || tileAt(w, p).placed || creatureAt(w, p) || tileAt(w, p).items.length) return FAIL('비어 있는 땅에 설치해야 한다')
       const destination=w.db.terrain(def.place),planted=destination.gather
       if(planted&&(destination.cultivation?.needsSoil!==false&&!terrainAt(w,p).soil||terrainAt(w,p).gather))return FAIL('비어 있는 흙에 심어야 한다')
-      if(destination.cultivation){const error=cropStarterError(w,it);if(error)return FAIL(error)}
+      if(destination.cultivation){const error=cropPlantingError(w,p,it);if(error)return FAIL(error)}
       const fertility=planted?.soilDependent?towerSoilFertility(w):1
       if(fertility<=0)return FAIL('탑의 살포가 멈춘 뒤 토양이 고갈되어 종자가 자랄 수 없다')
       const tile = tileAt(w, p),baseTerrain=tile.t
       if (w.db.terrain(def.place).bedding||w.db.terrain(def.place).container) tile.placed = { base: tile.t, item: { ...it, count: 1, gx: undefined, gy: undefined, rot: undefined }, owner: w.db.terrain(def.place).bedding?.portable ? undefined : c.id }
       tile.t = def.place
-      if(planted&&!plantCultivation(w,p,it.uid,c.id,it))tile.gatherAt=turn+Math.ceil(planted.regrowTurns/fertility)
+      if(planted){if(destination.cultivation){if(!plantCultivation(w,p,it.uid,c.id,it,baseTerrain)){tile.t=baseTerrain;delete tile.placed;return FAIL('원래 종자와 밭 잔재를 확인해야 한다')}}else tile.gatherAt=turn+Math.ceil(planted.regrowTurns/fertility)}
       recordCampfirePlacement(w,c,it,p,baseTerrain)
       recordBeddingPlacement(w,c,it.uid,p)
       recordBaseBedPlacement(w,it.uid,p)

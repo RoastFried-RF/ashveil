@@ -466,7 +466,7 @@ export interface BeaconReceipt {key:string;rumor:Rumor;from:string;receivedAt:nu
 export interface BeaconState {uid:number;fuelUntil:number;inbox:BeaconReceipt[]}
 export interface SignalPacket {key:string;rumor:Rumor;from:BeaconAddress;to:BeaconAddress;sentAt:number;lastAt:number;progress:number;total:number;signature:string;toSignature:string;deliveredAt?:number;failed?:string}
 export interface CropRule { maxLight?:number; needsSoil?:boolean; substrate?:{item:string;cycles:number;turns:number}; minLight:number; minTemp:number; maxTemp:number; waterMl:number; maxSalinity:number; rainMlPerHour:number }
-export interface CultivationState {dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
+export interface CultivationState {origin?:{terrain:string;at:number};dormantAt?:number;remainingCycles?:number;ownerId?:number;irrigation?:{ml:number;pathogenMl:number;ash:number};evaporationCarry?:number; terrain:string; signature:string; seedUid:number; growth:number; waterUnits:number; lastAt:number }
 /** 실제 지상 이탈 시점의 지역 날씨. 정산용 복사본에서만 난수를 진행한다. */
 export interface SurfaceCultivationState {at:number;cell:Pos;weather:Weather;until:number;wind:Pos;rng:RngState;loadHash:string;signature:string}
 export interface LockPickingRule {turns:number;wear:number;noise:number;toolTag:string;base:number;min:number;max:number;agility:number;quality:number}
@@ -1291,6 +1291,7 @@ export interface WorldGenDef extends DefBase {
   territory?:{maxCost:number;roadCost:number;landCost:number;riverCost:number;riseMetersPerCost:number}
   cropIrrigationTransfer?:{pathogenFraction:number;ashFraction:number}
   cropEvaporationMlPerHour?:number
+  cropUprootTurns?:number
   /** 활성 지상 토양 밭의 남은 물 이동. 기존 작물에 흡수된 오염은 옮기지 않는다. */
   cropSoilDiffusion?:{everyTurns:number;maxMlPerEdge:number}
   mapWorkers?:{surface?:string;dungeon?:string}
@@ -2432,6 +2433,7 @@ export interface Tile {
   /** 실제 새 지도 생성 때만 잠근다. 구형 상자를 소급해 잠그지 않는다. */
   locked?:boolean
   cultivation?:CultivationState
+  cropResidue?:{terrain:string;dose:NonNullable<CultivationState['irrigation']>}
   combustionRemaining?:{family:string;remaining:number;total:number;placedUid?:number}
   terrainFire?:{id:number;sourceUid:number;family:string;startedAt:number;lastAt:number;remaining:number;total:number;placedUid?:number}
   fireWetUntil?:number

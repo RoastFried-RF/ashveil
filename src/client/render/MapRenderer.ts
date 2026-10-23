@@ -438,6 +438,7 @@ export class MapRenderer {
         }
       }
       if(tile.terrainFire&&vis.has(i)){const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
+      if(tile.cropResidue&&vis.has(i)){const residue=new Sprite(tex('av_soil_residue_v315'));residue.width=T;residue.height=T;residue.position.set(px,py);this.dyn.addChild(residue)}
       let s: Sprite | null = null
       const crop=cropArt(terr,tile,vis.has(i),turnOf(w))
       const groundArt=groundObjectArt(terr,!!tile.searched)

@@ -30,7 +30,7 @@ const devices:Record<string,string>={
  'FieldDevice.SpireConsole':'complete_spire_console',
  'FieldDevice.ZeroVaultSeal':'complete_zero_vault_seal',
 }
-export const terrainArtFrames=[...new Set([...Object.values(objects).flat(),...Object.values(stations),...Object.values(devices),'complete_well','complete_campfire_cold','complete_beacon','complete_wall_crack','complete_wall_sealed','complete_bed_scorched','complete_sarcophagus_open'])]
+export const terrainArtFrames=[...new Set([...Object.values(objects).flat(),...Object.values(stations),...Object.values(devices),'complete_well','complete_campfire_cold','complete_beacon','complete_wall_crack','complete_wall_sealed','complete_bed_scorched','complete_sarcophagus_open','av_soil_residue_v315'])]
 
 export function groundObjectArt(terrain:TerrainDef,searched=false):string|undefined{
  if(terrain.residentWell)return 'complete_well'

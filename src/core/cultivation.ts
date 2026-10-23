@@ -1,5 +1,6 @@
 // 실제 빛/기온/유한 물로 자란다. 휴면 정산은 이 모듈의 같은 규칙과 실제 이탈 기록을 쓴다.
 import {capacity} from './body'
+import {channelTurns} from './action-time'
 import {removeOne} from './items'
 import type {ItemInst} from './types'
 import {validCropIrrigation,recordCropIrrigation,cropIrrigationError} from './crop-contamination'
@@ -23,11 +24,29 @@ function signature(w:World,p:Pos){
  if(value===undefined){const def=terrainAt(w,p);value=JSON.stringify({terrain:id,rule:def.cultivation,gather:def.gather});cache.set(id,value)}
  return value
 }
-export function plantCultivation(w:World,p:Pos,seedUid:number,ownerId?:number,source?:ItemInst){
+function validCropBase(w:World,id:string,needsSoil=true){const base=w.db.tryGet<TerrainDef>(id);return !!base&&base.defType==='Terrain'&&base.passable&&(!needsSoil||!!base.soil)&&!base.cultivation&&!base.gather&&!base.water&&!base.stairs&&!base.container&&!base.station&&!base.bedding}
+function validCropOrigin(w:World,state:CultivationState,rule:NonNullable<TerrainDef['cultivation']>){const origin=state.origin;return origin===undefined||!!origin&&typeof origin.terrain==='string'&&Number.isSafeInteger(origin.at)&&origin.at>=0&&origin.at<=state.lastAt&&validCropBase(w,origin.terrain,rule.needsSoil!==false)}
+function residueError(w:World,p:Pos,base=tileAt(w,p).t){
+ const residue=tileAt(w,p).cropResidue
+ if(residue===undefined)return null
+ return !residue||typeof residue!=='object'||residue.terrain!==base||!residue.dose||typeof residue.dose!=='object'||!validCropIrrigation({irrigation:residue.dose}as CultivationState)?'남아 있는 밭 잔재와 원래 바닥 기록을 확인해야 한다':null
+}
+function starterWithResidue(w:World,p:Pos,source?:ItemInst){
+ const seed=source?cropStarterDose(w,source).irrigation:undefined,soil=tileAt(w,p).cropResidue?.dose
+ if(!seed&&!soil)return
+ return{ml:(seed?.ml??0)+(soil?.ml??0),pathogenMl:(seed?.pathogenMl??0)+(soil?.pathogenMl??0),ash:(seed?.ash??0)+(soil?.ash??0)}
+}
+export function cropPlantingError(w:World,p:Pos,source:ItemInst){
+ const error=cropStarterError(w,source)??residueError(w,p);if(error)return error
+ return validCropIrrigation({irrigation:starterWithResidue(w,p,source)}as CultivationState)?null:'종자와 남은 밭 잔재의 오염량을 확인해야 한다'
+}
+export function plantCultivation(w:World,p:Pos,seedUid:number,ownerId?:number,source?:ItemInst,baseTerrain?:string){
  const tile=tileAt(w,p),def=terrainAt(w,p)
- if(!def.cultivation||!def.gather||source&&cropStarterError(w,source))return false
- tile.cultivation={...(def.cultivation.substrate?{remainingCycles:def.cultivation.substrate.cycles}:{}),...(source?cropStarterDose(w,source):{}),...(ownerId!==undefined?{ownerId}:{}),terrain:tile.t,signature:signature(w,p),seedUid,growth:0,waterUnits:0,lastAt:turnOf(w)}
- delete tile.gatherAt;indices.delete(w.s.map);return true
+ if(!def.cultivation||!def.gather||source&&cropStarterError(w,source)||baseTerrain!==undefined&&!validCropBase(w,baseTerrain,def.cultivation.needsSoil!==false)||tile.cropResidue&&(baseTerrain===undefined||residueError(w,p,baseTerrain)))return false
+ const irrigation=starterWithResidue(w,p,source)
+ if(!validCropIrrigation({irrigation}as CultivationState))return false
+ tile.cultivation={...(baseTerrain?{origin:{terrain:baseTerrain,at:turnOf(w)}}:{}),...(def.cultivation.substrate?{remainingCycles:def.cultivation.substrate.cycles}:{}),...(irrigation?{irrigation}:{}),...(ownerId!==undefined?{ownerId}:{}),terrain:tile.t,signature:signature(w,p),seedUid,growth:0,waterUnits:0,lastAt:turnOf(w)}
+ delete tile.cropResidue;delete tile.gatherAt;indices.delete(w.s.map);return true
 }
 /** 현재 실제 따뜻한 노지의 증발률. 정지 지도/지난 날씨는 조회하지 않는다. */
 export function cultivationEvaporationRate(w:World,p:Pos){
@@ -52,7 +71,7 @@ export function cultivationStatus(w:World,p:Pos){
  if(!state)return
  let error:string|null
  const total=gather?.regrowTurns??0,waterCapacityUnits=rule&&total?rule.waterMl*total:0
- const valid=(state.dormantAt===undefined||Number.isSafeInteger(state.dormantAt)&&state.dormantAt>=0&&state.dormantAt<=turnOf(w))&&(rule?.substrate?Number.isSafeInteger(state.remainingCycles)&&state.remainingCycles!>=0&&state.remainingCycles!<=rule.substrate.cycles:state.remainingCycles===undefined)&&(state.ownerId===undefined||Number.isSafeInteger(state.ownerId)&&state.ownerId>0)&&validCropIrrigation(state)&&!!rule&&!!gather&&state.terrain===tile.t&&state.signature===signature(w,p)&&Number.isSafeInteger(state.seedUid)&&state.seedUid>0&&Number.isFinite(state.growth)&&state.growth>=0&&state.growth<=total&&Number.isSafeInteger(state.waterUnits)&&state.waterUnits>=0&&state.waterUnits<=waterCapacityUnits&&Number.isSafeInteger(state.lastAt)&&state.lastAt>=0&&state.lastAt<=turnOf(w)&&(state.evaporationCarry===undefined||Number.isSafeInteger(state.evaporationCarry)&&state.evaporationCarry>=0&&state.evaporationCarry<1200)
+ const valid=(state.dormantAt===undefined||Number.isSafeInteger(state.dormantAt)&&state.dormantAt>=0&&state.dormantAt<=turnOf(w))&&(rule?.substrate?Number.isSafeInteger(state.remainingCycles)&&state.remainingCycles!>=0&&state.remainingCycles!<=rule.substrate.cycles:state.remainingCycles===undefined)&&(state.ownerId===undefined||Number.isSafeInteger(state.ownerId)&&state.ownerId>0)&&validCropIrrigation(state)&&!!rule&&!!gather&&validCropOrigin(w,state,rule)&&state.terrain===tile.t&&state.signature===signature(w,p)&&Number.isSafeInteger(state.seedUid)&&state.seedUid>0&&Number.isFinite(state.growth)&&state.growth>=0&&state.growth<=total&&Number.isSafeInteger(state.waterUnits)&&state.waterUnits>=0&&state.waterUnits<=waterCapacityUnits&&Number.isSafeInteger(state.lastAt)&&state.lastAt>=0&&state.lastAt<=turnOf(w)&&(state.evaporationCarry===undefined||Number.isSafeInteger(state.evaporationCarry)&&state.evaporationCarry>=0&&state.evaporationCarry<1200)
  const light=w.s.map.kind==='surface'?daylight(w)*(w.s.map.daylightMult??1)*(tile.roof?.45:1):0,temp=ambientTemp(w,p),fertility=gather?.soilDependent?towerSoilFertility(w):1
  if(!valid)error='원래 작물과 성장 규칙을 확인해야 한다'
  else error=growthError(state,rule!,total,light,temp,fertility)
@@ -60,6 +79,30 @@ export function cultivationStatus(w:World,p:Pos){
  return{state,rule,gather,valid,ready,error,light,temp,fertility,total,soilDiffusion:valid?cultivationSoilDiffusionRule(w,p):undefined,evaporationMlPerHour:valid&&state.waterUnits>0?cultivationEvaporationRate(w,p):0,progress:total?Math.floor(state.growth/total*100):0,waterMl:total?state.waterUnits/total:0}
 }
 export function cultivationHarvestError(w:World,p:Pos):string|null{const d=cultivationStatus(w,p);return d&&!d.ready?d.error??'작물이 아직 다 자라지 않았다':null}
+export function cropUprootQuote(w:World,c:Creature,p:Pos){
+ const valid=Number.isSafeInteger(p.x)&&Number.isSafeInteger(p.y)&&inBounds(w,p),crop=valid?cultivationStatus(w,p):undefined
+ const base=!!crop?.valid&&crop.state.origin?w.db.tryGet<TerrainDef>(crop.state.origin.terrain):undefined
+ const labor=w.db.all<WorldGenDef>('WorldGen')[0]?.cropUprootTurns,turns=labor?channelTurns(w,c,labor):null
+ let error:string|null=null
+ if(!c.alive||!w.s.creatures.includes(c)||c.mapId!==undefined&&c.mapId!==w.s.map.id||c.asleep||c.unconscious||c.captivity||capacity(w,c,'consciousness')<.5||capacity(w,c,'manipulation')<.2)error='깨어서 밭을 정리할 손이 필요하다'
+ else if(!valid||cheb(c.pos,p)>1||!canSee(w,c,p)||!hasLos(w,c.pos,p)||diagonalBlocked(w,c.pos,p.x-c.pos.x,p.y-c.pos.y))error='실제로 보이는 밭 곁으로 가야 한다'
+ else if(!crop?.valid)error='원래 재배 기록이 있는 밭이 필요하다'
+ else if(crop.state.ownerId!==undefined&&crop.state.ownerId!==c.id)error='다른 사람이 심은 밭은 정리할 수 없다'
+ else if(!base||!crop.state.origin)error='심기 전 바닥 기록이 남아 있지 않다'
+ else if(tileAt(w,p).cropResidue!==undefined)error='같은 밭에 겹쳐 남은 잔재를 먼저 확인해야 한다'
+ else if(!labor||turns===null)error='몸 상태와 밭 정리 작업법을 확인해야 한다'
+ return{error,crop,base,turns:turns??0,seedUid:crop?.state.seedUid,waterMl:crop?.waterMl??0,unharvested:!!crop?.ready,residue:crop?.state.irrigation}
+}
+export function uprootCultivation(w:World,c:Creature,p:Pos,expectedSeed:number){
+ const q=cropUprootQuote(w,c,p);if(q.error)return q.error
+ if(!Number.isSafeInteger(expectedSeed)||expectedSeed!==q.seedUid)return '정리하려던 원래 작물이 달라졌다'
+ const tile=tileAt(w,p),base=q.base!.id
+ if(q.residue)tile.cropResidue={terrain:base,dose:structuredClone(q.residue)}
+ tile.t=base;delete tile.cultivation;delete tile.gatherAt;indices.delete(w.s.map)
+ if(c.id===w.s.playerId)log(w,'info',`작물을 뽑고 원래 ${q.base!.label}을(를) 드러냈다. 종자와 수확물은 돌려받지 못한다.`)
+ else if(canSee(w,player(w),p))log(w,'info','자기 밭의 작물을 정리했다.')
+ return null
+}
 export function resetCultivation(w:World,p:Pos){const d=cultivationStatus(w,p);if(!d?.valid||!d.ready)return;if(d.rule!.substrate)d.state.remainingCycles!--;d.state.growth=0;d.state.lastAt=turnOf(w);delete d.state.irrigation;delete tileAt(w,p).gatherAt}
 /** 한 번의 실제 경계에서 읽은 물량으로만 이동한다. 들어온 물을 같은 정산에 다시 보내지 않는다. */
 function diffuseSoilWater(w:World,list:number[],now:number){

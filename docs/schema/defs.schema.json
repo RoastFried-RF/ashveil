@@ -38334,6 +38334,16 @@
                   }
                 ]
               },
+              "cropUprootTurns": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "cropSoilDiffusion": {
                 "anyOf": [
                   {
@@ -39040,6 +39050,9 @@
                 ]
               },
               "cropEvaporationMlPerHour": {
+                "type": "number"
+              },
+              "cropUprootTurns": {
                 "type": "number"
               },
               "cropSoilDiffusion": {
