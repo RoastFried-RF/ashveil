@@ -24,6 +24,7 @@ import CraftingWindow from './ui/CraftingWindow.vue'
 import SocietyWindow from './ui/SocietyWindow.vue'
 import CharacterWindow from './ui/CharacterWindow.vue'
 import Hud from './ui/Hud.vue'
+import ReportActions from './ui/ReportActions.vue'
 import InventoryWindow from './ui/InventoryWindow.vue'
 import JournalWindow from './ui/JournalWindow.vue'
 import Banners from './ui/Banners.vue'
@@ -448,6 +449,7 @@ onBeforeUnmount(() => {
         <div><h3 class="mb-1 font-title text-amber-300">마지막 기록</h3><ul class="space-y-0.5 font-mono text-[11px] text-ash-300"><li v-for="(l, i) in over.report.chain" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">그때의 몸</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.vitals" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">기록</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.stats" :key="i">{{ l }}</li></ul></div>
+        <ReportActions :report="over.report" :seed="w.s.seed" />
         <CheckpointControls ended />
         <div class="text-center"><button class="dbtn-gold !px-4 !text-sm" @click="abandonToTitle">연대기에 새기고 돌아가기</button></div>
       </div>

@@ -332,3 +332,6 @@ export * from './posture'
 export * from './door-locks'
 export * from './lock-picking'
 export * from './resonance'
+
+export * from './expedition-endings'
+export * from './research'

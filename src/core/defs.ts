@@ -1340,6 +1340,33 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for(const y of d.yields){need(d.id,y.item,'Item');range(d.id,'yields.count',y.count,1,Infinity,true)}
   }
   for (const d of db.all<KnowledgeDef>('Knowledge')) {
+    if(d.research!==undefined){
+      if(!Array.isArray(d.research)||d.research.length>32)report.errors.push(`${d.id}: research 배열은 최대32개`)
+      else{
+        const ids=new Set<string>(),notes=new Set(db.all<FieldDeviceDef>('FieldDevice').flatMap(device=>(Array.isArray(device.operations)?device.operations:[]).flatMap(op=>op.effect?.note?[op.effect.note.key]:[])))
+        for(const thread of d.research){
+          if(!isObj(thread)){report.errors.push(`${d.id}: research 구조 오류`);continue}
+          if(typeof thread.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(thread.id)||ids.has(thread.id))report.errors.push(`${d.id}: research id 오류/중복`)
+          ids.add(thread.id)
+          if(typeof thread.label!=='string'||!thread.label.trim()||thread.label.length>200)report.errors.push(`${d.id}: research label 문구 오류`)
+          if(!Array.isArray(thread.steps)||!thread.steps.length||thread.steps.length>32){report.errors.push(`${d.id}: research steps 배열 오류`);continue}
+          const steps=new Set<string>()
+          for(const step of thread.steps){
+            if(!isObj(step)){report.errors.push(`${d.id}: research step 구조 오류`);continue}
+            if(typeof step.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(step.id)||steps.has(step.id))report.errors.push(`${d.id}: research step id 오류/중복`)
+            steps.add(step.id)
+            for(const key of ['label','text']as const)if(typeof step[key]!=='string'||!step[key].trim()||step[key].length>2000)report.errors.push(`${d.id}: research step ${key} 오류`)
+            for(const key of ['books','notes']as const){
+              const values=step[key];if(values===undefined)continue
+              if(!Array.isArray(values)||values.length>32||new Set(values).size!==values.length){report.errors.push(`${d.id}: research step ${key} 배열 오류`);continue}
+              for(const id of values)if(key==='books'?!db.tryGet<ItemDef>(id)?.book:!notes.has(id))report.errors.push(`${d.id}: research step ${key} 참조 오류`)
+            }
+            if(step.disclosure!==undefined)need(d.id,step.disclosure,'Evidence')
+            if(!step.books?.length&&!step.notes?.length&&!step.disclosure)report.errors.push(`${d.id}: research step 실제 증거 조건 필요`)
+          }
+        }
+      }
+    }
     if (d.pillAging !== undefined) {
       const a = d.pillAging
       if (!isObj(a)) report.errors.push(d.id + ': pillAging 구조 오류')
@@ -1992,6 +2019,32 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     need(d.id,d.resident,'Creature')
     if(!Array.isArray(d.disabilityParts)||!d.disabilityParts.length)report.errors.push(`${d.id}: disabilityParts 배열 필요`)
     else for(const part of d.disabilityParts)if(!db.tryGet<BodyDef>('Body.Humanoid')?.parts.some(p=>p.id===part))report.errors.push(`${d.id}: disabilityParts 신체 참조 오류`)
+    if(d.endings!==undefined){
+      if(!Array.isArray(d.endings)||d.endings.length>16)report.errors.push(`${d.id}: endings 배열은 최대16개`)
+      else{
+        const ids=new Set<string>(),notes=new Set(db.all<FieldDeviceDef>('FieldDevice').flatMap(device=>(Array.isArray(device.operations)?device.operations:[]).flatMap(op=>op.effect?.note?[op.effect.note.key]:[])))
+        for(const ending of d.endings){
+          if(!isObj(ending)){report.errors.push(`${d.id}: ending 구조 오류`);continue}
+          if(typeof ending.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(ending.id)||ids.has(ending.id))report.errors.push(`${d.id}: ending id 오류/중복`)
+          ids.add(ending.id)
+          for(const key of ['label','summary','epitaph']as const)if(typeof ending[key]!=='string'||!ending[key].trim()||ending[key].length>2000)report.errors.push(`${d.id}: ending ${key} 문구 오류`)
+          for(const key of ['notes','revealNotes']as const){
+            const value=ending[key]
+            if(value===undefined&&key==='revealNotes')continue
+            if(!Array.isArray(value)||value.length>32||new Set(value).size!==value.length)report.errors.push(`${d.id}: ending ${key} 배열 오류`)
+            else for(const note of value)if(typeof note!=='string'||!notes.has(note))report.errors.push(`${d.id}: ending ${key} 현장 기록 참조 오류`)
+          }
+          if(!ending.notes?.length&&!ending.disclosure)report.errors.push(`${d.id}: ending 실제 기록/공개 조건 필요`)
+          if(ending.region!==undefined)need(d.id,ending.region,'RegionSite')
+          if(ending.disclosure!==undefined)need(d.id,ending.disclosure,'Evidence')
+          if(ending.tower!==undefined){if(!isObj(ending.tower)||typeof ending.tower.stopped!=='boolean')report.errors.push(`${d.id}: ending tower 구조 오류`);else need(d.id,ending.tower.id,'RegionSite')}
+          if(ending.revealBooks!==undefined){
+            if(!Array.isArray(ending.revealBooks)||ending.revealBooks.length>32||new Set(ending.revealBooks).size!==ending.revealBooks.length)report.errors.push(`${d.id}: ending revealBooks 배열 오류`)
+            else for(const book of ending.revealBooks)if(!db.tryGet<ItemDef>(book)?.book)report.errors.push(`${d.id}: ending revealBooks 책 참조 오류`)
+          }
+        }
+      }
+    }
   }
   for(const d of db.all<EvidenceDef>('Evidence')){
     const source=factions.find(f=>f.key===d.sourceFaction),reform=factions.find(f=>f.key===d.reformFaction)

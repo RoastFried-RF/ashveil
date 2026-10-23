@@ -583,7 +583,12 @@ export interface InnDef extends DefBase {
   fee: number
   leaseTurns: number
 }
-export interface RetirementDef extends DefBase {defType:'Retirement';label:string;dailyLivingCost:number;longLeaseDays:number;minHousingDays:number;youngAge:number;oldAge:number;youngYears:number;middleYears:number;oldYears:number;friendly:number;legendRenown:number;disabilityFactor:number;disabilityParts:string[];resident:string;maxLegacy:number}
+export interface ExpeditionEnding {
+ id:string;label:string;summary:string;epitaph:string;notes:string[]
+ revealNotes?:string[];revealBooks?:string[];region?:string
+ disclosure?:string;tower?:{id:string;stopped:boolean}
+}
+export interface RetirementDef extends DefBase {endings?:ExpeditionEnding[];defType:'Retirement';label:string;dailyLivingCost:number;longLeaseDays:number;minHousingDays:number;youngAge:number;oldAge:number;youngYears:number;middleYears:number;oldYears:number;friendly:number;legendRenown:number;disabilityFactor:number;disabilityParts:string[];resident:string;maxLegacy:number}
 export interface LegacyResident {key:string;seed:string;site:string;name:string;age:number;tales:string[];id?:number;heard?:boolean}
 export interface RetirementRecord {kind:'peaceful'|'wounded'|'legend';site:string;keeper:number;bed:string;paid:number;estate:number;legacy:LegacyResident}
 export interface HandHygieneDef extends DefBase {
@@ -1772,7 +1777,10 @@ export interface CartographyDef extends DefBase {worldScouting?:{radius:number;m
 export interface WorldMapDocument {surveyedAt?:number;commission?:string;title:string;author:string;worldSeed:string;w:number;h:number;writtenAt:number;reliability:number;error:number;cartographer:{id:number;name:string;seed:string};cells:{x:number;y:number;seenAt:number;cell:WorldObservation['cell']}[]}
 export interface MapDocument {landmarks?:{x:number;y:number;kind:'water';label:string}[];title:string;author:string;mapId:string;kind:'surface'|'dungeon';depth:number;w:number;h:number;writtenAt:number;reliability:number;error:number;cartographer?:{id:number;name:string;seed:string};commission?:string;surveyedAt?:number;stairs?:{x:number;y:number;label:string}[];rooms:{roomIndex?:number;type?:string;name:string;x:number;y:number;w:number;h:number}[]}
 
+export interface ResearchStep {id:string;label:string;text:string;books?:string[];notes?:string[];disclosure?:string}
+export interface ResearchThread {id:string;label:string;steps:ResearchStep[]}
 export interface KnowledgeDef extends DefBase {
+  research?:ResearchThread[]
   pillAging?: { minPotency: number; maxPotency: number; spoilChance: number; spoiledEffect: string; spoiledAmount: number; noticePer: number }
   appraisal?:{feeRate:number;honesty:number;relationPerPoint:number;factionHonesty:Record<string,number>}
   defType: 'Knowledge'

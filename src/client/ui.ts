@@ -17,7 +17,7 @@ export const hint = ref<string | null>(null)
 /** 기록 창 크게 보기 (Shift+L, 12 §8) */
 export const logBig = ref(false)
 export const craftSection=ref<'recipes'|'maintenance'|'field'>('recipes')
-export const journalSection=ref<'prisoners'|'interactions'|'contracts'|'log'|'beast'|'pill'|'needs'|'rumor'|'events'|'chron'|'medical'>('needs')
+export const journalSection=ref<'research'|'endings'|'prisoners'|'interactions'|'contracts'|'log'|'beast'|'pill'|'needs'|'rumor'|'events'|'chron'|'medical'>('needs')
 export const trackedContract=ref<string|null>(null)
 export const tooltip = ref<{ x: number; y: number; title: string; lines: string[]; color?: string } | null>(null)
 

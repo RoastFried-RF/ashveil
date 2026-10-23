@@ -65,6 +65,7 @@ import { clamp } from './ctx'
 import { cancelFieldDevice, fieldDeviceStep, startFieldDevice } from './field-devices'
 import { evidenceStep, startEvidence } from './evidence'
 import { retire } from './retirement'
+import {finishExpedition} from './expedition-endings'
 import { towerSoilFertility } from './tower-consequences'
 import { witnessPropertyCrime } from './diplomacy'
 import { machineAction, machineProtecting, machineReady, machineRules } from './machine-state'
@@ -174,6 +175,7 @@ export type Action =
   | {type:'beaconFuel';pos:Pos;uid:number;fuelUid:number}
   | {type:'beaconSend';pos:Pos;uid:number;to:import('./types').BeaconAddress;rumorKey:string}
   | {type:'beaconRead';pos:Pos;uid:number}
+  | {type:'finishExpedition';ending:string;expected:string}
   | {type:'retire';target:number;expectedSavings?:number}
   | {type:'discloseEvidence';target:number;rule:string}
   | {type:'deviceWork';pos:Pos;uid:number;operation:string}
@@ -575,6 +577,7 @@ export function perform(w: World, c: Creature, a: Action): ActResult {
     case 'mapSurveyAccept':{const trader=creatureById(w,a.target),error=trader?acceptMapSurvey(w,c,trader,a.offer,a.expectedReward):'상인을 찾을 수 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'mapSurveyDeliver':{const trader=creatureById(w,a.target),error=trader?deliverMapSurvey(w,c,trader,a.contract,a.paperUid,a.expectedReward):'상인을 찾을 수 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'worldRaidLoot': {const error=worldRaidLoot(w,c);return error?FAIL(error):{ok:true,tu:100}}
+    case 'finishExpedition':{const error=finishExpedition(w,c,a.ending,a.expected);return error?FAIL(error):FREE}
     case 'retire':{const keeper=creatureById(w,a.target);const error=keeper?retire(w,c,keeper,a.expectedSavings):'여관 주인을 찾을 수 없다';return error?FAIL(error):FREE}
     case 'discloseEvidence':{const error=startEvidence(w,c,a.target,a.rule);return error?FAIL(error):FREE}
     case 'deviceWork':{const error=startFieldDevice(w,c,a.pos,a.uid,a.operation);return error?FAIL(error):FREE}

@@ -15,12 +15,14 @@ import Bar from './Bar.vue'
 import Win from './Win.vue'
 import NpcRelationsPanel from './NpcRelationsPanel.vue'
 import StoryDirectorPanel from './StoryDirectorPanel.vue'
+import ExpeditionEndingsPanel from './ExpeditionEndingsPanel.vue'
+import ResearchPanel from './ResearchPanel.vue'
 
 // 탭 (12 §2.3): 지식 · 도감 · 소문 · 사건 · 연대기 (+ 생존 상태 · 전체 기록)
-type Tab = 'prisoners' | 'interactions' | 'contracts' | 'log' | 'beast' | 'pill' | 'needs' | 'rumor' | 'events' | 'chron' | 'medical'
+type Tab = 'research' | 'endings' | 'prisoners' | 'interactions' | 'contracts' | 'log' | 'beast' | 'pill' | 'needs' | 'rumor' | 'events' | 'chron' | 'medical'
 const contractQuery=ref('')
 const contractStatus=ref<'active'|'all'|'closed'>('active')
-const TABS: [Tab, string][] = [['needs', '생존'], ['contracts','계약'], ['prisoners','구조 단서'], ['pill', '지식'], ['interactions','상호작용'], ['beast', '도감'], ['medical', '진료'], ['rumor', '소문'], ['events', '사건'], ['chron', '연대기'], ['log', '기록']]
+const TABS: [Tab, string][] = [['needs', '생존'], ['contracts','계약'], ['prisoners','구조 단서'], ['pill', '지식'], ['interactions','상호작용'], ['beast', '도감'], ['medical', '진료'], ['rumor', '소문'], ['events', '사건'], ['research','실마리'], ['endings','갈림길'], ['chron', '연대기'], ['log', '기록']]
 const EVENT_LABEL: Record<string, string> = { 'Event.ReaverPatrol': '약탈자 순찰', 'Event.ReaverSearch': '약탈자 수색대 출발', 'Event.StashRaided': '야영지 보관함 약탈', 'Event.Reoccupy': '던전 재점거' }
 
 const d = computed(() => {
@@ -102,7 +104,9 @@ const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==
       <button v-for="[k, l] in TABS" :key="k" class="df shrink-0 whitespace-nowrap px-2 text-xs" :class="tab === k ? 'df-tab-sel text-amber-100' : 'df-tab text-ash-300'" @click="tab = k">{{ l }}</button>
     </div>
     <div class="text-xs">
-      <template v-if="tab === 'needs'">
+      <template v-if="tab==='research'"><ResearchPanel /></template>
+      <template v-else-if="tab==='endings'"><ExpeditionEndingsPanel /></template>
+      <template v-else-if="tab === 'needs'">
         <div class="mb-2 text-ash-400">{{ d.clock }}</div>
         <div v-for="[k, v, m, t] in d.needs" :key="k" class="mb-1 flex items-center gap-2">
           <span class="w-20 shrink-0 text-ash-400">{{ k }}</span>

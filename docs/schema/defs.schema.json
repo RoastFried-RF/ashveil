@@ -11742,6 +11742,78 @@
               "defType"
             ],
             "properties": {
+              "endings": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/ExpeditionEnding"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/ExpeditionEnding"
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/ExpeditionEnding"
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/$defs/ExpeditionEnding"
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "defType": {
                 "const": "Retirement"
               },
@@ -12005,6 +12077,12 @@
               "id"
             ],
             "properties": {
+              "endings": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ExpeditionEnding"
+                }
+              },
               "defType": {
                 "const": "Retirement"
               },
@@ -12077,6 +12155,69 @@
             }
           }
         }
+      ]
+    },
+    "ExpeditionEnding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "epitaph": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "revealNotes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "revealBooks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "region": {
+          "type": "string"
+        },
+        "disclosure": {
+          "type": "string"
+        },
+        "tower": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "stopped": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "stopped"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "summary",
+        "epitaph",
+        "notes"
       ]
     },
     "BodyDef": {
@@ -46567,6 +46708,78 @@
               "defType"
             ],
             "properties": {
+              "research": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/ResearchThread"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/ResearchThread"
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/ResearchThread"
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/$defs/ResearchThread"
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "pillAging": {
                 "anyOf": [
                   {
@@ -46985,6 +47198,12 @@
               "id"
             ],
             "properties": {
+              "research": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ResearchThread"
+                }
+              },
               "pillAging": {
                 "type": "object",
                 "properties": {
@@ -47118,6 +47337,62 @@
             }
           }
         }
+      ]
+    },
+    "ResearchThread": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ResearchStep"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "steps"
+      ]
+    },
+    "ResearchStep": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disclosure": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "text"
       ]
     },
     "BestiaryDef": {
