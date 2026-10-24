@@ -1,5 +1,5 @@
 {
-  "version": 331,
+  "version": 333,
   "roles": [
     "wanderer",
     "guard",
@@ -13,7 +13,9 @@
     "drone",
     "spore",
     "rat",
-    "leech"
+    "leech",
+    "ashhorn_stag",
+    "tuskhog"
   ],
   "motionNames": [
     "idle",
@@ -25,6 +27,7 @@
     "crouchWalk",
     "stand",
     "work",
+    "wallow",
     "use",
     "fall",
     "rise",
@@ -49,7 +52,8 @@
     "sleep": 3600,
     "shoot": 500,
     "throw": 500,
-    "interact": 460
+    "interact": 460,
+    "wallow": 2400
   },
   "beforeDurations": {
     "idle": 1300,
@@ -82666,6 +82670,2469 @@
           "walk": 1200,
           "crouchWalk": 1500
         }
+      },
+      "ashhorn_stag": {
+        "idle": {
+          "down": [
+            "av333_ashhorn_stag_idle_down0",
+            "av333_ashhorn_stag_idle_down1",
+            "av333_ashhorn_stag_idle_down2",
+            "av333_ashhorn_stag_idle_down3"
+          ],
+          "left": [
+            "av333_ashhorn_stag_idle_left0",
+            "av333_ashhorn_stag_idle_left1",
+            "av333_ashhorn_stag_idle_left2",
+            "av333_ashhorn_stag_idle_left3"
+          ],
+          "right": [
+            "av333_ashhorn_stag_idle_right0",
+            "av333_ashhorn_stag_idle_right1",
+            "av333_ashhorn_stag_idle_right2",
+            "av333_ashhorn_stag_idle_right3"
+          ],
+          "up": [
+            "av333_ashhorn_stag_idle_up0",
+            "av333_ashhorn_stag_idle_up1",
+            "av333_ashhorn_stag_idle_up2",
+            "av333_ashhorn_stag_idle_up3"
+          ]
+        },
+        "walk": {
+          "down": [
+            "av333_ashhorn_stag_walk_down0",
+            "av333_ashhorn_stag_walk_down1",
+            "av333_ashhorn_stag_walk_down2",
+            "av333_ashhorn_stag_walk_down3"
+          ],
+          "left": [
+            "av333_ashhorn_stag_walk_left0",
+            "av333_ashhorn_stag_walk_left1",
+            "av333_ashhorn_stag_walk_left2",
+            "av333_ashhorn_stag_walk_left3"
+          ],
+          "right": [
+            "av333_ashhorn_stag_walk_right0",
+            "av333_ashhorn_stag_walk_right1",
+            "av333_ashhorn_stag_walk_right2",
+            "av333_ashhorn_stag_walk_right3"
+          ],
+          "up": [
+            "av333_ashhorn_stag_walk_up0",
+            "av333_ashhorn_stag_walk_up1",
+            "av333_ashhorn_stag_walk_up2",
+            "av333_ashhorn_stag_walk_up3"
+          ]
+        },
+        "attack": {
+          "down": [
+            "av333_ashhorn_stag_attack_down0",
+            "av333_ashhorn_stag_attack_down1",
+            "av333_ashhorn_stag_attack_down2",
+            "av333_ashhorn_stag_attack_down3"
+          ],
+          "left": [
+            "av333_ashhorn_stag_attack_left0",
+            "av333_ashhorn_stag_attack_left1",
+            "av333_ashhorn_stag_attack_left2",
+            "av333_ashhorn_stag_attack_left3"
+          ],
+          "right": [
+            "av333_ashhorn_stag_attack_right0",
+            "av333_ashhorn_stag_attack_right1",
+            "av333_ashhorn_stag_attack_right2",
+            "av333_ashhorn_stag_attack_right3"
+          ],
+          "up": [
+            "av333_ashhorn_stag_attack_up0",
+            "av333_ashhorn_stag_attack_up1",
+            "av333_ashhorn_stag_attack_up2",
+            "av333_ashhorn_stag_attack_up3"
+          ]
+        },
+        "anchor": [
+          0.5,
+          1
+        ],
+        "renderScale": 0.17,
+        "headOffset": 49,
+        "shadow": [
+          17,
+          6
+        ],
+        "healthBarWidth": 26,
+        "heldItems": false,
+        "gait": {
+          "walk": 850,
+          "crouchWalk": 1050
+        },
+        "motions": {
+          "hurt": {
+            "down": [
+              "av333_ashhorn_stag_hurt_down0",
+              "av333_ashhorn_stag_hurt_down1",
+              "av333_ashhorn_stag_hurt_down2",
+              "av333_ashhorn_stag_hurt_down3"
+            ],
+            "left": [
+              "av333_ashhorn_stag_hurt_left0",
+              "av333_ashhorn_stag_hurt_left1",
+              "av333_ashhorn_stag_hurt_left2",
+              "av333_ashhorn_stag_hurt_left3"
+            ],
+            "right": [
+              "av333_ashhorn_stag_hurt_right0",
+              "av333_ashhorn_stag_hurt_right1",
+              "av333_ashhorn_stag_hurt_right2",
+              "av333_ashhorn_stag_hurt_right3"
+            ],
+            "up": [
+              "av333_ashhorn_stag_hurt_up0",
+              "av333_ashhorn_stag_hurt_up1",
+              "av333_ashhorn_stag_hurt_up2",
+              "av333_ashhorn_stag_hurt_up3"
+            ]
+          },
+          "sleep": {
+            "down": [
+              "av333_ashhorn_stag_sleep_down0",
+              "av333_ashhorn_stag_sleep_down1",
+              "av333_ashhorn_stag_sleep_down2",
+              "av333_ashhorn_stag_sleep_down3"
+            ],
+            "left": [
+              "av333_ashhorn_stag_sleep_left0",
+              "av333_ashhorn_stag_sleep_left1",
+              "av333_ashhorn_stag_sleep_left2",
+              "av333_ashhorn_stag_sleep_left3"
+            ],
+            "right": [
+              "av333_ashhorn_stag_sleep_right0",
+              "av333_ashhorn_stag_sleep_right1",
+              "av333_ashhorn_stag_sleep_right2",
+              "av333_ashhorn_stag_sleep_right3"
+            ],
+            "up": [
+              "av333_ashhorn_stag_sleep_up0",
+              "av333_ashhorn_stag_sleep_up1",
+              "av333_ashhorn_stag_sleep_up2",
+              "av333_ashhorn_stag_sleep_up3"
+            ]
+          },
+          "rise": {
+            "down": [
+              "av333_ashhorn_stag_rise_down0",
+              "av333_ashhorn_stag_rise_down1",
+              "av333_ashhorn_stag_rise_down2",
+              "av333_ashhorn_stag_rise_down3"
+            ],
+            "left": [
+              "av333_ashhorn_stag_rise_left0",
+              "av333_ashhorn_stag_rise_left1",
+              "av333_ashhorn_stag_rise_left2",
+              "av333_ashhorn_stag_rise_left3"
+            ],
+            "right": [
+              "av333_ashhorn_stag_rise_right0",
+              "av333_ashhorn_stag_rise_right1",
+              "av333_ashhorn_stag_rise_right2",
+              "av333_ashhorn_stag_rise_right3"
+            ],
+            "up": [
+              "av333_ashhorn_stag_rise_up0",
+              "av333_ashhorn_stag_rise_up1",
+              "av333_ashhorn_stag_rise_up2",
+              "av333_ashhorn_stag_rise_up3"
+            ]
+          },
+          "fall": {
+            "down": [
+              "av333_ashhorn_stag_fall_down0",
+              "av333_ashhorn_stag_fall_down1",
+              "av333_ashhorn_stag_fall_down2",
+              "av333_ashhorn_stag_fall_down3"
+            ],
+            "left": [
+              "av333_ashhorn_stag_fall_left0",
+              "av333_ashhorn_stag_fall_left1",
+              "av333_ashhorn_stag_fall_left2",
+              "av333_ashhorn_stag_fall_left3"
+            ],
+            "right": [
+              "av333_ashhorn_stag_fall_right0",
+              "av333_ashhorn_stag_fall_right1",
+              "av333_ashhorn_stag_fall_right2",
+              "av333_ashhorn_stag_fall_right3"
+            ],
+            "up": [
+              "av333_ashhorn_stag_fall_up0",
+              "av333_ashhorn_stag_fall_up1",
+              "av333_ashhorn_stag_fall_up2",
+              "av333_ashhorn_stag_fall_up3"
+            ]
+          },
+          "work": {
+            "down": [
+              "av333_ashhorn_stag_work_down0",
+              "av333_ashhorn_stag_work_down1",
+              "av333_ashhorn_stag_work_down2",
+              "av333_ashhorn_stag_work_down3"
+            ],
+            "left": [
+              "av333_ashhorn_stag_work_left0",
+              "av333_ashhorn_stag_work_left1",
+              "av333_ashhorn_stag_work_left2",
+              "av333_ashhorn_stag_work_left3"
+            ],
+            "right": [
+              "av333_ashhorn_stag_work_right0",
+              "av333_ashhorn_stag_work_right1",
+              "av333_ashhorn_stag_work_right2",
+              "av333_ashhorn_stag_work_right3"
+            ],
+            "up": [
+              "av333_ashhorn_stag_work_up0",
+              "av333_ashhorn_stag_work_up1",
+              "av333_ashhorn_stag_work_up2",
+              "av333_ashhorn_stag_work_up3"
+            ]
+          }
+        },
+        "frameTransforms": {
+          "av333_ashhorn_stag_idle_down0": {
+            "anchor": [
+              0.48046875,
+              0.9920948616600791
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_down1": {
+            "anchor": [
+              0.5241935483870968,
+              0.9921259842519685
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_down2": {
+            "anchor": [
+              0.5,
+              0.9920948616600791
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_down3": {
+            "anchor": [
+              0.49609375,
+              0.9921259842519685
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_left0": {
+            "anchor": [
+              0.6289592760180995,
+              0.9921259842519685
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_left1": {
+            "anchor": [
+              0.6321585903083701,
+              0.9921875
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_left2": {
+            "anchor": [
+              0.6371681415929203,
+              0.9921568627450981
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_left3": {
+            "anchor": [
+              0.6343612334801763,
+              0.9921568627450981
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_right0": {
+            "anchor": [
+              0.35201793721973096,
+              0.9923076923076923
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_right1": {
+            "anchor": [
+              0.3590308370044053,
+              0.9922779922779923
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_right2": {
+            "anchor": [
+              0.3609865470852018,
+              0.9922480620155039
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_right3": {
+            "anchor": [
+              0.3590308370044053,
+              0.9922480620155039
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_up0": {
+            "anchor": [
+              0.5040983606557377,
+              0.9927272727272727
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_up1": {
+            "anchor": [
+              0.49606299212598426,
+              0.9927536231884058
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_up2": {
+            "anchor": [
+              0.504,
+              0.9927007299270073
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_idle_up3": {
+            "anchor": [
+              0.5121951219512195,
+              0.9927536231884058
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_walk_down0": {
+            "anchor": [
+              0.4772727272727273,
+              0.9922779922779923
+            ],
+            "scale": 0.166
+          },
+          "av333_ashhorn_stag_walk_down1": {
+            "anchor": [
+              0.48484848484848486,
+              0.9922779922779923
+            ],
+            "scale": 0.166
+          },
+          "av333_ashhorn_stag_walk_down2": {
+            "anchor": [
+              0.4621212121212121,
+              0.9922779922779923
+            ],
+            "scale": 0.166
+          },
+          "av333_ashhorn_stag_walk_down3": {
+            "anchor": [
+              0.4925373134328358,
+              0.9923076923076923
+            ],
+            "scale": 0.166
+          },
+          "av333_ashhorn_stag_walk_left0": {
+            "anchor": [
+              0.5635245901639344,
+              0.9922480620155039
+            ],
+            "scale": 0.16798418972332016
+          },
+          "av333_ashhorn_stag_walk_left1": {
+            "anchor": [
+              0.6012396694214877,
+              0.9921568627450981
+            ],
+            "scale": 0.16798418972332016
+          },
+          "av333_ashhorn_stag_walk_left2": {
+            "anchor": [
+              0.6652719665271967,
+              0.9922480620155039
+            ],
+            "scale": 0.16798418972332016
+          },
+          "av333_ashhorn_stag_walk_left3": {
+            "anchor": [
+              0.6546610169491526,
+              0.9921875
+            ],
+            "scale": 0.16798418972332016
+          },
+          "av333_ashhorn_stag_walk_right0": {
+            "anchor": [
+              0.41875,
+              0.9923664122137404
+            ],
+            "scale": 0.16933852140077824
+          },
+          "av333_ashhorn_stag_walk_right1": {
+            "anchor": [
+              0.3868312757201646,
+              0.9923371647509579
+            ],
+            "scale": 0.16933852140077824
+          },
+          "av333_ashhorn_stag_walk_right2": {
+            "anchor": [
+              0.3506224066390041,
+              0.9923076923076923
+            ],
+            "scale": 0.16933852140077824
+          },
+          "av333_ashhorn_stag_walk_right3": {
+            "anchor": [
+              0.3227848101265823,
+              0.9923371647509579
+            ],
+            "scale": 0.16933852140077824
+          },
+          "av333_ashhorn_stag_walk_up0": {
+            "anchor": [
+              0.484375,
+              0.9927007299270073
+            ],
+            "scale": 0.17062962962962966
+          },
+          "av333_ashhorn_stag_walk_up1": {
+            "anchor": [
+              0.49236641221374045,
+              0.9926739926739927
+            ],
+            "scale": 0.17062962962962966
+          },
+          "av333_ashhorn_stag_walk_up2": {
+            "anchor": [
+              0.48863636363636365,
+              0.9927007299270073
+            ],
+            "scale": 0.17062962962962966
+          },
+          "av333_ashhorn_stag_walk_up3": {
+            "anchor": [
+              0.4806201550387597,
+              0.9927007299270073
+            ],
+            "scale": 0.17062962962962966
+          },
+          "av333_ashhorn_stag_attack_down0": {
+            "anchor": [
+              0.5,
+              0.989247311827957
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_down1": {
+            "anchor": [
+              0.5295698924731183,
+              0.9885714285714285
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_down2": {
+            "anchor": [
+              0.5344827586206896,
+              0.9886363636363636
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_down3": {
+            "anchor": [
+              0.4787234042553192,
+              0.9911894273127754
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_left0": {
+            "anchor": [
+              0.6732142857142858,
+              0.9898477157360406
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_left1": {
+            "anchor": [
+              0.6691842900302115,
+              0.9876543209876543
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_left2": {
+            "anchor": [
+              0.654178674351585,
+              0.987012987012987
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_left3": {
+            "anchor": [
+              0.6589147286821705,
+              0.991304347826087
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_right0": {
+            "anchor": [
+              0.32575757575757575,
+              0.9900497512437811
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_right1": {
+            "anchor": [
+              0.34890965732087226,
+              0.9874213836477987
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_right2": {
+            "anchor": [
+              0.35062893081761004,
+              0.9873417721518988
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_right3": {
+            "anchor": [
+              0.3739495798319328,
+              0.9913793103448276
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_up0": {
+            "anchor": [
+              0.5408805031446541,
+              0.9918032786885246
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_up1": {
+            "anchor": [
+              0.5030674846625767,
+              0.991701244813278
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_up2": {
+            "anchor": [
+              0.489247311827957,
+              0.9910313901345291
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_attack_up3": {
+            "anchor": [
+              0.4689655172413793,
+              0.9925093632958801
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_hurt_down0": {
+            "anchor": [
+              0.5436893203883495,
+              0.9900497512437811
+            ],
+            "scale": 0.2148730964467005
+          },
+          "av333_ashhorn_stag_hurt_down1": {
+            "anchor": [
+              0.35714285714285715,
+              0.9894736842105263
+            ],
+            "scale": 0.2148730964467005
+          },
+          "av333_ashhorn_stag_hurt_down2": {
+            "anchor": [
+              0.46601941747572817,
+              0.9900497512437811
+            ],
+            "scale": 0.2148730964467005
+          },
+          "av333_ashhorn_stag_hurt_down3": {
+            "anchor": [
+              0.46601941747572817,
+              0.9900497512437811
+            ],
+            "scale": 0.2148730964467005
+          },
+          "av333_ashhorn_stag_hurt_left0": {
+            "anchor": [
+              0.6565934065934066,
+              0.9896373056994818
+            ],
+            "scale": 0.22486772486772488
+          },
+          "av333_ashhorn_stag_hurt_left1": {
+            "anchor": [
+              0.7039800995024875,
+              0.987012987012987
+            ],
+            "scale": 0.22486772486772488
+          },
+          "av333_ashhorn_stag_hurt_left2": {
+            "anchor": [
+              0.6135135135135135,
+              0.9896373056994818
+            ],
+            "scale": 0.22486772486772488
+          },
+          "av333_ashhorn_stag_hurt_left3": {
+            "anchor": [
+              0.6222826086956522,
+              0.9896373056994818
+            ],
+            "scale": 0.22486772486772488
+          },
+          "av333_ashhorn_stag_hurt_right0": {
+            "anchor": [
+              0.2983425414364641,
+              0.98989898989899
+            ],
+            "scale": 0.21869346733668343
+          },
+          "av333_ashhorn_stag_hurt_right1": {
+            "anchor": [
+              0.4289340101522843,
+              0.9893617021276596
+            ],
+            "scale": 0.21869346733668343
+          },
+          "av333_ashhorn_stag_hurt_right2": {
+            "anchor": [
+              0.35526315789473684,
+              0.9900497512437811
+            ],
+            "scale": 0.21869346733668343
+          },
+          "av333_ashhorn_stag_hurt_right3": {
+            "anchor": [
+              0.3537234042553192,
+              0.9901477832512315
+            ],
+            "scale": 0.21869346733668343
+          },
+          "av333_ashhorn_stag_hurt_up0": {
+            "anchor": [
+              0.5343137254901961,
+              0.9903381642512077
+            ],
+            "scale": 0.2280693069306931
+          },
+          "av333_ashhorn_stag_hurt_up1": {
+            "anchor": [
+              0.2857142857142857,
+              0.9902439024390244
+            ],
+            "scale": 0.2280693069306931
+          },
+          "av333_ashhorn_stag_hurt_up2": {
+            "anchor": [
+              0.5,
+              0.9902912621359223
+            ],
+            "scale": 0.2280693069306931
+          },
+          "av333_ashhorn_stag_hurt_up3": {
+            "anchor": [
+              0.48514851485148514,
+              0.9902912621359223
+            ],
+            "scale": 0.2280693069306931
+          },
+          "av333_ashhorn_stag_sleep_down0": {
+            "anchor": [
+              0.5029761904761905,
+              0.9856115107913669
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_sleep_down1": {
+            "anchor": [
+              0.5116959064327485,
+              0.9861111111111112
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_sleep_down2": {
+            "anchor": [
+              0.5060240963855421,
+              0.9861111111111112
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_sleep_down3": {
+            "anchor": [
+              0.5088757396449705,
+              0.9858156028368794
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_sleep_left0": {
+            "anchor": [
+              0.478494623655914,
+              0.984375
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_sleep_left1": {
+            "anchor": [
+              0.4893048128342246,
+              0.9838709677419355
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_sleep_left2": {
+            "anchor": [
+              0.4946808510638298,
+              0.9844961240310077
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_sleep_left3": {
+            "anchor": [
+              0.4919786096256685,
+              0.9838709677419355
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_sleep_right0": {
+            "anchor": [
+              0.5106951871657754,
+              0.984
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_sleep_right1": {
+            "anchor": [
+              0.5052631578947369,
+              0.9838709677419355
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_sleep_right2": {
+            "anchor": [
+              0.5104712041884817,
+              0.983739837398374
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_sleep_right3": {
+            "anchor": [
+              0.5132978723404256,
+              0.9838709677419355
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_sleep_up0": {
+            "anchor": [
+              0.4489795918367347,
+              0.9882352941176471
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_sleep_up1": {
+            "anchor": [
+              0.4470198675496689,
+              0.9881656804733728
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_sleep_up2": {
+            "anchor": [
+              0.4139072847682119,
+              0.9881656804733728
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_sleep_up3": {
+            "anchor": [
+              0.44256756756756754,
+              0.9884393063583815
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_rise_down0": {
+            "anchor": [
+              0.49673202614379086,
+              0.9876543209876543
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_rise_down1": {
+            "anchor": [
+              0.496,
+              0.9893617021276596
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_rise_down2": {
+            "anchor": [
+              0.6024590163934426,
+              0.9899497487437185
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_rise_down3": {
+            "anchor": [
+              0.5045045045045045,
+              1
+            ],
+            "scale": 0.19688372093023257
+          },
+          "av333_ashhorn_stag_rise_left0": {
+            "anchor": [
+              0.5345744680851063,
+              0.9875
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_rise_left1": {
+            "anchor": [
+              0.49742268041237114,
+              0.9885714285714285
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_rise_left2": {
+            "anchor": [
+              0.5637755102040817,
+              0.9894179894179894
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_rise_left3": {
+            "anchor": [
+              0.6328125,
+              0.98989898989899
+            ],
+            "scale": 0.21683673469387757
+          },
+          "av333_ashhorn_stag_rise_right0": {
+            "anchor": [
+              0.46524064171123,
+              0.9873417721518988
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_rise_right1": {
+            "anchor": [
+              0.4793814432989691,
+              0.9882352941176471
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_rise_right2": {
+            "anchor": [
+              0.4067357512953368,
+              0.989010989010989
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_rise_right3": {
+            "anchor": [
+              0.3645833333333333,
+              0.9896373056994818
+            ],
+            "scale": 0.23026455026455026
+          },
+          "av333_ashhorn_stag_rise_up0": {
+            "anchor": [
+              0.5669642857142857,
+              0.9900497512437811
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_rise_up1": {
+            "anchor": [
+              0.39705882352941174,
+              0.9907407407407407
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_rise_up2": {
+            "anchor": [
+              0.4603960396039604,
+              0.9910714285714286
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_rise_up3": {
+            "anchor": [
+              0.5,
+              0.990990990990991
+            ],
+            "scale": 0.21133027522935782
+          },
+          "av333_ashhorn_stag_fall_down0": {
+            "anchor": [
+              0.47101449275362317,
+              0.9917695473251029
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_down1": {
+            "anchor": [
+              0.4244604316546763,
+              0.9913793103448276
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_down2": {
+            "anchor": [
+              0.5,
+              0.9903381642512077
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_down3": {
+            "anchor": [
+              0.49328859060402686,
+              0.9884393063583815
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_left0": {
+            "anchor": [
+              0.6051587301587301,
+              0.9920948616600791
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_left1": {
+            "anchor": [
+              0.5272373540856031,
+              0.9913793103448276
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_left2": {
+            "anchor": [
+              0.6083650190114068,
+              0.9897959183673469
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_left3": {
+            "anchor": [
+              0.6268382352941176,
+              0.9882352941176471
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_right0": {
+            "anchor": [
+              0.36885245901639346,
+              0.9919028340080972
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_right1": {
+            "anchor": [
+              0.49190283400809715,
+              0.990990990990991
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_right2": {
+            "anchor": [
+              0.3832684824902724,
+              0.99
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_right3": {
+            "anchor": [
+              0.37404580152671757,
+              0.9883720930232558
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_up0": {
+            "anchor": [
+              0.49635036496350365,
+              0.992831541218638
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_up1": {
+            "anchor": [
+              0.4892086330935252,
+              0.9925093632958801
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_up2": {
+            "anchor": [
+              0.4965034965034965,
+              0.9917355371900827
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_fall_up3": {
+            "anchor": [
+              0.4803921568627451,
+              0.9906103286384976
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_down0": {
+            "anchor": [
+              0.4803921568627451,
+              0.9223300970873787
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_down1": {
+            "anchor": [
+              0.5065359477124183,
+              0.9090909090909091
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_down2": {
+            "anchor": [
+              0.5,
+              0.9223300970873787
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_down3": {
+            "anchor": [
+              0.4803921568627451,
+              0.9223300970873787
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_left0": {
+            "anchor": [
+              0.6673076923076923,
+              0.9893048128342246
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_left1": {
+            "anchor": [
+              0.6710526315789473,
+              0.9891304347826086
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_left2": {
+            "anchor": [
+              0.6741573033707865,
+              0.989247311827957
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_left3": {
+            "anchor": [
+              0.6673076923076923,
+              0.9893048128342246
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_right0": {
+            "anchor": [
+              0.32386363636363635,
+              0.9887005649717514
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_right1": {
+            "anchor": [
+              0.32209737827715357,
+              0.988950276243094
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_right2": {
+            "anchor": [
+              0.32075471698113206,
+              0.9888888888888889
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_right3": {
+            "anchor": [
+              0.32386363636363635,
+              0.9887005649717514
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_up0": {
+            "anchor": [
+              0.4928571428571429,
+              0.9917695473251029
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_up1": {
+            "anchor": [
+              0.5144927536231884,
+              0.9916317991631799
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_up2": {
+            "anchor": [
+              0.4892086330935252,
+              0.9917355371900827
+            ],
+            "scale": 0.17
+          },
+          "av333_ashhorn_stag_work_up3": {
+            "anchor": [
+              0.4963768115942029,
+              0.9917695473251029
+            ],
+            "scale": 0.17
+          }
+        },
+        "motionDurations": {
+          "work": 1800,
+          "attack": 700
+        }
+      },
+      "tuskhog": {
+        "idle": {
+          "down": [
+            "av333_tuskhog_idle_down0",
+            "av333_tuskhog_idle_down1",
+            "av333_tuskhog_idle_down2",
+            "av333_tuskhog_idle_down3"
+          ],
+          "left": [
+            "av333_tuskhog_idle_left0",
+            "av333_tuskhog_idle_left1",
+            "av333_tuskhog_idle_left2",
+            "av333_tuskhog_idle_left3"
+          ],
+          "right": [
+            "av333_tuskhog_idle_right0",
+            "av333_tuskhog_idle_right1",
+            "av333_tuskhog_idle_right2",
+            "av333_tuskhog_idle_right3"
+          ],
+          "up": [
+            "av333_tuskhog_idle_up0",
+            "av333_tuskhog_idle_up1",
+            "av333_tuskhog_idle_up2",
+            "av333_tuskhog_idle_up3"
+          ]
+        },
+        "walk": {
+          "down": [
+            "av333_tuskhog_walk_down0",
+            "av333_tuskhog_walk_down1",
+            "av333_tuskhog_walk_down2",
+            "av333_tuskhog_walk_down3"
+          ],
+          "left": [
+            "av333_tuskhog_walk_left0",
+            "av333_tuskhog_walk_left1",
+            "av333_tuskhog_walk_left2",
+            "av333_tuskhog_walk_left3"
+          ],
+          "right": [
+            "av333_tuskhog_walk_right0",
+            "av333_tuskhog_walk_right1",
+            "av333_tuskhog_walk_right2",
+            "av333_tuskhog_walk_right3"
+          ],
+          "up": [
+            "av333_tuskhog_walk_up0",
+            "av333_tuskhog_walk_up1",
+            "av333_tuskhog_walk_up2",
+            "av333_tuskhog_walk_up3"
+          ]
+        },
+        "attack": {
+          "down": [
+            "av333_tuskhog_attack_down0",
+            "av333_tuskhog_attack_down1",
+            "av333_tuskhog_attack_down2",
+            "av333_tuskhog_attack_down3"
+          ],
+          "left": [
+            "av333_tuskhog_attack_left0",
+            "av333_tuskhog_attack_left1",
+            "av333_tuskhog_attack_left2",
+            "av333_tuskhog_attack_left3"
+          ],
+          "right": [
+            "av333_tuskhog_attack_right0",
+            "av333_tuskhog_attack_right1",
+            "av333_tuskhog_attack_right2",
+            "av333_tuskhog_attack_right3"
+          ],
+          "up": [
+            "av333_tuskhog_attack_up0",
+            "av333_tuskhog_attack_up1",
+            "av333_tuskhog_attack_up2",
+            "av333_tuskhog_attack_up3"
+          ]
+        },
+        "anchor": [
+          0.5,
+          1
+        ],
+        "renderScale": 0.12,
+        "headOffset": 30,
+        "shadow": [
+          14,
+          5
+        ],
+        "healthBarWidth": 25,
+        "heldItems": false,
+        "gait": {
+          "walk": 800,
+          "crouchWalk": 1000
+        },
+        "motions": {
+          "sleep": {
+            "down": [
+              "av333_tuskhog_sleep_down0",
+              "av333_tuskhog_sleep_down1",
+              "av333_tuskhog_sleep_down2",
+              "av333_tuskhog_sleep_down3"
+            ],
+            "left": [
+              "av333_tuskhog_sleep_left0",
+              "av333_tuskhog_sleep_left1",
+              "av333_tuskhog_sleep_left2",
+              "av333_tuskhog_sleep_left3"
+            ],
+            "right": [
+              "av333_tuskhog_sleep_right0",
+              "av333_tuskhog_sleep_right1",
+              "av333_tuskhog_sleep_right2",
+              "av333_tuskhog_sleep_right3"
+            ],
+            "up": [
+              "av333_tuskhog_sleep_up0",
+              "av333_tuskhog_sleep_up1",
+              "av333_tuskhog_sleep_up2",
+              "av333_tuskhog_sleep_up3"
+            ]
+          },
+          "rise": {
+            "down": [
+              "av333_tuskhog_rise_down0",
+              "av333_tuskhog_rise_down1",
+              "av333_tuskhog_rise_down2",
+              "av333_tuskhog_rise_down3"
+            ],
+            "left": [
+              "av333_tuskhog_rise_left0",
+              "av333_tuskhog_rise_left1",
+              "av333_tuskhog_rise_left2",
+              "av333_tuskhog_rise_left3"
+            ],
+            "right": [
+              "av333_tuskhog_rise_right0",
+              "av333_tuskhog_rise_right1",
+              "av333_tuskhog_rise_right2",
+              "av333_tuskhog_rise_right3"
+            ],
+            "up": [
+              "av333_tuskhog_rise_up0",
+              "av333_tuskhog_rise_up1",
+              "av333_tuskhog_rise_up2",
+              "av333_tuskhog_rise_up3"
+            ]
+          },
+          "fall": {
+            "down": [
+              "av333_tuskhog_fall_down0",
+              "av333_tuskhog_fall_down1",
+              "av333_tuskhog_fall_down2",
+              "av333_tuskhog_fall_down3"
+            ],
+            "left": [
+              "av333_tuskhog_fall_left0",
+              "av333_tuskhog_fall_left1",
+              "av333_tuskhog_fall_left2",
+              "av333_tuskhog_fall_left3"
+            ],
+            "right": [
+              "av333_tuskhog_fall_right0",
+              "av333_tuskhog_fall_right1",
+              "av333_tuskhog_fall_right2",
+              "av333_tuskhog_fall_right3"
+            ],
+            "up": [
+              "av333_tuskhog_fall_up0",
+              "av333_tuskhog_fall_up1",
+              "av333_tuskhog_fall_up2",
+              "av333_tuskhog_fall_up3"
+            ]
+          },
+          "hurt": {
+            "down": [
+              "av333_tuskhog_hurt_down0",
+              "av333_tuskhog_hurt_down1",
+              "av333_tuskhog_hurt_down2",
+              "av333_tuskhog_hurt_down3"
+            ],
+            "left": [
+              "av333_tuskhog_hurt_left0",
+              "av333_tuskhog_hurt_left1",
+              "av333_tuskhog_hurt_left2",
+              "av333_tuskhog_hurt_left3"
+            ],
+            "right": [
+              "av333_tuskhog_hurt_right0",
+              "av333_tuskhog_hurt_right1",
+              "av333_tuskhog_hurt_right2",
+              "av333_tuskhog_hurt_right3"
+            ],
+            "up": [
+              "av333_tuskhog_hurt_up0",
+              "av333_tuskhog_hurt_up1",
+              "av333_tuskhog_hurt_up2",
+              "av333_tuskhog_hurt_up3"
+            ]
+          },
+          "work": {
+            "down": [
+              "av333_tuskhog_work_down0",
+              "av333_tuskhog_work_down1",
+              "av333_tuskhog_work_down2",
+              "av333_tuskhog_work_down3"
+            ],
+            "left": [
+              "av333_tuskhog_work_left0",
+              "av333_tuskhog_work_left1",
+              "av333_tuskhog_work_left2",
+              "av333_tuskhog_work_left3"
+            ],
+            "right": [
+              "av333_tuskhog_work_right0",
+              "av333_tuskhog_work_right1",
+              "av333_tuskhog_work_right2",
+              "av333_tuskhog_work_right3"
+            ],
+            "up": [
+              "av333_tuskhog_work_up0",
+              "av333_tuskhog_work_up1",
+              "av333_tuskhog_work_up2",
+              "av333_tuskhog_work_up3"
+            ]
+          },
+          "wallow": {
+            "down": [
+              "av333_tuskhog_wallow_down0",
+              "av333_tuskhog_wallow_down1",
+              "av333_tuskhog_wallow_down2",
+              "av333_tuskhog_wallow_down3",
+              "av333_tuskhog_wallow_down4",
+              "av333_tuskhog_wallow_down5"
+            ],
+            "left": [
+              "av333_tuskhog_wallow_left0",
+              "av333_tuskhog_wallow_left1",
+              "av333_tuskhog_wallow_left2",
+              "av333_tuskhog_wallow_left3",
+              "av333_tuskhog_wallow_left4",
+              "av333_tuskhog_wallow_left5"
+            ],
+            "right": [
+              "av333_tuskhog_wallow_right0",
+              "av333_tuskhog_wallow_right1",
+              "av333_tuskhog_wallow_right2",
+              "av333_tuskhog_wallow_right3",
+              "av333_tuskhog_wallow_right4",
+              "av333_tuskhog_wallow_right5"
+            ],
+            "up": [
+              "av333_tuskhog_wallow_up0",
+              "av333_tuskhog_wallow_up1",
+              "av333_tuskhog_wallow_up2",
+              "av333_tuskhog_wallow_up3",
+              "av333_tuskhog_wallow_up4",
+              "av333_tuskhog_wallow_up5"
+            ]
+          }
+        },
+        "frameTransforms": {
+          "av333_tuskhog_idle_down0": {
+            "anchor": [
+              0.5035714285714286,
+              0.9904761904761905
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_down1": {
+            "anchor": [
+              0.4897959183673469,
+              0.9905660377358491
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_down2": {
+            "anchor": [
+              0.5035211267605634,
+              0.990521327014218
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_down3": {
+            "anchor": [
+              0.5,
+              0.9903381642512077
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_left0": {
+            "anchor": [
+              0.6575342465753424,
+              0.9902912621359223
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_left1": {
+            "anchor": [
+              0.6677740863787376,
+              0.9902912621359223
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_left2": {
+            "anchor": [
+              0.6627906976744186,
+              0.9902912621359223
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_left3": {
+            "anchor": [
+              0.6266666666666667,
+              0.9902912621359223
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_right0": {
+            "anchor": [
+              0.33221476510067116,
+              0.9901477832512315
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_right1": {
+            "anchor": [
+              0.3388704318936877,
+              0.9901960784313726
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_right2": {
+            "anchor": [
+              0.33554817275747506,
+              0.9902439024390244
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_right3": {
+            "anchor": [
+              0.3338870431893688,
+              0.9901960784313726
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_up0": {
+            "anchor": [
+              0.49642857142857144,
+              0.9909502262443439
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_up1": {
+            "anchor": [
+              0.496551724137931,
+              0.990990990990991
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_up2": {
+            "anchor": [
+              0.4964788732394366,
+              0.9909502262443439
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_idle_up3": {
+            "anchor": [
+              0.48928571428571427,
+              0.9909502262443439
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_walk_down0": {
+            "anchor": [
+              0.46855345911949686,
+              0.990909090909091
+            ],
+            "scale": 0.11444444444444445
+          },
+          "av333_tuskhog_walk_down1": {
+            "anchor": [
+              0.4779874213836478,
+              0.990909090909091
+            ],
+            "scale": 0.11444444444444445
+          },
+          "av333_tuskhog_walk_down2": {
+            "anchor": [
+              0.478125,
+              0.990909090909091
+            ],
+            "scale": 0.11444444444444445
+          },
+          "av333_tuskhog_walk_down3": {
+            "anchor": [
+              0.48427672955974843,
+              0.9908675799086758
+            ],
+            "scale": 0.11444444444444445
+          },
+          "av333_tuskhog_walk_left0": {
+            "anchor": [
+              0.560790273556231,
+              0.9904761904761905
+            ],
+            "scale": 0.1188235294117647
+          },
+          "av333_tuskhog_walk_left1": {
+            "anchor": [
+              0.601823708206687,
+              0.9903846153846154
+            ],
+            "scale": 0.1188235294117647
+          },
+          "av333_tuskhog_walk_left2": {
+            "anchor": [
+              0.5886850152905199,
+              0.9903846153846154
+            ],
+            "scale": 0.1188235294117647
+          },
+          "av333_tuskhog_walk_left3": {
+            "anchor": [
+              0.6027190332326284,
+              0.9903846153846154
+            ],
+            "scale": 0.1188235294117647
+          },
+          "av333_tuskhog_walk_right0": {
+            "anchor": [
+              0.38656716417910447,
+              0.9906542056074766
+            ],
+            "scale": 0.11317535545023696
+          },
+          "av333_tuskhog_walk_right1": {
+            "anchor": [
+              0.35240963855421686,
+              0.9907407407407407
+            ],
+            "scale": 0.11317535545023696
+          },
+          "av333_tuskhog_walk_right2": {
+            "anchor": [
+              0.3854166666666667,
+              0.9906976744186047
+            ],
+            "scale": 0.11317535545023696
+          },
+          "av333_tuskhog_walk_right3": {
+            "anchor": [
+              0.34487951807228917,
+              0.9906976744186047
+            ],
+            "scale": 0.11317535545023696
+          },
+          "av333_tuskhog_walk_up0": {
+            "anchor": [
+              0.5246913580246914,
+              0.9913419913419913
+            ],
+            "scale": 0.11446153846153846
+          },
+          "av333_tuskhog_walk_up1": {
+            "anchor": [
+              0.49691358024691357,
+              0.9913793103448276
+            ],
+            "scale": 0.11446153846153846
+          },
+          "av333_tuskhog_walk_up2": {
+            "anchor": [
+              0.4876543209876543,
+              0.991304347826087
+            ],
+            "scale": 0.11446153846153846
+          },
+          "av333_tuskhog_walk_up3": {
+            "anchor": [
+              0.4876543209876543,
+              0.9913793103448276
+            ],
+            "scale": 0.11446153846153846
+          },
+          "av333_tuskhog_attack_down0": {
+            "anchor": [
+              0.5,
+              0.9900990099009901
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_down1": {
+            "anchor": [
+              0.3086734693877551,
+              0.990521327014218
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_down2": {
+            "anchor": [
+              0.4830917874396135,
+              0.9902912621359223
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_down3": {
+            "anchor": [
+              0.47953216374269003,
+              0.9901960784313726
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_left0": {
+            "anchor": [
+              0.6527777777777778,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_left1": {
+            "anchor": [
+              0.6309859154929578,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_left2": {
+            "anchor": [
+              0.639344262295082,
+              0.989247311827957
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_left3": {
+            "anchor": [
+              0.6854103343465046,
+              0.9898477157360406
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_right0": {
+            "anchor": [
+              0.3302752293577982,
+              0.9895833333333334
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_right1": {
+            "anchor": [
+              0.36950146627565983,
+              0.9895287958115183
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_right2": {
+            "anchor": [
+              0.3403954802259887,
+              0.9891304347826086
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_right3": {
+            "anchor": [
+              0.33076923076923076,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_up0": {
+            "anchor": [
+              0.4816753926701571,
+              0.9913793103448276
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_up1": {
+            "anchor": [
+              0.4817708333333333,
+              0.9915611814345991
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_up2": {
+            "anchor": [
+              0.49242424242424243,
+              0.9915966386554622
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_attack_up3": {
+            "anchor": [
+              0.49709302325581395,
+              0.9914529914529915
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_sleep_down0": {
+            "anchor": [
+              0.5050761421319797,
+              0.9875776397515528
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_sleep_down1": {
+            "anchor": [
+              0.4873096446700508,
+              0.9874213836477987
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_sleep_down2": {
+            "anchor": [
+              0.4797979797979798,
+              0.9874213836477987
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_sleep_down3": {
+            "anchor": [
+              0.48223350253807107,
+              0.9874213836477987
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_sleep_left0": {
+            "anchor": [
+              0.4197247706422018,
+              0.983739837398374
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_sleep_left1": {
+            "anchor": [
+              0.4050925925925926,
+              0.9836065573770492
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_sleep_left2": {
+            "anchor": [
+              0.413953488372093,
+              0.9834710743801653
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_sleep_left3": {
+            "anchor": [
+              0.41784037558685444,
+              0.983739837398374
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_sleep_right0": {
+            "anchor": [
+              0.4358407079646018,
+              0.9836065573770492
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_sleep_right1": {
+            "anchor": [
+              0.4288990825688073,
+              0.983739837398374
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_sleep_right2": {
+            "anchor": [
+              0.4334862385321101,
+              0.9838709677419355
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_sleep_right3": {
+            "anchor": [
+              0.4308755760368664,
+              0.983739837398374
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_sleep_up0": {
+            "anchor": [
+              0.5187165775401069,
+              0.9865771812080537
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_sleep_up1": {
+            "anchor": [
+              0.5079787234042553,
+              0.9863945578231292
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_sleep_up2": {
+            "anchor": [
+              0.4919786096256685,
+              0.9864864864864865
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_sleep_up3": {
+            "anchor": [
+              0.49731182795698925,
+              0.9863013698630136
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_rise_down0": {
+            "anchor": [
+              0.4672131147540984,
+              0.9873417721518988
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_rise_down1": {
+            "anchor": [
+              0.38,
+              0.9891891891891892
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_rise_down2": {
+            "anchor": [
+              0.32972972972972975,
+              0.9896373056994818
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_rise_down3": {
+            "anchor": [
+              0.4862068965517241,
+              0.9903381642512077
+            ],
+            "scale": 0.12177339901477834
+          },
+          "av333_tuskhog_rise_left0": {
+            "anchor": [
+              0.4223300970873786,
+              0.9864864864864865
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_rise_left1": {
+            "anchor": [
+              0.48409090909090907,
+              0.988950276243094
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_rise_left2": {
+            "anchor": [
+              0.48423423423423423,
+              0.989010989010989
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_rise_left3": {
+            "anchor": [
+              0.4819004524886878,
+              0.9893048128342246
+            ],
+            "scale": 0.1324590163934426
+          },
+          "av333_tuskhog_rise_right0": {
+            "anchor": [
+              0.5024038461538461,
+              0.986013986013986
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_rise_right1": {
+            "anchor": [
+              0.3854625550660793,
+              0.9875776397515528
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_rise_right2": {
+            "anchor": [
+              0.3425925925925926,
+              0.9882352941176471
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_rise_right3": {
+            "anchor": [
+              0.36363636363636365,
+              0.988950276243094
+            ],
+            "scale": 0.13491525423728812
+          },
+          "av333_tuskhog_rise_up0": {
+            "anchor": [
+              0.5027173913043478,
+              0.9878048780487805
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_rise_up1": {
+            "anchor": [
+              0.47023809523809523,
+              0.9896373056994818
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_rise_up2": {
+            "anchor": [
+              0.5136986301369864,
+              0.9897959183673469
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_rise_up3": {
+            "anchor": [
+              0.4861111111111111,
+              0.9905660377358491
+            ],
+            "scale": 0.12519230769230769
+          },
+          "av333_tuskhog_fall_down0": {
+            "anchor": [
+              0.4968152866242038,
+              0.9909502262443439
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_down1": {
+            "anchor": [
+              0.49441340782122906,
+              0.9900990099009901
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_down2": {
+            "anchor": [
+              0.5,
+              0.989010989010989
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_down3": {
+            "anchor": [
+              0.5023255813953489,
+              0.9876543209876543
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_left0": {
+            "anchor": [
+              0.663961038961039,
+              0.9903846153846154
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_left1": {
+            "anchor": [
+              0.6702453987730062,
+              0.9893048128342246
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_left2": {
+            "anchor": [
+              0.5906344410876133,
+              0.9875776397515528
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_left3": {
+            "anchor": [
+              0.6223880597014926,
+              0.9847328244274809
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_right0": {
+            "anchor": [
+              0.3274760383386581,
+              0.9903381642512077
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_right1": {
+            "anchor": [
+              0.32242990654205606,
+              0.9893617021276596
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_right2": {
+            "anchor": [
+              0.4027355623100304,
+              0.9876543209876543
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_right3": {
+            "anchor": [
+              0.37091988130563797,
+              0.9861111111111112
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_up0": {
+            "anchor": [
+              0.49050632911392406,
+              0.9913419913419913
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_up1": {
+            "anchor": [
+              0.4943181818181818,
+              0.9906976744186047
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_up2": {
+            "anchor": [
+              0.5,
+              0.9897435897435898
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_fall_up3": {
+            "anchor": [
+              0.4976635514018692,
+              0.9874213836477987
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_down0": {
+            "anchor": [
+              0.5,
+              0.9904306220095693
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_down1": {
+            "anchor": [
+              0.5061349693251533,
+              0.9895833333333334
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_down2": {
+            "anchor": [
+              0.48299319727891155,
+              0.9904306220095693
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_down3": {
+            "anchor": [
+              0.4965753424657534,
+              0.9903381642512077
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_left0": {
+            "anchor": [
+              0.6452702702702703,
+              0.9896907216494846
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_left1": {
+            "anchor": [
+              0.6552287581699346,
+              0.9894179894179894
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_left2": {
+            "anchor": [
+              0.6447368421052632,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_left3": {
+            "anchor": [
+              0.6582491582491582,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_right0": {
+            "anchor": [
+              0.3590163934426229,
+              0.9895833333333334
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_right1": {
+            "anchor": [
+              0.3592233009708738,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_right2": {
+            "anchor": [
+              0.35784313725490197,
+              0.9897435897435898
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_right3": {
+            "anchor": [
+              0.35148514851485146,
+              0.9896907216494846
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_up0": {
+            "anchor": [
+              0.5194805194805194,
+              0.9906542056074766
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_up1": {
+            "anchor": [
+              0.4935483870967742,
+              0.990521327014218
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_up2": {
+            "anchor": [
+              0.4965753424657534,
+              0.990909090909091
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_hurt_up3": {
+            "anchor": [
+              0.4896551724137931,
+              0.990909090909091
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_down0": {
+            "anchor": [
+              0.5,
+              0.9906976744186047
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_down1": {
+            "anchor": [
+              0.4968944099378882,
+              0.9906976744186047
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_down2": {
+            "anchor": [
+              0.496875,
+              0.9906976744186047
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_down3": {
+            "anchor": [
+              0.496875,
+              0.9906976744186047
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_left0": {
+            "anchor": [
+              0.6597444089456869,
+              0.9896907216494846
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_left1": {
+            "anchor": [
+              0.6629746835443038,
+              0.9895833333333334
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_left2": {
+            "anchor": [
+              0.6608832807570978,
+              0.9896373056994818
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_left3": {
+            "anchor": [
+              0.6598101265822784,
+              0.9895833333333334
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_right0": {
+            "anchor": [
+              0.3503184713375796,
+              0.9897959183673469
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_right1": {
+            "anchor": [
+              0.3512658227848101,
+              0.9897959183673469
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_right2": {
+            "anchor": [
+              0.34651898734177217,
+              0.9897959183673469
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_right3": {
+            "anchor": [
+              0.35173501577287064,
+              0.9897959183673469
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_up0": {
+            "anchor": [
+              0.4967532467532468,
+              0.9914163090128756
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_up1": {
+            "anchor": [
+              0.4935483870967742,
+              0.9913793103448276
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_up2": {
+            "anchor": [
+              0.5,
+              0.9914163090128756
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_work_up3": {
+            "anchor": [
+              0.5,
+              0.9914163090128756
+            ],
+            "scale": 0.12
+          },
+          "av333_tuskhog_wallow_down0": {
+            "anchor": [
+              0.4957983193277311,
+              0.9863945578231292
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_down1": {
+            "anchor": [
+              0.4859154929577465,
+              0.9851851851851852
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_down2": {
+            "anchor": [
+              0.5756756756756757,
+              0.9849624060150376
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_down3": {
+            "anchor": [
+              0.4861111111111111,
+              0.9852941176470589
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_down4": {
+            "anchor": [
+              0.4632352941176471,
+              0.9866666666666667
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_down5": {
+            "anchor": [
+              0.488,
+              0.9881656804733728
+            ],
+            "scale": 0.14981818181818182
+          },
+          "av333_tuskhog_wallow_left0": {
+            "anchor": [
+              0.6716738197424893,
+              0.9869281045751634
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_left1": {
+            "anchor": [
+              0.5669642857142857,
+              0.9830508474576272
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_left2": {
+            "anchor": [
+              0.5640394088669951,
+              0.9829059829059829
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_left3": {
+            "anchor": [
+              0.5772532188841202,
+              0.9838709677419355
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_left4": {
+            "anchor": [
+              0.6484018264840182,
+              0.987012987012987
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_left5": {
+            "anchor": [
+              0.6576576576576577,
+              0.9869281045751634
+            ],
+            "scale": 0.16268456375838924
+          },
+          "av333_tuskhog_wallow_right0": {
+            "anchor": [
+              0.34459459459459457,
+              0.9865771812080537
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_right1": {
+            "anchor": [
+              0.44273127753303965,
+              0.9826086956521739
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_right2": {
+            "anchor": [
+              0.3942307692307692,
+              0.9769230769230769
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_right3": {
+            "anchor": [
+              0.4108695652173913,
+              0.9752066115702479
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_right4": {
+            "anchor": [
+              0.36771300448430494,
+              0.9870967741935484
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_right5": {
+            "anchor": [
+              0.34,
+              0.987012987012987
+            ],
+            "scale": 0.15919999999999998
+          },
+          "av333_tuskhog_wallow_up0": {
+            "anchor": [
+              0.48,
+              0.9877300613496932
+            ],
+            "scale": 0.1513953488372093
+          },
+          "av333_tuskhog_wallow_up1": {
+            "anchor": [
+              0.48936170212765956,
+              0.9844961240310077
+            ],
+            "scale": 0.1513953488372093
+          },
+          "av333_tuskhog_wallow_up2": {
+            "anchor": [
+              0.4025641025641026,
+              0.9857142857142858
+            ],
+            "scale": 0.1513953488372093
+          },
+          "av333_tuskhog_wallow_up3": {
+            "anchor": [
+              0.4678362573099415,
+              0.9802631578947368
+            ],
+            "scale": 0.1513953488372093
+          },
+          "av333_tuskhog_wallow_up4": {
+            "anchor": [
+              0.5,
+              0.9883040935672515
+            ],
+            "scale": 0.1513953488372093
+          },
+          "av333_tuskhog_wallow_up5": {
+            "anchor": [
+              0.5,
+              0.9886363636363636
+            ],
+            "scale": 0.1513953488372093
+          }
+        },
+        "motionDurations": {
+          "work": 1900,
+          "wallow": 2400,
+          "attack": 680
+        }
       }
     },
     "frames": {
@@ -105040,6 +107507,1966 @@
         57,
         366,
         1387
+      ],
+      "av333_ashhorn_stag_walk_down0": [
+        "av333_ashhorn_stag_walk_v1",
+        115,
+        38,
+        132,
+        259
+      ],
+      "av333_ashhorn_stag_walk_down1": [
+        "av333_ashhorn_stag_walk_v1",
+        422,
+        38,
+        132,
+        259
+      ],
+      "av333_ashhorn_stag_walk_down2": [
+        "av333_ashhorn_stag_walk_v1",
+        755,
+        38,
+        132,
+        259
+      ],
+      "av333_ashhorn_stag_walk_down3": [
+        "av333_ashhorn_stag_walk_v1",
+        1071,
+        38,
+        134,
+        260
+      ],
+      "av333_ashhorn_stag_walk_left0": [
+        "av333_ashhorn_stag_walk_v1",
+        46,
+        324,
+        244,
+        258
+      ],
+      "av333_ashhorn_stag_walk_left1": [
+        "av333_ashhorn_stag_walk_v1",
+        378,
+        326,
+        242,
+        255
+      ],
+      "av333_ashhorn_stag_walk_left2": [
+        "av333_ashhorn_stag_walk_v1",
+        707,
+        325,
+        239,
+        258
+      ],
+      "av333_ashhorn_stag_walk_left3": [
+        "av333_ashhorn_stag_walk_v1",
+        1033,
+        326,
+        236,
+        256
+      ],
+      "av333_ashhorn_stag_walk_right0": [
+        "av333_ashhorn_stag_walk_v1",
+        53,
+        604,
+        240,
+        262
+      ],
+      "av333_ashhorn_stag_walk_right1": [
+        "av333_ashhorn_stag_walk_v1",
+        381,
+        605,
+        243,
+        261
+      ],
+      "av333_ashhorn_stag_walk_right2": [
+        "av333_ashhorn_stag_walk_v1",
+        710,
+        604,
+        241,
+        260
+      ],
+      "av333_ashhorn_stag_walk_right3": [
+        "av333_ashhorn_stag_walk_v1",
+        1037,
+        604,
+        237,
+        261
+      ],
+      "av333_ashhorn_stag_walk_up0": [
+        "av333_ashhorn_stag_walk_v1",
+        107,
+        885,
+        128,
+        274
+      ],
+      "av333_ashhorn_stag_walk_up1": [
+        "av333_ashhorn_stag_walk_v1",
+        416,
+        886,
+        131,
+        273
+      ],
+      "av333_ashhorn_stag_walk_up2": [
+        "av333_ashhorn_stag_walk_v1",
+        758,
+        885,
+        132,
+        274
+      ],
+      "av333_ashhorn_stag_walk_up3": [
+        "av333_ashhorn_stag_walk_v1",
+        1082,
+        885,
+        129,
+        274
+      ],
+      "av333_ashhorn_stag_idle_down0": [
+        "av333_ashhorn_stag_idle_v1",
+        107,
+        38,
+        128,
+        253
+      ],
+      "av333_ashhorn_stag_idle_down1": [
+        "av333_ashhorn_stag_idle_v1",
+        417,
+        37,
+        124,
+        254
+      ],
+      "av333_ashhorn_stag_idle_down2": [
+        "av333_ashhorn_stag_idle_v1",
+        749,
+        38,
+        127,
+        253
+      ],
+      "av333_ashhorn_stag_idle_down3": [
+        "av333_ashhorn_stag_idle_v1",
+        1080,
+        37,
+        128,
+        254
+      ],
+      "av333_ashhorn_stag_idle_left0": [
+        "av333_ashhorn_stag_idle_v1",
+        57,
+        321,
+        221,
+        254
+      ],
+      "av333_ashhorn_stag_idle_left1": [
+        "av333_ashhorn_stag_idle_v1",
+        380,
+        320,
+        227,
+        256
+      ],
+      "av333_ashhorn_stag_idle_left2": [
+        "av333_ashhorn_stag_idle_v1",
+        707,
+        321,
+        226,
+        255
+      ],
+      "av333_ashhorn_stag_idle_left3": [
+        "av333_ashhorn_stag_idle_v1",
+        1033,
+        321,
+        227,
+        255
+      ],
+      "av333_ashhorn_stag_idle_right0": [
+        "av333_ashhorn_stag_idle_v1",
+        58,
+        601,
+        223,
+        260
+      ],
+      "av333_ashhorn_stag_idle_right1": [
+        "av333_ashhorn_stag_idle_v1",
+        382,
+        602,
+        227,
+        259
+      ],
+      "av333_ashhorn_stag_idle_right2": [
+        "av333_ashhorn_stag_idle_v1",
+        711,
+        602,
+        223,
+        258
+      ],
+      "av333_ashhorn_stag_idle_right3": [
+        "av333_ashhorn_stag_idle_v1",
+        1038,
+        602,
+        227,
+        258
+      ],
+      "av333_ashhorn_stag_idle_up0": [
+        "av333_ashhorn_stag_idle_v1",
+        109,
+        886,
+        122,
+        275
+      ],
+      "av333_ashhorn_stag_idle_up1": [
+        "av333_ashhorn_stag_idle_v1",
+        423,
+        885,
+        127,
+        276
+      ],
+      "av333_ashhorn_stag_idle_up2": [
+        "av333_ashhorn_stag_idle_v1",
+        752,
+        887,
+        125,
+        274
+      ],
+      "av333_ashhorn_stag_idle_up3": [
+        "av333_ashhorn_stag_idle_v1",
+        1078,
+        885,
+        123,
+        276
+      ],
+      "av333_ashhorn_stag_attack_down0": [
+        "av333_ashhorn_stag_attack_v1",
+        83,
+        114,
+        154,
+        186
+      ],
+      "av333_ashhorn_stag_attack_down1": [
+        "av333_ashhorn_stag_attack_v1",
+        406,
+        123,
+        186,
+        175
+      ],
+      "av333_ashhorn_stag_attack_down2": [
+        "av333_ashhorn_stag_attack_v1",
+        723,
+        122,
+        203,
+        176
+      ],
+      "av333_ashhorn_stag_attack_down3": [
+        "av333_ashhorn_stag_attack_v1",
+        1084,
+        71,
+        141,
+        227
+      ],
+      "av333_ashhorn_stag_attack_left0": [
+        "av333_ashhorn_stag_attack_v1",
+        24,
+        378,
+        280,
+        197
+      ],
+      "av333_ashhorn_stag_attack_left1": [
+        "av333_ashhorn_stag_attack_v1",
+        312,
+        413,
+        331,
+        162
+      ],
+      "av333_ashhorn_stag_attack_left2": [
+        "av333_ashhorn_stag_attack_v1",
+        653,
+        421,
+        347,
+        154
+      ],
+      "av333_ashhorn_stag_attack_left3": [
+        "av333_ashhorn_stag_attack_v1",
+        1031,
+        345,
+        258,
+        230
+      ],
+      "av333_ashhorn_stag_attack_right0": [
+        "av333_ashhorn_stag_attack_v1",
+        39,
+        649,
+        264,
+        201
+      ],
+      "av333_ashhorn_stag_attack_right1": [
+        "av333_ashhorn_stag_attack_v1",
+        346,
+        689,
+        321,
+        159
+      ],
+      "av333_ashhorn_stag_attack_right2": [
+        "av333_ashhorn_stag_attack_v1",
+        697,
+        691,
+        318,
+        158
+      ],
+      "av333_ashhorn_stag_attack_right3": [
+        "av333_ashhorn_stag_attack_v1",
+        1040,
+        618,
+        238,
+        232
+      ],
+      "av333_ashhorn_stag_attack_up0": [
+        "av333_ashhorn_stag_attack_v1",
+        69,
+        913,
+        159,
+        244
+      ],
+      "av333_ashhorn_stag_attack_up1": [
+        "av333_ashhorn_stag_attack_v1",
+        414,
+        914,
+        163,
+        241
+      ],
+      "av333_ashhorn_stag_attack_up2": [
+        "av333_ashhorn_stag_attack_v1",
+        738,
+        929,
+        186,
+        223
+      ],
+      "av333_ashhorn_stag_attack_up3": [
+        "av333_ashhorn_stag_attack_v1",
+        1088,
+        886,
+        145,
+        267
+      ],
+      "av333_ashhorn_stag_hurt_down0": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        64,
+        26,
+        103,
+        201
+      ],
+      "av333_ashhorn_stag_hurt_down1": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        271,
+        42,
+        119,
+        190
+      ],
+      "av333_ashhorn_stag_hurt_down2": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        499,
+        26,
+        103,
+        201
+      ],
+      "av333_ashhorn_stag_hurt_down3": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        721,
+        26,
+        103,
+        201
+      ],
+      "av333_ashhorn_stag_hurt_left0": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        30,
+        247,
+        182,
+        193
+      ],
+      "av333_ashhorn_stag_hurt_left1": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        240,
+        286,
+        201,
+        154
+      ],
+      "av333_ashhorn_stag_hurt_left2": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        474,
+        247,
+        185,
+        193
+      ],
+      "av333_ashhorn_stag_hurt_left3": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        689,
+        247,
+        184,
+        193
+      ],
+      "av333_ashhorn_stag_hurt_right0": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        36,
+        452,
+        181,
+        198
+      ],
+      "av333_ashhorn_stag_hurt_right1": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        241,
+        462,
+        197,
+        188
+      ],
+      "av333_ashhorn_stag_hurt_right2": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        466,
+        452,
+        190,
+        201
+      ],
+      "av333_ashhorn_stag_hurt_right3": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        691,
+        449,
+        188,
+        203
+      ],
+      "av333_ashhorn_stag_hurt_up0": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        62,
+        661,
+        102,
+        207
+      ],
+      "av333_ashhorn_stag_hurt_up1": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        280,
+        662,
+        105,
+        205
+      ],
+      "av333_ashhorn_stag_hurt_up2": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        501,
+        662,
+        96,
+        206
+      ],
+      "av333_ashhorn_stag_hurt_up3": [
+        "av333_ashhorn_stag_hurt_fall_v1",
+        724,
+        662,
+        101,
+        206
+      ],
+      "av333_ashhorn_stag_sleep_down0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        51,
+        89,
+        168,
+        139
+      ],
+      "av333_ashhorn_stag_sleep_down1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        260,
+        84,
+        171,
+        144
+      ],
+      "av333_ashhorn_stag_sleep_down2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        492,
+        84,
+        166,
+        144
+      ],
+      "av333_ashhorn_stag_sleep_down3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        709,
+        87,
+        169,
+        141
+      ],
+      "av333_ashhorn_stag_sleep_left0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        35,
+        301,
+        186,
+        128
+      ],
+      "av333_ashhorn_stag_sleep_left1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        249,
+        306,
+        187,
+        124
+      ],
+      "av333_ashhorn_stag_sleep_left2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        468,
+        300,
+        188,
+        129
+      ],
+      "av333_ashhorn_stag_sleep_left3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        690,
+        305,
+        187,
+        124
+      ],
+      "av333_ashhorn_stag_sleep_right0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        29,
+        505,
+        187,
+        125
+      ],
+      "av333_ashhorn_stag_sleep_right1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        246,
+        506,
+        190,
+        124
+      ],
+      "av333_ashhorn_stag_sleep_right2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        466,
+        506,
+        191,
+        123
+      ],
+      "av333_ashhorn_stag_sleep_right3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        686,
+        505,
+        188,
+        124
+      ],
+      "av333_ashhorn_stag_sleep_up0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        33,
+        684,
+        147,
+        170
+      ],
+      "av333_ashhorn_stag_sleep_up1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        250,
+        686,
+        151,
+        169
+      ],
+      "av333_ashhorn_stag_sleep_up2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        476,
+        685,
+        151,
+        169
+      ],
+      "av333_ashhorn_stag_sleep_up3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        696,
+        681,
+        148,
+        173
+      ],
+      "av333_ashhorn_stag_rise_down0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        938,
+        66,
+        153,
+        162
+      ],
+      "av333_ashhorn_stag_rise_down1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1160,
+        50,
+        125,
+        188
+      ],
+      "av333_ashhorn_stag_rise_down2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1370,
+        38,
+        122,
+        199
+      ],
+      "av333_ashhorn_stag_rise_down3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1598,
+        23,
+        111,
+        217
+      ],
+      "av333_ashhorn_stag_rise_left0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        906,
+        271,
+        188,
+        160
+      ],
+      "av333_ashhorn_stag_rise_left1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1115,
+        261,
+        194,
+        175
+      ],
+      "av333_ashhorn_stag_rise_left2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1339,
+        249,
+        196,
+        189
+      ],
+      "av333_ashhorn_stag_rise_left3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1559,
+        240,
+        192,
+        198
+      ],
+      "av333_ashhorn_stag_rise_right0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        902,
+        473,
+        187,
+        158
+      ],
+      "av333_ashhorn_stag_rise_right1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1121,
+        463,
+        194,
+        170
+      ],
+      "av333_ashhorn_stag_rise_right2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1348,
+        455,
+        193,
+        182
+      ],
+      "av333_ashhorn_stag_rise_right3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1570,
+        445,
+        192,
+        193
+      ],
+      "av333_ashhorn_stag_rise_up0": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        945,
+        656,
+        112,
+        201
+      ],
+      "av333_ashhorn_stag_rise_up1": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1172,
+        649,
+        102,
+        216
+      ],
+      "av333_ashhorn_stag_rise_up2": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1390,
+        641,
+        101,
+        224
+      ],
+      "av333_ashhorn_stag_rise_up3": [
+        "av333_ashhorn_stag_sleep_rise_v1",
+        1601,
+        643,
+        103,
+        222
+      ],
+      "av333_ashhorn_stag_fall_down0": [
+        "av333_ashhorn_stag_fall_v2",
+        87,
+        57,
+        138,
+        243
+      ],
+      "av333_ashhorn_stag_fall_down1": [
+        "av333_ashhorn_stag_fall_v2",
+        419,
+        71,
+        139,
+        232
+      ],
+      "av333_ashhorn_stag_fall_down2": [
+        "av333_ashhorn_stag_fall_v2",
+        753,
+        86,
+        141,
+        207
+      ],
+      "av333_ashhorn_stag_fall_down3": [
+        "av333_ashhorn_stag_fall_v2",
+        1076,
+        119,
+        149,
+        173
+      ],
+      "av333_ashhorn_stag_fall_left0": [
+        "av333_ashhorn_stag_fall_v2",
+        39,
+        330,
+        252,
+        253
+      ],
+      "av333_ashhorn_stag_fall_left1": [
+        "av333_ashhorn_stag_fall_v2",
+        370,
+        345,
+        257,
+        232
+      ],
+      "av333_ashhorn_stag_fall_left2": [
+        "av333_ashhorn_stag_fall_v2",
+        698,
+        370,
+        263,
+        196
+      ],
+      "av333_ashhorn_stag_fall_left3": [
+        "av333_ashhorn_stag_fall_v2",
+        1017,
+        397,
+        272,
+        170
+      ],
+      "av333_ashhorn_stag_fall_right0": [
+        "av333_ashhorn_stag_fall_v2",
+        49,
+        612,
+        244,
+        247
+      ],
+      "av333_ashhorn_stag_fall_right1": [
+        "av333_ashhorn_stag_fall_v2",
+        373,
+        632,
+        247,
+        222
+      ],
+      "av333_ashhorn_stag_fall_right2": [
+        "av333_ashhorn_stag_fall_v2",
+        704,
+        647,
+        257,
+        200
+      ],
+      "av333_ashhorn_stag_fall_right3": [
+        "av333_ashhorn_stag_fall_v2",
+        1024,
+        675,
+        262,
+        172
+      ],
+      "av333_ashhorn_stag_fall_up0": [
+        "av333_ashhorn_stag_fall_v2",
+        94,
+        878,
+        137,
+        279
+      ],
+      "av333_ashhorn_stag_fall_up1": [
+        "av333_ashhorn_stag_fall_v2",
+        420,
+        888,
+        139,
+        267
+      ],
+      "av333_ashhorn_stag_fall_up2": [
+        "av333_ashhorn_stag_fall_v2",
+        750,
+        895,
+        143,
+        242
+      ],
+      "av333_ashhorn_stag_fall_up3": [
+        "av333_ashhorn_stag_fall_v2",
+        1068,
+        931,
+        153,
+        213
+      ],
+      "av333_ashhorn_stag_work_down0": [
+        "av333_ashhorn_stag_work_v1",
+        97,
+        85,
+        153,
+        206
+      ],
+      "av333_ashhorn_stag_work_down1": [
+        "av333_ashhorn_stag_work_v1",
+        423,
+        85,
+        153,
+        209
+      ],
+      "av333_ashhorn_stag_work_down2": [
+        "av333_ashhorn_stag_work_v1",
+        747,
+        85,
+        159,
+        206
+      ],
+      "av333_ashhorn_stag_work_down3": [
+        "av333_ashhorn_stag_work_v1",
+        1081,
+        85,
+        153,
+        206
+      ],
+      "av333_ashhorn_stag_work_left0": [
+        "av333_ashhorn_stag_work_v1",
+        43,
+        371,
+        260,
+        187
+      ],
+      "av333_ashhorn_stag_work_left1": [
+        "av333_ashhorn_stag_work_v1",
+        366,
+        374,
+        266,
+        184
+      ],
+      "av333_ashhorn_stag_work_left2": [
+        "av333_ashhorn_stag_work_v1",
+        692,
+        372,
+        267,
+        186
+      ],
+      "av333_ashhorn_stag_work_left3": [
+        "av333_ashhorn_stag_work_v1",
+        1027,
+        371,
+        260,
+        187
+      ],
+      "av333_ashhorn_stag_work_right0": [
+        "av333_ashhorn_stag_work_v1",
+        38,
+        652,
+        264,
+        177
+      ],
+      "av333_ashhorn_stag_work_right1": [
+        "av333_ashhorn_stag_work_v1",
+        362,
+        648,
+        267,
+        181
+      ],
+      "av333_ashhorn_stag_work_right2": [
+        "av333_ashhorn_stag_work_v1",
+        691,
+        649,
+        265,
+        180
+      ],
+      "av333_ashhorn_stag_work_right3": [
+        "av333_ashhorn_stag_work_v1",
+        1022,
+        652,
+        264,
+        177
+      ],
+      "av333_ashhorn_stag_work_up0": [
+        "av333_ashhorn_stag_work_v1",
+        98,
+        917,
+        140,
+        243
+      ],
+      "av333_ashhorn_stag_work_up1": [
+        "av333_ashhorn_stag_work_v1",
+        425,
+        921,
+        138,
+        239
+      ],
+      "av333_ashhorn_stag_work_up2": [
+        "av333_ashhorn_stag_work_v1",
+        755,
+        918,
+        139,
+        242
+      ],
+      "av333_ashhorn_stag_work_up3": [
+        "av333_ashhorn_stag_work_v1",
+        1083,
+        917,
+        138,
+        243
+      ],
+      "av333_tuskhog_walk_down0": [
+        "av333_tuskhog_walk_v1",
+        118,
+        37,
+        159,
+        220
+      ],
+      "av333_tuskhog_walk_down1": [
+        "av333_tuskhog_walk_v1",
+        498,
+        37,
+        159,
+        220
+      ],
+      "av333_tuskhog_walk_down2": [
+        "av333_tuskhog_walk_v1",
+        879,
+        37,
+        160,
+        220
+      ],
+      "av333_tuskhog_walk_down3": [
+        "av333_tuskhog_walk_v1",
+        1262,
+        37,
+        159,
+        219
+      ],
+      "av333_tuskhog_walk_left0": [
+        "av333_tuskhog_walk_v1",
+        34,
+        280,
+        329,
+        210
+      ],
+      "av333_tuskhog_walk_left1": [
+        "av333_tuskhog_walk_v1",
+        410,
+        281,
+        329,
+        208
+      ],
+      "av333_tuskhog_walk_left2": [
+        "av333_tuskhog_walk_v1",
+        792,
+        281,
+        327,
+        208
+      ],
+      "av333_tuskhog_walk_left3": [
+        "av333_tuskhog_walk_v1",
+        1172,
+        281,
+        331,
+        208
+      ],
+      "av333_tuskhog_walk_right0": [
+        "av333_tuskhog_walk_v1",
+        36,
+        525,
+        335,
+        214
+      ],
+      "av333_tuskhog_walk_right1": [
+        "av333_tuskhog_walk_v1",
+        416,
+        524,
+        332,
+        216
+      ],
+      "av333_tuskhog_walk_right2": [
+        "av333_tuskhog_walk_v1",
+        796,
+        525,
+        336,
+        215
+      ],
+      "av333_tuskhog_walk_right3": [
+        "av333_tuskhog_walk_v1",
+        1176,
+        525,
+        332,
+        215
+      ],
+      "av333_tuskhog_walk_up0": [
+        "av333_tuskhog_walk_v1",
+        111,
+        756,
+        162,
+        231
+      ],
+      "av333_tuskhog_walk_up1": [
+        "av333_tuskhog_walk_v1",
+        494,
+        755,
+        162,
+        232
+      ],
+      "av333_tuskhog_walk_up2": [
+        "av333_tuskhog_walk_v1",
+        878,
+        755,
+        162,
+        230
+      ],
+      "av333_tuskhog_walk_up3": [
+        "av333_tuskhog_walk_v1",
+        1262,
+        755,
+        162,
+        232
+      ],
+      "av333_tuskhog_idle_down0": [
+        "av333_tuskhog_idle_v1",
+        121,
+        36,
+        140,
+        210
+      ],
+      "av333_tuskhog_idle_down1": [
+        "av333_tuskhog_idle_v1",
+        503,
+        34,
+        147,
+        212
+      ],
+      "av333_tuskhog_idle_down2": [
+        "av333_tuskhog_idle_v1",
+        889,
+        36,
+        142,
+        211
+      ],
+      "av333_tuskhog_idle_down3": [
+        "av333_tuskhog_idle_v1",
+        1273,
+        36,
+        141,
+        207
+      ],
+      "av333_tuskhog_idle_left0": [
+        "av333_tuskhog_idle_v1",
+        49,
+        281,
+        292,
+        206
+      ],
+      "av333_tuskhog_idle_left1": [
+        "av333_tuskhog_idle_v1",
+        426,
+        281,
+        301,
+        206
+      ],
+      "av333_tuskhog_idle_left2": [
+        "av333_tuskhog_idle_v1",
+        810,
+        281,
+        301,
+        206
+      ],
+      "av333_tuskhog_idle_left3": [
+        "av333_tuskhog_idle_v1",
+        1194,
+        281,
+        300,
+        206
+      ],
+      "av333_tuskhog_idle_right0": [
+        "av333_tuskhog_idle_v1",
+        46,
+        539,
+        298,
+        203
+      ],
+      "av333_tuskhog_idle_right1": [
+        "av333_tuskhog_idle_v1",
+        426,
+        538,
+        301,
+        204
+      ],
+      "av333_tuskhog_idle_right2": [
+        "av333_tuskhog_idle_v1",
+        812,
+        537,
+        301,
+        205
+      ],
+      "av333_tuskhog_idle_right3": [
+        "av333_tuskhog_idle_v1",
+        1196,
+        537,
+        301,
+        204
+      ],
+      "av333_tuskhog_idle_up0": [
+        "av333_tuskhog_idle_v1",
+        121,
+        767,
+        140,
+        221
+      ],
+      "av333_tuskhog_idle_up1": [
+        "av333_tuskhog_idle_v1",
+        503,
+        767,
+        145,
+        222
+      ],
+      "av333_tuskhog_idle_up2": [
+        "av333_tuskhog_idle_v1",
+        889,
+        767,
+        142,
+        221
+      ],
+      "av333_tuskhog_idle_up3": [
+        "av333_tuskhog_idle_v1",
+        1274,
+        767,
+        140,
+        221
+      ],
+      "av333_tuskhog_attack_down0": [
+        "av333_tuskhog_attack_v1",
+        96,
+        41,
+        192,
+        202
+      ],
+      "av333_tuskhog_attack_down1": [
+        "av333_tuskhog_attack_v1",
+        473,
+        42,
+        196,
+        211
+      ],
+      "av333_tuskhog_attack_down2": [
+        "av333_tuskhog_attack_v1",
+        852,
+        45,
+        207,
+        206
+      ],
+      "av333_tuskhog_attack_down3": [
+        "av333_tuskhog_attack_v1",
+        1256,
+        42,
+        171,
+        204
+      ],
+      "av333_tuskhog_attack_left0": [
+        "av333_tuskhog_attack_v1",
+        36,
+        293,
+        324,
+        193
+      ],
+      "av333_tuskhog_attack_left1": [
+        "av333_tuskhog_attack_v1",
+        398,
+        293,
+        355,
+        193
+      ],
+      "av333_tuskhog_attack_left2": [
+        "av333_tuskhog_attack_v1",
+        776,
+        300,
+        366,
+        186
+      ],
+      "av333_tuskhog_attack_left3": [
+        "av333_tuskhog_attack_v1",
+        1183,
+        289,
+        329,
+        197
+      ],
+      "av333_tuskhog_attack_right0": [
+        "av333_tuskhog_attack_v1",
+        32,
+        526,
+        327,
+        192
+      ],
+      "av333_tuskhog_attack_right1": [
+        "av333_tuskhog_attack_v1",
+        411,
+        527,
+        341,
+        191
+      ],
+      "av333_tuskhog_attack_right2": [
+        "av333_tuskhog_attack_v1",
+        786,
+        533,
+        354,
+        184
+      ],
+      "av333_tuskhog_attack_right3": [
+        "av333_tuskhog_attack_v1",
+        1184,
+        524,
+        325,
+        193
+      ],
+      "av333_tuskhog_attack_up0": [
+        "av333_tuskhog_attack_v1",
+        96,
+        739,
+        191,
+        232
+      ],
+      "av333_tuskhog_attack_up1": [
+        "av333_tuskhog_attack_v1",
+        485,
+        735,
+        192,
+        237
+      ],
+      "av333_tuskhog_attack_up2": [
+        "av333_tuskhog_attack_v1",
+        862,
+        734,
+        198,
+        238
+      ],
+      "av333_tuskhog_attack_up3": [
+        "av333_tuskhog_attack_v1",
+        1253,
+        737,
+        172,
+        234
+      ],
+      "av333_tuskhog_sleep_down0": [
+        "av333_tuskhog_sleep_rise_v1",
+        23,
+        77,
+        197,
+        161
+      ],
+      "av333_tuskhog_sleep_down1": [
+        "av333_tuskhog_sleep_rise_v1",
+        242,
+        79,
+        197,
+        159
+      ],
+      "av333_tuskhog_sleep_down2": [
+        "av333_tuskhog_sleep_rise_v1",
+        463,
+        79,
+        198,
+        159
+      ],
+      "av333_tuskhog_sleep_down3": [
+        "av333_tuskhog_sleep_rise_v1",
+        682,
+        79,
+        197,
+        159
+      ],
+      "av333_tuskhog_sleep_left0": [
+        "av333_tuskhog_sleep_rise_v1",
+        14,
+        290,
+        218,
+        123
+      ],
+      "av333_tuskhog_sleep_left1": [
+        "av333_tuskhog_sleep_rise_v1",
+        233,
+        293,
+        216,
+        122
+      ],
+      "av333_tuskhog_sleep_left2": [
+        "av333_tuskhog_sleep_rise_v1",
+        452,
+        294,
+        215,
+        121
+      ],
+      "av333_tuskhog_sleep_left3": [
+        "av333_tuskhog_sleep_rise_v1",
+        671,
+        291,
+        213,
+        123
+      ],
+      "av333_tuskhog_sleep_right0": [
+        "av333_tuskhog_sleep_rise_v1",
+        14,
+        503,
+        226,
+        122
+      ],
+      "av333_tuskhog_sleep_right1": [
+        "av333_tuskhog_sleep_rise_v1",
+        242,
+        503,
+        218,
+        123
+      ],
+      "av333_tuskhog_sleep_right2": [
+        "av333_tuskhog_sleep_rise_v1",
+        462,
+        503,
+        218,
+        124
+      ],
+      "av333_tuskhog_sleep_right3": [
+        "av333_tuskhog_sleep_rise_v1",
+        683,
+        503,
+        217,
+        123
+      ],
+      "av333_tuskhog_sleep_up0": [
+        "av333_tuskhog_sleep_rise_v1",
+        29,
+        695,
+        187,
+        149
+      ],
+      "av333_tuskhog_sleep_up1": [
+        "av333_tuskhog_sleep_rise_v1",
+        250,
+        697,
+        188,
+        147
+      ],
+      "av333_tuskhog_sleep_up2": [
+        "av333_tuskhog_sleep_rise_v1",
+        471,
+        695,
+        187,
+        148
+      ],
+      "av333_tuskhog_sleep_up3": [
+        "av333_tuskhog_sleep_rise_v1",
+        692,
+        697,
+        186,
+        146
+      ],
+      "av333_tuskhog_rise_down0": [
+        "av333_tuskhog_sleep_rise_v1",
+        912,
+        62,
+        183,
+        158
+      ],
+      "av333_tuskhog_rise_down1": [
+        "av333_tuskhog_sleep_rise_v1",
+        1141,
+        44,
+        175,
+        185
+      ],
+      "av333_tuskhog_rise_down2": [
+        "av333_tuskhog_sleep_rise_v1",
+        1363,
+        37,
+        185,
+        193
+      ],
+      "av333_tuskhog_rise_down3": [
+        "av333_tuskhog_sleep_rise_v1",
+        1593,
+        31,
+        145,
+        207
+      ],
+      "av333_tuskhog_rise_left0": [
+        "av333_tuskhog_sleep_rise_v1",
+        892,
+        269,
+        206,
+        148
+      ],
+      "av333_tuskhog_rise_left1": [
+        "av333_tuskhog_sleep_rise_v1",
+        1104,
+        257,
+        220,
+        181
+      ],
+      "av333_tuskhog_rise_left2": [
+        "av333_tuskhog_sleep_rise_v1",
+        1326,
+        255,
+        222,
+        182
+      ],
+      "av333_tuskhog_rise_left3": [
+        "av333_tuskhog_sleep_rise_v1",
+        1548,
+        251,
+        221,
+        187
+      ],
+      "av333_tuskhog_rise_right0": [
+        "av333_tuskhog_sleep_rise_v1",
+        904,
+        489,
+        208,
+        143
+      ],
+      "av333_tuskhog_rise_right1": [
+        "av333_tuskhog_sleep_rise_v1",
+        1116,
+        478,
+        227,
+        161
+      ],
+      "av333_tuskhog_rise_right2": [
+        "av333_tuskhog_sleep_rise_v1",
+        1344,
+        468,
+        216,
+        170
+      ],
+      "av333_tuskhog_rise_right3": [
+        "av333_tuskhog_sleep_rise_v1",
+        1565,
+        461,
+        209,
+        181
+      ],
+      "av333_tuskhog_rise_up0": [
+        "av333_tuskhog_sleep_rise_v1",
+        912,
+        685,
+        184,
+        164
+      ],
+      "av333_tuskhog_rise_up1": [
+        "av333_tuskhog_sleep_rise_v1",
+        1141,
+        667,
+        168,
+        193
+      ],
+      "av333_tuskhog_rise_up2": [
+        "av333_tuskhog_sleep_rise_v1",
+        1369,
+        664,
+        146,
+        196
+      ],
+      "av333_tuskhog_rise_up3": [
+        "av333_tuskhog_sleep_rise_v1",
+        1591,
+        652,
+        144,
+        212
+      ],
+      "av333_tuskhog_fall_down0": [
+        "av333_tuskhog_fall_v2",
+        119,
+        37,
+        157,
+        221
+      ],
+      "av333_tuskhog_fall_down1": [
+        "av333_tuskhog_fall_v2",
+        486,
+        56,
+        179,
+        202
+      ],
+      "av333_tuskhog_fall_down2": [
+        "av333_tuskhog_fall_v2",
+        863,
+        83,
+        199,
+        182
+      ],
+      "av333_tuskhog_fall_down3": [
+        "av333_tuskhog_fall_v2",
+        1235,
+        103,
+        215,
+        162
+      ],
+      "av333_tuskhog_fall_left0": [
+        "av333_tuskhog_fall_v2",
+        43,
+        283,
+        308,
+        208
+      ],
+      "av333_tuskhog_fall_left1": [
+        "av333_tuskhog_fall_v2",
+        417,
+        304,
+        326,
+        187
+      ],
+      "av333_tuskhog_fall_left2": [
+        "av333_tuskhog_fall_v2",
+        800,
+        322,
+        331,
+        161
+      ],
+      "av333_tuskhog_fall_left3": [
+        "av333_tuskhog_fall_v2",
+        1174,
+        349,
+        335,
+        131
+      ],
+      "av333_tuskhog_fall_right0": [
+        "av333_tuskhog_fall_v2",
+        44,
+        526,
+        313,
+        207
+      ],
+      "av333_tuskhog_fall_right1": [
+        "av333_tuskhog_fall_v2",
+        416,
+        540,
+        321,
+        188
+      ],
+      "av333_tuskhog_fall_right2": [
+        "av333_tuskhog_fall_v2",
+        798,
+        558,
+        329,
+        162
+      ],
+      "av333_tuskhog_fall_right3": [
+        "av333_tuskhog_fall_v2",
+        1172,
+        578,
+        337,
+        144
+      ],
+      "av333_tuskhog_fall_up0": [
+        "av333_tuskhog_fall_v2",
+        116,
+        749,
+        158,
+        231
+      ],
+      "av333_tuskhog_fall_up1": [
+        "av333_tuskhog_fall_v2",
+        489,
+        763,
+        176,
+        215
+      ],
+      "av333_tuskhog_fall_up2": [
+        "av333_tuskhog_fall_v2",
+        858,
+        777,
+        207,
+        195
+      ],
+      "av333_tuskhog_fall_up3": [
+        "av333_tuskhog_fall_v2",
+        1235,
+        813,
+        214,
+        159
+      ],
+      "av333_tuskhog_hurt_down0": [
+        "av333_tuskhog_hurt_v2",
+        134,
+        38,
+        148,
+        209
+      ],
+      "av333_tuskhog_hurt_down1": [
+        "av333_tuskhog_hurt_v2",
+        502,
+        55,
+        163,
+        192
+      ],
+      "av333_tuskhog_hurt_down2": [
+        "av333_tuskhog_hurt_v2",
+        885,
+        38,
+        147,
+        209
+      ],
+      "av333_tuskhog_hurt_down3": [
+        "av333_tuskhog_hurt_v2",
+        1271,
+        38,
+        146,
+        207
+      ],
+      "av333_tuskhog_hurt_left0": [
+        "av333_tuskhog_hurt_v2",
+        55,
+        295,
+        296,
+        194
+      ],
+      "av333_tuskhog_hurt_left1": [
+        "av333_tuskhog_hurt_v2",
+        433,
+        298,
+        306,
+        189
+      ],
+      "av333_tuskhog_hurt_left2": [
+        "av333_tuskhog_hurt_v2",
+        817,
+        296,
+        304,
+        193
+      ],
+      "av333_tuskhog_hurt_left3": [
+        "av333_tuskhog_hurt_v2",
+        1204,
+        295,
+        297,
+        193
+      ],
+      "av333_tuskhog_hurt_right0": [
+        "av333_tuskhog_hurt_v2",
+        52,
+        538,
+        305,
+        192
+      ],
+      "av333_tuskhog_hurt_right1": [
+        "av333_tuskhog_hurt_v2",
+        429,
+        537,
+        309,
+        193
+      ],
+      "av333_tuskhog_hurt_right2": [
+        "av333_tuskhog_hurt_v2",
+        807,
+        535,
+        306,
+        195
+      ],
+      "av333_tuskhog_hurt_right3": [
+        "av333_tuskhog_hurt_v2",
+        1194,
+        536,
+        303,
+        194
+      ],
+      "av333_tuskhog_hurt_up0": [
+        "av333_tuskhog_hurt_v2",
+        128,
+        768,
+        154,
+        214
+      ],
+      "av333_tuskhog_hurt_up1": [
+        "av333_tuskhog_hurt_v2",
+        508,
+        770,
+        155,
+        211
+      ],
+      "av333_tuskhog_hurt_up2": [
+        "av333_tuskhog_hurt_v2",
+        887,
+        764,
+        146,
+        220
+      ],
+      "av333_tuskhog_hurt_up3": [
+        "av333_tuskhog_hurt_v2",
+        1272,
+        764,
+        145,
+        220
+      ],
+      "av333_tuskhog_work_down0": [
+        "av333_tuskhog_work_v2",
+        112,
+        45,
+        160,
+        215
+      ],
+      "av333_tuskhog_work_down1": [
+        "av333_tuskhog_work_v2",
+        496,
+        45,
+        161,
+        215
+      ],
+      "av333_tuskhog_work_down2": [
+        "av333_tuskhog_work_v2",
+        880,
+        45,
+        160,
+        215
+      ],
+      "av333_tuskhog_work_down3": [
+        "av333_tuskhog_work_v2",
+        1264,
+        45,
+        160,
+        215
+      ],
+      "av333_tuskhog_work_left0": [
+        "av333_tuskhog_work_v2",
+        46,
+        291,
+        313,
+        194
+      ],
+      "av333_tuskhog_work_left1": [
+        "av333_tuskhog_work_v2",
+        427,
+        293,
+        316,
+        192
+      ],
+      "av333_tuskhog_work_left2": [
+        "av333_tuskhog_work_v2",
+        810,
+        292,
+        317,
+        193
+      ],
+      "av333_tuskhog_work_left3": [
+        "av333_tuskhog_work_v2",
+        1195,
+        293,
+        316,
+        192
+      ],
+      "av333_tuskhog_work_right0": [
+        "av333_tuskhog_work_v2",
+        34,
+        526,
+        314,
+        196
+      ],
+      "av333_tuskhog_work_right1": [
+        "av333_tuskhog_work_v2",
+        416,
+        526,
+        316,
+        196
+      ],
+      "av333_tuskhog_work_right2": [
+        "av333_tuskhog_work_v2",
+        801,
+        526,
+        316,
+        196
+      ],
+      "av333_tuskhog_work_right3": [
+        "av333_tuskhog_work_v2",
+        1183,
+        526,
+        317,
+        196
+      ],
+      "av333_tuskhog_work_up0": [
+        "av333_tuskhog_work_v2",
+        115,
+        741,
+        154,
+        233
+      ],
+      "av333_tuskhog_work_up1": [
+        "av333_tuskhog_work_v2",
+        499,
+        742,
+        155,
+        232
+      ],
+      "av333_tuskhog_work_up2": [
+        "av333_tuskhog_work_v2",
+        882,
+        741,
+        155,
+        233
+      ],
+      "av333_tuskhog_work_up3": [
+        "av333_tuskhog_work_v2",
+        1266,
+        741,
+        155,
+        233
+      ],
+      "av333_tuskhog_wallow_down0": [
+        "av333_tuskhog_wallow_v2",
+        79,
+        132,
+        119,
+        147
+      ],
+      "av333_tuskhog_wallow_down1": [
+        "av333_tuskhog_wallow_v2",
+        317,
+        145,
+        142,
+        135
+      ],
+      "av333_tuskhog_wallow_down2": [
+        "av333_tuskhog_wallow_v2",
+        551,
+        145,
+        185,
+        133
+      ],
+      "av333_tuskhog_wallow_down3": [
+        "av333_tuskhog_wallow_v2",
+        825,
+        145,
+        144,
+        136
+      ],
+      "av333_tuskhog_wallow_down4": [
+        "av333_tuskhog_wallow_v2",
+        1091,
+        130,
+        136,
+        150
+      ],
+      "av333_tuskhog_wallow_down5": [
+        "av333_tuskhog_wallow_v2",
+        1341,
+        113,
+        125,
+        169
+      ],
+      "av333_tuskhog_wallow_left0": [
+        "av333_tuskhog_wallow_v2",
+        41,
+        359,
+        233,
+        153
+      ],
+      "av333_tuskhog_wallow_left1": [
+        "av333_tuskhog_wallow_v2",
+        294,
+        392,
+        224,
+        118
+      ],
+      "av333_tuskhog_wallow_left2": [
+        "av333_tuskhog_wallow_v2",
+        550,
+        383,
+        203,
+        117
+      ],
+      "av333_tuskhog_wallow_left3": [
+        "av333_tuskhog_wallow_v2",
+        788,
+        384,
+        233,
+        124
+      ],
+      "av333_tuskhog_wallow_left4": [
+        "av333_tuskhog_wallow_v2",
+        1047,
+        358,
+        219,
+        154
+      ],
+      "av333_tuskhog_wallow_left5": [
+        "av333_tuskhog_wallow_v2",
+        1285,
+        360,
+        222,
+        153
+      ],
+      "av333_tuskhog_wallow_right0": [
+        "av333_tuskhog_wallow_v2",
+        37,
+        585,
+        222,
+        149
+      ],
+      "av333_tuskhog_wallow_right1": [
+        "av333_tuskhog_wallow_v2",
+        284,
+        612,
+        227,
+        115
+      ],
+      "av333_tuskhog_wallow_right2": [
+        "av333_tuskhog_wallow_v2",
+        542,
+        597,
+        208,
+        130
+      ],
+      "av333_tuskhog_wallow_right3": [
+        "av333_tuskhog_wallow_v2",
+        780,
+        605,
+        230,
+        121
+      ],
+      "av333_tuskhog_wallow_right4": [
+        "av333_tuskhog_wallow_v2",
+        1042,
+        578,
+        223,
+        155
+      ],
+      "av333_tuskhog_wallow_right5": [
+        "av333_tuskhog_wallow_v2",
+        1284,
+        580,
+        225,
+        154
+      ],
+      "av333_tuskhog_wallow_up0": [
+        "av333_tuskhog_wallow_v2",
+        77,
+        801,
+        125,
+        163
+      ],
+      "av333_tuskhog_wallow_up1": [
+        "av333_tuskhog_wallow_v2",
+        318,
+        835,
+        141,
+        129
+      ],
+      "av333_tuskhog_wallow_up2": [
+        "av333_tuskhog_wallow_v2",
+        545,
+        823,
+        195,
+        140
+      ],
+      "av333_tuskhog_wallow_up3": [
+        "av333_tuskhog_wallow_v2",
+        811,
+        811,
+        171,
+        152
+      ],
+      "av333_tuskhog_wallow_up4": [
+        "av333_tuskhog_wallow_v2",
+        1098,
+        792,
+        130,
+        171
+      ],
+      "av333_tuskhog_wallow_up5": [
+        "av333_tuskhog_wallow_v2",
+        1338,
+        788,
+        121,
+        176
       ]
     },
     "sheets": {
@@ -105144,7 +109571,22 @@
       "av322_leech_ground_all": "sprites/original/direction-v322/leech-ground-all.png",
       "av319_weapons": "sprites/original/direction-v319/weapons.png",
       "av320_equipment": "sprites/original/direction-v320/equipment.png",
-      "av331_withered_censer": "sprites/original/direction-v331/withered-censer-clean.png"
+      "av331_withered_censer": "sprites/original/direction-v331/withered-censer-clean.png",
+      "av333_ashhorn_stag_walk_v1": "sprites/original/direction-v333/ashhorn-stag-walk-v1.png",
+      "av333_ashhorn_stag_idle_v1": "sprites/original/direction-v333/ashhorn-stag-idle-v1.png",
+      "av333_ashhorn_stag_attack_v1": "sprites/original/direction-v333/ashhorn-stag-attack-v1.png",
+      "av333_ashhorn_stag_hurt_fall_v1": "sprites/original/direction-v333/ashhorn-stag-hurt-fall-v1.png",
+      "av333_ashhorn_stag_sleep_rise_v1": "sprites/original/direction-v333/ashhorn-stag-sleep-rise-v1.png",
+      "av333_ashhorn_stag_fall_v2": "sprites/original/direction-v333/ashhorn-stag-fall-v2.png",
+      "av333_ashhorn_stag_work_v1": "sprites/original/direction-v333/work/ashhorn-stag-work-v1.png",
+      "av333_tuskhog_walk_v1": "sprites/original/direction-v333/tuskhog-walk-v1.png",
+      "av333_tuskhog_idle_v1": "sprites/original/direction-v333/tuskhog-idle-v1.png",
+      "av333_tuskhog_attack_v1": "sprites/original/direction-v333/tuskhog-attack-v1.png",
+      "av333_tuskhog_sleep_rise_v1": "sprites/original/direction-v333/tuskhog-sleep-rise-v1.png",
+      "av333_tuskhog_fall_v2": "sprites/original/direction-v333/tuskhog-fall-v2.png",
+      "av333_tuskhog_hurt_v2": "sprites/original/direction-v333/tuskhog-hurt-v2.png",
+      "av333_tuskhog_work_v2": "sprites/original/direction-v333/work/tuskhog-work-v2.png",
+      "av333_tuskhog_wallow_v2": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png"
     },
     "grips": {
       "av322_patient_walk_down0": {

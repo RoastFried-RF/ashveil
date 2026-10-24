@@ -18069,6 +18069,32 @@
     "AttackDef": {
       "type": "object",
       "properties": {
+        "partWeights": {
+          "type": "object",
+          "properties": {
+            "head": {
+              "type": "number"
+            },
+            "torso": {
+              "type": "number"
+            },
+            "larm": {
+              "type": "number"
+            },
+            "rarm": {
+              "type": "number"
+            },
+            "lleg": {
+              "type": "number"
+            },
+            "rleg": {
+              "type": "number"
+            },
+            "neck": {
+              "type": "number"
+            }
+          }
+        },
         "armorDamage": {
           "type": "number"
         },
@@ -18302,6 +18328,16 @@
               "defType"
             ],
             "properties": {
+              "wildlife": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Inherited_WildlifeRules"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "considerationWorker": {
                 "anyOf": [
                   {
@@ -21237,6 +21273,9 @@
               "id"
             ],
             "properties": {
+              "wildlife": {
+                "$ref": "#/$defs/WildlifeRules"
+              },
               "considerationWorker": {
                 "type": "string"
               },
@@ -21892,6 +21931,100 @@
             }
           }
         }
+      ]
+    },
+    "WildlifeRules": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "timidHerbivore",
+            "stubbornForager"
+          ]
+        },
+        "foodIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "threatRadius": {
+          "type": "number"
+        },
+        "forageRadius": {
+          "type": "number"
+        },
+        "homeRadius": {
+          "type": "number"
+        },
+        "eatBelow": {
+          "type": "number"
+        },
+        "drinkAbove": {
+          "type": "number"
+        },
+        "wanderChance": {
+          "type": "number"
+        },
+        "sleepAt": {
+          "type": "number"
+        },
+        "rut": {
+          "type": "object",
+          "properties": {
+            "season": {
+              "type": "string"
+            },
+            "chance": {
+              "type": "number"
+            },
+            "memoryTurns": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "season",
+            "chance",
+            "memoryTurns"
+          ]
+        },
+        "mud": {
+          "type": "object",
+          "properties": {
+            "terrains": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sharp": {
+              "type": "number"
+            },
+            "blunt": {
+              "type": "number"
+            },
+            "washTurns": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "terrains",
+            "sharp",
+            "blunt",
+            "washTurns"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "foodIds",
+        "threatRadius",
+        "forageRadius",
+        "homeRadius",
+        "eatBelow",
+        "drinkAbove",
+        "wanderChance",
+        "sleepAt"
       ]
     },
     "ParasiteConfig": {
@@ -59771,6 +59904,91 @@
     "Inherited_AttackDef": {
       "type": "object",
       "properties": {
+        "partWeights": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "head": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "torso": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "larm": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rarm": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "lleg": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rleg": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "neck": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "armorDamage": {
           "anyOf": [
             {
@@ -60029,6 +60247,331 @@
           "anyOf": [
             {
               "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
+    "Inherited_WildlifeRules": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "timidHerbivore",
+                "stubbornForager"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "foodIds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threatRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "forageRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "homeRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eatBelow": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drinkAbove": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "wanderChance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sleepAt": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rut": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "season": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "chance": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "memoryTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mud": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "terrains": {
+                  "anyOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "$append": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$prepend": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$remove": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "id"
+                                    ],
+                                    "properties": {
+                                      "id": {}
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "$append"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$prepend"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$remove"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "sharp": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "blunt": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "washTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
             },
             {
               "type": "null"

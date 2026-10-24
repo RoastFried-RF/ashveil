@@ -1,0 +1,30 @@
+{
+  "id": "ashhorn-stag-idle-v1",
+  "source": "/workspace/generated_images/exec-a7e620bf-87f9-4fbc-8051-4813e6e77227.png",
+  "preserved": "/workspace/.ashveil-planned/v333-wildlife-art/originals/ashhorn-stag-idle-v1.png",
+  "sha256": "7c075d8223121da2a9f867e187d985cd5610d70fcdf4e832ff9850b2ab309404",
+  "size": [
+    1312,
+    1199
+  ],
+  "mode": "RGBA",
+  "promptFile": "prompts/ashhorn-stag-idle-v1.txt",
+  "prompt": "Create an ORIGINAL high-quality game sprite atlas for ASHVEIL, a grounded melancholy post-apocalyptic dark fantasy world. The attached image is our OWN ash-hound artwork and is provided ONLY for camera, restrained brown/grey palette, textured pixel-art rendering and material fidelity. Invent a NEW REALISTIC DEER, never copy the wolf body, head or pose. No assets or pixels from any existing commercial game.\n\nSUBJECT: one adult male Ashhorn Stag, 180kg, lean deep chest, long slender FOUR legs ending in split dark hooves, elegant deer muzzle, large deer ears, two branching ash-coated bone antlers with consistent moderate branching, short deer tail. Warm grey-brown short fur, darker dorsal ash, pale muted throat/rump, dark wet nose. Healthy living animal. No saddle, clothing, invented armor, glowing eyes, magic, skull face or wounds. High anatomical fidelity and rich hand-painted pixel clusters, defined restrained edges. Same camera as the reference: slightly elevated RPG view, enough top surface visible, never isometric tile rotation. Keep antlers, ears, face and all FOUR hooves fully in frame.\n\nSTRICT ATLAS: square canvas, exactly FOUR rows by FOUR columns = SIXTEEN separate complete figures. Large equal-size cells, enormous true transparent gutters between figures, each figure centered in its own cell. Alpha ZERO background, no ground, floor, shadow, text, labels, grid, border, props or extra silhouettes. Each full animal including antlers occupies no more than 65% of cell height and 65% of cell width. Nothing touches a neighboring cell or image edge.\n\nONE CONSTANT FACING PER ROW, no turning within any row:\nRow1 all four stags face FRONT / toward viewer: chest and nose point toward lower edge of image, antlers seen from front.\nRow2 all four stags face LEFT: nose and antler tips point toward left edge, rump on right.\nRow3 all four stags face RIGHT: nose and antler tips point toward right edge, rump on left.\nRow4 all four stags face BACK / away from viewer: rump nearest lower edge, neck and nose point toward upper edge; face, chest and front of muzzle are NOT visible. Antlers viewed from behind.\n\nEvery row is FOUR small sequential IDLE breathing poses of the SAME individual: 1 quiet alert stand, 2 slight breathing expansion and ear flex, 3 settle and blink, 4 recover to first pose. Hooves remain planted; no walk, gallop, attack or direction change. Identical anatomy, antler structure, fur markings and head scale across all16. Keep stance natural with four real legs, not two hind legs duplicated or extra antlers. Front/back are genuinely different anatomical views.\n",
+  "referencedOwnImages": [
+    "/workspace/ashveil/public/sprites/original/direction-v322/hound-locomotion-front-left.png"
+  ],
+  "transparentBackground": true,
+  "visualStatus": "source-inspected",
+  "acceptedMotions": [
+    "idle"
+  ],
+  "registrationMethod": "alpha64 gutter-bounded crop plus two original transparent pixels; opaque bottom6% contact pivot",
+  "rejectedMotions": [],
+  "sourceOutputBytesUnchanged": true,
+  "inputImageHashesAtFinalAudit": [
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v322/hound-locomotion-front-left.png",
+      "sha256": "c7e4b916865c3bd75d6df5f0b4e9fdfa47a9ccff31f1465382426c72ef240726"
+    }
+  ]
+}

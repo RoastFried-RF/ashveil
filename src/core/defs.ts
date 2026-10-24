@@ -628,6 +628,26 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     else if (d.defType !== type) report.errors.push(`${owner}: '${ref}' 는 ${type} 가 아님 (${d.defType})`)
   }
   for (const c of db.all<CreatureDef>('Creature')) {
+    if(c.wildlife!==undefined){
+      const d=c.wildlife
+      if(!isObj(d)||!['timidHerbivore','stubbornForager'].includes(d.kind)||!Array.isArray(d.foodIds)||!d.foodIds.length)report.errors.push(c.id+': wildlife 실제 행동 종류/먹이 목록 필요')
+      else{
+        if(['humanoid','mechanical'].includes(db.tryGet<BodyDef>(c.body??'')?.kind??''))report.errors.push(c.id+': wildlife 입 섭식은 생물 동물 몸만 사용한다')
+        for(const id of d.foodIds){need(c.id,id,'Item');const item=db.tryGet<ItemDef>(id);if(!item?.food||item.openFood||item.food.servings||item.food.needsTool)report.errors.push(c.id+': wildlife.foodIds 실제 도구/용기가 필요 없는 음식만 먹는다')}
+        for(const key of['threatRadius','forageRadius','homeRadius']as const)if(!Number.isSafeInteger(d[key])||d[key]<1||d[key]>16)report.errors.push(c.id+': wildlife.'+key+'는1~16 정수여야 한다')
+        for(const key of['eatBelow','drinkAbove','wanderChance']as const)if(!Number.isFinite(d[key]))report.errors.push(c.id+': wildlife.'+key+' 유한 수치 필요')
+        range(c.id,'wildlife.eatBelow',d.eatBelow,0,5000);range(c.id,'wildlife.drinkAbove',d.drinkAbove,0,5000);range(c.id,'wildlife.wanderChance',d.wanderChance,0,1)
+        if(!Number.isFinite(d.sleepAt)||d.sleepAt<15||d.sleepAt>100)report.errors.push(c.id+': wildlife.sleepAt는15~100이어야 한다')
+        if(d.rut!==undefined){
+          if(!isObj(d.rut)||typeof d.rut.season!=='string')report.errors.push(c.id+': wildlife.rut 실제 계절/설정 필요')
+          else{need(c.id,d.rut.season,'Season');range(c.id,'wildlife.rut.chance',d.rut.chance,0,1);if(!Number.isFinite(d.rut.chance)||!Number.isSafeInteger(d.rut.memoryTurns)||d.rut.memoryTurns<1||d.rut.memoryTurns>1000)report.errors.push(c.id+': wildlife.rut 실제 확률/기억 시간 필요')}
+        }
+        if(d.mud!==undefined){
+          if(!isObj(d.mud))report.errors.push(c.id+': wildlife.mud 설정 객체 필요')
+          else{if(!Array.isArray(d.mud.terrains)||!d.mud.terrains.length)report.errors.push(c.id+': wildlife.mud 실제 진흙 지형 필요');else for(const id of d.mud.terrains)need(c.id,id,'Terrain');for(const key of['sharp','blunt']as const)if(!Number.isFinite(d.mud[key])||d.mud[key]<0||d.mud[key]>50)report.errors.push(c.id+': wildlife.mud.'+key+' 범위 오류');if(!Number.isSafeInteger(d.mud.washTurns)||d.mud.washTurns<1||d.mud.washTurns>1200)report.errors.push(c.id+': wildlife.mud.washTurns 범위 오류')}
+        }
+      }
+    }
     need(c.id, c.body, 'Body')
     need(c.id, c.fearFamily, 'Creature')
     need(c.id, c.contactDisease?.id, 'Disease')
@@ -636,6 +656,10 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for (const s of c.loadout?.slots ?? []) for (const it of s.items) need(c.id, it, 'Item')
   }
   for (const l of db.all<LootTableDef>('LootTable')) for (const e of l.entries) need(l.id, e.item, 'Item')
+  for(const owner of[...db.all<CreatureDef>('Creature'),...db.all<ItemDef>('Item')]){
+    const attacks=owner.defType==='Creature'?[owner.naturalAttack,...(Array.isArray(owner.naturalAttacks)?owner.naturalAttacks:[])]:Array.isArray(owner.attacks)?owner.attacks:[]
+    for(const a of attacks){if(a?.partWeights!==undefined&&(!isObj(a.partWeights)||Object.entries(a.partWeights).some(([key,n])=>!['head','torso','rarm','larm','rleg','lleg','neck'].includes(key)||!Number.isFinite(n)||n<0||n>10)))report.errors.push(owner.id+': partWeights 실제 부위/0~10 유한 가중치 필요')}
+  }
   for (const t of db.all<TerrainDef>('Terrain')) need(t.id, t.container, 'LootTable')
   for (const b of db.all<BackgroundDef>('Background')) {
     for (const it of b.startItems) need(b.id, it, 'Item')
@@ -663,7 +687,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for(const e of db.all<EventDef>('PlaceEvent'))if('spawn'in e)report.errors.push(e.id+': spawn은 폐지되었다. 실제 원래 인원을 사용하는 composition.fromPopulation을 정의해야 한다')
 
 
-  const range = (owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) => {
+  function range(owner: string, field: string, n: number | undefined, lo: number, hi = Infinity, integer = false) {
     if (n !== undefined && (!Number.isFinite(n) || n < lo || n > hi || (integer && !Number.isInteger(n)))) report.errors.push(`${owner}: '${field}' 범위 오류 (${n})`)
   }
   for (const d of db.all<import('./types').SaveModeDef>('SaveMode')) {

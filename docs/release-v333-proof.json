@@ -1,0 +1,651 @@
+{
+  "version": 333,
+  "save": 212,
+  "verifiedAtUTC": "2026-10-24T03:54:52.801228+00:00",
+  "mode": "implementation first development preview",
+  "implemented": [
+    "Two real finite Blackwood wildlife species and original anatomy/attacks/diet/threat perception/seasonal rut/wallowing",
+    "Actual original floor/bag food UID, salted bait/water quality, crop time/yield/regrowth, no imaginary hands or natural attack after body capacity loss",
+    "Real carcass harvest7materials and4learned processing recipes; processed boar hide is separate from raw hide",
+    "Actual move-arrival to stationary work/use/interact/wallow presentation handoff; cancellation on incompatible physical events/scene change/instant setting",
+    "Empty log panel uses content height and stable entry indices",
+    "Public original and motion galleries include two new bodies and declare missing previous bodies rather than invent comparisons"
+  ],
+  "art": {
+    "preservedOriginalPNGs": 19,
+    "selectedSheets": 16,
+    "uniqueBodyModels": 2,
+    "uniqueBodySourceRegions": 280,
+    "uniqueHarvestIconRegions": 7,
+    "mirroredNewRegions": 0,
+    "bodyWalkOriginalPosesPerDirection": 4,
+    "workCyclesMs": {
+      "stag": 1800,
+      "boar": 1900
+    },
+    "attackCyclesMs": {
+      "stag": 700,
+      "boar": 680
+    },
+    "wallowOriginalPosesPerDirection": 6,
+    "wallowCycleMs": 2400,
+    "originals": [
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-attack-v1.png",
+        "sha256": "f16b6dbf35f2617596e93e87294104ab55fdf41c2af13813858ecfa61f92fcd4",
+        "bytes": 1305455
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-fall-v2.png",
+        "sha256": "b286cf7e5fa8e09b56ede8a7ec620ab707be28fe3b21e4f0a8026856eba09194",
+        "bytes": 1321600
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-hurt-fall-v1.png",
+        "sha256": "2352d9dec90254f11ab09d95b58c61b07a6e1b82d9b7d1d55ca502afe03d21a5",
+        "bytes": 1599318
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-idle-v1.png",
+        "sha256": "7c075d8223121da2a9f867e187d985cd5610d70fcdf4e832ff9850b2ab309404",
+        "bytes": 1153099
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-sleep-rise-v1.png",
+        "sha256": "3fac4b9345ed062b3d886221ce82821c65e8c56e8d8bfcac2478a263f2824cc4",
+        "bytes": 1771623
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/ashhorn-stag-walk-v1.png",
+        "sha256": "41e32510c726291f3f513caa81ac23a393941361d945dafd6ad38611364e3f8a",
+        "bytes": 1217496
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/harvest-materials-v1.png",
+        "sha256": "390c15d82039e8f9046e7e51371a5da02afbf7a9c187e95edee7bdcfc286e458",
+        "bytes": 1250385
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-attack-v1.png",
+        "sha256": "ef4bfc7fad6054a96210dfadf212a8409be478876c87041af0a43b1f14c82887",
+        "bytes": 2371798
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-fall-v2.png",
+        "sha256": "5df2c0edb624956f27df377ee135b6e4f214a9077327604b602d26e1b87a7004",
+        "bytes": 2262569
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-hurt-fall-v1.png",
+        "sha256": "d5585a833edd4d4b86960a744561cbf2fbaa7b5e5afeb09fc7567d28e3370613",
+        "bytes": 1972399
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-hurt-v2.png",
+        "sha256": "d71bd8b34e492ccb675957ef120b1302c7f94dd2de482c796b536d4b02f7f793",
+        "bytes": 2157857
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-idle-v1.png",
+        "sha256": "a335ec320f60fd0b27d81b36dcafa1617b10880d841cee2b3f6e4dc589d246db",
+        "bytes": 2185580
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-sleep-rise-v1.png",
+        "sha256": "5f6aacedafcc4f4de3be5d15ff6495705af113cbd0dcef8f2f49a095b06f1770",
+        "bytes": 1987444
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/tuskhog-walk-v1.png",
+        "sha256": "e4042163c29dfbfa387381c24b37c1a70ed97222b2eb3cb2c2b1d96b6e0bd3e3",
+        "bytes": 2271693
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/wallow/tuskhog-wallow-v1.png",
+        "sha256": "88fba5649beeab9accc4ef6fb2a077e36c0ca7c0d03da150412aa9963222d10a",
+        "bytes": 2469716
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png",
+        "sha256": "be600e39cea1826c572e04fe21e5f72cdc690ce809b10eca52a332365c50f6b4",
+        "bytes": 2089530
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/work/ashhorn-stag-work-v1.png",
+        "sha256": "fd0971eb9f6526486ef09af2942bae0cbb1e91072ee2d176a7dc8f7eaab1b89c",
+        "bytes": 1184519
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/work/tuskhog-work-v1.png",
+        "sha256": "91f9f9ba1cb1f6513cc8d2a66636219e472b6a88125180a7c8c1f4ea8f94fa1f",
+        "bytes": 2281785
+      },
+      {
+        "localPath": "public/sprites/original/direction-v333/work/tuskhog-work-v2.png",
+        "sha256": "4c8d7e6cad7a3e43a5559d31a438b74c7ec90e32f8c169c249e64fb0f28ef005",
+        "bytes": 2280444
+      }
+    ],
+    "notClaimed": [
+      "12pose animal gait",
+      "new icon for processed boar leather",
+      "complete worn apparel/cut-off-limb/mud-washed variants"
+    ]
+  },
+  "checks": {
+    "types": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/types-release.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "targetedLint": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "arrivalAndUILint": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/lint-release.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "defs": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/defs-final.txt",
+      "sha256": "8b81d9c75616729352c8da6ed58cf70161c4d85937edb21f2a30bcc3ab849dff",
+      "bytes": 1670
+    },
+    "schema": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/schema-final.txt",
+      "sha256": "6fba9a2e7c68c4779650cc79de98687520a80d64b8d61f96297b10e36da3c3e7",
+      "bytes": 42
+    },
+    "sprites": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/sprites-final.txt",
+      "sha256": "10d70570bdaaf568e5fb4b2a83c70f89be589c790d74daa526e973b754ffec9f",
+      "bytes": 182
+    },
+    "targetedTests": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/targeted-final.txt",
+      "sha256": "954e8a51b33be192f4327431ff5ac07a5b57e7eb8ceddcfa00a1974792b1c855",
+      "bytes": 174
+    },
+    "arrivalTests": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/arrival-tests.txt",
+      "sha256": "d6cb81b2539b4a492c0e47397c9809b396bbe31a51f95709261ce253a1ff2d38",
+      "bytes": 170
+    },
+    "originalRegistration": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/art-registration.txt",
+      "sha256": "737fdf55621bcb13f4f7f1fa714fe9f2a0b48fe1884bc58eba0d2473ee4346eb",
+      "bytes": 410
+    },
+    "build": {
+      "exit": 0,
+      "localPath": "test-results/autonomy-v333/build-order.txt",
+      "sha256": "54558739810f0895b8f0202cb294677c619115752a98cfa0989c17e81f0912a3",
+      "bytes": 30980
+    }
+  },
+  "tests": {
+    "files": 10,
+    "passed": 140,
+    "additionalArrivalFiles": 2,
+    "additionalArrivalTests": 12,
+    "additionalTestsOverlapBaseline": true,
+    "fullRegression": false,
+    "meaningfulPaths": [
+      "Finite original food/plant/water/mud resources with no hand requirement",
+      "Failed mouth and missing natural-attack capacities; actual remaining legs can flee",
+      "Visible threats vs downed prey targeting; hounds and foragers remain hostile",
+      "Real per-actor AI stream and mid-gather save/restore whole-state equality",
+      "Actual wound anger, exposed rainfall mud erosion and shared hit part weighting",
+      "New Blackwood generation5animals and submap original ID preservation"
+    ]
+  },
+  "actualInput": {
+    "wildlife": {
+      "finiteInitial": true,
+      "noPostLoadWorldWrites": true,
+      "runs": [
+        {
+          "width": 1440,
+          "height": 1080,
+          "observedMs": 2680,
+          "presentationSamples": 26,
+          "observationWholeStateExact": true,
+          "wallowOriginalFrames": 6,
+          "wallowObservationWholeStateExact": true,
+          "actualWaitInputs": 15,
+          "actualMoveInputs": 5,
+          "stag": 66,
+          "boar": 67,
+          "bothAteOriginalMaturePlants": true,
+          "plotsUnavailableAfterward": true,
+          "boarWallowedOnOriginalMud": true,
+          "hiddenActorNotExposed": true,
+          "stagFled": true
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "observedMs": 2388.699999988079,
+          "presentationSamples": 27,
+          "observationWholeStateExact": true,
+          "wallowOriginalFrames": 6,
+          "wallowObservationWholeStateExact": true,
+          "actualWaitInputs": 15,
+          "actualMoveInputs": 5,
+          "stag": 66,
+          "boar": 67,
+          "bothAteOriginalMaturePlants": true,
+          "plotsUnavailableAfterward": true,
+          "boarWallowedOnOriginalMud": true,
+          "hiddenActorNotExposed": true,
+          "stagFled": true
+        }
+      ],
+      "errors": [],
+      "scope": "Two identified finite wildlife scenes, actual waits for crop grazing and mud coating, presentation-only interval, real approach and flight. Not a natural forest playthrough, all seasons or World regression."
+    },
+    "gallery": {
+      "publicPage": true,
+      "actualDOMInputs": true,
+      "cases": [
+        {
+          "role": "ashhorn_stag",
+          "mode": "walk",
+          "direction": "down",
+          "key": "av333_ashhorn_stag_walk_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "850",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "walk",
+          "direction": "left",
+          "key": "av333_ashhorn_stag_walk_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "850",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "walk",
+          "direction": "right",
+          "key": "av333_ashhorn_stag_walk_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "850",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "walk",
+          "direction": "up",
+          "key": "av333_ashhorn_stag_walk_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "850",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "work",
+          "direction": "down",
+          "key": "av333_ashhorn_stag_work_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "1800",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "work",
+          "direction": "left",
+          "key": "av333_ashhorn_stag_work_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "1800",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "work",
+          "direction": "right",
+          "key": "av333_ashhorn_stag_work_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "1800",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "work",
+          "direction": "up",
+          "key": "av333_ashhorn_stag_work_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "1800",
+          "style": ""
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "attack",
+          "direction": "down",
+          "key": "av333_ashhorn_stag_attack_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "700",
+          "style": "slash"
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "attack",
+          "direction": "left",
+          "key": "av333_ashhorn_stag_attack_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "700",
+          "style": "slash"
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "attack",
+          "direction": "right",
+          "key": "av333_ashhorn_stag_attack_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "700",
+          "style": "slash"
+        },
+        {
+          "role": "ashhorn_stag",
+          "mode": "attack",
+          "direction": "up",
+          "key": "av333_ashhorn_stag_attack_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "700",
+          "style": "slash"
+        },
+        {
+          "role": "tuskhog",
+          "mode": "walk",
+          "direction": "down",
+          "key": "av333_tuskhog_walk_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "800",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "walk",
+          "direction": "left",
+          "key": "av333_tuskhog_walk_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "800",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "walk",
+          "direction": "right",
+          "key": "av333_tuskhog_walk_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "800",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "walk",
+          "direction": "up",
+          "key": "av333_tuskhog_walk_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "800",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "work",
+          "direction": "down",
+          "key": "av333_tuskhog_work_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "1900",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "work",
+          "direction": "left",
+          "key": "av333_tuskhog_work_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "1900",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "work",
+          "direction": "right",
+          "key": "av333_tuskhog_work_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "1900",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "work",
+          "direction": "up",
+          "key": "av333_tuskhog_work_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "1900",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "attack",
+          "direction": "down",
+          "key": "av333_tuskhog_attack_down2",
+          "count": "4",
+          "index": "2",
+          "duration": "680",
+          "style": "slash"
+        },
+        {
+          "role": "tuskhog",
+          "mode": "attack",
+          "direction": "left",
+          "key": "av333_tuskhog_attack_left2",
+          "count": "4",
+          "index": "2",
+          "duration": "680",
+          "style": "slash"
+        },
+        {
+          "role": "tuskhog",
+          "mode": "attack",
+          "direction": "right",
+          "key": "av333_tuskhog_attack_right2",
+          "count": "4",
+          "index": "2",
+          "duration": "680",
+          "style": "slash"
+        },
+        {
+          "role": "tuskhog",
+          "mode": "attack",
+          "direction": "up",
+          "key": "av333_tuskhog_attack_up2",
+          "count": "4",
+          "index": "2",
+          "duration": "680",
+          "style": "slash"
+        },
+        {
+          "role": "tuskhog",
+          "mode": "wallow",
+          "direction": "down",
+          "key": "av333_tuskhog_wallow_down3",
+          "count": "6",
+          "index": "3",
+          "duration": "2400",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "wallow",
+          "direction": "left",
+          "key": "av333_tuskhog_wallow_left3",
+          "count": "6",
+          "index": "3",
+          "duration": "2400",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "wallow",
+          "direction": "right",
+          "key": "av333_tuskhog_wallow_right2",
+          "count": "6",
+          "index": "2",
+          "duration": "2400",
+          "style": ""
+        },
+        {
+          "role": "tuskhog",
+          "mode": "wallow",
+          "direction": "up",
+          "key": "av333_tuskhog_wallow_up3",
+          "count": "6",
+          "index": "3",
+          "duration": "2400",
+          "style": ""
+        }
+      ],
+      "errors": [],
+      "scope": "Two new original bodies, four directions; walk/work/attack and boar wallow; no invented prior model or equipped human weapon. Static workbench review, not game locomotion/performance approval."
+    },
+    "medicalAfterArrivalChange": {
+      "finiteInitial": true,
+      "noPostLoadWorldWrites": true,
+      "runs": [
+        {
+          "width": 1440,
+          "height": 1080,
+          "observationMs": 1700,
+          "observationWholeStateExact": true,
+          "uniqueFrames": 3,
+          "originalNeedle": 78,
+          "originalThread": 77,
+          "actualCancelUnspent": true,
+          "actualCompletedThread": 2,
+          "beforeTU": 1440100,
+          "afterTU": 1460300
+        },
+        {
+          "width": 1366,
+          "height": 768,
+          "observationMs": 1700,
+          "observationWholeStateExact": true,
+          "uniqueFrames": 3,
+          "originalNeedle": 78,
+          "originalThread": 77,
+          "actualCancelUnspent": true,
+          "actualCompletedThread": 2,
+          "beforeTU": 1440100,
+          "afterTU": 1460300
+        }
+      ],
+      "errors": [],
+      "scope": "Two real ally suture requests/cancel/restart/completion, read-only presentation interval and three public workbench views. Not every medical procedure or natural occurrence."
+    },
+    "evidence": [
+      {
+        "localPath": "test-results/autonomy-v333/native-release/audit.json",
+        "sha256": "02b52c7d064c0461b8dead2964e33e570ea3cd4467dbcaaec97924cc3ccf032a",
+        "bytes": 1362
+      },
+      {
+        "localPath": "test-results/autonomy-v333/artbook-release/audit.json",
+        "sha256": "3cd0e328ecdbefafd8dd95d662dbbdedc70364c5323b369233943a1f863842b5",
+        "bytes": 6406
+      },
+      {
+        "localPath": "test-results/autonomy-v333/medical-arrival/audit.json",
+        "sha256": "cc1b8393464dce9d0ec663fe01bd4214d563e162fb2c0e5427975a9a7f305744",
+        "bytes": 938
+      },
+      {
+        "localPath": "test-results/autonomy-v333/native-release/1440-grazing.png",
+        "sha256": "3dea3da06e6c915078399fa3bc8d3067cbb7bdc05010deb08ae581ef87807b01",
+        "bytes": 2124747
+      },
+      {
+        "localPath": "test-results/autonomy-v333/native-release/1440-wallow.png",
+        "sha256": "8f11887bfea362dca7e1c03f50e1aba91e01e64bed1432a979b18bebf4b812f0",
+        "bytes": 2124733
+      },
+      {
+        "localPath": "test-results/autonomy-v333/native-release/1366-grazing.png",
+        "sha256": "2b2f845dd4a2f282c24bca04cf2aa012675cf581e1b4e5bb55209d187988e40d",
+        "bytes": 1534911
+      },
+      {
+        "localPath": "test-results/autonomy-v333/native-release/1366-wallow.png",
+        "sha256": "31b430806b0a6393912d93dc10e3f3efb20687c9be36010f8db2e7aa6aef7c8f",
+        "bytes": 1534663
+      },
+      {
+        "localPath": "test-results/autonomy-v333/artbook-release/ashhorn_stag-work-down.png",
+        "sha256": "69222fc352f2668670f4e6bc5012ab7df48b2944fa9f46662a0d53b6f4714f4c",
+        "bytes": 121627
+      },
+      {
+        "localPath": "test-results/autonomy-v333/artbook-release/tuskhog-wallow-left.png",
+        "sha256": "fd6f324050454e72dccd076e9aa55914024402654d413eb70d6e5a833a05339f",
+        "bytes": 131087
+      }
+    ],
+    "observations": "Configured cycles are presentation settings. Low frame rate under software Chromium and the finite inspection do not establish hardware performance or all motion/cancellation combinations."
+  },
+  "correctedDuringReview": [
+    "Initial short observation missed one work frame under software rendering; sampled full declared interval and distinct source frames without advancing game state",
+    "Late wallow recorder missed initial frames; recorder now begins before real wait inputs",
+    "Moving onto food and returning to mud exposed lost utility cue; defer cue until rendered arrival, discard on new move/damage/scene changes",
+    "Empty log overlay obscured the boar at1366x768; content height now leaves it visible"
+  ],
+  "remaining": [
+    "Natural forage mature/spent originals prepared but not active in this revision",
+    "Other7planned species and complete ecology/food budgets/dormant feeding/population",
+    "Complete apparel and injury/prosthetic visual layers, all weapon hand poses and gait refinement",
+    "Full/World1000, long seasonal balance, target device performance, external human review and v1.0 release gates"
+  ],
+  "serializationOnlyAfterNative": {
+    "paths": [
+      "src/client/sprites.json",
+      "public/artbook/catalog.json",
+      "public/artbook/motion/catalog.json"
+    ],
+    "wholeParsedJSONDeepEqualityPreserved": true,
+    "purpose": "Preserve previous common-key order and normal integer serialization; no field values changed after native review."
+  },
+  "releaseApproved": false
+}

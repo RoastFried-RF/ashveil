@@ -1,0 +1,1371 @@
+[
+  {
+    "defType": "Creature",
+    "id": "Creature.AshhornStag",
+    "label": "재뿔사슴",
+    "body": "Body.AshhornStag",
+    "char": "av331_ashhorn_stag",
+    "sprite": "av331_ashhorn_stag",
+    "faction": "foragers",
+    "sizeClass": "large",
+    "moveTU": 100,
+    "stats": {
+      "str": 15,
+      "agi": 14,
+      "per": 14,
+      "vit": 12,
+      "wil": 8
+    },
+    "skills": {},
+    "ai": "skittish",
+    "morale": 35,
+    "lightThreshold": 0.1,
+    "sightRange": 12,
+    "hearing": 3,
+    "smell": 2,
+    "bagSize": [
+      4,
+      3
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "weightKg": 180,
+    "hpBase": 130,
+    "insulation": 8,
+    "naturalAttack": {
+      "label": "궁지의 뿔 들이받기",
+      "damageType": "stab",
+      "damage": 12,
+      "pen": 20,
+      "energy": 4,
+      "family": "unarmed",
+      "accuracy": 8,
+      "noise": 5,
+      "requiresCapacity": "tool",
+      "shove": 15,
+      "id": "antlers"
+    },
+    "xp": 35,
+    "bestiary": [
+      "재를 뒤집어쓴 큰 뿔이 숲 가장자리에서 움직인다.",
+      "사람 냄새를 맡으면 달아나지만 막다른 곳에서는 뿔을 낮춘다.",
+      "바람 아래에서 접근해야 한다. 큰 사체의 고기는 썩기 전에 보존해야 한다."
+    ],
+    "wildlife": {
+      "kind": "timidHerbivore",
+      "foodIds": [
+        "Item.AshBerry",
+        "Item.Cabbage",
+        "Item.RawPotato",
+        "Item.ShadeRoot"
+      ],
+      "threatRadius": 8,
+      "forageRadius": 8,
+      "homeRadius": 7,
+      "eatBelow": 1500,
+      "drinkAbove": 500,
+      "wanderChance": 0.25,
+      "rut": {
+        "season": "Season.Summer",
+        "chance": 0.3,
+        "memoryTurns": 50
+      },
+      "sleepAt": 80
+    },
+    "abilities": [
+      "Ab.Wildlife.Rush"
+    ],
+    "naturalAttacks": [
+      {
+        "label": "궁지의 뿔 들이받기",
+        "damageType": "stab",
+        "damage": 12,
+        "pen": 20,
+        "energy": 4,
+        "family": "unarmed",
+        "accuracy": 8,
+        "noise": 5,
+        "requiresCapacity": "tool",
+        "shove": 15,
+        "id": "antlers"
+      },
+      {
+        "id": "hooves",
+        "label": "발굽 차기",
+        "damageType": "blunt",
+        "damage": 9,
+        "pen": 0,
+        "energy": 4,
+        "family": "unarmed",
+        "accuracy": 2,
+        "noise": 4,
+        "requiresCapacity": "moving",
+        "shove": 10
+      }
+    ]
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Tuskhog",
+    "label": "엄니돼지",
+    "body": "Body.Tuskhog",
+    "char": "av331_tuskhog",
+    "sprite": "av331_tuskhog",
+    "faction": "foragers",
+    "sizeClass": "large",
+    "moveTU": 100,
+    "stats": {
+      "str": 17,
+      "agi": 9,
+      "per": 9,
+      "vit": 14,
+      "wil": 15
+    },
+    "skills": {},
+    "ai": "guard",
+    "morale": 100,
+    "lightThreshold": 0.1,
+    "sightRange": 9,
+    "hearing": 0,
+    "smell": 2,
+    "bagSize": [
+      4,
+      3
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "noMorale": true,
+    "weightKg": 115,
+    "hpBase": 160,
+    "insulation": 7,
+    "naturalArmor": {
+      "sharp": 3,
+      "blunt": 2
+    },
+    "naturalAttack": {
+      "label": "엄니 들이받기",
+      "damageType": "stab",
+      "damage": 16,
+      "pen": 25,
+      "energy": 4,
+      "family": "unarmed",
+      "accuracy": 8,
+      "noise": 5,
+      "requiresCapacity": "tool",
+      "shove": 18,
+      "id": "tusks",
+      "partWeights": {
+        "lleg": 2,
+        "rleg": 2
+      }
+    },
+    "xp": 55,
+    "bestiary": [
+      "진흙 껍질을 두른 야생 돼지다.",
+      "상처를 입으면 더 사나워진다. 도주를 기대해서는 안 된다.",
+      "엄니는 다리를 노린다. 재비는 진흙 방어를 씻어 낸다."
+    ],
+    "wildlife": {
+      "kind": "stubbornForager",
+      "foodIds": [
+        "Item.AshBerry",
+        "Item.Cabbage",
+        "Item.RawPotato",
+        "Item.ShadeRoot",
+        "Item.RawMeat",
+        "Item.TuskhogLard",
+        "Item.BoneMarrow"
+      ],
+      "threatRadius": 4,
+      "forageRadius": 8,
+      "homeRadius": 5,
+      "eatBelow": 1500,
+      "drinkAbove": 500,
+      "wanderChance": 0.25,
+      "mud": {
+        "terrains": [
+          "Terrain.Mud",
+          "Terrain.BogMud",
+          "Terrain.CoastalMud"
+        ],
+        "sharp": 8,
+        "blunt": 5,
+        "washTurns": 60
+      },
+      "sleepAt": 80
+    },
+    "abilities": [
+      "Ab.Wildlife.Rush"
+    ]
+  },
+  {
+    "defType": "Body",
+    "id": "Body.AshhornStag",
+    "label": "재뿔사슴의 사족 신체",
+    "bloodMl": 13000,
+    "kind": "quadruped",
+    "parts": [
+      {
+        "id": "Skull",
+        "label": "두개골",
+        "region": "head",
+        "hp": 25,
+        "coverage": 70,
+        "bone": 7,
+        "height": "mid",
+        "groups": [
+          "skull"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2
+      },
+      {
+        "id": "Brain",
+        "label": "뇌",
+        "region": "head",
+        "parent": "Skull",
+        "internal": true,
+        "hp": 11,
+        "weight": 100,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        },
+        "groups": [
+          "skull"
+        ]
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼눈",
+        "region": "head",
+        "hp": 11,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "l",
+        "height": "mid"
+      },
+      {
+        "id": "RightEye",
+        "label": "오른눈",
+        "region": "head",
+        "hp": 11,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "r",
+        "height": "mid"
+      },
+      {
+        "id": "Nose",
+        "label": "코",
+        "region": "head",
+        "hp": 11,
+        "coverage": 10,
+        "groups": [
+          "nose"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "smell": 1
+        },
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "Jaw",
+        "label": "턱",
+        "region": "head",
+        "hp": 25,
+        "coverage": 30,
+        "bone": 7,
+        "groups": [
+          "jaw"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "eating": 1,
+          "bite": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Neck",
+        "label": "목",
+        "region": "torso",
+        "hp": 25,
+        "coverage": 60,
+        "artery": 120,
+        "groups": [
+          "neck"
+        ],
+        "vessel": 2,
+        "pain": 1.2,
+        "vital": true,
+        "capacities": {
+          "airway": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Chest",
+        "label": "흉부",
+        "region": "torso",
+        "hp": 42,
+        "coverage": 225,
+        "bone": 6,
+        "groups": [
+          "chest"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 40
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 17,
+        "weight": 10,
+        "vital": true,
+        "organ": 2,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Lungs",
+        "label": "폐",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 22,
+        "weight": 40,
+        "organ": 0.8,
+        "capacities": {
+          "breathing": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Spine",
+        "label": "척추",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 20,
+        "weight": 10,
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Abdomen",
+        "label": "복부",
+        "region": "torso",
+        "hp": 35,
+        "coverage": 200,
+        "groups": [
+          "abdomen"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 20
+      },
+      {
+        "id": "Liver",
+        "label": "간",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 20,
+        "weight": 40,
+        "organ": 1.5,
+        "delayedDeath": true,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Stomach",
+        "label": "위",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 20,
+        "weight": 40,
+        "organ": 1,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Tail",
+        "label": "꼬리",
+        "region": "torso",
+        "hp": 11,
+        "coverage": 10,
+        "groups": [
+          "tail"
+        ],
+        "vessel": 0.6,
+        "pain": 1,
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "FrontLeftLeg",
+        "label": "왼 앞다리",
+        "region": "larm",
+        "hp": 28,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontLeftPaw",
+        "label": "왼 앞발",
+        "region": "larm",
+        "parent": "FrontLeftLeg",
+        "hp": 17,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "FrontRightLeg",
+        "label": "오른 앞다리",
+        "region": "rarm",
+        "hp": 28,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontRightPaw",
+        "label": "오른 앞발",
+        "region": "rarm",
+        "parent": "FrontRightLeg",
+        "hp": 17,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "HindLeftLeg",
+        "label": "왼 뒷다리",
+        "region": "lleg",
+        "hp": 31,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindLeftPaw",
+        "label": "왼 뒷발",
+        "region": "lleg",
+        "parent": "HindLeftLeg",
+        "hp": 17,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "HindRightLeg",
+        "label": "오른 뒷다리",
+        "region": "rleg",
+        "hp": 31,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindRightPaw",
+        "label": "오른 뒷발",
+        "region": "rleg",
+        "parent": "HindRightLeg",
+        "hp": 17,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "Antlers",
+        "label": "뿔",
+        "region": "head",
+        "hp": 28,
+        "coverage": 35,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "antler": 1,
+          "tool": 1
+        },
+        "bone": 15,
+        "detach": true
+      }
+    ]
+  },
+  {
+    "defType": "Body",
+    "id": "Body.Tuskhog",
+    "label": "엄니돼지의 사족 신체",
+    "bloodMl": 7000,
+    "kind": "quadruped",
+    "parts": [
+      {
+        "id": "Skull",
+        "label": "두개골",
+        "region": "head",
+        "hp": 23,
+        "coverage": 70,
+        "bone": 7,
+        "height": "mid",
+        "groups": [
+          "skull"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2
+      },
+      {
+        "id": "Brain",
+        "label": "뇌",
+        "region": "head",
+        "parent": "Skull",
+        "internal": true,
+        "hp": 10,
+        "weight": 100,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        },
+        "groups": [
+          "skull"
+        ]
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼눈",
+        "region": "head",
+        "hp": 10,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "l",
+        "height": "mid"
+      },
+      {
+        "id": "RightEye",
+        "label": "오른눈",
+        "region": "head",
+        "hp": 10,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "r",
+        "height": "mid"
+      },
+      {
+        "id": "Nose",
+        "label": "코",
+        "region": "head",
+        "hp": 10,
+        "coverage": 10,
+        "groups": [
+          "nose"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "smell": 1
+        },
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "Jaw",
+        "label": "턱",
+        "region": "head",
+        "hp": 23,
+        "coverage": 30,
+        "bone": 7,
+        "groups": [
+          "jaw"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "eating": 1,
+          "bite": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Neck",
+        "label": "목",
+        "region": "torso",
+        "hp": 23,
+        "coverage": 60,
+        "artery": 120,
+        "groups": [
+          "neck"
+        ],
+        "vessel": 2,
+        "pain": 1.2,
+        "vital": true,
+        "capacities": {
+          "airway": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Chest",
+        "label": "흉부",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 235,
+        "bone": 6,
+        "groups": [
+          "chest"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 40
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 15,
+        "weight": 10,
+        "vital": true,
+        "organ": 2,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Lungs",
+        "label": "폐",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 20,
+        "weight": 40,
+        "organ": 0.8,
+        "capacities": {
+          "breathing": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Spine",
+        "label": "척추",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 18,
+        "weight": 10,
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Abdomen",
+        "label": "복부",
+        "region": "torso",
+        "hp": 31,
+        "coverage": 200,
+        "groups": [
+          "abdomen"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 20
+      },
+      {
+        "id": "Liver",
+        "label": "간",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 18,
+        "weight": 40,
+        "organ": 1.5,
+        "delayedDeath": true,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Stomach",
+        "label": "위",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 18,
+        "weight": 40,
+        "organ": 1,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Tail",
+        "label": "꼬리",
+        "region": "torso",
+        "hp": 10,
+        "coverage": 10,
+        "groups": [
+          "tail"
+        ],
+        "vessel": 0.6,
+        "pain": 1,
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "FrontLeftLeg",
+        "label": "왼 앞다리",
+        "region": "larm",
+        "hp": 25,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontLeftPaw",
+        "label": "왼 앞발",
+        "region": "larm",
+        "parent": "FrontLeftLeg",
+        "hp": 15,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "FrontRightLeg",
+        "label": "오른 앞다리",
+        "region": "rarm",
+        "hp": 25,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontRightPaw",
+        "label": "오른 앞발",
+        "region": "rarm",
+        "parent": "FrontRightLeg",
+        "hp": 15,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "HindLeftLeg",
+        "label": "왼 뒷다리",
+        "region": "lleg",
+        "hp": 28,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindLeftPaw",
+        "label": "왼 뒷발",
+        "region": "lleg",
+        "parent": "HindLeftLeg",
+        "hp": 15,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "HindRightLeg",
+        "label": "오른 뒷다리",
+        "region": "rleg",
+        "hp": 28,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindRightPaw",
+        "label": "오른 뒷발",
+        "region": "rleg",
+        "parent": "HindRightLeg",
+        "hp": 15,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "Tusks",
+        "label": "엄니",
+        "region": "head",
+        "hp": 18,
+        "coverage": 25,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "tusk": 1,
+          "tool": 1
+        },
+        "bone": 16,
+        "detach": true
+      }
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.AshhornStag",
+    "label": "재뿔사슴",
+    "creatures": [
+      "Creature.AshhornStag"
+    ],
+    "kind": "animal",
+    "difficulty": 20,
+    "silhouette": "재뿔사슴의 실루엣",
+    "yields": [
+      {
+        "item": "Item.RawMeat",
+        "count": 80
+      },
+      {
+        "item": "Item.AshhornHide",
+        "count": 4
+      },
+      {
+        "item": "Item.AshhornAntler",
+        "count": 2
+      },
+      {
+        "item": "Item.AshhornSinew",
+        "count": 4
+      },
+      {
+        "item": "Item.BoneMarrow",
+        "count": 2
+      }
+    ],
+    "facts": [
+      "살이 많아 사냥한 자리에서 보존할 준비가 필요하다.",
+      "힘줄은 질기고 뿔 속은 치밀하다. 큰 가죽은 여러 조각으로 나눠야 옮길 수 있다."
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Tuskhog",
+    "label": "엄니돼지",
+    "creatures": [
+      "Creature.Tuskhog"
+    ],
+    "kind": "animal",
+    "difficulty": 25,
+    "silhouette": "엄니돼지의 실루엣",
+    "yields": [
+      {
+        "item": "Item.RawMeat",
+        "count": 50
+      },
+      {
+        "item": "Item.TuskhogHide",
+        "count": 3
+      },
+      {
+        "item": "Item.TuskhogTusk",
+        "count": 2
+      },
+      {
+        "item": "Item.TuskhogLard",
+        "count": 8
+      }
+    ],
+    "facts": [
+      "두꺼운 생가죽 아래 비계가 층을 이룬다.",
+      "상처를 입혀도 물러서지 않는다. 앞다리와 엄니 사이를 피해야 한다."
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornAntler",
+    "label": "재뿔사슴 뿔",
+    "sprite": "av331_ashhorn_antler",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 500
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornHide",
+    "label": "재뿔사슴 생가죽",
+    "sprite": "av331_ashhorn_hide",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 10,
+    "material": "Material.RawHide",
+    "rawMaterial": {
+      "material": "Material.RawHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornSinew",
+    "label": "재뿔사슴 힘줄",
+    "sprite": "av331_ashhorn_sinew",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 8
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BoneMarrow",
+    "label": "골수",
+    "sprite": "av331_bone_marrow",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 5,
+    "food": {
+      "kcal": 450,
+      "protein": 8,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 24
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogHide",
+    "label": "엄니돼지 생가죽",
+    "sprite": "av331_tuskhog_hide",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 14,
+    "material": "Material.RawHide",
+    "rawMaterial": {
+      "material": "Material.RawHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogTusk",
+    "label": "엄니돼지 엄니",
+    "sprite": "av331_tuskhog_tusk",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 15,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 300
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogLard",
+    "label": "엄니돼지 비계",
+    "sprite": "av331_tuskhog_lard",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "food": {
+      "kcal": 800,
+      "protein": 0,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 36
+    }
+  },
+  {
+    "defType": "Material",
+    "id": "Material.TuskhogHide",
+    "parent": "Material.AshWolfHide",
+    "label": "엄니돼지 가죽",
+    "insulation": 3,
+    "hardness": 30,
+    "toughness": 75,
+    "valuePerKg": 12,
+    "recoveryItem": "Item.TuskhogLeather"
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.RenderTuskhogLard",
+    "label": "비계로 등잔 기름 만들기",
+    "category": "survival",
+    "primaryAttr": "per",
+    "basic": false,
+    "workTurns": 120,
+    "inputs": [
+      {
+        "item": "Item.TuskhogLard",
+        "count": 3
+      }
+    ],
+    "output": {
+      "item": "Item.LampOil",
+      "count": 1
+    },
+    "stations": [
+      "campfire"
+    ],
+    "tools": []
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogLeather",
+    "parent": "Item.Leather",
+    "label": "무두질한 엄니돼지 가죽",
+    "description": "진흙과 기름을 벗겨 무두질한 두꺼운 가죽. 질긴 섬유가 남아 몸을 덮는 재료로 쓴다.",
+    "sprite": "av331_tuskhog_hide",
+    "material": "Material.TuskhogHide",
+    "rawMaterial": {
+      "material": "Material.TuskhogHide",
+      "grams": 1000
+    },
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 24
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.TanAshhornHide",
+    "label": "재뿔사슴 생가죽 무두질",
+    "category": "textile",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 240,
+    "inputs": [
+      {
+        "item": "Item.AshhornHide",
+        "count": 1
+      },
+      {
+        "item": "Item.Salt",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.Leather",
+      "count": 2
+    },
+    "stations": [
+      "tanning"
+    ],
+    "passiveTurns": 86400,
+    "smell": 4
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.TanTuskhogHide",
+    "label": "엄니돼지 생가죽 무두질",
+    "category": "textile",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 240,
+    "inputs": [
+      {
+        "item": "Item.TuskhogHide",
+        "count": 1
+      },
+      {
+        "item": "Item.Salt",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.TuskhogLeather",
+      "count": 1
+    },
+    "stations": [
+      "tanning"
+    ],
+    "passiveTurns": 86400,
+    "smell": 4
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.SinewThread",
+    "label": "힘줄 실 꼬기",
+    "category": "textile",
+    "primaryAttr": "agi",
+    "basic": false,
+    "workTurns": 120,
+    "inputs": [
+      {
+        "item": "Item.AshhornSinew",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.Thread",
+      "count": 1
+    },
+    "tools": [
+      "blade"
+    ]
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Wildlife.Rush",
+    "tree": "unique",
+    "tier": 1,
+    "label": "들이받기 돌진",
+    "description": "직선으로 두 칸까지 접근해 실제 뿔·엄니나 발굽으로 공격한다.",
+    "kind": "active",
+    "energy": 10,
+    "cooldown": 8,
+    "target": "enemy",
+    "icon": "av331_tuskhog_tusk",
+    "lunge": 2,
+    "attack": {
+      "knockdownChance": 25
+    }
+  }
+]

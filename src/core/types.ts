@@ -153,6 +153,8 @@ export interface WoundDef extends DefBase {
 }
 
 export interface AttackDef {
+  /** 실제 공격의 부위 선호. 능력 가중과 곱하며 부위 선택 규칙을 우회하지 않는다. */
+  partWeights?:Partial<Record<Region|'neck',number>>
   armorDamage?: number
   targetHeat?: number
   requiresLit?: boolean
@@ -358,7 +360,21 @@ export interface ParasiteConfig {
   diseaseChance: number
 }
 export interface ParasiteAttachment {creature:Creature;part:string;attachedAt:number;fedMl:number}
+export interface WildlifeRules {
+  kind:'timidHerbivore'|'stubbornForager'
+  foodIds:string[]
+  threatRadius:number
+  forageRadius:number
+  homeRadius:number
+  eatBelow:number
+  drinkAbove:number
+  wanderChance:number
+  sleepAt:number
+  rut?:{season:string;chance:number;memoryTurns:number}
+  mud?:{terrains:string[];sharp:number;blunt:number;washTurns:number}
+}
 export interface CreatureDef extends DefBase {
+  wildlife?:WildlifeRules
   considerationWorker?:string
   ageRange?:[number,number]
   meatDrop?:{item:string;count:number}
@@ -2093,6 +2109,7 @@ export interface Activity {
   cookQualityBase?:number
   brew?:{leafUid:number;leaves:{uid:number;def:string;count:number}[];sourceDef:string;ml:number;quality:WaterQuality;signature:string;fireUid:number;firePos:Pos}
   gatherRule?:string
+  animalForage?:boolean
   needleRule?:string
   foodMealTarget?:number
   foodOpening?:{toolUid:number;def:string;signature:string;eatTarget?:number}
@@ -2220,6 +2237,7 @@ export interface MedicalReport {
 }
 
 export interface Creature {
+  wildlifeState?:{threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number}
   npcCareHistory?:NpcCareRecord[]
   npcIdentity?:NpcIdentity
   roadRaid?:string

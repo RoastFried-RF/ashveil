@@ -50,6 +50,7 @@ import {obtainResidentCookingSupply,checkResidentCookingFire} from './resident-c
 import {stageCooking,takeCooking} from './cooking'
 import {cookingRules,foodKcal} from './cooking-state'
 import {dropFragile} from './fragile'
+import {animalDrink,animalEat,startAnimalBrowse,wallow,interruptAnimalBrowse} from './wildlife'
 import {exposeDisease} from './conditions'
 import {diseaseStream} from './disease-state'
 import {gatherSignature,gatherSeasonError,gatherFireError} from './gather-state'
@@ -385,6 +386,10 @@ export type Action =
   | { type: 'throw'; uid: number; target: Pos }
   | { type: 'throwAttack'; uid: number; target: number }
   | { type: 'eatFloor' }
+  | {type:'animalEat';uid:number}
+  | {type:'animalDrink'}
+  | {type:'animalBrowse';pos:Pos}
+  | {type:'wallow'}
   | { type: 'stairs' }
   | { type: 'ability'; id: string; target?: number }
   | { type: 'spendStat'; stat: keyof Stats }
@@ -1583,6 +1588,10 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
     }
 
+    case 'animalEat':return animalEat(w,c,a.uid)
+    case 'animalDrink':return animalDrink(w,c)
+    case 'animalBrowse':return startAnimalBrowse(w,c,a.pos)
+    case 'wallow':return wallow(w,c)
     case 'eatFloor': {
       const t = tileAt(w, c.pos)
       const food = t.items.find((i) => itemDef(w, i).food?.raw)
@@ -1831,6 +1840,7 @@ function finishUnequip(w:World,c:Creature,slot:Slot,uid:number|undefined,dropAft
 }
 
 export function activityStep(w: World, c: Creature): boolean {
+  if(c.activity?.animalForage&&interruptAnimalBrowse(w,c)){c.activity=undefined;return true}
   const act = c.activity
   if (!act) return true
   if(act.kind==='gearSwap')return gearSwapStep(w,c)
@@ -1843,6 +1853,7 @@ export function activityStep(w: World, c: Creature): boolean {
     if(facing>=0)c.facing=facing
   }
   recordTreatmentProgress(w, c, act)
+  if(act.animalForage&&act.target){const facing=dirIndex(act.target.x-c.pos.x,act.target.y-c.pos.y);if(facing>=0)c.facing=facing}
   if((act.kind==='rest'||act.kind==='sleep')&&terrainAt(w,c.pos).bedding)c.beddingLying={map:beddingMapKey(w),pos:{...c.pos},until:turnOf(w)+1}
   act.remaining--
   act.elapsed = (act.elapsed ?? 0) + 1
@@ -1926,7 +1937,7 @@ export function activityStep(w: World, c: Creature): boolean {
       if(act.target&&gatherFireError(w,act.target)){c.activity=undefined;if(isPl(c))log(w,'warn','채집 중단: 재료가 불에 타고 있다.');return true}
       if(act.gatherRule&&act.target&&(act.gatherRule!==gatherSignature(w,act.target)||gatherSeasonError(w,terrainAt(w,act.target)))){c.activity=undefined;if(isPl(c))log(w,'warn','채집 중단: 원래 덤불이나 실제 계절이 달라졌다.');return true}
       if(act.baseOrder!==undefined&&!baseTaskActive(w,c,act.baseOrder)){c.activity=undefined;return true}
-      if (act.target && cheb(c.pos, act.target) <= 1 && terrainAt(w, act.target).gather) dirtyHands(w, c)
+      if (!act.animalForage&&act.target && cheb(c.pos, act.target) <= 1 && terrainAt(w, act.target).gather) dirtyHands(w, c)
       if (act.remaining <= 0) finishGather(w, c)
       break
     case 'dry':

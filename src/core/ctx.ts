@@ -18,7 +18,7 @@ export interface World {
 }
 
 export function rng(w: World, stream: RngStream): Rng {
-  const st = w.s.rng[stream] ?? ((stream.startsWith('mod.')||stream.startsWith('world.')||stream.startsWith('body.')||stream.startsWith('items.')||stream.startsWith('cooking.')||stream.startsWith('fire.')) ? w.s.rng[stream] = seedState(w.s.seed, stream) : undefined)
+  const st = w.s.rng[stream] ?? ((stream.startsWith('mod.')||stream.startsWith('world.')||stream.startsWith('body.')||stream.startsWith('items.')||stream.startsWith('cooking.')||stream.startsWith('fire.')||stream.startsWith('ai.')) ? w.s.rng[stream] = seedState(w.s.seed, stream) : undefined)
   if (!st) throw new Error(`RNG 스트림 없음: ${stream}`)
   return new Rng(st)
 }

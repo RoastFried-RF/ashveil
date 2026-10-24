@@ -1,0 +1,29 @@
+{
+  "schema": "ashveil-tuskhog-wallow-presentation-1",
+  "status": "proposed-original-art-not-integrated-by-this-task",
+  "character": "av331_tuskhog",
+  "motion": "wallow",
+  "durationMs": 2400,
+  "loop": false,
+  "poses": ["lower","tuck","intentional-flank-roll","rub-and-return","push-up","stand-original-heading"],
+  "intentionalBodyRollColumnsZeroBased": [2,3],
+  "logicalFacingChanges": false,
+  "sourceInspection": {
+    "successfulAction": "src/core/wildlife.ts wallow requires living conscious moving actor on configured mud terrain, sets the actual mud coat and returns100TU",
+    "currentAlias": "src/client/render/action-motion-map.ts currently maps wallow to work",
+    "currentMotionNames": "src/client/render/character-motion.ts has no wallow name yet",
+    "genericDuration": "CharDef.motionDurations and MapRenderer.requestPose now support per-character action durations"
+  },
+  "requiredClientChanges": [
+    "Add wallow to motionNames/MotionName; the existing ActionPose exclusion then makes wallow an action pose.",
+    "Add default wallow duration2400ms and priority comparable to work; keep attack/hurt/incapacitation interruption rules.",
+    "Map only the actual successful wallow observation to wallow instead of work. Grazing, animalBrowse, animalEat and animalDrink remain work.",
+    "Add wallow to the clear-on-move action family so movement never slides a rolling body across the ground. Death/prone clear existing poses as before.",
+    "An explicit turn during the cue must interrupt wallow or preserve the cue's starting nominal direction. updateViews currently refreshes view.dir from actor facing on each update, so adding a motion name alone does not prevent a mid-roll row jump.",
+    "Merge the new motion,24frame transforms and motionDurations.wallow. Do not replace/remove the existing seven base clips or grazing/drinking work.",
+    "Use the frame's hoof/sternal/flank ground anchor and row-specific standing-scale calibration. Do not anchor a rolled pig to raised hooves or enlarge a lying pig to standing height.",
+    "Columns3/4 visibly change the body view only as an intentional roll. Never mutate core facing or choose a different direction row midway through the cue; final column6 restores the original nominal row heading.",
+    "The presentation neither grants armor nor creates mud/water. Keep actual coating, rainfall wash and100TU logic in the existing core action. No new item UID or light source is introduced."
+  ],
+  "notClaimed": ["Main-game action linkage","MotionName integration","Actual mud coating/rainwash simulation acceptance","Main-game occlusion or animation-speed acceptance","Build/World/release acceptance"]
+}

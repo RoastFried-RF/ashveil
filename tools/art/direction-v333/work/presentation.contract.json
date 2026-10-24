@@ -1,0 +1,20 @@
+{
+  "schema": "ashveil-wildlife-work-presentation-contract-1",
+  "status": "proposal-only-not-read-by-current-renderer",
+  "workCycleMs": {"av331_ashhorn_stag": 1800, "av331_tuskhog": 1900},
+  "sourceInspection": {
+    "CharDef": "src/client/render/atlas.ts currently has no per-motion duration override",
+    "defaultWork": "src/client/render/character-motion.ts motionDurations.work is1000ms",
+    "loopPhase": "MapRenderer uses activityTime/(medical.cycle ?? motionDurations[mode]); a wildlife presentation cycle or a generic validated per-motion override must be read here"
+  },
+  "requiredIntegration": [
+    "Route actual successful/ongoing grazing, fruit mouthing and drinking observations to work. A pose timer alone must never consume food/water or advance world time.",
+    "Use the species presentation cycle1.8/1.9seconds while its actual original actor stays on the original tile. Keep game100TU and resource yield/UID rules unchanged.",
+    "Interrupt when moving, hurt, fleeing, attacking, incapacitated, asleep or dead; stale work must not resume after the threat. Existing pose priorities and clear-on-move rules should be retained.",
+    "Preserve existing seven clips, gait, shadows, size and all base frameTransforms. The extension contains32new work source regions only.",
+    "Use original frameTransforms for the four front-view work poses. A lowered muzzle projects slightly below the real feet; anchoring to the lowest opaque muzzle pixel would incorrectly float the hooves.",
+    "These poses contain no permanent food, berry, water or bowl prop. Display a resource/prop only when the real observed action and resource exist; never assign a human held weapon.",
+    "Draw the actor's original body on existing foot-depth ordering; antlers and tusks are anatomy, not new item instances or light sources."
+  ],
+  "notClaimed": ["Main-game activity/policy linkage", "Renderer cycle override implemented", "Diagonal movement or game-speed acceptance", "Additional hunting-product icons", "Release activation"]
+}

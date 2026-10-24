@@ -22,6 +22,8 @@ export interface CharDef {
   /** Draw this body's real main/off items separately; its artwork has no assumed weapon. */
   heldItems?:boolean
   gait?:{walk:number;crouchWalk:number}
+  /** Per-model presentation loop lengths; never changes simulation TU. */
+  motionDurations?:Partial<Record<MotionName,number>>
   /** Separately authored portrait frame; full-body idle is the fallback. */
   portrait?:string
   /** Immutable generated atlases may use different crop sizes; each pose keeps its foot pivot. */

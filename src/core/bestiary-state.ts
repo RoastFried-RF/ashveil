@@ -70,6 +70,7 @@ export function bestiaryDetails(w:World,id:string,observer=player(w)):string[] {
  {const range=bestiaryRange(w,observer,referenceSpecimen(w,id,observer).blood,stage)!;lines.push(`혈액 ${range[0]===range[1]?range[0]:`약 ${range[0]}~${range[1]}`}ml`)}
  lines.push(`이동 ${def.moveTU<100?'빠름':def.moveTU>100?'느림':'보통'}`)
  if(def.naturalAttack)lines.push(`공격 수단: ${def.naturalAttack.label}${stage>=2?` · ${ {cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상',gunshot:'총상'}[def.naturalAttack.damageType]}`:''}`)
+ if(stage>=2)for(const attack of def.naturalAttacks??(def.naturalAttack?[def.naturalAttack]:[]))if(attack.partWeights){const labels:Record<string,string>={head:'머리',torso:'몸통',larm:'왼팔',rarm:'오른팔',lleg:'왼다리',rleg:'오른다리',neck:'목'};lines.push(`${attack.label} 부위 가중: ${Object.entries(attack.partWeights).map(([key,value])=>`${labels[key]} ×${value}`).join(' · ')}`)}
  if(stage>=2 && def.damageTaken){const weak=Object.entries(def.damageTaken).filter(([,n])=>n>1).map(([kind])=>({cut:'베기',stab:'찌르기',blunt:'타격',bite:'물기',burn:'화상',gunshot:'총상'})[kind as import('./types').DamageType]);if(weak.length)lines.push(`약점 피해: ${weak.join(', ')}`)}
  lines.push(...(def.bestiary??[]).slice(0,Math.min(3,stage)))
  if(stage>=4)lines.push(...entry?.facts??[])

@@ -7,7 +7,7 @@ import {cropArt} from './crop-art'
 import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 import {spritePixelHit} from './sprite-hit'
-import {advancePose,clearPoses,createPoseClock,motionDurations,poseDuration,poseFrame,requestPose,type MotionName,type PoseClock} from './character-motion'
+import {advancePose,clearPoses,createPoseClock,motionDurations,poseDuration,poseFrame,posePriority,requestPose,type MotionName,type PoseClock,type PoseCue} from './character-motion'
 import {attackBodyPhase,attackDuration,attackStyle,actionStage,equipmentSpec,equipmentTipReach,heldPose,supportHand,type HeldEquipment,type EquipmentAction} from './equipment-motion'
 import {activityMotion,takeActionPresentations} from './action-presentation'
 import {isMedicalActivity,medicalPresentation,medicalPropAngle,type MedicalPresentation} from './medical-presentation'
@@ -32,6 +32,7 @@ export const T = 16
 type MedicalGrip={point:number[];color:number}
 const medicalGrips=medicalGripData.frames as Record<string,{main:MedicalGrip|null;off:MedicalGrip|null}>
 const heldGrips=heldGripData.frames as Record<string,{main:MedicalGrip|null;off:MedicalGrip|null}>
+const sceneKey=(w:World)=>(w.s.overworld?.currentRegion??'local')+':'+w.s.map.id
 
 const FONT: TextStyleOptions = {
   fontFamily: '"Gowun Batang", "Noto Serif KR", serif',
@@ -50,6 +51,7 @@ interface CView {
   medicalItems:[Sprite,Sprite]
   medical:MedicalPresentation|null
   pose:PoseClock
+  arrivingPose:{cue:PoseCue;pos:Pos;map:string;direction:Dir;continuous:boolean}|null
   poseName:MotionName
   poseFrame:string
   poseDirection:Dir
@@ -255,7 +257,12 @@ export class MapRenderer {
       if(!view?.root.visible||!view.alive||view.prone)continue
       if(cue.direction)view.dir=cue.direction
       if(cue.kind==='throw'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='throw'){view.pose.current.prop=cue.prop;continue}
-      requestPose(view.pose,cue.kind,cue.prop)
+      const duration=view.char?.motionDurations?.[cue.kind]
+      if(preferences.animationSpeed!==0&&walking(view.motion)&&['work','use','interact','wallow'].includes(cue.kind)){
+        if(view.pose.current&&posePriority(cue.kind)<posePriority(view.pose.current.kind))continue
+        const actor=w.s.creatures.find(c=>c.id===cue.actor)!
+        view.arrivingPose={cue:{kind:cue.kind,elapsed:0,prop:cue.prop,duration},pos:{...actor.pos},map:sceneKey(w),direction:cue.direction??DIR_OF_FACING[actor.facing]??view.dir,continuous:cue.kind==='work'&&activityMotion(actor.activity)==='work'}
+      }else requestPose(view.pose,cue.kind,cue.prop,{duration})
     }
     this.notifyPlayerMotion()
     this.drawOverlay()
@@ -718,7 +725,7 @@ export class MapRenderer {
     root.addChild(shadow,previousBody,body,gearEffects,...hands,...medicalItems,gripCovers,actionItem,bar,marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -748,10 +755,11 @@ export class MapRenderer {
       seen.add(c.id)
       v.root.visible = true
       const moves=w.s.fx.filter((e):e is Extract<FxEvent,{k:'move'}>=>e.k==='move'&&e.id===c.id)
-      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.transition=0}
+      if(v.arrivingPose&&(!c.alive||c.asleep||c.unconscious||sceneKey(w)!==v.arrivingPose.map||c.pos.x!==v.arrivingPose.pos.x||c.pos.y!==v.arrivingPose.pos.y))v.arrivingPose=null
+      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
       else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
       else observeWalk(v.motion,c.pos,moves)
-      if (c.alive) v.dir = DIR_OF_FACING[c.facing] ?? v.dir
+      if (c.alive&&v.pose.current?.kind!=='wallow') v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
       // New bodies contain no invented weapons. Display only the visible actor's real held items.
       for(const [index,slot]of (['main','off']as const).entries()){
@@ -770,7 +778,9 @@ export class MapRenderer {
       if(prone&&!v.prone){v.groundT=wasShown?0:1;clearPoses(v.pose)}
       if(!prone&&v.prone&&c.alive&&wasShown)requestPose(v.pose,'rise')
       v.prone=prone;v.asleep=!!c.asleep
-      const activity=activityMotion(c.activity);if(activity!==v.activity)v.activityTime=0;v.activity=activity
+      const activity=activityMotion(c.activity)
+      if(activity!==v.activity){v.activityTime=0;if(v.activity==='work'&&!activity&&v.pose.current?.kind==='work')clearPoses(v.pose)}
+      v.activity=activity
       v.guarding=c.ai.mode==='surrender'||!!hasEffect(c,'parryStance',turnOf(w))||!!hasEffect(c,'spearWall',turnOf(w))
       v.mechanical=!!c.body.machine
       v.limp = c.alive && Math.max(regionState(w, c, 'lleg'), regionState(w, c, 'rleg')) >= 3
@@ -867,6 +877,7 @@ export class MapRenderer {
 
   private handleFx(w: World, e: FxEvent, c: Creature, k: number) {
     const v = this.views.get(c.id) ?? (() => { const nv = this.makeView(w, c); this.views.set(c.id, nv); return nv })()
+    if(['attack','dmg','death','block','parry','deflect'].includes(e.k))v.arrivingPose=null
     const pl = player(w)
     switch (e.k) {
       case 'attack': {
@@ -881,7 +892,7 @@ export class MapRenderer {
         const weapon=item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined
         const equipment:EquipmentAction={style:attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
         v.attackT = mode==='attack'?0:-1
-        requestPose(v.pose,mode,undefined,{duration:attackDuration(equipment.style,weapon),equipment})
+        requestPose(v.pose,mode,undefined,{duration:v.char?.motionDurations?.[mode]??attackDuration(equipment.style,weapon),equipment})
         break
       }
       case 'dmg': {
@@ -1014,29 +1025,39 @@ export class MapRenderer {
     if(busy!==this.playerMoving){this.playerMoving=busy;this.onPlayerMotion(busy)}
   }
 
-  /** Local ?debug observation of the player's presentation only; never advances the world. */
+  /** Local ?debug presentation; actors are limited to visible, identified bodies. */
   presentation(){
     if(!this.w)return null
     const p=player(this.w),v=this.views.get(p.id)
     if(!v)return null
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
+    const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
+    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{medical,logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{actors,medical,logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
     const instant=preferences.animationSpeed===0
-    if (instant) { advanceWalk(v.motion,0,true);v.deadT=v.alive?-1:1;v.groundT=1;v.transition=0 }
+    if (instant) { advanceWalk(v.motion,0,true);v.arrivingPose=null;v.deadT=v.alive?-1:1;v.groundT=1;v.transition=0 }
     advancePose(v.pose,dt,instant)
     v.activityTime=instant?0:v.activityTime+dt
     advanceWalk(v.motion,dt,false,(v.crouched?v.char?.gait?.crouchWalk??motionDurations.crouchWalk:v.char?.gait?.walk??motionDurations.walk)/2)
     const p = this.viewPos(v)
     const moving = walking(v.motion)
+    if(v.arrivingPose&&!moving){
+      const pending=v.arrivingPose,actor=this.w?.s.creatures.find(c=>c.id===v.id);v.arrivingPose=null
+      if(v.alive&&!v.prone&&actor&&this.w&&sceneKey(this.w)===pending.map&&actor.pos.x===pending.pos.x&&actor.pos.y===pending.pos.y&&(!pending.continuous||activityMotion(actor.activity)==='work')){
+        v.dir=pending.direction;if(pending.continuous)v.activityTime=0
+        requestPose(v.pose,pending.cue.kind,pending.cue.prop,{duration:pending.cue.duration})
+      }
+    }
     if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/motionDurations.fall)}
     if(v.prone){clearPoses(v.pose);v.groundT=Math.min(1,v.groundT+dt/motionDurations.fall)}
-    if(moving&&v.pose.current&&['work','use','interact','rise','stand','crouchDown'].includes(v.pose.current.kind))clearPoses(v.pose)
-    if(!v.pose.current){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
+    if(moving&&v.pose.current&&['work','wallow','use','interact','rise','stand','crouchDown'].includes(v.pose.current.kind))clearPoses(v.pose)
+    const continuousWork=v.activity==='work'&&v.pose.current?.kind==='work'
+    if(!v.pose.current||continuousWork){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
     if(v.pose.current?.equipment){v.dir=v.pose.current.equipment.direction;v.attackVec=v.pose.current.equipment.vector}
     v.attackT=v.pose.current?.kind==='attack'?v.pose.current.elapsed/poseDuration(v.pose.current):-1
     let ox = 0, oy = 0
@@ -1057,9 +1078,9 @@ export class MapRenderer {
     if (ch) {
       if(!v.alive){mode='fall';phase=v.deadT}
       else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/motionDurations.sleep:v.groundT}
-      else if(v.pose.current&&!(v.medical&&v.pose.current.kind==='work')){mode=v.pose.current.kind;phase=v.pose.current.elapsed/poseDuration(v.pose.current)}
+      else if(v.pose.current&&!continuousWork){mode=v.pose.current.kind;phase=v.pose.current.elapsed/poseDuration(v.pose.current)}
       else if(moving){mode=v.crouched?'crouchWalk':'walk';phase=v.motion.stride/2;loop=true}
-      else if(v.activity&&v.activity!=='walk'&&v.activity!=='idle'&&v.activity!=='sleep'){mode=v.activity;phase=mode==='shoot'?.34:v.activityTime/(v.medical?.cycle??motionDurations[mode]);loop=mode!=='shoot'}
+      else if(v.activity&&v.activity!=='walk'&&v.activity!=='idle'&&v.activity!=='sleep'){mode=v.activity;phase=mode==='shoot'?.34:v.activityTime/(v.medical?.cycle??ch.motionDurations?.[mode]??motionDurations[mode]);loop=mode!=='shoot'}
       else if(v.guarding){mode='block';phase=.34}
       else if(v.crouched){mode='crouchWalk';phase=0}
       else{phase=instant?0:(this.time+(v.id*37)%1000)/motionDurations.idle;loop=true}
@@ -1068,7 +1089,7 @@ export class MapRenderer {
       const frames=clip(mode)??(mode==='crouchWalk'?clip('walk'):['shoot','throw'].includes(mode)?clip('attack'):undefined)??ch.idle[v.dir]
       const frame=frames[poseFrame(frames.length,mode==='attack'?attackBodyPhase(phase):phase,loop)]
       // Blend only a state/facing transition. Each gait pose stays crisp and singular.
-      const hasCue=!!v.pose.current&&!(v.medical&&v.pose.current.kind==='work')
+      const hasCue=!!v.pose.current&&!continuousWork
       if(!instant&&v.poseFrame&&(v.poseName!==mode||v.poseDirection!==v.dir||v.poseWasCue!==hasCue)){
         v.previousBody.texture=v.body.texture;v.previousBody.anchor.copyFrom(v.body.anchor);v.previousBody.scale.copyFrom(v.body.scale);v.previousBody.position.copyFrom(v.body.position);v.previousBody.rotation=v.body.rotation;v.transition=120
       }

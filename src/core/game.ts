@@ -1,4 +1,5 @@
 import {urgentCompanionAid} from './companion-aid'
+import {wildlifeTick} from './wildlife'
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import { IMPRINT_MODE, saveModeDef } from './save-modes'
 import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
@@ -352,6 +353,7 @@ function globalTurnTick(w: World) {
     prostheticTick(w, c)
     growthTick(w, c)
     needsTick(w, c, sleeping)
+    wildlifeTick(w,c)
     diseaseTick(w, c, sleeping)
     aquaticTick(w,c)
     inhalationTick(w,c)

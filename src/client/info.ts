@@ -122,6 +122,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if (d.attacks?.length) {
     const a = d.attacks[0]
     lines.push(`계열 ${SKILL_LABEL[a.family] ?? a.family}${a.reach ? ` · 리치 ${a.reach}` : ''}${a.bleedMult ? ` · 출혈 ×${a.bleedMult}` : ''}${a.stunD ? ` · 머리 기절 판정 D+${a.stunD}` : ''}${a.shortBlade ? ' · 잠든 대상 첫 타 ×2' : ''}`)
+    if(a.partWeights)lines.push(`부위 가중: ${Object.entries(a.partWeights).map(([key,value])=>`${REGION_LABEL[key]??key} ×${value}`).join(' · ')}`)
   }
   if (d.weapon) lines.push(`막기치 ${d.weapon.block} · 받아넘기기치 ${d.weapon.parry > 0 ? '+' : ''}${d.weapon.parry}`)
   if (it?.edge !== undefined && !d.ranged) lines.push(`날 상태 ${Math.round(it.edge)}% (피해 ×${((60 + it.edge * 0.4) / 100).toFixed(2)})`)

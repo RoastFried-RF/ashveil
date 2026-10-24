@@ -9,6 +9,7 @@ import {rememberLifeEvent} from './life-memories'
 import {relicAppraisal} from './prosthetics'
 import type {RngStream} from './rng'
 import {gatherSeasonError,gatherSignature,gatherFireError} from './gather-state'
+import {finishAnimalBrowse} from './wildlife'
 import {boiledMealQuote,consumeMealWater} from './boiled-meal'
 import {batchStatus,preservationError,preservationSignature} from './preservation-state'
 import {preparePreservation} from './preservation'
@@ -320,6 +321,7 @@ export function finishGather(w: World, c: Creature) {
   if (!def || cultivationHarvestError(w,p) || gatherFireError(w,p) || gatherSeasonError(w,terrainAt(w,p)) || (tileAt(w, p).gatherAt ?? 0) > turnOf(w)) return
   const fertility=def.soilDependent?towerSoilFertility(w):1
   if(fertility<=0)return
+  if(c.activity?.animalForage){finishAnimalBrowse(w,c,p,fertility);return}
   dirtyHands(w, c)
   // 직접 먹지 않는 실제 재배 곡물도 관수에서 옮은 오염을 조리 재료까지 보존한다.
   const contamination=tileAt(w,p).cultivation||w.db.item(def.item).food?cropHarvestContaminants(w,p,def.count):{}

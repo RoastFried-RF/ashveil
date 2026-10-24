@@ -1,4 +1,5 @@
 import {crouched,crouchRule} from './posture'
+import {wildlifeMudArmor} from './wildlife'
 import {projectileFletching} from './ranged'
 import {runScriptHooks} from './script-hooks'
 import {cancelRansom} from './ransom'
@@ -295,7 +296,7 @@ const REGION_ORDER: Region[] = ['head', 'torso', 'rarm', 'larm', 'rleg', 'lleg']
 
 export interface PartPick { part: BodyPartDef; lines: string[] }
 
-export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: AbilityAttackMods; shieldFailed?: boolean; sneak?: boolean } = {}): PartPick {
+export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: AbilityAttackMods; attack?:AttackDef; shieldFailed?: boolean; sneak?: boolean } = {}): PartPick {
   const r = rng(w, 'combat')
   const bdef = bodyDef(w, d)
   const side = w.db.creature(d.def).noBack ? undefined : sideOf(d, a.pos)
@@ -318,6 +319,8 @@ export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: Abil
       m *= pw[p.region] ?? 1
       if (p.id === 'Neck' && pw.neck) m *= pw.neck
     }
+    const innate=opts.attack?.partWeights
+    if(innate){m*=innate[p.region]??1;if(p.id==='Neck')m*=innate.neck??1}
     return Math.round((p.coverage ?? 0) * m)
   })
   const total = weights.reduce((s, v) => s + v, 0)
@@ -523,7 +526,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   }
 
   // 3 부위
-  const pk = forcedPart ? { part: part(w, d, forcedPart), lines: [`부위: ${part(w, d, forcedPart).label}(방패 팔)`] } : pickPart(w, a, d, { mods, shieldFailed, sneak })
+  const pk = forcedPart ? { part: part(w, d, forcedPart), lines: [`부위: ${part(w, d, forcedPart).label}(방패 팔)`] } : pickPart(w, a, d, { mods,attack:atk,shieldFailed,sneak })
   const pd = pk.part
   detail.push(...pk.lines)
 
@@ -535,6 +538,8 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
     .map(({ it, def }) => ({ label: def.label, armor: def.apparel!.armor, it, max: Math.floor(def.apparel!.durability * qualityInfo(it).dur) }))
   const nat = w.db.creature(d.def).naturalArmor
   if (nat) layers.push({ label: '자연 방어', armor: nat, max: 0 })
+  const mud=wildlifeMudArmor(w,d)
+  if(mud)layers.push({label:'진흙 껍질',armor:mud,max:0})
   const crumple = traitAdd(w, a, 'deflectHalf') > 0
   const hitItems: ItemInst[] = []
   let contactLoss = 1

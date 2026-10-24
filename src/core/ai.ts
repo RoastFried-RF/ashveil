@@ -1,4 +1,5 @@
 import {firearmReady,firearmSupply} from './firearms'
+import {decideWildlife} from './wildlife'
 import {throwQuote} from './throwing'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
@@ -258,7 +259,7 @@ function sidestep(w: World, c: Creature, dest: Pos): Action | null {
   return best && best.score <= cheb(c.pos, dest) ? { type: 'move', dir: best.dir } : null
 }
 
-function stepAway(w: World, c: Creature, threats: Creature[]): Action | null {
+function stepAway(w: World, c: Creature, threats: {pos:Pos}[]): Action | null {
   let best: { dir: number; score: number } | null = null
   for (let i = 0; i < 8; i++) {
     const d = DIRS[i]
@@ -369,7 +370,7 @@ function fleeDest(w: World, c: Creature): Pos | undefined {
 
 export function aiDecide(w:World,c:Creature):Action{
   const action=decideAction(w,c)
-  return action.type==='wait'&&!activeEscort(w,c)?npcCareAction(w,c)??residentCultivationAction(w,c)??npcSocialAction(w,c)??action:action
+  return action.type==='wait'&&!w.db.creature(c.def).wildlife&&!activeEscort(w,c)?npcCareAction(w,c)??residentCultivationAction(w,c)??npcSocialAction(w,c)??action:action
 }
 function decideAction(w: World, c: Creature): Action {
   observeNpcPrisoners(w,c)
@@ -380,6 +381,8 @@ function decideAction(w: World, c: Creature): Action {
   if(c.roadRaid&&!c.captivity&&!c.companion&&c.needs.kcal>300&&c.needs.waterDeficit<500&&c.needs.fatigue<90){const decision=worldRaidDecision(w,c);if(decision?.loot)return{type:'worldRaidLoot'};if(!visibleHostiles(w,c).length)return decision?.goal?stepToward(w,c,decision.goal)??{type:'wait'}:{type:'wait'}}
   if(c.caravan&&!c.captivity&&!c.companion&&!visibleHostiles(w,c).length){const exit=caravanExitFor(w,c);return exit?stepToward(w,c,exit)??{type:'wait'}:{type:'wait'}}
   if(machineRules(w,c))return machineDecision(w,c)
+  const wildlife=w.db.creature(c.def).wildlife
+  if(wildlife)return decideWildlife(w,c,wildlife,{toward:p=>stepToward(w,c,p),away:threats=>stepAway(w,c,threats),ability:(target,threats)=>chooseAbility(w,c,target,threats)})
   const r = rng(w, 'ai')
   const cdef = w.db.creature(c.def)
   const turn = turnOf(w)

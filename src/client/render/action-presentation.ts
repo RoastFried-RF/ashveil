@@ -28,7 +28,7 @@ export function takeActionPresentations(w:World,resolvedAttacks:ReadonlySet<numb
   if(kind==='attack'&&resolvedAttacks.has(actor.id))continue
   const dx=observation.target?observation.target.x-actor.pos.x:0,dy=observation.target?observation.target.y-actor.pos.y:0
   const direction:Dir|undefined=dx>0?'right':dx<0?'left':dy<0?'up':dy>0?'down':undefined
-  latest.set(actor.id,{actor:actor.id,kind,direction,prop:observation.item?itemDef(w,observation.item).sprite:undefined})
+  latest.set(actor.id,{actor:actor.id,kind,direction,prop:observation.item&&!w.db.creature(actor.def).wildlife?itemDef(w,observation.item).sprite:undefined})
  }
  return[...latest.values()]
 }

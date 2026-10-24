@@ -92,4 +92,4 @@ export class Rng {
 }
 
 export const RNG_STREAMS = ['world', 'combat', 'loot', 'story', 'ai', 'body'] as const
-export type RngStream = (typeof RNG_STREAMS)[number] | `mod.${string}` | `world.${string}` | `body.${string}` | `items.${string}` | `cooking.${string}` | `fire.${string}`
+export type RngStream = (typeof RNG_STREAMS)[number] | `mod.${string}` | `world.${string}` | `body.${string}` | `items.${string}` | `cooking.${string}` | `fire.${string}` | `ai.${string}`

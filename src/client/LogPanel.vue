@@ -16,7 +16,7 @@ const entries = computed(() => {
   const n = big.value ? 120 : 40
   // 상세도 3단계 (12 §5): 간략 = 전투·위험만 / 표준 / 상세 = 판정 단계까지 펼침
   const lv = logLevel.value
-  return log.slice(-n).map((e, i) => ({ ...e, key: log.length - n + i }))
+  return log.slice(-n).map((e, i) => ({ ...e, key: Math.max(0,log.length - n) + i }))
     .filter((e) => lv !== 'brief' || e.kind === 'combat' || e.kind === 'danger' || e.kind === 'warn')
 })
 watch(version, async () => { await nextTick(); if (box.value) box.value.scrollTop = box.value.scrollHeight })
@@ -36,7 +36,7 @@ function toggle(k: number) {
       <button v-for="[k, l] in [['brief', '간략'], ['standard', '표준'], ['detail', '상세']]" :key="k" :class="logLevel === k ? 'text-amber-200' : 'hover:text-amber-200'" @click="logLevel = k as typeof logLevel">{{ l }}</button>
       <button class="hover:text-amber-200" @click="big = !big">{{ big ? '▾ 줄이기' : '▴ 늘리기' }}</button>
     </div>
-    <div ref="box" class="overflow-y-auto pr-1" :style="{ fontSize: preferences.logFontSize + 'px', lineHeight: 1.5 }" :class="big ? 'h-[46vh]' : 'h-[118px]'" data-testid="log">
+    <div ref="box" class="overflow-y-auto pr-1" :style="{ fontSize: preferences.logFontSize + 'px', lineHeight: 1.5 }" :class="big ? 'max-h-[46vh]' : 'max-h-[118px]'" data-testid="log">
       <div v-for="e in entries" :key="e.key">
         <div :class="[KIND_CLASS[e.kind], e.detail ? 'cursor-pointer hover:bg-white/5' : '']" @click="e.detail && toggle(e.key)">
           <span class="font-mono text-[0.83em] text-ash-500">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}
