@@ -27,6 +27,6 @@ if(!existsSync(baselinePath)){
 mkdirSync('public/artbook/motion',{recursive:true})
 const baseline=JSON.parse(readFileSync(baselinePath,'utf8'))
 for(const item of equipment){const f=current.frames[item.sprite];baseline.snapshot.frames[item.sprite]=f;baseline.snapshot.sheets[f[0]]=current.sheets[f[0]]}
-writeFileSync('public/artbook/motion/catalog.json',JSON.stringify({version:333,roles:plan.map(p=>p.id),motionNames,motionDurations,beforeDurations:baseline.durations,equipment,attackDurations:Object.fromEntries(equipment.map(item=>[item.id,attackDuration(item.style,item)])),before:baseline.snapshot,after:snapshot(current)},null,2)+'\n')
+writeFileSync('public/artbook/motion/catalog.json',JSON.stringify({version:336,roles:plan.map(p=>p.id),motionNames,motionDurations,beforeDurations:baseline.durations,equipment,attackDurations:Object.fromEntries(equipment.map(item=>[item.id,attackDuration(item.style,item)])),before:baseline.snapshot,after:snapshot(current)},null,2)+'\n')
 writeFileSync('public/artbook/motion/equipment-motion.js',ts.transpileModule(readFileSync('src/client/render/equipment-motion.ts','utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText)
 console.log('Motion comparison catalog exported')

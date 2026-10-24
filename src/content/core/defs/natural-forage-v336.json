@@ -1,0 +1,23 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.WildShadeRoots",
+    "parent": "Terrain.Earth",
+    "label": "야생 그늘뿌리 군락",
+    "description": "검은 잎 아래 둥근 식용 뿌리를 내리는 낮은 풀. 뜯긴 기부에서 원래 토양의 비옥도에 따라 다시 자란다.",
+    "sprites": [
+      "av336_wild_shade_root_mature0"
+    ],
+    "gather": {
+      "item": "Item.ShadeRoot",
+      "count": 2,
+      "turns": 12,
+      "regrowTurns": 28800,
+      "soilDependent": true
+    },
+    "visual": {
+      "sprite": "av336_wild_shade_root_mature0",
+      "scale": 0.038781163434903045
+    }
+  }
+]

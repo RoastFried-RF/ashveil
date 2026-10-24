@@ -1,4 +1,5 @@
 import {rememberVisiblePrisoners} from './prisoner-memory'
+import {observedGatherAvailable} from './gather-state'
 import {turnOf} from './ctx'
 import { weatherSight } from './climate-state'
 // 시야(재귀 그림자 투사)와 조명
@@ -186,7 +187,8 @@ export function updatePlayerVision(w: World, pl: Creature) {
         let contents=tile.observed?.contents
         const loot=w.s.loot
         if(pl.id===w.s.playerId&&loot?.kind==='cont'&&loot.pos.x===p.x&&loot.pos.y===p.y&&cheb(pl.pos,p)<=1&&tile.cont?.opened&&capacity(w,pl,'sight')>=.2&&lightLevel(w,pl.pos)<2)contents={at:observedAt,terrain:tile.t,items:tile.cont.items.map(it=>({uid:it.uid,def:it.def,count:it.count}))}
-        tile.observed={terrain:tile.t,at:observedAt,...(tile.device?{device:{uid:tile.device.uid,def:tile.device.def,completed:[...tile.device.completed]}}:{}),...(contents?{contents}:{})}
+        const gatherAvailable=observedGatherAvailable(w,p)
+        tile.observed={terrain:tile.t,at:observedAt,...(gatherAvailable!==undefined?{gatherAvailable}:{}),...(tile.device?{device:{uid:tile.device.uid,def:tile.device.def,completed:[...tile.device.completed]}}:{}),...(contents?{contents}:{})}
       }
     }
   }

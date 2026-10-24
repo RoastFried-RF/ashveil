@@ -233,7 +233,7 @@ async function cont(token?:string) {
       <ChroniclePanel :entries="chron" />
 
       <footer class="title-footer">
-        ASHVEIL · v0.333-dev · 잿빛 숲<br />
+        ASHVEIL · v0.336-dev · 잿빛 숲<br />
         <a class="underline" :href="`${publicBase}artbook/`" target="_blank" rel="noopener">캐릭터·물품 원화 도감</a><br />
         <a class="underline" :href="`${publicBase}artbook/motion/`" target="_blank" rel="noopener">캐릭터 동작 전후 비교</a> · <a class="underline" :href="`${publicBase}artbook/comparison/`" target="_blank" rel="noopener">인물·지형 비교</a><br />
         <a class="underline" :href="`${publicBase}artbook/medical/`" target="_blank" rel="noopener">처치 자세·손·도구 검토</a><br />

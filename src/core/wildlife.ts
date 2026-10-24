@@ -104,7 +104,7 @@ export function decideWildlife(w:World,c:Creature,rule:WildlifeRules,nav:Navigat
   const state=c.wildlifeState??={},fresh=state.threatId!==target.id||turn-(state.lastThreatAt??-1e9)>(rule.rut?.memoryTurns??20)
   if(fresh){state.threatId=target.id;state.rutAggressive=!!rule.rut&&calendar(w).season.id===rule.rut.season&&random.chance(rule.rut.chance)}
   state.lastThreatAt=turn;c.ai.target=target.id;c.ai.lastSeen={...target.pos};c.ai.path=undefined
-  if(rule.kind==='timidHerbivore'&&!state.rutAggressive){c.ai.mode='flee';const away=nav.away(threats);if(away?.type==='move'){const d=DIRS[away.dir],to={x:c.pos.x+d.x,y:c.pos.y+d.y};if(threats.every(t=>cheb(to,t.pos)>=cheb(c.pos,t.pos)))return away}return canReach(w,c,target)&&meleeWield(w,c)?{type:'attack',target:target.id}:{type:'wait'}}
+  if(rule.kind==='timidHerbivore'&&!state.rutAggressive){c.ai.mode='flee';const away=nav.away(threats);if(away?.type==='move'){const d=DIRS[away.dir],to={x:c.pos.x+d.x,y:c.pos.y+d.y};if(threats.every(t=>cheb(to,t.pos)>=cheb(c.pos,t.pos)))return away}if(canReach(w,c,target)&&meleeWield(w,c)){c.ai.mode='hunt';return{type:'attack',target:target.id}}return{type:'wait'}}
   c.ai.mode='hunt'
   const injury=c.body.wounds.reduce((sum,wd)=>sum+Math.max(0,wd.severity-wd.healed),0)
   if(rule.kind==='stubbornForager'&&injury>0)c.ai.morale=Math.max(c.ai.morale,w.db.creature(c.def).morale+Math.min(30,injury*2))

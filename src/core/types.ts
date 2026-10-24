@@ -2467,7 +2467,7 @@ export interface Tile {
   combustionRemaining?:{family:string;remaining:number;total:number;placedUid?:number}
   terrainFire?:{id:number;sourceUid:number;family:string;startedAt:number;lastAt:number;remaining:number;total:number;placedUid?:number}
   fireWetUntil?:number
-  observed?:{terrain:string;at:number;device?:{uid:number;def:string;completed:string[]};contents?:{at:number;terrain:string;items:{uid:number;def:string;count:number}[]}}
+  observed?:{terrain:string;at:number;gatherAvailable?:boolean;device?:{uid:number;def:string;completed:string[]};contents?:{at:number;terrain:string;items:{uid:number;def:string;count:number}[]}}
   beddingLice?:BeddingLice
   beacon?:BeaconState
   device?:FieldDeviceState

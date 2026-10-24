@@ -65,8 +65,8 @@ describe('실제 밭작물·여름 열매와 유한 치즈',()=>{
  it('생감자/순무/치즈는 실제30/21/60일 신선 기간을 쓴다',()=>{
   const d=setup();for(const[def,days]of[['Item.RawPotato',30],['Item.Turnip',21],['Item.Cheese',60]]as const){const it=makeItem(d.w,def);ageFood(d.w,it,15,days*24*TURNS_PER_HOUR);expect(it.freshness).toBeCloseTo(0,12)}
  })
- it('실제 감자/순무 종자를 흙에 심고 성장 전 거절/원래5개 수확을 연결한다',()=>{
-  for(const[seed,plot,out]of[['Item.PotatoSeed','Terrain.PotatoPlot','Item.RawPotato'],['Item.TurnipSeed','Terrain.TurnipPlot','Item.Turnip']]as const){const d=setup(),it=d.add(seed),pos={x:20,y:19};expect(perform(d.w,d.p,{type:'place',uid:it.uid,dir:0}).ok).toBe(true);const tile=tileAt(d.w,pos);expect(tile.t).toBe(plot);expect(startGather(d.w,d.p,pos,1)).not.toBeNull();d.s.time=tile.gatherAt!*100;expect(startGather(d.w,d.p,pos,1)).toBeNull();finishBase(d.w,d.p);expect(d.p.bag.filter(i=>i.def===out).reduce((n,i)=>n+i.count,0)).toBe(5)}
+ it('실제 감자/순무 종자는 원래 성장 상태를 남기며 시계 점프만으로 성숙하지 않는다',()=>{
+  for(const[seed,plot,out]of[['Item.PotatoSeed','Terrain.PotatoPlot','Item.RawPotato'],['Item.TurnipSeed','Terrain.TurnipPlot','Item.Turnip']]as const){const d=setup(),it=d.add(seed),pos={x:20,y:19};expect(perform(d.w,d.p,{type:'place',uid:it.uid,dir:0}).ok).toBe(true);const tile=tileAt(d.w,pos);expect(tile.t).toBe(plot);expect(tile.cultivation).toMatchObject({seedUid:it.uid,growth:0});expect(tile.gatherAt).toBeUndefined();expect(startGather(d.w,d.p,pos,1)).not.toBeNull();d.s.time+=d.w.db.terrain(plot).gather!.regrowTurns*100;expect(startGather(d.w,d.p,pos,1)).not.toBeNull();expect(d.p.bag.some(i=>i.def===out)).toBe(false)}
  })
  it('돌바닥에는 실제 종자를 잃지 않고 심기를 거절한다',()=>{
   const d=setup(),it=d.add('Item.PotatoSeed'),pos={x:20,y:19};tileAt(d.w,pos).t='Terrain.KtFloor';const hash=stateHash(d.s);expect(perform(d.w,d.p,{type:'place',uid:it.uid,dir:0}).ok).toBe(false);expect(stateHash(d.s)).toBe(hash)

@@ -4,6 +4,7 @@ import {groundObjectArt,isGroundCrop} from './terrain-art'
 import {treeArt} from './forest-art'
 import {livingTreeArt} from './living-art'
 import {cropArt} from './crop-art'
+import {forageArt} from './forage-art'
 import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 import {spritePixelHit} from './sprite-hit'
@@ -140,6 +141,7 @@ export class MapRenderer {
   private displayVisible:ReadonlySet<number>=new Set()
   private staticFogProps:{index:number;sprite:Sprite}[]=[]
   private dynamicFogProps:{index:number;sprite:Sprite}[]=[]
+  private forageViews:{pos:Pos;terrain:string;frame:string;state:string;variant:number;scale:number;visible:boolean;observedAt?:number}[]=[]
   private fixedLevels=new Float32Array()
   private fixedGlow=new Uint8ClampedArray()
   private lightMasks=new Map<string,Uint8Array>()
@@ -493,6 +495,7 @@ export class MapRenderer {
 
   private buildDynamic(w: World) {
     this.dynamicFogProps=[]
+    this.forageViews=[]
     this.dynamicAnimated=[]
     this.clear(this.dyn)
     for (const ch of [...this.objs.children]) if (ch.label === 'dyn') { this.objs.removeChild(ch); ch.destroy() }
@@ -541,7 +544,7 @@ export class MapRenderer {
       if(tile.terrainFire&&vis.has(i)){const frames=animFrames('complete_fire'),flame=new Sprite(frames[0]);flame.anchor.set(.5,1);flame.position.set(px+T/2,py+T);flame.zIndex=py+T+.25;flame.label='dyn';this.objs.addChild(flame);this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})}
       if(tile.cropResidue&&vis.has(i)){const residue=new Sprite(tex('av_soil_residue_v315'));residue.width=T;residue.height=T;residue.position.set(px,py);this.dyn.addChild(residue)}
       let s: Sprite | null = null
-      const crop=cropArt(terr,tile,vis.has(i),turnOf(w))
+      const forage=forageArt(terr,tile),crop=cropArt(terr,tile,vis.has(i),turnOf(w))
       const groundArt=groundObjectArt(terr,!!tile.searched)
       if (terr.bedding) {
         const bed = new Sprite(tex(groundArt!));bed.position.set(px,py)
@@ -553,7 +556,10 @@ export class MapRenderer {
           this.dynamicAnimated.push({s:flame,frames,fps:7,phase:h%3,flame:true})
         }
       }
-      if(crop){
+      if(forage){
+        s=new Sprite(tex(forage.sprite));s.anchor.set(...forage.anchor);s.position.set(px+T/2,py+T);s.scale.set(forage.scale)
+        this.forageViews.push({pos:{x,y},terrain:terr.id,frame:forage.sprite,state:forage.state,variant:forage.variant,scale:forage.scale,visible:vis.has(i),observedAt:tile.observed?.terrain===terr.id?tile.observed.at:undefined})
+      }else if(crop){
         const texture=tex(crop.sprite);s=new Sprite(texture);s.anchor.set(.5,1);s.position.set(px+T/2,py+T);s.scale.set(crop.worldHeight/texture.height)
       } else if (groundArt&&!terr.bedding) {
         s=new Sprite(tex(groundArt));s.anchor.set(.5,1);s.position.set(px+T/2,py+T)
@@ -1035,7 +1041,7 @@ export class MapRenderer {
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
     const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{actors,medical,logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{actors,medical,forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {

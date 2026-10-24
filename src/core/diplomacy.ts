@@ -39,6 +39,10 @@ export function hostile(w: World, a: Creature, b: Creature): boolean {
   const af=effectiveFaction(w,a),bf=effectiveFaction(w,b)
   if (a.id === b.id || af===bf) return false
   if (a.attackedBy?.includes(b.id) || b.attackedBy?.includes(a.id)) return true
+  // Healthy, unprovoked prey flees humans. It is not a combat interruption merely
+  // because its nonpolitical animal grouping differs from the observer's faction.
+  const unthreateningPrey=(animal:Creature,other:Creature)=>w.db.creature(animal.def).wildlife?.kind==='timidHerbivore'&&w.db.body(other.body.def).kind==='humanoid'&&animal.ai.mode!=='hunt'
+  if(unthreateningPrey(a,b)||unthreateningPrey(b,a))return false
   const gardenAlert=towerGardenAlert(w)
   if(a.body.machine&&Math.max(a.body.machine.alert??0,gardenAlert)<2||b.body.machine&&Math.max(b.body.machine.alert??0,gardenAlert)<2)return false
   if(a.mercy?.faction===bf&&turnOf(w)<a.mercy.until||b.mercy?.faction===af&&turnOf(w)<b.mercy.until)return false
@@ -127,6 +131,7 @@ export function witnessPropertyCrime(w:World,actor:Creature,pos:Pos,key:string,t
 /** 공격 시도도 목격되는 사건이다. 피해자는 살아 있으면 자기 방어를 한다. */
 export function witnessAttack(w: World, actor: Creature, victim: Creature, murder = false) {
   witnessKinship(w,actor,victim,murder)
+  if(!murder&&actor.id!==victim.id&&w.db.creature(victim.def).wildlife&&!victim.attackedBy?.includes(actor.id))(victim.attackedBy??=[]).push(actor.id)
   const m = w.s.overworld, faction = factionDef(w, victim.faction)
   if(!m)return
   if(actor.id!==w.s.playerId&&!isCompanion(w,actor)){witnessSettlementRaid(w,actor,victim,murder);return}

@@ -1,0 +1,21 @@
+{
+  "schema": "ashveil-wild-forage-state-contract-1",
+  "active": false,
+  "purpose": "Matched original mature/spent natural clump artwork only; parent implements actual gatherAt/memory/regrowth linkage.",
+  "authoringObservations": {
+    "shadeRoot": "Item.ShadeRoot describes round edible root of a black-leaf low-light plant. Terrain.ShadePlot is an actual cultivated plot and uses cropArt av_crop_shade stages ahead of groundObjectArt complete_crop_shade and Def visual mushrooms.",
+    "ashBerry": "Item.AshBerry/Terrain.AshBerryBush use real summer eligibility and original regrow clock; current visual has one original bush sprite and may shrink it for depletion."
+  },
+  "requiredStateRules": [
+    "Apply these families only to the parent's intended natural forage terrain/source. Do not globally overwrite cultivated ShadePlot growth stages or soil/cultivation rules to make a wild clump.",
+    "Choose the state using the actual visible original source's availability and original gatherAt/cultivation/season rules. The picture never creates items, changes a clock, matures a plant or consumes food.",
+    "Keep the same original variant0..3across mature/spent/regrowth. Use existing stable tile/map identity; never draw RNG on rendering or swap to an unrelated crown on each visit.",
+    "Use the exact per-frame basal/root anchor and one sharedScale per matched pair. The spent crop is intentionally smaller because leaves/fruit/root food are gone; never independently fit spent to16px or apply the old extra0.6depletion shrink.",
+    "All leaves/fruit/root fibres are complete within source crop. Do not hide clipping with a small scale or recolor mature artwork as a fake spent state.",
+    "Unseen remembered cells keep the last legitimately observed state/variant. Do not recompute an off-screen plant from the current clock or expose harvest/regrowth changes through memory.",
+    "For a never observed field, use the game's existing fog/unknown handling. Do not infer an available mature source from an unknown icon.",
+    "Only actual parent Core transitions can return the same original source from spent to mature. No renderer timer, page reload, map reentry or animation allocates fresh harvest stock.",
+    "The metadata describes a16world-pixel logical footprint with maximum14pxwidth/12pxheight. It does not change collision, cover, sight, soil, movement, season, animal diet or resource yield."
+  ],
+  "notClaimed": ["Core gatherAt linkage", "Memory serialization implementation", "Regrowth acceptance", "Natural forage Def activation", "Main-game/World/build acceptance"]
+}

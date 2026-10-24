@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.333-dev·저장212**이다. 재뿔사슴·엄니돼지의 독자 몸체/동작과 실제 도주·섭식·진흙 방어·수렵 산물을 연결했다. [구현·제약](docs/wildlife-v333.md) · [동작 검토](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
+현재 개발 미리보기는 **v0.336-dev·저장212**이다. 재뿔사슴·엄니돼지의 실제 행동·수렵에 이어 자연 군락의 성숙/소진 원화와 마지막 관찰을 연결했다. [야생동물](docs/wildlife-v333.md) · [자연 군락·제약](docs/natural-forage-v336.md) · [동작 검토](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 
@@ -8,7 +8,7 @@ v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원�
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**현재 상태: 프로토타입 v0.312** · 저장206(205호환). 지상 밭의 실제 이탈 날씨·관수/증발·토양 정산을 연결했다. 전체348파일6,267개·월드30판·두 화면 실제16PNG/전체28쌍·복원10회 확인. 시야12/어둠6칸·각인/표석/탐구·울림 특성과 현재 원화를 지원한다. **v1.0.0까지 후속 확장 포함 개발 중**이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [재배/검증](docs/surface-cultivation-v312.md) · [검사 화면](docs/previews/v312-field-harvest.png) · [출시 기준](docs/v1-execution.md).
+**마지막 전체 회귀 완료: 프로토타입 v0.312** · 저장206(205호환). 지상 밭의 실제 이탈 날씨·관수/증발·토양 정산을 연결했다. 전체348파일6,267개·월드30판·두 화면 실제16PNG/전체28쌍·복원10회 확인. 시야12/어둠6칸·각인/표석/탐구·울림 특성과 현재 원화를 지원한다. **v1.0.0까지 후속 확장 포함 개발 중**이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [재배/검증](docs/surface-cultivation-v312.md) · [검사 화면](docs/previews/v312-field-harvest.png) · [출시 기준](docs/v1-execution.md).
 
 ## 현재 플레이할 수 있는 것
 

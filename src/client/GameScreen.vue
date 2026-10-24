@@ -321,14 +321,16 @@ function onClick(p: Pos, button: number, ctrl=false) {
   }
   stopTravel()
   const d = cheb(p, pl.pos)
-  if (c && c.id !== pl.id && hostile(ww, pl, c) && c.alive) {
+  if (c && c.id !== pl.id && (hostile(ww, pl, c)||ctrl) && c.alive) {
     const mw = mainWeapon(ww, pl)
     if (mw && itemDef(ww, mw).ranged && d > 1) doAct({ type: 'shoot', target: c.id })
     else if (canReach(ww, pl, c)) doAct({ type: 'attack', target: c.id })
+    else if(ctrl&&!hostile(ww,pl,c))hint.value='공격할 거리까지 다가가야 한다'
     else startTravel(p)
     return
   }
   if (c && c.id !== pl.id && c.alive && d <= 1) {
+    if(ww.db.creature(c.def).wildlife){hint.value='경계하는 야생동물이다. Ctrl+클릭으로 공격할 수 있다.';return}
     socialTarget.value = c.id
     if (!doAct({ type: 'talk', target: c.id })) setWin('society', true)
     return
@@ -428,6 +430,7 @@ onBeforeUnmount(() => {
       <div ref="helpDialog" class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
         <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">고원에서 살아남기</h2><button class="dbtn" aria-label="조작법 닫기" @click="help = false">닫기</button></div>
         <p>맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.</p>
+        <p>Ctrl+왼쪽 클릭은 사거리 안의 중립 대상도 의도해 공격한다. Ctrl+오른쪽 클릭은 그 방향을 바라본다.</p>
         <p>창에 초점이 있으면 방향키로 캐릭터가 움직이지 않는다. 지도를 클릭하면 이동 입력을 다시 받는다. Esc는 메뉴·끌기를 먼저 취소한다.</p>
         <p>Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.</p>
         <p>방향에 Ctrl을 더하면 제자리 회전, Shift를 더하면 밀친다. 접두 키를 쓴 뒤 방향을 골라도 된다.</p>

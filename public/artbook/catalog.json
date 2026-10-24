@@ -1,5 +1,5 @@
 {
-  "version": "0.333-dev",
+  "version": "0.336-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -10,14 +10,14 @@
     "crouchWalk": 1000,
     "stand": 240,
     "work": 1000,
+    "wallow": 2400,
     "use": 850,
     "fall": 520,
     "rise": 600,
     "sleep": 3600,
     "shoot": 500,
     "throw": 500,
-    "interact": 460,
-    "wallow": 2400
+    "interact": 460
   },
   "note": "독립 원화 미리보기. 실제 세계의 이동·장비·시야·발견 상태는 진행하지 않는다. 지형 정의와 전체 프레임에는 호환/기억/상태별 표현도 포함한다.",
   "sheets": {
@@ -337,7 +337,9 @@
     "av333_tuskhog_hurt_v2": "sprites/original/direction-v333/tuskhog-hurt-v2.png",
     "av333_ashhorn_stag_work_v1": "sprites/original/direction-v333/work/ashhorn-stag-work-v1.png",
     "av333_tuskhog_work_v2": "sprites/original/direction-v333/work/tuskhog-work-v2.png",
-    "av333_tuskhog_wallow_v2": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png"
+    "av333_tuskhog_wallow_v2": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png",
+    "av336_shade_root_clumps_v2": "sprites/original/direction-v336/forage/shade-root-clumps-v2.png",
+    "av336_ashberry_bushes_v2": "sprites/original/direction-v336/forage/ashberry-bushes-v2.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1607,6 +1609,14 @@
     "av333_tuskhog_wallow_v2": [
       1536,
       1024
+    ],
+    "av336_shade_root_clumps_v2": [
+      1774,
+      887
+    ],
+    "av336_ashberry_bushes_v2": [
+      1774,
+      887
     ]
   },
   "frames": {
@@ -54620,6 +54630,118 @@
       788,
       121,
       176
+    ],
+    "av336_wild_shade_root_mature0": [
+      "av336_shade_root_clumps_v2",
+      27,
+      141,
+      361,
+      288
+    ],
+    "av336_wild_shade_root_mature1": [
+      "av336_shade_root_clumps_v2",
+      486,
+      145,
+      359,
+      298
+    ],
+    "av336_wild_shade_root_mature2": [
+      "av336_shade_root_clumps_v2",
+      910,
+      171,
+      400,
+      260
+    ],
+    "av336_wild_shade_root_mature3": [
+      "av336_shade_root_clumps_v2",
+      1406,
+      173,
+      328,
+      266
+    ],
+    "av336_wild_shade_root_spent0": [
+      "av336_shade_root_clumps_v2",
+      114,
+      630,
+      239,
+      162
+    ],
+    "av336_wild_shade_root_spent1": [
+      "av336_shade_root_clumps_v2",
+      540,
+      624,
+      248,
+      178
+    ],
+    "av336_wild_shade_root_spent2": [
+      "av336_shade_root_clumps_v2",
+      965,
+      631,
+      284,
+      158
+    ],
+    "av336_wild_shade_root_spent3": [
+      "av336_shade_root_clumps_v2",
+      1440,
+      640,
+      222,
+      154
+    ],
+    "av336_wild_ashberry_mature0": [
+      "av336_ashberry_bushes_v2",
+      36,
+      193,
+      419,
+      265
+    ],
+    "av336_wild_ashberry_mature1": [
+      "av336_ashberry_bushes_v2",
+      493,
+      137,
+      384,
+      312
+    ],
+    "av336_wild_ashberry_mature2": [
+      "av336_ashberry_bushes_v2",
+      915,
+      213,
+      441,
+      237
+    ],
+    "av336_wild_ashberry_mature3": [
+      "av336_ashberry_bushes_v2",
+      1401,
+      196,
+      335,
+      254
+    ],
+    "av336_wild_ashberry_spent0": [
+      "av336_ashberry_bushes_v2",
+      44,
+      564,
+      402,
+      234
+    ],
+    "av336_wild_ashberry_spent1": [
+      "av336_ashberry_bushes_v2",
+      502,
+      522,
+      363,
+      276
+    ],
+    "av336_wild_ashberry_spent2": [
+      "av336_ashberry_bushes_v2",
+      915,
+      587,
+      421,
+      204
+    ],
+    "av336_wild_ashberry_spent3": [
+      "av336_ashberry_bushes_v2",
+      1427,
+      571,
+      301,
+      220
     ]
   },
   "characters": {
@@ -125190,6 +125312,12 @@
       "frame": "complete_leaking_conduit"
     },
     {
+      "id": "Terrain.WildShadeRoots",
+      "label": "야생 그늘뿌리 군락",
+      "kind": "terrain",
+      "frame": "av336_wild_shade_root_mature0"
+    },
+    {
       "id": "Terrain.OatPlot",
       "label": "귀리 밭",
       "kind": "terrain",
@@ -125217,7 +125345,7 @@
       "id": "Terrain.AshBerryBush",
       "label": "잿딸기 덤불",
       "kind": "terrain",
-      "frame": "original_ashberry_bush"
+      "frame": "av336_wild_ashberry_mature0"
     },
     {
       "id": "Terrain.ResidentDepot",
@@ -171106,6 +171234,102 @@
       "label": "av333_tuskhog_wallow_up5",
       "kind": "frames",
       "frame": "av333_tuskhog_wallow_up5"
+    },
+    {
+      "id": "av336_wild_shade_root_mature0",
+      "label": "av336_wild_shade_root_mature0",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_mature0"
+    },
+    {
+      "id": "av336_wild_shade_root_mature1",
+      "label": "av336_wild_shade_root_mature1",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_mature1"
+    },
+    {
+      "id": "av336_wild_shade_root_mature2",
+      "label": "av336_wild_shade_root_mature2",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_mature2"
+    },
+    {
+      "id": "av336_wild_shade_root_mature3",
+      "label": "av336_wild_shade_root_mature3",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_mature3"
+    },
+    {
+      "id": "av336_wild_shade_root_spent0",
+      "label": "av336_wild_shade_root_spent0",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_spent0"
+    },
+    {
+      "id": "av336_wild_shade_root_spent1",
+      "label": "av336_wild_shade_root_spent1",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_spent1"
+    },
+    {
+      "id": "av336_wild_shade_root_spent2",
+      "label": "av336_wild_shade_root_spent2",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_spent2"
+    },
+    {
+      "id": "av336_wild_shade_root_spent3",
+      "label": "av336_wild_shade_root_spent3",
+      "kind": "frames",
+      "frame": "av336_wild_shade_root_spent3"
+    },
+    {
+      "id": "av336_wild_ashberry_mature0",
+      "label": "av336_wild_ashberry_mature0",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_mature0"
+    },
+    {
+      "id": "av336_wild_ashberry_mature1",
+      "label": "av336_wild_ashberry_mature1",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_mature1"
+    },
+    {
+      "id": "av336_wild_ashberry_mature2",
+      "label": "av336_wild_ashberry_mature2",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_mature2"
+    },
+    {
+      "id": "av336_wild_ashberry_mature3",
+      "label": "av336_wild_ashberry_mature3",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_mature3"
+    },
+    {
+      "id": "av336_wild_ashberry_spent0",
+      "label": "av336_wild_ashberry_spent0",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_spent0"
+    },
+    {
+      "id": "av336_wild_ashberry_spent1",
+      "label": "av336_wild_ashberry_spent1",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_spent1"
+    },
+    {
+      "id": "av336_wild_ashberry_spent2",
+      "label": "av336_wild_ashberry_spent2",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_spent2"
+    },
+    {
+      "id": "av336_wild_ashberry_spent3",
+      "label": "av336_wild_ashberry_spent3",
+      "kind": "frames",
+      "frame": "av336_wild_ashberry_spent3"
     }
   ]
 }
