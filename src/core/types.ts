@@ -28,7 +28,8 @@ export interface SaveModeDef extends DefBase {
 
 export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn' | 'gunshot'
 export type ArmorCategory = 'sharp' | 'blunt' | 'heat'
-export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool' | 'peck' | 'flight' | 'signal'
+export const CAPACITIES=['consciousness','moving','manipulation','sight','hearing','breathing','bloodPumping','tool','peck','flight','signal','claw','bite']as const
+export type Capacity=typeof CAPACITIES[number]
 export type Height = 'low' | 'mid' | 'high'
 
 export interface BodyPartDef {
@@ -365,10 +366,12 @@ export interface ParasiteConfig {
 }
 export interface ParasiteAttachment {creature:Creature;part:string;attachedAt:number;fedMl:number}
 export interface WildlifeRules {
-  kind:'timidHerbivore'|'stubbornForager'|'scavengerBird'
+  kind:'timidHerbivore'|'stubbornForager'|'scavengerBird'|'territorialBear'
+  den?:{territoryRadius:number;warningRadius:number;warningTurns:number;hungryLeash:number;hungryBelow:number;springSeason:string;springDays:number;hibernateSeason:string;wakeSlowTurns:number;fleeBloodLoss:number;lureFoodIds:string[]}
   browse?:boolean
   browseCount?:number
   drinkMl?:number
+  carrionFoods?:string[]
   scavenging?:{followRadius:number;memoryTurns:number;circleRadius:number;fleeRadius:number;split:{source:string;piece:string;pieces:number}}
   foodIds:string[]
   threatRadius:number
@@ -1230,6 +1233,7 @@ export interface AbilityAttackMods {
 }
 
 export interface AbilityDef extends DefBase {
+  requiresCapacity?:Capacity
   defType: 'Ability'
   label: string
   description: string
@@ -2180,6 +2184,7 @@ export interface Activity {
   aidOrigin?:{actor:Pos;patient:Pos}
   surveyTarget?:number
   surveyRule?:string
+  seasonalSleep?:{season:string;startedAt:number}
   kind: 'survey' | 'rescueDrag' | 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
@@ -2252,7 +2257,7 @@ export interface Creature {
   carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
   surveyState?:{target?:number;progress:number;lastObservedAt?:number;nextReportAt:number;flashAt?:number;patrolIndex:number;lastInterrupted?:{at:number;progress:number;target:number}}
   flight?:{startedAt:number;landAt:number;origin:Pos}
-  wildlifeState?:{threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number;interest?:{id:number;pos:Pos;at:number;alive:boolean;unconscious:boolean}}
+  wildlifeState?:{denWarning?:{actor:number;progress:number;at:number};wakeSlowUntil?:number;threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number;interest?:{id:number;pos:Pos;at:number;alive:boolean;unconscious:boolean}}
   npcCareHistory?:NpcCareRecord[]
   npcIdentity?:NpcIdentity
   roadRaid?:string
@@ -2793,7 +2798,7 @@ export type FxEvent =
   | { k: 'dmg'; id: number; v: number; crit?: boolean; text?: string; turn: number }
   | { k: 'miss' | 'block' | 'parry' | 'deflect'; id: number; turn: number }
   | { k: 'status'; id: number; text: string; color: string; turn: number }
-  | { k: 'attack'; id: number; target: number; turn: number; ranged?:boolean;throwing?:boolean }
+  | { k: 'attack'; id: number; target: number; turn: number; ranged?:boolean;throwing?:boolean;mode?:string }
   | { k: 'move'; id: number; from: Pos; to: Pos; turn: number }
   | { k: 'death'; id: number; turn: number }
   | { k: 'level'; id: number; turn: number }

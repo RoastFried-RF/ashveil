@@ -11,6 +11,8 @@ export interface CharDef {
   walk: Record<Dir, string[]>
   idle: Record<Dir, string[]>
   attack?: Record<Dir, string[]>
+  /** Separately authored natural-attack originals, selected by the actual attack mode. */
+  attackVariants?:Record<string,Record<Dir,string[]>>
   anchor: [number, number]
   /** 공격 시트의 지면 기준. 걷기와 다른 크기의 프레임도 발 위치를 유지한다. */
   attackAnchor?: [number, number]

@@ -4,7 +4,7 @@ import type {Dir} from './atlas'
 export type WeaponKind='blade'|'greatblade'|'axe'|'club'|'hammer'|'polearm'|'staff'|'bow'|'crossbow'|'rifle'|'pistol'|'shield'|'torch'|'lantern'|'item'
 export type AttackStyle='slash'|'thrust'|'chop'|'smash'|'unarmed'|'shoot'|'throw'
 export interface HeldEquipment {id:string;uid?:number;sprite:string;kind:WeaponKind;grip:[number,number];axis:number;length:number;restAngle?:number;tipFraction?:number;twoHanded:boolean;lit:boolean}
-export interface EquipmentAction {style:AttackStyle;slot:0|1|null;weapon?:HeldEquipment;direction:Dir;vector:{x:number;y:number}}
+export interface EquipmentAction {naturalMode?:string;style:AttackStyle;slot:0|1|null;weapon?:HeldEquipment;direction:Dir;vector:{x:number;y:number}}
 const HALF_PI=Math.PI/2
 export function equipmentSpec(def:ItemDef,uid?:number,lit=false):HeldEquipment{
  const family=def.attacks?.[0]?.family??'',name=def.sprite.toLowerCase()

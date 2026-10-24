@@ -412,7 +412,7 @@ function genericCapacity(w: World, c: Creature, cap: string): number {
     total += cw * partEff(w, c, p.id) * (p.internal || p.capacities ? 1 : partHealth(w, c, p.id))
   }
   // A body without any manipulating anatomy does not acquire imaginary hands.
-  return weight > 0 ? total / weight : ['manipulation','flight','peck','signal'].includes(cap)?0:1
+  return weight > 0 ? total / weight : ['manipulation','tool','flight','peck','signal','claw','bite'].includes(cap)?0:1
 }
 
 export function capacity(w: World, c: Creature, cap: string): number {

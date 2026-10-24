@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.343-dev·저장212**이다. 현재 지도별 원본 이미지 선택 로딩·해제와 실패 재시도를 지원한다. [이미지 로딩·제약](docs/assets-v343.md). 숲 동물·까마귀에 이어 세 다리 측량기의 실제 관찰/보고·방어 섬광, 유한 회수 부품과 차광 고글의 제작/착용을 연결했다. [측량기·고글·제약](docs/surveyor-v340.md) · [까마귀·비행](docs/crow-v338.md) · [동작 도감](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
+현재 개발 미리보기는 **v0.348-dev·저장212**이다. 잿곰의 실제 경고/겨울잠·공격 방식, 사체/가죽 가공·기록 획득과144몸 영역/5아이콘을 연결했다. [잿곰 구현·한계](docs/bear-v348.md). 현재 지도별 원본 이미지 선택 로딩·해제와 실패 재시도를 지원한다. [이미지 로딩·제약](docs/assets-v343.md). 숲 동물·까마귀에 이어 세 다리 측량기의 실제 관찰/보고·방어 섬광, 유한 회수 부품과 차광 고글의 제작/착용을 연결했다. [측량기·고글·제약](docs/surveyor-v340.md) · [까마귀·비행](docs/crow-v338.md) · [동작 도감](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

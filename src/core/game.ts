@@ -1,3 +1,5 @@
+import {calendar} from './climate-state'
+import {seasonalActionTU} from './bear-state'
 import {urgentCompanionAid} from './companion-aid'
 import {wildlifeTick} from './wildlife'
 import {flightTick} from './flight'
@@ -453,7 +455,8 @@ function interrupted(w: World, pl: Creature): string | null {
     if (pl.body.wounds.length > (act.woundCount ?? pl.body.wounds.length)) return '공격받았다!'
     if (act.wokeBy) return act.wokeBy
     if ((act.elapsed ?? 0) > 0) {
-      if (!act.drugSleep && pl.needs.fatigue <= (act.wakeFatigue ?? 2) && (pl.needs.sleepDebt ?? 0) === 0) return '개운하게 깼다.'
+      if(act.seasonalSleep&&calendar(w).season.id!==act.seasonalSleep.season)return '겨울잠의 계절이 끝났다.'
+      if (!act.drugSleep && !act.seasonalSleep && pl.needs.fatigue <= (act.wakeFatigue ?? 2) && (pl.needs.sleepDebt ?? 0) === 0) return '개운하게 깼다.'
       if (pl.needs.bodyTemp < 35) return '추위에 잠이 깼다.'
       if (pl.needs.bodyTemp > 40.5) return '열기에 잠이 깼다.'
       if (painStage(painTotal(w, pl)) >= 5) return '통증에 잠이 깼다.'
@@ -556,20 +559,20 @@ export function runUntilInput(w: World, maxSteps = 300000, untilTU?: number) {
     if (actor.activity) {
       if (actor.activity.kind === 'sleep') {
         const why = interrupted(w, actor)
-        if (why) { wakeUp(w, actor); stopActivity(w, actor); if (actor.residentSite && !['익숙한 소리에 잠이 깼다.','배가 고파 잠이 깼다.','목이 말라 잠이 깼다.'].includes(why)) delayResidentRest(w, actor); actor.nextAct += TU_PER_TURN; continue }
+        if (why) { wakeUp(w, actor); stopActivity(w, actor); if (actor.residentSite && !['익숙한 소리에 잠이 깼다.','배가 고파 잠이 깼다.','목이 말라 잠이 깼다.'].includes(why)) delayResidentRest(w, actor); actor.nextAct += seasonalActionTU(w,actor,TU_PER_TURN); continue }
       }
       if (actor.body.wounds.length > (actor.activity.woundCount ?? actor.body.wounds.length)) stopActivity(w, actor)
       else {
         const kind = actor.activity.kind, done = activityStep(w, actor)
         if (done && kind === 'sleep') { wakeUp(w, actor) }
-        actor.nextAct += TU_PER_TURN
+        actor.nextAct += seasonalActionTU(w,actor,TU_PER_TURN)
         continue
       }
     }
     let res = perform(w, actor, aiDecide(w, actor))
     // 동시성 충돌(01 §3.5): 먼저 처리된 쪽이 칸을 차지하면 같은 TU 안에서 1회만 다시 계획
     if (!res.ok) { actor.ai.path = undefined; res = perform(w, actor, aiDecide(w, actor)) }
-    actor.nextAct += res.ok ? Math.max(30, res.tu) : TU_PER_TURN
+    actor.nextAct += seasonalActionTU(w,actor,res.ok ? Math.max(30, res.tu) : TU_PER_TURN)
   }
   w.s.simulationPending = true
 }
@@ -768,6 +771,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     for (const id of Object.keys(c.cooldowns)) c.cooldowns[id] += elapsed
     for (const e of c.effects) e.untilTurn += elapsed
     if (c.drowsyUntil !== undefined) c.drowsyUntil += elapsed
+    if(c.wildlifeState?.wakeSlowUntil!==undefined)c.wildlifeState.wakeSlowUntil+=elapsed
     if (c.activity?.snap) c.activity.snap.turn += elapsed
     for (const wd of c.body.wounds) {
       healFracture(wd, elapsed)

@@ -1,3 +1,5 @@
+import {bearHungry} from './bear-state'
+import {decideBear} from './bears'
 /** Data-driven foragers: actual perception, mouths, plants, water and finite food UIDs. */
 import type {Action,ActResult} from './actions'
 import {decideBird} from './birds'
@@ -78,7 +80,7 @@ export function wildlifeThreats(w:World,c:Creature,rule=wildlifeRules(w,c)){
  return w.s.creatures.filter(other=>{
   if(other.id===c.id||!other.alive||cheb(c.pos,other.pos)>rule.threatRadius)return false
   const d=w.db.creature(other.def),kind=w.db.body(other.body.def).kind,threat=kind==='humanoid'||kind==='mechanical'||d.ai==='packHunter'&&!d.wildlife
-  return threat&&(canSee(w,c,other.pos)||smells(w,c,other))
+  return threat&&(!rule.den||!!c.home&&cheb(c.home,other.pos)<=(bearHungry(w,c)||c.attackedBy?.includes(other.id)?rule.den.hungryLeash:rule.den.territoryRadius))&&(canSee(w,c,other.pos)||smells(w,c,other))
  }).sort((a,b)=>cheb(c.pos,a.pos)-cheb(c.pos,b.pos)||a.id-b.id)
 }
 export function interruptAnimalBrowse(w:World,c:Creature){return !animalMouthReady(w,c)||!!wildlifeThreats(w,c).length||!!c.activity?.target&&!!animalBrowseError(w,c,c.activity.target)}
@@ -102,6 +104,7 @@ function nearbyTargets(w:World,c:Creature,radius:number){
 }
 export function decideWildlife(w:World,c:Creature,rule:WildlifeRules,nav:WildlifeNavigation):Action{
  if(rule.kind==='scavengerBird')return decideBird(w,c,rule,nav)
+ if(rule.kind==='territorialBear')return decideBear(w,c,rule,nav,()=>decideForage(w,c,rule,nav))
  if(!c.alive||c.asleep||c.unconscious||capacity(w,c,'consciousness')<.3)return{type:'wait'}
  const threats=wildlifeThreats(w,c,rule),target=threats[0],turn=turnOf(w),random=rng(w,`ai.wildlife.${c.id}`)
  if(target){
@@ -114,6 +117,10 @@ export function decideWildlife(w:World,c:Creature,rule:WildlifeRules,nav:Wildlif
   if(rule.kind==='stubbornForager'&&injury>0)c.ai.morale=Math.max(c.ai.morale,w.db.creature(c.def).morale+Math.min(30,injury*2))
   return nav.ability(target,threats)??(canReach(w,c,target)&&meleeWield(w,c)?{type:'attack',target:target.id}:nav.toward(target.pos))??{type:'wait'}
  }
+ return decideForage(w,c,rule,nav)
+}
+function decideForage(w:World,c:Creature,rule:WildlifeRules,nav:WildlifeNavigation):Action{
+ const turn=turnOf(w),random=rng(w,`ai.wildlife.${c.id}`)
  c.ai.target=undefined;c.ai.mode='wander'
  if(animalMouthReady(w,c)&&c.needs.waterDeficit>=rule.drinkAbove){
   if(nearbyWater(w,c))return{type:'animalDrink'}

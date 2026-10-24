@@ -18187,6 +18187,7 @@
         "requiresCapacity": {
           "enum": [
             "tool",
+            "bite",
             "consciousness",
             "moving",
             "manipulation",
@@ -18196,7 +18197,8 @@
             "bloodPumping",
             "peck",
             "flight",
-            "signal"
+            "signal",
+            "claw"
           ]
         },
         "stunD": {
@@ -22575,7 +22577,62 @@
           "enum": [
             "timidHerbivore",
             "stubbornForager",
-            "scavengerBird"
+            "scavengerBird",
+            "territorialBear"
+          ]
+        },
+        "den": {
+          "type": "object",
+          "properties": {
+            "territoryRadius": {
+              "type": "number"
+            },
+            "warningRadius": {
+              "type": "number"
+            },
+            "warningTurns": {
+              "type": "number"
+            },
+            "hungryLeash": {
+              "type": "number"
+            },
+            "hungryBelow": {
+              "type": "number"
+            },
+            "springSeason": {
+              "type": "string"
+            },
+            "springDays": {
+              "type": "number"
+            },
+            "hibernateSeason": {
+              "type": "string"
+            },
+            "wakeSlowTurns": {
+              "type": "number"
+            },
+            "fleeBloodLoss": {
+              "type": "number"
+            },
+            "lureFoodIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "territoryRadius",
+            "warningRadius",
+            "warningTurns",
+            "hungryLeash",
+            "hungryBelow",
+            "springSeason",
+            "springDays",
+            "hibernateSeason",
+            "wakeSlowTurns",
+            "fleeBloodLoss",
+            "lureFoodIds"
           ]
         },
         "browse": {
@@ -22586,6 +22643,12 @@
         },
         "drinkMl": {
           "type": "number"
+        },
+        "carrionFoods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "scavenging": {
           "type": "object",
@@ -29227,6 +29290,30 @@
               "defType"
             ],
             "properties": {
+              "requiresCapacity": {
+                "anyOf": [
+                  {
+                    "enum": [
+                      "tool",
+                      "bite",
+                      "consciousness",
+                      "moving",
+                      "manipulation",
+                      "sight",
+                      "hearing",
+                      "breathing",
+                      "bloodPumping",
+                      "peck",
+                      "flight",
+                      "signal",
+                      "claw"
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "defType": {
                 "const": "Ability"
               },
@@ -29658,6 +29745,23 @@
               "id"
             ],
             "properties": {
+              "requiresCapacity": {
+                "enum": [
+                  "tool",
+                  "bite",
+                  "consciousness",
+                  "moving",
+                  "manipulation",
+                  "sight",
+                  "hearing",
+                  "breathing",
+                  "bloodPumping",
+                  "peck",
+                  "flight",
+                  "signal",
+                  "claw"
+                ]
+              },
               "defType": {
                 "const": "Ability"
               },
@@ -60902,6 +61006,7 @@
             {
               "enum": [
                 "tool",
+                "bite",
                 "consciousness",
                 "moving",
                 "manipulation",
@@ -60911,7 +61016,8 @@
                 "bloodPumping",
                 "peck",
                 "flight",
-                "signal"
+                "signal",
+                "claw"
               ]
             },
             {
@@ -61031,8 +61137,196 @@
               "enum": [
                 "timidHerbivore",
                 "stubbornForager",
-                "scavengerBird"
+                "scavengerBird",
+                "territorialBear"
               ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "den": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "territoryRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "warningRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "warningTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "hungryLeash": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "hungryBelow": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "springSeason": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "springDays": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "hibernateSeason": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "wakeSlowTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "fleeBloodLoss": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "lureFoodIds": {
+                  "anyOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "$append": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$prepend": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "$remove": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "id"
+                                    ],
+                                    "properties": {
+                                      "id": {}
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "$append"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$prepend"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$remove"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
             },
             {
               "type": "null"
@@ -61063,6 +61357,78 @@
           "anyOf": [
             {
               "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "carrionFoods": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
             {
               "type": "null"

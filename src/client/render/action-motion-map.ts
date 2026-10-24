@@ -4,6 +4,7 @@ import type {ActionPose} from './character-motion'
 export const actionMotions={
  "takeFlight":null,"fly":null,"land":null,
  "tearCarrion":"work","tearFood":"work",
+ "animalWarn":null,
  "animalEat":"work","animalDrink":"work","animalBrowse":"work","wallow":"wallow",
  "setCompanionAidDepot":null,"companionAidSupplyPlan":null,"companionAidSupplyTake":"interact",
  "baseQueueAdd":null,"baseQueueEdit":null,

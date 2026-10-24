@@ -44,7 +44,7 @@ export function hostile(w: World, a: Creature, b: Creature): boolean {
   const unthreateningPrey=(animal:Creature,other:Creature)=>{
     if(w.db.body(other.body.def).kind!=='humanoid')return false
     const kind=w.db.creature(animal.def).wildlife?.kind
-    return kind==='timidHerbivore'?animal.ai.mode!=='hunt':kind==='scavengerBird'&&(animal.ai.mode!=='hunt'||animal.ai.target!==other.id)
+    return kind==='timidHerbivore'?animal.ai.mode!=='hunt':['scavengerBird','territorialBear'].includes(kind??'')&&(animal.ai.mode!=='hunt'||animal.ai.target!==other.id)
   }
   if(unthreateningPrey(a,b)||unthreateningPrey(b,a))return false
   const gardenAlert=towerGardenAlert(w)

@@ -10,7 +10,7 @@ export interface AtlasManifest {
 /** Whole original sheets: keep common terrain/equipment/FX; select only current body models. */
 export function atlasPlan(m:AtlasManifest,iconNames:readonly string[],characterNames:readonly string[]){
  const characterSheets=new Set<string>(),required=new Set<string>(),fallback=new Set<string>(),retired=new Set(m.characterSheetHistory??[])
- const clips=(c:CharDef)=>[c.walk,c.idle,c.attack,...Object.values(c.motions??{})]
+ const clips=(c:CharDef)=>[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})]
  for(const c of Object.values(m.chars)){
   for(const block of clips(c))if(block)for(const keys of Object.values(block))for(const key of keys){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
   if(c.portrait&&m.frames[c.portrait])characterSheets.add(m.frames[c.portrait][0])

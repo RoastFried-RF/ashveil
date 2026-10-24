@@ -1,8 +1,10 @@
+import {endSeasonalSleep} from './bear-state'
 // 자연 기상·중단·약물 만료가 같은 잠기운/시야 상태를 남긴다.
 import { log, turnOf, type World } from './ctx'
 import type { Creature } from './types'
 import {finishSleepMemories} from './sleep-memories'
 export function wakeAfterSleep(w: World, c: Creature) {
+  endSeasonalSleep(w,c)
   finishSleepMemories(w,c)
   c.asleep = false
   c.lastWokeAt = turnOf(w)

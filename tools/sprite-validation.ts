@@ -79,6 +79,10 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   const durations=row.motionDurations
   if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!(motionNames as readonly string[]).includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')
   if(gait!==undefined&&(!object(gait)||!['walk','crouchWalk'].every(name=>typeof gait[name]==='number'&&Number.isFinite(gait[name])&&gait[name]>=200&&gait[name]<=5000)))errors.push('char '+key+'.gait: 동작별200~5000ms 주기가 필요하다')
+  if(row.attackVariants!==undefined){
+   if(!object(row.attackVariants))errors.push('char '+key+'.attackVariants: 공격 방식별 객체가 필요하다')
+   else for(const[name,poses]of Object.entries(row.attackVariants)){if(!object(poses))errors.push('char '+key+'.attackVariants.'+name+': 방향별 객체가 필요하다');else for(const dir of directions)frameList(poses[dir],'char '+key+'.attackVariants.'+name+'.'+dir)}
+  }
   if(row.motions!==undefined){
    if(!object(row.motions))errors.push('char '+key+'.motions: 동작별 객체가 필요하다')
    else for(const[name,poses]of Object.entries(row.motions)){

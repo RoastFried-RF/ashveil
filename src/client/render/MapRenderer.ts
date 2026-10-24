@@ -789,7 +789,7 @@ export class MapRenderer {
       v.crouched=low
       const prone=!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w)))
       if(prone&&!v.prone){v.groundT=wasShown?0:1;clearPoses(v.pose)}
-      if(!prone&&v.prone&&c.alive&&wasShown)requestPose(v.pose,'rise')
+      if(!prone&&v.prone&&c.alive&&wasShown)requestPose(v.pose,'rise',undefined,{duration:v.char?.motionDurations?.rise})
       v.prone=prone;v.asleep=!!c.asleep
       const activity=activityMotion(c.activity)
       if(activity!==v.activity){v.activityTime=0;if(v.activity==='work'&&!activity&&v.pose.current?.kind==='work')clearPoses(v.pose)}
@@ -902,15 +902,15 @@ export class MapRenderer {
           v.dir = v.attackVec.x > 0 ? 'right' : v.attackVec.x < 0 ? 'left' : v.attackVec.y < 0 ? 'up' : 'down'
         }
         const mode=e.throwing?'throw':e.ranged?'shoot':'attack'
-        const used=e.ranged?wield(w,c):meleeWield(w,c),item=used?.item
+        const used=e.ranged?wield(w,c,e.mode):meleeWield(w,c,e.mode),item=used?.item
         const weapon=item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined
-        const equipment:EquipmentAction={style:attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
+        const equipment:EquipmentAction={naturalMode:e.mode,style:attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
         v.attackT = mode==='attack'?0:-1
         requestPose(v.pose,mode,undefined,{duration:v.char?.motionDurations?.[mode]??attackDuration(equipment.style,weapon),equipment})
         break
       }
       case 'dmg': {
-        if(v.alive&&!v.prone)requestPose(v.pose,'hurt')
+        if(v.alive&&!v.prone&&v.pose.current?.kind!=='rise')requestPose(v.pose,'hurt',undefined,{duration:v.char?.motionDurations?.hurt})
         v.flashT = preferences.hitFlash && preferences.animationSpeed > 0 ? 1 : 0
         if (c.id === pl.id && preferences.screenShake && preferences.animationSpeed > 0) this.shake = Math.min(6, 2 + e.v / 6)
         // 내가 준 피해 흰색, 받은 피해 주황 (12 §2.5)
@@ -1068,8 +1068,8 @@ export class MapRenderer {
         requestPose(v.pose,pending.cue.kind,pending.cue.prop,{duration:pending.cue.duration})
       }
     }
-    if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/motionDurations.fall)}
-    if(v.prone){clearPoses(v.pose);v.groundT=Math.min(1,v.groundT+dt/motionDurations.fall)}
+    if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/(v.char?.motionDurations?.fall??motionDurations.fall))}
+    if(v.prone){clearPoses(v.pose);v.groundT=Math.min(1,v.groundT+dt/(v.char?.motionDurations?.fall??motionDurations.fall))}
     if(moving&&v.pose.current&&['work','wallow','use','interact','rise','stand','crouchDown'].includes(v.pose.current.kind))clearPoses(v.pose)
     const continuousWork=v.activity==='work'&&v.pose.current?.kind==='work'
     if(!v.pose.current||continuousWork){if(moving){const dx=v.motion.to.x-v.motion.from.x,dy=v.motion.to.y-v.motion.from.y;v.dir=dx>0?'right':dx<0?'left':dy<0?'up':'down'}else{const actor=this.w?.s.creatures.find(c=>c.id===v.id);if(actor&&v.root.visible)v.dir=DIR_OF_FACING[actor.facing]??v.dir}}
@@ -1092,7 +1092,7 @@ export class MapRenderer {
     let mode:MotionName='idle',phase=0,loop=false
     if (ch) {
       if(!v.alive){mode='fall';phase=v.deadT}
-      else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/motionDurations.sleep:v.groundT}
+      else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/(ch.motionDurations?.sleep??motionDurations.sleep):v.groundT}
       else if(v.pose.current&&!continuousWork){mode=v.pose.current.kind;phase=v.pose.current.elapsed/poseDuration(v.pose.current)}
       else if(v.flightHeight){mode='flight';phase=this.time/(ch.motionDurations?.flight??motionDurations.flight);loop=true}
       else if(moving){mode=v.crouched?'crouchWalk':'walk';phase=v.motion.stride/2;loop=true}
@@ -1101,7 +1101,7 @@ export class MapRenderer {
       else if(v.crouched){mode='crouchWalk';phase=0}
       else{phase=instant?0:(this.time+(v.id*37)%1000)/motionDurations.idle;loop=true}
       if(instant){phase=!v.alive||v.prone&&!v.asleep?1:0;loop=false}
-      const clip=(name:MotionName)=>name==='idle'?ch.idle[v.dir]:name==='walk'?ch.walk[v.dir]:name==='attack'?ch.attack?.[v.dir]:ch.motions?.[name]?.[v.dir]
+      const clip=(name:MotionName)=>name==='idle'?ch.idle[v.dir]:name==='walk'?ch.walk[v.dir]:name==='attack'?(ch.attackVariants?.[v.pose.current?.equipment?.naturalMode??'']?.[v.dir]??ch.attack?.[v.dir]):ch.motions?.[name]?.[v.dir]
       const frames=clip(mode)??(mode==='crouchWalk'?clip('walk'):['shoot','throw'].includes(mode)?clip('attack'):undefined)??ch.idle[v.dir]
       const frame=frames[poseFrame(frames.length,mode==='attack'?attackBodyPhase(phase):phase,loop)]
       // Blend only a state/facing transition. Each gait pose stays crisp and singular.

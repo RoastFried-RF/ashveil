@@ -1,0 +1,206 @@
+{
+  "format": 1,
+  "date": "2026-10-24",
+  "activationReady": false,
+  "generationCalls": 4,
+  "rounds": 1,
+  "retries": 0,
+  "otherSpeciesOrMotions": 0,
+  "newPixelTool": "image_gen.imagegen",
+  "thirdPartyPixelsUsed": false,
+  "pngReencoded": false,
+  "copiedReversedInterpolatedPixels": false,
+  "directlyReopenedOwnReferencePngs": [
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+      "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+      "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+      "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-down-v1.png",
+      "sha256": "26f80765695e59a4935ae2754a7c61e5ef3102cc8c823c1c92b7773b4f15a4f9"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-left-v1.png",
+      "sha256": "90e4e0eecdcee8d2361f708c9f70f26e3c01beebadd26344f6662c759f5064f7"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-right-v1.png",
+      "sha256": "502639d8d652888b67a526b6ed83feddb2b498153516bde155f247f0205a56d0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/originals/cinder-bear-walk-up-v1.png",
+      "sha256": "ff5c9c5bd9b0d9ed371fbfc95170aa0e1a7761a774888709aacb1f97e59ba06f"
+    }
+  ],
+  "commonModelReferences": "v334 idle/swipe-v2/bite-v3 are same first three inputs to all four calls; direction-specific fourth input is guidance only.",
+  "records": [
+    {
+      "direction": "down",
+      "tool": "image_gen.imagegen",
+      "toolOutput": "/workspace/generated_images/exec-91a2ff4f-6ed2-4fa2-b1f5-c8d87c8f21c3.png",
+      "original": "originals/cinder-bear-walk-down-v1.png",
+      "request": "requests/cinder-bear-walk-down-v1.json",
+      "sha256": "935fcd692405c38e0bcee9cd93baf12ef66cfa981a953e7e28741284157d6fc7",
+      "toolVersionDisclosed": false,
+      "exactArguments": {
+        "prompt": "Create a NEW ORIGINAL high-quality Ashveil CINDER BEAR dense WALK sprite atlas. Canonical model is OWN reference1 idle sheet, reference2 swipe, reference3 bite. These define ONE fixed individual, not optional alternate bears. Reference4 is only anatomical direction/gait guidance. Keep the exact same 340kg heavy broad bear, enormous rounded shoulder hump, low thick neck below shoulder line, broad short brown skull/muzzle, tiny rounded ears, tiny short stub tail, stocky hindquarters and stout clawed paws. Dark brown charcoal-tipped fur with ragged mottled ash-grey shoulder patch matching idle: NOT bright pale concentric stripes, not a new fur costume. Preserve head/body mass, fur placement and limb length/width across all12 drawings. Same canonical elevated three-quarter game camera and rich crisp square pixel clusters. NO wolf/dog neck or tail, no human hands, accessories, weapon, mouth attack, upright pose, smoke, glow, blood, floor, shadow, text, grid or scenery.\n\nLAYOUT EXACTLY THREE COLUMNS by FOUR ROWS = TWELVE complete distinct whole-body drawings. One SINGLE facing direction per sheet. Row1 is LH step in 3 subposes, row2 LF step, row3 RH step, row4 RF step; read left→right then next row. LF/RF/LH/RH always anatomical LEFT/RIGHT FORE/HIND. Every full figure and paw has transparent gutters, middle65% of its cell, no clipping or neighboring fur. Transparent alpha PNG, target1536x1536. Don't copy/mirror/reverse/interpolate reference crops. Draw12 new related limb poses, not4 repeated poses with cosmetic fur changes.\n\nANIMATION: slow stable FOUR-BEAT bear walk, only ONE limb recovering at a time and the other THREE paws planted bearing its weight (four at touchdown). For each row the assigned single paw goes through exactly3 DIFFERENT subposes: column1 TOE-OFF with heel/paw starting to leave rear position; column2 MID-SWING with that same paw lifted bent under its proper shoulder/hip and clear air gap; column3 FORWARD TOUCHDOWN with that same paw reaching modestly ahead, flattening onto virtual ground. The other3 planted paws slowly travel backward relative to stable body as it advances, never copied frozen feet; then next row's opposite appropriate limb recovers. Foot ownership stays same within each3-pose row and switches correctly across rows. Row1 LH toe-off→mid-swing→touchdown. Row2 LF toe-off→mid-swing→touchdown. Row3 RH toe-off→mid-swing→touchdown. Row4 RF toe-off→mid-swing→touchdown. No two swinging feet, trot, floating bear, idle repeats, sudden change of skull/body scale, foot disappearing or changing owner. Tiny smooth weight bob only, steady low forward head. Twelve poses must connect in a loop without sudden body height change.\n\nALL12 face FRONT straight toward viewer, showing same broad short bear muzzle. Anatomical LEFT is viewer RIGHT: LH hind step in row1 is farther paw on viewer-right, LF row2 is nearest forepaw on viewer-right; RH row3 is farther paw on viewer-left, RF row4 nearest forepaw on viewer-left. Exactly2 forelegs plus2 hindlegs belong to a low horizontal quadruped. Separate far hindfeet modestly inside foreleg gap so their hip ownership is readable; don't add central fifth foot or hide both hinds as one mystery paw. Keep head facing front and low in all12, no looking up or turning profile.",
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-down-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "requestSha256": "37a285c0dad56fc14e4f1234888d70384c12394ebd3ace8975952857352c8d4d",
+      "inputs": [
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-down-v1.png",
+          "sha256": "26f80765695e59a4935ae2754a7c61e5ef3102cc8c823c1c92b7773b4f15a4f9"
+        }
+      ],
+      "originalEqualsToolOutputBytes": true,
+      "status": "held-density-phase-model-contract-failure"
+    },
+    {
+      "direction": "left",
+      "tool": "image_gen.imagegen",
+      "toolOutput": "/workspace/generated_images/exec-b42aa33b-e4ad-4015-983c-6d03e89042bc.png",
+      "original": "originals/cinder-bear-walk-left-v1.png",
+      "request": "requests/cinder-bear-walk-left-v1.json",
+      "sha256": "4e6e462946ca81001a9332514a24cee4564a8d4b4665861cb8dc1978985846a9",
+      "toolVersionDisclosed": false,
+      "exactArguments": {
+        "prompt": "Create a NEW ORIGINAL high-quality Ashveil CINDER BEAR dense WALK sprite atlas. Canonical model is OWN reference1 idle sheet, reference2 swipe, reference3 bite. These define ONE fixed individual, not optional alternate bears. Reference4 is only anatomical direction/gait guidance. Keep the exact same 340kg heavy broad bear, enormous rounded shoulder hump, low thick neck below shoulder line, broad short brown skull/muzzle, tiny rounded ears, tiny short stub tail, stocky hindquarters and stout clawed paws. Dark brown charcoal-tipped fur with ragged mottled ash-grey shoulder patch matching idle: NOT bright pale concentric stripes, not a new fur costume. Preserve head/body mass, fur placement and limb length/width across all12 drawings. Same canonical elevated three-quarter game camera and rich crisp square pixel clusters. NO wolf/dog neck or tail, no human hands, accessories, weapon, mouth attack, upright pose, smoke, glow, blood, floor, shadow, text, grid or scenery.\n\nLAYOUT EXACTLY THREE COLUMNS by FOUR ROWS = TWELVE complete distinct whole-body drawings. One SINGLE facing direction per sheet. Row1 is LH step in 3 subposes, row2 LF step, row3 RH step, row4 RF step; read left→right then next row. LF/RF/LH/RH always anatomical LEFT/RIGHT FORE/HIND. Every full figure and paw has transparent gutters, middle65% of its cell, no clipping or neighboring fur. Transparent alpha PNG, target1536x1536. Don't copy/mirror/reverse/interpolate reference crops. Draw12 new related limb poses, not4 repeated poses with cosmetic fur changes.\n\nANIMATION: slow stable FOUR-BEAT bear walk, only ONE limb recovering at a time and the other THREE paws planted bearing its weight (four at touchdown). For each row the assigned single paw goes through exactly3 DIFFERENT subposes: column1 TOE-OFF with heel/paw starting to leave rear position; column2 MID-SWING with that same paw lifted bent under its proper shoulder/hip and clear air gap; column3 FORWARD TOUCHDOWN with that same paw reaching modestly ahead, flattening onto virtual ground. The other3 planted paws slowly travel backward relative to stable body as it advances, never copied frozen feet; then next row's opposite appropriate limb recovers. Foot ownership stays same within each3-pose row and switches correctly across rows. Row1 LH toe-off→mid-swing→touchdown. Row2 LF toe-off→mid-swing→touchdown. Row3 RH toe-off→mid-swing→touchdown. Row4 RF toe-off→mid-swing→touchdown. No two swinging feet, trot, floating bear, idle repeats, sudden change of skull/body scale, foot disappearing or changing owner. Tiny smooth weight bob only, steady low forward head. Twelve poses must connect in a loop without sudden body height change.\n\nALL12 face LEFT, nose left and rump right. Anatomical LEFT legs are NEAR viewer, RIGHT legs FAR. Thus row1 NEAR HIND recovers in3stages; row2 NEAR FRONT recovers in3stages; row3 FAR HIND recovers in3stages while near hind stays planted; row4 FAR FRONT recovers in3stages while near front stays planted. Show4 attached paw paths with clear near/far separation. Do not repeat nearest forepaw in row4 or nearest hind in row3. Head stays level and left; no upright ears or tall neck.",
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-left-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "requestSha256": "7613546bd9afded6d7efc761d1a357e049e0a8e28f033530a843e0167db653f4",
+      "inputs": [
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-left-v1.png",
+          "sha256": "90e4e0eecdcee8d2361f708c9f70f26e3c01beebadd26344f6662c759f5064f7"
+        }
+      ],
+      "originalEqualsToolOutputBytes": true,
+      "status": "held-density-phase-model-contract-failure"
+    },
+    {
+      "direction": "right",
+      "tool": "image_gen.imagegen",
+      "toolOutput": "/workspace/generated_images/exec-6511fb24-e629-4068-bd40-f7629b795960.png",
+      "original": "originals/cinder-bear-walk-right-v1.png",
+      "request": "requests/cinder-bear-walk-right-v1.json",
+      "sha256": "7b5be50cb545ecd5c5624ee7f68ed579636d4d619aba322992ee28f64b313710",
+      "toolVersionDisclosed": false,
+      "exactArguments": {
+        "prompt": "Create a NEW ORIGINAL high-quality Ashveil CINDER BEAR dense WALK sprite atlas. Canonical model is OWN reference1 idle sheet, reference2 swipe, reference3 bite. These define ONE fixed individual, not optional alternate bears. Reference4 is only anatomical direction/gait guidance. Keep the exact same 340kg heavy broad bear, enormous rounded shoulder hump, low thick neck below shoulder line, broad short brown skull/muzzle, tiny rounded ears, tiny short stub tail, stocky hindquarters and stout clawed paws. Dark brown charcoal-tipped fur with ragged mottled ash-grey shoulder patch matching idle: NOT bright pale concentric stripes, not a new fur costume. Preserve head/body mass, fur placement and limb length/width across all12 drawings. Same canonical elevated three-quarter game camera and rich crisp square pixel clusters. NO wolf/dog neck or tail, no human hands, accessories, weapon, mouth attack, upright pose, smoke, glow, blood, floor, shadow, text, grid or scenery.\n\nLAYOUT EXACTLY THREE COLUMNS by FOUR ROWS = TWELVE complete distinct whole-body drawings. One SINGLE facing direction per sheet. Row1 is LH step in 3 subposes, row2 LF step, row3 RH step, row4 RF step; read left→right then next row. LF/RF/LH/RH always anatomical LEFT/RIGHT FORE/HIND. Every full figure and paw has transparent gutters, middle65% of its cell, no clipping or neighboring fur. Transparent alpha PNG, target1536x1536. Don't copy/mirror/reverse/interpolate reference crops. Draw12 new related limb poses, not4 repeated poses with cosmetic fur changes.\n\nANIMATION: slow stable FOUR-BEAT bear walk, only ONE limb recovering at a time and the other THREE paws planted bearing its weight (four at touchdown). For each row the assigned single paw goes through exactly3 DIFFERENT subposes: column1 TOE-OFF with heel/paw starting to leave rear position; column2 MID-SWING with that same paw lifted bent under its proper shoulder/hip and clear air gap; column3 FORWARD TOUCHDOWN with that same paw reaching modestly ahead, flattening onto virtual ground. The other3 planted paws slowly travel backward relative to stable body as it advances, never copied frozen feet; then next row's opposite appropriate limb recovers. Foot ownership stays same within each3-pose row and switches correctly across rows. Row1 LH toe-off→mid-swing→touchdown. Row2 LF toe-off→mid-swing→touchdown. Row3 RH toe-off→mid-swing→touchdown. Row4 RF toe-off→mid-swing→touchdown. No two swinging feet, trot, floating bear, idle repeats, sudden change of skull/body scale, foot disappearing or changing owner. Tiny smooth weight bob only, steady low forward head. Twelve poses must connect in a loop without sudden body height change.\n\nALL12 face RIGHT, nose right and rump left. Anatomical RIGHT legs are NEAR viewer, LEFT legs FAR. Thus row1 FAR HIND recovers in3stages while near hind planted; row2 FAR FRONT recovers in3stages while near front planted; row3 NEAR HIND recovers in3stages; row4 NEAR FRONT recovers in3stages. Show4 attached paw paths with natural near/far separation. Keep exact row order, don't repeat same near hind for row1/row3 or near front for row2/row4. Head stays level right, not raised.",
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-right-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "requestSha256": "0ff08556721d3a89d60a93f80fb4f63ce7b321a9bc259269bf61944b101714dc",
+      "inputs": [
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-right-v1.png",
+          "sha256": "502639d8d652888b67a526b6ed83feddb2b498153516bde155f247f0205a56d0"
+        }
+      ],
+      "originalEqualsToolOutputBytes": true,
+      "status": "held-density-phase-model-contract-failure"
+    },
+    {
+      "direction": "up",
+      "tool": "image_gen.imagegen",
+      "toolOutput": "/workspace/generated_images/exec-eeed5137-7ce3-49b9-ad68-e20106dadb53.png",
+      "original": "originals/cinder-bear-walk-up-v1.png",
+      "request": "requests/cinder-bear-walk-up-v1.json",
+      "sha256": "7f2d6da0933c5050cd6c1d13093a833ae4e4dbb82ac1537d9cf79aebc01058fe",
+      "toolVersionDisclosed": false,
+      "exactArguments": {
+        "prompt": "Create a NEW ORIGINAL high-quality Ashveil CINDER BEAR dense WALK sprite atlas. Canonical model is OWN reference1 idle sheet, reference2 swipe, reference3 bite. These define ONE fixed individual, not optional alternate bears. Reference4 is only anatomical direction/gait guidance. Keep the exact same 340kg heavy broad bear, enormous rounded shoulder hump, low thick neck below shoulder line, broad short brown skull/muzzle, tiny rounded ears, tiny short stub tail, stocky hindquarters and stout clawed paws. Dark brown charcoal-tipped fur with ragged mottled ash-grey shoulder patch matching idle: NOT bright pale concentric stripes, not a new fur costume. Preserve head/body mass, fur placement and limb length/width across all12 drawings. Same canonical elevated three-quarter game camera and rich crisp square pixel clusters. NO wolf/dog neck or tail, no human hands, accessories, weapon, mouth attack, upright pose, smoke, glow, blood, floor, shadow, text, grid or scenery.\n\nLAYOUT EXACTLY THREE COLUMNS by FOUR ROWS = TWELVE complete distinct whole-body drawings. One SINGLE facing direction per sheet. Row1 is LH step in 3 subposes, row2 LF step, row3 RH step, row4 RF step; read left→right then next row. LF/RF/LH/RH always anatomical LEFT/RIGHT FORE/HIND. Every full figure and paw has transparent gutters, middle65% of its cell, no clipping or neighboring fur. Transparent alpha PNG, target1536x1536. Don't copy/mirror/reverse/interpolate reference crops. Draw12 new related limb poses, not4 repeated poses with cosmetic fur changes.\n\nANIMATION: slow stable FOUR-BEAT bear walk, only ONE limb recovering at a time and the other THREE paws planted bearing its weight (four at touchdown). For each row the assigned single paw goes through exactly3 DIFFERENT subposes: column1 TOE-OFF with heel/paw starting to leave rear position; column2 MID-SWING with that same paw lifted bent under its proper shoulder/hip and clear air gap; column3 FORWARD TOUCHDOWN with that same paw reaching modestly ahead, flattening onto virtual ground. The other3 planted paws slowly travel backward relative to stable body as it advances, never copied frozen feet; then next row's opposite appropriate limb recovers. Foot ownership stays same within each3-pose row and switches correctly across rows. Row1 LH toe-off→mid-swing→touchdown. Row2 LF toe-off→mid-swing→touchdown. Row3 RH toe-off→mid-swing→touchdown. Row4 RF toe-off→mid-swing→touchdown. No two swinging feet, trot, floating bear, idle repeats, sudden change of skull/body scale, foot disappearing or changing owner. Tiny smooth weight bob only, steady low forward head. Twelve poses must connect in a loop without sudden body height change.\n\nALL12 face BACK straight AWAY, rump/tiny tail closest lower image, ears/head far top, no face/muzzle/eyes visible. Anatomical LEFT is viewer LEFT. Retain canonical IDLE fur patch and mass, NOT the bright broad pale stripe exaggeration of guidance4. Exactly4legs:2hind from near hips to lower ground and2fore from far shoulders to higher farther ground. As in own rear guidance, shoulders naturally wider than rump and forelegs just outside flanks so both continuous shoulder-to-forepaw paths stay visible; natural thick bear legs, not human dangling arms/spider stance. No mystery central fifth paw. Row1 viewer-LEFT HIND 3subposes, row2 outside viewer-LEFT FORE 3subposes, row3 viewer-RIGHT HIND 3subposes, row4 outside viewer-RIGHT FORE 3subposes. Both hindfeet stay planted in fore step rows2/4, both frontfeet stay planted in hind step rows1/3. Avoid hiding front ownership under belly.",
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/originals/cinder-bear-walk-up-v1.png"
+        ],
+        "transparent_background": true
+      },
+      "requestSha256": "93160d61484c2492e921392dd35f111d847369b98955fb3bdbf5702cf95bf400",
+      "inputs": [
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+          "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+          "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+          "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+        },
+        {
+          "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/originals/cinder-bear-walk-up-v1.png",
+          "sha256": "ff5c9c5bd9b0d9ed371fbfc95170aa0e1a7761a774888709aacb1f97e59ba06f"
+        }
+      ],
+      "originalEqualsToolOutputBytes": true,
+      "status": "held-density-phase-model-contract-failure"
+    }
+  ]
+}

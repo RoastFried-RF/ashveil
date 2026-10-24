@@ -57,8 +57,11 @@ const d = computed(() => {
         if(c.body.machine&&cheb(pl.pos,c.pos)<=1)lines.push(...machineStatus(w,c).slice(0,2))
         lines.unshift(...observedCondition(w, c))
         if(c.flight)lines.unshift(`비행 중 · 지상 ${flightHeight(w,c)}칸 높이`)
+        if(c.wildlifeState?.denWarning&&turnOf(w)-c.wildlifeState.denWarning.at<=1&&c.ai.mode==='guard')lines.unshift(`영역 경고 · ${c.wildlifeState.denWarning.progress}/${w.db.creature(c.def).wildlife?.den?.warningTurns??2}턴 · 굴에서 물러나라`)
+        if(c.activity?.seasonalSleep)lines.unshift('겨울잠 · 실제 허기·갈증·소리로 깬다')
+        if((c.wildlifeState?.wakeSlowUntil??0)>turnOf(w))lines.unshift('잠에서 깸 · 행동 비용 2배')
         if(c.activity?.kind==='survey')lines.unshift(`안테나 보고 중 · ${c.activity.elapsed??0}/${c.activity.total??0}턴`)
-        lines.unshift(c.asleep ? '잠들어 있다 — 기습하면 95%·피해 ×1.5' : AI[c.ai.mode] ?? '')
+        lines.unshift(c.asleep ? '잠들어 있다 — 기습하면 95%·피해 ×1.5' : c.ai.mode==='hunt'&&c.ai.target!==pl.id?'주변 상대를 노린다':AI[c.ai.mode] ?? '')
         if(entry)lines.push(...bestiaryDetails(w,c.def).slice(0,3))
         if (stage>=2) lines.push(`(도감) 무장: ${mainWeapon(w, c) ? itemDef(w, mainWeapon(w, c)!).label : '맨몸'}`)
         const aim = targeting.value

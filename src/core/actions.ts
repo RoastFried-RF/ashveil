@@ -1,3 +1,4 @@
+import {animalWarn,seasonalSleepError,beginSeasonalSleep} from './bear-state'
 import {enqueueBaseTask,editBaseQueue} from './base-camp'
 import {setCompanionAidDepot,planCompanionAidSupply,takeCompanionAidSupply,setCompanionAid,startCompanionAid,startCompanionDrag,companionDragStep} from './companion-aid'
 import {brushClearingStep,startBrushClearing} from './brush-clearing'
@@ -324,7 +325,7 @@ export type Action =
   | { type: 'wait' }
   | { type: 'pray' }
   | { type: 'rest'; turns: number }
-  | { type: 'sleep' }
+  | { type: 'sleep';seasonal?:boolean }
   | { type: 'pickup'; uid?: number }
   | { type: 'drop'; uid: number }
   | { type: 'equip'; uid: number; slot?: Slot }
@@ -391,6 +392,7 @@ export type Action =
   | { type: 'throwAttack'; uid: number; target: number }
   | { type: 'eatFloor' }
   | {type:'animalEat';uid:number}
+  | {type:'animalWarn';target:number}
   | {type:'animalDrink'}
   | {type:'animalBrowse';pos:Pos}
   | {type:'wallow'}
@@ -1071,11 +1073,12 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 0 }
 
     case 'sleep': {
+      if(a.seasonal){const error=seasonalSleepError(w,c);if(error)return FAIL(error)}
       const rental = innSleepError(w, c) ?? residentBedError(w, c)
       if (rental) return FAIL(rental)
       const why = sleepingBlocked(w, c)
       if (why) return FAIL(`잠들 수 없다: ${why}`)
-      if (c.needs.fatigue < 15 && !(c.needs.sleepDebt ?? 0)) return FAIL('졸리지 않다')
+      if (!a.seasonal&&c.needs.fatigue < 15 && !(c.needs.sleepDebt ?? 0)) return FAIL('졸리지 않다')
       if (painStage(painTotal(w, c)) >= 5) return FAIL('너무 아파 잠들 수 없다')
       if (c.needs.bodyTemp < 35) return FAIL('너무 추워 잠들 수 없다. 몸부터 녹여야 한다')
       delete c.crouching
@@ -1085,6 +1088,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       const target = residentWakeTarget(w, c)
       if (target !== undefined) c.activity.wakeFatigue = target
       c.asleep = true
+      if(a.seasonal)beginSeasonalSleep(w,c)
       if (isPl(c)) log(w, 'info', '눈을 감는다…')
       return { ok: true, tu: 0 }
     }
@@ -1611,6 +1615,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'land':return land(w,c)
     case 'tearCarrion':return tearCarrion(w,c,a.target)
     case 'tearFood':return tearFloorFood(w,c,a.uid)
+    case 'animalWarn':return animalWarn(w,c,a.target)
     case 'animalEat':return animalEat(w,c,a.uid)
     case 'animalDrink':return animalDrink(w,c)
     case 'animalBrowse':return startAnimalBrowse(w,c,a.pos)

@@ -1,3 +1,4 @@
+import {CAPACITIES} from './types'
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import {resolveDefinitionRenames}from'./definition-renames'
 import {contentLoadHash,freezeDefinition} from './load-hash'
@@ -630,7 +631,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for (const c of db.all<CreatureDef>('Creature')) {
     if(c.wildlife!==undefined){
       const d=c.wildlife
-      if(!isObj(d)||!['timidHerbivore','stubbornForager','scavengerBird'].includes(d.kind)||!Array.isArray(d.foodIds)||!d.foodIds.length)report.errors.push(c.id+': wildlife 실제 행동 종류/먹이 목록 필요')
+      if(!isObj(d)||!['timidHerbivore','stubbornForager','scavengerBird','territorialBear'].includes(d.kind)||!Array.isArray(d.foodIds)||!d.foodIds.length)report.errors.push(c.id+': wildlife 실제 행동 종류/먹이 목록 필요')
       else{
         if(['humanoid','mechanical'].includes(db.tryGet<BodyDef>(c.body??'')?.kind??''))report.errors.push(c.id+': wildlife 입 섭식은 생물 동물 몸만 사용한다')
         for(const id of d.foodIds){need(c.id,id,'Item');const item=db.tryGet<ItemDef>(id);if(!item?.food||item.openFood||item.food.servings||item.food.needsTool)report.errors.push(c.id+': wildlife.foodIds 실제 도구/용기가 필요 없는 음식만 먹는다')}
@@ -641,6 +642,21 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
         if(d.browse!==undefined&&typeof d.browse!=='boolean')report.errors.push(c.id+': wildlife.browse 참/거짓 필요')
         if(d.browseCount!==undefined&&(!Number.isSafeInteger(d.browseCount)||d.browseCount<1||d.browseCount>20))report.errors.push(c.id+': wildlife.browseCount 실제1~20개 필요')
         if(d.drinkMl!==undefined&&(!Number.isSafeInteger(d.drinkMl)||d.drinkMl<1||d.drinkMl>1000))report.errors.push(c.id+': wildlife.drinkMl 실제1~1000ml 필요')
+        if(d.kind==='territorialBear'&&(!d.den||db.tryGet<BodyDef>(c.body??'')?.kind!=='quadruped'))report.errors.push(c.id+': territorialBear 실제 사족/굴 규칙 필요')
+        if(d.den!==undefined){
+          if(d.kind!=='territorialBear')report.errors.push(c.id+': den 실제 영역 동물 정책에만 사용한다')
+          const b=d.den
+          if(!isObj(b))report.errors.push(c.id+': den 실제 굴/경고 규칙 필요')
+          else{
+            for(const key of['territoryRadius','warningRadius','warningTurns','hungryLeash','springDays','wakeSlowTurns']as const)if(!Number.isSafeInteger(b[key])||b[key]<1||b[key]>32)report.errors.push(c.id+': den.'+key+' 범위 오류')
+            if(b.warningRadius<b.territoryRadius||b.hungryLeash<b.territoryRadius)report.errors.push(c.id+': den 경고/추적 범위는 원래 영역 이상이어야 한다')
+            if(!Number.isFinite(b.hungryBelow)||b.hungryBelow< -5000||b.hungryBelow>0||!Number.isFinite(b.fleeBloodLoss)||b.fleeBloodLoss<=0||b.fleeBloodLoss>=1)report.errors.push(c.id+': den 실제 허기/실혈 기준 오류')
+            need(c.id,b.springSeason,'Season');need(c.id,b.hibernateSeason,'Season')
+            if(!Array.isArray(b.lureFoodIds)||!b.lureFoodIds.length)report.errors.push(c.id+': den 유인 먹이 필요')
+            else for(const id of b.lureFoodIds){need(c.id,id,'Item');if(!d.foodIds.includes(id))report.errors.push(c.id+': den 유인 먹이는 실제 먹을 수 있어야 한다')}
+          }
+        }
+        if(d.carrionFoods!==undefined){if(!Array.isArray(d.carrionFoods)||!d.carrionFoods.length||d.carrionFoods.some(id=>!d.foodIds.includes(id)))report.errors.push(c.id+': carrionFoods 실제 먹을 수 있는 사체 음식만 필요')}
         if(d.kind==='scavengerBird'&&(!d.scavenging||db.tryGet<BodyDef>(c.body??'')?.kind!=='bird'))report.errors.push(c.id+': scavengerBird 실제 조류/섭식 규칙 필요')
         if(d.scavenging!==undefined){
           const s=d.scavenging
@@ -706,7 +722,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if (b.startingMap && !b.startItems.includes(b.startingMap)) report.errors.push(`${b.id}: 시작 지도는 시작 소지품에 있어야 함`)
     for (const it of Object.keys(b.startQuality ?? {})) need(b.id, it, 'Item')
   }
-  for (const a of db.all<AbilityDef>('Ability')) for (const r of a.requires ?? []) need(a.id, r, 'Ability')
+  for (const a of db.all<AbilityDef>('Ability')){for (const r of a.requires ?? []) need(a.id, r, 'Ability');if(a.requiresCapacity!==undefined&&!(CAPACITIES as readonly string[]).includes(a.requiresCapacity))report.errors.push(a.id+': requiresCapacity 실제 신체 기능 필요')}
   for(const config of db.all<import('./types').WorldGenDef>('WorldGen'))if(config.mapWorkers!==undefined){
     const workers=config.mapWorkers
     if(!workers||typeof workers!=='object'||Array.isArray(workers)||Object.entries(workers).some(([kind,ref])=>!['surface','dungeon'].includes(kind)||typeof ref!=='string'||!/^[-A-Za-z0-9._]+:[A-Za-z][A-Za-z0-9_]{0,63}$/.test(ref)||!db.scriptSources.some(s=>s.modId===ref.split(':')[0]&&s.stage===2)))report.errors.push(config.id+': 실제 단계2 지상/던전 mapWorkers 참조가 필요하다')

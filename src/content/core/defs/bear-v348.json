@@ -1,0 +1,760 @@
+[
+  {
+    "defType": "Creature",
+    "id": "Creature.CinderBear",
+    "label": "잿곰",
+    "body": "Body.CinderBear",
+    "char": "av331_cinder_bear",
+    "sprite": "av331_cinder_bear",
+    "faction": "foragers",
+    "sizeClass": "huge",
+    "moveTU": 100,
+    "stats": {
+      "str": 20,
+      "agi": 9,
+      "per": 11,
+      "vit": 20,
+      "wil": 18
+    },
+    "skills": {},
+    "ai": "guard",
+    "morale": 95,
+    "lightThreshold": 0.1,
+    "sightRange": 9,
+    "hearing": 1,
+    "smell": 3,
+    "bagSize": [
+      4,
+      3
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "weightKg": 340,
+    "hpBase": 280,
+    "insulation": 15,
+    "naturalArmor": {
+      "sharp": 15,
+      "blunt": 10,
+      "heat": 5
+    },
+    "naturalAttack": {
+      "label": "앞발 후려치기",
+      "damageType": "cut",
+      "damage": 24,
+      "pen": 18,
+      "energy": 4,
+      "family": "unarmed",
+      "accuracy": 8,
+      "noise": 5,
+      "requiresCapacity": "claw",
+      "stunD": 5,
+      "shove": 20,
+      "id": "paw"
+    },
+    "naturalAttacks": [
+      {
+        "label": "앞발 후려치기",
+        "damageType": "cut",
+        "damage": 24,
+        "pen": 18,
+        "energy": 4,
+        "family": "unarmed",
+        "accuracy": 8,
+        "noise": 5,
+        "requiresCapacity": "claw",
+        "id": "paw",
+        "stunD": 5,
+        "shove": 20
+      },
+      {
+        "label": "물어 붙잡기",
+        "damageType": "bite",
+        "damage": 19,
+        "pen": 22,
+        "energy": 4,
+        "family": "unarmed",
+        "accuracy": 8,
+        "noise": 5,
+        "requiresCapacity": "bite",
+        "id": "bite"
+      }
+    ],
+    "xp": 120,
+    "bestiary": [
+      "숯빛 털의 큰 짐승이 자기 굴을 지킨다.",
+      "배부를 때는 영역에서 물러나는 상대를 놓아준다. 해빙 직후에는 굶주려 있다.",
+      "앞발 한 번에 뼈가 부러진다. 겨울에는 동면하지만 깨우면 위험하다."
+    ],
+    "wildlife": {
+      "kind": "territorialBear",
+      "foodIds": [
+        "Item.AshBerry",
+        "Item.ShadeRoot",
+        "Item.RawPotato",
+        "Item.RawMeat",
+        "Item.SmokedMeat",
+        "Item.BearFat"
+      ],
+      "threatRadius": 12,
+      "forageRadius": 8,
+      "homeRadius": 7,
+      "eatBelow": 1500,
+      "drinkAbove": 500,
+      "drinkMl": 750,
+      "wanderChance": 0.15,
+      "sleepAt": 80,
+      "den": {
+        "territoryRadius": 7,
+        "warningRadius": 8,
+        "warningTurns": 2,
+        "hungryLeash": 12,
+        "hungryBelow": -1000,
+        "springSeason": "Season.Spring",
+        "springDays": 10,
+        "hibernateSeason": "Season.Winter",
+        "wakeSlowTurns": 3,
+        "fleeBloodLoss": 0.3,
+        "lureFoodIds": [
+          "Item.SmokedMeat"
+        ]
+      },
+      "carrionFoods": [
+        "Item.RawMeat",
+        "Item.BearFat"
+      ]
+    },
+    "abilities": [
+      "Ab.Bear.Grip"
+    ]
+  },
+  {
+    "defType": "Body",
+    "id": "Body.CinderBear",
+    "label": "잿곰의 사족 신체",
+    "bloodMl": 24000,
+    "kind": "quadruped",
+    "parts": [
+      {
+        "id": "Skull",
+        "label": "두개골",
+        "region": "head",
+        "hp": 47,
+        "coverage": 70,
+        "bone": 7,
+        "height": "mid",
+        "groups": [
+          "skull"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2
+      },
+      {
+        "id": "Brain",
+        "label": "뇌",
+        "region": "head",
+        "parent": "Skull",
+        "internal": true,
+        "hp": 21,
+        "weight": 100,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        },
+        "groups": [
+          "skull"
+        ]
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼눈",
+        "region": "head",
+        "hp": 21,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "l",
+        "height": "mid"
+      },
+      {
+        "id": "RightEye",
+        "label": "오른눈",
+        "region": "head",
+        "hp": 21,
+        "coverage": 5,
+        "groups": [
+          "eye"
+        ],
+        "vessel": 0.5,
+        "pain": 1.5,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "r",
+        "height": "mid"
+      },
+      {
+        "id": "Nose",
+        "label": "코",
+        "region": "head",
+        "hp": 21,
+        "coverage": 10,
+        "groups": [
+          "nose"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "smell": 1
+        },
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "Jaw",
+        "label": "턱",
+        "region": "head",
+        "hp": 47,
+        "coverage": 30,
+        "bone": 7,
+        "groups": [
+          "jaw"
+        ],
+        "vessel": 1.5,
+        "pain": 1.2,
+        "capacities": {
+          "eating": 1,
+          "bite": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Neck",
+        "label": "목",
+        "region": "torso",
+        "hp": 47,
+        "coverage": 60,
+        "artery": 120,
+        "groups": [
+          "neck"
+        ],
+        "vessel": 2,
+        "pain": 1.2,
+        "vital": true,
+        "capacities": {
+          "airway": 1
+        },
+        "height": "mid"
+      },
+      {
+        "id": "Chest",
+        "label": "흉부",
+        "region": "torso",
+        "hp": 78,
+        "coverage": 260,
+        "bone": 6,
+        "groups": [
+          "chest"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 40
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 31,
+        "weight": 10,
+        "vital": true,
+        "organ": 2,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Lungs",
+        "label": "폐",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 42,
+        "weight": 40,
+        "organ": 0.8,
+        "capacities": {
+          "breathing": 1
+        },
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Spine",
+        "label": "척추",
+        "region": "torso",
+        "parent": "Chest",
+        "internal": true,
+        "hp": 36,
+        "weight": 10,
+        "groups": [
+          "chest"
+        ]
+      },
+      {
+        "id": "Abdomen",
+        "label": "복부",
+        "region": "torso",
+        "hp": 65,
+        "coverage": 200,
+        "groups": [
+          "abdomen"
+        ],
+        "vessel": 1,
+        "pain": 1,
+        "height": "mid",
+        "organMiss": 20
+      },
+      {
+        "id": "Liver",
+        "label": "간",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 36,
+        "weight": 40,
+        "organ": 1.5,
+        "delayedDeath": true,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Stomach",
+        "label": "위",
+        "region": "torso",
+        "parent": "Abdomen",
+        "internal": true,
+        "hp": 36,
+        "weight": 40,
+        "organ": 1,
+        "groups": [
+          "abdomen"
+        ]
+      },
+      {
+        "id": "Tail",
+        "label": "꼬리",
+        "region": "torso",
+        "hp": 21,
+        "coverage": 10,
+        "groups": [
+          "tail"
+        ],
+        "vessel": 0.6,
+        "pain": 1,
+        "height": "mid",
+        "detach": true
+      },
+      {
+        "id": "FrontLeftLeg",
+        "label": "왼 앞다리",
+        "region": "larm",
+        "hp": 52,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontLeftPaw",
+        "label": "왼 앞발",
+        "region": "larm",
+        "parent": "FrontLeftLeg",
+        "hp": 31,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true,
+        "capacities": {
+          "claw": 1
+        }
+      },
+      {
+        "id": "FrontRightLeg",
+        "label": "오른 앞다리",
+        "region": "rarm",
+        "hp": 52,
+        "coverage": 70,
+        "bone": 8,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "FrontRightPaw",
+        "label": "오른 앞발",
+        "region": "rarm",
+        "parent": "FrontRightLeg",
+        "hp": 31,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "FrontRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true,
+        "capacities": {
+          "claw": 1
+        }
+      },
+      {
+        "id": "HindLeftLeg",
+        "label": "왼 뒷다리",
+        "region": "lleg",
+        "hp": 57,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindLeftPaw",
+        "label": "왼 뒷발",
+        "region": "lleg",
+        "parent": "HindLeftLeg",
+        "hp": 31,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindLeftLeg",
+        "side": "l",
+        "height": "low",
+        "detach": true
+      },
+      {
+        "id": "HindRightLeg",
+        "label": "오른 뒷다리",
+        "region": "rleg",
+        "hp": 57,
+        "coverage": 65,
+        "bone": 9,
+        "artery": 70,
+        "groups": [
+          "thigh"
+        ],
+        "vessel": 1,
+        "pain": 0.9,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "qleg": true,
+        "stumpParent": "Chest"
+      },
+      {
+        "id": "HindRightPaw",
+        "label": "오른 뒷발",
+        "region": "rleg",
+        "parent": "HindRightLeg",
+        "hp": 31,
+        "coverage": 20,
+        "bone": 5,
+        "groups": [
+          "foot"
+        ],
+        "vessel": 0.6,
+        "pain": 1.2,
+        "limb": "HindRightLeg",
+        "side": "r",
+        "height": "low",
+        "detach": true
+      }
+    ]
+  },
+  {
+    "defType": "Material",
+    "id": "Material.CinderBearHide",
+    "parent": "Material.AshWolfHide",
+    "label": "잿곰 가죽",
+    "insulation": 8,
+    "toughness": 75,
+    "valuePerKg": 22,
+    "recoveryItem": "Item.CinderBearLeather"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CinderBearHide",
+    "label": "잿곰 생가죽",
+    "sprite": "av331_cinder_bear_hide",
+    "category": "misc",
+    "weight": 1,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 24,
+    "material": "Material.CinderBearHide",
+    "rawMaterial": {
+      "material": "Material.CinderBearHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearFat",
+    "label": "잿곰 지방 덩이",
+    "sprite": "av331_bear_fat",
+    "category": "food",
+    "weight": 0.5,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "food": {
+      "kcal": 800,
+      "protein": 0,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 36
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearClaw",
+    "label": "잿곰 발톱",
+    "sprite": "av331_bear_claw",
+    "category": "misc",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 100
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearBile",
+    "label": "밀봉한 잿곰 담즙",
+    "sprite": "av331_bear_bile",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 30
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CinderBearLeather",
+    "parent": "Item.Leather",
+    "label": "무두질한 잿곰 가죽",
+    "description": "숯빛 털이 남은 두꺼운 가죽. 생가죽과 그림을 공유한다.",
+    "sprite": "av331_cinder_bear_hide",
+    "material": "Material.CinderBearHide",
+    "rawMaterial": {
+      "material": "Material.CinderBearHide",
+      "grams": 1000
+    },
+    "weight": 1,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 42
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.CinderBear",
+    "label": "잿곰",
+    "creatures": [
+      "Creature.CinderBear"
+    ],
+    "kind": "animal",
+    "difficulty": 40,
+    "silhouette": "잿곰의 실루엣",
+    "yields": [
+      {
+        "item": "Item.RawMeat",
+        "count": 80
+      },
+      {
+        "item": "Item.CinderBearHide",
+        "count": 6
+      },
+      {
+        "item": "Item.BearFat",
+        "count": 30
+      },
+      {
+        "item": "Item.BearClaw",
+        "count": 4
+      },
+      {
+        "item": "Item.BearBile",
+        "count": 1
+      }
+    ],
+    "facts": [
+      "잿곰 가죽의 두꺼운 털은 고원의 겨울을 견딘다.",
+      "지방층은 손가락 네 마디 두께다. 녹이면 등잔 기름으로 쓸 수 있다."
+    ]
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.TanCinderBearHide",
+    "label": "잿곰 생가죽 무두질",
+    "category": "textile",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 360,
+    "inputs": [
+      {
+        "item": "Item.CinderBearHide",
+        "count": 1
+      },
+      {
+        "item": "Item.Salt",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.CinderBearLeather",
+      "count": 1
+    },
+    "stations": [
+      "tanning"
+    ],
+    "passiveTurns": 86400,
+    "smell": 4
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.RenderBearFat",
+    "label": "잿곰 지방으로 등잔 기름 만들기",
+    "category": "survival",
+    "primaryAttr": "per",
+    "basic": false,
+    "workTurns": 120,
+    "inputs": [
+      {
+        "item": "Item.BearFat",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.LampOil",
+      "count": 1
+    },
+    "stations": [
+      "campfire"
+    ],
+    "tools": []
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.Bear.Grip",
+    "parent": "Ab.Grab",
+    "label": "앞발로 붙들기",
+    "description": "실제 앞발로 인접 상대를 붙든다. 앞발을 잃으면 사용할 수 없다.",
+    "requiresCapacity": "claw",
+    "attackMode": "paw",
+    "energy": 6
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearProcessingNotes",
+    "parent": "Item.CraftManual",
+    "label": "잿곰 가공 기록",
+    "description": "검은 숲의 사냥꾼이 남긴 낡은 양피지 묶음. 가죽을 다듬고 지방에서 기름을 얻는 법을 적었다.",
+    "sprite": "av350_bear_processing_notes",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "value": 30,
+    "book": {
+      "pages": 8,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 1,
+      "note": "생가죽은 소금과 무두질틀로 다듬는다. 지방은 화덕에서 기름으로 녹인다. 무두질한 두꺼운 가죽은 재질을 고른 코트의 겉감으로 쓸 수 있다.",
+      "unlocks": [
+        "Recipe.TanCinderBearHide",
+        "Recipe.RenderBearFat",
+        "Recipe.CustomCoat"
+      ],
+      "bestiary": [
+        "BestiaryEntry.CinderBear"
+      ]
+    }
+  }
+]

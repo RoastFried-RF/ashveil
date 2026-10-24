@@ -1,3 +1,4 @@
+import {endSeasonalSleep} from './bear-state'
 import {recordHeardThoughts} from './sound-thoughts'
 import {finishSleepMemories} from './sleep-memories'
 import {fatigueBand,fatigueAt} from './fatigue-state'
@@ -117,6 +118,7 @@ export function emitNoise(w: World, pos: Pos, strength: number, sourceId: number
       if (reach < wakeThreshold(w, c)) continue
       const familiar = !!c.residentSite && !!src && !hostile(w, c, src) && strength < 6
       if (c.activity?.kind === 'sleep') c.activity.wokeBy ??= familiar ? '익숙한 소리에 잠이 깼다.' : '소리에 잠이 깼다.'
+      endSeasonalSleep(w,c)
       finishSleepMemories(w,c)
       c.asleep = false
       c.drowsyUntil = turn + (c.deepSleep ? 20 : 10)

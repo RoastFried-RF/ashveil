@@ -6,14 +6,14 @@ import { alcoholWithdrawalStage } from './drug-state'
 import { projectileFletching, projectileReady, spendProjectile } from './ranged'
 import { lodgeProjectile } from './medical'
 import { stumbleChance, type ActResult } from './actions'
-import { energyMax, isDestroyed } from './body'
+import { capacity, energyMax, isDestroyed } from './body'
 import { bowProblem } from './gear-state'
 import { bowStringBreaks } from './gear-care'
 import { canReach, fx, knockDown, previewHit, pushBack, resolveAttack, sporeCloud, rangedRange } from './combat'
 import { creatureAt, creatureById, inBounds, log, rng, terrainAt, turnOf, type World } from './ctx'
 import { hasLos } from './fov'
 import { cheb, DIRS, dirIndex } from './geom'
-import { canStack, itemDef, maxStack, wield } from './items'
+import { canStack, itemDef, maxStack, meleeWield, wield } from './items'
 import { emitNoise } from './perception'
 import { addEffect, hasEffect, traitAdd, effectiveStat } from './traits'
 import type { AbilityDef, Creature } from './types'
@@ -39,6 +39,7 @@ function cooldownOf(w: World, c: Creature, d: AbilityDef): number {
 export function abilityReady(w: World, c: Creature, id: string): string | null {
   const d = w.db.ability(id)
   if (!c.abilities.includes(id) && !(w.db.creature(c.def).abilities ?? []).includes(id)) return '배우지 않은 능력'
+  if(d.requiresCapacity&&capacity(w,c,d.requiresCapacity)<.1)return '능력에 필요한 실제 신체 부위를 쓸 수 없다'
   if (d.kind === 'passive') return '패시브 능력이다'
   const turn = turnOf(w)
   if ((c.cooldowns[id] ?? 0) > turn) return `재사용 대기 ${c.cooldowns[id] - turn}턴`
@@ -224,7 +225,7 @@ function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResul
   if (!t || !t.alive || cheb(t.pos, c.pos) > 1) return { ok: false, tu: 0, msg: '붙잡을 대상이 없다' }
   if (hasEffect(t, 'grabbed', turnOf(w))) return { ok: false, tu: 0, msg: '이미 붙잡혀 있다' }
   payCost(w, c, d)
-  const pv = previewHit(w, c, t)
+  const pv = previewHit(w,c,t,false,undefined,d.attackMode?meleeWield(w,c,d.attackMode):undefined)
   const roll = rng(w, 'combat').int(0, 99)
   const isPl = t.faction === 'player' || c.faction === 'player'
   if (!pv || roll >= pv.chance) {
@@ -233,7 +234,7 @@ function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResul
   }
   addEffect(t, 'grabbed', turnOf(w) + 60, c.id)
   fx(w, { k: 'status', id: t.id, text: '붙잡힘', color: '#e09060', turn: turnOf(w) })
-  if (isPl) log(w, 'danger', `${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신의' : knownCreatureName(w,t) + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`)
+  if (isPl) log(w, 'danger', w.db.body(c.body.def).kind==='humanoid'?`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신의' : knownCreatureName(w,t) + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`:`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신을' : knownCreatureName(w,t)+'을(를)'} 앞발로 붙들었다! (이동하면 탈출 시도)`)
   return { ok: true, tu: 100 }
 }
 
