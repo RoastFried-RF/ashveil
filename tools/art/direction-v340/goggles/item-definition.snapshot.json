@@ -1,0 +1,45 @@
+{
+  "defType": "Item",
+  "id": "Item.OpticalGoggles",
+  "label": "차광 고글",
+  "description": "측량 렌즈를 나눠 어둡게 차광하고 선재 테와 가죽 끈으로 고정한 고글. 실제 장착 상태에서 눈부심과 눈 노출을 막는다.",
+  "sprite": "av341_optical_goggles",
+  "category": "apparel",
+  "slot": "head",
+  "weight": 0.25,
+  "value": 70,
+  "size": [
+    2,
+    1
+  ],
+  "stackable": false,
+  "maxStack": 1,
+  "equipTurns": [
+    2,
+    1
+  ],
+  "apparel": {
+    "layer": 1,
+    "groups": [
+      "eye"
+    ],
+    "insulation": 0,
+    "armor": {
+      "sharp": 2,
+      "blunt": 1,
+      "heat": 1
+    },
+    "durability": 60,
+    "noise": 0,
+    "eyeProtection": true
+  },
+  "repair": {
+    "material": "Item.Leather",
+    "unitsPer10": 0.1,
+    "turns": 100,
+    "attr": "agi",
+    "tools": [
+      "needle"
+    ]
+  }
+}

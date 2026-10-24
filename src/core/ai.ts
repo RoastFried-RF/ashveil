@@ -1,5 +1,6 @@
 import {firearmReady,firearmSupply} from './firearms'
 import {decideWildlife} from './wildlife'
+import {decideSurveyor} from './surveyor'
 import {throwQuote} from './throwing'
 import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
@@ -764,6 +765,8 @@ function machineDecision(w:World,c:Creature):Action{
 function machineDecisionRaw(w:World,c:Creature):Action{
   const m=c.body.machine,d=machineRules(w,c)!
   if(!m||!machineReady(w,c)||capacity(w,c,'consciousness')<0.3)return{type:'wait'}
+  // Keep the shared real controller-fault wrapper, before the repair-drone policy.
+  if(w.db.creature(c.def).survey)return decideSurveyor(w,c,{toward:p=>stepToward(w,c,p),away:threats=>stepAway(w,c,threats)})
   const toward=(pos:Pos):Action=>{
     const action=stepToward(w,c,pos)
     if(action?.type==='move'){const delta=DIRS[action.dir],to={x:c.pos.x+delta.x,y:c.pos.y+delta.y};if(terrainAt(w,to).water)return{type:'wait'}}

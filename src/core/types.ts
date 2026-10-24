@@ -28,7 +28,7 @@ export interface SaveModeDef extends DefBase {
 
 export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn' | 'gunshot'
 export type ArmorCategory = 'sharp' | 'blunt' | 'heat'
-export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool' | 'peck' | 'flight'
+export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool' | 'peck' | 'flight' | 'signal'
 export type Height = 'low' | 'mid' | 'high'
 
 export interface BodyPartDef {
@@ -382,6 +382,7 @@ export interface WildlifeRules {
   mud?:{terrains:string[];sharp:number;blunt:number;washTurns:number}
 }
 export interface CreatureDef extends DefBase {
+  survey?:{antenna:string;reportTurns:number;reportCooldown:number;keepDistance:[number,number];watchRect:[number,number,number,number];patrol:Pos[];flashRadius:number;flashTurns:number;flashSightMult:number;flashCooldown:number}
   wildlife?:WildlifeRules
   flight?:{height:number;takeoffEnergy:number;moveEnergy:number;maxTurns:number;minCapacity:number;fallDamage:number;noise:number}
   considerationWorker?:string
@@ -2177,7 +2178,9 @@ export interface Activity {
   beddingWash?:{map:string;terrain:string;uid?:number}
   companionAid?:boolean
   aidOrigin?:{actor:Pos;patient:Pos}
-  kind: 'rescueDrag' | 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
+  surveyTarget?:number
+  surveyRule?:string
+  kind: 'survey' | 'rescueDrag' | 'clearBrush' | 'magazineReload' | 'firearmCare' | 'pryContainer' | 'excavate' | 'ransom' | 'ransomWait' | 'washBedding' | 'brewTea' | 'gatherNeedles' | 'foodMeal' | 'openFood' | 'respirator' | 'waterRescue' | 'beaconWork' | 'parasiteRemoval' | 'boatCare' | 'discloseEvidence' | 'deviceWork' | 'machineCare' | 'gearSwap' | 'fire' | 'claimBase' | 'recruitInvite' | 'recruit' | 'recruitWait' | 'struggle' | 'prisoner' | 'pray' | 'rest' | 'sleep' | 'search' | 'examine' | 'press' | 'equip' | 'unequip' | 'treat' | 'aim' | 'strip' | 'read' | 'cook' | 'dry' | 'drawMap' | 'drawWorldMap' | 'craft' | 'repair' | 'salvage' | 'gather' | 'gearCare' | 'reload' | 'wash' | 'water' | 'prosthetic' | 'travel' | 'breakIce' | 'collectSnow' | 'medicate' | 'taste' | 'dissect' | 'careWait' | 'diagnose' | 'dose' | 'washHands' | 'teach' | 'lessonWait' | 'warm' | 'packFurniture'
   evidence?:{rule:string;signature:string;target:number;map:string;held:{uid:number;def:string}[]}
   remaining: number
   /** 시작 때 정한 전체 턴 */
@@ -2247,6 +2250,7 @@ export interface MedicalReport {
 
 export interface Creature {
   carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
+  surveyState?:{target?:number;progress:number;lastObservedAt?:number;nextReportAt:number;flashAt?:number;patrolIndex:number;lastInterrupted?:{at:number;progress:number;target:number}}
   flight?:{startedAt:number;landAt:number;origin:Pos}
   wildlifeState?:{threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number;interest?:{id:number;pos:Pos;at:number;alive:boolean;unconscious:boolean}}
   npcCareHistory?:NpcCareRecord[]
@@ -2527,7 +2531,9 @@ export interface MapRoom {
 export interface PopSource { id: string; label: string; species: string; count: number; cap: number; regenDays: number; floors: string[]; lastRegenDay: number; needsAlive?: string; deployed?: boolean;members?:number[];faction?:string;kind?:'residents';closed?:{at:number;by:number;mapId:string;deviceUid:number} }
 export interface MapLight { pos: Pos; radius: number; kind: string; off?: boolean; sourceUid?:number; fuelUntil?:number;beddingFireId?:number;beddingSparkAt?:number;terrainFireId?:number;terrainSparkAt?:number }
 
+export interface GardenAlertState {level:number;events:{at:number;source:number;target:number;sourcePos:Pos;targetPos:Pos;level:number}[]}
 export interface MapState {
+  gardenAlert?:GardenAlertState
   fog?:{sightMult:number;color:number;opacity:number}
   vessel?:VesselState
   layoutUpgrades?:string[]
@@ -2689,6 +2695,7 @@ export interface WorldTravel {
   totalRemaining: number
 }
 export interface OverworldState {
+  gardenAlerts?:Record<string,GardenAlertState>
   roadRaids?:WorldRaid[]
   roadRaidDay?:number
   nextRoadRaid?:number

@@ -2,6 +2,7 @@
 import { clamp, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import type { Pos } from './geom'
 import type { SeasonDef, WorldGenDef, WorldTower } from './types'
+import {reportedGardenAlert} from './garden-alert'
 
 const distance=(a:Pos,b:Pos)=>Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 export function towerHistoryOutput(t:WorldTower,cutoff:number){let output=t.history?.[0]?.output??t.output;for(const entry of t.history??[]){if(entry.turn>cutoff)break;output=entry.output}return output}
@@ -28,7 +29,7 @@ export function towerSoilFertility(w:World,p=w.s.map.worldCell??w.s.overworld?.p
  for(const t of w.s.overworld?.towers??[]){const stop=t.shutdown;if(!stop||distance(t.cell,p)>stop.radius)continue;fertility=Math.min(fertility,1-clamp((cutoff-stop.turn-stop.soilDelayTurns)/stop.soilCollapseTurns,0,1))}
  return fertility
 }
-export function towerGardenAlert(w:World,p=w.s.map.worldCell??w.s.overworld?.position){return p&&w.s.overworld?.towers.some(t=>t.shutdown&&turnOf(w)>=t.shutdown.turn&&distance(t.cell,p)<=t.shutdown.radius)?3:0}
+export function towerGardenAlert(w:World,p=w.s.map.worldCell??w.s.overworld?.position){return Math.max(reportedGardenAlert(w,p),p&&w.s.overworld?.towers.some(t=>t.shutdown&&turnOf(w)>=t.shutdown.turn&&distance(t.cell,p)<=t.shutdown.radius)?3:0)}
 /** 실제 정지 작업 완료 때만 기존 탑/이력에 쓴다. */
 export function stopTowerState(w:World,id:string,season:SeasonDef,rules:NonNullable<import('./types').ClimateDef['towerStop']>):boolean{
  const m=w.s.overworld,t=m?.towers.find(t=>t.id===id)

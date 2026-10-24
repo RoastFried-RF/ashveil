@@ -35,6 +35,7 @@ export function takeActionPresentations(w:World,resolvedAttacks:ReadonlySet<numb
 
 /** Visible continuous activities reuse physical families, not new game rules. */
 const activityMotions={
+ survey:'work',
  rescueDrag:'work',clearBrush:'work',magazineReload:'work',firearmCare:'work',pryContainer:'work',excavate:'work',ransom:'interact',ransomWait:'idle',washBedding:'work',brewTea:'work',gatherNeedles:'work',foodMeal:'use',openFood:'work',respirator:'use',waterRescue:'work',beaconWork:'work',parasiteRemoval:'use',boatCare:'work',discloseEvidence:'interact',deviceWork:'work',machineCare:'work',gearSwap:'use',fire:'work',claimBase:'interact',recruitInvite:'interact',recruit:'interact',recruitWait:'idle',struggle:'hurt',prisoner:'work',pray:'use',rest:'idle',sleep:'sleep',search:'interact',examine:'use',press:'use',equip:'use',unequip:'use',treat:'work',aim:'shoot',strip:'work',read:'use',cook:'work',dry:'idle',drawMap:'work',drawWorldMap:'work',craft:'work',repair:'work',salvage:'work',gather:'work',gearCare:'work',reload:'work',wash:'use',water:'work',prosthetic:'work',travel:'walk',breakIce:'work',collectSnow:'work',medicate:'work',taste:'use',dissect:'work',careWait:'idle',diagnose:'work',dose:'work',washHands:'use',teach:'interact',lessonWait:'idle',warm:'idle',packFurniture:'work',
 }as const satisfies Record<Activity['kind'],MotionName>
 export function activityMotion(activity:Activity|undefined):MotionName|null{return activity?activityMotions[activity.kind]:null}

@@ -222,6 +222,8 @@ export const actionMotions={
  "trip":"attack",
  "unequip":"use",
  "uprootCrop":"work",
+ "survey":"work",
+ "sensorFlash":"use",
  "wait":null,
  "wakePrisoner":"interact",
  "warmByFire":"interact",

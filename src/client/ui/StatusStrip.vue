@@ -11,6 +11,7 @@ import { version, world } from '../store'
 import { hideTip, showTip, toggleWin } from '../ui'
 
 const EFFECT: Record<string, [string, string]> = {
+  sensorFlash:['눈부심','#f0dba0'],
   painkiller: ['진통', '#a0c0a0'], analgesic: ['마취', '#a0c0a0'], alcohol: ['취기', '#d0a060'], stimulant: ['각성', '#e0d070'],
   antibiotic: ['항생', '#90c0d0'], sedative: ['진정', '#a0a0d0'], dysentery: ['이질', '#c08040'], foodPoisoning: ['식중독', '#c08040'], lice: ['이', '#c08040'],
   withdrawal: ['금단', '#c06060'], shock: ['쇼크', '#e05050'], stunned: ['기절', '#f0e070'], panic: ['공황', '#e07070'],

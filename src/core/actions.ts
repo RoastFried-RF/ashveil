@@ -52,6 +52,7 @@ import {cookingRules,foodKcal} from './cooking-state'
 import {dropFragile} from './fragile'
 import {animalDrink,animalEat,startAnimalBrowse,wallow,interruptAnimalBrowse} from './wildlife'
 import {fly,land,takeFlight} from './flight'
+import {sensorFlash,startSurvey,surveyStep} from './surveyor'
 import {tearCarrion,tearFloorFood} from './carrion'
 import {worsenFractures} from './fracture-strain'
 import {exposeDisease} from './conditions'
@@ -394,6 +395,8 @@ export type Action =
   | {type:'animalBrowse';pos:Pos}
   | {type:'wallow'}
   | {type:'takeFlight'}
+  | {type:'survey';target:number}
+  | {type:'sensorFlash'}
   | {type:'fly';dir:number}
   | {type:'land'}
   | {type:'tearCarrion';target:number}
@@ -1602,6 +1605,8 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     }
 
     case 'takeFlight':return takeFlight(w,c)
+    case 'survey':return startSurvey(w,c,a.target)
+    case 'sensorFlash':return sensorFlash(w,c)
     case 'fly':return fly(w,c,a.dir)
     case 'land':return land(w,c)
     case 'tearCarrion':return tearCarrion(w,c,a.target)
@@ -1843,6 +1848,7 @@ function finishUnequip(w:World,c:Creature,slot:Slot,uid:number|undefined,dropAft
 }
 
 export function activityStep(w: World, c: Creature): boolean {
+  if(c.activity?.kind==='survey')return surveyStep(w,c)
   if(c.activity?.animalForage&&interruptAnimalBrowse(w,c)){c.activity=undefined;return true}
   const act = c.activity
   if (!act) return true

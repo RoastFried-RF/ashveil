@@ -668,6 +668,18 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       if(!isObj(d)||body?.kind!=='bird'||body.parts.filter(p=>(p.capacities?.flight??0)>0).length!==2)report.errors.push(c.id+': flight 실제 조류 몸과 두 날개 필요')
       else{for(const[key,lo,hi]of[['height',1,3],['takeoffEnergy',1,50],['moveEnergy',1,20],['maxTurns',2,300],['fallDamage',1,50],['noise',1,20]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': flight.'+key+' 범위 오류');if(!Number.isFinite(d.minCapacity)||d.minCapacity<=.5||d.minCapacity>1)report.errors.push(c.id+': flight.minCapacity 실제 양쪽 날개 기능 필요')}
     }
+    if(c.survey!==undefined){
+      const d=c.survey,b=db.tryGet<BodyDef>(c.body??'')
+      if(!isObj(d)||b?.kind!=='mechanical'||!b.parts.some(p=>p.id===d.antenna&&(p.capacities?.signal??0)>0))report.errors.push(c.id+': survey 실제 기계/신호 안테나 필요')
+      else{
+        for(const[key,lo,hi]of[['reportTurns',2,10],['reportCooldown',100,259200],['flashRadius',1,4],['flashTurns',1,5],['flashCooldown',2,300]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': survey.'+key+' 범위 오류')
+        if(!Array.isArray(d.keepDistance)||d.keepDistance.length!==2||d.keepDistance.some(n=>!Number.isSafeInteger(n)||n<1||n>20)||d.keepDistance[0]>d.keepDistance[1]||d.keepDistance[0]<=d.flashRadius)report.errors.push(c.id+': survey.keepDistance 실제 거리 범위 필요')
+        if(!Array.isArray(d.watchRect)||d.watchRect.length!==4||d.watchRect.some(n=>!Number.isSafeInteger(n)||n<0||n>256)||d.watchRect[2]<1||d.watchRect[3]<1)report.errors.push(c.id+': survey.watchRect 실제 보호 구역 필요')
+        if(!Array.isArray(d.patrol)||!d.patrol.length||d.patrol.length>16||d.patrol.some(p=>!isObj(p)||!Number.isSafeInteger(p.x)||!Number.isSafeInteger(p.y)||p.x<0||p.y<0||p.x>255||p.y>255))report.errors.push(c.id+': survey.patrol 실제 경유지 필요')
+        if(!Number.isFinite(d.flashSightMult)||d.flashSightMult<=0||d.flashSightMult>1)report.errors.push(c.id+': survey.flashSightMult 유한 시야 비율 필요')
+        if(c.naturalAttack||c.naturalAttacks?.length)report.errors.push(c.id+': survey 비공격 개체에 직접 공격을 주지 않는다')
+      }
+    }
     need(c.id, c.body, 'Body')
     need(c.id, c.fearFamily, 'Creature')
     need(c.id, c.contactDisease?.id, 'Disease')

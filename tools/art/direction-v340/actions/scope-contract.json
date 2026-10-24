@@ -1,0 +1,334 @@
+{
+  "format": 1,
+  "activationReady": false,
+  "creature": {
+    "defType": "Creature",
+    "id": "Creature.Surveyor",
+    "label": "측량기",
+    "body": "Body.Surveyor",
+    "char": "av331_surveyor",
+    "sprite": "av331_surveyor",
+    "faction": "gardeners",
+    "sizeClass": "large",
+    "moveTU": 100,
+    "stats": {
+      "str": 5,
+      "agi": 14,
+      "per": 20,
+      "vit": 10,
+      "wil": 10
+    },
+    "skills": {},
+    "ai": "guard",
+    "morale": 100,
+    "lightThreshold": 0,
+    "sightRange": 25,
+    "hearing": 2,
+    "smell": 0,
+    "bagSize": [
+      4,
+      3
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "noMorale": true,
+    "weightKg": 90,
+    "hpBase": 80,
+    "naturalArmor": {
+      "sharp": 15,
+      "blunt": 5,
+      "heat": 10
+    },
+    "xp": 45,
+    "bestiary": [
+      "세 다리 위 렌즈가 먼 곳의 열을 읽는다.",
+      "직접 공격하지 않고 침입자를 관찰하여 안테나로 보고한다.",
+      "안테나를 먼저 파괴하면 신호가 끊어진다. 접근하면 섬광으로 눈을 가린다."
+    ]
+  },
+  "body": {
+    "defType": "Body",
+    "id": "Body.Surveyor",
+    "label": "측량기의 세 다리",
+    "bloodMl": 0,
+    "kind": "mechanical",
+    "parts": [
+      {
+        "id": "Chassis",
+        "label": "섀시",
+        "hp": 46,
+        "coverage": 450,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "organMiss": 40
+      },
+      {
+        "id": "Core",
+        "label": "코어",
+        "hp": 17,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "vital": true,
+        "weight": 2,
+        "capacities": {
+          "consciousness": 1
+        }
+      },
+      {
+        "id": "PowerCell",
+        "label": "전원셀",
+        "hp": 23,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "CoolingLoop",
+        "label": "냉각 루프",
+        "hp": 17,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "SensorMast",
+        "label": "센서 마스트",
+        "hp": 14,
+        "coverage": 100,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "capacities": {
+          "sight": 1,
+          "hearing": 1
+        }
+      },
+      {
+        "id": "ManipulatorL",
+        "label": "왼쪽 매니퓰레이터",
+        "hp": 14,
+        "coverage": 70,
+        "region": "larm",
+        "height": "mid",
+        "groups": [],
+        "side": "l",
+        "capacities": {
+          "manipulation": 0.4
+        }
+      },
+      {
+        "id": "ManipulatorR",
+        "label": "오른쪽 매니퓰레이터",
+        "hp": 14,
+        "coverage": 70,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "side": "r",
+        "capacities": {
+          "manipulation": 0.6
+        }
+      },
+      {
+        "id": "ToolHead",
+        "label": "공구 헤드",
+        "hp": 12,
+        "coverage": 40,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "capacities": {
+          "tool": 1
+        }
+      },
+      {
+        "id": "DriveLeg1",
+        "label": "구동 다리 1",
+        "region": "lleg",
+        "hp": 29,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "DriveLeg2",
+        "label": "구동 다리 2",
+        "region": "rleg",
+        "hp": 29,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "DriveLeg3",
+        "label": "구동 다리 3",
+        "region": "lleg",
+        "hp": 29,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "Antenna",
+        "label": "안테나",
+        "region": "head",
+        "hp": 8,
+        "coverage": 75,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "signal": 1
+        },
+        "detach": true
+      }
+    ],
+    "mechanical": {
+      "core": "Core",
+      "powerCell": "PowerCell",
+      "coolingLoop": "CoolingLoop",
+      "chassis": "Chassis",
+      "toolHead": "ToolHead",
+      "coolantMl": 800,
+      "leakPerSeverity": 0.8,
+      "cooling": 4,
+      "ambientThreshold": 20,
+      "ambientDivisor": 10,
+      "protectiveHeat": 70,
+      "shutdownHeat": 90,
+      "shutdownChance": 0.2,
+      "shutdownTurns": [
+        2,
+        4
+      ],
+      "coreDamage": 2,
+      "shortChance": 0.01,
+      "moveHeat": 1,
+      "attackHeat": 3,
+      "weldHeat": 8,
+      "actionPower": 0.1,
+      "idlePower": 0.0001,
+      "retreatPower": 30,
+      "patch": {
+        "item": "Item.MachinePatch",
+        "turns": 10
+      },
+      "coolant": {
+        "item": "Item.HydraulicFluid",
+        "ml": 200,
+        "turns": 5
+      },
+      "repair": {
+        "item": "Item.SmallActuator",
+        "severity": 10,
+        "turns": 30,
+        "tool": "hammer"
+      },
+      "cell": {
+        "item": "Item.LowPowerCell",
+        "power": 25,
+        "turns": 10
+      },
+      "salvage": [
+        {
+          "item": "Item.SurveyLens",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.AntennaWire",
+          "count": 2,
+          "chance": 1
+        },
+        {
+          "item": "Item.LightLegFrame",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.ThermalSensor",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.LowPowerCell",
+          "count": 1,
+          "chance": 0.5
+        }
+      ],
+      "errorLoop": {
+        "damage": 0.25,
+        "checkTurns": 20,
+        "chance": 0.15,
+        "turns": 20
+      }
+    }
+  },
+  "newSourceMotionScope": [
+    "hurt",
+    "fall",
+    "rise"
+  ],
+  "reason": [
+    "Generic mechanicalBodyTick updates unconscious from shutdownUntil, power and Core efficiency. MapRenderer maps prone to fall and actual recovery to rise; damage while upright requests hurt.",
+    "machineCare is adjacent real actor/material/tool work; no fabricated handheld self-repair sprite was authored. Destroyed Core is not revived by repair.",
+    "Surveyor-specific reporting/flee/flash/Antenna damage policy remains draft and is not activated by this art."
+  ],
+  "requiredMotionsFromPlan": [
+    "idle",
+    "walk",
+    "hurt",
+    "block",
+    "work",
+    "fall",
+    "rise"
+  ],
+  "stillMissing": [
+    "block posture",
+    "portrait",
+    "damaged/antenna removed source variants and exact visual Body-part masking",
+    "actual Surveyor policy/Core integration",
+    "parent game-scene transition/relative-size/occlusion acceptance"
+  ],
+  "intactBodyOnly": true
+}

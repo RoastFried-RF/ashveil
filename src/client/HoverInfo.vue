@@ -13,7 +13,7 @@ import {cultivationStatus} from '../core/cultivation'
 import {flightHeight} from '../core/flight'
 
 const props = defineProps<{ pos: Pos | null; detail: boolean }>()
-const AI: Record<string, string> = { idle: '가만히 있다', wander: '어슬렁거린다', hunt: '당신을 노린다', investigate: '무언가를 찾는다', flee: '달아난다', eat: '먹고 있다', surrender: '항복했다', guard: '자리를 지킨다', return: '제자리로 돌아간다' }
+const AI: Record<string, string> = { idle: '가만히 있다', wander: '어슬렁거린다', hunt: '당신을 노린다', investigate: '무언가를 찾는다', flee: '달아난다', eat: '먹고 있다', surrender: '항복했다', guard: '자리를 지킨다', return: '제자리로 돌아간다',patrol:'경계를 순회한다' }
 
 const d = computed(() => {
   void version.value
@@ -57,6 +57,7 @@ const d = computed(() => {
         if(c.body.machine&&cheb(pl.pos,c.pos)<=1)lines.push(...machineStatus(w,c).slice(0,2))
         lines.unshift(...observedCondition(w, c))
         if(c.flight)lines.unshift(`비행 중 · 지상 ${flightHeight(w,c)}칸 높이`)
+        if(c.activity?.kind==='survey')lines.unshift(`안테나 보고 중 · ${c.activity.elapsed??0}/${c.activity.total??0}턴`)
         lines.unshift(c.asleep ? '잠들어 있다 — 기습하면 95%·피해 ×1.5' : AI[c.ai.mode] ?? '')
         if(entry)lines.push(...bestiaryDetails(w,c.def).slice(0,3))
         if (stage>=2) lines.push(`(도감) 무장: ${mainWeapon(w, c) ? itemDef(w, mainWeapon(w, c)!).label : '맨몸'}`)

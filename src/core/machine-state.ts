@@ -14,10 +14,10 @@ export function machineProtecting(w: World, c: Creature): boolean {
   const d = machineRules(w, c)
   return !!d && (c.body.machine?.heat ?? 0) >= d.protectiveHeat
 }
-export function machineAction(w: World, c: Creature, kind: 'move' | 'attack' | 'weld') {
+export function machineAction(w: World, c: Creature, kind: 'move' | 'attack' | 'weld' | 'work') {
   const d = machineRules(w, c), m = c.body.machine
   if (!d || !m) return
-  m.heat = clamp(m.heat + (kind === 'move' ? d.moveHeat : kind === 'weld' ? d.weldHeat : d.attackHeat), 0, 100)
+  m.heat = clamp(m.heat + (kind === 'move'||kind==='work' ? d.moveHeat : kind === 'weld' ? d.weldHeat : d.attackHeat), 0, 100)
   m.power = Math.max(0, m.power - d.actionPower)
-  if(kind!=='move')m.attacks=(m.attacks??0)+1
+  if(kind==='attack'||kind==='weld')m.attacks=(m.attacks??0)+1
 }

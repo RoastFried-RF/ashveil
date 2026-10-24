@@ -8,8 +8,8 @@ import { capacity } from './body'
 import { creatureAt, idx, inBounds, isOpaque, tileAt, type World } from './ctx'
 import { daylight } from './environment'
 import { cheb, dist2, line, type Pos } from './geom'
-import { lightSource } from './items'
-import { effectiveStat, traitAdd, traitMul, traitOverride } from './traits'
+import { hasEyeProtection,lightSource } from './items'
+import { effectMag,effectiveStat, traitAdd, traitMul, traitOverride } from './traits'
 import type { Creature, MapState } from './types'
 
 const MULT = [
@@ -138,8 +138,8 @@ export function sightRange(w: World, c: Creature): number {
     ? def.sightRange * (1 + Math.max(0, Math.floor(perception / vision.perceptionStep)) * vision.perceptionBonus)
     : def.sightRange + Math.floor(perception / 2)
   const base = Math.min(vision?.maxRange ?? Infinity, statRange + traitAdd(w, c, 'sightRange') - (c.breakdown?.kind === 'cry' ? 2 : 0))
-  const weather = weatherSight(w), protectedEyes = Object.values(c.equip).some((it) => it && w.db.item(it.def).apparel?.eyeProtection)
-  return Math.max(1, Math.min(vision?.maxRange ?? Infinity, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight')))))
+  const weather = weatherSight(w), protectedEyes = hasEyeProtection(w,c)
+  return Math.max(1, Math.min(vision?.maxRange ?? Infinity, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight'))*(1-Math.min(.95,Math.max(0,effectMag(c,'sensorFlash',turnOf(w))))))))
 }
 
 /** 광원이 닿지 않는 곳을 볼 수 있는 거리. 조명된 대상은 전체 시야 범위를 사용한다. */

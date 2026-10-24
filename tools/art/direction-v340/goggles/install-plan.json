@@ -1,0 +1,24 @@
+{
+  "status": "independent-optical-goggles-art-ready-for-parent-integration",
+  "active": false,
+  "artReadyForParentIntegration": true,
+  "originals": [
+    {
+      "source": "originals/optical-goggles-v1.png",
+      "targetRelativeToPublic": "sprites/original/direction-v341/optical-goggles-v1.png",
+      "sha256": "7de91bd22f8ecceab44dff098fc0e5862aeed362b15c554d0ed92e4ffd0775cf",
+      "size": [
+        1774,
+        887
+      ],
+      "uniqueRegions": 1
+    }
+  ],
+  "registryFragment": "sprites.fragment.json",
+  "itemMetadata": "item-art.fragment.json",
+  "existingParentItem": "Item.OpticalGoggles",
+  "expectedSprite": "av341_optical_goggles",
+  "definitionPatchRequired": false,
+  "integrationNote": "Parent already owns the actual head/[2,1] Item, crafting and eyeProtection rules. Merge only new sheet/size/frame; do not re-register the read-only Item snapshot or infer behavior from the icon.",
+  "mainGameAcceptancePending": true
+}

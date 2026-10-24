@@ -17,7 +17,7 @@ function frameElement(key,scale=1,bounds){
 }
 function pose(entry,frame){const c=data.characters[entry.character],mode=el('mode').value,dir=el('direction').value,frames=c?.[mode]?.[dir]??c?.motions?.[mode]?.[dir]??c?.idle?.[dir];return frames?.[frame%frames.length]??entry.frame}
 function animationBounds(entry){const c=data.characters[entry.character],dir=el('direction').value,keys=c?.[el('mode').value]?.[dir]??c?.motions?.[el('mode').value]?.[dir]??c?.idle?.[dir]??[entry.frame];return{w:Math.max(...keys.map(key=>data.frames[key][3])),h:Math.max(...keys.map(key=>data.frames[key][4]))}}
-function filtered(){const query=el('search').value.trim().toLowerCase();return data.entries.filter(entry=>entry.kind===kind&&(!query||(entry.label+' '+entry.id+' '+(entry.frame??'')+' '+(entry.url??data.sheets[data.frames[entry.frame]?.[0]]??'')).toLowerCase().includes(query))&&(!el('fresh').checked||(entry.url??data.sheets[data.frames[entry.frame]?.[0]]??'').match(/direction-v(?:319|320|321|322|323|330|331|334|336|337|338)/)))}
+function filtered(){const query=el('search').value.trim().toLowerCase();return data.entries.filter(entry=>entry.kind===kind&&(!query||(entry.label+' '+entry.id+' '+(entry.frame??'')+' '+(entry.url??data.sheets[data.frames[entry.frame]?.[0]]??'')).toLowerCase().includes(query))&&(!el('fresh').checked||(entry.url??data.sheets[data.frames[entry.frame]?.[0]]??'').match(/direction-v(?:319|320|321|322|323|330|331|334|335|336|337|338|339|340|341)/)))}
 function render(){
  const mode=el('mode').value,dir=el('direction').value,prior=Number(el('frame').value),max=Math.max(1,...Object.values(data.characters).map(c=>(c[mode]?.[dir]??c.motions?.[mode]?.[dir]??[]).length));el('frame').replaceChildren(...Array.from({length:max},(_,i)=>new Option(String(i+1),String(i))));el('frame').value=String(Math.min(prior,max-1));const entries=filtered(),pages=Math.max(1,Math.ceil(entries.length/limit));page=Math.min(page,pages-1);el('grid').replaceChildren();views=[]
  for(const entry of entries.slice(page*limit,(page+1)*limit)){
@@ -26,7 +26,7 @@ function render(){
   if(f){const drawn=frameElement(key,1,entry.kind==='actors'?animationBounds(entry):undefined);view.append(drawn.node);drawn.node.style.transform=data.characters[entry.character]?.frameTransforms?.[key]?.flipX?'scaleX(-1)':'';if(entry.kind==='actors')views.push({entry,drawn,key});detail.textContent=`${f[3]}×${f[4]} px`+(entry.grid?' · 가방 '+entry.grid.join('×')+'칸':'')+(entry.kind==='actors'?' · 게임 표시 '+Number(entry.scale.toFixed(3))+'배':entry.kind==='terrain'?' · 대표 프레임':'')}
   else if(path){const img=document.createElement('img');img.src=imageUrl(path);img.className='direct';img.loading='lazy';img.alt='';view.append(img)}
   else{view.textContent='호환 표현 · 현재 프레임 없음';view.classList.add('error')}
-  if(path?.match(/direction-v(?:319|320|321|322|323|330|331|334|336|337|338)/)){const badge=document.createElement('small');badge.className='new';badge.textContent='새 원본 · v0.'+path.match(/direction-v(319|320|321|322|323|330|331|334|336|337|338)/)[1];info.append(badge)}
+  if(path?.match(/direction-v(?:319|320|321|322|323|330|331|334|335|336|337|338|339|340|341)/)){const badge=document.createElement('small');badge.className='new';badge.textContent='새 원본 · v0.'+path.match(/direction-v(319|320|321|322|323|330|331|334|335|336|337|338|339|340|341)/)[1];info.append(badge)}
   info.append(title,id,detail);card.append(view,info);el('grid').append(card)
  }
  for(const button of el('tabs').children)button.setAttribute('aria-pressed',String(button.dataset.kind===kind))

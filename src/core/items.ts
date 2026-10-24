@@ -15,6 +15,9 @@ import type { AttackDef, Creature, ItemDef, ItemInst, Slot } from './types'
 export const BAG_W = 10
 export const BAG_H = 6
 
+/** Only an actually worn, intact original eye protector shields optical exposure. */
+export function hasEyeProtection(w:World,c:Creature){return Object.values(c.equip).some(it=>it&&it.count>0&&!it.half&&!it.missingItem&&(it.durability??100)>0&&itemDef(w,it).apparel?.eyeProtection)}
+
 export function makeItem(w: World, defId: string, count = 1): ItemInst {
   if(defId===MISSING_ITEM)throw new Error('보관물은 새 물품으로 생성할 수 없다')
   const def = w.db.item(defId)

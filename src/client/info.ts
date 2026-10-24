@@ -152,6 +152,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
     lines.push(`방어 ${parts.join(' / ')}${d.bulk ? ` · 둔중 ${d.bulk}` : ''}${d.apparel.noise ? ` · 걷기 소음 ${d.apparel.noise}` : ''}`)
     lines.push(`덮는 곳: ${d.apparel.groups.map((g) => GROUP_LABEL[g] ?? g).join(' · ')}`)
     const ap = d.apparel
+    if(ap.eyeProtection)lines.push('눈 보호 · 실제로 온전히 착용하고 내구가 남아 있어야 눈부심·노출을 막는다')
     const water = ap.waterproofPct ?? (ap.waterproof ? 90 : 0)
     lines.push(`단열 ${ap.insulation} · 젖으면 단열 −${ap.wetLoss ?? (ap.waterproof ? 0 : 70)}%${water ? ` · 방수 ${water}%` : ''}${ap.windproof ? ` · 방풍 ${Math.round(ap.windproof * 100)}%` : ''}`)
     const wet = Object.values(it?.wetness ?? {})

@@ -1,0 +1,53 @@
+{
+  "format": 1,
+  "activationReady": false,
+  "reason": "Parent AI/gameplay integration and actual scene review remain pending; this art file does not activate creatures.",
+  "models": {
+    "surveyor": {
+      "activationReady": false,
+      "acceptedBaseArtClips": [
+        "idle",
+        "walk",
+        "work"
+      ],
+      "missing": [
+        "AI tracking/report3turns/flee/real flash/antenna damage integration",
+        "hurt/fall/sleep/rise/damaged variants/portrait",
+        "actual game scene and speed review"
+      ]
+    },
+    "sower": {
+      "activationReady": false,
+      "acceptedBaseArtClips": [
+        "idle",
+        "work",
+        "walk down/up only"
+      ],
+      "missing": [
+        "left/right alternate-support walk",
+        "route/finite seed inventory/spout emission AI integration",
+        "remaining postures/damage/portrait",
+        "actual game scene and speed review"
+      ]
+    },
+    "culler": {
+      "activationReady": false,
+      "acceptedBaseArtClips": [
+        "idle"
+      ],
+      "missing": [
+        "verified six-leg alternating tripod gait in all directions",
+        "cut clip with consistent actual arm selection",
+        "pursuit/cooling/net/purification/retreat AI integration",
+        "remaining postures/damage/portrait",
+        "actual game scene and speed review"
+      ]
+    }
+  },
+  "internalBodyParts": [
+    "Core",
+    "PowerCell",
+    "CoolingLoop"
+  ],
+  "noNewInventoryWeapons": true
+}

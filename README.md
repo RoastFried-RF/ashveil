@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.338-dev·저장212**이다. 숲 동물·자연 군락에 이어 재까마귀의144원화 동작, 실제 낮은 비행/먹이·사체 재고와 깃털 화살 제작을 연결했다. [까마귀·비행·제약](docs/crow-v338.md) · [야생동물](docs/wildlife-v333.md) · [자연 군락](docs/natural-forage-v336.md) · [동작 검토](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
+현재 개발 미리보기는 **v0.340-dev·저장212**이다. 숲 동물·까마귀에 이어 세 다리 측량기의 실제 관찰/보고·방어 섬광, 유한 회수 부품과 차광 고글의 제작/착용을 연결했다. [측량기·고글·제약](docs/surveyor-v340.md) · [까마귀·비행](docs/crow-v338.md) · [동작 도감](https://roastfried-rf.github.io/ashveil/artbook/motion/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 
