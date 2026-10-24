@@ -40,9 +40,14 @@ export function pinMatrix(sourceA:Point,sourceB:Point,targetA:Point,targetB:Poin
  return{a,b,c,d,e:targetA.x-a*sourceA.x-c*sourceA.y,f:targetA.y-b*sourceA.x-d*sourceA.y}
 }
 
+export interface ArticulatedLayout {
+ stride:number;swingTravel:number;swingSeconds:number;clearance:number;upper:number;lower:number
+ hipHeight:number;ankleHeight:number;soleX:number;com:Point
+ legs:Record<LegId,{hip:Point;sole:Point;side:number;far:boolean}>
+}
 export const RIG = {
  stride:20, swingTravel:5, swingSeconds:.32, clearance:3.2,
- upper:17.5,lower:17.5,hipHeight:23/PROJECTION,ankleHeight:4.62/PROJECTION,
+ upper:17.5,lower:17.5,soleX:.33,com:{x:0,y:-3/PROJECTION},hipHeight:23/PROJECTION,ankleHeight:4.62/PROJECTION,
  // Rear hips are inferred, not newly observed source joints.
  legs:{
   RF:{hip:{x:-14.91,y:0},sole:{x:-21,y:0},side:-1,far:false},
@@ -50,7 +55,7 @@ export const RIG = {
   RH:{hip:{x:-10,y:-4/PROJECTION},sole:{x:-15,y:-6/PROJECTION},side:-1,far:true},
   LH:{hip:{x:10,y:-4/PROJECTION},sole:{x:15,y:-6/PROJECTION},side:1,far:true},
  } satisfies Record<LegId,{hip:Point;sole:Point;side:number;far:boolean}>,
-} as const
+} as const satisfies ArticulatedLayout
 export type RigLeg = ReturnType<typeof solveTwoLink> & {id:LegId;sole:Vec3;contact:boolean;far:boolean}
 export type RigPose = {root:Point;body:Vec3;legs:RigLeg[];distance:number;swing:LegId|null;supportMargin:number}
 type Swing = {id:LegId;start:Vec3;end:Vec3;at:number;progress:number}
@@ -85,11 +90,11 @@ export class ArticulatedGait {
  private nextLeg=0
  private swing:Swing|null=null
  private feet:Record<LegId,Vec3>
- constructor(root:Point={x:0,y:0},heading:Point={x:0,y:1}){
+ constructor(root:Point={x:0,y:0},heading:Point={x:0,y:1},private readonly layout:ArticulatedLayout=RIG){
   this.root={...root};const n=Math.hypot(heading.x,heading.y);this.heading=n?{x:heading.x/n,y:heading.y/n}:{x:0,y:1}
   // An honestly staggered initial rest stance avoids teleporting three feet
   // into a synthetic steady cycle on the first movement input.
-  this.feet=Object.fromEntries(LEG_ORDER.map((id,i)=>{const rest=RIG.legs[id].sole,lead=-7.5+i*5;return[id,{x:root.x+rest.x+this.heading.x*lead,y:root.y+rest.y+this.heading.y*lead,z:0}]})) as Record<LegId,Vec3>
+  this.feet=Object.fromEntries(LEG_ORDER.map((id,i)=>{const rest=this.layout.legs[id].sole,lead=-(this.layout.stride-this.layout.swingTravel)/2+i*this.layout.swingTravel;return[id,{x:root.x+rest.x+this.heading.x*lead,y:root.y+rest.y+this.heading.y*lead,z:0}]})) as Record<LegId,Vec3>
  }
  /** Presentation substeps prevent a long frame from skipping a contact change. */
  update(root:Point,seconds:number):RigPose{
@@ -102,15 +107,15 @@ export class ArticulatedGait {
   for(let i=1;i<=steps;i++){
    this.root={x:start.x+dx*i/steps,y:start.y+dy*i/steps};this.distance+=travel/steps
    if(!this.swing&&travel>1e-8&&this.distance>=this.nextStart){
-    const id=LEG_ORDER[this.nextLeg],rest=RIG.legs[id].sole,lead=7.5
+    const id=LEG_ORDER[this.nextLeg],rest=this.layout.legs[id].sole,lead=(this.layout.stride-this.layout.swingTravel)/2
     this.swing={id,start:{...this.feet[id]},end:{x:this.root.x+rest.x+this.heading.x*lead,y:this.root.y+rest.y+this.heading.y*lead,z:0},at:this.distance,progress:0}
-    this.nextStart=this.distance+RIG.swingTravel;this.nextLeg=(this.nextLeg+1)%4
+    this.nextStart=this.distance+this.layout.swingTravel;this.nextLeg=(this.nextLeg+1)%4
    }
    const swing=this.swing
    if(swing){
-    swing.progress=Math.min(1,Math.max(swing.progress,(this.distance-swing.at)/RIG.swingTravel)+(travel<1e-8?seconds/steps/RIG.swingSeconds:0))
+    swing.progress=Math.min(1,Math.max(swing.progress,(this.distance-swing.at)/this.layout.swingTravel)+(travel<1e-8?seconds/steps/this.layout.swingSeconds:0))
     const p=smooth((swing.progress-.18)/.64),foot=blend(swing.start,swing.end,p)
-    foot.z=p===0||p===1?0:RIG.clearance*Math.sin(Math.PI*p);this.feet[swing.id]=foot
+    foot.z=p===0||p===1?0:this.layout.clearance*Math.sin(Math.PI*p);this.feet[swing.id]=foot
     if(swing.progress>=1){this.feet[swing.id]={...swing.end};this.swing=null}
    }
   }
@@ -119,7 +124,7 @@ export class ArticulatedGait {
  pose():RigPose{
   const phase=this.swing?.progress??0,raised=!!this.swing&&phase>.18&&phase<.82
   const contacts=LEG_ORDER.filter(id=>!raised||id!==this.swing?.id).map(id=>this.feet[id])
-  const baseline={x:this.root.x,y:this.root.y-3/PROJECTION}
+  const baseline={x:this.root.x+this.layout.com.x,y:this.root.y+this.layout.com.y}
   const full=supportedCenter(LEG_ORDER.map(id=>({...this.feet[id],z:0})),baseline)
   let offset={x:full.x-baseline.x,y:full.y-baseline.y}
   if(this.swing){
@@ -128,11 +133,24 @@ export class ArticulatedGait {
    const weight=phase<.18?smooth(phase/.18):phase>.82?smooth((1-phase)/.18):1
    offset={x:full.x-baseline.x+(target.x-full.x)*weight,y:full.y-baseline.y+(target.y-full.y)*weight}
   }
-  const body={x:this.root.x+offset.x,y:this.root.y+offset.y,z:RIG.hipHeight}
-  const legs=LEG_ORDER.map(id=>{const spec=RIG.legs[id],hip=add(body,{...spec.hip,z:0}),sole=this.feet[id]
-   const ankle={x:sole.x-.33,y:sole.y,z:sole.z+RIG.ankleHeight}
-   return{id,sole:{...sole},contact:!raised||id!==this.swing?.id,far:spec.far,...solveTwoLink(hip,ankle,RIG.upper,RIG.lower,{x:spec.side,y:0,z:0})}
+  const body={x:this.root.x+offset.x,y:this.root.y+offset.y,z:this.layout.hipHeight}
+  // Balance and reach are simultaneous constraints. A sharp turn must not
+  // stretch a fixed link or render a planted pad at a different world point.
+  for(let pass=0;pass<32;pass++){
+   let correction=0
+   for(const id of LEG_ORDER){
+    const hip=this.layout.legs[id].hip,sole=this.feet[id],height=this.layout.hipHeight-sole.z-this.layout.ankleHeight,maxLength=this.layout.upper+this.layout.lower-.001
+    const radius=Math.sqrt(Math.max(0,maxLength*maxLength-height*height)),center={x:sole.x-this.layout.soleX-hip.x,y:sole.y-hip.y},dx=body.x-center.x,dy=body.y-center.y,d=Math.hypot(dx,dy)
+    if(d>radius){const old={x:body.x,y:body.y};body.x=center.x+dx*radius/d;body.y=center.y+dy*radius/d;correction=Math.max(correction,Math.hypot(body.x-old.x,body.y-old.y))}
+   }
+   const com={x:body.x+this.layout.com.x,y:body.y+this.layout.com.y}
+   if(supportMargin(contacts,com)<0){const supported=supportedCenter(contacts,com);body.x+=supported.x-com.x;body.y+=supported.y-com.y;correction=Math.max(correction,Math.hypot(supported.x-com.x,supported.y-com.y))}
+   if(correction<1e-8)break
+  }
+  const legs=LEG_ORDER.map(id=>{const spec=this.layout.legs[id],hip=add(body,{...spec.hip,z:0}),sole=this.feet[id]
+   const ankle={x:sole.x-this.layout.soleX,y:sole.y,z:sole.z+this.layout.ankleHeight}
+   return{id,sole:{...sole},contact:!raised||id!==this.swing?.id,far:spec.far,...solveTwoLink(hip,ankle,this.layout.upper,this.layout.lower,{x:spec.side,y:0,z:0})}
   })
-  return{root:{...this.root},body,legs,distance:this.distance,swing:this.swing?.id??null,supportMargin:supportMargin(contacts,{x:baseline.x+offset.x,y:baseline.y+offset.y})}
+  return{root:{...this.root},body,legs,distance:this.distance,swing:this.swing?.id??null,supportMargin:supportMargin(contacts,{x:body.x+this.layout.com.x,y:body.y+this.layout.com.y})}
  }
 }

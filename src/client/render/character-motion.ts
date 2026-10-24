@@ -5,12 +5,12 @@ export type ActionPose=Exclude<MotionName,'idle'|'walk'|'flight'|'crouchWalk'|'f
 export const motionDurations:Record<MotionName,number>={idle:3200,walk:720,flight:400,attack:480,block:300,hurt:320,crouchDown:240,crouchWalk:1000,stand:240,work:1000,wallow:2400,use:850,fall:520,rise:600,sleep:3600,shoot:500,throw:500,interact:460}
 const priority:Record<ActionPose,number>={attack:3,block:5,hurt:6,crouchDown:2,stand:2,work:1,wallow:1,use:2,rise:4,shoot:3,throw:3,interact:2}
 export const posePriority=(kind:ActionPose)=>priority[kind]
-export interface PoseCue {kind:ActionPose;elapsed:number;prop?:string;duration?:number;equipment?:import('./equipment-motion').EquipmentAction}
+export interface PoseCue {machineTask?:'sow'|'spray'|'alarm';kind:ActionPose;elapsed:number;prop?:string;duration?:number;equipment?:import('./equipment-motion').EquipmentAction}
 export const poseDuration=(cue:PoseCue)=>cue.duration??motionDurations[cue.kind]
 export interface PoseClock {current:PoseCue|null;queue:PoseCue[]}
 export const createPoseClock=():PoseClock=>({current:null,queue:[]})
 export function clearPoses(clock:PoseClock){clock.current=null;clock.queue=[]}
-export function requestPose(clock:PoseClock,kind:ActionPose,prop?:string,options?:Pick<PoseCue,'duration'|'equipment'>){
+export function requestPose(clock:PoseClock,kind:ActionPose,prop?:string,options?:Pick<PoseCue,'duration'|'equipment'|'machineTask'>){
  const cue:PoseCue={kind,elapsed:0,prop,...options},active=clock.current
  if(!active){clock.current=cue;return}
  if(kind==='stand'&&active.kind==='crouchDown'||kind==='crouchDown'&&active.kind==='stand'){
@@ -19,6 +19,7 @@ export function requestPose(clock:PoseClock,kind:ActionPose,prop?:string,options
  // Physical reactions interrupt a swing; stale work never resumes after damage.
  if(priority[kind]>priority[active.kind]){clock.current=cue;clock.queue=[];return}
  if(priority[kind]<priority[active.kind])return
+ if(kind==='work'&&active.kind==='work'&&options?.machineTask!==active.machineTask&&(options?.machineTask||active.machineTask)){clock.current=cue;clock.queue=[];return}
  if(kind==='work'||kind==='wallow'||kind==='use'||kind==='interact'){
   if(kind!==active.kind){clock.current=cue;clock.queue=[]}
   return

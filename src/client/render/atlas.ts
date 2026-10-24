@@ -6,8 +6,11 @@ import {modTextureUrl} from '../mod-texture-display'
 import type {MotionName} from './character-motion'
 import {atlasPlan} from './atlas-plan'
 import {AssetLifecycle} from './asset-lifecycle'
+import type {RigSpec} from './rig-spec'
 
 export interface CharDef {
+  /** Separate original parts resolved only while this body model is selected. */
+  rig?:RigSpec
   walk: Record<Dir, string[]>
   idle: Record<Dir, string[]>
   attack?: Record<Dir, string[]>

@@ -5,7 +5,7 @@ import {actionMotions} from './action-motion-map'
 import type {ActionPose,MotionName} from './character-motion'
 import type {Dir} from './atlas'
 
-export interface ActionPresentation {actor:number;kind:ActionPose;prop?:string;direction?:Dir}
+export interface ActionPresentation {machineTask?:'sow'|'spray'|'alarm';actor:number;kind:ActionPose;prop?:string;direction?:Dir}
 function actionMotion(w:World,action:Action,actor:World['s']['creatures'][number]):ActionPose|null{
  if(action.type!=='ability')return actionMotions[action.type]
  const ability=w.db.ability(action.id)
@@ -27,8 +27,10 @@ export function takeActionPresentations(w:World,resolvedAttacks:ReadonlySet<numb
   }
   if(kind==='attack'&&resolvedAttacks.has(actor.id))continue
   const dx=observation.target?observation.target.x-actor.pos.x:0,dy=observation.target?observation.target.y-actor.pos.y:0
-  const direction:Dir|undefined=dx>0?'right':dx<0?'left':dy<0?'up':dy>0?'down':undefined
-  latest.set(actor.id,{actor:actor.id,kind,direction,prop:observation.item&&!w.db.creature(actor.def).wildlife?itemDef(w,observation.item).sprite:undefined})
+  let direction:Dir|undefined=dx>0?'right':dx<0?'left':dy<0?'up':dy>0?'down':undefined
+  const sower=w.db.creature(actor.def).sower,machineTask=sower?(observation.action.type==='place'&&observation.item?.def===sower.seedItem?'sow':observation.action.type==='sowerSpray'?'spray':observation.action.type==='sowerAlarm'?'alarm':undefined):undefined
+  if(machineTask)direction=actor.facing===0?'up':actor.facing===4?'down':actor.facing<4?'right':'left'
+  latest.set(actor.id,{actor:actor.id,kind,direction,machineTask,prop:observation.item&&!sower&&!w.db.creature(actor.def).wildlife?itemDef(w,observation.item).sprite:undefined})
  }
  return[...latest.values()]
 }

@@ -66,6 +66,59 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   if(x<0||y<0||width<=0||height<=0||size&&(x+width>size.width||y+height>size.height))errors.push('frame '+key+': 픽셀 영역이 PNG 범위를 벗어난다')
  }
  const frameList=(value:unknown,where:string)=>{if(!Array.isArray(value)||!value.length){errors.push(where+': 비어 있지 않은 프레임 목록이 필요하다');return}for(const name of value)if(typeof name!=='string'||!Object.hasOwn(frames,name))errors.push(where+': 등록되지 않은 frame '+String(name))}
+ const rigSpec=(value:unknown,where:string)=>{
+  const number=(v:unknown,path:string,minimum?:number)=>{if(typeof v!=='number'||!Number.isFinite(v)||(minimum!==undefined&&v<=minimum)){errors.push(path+': 유한한 '+(minimum===undefined?'수':'양수')+'가 필요하다');return false}return true}
+  const point=(v:unknown,path:string,frame?:unknown)=>{
+   if(!object(v)||!number(v.x,path+'.x')||!number(v.y,path+'.y')){if(!object(v))errors.push(path+': 유한한 x/y 좌표가 필요하다');return false}
+   const rect=typeof frame==='string'?frames[frame]:undefined
+   if(Array.isArray(rect)&&typeof rect[3]==='number'&&typeof rect[4]==='number'&&((v.x as number)<0||(v.y as number)<0||(v.x as number)>rect[3]||(v.y as number)>rect[4]))errors.push(path+': 원본 frame 좌표 범위를 벗어난다')
+   return true
+  }
+  const pair=(v:unknown,path:string,frame?:unknown)=>{
+   if(!Array.isArray(v)||v.length!==2){errors.push(path+': 두 등록점이 필요하다');return}
+   if(point(v[0],path+'[0]',frame)&&point(v[1],path+'[1]',frame)&&v[0].x===v[1].x&&v[0].y===v[1].y)errors.push(path+': 서로 다른 등록점이 필요하다')
+  }
+  const part=(v:unknown,path:string)=>{
+   if(!object(v)){errors.push(path+': 원본 부품 객체가 필요하다');return null}
+   if(typeof v.frame!=='string'||!Object.hasOwn(frames,v.frame))errors.push(path+'.frame: 등록된 frame이 필요하다')
+   return v
+  }
+  if(!object(value)||!object(value.directions)){errors.push(where+': 네 방향 rig 객체가 필요하다');return}
+  for(const dir of directions){
+   const view=value.directions[dir],path=where+'.directions.'+dir
+   if(!object(view)){errors.push(path+': 방향별 rig가 필요하다');continue}
+   if(!object(view.art))errors.push(path+'.art: body/upper/lower/foot 원본이 필요하다')
+   else for(const name of ['body','upper','lower','foot']){
+    const p=part(view.art[name],path+'.art.'+name);if(!p)continue
+    if(name==='upper'||name==='lower'){
+     pair([p.proximal,p.distal],path+'.art.'+name+'.pins',p.frame);number(p.thickness,path+'.art.'+name+'.thickness',0)
+    }else{point(p[name==='body'?'pivot':'ankle'],path+'.art.'+name+'.'+(name==='body'?'pivot':'ankle'),p.frame);number(p.scale,path+'.art.'+name+'.scale',0)}
+   }
+   const layout=view.layout
+   if(!object(layout))errors.push(path+'.layout: 유한한 2.5D 설계 좌표가 필요하다')
+   else{
+    for(const name of ['stride','swingTravel','swingSeconds','upper','lower','hipHeight','ankleHeight'])number(layout[name],path+'.layout.'+name,0)
+    number(layout.soleX,path+'.layout.soleX');number(layout.clearance,path+'.layout.clearance')
+    if(typeof layout.clearance==='number'&&layout.clearance<0)errors.push(path+'.layout.clearance: 음수일 수 없다')
+    point(layout.com,path+'.layout.com')
+    if(!object(layout.legs))errors.push(path+'.layout.legs: LF/RF/LH/RH 기부/발 설계가 필요하다')
+    else for(const id of ['LF','RF','LH','RH']){
+     const leg=layout.legs[id],legPath=path+'.layout.legs.'+id
+     if(!object(leg)){errors.push(legPath+': 다리 설계가 필요하다');continue}
+     point(leg.hip,legPath+'.hip');point(leg.sole,legPath+'.sole')
+     if(leg.side!==-1&&leg.side!==1)errors.push(legPath+'.side: -1 또는1이 필요하다')
+     if(typeof leg.far!=='boolean')errors.push(legPath+'.far: boolean이 필요하다')
+    }
+   }
+   if(!Array.isArray(view.work)||!view.work.length)errors.push(path+'.work: 비어 있지 않은 차체 목록이 필요하다')
+   else for(const [index,entry]of view.work.entries()){
+    const entryPath=path+'.work['+index+']',p=part(entry,entryPath);if(!p)continue
+    point(p.pivot,entryPath+'.pivot',p.frame);number(p.scale,entryPath+'.scale',0)
+    if(p.key!==undefined&&(typeof p.key!=='string'||!p.key))errors.push(entryPath+'.key: 비어 있지 않은 문자열이 필요하다')
+    if(p.registration!==undefined){if(!object(p.registration))errors.push(entryPath+'.registration: source/target 등록점이 필요하다');else{pair(p.registration.source,entryPath+'.registration.source',p.frame);pair(p.registration.target,entryPath+'.registration.target')}}
+   }
+  }
+ }
  for(const[key,row]of Object.entries(anims)){counts.animations++;if(!object(row)){errors.push('anim '+key+': 객체가 필요하다');continue}frameList(row.frames,'anim '+key);if(typeof row.fps!=='number'||!Number.isFinite(row.fps)||row.fps<=0)errors.push('anim '+key+': fps는 양수여야 한다')}
  for(const[key,row]of Object.entries(chars)){
   counts.characters++
@@ -75,6 +128,7 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
+  if(row.rig!==undefined)rigSpec(row.rig,'char '+key+'.rig')
   const gait=row.gait
   const durations=row.motionDurations
   if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!(motionNames as readonly string[]).includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')

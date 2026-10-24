@@ -1,3 +1,5 @@
+import {diagonalBlocked} from './path'
+import {observeSowerAssault} from './sower-state'
 import {endSeasonalSleep} from './bear-state'
 import {crouched,crouchRule} from './posture'
 import {wildlifeMudArmor} from './wildlife'
@@ -428,7 +430,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   breakMercy(w,a,d)
   companionBetrayal(w,a,d)
   witnessAttack(w, a, d)
-  if(opts.ranged?cheb(a.pos,d.pos)<=rangedRange(w,a,d,wl)&&rangedRange(w,a,d,wl)>0&&hasLos(w,a.pos,d.pos):canReach(w,a,d))recordCombatEngagement(w,a,d)
+  if(opts.ranged?cheb(a.pos,d.pos)<=rangedRange(w,a,d,wl)&&rangedRange(w,a,d,wl)>0&&hasLos(w,a.pos,d.pos):canReach(w,a,d)){recordCombatEngagement(w,a,d);observeSowerAssault(w,a,d)}
   if (d.id === w.s.playerId) w.s.autoIgnored = w.s.autoIgnored?.filter((id) => id !== a.id)
   const atk = pv.attack
   // 투척물은 원래 상태로 바닥에 남긴다. 손에 쥔 무기의 마모만 적용한다.
@@ -850,7 +852,7 @@ export function pushBack(w: World, a: Creature, t: Creature, n: number) {
   const dir = DIRS[dirIndex(t.pos.x - a.pos.x, t.pos.y - a.pos.y)]
   for (let i = 0; i < n; i++) {
     const to: Pos = { x: t.pos.x + dir.x, y: t.pos.y + dir.y }
-    if (!inBounds(w, to) || !terrainAt(w, to).passable || creatureAt(w, to)) {
+    if (!inBounds(w, to) || !terrainAt(w, to).passable || creatureAt(w, to) || diagonalBlocked(w,t.pos,dir.x,dir.y)) {
       const chest = bodyDef(w, t).parts.find((p) => p.id === 'Chest' || p.region === 'torso' && !p.internal)!
       addWound(w, t, { def: 'Wound.Bruise', part: chest.id, severity: 5, source: '벽에 부딪힘', sourceId: a.id })
       t.hp -= 5

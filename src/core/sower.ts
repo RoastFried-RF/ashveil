@@ -4,22 +4,29 @@ import {capacity,hpMax,isMissing,partEff} from './body'
 import {fx,pushBack,shoveChance,sporeCloud} from './combat'
 import {creatureAt,creatureById,inBounds,log,player,rng,terrainAt,turnOf,type World} from './ctx'
 import {canSee,hasLos} from './fov'
-import {recordGardenReport} from './garden-alert'
+import {recordGardenAlarm} from './garden-alert'
+import {initialSowerState} from './sower-state'
 import {cheb,dirIndex,eq,type Pos} from './geom'
 import {removeOne} from './items'
 import {machineAction,machineReady,machineRules} from './machine-state'
 import {diagonalBlocked,findPath} from './path'
 import {emitNoise} from './perception'
 import {placementQuote} from './placement'
-import type {Creature,ItemInst,SowerRules,SowerState} from './types'
+import type {Creature,ItemInst,SowerRules} from './types'
 const fail=(msg:string):ActResult=>({ok:false,tu:0,msg})
 export const sowerRules=(w:World,c:Creature)=>w.db.creature(c.def).sower
-const initial=(rule:SowerRules):SowerState=>({rule:JSON.stringify(rule),routeIndex:0,moves:0,seedsSpent:0,resumeAt:0,alarmWound:0})
+const initial=initialSowerState
 const view=(c:Creature,rule:SowerRules)=>c.sowerState??initial(rule)
 const state=(c:Creature,rule:SowerRules)=>c.sowerState??=initial(rule)
 function ready(w:World,c:Creature){const d=sowerRules(w,c);return !!d&&c.alive&&w.s.creatures.includes(c)&&!c.unconscious&&!c.asleep&&!c.activity&&machineReady(w,c)&&capacity(w,c,'consciousness')>=.3&&view(c,d).rule===JSON.stringify(d)&&d.route.every(p=>inBounds(w,p))}
 function signalReady(w:World,c:Creature){const d=sowerRules(w,c);return !!d&&!isMissing(w,c,d.signalPart)&&partEff(w,c,d.signalPart)>=.3&&capacity(w,c,'signal')>=.3}
 function attackWound(w:World,c:Creature,target:Creature|undefined,id?:number){return target&&target.alive&&target.id!==c.id&&canSee(w,c,target.pos)?c.body.wounds.find(wd=>(id===undefined||wd.id===id)&&wd.sourceId===target.id&&wd.severity>wd.healed):undefined}
+function knownAggressor(w:World,c:Creature,target:Creature|undefined){
+ if(!target?.alive||!canSee(w,c,target.pos))return false
+ if(attackWound(w,c,target))return true
+ const d=sowerRules(w,c),assault=c.sowerState?.assault
+ return !!d&&!!assault&&assault.seen?.id===target.id&&assault.at<=turnOf(w)&&turnOf(w)-assault.at<=d.callTurns
+}
 export function recordSowerMove(w:World,c:Creature){const d=sowerRules(w,c);if(!d||view(c,d).rule!==JSON.stringify(d))return;const s=state(c,d);s.moves=Math.min(d.seedEveryMoves,s.moves+1)}
 export function recordSowerPlacement(w:World,c:Creature,p:Pos,it:ItemInst){
  const d=sowerRules(w,c);if(!d||it.def!==d.seedItem||view(c,d).rule!==JSON.stringify(d))return
@@ -32,14 +39,19 @@ export function sowerWaypoint(w:World,c:Creature):ActResult{
  const actual=state(c,d);actual.routeIndex=(actual.routeIndex+1)%d.route.length;actual.resumeAt=turnOf(w)+d.waitAtWaypointTurns;machineAction(w,c,'work')
  return{ok:true,tu:d.waitAtWaypointTurns*100}
 }
-export function sowerAlarm(w:World,c:Creature,targetId:number,woundId:number):ActResult{
- const d=sowerRules(w,c),target=creatureById(w,targetId),wound=attackWound(w,c,target,woundId)
- if(!d||!ready(w,c)||!signalReady(w,c)||!wound||wound.id<=view(c,d).alarmWound)return fail('실제로 관찰한 새 공격과 작동하는 신호기가 필요하다')
- state(c,d).alarmWound=wound.id;recordGardenReport(w,c,target!);machineAction(w,c,'work');emitNoise(w,c.pos,10,c.id)
+export function sowerAlarm(w:World,c:Creature,targetId:number|undefined,woundId?:number,attackId?:number):ActResult{
+ const d=sowerRules(w,c),target=creatureById(w,targetId),wound=woundId!==undefined?attackWound(w,c,target,woundId):undefined,s=d?view(c,d):undefined,assault=s?.assault
+ const validAssault=attackId!==undefined&&woundId===undefined&&assault?.serial===attackId&&attackId>(s?.alarmAttack??0)&&assault.at<=turnOf(w)&&turnOf(w)-assault.at<=d!.callTurns
+ const validWound=woundId!==undefined&&attackId===undefined&&!!wound&&wound.id>(s?.alarmWound??0)
+ if(!d||!ready(w,c)||!signalReady(w,c)||!validAssault&&!validWound)return fail('실제로 감지한 새 공격과 작동하는 신호기가 필요하다')
+ const actual=state(c,d)
+ if(assault)actual.alarmAttack=assault.serial
+ actual.alarmWound=Math.max(actual.alarmWound,...c.body.wounds.map(wd=>wd.id))
+ recordGardenAlarm(w,c,validAssault?assault!.seen:{id:target!.id,pos:{...target!.pos}});machineAction(w,c,'work');emitNoise(w,c.pos,10,c.id)
  for(const recipient of w.s.creatures){const r=w.db.creature(recipient.def).survey;if(!r||recipient.id===c.id||recipient.faction!==c.faction||!recipient.alive||!machineReady(w,recipient)||recipient.unconscious||recipient.asleep||cheb(c.pos,recipient.pos)>d.callRadius||isMissing(w,recipient,r.antenna)||partEff(w,recipient,r.antenna)<.3||capacity(w,recipient,'signal')<.3)continue
   const s=recipient.surveyState??={progress:0,nextReportAt:0,patrolIndex:0};s.call={source:c.id,at:turnOf(w),expiresAt:turnOf(w)+d.callTurns,pos:{...c.pos}}
  }
- if(canSee(w,player(w),c.pos)){fx(w,{k:'status',id:c.id,text:'구역 경보',color:'#ddb96b',turn:turnOf(w)});log(w,'warn','공격받은 파종기가 구역 경보를 보내고 주변 측량기를 호출했다.')}
+ if(canSee(w,player(w),c.pos)){fx(w,{k:'status',id:c.id,text:'구역 경보',color:'#ddb96b',turn:turnOf(w)});log(w,'warn','공격받은 파종기가 구역 경보와 측량기 호출 신호를 보냈다.')}
  return{ok:true,tu:100}
 }
 export function sowerPush(w:World,c:Creature,targetId:number):ActResult{
@@ -53,7 +65,7 @@ export function sowerPush(w:World,c:Creature,targetId:number):ActResult{
 }
 export function sowerSpray(w:World,c:Creature,targetId:number,uid:number):ActResult{
  const d=sowerRules(w,c),target=creatureById(w,targetId),item=c.bag.find(i=>i.uid===uid),s=d?view(c,d):undefined
- if(!d||!ready(w,c)||capacity(w,c,'tool')<.3||!attackWound(w,c,target)||cheb(c.pos,target!.pos)>d.spray.radius||!hasLos(w,c.pos,target!.pos)||!item||item.def!==d.spray.item||item.count<1||(s?.nextSprayAt??-Infinity)>turnOf(w))return fail('실제 공격자와 남은 균 캡슐, 준비된 분사구가 필요하다')
+ if(!d||!ready(w,c)||capacity(w,c,'tool')<.3||!knownAggressor(w,c,target)||cheb(c.pos,target!.pos)>d.spray.radius||!hasLos(w,c.pos,target!.pos)||!item||item.def!==d.spray.item||item.count<1||(s?.nextSprayAt??-Infinity)>turnOf(w))return fail('실제 공격자와 남은 균 캡슐, 준비된 분사구가 필요하다')
  removeOne(w,c,uid);state(c,d).lastSpray={uid,at:turnOf(w)};state(c,d).nextSprayAt=turnOf(w)+d.spray.cooldown;machineAction(w,c,'work');sporeCloud(w,c.pos,d.spray.radius,d.spray.turns,d.spray.concentration,true);emitNoise(w,c.pos,5,c.id)
  if(canSee(w,player(w),c.pos))log(w,'warn','파종기가 적재된 균 캡슐 한 개를 소모해 가까운 곳에 포자를 분사했다.')
  return{ok:true,tu:100}
@@ -68,6 +80,10 @@ export function decideSower(w:World,c:Creature,nav:{toward(p:Pos):Action|null}):
  if(!d||!m||!mechanical||!ready(w,c))return{type:'wait'}
  const s=view(c,d);c.ai.target=undefined
  if(m.power<mechanical.retreatPower||c.hp<=hpMax(w,c)*.4){c.ai.mode='return';return c.home?nav.toward(c.home)??{type:'wait'}:{type:'wait'}}
+ const assault=s.assault
+ if(assault&&assault.serial>(s.alarmAttack??0)&&assault.at<=turnOf(w)&&turnOf(w)-assault.at<=d.callTurns&&signalReady(w,c))return{type:'sowerAlarm',attack:assault.serial,...(assault.seen?{target:assault.seen.id}:{})}
+ const seenTarget=creatureById(w,assault?.seen?.id),capsule=c.bag.find(i=>i.def===d.spray.item&&i.count>0)
+ if(capsule&&knownAggressor(w,c,seenTarget)&&cheb(c.pos,seenTarget!.pos)<=d.spray.radius&&hasLos(w,c.pos,seenTarget!.pos)&&(s.nextSprayAt??-Infinity)<=turnOf(w)&&capacity(w,c,'tool')>=.3)return{type:'sowerSpray',target:seenTarget!.id,uid:capsule.uid}
  const wounds=c.body.wounds.filter(wd=>wd.severity>wd.healed&&wd.sourceId!==undefined).sort((a,b)=>b.id-a.id)
  for(const wd of wounds){const target=creatureById(w,wd.sourceId);if(!attackWound(w,c,target,wd.id))continue
   if(wd.id>s.alarmWound&&signalReady(w,c))return{type:'sowerAlarm',target:target!.id,wound:wd.id}

@@ -207,3 +207,8 @@ image_gen 자체 원문15PNG에서 잿곰의9동작 가족/144고유 몸 영역�
 ## v356 파종기 정면 관절 시제품
 
 자체 v335 원화만 일관성 입력으로 사용해 image_gen으로 새로 그린 v354 PNG1장을 원본 바이트로 보존했다. 차체·upper·lower·foot의4고유 영역을 런타임에서 조합하며 authored 보행 프레임은0개다. 원문 SHA `01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2`, 정확 요청/참고/실패와 핀 관측은 `tools/art/direction-v356/front-original/`에 보존한다. `layout-analysis/`는 관측과 부모의 물리 가정을 구분한다. 파츠의 상대 배율/고정17.5+17.5 링크/지지 제어는 후속 시제품 결정이며 원화가 증명한 실제3D 해부가 아니다. 원문 편집·새 raster 추출은 하지 않았다. 공개 시제품은 정면만이며 기본 게임의 완성된 파종기나 출시 승인이 아니다.
+
+
+## v364 파종기 게임 적용
+
+자체 image_gen 원문16PNG의115고유 영역을 선택했다. 관절/작업8PNG·30영역을 런타임 조합하며 authored 보행 프레임0이다. 좌/우 회복 준비 공유·잘린 후보·잘못된 왼쪽 쓰러짐·v363 실패0PNG와 v365 수동 재요청1PNG를 구분해 보존한다. [원문 SHA/선택](tools/art/direction-v364/installation.json) · [전체 몸 상태](tools/art/direction-v364/state-installation.json) · [적용·제약](docs/sower-v364.md). 원문 픽셀 수정/리샘플링이나 타 게임 픽셀 복제를 하지 않았다.

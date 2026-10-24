@@ -13,6 +13,7 @@ const body=structuredClone(planned.find(d=>d.id==='Body.Sower')!) as import('../
 body.parts.find(p=>p.id==='SensorMast')!.capacities!.signal=1
 body.mechanical!.repair.item='Item.SmallActuator';body.mechanical!.cell.item='Item.LowPowerCell';body.mechanical!.salvage=[{item:'Item.SmallActuator',count:2,chance:1},{item:'Item.LowPowerCell',count:1,chance:1}]
 export const sowerFixtureDefs:AnyDef[]=[body,{defType:'Item',id:'Item.SowerSeedCapsule',parent:'Item.ShadeSeeds',label:'검사용 파종기 종자 캡슐'} as ItemDef,{defType:'Item',id:'Item.TestSowerFungus',parent:'Item.Charcoal',label:'검사용 유한 균 캡슐'} as ItemDef,{defType:'Creature',id:'Creature.Sower',parent:'Creature.TenderDrone',label:'검사용 파종기',body:'Body.Sower',sower:sowerRule,weightKg:1200,hpBase:360,loadout:{slots:[{items:['Item.SowerSeedCapsule'],count:[8,8]}]}} as CreatureDef]
+for(const definition of sowerFixtureDefs)definition.override=true
 export const sowerFixturePackage={manifest:{id:'sower-policy-fixture',name:'유한 파종기 정책 검사',version:'1'},defs:sowerFixtureDefs,patches:[]}
 const loaded=loadMods([...readPackages(),sowerFixturePackage],['sower-policy-fixture']);if(loaded.report.errors.length)throw Error(loaded.report.errors.join('\n'))
 export function sowerFixture(){

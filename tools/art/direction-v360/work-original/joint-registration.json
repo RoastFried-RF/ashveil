@@ -1,0 +1,679 @@
+{
+  "format": 1,
+  "active": false,
+  "activationReady": false,
+  "fullBodyWorkApproved": false,
+  "releaseApproved": false,
+  "sourcePng": "originals/sower-front-work-chassis-v1.png",
+  "sourceSha256": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3",
+  "sourceSize": [
+    2172,
+    724
+  ],
+  "coordinateConvention": "source x,y; crop x,y,width,height; right/bottom exclusive; normalized coordinates relative to exact crop",
+  "poses": [
+    {
+      "phase": 0,
+      "state": "closed-ready",
+      "frameKey": "held_av359_sower_front_work_chassis0",
+      "sourceRegionUid": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3#xywh=41,74,508,492",
+      "crop": [
+        41,
+        74,
+        508,
+        492
+      ],
+      "bodyBounds": [
+        45,
+        78,
+        500,
+        484
+      ],
+      "landmarks": {
+        "nearScreenLeft": {
+          "source": [
+            101,
+            400
+          ],
+          "crop": [
+            60,
+            326
+          ],
+          "normalizedCrop": [
+            0.11811023622047244,
+            0.6626016260162602
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "nearScreenRight": {
+          "source": [
+            484,
+            400
+          ],
+          "crop": [
+            443,
+            326
+          ],
+          "normalizedCrop": [
+            0.8720472440944882,
+            0.6626016260162602
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "opticsApertureMidpoint": {
+          "source": [
+            288,
+            386
+          ],
+          "crop": [
+            247,
+            312
+          ],
+          "normalizedCrop": [
+            0.4862204724409449,
+            0.6341463414634146
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "tallTankFillerCenter": {
+          "source": [
+            219,
+            104
+          ],
+          "crop": [
+            178,
+            30
+          ],
+          "normalizedCrop": [
+            0.35039370078740156,
+            0.06097560975609756
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 252,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "shortTankFillerCenter": {
+          "source": [
+            386,
+            176
+          ],
+          "crop": [
+            345,
+            102
+          ],
+          "normalizedCrop": [
+            0.6791338582677166,
+            0.2073170731707317
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        }
+      },
+      "hipPinSpanSource": 383.0,
+      "relativeLandmarksInHipSpanUnits": {
+        "opticsApertureMidpoint": [
+          -0.01174934725848564,
+          -0.03655352480417755
+        ],
+        "tallTankFillerCenter": [
+          -0.1919060052219321,
+          -0.7728459530026109
+        ],
+        "shortTankFillerCenter": [
+          0.24412532637075718,
+          -0.5848563968668408
+        ]
+      },
+      "sourceToV354ObservedPinFrame": {
+        "targetPins": [
+          [
+            182,
+            428
+          ],
+          [
+            608,
+            428
+          ]
+        ],
+        "targetMidpoint": [
+          395,
+          428
+        ],
+        "uniformScale": 1.112271540469974,
+        "rotationRadians": -0.0,
+        "translationSourceUnits": [
+          69.66057441253264,
+          -16.908616187989537
+        ],
+        "note": "Align source pin midpoint and projected span with v354 two observed near caps. This is an isotropic display transform only, not edited PNG,3D reconstruction or whole-body runtime rig approval."
+      },
+      "wholeChassisMainSilhouetteLoss": 0,
+      "foreignMainComponentPixels": 0,
+      "opaqueCropBorderAlpha16Pixels": 0,
+      "sourceCanvasEdgeTouched": false,
+      "rgbaCropSha256": "756eb04f4347378743f367fb2fcb47d170b30f7c315e74e10f890596e7ffc4c1"
+    },
+    {
+      "phase": 1,
+      "state": "open-short-deploy",
+      "frameKey": "held_av359_sower_front_work_chassis1",
+      "sourceRegionUid": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3#xywh=583,74,510,503",
+      "crop": [
+        583,
+        74,
+        510,
+        503
+      ],
+      "bodyBounds": [
+        587,
+        78,
+        502,
+        495
+      ],
+      "landmarks": {
+        "nearScreenLeft": {
+          "source": [
+            643,
+            400
+          ],
+          "crop": [
+            60,
+            326
+          ],
+          "normalizedCrop": [
+            0.11764705882352941,
+            0.6481113320079522
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "nearScreenRight": {
+          "source": [
+            1027,
+            400
+          ],
+          "crop": [
+            444,
+            326
+          ],
+          "normalizedCrop": [
+            0.8705882352941177,
+            0.6481113320079522
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "opticsApertureMidpoint": {
+          "source": [
+            831,
+            386
+          ],
+          "crop": [
+            248,
+            312
+          ],
+          "normalizedCrop": [
+            0.48627450980392156,
+            0.6202783300198808
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "tallTankFillerCenter": {
+          "source": [
+            763,
+            104
+          ],
+          "crop": [
+            180,
+            30
+          ],
+          "normalizedCrop": [
+            0.35294117647058826,
+            0.05964214711729622
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "shortTankFillerCenter": {
+          "source": [
+            929,
+            176
+          ],
+          "crop": [
+            346,
+            102
+          ],
+          "normalizedCrop": [
+            0.6784313725490196,
+            0.20278330019880716
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        }
+      },
+      "hipPinSpanSource": 384.0,
+      "relativeLandmarksInHipSpanUnits": {
+        "opticsApertureMidpoint": [
+          -0.010416666666666666,
+          -0.036458333333333336
+        ],
+        "tallTankFillerCenter": [
+          -0.1875,
+          -0.7708333333333334
+        ],
+        "shortTankFillerCenter": [
+          0.24479166666666666,
+          -0.5833333333333334
+        ]
+      },
+      "sourceToV354ObservedPinFrame": {
+        "targetPins": [
+          [
+            182,
+            428
+          ],
+          [
+            608,
+            428
+          ]
+        ],
+        "targetMidpoint": [
+          395,
+          428
+        ],
+        "uniformScale": 1.109375,
+        "rotationRadians": -0.0,
+        "translationSourceUnits": [
+          -531.328125,
+          -15.75
+        ],
+        "note": "Align source pin midpoint and projected span with v354 two observed near caps. This is an isotropic display transform only, not edited PNG,3D reconstruction or whole-body runtime rig approval."
+      },
+      "wholeChassisMainSilhouetteLoss": 0,
+      "foreignMainComponentPixels": 0,
+      "opaqueCropBorderAlpha16Pixels": 0,
+      "sourceCanvasEdgeTouched": false,
+      "rgbaCropSha256": "9e572e45e3444032778365d66626f138c08365003bcf28c8f29db7b77522e8c5"
+    },
+    {
+      "phase": 2,
+      "state": "open-insertion-stroke",
+      "frameKey": "held_av359_sower_front_work_chassis2",
+      "sourceRegionUid": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3#xywh=1123,70,508,542",
+      "crop": [
+        1123,
+        70,
+        508,
+        542
+      ],
+      "bodyBounds": [
+        1127,
+        74,
+        500,
+        534
+      ],
+      "landmarks": {
+        "nearScreenLeft": {
+          "source": [
+            1184,
+            400
+          ],
+          "crop": [
+            61,
+            330
+          ],
+          "normalizedCrop": [
+            0.12007874015748031,
+            0.6088560885608856
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "nearScreenRight": {
+          "source": [
+            1567,
+            400
+          ],
+          "crop": [
+            444,
+            330
+          ],
+          "normalizedCrop": [
+            0.8740157480314961,
+            0.6088560885608856
+          ],
+          "sourceAlpha": 254,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "opticsApertureMidpoint": {
+          "source": [
+            1372,
+            386
+          ],
+          "crop": [
+            249,
+            316
+          ],
+          "normalizedCrop": [
+            0.49015748031496065,
+            0.5830258302583026
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "tallTankFillerCenter": {
+          "source": [
+            1303,
+            101
+          ],
+          "crop": [
+            180,
+            31
+          ],
+          "normalizedCrop": [
+            0.3543307086614173,
+            0.05719557195571956
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 252,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "shortTankFillerCenter": {
+          "source": [
+            1470,
+            175
+          ],
+          "crop": [
+            347,
+            105
+          ],
+          "normalizedCrop": [
+            0.6830708661417323,
+            0.1937269372693727
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        }
+      },
+      "hipPinSpanSource": 383.0,
+      "relativeLandmarksInHipSpanUnits": {
+        "opticsApertureMidpoint": [
+          -0.009138381201044387,
+          -0.03655352480417755
+        ],
+        "tallTankFillerCenter": [
+          -0.18929503916449086,
+          -0.7806788511749347
+        ],
+        "shortTankFillerCenter": [
+          0.24673629242819844,
+          -0.587467362924282
+        ]
+      },
+      "sourceToV354ObservedPinFrame": {
+        "targetPins": [
+          [
+            182,
+            428
+          ],
+          [
+            608,
+            428
+          ]
+        ],
+        "targetMidpoint": [
+          395,
+          428
+        ],
+        "uniformScale": 1.112271540469974,
+        "rotationRadians": -0.0,
+        "translationSourceUnits": [
+          -1134.929503916449,
+          -16.908616187989537
+        ],
+        "note": "Align source pin midpoint and projected span with v354 two observed near caps. This is an isotropic display transform only, not edited PNG,3D reconstruction or whole-body runtime rig approval."
+      },
+      "wholeChassisMainSilhouetteLoss": 0,
+      "foreignMainComponentPixels": 0,
+      "opaqueCropBorderAlpha16Pixels": 0,
+      "sourceCanvasEdgeTouched": false,
+      "rgbaCropSha256": "697e31144efe4730a3b088438349600cd0c438c9c3fefbcc951c7a46766cc284"
+    },
+    {
+      "phase": 3,
+      "state": "closed-recovery",
+      "frameKey": "held_av359_sower_front_work_chassis3",
+      "sourceRegionUid": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3#xywh=1659,71,509,495",
+      "crop": [
+        1659,
+        71,
+        509,
+        495
+      ],
+      "bodyBounds": [
+        1663,
+        75,
+        501,
+        487
+      ],
+      "landmarks": {
+        "nearScreenLeft": {
+          "source": [
+            1719,
+            400
+          ],
+          "crop": [
+            60,
+            329
+          ],
+          "normalizedCrop": [
+            0.11787819253438114,
+            0.6646464646464646
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "nearScreenRight": {
+          "source": [
+            2103,
+            400
+          ],
+          "crop": [
+            444,
+            329
+          ],
+          "normalizedCrop": [
+            0.8722986247544204,
+            0.6646464646464646
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed foreground attachment cap center"
+        },
+        "opticsApertureMidpoint": {
+          "source": [
+            1908,
+            386
+          ],
+          "crop": [
+            249,
+            315
+          ],
+          "normalizedCrop": [
+            0.48919449901768175,
+            0.6363636363636364
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "tallTankFillerCenter": {
+          "source": [
+            1837,
+            103
+          ],
+          "crop": [
+            178,
+            32
+          ],
+          "normalizedCrop": [
+            0.34970530451866405,
+            0.06464646464646465
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 253,
+          "kind": "observed visible landmark; not a pivot"
+        },
+        "shortTankFillerCenter": {
+          "source": [
+            2004,
+            176
+          ],
+          "crop": [
+            345,
+            105
+          ],
+          "normalizedCrop": [
+            0.6777996070726916,
+            0.21212121212121213
+          ],
+          "sourceAlpha": 253,
+          "neighborhoodRadius5MinAlpha": 252,
+          "kind": "observed visible landmark; not a pivot"
+        }
+      },
+      "hipPinSpanSource": 384.0,
+      "relativeLandmarksInHipSpanUnits": {
+        "opticsApertureMidpoint": [
+          -0.0078125,
+          -0.036458333333333336
+        ],
+        "tallTankFillerCenter": [
+          -0.19270833333333334,
+          -0.7734375
+        ],
+        "shortTankFillerCenter": [
+          0.2421875,
+          -0.5833333333333334
+        ]
+      },
+      "sourceToV354ObservedPinFrame": {
+        "targetPins": [
+          [
+            182,
+            428
+          ],
+          [
+            608,
+            428
+          ]
+        ],
+        "targetMidpoint": [
+          395,
+          428
+        ],
+        "uniformScale": 1.109375,
+        "rotationRadians": -0.0,
+        "translationSourceUnits": [
+          -1725.015625,
+          -15.75
+        ],
+        "note": "Align source pin midpoint and projected span with v354 two observed near caps. This is an isotropic display transform only, not edited PNG,3D reconstruction or whole-body runtime rig approval."
+      },
+      "wholeChassisMainSilhouetteLoss": 0,
+      "foreignMainComponentPixels": 0,
+      "opaqueCropBorderAlpha16Pixels": 0,
+      "sourceCanvasEdgeTouched": false,
+      "rgbaCropSha256": "eb748490dd8dc189c5a8f520580997bc7ca7d2c691d890f945293b149044e916"
+    }
+  ],
+  "counts": {
+    "generatedPngs": 1,
+    "sourceChassisRegions": 4,
+    "uniqueRgbaCropHashes": 4,
+    "functionallyDistinctStates": 3,
+    "closedSourceRegions": 2,
+    "authoredFullBodyFrames": 0,
+    "authoredDriveLegFrames": 0,
+    "runtimePartInstancesAuthored": 0
+  },
+  "closedLoopAssessment": "pose0 and pose3 are independently generated nonidentical raw pixel regions, but both visibly closed/retracted with near-identical folded tools. They are not four distinct functional mechanisms; closed preparation and closed recovery may join a work loop. Do not count their small texture/seam difference as a fourth unique functional state.",
+  "registrationDecision": "4 isolated chassis source candidates usable for parent work start/open/stroke/closed-return evaluation; no main runtime install or complete four-legged work animation approval.",
+  "observedPinUncertaintySourcePx": 3,
+  "landmarkUncertaintySourcePx": 4,
+  "pinSpace": "Foreground camera-facing bronze cap centers observed directly on original and2x overlay; they are2D projected attachment centers, not proof of3D axes or far-hip ownership.",
+  "functionalStateLabels": [
+    "closed-ready",
+    "open-short-deploy",
+    "open-insertion-stroke",
+    "closed-recovery"
+  ],
+  "runtimePolicy": "Only parent actual finite sow/work activity may drive the candidate cycle. No seed/capsule/fungus particles or availability are baked into the image. Failure/cancel/empty resource handling remains parent-owned.",
+  "spacing": {
+    "requestedMaxBodyCellWidth": 0.62,
+    "observedBodyCellWidths": [
+      0.9208103130755064,
+      0.9244935543278084,
+      0.9208103130755064,
+      0.9226519337016574
+    ],
+    "requestedMaxBodyCanvasHeight": 0.7,
+    "observedBodyCanvasHeights": [
+      0.6685082872928176,
+      0.6837016574585635,
+      0.7375690607734806,
+      0.6726519337016574
+    ],
+    "adjacentMainBboxGapsSourcePx": [
+      42,
+      38,
+      36
+    ],
+    "cropPaddingPx": 4,
+    "allFourMainBodyComplete": true,
+    "foreignMainComponentPixels": 0,
+    "opaqueCropBorderAlpha16Pixels": 0,
+    "bodyWidthRequestMet": false,
+    "bodyHeightRequestMetAllFour": false,
+    "semanticClippingObserved": false,
+    "rawCanvasLowAlphaBorderMax": 4,
+    "note": "Cell width request missed; phase2 height exceeds70%. Source has36..42px clear main silhouette gutters and whole silhouettes are isolated. Faint canvas border is alpha<=4 only, not visible structural clipping; never infer a missing body from hidden low-alphaRGB."
+  },
+  "visualReview": {
+    "newRawViewedVia": "image_gen displayed source; staged PNG is byte-identical",
+    "actuallyOpenedDiagnostics": [
+      "diagnostics/poses.png",
+      "diagnostics/details.png",
+      "diagnostics/aligned.png"
+    ],
+    "structure": "Front optical face/two tank mountings/two near hip caps maintained. Two small folded belly tools remain tools, not drive legs. No legs/feet/external seed or effect. Open iris/short nozzle and longer stroke are visibly distinct. Closed first/last are near-identical functional state.",
+    "referenceAlignment": "Manual2pin isotropic overlay with v354 at48worldpx hip span and1x/3x display inspected directly. No source pixels were edited. Relative tank/optics positions remain stable; exact main-game scale/occlusion/contact is not approved.",
+    "notReviewed": [
+      "main game",
+      "Core sow event",
+      "four-leg pose/support",
+      "damage mapping",
+      "real seed consumption",
+      "runtime work start/cancel/return",
+      "release quality"
+    ]
+  }
+}

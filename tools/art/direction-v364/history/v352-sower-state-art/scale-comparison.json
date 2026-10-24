@@ -1,0 +1,461 @@
+{
+  "uniformWithinEachClip": true,
+  "noNonuniformStretch": true,
+  "nativeCaveat": "Private original-source canvas comparison only. Actual game room/transition/attack recoil/ground shadow evaluation belongs to parent. One uniform scale cannot remove source aspect-ratio differences.",
+  "scales": {
+    "hurt": 0.22,
+    "fall": 0.2,
+    "rise": 0.2,
+    "attack": 0.21
+  },
+  "comparisons": [
+    {
+      "motion": "hurt",
+      "direction": "down",
+      "held": false,
+      "reference": "av335_sower_idle_down0",
+      "referenceBodySource": [
+        233,
+        216
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        53.59,
+        49.68
+      ],
+      "newFrame": "av352_sower_hurt_down3",
+      "newBodySource": [
+        259,
+        220
+      ],
+      "newScale": 0.22,
+      "newWorld": [
+        56.98,
+        48.4
+      ],
+      "widthDifferencePercent": 6.325807053554766,
+      "heightDifferencePercent": -2.5764895330112725,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "hurt",
+      "direction": "left",
+      "held": false,
+      "reference": "av335_sower_idle_left0",
+      "referenceBodySource": [
+        242,
+        212
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.660000000000004,
+        48.760000000000005
+      ],
+      "newFrame": "av352_sower_hurt_left3",
+      "newBodySource": [
+        259,
+        220
+      ],
+      "newScale": 0.22,
+      "newWorld": [
+        56.98,
+        48.4
+      ],
+      "widthDifferencePercent": 2.371541501976271,
+      "heightDifferencePercent": -0.7383100902379147,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "hurt",
+      "direction": "right",
+      "held": false,
+      "reference": "av335_sower_idle_right0",
+      "referenceBodySource": [
+        245,
+        217
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        56.35,
+        49.910000000000004
+      ],
+      "newFrame": "av352_sower_hurt_right3",
+      "newBodySource": [
+        264,
+        221
+      ],
+      "newScale": 0.22,
+      "newWorld": [
+        58.08,
+        48.62
+      ],
+      "widthDifferencePercent": 3.070097604259092,
+      "heightDifferencePercent": -2.5846523742737104,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "hurt",
+      "direction": "up",
+      "held": false,
+      "reference": "av335_sower_idle_up0",
+      "referenceBodySource": [
+        243,
+        211
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.89,
+        48.53
+      ],
+      "newFrame": "av352_sower_hurt_up3",
+      "newBodySource": [
+        267,
+        214
+      ],
+      "newScale": 0.22,
+      "newWorld": [
+        58.74,
+        47.08
+      ],
+      "widthDifferencePercent": 5.0993022007514766,
+      "heightDifferencePercent": -2.9878425716052037,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "fall",
+      "direction": "down",
+      "held": false,
+      "reference": "av335_sower_idle_down0",
+      "referenceBodySource": [
+        233,
+        216
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        53.59,
+        49.68
+      ],
+      "newFrame": "av352_sower_fall_down0",
+      "newBodySource": [
+        258,
+        238
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        51.6,
+        47.6
+      ],
+      "widthDifferencePercent": -3.713379361821234,
+      "heightDifferencePercent": -4.186795491143314,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "fall",
+      "direction": "left",
+      "held": true,
+      "reference": "av335_sower_idle_left0",
+      "referenceBodySource": [
+        242,
+        212
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.660000000000004,
+        48.760000000000005
+      ],
+      "newFrame": "av352_sower_fall_left0",
+      "newBodySource": [
+        267,
+        235
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        53.400000000000006,
+        47.0
+      ],
+      "widthDifferencePercent": -4.0603665109593905,
+      "heightDifferencePercent": -3.6095159967186374,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "fall",
+      "direction": "right",
+      "held": false,
+      "reference": "av335_sower_idle_right0",
+      "referenceBodySource": [
+        245,
+        217
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        56.35,
+        49.910000000000004
+      ],
+      "newFrame": "av352_sower_fall_right0",
+      "newBodySource": [
+        266,
+        234
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        53.2,
+        46.800000000000004
+      ],
+      "widthDifferencePercent": -5.590062111801242,
+      "heightDifferencePercent": -6.231216189140454,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "fall",
+      "direction": "up",
+      "held": false,
+      "reference": "av335_sower_idle_up0",
+      "referenceBodySource": [
+        243,
+        211
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.89,
+        48.53
+      ],
+      "newFrame": "av352_sower_fall_up0",
+      "newBodySource": [
+        270,
+        246
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        54.0,
+        49.2
+      ],
+      "widthDifferencePercent": -3.3816425120772986,
+      "heightDifferencePercent": 1.3805893261899849,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "rise",
+      "direction": "down",
+      "held": false,
+      "reference": "av335_sower_idle_down0",
+      "referenceBodySource": [
+        233,
+        216
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        53.59,
+        49.68
+      ],
+      "newFrame": "av352_sower_rise_down3",
+      "newBodySource": [
+        265,
+        247
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        53.0,
+        49.400000000000006
+      ],
+      "widthDifferencePercent": -1.100951670087713,
+      "heightDifferencePercent": -0.5636070853462072,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "rise",
+      "direction": "left",
+      "held": false,
+      "reference": "av335_sower_idle_left0",
+      "referenceBodySource": [
+        242,
+        212
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.660000000000004,
+        48.760000000000005
+      ],
+      "newFrame": "av352_sower_rise_left3",
+      "newBodySource": [
+        267,
+        240
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        53.400000000000006,
+        48.0
+      ],
+      "widthDifferencePercent": -4.0603665109593905,
+      "heightDifferencePercent": -1.5586546349466879,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "rise",
+      "direction": "right",
+      "held": false,
+      "reference": "av335_sower_idle_right0",
+      "referenceBodySource": [
+        245,
+        217
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        56.35,
+        49.910000000000004
+      ],
+      "newFrame": "av352_sower_rise_right3",
+      "newBodySource": [
+        271,
+        239
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        54.2,
+        47.800000000000004
+      ],
+      "widthDifferencePercent": -3.815439219165928,
+      "heightDifferencePercent": -4.2276096974554145,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "rise",
+      "direction": "up",
+      "held": false,
+      "reference": "av335_sower_idle_up0",
+      "referenceBodySource": [
+        243,
+        211
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.89,
+        48.53
+      ],
+      "newFrame": "av352_sower_rise_up3",
+      "newBodySource": [
+        268,
+        241
+      ],
+      "newScale": 0.2,
+      "newWorld": [
+        53.6,
+        48.2
+      ],
+      "widthDifferencePercent": -4.0973340490248695,
+      "heightDifferencePercent": -0.6799917576756576,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "attack",
+      "direction": "down",
+      "held": false,
+      "reference": "av335_sower_idle_down0",
+      "referenceBodySource": [
+        233,
+        216
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        53.59,
+        49.68
+      ],
+      "newFrame": "av352_sower_attack_down3",
+      "newBodySource": [
+        272,
+        218
+      ],
+      "newScale": 0.21,
+      "newWorld": [
+        57.12,
+        45.78
+      ],
+      "widthDifferencePercent": 6.587049822728108,
+      "heightDifferencePercent": -7.850241545893722,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "attack",
+      "direction": "left",
+      "held": false,
+      "reference": "av335_sower_idle_left0",
+      "referenceBodySource": [
+        242,
+        212
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.660000000000004,
+        48.760000000000005
+      ],
+      "newFrame": "av352_sower_attack_left3",
+      "newBodySource": [
+        267,
+        220
+      ],
+      "newScale": 0.21,
+      "newWorld": [
+        56.07,
+        46.199999999999996
+      ],
+      "widthDifferencePercent": 0.7366151634926377,
+      "heightDifferencePercent": -5.250205086136194,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "attack",
+      "direction": "right",
+      "held": true,
+      "reference": "av335_sower_idle_right0",
+      "referenceBodySource": [
+        245,
+        217
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        56.35,
+        49.910000000000004
+      ],
+      "newFrame": "av352_sower_attack_right3",
+      "newBodySource": [
+        285,
+        226
+      ],
+      "newScale": 0.21,
+      "newWorld": [
+        59.849999999999994,
+        47.46
+      ],
+      "widthDifferencePercent": 6.211180124223592,
+      "heightDifferencePercent": -4.908835904628339,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    },
+    {
+      "motion": "attack",
+      "direction": "up",
+      "held": false,
+      "reference": "av335_sower_idle_up0",
+      "referenceBodySource": [
+        243,
+        211
+      ],
+      "referenceScale": 0.23,
+      "referenceWorld": [
+        55.89,
+        48.53
+      ],
+      "newFrame": "av352_sower_attack_up3",
+      "newBodySource": [
+        271,
+        216
+      ],
+      "newScale": 0.21,
+      "newWorld": [
+        56.91,
+        45.36
+      ],
+      "widthDifferencePercent": 1.8250134192163037,
+      "heightDifferencePercent": -6.532042035854113,
+      "phaseRationale": "fall starts upright; other motions compare final recovery/stand against idle, without per-frame resizing"
+    }
+  ]
+}

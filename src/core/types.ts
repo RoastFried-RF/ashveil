@@ -390,6 +390,7 @@ export interface SowerRules {
  spray:{item:string;radius:number;turns:number;concentration:number;cooldown:number}
 }
 export interface SowerState {
+ assault?:{serial:number;at:number;seen?:{id:number;pos:Pos}};alarmAttack?:number
  rule:string;routeIndex:number;moves:number;seedsSpent:number;resumeAt:number;alarmWound:number
  lastSeed?:{uid:number;at:number;pos:Pos};lastSpray?:{uid:number;at:number};nextSprayAt?:number
 }
@@ -2547,7 +2548,7 @@ export interface MapRoom {
 export interface PopSource { id: string; label: string; species: string; count: number; cap: number; regenDays: number; floors: string[]; lastRegenDay: number; needsAlive?: string; deployed?: boolean;members?:number[];faction?:string;kind?:'residents';closed?:{at:number;by:number;mapId:string;deviceUid:number} }
 export interface MapLight { pos: Pos; radius: number; kind: string; off?: boolean; sourceUid?:number; fuelUntil?:number;beddingFireId?:number;beddingSparkAt?:number;terrainFireId?:number;terrainSparkAt?:number }
 
-export interface GardenAlertState {level:number;events:{at:number;source:number;target:number;sourcePos:Pos;targetPos:Pos;level:number}[]}
+export interface GardenAlertState {level:number;events:{at:number;source:number;target?:number;sourcePos:Pos;targetPos?:Pos;level:number;kind?:'attack'}[]}
 export interface MapState {
   gardenAlert?:GardenAlertState
   fog?:{sightMult:number;color:number;opacity:number}

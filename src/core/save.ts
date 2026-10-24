@@ -405,6 +405,8 @@ export function deserialize(json: string): GameState {
   if(s.version===211)s.version=212
   // v213 preserves finite machine route/capsule work and actual alarm calls; no retrofilled stock.
   if(s.version===212)s.version=213
+  // v214 records real resolved assault episodes; older wounds/stock gain no invented attacks.
+  if(s.version===213)s.version=214
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -423,6 +425,9 @@ export function deserialize(json: string): GameState {
   for(const c of actors){
     const m=c.sowerState
     if(m!==undefined&&(!m||typeof m!=='object'||typeof m.rule!=='string'||!m.rule||m.rule.length>16384||!integer(m.routeIndex)||m.routeIndex>15||!integer(m.moves)||m.moves>100||!integer(m.seedsSpent)||!integer(m.resumeAt)||!integer(m.alarmWound)||m.nextSprayAt!==undefined&&!integer(m.nextSprayAt)||m.lastSeed&&(!integer(m.lastSeed.uid)||m.lastSeed.uid<1||!integer(m.lastSeed.at)||!position(m.lastSeed.pos))||m.lastSpray&&(!integer(m.lastSpray.uid)||m.lastSpray.uid<1||!integer(m.lastSpray.at))))throw Error('파종기의 원래 경로/종자 작업 기록 형식이 올바르지 않다')
+    if(m?.alarmAttack!==undefined&&!integer(m.alarmAttack))throw Error('파종기의 실제 공격 경보 기록 형식이 올바르지 않다')
+    const assault=m?.assault
+    if(assault!==undefined&&(!assault||typeof assault!=='object'||!integer(assault.serial)||assault.serial<1||!integer(assault.at)||assault.seen!==undefined&&(!assault.seen||!integer(assault.seen.id)||assault.seen.id<1||!position(assault.seen.pos))))throw Error('파종기가 실제로 감지한 공격 기록 형식이 올바르지 않다')
     const call=c.surveyState?.call
     if(call!==undefined&&(!call||typeof call!=='object'||!integer(call.source)||call.source<1||!integer(call.at)||!integer(call.expiresAt)||call.expiresAt<call.at||!position(call.pos)))throw Error('측량기의 원래 호출 기록 형식이 올바르지 않다')
   }

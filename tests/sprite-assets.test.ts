@@ -3,10 +3,18 @@ import {mkdtempSync,copyFileSync,readFileSync,writeFileSync,rmSync} from 'node:f
 import {join,resolve} from 'node:path'
 import {tmpdir} from 'node:os'
 import {validateSpriteAssets} from '../tools/sprite-validation'
+import {RIG,type ArticulatedLayout} from '../src/client/render/articulated-gait'
 const png=resolve('public/sprites/original/items/ashveil-whitecap.png')
 const basic=()=>({sheets:{crop:'image.png'},frames:{cap:['crop',0,0,32,32]},anims:{still:{frames:['cap'],fps:1}},chars:{},ui:{}})
 function fixture(run:(root:string)=>void){const root=mkdtempSync(join(tmpdir(),'ashveil-sprite-check-'));try{copyFileSync(png,join(root,'image.png'));run(root)}finally{rmSync(root,{recursive:true,force:true})}}
 describe('실제 스프라이트 자산 계약',()=>{
+ it('rig 원본 누락·무한 기하·겹친 핀·등록점 범위 오류를 거절하고 정상 JSON 부품은 수락한다',()=>fixture(root=>{
+  const poses={down:['cap'],left:['cap'],right:['cap'],up:['cap']},view=()=>({art:{body:{frame:'cap',pivot:{x:16,y:16},scale:.07},upper:{frame:'cap',proximal:{x:5,y:5},distal:{x:5,y:25},thickness:.03},lower:{frame:'cap',proximal:{x:5,y:5},distal:{x:5,y:25},thickness:.03},foot:{frame:'cap',ankle:{x:16,y:16},scale:.03}},layout:structuredClone(RIG) as ArticulatedLayout,work:[{frame:'cap',pivot:{x:16,y:16},scale:.07,registration:{source:[{x:5,y:5},{x:25,y:5}],target:[{x:-10,y:0},{x:10,y:0}]}}]}),rig={directions:{down:view(),left:view(),right:view(),up:view()}},m={...basic(),chars:{sower:{walk:poses,idle:poses,anchor:[.5,1],rig}}}
+  expect(validateSpriteAssets(root,m).errors).toEqual([])
+  rig.directions.left.art.body.frame='missing';rig.directions.right.layout.upper=Infinity;rig.directions.up.art.lower.distal={x:5,y:5};rig.directions.down.work[0].registration.source[1].x=40
+  const errors=validateSpriteAssets(root,m).errors.join()
+  expect(errors).toMatch(/rig.directions.left.art.body.frame/);expect(errors).toMatch(/rig.directions.right.layout.upper/);expect(errors).toMatch(/서로 다른 등록점/);expect(errors).toMatch(/원본 frame 좌표 범위/)
+ }))
  it('자연 공격 변형의 누락 방향과 없는 원본 frame도 실제로 거절한다',()=>fixture(root=>{const poses={down:['cap'],left:['cap'],right:['cap'],up:['cap']},m={...basic(),chars:{bear:{walk:poses,idle:poses,attack:poses,anchor:[.5,1],attackVariants:{bite:{down:['missing'],left:['cap'],right:['cap']}}}}};const d=validateSpriteAssets(root,m);expect(d.valid).toBe(false);expect(d.errors.join()).toMatch(/attackVariants.bite.down/);expect(d.errors.join()).toMatch(/attackVariants.bite.up/)}))
  it('확장 동작·장비 부착점·퇴역 시트의 잘못된 참조를 검출한다',()=>fixture(root=>{const poses={down:['cap'],left:['cap'],right:['cap'],up:['cap']};const m={...basic(),characterSheetHistory:['unregistered'],chars:{actor:{walk:poses,idle:poses,anchor:[.5,1],motions:{block:{...poses,up:['missing']}},frameTransforms:{cap:{anchor:[.5,1],scale:1,mainHand:[0,NaN]}}}}};const errors=validateSpriteAssets(root,m).errors.join();expect(errors).toMatch(/characterSheetHistory/);expect(errors).toMatch(/motions.block.up/);expect(errors).toMatch(/mainHand/)}))
  it('전체 실제 배포 manifest의 PNG·프레임·애니메이션·캐릭터·UI 참조가 유효하다',()=>{const manifest=JSON.parse(readFileSync('src/client/sprites.json','utf8'));const d=validateSpriteAssets(resolve('public'),manifest);expect(d.errors).toEqual([]);expect(d.valid).toBe(true);expect(d.counts.characters).toBeGreaterThan(0)})

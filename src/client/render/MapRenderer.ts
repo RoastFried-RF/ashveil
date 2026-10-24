@@ -1,3 +1,4 @@
+import {RigOwner} from './rig-owner'
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
 import {groundObjectArt,isGroundCrop} from './terrain-art'
@@ -46,6 +47,9 @@ interface CView {
   id: number
   selectedSprite: string
   root: Container
+  rig:RigOwner|null
+  rigMix:number
+  rigWasActive:boolean
   body: Sprite
   previousBody:Sprite
   actionItem:Sprite
@@ -207,7 +211,7 @@ export class MapRenderer {
     for(const view of visible){
       const actor=w.s.creatures.find(actor=>actor.id===view.id)
       if(!actor||actor.id!==w.s.playerId&&!this.displayVisible.has(actor.pos.y*w.s.map.w+actor.pos.x))continue
-      if(![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
+      if(!view.rig?.hit(point)&&![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
       // An opaque prop drawn in front still owns its visible pixels.
       if(this.objs.children.some(child=>child instanceof Sprite&&child.zIndex>view.root.zIndex&&child.visible&&child.alpha>=.95&&spritePixelHit(child,point)))return null
       return{...actor.pos}
@@ -267,8 +271,8 @@ export class MapRenderer {
       if(preferences.animationSpeed!==0&&walking(view.motion)&&['work','use','interact','wallow'].includes(cue.kind)){
         if(view.pose.current&&posePriority(cue.kind)<posePriority(view.pose.current.kind))continue
         const actor=w.s.creatures.find(c=>c.id===cue.actor)!
-        view.arrivingPose={cue:{kind:cue.kind,elapsed:0,prop:cue.prop,duration},pos:{...actor.pos},map:sceneKey(w),direction:cue.direction??DIR_OF_FACING[actor.facing]??view.dir,continuous:cue.kind==='work'&&activityMotion(actor.activity)==='work'}
-      }else requestPose(view.pose,cue.kind,cue.prop,{duration})
+        view.arrivingPose={cue:{kind:cue.kind,elapsed:0,prop:cue.prop,duration,machineTask:cue.machineTask},pos:{...actor.pos},map:sceneKey(w),direction:cue.direction??DIR_OF_FACING[actor.facing]??view.dir,continuous:cue.kind==='work'&&activityMotion(actor.activity)==='work'}
+      }else requestPose(view.pose,cue.kind,cue.prop,{duration,machineTask:cue.machineTask})
     }
     this.notifyPlayerMotion()
     this.drawOverlay()
@@ -734,11 +738,13 @@ export class MapRenderer {
     root.sortableChildren=true;shadow.zIndex=-5;previousBody.zIndex=0;body.zIndex=1;gearEffects.zIndex=2;gripCovers.zIndex=5;actionItem.zIndex=6;bar.zIndex=8;marks.zIndex=9
     root.addChild(shadow,previousBody,body,gearEffects,...hands,...medicalItems,gripCovers,actionItem,bar,marks)
     this.objs.addChild(root)
+    const initiallyStanding=!!ch?.rig&&c.alive&&!c.asleep&&!c.unconscious&&!hasEffect(c,'knockedDown',turnOf(w))
     const v: CView = {
-      id: c.id, selectedSprite, root, body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, rig:ch?.rig?new RigOwner(ch.rig):null,rigMix:initiallyStanding?1:0,rigWasActive:initiallyStanding,body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
+    if(v.rig){v.rig.root.zIndex=1;root.addChild(v.rig.root);v.rig.update(v.dir,{x:c.pos.x*T,y:c.pos.y*T},null,0,true);v.rig.root.visible=initiallyStanding;body.visible=!initiallyStanding}
     root.position.set(c.pos.x*T+T/2,c.pos.y*T+T-2)
     return v
   }
@@ -769,8 +775,8 @@ export class MapRenderer {
       const altitude=c.alive&&c.flight?(w.db.creature(c.def).flight?.height??0)*T:0
       if(altitude&&!v.flightHeight){clearPoses(v.pose);v.arrivingPose=null}
       v.flightHeight=altitude
-      if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
-      else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
+      if(!wasShown){v.rig?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
+      else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){v.rig?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
       else observeWalk(v.motion,c.pos,moves)
       if (c.alive&&v.pose.current?.kind!=='wallow') v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
@@ -821,6 +827,7 @@ export class MapRenderer {
   }
 
   private headY(v: CView): number {
+    if(v.rig&&v.rigMix>.5)return Math.min(-(v.char?.headOffset??50),v.rig.headY()-2)
     if (v.anim) return -44
     if (v.char) return -Math.max((v.char.headOffset ?? 22)*(v.prone ? .3 : v.crouched ? .78 : 1),v.body.anchor.y*v.body.texture.height*Math.abs(v.body.scale.y)-v.body.y+2)
     return -15
@@ -923,7 +930,7 @@ export class MapRenderer {
       case 'parry': requestPose(v.pose,'block');this.float(c, '받아넘김', '#e0d090', k, 6); this.spark(c, 0xf0e0a0); break
       case 'deflect': requestPose(v.pose,'block');this.float(c, '튕겨냄', '#c0c8d0', k, 6); this.spark(c, 0xe0e8f0); break
       case 'status': this.float(c, e.text, e.color, k, 6); break
-      case 'death': this.float(c, c.id === pl.id ? '사망' : '쓰러짐', '#c03028', k, 7); break
+      case 'death': v.alive=false;v.deadT=0;clearPoses(v.pose);this.float(c, c.id === pl.id ? '사망' : '쓰러짐', '#c03028', k, 7); break
       case 'level': this.float(c, '레벨 업!', '#ffd870', k, 9); this.spark(c, 0xffe080, 14); break
       case 'xp': this.float(c, `+${e.v}`, '#a8a8a0', k, 6); break
       case 'move': break
@@ -1047,7 +1054,7 @@ export class MapRenderer {
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
-    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work}))
+    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,rig:view.rig?.inspect()}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
     return{assets:atlasStats(),actors,medical,forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
@@ -1065,7 +1072,7 @@ export class MapRenderer {
       const pending=v.arrivingPose,actor=this.w?.s.creatures.find(c=>c.id===v.id);v.arrivingPose=null
       if(v.alive&&!v.prone&&actor&&this.w&&sceneKey(this.w)===pending.map&&actor.pos.x===pending.pos.x&&actor.pos.y===pending.pos.y&&(!pending.continuous||activityMotion(actor.activity)==='work')){
         v.dir=pending.direction;if(pending.continuous)v.activityTime=0
-        requestPose(v.pose,pending.cue.kind,pending.cue.prop,{duration:pending.cue.duration})
+        requestPose(v.pose,pending.cue.kind,pending.cue.prop,{duration:pending.cue.duration,machineTask:pending.cue.machineTask})
       }
     }
     if(!v.alive){clearPoses(v.pose);v.deadT=Math.min(1,v.deadT+dt/(v.char?.motionDurations?.fall??motionDurations.fall))}
@@ -1124,9 +1131,10 @@ export class MapRenderer {
     this.animateEquipment(v,mode,phase,moving,hop,dt)
     this.animateMedical(v,mode,phase,moving,hop)
     const cue=v.pose.current
-    v.actionItem.visible=!v.medical&&!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
+    v.actionItem.visible=!v.char?.rig&&!v.medical&&!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
     if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=0}
-    v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
+    // Equal ground depth must keep the player readable beside a wide body.
+    v.root.zIndex = (p.y + 1) * T + (v.alive ? v.id===this.w?.s.playerId ? 0.3 : 0.2 : -8)
     if (v.char || v.anim) v.body.scale.set(bodyScale*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),bodyScale*(v.crouched&&!['crouchWalk','crouchDown','stand'].includes(mode)&&!v.prone ? .78 : 1))
     // headY already includes the projected body's actual lift and chest anchor.
     v.bar.y=this.headY(v)-v.annotationHead-(v.flightHeight?6:0);v.marks.y=v.bar.y
@@ -1147,6 +1155,14 @@ export class MapRenderer {
     v.transition=instant?0:Math.max(0,v.transition-dt)
     v.previousBody.visible=v.transition>0
     if(v.previousBody.visible){const amount=v.transition/120;v.previousBody.alpha=amount;v.previousBody.tint=v.body.tint;v.body.alpha*=1-amount}
+    if(v.rig){
+      const active=v.alive&&!v.prone&&['idle','walk','crouchWalk','work','use','interact','block'].includes(mode)
+      if(active&&!v.rigWasActive)v.rig.reset()
+      v.rigMix=instant?Number(active):Math.max(0,Math.min(1,v.rigMix+(active?1:-1)*dt/120));v.rigWasActive=active
+      if(active||v.rigMix>0){const work=mode==='work'&&['sow','spray'].includes(v.pose.current?.machineTask??'')?phase:null;v.rig.update(v.dir,{x:p.x*T,y:p.y*T},work,dt,instant);v.rig.setTint(v.body.tint)}
+      v.rig.root.visible=v.rigMix>0;v.rig.root.alpha=v.rigMix;v.body.visible=v.rigMix<1;v.body.alpha*=1-v.rigMix
+      if(v.previousBody.visible)v.previousBody.alpha*=1-v.rigMix
+    }
     // 잠든 적: Zz
     if (v.alive && this.w) {
       const c = this.w.s.creatures.find((x) => x.id === v.id)

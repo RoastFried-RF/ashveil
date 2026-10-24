@@ -96,7 +96,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 213
+export const SAVE_VERSION = 214
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -747,7 +747,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     if (c.alive || c.parasites?.length || now - (c.deathTurn ?? now) < CORPSE_DAYS * TURNS_PER_DAY) continue
     const t = map.tiles[c.pos.y * map.w + c.pos.x]
     for (const it of allItems(c)) t.items.push({ ...it, gx: undefined, gy: undefined, rot: undefined })
-    if(w.db.body(c.body.def).kind!=='invertebrate')t.items.push(makeItem(w, 'Item.Bones'))
+    if(!['invertebrate','mechanical'].includes(w.db.body(c.body.def).kind??''))t.items.push(makeItem(w, 'Item.Bones'))
     residents.splice(i, 1)
   }
   // 3) 치유: 출혈 중이 아닌 상처는 경과 일수만큼 아문다 (02 §13, 무처치 0.6 · 휴식 1.2)

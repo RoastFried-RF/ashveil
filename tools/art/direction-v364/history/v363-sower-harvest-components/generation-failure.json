@@ -1,0 +1,50 @@
+{
+  "active": false,
+  "activationReady": false,
+  "releaseApproved": false,
+  "tool": "image_gen__imagegen",
+  "status": "failed",
+  "httpStatus": 400,
+  "toolErrorPrefix": "image generation failed: http 400 Bad Request",
+  "providerError": {
+    "error": {
+      "message": "Your request was rejected by the safety system. If you believe this is an error, contact us at help.openai.com and include the request ID 3f2ee51d-ef5a-41d5-9f79-7157f716d286. safety_violations=[violence].",
+      "type": "image_generation_user_error",
+      "param": null,
+      "code": "moderation_blocked",
+      "moderation_details": {
+        "moderation_stage": "output",
+        "categories": [
+          "violence"
+        ]
+      }
+    }
+  },
+  "requestId": "3f2ee51d-ef5a-41d5-9f79-7157f716d286",
+  "toolWallTimeSeconds": 26.7,
+  "exactArgumentsFile": "requests/sower-harvest-components-v1.json",
+  "exactArgumentsSha256": "9fafdabb29f8004c4b19148762f1a56993c8b05a3c391234af3dcca55917364f",
+  "referenceManifest": "reference-inputs.json",
+  "authorizedGenerationCalls": 1,
+  "generationCallsAttempted": 1,
+  "generationCallsSucceededWithReturnedPng": 0,
+  "automaticRegenerations": 0,
+  "returnedPngs": 0,
+  "proposedIconRegions": 0,
+  "requestedItems": [
+    "Item.LargeActuator",
+    "Item.SettlementFungusCapsule",
+    "Item.MediumPowerCell"
+  ],
+  "decision": "Preserve failed attempt. No additional call, prompt rewrite, rejected-output retrieval, pixel editing or replacement art within this authorization. No source PNG or icon registration proposed.",
+  "visualReviewOfNewIcons": {
+    "source": false,
+    "inventory32px": false,
+    "inventory48px": false,
+    "reason": "Tool returned no PNG; no new icon can be viewed or accepted."
+  },
+  "referenceSourcesActuallyViewed": [
+    "/workspace/.ashveil-planned/v357-sower-directional-rig/originals/sower-left-rig-components-v1.png",
+    "/workspace/.ashveil-planned/v353-sower-material-icons/originals/sower-material-icons-v1.png"
+  ]
+}

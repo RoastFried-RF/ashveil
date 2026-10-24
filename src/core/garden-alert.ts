@@ -13,3 +13,11 @@ export function recordGardenReport(w:World,source:Creature,target:Creature){
  state.level++;state.events.push({at:turnOf(w),source:source.id,target:target.id,sourcePos:{...source.pos},targetPos:{...target.pos},level:state.level});state.events=state.events.slice(-32);return true
 }
 export function reportedGardenAlert(w:World,p?:Pos){return gardenAlertState(w,p)?.level??0}
+
+/** An alarm identifies only the attacker/position that was actually seen. */
+export function recordGardenAlarm(w:World,source:Creature,seen?:{id:number;pos:Pos}){
+ const p=w.s.map.worldCell??w.s.overworld?.position
+ const state=w.s.overworld&&p?((w.s.overworld.gardenAlerts??={})[p.x+','+p.y]??={level:0,events:[]}):(w.s.map.gardenAlert??={level:0,events:[]})
+ if(state.level>=3)return false
+ state.level++;state.events.push({at:turnOf(w),source:source.id,sourcePos:{...source.pos},level:state.level,kind:'attack',...(seen?{target:seen.id,targetPos:{...seen.pos}}:{})});state.events=state.events.slice(-32);return true
+}

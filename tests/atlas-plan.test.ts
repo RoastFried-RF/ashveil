@@ -10,6 +10,7 @@ import {forageArtFrames} from '../src/client/render/forage-art'
 import {stateHash} from '../src/core/save'
 import {createCreature} from '../src/core/creatures'
 import {prisonerFixture} from './prisoner-fixture'
+import {rigSpecFrameKeys} from '../src/client/render/rig-spec'
 const m=JSON.parse(readFileSync('src/client/sprites.json','utf8'))as AtlasManifest
 function keys(c:AtlasManifest['chars'][string]){return[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})].flatMap(clip=>clip?Object.values(clip).flat():[])}
 it('keeps all original common terrain/prop/FX sheets while loading every actual phase of only selected body models',()=>{
@@ -28,4 +29,10 @@ it('preserves original rectangles and PNG paths; planning does not rewrite, resa
  const before=JSON.stringify(m)
  for(const character of Object.keys(m.chars)){const plan=atlasPlan(m,[],[character]);for(const key of keys(m.chars[character]))expect(plan.sheets).toContain(m.frames[key][0])}
  expect(JSON.stringify(m)).toBe(before)
+})
+it('loads all thirty Sower rig originals only when its body is selected, including shared recovery sources',()=>{
+ const rig=m.chars.av331_sower.rig!,frames=rigSpecFrameKeys(rig),common=atlasPlan(m,[],[]),selected=atlasPlan(m,[],['av331_sower'])
+ expect(frames).toHaveLength(30)
+ for(const key of frames){expect(selected.sheets).toContain(m.frames[key][0]);expect(common.sheets).not.toContain(m.frames[key][0])}
+ for(const dir of ['left','right'] as const){expect(rig.directions[dir].work[3].frame).toBe(rig.directions[dir].work[0].frame);expect(frames).not.toContain('av364_sower_'+dir+'_work_chassis3')}
 })

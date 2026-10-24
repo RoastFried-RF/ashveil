@@ -1,0 +1,57 @@
+{
+  "scope": "LEFT/RIGHT/BACK source-only4part prototypes, no runtime/Def/gait approval",
+  "references": [
+    {
+      "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+      "stagingCopy": "references/sower-idle-v335.png",
+      "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97",
+      "use": "canonical facing/physical tank asymmetry: rows FRONT,LEFT,RIGHT,BACK"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v354-sower-front-rig/originals/sower-front-rig-components-v1.png",
+      "stagingCopy": "references/sower-front-components-v354.png",
+      "sha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
+      "use": "same4part design/material reference; not direction to copy"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-work-v1.png",
+      "stagingCopy": "references/sower-work-v335.png",
+      "sha256": "5ece45e15d2d32aa3e77f8aed9c6a2c27bc23abb2581573b5f25da8fb96334cd",
+      "use": "mechanism/material context; raw rear row orientation must not override canonical idle"
+    }
+  ],
+  "directions": {
+    "left": {
+      "facing": "LEFT, with forward sensor nose pointing toward SCREEN LEFT",
+      "reference": "SECOND ROW of the FIRST attached idle atlas, left-facing canonical Sower",
+      "tanks": "Tall vertically ribbed seed hopper on SCREEN LEFT; short round reservoir on SCREEN RIGHT. The front soil-optics sensor projects clearly toward SCREEN LEFT from the left end of the chassis. The visible side cooling grille stays on the chassis flank toward the right of the forward sensor. Not a flat front-facing robot face.",
+      "limbs": "Show the outer-facing surfaces of the near-side legs/foot consistent with the LEFT-facing three-quarter body. Their armor and clevis depth must belong to this left-facing camera, not pasted front-view parts. Visible circular bearing caps and bronze pins may be shown if actually facing the camera. Opaque cap centers must sit well inside the metal silhouette."
+    },
+    "right": {
+      "facing": "RIGHT, with forward sensor nose pointing toward SCREEN RIGHT",
+      "reference": "THIRD ROW of the FIRST attached idle atlas, right-facing canonical Sower",
+      "tanks": "Tall vertically ribbed seed hopper on SCREEN RIGHT; short round reservoir on SCREEN LEFT. The front soil-optics sensor projects clearly toward SCREEN RIGHT from the right end of the chassis. The visible side cooling grille stays on the chassis flank toward the left of the forward sensor. Not a flat front-facing robot face.",
+      "limbs": "Show the outer-facing surfaces of the near-side legs/foot consistent with the RIGHT-facing three-quarter body. Their armor and clevis depth must belong to this right-facing camera, not pasted front-view parts. Do not merely mirror pixels of an existing atlas: draw the same original machine from the right camera with its correct physically reversed tank layout and upper-left illumination. Visible bearing caps/pins must have opaque metal inside around their centers."
+    },
+    "back": {
+      "facing": "BACK, facing AWAY toward SCREEN TOP, visible rear of the Sower",
+      "reference": "FOURTH/BOTTOM ROW of the FIRST attached idle atlas, canonical rear Sower",
+      "tanks": "Tall vertically ribbed seed hopper on SCREEN RIGHT; short round reservoir on SCREEN LEFT. Show the broad central REAR LOUVERED COOLING GRILLE on the chassis, NOT the front two-aperture soil-optics face. The front sensor is hidden on the opposite side. Keep rear shell/service-panel perspective, no rear-facing eyes or nose. The raw work reference has an inconsistent rear horizontal tank layout, so FOLLOW THE FIRST IDLE ATLAS canonical rear tank asymmetry strictly.",
+      "limbs": "Show the BACK-facing surfaces of upper/lower leg links and foot matching this rear body view. Do not paste the front bronze face caps onto hidden rear surfaces. Use actual opaque rear bearing housings/covers and visible pivots only where they would face this camera; a hidden pin may remain genuinely hidden rather than invented. Keep enough solid rounded joint housing metal for overlap; never add diagram markers or transparent pivot holes. Foot shows the rear/top housing and sole, not a front-facing ankle cap if the cap is on the unseen side."
+    }
+  },
+  "budget": {
+    "callsPerDirection": 1,
+    "maximumTotalCalls": 3,
+    "automaticRegenerations": 0
+  },
+  "notNewAnimationFrames": true,
+  "observationPolicy": "Only genuinely visible pin/cap centers may receive observed coordinates. Hidden/ambiguous joint observed must be null; inferred mount hints may be recorded separately without posing as observations.",
+  "remainingSourceLimits": [
+    "fixed lower length",
+    "unknown far mounting plane/depth",
+    "one shared painted part per link/foot per direction",
+    "no lifted foot underside",
+    "no actual four-leg support/gait/release approval"
+  ]
+}

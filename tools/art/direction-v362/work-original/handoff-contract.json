@@ -1,0 +1,28 @@
+{
+  "status": "inactive source-only candidates; parent graphical registration/rig review required",
+  "cleanFrames": "sprites.fragment.json",
+  "excludedClippedRecords": "held-clipped-frames.fragment.json",
+  "poseRegistration": "joint-registration.json",
+  "stableGraphicAnchors": "stationary-registration-anchors.json",
+  "runtimeSequenceProposal": "runtime-work-proposal.json",
+  "sourceIdentity": "exact source hashes and per-pose RGBA hashes are recorded; original PNG bytes unchanged",
+  "consumer": [
+    "Copy accepted original PNG bytes only after parent decision; retain all source/held provenance.",
+    "Use exact source crop and two STATIC graphic anchor points for parent uniform scale+rotation+translation; never use moving nozzle/spout tip to fit the chassis.",
+    "Actual physical hip LF/RF/LH/RH coordinates remain null, separate from parent2.5D mounting/leg rig.",
+    "LEFT/RIGHT raw3 remain actually clipped and excluded. Parent explicitly authorized0→1→2→0 reuse:3unique clean sources,3functional states,4runtime entries. Do not count recovered source0 as an additional authored original.",
+    "BACK0→1→2→3 uses4clean originals and3functional classes; closed0/3similarity is allowed. Rear iris internals remain unobserved.",
+    "Preserve full lower source geometry, original tank/optic/rear-vent/boss context. No seed/stock/spore payload is baked in.",
+    "Source-only graphic approval does not accept four-leg stance, contacts, interrupt/return, real resource cues or release behavior. Parent must review runtime."
+  ],
+  "limits": [
+    "manual landmark uncertainty3px boss/visible optic and4px vent/spout in original source pixels",
+    "rear/side internal iris/aperture geometry is not directly observed",
+    "shared fixed source-only chassis, no new leg/piston/foot frames",
+    "narrow actual gutters accepted only where main silhouettes are fully isolated; width percentage alone is not rejection"
+  ],
+  "mainFilesModified": false,
+  "sourceOnly": true,
+  "fullFourLegWorkApproved": false,
+  "releaseApproved": false
+}

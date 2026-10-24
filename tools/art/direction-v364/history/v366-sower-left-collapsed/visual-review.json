@@ -1,0 +1,168 @@
+{
+  "format": 1,
+  "activationReady": false,
+  "actuallyOpenedOriginal": "/workspace/.ashveil-planned/v366-sower-left-collapsed/originals/sower-left-collapsed-v1.png",
+  "actuallyOpenedReferences": [
+    "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+    "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-work-v1.png",
+    "/workspace/.ashveil-planned/v357-sower-directional-rig/originals/sower-left-rig-components-v1.png",
+    "/workspace/.ashveil-planned/v352-sower-state-art/originals/sower-fall-v1.png"
+  ],
+  "leftDirectionPreservedInCandidate": true,
+  "asymmetricTanksPreserved": true,
+  "boxChassisSensorBellyToolsPreserved": true,
+  "sourcePoseReading": "Low folded maintenance/stopped machine, chassis lowered and short/retracted pistons. Final fully-flat endpoint suitability still requires parent review; do not call the whole fall transition approved.",
+  "visibleSupportPads": 4,
+  "expectedDriveLegsFromModel": 4,
+  "fullProximalLimbPathsObserved": false,
+  "mainBodyLossDetected": false,
+  "extraVisibleDrivePadDetected": false,
+  "disconnectedSpareLimbDetected": false,
+  "humanoidBloodBodyOrBattleScene": false,
+  "visibleFloorShadowOrParticles": false,
+  "canvasMainAlpha16TouchesEdge": false,
+  "anyAlpha1TouchesEdge": true,
+  "alpha1EdgeMeaning": "Faint original edge pixels, not the main machine silhouette; left untouched and not hidden by resampling.",
+  "landmarks": {
+    "sensorFrontFace": {
+      "source": [
+        230,
+        739
+      ],
+      "role": "visible optic face at leftmost end, beam/body points LEFT; not a centrally turned FRONT face",
+      "certainty": "manual visible feature centre"
+    },
+    "tallTankTop": {
+      "source": [
+        558,
+        399
+      ],
+      "role": "upper-left tall ribbed tank filler neck",
+      "certainty": "visible"
+    },
+    "shortTankTop": {
+      "source": [
+        786,
+        480
+      ],
+      "role": "upper-right short round tank filler neck",
+      "certainty": "visible"
+    },
+    "sideVentCentre": {
+      "source": [
+        650,
+        762
+      ],
+      "role": "left-side louvered plate",
+      "certainty": "visible"
+    },
+    "frontBearing": {
+      "source": [
+        447,
+        765
+      ],
+      "role": "visible metal bearing cap; actual physical corner not independently mapped",
+      "certainty": "visible cap; role limited"
+    },
+    "aftLowerBearing": {
+      "source": [
+        897,
+        773
+      ],
+      "role": "visible metal bearing cap; actual physical corner not independently mapped",
+      "certainty": "visible cap; role limited"
+    },
+    "aftUpperBearing": {
+      "source": [
+        970,
+        708
+      ],
+      "role": "visible metal bearing cap; actual physical corner not independently mapped",
+      "certainty": "visible cap; role limited"
+    },
+    "bellySpoutTip": {
+      "source": [
+        648,
+        936
+      ],
+      "role": "narrow tucked lower spout, not a fifth drive foot",
+      "certainty": "visible"
+    }
+  },
+  "pads": {
+    "underSensorPad": {
+      "visibleCentre": [
+        337,
+        911
+      ],
+      "approximateLowerRim": [
+        337,
+        936
+      ],
+      "visibleDriveConnection": "short folded piston/armor visible below sensor; proximal hip partly behind body",
+      "physicalCornerObserved": null
+    },
+    "foregroundMiddlePad": {
+      "visibleCentre": [
+        532,
+        941
+      ],
+      "approximateLowerRim": [
+        535,
+        966
+      ],
+      "visibleDriveConnection": "folded armored strut and short brass piston continuous to pad",
+      "physicalCornerObserved": null
+    },
+    "farInnerPad": {
+      "visibleCentre": [
+        837,
+        892
+      ],
+      "approximateLowerRim": [
+        837,
+        909
+      ],
+      "visibleDriveConnection": "pad and distal segment visible; upper mounting is occluded by chassis/tools",
+      "physicalCornerObserved": null
+    },
+    "outerRearPad": {
+      "visibleCentre": [
+        1015,
+        936
+      ],
+      "approximateLowerRim": [
+        1016,
+        956
+      ],
+      "visibleDriveConnection": "rear armored strut/short piston to visible pad; physical hip role is not inferred from cap alone",
+      "physicalCornerObserved": null
+    }
+  },
+  "physicalLF_RF_LH_RHObserved": {
+    "LF": null,
+    "RF": null,
+    "LH": null,
+    "RH": null
+  },
+  "occlusionLimit": "Far inner proximal/upper drive connection and a behind-sensor mount are partly occluded; no complete physical corner map or four actual pressure contacts are claimed.",
+  "landmarkCoordinateMeaning": "Manual approximate original-sheet pixels, generally±6px; not runtime grips/hitboxes.",
+  "composition": {
+    "requestedMaxFraction": [
+      0.55,
+      0.55
+    ],
+    "observedMainAlpha16Fraction": [
+      0.7344497607655502,
+      0.4784688995215311
+    ],
+    "widthPassed": false,
+    "heightPassed": true,
+    "originalUnchanged": true
+  },
+  "fullPoseAccepted": false,
+  "nativeTransitionReviewed": false,
+  "releaseApproved": false,
+  "newDiagnosticPngsCreated": 0,
+  "pillowResamplingPerformed": false
+}

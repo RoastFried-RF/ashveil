@@ -1,11 +1,112 @@
 {
-  "version": 356,
-  "source": "tools/art/direction-v356/front-original/originals/sower-front-rig-components-v1.png",
-  "sha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
-  "uniqueSourceRegions": 4,
+  "version": 364,
+  "view": "Shared Pixi articulated-rig-view.ts; isolated DOM controls, no world simulation",
+  "originalPngs": 8,
+  "sourceRegions": 30,
+  "basePartRegions": 16,
+  "workChassisRegions": 14,
   "authoredWalkFrames": 0,
-  "clientOnly": true,
-  "frontOnly": true,
-  "releaseApproved": false,
-  "activeGame": false
+  "leftRightRecovery": "Explicit phase0 reuse; clipped phase3 rejected",
+  "physicalHipsObserved": {
+    "LF": null,
+    "RF": null,
+    "LH": null,
+    "RH": null
+  },
+  "layout": "Per-facing inferred2.5D; 120ms facing crossfade creates a new layout/stance owner, not continuous yaw or one proven3D skeleton",
+  "limitations": [
+    "healthy four-leg gait only",
+    "opposite bearing surfaces unproven",
+    "no release quality approval"
+  ],
+  "originals": [
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v356/front-original/originals/sower-front-rig-components-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-front-rig-components-v1.png",
+      "bytes": 942320,
+      "sha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/directional-original/originals/sower-left-rig-components-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-left-rig-components-v1.png",
+      "bytes": 1087309,
+      "sha256": "3e87ac18cc6372a114db8237f076f49be804b12c1c3f195dc09bade4c8314653",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/directional-original/originals/sower-right-rig-components-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-right-rig-components-v1.png",
+      "bytes": 1067302,
+      "sha256": "d6526042a18fc7267057f9a98761a9ee30caf96072a3594580f7aa9d797cd936",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/directional-original/originals/sower-back-rig-components-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-back-rig-components-v1.png",
+      "bytes": 897581,
+      "sha256": "fefa2b5529c29c9b02123f87443d023f960838345e66db00937e50047c874778",
+      "dimensions": [
+        1355,
+        1160
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v360/work-original/originals/sower-front-work-chassis-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-front-work-chassis-v1.png",
+      "bytes": 1484195,
+      "sha256": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/work-original/originals/sower-left-work-chassis-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-left-work-chassis-v1.png",
+      "bytes": 1383485,
+      "sha256": "fde768263c1ae70ad3892469d4185443e283590ad1d956ada21fa0ffb162a559",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/work-original/originals/sower-right-work-chassis-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-right-work-chassis-v1.png",
+      "bytes": 1417445,
+      "sha256": "fc18fe225414d5f75900eacfb5593a61c9363cd0df65cab3f9055fbecee3386e",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "byteCopyOnly": true
+    },
+    {
+      "source": "/workspace/ashveil/tools/art/direction-v362/work-original/originals/sower-back-work-chassis-v1.png",
+      "path": "public/sprites/original/direction-v364/sower-back-work-chassis-v1.png",
+      "bytes": 1456377,
+      "sha256": "e5a6391a9bf596d5944addf949f08c45f23832641c7d7efdcfb5469ef50e9640",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "byteCopyOnly": true
+    }
+  ]
 }

@@ -1,0 +1,41 @@
+{
+  "status": "inactive art candidates before final Def decisions; parent integration required",
+  "sourceCopyAfterAcceptance": {
+    "from": "originals/sower-material-icons-v1.png",
+    "to": "public/sprites/original/direction-v353/sower-material-icons-v1.png",
+    "sha256": "ef5e939ad839f1a8329c4ac8a537cda2bbf7d9c6fff348c9fec421387bf8c17d",
+    "copyOriginalBytes": true
+  },
+  "manifestFragment": {
+    "from": "sprites.fragment.json",
+    "to": "src/client/sprites.json",
+    "merge": [
+      "sheets",
+      "sheetSizes",
+      "frames"
+    ],
+    "explicitRectangles": true
+  },
+  "plannedItemSpriteLinks": {
+    "Item.SowerSeedCapsule": "av331_sower_seed_capsule",
+    "Item.SowerReservoir": "av331_sower_reservoir"
+  },
+  "itemPlanSnapshot": "items.plan-snapshot.json",
+  "parentDecisionsRemaining": [
+    "Finalize actual SowerSeedCapsule/SowerReservoir Def behavior and material/weight/container fields using project rules. Snapshot contains source plan only.",
+    "Preserve finite seed inventory and actual recovery counts; art does not create stock, spawn entries or recipes.",
+    "Determine any runtime container empty/fill/lid behavior separately; open neck is visible art identity only.",
+    "If accepted, copy original PNG bytes and provenance/prompt/reference hashes, merge only the two explicit frames, then review actual game integration in parent scope.",
+    "Do not register browser display screenshots or resampled crop exports as authored source assets."
+  ],
+  "notPerformed": [
+    "main/src/public/dist/publication edits",
+    "build",
+    "test",
+    "main game load",
+    "Full/World",
+    "commit",
+    "push"
+  ],
+  "referencePngs": "Four own original reference files are byte copies, not additional generation outputs."
+}

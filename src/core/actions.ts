@@ -401,7 +401,8 @@ export type Action =
   | {type:'survey';target:number}
   | {type:'sensorFlash'}
   | {type:'sowerWaypoint'}
-  | {type:'sowerAlarm';target:number;wound:number}
+  | {type:'sowerAlarm';target:number;wound:number;attack?:never}
+  | {type:'sowerAlarm';attack:number;target?:number;wound?:never}
   | {type:'sowerPush';target:number}
   | {type:'sowerSpray';target:number;uid:number}
   | {type:'fly';dir:number}
@@ -1611,7 +1612,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'survey':return startSurvey(w,c,a.target)
     case 'sensorFlash':return sensorFlash(w,c)
     case 'sowerWaypoint':return sowerWaypoint(w,c)
-    case 'sowerAlarm':return sowerAlarm(w,c,a.target,a.wound)
+    case 'sowerAlarm':return sowerAlarm(w,c,a.target,a.wound,a.attack)
     case 'sowerPush':return sowerPush(w,c,a.target)
     case 'sowerSpray':return sowerSpray(w,c,a.target,a.uid)
     case 'fly':return fly(w,c,a.dir)

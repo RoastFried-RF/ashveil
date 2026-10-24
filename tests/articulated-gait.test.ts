@@ -29,6 +29,19 @@ describe('client articulated rig experiment',()=>{
   const fixed=previous.legs.map(l=>l.sole)
   expect(rig.update(root,2).legs.map(l=>l.sole)).toEqual(fixed)
  })
+ it('keeps world contact and fixed-link reach through continuous turns and stop/restart without changing physical lengths',()=>{
+  const rig=new ArticulatedGait();let root={x:0,y:0},previous=rig.pose()
+  for(const heading of[{x:0,y:1},{x:1,y:1},{x:-1,y:0},{x:0,y:-1},{x:1,y:0},{x:-1,y:-1}])for(const speed of[.5,1,2]){
+   const norm=Math.hypot(heading.x,heading.y)
+   for(let i=0;i<80;i++){
+    root={x:root.x+heading.x/norm*speed*.12,y:root.y+heading.y/norm*speed*.12};const pose=rig.update(root,.012)
+    expect(pose.supportMargin).toBeGreaterThanOrEqual(-1e-7)
+    for(const leg of pose.legs){const old=previous.legs.find(p=>p.id===leg.id)!;if(leg.contact&&old.contact)expect(distance(leg.sole,old.sole)).toBe(0);expect(leg.error).toBeLessThan(1e-7);expect(distance(leg.hip,leg.knee)).toBeCloseTo(RIG.upper,7);expect(distance(leg.knee,leg.ankle)).toBeCloseTo(RIG.lower,7)}previous=pose
+   }
+   for(let i=0;i<30;i++)previous=rig.update(root,.02)
+   expect(previous.swing).toBe(null)
+  }
+ })
  it('does not advance the gait with a stationary clock or share mutable observations',()=>{
   const rig=new ArticulatedGait(),start=rig.pose();rig.update({x:0,y:0},10)
   expect(rig.pose().legs).toEqual(start.legs);const p=rig.pose();p.legs[0].sole.x=999
