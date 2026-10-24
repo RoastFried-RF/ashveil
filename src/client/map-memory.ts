@@ -13,6 +13,6 @@ export function terrainAppearance(w:World,index:number,visible:ReadonlySet<numbe
 export function mapAppearance(w:World,map:MapState=w.s.map){const visible=mapVisibility(w,map);return{visible,terrain:map.tiles.map((_,i)=>terrainAppearance(w,i,visible,map))}}
 export function displayTile(tile:Tile,terrain:string,visible:boolean):Tile{
  if(visible&&terrain===tile.t)return tile
- if(visible)return{...tile,cultivation:undefined,cropResidue:undefined,t:terrain}
- return{...tile,cultivation:undefined,cropResidue:undefined,t:terrain,blood:0,icy:undefined,snow:undefined,iceHoleUntil:undefined,spores:undefined,beddingFire:undefined,terrainFire:undefined,combustionRemaining:undefined,fireWetUntil:undefined,beddingWetness:undefined,beddingScorch:undefined,beddingLice:undefined,gatherAt:undefined,needleGatherAt:undefined,regrowAt:undefined,searched:undefined,cont:undefined,items:[],device:undefined,beacon:undefined,placed:undefined}
+ if(visible)return{...tile,cultivation:undefined,cropResidue:undefined,gatherStock:undefined,t:terrain}
+ return{...tile,cultivation:undefined,cropResidue:undefined,gatherStock:undefined,t:terrain,blood:0,icy:undefined,snow:undefined,iceHoleUntil:undefined,spores:undefined,beddingFire:undefined,terrainFire:undefined,combustionRemaining:undefined,fireWetUntil:undefined,beddingWetness:undefined,beddingScorch:undefined,beddingLice:undefined,gatherAt:undefined,needleGatherAt:undefined,regrowAt:undefined,searched:undefined,cont:undefined,items:[],device:undefined,beacon:undefined,placed:undefined}
 }

@@ -1,8 +1,8 @@
 /** Presentation clocks only. No world time, resources, RNG or action rules. */
-export const motionNames=['idle','walk','attack','block','hurt','crouchDown','crouchWalk','stand','work','wallow','use','fall','rise','sleep','shoot','throw','interact']as const
+export const motionNames=['idle','walk','flight','attack','block','hurt','crouchDown','crouchWalk','stand','work','wallow','use','fall','rise','sleep','shoot','throw','interact']as const
 export type MotionName=typeof motionNames[number]
-export type ActionPose=Exclude<MotionName,'idle'|'walk'|'crouchWalk'|'fall'|'sleep'>
-export const motionDurations:Record<MotionName,number>={idle:3200,walk:720,attack:480,block:300,hurt:320,crouchDown:240,crouchWalk:1000,stand:240,work:1000,wallow:2400,use:850,fall:520,rise:600,sleep:3600,shoot:500,throw:500,interact:460}
+export type ActionPose=Exclude<MotionName,'idle'|'walk'|'flight'|'crouchWalk'|'fall'|'sleep'>
+export const motionDurations:Record<MotionName,number>={idle:3200,walk:720,flight:400,attack:480,block:300,hurt:320,crouchDown:240,crouchWalk:1000,stand:240,work:1000,wallow:2400,use:850,fall:520,rise:600,sleep:3600,shoot:500,throw:500,interact:460}
 const priority:Record<ActionPose,number>={attack:3,block:5,hurt:6,crouchDown:2,stand:2,work:1,wallow:1,use:2,rise:4,shoot:3,throw:3,interact:2}
 export const posePriority=(kind:ActionPose)=>priority[kind]
 export interface PoseCue {kind:ActionPose;elapsed:number;prop?:string;duration?:number;equipment?:import('./equipment-motion').EquipmentAction}

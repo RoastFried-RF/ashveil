@@ -51,6 +51,9 @@ import {stageCooking,takeCooking} from './cooking'
 import {cookingRules,foodKcal} from './cooking-state'
 import {dropFragile} from './fragile'
 import {animalDrink,animalEat,startAnimalBrowse,wallow,interruptAnimalBrowse} from './wildlife'
+import {fly,land,takeFlight} from './flight'
+import {tearCarrion,tearFloorFood} from './carrion'
+import {worsenFractures} from './fracture-strain'
 import {exposeDisease} from './conditions'
 import {diseaseStream} from './disease-state'
 import {gatherSignature,gatherSeasonError,gatherFireError} from './gather-state'
@@ -141,7 +144,7 @@ import { hydrate, nourish } from './nutrition'
 import { thirstBand } from './nutrition-state'
 import { abilityStrike, escapeChance, recoverArrow, spearWallReact, useAbility } from './abilities'
 import {
-  bloodLoss, capacity, painStage, painTotal, part, regionPenalties, tryPart,
+  bloodLoss, capacity, painStage, painTotal, regionPenalties,
 } from './body'
 import { canReach, fx, resolveAttack, pushBack, shoveChance, rangedRange } from './combat'
 import { creatureAt, creatureById, fixJosa, inBounds, log, rng, terrainAt, tileAt, turnOf, TURNS_PER_DAY, type World } from './ctx'
@@ -390,6 +393,11 @@ export type Action =
   | {type:'animalDrink'}
   | {type:'animalBrowse';pos:Pos}
   | {type:'wallow'}
+  | {type:'takeFlight'}
+  | {type:'fly';dir:number}
+  | {type:'land'}
+  | {type:'tearCarrion';target:number}
+  | {type:'tearFood';uid:number}
   | { type: 'stairs' }
   | { type: 'ability'; id: string; target?: number }
   | { type: 'spendStat'; stat: keyof Stats }
@@ -787,6 +795,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
 
     case 'move': {
+      if(c.flight)return fly(w,c,a.dir)
       const d = DIRS[a.dir]
       if (!d) return FAIL('방향 오류')
       const to = { x: c.pos.x + d.x, y: c.pos.y + d.y }
@@ -813,10 +822,12 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
         c.effects = c.effects.filter((e) => e !== held)
       }
       const terr = terrainAt(w, to)
+      if(w.db.body(c.body.def).kind==='bird'&&terr.water&&(!tileAt(w,to).icy||(tileAt(w,to).iceHoleUntil??0)>turn))return FAIL('물 위를 걸을 수 없다')
       if(machineRules(w,c)&&terr.water)return FAIL('기계는 물에 들어가지 않는다')
       if(machineRules(w,c)&&capacity(w,c,'moving')<=0)return FAIL('구동부가 작동하지 않는다')
       if (terr.water === 'deep' && c.traumas?.some((t) => t.def === 'Trauma.Water')) return FAIL('물 공포 때문에 깊은 물에 들어갈 수 없다')
       if (terr.door === 'closed') {
+        if(w.db.creature(c.def).wildlife&&capacity(w,c,'manipulation')<.1)return FAIL('문을 여는 손이 없다')
         if(diagonalBlocked(w,c.pos,d.x,d.y))return FAIL('모서리 너머의 문은 열 수 없다')
         if(terr.sealed)return FAIL('기계적으로 봉인된 문이다. 곁의 봉인 기구를 살펴야 한다')
         if(tileAt(w,to).locked)return FAIL('잠금쇠가 걸려 있다. 곁에서 F2의 잠금쇠 작업을 해야 한다')
@@ -876,7 +887,9 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       if (c.needs.energy < wl.atk.energy && isPl(c)) log(w, 'warn', '기력이 바닥났다. 공격이 무디다.')
       if (t.ai.mode === 'surrender' && isPl(c)) c.history.push({ turn, kind: 'execute', text: `항복한 ${knownCreatureName(w,t)}을(를) 공격` })
       resolveAttack(w, c, t,{mode:a.mode})
-      worsenFractures(w, c, wl.arm === 'larm' ? 'larm' : 'rarm')
+      const naturalCapacity=!wl.item&&wl.atk.requiresCapacity&&!['moving','manipulation'].includes(wl.atk.requiresCapacity)?wl.atk.requiresCapacity:undefined
+      const actingRegion=naturalCapacity?w.db.body(c.body.def).parts.find(p=>(p.capacities?.[naturalCapacity]??0)>0)?.region:undefined
+      worsenFractures(w,c,actingRegion??(wl.arm==='larm'?'larm':'rarm'))
       if(wl.twoHanded)worsenFractures(w,c,wl.arm==='larm'?'rarm':'larm')
       return { ok: true, tu: 100 }
     }
@@ -1588,6 +1601,11 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
     }
 
+    case 'takeFlight':return takeFlight(w,c)
+    case 'fly':return fly(w,c,a.dir)
+    case 'land':return land(w,c)
+    case 'tearCarrion':return tearCarrion(w,c,a.target)
+    case 'tearFood':return tearFloorFood(w,c,a.uid)
     case 'animalEat':return animalEat(w,c,a.uid)
     case 'animalDrink':return animalDrink(w,c)
     case 'animalBrowse':return startAnimalBrowse(w,c,a.pos)
@@ -1681,21 +1699,6 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       if(partyError)return FAIL(partyError)
       return { ok: true, tu: 100, msg: 'leave' }
     }
-  }
-}
-
-/** 부목 없는 골절에 하중: 금→단순 3%, 단순→복합 2%, 통증 +5 (02 §9) */
-function worsenFractures(w: World, c: Creature, where: 'leg' | 'larm' | 'rarm') {
-  const r = rng(w, 'body')
-  for (const wd of c.body.wounds) {
-    if (!wd.fracture || wd.splint || wd.fracture.progress >= 1) continue
-    const reg = tryPart(w, c, wd.part)?.region
-    if (where === 'leg' ? reg !== 'lleg' && reg !== 'rleg' : reg !== where) continue
-    const g = wd.fracture.grade
-    if (g === 'hairline' && r.int(0, 99) < 3) wd.fracture.grade = 'simple'
-    else if (g === 'simple' && r.int(0, 99) < 2) { wd.fracture.grade = 'compound'; wd.bleed += wd.severity; wd.contam = Math.min(100, wd.contam + 30) }
-    else continue
-    if (isPl(c)) log(w, 'warn', `부러진 ${part(w, c, wd.part).label}에 힘을 싣자 뼈가 더 어긋난다. 부목이 필요하다.`)
   }
 }
 

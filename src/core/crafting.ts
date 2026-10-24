@@ -3,13 +3,14 @@ import {mergeFoodWater} from './food-contamination'
 import {cropHarvestContaminants} from './crop-contamination'
 import {runItemLifecycleWorker,hasItemWorkerMethod,runItemMaterialWorker,type ScriptItemDebit} from './script-item'
 import {runScriptHooks} from './script-hooks'
-import {cultivationHarvestError,resetCultivation} from './cultivation'
+import {cultivationHarvestError} from './cultivation'
 import {completeInteraction} from './interactions'
 import {rememberLifeEvent} from './life-memories'
 import {relicAppraisal} from './prosthetics'
 import type {RngStream} from './rng'
 import {gatherSeasonError,gatherSignature,gatherFireError} from './gather-state'
 import {finishAnimalBrowse} from './wildlife'
+import {gatherStockCount,takeGatherStock} from './gather-stock'
 import {boiledMealQuote,consumeMealWater} from './boiled-meal'
 import {batchStatus,preservationError,preservationSignature} from './preservation-state'
 import {preparePreservation} from './preservation'
@@ -321,15 +322,15 @@ export function finishGather(w: World, c: Creature) {
   if (!def || cultivationHarvestError(w,p) || gatherFireError(w,p) || gatherSeasonError(w,terrainAt(w,p)) || (tileAt(w, p).gatherAt ?? 0) > turnOf(w)) return
   const fertility=def.soilDependent?towerSoilFertility(w):1
   if(fertility<=0)return
+  const count=gatherStockCount(w,p);if(count<1)return
   if(c.activity?.animalForage){finishAnimalBrowse(w,c,p,fertility);return}
   dirtyHands(w, c)
   // 직접 먹지 않는 실제 재배 곡물도 관수에서 옮은 오염을 조리 재료까지 보존한다.
   const contamination=tileAt(w,p).cultivation||w.db.item(def.item).food?cropHarvestContaminants(w,p,def.count):{}
   const origin=w.db.item(def.item).food?residentHarvestOrigin(w,c,p):undefined
-  receive(w,c,def.item,def.count,undefined,undefined,undefined,undefined,undefined,undefined,undefined,contamination.ash,undefined,contamination.water,origin)
-  if(tileAt(w,p).cultivation)resetCultivation(w,p)
-  else tileAt(w, p).gatherAt = turnOf(w) + Math.ceil(def.regrowTurns/fertility)
-  if(c.id===w.s.playerId||canSee(w,player(w),c.pos))log(w, 'info', `${w.db.item(def.item).label} ×${def.count}을(를) 모았다.`)
+  receive(w,c,def.item,count,undefined,undefined,undefined,undefined,undefined,undefined,undefined,contamination.ash,undefined,contamination.water,origin)
+  takeGatherStock(w,p,count,Math.ceil(def.regrowTurns/fertility))
+  if(c.id===w.s.playerId||canSee(w,player(w),c.pos))log(w, 'info', `${w.db.item(def.item).label} ×${count}을(를) 모았다.`)
 }
 
 

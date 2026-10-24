@@ -1,0 +1,251 @@
+{
+  "version": 336,
+  "commit": "ca467cb1838756852ead5f426bd89d1a998ac11f",
+  "verifiedAtUTC": "2026-10-24T04:28:56.854180+00:00",
+  "url": "https://roastfried-rf.github.io/ashveil/",
+  "motion": "https://roastfried-rf.github.io/ashveil/artbook/motion/",
+  "checkpoint": "/workspace/.ashveil-checkpoints/v336-natural-forage-hunting-r1",
+  "pages": {
+    "conclusion": "success",
+    "headSha": "ca467cb1838756852ead5f426bd89d1a998ac11f",
+    "jobs": [
+      {
+        "completedAt": "2026-10-24T04:24:28Z",
+        "conclusion": "success",
+        "databaseId": 120777586113,
+        "name": "build",
+        "startedAt": "2026-10-24T04:22:36Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm/action-setup@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm install --frozen-lockfile",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm exec vitest run tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/discovery-archive.test.ts tests/medical-presentation.test.ts tests/equipment-completion-v331.test.ts tests/wildlife-v333.test.ts tests/forage-v336.test.ts tests/map-memory.test.ts tests/plant-foods.test.ts tests/cultivation.test.ts tests/blackwood.test.ts tests/body.test.ts tests/machines.test.ts tests/bestiary.test.ts tests/animal-fear.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm validate-sprites",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm build",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run pnpm/action-setup@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40062088766/job/120777586113"
+      },
+      {
+        "completedAt": "2026-10-24T04:24:54Z",
+        "conclusion": "success",
+        "databaseId": 120777961047,
+        "name": "deploy",
+        "startedAt": "2026-10-24T04:24:32Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/configure-pages@v5",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Publish playable preview",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 4,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40062088766/job/120777961047"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40062088766"
+  },
+  "publicSamples": [
+    {
+      "path": "artbook/medical/index.html",
+      "sha256": "9e79351b4374fe775d4e3f883704a90790d600482cfe0f868ad4a88af0e0d54e",
+      "bytes": 7445,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/medical/catalog.json",
+      "sha256": "81747f3687b0fb86a72e9854d067ac93e76d7aa49416ad33096c15f400e9b2c0",
+      "bytes": 77190,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/medical/medical-motion.js",
+      "sha256": "a41259a97714849f5e333a75a87008b50f775b97462b0ad6dcb637f3ac4a5a26",
+      "bytes": 1341,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v331/withered-censer-clean.png",
+      "sha256": "90717378a1c100eca1dde36f095237c7c34eb8813db42489b61b2bd3ebb69334",
+      "bytes": 1064079,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "d7adc62f62203261e5892e0eb0b7f707d77a88975771edbec73cc9457f6a8e6f",
+      "bytes": 1423,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/index.html",
+      "sha256": "da878fd62aea25092cf210773c482e9394bec83bc31b2cfb5e83425b5f985ffe",
+      "bytes": 12270,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/index.html",
+      "sha256": "8f9c92f15944ccc345681644718a4eae89360e25d4214edb4e97e8b5d368f3b0",
+      "bytes": 16883,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/catalog.json",
+      "sha256": "f3db5f8fedbf79429cf5858b6d5dbbdf9bb28e818e58f1f1be921cf96751110c",
+      "bytes": 2756759,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/equipment-motion.js",
+      "sha256": "ebf4ba18799149788de37e9657367999dc8d2688f93404882946c5dfd8a0dad0",
+      "bytes": 7502,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/catalog.json",
+      "sha256": "12ab89725430b436a8c6135855bde99b07e4f926346b292067a1bd59aa4bdd03",
+      "bytes": 4053563,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-locomotion-front-left.png",
+      "sha256": "c08c6fb9ec94a2c451afb62f7063b16613dfaa18a54b10c6792bfdff8d07df33",
+      "bytes": 1948296,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-combat-right-back.png",
+      "sha256": "b24b9521a4cd2d69fc1dddefa93faf103b27a3446467cda98032326ecab0e462",
+      "bytes": 1828870,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "./assets/index-Cy-PQEbq.js",
+      "sha256": "56d5b94368721a9bb9e0f49b2b3346a57e572348fe123da486024900a338db59",
+      "bytes": 4980354,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/work/ashhorn-stag-work-v1.png",
+      "sha256": "fd0971eb9f6526486ef09af2942bae0cbb1e91072ee2d176a7dc8f7eaab1b89c",
+      "bytes": 1184519,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png",
+      "sha256": "be600e39cea1826c572e04fe21e5f72cdc690ce809b10eca52a332365c50f6b4",
+      "bytes": 2089530,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/harvest-materials-v1.png",
+      "sha256": "390c15d82039e8f9046e7e51371a5da02afbf7a9c187e95edee7bdcfc286e458",
+      "bytes": 1250385,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v336/forage/shade-root-clumps-v2.png",
+      "sha256": "84b811fecccaed4c4ffb4fc0d25d788f3b1cb8e23142dc547d68403cb0dde2ca",
+      "bytes": 812919,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v336/forage/ashberry-bushes-v2.png",
+      "sha256": "c13ade5cde7ac824ade85a2e3b1b4b789fb96386674714994349c21f49cc1358",
+      "bytes": 1066123,
+      "matchesFrozenBuild": true
+    }
+  ],
+  "scope": "Main HTML/entry JS, artbook HTML/catalog, motion HTML/catalog/shared JS and existing/new wildlife, wallow harvest and natural forage PNG samples match the frozen build. Full regression/World remain deferred."
+}

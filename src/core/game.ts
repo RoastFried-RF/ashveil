@@ -1,5 +1,6 @@
 import {urgentCompanionAid} from './companion-aid'
 import {wildlifeTick} from './wildlife'
+import {flightTick} from './flight'
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import { IMPRINT_MODE, saveModeDef } from './save-modes'
 import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
@@ -347,13 +348,14 @@ function globalTurnTick(w: World) {
   const all = [...w.s.creatures, ...Object.values(w.s.offCreatures).flat(),...convoyStoredPeople(w)]
   for (const source of sources) if (source.deployed) source.count = sourceLivingCount(w,source,all)
   for (const c of w.s.creatures) {
-    if (!c.alive) { releaseHostParasites(w,c); wetnessTick(w,c,false); gearTick(w, c); if(!machineRules(w,c))scentTick(w, c, 0); continue }
+    if (!c.alive) { flightTick(w,c);releaseHostParasites(w,c); wetnessTick(w,c,false); gearTick(w, c); if(!machineRules(w,c))scentTick(w, c, 0); continue }
     const sleeping = isSleeping(c) || !!c.asleep
     if(machineRules(w,c)){gearTick(w,c);bodyTick(w,c,false)}else{
     prostheticTick(w, c)
     growthTick(w, c)
     needsTick(w, c, sleeping)
     wildlifeTick(w,c)
+    flightTick(w,c)
     diseaseTick(w, c, sleeping)
     aquaticTick(w,c)
     inhalationTick(w,c)

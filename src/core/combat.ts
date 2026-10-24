@@ -1,5 +1,7 @@
 import {crouched,crouchRule} from './posture'
 import {wildlifeMudArmor} from './wildlife'
+import {flightHeight} from './flight'
+import {initializeCarcass,takeCarcassStock} from './carcass'
 import {projectileFletching} from './ranged'
 import {runScriptHooks} from './script-hooks'
 import {cancelRansom} from './ransom'
@@ -35,7 +37,7 @@ import { prostheticAt } from './prosthetic-state'
 // 1 명중 → 2 방어 반응(막기/받아넘기기) → 3 부위 결정(‰) → 4 방어구 층 → 5 HP 피해·상처 → 6 2차 효과
 
 import {
-  addStun, addWound, ARM_BLOCK, ARM_DMG, bloodLoss, bodyDef, isMissing, painStage, painTotal, part, regionPenalties,
+  partEff, addStun, addWound, ARM_BLOCK, ARM_DMG, bloodLoss, bodyDef, isMissing, painStage, painTotal, part, regionPenalties,
   regionState, totalBleed,
 } from './body'
 import { clamp, creatureAt, creatureById, inBounds, log, player, rng, terrainAt, tileAt, turnOf, type World } from './ctx'
@@ -145,6 +147,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   const wl = wd ?? (ranged ? wield(w, a) : meleeWield(w, a))
   if (!wl) return null
   const atk = wl.atk
+  if(attackPreyError(w,d,atk))return null
   const turn = turnOf(w)
   const lines: string[] = []
   const as = attackScore(w, a, atk)
@@ -301,7 +304,7 @@ export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: Abil
   const bdef = bodyDef(w, d)
   const side = w.db.creature(d.def).noBack ? undefined : sideOf(d, a.pos)
   const smaller = SIZE_RANK[size(w, d)] - SIZE_RANK[size(w, a)] >= 2
-  const down = isDown(w, d)
+  const down = isDown(w, d)||helpless(d)
   const pw = opts.mods?.partWeights
   const cands = bdef.parts
     .filter((p) => !p.internal && (p.coverage ?? 0) > 0 && !isMissing(w, d, p.id))
@@ -311,7 +314,7 @@ export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: Abil
     if (side && p.side) m *= p.side === side ? 1.5 : 0.5
     const isLeg = p.region === 'lleg' || p.region === 'rleg'
     const isArm = p.region === 'larm' || p.region === 'rarm'
-    if (smaller) m *= isLeg ? 3 : isArm ? 0.5 : p.region === 'head' ? 0 : 1
+    if (smaller&&!down) m *= isLeg ? 3 : isArm ? 0.5 : p.region === 'head' ? 0 : 1
     if (down) m *= p.region === 'head' || p.region === 'torso' ? 1.5 : isLeg ? 0.5 : 1
     if (opts.sneak && p.id === 'Neck') m *= 2
     if (opts.shieldFailed && p.region === 'larm') m *= 2
@@ -321,6 +324,7 @@ export function pickPart(w: World, a: Creature, d: Creature, opts: { mods?: Abil
     }
     const innate=opts.attack?.partWeights
     if(innate){m*=innate[p.region]??1;if(p.id==='Neck')m*=innate.neck??1}
+    for(const[key,value]of Object.entries(opts.attack?.partCapacityWeights??{}))if((p.capacities?.[key]??0)>0)m*=value
     return Math.round((p.coverage ?? 0) * m)
   })
   const total = weights.reduce((s, v) => s + v, 0)
@@ -873,6 +877,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
   c.asleep = false
   c.deathCause = cause
   c.deathTurn = turn
+  delete c.flight
   recordResidentDeath(w,c)
   if(c.id===w.s.playerId){contractsTick(w);employerDied(w)}
   c.killedBy = c.lastAttacker
@@ -909,8 +914,9 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
   recordBountyVictory(w,c,options.killerId===pl.id||c.body.wounds.some(wound=>wound.sourceId===pl.id))
   if (c.faction === 'beasts' || c.faction === 'vermin') {
     const rule=w.db.creature(c.def).meatDrop,base=rule?.count??3,count=byPlayer?traumaMeat(w,pl,c,base):base
-    if(count>0)t.items.push(makeItem(w,rule?.item??'Item.RawMeat',count))
-  }
+    initializeCarcass(w,c,count>0?{item:rule?.item??'Item.RawMeat',count}:undefined)
+    if(count>0){const food=c.carcassStock?takeCarcassStock(w,c,rule?.item??'Item.RawMeat',count):makeItem(w,rule?.item??'Item.RawMeat',count);if(food)t.items.push(food)}
+  }else initializeCarcass(w,c)
   if (c.id !== pl.id && pl.alive && (byPlayer || witnessedDeath)) traumaVictory(w, pl, c, c.body.wounds.at(-1)?.sourceId === pl.id || !!c.lastAttacker?.startsWith(pl.name))
   fx(w, { k: 'death', id: c.id, turn })
   if (c.id !== pl.id) {
@@ -946,10 +952,19 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
 }
 
 /** 인접(또는 리치 2) 공격 가능 여부 */
+export function attackPreyError(w:World,target:Creature,attack:AttackDef):string|null{
+ const rule=attack.prey;if(!rule)return null
+ if(!target.alive||!target.unconscious)return '의식 없는 대상에게만 쓸 수 있는 공격이다'
+ if(!bodyDef(w,target).parts.some(p=>(p.capacities?.[rule.capacity]??0)>0&&!p.internal&&!isMissing(w,target,p.id)&&partEff(w,target,p.id)>=.1))return '노릴 실제 신체 부위가 남아 있지 않다'
+ if(rule.faceCover&&Object.values(target.equip).some(it=>it&&it.count>0&&!it.missingItem&&!it.half&&(it.durability??100)>0&&(itemDef(w,it).apparel?.faceCover||itemDef(w,it).apparel?.eyeProtection)))return '입은 얼굴 가리개에 막혔다'
+ return null
+}
 export function canReach(w: World, a: Creature, d: Creature): boolean {
   const atk = meleeWield(w, a)?.atk
   if (!atk) return false
+  if(attackPreyError(w,d,atk))return false
   const reach = atk.reach ?? 1
+  if(Math.abs(flightHeight(w,a)-flightHeight(w,d))>reach)return false
   const dist = cheb(a.pos, d.pos)
   if (dist <= 1) {
     const dx = d.pos.x - a.pos.x, dy = d.pos.y - a.pos.y

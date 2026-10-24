@@ -1,0 +1,68 @@
+{
+  "scope": "Original art and isolated staging canvas; no game runtime tested",
+  "originals": [
+    {
+      "path": "originals/ash-crow-work-v1.png",
+      "sha256": "080bf4ad38861a25a819a6dd3b7f35e4b6136f72d95abacb082cff13b1d4d0e5",
+      "directlyViewed": true
+    },
+    {
+      "path": "originals/crow-feathers-v1.png",
+      "sha256": "33d6553477b793d960b30cb335cf9e602bd0a72f19ddbe03ade3664004e7cb94",
+      "directlyViewed": true
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "diagnostics/all-source-poses.png",
+      "sha256": "4810c3e1e4f3f92e3a8c10e8659c6dc57793e7e7def3aa591a2b65ba7b551abe",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-0.png",
+      "sha256": "4c6982ee920c5d37a9e01ad7b3a61b2b70485f053ec3189ea7d24d17cae0c3c3",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-1.png",
+      "sha256": "d1e0e52db8577f683d4016c17c4a7f0d1fc87a2351edba83192c0c4c382e6247",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-2.png",
+      "sha256": "c2d917ebe758c579adac96f68c896545b31b1b4fd98b5989ab4e19c4644d6a35",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-3.png",
+      "sha256": "2fcfa14389aacf13884df226e0e2af9d18ce10324b7084fd902db76fb88db252",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/native16.png",
+      "sha256": "ef00592308c53ace238e027e7a5e07858e56649fc0c3c1745caa9a82f1769576",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/feather-icon.png",
+      "sha256": "a56450b9a9cc46de5c8d64c0e91cc44ee8c03a58e74930716d86293ce492040d",
+      "directlyViewed": true
+    }
+  ],
+  "findings": {
+    "direction": "All16 poses retain down/left/right/up row facing. The rear head lowers behind back without inventing a side face/beak.",
+    "anatomy": "Single short beak/head, two folded wings, short fan tail, two scaly supporting feet. Far toes partly occluded in low side poses; no extra leg or detached wing.",
+    "phase": "Ready -> head/neck lower -> lower ground peck -> upright swallow/recovery; feet remain grounded and head/neck carry the motion. Body is slightly crouched in ready versus idle.",
+    "footAnchor": "Manual source foot-pair/support projection per frame. Beak tip in down/side contact and rear tail extend below the foot projection; lowest image pixel would be the wrong anchor.",
+    "scale": "Existing v334 .045 crow scale preserved; source side silhouettes remain comparable to idle. Native16 silhouettes lower and recover, and beak/tail direction remains distinct. Tiny toes/feather detail do not all survive16px.",
+    "alpha": "Actual neutral-background alpha composites show complete bodies without neighbour feathers, opaque floor, cast light or baked food/carcass/victim.",
+    "item": "One four-feather blue-black bundle with separate shafts, complete tips and vanes.16/32px fit samples shown; finer barb detail survives mainly at larger UI size.",
+    "limits": "Source/canvas review does not establish actual core consumption, map lighting/occlusion, cue interruption or release readiness. Main integration remains inactive."
+  },
+  "cycleMs": 1800,
+  "phaseCount": 4,
+  "sourceNewRegions": 17,
+  "mirroredOrCopiedRegionsCountedNew": 0,
+  "active": false,
+  "mainGameAcceptancePending": true
+}

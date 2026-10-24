@@ -133,7 +133,7 @@ export function wetnessTick(w: World, c: Creature, sleeping=c.asleep||c.activity
   const clothes = apparelItems(w, c)
   const skin = (c.needs.skinWetness ??= Object.fromEntries(THERMAL_REGIONS.map((r) => [r.id, c.needs.wetness])))
   const wetting = w.s.map.kind === 'surface' && !tileAt(w, c.pos).roof ? weatherWetPerTurn(w)*elapsed : 0
-  const terrain = terrainAt(w, c.pos), water = tileAt(w, c.pos).icy && (tileAt(w, c.pos).iceHoleUntil ?? 0) <= turnOf(w) ? undefined : terrain.water
+  const terrain = terrainAt(w, c.pos), water = c.flight||tileAt(w, c.pos).icy && (tileAt(w, c.pos).iceHoleUntil ?? 0) <= turnOf(w) ? undefined : terrain.water
   const drying = ((fireWarmth(w, c) >= 15 ? 10 : 2) + windStrength(w, c) + (c.activity?.kind === 'dry' ? 3 : 0))*elapsed / THERMAL_TURNS
   // 옛 세이브의 단일 젖음 값을 한 번만 옮긴다. 이후 벗은 옷도 자기 젖음을 보관한다.
   for (const { it } of clothes) it.wetness ??= Object.fromEntries(THERMAL_REGIONS.map((r) => [r.id, c.needs.wetness]))

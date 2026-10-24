@@ -12280,7 +12280,8 @@
                       "quadruped",
                       "amalgam",
                       "mechanical",
-                      "invertebrate"
+                      "invertebrate",
+                      "bird"
                     ]
                   },
                   {
@@ -12430,7 +12431,8 @@
                   "quadruped",
                   "amalgam",
                   "mechanical",
-                  "invertebrate"
+                  "invertebrate",
+                  "bird"
                 ]
               },
               "mechanical": {
@@ -15534,6 +15536,16 @@
                           }
                         ]
                       },
+                      "faceCover": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "layer": {
                         "anyOf": [
                           {
@@ -17445,6 +17457,9 @@
                   "eyeProtection": {
                     "type": "boolean"
                   },
+                  "faceCover": {
+                    "type": "boolean"
+                  },
                   "layer": {
                     "type": "number"
                   },
@@ -18095,6 +18110,31 @@
             }
           }
         },
+        "partCapacityWeights": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "prey": {
+          "type": "object",
+          "properties": {
+            "unconscious": {
+              "const": true
+            },
+            "capacity": {
+              "type": "string"
+            },
+            "faceCover": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "unconscious",
+            "capacity"
+          ]
+        },
         "armorDamage": {
           "type": "number"
         },
@@ -18153,7 +18193,9 @@
             "sight",
             "hearing",
             "breathing",
-            "bloodPumping"
+            "bloodPumping",
+            "peck",
+            "flight"
           ]
         },
         "stunD": {
@@ -18332,6 +18374,91 @@
                 "anyOf": [
                   {
                     "$ref": "#/$defs/Inherited_WildlifeRules"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "flight": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "takeoffEnergy": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "moveEnergy": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "minCapacity": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "fallDamage": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "noise": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
                   },
                   {
                     "type": "null"
@@ -21276,6 +21403,41 @@
               "wildlife": {
                 "$ref": "#/$defs/WildlifeRules"
               },
+              "flight": {
+                "type": "object",
+                "properties": {
+                  "height": {
+                    "type": "number"
+                  },
+                  "takeoffEnergy": {
+                    "type": "number"
+                  },
+                  "moveEnergy": {
+                    "type": "number"
+                  },
+                  "maxTurns": {
+                    "type": "number"
+                  },
+                  "minCapacity": {
+                    "type": "number"
+                  },
+                  "fallDamage": {
+                    "type": "number"
+                  },
+                  "noise": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "height",
+                  "takeoffEnergy",
+                  "moveEnergy",
+                  "maxTurns",
+                  "minCapacity",
+                  "fallDamage",
+                  "noise"
+                ]
+              },
               "considerationWorker": {
                 "type": "string"
               },
@@ -21939,7 +22101,60 @@
         "kind": {
           "enum": [
             "timidHerbivore",
-            "stubbornForager"
+            "stubbornForager",
+            "scavengerBird"
+          ]
+        },
+        "browse": {
+          "type": "boolean"
+        },
+        "browseCount": {
+          "type": "number"
+        },
+        "drinkMl": {
+          "type": "number"
+        },
+        "scavenging": {
+          "type": "object",
+          "properties": {
+            "followRadius": {
+              "type": "number"
+            },
+            "memoryTurns": {
+              "type": "number"
+            },
+            "circleRadius": {
+              "type": "number"
+            },
+            "fleeRadius": {
+              "type": "number"
+            },
+            "split": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string"
+                },
+                "piece": {
+                  "type": "string"
+                },
+                "pieces": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "source",
+                "piece",
+                "pieces"
+              ]
+            }
+          },
+          "required": [
+            "followRadius",
+            "memoryTurns",
+            "circleRadius",
+            "fleeRadius",
+            "split"
           ]
         },
         "foodIds": {
@@ -22038,7 +22253,8 @@
               "quadruped",
               "amalgam",
               "mechanical",
-              "invertebrate"
+              "invertebrate",
+              "bird"
             ]
           }
         },
@@ -26677,7 +26893,8 @@
                               "quadruped",
                               "amalgam",
                               "mechanical",
-                              "invertebrate"
+                              "invertebrate",
+                              "bird"
                             ]
                           },
                           {
@@ -27210,7 +27427,8 @@
                       "quadruped",
                       "amalgam",
                       "mechanical",
-                      "invertebrate"
+                      "invertebrate",
+                      "bird"
                     ]
                   },
                   "recentTurns": {
@@ -59989,6 +60207,76 @@
             }
           ]
         },
+        "partCapacityWeights": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$inherit": {
+                  "const": false
+                }
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prey": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "unconscious": {
+                  "anyOf": [
+                    {
+                      "const": true
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "capacity": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "faceCover": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "armorDamage": {
           "anyOf": [
             {
@@ -60147,7 +60435,9 @@
                 "sight",
                 "hearing",
                 "breathing",
-                "bloodPumping"
+                "bloodPumping",
+                "peck",
+                "flight"
               ]
             },
             {
@@ -60266,8 +60556,139 @@
             {
               "enum": [
                 "timidHerbivore",
-                "stubbornForager"
+                "stubbornForager",
+                "scavengerBird"
               ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "browse": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "browseCount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drinkMl": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scavenging": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "followRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "memoryTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "circleRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "fleeRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "split": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "source": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "piece": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "pieces": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "$inherit": {
+                          "const": false
+                        }
+                      }
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
             },
             {
               "type": "null"
@@ -60598,7 +61019,8 @@
                       "quadruped",
                       "amalgam",
                       "mechanical",
-                      "invertebrate"
+                      "invertebrate",
+                      "bird"
                     ]
                   }
                 },
@@ -60613,7 +61035,8 @@
                           "quadruped",
                           "amalgam",
                           "mechanical",
-                          "invertebrate"
+                          "invertebrate",
+                          "bird"
                         ]
                       }
                     },
@@ -60625,7 +61048,8 @@
                           "quadruped",
                           "amalgam",
                           "mechanical",
-                          "invertebrate"
+                          "invertebrate",
+                          "bird"
                         ]
                       }
                     },
@@ -60639,7 +61063,8 @@
                               "quadruped",
                               "amalgam",
                               "mechanical",
-                              "invertebrate"
+                              "invertebrate",
+                              "bird"
                             ]
                           },
                           {

@@ -95,7 +95,18 @@ export function finishDissection(w:World,actor:Creature,activity:Activity):strin
  corpse.dissected={success,yieldMult:mult,by:actor.id,at:turnOf(w)}
  if(success){const b=ensureBestiary(w,corpse.def,actor);b.dissected=(b.dissected??0)+1;b.specimen=specimen(corpse);practice(w,actor,'survival',`dissect:${corpse.id}`)}
  const tile=w.s.map.tiles[corpse.pos.y*w.s.map.w+corpse.pos.x],beforeItems=tile.items.length
- for(const yield0 of entry.yields)for(let n=0;n<Math.floor(yield0.count*mult);n++)tile.items.push(makeItem(w,yield0.item))
+ const separated=new Set<string>()
+ for(const yield0 of entry.yields){
+  if(corpse.carcassStock&&separated.has(yield0.item))continue
+  separated.add(yield0.item)
+  const stock=corpse.carcassStock?.[yield0.item],available=corpse.carcassStock?stock?.remaining??0:yield0.count
+  for(let n=0;n<Math.floor(available*mult);n++){
+   const it=makeItem(w,yield0.item)
+   if(stock){for(const key of['freshness','foodFrozen','foodThawed','foodWet','foodLeftover','foodSealed']as const)if(stock[key]!==undefined)Object.assign(it,{[key]:stock[key]});if(stock.freshness!==undefined)it.foodAgedAt=stock.at}
+   tile.items.push(it)
+  }
+ }
+ for(const stock of Object.values(corpse.carcassStock??{}))stock.remaining=0
  if(entry.kind==='human'){addThought(w,actor,d.tabooThought);witnessTaboo(w,actor,corpse)}
  if(actor.id===w.s.playerId&&tile.items.length>beforeItems)w.s.loot={pos:{...corpse.pos},kind:'floor'}
  if(actor.id===w.s.playerId){log(w,success?'good':'warn',success?`${entry.label}의 몸 구조를 익혔다.`:'사체를 손상시켰다. 얻을 재료가 줄었다.');actor.history.push({turn:turnOf(w),kind:'knowledge',text:`${entry.label} 해부 ${success?'성공':'실패'}`})}

@@ -1,0 +1,61 @@
+{
+  "scope": "First one-generation flight-loop source/staging review; no actual game or Core flight test",
+  "newOriginal": {
+    "path": "originals/ash-crow-flight-loop-v1.png",
+    "sha256": "c8d13cdb41ac468988a885db9bbf6aa932aa2ba9f634ad5d1124c86e623ce901",
+    "directlyViewed": true
+  },
+  "existingSourcesDirectlyComparedAgain": [
+    "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-idle-v1.png",
+    "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-walk-v1.png",
+    "/workspace/.ashveil-planned/v337-crow-foraging-art/originals/ash-crow-work-v1.png"
+  ],
+  "screenshots": [
+    {
+      "path": "diagnostics/four-phase-chart.png",
+      "sha256": "b5f646d3261d7d82890e168d5236f24088063fbc54ae67c1151a8df5cce9a389",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/native32-full-wings.png",
+      "sha256": "baa453816dd3fef5e9507086205757a5aa30b675df19f786becae264bfb9a361",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-0.png",
+      "sha256": "4dc4d3d5bf012ee6def7936400478006370baeeba0413428c6733b432968989f",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-1.png",
+      "sha256": "7737d50033d9efe8416594c3c39f8eb6522ec09182097df0fd61aa3820620528",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-2.png",
+      "sha256": "64e4a93fbdc5448adbeb06cd2bc524c7c8745d1cff02c9d9eeb057e5528656e7",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/phase-3.png",
+      "sha256": "cbd084e9ea74cadd37307b5499f0af448377385490990c5f8de0f382690ef59d",
+      "directlyViewed": true
+    }
+  ],
+  "findings": {
+    "flight": "All16 are airborne bodies, not standing idle renamed. Wings rise high, spread broad at power midpoint, beat below breast, then bend/recover; folded feet stay under belly.",
+    "direction": "Down/front, left, right, up/rear stay in their own rows. Beak/tail axes and dark small eyes retain the heading. Rear does not invent a side face.",
+    "limbs": "Two anatomical wings and two tucked feet; the far wing/feet are partly occluded by perspective and belly. No visible added limb, floating feather/body part or complete silhouette clipping.",
+    "bodyAnchor": "Each frame uses manual breast/body-core centre. Head-size approximate boxes show stable skull size within each row. Body and head reference projections are documented; rear head is partly hidden by the flight attitude, so its visible box is smaller.",
+    "scale": "One .055 scale for the whole source, no per-frame fit/shrink or direction mirroring. Existing idle/work comparison at .045. Full spread can reach20.955worldpx over a16px logical tile.",
+    "native": "32x32 native world-pixel canvas and4x nearest enlargement contain entire wings. Four wing shapes and row headings remain distinguishable; fine eyes/toes/feather barbs do not all survive native scale.",
+    "gutterLimitation": "Requested wide gutters not achieved. Tightest source alpha>=16 silhouette gap2px; exact1px-margin rectangles can touch. Connected body pixels at alpha>=16 lost0, large neighbour0, alpha>=16 crop-border pixels0;26 border samples have alpha8..15. This low-alpha fringe is preserved from the source and is not an opaque halo.",
+    "notIncluded": "No takeoff, landing, glide/circling path, courier, icon, other species, fake floor/shadow/height/UI or new flight rules."
+  },
+  "recommendedWingbeatMs": 400,
+  "timingScope": "400ms is a recommendation in the standalone canvas; actual game cadence, distance and transitions not reviewed.",
+  "sourceSpacingRequirementPassed": false,
+  "semanticBasicFlightReviewPassed": true,
+  "active": false,
+  "mainGameAcceptancePending": true
+}

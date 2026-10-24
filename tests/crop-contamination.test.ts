@@ -16,6 +16,7 @@ import {boiledMealFixture} from './boiled-meal-fixture'
 import {unheatedMealFixture} from './unheated-meal-fixture'
 import {prepareUnheatedMeal} from '../src/core/unheated-meal'
 import {cookingTick,takeCooking} from '../src/core/cooking'
+import {gatherStockCount,takeGatherStock} from '../src/core/gather-stock'
 import {preservationFixture} from './preservation-fixture'
 import {loadMods,type PatchOp} from '../src/core/defs'
 import {readPackages} from '../tools/loadContent'
@@ -41,6 +42,13 @@ describe('실제 유한 관수에서 같은 수확물로 옮은 오염',()=>{
  it('성장/증발은 이미 옮은 오염을 새로 만들거나 지우지 않는다',()=>{const d=watered(),before=structuredClone(d.crop().state.irrigation);tick(d.w,200);expect(d.crop().state.irrigation).toEqual(before);expect(d.crop().state.growth).toBe(201)})
  it('실제15턴 수확은 두 뿌리에 같은 실제 몫을 나누고 깨끗한 기존 더미와 섞지 않는다',()=>{const d=watered(),clean=makeItem(d.w,'Item.ShadeRoot',2);expect(addToBag(d.w,d.p,clean)).toBe(0);const h=harvest(d);expect(h.root).toMatchObject({count:2,contaminantAsh:.1,foodWater:{ml:50,quality:{pathogen:60,ash:0}}});expect(h.p.bag.find(i=>i.uid===clean.uid)).toMatchObject({count:2});expect(canStack(h.root,clean)).toBe(false);const otherwiseSame={...h.root};delete otherwiseSame.foodWater;delete otherwiseSame.contaminantAsh;expect(canStack(h.root,otherwiseSame)).toBe(false);expect(canStack(otherwiseSame,{...otherwiseSame,uid:99999})).toBe(true);expect(h.crop().state.irrigation).toBeUndefined();expect(h.crop().state.growth).toBe(0);expect(h.crop().state.seedUid).toBe(h.seedsUid)})
  it('같은 밭을 즉시 다시 수확해 오염/음식을 복제하지 않는다',()=>{const d=harvest(),before=stateHash(d.s);expect(startGather(d.w,d.p,d.pos,1)).not.toBeNull();expect(stateHash(d.s)).toBe(before);expect(d.root.count).toBe(2)})
+ it('일부가 실제 차감된 같은 성숙 작물의 남은 한 뿌리는 원래 관수 몫만 받고 저장 재개도 같다',()=>{
+  const d=watered();d.crop().state.growth=d.crop().total;d.crop().state.waterUnits=3072
+  expect(takeGatherStock(d.w,d.pos,1,100)).toBe(1);expect(gatherStockCount(d.w,d.pos)).toBe(1)
+  const copy:World={db:d.w.db,s:deserialize(serialize(d.s))}
+  for(const w of[d.w,copy]){expect(playerAct(w,{type:'gather',pos:d.pos})).toBeNull();const p=w.s.creatures.find(c=>c.id===w.s.playerId)!,root=p.bag.find(i=>i.def==='Item.ShadeRoot')!;expect(root).toMatchObject({count:1,contaminantAsh:.1,foodWater:{ml:50,quality:{pathogen:60}}});expect(tileAt(w,d.pos).cultivation?.irrigation).toBeUndefined()}
+  expect(stateHash(copy.s)).toBe(stateHash(d.s))
+ })
  it('한 뿌리 섭취는 실제 한 회분 노출과45ml 영양 수분만 주고 남은 뿌리 몫을 보존한다',()=>{const d=harvest(),ash=d.p.needs.ash??0;d.p.needs.waterDeficit=1000;expect(consumeFor(d.w,d.p,d.p,d.root.uid).ok).toBe(true);expect(d.p.needs.waterExposure).toEqual({ml:50,pathogenMl:3000});expect(d.p.needs.ash).toBeCloseTo(ash+.1,12);expect(d.p.needs.waterDeficit).toBe(955);expect(d.root.count).toBe(1);expect(d.root.foodWater!.ml).toBe(50);expect(d.root.contaminantAsh).toBe(.1)})
  it('같은 원래 밭/물/오염을 저장 뒤 재개해 실제 수확 결과 전체가 같다',()=>{const d=watered(),copy:World={db:d.w.db,s:deserialize(serialize(d.s))};for(const w of[d.w,copy]){const q=cultivationStatus(w,d.pos)!;q.state.growth=q.total;q.state.waterUnits=0;expect(playerAct(w,{type:'gather',pos:d.pos})).toBeNull()}expect(serialize(d.w.s)).toBe(serialize(copy.s))})
  it('전이 설정을 꺼도 원래 작물 서명과 이미 옮은 오염은 바뀌지 않는다',()=>{const d=watered(),before=serialize(d.s),l=mod({pathogenFraction:0,ashFraction:0});expect(l.report.errors).toEqual([]);d.w.db=l.db;expect(d.crop().valid).toBe(true);expect(serialize(d.s)).toBe(before)})

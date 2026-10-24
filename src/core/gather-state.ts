@@ -5,6 +5,7 @@ import {DIRS,type Pos} from './geom'
 import {diagonalBlocked} from './path'
 import {cultivationHarvestError} from './cultivation'
 import {towerSoilFertility} from './tower-consequences'
+import {gatherStockCount} from './gather-stock'
 import type {Creature,SeasonDef,TerrainDef} from './types'
 export function gatherSeasonError(w:World,def:TerrainDef):string|null{
  const seasons=def.gather?.seasons
@@ -22,7 +23,7 @@ export function gatherSignature(w:World,p:Pos){return JSON.stringify({terrain:ti
 /** A visible plant's current appearance; retain this boolean when it leaves sight. */
 export function observedGatherAvailable(w:World,p:Pos):boolean|undefined{
  const def=terrainAt(w,p);if(!def.gather)return
- return !gatherSeasonError(w,def)&&!gatherFireError(w,p)&&!cultivationHarvestError(w,p)&&(tileAt(w,p).gatherAt??0)<=turnOf(w)&&(!def.gather.soilDependent||towerSoilFertility(w)>0)
+ return gatherStockCount(w,p)>0&&!gatherSeasonError(w,def)&&!gatherFireError(w,p)&&!cultivationHarvestError(w,p)&&(tileAt(w,p).gatherAt??0)<=turnOf(w)&&(!def.gather.soilDependent||towerSoilFertility(w)>0)
 }
 
 export function gatherFireError(w:World,p:Pos):string|null{const t=tileAt(w,p),b=terrainAt(w,p).combustion,r=t.combustionRemaining;return t.terrainFire||r&&b?.family===r.family&&r.placedUid===t.placed?.item.uid&&r.remaining<r.total?'불이 붙었거나 타버린 재료는 원래 양으로 채집할 수 없다':null}

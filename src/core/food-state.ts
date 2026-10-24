@@ -6,7 +6,7 @@ import { traitMul, traitOverride } from './traits'
 import type { Creature, FoodSafetyDef, ItemDef, ItemInst } from './types'
 
 export const foodSafetyDef = (w: World) => w.db.get<FoodSafetyDef>('FoodSafety.Human')
-export const foodFreshness = (it: ItemInst) => it.freshness ?? 100
+export const foodFreshness = (it: Pick<ItemInst,'freshness'>) => it.freshness ?? 100
 export function freshnessBand(w: World, it: ItemInst): 'fresh' | 'stale' | 'spoiled' | 'rotten' {
   const f = foodFreshness(it), d = foodSafetyDef(w)
   return f <= 0 ? 'rotten' : f <= d.spoiledAt ? 'spoiled' : f <= d.staleAt ? 'stale' : 'fresh'
@@ -16,7 +16,7 @@ export function rotTemperature(w: World, temperature: number): number {
   const bands = foodSafetyDef(w).temperature
   return (bands.find((b) => temperature <= b.max) ?? bands.at(-1)!).mult
 }
-export function rotRate(w: World, it: ItemInst, def: ItemDef, temperature: number, wet = false, sealed = false): number {
+export function rotRate(w: World, it: Pick<ItemInst,'foodSealed'|'foodWet'|'foodLeftover'|'foodThawed'>, def: ItemDef, temperature: number, wet = false, sealed = false): number {
   const hours=def.food?.freshHours??def.drink?.freshHours
   if (!hours) return 0
   const d = foodSafetyDef(w)

@@ -2,6 +2,7 @@
 import {readFileSync,statSync} from 'node:fs'
 import {resolve,relative,isAbsolute} from 'node:path'
 import {checkedModTextures} from '../src/core/mod-textures'
+import {motionNames} from '../src/client/render/character-motion'
 type RecordValue=Record<string,unknown>
 const object=(v:unknown):v is RecordValue=>!!v&&typeof v==='object'&&!Array.isArray(v)
 const directions=['down','left','right','up']
@@ -76,12 +77,12 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
   const gait=row.gait
   const durations=row.motionDurations
-  if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!['idle','walk','attack','block','hurt','crouchDown','crouchWalk','stand','work','wallow','use','fall','rise','sleep','shoot','throw','interact'].includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')
+  if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!(motionNames as readonly string[]).includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')
   if(gait!==undefined&&(!object(gait)||!['walk','crouchWalk'].every(name=>typeof gait[name]==='number'&&Number.isFinite(gait[name])&&gait[name]>=200&&gait[name]<=5000)))errors.push('char '+key+'.gait: 동작별200~5000ms 주기가 필요하다')
   if(row.motions!==undefined){
    if(!object(row.motions))errors.push('char '+key+'.motions: 동작별 객체가 필요하다')
    else for(const[name,poses]of Object.entries(row.motions)){
-    if(!['block','hurt','crouchDown','crouchWalk','stand','work','wallow','use','fall','rise','sleep','shoot','throw','interact'].includes(name))errors.push('char '+key+'.motions: 알 수 없는 동작 '+name)
+    if(!(motionNames as readonly string[]).filter(mode=>!['idle','walk','attack'].includes(mode)).includes(name))errors.push('char '+key+'.motions: 알 수 없는 동작 '+name)
     if(!object(poses))errors.push('char '+key+'.motions.'+name+': 방향별 객체가 필요하다')
     else for(const dir of directions)frameList(poses[dir],'char '+key+'.motions.'+name+'.'+dir)
    }

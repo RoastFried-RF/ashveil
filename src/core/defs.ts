@@ -630,7 +630,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for (const c of db.all<CreatureDef>('Creature')) {
     if(c.wildlife!==undefined){
       const d=c.wildlife
-      if(!isObj(d)||!['timidHerbivore','stubbornForager'].includes(d.kind)||!Array.isArray(d.foodIds)||!d.foodIds.length)report.errors.push(c.id+': wildlife 실제 행동 종류/먹이 목록 필요')
+      if(!isObj(d)||!['timidHerbivore','stubbornForager','scavengerBird'].includes(d.kind)||!Array.isArray(d.foodIds)||!d.foodIds.length)report.errors.push(c.id+': wildlife 실제 행동 종류/먹이 목록 필요')
       else{
         if(['humanoid','mechanical'].includes(db.tryGet<BodyDef>(c.body??'')?.kind??''))report.errors.push(c.id+': wildlife 입 섭식은 생물 동물 몸만 사용한다')
         for(const id of d.foodIds){need(c.id,id,'Item');const item=db.tryGet<ItemDef>(id);if(!item?.food||item.openFood||item.food.servings||item.food.needsTool)report.errors.push(c.id+': wildlife.foodIds 실제 도구/용기가 필요 없는 음식만 먹는다')}
@@ -638,6 +638,21 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
         for(const key of['eatBelow','drinkAbove','wanderChance']as const)if(!Number.isFinite(d[key]))report.errors.push(c.id+': wildlife.'+key+' 유한 수치 필요')
         range(c.id,'wildlife.eatBelow',d.eatBelow,0,5000);range(c.id,'wildlife.drinkAbove',d.drinkAbove,0,5000);range(c.id,'wildlife.wanderChance',d.wanderChance,0,1)
         if(!Number.isFinite(d.sleepAt)||d.sleepAt<15||d.sleepAt>100)report.errors.push(c.id+': wildlife.sleepAt는15~100이어야 한다')
+        if(d.browse!==undefined&&typeof d.browse!=='boolean')report.errors.push(c.id+': wildlife.browse 참/거짓 필요')
+        if(d.browseCount!==undefined&&(!Number.isSafeInteger(d.browseCount)||d.browseCount<1||d.browseCount>20))report.errors.push(c.id+': wildlife.browseCount 실제1~20개 필요')
+        if(d.drinkMl!==undefined&&(!Number.isSafeInteger(d.drinkMl)||d.drinkMl<1||d.drinkMl>1000))report.errors.push(c.id+': wildlife.drinkMl 실제1~1000ml 필요')
+        if(d.kind==='scavengerBird'&&(!d.scavenging||db.tryGet<BodyDef>(c.body??'')?.kind!=='bird'))report.errors.push(c.id+': scavengerBird 실제 조류/섭식 규칙 필요')
+        if(d.scavenging!==undefined){
+          const s=d.scavenging
+          if(!isObj(s)||!isObj(s.split))report.errors.push(c.id+': scavenging 실제 관찰/분할 설정 필요')
+          else{
+            for(const key of['followRadius','circleRadius','fleeRadius','memoryTurns']as const)if(!Number.isSafeInteger(s[key])||s[key]<1||s[key]>(key==='memoryTurns'?300:20))report.errors.push(c.id+': scavenging.'+key+' 범위 오류')
+            need(c.id,s.split.source,'Item');need(c.id,s.split.piece,'Item')
+            const source=db.tryGet<ItemDef>(s.split.source),piece=db.tryGet<ItemDef>(s.split.piece),n=s.split.pieces
+            if(!Number.isSafeInteger(n)||n<2||n>100||!source?.food||!piece?.food||source.food.servings||piece.food.servings||piece.openFood||!d.foodIds.includes(s.split.piece)||Math.abs(source.weight-piece.weight*n)>1e-7||(piece.value??0)*n>(source.value??0)+1e-7)report.errors.push(c.id+': scavenging.split 원래 음식/무게/가치/섭취량 보존 필요')
+            else{for(const key of['kcal','protein','vitamin','water','thirst']as const)if(Math.abs((source.food[key]??0)-(piece.food[key]??0)*n)>1e-7)report.errors.push(c.id+': scavenging.split '+key+' 보존 필요');if(source.food.freshHours!==piece.food.freshHours||source.food.raw!==piece.food.raw)report.errors.push(c.id+': scavenging.split 원래 부패/날음식 규칙 보존 필요')}
+          }
+        }
         if(d.rut!==undefined){
           if(!isObj(d.rut)||typeof d.rut.season!=='string')report.errors.push(c.id+': wildlife.rut 실제 계절/설정 필요')
           else{need(c.id,d.rut.season,'Season');range(c.id,'wildlife.rut.chance',d.rut.chance,0,1);if(!Number.isFinite(d.rut.chance)||!Number.isSafeInteger(d.rut.memoryTurns)||d.rut.memoryTurns<1||d.rut.memoryTurns>1000)report.errors.push(c.id+': wildlife.rut 실제 확률/기억 시간 필요')}
@@ -647,6 +662,11 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
           else{if(!Array.isArray(d.mud.terrains)||!d.mud.terrains.length)report.errors.push(c.id+': wildlife.mud 실제 진흙 지형 필요');else for(const id of d.mud.terrains)need(c.id,id,'Terrain');for(const key of['sharp','blunt']as const)if(!Number.isFinite(d.mud[key])||d.mud[key]<0||d.mud[key]>50)report.errors.push(c.id+': wildlife.mud.'+key+' 범위 오류');if(!Number.isSafeInteger(d.mud.washTurns)||d.mud.washTurns<1||d.mud.washTurns>1200)report.errors.push(c.id+': wildlife.mud.washTurns 범위 오류')}
         }
       }
+    }
+    if(c.flight!==undefined){
+      const d=c.flight,body=db.tryGet<BodyDef>(c.body??'')
+      if(!isObj(d)||body?.kind!=='bird'||body.parts.filter(p=>(p.capacities?.flight??0)>0).length!==2)report.errors.push(c.id+': flight 실제 조류 몸과 두 날개 필요')
+      else{for(const[key,lo,hi]of[['height',1,3],['takeoffEnergy',1,50],['moveEnergy',1,20],['maxTurns',2,300],['fallDamage',1,50],['noise',1,20]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': flight.'+key+' 범위 오류');if(!Number.isFinite(d.minCapacity)||d.minCapacity<=.5||d.minCapacity>1)report.errors.push(c.id+': flight.minCapacity 실제 양쪽 날개 기능 필요')}
     }
     need(c.id, c.body, 'Body')
     need(c.id, c.fearFamily, 'Creature')
@@ -658,7 +678,12 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   for (const l of db.all<LootTableDef>('LootTable')) for (const e of l.entries) need(l.id, e.item, 'Item')
   for(const owner of[...db.all<CreatureDef>('Creature'),...db.all<ItemDef>('Item')]){
     const attacks=owner.defType==='Creature'?[owner.naturalAttack,...(Array.isArray(owner.naturalAttacks)?owner.naturalAttacks:[])]:Array.isArray(owner.attacks)?owner.attacks:[]
-    for(const a of attacks){if(a?.partWeights!==undefined&&(!isObj(a.partWeights)||Object.entries(a.partWeights).some(([key,n])=>!['head','torso','rarm','larm','rleg','lleg','neck'].includes(key)||!Number.isFinite(n)||n<0||n>10)))report.errors.push(owner.id+': partWeights 실제 부위/0~10 유한 가중치 필요')}
+    for(const a of attacks){
+      if(a?.partWeights!==undefined&&(!isObj(a.partWeights)||Object.entries(a.partWeights).some(([key,n])=>!['head','torso','rarm','larm','rleg','lleg','neck'].includes(key)||!Number.isFinite(n)||n<0||n>10)))report.errors.push(owner.id+': partWeights 실제 부위/0~10 유한 가중치 필요')
+      const capacities=new Set(db.all<BodyDef>('Body').flatMap(body=>body.parts.flatMap(p=>Object.keys(p.capacities??{}))))
+      if(a?.partCapacityWeights!==undefined&&(!isObj(a.partCapacityWeights)||Object.entries(a.partCapacityWeights).some(([key,n])=>!capacities.has(key)||!Number.isFinite(n)||n<0||n>25)))report.errors.push(owner.id+': partCapacityWeights 실제 신체 기능/0~25 유한 가중치 필요')
+      if(a?.prey!==undefined&&(!isObj(a.prey)||a.prey.unconscious!==true||!capacities.has(a.prey.capacity)||a.prey.faceCover!==undefined&&typeof a.prey.faceCover!=='boolean'))report.errors.push(owner.id+': prey 실제 의식/신체 기능과 얼굴 가림 규칙 필요')
+    }
   }
   for (const t of db.all<TerrainDef>('Terrain')) need(t.id, t.container, 'LootTable')
   for (const b of db.all<BackgroundDef>('Background')) {

@@ -23,7 +23,7 @@ import {
   AnimatedSprite, Application, Container, Graphics, Sprite, Text, Texture, TextureStyle, type TextStyleOptions,
 } from 'pixi.js'
 import {
-  crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
+  hostile,crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
   meleeWield,wield,type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
@@ -57,6 +57,8 @@ interface CView {
   poseFrame:string
   poseDirection:Dir
   transition:number
+  flightHeight:number
+  flightLift:number
   asleep:boolean
   prone:boolean
   groundT:number
@@ -215,9 +217,11 @@ export class MapRenderer {
 
   setOpts(o: RenderOpts) {
     const hudChanged = this.opts.hudHeight !== o.hudHeight
+    const previousHover=this.opts.hover
     this.opts = o
     if (hudChanged && preferences.mapZoom === 'vision' && this.w && this.ready) this.sync(this.w)
     this.drawOverlay()
+    if(this.w&&(previousHover?.x!==o.hover?.x||previousHover?.y!==o.hover?.y))for(const c of this.w.s.creatures)if(c.pos.x===previousHover?.x&&c.pos.y===previousHover?.y||c.pos.x===o.hover?.x&&c.pos.y===o.hover?.y){const view=this.views.get(c.id);if(view?.root.visible)this.drawBar(this.w,c,view)}
   }
 
   /** 행동 후 호출: 정적 층(필요 시)·동적 층·빛·생물·연출 갱신 */
@@ -731,7 +735,7 @@ export class MapRenderer {
     root.addChild(shadow,previousBody,body,gearEffects,...hands,...medicalItems,gripCovers,actionItem,bar,marks)
     this.objs.addChild(root)
     const v: CView = {
-      id: c.id, selectedSprite, root, body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -762,6 +766,9 @@ export class MapRenderer {
       v.root.visible = true
       const moves=w.s.fx.filter((e):e is Extract<FxEvent,{k:'move'}>=>e.k==='move'&&e.id===c.id)
       if(v.arrivingPose&&(!c.alive||c.asleep||c.unconscious||sceneKey(w)!==v.arrivingPose.map||c.pos.x!==v.arrivingPose.pos.x||c.pos.y!==v.arrivingPose.pos.y))v.arrivingPose=null
+      const altitude=c.alive&&c.flight?(w.db.creature(c.def).flight?.height??0)*T:0
+      if(altitude&&!v.flightHeight){clearPoses(v.pose);v.arrivingPose=null}
+      v.flightHeight=altitude
       if(!wasShown){resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
       else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
       else observeWalk(v.motion,c.pos,moves)
@@ -803,6 +810,7 @@ export class MapRenderer {
     g.clear()
     if (!c.alive || c.faction === 'player') return
     const max = hpMax(w, c)
+    if(w.db.creature(c.def).wildlife&&c.hp>=max&&!hostile(w,player(w),c)&&!(this.opts.hover?.x===c.pos.x&&this.opts.hover.y===c.pos.y))return
     const frac = Math.max(0, Math.min(1, c.hp / max))
     const top = this.headY(v)
     const bw = v.char?.healthBarWidth ?? (v.anim ? 24 : 14)
@@ -1039,7 +1047,7 @@ export class MapRenderer {
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
-    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work}))
+    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
     return{actors,medical,forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
@@ -1052,6 +1060,7 @@ export class MapRenderer {
     advanceWalk(v.motion,dt,false,(v.crouched?v.char?.gait?.crouchWalk??motionDurations.crouchWalk:v.char?.gait?.walk??motionDurations.walk)/2)
     const p = this.viewPos(v)
     const moving = walking(v.motion)
+    v.flightLift=instant?v.flightHeight:v.flightLift+Math.sign(v.flightHeight-v.flightLift)*Math.min(Math.abs(v.flightHeight-v.flightLift),dt*T/200)
     if(v.arrivingPose&&!moving){
       const pending=v.arrivingPose,actor=this.w?.s.creatures.find(c=>c.id===v.id);v.arrivingPose=null
       if(v.alive&&!v.prone&&actor&&this.w&&sceneKey(this.w)===pending.map&&actor.pos.x===pending.pos.x&&actor.pos.y===pending.pos.y&&(!pending.continuous||activityMotion(actor.activity)==='work')){
@@ -1085,6 +1094,7 @@ export class MapRenderer {
       if(!v.alive){mode='fall';phase=v.deadT}
       else if(v.prone){mode=v.asleep&&v.groundT>=1?'sleep':'fall';loop=mode==='sleep';phase=loop?this.time/motionDurations.sleep:v.groundT}
       else if(v.pose.current&&!continuousWork){mode=v.pose.current.kind;phase=v.pose.current.elapsed/poseDuration(v.pose.current)}
+      else if(v.flightHeight){mode='flight';phase=this.time/(ch.motionDurations?.flight??motionDurations.flight);loop=true}
       else if(moving){mode=v.crouched?'crouchWalk':'walk';phase=v.motion.stride/2;loop=true}
       else if(v.activity&&v.activity!=='walk'&&v.activity!=='idle'&&v.activity!=='sleep'){mode=v.activity;phase=mode==='shoot'?.34:v.activityTime/(v.medical?.cycle??ch.motionDurations?.[mode]??motionDurations[mode]);loop=mode!=='shoot'}
       else if(v.guarding){mode='block';phase=.34}
@@ -1109,7 +1119,8 @@ export class MapRenderer {
     const hop = moving&&v.limp ? Math.max(0,Math.sin(v.motion.stride*Math.PI))*.65 : 0
     v.root.position.set(p.x * T + T / 2 + ox, p.y * T + T - 2 + oy)
     v.lightPos={x:p.x+ox/T,y:p.y+oy/T}
-    v.body.y=hop
+    const flightChest=mode==='flight'?(ch?.headOffset??10)*.45:0
+    v.body.y=hop-v.flightLift-flightChest
     this.animateEquipment(v,mode,phase,moving,hop,dt)
     this.animateMedical(v,mode,phase,moving,hop)
     const cue=v.pose.current
@@ -1117,7 +1128,8 @@ export class MapRenderer {
     if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=0}
     v.root.zIndex = (p.y + 1) * T + (v.alive ? 0.2 : -8)
     if (v.char || v.anim) v.body.scale.set(bodyScale*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),bodyScale*(v.crouched&&!['crouchWalk','crouchDown','stand'].includes(mode)&&!v.prone ? .78 : 1))
-    v.bar.y=this.headY(v)-v.annotationHead;v.marks.y=v.bar.y
+    // headY already includes the projected body's actual lift and chest anchor.
+    v.bar.y=this.headY(v)-v.annotationHead-(v.flightHeight?6:0);v.marks.y=v.bar.y
     // 피격 섬광 → 사망 → 시체
     if (!v.alive) {
       v.body.rotation = ch?.motions?.fall?0:(Math.PI / 2) * v.deadT * (v.id % 2 ? 1 : -1)

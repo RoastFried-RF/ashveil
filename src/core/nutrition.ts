@@ -24,7 +24,8 @@ export function metabolismRate(w: World, c: Creature, s: ThermalState, sleeping 
   const fever = hasEffect(c, 'fever', turnOf(w)) || c.needs.bodyTemp >= 38.5 || infectionSystemic(w,c).metabolicFever
   const kcalHour = (d.kcalPerDay / 24 * activity * size * (1 + bulk * d.bulkPerPoint) * (1 + cold) + wounds * d.woundKcalPerDay / 24) * (fever ? d.feverKcalMult : 1) * traitMul(w, c, 'kcalMult')
   const burns = c.body.wounds.filter((wd) => wd.def === 'Wound.Burn').reduce((n, wd) => n + Math.max(0, wd.severity - wd.healed), 0)
-  const waterHour = d.waterPerDay / 24 * (.5 + .5 * activity) + Math.max(0, s.feels - d.hotThreshold) * d.hotWaterPerDegreeDay / 24 + (c.needs.bodyTemp > d.sweatThreshold ? d.sweatWaterPerHour : 0) + (fever ? d.feverWaterPerDay / 24 : 0) + (hasEffect(c, 'dysentery', turnOf(w)) ? d.dysenteryWaterPerDay / 24 : 0) + burns * d.burnWaterPerSeverityDay / 24
+  const waterSize=w.db.body(c.body.def).kind==='humanoid'?1:size
+  const waterHour = (d.waterPerDay / 24 * (.5 + .5 * activity) + Math.max(0, s.feels - d.hotThreshold) * d.hotWaterPerDegreeDay / 24 + (c.needs.bodyTemp > d.sweatThreshold ? d.sweatWaterPerHour : 0) + (fever ? d.feverWaterPerDay / 24 : 0) + (hasEffect(c, 'dysentery', turnOf(w)) ? d.dysenteryWaterPerDay / 24 : 0))*waterSize + burns * d.burnWaterPerSeverityDay / 24
   return { kind, kcalHour, waterHour:waterHour+dietStatus(w,c).waterPerDay/24 }
 }
 export function hydrate(w: World, c: Creature, amount: number, loss = 0) {

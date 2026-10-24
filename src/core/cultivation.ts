@@ -98,12 +98,12 @@ export function uprootCultivation(w:World,c:Creature,p:Pos,expectedSeed:number){
  if(!Number.isSafeInteger(expectedSeed)||expectedSeed!==q.seedUid)return '정리하려던 원래 작물이 달라졌다'
  const tile=tileAt(w,p),base=q.base!.id
  if(q.residue)tile.cropResidue={terrain:base,dose:structuredClone(q.residue)}
- tile.t=base;delete tile.cultivation;delete tile.gatherAt;indices.delete(w.s.map)
+ tile.t=base;delete tile.cultivation;delete tile.gatherAt;delete tile.gatherStock;indices.delete(w.s.map)
  if(c.id===w.s.playerId)log(w,'info',`작물을 뽑고 원래 ${q.base!.label}을(를) 드러냈다. 종자와 수확물은 돌려받지 못한다.`)
  else if(canSee(w,player(w),p))log(w,'info','자기 밭의 작물을 정리했다.')
  return null
 }
-export function resetCultivation(w:World,p:Pos){const d=cultivationStatus(w,p);if(!d?.valid||!d.ready)return;if(d.rule!.substrate)d.state.remainingCycles!--;d.state.growth=0;d.state.lastAt=turnOf(w);delete d.state.irrigation;delete tileAt(w,p).gatherAt}
+export function resetCultivation(w:World,p:Pos){const d=cultivationStatus(w,p);if(!d?.valid||!d.ready)return;if(d.rule!.substrate)d.state.remainingCycles!--;d.state.growth=0;d.state.lastAt=turnOf(w);delete d.state.irrigation;delete tileAt(w,p).gatherAt;delete tileAt(w,p).gatherStock}
 /** 한 번의 실제 경계에서 읽은 물량으로만 이동한다. 들어온 물을 같은 정산에 다시 보내지 않는다. */
 function diffuseSoilWater(w:World,list:number[],now:number){
  const rule=w.db.all<WorldGenDef>('WorldGen')[0]?.cropSoilDiffusion

@@ -28,7 +28,7 @@ export interface SaveModeDef extends DefBase {
 
 export type DamageType = 'cut' | 'stab' | 'blunt' | 'bite' | 'burn' | 'gunshot'
 export type ArmorCategory = 'sharp' | 'blunt' | 'heat'
-export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool'
+export type Capacity = 'consciousness' | 'moving' | 'manipulation' | 'sight' | 'hearing' | 'breathing' | 'bloodPumping' | 'tool' | 'peck' | 'flight'
 export type Height = 'low' | 'mid' | 'high'
 
 export interface BodyPartDef {
@@ -83,7 +83,7 @@ export interface BodyDef extends DefBase {
   waterBreathing?:boolean
   defType: 'Body'
   bloodMl: number
-  kind?: 'humanoid' | 'quadruped' | 'amalgam' | 'mechanical' | 'invertebrate'
+  kind?: 'humanoid' | 'quadruped' | 'amalgam' | 'mechanical' | 'invertebrate' | 'bird'
   mechanical?: MechanicalRules
   parts: BodyPartDef[]
 }
@@ -155,6 +155,9 @@ export interface WoundDef extends DefBase {
 export interface AttackDef {
   /** 실제 공격의 부위 선호. 능력 가중과 곱하며 부위 선택 규칙을 우회하지 않는다. */
   partWeights?:Partial<Record<Region|'neck',number>>
+  /** 부위 자체의 실제 기능을 선호한다. 작은 부위도 강제 명중하지 않는다. */
+  partCapacityWeights?:Record<string,number>
+  prey?:{unconscious:true;capacity:string;faceCover?:boolean}
   armorDamage?: number
   targetHeat?: number
   requiresLit?: boolean
@@ -295,6 +298,7 @@ export interface ItemDef extends DefBase {
     liningHost?: boolean
     liner?: boolean
     eyeProtection?: boolean
+    faceCover?:boolean
     /** 판정 순서: 큰 값이 바깥 (망토 2 → 몸·머리·장갑·장화 1) */
     layer: number
     /** 덮는 세부 부위 태그 (13 §6.2) */
@@ -361,7 +365,11 @@ export interface ParasiteConfig {
 }
 export interface ParasiteAttachment {creature:Creature;part:string;attachedAt:number;fedMl:number}
 export interface WildlifeRules {
-  kind:'timidHerbivore'|'stubbornForager'
+  kind:'timidHerbivore'|'stubbornForager'|'scavengerBird'
+  browse?:boolean
+  browseCount?:number
+  drinkMl?:number
+  scavenging?:{followRadius:number;memoryTurns:number;circleRadius:number;fleeRadius:number;split:{source:string;piece:string;pieces:number}}
   foodIds:string[]
   threatRadius:number
   forageRadius:number
@@ -375,6 +383,7 @@ export interface WildlifeRules {
 }
 export interface CreatureDef extends DefBase {
   wildlife?:WildlifeRules
+  flight?:{height:number;takeoffEnergy:number;moveEnergy:number;maxTurns:number;minCapacity:number;fallDamage:number;noise:number}
   considerationWorker?:string
   ageRange?:[number,number]
   meatDrop?:{item:string;count:number}
@@ -2237,7 +2246,9 @@ export interface MedicalReport {
 }
 
 export interface Creature {
-  wildlifeState?:{threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number}
+  carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
+  flight?:{startedAt:number;landAt:number;origin:Pos}
+  wildlifeState?:{threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number;interest?:{id:number;pos:Pos;at:number;alive:boolean;unconscious:boolean}}
   npcCareHistory?:NpcCareRecord[]
   npcIdentity?:NpcIdentity
   roadRaid?:string
@@ -2460,6 +2471,7 @@ export type HotbarRef = { kind: 'ability'; id: string } | { kind: 'item'; def: s
 
 export interface BeddingLice {source:number;at:number;until:number}
 export interface Tile {
+  gatherStock?:{signature:string;remaining:number;regrowAt?:number;seedUid?:number;season?:string}
   /** 실제 새 지도 생성 때만 잠근다. 구형 상자를 소급해 잠그지 않는다. */
   locked?:boolean
   cultivation?:CultivationState

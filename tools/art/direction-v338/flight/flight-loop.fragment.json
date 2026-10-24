@@ -1,0 +1,162 @@
+{
+  "character": "av331_ash_crow",
+  "active": false,
+  "schemaNote": "Authoring flight clip, not a current runtime CharDef. Current MotionName lacks flight.",
+  "proposedMotionName": "flight",
+  "recommendedCycleMs": 400,
+  "slowReviewCycleMs": 800,
+  "phaseOrder": [
+    "wing-up-apex",
+    "horizontal-power-stroke",
+    "wing-down-bottom",
+    "bent-wing-recovery"
+  ],
+  "directionClips": {
+    "down": [
+      "av338_ash_crow_flight_down0",
+      "av338_ash_crow_flight_down1",
+      "av338_ash_crow_flight_down2",
+      "av338_ash_crow_flight_down3"
+    ],
+    "left": [
+      "av338_ash_crow_flight_left0",
+      "av338_ash_crow_flight_left1",
+      "av338_ash_crow_flight_left2",
+      "av338_ash_crow_flight_left3"
+    ],
+    "right": [
+      "av338_ash_crow_flight_right0",
+      "av338_ash_crow_flight_right1",
+      "av338_ash_crow_flight_right2",
+      "av338_ash_crow_flight_right3"
+    ],
+    "up": [
+      "av338_ash_crow_flight_up0",
+      "av338_ash_crow_flight_up1",
+      "av338_ash_crow_flight_up2",
+      "av338_ash_crow_flight_up3"
+    ]
+  },
+  "frameTransforms": {
+    "av338_ash_crow_flight_down0": {
+      "anchor": [
+        0.4981549815498155,
+        0.7916666666666666
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_down1": {
+      "anchor": [
+        0.4972067039106145,
+        0.6773049645390071
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_down2": {
+      "anchor": [
+        0.4979253112033195,
+        0.4647058823529412
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_down3": {
+      "anchor": [
+        0.5157342657342657,
+        0.7419354838709677
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_left0": {
+      "anchor": [
+        0.4613733905579399,
+        0.8400900900900901
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_left1": {
+      "anchor": [
+        0.4191374663072776,
+        0.7410071942446043
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_left2": {
+      "anchor": [
+        0.4359504132231405,
+        0.40705128205128205
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_left3": {
+      "anchor": [
+        0.43722943722943725,
+        0.8247126436781609
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_right0": {
+      "anchor": [
+        0.5043478260869565,
+        0.8461538461538461
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_right1": {
+      "anchor": [
+        0.532345013477089,
+        0.774074074074074
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_right2": {
+      "anchor": [
+        0.5158730158730159,
+        0.4146341463414634
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_right3": {
+      "anchor": [
+        0.4827586206896552,
+        0.8502673796791443
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_up0": {
+      "anchor": [
+        0.5,
+        0.6887550200803213
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_up1": {
+      "anchor": [
+        0.49606299212598426,
+        0.5490196078431373
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_up2": {
+      "anchor": [
+        0.5019305019305019,
+        0.49421965317919075
+      ],
+      "scale": 0.055
+    },
+    "av338_ash_crow_flight_up3": {
+      "anchor": [
+        0.4981481481481482,
+        0.648989898989899
+      ],
+      "scale": 0.055
+    }
+  },
+  "sourceAnchorKind": "airborne-breast/body-centre",
+  "altitudePolicy": "Parent runtime supplies actual altitude separately from source anchor; no height/path/shadow in this art.",
+  "requiresLogicalTileOverhang": true,
+  "logicalTileSizePx": 16,
+  "maxWorldImageSize": [
+    20.955000000000002,
+    13.695
+  ]
+}

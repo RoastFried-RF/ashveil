@@ -9,11 +9,15 @@ import { foodFreshness, foodPoisonRisk, foodSafetyDef, rotRate } from './food-st
 import { allItems, itemDef, storedItems } from './items'
 import { addThought } from './thoughts'
 import {rememberLifeEvent} from './life-memories'
+import {ageCarcass} from './carcass'
 import { addEffect, hasEffect } from './traits'
-import type { Creature, ItemInst } from './types'
+import type { Creature, ItemInst,ItemDef } from './types'
 
 export function ageFood(w: World, it: ItemInst, temperature: number, elapsed: number, wet = false, sealed = false) {
   const def = itemDef(w, it)
+  ageFoodState(w,it,def,temperature,elapsed,wet,sealed)
+}
+export function ageFoodState(w:World,it:Pick<ItemInst,'freshness'|'foodSealed'|'foodWet'|'foodLeftover'|'foodThawed'|'foodFrozen'>,def:ItemDef,temperature:number,elapsed:number,wet=false,sealed=false){
   if (!(def.food?.freshHours||def.drink?.freshHours) || elapsed <= 0) return
   if (temperature <= 0) it.foodFrozen = true
   else if (it.foodFrozen) { it.foodThawed = true; it.foodFrozen = false }
@@ -36,7 +40,7 @@ export function foodTick(w: World) {
       for (const it of storedItems(tile.items)) age(it, wet)
       for (const it of storedItems(tile.cont?.items ?? [])) age(it, false, !tile.cont!.opened)
     }
-    for (const c of local.s.creatures) for (const it of storedItems(allItems(c))) age(it, c.needs.wetness >= 50)
+    for (const c of local.s.creatures){if(!c.alive)ageCarcass(local,c,temp,now);for (const it of storedItems(allItems(c))) age(it, c.needs.wetness >= 50)}
   }
   for (const [key,market] of Object.entries(w.s.overworld?.markets ?? {})) {
     const site = w.s.overworld!.sites.find((s) => s.id === market.site)

@@ -41,7 +41,11 @@ export function hostile(w: World, a: Creature, b: Creature): boolean {
   if (a.attackedBy?.includes(b.id) || b.attackedBy?.includes(a.id)) return true
   // Healthy, unprovoked prey flees humans. It is not a combat interruption merely
   // because its nonpolitical animal grouping differs from the observer's faction.
-  const unthreateningPrey=(animal:Creature,other:Creature)=>w.db.creature(animal.def).wildlife?.kind==='timidHerbivore'&&w.db.body(other.body.def).kind==='humanoid'&&animal.ai.mode!=='hunt'
+  const unthreateningPrey=(animal:Creature,other:Creature)=>{
+    if(w.db.body(other.body.def).kind!=='humanoid')return false
+    const kind=w.db.creature(animal.def).wildlife?.kind
+    return kind==='timidHerbivore'?animal.ai.mode!=='hunt':kind==='scavengerBird'&&(animal.ai.mode!=='hunt'||animal.ai.target!==other.id)
+  }
   if(unthreateningPrey(a,b)||unthreateningPrey(b,a))return false
   const gardenAlert=towerGardenAlert(w)
   if(a.body.machine&&Math.max(a.body.machine.alert??0,gardenAlert)<2||b.body.machine&&Math.max(b.body.machine.alert??0,gardenAlert)<2)return false

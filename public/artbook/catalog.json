@@ -1,8 +1,9 @@
 {
-  "version": "0.336-dev",
+  "version": "0.338-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
+    "flight": 400,
     "attack": 480,
     "block": 300,
     "hurt": 320,
@@ -339,7 +340,18 @@
     "av333_tuskhog_work_v2": "sprites/original/direction-v333/work/tuskhog-work-v2.png",
     "av333_tuskhog_wallow_v2": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png",
     "av336_shade_root_clumps_v2": "sprites/original/direction-v336/forage/shade-root-clumps-v2.png",
-    "av336_ashberry_bushes_v2": "sprites/original/direction-v336/forage/ashberry-bushes-v2.png"
+    "av336_ashberry_bushes_v2": "sprites/original/direction-v336/forage/ashberry-bushes-v2.png",
+    "av334_ash_crow_idle_v1": "sprites/original/direction-v334/ash-crow-idle-v1.png",
+    "av334_ash_crow_walk_v1": "sprites/original/direction-v334/ash-crow-walk-v1.png",
+    "av334_ash_crow_peck_v1": "sprites/original/direction-v334/ash-crow-peck-v1.png",
+    "av334_ash_crow_hurt_v1": "sprites/original/direction-v334/ash-crow-hurt-v1.png",
+    "av334_ash_crow_fall_v1": "sprites/original/direction-v334/ash-crow-fall-v1.png",
+    "av334_ash_crow_fall_down_v2": "sprites/original/direction-v334/ash-crow-fall-down-v2.png",
+    "av334_ash_crow_sleep_v1": "sprites/original/direction-v334/ash-crow-sleep-v1.png",
+    "av334_ash_crow_rise_v1": "sprites/original/direction-v334/ash-crow-rise-v1.png",
+    "av337_ash_crow_work_v1": "sprites/original/direction-v337/ash-crow-work-v1.png",
+    "av337_crow_feathers_v1": "sprites/original/direction-v337/crow-feathers-v1.png",
+    "av338_ash_crow_flight_loop_v1": "sprites/original/direction-v338/ash-crow-flight-loop-v1.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1617,6 +1629,50 @@
     "av336_ashberry_bushes_v2": [
       1774,
       887
+    ],
+    "av334_ash_crow_idle_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_walk_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_peck_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_hurt_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_fall_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_fall_down_v2": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_sleep_v1": [
+      1254,
+      1254
+    ],
+    "av334_ash_crow_rise_v1": [
+      1254,
+      1254
+    ],
+    "av337_ash_crow_work_v1": [
+      1254,
+      1254
+    ],
+    "av337_crow_feathers_v1": [
+      1254,
+      1254
+    ],
+    "av338_ash_crow_flight_loop_v1": [
+      1254,
+      1254
     ]
   },
   "frames": {
@@ -54742,6 +54798,1021 @@
       571,
       301,
       220
+    ],
+    "av334_ash_crow_idle_down0": [
+      "av334_ash_crow_idle_v1",
+      94,
+      47,
+      165,
+      243
+    ],
+    "av334_ash_crow_idle_down1": [
+      "av334_ash_crow_idle_v1",
+      400,
+      79,
+      172,
+      211
+    ],
+    "av334_ash_crow_idle_down2": [
+      "av334_ash_crow_idle_v1",
+      713,
+      58,
+      161,
+      232
+    ],
+    "av334_ash_crow_idle_down3": [
+      "av334_ash_crow_idle_v1",
+      1012,
+      61,
+      185,
+      229
+    ],
+    "av334_ash_crow_idle_left0": [
+      "av334_ash_crow_idle_v1",
+      40,
+      349,
+      274,
+      233
+    ],
+    "av334_ash_crow_idle_left1": [
+      "av334_ash_crow_idle_v1",
+      361,
+      373,
+      275,
+      209
+    ],
+    "av334_ash_crow_idle_left2": [
+      "av334_ash_crow_idle_v1",
+      678,
+      364,
+      257,
+      215
+    ],
+    "av334_ash_crow_idle_left3": [
+      "av334_ash_crow_idle_v1",
+      959,
+      367,
+      270,
+      215
+    ],
+    "av334_ash_crow_idle_right0": [
+      "av334_ash_crow_idle_v1",
+      26,
+      653,
+      273,
+      233
+    ],
+    "av334_ash_crow_idle_right1": [
+      "av334_ash_crow_idle_v1",
+      342,
+      687,
+      254,
+      199
+    ],
+    "av334_ash_crow_idle_right2": [
+      "av334_ash_crow_idle_v1",
+      654,
+      662,
+      247,
+      224
+    ],
+    "av334_ash_crow_idle_right3": [
+      "av334_ash_crow_idle_v1",
+      955,
+      665,
+      269,
+      219
+    ],
+    "av334_ash_crow_idle_up0": [
+      "av334_ash_crow_idle_v1",
+      91,
+      931,
+      166,
+      253
+    ],
+    "av334_ash_crow_idle_up1": [
+      "av334_ash_crow_idle_v1",
+      400,
+      960,
+      170,
+      217
+    ],
+    "av334_ash_crow_idle_up2": [
+      "av334_ash_crow_idle_v1",
+      714,
+      937,
+      166,
+      244
+    ],
+    "av334_ash_crow_idle_up3": [
+      "av334_ash_crow_idle_v1",
+      1016,
+      937,
+      163,
+      240
+    ],
+    "av334_ash_crow_walk_down0": [
+      "av334_ash_crow_walk_v1",
+      78,
+      128,
+      182,
+      194
+    ],
+    "av334_ash_crow_walk_down1": [
+      "av334_ash_crow_walk_v1",
+      351,
+      94,
+      268,
+      250
+    ],
+    "av334_ash_crow_walk_down2": [
+      "av334_ash_crow_walk_v1",
+      668,
+      124,
+      246,
+      210
+    ],
+    "av334_ash_crow_walk_down3": [
+      "av334_ash_crow_walk_v1",
+      1020,
+      113,
+      178,
+      211
+    ],
+    "av334_ash_crow_walk_left0": [
+      "av334_ash_crow_walk_v1",
+      36,
+      420,
+      282,
+      191
+    ],
+    "av334_ash_crow_walk_left1": [
+      "av334_ash_crow_walk_v1",
+      351,
+      382,
+      273,
+      233
+    ],
+    "av334_ash_crow_walk_left2": [
+      "av334_ash_crow_walk_v1",
+      655,
+      413,
+      272,
+      194
+    ],
+    "av334_ash_crow_walk_left3": [
+      "av334_ash_crow_walk_v1",
+      957,
+      413,
+      273,
+      205
+    ],
+    "av334_ash_crow_walk_right0": [
+      "av334_ash_crow_walk_v1",
+      34,
+      706,
+      277,
+      195
+    ],
+    "av334_ash_crow_walk_right1": [
+      "av334_ash_crow_walk_v1",
+      345,
+      662,
+      271,
+      249
+    ],
+    "av334_ash_crow_walk_right2": [
+      "av334_ash_crow_walk_v1",
+      658,
+      695,
+      282,
+      204
+    ],
+    "av334_ash_crow_walk_right3": [
+      "av334_ash_crow_walk_v1",
+      966,
+      697,
+      259,
+      209
+    ],
+    "av334_ash_crow_walk_up0": [
+      "av334_ash_crow_walk_v1",
+      80,
+      982,
+      182,
+      210
+    ],
+    "av334_ash_crow_walk_up1": [
+      "av334_ash_crow_walk_v1",
+      325,
+      950,
+      301,
+      234
+    ],
+    "av334_ash_crow_walk_up2": [
+      "av334_ash_crow_walk_v1",
+      678,
+      974,
+      242,
+      219
+    ],
+    "av334_ash_crow_walk_up3": [
+      "av334_ash_crow_walk_v1",
+      1012,
+      973,
+      176,
+      222
+    ],
+    "av334_ash_crow_attack_down0": [
+      "av334_ash_crow_peck_v1",
+      84,
+      103,
+      174,
+      208
+    ],
+    "av334_ash_crow_attack_down1": [
+      "av334_ash_crow_peck_v1",
+      398,
+      120,
+      174,
+      191
+    ],
+    "av334_ash_crow_attack_down2": [
+      "av334_ash_crow_peck_v1",
+      702,
+      88,
+      174,
+      241
+    ],
+    "av334_ash_crow_attack_down3": [
+      "av334_ash_crow_peck_v1",
+      996,
+      103,
+      191,
+      207
+    ],
+    "av334_ash_crow_attack_left0": [
+      "av334_ash_crow_peck_v1",
+      36,
+      396,
+      272,
+      220
+    ],
+    "av334_ash_crow_attack_left1": [
+      "av334_ash_crow_peck_v1",
+      342,
+      437,
+      274,
+      180
+    ],
+    "av334_ash_crow_attack_left2": [
+      "av334_ash_crow_peck_v1",
+      678,
+      437,
+      251,
+      188
+    ],
+    "av334_ash_crow_attack_left3": [
+      "av334_ash_crow_peck_v1",
+      966,
+      401,
+      264,
+      218
+    ],
+    "av334_ash_crow_attack_right0": [
+      "av334_ash_crow_peck_v1",
+      32,
+      688,
+      274,
+      231
+    ],
+    "av334_ash_crow_attack_right1": [
+      "av334_ash_crow_peck_v1",
+      332,
+      735,
+      271,
+      184
+    ],
+    "av334_ash_crow_attack_right2": [
+      "av334_ash_crow_peck_v1",
+      656,
+      739,
+      249,
+      185
+    ],
+    "av334_ash_crow_attack_right3": [
+      "av334_ash_crow_peck_v1",
+      961,
+      690,
+      271,
+      230
+    ],
+    "av334_ash_crow_attack_up0": [
+      "av334_ash_crow_peck_v1",
+      82,
+      967,
+      176,
+      223
+    ],
+    "av334_ash_crow_attack_up1": [
+      "av334_ash_crow_peck_v1",
+      388,
+      1004,
+      179,
+      185
+    ],
+    "av334_ash_crow_attack_up2": [
+      "av334_ash_crow_peck_v1",
+      702,
+      1006,
+      183,
+      183
+    ],
+    "av334_ash_crow_attack_up3": [
+      "av334_ash_crow_peck_v1",
+      996,
+      965,
+      177,
+      225
+    ],
+    "av334_ash_crow_hurt_down0": [
+      "av334_ash_crow_hurt_v1",
+      81,
+      76,
+      180,
+      230
+    ],
+    "av334_ash_crow_hurt_down1": [
+      "av334_ash_crow_hurt_v1",
+      344,
+      76,
+      265,
+      229
+    ],
+    "av334_ash_crow_hurt_down2": [
+      "av334_ash_crow_hurt_v1",
+      687,
+      102,
+      208,
+      204
+    ],
+    "av334_ash_crow_hurt_down3": [
+      "av334_ash_crow_hurt_v1",
+      1009,
+      93,
+      187,
+      213
+    ],
+    "av334_ash_crow_hurt_left0": [
+      "av334_ash_crow_hurt_v1",
+      44,
+      377,
+      263,
+      224
+    ],
+    "av334_ash_crow_hurt_left1": [
+      "av334_ash_crow_hurt_v1",
+      364,
+      360,
+      260,
+      242
+    ],
+    "av334_ash_crow_hurt_left2": [
+      "av334_ash_crow_hurt_v1",
+      653,
+      400,
+      285,
+      201
+    ],
+    "av334_ash_crow_hurt_left3": [
+      "av334_ash_crow_hurt_v1",
+      968,
+      390,
+      270,
+      214
+    ],
+    "av334_ash_crow_hurt_right0": [
+      "av334_ash_crow_hurt_v1",
+      32,
+      672,
+      255,
+      227
+    ],
+    "av334_ash_crow_hurt_right1": [
+      "av334_ash_crow_hurt_v1",
+      335,
+      649,
+      270,
+      239
+    ],
+    "av334_ash_crow_hurt_right2": [
+      "av334_ash_crow_hurt_v1",
+      655,
+      684,
+      272,
+      216
+    ],
+    "av334_ash_crow_hurt_right3": [
+      "av334_ash_crow_hurt_v1",
+      955,
+      683,
+      273,
+      215
+    ],
+    "av334_ash_crow_hurt_up0": [
+      "av334_ash_crow_hurt_v1",
+      71,
+      951,
+      185,
+      244
+    ],
+    "av334_ash_crow_hurt_up1": [
+      "av334_ash_crow_hurt_v1",
+      332,
+      941,
+      275,
+      239
+    ],
+    "av334_ash_crow_hurt_up2": [
+      "av334_ash_crow_hurt_v1",
+      680,
+      951,
+      225,
+      248
+    ],
+    "av334_ash_crow_hurt_up3": [
+      "av334_ash_crow_hurt_v1",
+      1010,
+      950,
+      180,
+      243
+    ],
+    "av334_ash_crow_fall_left0": [
+      "av334_ash_crow_fall_v1",
+      41,
+      399,
+      260,
+      204
+    ],
+    "av334_ash_crow_fall_left1": [
+      "av334_ash_crow_fall_v1",
+      360,
+      451,
+      263,
+      150
+    ],
+    "av334_ash_crow_fall_left2": [
+      "av334_ash_crow_fall_v1",
+      646,
+      481,
+      281,
+      118
+    ],
+    "av334_ash_crow_fall_left3": [
+      "av334_ash_crow_fall_v1",
+      949,
+      493,
+      289,
+      109
+    ],
+    "av334_ash_crow_fall_right0": [
+      "av334_ash_crow_fall_v1",
+      31,
+      678,
+      262,
+      212
+    ],
+    "av334_ash_crow_fall_right1": [
+      "av334_ash_crow_fall_v1",
+      337,
+      732,
+      270,
+      159
+    ],
+    "av334_ash_crow_fall_right2": [
+      "av334_ash_crow_fall_v1",
+      649,
+      775,
+      285,
+      114
+    ],
+    "av334_ash_crow_fall_right3": [
+      "av334_ash_crow_fall_v1",
+      956,
+      784,
+      288,
+      105
+    ],
+    "av334_ash_crow_fall_up0": [
+      "av334_ash_crow_fall_v1",
+      88,
+      955,
+      165,
+      222
+    ],
+    "av334_ash_crow_fall_up1": [
+      "av334_ash_crow_fall_v1",
+      358,
+      1012,
+      272,
+      165
+    ],
+    "av334_ash_crow_fall_up2": [
+      "av334_ash_crow_fall_v1",
+      660,
+      1023,
+      269,
+      144
+    ],
+    "av334_ash_crow_fall_up3": [
+      "av334_ash_crow_fall_v1",
+      987,
+      1019,
+      198,
+      158
+    ],
+    "av334_ash_crow_fall_down0": [
+      "av334_ash_crow_fall_down_v2",
+      152,
+      152,
+      358,
+      433
+    ],
+    "av334_ash_crow_fall_down1": [
+      "av334_ash_crow_fall_down_v2",
+      663,
+      244,
+      531,
+      346
+    ],
+    "av334_ash_crow_fall_down2": [
+      "av334_ash_crow_fall_down_v2",
+      78,
+      778,
+      525,
+      369
+    ],
+    "av334_ash_crow_fall_down3": [
+      "av334_ash_crow_fall_down_v2",
+      664,
+      790,
+      523,
+      349
+    ],
+    "av334_ash_crow_sleep_down0": [
+      "av334_ash_crow_sleep_v1",
+      81,
+      126,
+      208,
+      176
+    ],
+    "av334_ash_crow_sleep_down1": [
+      "av334_ash_crow_sleep_v1",
+      385,
+      114,
+      232,
+      189
+    ],
+    "av334_ash_crow_sleep_down2": [
+      "av334_ash_crow_sleep_v1",
+      687,
+      128,
+      229,
+      175
+    ],
+    "av334_ash_crow_sleep_down3": [
+      "av334_ash_crow_sleep_v1",
+      1001,
+      127,
+      224,
+      175
+    ],
+    "av334_ash_crow_sleep_left0": [
+      "av334_ash_crow_sleep_v1",
+      61,
+      424,
+      245,
+      176
+    ],
+    "av334_ash_crow_sleep_left1": [
+      "av334_ash_crow_sleep_v1",
+      367,
+      425,
+      255,
+      173
+    ],
+    "av334_ash_crow_sleep_left2": [
+      "av334_ash_crow_sleep_v1",
+      681,
+      427,
+      247,
+      173
+    ],
+    "av334_ash_crow_sleep_left3": [
+      "av334_ash_crow_sleep_v1",
+      986,
+      429,
+      248,
+      171
+    ],
+    "av334_ash_crow_sleep_right0": [
+      "av334_ash_crow_sleep_v1",
+      34,
+      718,
+      253,
+      177
+    ],
+    "av334_ash_crow_sleep_right1": [
+      "av334_ash_crow_sleep_v1",
+      340,
+      714,
+      266,
+      183
+    ],
+    "av334_ash_crow_sleep_right2": [
+      "av334_ash_crow_sleep_v1",
+      664,
+      716,
+      251,
+      180
+    ],
+    "av334_ash_crow_sleep_right3": [
+      "av334_ash_crow_sleep_v1",
+      965,
+      714,
+      260,
+      183
+    ],
+    "av334_ash_crow_sleep_up0": [
+      "av334_ash_crow_sleep_v1",
+      76,
+      997,
+      204,
+      204
+    ],
+    "av334_ash_crow_sleep_up1": [
+      "av334_ash_crow_sleep_v1",
+      383,
+      992,
+      206,
+      205
+    ],
+    "av334_ash_crow_sleep_up2": [
+      "av334_ash_crow_sleep_v1",
+      687,
+      1000,
+      208,
+      201
+    ],
+    "av334_ash_crow_sleep_up3": [
+      "av334_ash_crow_sleep_v1",
+      995,
+      999,
+      197,
+      202
+    ],
+    "av334_ash_crow_rise_down0": [
+      "av334_ash_crow_rise_v1",
+      84,
+      179,
+      173,
+      154
+    ],
+    "av334_ash_crow_rise_down1": [
+      "av334_ash_crow_rise_v1",
+      399,
+      145,
+      171,
+      195
+    ],
+    "av334_ash_crow_rise_down2": [
+      "av334_ash_crow_rise_v1",
+      648,
+      124,
+      272,
+      218
+    ],
+    "av334_ash_crow_rise_down3": [
+      "av334_ash_crow_rise_v1",
+      1015,
+      104,
+      174,
+      238
+    ],
+    "av334_ash_crow_rise_left0": [
+      "av334_ash_crow_rise_v1",
+      56,
+      455,
+      244,
+      159
+    ],
+    "av334_ash_crow_rise_left1": [
+      "av334_ash_crow_rise_v1",
+      378,
+      427,
+      258,
+      189
+    ],
+    "av334_ash_crow_rise_left2": [
+      "av334_ash_crow_rise_v1",
+      667,
+      404,
+      288,
+      211
+    ],
+    "av334_ash_crow_rise_left3": [
+      "av334_ash_crow_rise_v1",
+      973,
+      377,
+      261,
+      238
+    ],
+    "av334_ash_crow_rise_right0": [
+      "av334_ash_crow_rise_v1",
+      39,
+      737,
+      251,
+      167
+    ],
+    "av334_ash_crow_rise_right1": [
+      "av334_ash_crow_rise_v1",
+      342,
+      708,
+      238,
+      194
+    ],
+    "av334_ash_crow_rise_right2": [
+      "av334_ash_crow_rise_v1",
+      637,
+      687,
+      271,
+      217
+    ],
+    "av334_ash_crow_rise_right3": [
+      "av334_ash_crow_rise_v1",
+      961,
+      664,
+      261,
+      239
+    ],
+    "av334_ash_crow_rise_up0": [
+      "av334_ash_crow_rise_v1",
+      89,
+      998,
+      179,
+      185
+    ],
+    "av334_ash_crow_rise_up1": [
+      "av334_ash_crow_rise_v1",
+      398,
+      961,
+      173,
+      217
+    ],
+    "av334_ash_crow_rise_up2": [
+      "av334_ash_crow_rise_v1",
+      646,
+      956,
+      279,
+      218
+    ],
+    "av334_ash_crow_rise_up3": [
+      "av334_ash_crow_rise_v1",
+      1015,
+      928,
+      166,
+      254
+    ],
+    "av337_ash_crow_work_down0": [
+      "av337_ash_crow_work_v1",
+      84,
+      99,
+      173,
+      214
+    ],
+    "av337_ash_crow_work_down1": [
+      "av337_ash_crow_work_v1",
+      396,
+      118,
+      176,
+      193
+    ],
+    "av337_ash_crow_work_down2": [
+      "av337_ash_crow_work_v1",
+      702,
+      98,
+      173,
+      234
+    ],
+    "av337_ash_crow_work_down3": [
+      "av337_ash_crow_work_v1",
+      1002,
+      99,
+      184,
+      213
+    ],
+    "av337_ash_crow_work_left0": [
+      "av337_ash_crow_work_v1",
+      40,
+      395,
+      270,
+      221
+    ],
+    "av337_ash_crow_work_left1": [
+      "av337_ash_crow_work_v1",
+      350,
+      433,
+      263,
+      184
+    ],
+    "av337_ash_crow_work_left2": [
+      "av337_ash_crow_work_v1",
+      683,
+      435,
+      250,
+      199
+    ],
+    "av337_ash_crow_work_left3": [
+      "av337_ash_crow_work_v1",
+      973,
+      390,
+      255,
+      227
+    ],
+    "av337_ash_crow_work_right0": [
+      "av337_ash_crow_work_v1",
+      34,
+      679,
+      271,
+      240
+    ],
+    "av337_ash_crow_work_right1": [
+      "av337_ash_crow_work_v1",
+      358,
+      737,
+      263,
+      181
+    ],
+    "av337_ash_crow_work_right2": [
+      "av337_ash_crow_work_v1",
+      665,
+      747,
+      253,
+      188
+    ],
+    "av337_ash_crow_work_right3": [
+      "av337_ash_crow_work_v1",
+      963,
+      684,
+      263,
+      235
+    ],
+    "av337_ash_crow_work_up0": [
+      "av337_ash_crow_work_v1",
+      82,
+      959,
+      179,
+      239
+    ],
+    "av337_ash_crow_work_up1": [
+      "av337_ash_crow_work_v1",
+      391,
+      986,
+      176,
+      212
+    ],
+    "av337_ash_crow_work_up2": [
+      "av337_ash_crow_work_v1",
+      706,
+      985,
+      178,
+      215
+    ],
+    "av337_ash_crow_work_up3": [
+      "av337_ash_crow_work_v1",
+      1001,
+      958,
+      174,
+      240
+    ],
+    "av331_crow_feathers": [
+      "av337_crow_feathers_v1",
+      398,
+      178,
+      639,
+      872
+    ],
+    "av338_ash_crow_flight_down0": [
+      "av338_ash_crow_flight_loop_v1",
+      28,
+      58,
+      271,
+      240
+    ],
+    "av338_ash_crow_flight_down1": [
+      "av338_ash_crow_flight_loop_v1",
+      301,
+      153,
+      358,
+      141
+    ],
+    "av338_ash_crow_flight_down2": [
+      "av338_ash_crow_flight_loop_v1",
+      676,
+      171,
+      241,
+      170
+    ],
+    "av338_ash_crow_flight_down3": [
+      "av338_ash_crow_flight_loop_v1",
+      952,
+      112,
+      286,
+      186
+    ],
+    "av338_ash_crow_flight_left0": [
+      "av338_ash_crow_flight_loop_v1",
+      33,
+      349,
+      233,
+      222
+    ],
+    "av338_ash_crow_flight_left1": [
+      "av338_ash_crow_flight_loop_v1",
+      302,
+      443,
+      371,
+      139
+    ],
+    "av338_ash_crow_flight_left2": [
+      "av338_ash_crow_flight_loop_v1",
+      691,
+      475,
+      242,
+      156
+    ],
+    "av338_ash_crow_flight_left3": [
+      "av338_ash_crow_flight_loop_v1",
+      992,
+      401,
+      231,
+      174
+    ],
+    "av338_ash_crow_flight_right0": [
+      "av338_ash_crow_flight_loop_v1",
+      52,
+      635,
+      230,
+      234
+    ],
+    "av338_ash_crow_flight_right1": [
+      "av338_ash_crow_flight_loop_v1",
+      298,
+      737,
+      371,
+      135
+    ],
+    "av338_ash_crow_flight_right2": [
+      "av338_ash_crow_flight_loop_v1",
+      687,
+      769,
+      252,
+      164
+    ],
+    "av338_ash_crow_flight_right3": [
+      "av338_ash_crow_flight_loop_v1",
+      1002,
+      682,
+      232,
+      187
+    ],
+    "av338_ash_crow_flight_up0": [
+      "av338_ash_crow_flight_loop_v1",
+      38,
+      934,
+      247,
+      249
+    ],
+    "av338_ash_crow_flight_up1": [
+      "av338_ash_crow_flight_loop_v1",
+      291,
+      1021,
+      381,
+      153
+    ],
+    "av338_ash_crow_flight_up2": [
+      "av338_ash_crow_flight_loop_v1",
+      672,
+      1021,
+      259,
+      173
+    ],
+    "av338_ash_crow_flight_up3": [
+      "av338_ash_crow_flight_loop_v1",
+      963,
+      977,
+      270,
+      198
     ]
   },
   "characters": {
@@ -122614,6 +123685,1280 @@
         "wallow": 2400,
         "attack": 680
       }
+    },
+    "av331_ash_crow": {
+      "anchor": [
+        0.5,
+        1
+      ],
+      "renderScale": 0.045,
+      "headOffset": 13,
+      "shadow": [
+        3.5,
+        0.8
+      ],
+      "healthBarWidth": 10,
+      "heldItems": false,
+      "gait": {
+        "walk": 1000,
+        "crouchWalk": 1100
+      },
+      "motionDurations": {
+        "idle": 3200,
+        "attack": 560,
+        "hurt": 400,
+        "fall": 800,
+        "sleep": 4500,
+        "rise": 800,
+        "work": 1800,
+        "flight": 400
+      },
+      "idle": {
+        "down": [
+          "av334_ash_crow_idle_down0",
+          "av334_ash_crow_idle_down1",
+          "av334_ash_crow_idle_down2",
+          "av334_ash_crow_idle_down3"
+        ],
+        "left": [
+          "av334_ash_crow_idle_left0",
+          "av334_ash_crow_idle_left1",
+          "av334_ash_crow_idle_left2",
+          "av334_ash_crow_idle_left3"
+        ],
+        "right": [
+          "av334_ash_crow_idle_right0",
+          "av334_ash_crow_idle_right1",
+          "av334_ash_crow_idle_right2",
+          "av334_ash_crow_idle_right3"
+        ],
+        "up": [
+          "av334_ash_crow_idle_up0",
+          "av334_ash_crow_idle_up1",
+          "av334_ash_crow_idle_up2",
+          "av334_ash_crow_idle_up3"
+        ]
+      },
+      "walk": {
+        "down": [
+          "av334_ash_crow_walk_down0",
+          "av334_ash_crow_walk_down1",
+          "av334_ash_crow_walk_down2",
+          "av334_ash_crow_walk_down3"
+        ],
+        "left": [
+          "av334_ash_crow_walk_left0",
+          "av334_ash_crow_walk_left1",
+          "av334_ash_crow_walk_left2",
+          "av334_ash_crow_walk_left3"
+        ],
+        "right": [
+          "av334_ash_crow_walk_right0",
+          "av334_ash_crow_walk_right1",
+          "av334_ash_crow_walk_right2",
+          "av334_ash_crow_walk_right3"
+        ],
+        "up": [
+          "av334_ash_crow_walk_up0",
+          "av334_ash_crow_walk_up1",
+          "av334_ash_crow_walk_up2",
+          "av334_ash_crow_walk_up3"
+        ]
+      },
+      "attack": {
+        "down": [
+          "av334_ash_crow_attack_down0",
+          "av334_ash_crow_attack_down1",
+          "av334_ash_crow_attack_down2",
+          "av334_ash_crow_attack_down3"
+        ],
+        "left": [
+          "av334_ash_crow_attack_left0",
+          "av334_ash_crow_attack_left1",
+          "av334_ash_crow_attack_left2",
+          "av334_ash_crow_attack_left3"
+        ],
+        "right": [
+          "av334_ash_crow_attack_right0",
+          "av334_ash_crow_attack_right1",
+          "av334_ash_crow_attack_right2",
+          "av334_ash_crow_attack_right3"
+        ],
+        "up": [
+          "av334_ash_crow_attack_up0",
+          "av334_ash_crow_attack_up1",
+          "av334_ash_crow_attack_up2",
+          "av334_ash_crow_attack_up3"
+        ]
+      },
+      "motions": {
+        "hurt": {
+          "down": [
+            "av334_ash_crow_hurt_down0",
+            "av334_ash_crow_hurt_down1",
+            "av334_ash_crow_hurt_down2",
+            "av334_ash_crow_hurt_down3"
+          ],
+          "left": [
+            "av334_ash_crow_hurt_left0",
+            "av334_ash_crow_hurt_left1",
+            "av334_ash_crow_hurt_left2",
+            "av334_ash_crow_hurt_left3"
+          ],
+          "right": [
+            "av334_ash_crow_hurt_right0",
+            "av334_ash_crow_hurt_right1",
+            "av334_ash_crow_hurt_right2",
+            "av334_ash_crow_hurt_right3"
+          ],
+          "up": [
+            "av334_ash_crow_hurt_up0",
+            "av334_ash_crow_hurt_up1",
+            "av334_ash_crow_hurt_up2",
+            "av334_ash_crow_hurt_up3"
+          ]
+        },
+        "fall": {
+          "left": [
+            "av334_ash_crow_fall_left0",
+            "av334_ash_crow_fall_left1",
+            "av334_ash_crow_fall_left2",
+            "av334_ash_crow_fall_left3"
+          ],
+          "right": [
+            "av334_ash_crow_fall_right0",
+            "av334_ash_crow_fall_right1",
+            "av334_ash_crow_fall_right2",
+            "av334_ash_crow_fall_right3"
+          ],
+          "up": [
+            "av334_ash_crow_fall_up0",
+            "av334_ash_crow_fall_up1",
+            "av334_ash_crow_fall_up2",
+            "av334_ash_crow_fall_up3"
+          ],
+          "down": [
+            "av334_ash_crow_fall_down0",
+            "av334_ash_crow_fall_down1",
+            "av334_ash_crow_fall_down2",
+            "av334_ash_crow_fall_down3"
+          ]
+        },
+        "sleep": {
+          "down": [
+            "av334_ash_crow_sleep_down0",
+            "av334_ash_crow_sleep_down1",
+            "av334_ash_crow_sleep_down2",
+            "av334_ash_crow_sleep_down3"
+          ],
+          "left": [
+            "av334_ash_crow_sleep_left0",
+            "av334_ash_crow_sleep_left1",
+            "av334_ash_crow_sleep_left2",
+            "av334_ash_crow_sleep_left3"
+          ],
+          "right": [
+            "av334_ash_crow_sleep_right0",
+            "av334_ash_crow_sleep_right1",
+            "av334_ash_crow_sleep_right2",
+            "av334_ash_crow_sleep_right3"
+          ],
+          "up": [
+            "av334_ash_crow_sleep_up0",
+            "av334_ash_crow_sleep_up1",
+            "av334_ash_crow_sleep_up2",
+            "av334_ash_crow_sleep_up3"
+          ]
+        },
+        "rise": {
+          "down": [
+            "av334_ash_crow_rise_down0",
+            "av334_ash_crow_rise_down1",
+            "av334_ash_crow_rise_down2",
+            "av334_ash_crow_rise_down3"
+          ],
+          "left": [
+            "av334_ash_crow_rise_left0",
+            "av334_ash_crow_rise_left1",
+            "av334_ash_crow_rise_left2",
+            "av334_ash_crow_rise_left3"
+          ],
+          "right": [
+            "av334_ash_crow_rise_right0",
+            "av334_ash_crow_rise_right1",
+            "av334_ash_crow_rise_right2",
+            "av334_ash_crow_rise_right3"
+          ],
+          "up": [
+            "av334_ash_crow_rise_up0",
+            "av334_ash_crow_rise_up1",
+            "av334_ash_crow_rise_up2",
+            "av334_ash_crow_rise_up3"
+          ]
+        },
+        "work": {
+          "down": [
+            "av337_ash_crow_work_down0",
+            "av337_ash_crow_work_down1",
+            "av337_ash_crow_work_down2",
+            "av337_ash_crow_work_down3"
+          ],
+          "left": [
+            "av337_ash_crow_work_left0",
+            "av337_ash_crow_work_left1",
+            "av337_ash_crow_work_left2",
+            "av337_ash_crow_work_left3"
+          ],
+          "right": [
+            "av337_ash_crow_work_right0",
+            "av337_ash_crow_work_right1",
+            "av337_ash_crow_work_right2",
+            "av337_ash_crow_work_right3"
+          ],
+          "up": [
+            "av337_ash_crow_work_up0",
+            "av337_ash_crow_work_up1",
+            "av337_ash_crow_work_up2",
+            "av337_ash_crow_work_up3"
+          ]
+        },
+        "flight": {
+          "down": [
+            "av338_ash_crow_flight_down0",
+            "av338_ash_crow_flight_down1",
+            "av338_ash_crow_flight_down2",
+            "av338_ash_crow_flight_down3"
+          ],
+          "left": [
+            "av338_ash_crow_flight_left0",
+            "av338_ash_crow_flight_left1",
+            "av338_ash_crow_flight_left2",
+            "av338_ash_crow_flight_left3"
+          ],
+          "right": [
+            "av338_ash_crow_flight_right0",
+            "av338_ash_crow_flight_right1",
+            "av338_ash_crow_flight_right2",
+            "av338_ash_crow_flight_right3"
+          ],
+          "up": [
+            "av338_ash_crow_flight_up0",
+            "av338_ash_crow_flight_up1",
+            "av338_ash_crow_flight_up2",
+            "av338_ash_crow_flight_up3"
+          ]
+        }
+      },
+      "frameTransforms": {
+        "av334_ash_crow_idle_down0": {
+          "anchor": [
+            0.5151515151515151,
+            0.9588477366255144
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_down1": {
+          "anchor": [
+            0.5174418604651163,
+            0.95260663507109
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_down2": {
+          "anchor": [
+            0.5217391304347826,
+            0.9655172413793104
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_down3": {
+          "anchor": [
+            0.4594594594594595,
+            0.9606986899563319
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_left0": {
+          "anchor": [
+            0.42700729927007297,
+            0.9399141630901288
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_left1": {
+          "anchor": [
+            0.41454545454545455,
+            0.937799043062201
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_left2": {
+          "anchor": [
+            0.4085603112840467,
+            0.958139534883721
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_left3": {
+          "anchor": [
+            0.46296296296296297,
+            0.9441860465116279
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_right0": {
+          "anchor": [
+            0.5824175824175825,
+            0.9484978540772532
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_right1": {
+          "anchor": [
+            0.6023622047244095,
+            0.9547738693467337
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_right2": {
+          "anchor": [
+            0.611336032388664,
+            0.9464285714285714
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_right3": {
+          "anchor": [
+            0.5539033457249071,
+            0.958904109589041
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_up0": {
+          "anchor": [
+            0.5,
+            0.8932806324110671
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_up1": {
+          "anchor": [
+            0.5117647058823529,
+            0.9078341013824884
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_up2": {
+          "anchor": [
+            0.5120481927710844,
+            0.9057377049180327
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_idle_up3": {
+          "anchor": [
+            0.5214723926380368,
+            0.9291666666666667
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_down0": {
+          "anchor": [
+            0.4835164835164835,
+            0.9381443298969072
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_down1": {
+          "anchor": [
+            0.5,
+            0.984
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_down2": {
+          "anchor": [
+            0.5,
+            0.9619047619047619
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_down3": {
+          "anchor": [
+            0.5056179775280899,
+            0.9478672985781991
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_left0": {
+          "anchor": [
+            0.4326241134751773,
+            0.9528795811518325
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_left1": {
+          "anchor": [
+            0.48717948717948717,
+            0.9828326180257511
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_left2": {
+          "anchor": [
+            0.47058823529411764,
+            0.9639175257731959
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_left3": {
+          "anchor": [
+            0.4945054945054945,
+            0.9414634146341463
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_right0": {
+          "anchor": [
+            0.5342960288808665,
+            0.9487179487179487
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_right1": {
+          "anchor": [
+            0.5498154981549815,
+            0.9839357429718876
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_right2": {
+          "anchor": [
+            0.5425531914893617,
+            0.9754901960784313
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_right3": {
+          "anchor": [
+            0.5675675675675675,
+            0.937799043062201
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_up0": {
+          "anchor": [
+            0.46703296703296704,
+            0.919047619047619
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_up1": {
+          "anchor": [
+            0.5049833887043189,
+            0.9829059829059829
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_up2": {
+          "anchor": [
+            0.4628099173553719,
+            0.9771689497716894
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_walk_up3": {
+          "anchor": [
+            0.5284090909090909,
+            0.9279279279279279
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_down0": {
+          "anchor": [
+            0.4942528735632184,
+            0.9423076923076923
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_down1": {
+          "anchor": [
+            0.5172413793103449,
+            0.93717277486911
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_down2": {
+          "anchor": [
+            0.5229885057471264,
+            0.8755186721991701
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_down3": {
+          "anchor": [
+            0.5445026178010471,
+            0.9420289855072463
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_left0": {
+          "anchor": [
+            0.4411764705882353,
+            0.9454545454545454
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_left1": {
+          "anchor": [
+            0.4927007299270073,
+            0.9277777777777778
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_left2": {
+          "anchor": [
+            0.43824701195219123,
+            0.898936170212766
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_left3": {
+          "anchor": [
+            0.5378787878787878,
+            0.9541284403669725
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_right0": {
+          "anchor": [
+            0.5583941605839416,
+            0.922077922077922
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_right1": {
+          "anchor": [
+            0.5830258302583026,
+            0.9130434782608695
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_right2": {
+          "anchor": [
+            0.6144578313253012,
+            0.8810810810810811
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_right3": {
+          "anchor": [
+            0.5498154981549815,
+            0.9304347826086956
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_up0": {
+          "anchor": [
+            0.4659090909090909,
+            0.9461883408071748
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_up1": {
+          "anchor": [
+            0.5027932960893855,
+            0.9405405405405406
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_up2": {
+          "anchor": [
+            0.47540983606557374,
+            0.9398907103825137
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_attack_up3": {
+          "anchor": [
+            0.5706214689265536,
+            0.9422222222222222
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_down0": {
+          "anchor": [
+            0.4888888888888889,
+            0.9391304347826087
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_down1": {
+          "anchor": [
+            0.5358490566037736,
+            0.9344978165938864
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_down2": {
+          "anchor": [
+            0.5336538461538461,
+            0.9264705882352942
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_down3": {
+          "anchor": [
+            0.47593582887700536,
+            0.9389671361502347
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_left0": {
+          "anchor": [
+            0.4372623574144487,
+            0.9419642857142857
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_left1": {
+          "anchor": [
+            0.4346153846153846,
+            0.9504132231404959
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_left2": {
+          "anchor": [
+            0.48771929824561405,
+            0.945273631840796
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_left3": {
+          "anchor": [
+            0.4703703703703704,
+            0.9392523364485982
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_right0": {
+          "anchor": [
+            0.592156862745098,
+            0.933920704845815
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_right1": {
+          "anchor": [
+            0.6111111111111112,
+            0.9456066945606695
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_right2": {
+          "anchor": [
+            0.5514705882352942,
+            0.9259259259259259
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_right3": {
+          "anchor": [
+            0.5531135531135531,
+            0.9348837209302325
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_up0": {
+          "anchor": [
+            0.5027027027027027,
+            0.9057377049180327
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_up1": {
+          "anchor": [
+            0.5454545454545454,
+            0.9456066945606695
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_up2": {
+          "anchor": [
+            0.5111111111111111,
+            0.8870967741935484
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_hurt_up3": {
+          "anchor": [
+            0.5,
+            0.9176954732510288
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_left0": {
+          "anchor": [
+            0.4461538461538462,
+            0.9068627450980392
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_left1": {
+          "anchor": [
+            0.4448669201520912,
+            0.9266666666666666
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_left2": {
+          "anchor": [
+            0.5124555160142349,
+            0.940677966101695
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_left3": {
+          "anchor": [
+            0.5224913494809689,
+            0.926605504587156
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_right0": {
+          "anchor": [
+            0.583969465648855,
+            0.9528301886792453
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_right1": {
+          "anchor": [
+            0.6074074074074074,
+            0.9433962264150944
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_right2": {
+          "anchor": [
+            0.5263157894736842,
+            0.9298245614035088
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_right3": {
+          "anchor": [
+            0.5347222222222222,
+            0.9333333333333333
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_up0": {
+          "anchor": [
+            0.4727272727272727,
+            0.918918918918919
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_up1": {
+          "anchor": [
+            0.47794117647058826,
+            0.8848484848484849
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_up2": {
+          "anchor": [
+            0.5055762081784386,
+            0.9236111111111112
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_up3": {
+          "anchor": [
+            0.5404040404040404,
+            0.879746835443038
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_fall_down0": {
+          "anchor": [
+            0.4972067039106145,
+            0.9745958429561201
+          ],
+          "scale": 0.0225
+        },
+        "av334_ash_crow_fall_down1": {
+          "anchor": [
+            0.5084745762711864,
+            0.976878612716763
+          ],
+          "scale": 0.0225
+        },
+        "av334_ash_crow_fall_down2": {
+          "anchor": [
+            0.5009523809523809,
+            0.9512195121951219
+          ],
+          "scale": 0.0225
+        },
+        "av334_ash_crow_fall_down3": {
+          "anchor": [
+            0.5086042065009561,
+            0.9656160458452722
+          ],
+          "scale": 0.0225
+        },
+        "av334_ash_crow_sleep_down0": {
+          "anchor": [
+            0.44711538461538464,
+            0.9261363636363636
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_down1": {
+          "anchor": [
+            0.4525862068965517,
+            0.9259259259259259
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_down2": {
+          "anchor": [
+            0.49344978165938863,
+            0.92
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_down3": {
+          "anchor": [
+            0.47767857142857145,
+            0.9314285714285714
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_left0": {
+          "anchor": [
+            0.3551020408163265,
+            0.9318181818181818
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_left1": {
+          "anchor": [
+            0.38823529411764707,
+            0.9421965317919075
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_left2": {
+          "anchor": [
+            0.41295546558704455,
+            0.930635838150289
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_left3": {
+          "anchor": [
+            0.42338709677419356,
+            0.9415204678362573
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_right0": {
+          "anchor": [
+            0.6007905138339921,
+            0.943502824858757
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_right1": {
+          "anchor": [
+            0.6015037593984962,
+            0.9344262295081968
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_right2": {
+          "anchor": [
+            0.5737051792828686,
+            0.9333333333333333
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_right3": {
+          "anchor": [
+            0.5653846153846154,
+            0.9398907103825137
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_up0": {
+          "anchor": [
+            0.4950980392156863,
+            0.9215686274509803
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_up1": {
+          "anchor": [
+            0.5145631067961165,
+            0.926829268292683
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_up2": {
+          "anchor": [
+            0.5576923076923077,
+            0.9154228855721394
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_sleep_up3": {
+          "anchor": [
+            0.5228426395939086,
+            0.9158415841584159
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_down0": {
+          "anchor": [
+            0.5086705202312138,
+            0.9285714285714286
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_down1": {
+          "anchor": [
+            0.5263157894736842,
+            0.9487179487179487
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_down2": {
+          "anchor": [
+            0.5294117647058824,
+            0.944954128440367
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_down3": {
+          "anchor": [
+            0.4540229885057471,
+            0.957983193277311
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_left0": {
+          "anchor": [
+            0.3770491803278688,
+            0.9245283018867925
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_left1": {
+          "anchor": [
+            0.375968992248062,
+            0.9259259259259259
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_left2": {
+          "anchor": [
+            0.4340277777777778,
+            0.9383886255924171
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_left3": {
+          "anchor": [
+            0.4904214559386973,
+            0.9453781512605042
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_right0": {
+          "anchor": [
+            0.6095617529880478,
+            0.9161676646706587
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_right1": {
+          "anchor": [
+            0.6680672268907563,
+            0.9329896907216495
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_right2": {
+          "anchor": [
+            0.6236162361623616,
+            0.9308755760368663
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_right3": {
+          "anchor": [
+            0.5555555555555556,
+            0.9414225941422594
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_up0": {
+          "anchor": [
+            0.5027932960893855,
+            0.9027027027027027
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_up1": {
+          "anchor": [
+            0.4797687861271676,
+            0.9308755760368663
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_up2": {
+          "anchor": [
+            0.5197132616487455,
+            0.963302752293578
+          ],
+          "scale": 0.045
+        },
+        "av334_ash_crow_rise_up3": {
+          "anchor": [
+            0.5240963855421686,
+            0.9330708661417323
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_down0": {
+          "anchor": [
+            0.5086705202312138,
+            0.9485981308411215
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_down1": {
+          "anchor": [
+            0.5340909090909091,
+            0.9533678756476683
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_down2": {
+          "anchor": [
+            0.5086705202312138,
+            0.8717948717948718
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_down3": {
+          "anchor": [
+            0.5,
+            0.9530516431924883
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_left0": {
+          "anchor": [
+            0.4111111111111111,
+            0.9276018099547512
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_left1": {
+          "anchor": [
+            0.4372623574144487,
+            0.9239130434782609
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_left2": {
+          "anchor": [
+            0.464,
+            0.8844221105527639
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_left3": {
+          "anchor": [
+            0.4588235294117647,
+            0.9383259911894273
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_right0": {
+          "anchor": [
+            0.5276752767527675,
+            0.9416666666666667
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_right1": {
+          "anchor": [
+            0.38022813688212925,
+            0.9392265193370166
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_right2": {
+          "anchor": [
+            0.3952569169960474,
+            0.8563829787234043
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_right3": {
+          "anchor": [
+            0.6159695817490495,
+            0.948936170212766
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_up0": {
+          "anchor": [
+            0.4972067039106145,
+            0.9037656903765691
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_up1": {
+          "anchor": [
+            0.5170454545454546,
+            0.910377358490566
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_up2": {
+          "anchor": [
+            0.48314606741573035,
+            0.9162790697674419
+          ],
+          "scale": 0.045
+        },
+        "av337_ash_crow_work_up3": {
+          "anchor": [
+            0.5114942528735632,
+            0.9208333333333333
+          ],
+          "scale": 0.045
+        },
+        "av338_ash_crow_flight_down0": {
+          "anchor": [
+            0.4981549815498155,
+            0.7916666666666666
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_down1": {
+          "anchor": [
+            0.4972067039106145,
+            0.6773049645390071
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_down2": {
+          "anchor": [
+            0.4979253112033195,
+            0.4647058823529412
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_down3": {
+          "anchor": [
+            0.5157342657342657,
+            0.7419354838709677
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_left0": {
+          "anchor": [
+            0.4613733905579399,
+            0.8400900900900901
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_left1": {
+          "anchor": [
+            0.4191374663072776,
+            0.7410071942446043
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_left2": {
+          "anchor": [
+            0.4359504132231405,
+            0.40705128205128205
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_left3": {
+          "anchor": [
+            0.43722943722943725,
+            0.8247126436781609
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_right0": {
+          "anchor": [
+            0.5043478260869565,
+            0.8461538461538461
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_right1": {
+          "anchor": [
+            0.532345013477089,
+            0.774074074074074
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_right2": {
+          "anchor": [
+            0.5158730158730159,
+            0.4146341463414634
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_right3": {
+          "anchor": [
+            0.4827586206896552,
+            0.8502673796791443
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_up0": {
+          "anchor": [
+            0.5,
+            0.6887550200803213
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_up1": {
+          "anchor": [
+            0.49606299212598426,
+            0.5490196078431373
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_up2": {
+          "anchor": [
+            0.5019305019305019,
+            0.49421965317919075
+          ],
+          "scale": 0.055
+        },
+        "av338_ash_crow_flight_up3": {
+          "anchor": [
+            0.4981481481481482,
+            0.648989898989899
+          ],
+          "scale": 0.055
+        }
+      }
     }
   },
   "entries": [
@@ -122736,6 +125081,14 @@
       "frame": "av333_tuskhog_idle_down0",
       "character": "av331_tuskhog",
       "scale": 0.12
+    },
+    {
+      "id": "av331_ash_crow",
+      "label": "재까마귀",
+      "kind": "actors",
+      "frame": "av334_ash_crow_idle_down0",
+      "character": "av331_ash_crow",
+      "scale": 0.045
     },
     {
       "id": "portrait:hero",
@@ -123299,6 +125652,36 @@
       "grid": [
         2,
         2
+      ]
+    },
+    {
+      "id": "Item.CrowFeathers",
+      "label": "재까마귀 깃털 꾸러미",
+      "kind": "items",
+      "frame": "av331_crow_feathers",
+      "grid": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "Item.CarrionMorsel",
+      "label": "뜯긴 고기 조각",
+      "kind": "items",
+      "frame": "complete_item_raw_meat",
+      "grid": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "Item.RoastedMorsel",
+      "label": "구운 고기 조각",
+      "kind": "items",
+      "frame": "complete_item_roasted_meat",
+      "grid": [
+        1,
+        1
       ]
     },
     {
@@ -171330,6 +173713,876 @@
       "label": "av336_wild_ashberry_spent3",
       "kind": "frames",
       "frame": "av336_wild_ashberry_spent3"
+    },
+    {
+      "id": "av334_ash_crow_idle_down0",
+      "label": "av334_ash_crow_idle_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_down0"
+    },
+    {
+      "id": "av334_ash_crow_idle_down1",
+      "label": "av334_ash_crow_idle_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_down1"
+    },
+    {
+      "id": "av334_ash_crow_idle_down2",
+      "label": "av334_ash_crow_idle_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_down2"
+    },
+    {
+      "id": "av334_ash_crow_idle_down3",
+      "label": "av334_ash_crow_idle_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_down3"
+    },
+    {
+      "id": "av334_ash_crow_idle_left0",
+      "label": "av334_ash_crow_idle_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_left0"
+    },
+    {
+      "id": "av334_ash_crow_idle_left1",
+      "label": "av334_ash_crow_idle_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_left1"
+    },
+    {
+      "id": "av334_ash_crow_idle_left2",
+      "label": "av334_ash_crow_idle_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_left2"
+    },
+    {
+      "id": "av334_ash_crow_idle_left3",
+      "label": "av334_ash_crow_idle_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_left3"
+    },
+    {
+      "id": "av334_ash_crow_idle_right0",
+      "label": "av334_ash_crow_idle_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_right0"
+    },
+    {
+      "id": "av334_ash_crow_idle_right1",
+      "label": "av334_ash_crow_idle_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_right1"
+    },
+    {
+      "id": "av334_ash_crow_idle_right2",
+      "label": "av334_ash_crow_idle_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_right2"
+    },
+    {
+      "id": "av334_ash_crow_idle_right3",
+      "label": "av334_ash_crow_idle_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_right3"
+    },
+    {
+      "id": "av334_ash_crow_idle_up0",
+      "label": "av334_ash_crow_idle_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_up0"
+    },
+    {
+      "id": "av334_ash_crow_idle_up1",
+      "label": "av334_ash_crow_idle_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_up1"
+    },
+    {
+      "id": "av334_ash_crow_idle_up2",
+      "label": "av334_ash_crow_idle_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_up2"
+    },
+    {
+      "id": "av334_ash_crow_idle_up3",
+      "label": "av334_ash_crow_idle_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_idle_up3"
+    },
+    {
+      "id": "av334_ash_crow_walk_down0",
+      "label": "av334_ash_crow_walk_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_down0"
+    },
+    {
+      "id": "av334_ash_crow_walk_down1",
+      "label": "av334_ash_crow_walk_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_down1"
+    },
+    {
+      "id": "av334_ash_crow_walk_down2",
+      "label": "av334_ash_crow_walk_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_down2"
+    },
+    {
+      "id": "av334_ash_crow_walk_down3",
+      "label": "av334_ash_crow_walk_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_down3"
+    },
+    {
+      "id": "av334_ash_crow_walk_left0",
+      "label": "av334_ash_crow_walk_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_left0"
+    },
+    {
+      "id": "av334_ash_crow_walk_left1",
+      "label": "av334_ash_crow_walk_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_left1"
+    },
+    {
+      "id": "av334_ash_crow_walk_left2",
+      "label": "av334_ash_crow_walk_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_left2"
+    },
+    {
+      "id": "av334_ash_crow_walk_left3",
+      "label": "av334_ash_crow_walk_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_left3"
+    },
+    {
+      "id": "av334_ash_crow_walk_right0",
+      "label": "av334_ash_crow_walk_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_right0"
+    },
+    {
+      "id": "av334_ash_crow_walk_right1",
+      "label": "av334_ash_crow_walk_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_right1"
+    },
+    {
+      "id": "av334_ash_crow_walk_right2",
+      "label": "av334_ash_crow_walk_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_right2"
+    },
+    {
+      "id": "av334_ash_crow_walk_right3",
+      "label": "av334_ash_crow_walk_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_right3"
+    },
+    {
+      "id": "av334_ash_crow_walk_up0",
+      "label": "av334_ash_crow_walk_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_up0"
+    },
+    {
+      "id": "av334_ash_crow_walk_up1",
+      "label": "av334_ash_crow_walk_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_up1"
+    },
+    {
+      "id": "av334_ash_crow_walk_up2",
+      "label": "av334_ash_crow_walk_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_up2"
+    },
+    {
+      "id": "av334_ash_crow_walk_up3",
+      "label": "av334_ash_crow_walk_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_walk_up3"
+    },
+    {
+      "id": "av334_ash_crow_attack_down0",
+      "label": "av334_ash_crow_attack_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_down0"
+    },
+    {
+      "id": "av334_ash_crow_attack_down1",
+      "label": "av334_ash_crow_attack_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_down1"
+    },
+    {
+      "id": "av334_ash_crow_attack_down2",
+      "label": "av334_ash_crow_attack_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_down2"
+    },
+    {
+      "id": "av334_ash_crow_attack_down3",
+      "label": "av334_ash_crow_attack_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_down3"
+    },
+    {
+      "id": "av334_ash_crow_attack_left0",
+      "label": "av334_ash_crow_attack_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_left0"
+    },
+    {
+      "id": "av334_ash_crow_attack_left1",
+      "label": "av334_ash_crow_attack_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_left1"
+    },
+    {
+      "id": "av334_ash_crow_attack_left2",
+      "label": "av334_ash_crow_attack_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_left2"
+    },
+    {
+      "id": "av334_ash_crow_attack_left3",
+      "label": "av334_ash_crow_attack_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_left3"
+    },
+    {
+      "id": "av334_ash_crow_attack_right0",
+      "label": "av334_ash_crow_attack_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_right0"
+    },
+    {
+      "id": "av334_ash_crow_attack_right1",
+      "label": "av334_ash_crow_attack_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_right1"
+    },
+    {
+      "id": "av334_ash_crow_attack_right2",
+      "label": "av334_ash_crow_attack_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_right2"
+    },
+    {
+      "id": "av334_ash_crow_attack_right3",
+      "label": "av334_ash_crow_attack_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_right3"
+    },
+    {
+      "id": "av334_ash_crow_attack_up0",
+      "label": "av334_ash_crow_attack_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_up0"
+    },
+    {
+      "id": "av334_ash_crow_attack_up1",
+      "label": "av334_ash_crow_attack_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_up1"
+    },
+    {
+      "id": "av334_ash_crow_attack_up2",
+      "label": "av334_ash_crow_attack_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_up2"
+    },
+    {
+      "id": "av334_ash_crow_attack_up3",
+      "label": "av334_ash_crow_attack_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_attack_up3"
+    },
+    {
+      "id": "av334_ash_crow_hurt_down0",
+      "label": "av334_ash_crow_hurt_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_down0"
+    },
+    {
+      "id": "av334_ash_crow_hurt_down1",
+      "label": "av334_ash_crow_hurt_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_down1"
+    },
+    {
+      "id": "av334_ash_crow_hurt_down2",
+      "label": "av334_ash_crow_hurt_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_down2"
+    },
+    {
+      "id": "av334_ash_crow_hurt_down3",
+      "label": "av334_ash_crow_hurt_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_down3"
+    },
+    {
+      "id": "av334_ash_crow_hurt_left0",
+      "label": "av334_ash_crow_hurt_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_left0"
+    },
+    {
+      "id": "av334_ash_crow_hurt_left1",
+      "label": "av334_ash_crow_hurt_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_left1"
+    },
+    {
+      "id": "av334_ash_crow_hurt_left2",
+      "label": "av334_ash_crow_hurt_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_left2"
+    },
+    {
+      "id": "av334_ash_crow_hurt_left3",
+      "label": "av334_ash_crow_hurt_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_left3"
+    },
+    {
+      "id": "av334_ash_crow_hurt_right0",
+      "label": "av334_ash_crow_hurt_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_right0"
+    },
+    {
+      "id": "av334_ash_crow_hurt_right1",
+      "label": "av334_ash_crow_hurt_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_right1"
+    },
+    {
+      "id": "av334_ash_crow_hurt_right2",
+      "label": "av334_ash_crow_hurt_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_right2"
+    },
+    {
+      "id": "av334_ash_crow_hurt_right3",
+      "label": "av334_ash_crow_hurt_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_right3"
+    },
+    {
+      "id": "av334_ash_crow_hurt_up0",
+      "label": "av334_ash_crow_hurt_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_up0"
+    },
+    {
+      "id": "av334_ash_crow_hurt_up1",
+      "label": "av334_ash_crow_hurt_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_up1"
+    },
+    {
+      "id": "av334_ash_crow_hurt_up2",
+      "label": "av334_ash_crow_hurt_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_up2"
+    },
+    {
+      "id": "av334_ash_crow_hurt_up3",
+      "label": "av334_ash_crow_hurt_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_hurt_up3"
+    },
+    {
+      "id": "av334_ash_crow_fall_left0",
+      "label": "av334_ash_crow_fall_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_left0"
+    },
+    {
+      "id": "av334_ash_crow_fall_left1",
+      "label": "av334_ash_crow_fall_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_left1"
+    },
+    {
+      "id": "av334_ash_crow_fall_left2",
+      "label": "av334_ash_crow_fall_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_left2"
+    },
+    {
+      "id": "av334_ash_crow_fall_left3",
+      "label": "av334_ash_crow_fall_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_left3"
+    },
+    {
+      "id": "av334_ash_crow_fall_right0",
+      "label": "av334_ash_crow_fall_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_right0"
+    },
+    {
+      "id": "av334_ash_crow_fall_right1",
+      "label": "av334_ash_crow_fall_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_right1"
+    },
+    {
+      "id": "av334_ash_crow_fall_right2",
+      "label": "av334_ash_crow_fall_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_right2"
+    },
+    {
+      "id": "av334_ash_crow_fall_right3",
+      "label": "av334_ash_crow_fall_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_right3"
+    },
+    {
+      "id": "av334_ash_crow_fall_up0",
+      "label": "av334_ash_crow_fall_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_up0"
+    },
+    {
+      "id": "av334_ash_crow_fall_up1",
+      "label": "av334_ash_crow_fall_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_up1"
+    },
+    {
+      "id": "av334_ash_crow_fall_up2",
+      "label": "av334_ash_crow_fall_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_up2"
+    },
+    {
+      "id": "av334_ash_crow_fall_up3",
+      "label": "av334_ash_crow_fall_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_up3"
+    },
+    {
+      "id": "av334_ash_crow_fall_down0",
+      "label": "av334_ash_crow_fall_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_down0"
+    },
+    {
+      "id": "av334_ash_crow_fall_down1",
+      "label": "av334_ash_crow_fall_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_down1"
+    },
+    {
+      "id": "av334_ash_crow_fall_down2",
+      "label": "av334_ash_crow_fall_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_down2"
+    },
+    {
+      "id": "av334_ash_crow_fall_down3",
+      "label": "av334_ash_crow_fall_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_fall_down3"
+    },
+    {
+      "id": "av334_ash_crow_sleep_down0",
+      "label": "av334_ash_crow_sleep_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_down0"
+    },
+    {
+      "id": "av334_ash_crow_sleep_down1",
+      "label": "av334_ash_crow_sleep_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_down1"
+    },
+    {
+      "id": "av334_ash_crow_sleep_down2",
+      "label": "av334_ash_crow_sleep_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_down2"
+    },
+    {
+      "id": "av334_ash_crow_sleep_down3",
+      "label": "av334_ash_crow_sleep_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_down3"
+    },
+    {
+      "id": "av334_ash_crow_sleep_left0",
+      "label": "av334_ash_crow_sleep_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_left0"
+    },
+    {
+      "id": "av334_ash_crow_sleep_left1",
+      "label": "av334_ash_crow_sleep_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_left1"
+    },
+    {
+      "id": "av334_ash_crow_sleep_left2",
+      "label": "av334_ash_crow_sleep_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_left2"
+    },
+    {
+      "id": "av334_ash_crow_sleep_left3",
+      "label": "av334_ash_crow_sleep_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_left3"
+    },
+    {
+      "id": "av334_ash_crow_sleep_right0",
+      "label": "av334_ash_crow_sleep_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_right0"
+    },
+    {
+      "id": "av334_ash_crow_sleep_right1",
+      "label": "av334_ash_crow_sleep_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_right1"
+    },
+    {
+      "id": "av334_ash_crow_sleep_right2",
+      "label": "av334_ash_crow_sleep_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_right2"
+    },
+    {
+      "id": "av334_ash_crow_sleep_right3",
+      "label": "av334_ash_crow_sleep_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_right3"
+    },
+    {
+      "id": "av334_ash_crow_sleep_up0",
+      "label": "av334_ash_crow_sleep_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_up0"
+    },
+    {
+      "id": "av334_ash_crow_sleep_up1",
+      "label": "av334_ash_crow_sleep_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_up1"
+    },
+    {
+      "id": "av334_ash_crow_sleep_up2",
+      "label": "av334_ash_crow_sleep_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_up2"
+    },
+    {
+      "id": "av334_ash_crow_sleep_up3",
+      "label": "av334_ash_crow_sleep_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_sleep_up3"
+    },
+    {
+      "id": "av334_ash_crow_rise_down0",
+      "label": "av334_ash_crow_rise_down0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_down0"
+    },
+    {
+      "id": "av334_ash_crow_rise_down1",
+      "label": "av334_ash_crow_rise_down1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_down1"
+    },
+    {
+      "id": "av334_ash_crow_rise_down2",
+      "label": "av334_ash_crow_rise_down2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_down2"
+    },
+    {
+      "id": "av334_ash_crow_rise_down3",
+      "label": "av334_ash_crow_rise_down3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_down3"
+    },
+    {
+      "id": "av334_ash_crow_rise_left0",
+      "label": "av334_ash_crow_rise_left0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_left0"
+    },
+    {
+      "id": "av334_ash_crow_rise_left1",
+      "label": "av334_ash_crow_rise_left1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_left1"
+    },
+    {
+      "id": "av334_ash_crow_rise_left2",
+      "label": "av334_ash_crow_rise_left2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_left2"
+    },
+    {
+      "id": "av334_ash_crow_rise_left3",
+      "label": "av334_ash_crow_rise_left3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_left3"
+    },
+    {
+      "id": "av334_ash_crow_rise_right0",
+      "label": "av334_ash_crow_rise_right0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_right0"
+    },
+    {
+      "id": "av334_ash_crow_rise_right1",
+      "label": "av334_ash_crow_rise_right1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_right1"
+    },
+    {
+      "id": "av334_ash_crow_rise_right2",
+      "label": "av334_ash_crow_rise_right2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_right2"
+    },
+    {
+      "id": "av334_ash_crow_rise_right3",
+      "label": "av334_ash_crow_rise_right3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_right3"
+    },
+    {
+      "id": "av334_ash_crow_rise_up0",
+      "label": "av334_ash_crow_rise_up0",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_up0"
+    },
+    {
+      "id": "av334_ash_crow_rise_up1",
+      "label": "av334_ash_crow_rise_up1",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_up1"
+    },
+    {
+      "id": "av334_ash_crow_rise_up2",
+      "label": "av334_ash_crow_rise_up2",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_up2"
+    },
+    {
+      "id": "av334_ash_crow_rise_up3",
+      "label": "av334_ash_crow_rise_up3",
+      "kind": "frames",
+      "frame": "av334_ash_crow_rise_up3"
+    },
+    {
+      "id": "av337_ash_crow_work_down0",
+      "label": "av337_ash_crow_work_down0",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_down0"
+    },
+    {
+      "id": "av337_ash_crow_work_down1",
+      "label": "av337_ash_crow_work_down1",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_down1"
+    },
+    {
+      "id": "av337_ash_crow_work_down2",
+      "label": "av337_ash_crow_work_down2",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_down2"
+    },
+    {
+      "id": "av337_ash_crow_work_down3",
+      "label": "av337_ash_crow_work_down3",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_down3"
+    },
+    {
+      "id": "av337_ash_crow_work_left0",
+      "label": "av337_ash_crow_work_left0",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_left0"
+    },
+    {
+      "id": "av337_ash_crow_work_left1",
+      "label": "av337_ash_crow_work_left1",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_left1"
+    },
+    {
+      "id": "av337_ash_crow_work_left2",
+      "label": "av337_ash_crow_work_left2",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_left2"
+    },
+    {
+      "id": "av337_ash_crow_work_left3",
+      "label": "av337_ash_crow_work_left3",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_left3"
+    },
+    {
+      "id": "av337_ash_crow_work_right0",
+      "label": "av337_ash_crow_work_right0",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_right0"
+    },
+    {
+      "id": "av337_ash_crow_work_right1",
+      "label": "av337_ash_crow_work_right1",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_right1"
+    },
+    {
+      "id": "av337_ash_crow_work_right2",
+      "label": "av337_ash_crow_work_right2",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_right2"
+    },
+    {
+      "id": "av337_ash_crow_work_right3",
+      "label": "av337_ash_crow_work_right3",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_right3"
+    },
+    {
+      "id": "av337_ash_crow_work_up0",
+      "label": "av337_ash_crow_work_up0",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_up0"
+    },
+    {
+      "id": "av337_ash_crow_work_up1",
+      "label": "av337_ash_crow_work_up1",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_up1"
+    },
+    {
+      "id": "av337_ash_crow_work_up2",
+      "label": "av337_ash_crow_work_up2",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_up2"
+    },
+    {
+      "id": "av337_ash_crow_work_up3",
+      "label": "av337_ash_crow_work_up3",
+      "kind": "frames",
+      "frame": "av337_ash_crow_work_up3"
+    },
+    {
+      "id": "av331_crow_feathers",
+      "label": "av331_crow_feathers",
+      "kind": "frames",
+      "frame": "av331_crow_feathers"
+    },
+    {
+      "id": "av338_ash_crow_flight_down0",
+      "label": "av338_ash_crow_flight_down0",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_down0"
+    },
+    {
+      "id": "av338_ash_crow_flight_down1",
+      "label": "av338_ash_crow_flight_down1",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_down1"
+    },
+    {
+      "id": "av338_ash_crow_flight_down2",
+      "label": "av338_ash_crow_flight_down2",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_down2"
+    },
+    {
+      "id": "av338_ash_crow_flight_down3",
+      "label": "av338_ash_crow_flight_down3",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_down3"
+    },
+    {
+      "id": "av338_ash_crow_flight_left0",
+      "label": "av338_ash_crow_flight_left0",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_left0"
+    },
+    {
+      "id": "av338_ash_crow_flight_left1",
+      "label": "av338_ash_crow_flight_left1",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_left1"
+    },
+    {
+      "id": "av338_ash_crow_flight_left2",
+      "label": "av338_ash_crow_flight_left2",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_left2"
+    },
+    {
+      "id": "av338_ash_crow_flight_left3",
+      "label": "av338_ash_crow_flight_left3",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_left3"
+    },
+    {
+      "id": "av338_ash_crow_flight_right0",
+      "label": "av338_ash_crow_flight_right0",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_right0"
+    },
+    {
+      "id": "av338_ash_crow_flight_right1",
+      "label": "av338_ash_crow_flight_right1",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_right1"
+    },
+    {
+      "id": "av338_ash_crow_flight_right2",
+      "label": "av338_ash_crow_flight_right2",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_right2"
+    },
+    {
+      "id": "av338_ash_crow_flight_right3",
+      "label": "av338_ash_crow_flight_right3",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_right3"
+    },
+    {
+      "id": "av338_ash_crow_flight_up0",
+      "label": "av338_ash_crow_flight_up0",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_up0"
+    },
+    {
+      "id": "av338_ash_crow_flight_up1",
+      "label": "av338_ash_crow_flight_up1",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_up1"
+    },
+    {
+      "id": "av338_ash_crow_flight_up2",
+      "label": "av338_ash_crow_flight_up2",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_up2"
+    },
+    {
+      "id": "av338_ash_crow_flight_up3",
+      "label": "av338_ash_crow_flight_up3",
+      "kind": "frames",
+      "frame": "av338_ash_crow_flight_up3"
     }
   ]
 }
