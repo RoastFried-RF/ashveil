@@ -15,6 +15,7 @@ import { preferences, preferencesOpen } from './preferences'
 import HoverInfo from './HoverInfo.vue'
 import LogPanel from './LogPanel.vue'
 import MapView from './MapView.vue'
+import {mapAssetsLoading} from './map-asset-state'
 import type { RenderOpts } from './render/MapRenderer'
 import { abandonToTitle, saveImprint, saveStatus, saveError, version, simulating, world, pendingCheckpoint } from './store'
 import CheckpointControls from './CheckpointControls.vue'
@@ -191,7 +192,7 @@ const WINDOW_COMMANDS:Partial<Record<Command,WinKey>>={character:'char',inventor
 function clearPrefix(){if(prefix.value){prefix.value=null;hint.value=null}}
 function clearKeys(){keyRepeat.clear();shift.value=false;clearPrefix()}
 function suspendInput(){stopTravel();clearKeys()}
-watch([preferencesOpen,definitionInspectorOpen,help,pendingCheckpoint],([settings,inspector,helpOpen,checkpoint])=>{if(settings||inspector||helpOpen||checkpoint)suspendInput()},{flush:'sync'})
+watch([preferencesOpen,definitionInspectorOpen,help,pendingCheckpoint,mapAssetsLoading],([settings,inspector,helpOpen,checkpoint,assets])=>{if(settings||inspector||helpOpen||checkpoint||assets)suspendInput()},{flush:'sync'})
 watch(()=>Object.values(wins),()=>{if(Object.values(wins).some(Boolean))suspendInput()},{flush:'sync'})
 watch(targeting,t=>{if(t){suspendInput();document.querySelector<HTMLElement>('[data-testid=map]')?.focus({preventScroll:true})}},{flush:'sync'})
 function allowMovement(){
@@ -202,7 +203,7 @@ function allowMovement(){
 function onFocusIn(e:FocusEvent){if(e.target instanceof HTMLElement&&e.target.closest('.window-shell,button,summary,a[href],input,textarea,select,[contenteditable="true"]'))suspendInput()}
 function onUiPointer(e:PointerEvent){if(e.target instanceof HTMLElement&&e.target.closest('button,input,select,textarea,[role="dialog"],[role="menu"]'))suspendInput()}
 function onKey(raw:KeyboardEvent){
- if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value)return
+ if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value||mapAssetsLoading.value)return
  if(help.value){
   if(raw.key==='Escape'&&!raw.repeat){raw.preventDefault();help.value=false}
   else if(raw.key==='Tab'&&helpDialog.value)cycleFocus(helpDialog.value,raw)
@@ -300,7 +301,7 @@ function onKey(raw:KeyboardEvent){
 function onKeyUp(e:KeyboardEvent){keyRepeat.release(e.code);if(e.key==='Shift')shift.value=false}
 
 function onClick(p: Pos, button: number, ctrl=false) {
-  if(preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value||help.value||over.value)return
+  if(preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value||help.value||over.value||mapAssetsLoading.value)return
   resumeDest.value = null
   clearPrefix()
   hideTip()

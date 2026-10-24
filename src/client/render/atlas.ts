@@ -4,6 +4,8 @@ import { Assets, Rectangle, Texture } from 'pixi.js'
 import manifest from '../sprites.json'
 import {modTextureUrl} from '../mod-texture-display'
 import type {MotionName} from './character-motion'
+import {atlasPlan} from './atlas-plan'
+import {AssetLifecycle} from './asset-lifecycle'
 
 export interface CharDef {
   walk: Record<Dir, string[]>
@@ -49,7 +51,12 @@ export const uiUrls = M.ui
 const sheets = new Map<string, Texture>()
 const cache = new Map<string, Texture>()
 const icons = new Map<string, Texture>()
-let atlasGeneration=0
+const defaultOwner={}
+const loadedIconUrls=new Map<string,string>()
+let activePlan:ReturnType<typeof atlasPlan>|undefined
+const lifecycle=new AssetLifecycle<Texture>({load:async url=>{
+ try{const texture=await Assets.load<Texture>(url);texture.source.scaleMode='nearest';return texture}catch(error){try{await Assets.unload(url)}catch{/* allow a real retry */}throw error}
+},unload:async url=>{await Assets.unload(url)}})
 const sheetExtent=new Map<string,{width:number;height:number}>()
 for(const[sheet,x,y,w,h]of Object.values(M.frames)){
   const prior=sheetExtent.get(sheet)??{width:0,height:0}
@@ -61,25 +68,33 @@ export function base(): string {
   return import.meta.env.BASE_URL
 }
 
-export async function loadAtlas(iconNames: string[]) {
-  const ticket=++atlasGeneration
-  const b = base()
-  const retired=new Set(M.characterSheetHistory??[]),required=new Set<string>()
-  const need=(key:string)=>{const frame=M.frames[key];if(frame)required.add(frame[0])}
-  for(const character of Object.values(M.chars)){
-    for(const clip of [character.walk,character.idle,character.attack,...Object.values(character.motions??{})])if(clip)for(const frames of Object.values(clip))frames.forEach(need)
-    if(character.portrait)need(character.portrait)
-  }
-  for(const animation of Object.values(M.anims))animation.frames.forEach(need)
-  iconNames.forEach(need)
-  const sheetUrls = Object.entries(M.sheets).filter(([key])=>!retired.has(key)||required.has(key)).map(([k, v]) => [k, b + v] as const)
-  const iconUrls = [...new Set(iconNames)].filter(n=>!M.frames[n]&&!M.chars[n]&&!M.anims[n]).map((n) => [n, iconUrl(n)] as const)
-  const all = await Assets.load([...sheetUrls.map((x) => x[1]), ...iconUrls.map((x) => x[1])])
-  if(ticket!==atlasGeneration)return false
-  for (const [k, u] of sheetUrls) sheets.set(k, all[u] as Texture)
-  icons.clear()
-  for (const [k, u] of iconUrls) if (all[u]) icons.set(k, all[u] as Texture)
-  return true
+function resources(iconNames:readonly string[],characterNames:readonly string[]){
+ const plan=atlasPlan(M,iconNames,characterNames)
+ return{plan,sheetUrls:plan.sheets.map(key=>[key,base()+M.sheets[key]]as const),iconUrls:plan.fallback.map(key=>[key,iconUrl(key)]as const)}
+}
+export function atlasReady(iconNames:readonly string[],characterNames:readonly string[]){
+ const request=resources(iconNames,characterNames)
+ return request.sheetUrls.every(([key])=>sheets.has(key))&&request.iconUrls.every(([key,url])=>icons.has(key)&&loadedIconUrls.get(key)===url)
+}
+export function loadAtlas(iconNames:readonly string[],characterNames:readonly string[]=Object.keys(M.chars),owner:object=defaultOwner,apply?:()=>void) {
+ const request=resources(iconNames,characterNames)
+ return lifecycle.use(owner,[...request.sheetUrls.map(([,url])=>url),...request.iconUrls.map(([,url])=>url)],all=>{
+  for(const[key,url]of request.sheetUrls)sheets.set(key,all.get(url)!)
+  for(const[key,url]of request.iconUrls){icons.set(key,all.get(url)!);loadedIconUrls.set(key,url)}
+  apply?.()
+  // Old sprites have now been removed; only their unused original sheets are freed.
+  const retained=new Set(request.plan.sheets),sourceSet=new Set(request.sheetUrls.map(([key])=>sheets.get(key)!.source)),fallback=new Set(request.plan.fallback)
+  for(const[key,texture]of cache)if(!sourceSet.has(texture.source)){texture.destroy(false);cache.delete(key)}
+  for(const key of sheets.keys())if(!retained.has(key))sheets.delete(key)
+  for(const key of icons.keys())if(!fallback.has(key)){icons.delete(key);loadedIconUrls.delete(key)}
+  activePlan=request.plan
+ })
+}
+export function releaseAtlas(owner:object=defaultOwner){
+ return lifecycle.release(owner,()=>{for(const texture of cache.values())texture.destroy(false);cache.clear();sheets.clear();icons.clear();loadedIconUrls.clear();activePlan=undefined})
+}
+export function atlasStats(){
+ return{loadedSheets:sheets.size,cachedFrames:cache.size,estimatedDecodedBytes:activePlan?.estimatedDecodedBytes??0}
 }
 
 /** sprites.json 프레임 이름 → 텍스처 */

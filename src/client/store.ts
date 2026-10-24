@@ -4,6 +4,7 @@
 import { ref, shallowRef, triggerRef, watch } from 'vue'
 import {setDisplayedModTextures} from './mod-texture-display'
 import {gameObservation} from './game-observation'
+import {mapAssetsLoading} from './map-asset-state'
 import {
   IMPRINT_MODE, currentSaveMode, saveModeDef, checkpointQuote, GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
   type Action, type DefDatabase, type DeathReport, type LoadReport, type World,
@@ -323,6 +324,7 @@ function resumeSimulation(w: World) {
 export function act(a: Action, immediate = false): string | null {
   const w = world.value
   if (!w || w.s.over) return null
+  if(mapAssetsLoading.value&&a.type!=='stopActivity')return '지도를 펼치는 중이다'
   if(pendingCheckpoint.value||checkpointBusy.value)return '저장 지점 검토/저장을 마쳐야 한다'
   if (w.s.simulationPending && a.type !== 'stopActivity') return '시간이 흐르는 중이다'
   if (a.type === 'stopActivity') clearTimeout(simulationTimer)
