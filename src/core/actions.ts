@@ -1837,6 +1837,11 @@ export function activityStep(w: World, c: Creature): boolean {
   if(!clothingPairPresent(w,c,act)){c.activity=undefined;return true}
   const error = externalTreatmentError(w, c, act)
   if (error) { if (act.patientId === w.s.playerId) log(w, 'warn', `진료 중단: ${error}.`); interruptTreat(w, c); c.activity = undefined; return true }
+  // Turning toward a real adjacent patient is part of an actual clinical work turn, never a quote.
+  if(act.patientId!==undefined&&act.patientId!==c.id&&['treat','diagnose','dose'].includes(act.kind)){
+    const patient=creatureById(w,act.patientId)!,facing=dirIndex(patient.pos.x-c.pos.x,patient.pos.y-c.pos.y)
+    if(facing>=0)c.facing=facing
+  }
   recordTreatmentProgress(w, c, act)
   if((act.kind==='rest'||act.kind==='sleep')&&terrainAt(w,c.pos).bedding)c.beddingLying={map:beddingMapKey(w),pos:{...c.pos},until:turnOf(w)+1}
   act.remaining--

@@ -237,6 +237,8 @@ export interface ItemDef extends DefBase {
   unknownDescription?: string
   label: string
   sprite: string
+  /** 원본 그림의 손잡이/축. 표현 전용이며 사거리·피해·게임 시간을 바꾸지 않는다. */
+  heldSprite?: {grip:[number,number];axisDegrees:number;length:number;restDegrees?:number;tipFraction?:number}
   category: 'weapon' | 'apparel' | 'shield' | 'medical' | 'food' | 'drink' | 'drug' | 'tool' | 'ammo' | 'misc'
   weight: number
   /** 배낭 격자 크기 [가로, 세로] */

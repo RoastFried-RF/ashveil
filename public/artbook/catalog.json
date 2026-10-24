@@ -1,5 +1,5 @@
 {
-  "version": "0.323-dev",
+  "version": "0.331-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -319,7 +319,8 @@
     "av322_amalgam_combat_right_back": "sprites/original/direction-v322/amalgam-combat-right-back.png",
     "av322_amalgam_active_front_left": "sprites/original/direction-v322/amalgam-active-front-left.png",
     "av322_amalgam_active_right_back": "sprites/original/direction-v322/amalgam-active-right-back.png",
-    "av322_amalgam_ground_all": "sprites/original/direction-v322/amalgam-ground-all.png"
+    "av322_amalgam_ground_all": "sprites/original/direction-v322/amalgam-ground-all.png",
+    "av331_withered_censer": "sprites/original/direction-v331/withered-censer-clean.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1521,6 +1522,10 @@
     "av322_amalgam_ground_all": [
       1448,
       1086
+    ],
+    "av331_withered_censer": [
+      1024,
+      1536
     ]
   },
   "frames": {
@@ -52518,6 +52523,13 @@
       902,
       136,
       113
+    ],
+    "original_withered_censer": [
+      "av331_withered_censer",
+      329,
+      57,
+      366,
+      1387
     ]
   },
   "characters": {
@@ -120129,6 +120141,16 @@
       ]
     },
     {
+      "id": "Item.WitheredCenser",
+      "label": "꺼진 사슬 향로",
+      "kind": "items",
+      "frame": "original_withered_censer",
+      "grid": [
+        1,
+        2
+      ]
+    },
+    {
       "id": "Item.CorporateCodePlate",
       "label": "공사 인가 코드 판",
       "kind": "items",
@@ -164701,6 +164723,12 @@
       "label": "av322_amalgam_sleep_up1",
       "kind": "frames",
       "frame": "av322_amalgam_sleep_up1"
+    },
+    {
+      "id": "original_withered_censer",
+      "label": "original_withered_censer",
+      "kind": "frames",
+      "frame": "original_withered_censer"
     }
   ]
 }

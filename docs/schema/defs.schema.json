@@ -13208,6 +13208,161 @@
                   }
                 ]
               },
+              "heldSprite": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "grip": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "anyOf": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "axisDegrees": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "length": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "restDegrees": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "tipFraction": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "category": {
                 "anyOf": [
                   {
@@ -16763,6 +16918,41 @@
               },
               "sprite": {
                 "type": "string"
+              },
+              "heldSprite": {
+                "type": "object",
+                "properties": {
+                  "grip": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "axisDegrees": {
+                    "type": "number"
+                  },
+                  "length": {
+                    "type": "number"
+                  },
+                  "restDegrees": {
+                    "type": "number"
+                  },
+                  "tipFraction": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "grip",
+                  "axisDegrees",
+                  "length"
+                ]
               },
               "category": {
                 "enum": [

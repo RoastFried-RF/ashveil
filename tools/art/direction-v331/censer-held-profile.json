@@ -1,0 +1,44 @@
+{
+  "status": "integrated-v331",
+  "item": "Item.WitheredCenser",
+  "sprite": "original_withered_censer",
+  "sourcePixelsModified": false,
+  "frameRect": [
+    329,
+    57,
+    366,
+    1387
+  ],
+  "gripSourcePixel": [
+    512,
+    145
+  ],
+  "gripNormalized": [
+    0.5,
+    0.06344628695025234
+  ],
+  "axisRadians": 1.5707963267948966,
+  "lengthWorldPx": 18,
+  "tipReachFactor": 0.9365537130497477,
+  "restAimRadians": 1.5707963267948966,
+  "attackStyle": "smash",
+  "twoHanded": false,
+  "blocking": false,
+  "notes": [
+    "원본은 손잡이 위/향통 아래다. 기본 club의 grip[.52,.81], axis=-PI/2를 적용하면 손잡이와 방향이 틀린다.",
+    "axis는 원본의 손잡이→추 방향(+PI/2), restAim도 +PI/2여야 추를 아래로 매달린다. 공격 때는 smash 궤적의 실제 목표 방향을 향한다.",
+    "MapRenderer의 reach=length*(axis===0?1-gripX:gripY)는 위쪽 팁 전용이므로 아래쪽 팁은 length*(1-gripY)로 구한다.",
+    "heldPose가 그리는 고정 손과 실제 patient 원화 손목의 일치, 사슬 휘어짐은 이번 JSON/원본 묶음에서 완성되지 않았다.",
+    "현재 artist 프레임은 원본 alpha>=8 바깥으로2px 여백을 두고 지정했다. 투명 바이트를 재작성하지 않는다."
+  ],
+  "integration": {
+    "binding": "Item.WitheredCenser.heldSprite",
+    "reviewCorrection": "initial28 world-pixel proposal dragged below the source model feet; actual input review reduced it to18",
+    "sourceGrips": "src/client/render/held-grips.json96 reviewed patient frames",
+    "pending": [
+      "flexible chain bending",
+      "unique priest body/robe artwork",
+      "other models and poses without reviewed source palms"
+    ]
+  }
+}

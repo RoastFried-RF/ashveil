@@ -1782,6 +1782,14 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     range(t.id, 'positive.yieldMult', t.positive?.yieldMult, 1)
   }
   for (const i of db.all<ItemDef>('Item')) {
+    if(i.heldSprite!==undefined){
+      const h=i.heldSprite
+      if(!isObj(h)||!Array.isArray(h.grip)||h.grip.length!==2||h.grip.some(n=>!Number.isFinite(n)||n<0||n>1)||!Number.isFinite(h.axisDegrees)||!Number.isFinite(h.length))report.errors.push(`${i.id}: heldSprite는 실제 손잡이 두 좌표와 유한한 축/표시 길이가 필요함`)
+      else{
+        range(i.id,'heldSprite.axisDegrees',h.axisDegrees,-360,360);range(i.id,'heldSprite.length',h.length,Number.MIN_VALUE,80)
+        range(i.id,'heldSprite.restDegrees',h.restDegrees,-360,360);range(i.id,'heldSprite.tipFraction',h.tipFraction,Number.MIN_VALUE,2)
+      }
+    }
     if(i.light?.openFlame!==undefined&&typeof i.light.openFlame!=='boolean')report.errors.push(i.id+': openFlame은 논리값이어야 함')
     need(i.id, i.material, 'Material')
     if(i.rawMaterial){need(i.id,i.rawMaterial.material,'Material');if(!i.rawMaterial.material||!Number.isSafeInteger(i.rawMaterial.grams)||i.rawMaterial.grams<=0)report.errors.push(`${i.id}: rawMaterial은 실제 재질과 양의 정수 grams가 필요함`)}

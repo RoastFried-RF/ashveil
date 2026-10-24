@@ -5,8 +5,11 @@ export function equipmentSpec(def, uid, lit = false) {
     const settings = {
         blade: { grip: [.52, .79], axis: -HALF_PI, length: 14 }, greatblade: { grip: [.51, .84], axis: -HALF_PI, length: 32 }, axe: { grip: [.51, .77], axis: -HALF_PI, length: 19 }, club: { grip: [.52, .81], axis: -HALF_PI, length: 24 }, hammer: { grip: [.5, .78], axis: -HALF_PI, length: 20 }, polearm: { grip: [.52, .68], axis: -HALF_PI, length: 39 }, staff: { grip: [.52, .68], axis: -HALF_PI, length: 39 }, bow: { grip: [.635, .5], axis: 0, length: 27 }, crossbow: { grip: [.49, .71], axis: -HALF_PI, length: 27 }, rifle: { grip: [.51, .71], axis: -HALF_PI, length: 33 }, pistol: { grip: [.48, .71], axis: 0, length: 16 }, shield: { grip: [.5, .5], axis: -HALF_PI, length: 18 }, torch: { grip: [.52, .67], axis: -HALF_PI, length: 23 }, lantern: { grip: [.5, .18], axis: -HALF_PI, length: 14 }, item: { grip: [.5, .65], axis: -HALF_PI, length: 12 },
     };
-    return { id: def.id, uid, sprite: def.sprite, kind, ...settings[kind], twoHanded: !!def.twoHanded, lit };
+    const h = def.heldSprite, source = h ? { grip: h.grip, axis: h.axisDegrees * Math.PI / 180, length: h.length, restAngle: h.restDegrees === undefined ? undefined : h.restDegrees * Math.PI / 180, tipFraction: h.tipFraction } : {};
+    return { id: def.id, uid, sprite: def.sprite, kind, ...settings[kind], ...source, twoHanded: !!def.twoHanded, lit };
 }
+/** Presentation distance from source grip to the impact end, independent of game reach. */
+export function equipmentTipReach(item) { return item.length * (item.tipFraction ?? (item.axis === 0 ? 1 - item.grip[0] : item.grip[1])); }
 export function attackStyle(family, damage, weapon, ranged = false, throwing = false) {
     if (throwing)
         return 'throw';
@@ -38,7 +41,7 @@ function curve(phase, points) {
 export function attackBodyPhase(phase) { return curve(phase, [[0, 0], [.18, .125], [.3, .25], [.43, .5], [.51, .5], [.72, .75], [1, 1]]); }
 export function heldPose(input) {
     const { item, slot, direction: dir, mode, phase, moving, stride, crouched, wrist, action } = input, side = dir === 'left' || dir === 'right', facing = dir === 'left' ? -1 : 1, sign = slot === 0 ? -1 : 1;
-    let x = side ? facing * (slot === 0 ? 6 : 2) : sign * (dir === 'up' ? -5 : 5), y = crouched ? -11 : -16, angle = -HALF_PI + (side ? facing * .12 : sign * .13);
+    let x = side ? facing * (slot === 0 ? 6 : 2) : sign * (dir === 'up' ? -5 : 5), y = crouched ? -11 : -16, angle = (item.restAngle ?? -HALF_PI) + (side ? facing * .12 : sign * .13);
     if (moving) {
         const sway = Math.sin(stride * Math.PI);
         y += sway * (slot === 0 ? 1 : -.8);
@@ -66,8 +69,11 @@ export function heldPose(input) {
         };
         angle = blendAngle(rest.angle, base + mirrored * curve(phase, offsets[style]), curve(phase, [[0, 0], [.12, 1], [.8, 1], [1, 0]]));
         const extension = curve(phase, [[0, 0], [.24, -1.5], [.43, style === 'thrust' ? 5 : 1.5], [.51, style === 'thrust' ? 5 : 1.5], [.74, 1], [1, 0]]);
-        x += action.vector.x * extension;
-        y += action.vector.y * extension;
+        // A reviewed source palm already follows the authored arm. Extend only legacy estimates.
+        if (!input.sourceGrip) {
+            x += action.vector.x * extension;
+            y += action.vector.y * extension;
+        }
     }
     if (mode === 'shoot' && slot === (action?.slot ?? 0)) {
         const vec = action?.vector ?? { x: side ? facing : 0, y: dir === 'up' ? -1 : dir === 'down' ? 1 : 0 }, recoil = item.kind === 'rifle' || item.kind === 'pistol' ? curve(phase, [[0, 0], [.38, 0], [.45, 1.6], [.6, .8], [1, 0]]) : 0;

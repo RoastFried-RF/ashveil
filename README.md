@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.329-dev·저장212**이다. 종료한 생애의 실제 발견·학습/추정을 보고서·파일에 보관하고, 연대기 전체 검색/갈래·페이지 이동을 지원한다. 새 인물의 지식/능력/물품으로 옮기지 않는다. [구현·제약](docs/discovery-archive-v329.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
+현재 개발 미리보기는 **v0.331-dev·저장212**이다. 장비4종의 재획득 경로와 사제의 실물 향로·정확한 손 접점을 추가했다. 지속 의료 도구와 공개 처치 동작 검토도 포함한다. [구현·제약](docs/equipment-completion-v331.md) · [처치 동작 검토](https://roastfried-rf.github.io/ashveil/artbook/medical/) · [자율 구현 추적](docs/autonomous-implementation.md) · [게임 실행](https://roastfried-rf.github.io/ashveil/).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

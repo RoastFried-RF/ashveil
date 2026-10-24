@@ -3,7 +3,7 @@ import type {ItemDef} from '../../core/types'
 import type {Dir} from './atlas'
 export type WeaponKind='blade'|'greatblade'|'axe'|'club'|'hammer'|'polearm'|'staff'|'bow'|'crossbow'|'rifle'|'pistol'|'shield'|'torch'|'lantern'|'item'
 export type AttackStyle='slash'|'thrust'|'chop'|'smash'|'unarmed'|'shoot'|'throw'
-export interface HeldEquipment {id:string;uid?:number;sprite:string;kind:WeaponKind;grip:[number,number];axis:number;length:number;twoHanded:boolean;lit:boolean}
+export interface HeldEquipment {id:string;uid?:number;sprite:string;kind:WeaponKind;grip:[number,number];axis:number;length:number;restAngle?:number;tipFraction?:number;twoHanded:boolean;lit:boolean}
 export interface EquipmentAction {style:AttackStyle;slot:0|1|null;weapon?:HeldEquipment;direction:Dir;vector:{x:number;y:number}}
 const HALF_PI=Math.PI/2
 export function equipmentSpec(def:ItemDef,uid?:number,lit=false):HeldEquipment{
@@ -12,8 +12,11 @@ export function equipmentSpec(def:ItemDef,uid?:number,lit=false):HeldEquipment{
  const settings:Record<WeaponKind,{grip:[number,number];axis:number;length:number}>={
   blade:{grip:[.52,.79],axis:-HALF_PI,length:14},greatblade:{grip:[.51,.84],axis:-HALF_PI,length:32},axe:{grip:[.51,.77],axis:-HALF_PI,length:19},club:{grip:[.52,.81],axis:-HALF_PI,length:24},hammer:{grip:[.5,.78],axis:-HALF_PI,length:20},polearm:{grip:[.52,.68],axis:-HALF_PI,length:39},staff:{grip:[.52,.68],axis:-HALF_PI,length:39},bow:{grip:[.635,.5],axis:0,length:27},crossbow:{grip:[.49,.71],axis:-HALF_PI,length:27},rifle:{grip:[.51,.71],axis:-HALF_PI,length:33},pistol:{grip:[.48,.71],axis:0,length:16},shield:{grip:[.5,.5],axis:-HALF_PI,length:18},torch:{grip:[.52,.67],axis:-HALF_PI,length:23},lantern:{grip:[.5,.18],axis:-HALF_PI,length:14},item:{grip:[.5,.65],axis:-HALF_PI,length:12},
  }
- return{id:def.id,uid,sprite:def.sprite,kind,...settings[kind],twoHanded:!!def.twoHanded,lit}
+ const h=def.heldSprite,source=h?{grip:h.grip,axis:h.axisDegrees*Math.PI/180,length:h.length,restAngle:h.restDegrees===undefined?undefined:h.restDegrees*Math.PI/180,tipFraction:h.tipFraction}:{}
+ return{id:def.id,uid,sprite:def.sprite,kind,...settings[kind],...source,twoHanded:!!def.twoHanded,lit}
 }
+/** Presentation distance from source grip to the impact end, independent of game reach. */
+export function equipmentTipReach(item:HeldEquipment){return item.length*(item.tipFraction??(item.axis===0?1-item.grip[0]:item.grip[1]))}
 export function attackStyle(family:string|undefined,damage:string|undefined,weapon:HeldEquipment|undefined,ranged=false,throwing=false):AttackStyle{
  if(throwing)return'throw';if(ranged)return'shoot';if(!weapon)return'unarmed'
  if(damage==='stab'||family==='spear')return'thrust'
@@ -31,9 +34,9 @@ function curve(phase:number,points:readonly[number,number][]){
 /** Deliberate anticipation, a short contact hold, follow-through, then a complete return. */
 export function attackBodyPhase(phase:number){return curve(phase,[[0,0],[.18,.125],[.3,.25],[.43,.5],[.51,.5],[.72,.75],[1,1]])}
 export interface HandPose {x:number;y:number;angle:number;behind:boolean;visible:boolean;alpha:number}
-export function heldPose(input:{item:HeldEquipment;slot:0|1;direction:Dir;mode:string;phase:number;stride:number;moving:boolean;crouched:boolean;wrist?:readonly[number,number];action?:EquipmentAction}):HandPose{
+export function heldPose(input:{item:HeldEquipment;slot:0|1;direction:Dir;mode:string;phase:number;stride:number;moving:boolean;crouched:boolean;wrist?:readonly[number,number];sourceGrip?:boolean;action?:EquipmentAction}):HandPose{
  const{item,slot,direction:dir,mode,phase,moving,stride,crouched,wrist,action}=input,side=dir==='left'||dir==='right',facing=dir==='left'?-1:1,sign=slot===0?-1:1
- let x=side?facing*(slot===0?6:2):sign*(dir==='up'?-5:5),y=crouched?-11:-16,angle=-HALF_PI+(side?facing*.12:sign*.13)
+ let x=side?facing*(slot===0?6:2):sign*(dir==='up'?-5:5),y=crouched?-11:-16,angle=(item.restAngle??-HALF_PI)+(side?facing*.12:sign*.13)
  if(moving){const sway=Math.sin(stride*Math.PI);y+=sway*(slot===0?1:-.8);angle+=sway*.06}
  if(wrist){x=wrist[0];y=wrist[1]}
  const rest={x,y,angle}
@@ -49,7 +52,8 @@ export function heldPose(input:{item:HeldEquipment;slot:0|1;direction:Dir;mode:s
    slash:[[0,-1.1],[.25,-2],[.43,.18],[.51,.18],[.72,.85],[1,-1.1]],chop:[[0,-1.15],[.27,-2.3],[.43,.65],[.51,.65],[.74,1.05],[1,-1.15]],smash:[[0,-1],[.28,-2],[.45,.45],[.52,.45],[.74,.8],[1,-1]],thrust:[[0,-.35],[.23,-.15],[.42,0],[.52,0],[.76,.15],[1,-.35]],unarmed:[[0,0],[1,0]],shoot:[[0,0],[1,0]],throw:[[0,0],[1,0]],
   }
   angle=blendAngle(rest.angle,base+mirrored*curve(phase,offsets[style]),curve(phase,[[0,0],[.12,1],[.8,1],[1,0]]));const extension=curve(phase,[[0,0],[.24,-1.5],[.43,style==='thrust'?5:1.5],[.51,style==='thrust'?5:1.5],[.74,1],[1,0]])
-  x+=action.vector.x*extension;y+=action.vector.y*extension
+  // A reviewed source palm already follows the authored arm. Extend only legacy estimates.
+  if(!input.sourceGrip){x+=action.vector.x*extension;y+=action.vector.y*extension}
  }
  if(mode==='shoot'&&slot===(action?.slot??0)){
   const vec=action?.vector??{x:side?facing:0,y:dir==='up'?-1:dir==='down'?1:0},recoil=item.kind==='rifle'||item.kind==='pistol'?curve(phase,[[0,0],[.38,0],[.45,1.6],[.6,.8],[1,0]]):0

@@ -1,0 +1,291 @@
+{
+  "version": 331,
+  "save": 212,
+  "dateUTC": "2026-10-24",
+  "mode": "implementation first development preview",
+  "implemented": [
+    "4 background-only equipment replacement recipes/book/finite stock/loot paths",
+    "actual original-UID priest censer with proper unarmed fallback",
+    "image_gen originals2 preserved;1 selected1024x1536 source/crop/top grip/downward axis",
+    "patient96frame keys/88unique crops/147visible palms/45occluded hand slots",
+    "source-anchored palms do not acquire an extra invented attack extension",
+    "generic validated heldSprite presentation fields/schema; game reach/damage/time unchanged",
+    "original and motion catalogs include new censer and source hand geometry"
+  ],
+  "checks": {
+    "types": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/types-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "targetedLint": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/lint-final.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "defs": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/defs-final.txt",
+      "sha256": "43dc6c5cc03d616e06bc5d717ec445d80023273dcda282da71d7834dd8136334"
+    },
+    "schema": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/schema-final.txt",
+      "sha256": "f195a319547060ad25543823e93beb92932abd34f030cb1203f5dae1eac19254"
+    },
+    "sprites": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/sprites-final.txt",
+      "sha256": "b2e24284d492effd7a81df5815a9e7d0738fd87f27803a6905b285408cafb67f"
+    },
+    "targetedTests": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/targeted-final.txt",
+      "sha256": "83071607b64b19e3180cd2cbb5c4693356f4c9678dcce23a0637a5df6489a2c7"
+    },
+    "build": {
+      "exit": 0,
+      "localOutput": "test-results/autonomy-v331/build-final.txt",
+      "sha256": "9e01a61d2a70b59be46c9776b72540b2a6ffc9f49a2586131140a57d45d268b0"
+    }
+  },
+  "tests": {
+    "files": 3,
+    "passed": 29,
+    "fullRegression": false,
+    "meaningfulPaths": [
+      "real priest loadout/drop/breakage/death and original UID persistence",
+      "4 replacements actual learn/start/17work steps/save/restore/finish with exact whole-state equality",
+      "100day actual market tick after removing finite initial replacements; no mint on reopen",
+      "source-palm contact fixed across attack stages and mirrored anatomical occlusion",
+      "invalid source geometry fails loader"
+    ]
+  },
+  "actualInput": {
+    "finiteInitial": true,
+    "noPostLoadWorldWrites": true,
+    "runs": [
+      {
+        "direction": "right",
+        "width": 1440,
+        "height": 1080,
+        "uid": 66,
+        "beforeTU": 1440000,
+        "afterTU": 1440200,
+        "stages": [
+          "prepare",
+          "strike",
+          "followThrough",
+          "recover"
+        ],
+        "rotationRange": [
+          -1.8788766477865497,
+          2.910316553468421
+        ],
+        "droppedSameUidOnce": true,
+        "subsequentAttackUnarmed": true
+      },
+      {
+        "direction": "left",
+        "width": 1366,
+        "height": 768,
+        "uid": 66,
+        "beforeTU": 1440000,
+        "afterTU": 1440200,
+        "stages": [
+          "prepare",
+          "strike",
+          "followThrough",
+          "recover"
+        ],
+        "rotationRange": [
+          -2.9103165534684208,
+          1.8788766477865497
+        ],
+        "droppedSameUidOnce": true,
+        "subsequentAttackUnarmed": true
+      },
+      {
+        "direction": "up",
+        "width": 1440,
+        "height": 1080,
+        "uid": 66,
+        "beforeTU": 1440000,
+        "afterTU": 1440200,
+        "stages": [
+          "prepare",
+          "strike",
+          "followThrough",
+          "recover"
+        ],
+        "rotationRange": [
+          -2.691592653589793,
+          2.83351233259814
+        ],
+        "droppedSameUidOnce": true,
+        "subsequentAttackUnarmed": true
+      },
+      {
+        "direction": "down",
+        "width": 1366,
+        "height": 768,
+        "uid": 66,
+        "beforeTU": 1440000,
+        "afterTU": 1440200,
+        "stages": [
+          "prepare",
+          "strike",
+          "followThrough",
+          "recover"
+        ],
+        "rotationRange": [
+          -1.9226963394055359,
+          0.7647745723960573
+        ],
+        "droppedSameUidOnce": true,
+        "subsequentAttackUnarmed": true
+      }
+    ],
+    "errors": [],
+    "scope": "Four real attacks/drops/empty-hand attacks with declared patient-model player and original censer. Two gallery source-grip views. Not a natural priest encounter or all garment/hand combinations."
+  },
+  "visualReview": {
+    "openedFinal": [
+      "native-final/right-held.png",
+      "native-final/right-strike.png",
+      "native-final/workbench-censer-front.png",
+      "native-final/workbench-censer-right.png"
+    ],
+    "initialAlsoOpened": [
+      "native/right-held.png",
+      "native/right-strike.png",
+      "native/left-strike.png",
+      "native/up-strike.png",
+      "native/down-strike.png"
+    ],
+    "correction": "initial source length28 hung below feet; reduced to18 and reran four actual cases/full-page galleries",
+    "notClaimed": [
+      "flexible chain simulation",
+      "unique priest body or every clothing/hand permutation",
+      "natural priest encounter or naturally looted replacements",
+      "full regression/World/1000",
+      "human release assessment"
+    ]
+  },
+  "artifacts": [
+    {
+      "localPath": "test-results/autonomy-v331/native-final/audit.json",
+      "sha256": "f75816575c333a01234da78c96a949f7eef2ca4cf2d96ac28084b29c00c70bfa"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-empty-hand.png",
+      "sha256": "9e69362719b074d2bddf7ae044e4429d5c2af04a797fe30293feb84006f650ed"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-final.json",
+      "sha256": "c6c7e9af5cd74064c8bc2d2c6a266cf2491014ad313dbadd64cd2544ae42cdd6"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-held.png",
+      "sha256": "2caa3dca6c919574f19fc1fe946d60287545de9d7f4578c9add99b6d756b6595"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-initial.json",
+      "sha256": "a9ba41f9dc13b169dc14b02dcfc4e160b3ace6d8b63d2df511f361407acde8a9"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-samples.json",
+      "sha256": "2a4eabc2b0c728cf2b66777b1a4b3a93c7150ef9978f34b1832afaec253b7038"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/down-strike.png",
+      "sha256": "0bb53d25c31db4c8eeac2175543ed293a93e7e5c71acdc21681daef0d39c63a4"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-empty-hand.png",
+      "sha256": "32a444fc6ae18c70e054525820525996e47f7518f140cf9a2b66ceb2cb0ef3ff"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-final.json",
+      "sha256": "711a5e0120d623b5cb7132fe72fbb5b7787430c5cdd1658c402c82af8a09eb41"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-held.png",
+      "sha256": "e8212bafede31e83a18893bb069870b09932df9658d4d4457de6ece517e1e3e5"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-initial.json",
+      "sha256": "e02ec45dc040e3dd5ef57e9cecc6fea5dfced3e488eec6e1326f058fdd59922a"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-samples.json",
+      "sha256": "2d96cb2d4f7749915db6cc28204a18483e2ff8b1a5863e147806af77021c1476"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/left-strike.png",
+      "sha256": "9796433e891f31bfd5051a369954e70ef85c68138eced26cf87f956dbf6107ed"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-empty-hand.png",
+      "sha256": "7021b2f04f8571f438f1d4f35d5f3b647ecba1c10fb76bffe4d1dc73cea7a9df"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-final.json",
+      "sha256": "e648723d51e675cf80af5d0f72f6e1cdc4bd3c358f501557db95a9d7159ec6b5"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-held.png",
+      "sha256": "46ea4601b6c8f104eaf58370ce9c72ea373fab9841978497bbd656ab56a9dd82"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-initial.json",
+      "sha256": "108c99d04db24bb7c8264ecc19ec92d186637294b020a71fa780da5753b2b101"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-samples.json",
+      "sha256": "691daa8fe94cbd6f2a45ea00b6fa5ab1785416fdde90b290bc05da21ee0b7d36"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/right-strike.png",
+      "sha256": "74c9b45fa34713ad2580eadc90de043431ae570a943ecb55acf3f963a6821498"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-empty-hand.png",
+      "sha256": "9b3abab7e9869709fc7397114fee479d3340790c64a23db8ad8a352281058a7d"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-final.json",
+      "sha256": "43c96c3e1e13e490a369f94de795ad87ce79d0f87029b56f9376064f8a95a411"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-held.png",
+      "sha256": "b792eb34757f2aaadeec6aea07ae45760c63e062f59459b12df6b6b7eab53f2f"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-initial.json",
+      "sha256": "a8bbb319edccf4b5c53e65c0cbfd4d7a97c11fe48ef163b05e9998cae36da628"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-samples.json",
+      "sha256": "61762196e65343812ca5570c60d6dc82acda7875414723e3894bba0e7d7109d9"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/up-strike.png",
+      "sha256": "caa622422f180fb812c848af35c7aa637a99163f86557b6f4b4dec6a252b1953"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/workbench-censer-front.png",
+      "sha256": "edf8614158d2c5f27d56757622c3890e6d70919bb26442eee27ad399ec4c4862"
+    },
+    {
+      "localPath": "test-results/autonomy-v331/native-final/workbench-censer-right.png",
+      "sha256": "3590d04a60f01a39e6eec65774ebc210c1fd3da2e5dd128b0d75f2faa664a17b"
+    }
+  ],
+  "pending": [
+    "worn garment/prosthetic/lost-limb appearance",
+    "expanded9 canonical creatures/unique art/real policies",
+    "other hand/pose registrations",
+    "remaining X1-X4 and release gates"
+  ]
+}
