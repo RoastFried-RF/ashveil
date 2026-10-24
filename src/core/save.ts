@@ -403,6 +403,8 @@ export function deserialize(json: string): GameState {
   if(s.version===210)s.version=211
   // v212 records current mechanical recipe contracts; old saves gain no inferred prior rules.
   if(s.version===211)s.version=212
+  // v213 preserves finite machine route/capsule work and actual alarm calls; no retrofilled stock.
+  if(s.version===212)s.version=213
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -415,6 +417,15 @@ export function deserialize(json: string): GameState {
   if(s.achievementsDisabled!==undefined&&typeof s.achievementsDisabled!=='boolean')throw new Error('각인의 업적 상태 형식이 올바르지 않다')
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
+  const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
+  const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
+  const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)
+  for(const c of actors){
+    const m=c.sowerState
+    if(m!==undefined&&(!m||typeof m!=='object'||typeof m.rule!=='string'||!m.rule||m.rule.length>16384||!integer(m.routeIndex)||m.routeIndex>15||!integer(m.moves)||m.moves>100||!integer(m.seedsSpent)||!integer(m.resumeAt)||!integer(m.alarmWound)||m.nextSprayAt!==undefined&&!integer(m.nextSprayAt)||m.lastSeed&&(!integer(m.lastSeed.uid)||m.lastSeed.uid<1||!integer(m.lastSeed.at)||!position(m.lastSeed.pos))||m.lastSpray&&(!integer(m.lastSpray.uid)||m.lastSpray.uid<1||!integer(m.lastSpray.at))))throw Error('파종기의 원래 경로/종자 작업 기록 형식이 올바르지 않다')
+    const call=c.surveyState?.call
+    if(call!==undefined&&(!call||typeof call!=='object'||!integer(call.source)||call.source<1||!integer(call.at)||!integer(call.expiresAt)||call.expiresAt<call.at||!position(call.pos)))throw Error('측량기의 원래 호출 기록 형식이 올바르지 않다')
+  }
   const storageError=storedItemStateError(s);if(storageError)throw new Error(storageError)
   return s
 }

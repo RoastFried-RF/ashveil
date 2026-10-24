@@ -684,6 +684,20 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       if(!isObj(d)||body?.kind!=='bird'||body.parts.filter(p=>(p.capacities?.flight??0)>0).length!==2)report.errors.push(c.id+': flight 실제 조류 몸과 두 날개 필요')
       else{for(const[key,lo,hi]of[['height',1,3],['takeoffEnergy',1,50],['moveEnergy',1,20],['maxTurns',2,300],['fallDamage',1,50],['noise',1,20]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': flight.'+key+' 범위 오류');if(!Number.isFinite(d.minCapacity)||d.minCapacity<=.5||d.minCapacity>1)report.errors.push(c.id+': flight.minCapacity 실제 양쪽 날개 기능 필요')}
     }
+    if(c.sower!==undefined){
+      const d=c.sower,b=db.tryGet<BodyDef>(c.body??'')
+      if(!isObj(d)||b?.kind!=='mechanical'||!b.mechanical||!b.parts.some(p=>p.id===d.signalPart&&(p.capacities?.signal??0)>0)||!b.parts.some(p=>(p.capacities?.manipulation??0)>0)||!b.parts.some(p=>p.id===b.mechanical!.toolHead&&(p.capacities?.tool??0)>0))report.errors.push(c.id+': sower 실제 기계/파종팔/공구/신호부 필요')
+      else{
+        if(c.survey||c.wildlife)report.errors.push(c.id+': sower 다른 전용 정책과 중복 금지')
+        for(const[key,lo,hi]of[['waitAtWaypointTurns',1,10],['seedEveryMoves',1,100],['pushDistance',1,2],['callRadius',1,25],['callTurns',1,300]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': sower.'+key+' 범위 오류')
+        if(!Array.isArray(d.route)||d.route.length<2||d.route.length>16||d.route.some(p=>!isObj(p)||!Number.isSafeInteger(p.x)||!Number.isSafeInteger(p.y)||p.x<0||p.y<0||p.x>255||p.y>255)||new Set(d.route.map(p=>JSON.stringify(p))).size!==d.route.length)report.errors.push(c.id+': sower.route 서로 다른 실제 경유지 필요')
+        need(c.id,d.seedItem,'Item');const seed=db.tryGet<ItemDef>(d.seedItem),plot=seed?.place?db.tryGet<TerrainDef>(seed.place):undefined
+        if(!plot?.cultivation||!plot.gather)report.errors.push(c.id+': sower.seedItem 실제 재배 종자 필요')
+        const sp=d.spray
+        if(!isObj(sp))report.errors.push(c.id+': sower.spray 유한 분사 규칙 필요')
+        else{need(c.id,sp.item,'Item');if(sp.item===d.seedItem)report.errors.push(c.id+': sower.spray.item 종자와 별도 원본 필요');for(const[key,lo,hi]of[['radius',1,3],['turns',1,10],['cooldown',2,300]]as const)if(!Number.isSafeInteger(sp[key])||sp[key]<lo||sp[key]>hi)report.errors.push(c.id+': sower.spray.'+key+' 범위 오류');if(!Number.isFinite(sp.concentration)||sp.concentration<=0||sp.concentration>1)report.errors.push(c.id+': sower.spray.concentration 범위 오류')}
+      }
+    }
     if(c.survey!==undefined){
       const d=c.survey,b=db.tryGet<BodyDef>(c.body??'')
       if(!isObj(d)||b?.kind!=='mechanical'||!b.parts.some(p=>p.id===d.antenna&&(p.capacities?.signal??0)>0))report.errors.push(c.id+': survey 실제 기계/신호 안테나 필요')

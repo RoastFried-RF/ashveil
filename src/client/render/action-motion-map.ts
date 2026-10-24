@@ -2,6 +2,7 @@
 import type {Action} from '../../core'
 import type {ActionPose} from './character-motion'
 export const actionMotions={
+ "sowerWaypoint":null,"sowerAlarm":"work","sowerPush":"attack","sowerSpray":"work",
  "takeFlight":null,"fly":null,"land":null,
  "tearCarrion":"work","tearFood":"work",
  "animalWarn":null,

@@ -384,7 +384,17 @@ export interface WildlifeRules {
   rut?:{season:string;chance:number;memoryTurns:number}
   mud?:{terrains:string[];sharp:number;blunt:number;washTurns:number}
 }
+export interface SowerRules {
+ route:Pos[];waitAtWaypointTurns:number;seedItem:string;seedEveryMoves:number;pushDistance:number
+ signalPart:string;callRadius:number;callTurns:number
+ spray:{item:string;radius:number;turns:number;concentration:number;cooldown:number}
+}
+export interface SowerState {
+ rule:string;routeIndex:number;moves:number;seedsSpent:number;resumeAt:number;alarmWound:number
+ lastSeed?:{uid:number;at:number;pos:Pos};lastSpray?:{uid:number;at:number};nextSprayAt?:number
+}
 export interface CreatureDef extends DefBase {
+  sower?:SowerRules
   survey?:{antenna:string;reportTurns:number;reportCooldown:number;keepDistance:[number,number];watchRect:[number,number,number,number];patrol:Pos[];flashRadius:number;flashTurns:number;flashSightMult:number;flashCooldown:number}
   wildlife?:WildlifeRules
   flight?:{height:number;takeoffEnergy:number;moveEnergy:number;maxTurns:number;minCapacity:number;fallDamage:number;noise:number}
@@ -2255,7 +2265,8 @@ export interface MedicalReport {
 
 export interface Creature {
   carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
-  surveyState?:{target?:number;progress:number;lastObservedAt?:number;nextReportAt:number;flashAt?:number;patrolIndex:number;lastInterrupted?:{at:number;progress:number;target:number}}
+  sowerState?:SowerState
+  surveyState?:{call?:{source:number;at:number;expiresAt:number;pos:Pos};target?:number;progress:number;lastObservedAt?:number;nextReportAt:number;flashAt?:number;patrolIndex:number;lastInterrupted?:{at:number;progress:number;target:number}}
   flight?:{startedAt:number;landAt:number;origin:Pos}
   wildlifeState?:{denWarning?:{actor:number;progress:number;at:number};wakeSlowUntil?:number;threatId?:number;lastThreatAt?:number;rutAggressive?:boolean;mudRainRemaining?:number;interest?:{id:number;pos:Pos;at:number;alive:boolean;unconscious:boolean}}
   npcCareHistory?:NpcCareRecord[]

@@ -18373,6 +18373,16 @@
               "defType"
             ],
             "properties": {
+              "sower": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Inherited_SowerRules"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "survey": {
                 "anyOf": [
                   {
@@ -21784,6 +21794,9 @@
               "id"
             ],
             "properties": {
+              "sower": {
+                "$ref": "#/$defs/SowerRules"
+              },
               "survey": {
                 "type": "object",
                 "properties": {
@@ -22553,6 +22566,76 @@
             }
           }
         }
+      ]
+    },
+    "SowerRules": {
+      "type": "object",
+      "properties": {
+        "route": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Pos"
+          }
+        },
+        "waitAtWaypointTurns": {
+          "type": "number"
+        },
+        "seedItem": {
+          "type": "string"
+        },
+        "seedEveryMoves": {
+          "type": "number"
+        },
+        "pushDistance": {
+          "type": "number"
+        },
+        "signalPart": {
+          "type": "string"
+        },
+        "callRadius": {
+          "type": "number"
+        },
+        "callTurns": {
+          "type": "number"
+        },
+        "spray": {
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "string"
+            },
+            "radius": {
+              "type": "number"
+            },
+            "turns": {
+              "type": "number"
+            },
+            "concentration": {
+              "type": "number"
+            },
+            "cooldown": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "item",
+            "radius",
+            "turns",
+            "concentration",
+            "cooldown"
+          ]
+        }
+      },
+      "required": [
+        "route",
+        "waitAtWaypointTurns",
+        "seedItem",
+        "seedEveryMoves",
+        "pushDistance",
+        "signalPart",
+        "callRadius",
+        "callTurns",
+        "spray"
       ]
     },
     "Pos": {
@@ -61117,6 +61200,221 @@
           "anyOf": [
             {
               "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
+    "Inherited_SowerRules": {
+      "type": "object",
+      "properties": {
+        "route": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/Pos"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Pos"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/$defs/Pos"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/$defs/Pos"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "waitAtWaypointTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seedItem": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "seedEveryMoves": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pushDistance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signalPart": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "callRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "callTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spray": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "item": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "radius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "turns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "concentration": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "cooldown": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
             },
             {
               "type": "null"

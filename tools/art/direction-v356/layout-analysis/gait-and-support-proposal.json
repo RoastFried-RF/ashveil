@@ -1,0 +1,103 @@
+{
+  "format": 1,
+  "activationReady": false,
+  "proposalOnly": true,
+  "newWalkSourceFrames": 0,
+  "phaseUnits": "cycle normalized0..1 driven by real rendered root path distance / parent stride20, not elapsed frame time",
+  "stanceDuty": 0.75,
+  "oneRecoveryAtATime": true,
+  "baselineProjectedGroundCOMHint": [
+    0,
+    -3
+  ],
+  "noMassOrPhysicsProof": true,
+  "phases": [
+    {
+      "recoveryLeg": "LH",
+      "intervalStartInclusiveEndExclusive": [
+        0,
+        0.25
+      ],
+      "stanceLegs": [
+        "RF",
+        "LF",
+        "RH"
+      ],
+      "projectedGroundCOMHint": [
+        -1,
+        -1.8
+      ],
+      "hintInsideProposedSupportTriangle": true,
+      "hintIsNotObservedForceOrPhysics": true
+    },
+    {
+      "recoveryLeg": "LF",
+      "intervalStartInclusiveEndExclusive": [
+        0.25,
+        0.5
+      ],
+      "stanceLegs": [
+        "RF",
+        "RH",
+        "LH"
+      ],
+      "projectedGroundCOMHint": [
+        -1,
+        -4.3
+      ],
+      "hintInsideProposedSupportTriangle": true,
+      "hintIsNotObservedForceOrPhysics": true
+    },
+    {
+      "recoveryLeg": "RH",
+      "intervalStartInclusiveEndExclusive": [
+        0.5,
+        0.75
+      ],
+      "stanceLegs": [
+        "RF",
+        "LF",
+        "LH"
+      ],
+      "projectedGroundCOMHint": [
+        1,
+        -1.8
+      ],
+      "hintInsideProposedSupportTriangle": true,
+      "hintIsNotObservedForceOrPhysics": true
+    },
+    {
+      "recoveryLeg": "RF",
+      "intervalStartInclusiveEndExclusive": [
+        0.75,
+        1
+      ],
+      "stanceLegs": [
+        "LF",
+        "RH",
+        "LH"
+      ],
+      "projectedGroundCOMHint": [
+        1,
+        -4.3
+      ],
+      "hintInsideProposedSupportTriangle": true,
+      "hintIsNotObservedForceOrPhysics": true
+    }
+  ],
+  "swingPathProposal": {
+    "horizontal": "smoothstep5(u)=6u^5-15u^4+10u^3 from previous trailing release to next leading landing; each physical step is a render assumption",
+    "vertical": "small sin(pi*u)^2 hump, optional physical height≈3; keep pad flat because no underside source exists",
+    "sourceFootPitch": "Keep source foot flat/front-oriented. Rotating a foot to show an unseen sole is not authored support."
+  },
+  "footLockProposal": [
+    "During stance retain each projected world-ground plant, transform by actual root movement; do not drag every foot with body centre.",
+    "Release exactly one leg at a time. At landing start new stance plant; never teleport to a nominal paw offset.",
+    "Body COM hints are support-plane projected assumptions, not visible body-centre or actual mass calculation.",
+    "On movement stop do not advance a walking clock endlessly. Preserve planted feet and complete a safe active recovery smoothly if parent chooses, without adding Core movement/actions."
+  ],
+  "notCoreLocomotion": [
+    "No time unit/resource/collision/ground simulation or distance implementation is performed in this metadata.",
+    "Only FRONT display is considered. Shared front parts do not author left/right/back views or guarantee slope contacts."
+  ]
+}

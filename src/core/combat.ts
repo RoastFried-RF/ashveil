@@ -810,7 +810,7 @@ function noteFight(w: World, a: Creature, d: Creature) {
 }
 
 /** 포자 구름 (07 §11 · bestiary §18·§20): 반경 안 칸에 농도·지속 */
-export function sporeCloud(w: World, at: Pos, radius: number, turns: number, conc: number) {
+export function sporeCloud(w: World, at: Pos, radius: number, turns: number, conc: number, requireLos=false) {
   const m = w.s.map
   const until = turnOf(w) + turns
   m.sporesExpire = Math.min(m.sporesExpire ?? until, until)
@@ -818,7 +818,7 @@ export function sporeCloud(w: World, at: Pos, radius: number, turns: number, con
   for (let y = at.y - radius; y <= at.y + radius; y++) for (let x = at.x - radius; x <= at.x + radius; x++) {
     if (x < 0 || y < 0 || x >= m.w || y >= m.h) continue
     const t = m.tiles[y * m.w + x]
-    if (!w.db.terrain(t.t).passable) continue
+    if (!w.db.terrain(t.t).passable || requireLos&&!hasLos(w,at,{x,y})) continue
     const previous = t.spores && t.spores.until > turnOf(w) ? t.spores : undefined
     t.spores = { until: Math.max(until, previous?.until ?? 0), conc: Math.max(conc, previous?.conc ?? 0) }
   }

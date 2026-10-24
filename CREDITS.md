@@ -203,3 +203,7 @@ OpenAI `develop-web-game`의 과거 공식 클라이언트/예제/문서를 고�
 ### v348 잿곰과 가공 기록
 
 image_gen 자체 원문15PNG에서 잿곰의9동작 가족/144고유 몸 영역과 회수품·가공 기록5아이콘을 선택했다. 앞발 기본 공격 별칭과 생가죽/무두질 가죽의 공유 아이콘을 새 원화로 더하지 않는다. 고밀도 보행 실패·이웃 그림이 섞인 후보와 별도 보완 원문도 보존하며, 반전/복제/리샘플링으로 채우지 않았다. [설치된 원문 SHA/영역](tools/art/direction-v348/installation.json) · [실제 파일 검증기](tools/art/direction-v348/verify-installed.py) · [구현·제약](docs/bear-v348.md).
+
+## v356 파종기 정면 관절 시제품
+
+자체 v335 원화만 일관성 입력으로 사용해 image_gen으로 새로 그린 v354 PNG1장을 원본 바이트로 보존했다. 차체·upper·lower·foot의4고유 영역을 런타임에서 조합하며 authored 보행 프레임은0개다. 원문 SHA `01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2`, 정확 요청/참고/실패와 핀 관측은 `tools/art/direction-v356/front-original/`에 보존한다. `layout-analysis/`는 관측과 부모의 물리 가정을 구분한다. 파츠의 상대 배율/고정17.5+17.5 링크/지지 제어는 후속 시제품 결정이며 원화가 증명한 실제3D 해부가 아니다. 원문 편집·새 raster 추출은 하지 않았다. 공개 시제품은 정면만이며 기본 게임의 완성된 파종기나 출시 승인이 아니다.

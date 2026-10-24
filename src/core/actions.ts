@@ -1,3 +1,5 @@
+import {placementQuote} from './placement'
+import {recordSowerMove,recordSowerPlacement,sowerWaypoint,sowerAlarm,sowerPush,sowerSpray} from './sower'
 import {animalWarn,seasonalSleepError,beginSeasonalSleep} from './bear-state'
 import {enqueueBaseTask,editBaseQueue} from './base-camp'
 import {setCompanionAidDepot,planCompanionAidSupply,takeCompanionAidSupply,setCompanionAid,startCompanionAid,startCompanionDrag,companionDragStep} from './companion-aid'
@@ -28,7 +30,7 @@ import {cancelCompanionClinical,requestCompanionClinical,type CompanionClinicalR
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
 import {acceptBounty,questionBounty,reportBounty,surveyBounty} from './bounty-contracts'
-import {plantCultivation,waterCultivation,cropPlantingError,cropUprootQuote,uprootCultivation,cultivationSubstrateQuote,refreshCultivationSubstrate} from './cultivation'
+import {plantCultivation,waterCultivation,cropUprootQuote,uprootCultivation,cultivationSubstrateQuote,refreshCultivationSubstrate} from './cultivation'
 import {buyNpcWorldMap} from './npc-world-cartography'
 import {commandCompanionWorldMap} from './companion-world-cartography'
 import {readMerchantMap} from './merchant-map-reading'
@@ -77,7 +79,6 @@ import { cancelFieldDevice, fieldDeviceStep, startFieldDevice } from './field-de
 import { evidenceStep, startEvidence } from './evidence'
 import { retire } from './retirement'
 import {finishExpedition} from './expedition-endings'
-import { towerSoilFertility } from './tower-consequences'
 import { witnessPropertyCrime } from './diplomacy'
 import { machineAction, machineProtecting, machineReady, machineRules } from './machine-state'
 import { machineCareStep, machineHaul, startMachineCare } from './machines'
@@ -399,6 +400,10 @@ export type Action =
   | {type:'takeFlight'}
   | {type:'survey';target:number}
   | {type:'sensorFlash'}
+  | {type:'sowerWaypoint'}
+  | {type:'sowerAlarm';target:number;wound:number}
+  | {type:'sowerPush';target:number}
+  | {type:'sowerSpray';target:number;uid:number}
   | {type:'fly';dir:number}
   | {type:'land'}
   | {type:'tearCarrion';target:number}
@@ -859,6 +864,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       learnTorchRetreat(w,c,from)
       attachParasites(w,c)
       machineAction(w,c,'move')
+      recordSowerMove(w,c)
       traumaMove(w, c, from)
       c.facing = a.dir
       c.movedTurn = turn
@@ -1283,27 +1289,20 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'uprootCrop':{const q=cropUprootQuote(w,c,a.pos);if(q.error)return FAIL(q.error);const error=uprootCultivation(w,c,a.pos,a.expectedSeed);return error?FAIL(error):{ok:true,tu:q.turns*100}}
     case 'waterCrop':{const error=waterCultivation(w,c,a.pos,a.uid,a.ml);return error?FAIL(error):{ok:true,tu:100}}
     case 'place': {
-      if(capacity(w,c,'manipulation')<.2)return FAIL('설치할 손을 쓸 수 없다')
-      const it = findItem(c, a.uid), def = it && itemDef(w, it), dir = DIRS[a.dir]
-      if (!it || !def?.place || !dir) return FAIL('설치할 물건이 없다')
-      const p = { x: c.pos.x + dir.x, y: c.pos.y + dir.y }
-      if (!inBounds(w, p) || !hasLos(w,c.pos,p) || diagonalBlocked(w,c.pos,dir.x,dir.y) || !terrainAt(w, p).passable || terrainAt(w, p).water || terrainAt(w, p).stairs || terrainAt(w, p).container || terrainAt(w, p).station || terrainAt(w, p).bedding || tileAt(w, p).placed || creatureAt(w, p) || tileAt(w, p).items.length) return FAIL('비어 있는 땅에 설치해야 한다')
-      const destination=w.db.terrain(def.place),planted=destination.gather
-      if(planted&&(destination.cultivation?.needsSoil!==false&&!terrainAt(w,p).soil||terrainAt(w,p).gather))return FAIL('비어 있는 흙에 심어야 한다')
-      if(destination.cultivation){const error=cropPlantingError(w,p,it);if(error)return FAIL(error)}
-      const fertility=planted?.soilDependent?towerSoilFertility(w):1
-      if(fertility<=0)return FAIL('탑의 살포가 멈춘 뒤 토양이 고갈되어 종자가 자랄 수 없다')
+      const q=placementQuote(w,c,a.uid,a.dir)
+      if(q.error)return FAIL(q.error)
+      const it=q.it!,p=q.p!,destination=q.destination!,planted=q.planted,fertility=q.fertility
       const tile = tileAt(w, p),baseTerrain=tile.t
-      if (w.db.terrain(def.place).bedding||w.db.terrain(def.place).container) tile.placed = { base: tile.t, item: { ...it, count: 1, gx: undefined, gy: undefined, rot: undefined }, owner: w.db.terrain(def.place).bedding?.portable ? undefined : c.id }
-      tile.t = def.place
+      if (destination.bedding||destination.container) tile.placed = { base: tile.t, item: { ...it, count: 1, gx: undefined, gy: undefined, rot: undefined }, owner: destination.bedding?.portable ? undefined : c.id }
+      tile.t = destination.id
       if(planted){if(destination.cultivation){if(!plantCultivation(w,p,it.uid,c.id,it,baseTerrain)){tile.t=baseTerrain;delete tile.placed;return FAIL('원래 종자와 밭 잔재를 확인해야 한다')}}else tile.gatherAt=turn+Math.ceil(planted.regrowTurns/fertility)}
       recordCampfirePlacement(w,c,it,p,baseTerrain)
       recordBeddingPlacement(w,c,it.uid,p)
       recordBaseBedPlacement(w,it.uid,p)
       removeOne(w, c, it.uid)
-      if(tile.cultivation)recordResidentPlanting(w,c,p,it.uid)
+      if(tile.cultivation){recordResidentPlanting(w,c,p,it.uid);recordSowerPlacement(w,c,p,it)}
       invalidateLights(w)
-      if(isPl(c))log(w, 'info', planted&&tile.cultivation?`${w.db.terrain(def.place).label}에 종자를 심었다. 작물에 맞는 실제 빛·기온과 물이 있어야 자란다.`:planted?`${w.db.terrain(def.place).label}에 종자를 심었다. 수확까지 ${Math.ceil(planted.regrowTurns/fertility/1200)}시간이 걸린다.`:`${w.db.terrain(def.place).label}을(를) 설치했다.`)
+      if(isPl(c))log(w, 'info', planted&&tile.cultivation?`${destination.label}에 종자를 심었다. 작물에 맞는 실제 빛·기온과 물이 있어야 자란다.`:planted?`${destination.label}에 종자를 심었다. 수확까지 ${Math.ceil(planted.regrowTurns/fertility/1200)}시간이 걸린다.`:`${destination.label}을(를) 설치했다.`)
       return { ok: true, tu: 100 }
     }
     case 'dry':
@@ -1611,6 +1610,10 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'takeFlight':return takeFlight(w,c)
     case 'survey':return startSurvey(w,c,a.target)
     case 'sensorFlash':return sensorFlash(w,c)
+    case 'sowerWaypoint':return sowerWaypoint(w,c)
+    case 'sowerAlarm':return sowerAlarm(w,c,a.target,a.wound)
+    case 'sowerPush':return sowerPush(w,c,a.target)
+    case 'sowerSpray':return sowerSpray(w,c,a.target,a.uid)
     case 'fly':return fly(w,c,a.dir)
     case 'land':return land(w,c)
     case 'tearCarrion':return tearCarrion(w,c,a.target)

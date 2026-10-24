@@ -96,7 +96,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 212
+export const SAVE_VERSION = 213
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -772,6 +772,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     for (const e of c.effects) e.untilTurn += elapsed
     if (c.drowsyUntil !== undefined) c.drowsyUntil += elapsed
     if(c.wildlifeState?.wakeSlowUntil!==undefined)c.wildlifeState.wakeSlowUntil+=elapsed
+    if(c.sowerState){if(c.sowerState.resumeAt>0)c.sowerState.resumeAt+=elapsed;if(c.sowerState.nextSprayAt!==undefined)c.sowerState.nextSprayAt+=elapsed}
     if (c.activity?.snap) c.activity.snap.turn += elapsed
     for (const wd of c.body.wounds) {
       healFracture(wd, elapsed)

@@ -1,0 +1,95 @@
+{
+  "version": 356,
+  "saveVersion": 213,
+  "releaseApproved": false,
+  "mainGameSowerActivated": false,
+  "corePolicy": "implemented; finite Node-only candidate fixture",
+  "workbench": "FRONT only, four shared original regions; no authored walk frames",
+  "checks": {
+    "related": {
+      "files": 8,
+      "tests": 185,
+      "path": "test-results/autonomy-v356/related-final-r1.txt"
+    },
+    "finalSowerClock": {
+      "files": 1,
+      "tests": 18,
+      "path": "test-results/autonomy-v356/sower-clock-final.txt"
+    },
+    "existingPausedClock": {
+      "files": 1,
+      "passed": 2,
+      "skipped": 45,
+      "path": "test-results/autonomy-v356/local-clock-final.txt"
+    },
+    "uniqueAcrossPhases": {
+      "files": 9,
+      "tests": 188
+    },
+    "schema": "172 files, zero errors",
+    "typecheck": "pass: types-complete and types-publish",
+    "lint": "pass: changed sources and publish tools, zero warnings/errors",
+    "sprites": {
+      "sheets": 355,
+      "frames": 7984,
+      "characters": 33,
+      "uniquePngFiles": 381
+    },
+    "build": "pass: build-final"
+  },
+  "native": {
+    "privateR4": "test-results/autonomy-v356/native-r4/audit.json",
+    "frozenFinal": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v356-sower-policy-r2",
+      "browser": "Chromium / actual DOM controls / read-only pose hook",
+      "observations": 151,
+      "capturedSwings": [
+        "LH",
+        "LF",
+        "RH",
+        "RF"
+      ],
+      "speeds": [
+        0.5,
+        1,
+        2
+      ],
+      "facing": "FRONT only; ground translation directions are not other facing art",
+      "metrics": {
+        "lockPairs": 369,
+        "maxFootDrift": 0,
+        "maxEndpointError": 5.329070518200751e-15,
+        "outsideSupportSamples": 0
+      },
+      "errors": [],
+      "archive": "docs/diagnostics/sower-rig-v356/audit.json",
+      "screenshotsDirectlyOpened": [
+        "front-initial.png",
+        "front-swing-RF.png",
+        "front-speed-0.5.png",
+        "front-speed-2.png"
+      ],
+      "gameplayChanged": false
+    },
+    "firstFrameFailure": {
+      "path": "docs/diagnostics/sower-rig-v356/first-frame-failure.json",
+      "fixed": "First RAF dt starts at zero and clamps negative frame deltas. Frozen r1 failed; r2 is a new build after this actual source fix, not a successful retry of r1."
+    }
+  },
+  "limits": [
+    "No full/World/1000 run",
+    "No active Sower spawn or original item/body installation",
+    "No actual-game Native Sower input/core-state pair yet",
+    "Other directions not integrated",
+    "Projected support is not dynamics/release art approval",
+    "Missed-attack alarm, stone capsule ecology and remaining roadmap open"
+  ],
+  "frozenPublisher": "v356-sower-policy-r3 (metadata-only after r2, dist equality must be checked before publish)",
+  "unchangedFrom348": {
+    "coreContentFiles": 307,
+    "spriteFiles": 2004,
+    "spriteRegistry": "src/client/sprites.json byte-identical",
+    "activeCreatureDefinitions": 38,
+    "newInitialSower": 0
+  }
+}

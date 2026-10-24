@@ -1,3 +1,4 @@
+import {decideSower} from './sower'
 import {firearmReady,firearmSupply} from './firearms'
 import {decideWildlife} from './wildlife'
 import {decideSurveyor} from './surveyor'
@@ -766,6 +767,7 @@ function machineDecisionRaw(w:World,c:Creature):Action{
   const m=c.body.machine,d=machineRules(w,c)!
   if(!m||!machineReady(w,c)||capacity(w,c,'consciousness')<0.3)return{type:'wait'}
   // Keep the shared real controller-fault wrapper, before the repair-drone policy.
+  if(w.db.creature(c.def).sower)return decideSower(w,c,{toward:p=>stepToward(w,c,p)})
   if(w.db.creature(c.def).survey)return decideSurveyor(w,c,{toward:p=>stepToward(w,c,p),away:threats=>stepAway(w,c,threats)})
   const toward=(pos:Pos):Action=>{
     const action=stepToward(w,c,pos)

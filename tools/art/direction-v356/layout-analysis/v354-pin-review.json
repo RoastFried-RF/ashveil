@@ -1,0 +1,171 @@
+{
+  "format": 1,
+  "source": "/workspace/.ashveil-planned/v354-sower-front-rig/originals/sower-front-rig-components-v1.png",
+  "sourceSha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
+  "directlyOpened": true,
+  "newPixels": 0,
+  "sourceRegistrationSha256": "e73948ab1b93b703ebb7a5d4f1ce2b8cad85c4f001c43ef643f775f7054fb51a",
+  "parts": {
+    "chassis": {
+      "crop": [
+        108,
+        49,
+        574,
+        586
+      ],
+      "joints": {
+        "nearScreenLeft": {
+          "sourcePoint": [
+            182,
+            428
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        },
+        "nearScreenRight": {
+          "sourcePoint": [
+            608,
+            428
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        },
+        "upperOuterScreenLeft": {
+          "sourcePoint": [
+            160,
+            374
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 251,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        },
+        "upperOuterScreenRight": {
+          "sourcePoint": [
+            636,
+            373
+          ],
+          "sourceAlpha": 252,
+          "radius12SquareMinAlpha": 251,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        }
+      }
+    },
+    "upper": {
+      "crop": [
+        896,
+        156,
+        201,
+        476
+      ],
+      "joints": {
+        "proximal": {
+          "sourcePoint": [
+            995,
+            238
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        },
+        "distal": {
+          "sourcePoint": [
+            985,
+            563
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        }
+      },
+      "projectedAxis": {
+        "vector": [
+          -10,
+          325
+        ],
+        "length": 325.1538097577822,
+        "angleRadians": 1.601555852865366,
+        "notPhysical3DAxisProof": true
+      }
+    },
+    "lower": {
+      "crop": [
+        303,
+        681,
+        172,
+        523
+      ],
+      "joints": {
+        "proximal": {
+          "sourcePoint": [
+            358,
+            764
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        },
+        "distal": {
+          "sourcePoint": [
+            375,
+            1132
+          ],
+          "sourceAlpha": 252,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        }
+      },
+      "projectedAxis": {
+        "vector": [
+          17,
+          368
+        ],
+        "length": 368.3924537772184,
+        "angleRadians": 1.524633493705611,
+        "notPhysical3DAxisProof": true
+      }
+    },
+    "foot": {
+      "crop": [
+        762,
+        924,
+        397,
+        258
+      ],
+      "joints": {
+        "ankle": {
+          "sourcePoint": [
+            944,
+            1011
+          ],
+          "sourceAlpha": 253,
+          "radius12SquareMinAlpha": 252,
+          "radius12SquareNonzeroFraction": 1.0,
+          "review": "Independently seen solid bronze/metal pin cap; no transparent hole at proposed pivot. Role as rear hip still unproven for upperOuter bosses."
+        }
+      }
+    }
+  },
+  "visibleBossRoleCaution": "Upper outer bosses [160,374]/[636,373] visibly exist but rear-leg ownership is unproven. LH/RH observed hip remains null.",
+  "footAnkleToSoleSourceVector": [
+    11,
+    154
+  ],
+  "readabilityLimits": [
+    "All four components are one front/top painted view, with fixed lighting; shared instances are not new authored frames.",
+    "Opaque pin caps permit overlap registration, but do not prove perfect contour/paint matching once rotated.",
+    "Upper/lower actual source axes are tilted; never use texture centre or assume vertical/collinear.",
+    "Lower is one fixed-medium-extension piece. Physics fixed-link projection is separate from authoring a telescoping cylinder.",
+    "Foot is one flat projected source; no lifted underside or alternate pitch surfaces were authored.",
+    "Fore links can overlap/cross body optics or folded calibration manipulators if the layout/z is wrong; only parent display inspection can accept that."
+  ]
+}

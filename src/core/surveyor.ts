@@ -77,6 +77,11 @@ export function decideSurveyor(w:World,c:Creature,nav:Navigation):Action{
   if(distance>rule.keepDistance[1])return nav.toward(target.pos)??{type:'wait'}
   return{type:'wait'}
  }
+ const call=s.call
+ if(call&&call.at<=turnOf(w)&&call.expiresAt>turnOf(w)&&capacity(w,c,'signal')>=.3&&!isMissing(w,c,rule.antenna)&&partEff(w,c,rule.antenna)>=.3){
+  c.ai.mode='investigate';c.ai.target=undefined;c.ai.dest={...call.pos}
+  return cheb(c.pos,call.pos)>rule.keepDistance[0]?nav.toward(call.pos)??{type:'wait'}:{type:'wait'}
+ }
  c.ai.mode='patrol';c.ai.target=undefined
  const waypoint=rule.patrol[s.patrolIndex%rule.patrol.length]!
  if(cheb(c.pos,waypoint)<=1){s.patrolIndex=(s.patrolIndex+1)%rule.patrol.length;return{type:'wait'}}

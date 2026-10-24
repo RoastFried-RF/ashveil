@@ -1,0 +1,58 @@
+{
+  "scope": "front component source only, no main-game activation or walking claim",
+  "references": [
+    {
+      "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+      "stagingCopy": "references/sower-idle-v335.png",
+      "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97",
+      "use": "generator reference input, canonical front is top row"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-work-v1.png",
+      "stagingCopy": "references/sower-work-v335.png",
+      "sha256": "5ece45e15d2d32aa3e77f8aed9c6a2c27bc23abb2581573b5f25da8fb96334cd",
+      "use": "generator reference input for own material/mechanism identity"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-walk-v1.png",
+      "stagingCopy": "references/sower-failed-walk-v335.png",
+      "sha256": "e54152557c4b758a690fa397da00d30395806673ea351c4e05946cc340ba70d4",
+      "use": "directly viewed failed whole-pose reference only, not generator input"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v351-sower-side-walk/originals/sower-walk-left-v1.png",
+      "stagingCopy": "references/sower-failed-left-walk-v351.png",
+      "sha256": "466b97867876db0b8e98c2df939773764c557e34e59297283e0271b306c51eba",
+      "use": "directly viewed repeated-paw failure reference only, not generator input"
+    }
+  ],
+  "frontReferenceFrames": {
+    "idle": {
+      "source": "references/sower-idle-v335.png",
+      "crop": [
+        73,
+        125,
+        239,
+        222
+      ]
+    },
+    "work": {
+      "source": "references/sower-work-v335.png",
+      "crop": [
+        43,
+        931,
+        271,
+        228
+      ]
+    }
+  },
+  "canonicalObservation": "Front: screen-left tall ribbed hopper, screen-right short round tank, central two-aperture soil optic and closed belly planting spout. Four physical drive legs; small calibration manipulators are separate from load-bearing legs.",
+  "sharingContract": "Exactly4unique source regions: body, upper strut, lower piston, footpad. Same upper/lower/foot source may be referenced by four leg instances in parent runtime rig; do not count repeated instances as new originals or16walk frames. No reflected/recolored art or cloned output parts.",
+  "failureContext": "Prior whole-pose sources preserve machine identity but fail to establish all four physical foot recovery cycles. This source atlas alone will not resolve foot timing, ownership, planted locks or gait approval.",
+  "pendingAmbiguity": [
+    "Rear hip attachment centers may be occluded by front chassis.",
+    "2D source pins indicate projected image-plane rotation centers, not proven3D revolute axes.",
+    "Fixed-medium-extension lower piston source does not itself support variable telescoping art.",
+    "Shared rotated front parts may turn painted highlight direction and reveal missing back surfaces."
+  ]
+}
