@@ -29,7 +29,7 @@ import { regenerationPeriod, willForChecks } from './growth'
 import { scentTick } from './perception'
 import { canSee } from './fov'
 import { addEffect, effectMag, hasEffect, traitAdd, traitMul, traitOverride } from './traits'
-import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Wound, WoundDef } from './types'
+import type { BodyDef, BodyPartDef, BodyState, Creature, CreatureDef, Region, Slot, Wound, WoundDef } from './types'
 
 const partCache = new WeakMap<BodyDef, Map<string, BodyPartDef>>()
 const fingerCache = new WeakMap<BodyDef, readonly string[]>()
@@ -596,6 +596,7 @@ function mergeWounds(c: Creature, partId: string, defId: string) {
 
 function sever(w: World, c: Creature, pd: BodyPartDef, source: string) {
   c.body.missing.push(pd.id)
+  dropMissingHandEquipment(w,c)
   rememberPartLoss(w,c,pd)
   let sev = 0
   for (const x of c.body.wounds) if (isDescendantOrSelf(w, c, x.part, pd.id)) sev += x.severity - x.healed
@@ -609,6 +610,18 @@ function sever(w: World, c: Creature, pd: BodyPartDef, source: string) {
     arterial: false, internal: false, contam: 25, ageTurns: 0, source,
   })
   c.history.push({ turn: turnOf(w), kind: 'maimed', text: `${pd.label}을(를) 잃음 (${source})` })
+}
+
+/** Combat and surgery release the same original objects when their supporting anatomy is lost. */
+export function dropMissingHandEquipment(w:World,c:Creature){
+ const lost=(anchor:string)=>!!tryPart(w,c,anchor)&&isMissing(w,c,anchor)
+ const anchors:readonly [Slot,string][]=[['main','RightHand'],['off','LeftHand'],['ring1','RightRing'],['ring2','LeftRing']]
+ for(const [slot,anchor] of anchors){
+  const it=c.equip[slot]
+  if(!it||!lost(anchor)&&!(slot==='main'&&w.db.tryGet<import('./types').ItemDef>(it.def)?.twoHanded&&lost('LeftHand')))continue
+  delete c.equip[slot];delete it.gx;delete it.gy;delete it.half
+  tileAt(w,c.pos).items.push(it)
+ }
 }
 
 /** 사망 원인 판정 (살아 있으면 null) — 02 §2.0.1 사망 경로 */

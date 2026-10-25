@@ -7,7 +7,7 @@ import {serialize,deserialize} from '../src/core/save'
 import {killCreature} from '../src/core/combat'
 import {db} from './helpers'
 export type PrisonerWitnessPhase='private'|'ready'|'heard'|'stale'|'direct'|'offer'|'pending'
-let template:string|undefined,witnessId=0,victimId=0
+let template:string|undefined,witnessId=0,victimId=0,ropeId=0
 function prepared():World{
  if(template)return{db,s:deserialize(template)}
  const d=prisonerMemoryFixture(),{w,s,p,victim}=d,town=s.overworld!.scenes['Region.ShepherdDale'],witness=town.creatures.find(c=>c.traderSite==='Region.ShepherdDale')!
@@ -19,12 +19,12 @@ function prepared():World{
  for(let x=0;x<s.map.w;x++)tileAt(w,{x,y:25}).t='Terrain.RuinWall'
  invalidateLights(w);updatePlayerVision(w,p);for(let i=0;!witness.prisonerSightings?.[victim.id]&&i<3;i++){const error=playerAct(w,{type:'wait'});if(error)throw Error(error)}
  if(!witness.prisonerSightings?.[victim.id]||s.knowledge.prisonerSightings?.[victim.id])throw Error('actual witness-only first observation was not private')
- witnessId=witness.id;victimId=victim.id;template=serialize(s);return{db:w.db,s:deserialize(template)}
+ witnessId=witness.id;victimId=victim.id;ropeId=d.proof.originalRopeUid;template=serialize(s);return{db:w.db,s:deserialize(template)}
 }
 export function prisonerWitnessesFixture(phase:PrisonerWitnessPhase='ready'){
  const w=prepared(),s=w.s,p=player(w),witness=s.creatures.find(c=>c.id===witnessId)!,victim=s.creatures.find(c=>c.id===victimId)!,at=witness.prisonerSightings![victim.id]!.at
  const act=(a:Parameters<typeof playerAct>[1],budget?:number)=>{const error=playerAct(w,a,budget);if(error)throw Error(error)}
- const proof={phase,originalWitnessId:witness.id,originalVictimId:victim.id,originalActorIds:s.creatures.map(c=>c.id),actualWitnessObservationAt:at,declaredPrivacyWallRow:25,declaredInitialWitnessLocationLampHolderAndConversationLocation:true,notClaimingWitnessInterregionJourneyOrNaturalAbductionHistory:true}
+ const proof={phase,originalRopeUid:ropeId,originalWitnessId:witness.id,originalVictimId:victim.id,originalActorIds:s.creatures.map(c=>c.id),actualWitnessObservationAt:at,declaredPrivacyWallRow:25,declaredInitialWitnessLocationLampHolderAndConversationLocation:true,notClaimingWitnessInterregionJourneyOrNaturalAbductionHistory:true}
  const finish=()=>({w,s,p,witness,victim,act,proof:{...proof,initialRendererFx:s.fx.splice(0)}})
  if(phase==='private')return finish()
  witness.pos={x:21,y:31};witness.home={...witness.pos};witness.nextAct=s.time+28800*100;invalidateLights(w);updatePlayerVision(w,p)

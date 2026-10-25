@@ -1,6 +1,6 @@
 /** Per-visible-actor presentation owner. It borrows atlas textures and never edits the world. */
 import {Container,Graphics} from 'pixi.js'
-import {ArticulatedGait,project,type Point,type RigPose} from './articulated-gait'
+import {ArticulatedGait,project,type Point,type RigPose,type RigDriveStates} from './articulated-gait'
 import {ArticulatedRigView,type RigArt,type RigChassis} from './articulated-rig-view'
 import {tex,type Dir} from './atlas'
 import type {RigSpec} from './rig-spec'
@@ -23,7 +23,7 @@ export class RigOwner {
   this.models={down:prepare('down'),left:prepare('left'),right:prepare('right'),up:prepare('up')}
  }
  reset(){this.needsReset=true}
- update(dir:Dir,screen:Point,workPhase:number|null,milliseconds:number,instant=false){
+ update(dir:Dir,screen:Point,workPhase:number|null,milliseconds:number,instant=false,drives:RigDriveStates={}){
   const point={x:screen.x,y:screen.y/Math.SQRT1_2},model=this.models[dir],old=this.current
   const teleport=!!old&&Math.hypot(point.x-old.point.x,point.y-old.point.y)>64
   const instantReset=instant&&(!this.wasInstant||!old||Math.hypot(point.x-old.point.x,point.y-old.point.y)>1e-7);this.wasInstant=instant
@@ -34,14 +34,14 @@ export class RigOwner {
    this.root.addChild(view.root);this.current={dir,model,view,gait,pose:gait.pose(),point};this.needsReset=false
   }
   const c=this.current!,seconds=Math.max(0,milliseconds)/1000
-  c.pose=c.gait.update(point,instant?0:seconds);c.point=point
+  c.pose=c.gait.update(point,instant?0:seconds,drives);c.point=point
   if(workPhase!==null&&model.work.length){const index=Math.min(model.work.length-1,Math.floor(Math.max(0,Math.min(1,workPhase))*model.work.length));c.view.setChassis(model.work[index],instant?0:.12);this.sourceFrame=model.frames[index]}
   else{c.view.setChassis(model.idle,instant?0:.12);this.sourceFrame=model.idleFrame}
   c.view.update(c.pose,point,instant?1:seconds)
   if(this.outgoing){this.outgoing.remaining=Math.max(0,this.outgoing.remaining-milliseconds);this.outgoing.view.root.alpha=this.outgoing.remaining/120;c.view.root.alpha=1-this.outgoing.remaining/120;if(!this.outgoing.remaining){this.outgoing.view.destroy();this.outgoing=null}}
   else c.view.root.alpha=1
   this.shadow.clear();const center=project({...point,z:0})
-  for(const leg of c.pose.legs){const p=project({...leg.sole,z:0});this.shadow.ellipse(p.x-center.x,p.y-center.y-1,5,1.7).fill({color:0,alpha:leg.contact?.35:.13})}
+  for(const leg of c.pose.legs){if(!leg.present)continue;const p=project({...leg.sole,z:0});this.shadow.ellipse(p.x-center.x,p.y-center.y-1,5,1.7).fill({color:0,alpha:leg.contact?.35:.13})}
  }
  setTint(color:number){this.current?.view.setTint(color);this.outgoing?.view.setTint(color)}
  hit(screen:Point){return this.root.visible&&this.root.alpha>0&&!!(this.current?.view.hit(screen)||this.outgoing?.view.hit(screen))}

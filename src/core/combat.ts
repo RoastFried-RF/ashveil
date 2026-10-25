@@ -11,6 +11,8 @@ import {initializeCarcass,takeCarcassStock} from './carcass'
 import {projectileFletching} from './ranged'
 import {runScriptHooks} from './script-hooks'
 import {cancelRansom} from './ransom'
+import {pauseCompanionCarePlan} from './companion-care-plan-state'
+import {interruptTreat} from './treatment'
 import {recordBountyVictory} from './bounty-contracts'
 import {recordStoryVictory} from './story-fame'
 import {sourceContains} from './population-sources'
@@ -884,6 +886,12 @@ export function pushBack(w: World, a: Creature, t: Creature, n: number) {
 export function killCreature(w: World, c: Creature, cause: string,options:{execution?:boolean;killerId?:number}={}) {
   if (!c.alive) return
   if(c.activity?.kind==='ransom'||c.activity?.kind==='ransomWait')cancelRansom(w,c)
+  // Death cannot leave the surviving patient held by a channel that will never tick.
+  if(c.activity&&['careWait','treat','diagnose','dose','rescueDrag'].includes(c.activity.kind)){
+    interruptTreat(w,c)
+    c.activity=undefined
+  }
+  pauseCompanionCarePlan(w,c,'시술자가 사망했다')
   const turn = turnOf(w)
   c.alive = false
   delete c.sleepObservation

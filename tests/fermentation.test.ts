@@ -1,8 +1,9 @@
+import {cultivationStatus} from '../src/core/cultivation'
 import {SAVE_VERSION} from '../src/core/game'
 import {describe,expect,it} from 'vitest'
 import {perform,consumeFor} from '../src/core/actions'
 import {startCraft,collectBatch,startGather} from '../src/core/crafting'
-import {tileAt,turnOf,type World} from '../src/core/ctx'
+import {tileAt,type World} from '../src/core/ctx'
 import {firstImpressionsFixture} from './first-impressions-fixture'
 import {tradePrice,exchange} from '../src/core/economy'
 import {foodServings} from '../src/core/food-vessels'
@@ -68,12 +69,13 @@ describe('실제 발효·다섯 회분과 원래 항아리',()=>{
   const d=firstImpressionsFixture(),jar=d.market.items.find(i=>i.def==='Item.CeramicJar')!,seed=d.market.items.find(i=>i.def==='Item.CabbageSeed')!,cash=d.p.money!+d.market.money,uid=jar.uid
   expect(jar.count).toBe(3);expect(seed.count).toBe(4);expect(exchange(d.w,d.p,d.trader,[{uid:jar.uid,count:1},{uid:seed.uid,count:1}],[])).toBeNull();expect(d.p.money!+d.market.money).toBe(cash);expect(d.market.items.find(i=>i.uid===uid)!.count).toBe(2)
  })
- it('실제 씨앗은 흙의 성장을 기다려야 수확되고 원래 채소5회분이 실제 배낭에 남는다',()=>{
+ it('같은 씨앗에서 심은 밭은 미성숙 수확을 거절하고 성숙 초기 조건에서 원래 채소5회분만 낸다',()=>{
   const d=clinicalDiseaseFixture(),seed=d.add('Item.CabbageSeed'),pos={x:21,y:20}
   expect(perform(d.w,d.p,{type:'place',uid:seed.uid,dir:2}).ok).toBe(true);expect(d.p.bag.some(i=>i.uid===seed.uid)).toBe(false)
-  const tile=tileAt(d.w,pos);expect(tile.t).toBe('Terrain.CabbagePlot');expect(tile.gatherAt).toBe(turnOf(d.w)+5*28800)
+  const tile=tileAt(d.w,pos),crop=cultivationStatus(d.w,pos)!;expect(tile.t).toBe('Terrain.CabbagePlot');expect(tile.gatherAt).toBeUndefined();expect(crop.state.seedUid).toBe(seed.uid);expect(crop.ready).toBe(false)
   const hash=stateHash(d.s);expect(startGather(d.w,d.p,pos,1)).not.toBeNull();expect(stateHash(d.s)).toBe(hash)
-  d.s.time=tile.gatherAt!*100;expect(startGather(d.w,d.p,pos,1)).toBeNull();finishBase(d.w,d.p);expect(d.p.bag.filter(i=>i.def==='Item.Cabbage').reduce((n,i)=>n+i.count,0)).toBe(5);expect(tile.gatherAt).toBe(turnOf(d.w)+5*28800)
+  // Declared ripe fixture, not a claim that skipping five calendar days grows an unwatered crop.
+  crop.state.growth=crop.total;expect(startGather(d.w,d.p,pos,1)).toBeNull();finishBase(d.w,d.p);expect(d.p.bag.filter(i=>i.def==='Item.Cabbage').reduce((n,i)=>n+i.count,0)).toBe(5);expect(tile.cultivation!.growth).toBe(0);expect(tile.cultivation!.seedUid).toBe(seed.uid);expect(tile.gatherAt).toBeUndefined()
  })
  it('항아리 없는 발효 준비는 원래 채소/소금·UID·난수를 소비하지 않는다',()=>{
   const d=clinicalDiseaseFixture();for(let i=0;i<5;i++)d.add('Item.Cabbage');d.add('Item.Salt');const hash=stateHash(d.s);expect(startCraft(d.w,d.p,'Recipe.FermentCabbage',1)).not.toBeNull();expect(stateHash(d.s)).toBe(hash)

@@ -386,23 +386,25 @@ onBeforeUnmount(() => {
     <!-- 위험: 화면 가장자리 붉은 기운 -->
     <div v-if="danger > 0" class="pointer-events-none absolute inset-0" :style="{ opacity: danger, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(120,0,0,.55) 100%)', animation: preferences.warningPulse ? 'danger-vignette 1.6s ease-in-out infinite' : 'none' }" />
 
-    <div class="pointer-events-none absolute left-3 top-3"><StatusStrip /></div>
     <div class="absolute left-3 top-1/2 -translate-y-1/2"><SideBars /></div>
-    <div class="absolute right-3 top-3 flex flex-col items-end gap-3">
-      <div class="game-tools flex gap-1.5">
-        <button class="dbtn" @click="preferencesOpen = true">설정 (F3)</button>
-        <button class="dbtn" @click="help = !help">? 조작법</button>
-        <button class="dbtn" @click="abandonToTitle">타이틀</button>
+    <div class="game-top-bar pointer-events-none absolute inset-x-3 top-3 flex items-start justify-between gap-3">
+      <StatusStrip class="min-w-0" />
+      <div class="game-top-tools pointer-events-auto flex shrink-0 flex-col items-end gap-3">
+        <div class="game-tools flex gap-1.5">
+          <button class="dbtn" @click="preferencesOpen = true">설정 (F3)</button>
+          <button class="dbtn" @click="help = !help">? 조작법</button>
+          <button class="dbtn" @click="abandonToTitle">타이틀</button>
+        </div>
+        <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
+        <div v-if="saveStatus === 'error'" class="df df-celtic max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
+        <Banners />
+        <ExpeditionGuide v-if="!over&&!hover&&!targeting" />
+        <HoverInfo v-if="hover" :pos="hover" :detail="shift" />
       </div>
-      <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
-      <div v-if="saveStatus === 'error'" class="df df-celtic max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
-      <Banners />
-      <ExpeditionGuide v-if="!over&&!hover&&!targeting" />
-      <HoverInfo v-if="hover" :pos="hover" :detail="shift" />
-    </div>
 
-    <div v-if="activity" class="game-notice pointer-events-none absolute left-1/2 top-3 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
-    <div v-if="targeting" class="game-notice pointer-events-none absolute left-1/2 top-14 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span v-if="maneuverPreview && !maneuverPreview.error">· {{ maneuverPreview.chance }}% · 기력 {{ maneuverPreview.cost }}</span><span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
+      <div v-if="activity" class="game-activity game-notice pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
+      <div v-if="targeting" class="game-targeting game-notice pointer-events-none absolute left-1/2 top-11 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span v-if="maneuverPreview && !maneuverPreview.error">· {{ maneuverPreview.chance }}% · 기력 {{ maneuverPreview.cost }}</span><span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
+    </div>
 
     <div ref="hudDock" class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
       <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ onStairs }}(으)로 ( &gt; )</button></div>
@@ -466,3 +468,11 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+@media(max-width:640px){
+ .game-top-bar{flex-direction:column;gap:8px}
+ .game-top-tools{align-self:flex-end;max-width:100%}
+ .game-activity,.game-targeting{position:static;transform:none;align-self:center;max-width:100%}
+}
+</style>

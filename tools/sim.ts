@@ -1,7 +1,9 @@
 // 헤드리스 시뮬레이션: pnpm sim [판 수=20] [최대 일수=3] [시드 시작=0] [--json <파일>]
 // 봇으로 여러 시드를 돌려 사망 원인 분포·생존 일수를 집계한다.
 
-import { writeFileSync } from 'node:fs'
+import { mkdirSync,writeFileSync } from 'node:fs'
+import {join} from 'node:path'
+import {serialize,stateHash} from '../src/core/save'
 import { botDecide } from '../src/core/bot'
 import { player, TURNS_PER_DAY, type World } from '../src/core/ctx'
 import { newGame, playerAct, runUntilInput } from '../src/core/game'
@@ -13,6 +15,9 @@ const runs = Number(process.argv[2] ?? 20)
 const maxDays = Number(process.argv[3] ?? 3)
 const seedStart = Number(process.argv[4] ?? 0)
 const jsonAt = process.argv.indexOf('--json'), jsonFile = jsonAt >= 0 ? process.argv[jsonAt + 1] : undefined
+const statesAt=process.argv.indexOf('--state-dir'),statesDir=statesAt>=0?process.argv[statesAt+1]:undefined
+if(statesAt>=0&&(!statesDir||statesDir.startsWith('--')))throw Error('--state-dir 출력 경로가 필요하다')
+if(statesDir)mkdirSync(statesDir,{recursive:true})
 if (!Number.isInteger(runs) || runs < 1 || !Number.isFinite(maxDays) || maxDays <= 0 || !Number.isInteger(seedStart) || seedStart < 0 || (jsonAt >= 0 && !jsonFile)) throw new Error('사용법: sim <양의 판 수> <양의 최대 일수> [시드 시작] [--json 파일]')
 const rows: { seed: string; cause: string; days: number; level: number; map: string; background?: string; final: object }[] = []
 const { db, report } = loadDb()
@@ -27,6 +32,8 @@ for (let i = 0; i < runs; i++) {
   const s = newGame(db, { seed, overworld })
   const w: World = { db, s }
   runUntilInput(w)
+  const initialHash=statesDir?stateHash(s):undefined
+  if(statesDir)writeFileSync(join(statesDir,seed+'-initial.json'),serialize(s),{flag:'wx'})
   const startTU = w.s.time
   const endTU = startTU + Math.max(1, Math.floor(TURNS_PER_DAY * maxDays * 100))
   let guard = 0
@@ -40,6 +47,10 @@ for (let i = 0; i < runs; i++) {
   if (s.over?.kind === 'escape') escapes++
   causes[key] = (causes[key] ?? 0) + 1
   const d = (s.time - startTU) / (TURNS_PER_DAY * 100)
+  if(statesDir){
+    writeFileSync(join(statesDir,seed+'-final.json'),serialize(s),{flag:'wx'})
+    writeFileSync(join(statesDir,seed+'-hashes.json'),JSON.stringify({seed,initialHash,finalHash:stateHash(s),initialTU:startTU,finalTU:s.time})+'\n',{flag:'wx'})
+  }
   days.push(d)
   rows.push({
     seed, cause: key, days: d, level: pl.level, map: s.map.id, background: pl.background,

@@ -134,8 +134,8 @@ export function companionDecision(w:World,c:Creature,threats:Creature[]):{action
   const supply=baseWorkerSupply(w,c);if(supply)return supply
   const rest=baseRestDecision(w,c,threats);if(rest)return rest
   if(c.needs.fatigue>=d.sleepAt&&c.needs.bodyTemp>=35&&(c.drowsyUntil??0)<=turnOf(w))return{action:{type:'sleep'}}
-  const scheduledCare=companionCareScheduleDecision(w,c);if(scheduledCare)return scheduledCare
   const aid=companionAidDecision(w,c);if(aid)return aid
+  const scheduledCare=companionCareScheduleDecision(w,c);if(scheduledCare)return scheduledCare
   const recovery=companionRecoveryDecision(w,c);if(recovery)return recovery
   const work=baseWorkDecision(w,c,threats);if(work)return work
   const base=w.s.map.baseCamp

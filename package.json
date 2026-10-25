@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --maxWorkers=2",
     "lint": "eslint .",
     "typecheck": "vue-tsc --noEmit",
     "sim": "tsx tools/sim.ts",

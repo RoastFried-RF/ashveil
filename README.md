@@ -1,14 +1,14 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업 묶음은 **v0.387-dev·저장219**이다. 동료의 유한 처치 순서에 시간 예약·환자 자유 대기·휴식 중 진료 개시·기한/원래 물품 재검토·HUD/일지 모아보기·정확한 예약 취소를 연결했다. 자체 새 원문1PNG의 침구5종과 닫힌 의료 가방을 실제 소지품/지도에 적용했다. [사용법·한계](docs/care-schedule-v387.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/) · [처치 동작](https://roastfried-rf.github.io/ashveil/artbook/medical/). 인물 착용/보철 몸 표현·장기 확장·전체 출시 게이트는 남는다. [실행 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
+현재 작업 묶음은 **v0.388-dev · 저장219**이다. 전수 품질 감사에서 동물 물기 공격, 예약 진료와 응급처치 충돌, 시술자 사망 정리, 손 절단 후 장비 낙하, 파종기 손상 표시, 검색·분류·키보드 상세·긴 무기·작은 화면·도감 확대를 수정했다. **기준 전체 검사에서 발견한48개 실패를 해결하고, 수정본385파일6,545검사 전체가 통과했다.** [감사 목록·근거·남은 작업](docs/quality-audit-v388.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
-v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
+실제 인물의 착용 의복·절단·의수족을 몸 그림에 반영하는 작업과 장기 확장·전체 출시 게이트는 남아 있다. 기존 예약 진료·침구 원화는 유지하며 이번 감사에서 새 PNG는 만들지 않았다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
 > 규칙은 투명하게, 세계는 끝없이 낯설게.
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-**마지막 전체 회귀 완료: 프로토타입 v0.312** · 저장206(205호환). 지상 밭의 실제 이탈 날씨·관수/증발·토양 정산을 연결했다. 전체348파일6,267개·월드30판·두 화면 실제16PNG/전체28쌍·복원10회 확인. 시야12/어둠6칸·각인/표석/탐구·울림 특성과 현재 원화를 지원한다. **v1.0.0까지 후속 확장 포함 개발 중**이다. [게임 실행](https://roastfried-rf.github.io/ashveil/) · [재배/검증](docs/surface-cultivation-v312.md) · [검사 화면](docs/previews/v312-field-harvest.png) · [출시 기준](docs/v1-execution.md).
+마지막 이전 통합 검증은 v0.312였다. 현재 v0.388에서 이후 기능을 포함한 전체 회귀385파일6,545검사를 통과했고, 실제 입력 검토를 완료했다. 같은30시드·최대3일 월드 검사와 전체 초기/최종 각인120개 복원도 통과했다. 아래 구현 범위와 v1.0.0 출시 완료는 구분한다. [이전 검증](docs/release-v312-proof.json) · [현재 감사](docs/quality-audit-v388.md).
 
 ## 현재 플레이할 수 있는 것
 

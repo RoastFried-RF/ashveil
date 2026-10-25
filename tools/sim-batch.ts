@@ -9,6 +9,7 @@ const runs = Number(process.argv[2] ?? 30), days = Number(process.argv[3] ?? 3),
 if (!Number.isInteger(runs) || runs < 1 || !Number.isFinite(days) || days <= 0) throw new Error('판 수와 일수는 양수여야 한다')
 mkdirSync(dir, { recursive: true })
 const overworld = process.argv.includes('--world')
+const keepStates=process.argv.includes('--states')
 const workers = Math.min(4, cpus().length, runs), t0 = performance.now()
 interface Row { seed: string; cause: string; days: number; level: number; map: string; background?: string }
 let start = 0
@@ -18,7 +19,7 @@ const groups = Array.from({ length: workers }, (_, i) => {
   return { count, from, file: join(dir, `batch-${i}.json`) }
 })
 await Promise.all(groups.map((g) => new Promise<void>((resolve, reject) => {
-  const child = spawn(process.execPath, ['--import', 'tsx', 'tools/sim.ts', String(g.count), String(days), String(g.from), '--json', g.file, ...(overworld ? ['--world'] : [])], { stdio: ['ignore', 'pipe', 'pipe'] })
+  const child = spawn(process.execPath, ['--import', 'tsx', 'tools/sim.ts', String(g.count), String(days), String(g.from), '--json', g.file, ...(overworld ? ['--world'] : []),...(keepStates?['--state-dir',join(dir,'states')]:[])], { stdio: ['ignore', 'pipe', 'pipe'] })
   let output = '', errors = ''
   child.stdout.on('data', (b) => { output += String(b) })
   child.stderr.on('data', (b) => { errors += String(b) })

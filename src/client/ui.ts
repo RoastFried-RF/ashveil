@@ -234,7 +234,7 @@ export function assignHotbar(ref: HotbarRef) {
   doAct({ type: 'hotbar', index: i, ref })
 }
 
-export function showTip(e: MouseEvent, title: string, lines: string[], color?: string) {
+export function showTip(e: Pick<MouseEvent,'clientX'|'clientY'>, title: string, lines: string[], color?: string) {
   tooltip.value = { x: e.clientX, y: e.clientY, title, lines, color }
 }
 export function hideTip() {

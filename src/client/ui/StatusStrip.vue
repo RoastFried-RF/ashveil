@@ -86,7 +86,7 @@ const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${R
 
 <template>
   <div class="pointer-events-auto flex items-start gap-2" data-testid="status-strip">
-    <div class="df df-olive min-w-[180px]">
+    <div class="status-location df df-olive min-w-[180px]">
       <div class="font-title text-[15px] font-bold leading-tight text-[#e8d7a8]" data-testid="location">{{ d.name }}<span v-if="d.depth" class="ml-1 text-xs text-ash-400">지하 {{ d.depth }}층</span></div>
       <div class="text-[11px] text-ash-300">{{ d.clock }} · <template v-if="d.surface">{{ d.weather }} · </template>{{ d.temp.toFixed(0) }}°C</div>
     </div>
@@ -105,4 +105,9 @@ const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${R
 .mini-body-drawing { display: block; width: 40px; height: 60px; }
 .body-region { cursor: help; }
 .body-region:hover > path:first-child { stroke: #f2dba0; stroke-opacity: 1; stroke-width: 1; filter: brightness(1.25); }
+@media(max-width:640px){
+ [data-testid=status-strip]{display:grid;grid-template-columns:minmax(0,1fr) 44px;width:100%}
+ .status-location{min-width:0;overflow-wrap:anywhere}
+ [data-testid=status-chips]{grid-column:1/-1;max-width:100%}
+}
 </style>

@@ -26,14 +26,15 @@ export function residentCropSuppliesFixture(phase:CropSuppliesPhase='initial',wa
  // 원래 휴대 등불을 켜지 않는다. 그늘 주민의 빛 회피와 경계를 억지로 끄지 않는다.
  invalidateLights(w);updatePlayerVision(w,p)
  const start=s.time
+ let preparedSeedUid:number|undefined,craftTotal:number|undefined,firstCraftRemaining:number|undefined
  if(phase==='prepared'||phase==='planted')for(let i=0;i<200;i++){
   if(phase==='prepared'&&c.bag.some(i=>i.def==='Item.WhitecapCulture')||phase==='planted'&&c.residentPlot)break
-  act({type:'wait'});if(i===199)throw Error('actual resident crop preparation/planting did not finish')
+  act({type:'wait'});const culture=c.bag.find(item=>item.def==='Item.WhitecapCulture');if(culture)preparedSeedUid=culture.uid;if(c.activity?.kind==='craft'&&craftTotal===undefined){craftTotal=c.activity.total;firstCraftRemaining=c.activity.remaining}if(i===199)throw Error('actual resident crop preparation/planting did not finish')
  }
  if(phase==='pendingCraft')for(let i=0;i<4;i++)act({type:'wait'})
  if(phase==='pending'||phase==='pendingCraft')act({type:'rest',turns:200},1)
  if(originalItems.some(uid=>!allItems(p).some(i=>i.uid===uid)))throw Error('original player item disappeared during initial real observation')
- const proof={phase,originalActors,originalTownActors:townActors,originalItems,originalHp,originalBody,originalResident:c.id,initialStock,initialBank,initialNpcMoney,declaredArrivalWithoutEarlierJourney:true,declaredWarmDestination:warm,declaredAdjacentObserverPosition:true,actualFiniteLanternPreparationTU:start-beforeLight,actualPostObserverPreparationTU:s.time-start,previousRegionResidentsPreservedInScene:true,observesWithoutPersonalLight:true,initialRendererFx:s.fx.splice(0)}
+ const proof={phase,preparedSeedUid,craftTotal,firstCraftRemaining,originalActors,originalTownActors:townActors,originalItems,originalHp,originalBody,originalResident:c.id,initialStock,initialBank,initialNpcMoney,declaredArrivalWithoutEarlierJourney:true,declaredWarmDestination:warm,declaredAdjacentObserverPosition:true,actualFiniteLanternPreparationTU:start-beforeLight,actualPostObserverPreparationTU:s.time-start,previousRegionResidentsPreservedInScene:true,observesWithoutPersonalLight:true,initialRendererFx:s.fx.splice(0)}
  const copy:World={db:w.db,s:deserialize(serialize(s))},cs=copy.s,cp=player(copy),resident=cs.creatures.find(t=>t.id===c.id)!,shop=marketFor(copy,resident)!
  invalidateLights(copy);updatePlayerVision(copy,cp)
  return{w:copy,s:cs,p:cp,c:resident,market:shop,act:(a:Action,budget?:number)=>{const error=playerAct(copy,a,budget);if(error)throw Error(error)},proof,plot:()=>resident.residentPlot&&tileAt(copy,resident.residentPlot.pos).cultivation}

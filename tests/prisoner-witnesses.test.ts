@@ -10,7 +10,7 @@ import {invalidateLights} from '../src/core/fov'
 import type {World} from '../src/core/ctx'
 describe('실제 NPC 개인 목격과 곁의 대화로 들은 포로 소식',()=>{
  it('실제 주민의 차례에서 본 포로는 개인 기억에만 남는다',()=>{
-  const d=prisonerWitnessesFixture('private');expect(d.witness.id).toBe(67);expect(d.witness.prisonerSightings![d.victim.id]).toMatchObject({id:85,state:'bound',region:'Region.GreyCloister',pos:{x:21,y:20},lastCapture:{ropeUid:163}});expect(d.s.knowledge.prisonerSightings).toBeUndefined();expect(d.s.creatures.map(c=>c.id)).toEqual(d.proof.originalActorIds)
+  const d=prisonerWitnessesFixture('private');expect(d.witness.id).toBe(67);expect(d.witness.prisonerSightings![d.victim.id]).toMatchObject({id:85,state:'bound',region:'Region.GreyCloister',pos:{x:21,y:20},lastCapture:{ropeUid:d.proof.originalRopeUid}});expect(d.s.knowledge.prisonerSightings).toBeUndefined();expect(d.s.creatures.map(c=>c.id)).toEqual(d.proof.originalActorIds)
  })
  it('목격자와 곁에 서 있는 것만으로 플레이어에게 소식을 옮기지 않는다',()=>{
   const d=prisonerWitnessesFixture();expect(d.s.knowledge.prisonerSightings).toBeUndefined();d.act({type:'wait'});expect(d.s.knowledge.prisonerSightings).toBeUndefined()
@@ -52,7 +52,7 @@ describe('실제 NPC 개인 목격과 곁의 대화로 들은 포로 소식',()=
   const d=prisonerWitnessesFixture('heard'),before=stateHash(d.s),r=prisonerSightings(d.w)[0]!;r.heard!.fromName='사본';r.heard!.at++;r.pos.x++;expect(stateHash(d.s)).toBe(before)
  })
  it('전해 들은 근거의 구조 의뢰는 출처를 명시하고 같은 사람/밧줄로 수락한다',()=>{
-  const d=prisonerWitnessesFixture('offer'),before=stateHash(d.s),offer=rescueOffers(d.w,d.p,d.witness)[0]!;expect(offer).toMatchObject({person:85,ropeUid:163,reward:292,witness:{fromId:67,fromName:d.witness.name}});expect(offer.witness).not.toBe(d.s.knowledge.prisonerSightings![d.victim.id]!.heard);expect(stateHash(d.s)).toBe(before);d.act({type:'rescueContractAccept',target:d.witness.id,offer:offer.id,expectedReward:292});expect(d.s.overworld!.contracts!.filter(isRescueContract).at(-1)).toMatchObject({person:85,ropeUid:163,witness:offer.witness,escrow:292,status:'active'})
+  const d=prisonerWitnessesFixture('offer'),before=stateHash(d.s),offer=rescueOffers(d.w,d.p,d.witness)[0]!;expect(offer).toMatchObject({person:85,ropeUid:d.proof.originalRopeUid,reward:292,witness:{fromId:67,fromName:d.witness.name}});expect(offer.witness).not.toBe(d.s.knowledge.prisonerSightings![d.victim.id]!.heard);expect(stateHash(d.s)).toBe(before);d.act({type:'rescueContractAccept',target:d.witness.id,offer:offer.id,expectedReward:292});expect(d.s.overworld!.contracts!.filter(isRescueContract).at(-1)).toMatchObject({person:85,ropeUid:d.proof.originalRopeUid,witness:offer.witness,escrow:292,status:'active'})
  })
  it('147각인에 주민이 과거 포로를 봤다고 소급하지 않는다',()=>{
   const d=prisonerMemoryFixture(),raw=JSON.parse(serialize(d.s));raw.version=147;const s=deserialize(JSON.stringify(raw));expect(s.version).toBe(SAVE_VERSION);expect({...s,version:147}).toEqual(raw)

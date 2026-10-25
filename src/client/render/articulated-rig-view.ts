@@ -20,13 +20,13 @@ export class ArticulatedRigView {
  private previousChassis:RigChassis|null=null
  private bodyMix=1
  private blendSeconds=.12
- private readonly legs=new Map<string,{upper:Sprite;lower:Sprite;foot:Sprite;root:Container}>()
+ private readonly legs=new Map<string,{upper:Sprite;lower:Sprite;foot:Sprite;root:Container;present:boolean;disabled:boolean;contact:boolean}>()
  private readonly sprites:Sprite[]=[]
  constructor(private readonly art:RigArt){
   this.chassis={...art.body,texture:art.textures.body,key:'idle'};this.body=this.sprite(art.textures.body);this.root.addChild(this.far,this.body,this.near)
   for(const id of['LH','LF','RH','RF']){
    const root=new Container({label:id}),upper=this.sprite(art.textures.upper),lower=this.sprite(art.textures.lower),foot=this.sprite(art.textures.foot)
-   root.addChild(foot,lower,upper);(id.endsWith('H')?this.far:this.near).addChild(root);this.legs.set(id,{root,upper,lower,foot})
+   root.addChild(foot,lower,upper);(id.endsWith('H')?this.far:this.near).addChild(root);this.legs.set(id,{root,upper,lower,foot,present:true,disabled:false,contact:true})
   }
  }
  private sprite(texture:Texture){const s=new Sprite({texture,roundPixels:false});this.sprites.push(s);return s}
@@ -48,6 +48,8 @@ export class ArticulatedRigView {
   if(this.previousBody&&this.previousChassis){align(this.previousBody,this.previousChassis);this.previousBody.alpha=1-this.bodyMix;this.previousBody.visible=this.bodyMix<1}
   for(const leg of pose.legs){
    const view=this.legs.get(leg.id);if(!view)continue
+   view.present=leg.present;view.disabled=leg.disabled;view.contact=leg.contact
+   view.root.visible=view.upper.visible=view.lower.visible=view.foot.visible=leg.present
    const group=leg.far?this.far:this.near;if(view.root.parent!==group)group.addChild(view.root);view.root.zIndex=leg.sole.y
    const hip=local(leg.hip),knee=local(leg.knee),ankle=local(leg.ankle)
    for(const [sprite,part,a,b]of [[view.upper,this.art.upper,hip,knee],[view.lower,this.art.lower,knee,ankle]] as const){const m=pinMatrix(part.proximal,part.distal,a,b,part.thickness);sprite.setFromMatrix(new Matrix(m.a,m.b,m.c,m.d,m.e,m.f))}
@@ -58,7 +60,7 @@ export class ArticulatedRigView {
  inspect(){
   const matrix=(sprite:Sprite)=>{const m=sprite.localTransform;return[m.a,m.b,m.c,m.d,m.tx,m.ty]}
   const all:Sprite[]=[];const visit=(node:Container)=>{if(node instanceof Sprite)all.push(node);for(const child of node.children)visit(child)};visit(this.root)
-  return{sprites:all.length,liveTextures:all.filter(s=>!s.destroyed&&!s.texture.destroyed&&!s.texture.source.destroyed).length,sourceCount:new Set(all.map(s=>s.texture.source)).size,body:matrix(this.body),chassis:this.chassis.key??'unnamed',chassisBlend:this.bodyMix,legs:Object.fromEntries([...this.legs].map(([id,l])=>[id,{upper:matrix(l.upper),lower:matrix(l.lower),foot:matrix(l.foot)}]))}
+  return{sprites:all.length,liveTextures:all.filter(s=>!s.destroyed&&!s.texture.destroyed&&!s.texture.source.destroyed).length,sourceCount:new Set(all.map(s=>s.texture.source)).size,body:matrix(this.body),chassis:this.chassis.key??'unnamed',chassisBlend:this.bodyMix,legs:Object.fromEntries([...this.legs].map(([id,l])=>[id,{present:l.present,disabled:l.disabled,contact:l.contact,visible:l.root.visible&&l.upper.visible&&l.lower.visible&&l.foot.visible,upper:matrix(l.upper),lower:matrix(l.lower),foot:matrix(l.foot)}]))}
  }
  setTint(color:number){for(const sprite of this.sprites)sprite.tint=color}
  /** Release display objects only. Shared atlas originals outlive every instance. */

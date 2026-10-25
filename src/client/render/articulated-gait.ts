@@ -3,6 +3,10 @@ export type Point = {x:number;y:number}
 export type Vec3 = Point & {z:number}
 export type LegId = 'LH'|'LF'|'RH'|'RF'
 export const LEG_ORDER:readonly LegId[] = ['LH','LF','RH','RF']
+/** Actual Body.Sower labels; anatomical sides never change with camera direction. */
+export const SOWER_DRIVE_OWNERS:Readonly<Record<LegId,string>>={LF:'DriveLeg1',RF:'DriveLeg2',LH:'DriveLeg3',RH:'DriveLeg4'}
+export interface RigDriveState {present:boolean;efficiency:number;damage:number}
+export type RigDriveStates=Partial<Record<LegId,RigDriveState>>
 const PROJECTION = Math.SQRT1_2
 export const project = (p:Vec3):Point => ({x:p.x,y:(p.y-p.z)*PROJECTION})
 const add=(a:Vec3,b:Vec3):Vec3=>({x:a.x+b.x,y:a.y+b.y,z:a.z+b.z})
@@ -56,8 +60,8 @@ export const RIG = {
   LH:{hip:{x:10,y:-4/PROJECTION},sole:{x:15,y:-6/PROJECTION},side:1,far:true},
  } satisfies Record<LegId,{hip:Point;sole:Point;side:number;far:boolean}>,
 } as const satisfies ArticulatedLayout
-export type RigLeg = ReturnType<typeof solveTwoLink> & {id:LegId;sole:Vec3;contact:boolean;far:boolean}
-export type RigPose = {root:Point;body:Vec3;legs:RigLeg[];distance:number;swing:LegId|null;supportMargin:number}
+export type RigLeg = ReturnType<typeof solveTwoLink> & {id:LegId;sole:Vec3;contact:boolean;far:boolean;present:boolean;disabled:boolean;efficiency:number;damage:number}
+export type RigPose = {root:Point;body:Vec3;legs:RigLeg[];distance:number;swing:LegId|null;supportMargin:number;supportContacts:number;supportHullAvailable:boolean}
 type Swing = {id:LegId;start:Vec3;end:Vec3;at:number;progress:number}
 
 /** Convex ground contact hull; an inside pad must not create a concave edge. */
@@ -75,6 +79,7 @@ export function supportMargin(points:readonly Point[],center:Point):number{
  return Math.min(...hull.map((a,i)=>{const b=hull[(i+1)%hull.length],dx=b.x-a.x,dy=b.y-a.y;return(dx*(center.y-a.y)-dy*(center.x-a.x))/(Math.hypot(dx,dy)||1)}))
 }
 function supportedCenter(points:readonly Point[],desired:Point):Point{
+ if(points.length<3)return desired // No invented support polygon for two, one or no drives.
  if(supportMargin(points,desired)>=.5)return desired
  const hull=contactHull(points),centroid={x:hull.reduce((n,p)=>n+p.x,0)/hull.length,y:hull.reduce((n,p)=>n+p.y,0)/hull.length}
  let closest={...desired},best=Infinity
@@ -90,6 +95,7 @@ export class ArticulatedGait {
  private nextLeg=0
  private swing:Swing|null=null
  private feet:Record<LegId,Vec3>
+ private drives:RigDriveStates={}
  constructor(root:Point={x:0,y:0},heading:Point={x:0,y:1},private readonly layout:ArticulatedLayout=RIG){
   this.root={...root};const n=Math.hypot(heading.x,heading.y);this.heading=n?{x:heading.x/n,y:heading.y/n}:{x:0,y:1}
   // An honestly staggered initial rest stance avoids teleporting three feet
@@ -97,8 +103,19 @@ export class ArticulatedGait {
   this.feet=Object.fromEntries(LEG_ORDER.map((id,i)=>{const rest=this.layout.legs[id].sole,lead=-(this.layout.stride-this.layout.swingTravel)/2+i*this.layout.swingTravel;return[id,{x:root.x+rest.x+this.heading.x*lead,y:root.y+rest.y+this.heading.y*lead,z:0}]})) as Record<LegId,Vec3>
  }
  /** Presentation substeps prevent a long frame from skipping a contact change. */
- update(root:Point,seconds:number):RigPose{
+ update(root:Point,seconds:number,drives:RigDriveStates={}):RigPose{
   if(![root.x,root.y,seconds].every(Number.isFinite)||seconds<0)throw Error('유한한 이동/시간이 필요합니다')
+  const disabled=(state:RigDriveState|undefined)=>state?.present===false||(state?.efficiency??1)<=0
+  for(const [i,id]of LEG_ORDER.entries()){
+   const wasDisabled=disabled(this.drives[id]),nowDisabled=disabled(drives[id])
+   if(nowDisabled&&this.swing?.id===id)this.swing=null
+   if(wasDisabled&&!nowDisabled){
+    // A repaired/restored drive receives a fresh contact owner at the current root.
+    const rest=this.layout.legs[id].sole,lead=-(this.layout.stride-this.layout.swingTravel)/2+i*this.layout.swingTravel
+    this.feet[id]={x:root.x+rest.x+this.heading.x*lead,y:root.y+rest.y+this.heading.y*lead,z:0}
+   }
+  }
+  this.drives=Object.fromEntries(Object.entries(drives).map(([id,state])=>[id,{...state}]))
   const dx=root.x-this.root.x,dy=root.y-this.root.y,travel=Math.hypot(dx,dy)
   // A teleport/restore has a new owner: construct a fresh rig instead of dragging feet.
   if(travel>64)throw Error('순간 이동 시 새 관절 소유자를 생성해야 합니다')
@@ -107,9 +124,12 @@ export class ArticulatedGait {
   for(let i=1;i<=steps;i++){
    this.root={x:start.x+dx*i/steps,y:start.y+dy*i/steps};this.distance+=travel/steps
    if(!this.swing&&travel>1e-8&&this.distance>=this.nextStart){
-    const id=LEG_ORDER[this.nextLeg],rest=this.layout.legs[id].sole,lead=(this.layout.stride-this.layout.swingTravel)/2
-    this.swing={id,start:{...this.feet[id]},end:{x:this.root.x+rest.x+this.heading.x*lead,y:this.root.y+rest.y+this.heading.y*lead,z:0},at:this.distance,progress:0}
-    this.nextStart=this.distance+this.layout.swingTravel;this.nextLeg=(this.nextLeg+1)%4
+    const index=Array.from({length:4},(_,n)=>(this.nextLeg+n)%4).find(n=>!disabled(this.drives[LEG_ORDER[n]]))
+    if(index!==undefined){
+     const id=LEG_ORDER[index],rest=this.layout.legs[id].sole,lead=(this.layout.stride-this.layout.swingTravel)/2
+     this.swing={id,start:{...this.feet[id]},end:{x:this.root.x+rest.x+this.heading.x*lead,y:this.root.y+rest.y+this.heading.y*lead,z:0},at:this.distance,progress:0}
+     this.nextStart=this.distance+this.layout.swingTravel;this.nextLeg=(index+1)%4
+    }
    }
    const swing=this.swing
    if(swing){
@@ -123,12 +143,14 @@ export class ArticulatedGait {
  }
  pose():RigPose{
   const phase=this.swing?.progress??0,raised=!!this.swing&&phase>.18&&phase<.82
-  const contacts=LEG_ORDER.filter(id=>!raised||id!==this.swing?.id).map(id=>this.feet[id])
+  const disabled=(id:LegId)=>this.drives[id]?.present===false||(this.drives[id]?.efficiency??1)<=0
+  const working=LEG_ORDER.filter(id=>!disabled(id))
+  const contacts=working.filter(id=>!raised||id!==this.swing?.id).map(id=>this.feet[id])
   const baseline={x:this.root.x+this.layout.com.x,y:this.root.y+this.layout.com.y}
-  const full=supportedCenter(LEG_ORDER.map(id=>({...this.feet[id],z:0})),baseline)
+  const full=supportedCenter(working.map(id=>({...this.feet[id],z:0})),baseline)
   let offset={x:full.x-baseline.x,y:full.y-baseline.y}
   if(this.swing){
-   const support=LEG_ORDER.filter(id=>id!==this.swing!.id).map(id=>this.feet[id])
+   const support=working.filter(id=>id!==this.swing!.id).map(id=>this.feet[id])
    const target=supportedCenter(support,full)
    const weight=phase<.18?smooth(phase/.18):phase>.82?smooth((1-phase)/.18):1
    offset={x:full.x-baseline.x+(target.x-full.x)*weight,y:full.y-baseline.y+(target.y-full.y)*weight}
@@ -138,19 +160,22 @@ export class ArticulatedGait {
   // stretch a fixed link or render a planted pad at a different world point.
   for(let pass=0;pass<32;pass++){
    let correction=0
-   for(const id of LEG_ORDER){
+   for(const id of working){
     const hip=this.layout.legs[id].hip,sole=this.feet[id],height=this.layout.hipHeight-sole.z-this.layout.ankleHeight,maxLength=this.layout.upper+this.layout.lower-.001
     const radius=Math.sqrt(Math.max(0,maxLength*maxLength-height*height)),center={x:sole.x-this.layout.soleX-hip.x,y:sole.y-hip.y},dx=body.x-center.x,dy=body.y-center.y,d=Math.hypot(dx,dy)
     if(d>radius){const old={x:body.x,y:body.y};body.x=center.x+dx*radius/d;body.y=center.y+dy*radius/d;correction=Math.max(correction,Math.hypot(body.x-old.x,body.y-old.y))}
    }
    const com={x:body.x+this.layout.com.x,y:body.y+this.layout.com.y}
-   if(supportMargin(contacts,com)<0){const supported=supportedCenter(contacts,com);body.x+=supported.x-com.x;body.y+=supported.y-com.y;correction=Math.max(correction,Math.hypot(supported.x-com.x,supported.y-com.y))}
+   if(contacts.length>=3&&supportMargin(contacts,com)<0){const supported=supportedCenter(contacts,com);body.x+=supported.x-com.x;body.y+=supported.y-com.y;correction=Math.max(correction,Math.hypot(supported.x-com.x,supported.y-com.y))}
    if(correction<1e-8)break
   }
-  const legs=LEG_ORDER.map(id=>{const spec=this.layout.legs[id],hip=add(body,{...spec.hip,z:0}),sole=this.feet[id]
-   const ankle={x:sole.x-this.layout.soleX,y:sole.y,z:sole.z+this.layout.ankleHeight}
-   return{id,sole:{...sole},contact:!raised||id!==this.swing?.id,far:spec.far,...solveTwoLink(hip,ankle,this.layout.upper,this.layout.lower,{x:spec.side,y:0,z:0})}
+  const legs=LEG_ORDER.map(id=>{const spec=this.layout.legs[id],hip=add(body,{...spec.hip,z:0}),off=disabled(id),state=this.drives[id]
+   // An attached failed drive folds near its hip. It is neither a planted foot
+   // nor a fresh healthy stride; a missing drive uses the same finite pose but is hidden.
+   const ankle=off?{x:hip.x+spec.side*(this.layout.upper+this.layout.lower)*.35,y:hip.y+2,z:Math.max(this.layout.ankleHeight,hip.z-(this.layout.upper+this.layout.lower)*.55)}:{x:this.feet[id].x-this.layout.soleX,y:this.feet[id].y,z:this.feet[id].z+this.layout.ankleHeight}
+   const sole=off?{x:ankle.x+this.layout.soleX,y:ankle.y,z:ankle.z-this.layout.ankleHeight}:this.feet[id]
+   return{id,sole:{...sole},contact:!off&&(!raised||id!==this.swing?.id),far:spec.far,present:state?.present!==false,disabled:off,efficiency:state?.efficiency??1,damage:state?.damage??0,...solveTwoLink(hip,ankle,this.layout.upper,this.layout.lower,{x:spec.side,y:0,z:0})}
   })
-  return{root:{...this.root},body,legs,distance:this.distance,swing:this.swing?.id??null,supportMargin:supportMargin(contacts,{x:body.x+this.layout.com.x,y:body.y+this.layout.com.y})}
+  return{root:{...this.root},body,legs,distance:this.distance,swing:this.swing?.id??null,supportMargin:supportMargin(contacts,{x:body.x+this.layout.com.x,y:body.y+this.layout.com.y}),supportContacts:contacts.length,supportHullAvailable:contactHull(contacts).length>=3}
  }
 }

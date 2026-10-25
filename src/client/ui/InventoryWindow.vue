@@ -14,15 +14,13 @@ import Win from './Win.vue'
 import {cycleFocus,focusableIn} from '../input-context'
 import {preferencesOpen} from '../preferences'
 import {definitionInspectorOpen} from '../definition-inspector-ui'
+import {inventoryMatches,type InventoryGroup} from '../inventory-filter'
 
 const itemSearch=ref('')
-const itemGroup=ref('all')
+const itemGroup=ref<InventoryGroup>('all')
 const groups=[['all','전체'],['food','먹을 것'],['medical','의료'],['gear','장비'],['material','재료']] as const
 function matchesItem(it:ItemInst){
- const w=world.value as World,def=itemDef(w,it),q=itemSearch.value.trim().normalize('NFKC').toLocaleLowerCase('ko')
- const group=itemGroup.value
- const category=group==='all'||(group==='food'?!!def.food||!!def.drink:group==='medical'?def.category==='medical'||def.category==='drug':group==='gear'?!!def.slot||!!def.attacks:!!def.rawMaterial||!!def.rawFragment)
- return category&&(!q||itemLabel(w,it).normalize('NFKC').toLocaleLowerCase('ko').includes(q))
+ return inventoryMatches(world.value as World,it,itemGroup.value,itemSearch.value)
 }
 const searchMatches=computed(()=>{void version.value;return player(world.value as World).bag.filter(matchesItem).length})
 const CELL = 38
@@ -238,7 +236,7 @@ function compare(w: World, it: ItemInst): string[] {
   return out.length > 1 ? out : []
 }
 
-function tip(e: MouseEvent, it: ItemInst) {
+function tip(e: Pick<MouseEvent,'clientX'|'clientY'>, it: ItemInst) {
   if (drag.value?.moved) return
   const w = world.value as World
   const t = itemTip(w, it)
@@ -296,6 +294,9 @@ function ctx(e:{clientX:number;clientY:number;currentTarget:EventTarget|null},it
 }
 function itemAccess(it:ItemInst,from:Drag['from'],slot?:Slot){return{
  role:'button',tabindex:0,'aria-label':itemLabel(d.value.w,it)+' · Enter: 메뉴','data-inventory-item':it.uid,
+ 'aria-describedby':'game-tooltip',
+ onFocus:(e:FocusEvent)=>{const r=(e.currentTarget as HTMLElement).getBoundingClientRect();tip({clientX:r.right,clientY:r.top},it)},
+ onBlur:hideTip,
  onKeydown:(e:KeyboardEvent)=>{
   if(!['Enter',' ','ContextMenu'].includes(e.key)&&!(e.shiftKey&&e.key==='F10'))return
   e.preventDefault();e.stopPropagation();if(e.repeat)return

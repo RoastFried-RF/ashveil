@@ -14,6 +14,7 @@ import {masteryStage} from './skills'
 import {releasePatient,startTreatment,treatmentAccess} from './treatment'
 import {emitNoise} from './perception'
 import {stopActivity} from './game'
+import {pauseCompanionCarePlan} from './companion-care-plan-state'
 import {approachBaseStore,baseStoreError,transferBase} from './base-camp'
 import type {Activity,CompanionAidMode,Creature,ItemInst,Wound} from './types'
 export const companionAidRule=(w:World)=>companionDef(w).aid
@@ -70,6 +71,7 @@ export function companionAidQuote(w:World,c:Creature,p:Creature){
 }
 export function startCompanionAid(w:World,c:Creature,p:Creature):string|null{
  const q=companionAidQuote(w,c,p);if(q.error)return q.error
+ pauseCompanionCarePlan(w,c,'허락한 자동 응급 처치를 먼저 시작했다')
  if(p!==c&&interruptibleForAid(p))stopActivity(w,p)
  c.activity=q.activity!;c.activity.companionAid=true;c.activity.woundCount=c.body.wounds.length
  if(p!==c){const turns=c.activity.total!+Math.ceil(Math.max(0,c.nextAct-w.s.time)/100);p.activity={kind:'careWait',healerId:c.id,remaining:turns,total:turns,label:`${c.name}의 상호 응급 처치`}}
@@ -98,6 +100,7 @@ export function companionDragQuote(w:World,c:Creature,p:Creature,to:Pos,during=f
 }
 export function startCompanionDrag(w:World,c:Creature,p:Creature,to:Pos):string|null{
  const q=companionDragQuote(w,c,p,to);if(q.error)return q.error
+ pauseCompanionCarePlan(w,c,'허락한 쓰러진 동료 구조를 먼저 시작했다')
  if(interruptibleForAid(p))stopActivity(w,p)
  c.activity={kind:'rescueDrag',patientId:p.id,target:{...to},aidOrigin:{actor:{...c.pos},patient:{...p.pos}},remaining:q.turns,total:q.turns,woundCount:c.body.wounds.length,label:'쓰러진 동료를 한 칸 옮기기'}
  p.activity={kind:'careWait',healerId:c.id,remaining:q.turns+Math.ceil(Math.max(0,c.nextAct-w.s.time)/100),total:q.turns,label:`${c.name}의 구조를 기다린다`};c.ai.path=undefined

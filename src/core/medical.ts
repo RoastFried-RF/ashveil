@@ -1,5 +1,5 @@
 // 02 §12. 절단·이물질·탈구. 중단 때는 효과를 내지 않고 완료 시 조건을 다시 검사한다.
-import { addWound, capacity, handCapacity, isDescendantOrSelf, isMissing, painSpike, part, tryPart } from './body'
+import { addWound, capacity, dropMissingHandEquipment, handCapacity, isDescendantOrSelf, isMissing, painSpike, part, tryPart } from './body'
 import { killCreature } from './combat'
 import { clamp, log, rng, tileAt, turnOf, type World } from './ctx'
 import { hasLos } from './fov'
@@ -7,7 +7,7 @@ import { cheb } from './geom'
 import { allItems, itemDef, makeItem, qualityOf } from './items'
 import {rememberPartLoss} from './body-memories'
 import { practice } from './skills'
-import type { Creature, ProcedureDef, RecoveryDef, Slot, Wound } from './types'
+import type { Creature, ProcedureDef, RecoveryDef, Wound } from './types'
 
 export type Procedure = ProcedureDef['kind']
 export const isProcedure = (kind?: string): kind is Procedure => ['amputate', 'extract', 'reduce'].includes(kind ?? '')
@@ -58,13 +58,7 @@ function amputate(w: World, c: Creature, target: string, d: ProcedureDef, q: num
   wound.stumpLimb = pd.limb
   ;(c.body.amputationQuality ??= {})[target] = q >= d.prostheticThreshold! ? d.prostheticBonus! : 0
   c.hp = Math.max(0, c.hp - severity)
-  const drops: [Slot, string][] = [['main', 'RightHand'], ['off', 'LeftHand'], ['ring1', 'RightRing'], ['ring2', 'LeftRing']]
-  for (const [slot, anchor] of drops) {
-    const it = c.equip[slot]
-    if (!it || !isMissing(w, c, anchor)) continue
-    delete c.equip[slot]; it.gx = undefined; it.gy = undefined; it.half = undefined; tileAt(w, c.pos).items.push(it)
-  }
-  if (c.equip.main && itemDef(w, c.equip.main).twoHanded && isMissing(w, c, 'LeftHand')) { tileAt(w, c.pos).items.push(c.equip.main); delete c.equip.main }
+  dropMissingHandEquipment(w,c)
   rememberPartLoss(w,c,pd)
   c.history.push({ turn: turnOf(w), kind: 'maimed', text: `${pd.label} 절단 (Q ${q})` })
 }

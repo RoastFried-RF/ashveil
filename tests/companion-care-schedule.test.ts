@@ -10,6 +10,9 @@ import {addToBag,makeItem} from '../src/core/items'
 import {deserialize,serialize,stateHash} from '../src/core/save'
 import {carePlanFixture} from './companion-care-plan-fixture'
 import {finishBase} from './base-camp-fixture'
+import {companionDecision} from '../src/core/companions'
+import {setCompanionAid,startCompanionAid} from '../src/core/companion-aid'
+import {killCreature} from '../src/core/combat'
 function fixture(){const f=carePlanFixture(),steps=[{...f.requests[1]!,afterTurns:20},{...f.requests[1]!,afterTurns:20}];return{...f,steps}}
 function waitUntil(f:ReturnType<typeof fixture>,condition:()=>boolean){for(let n=0;n<120&&!condition();n++)expect(playerAct(f.w,{type:'wait'})).toBeNull();expect(condition()).toBe(true)}
 function start(f:ReturnType<typeof fixture>){const q=companionCarePlanQuote(f.w,f.worker,f.steps);expect(q.error).toBeNull();expect(requestCompanionCarePlan(f.w,f.worker,f.steps,q.signature)).toBeNull();return f.worker.companion!.carePlan!}
@@ -49,4 +52,29 @@ it('rejects invalid delays or excessive horizons without modifying supplies or c
  const f=fixture(),before=stateHash(f.s)
  for(const delay of [-1,.5,2401,Number.MAX_SAFE_INTEGER])expect(companionCarePlanQuote(f.w,f.worker,[{...f.steps[0]!,afterTurns:delay}]).error).not.toBeNull()
  expect(companionCarePlanQuote(f.w,f.worker,Array(5).fill({...f.requests[0]!,afterTurns:2400})).error).not.toBeNull();expect(stateHash(f.s)).toBe(before)
+})
+it('honors already enabled first aid before a future appointment and pauses only once real care starts',()=>{
+ const f=fixture();expect(setCompanionAid(f.w,f.worker,'firstAid')).toBeNull();f.steps=[{...f.requests[1]!,afterTurns:200}];const p=start(f),drugBefore=structuredClone(f.drug)
+ expect(companionDecision(f.w,f.worker,[])).toEqual({action:{type:'autoCompanionAid',target:f.p.id}})
+ expect(p.status).toBe('waiting');expect(f.drug).toEqual(drugBefore)
+ expect(startCompanionAid(f.w,f.worker,f.p)).toBeNull();expect(p.status).toBe('paused');expect(f.worker.activity?.companionAid).toBe(true)
+ finishBase(f.w,f.worker);expect(f.wound.bandage).toBeDefined();expect(f.drug).toEqual(drugBefore);expect(f.bandage.count).toBe(1)
+ for(let n=0;n<5;n++)playerAct(f.w,{type:'wait'});expect(p.status).toBe('paused');expect(p.cursor).toBe(0)
+})
+it('death pauses a waiting appointment immediately without spending or recreating the bound doses',()=>{
+ const f=fixture(),p=start(f),uid=f.drug.uid;killCreature(f.w,f.worker,'감사: 시술자 사망')
+ expect(p.status).toBe('paused');expect(p.reason).toContain('사망');expect(f.worker.activity).toBeUndefined();expect(f.p.activity).toBeUndefined()
+ for(let n=0;n<5;n++)playerAct(f.w,{type:'wait'});expect(f.worker.bag.find(i=>i.uid===uid)?.count).toBe(2);expect(p.cursor).toBe(0)
+})
+it('unobserved clinician death pauses the real plan without announcing unseen clinical details',()=>{
+ const f=fixture(),p=start(f);f.p.asleep=true;const before=f.s.log.length
+ killCreature(f.w,f.worker,'감사: 자는 동안 시술자 사망')
+ expect(p.status).toBe('paused');expect(f.s.log.slice(before).filter(l=>l.text.includes('처치 순서 중단'))).toEqual([])
+})
+it('death during a real treatment releases the surviving patient and round-trips the same complete state',()=>{
+ const f=fixture();f.steps=[{...f.requests[1]!,afterTurns:0}];const p=start(f);expect(f.p.activity?.kind).toBe('careWait');expect(f.worker.activity?.kind).toBe('dose')
+ const before=structuredClone(f.drug);killCreature(f.w,f.worker,'감사: 처치 중 사망')
+ expect(p.status).toBe('paused');expect(f.p.activity).toBeUndefined();expect(f.worker.activity).toBeUndefined();expect(f.worker.bag.find(i=>i.uid===before.uid)).toEqual(before)
+ const copy={db:f.w.db,s:deserialize(serialize(f.s))};for(let n=0;n<3;n++){playerAct(f.w,{type:'wait'});playerAct(copy,{type:'wait'})}
+ expect(serialize(copy.s)).toBe(serialize(f.s));expect(stateHash(copy.s)).toBe(stateHash(f.s))
 })
