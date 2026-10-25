@@ -18,6 +18,7 @@ export function companionClinicalQuote(w:World,c:Creature,request:CompanionClini
 export function companionClinicalWorkQuote(w:World,c:Creature,request:CompanionClinicalRequest,continuing=false){
  const leader=player(w),p=request?.patient===undefined?leader:creatureById(w,request.patient),policy=companionClinicalRule(w),out={error:null as string|null,turns:0,quality:null as number|null,lines:[] as string[],activity:undefined as Activity|undefined,signature:''}
  const fail=(error:string)=>{out.error=error;return out}
+ if(!continuing&&c.companion?.carePlan?.status==='waiting')return fail('이 동료에게 맡긴 예약 처치 순서를 먼저 중단해야 한다')
  if(!request||request.patient!==undefined&&!Number.isSafeInteger(request.patient)||request.uid!==undefined&&!Number.isSafeInteger(request.uid)||request.woundId!==undefined&&!Number.isSafeInteger(request.woundId)||request.part!==undefined&&typeof request.part!=='string')return fail('실제 환자·상처·약·부위의 진료를 골라야 한다')
  if(!policy||policy.defType!=='Clinic')return fail('현재 구성에 동료 진료 규칙이 없다')
  if(!p||p===c||p!==leader&&!isCompanion(w,p)||!p.alive||p.captivity||p.asleep||p.unconscious||p.activity||p.breakdown||capacity(w,p,'consciousness')<.5||!continuing&&!canSee(w,leader,p.pos))return fail('직접 관찰한 깨어 있는 나 또는 동료를 환자로 골라야 한다')

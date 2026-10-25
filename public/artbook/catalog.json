@@ -1,5 +1,5 @@
 {
-  "version": "0.385-dev",
+  "version": "0.387-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -403,7 +403,8 @@
     "av379_culler_back_source": "sprites/original/direction-v379/culler-back-parts-v1.png",
     "av380_culler_harvest_icons_v1": "sprites/original/direction-v380/culler-harvest-icons-v1.png",
     "av384_prosthetic_objects_v1": "sprites/original/direction-v384/prosthetic-objects-v1.png",
-    "av384_prosthetic_leg_pioneer_v2": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png"
+    "av384_prosthetic_leg_pioneer_v2": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png",
+    "av386_care_bedding_props_v1": "sprites/original/direction-v386/care-bedding-props-v1.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1933,6 +1934,10 @@
     "av384_prosthetic_leg_pioneer_v2": [
       1774,
       887
+    ],
+    "av386_care_bedding_props_v1": [
+      1536,
+      1024
     ]
   },
   "frames": {
@@ -59006,6 +59011,48 @@
       540,
       309,
       454
+    ],
+    "av386_field_mat": [
+      "av386_care_bedding_props_v1",
+      165,
+      86,
+      254,
+      390
+    ],
+    "av386_bedroll": [
+      "av386_care_bedding_props_v1",
+      656,
+      77,
+      226,
+      409
+    ],
+    "av386_straw_bed": [
+      "av386_care_bedding_props_v1",
+      1148,
+      78,
+      263,
+      398
+    ],
+    "av386_bed": [
+      "av386_care_bedding_props_v1",
+      153,
+      557,
+      276,
+      390
+    ],
+    "av386_good_bed": [
+      "av386_care_bedding_props_v1",
+      621,
+      557,
+      296,
+      392
+    ],
+    "av386_medical_bag": [
+      "av386_care_bedding_props_v1",
+      1134,
+      649,
+      278,
+      238
     ]
   },
   "characters": {
@@ -133691,7 +133738,7 @@
       "id": "Item.FieldMat",
       "label": "풀·가지 깔개",
       "kind": "items",
-      "frame": "complete_item_field_mat",
+      "frame": "av386_field_mat",
       "grid": [
         2,
         2
@@ -133701,7 +133748,7 @@
       "id": "Item.Bedroll",
       "label": "침낭",
       "kind": "items",
-      "frame": "complete_item_bedroll",
+      "frame": "av386_bedroll",
       "grid": [
         2,
         3
@@ -133711,7 +133758,7 @@
       "id": "Item.StrawBed",
       "label": "짚 침대",
       "kind": "items",
-      "frame": "complete_item_straw_bed",
+      "frame": "av386_straw_bed",
       "grid": [
         2,
         3
@@ -133721,7 +133768,7 @@
       "id": "Item.Bed",
       "label": "나무 침대",
       "kind": "items",
-      "frame": "complete_item_bed",
+      "frame": "av386_bed",
       "grid": [
         2,
         3
@@ -133731,7 +133778,7 @@
       "id": "Item.GoodBed",
       "label": "좋은 침대",
       "kind": "items",
-      "frame": "complete_item_good_bed",
+      "frame": "av386_good_bed",
       "grid": [
         2,
         3
@@ -133741,7 +133788,7 @@
       "id": "Item.MedicalBag",
       "label": "의료 가방",
       "kind": "items",
-      "frame": "complete_item_medical_bag",
+      "frame": "av386_medical_bag",
       "grid": [
         2,
         2
@@ -136213,31 +136260,31 @@
       "id": "Terrain.FieldMat",
       "label": "풀·가지 깔개",
       "kind": "terrain",
-      "frame": "complete_field_mat"
+      "frame": "av386_field_mat"
     },
     {
       "id": "Terrain.Bedroll",
       "label": "침낭",
       "kind": "terrain",
-      "frame": "complete_bed_insulated"
+      "frame": "av386_bedroll"
     },
     {
       "id": "Terrain.StrawBed",
       "label": "짚 침대",
       "kind": "terrain",
-      "frame": "complete_straw_bed"
+      "frame": "av386_straw_bed"
     },
     {
       "id": "Terrain.Bed",
       "label": "나무 침대",
       "kind": "terrain",
-      "frame": "complete_bed_plain"
+      "frame": "av386_bed"
     },
     {
       "id": "Terrain.GoodBed",
       "label": "좋은 침대",
       "kind": "terrain",
-      "frame": "complete_good_bed"
+      "frame": "av386_good_bed"
     },
     {
       "id": "Terrain.RustedDoorClosed",
@@ -185702,6 +185749,42 @@
       "label": "av384_gardener_limb",
       "kind": "frames",
       "frame": "av384_gardener_limb"
+    },
+    {
+      "id": "av386_field_mat",
+      "label": "av386_field_mat",
+      "kind": "frames",
+      "frame": "av386_field_mat"
+    },
+    {
+      "id": "av386_bedroll",
+      "label": "av386_bedroll",
+      "kind": "frames",
+      "frame": "av386_bedroll"
+    },
+    {
+      "id": "av386_straw_bed",
+      "label": "av386_straw_bed",
+      "kind": "frames",
+      "frame": "av386_straw_bed"
+    },
+    {
+      "id": "av386_bed",
+      "label": "av386_bed",
+      "kind": "frames",
+      "frame": "av386_bed"
+    },
+    {
+      "id": "av386_good_bed",
+      "label": "av386_good_bed",
+      "kind": "frames",
+      "frame": "av386_good_bed"
+    },
+    {
+      "id": "av386_medical_bag",
+      "label": "av386_medical_bag",
+      "kind": "frames",
+      "frame": "av386_medical_bag"
     }
   ]
 }

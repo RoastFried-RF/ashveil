@@ -59,6 +59,8 @@ export const actionMotions={
  "companionCare":"interact",
  "companionClinical":"interact",
  "companionCarePlan":"interact",
+ "beginCompanionScheduledCare":"interact",
+ "cancelCompanionCarePlan":"interact",
  "cancelCompanionClinical":null,
  "companionMap":"interact",
  "companionRecoveryAssign":"interact",

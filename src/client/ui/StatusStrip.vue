@@ -2,13 +2,13 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
-  camouflageActive, camouflageSight, coveringSwarms, crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef, resonanceState,
+  canSee,isCompanion,camouflageActive, camouflageSight, coveringSwarms, crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef, resonanceState,
   ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
   REGION_LABEL, STATE_LABEL, calendar, weatherLabel, type Region, type World,
 } from '../../core'
 import BodyDiagram from './BodyDiagram.vue'
 import { version, world } from '../store'
-import { hideTip, showTip, toggleWin } from '../ui'
+import { hideTip, showTip, toggleWin,journalSection,setWin } from '../ui'
 
 const EFFECT: Record<string, [string, string]> = {
   netted:['포획망','#b9b49a'],
@@ -65,7 +65,9 @@ const d = computed(() => {
   if ((n.ash ?? 0) >= 30) chips.push({ t: (n.ash ?? 0) >= 60 ? '재·신장 위험' : '재 체기', c: '#c08040', tip: [`재 축적${(n.ash ?? 0).toFixed(1)} · 칼로리 흡수×0.9 · 매일1 감소`] })
   for (const e of pl.effects) if (e.untilTurn > turn && EFFECT[e.kind]) chips.push({ t: EFFECT[e.kind][0], c: EFFECT[e.kind][1], tip: e.kind === 'lice' ? ['몸을 씻으면 제거된다. 수면 질×0.9·기분−3'] : [`${Math.ceil(e.untilTurn - turn)}턴 남음`] })
   const regions = (['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg'] as Region[]).map((r) => ({ r, s: regionState(w, pl, r) }))
+  const carePlans=w.s.creatures.filter(c=>c.alive&&isCompanion(w,c)&&canSee(w,pl,c.pos)&&c.companion?.carePlan&&['running','waiting'].includes(c.companion.carePlan.status)).map(c=>c.companion!.carePlan!),due=carePlans.flatMap(p=>p.status==='waiting'&&p.dueAt!==undefined?[p.dueAt]:[]).sort((a,b)=>a-b)[0]
   return {
+    care:carePlans.length?{count:carePlans.length,due:due===undefined?undefined:Math.max(0,due-turn)}:undefined,
     name: w.s.map.name, depth: w.s.map.depth, clock: fmtClock(turn), weather: (w.s.overworld ? `${calendar(w).season.label}${calendar(w).seasonDay}일 · ` : '') + weatherLabel(w),
     temp: ambientTemp(w, pl.pos), surface: w.s.map.kind === 'surface', chips, regions,
   }
@@ -92,6 +94,7 @@ const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${R
       <BodyDiagram class="mini-body-drawing" :states="Object.fromEntries(d.regions.map(r=>[r.r,r.s]))" mini @region="(e,r)=>regionTip(e,r,R(r))" />
     </button>
     <div class="flex max-w-[46vw] flex-wrap gap-1" data-testid="status-chips">
+      <button v-if="d.care" class="df df-tab px-1 text-[11px] font-bold leading-4 text-amber-100" data-testid="care-schedule-chip" @click="journalSection='medical';setWin('journal',true)">동료 진료 {{ d.care.count }}{{ d.care.due===undefined?'':` · ${d.care.due}턴 뒤` }}</button>
       <span v-for="c in d.chips" :key="c.t" class="df df-tab cursor-default px-1 text-[11px] font-bold leading-4" :style="{ color: c.c }" @mouseenter="showTip($event, c.t, c.tip)" @mouseleave="hideTip">{{ c.t }}</span>
     </div>
   </div>

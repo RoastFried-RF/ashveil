@@ -17,6 +17,7 @@ import NpcRelationsPanel from './NpcRelationsPanel.vue'
 import StoryDirectorPanel from './StoryDirectorPanel.vue'
 import ExpeditionEndingsPanel from './ExpeditionEndingsPanel.vue'
 import ResearchPanel from './ResearchPanel.vue'
+import CarePlanOverview from './CarePlanOverview.vue'
 
 // 탭 (12 §2.3): 지식 · 도감 · 소문 · 사건 · 연대기 (+ 생존 상태 · 전체 기록)
 type Tab = 'research' | 'endings' | 'prisoners' | 'interactions' | 'contracts' | 'log' | 'beast' | 'pill' | 'needs' | 'rumor' | 'events' | 'chron' | 'medical'
@@ -217,6 +218,7 @@ const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==
         </div>
       </template>
       <template v-else-if="tab === 'medical'">
+        <CarePlanOverview />
         <p class="mb-2 text-xs text-ash-300">진찰 당시의 소견이다. 이후의 출혈·감염·새 상처는 다시 확인해야 한다.</p>
         <p v-if="!d.medical.length" class="text-sm text-ash-300">아직 진찰 기록이 없다. 정착지 의사에게 진찰을 부탁할 수 있다.</p>
         <article v-for="(report, index) in d.medical" :key="`${report.at}-${index}`" class="my-3 border-b border-ash-700 pb-2" data-testid="medical-report">

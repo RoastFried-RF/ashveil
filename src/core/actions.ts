@@ -34,7 +34,8 @@ import {player} from './ctx'
 import {assignCompanionRecovery,collectRecoveryCargo,companionRecoveryFetch,companionRecoveryReturn,companionRecoverySearchError,stopCompanionRecovery} from './companion-recovery'
 import {requestCompanionCare,type CompanionCareRequest} from './companion-care'
 import {cancelCompanionClinical,requestCompanionClinical,type CompanionClinicalRequest} from './companion-clinical'
-import {advanceCompanionCarePlan,requestCompanionCarePlan} from './companion-care-plan'
+import {advanceCompanionCarePlan,requestCompanionCarePlan,type CompanionCarePlanRequest} from './companion-care-plan'
+import {beginCompanionScheduledCare,cancelCompanionCarePlan} from './companion-care-schedule'
 import {pauseCompanionCarePlan} from './companion-care-plan-state'
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
@@ -306,7 +307,9 @@ export type Action =
   | { type:'hireCompanion';target:number }
   | {type:'companionCare';target:number;request:CompanionCareRequest;expectedUid:number;expectedTurns:number;expectedQuality:number}
   | {type:'companionClinical';target:number;request:CompanionClinicalRequest;expected:string}
-  | {type:'companionCarePlan';target:number;requests:CompanionClinicalRequest[];expected:string}
+  | {type:'companionCarePlan';target:number;requests:CompanionCarePlanRequest[];expected:string}
+  | {type:'beginCompanionScheduledCare';uid:number}
+  | {type:'cancelCompanionCarePlan';target:number;uid:number}
   | {type:'cancelCompanionClinical';target:number;patient:number}
   | { type:'payCompanion';target:number }
   | { type:'dismissCompanion';target:number }
@@ -760,7 +763,15 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'companionCarePlan':{
       if(c.id!==w.s.playerId)return FAIL('직접 동료에게 처치 순서를 맡겨야 한다')
       const provider=creatureById(w,a.target),error=provider?requestCompanionCarePlan(w,provider,a.requests,a.expected):'동료가 곁에 없다'
-      return error?FAIL(error):a.requests[0]?.patient===undefined||a.requests[0]?.patient===c.id?FREE:{ok:true,tu:100}
+      return error?FAIL(error):!a.requests[0]?.afterTurns&&(a.requests[0]?.patient===undefined||a.requests[0]?.patient===c.id)?FREE:{ok:true,tu:100}
+    }
+    case 'beginCompanionScheduledCare':{
+      if(c.id===w.s.playerId)return FAIL('예약 간호를 맡은 동료의 실제 작업이다')
+      const error=beginCompanionScheduledCare(w,c,a.uid);return error?FAIL(error):FREE
+    }
+    case 'cancelCompanionCarePlan':{
+      if(c.id!==w.s.playerId)return FAIL('직접 동료에게 처치 순서 중단을 부탁해야 한다')
+      const provider=creatureById(w,a.target),error=provider?cancelCompanionCarePlan(w,provider,a.uid):'동료가 곁에 없다';return error?FAIL(error):{ok:true,tu:100}
     }
     case 'companionCare':{
       if(c.id!==w.s.playerId)return FAIL('내 동료에게만 응급 처치를 부탁할 수 있다')

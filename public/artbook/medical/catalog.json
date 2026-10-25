@@ -1,5 +1,5 @@
 {
-  "revision": 330,
+  "revision": 387,
   "characters": {
     "player": {
       "label": "떠돌이",
@@ -1164,45 +1164,60 @@
   },
   "profiles": [
     {
+      "id": "wrap",
       "kind": "wrap",
       "label": "붕대",
       "sprite": "original_hearth_bandage"
     },
     {
+      "id": "wrapBag",
+      "kind": "wrap",
+      "label": "의료 가방 · 붕대",
+      "sprite": "av386_medical_bag"
+    },
+    {
+      "id": "wash",
       "kind": "wash",
       "label": "세척",
       "sprite": "complete_item_moonshine"
     },
     {
+      "id": "splint",
       "kind": "splint",
       "label": "부목",
       "sprite": "complete_item_splint"
     },
     {
+      "id": "needle",
       "kind": "needle",
       "label": "봉합",
       "sprite": "complete_item_needle",
       "secondary": "original_hearth_thread"
     },
     {
+      "id": "cut",
       "kind": "cut",
       "label": "절개",
       "sprite": "original_rusty_knife"
     },
     {
+      "id": "extract",
       "kind": "extract",
       "label": "이물 제거",
       "sprite": "original_rusty_knife"
     },
     {
+      "id": "reduce",
       "kind": "reduce",
       "label": "관절 처치"
     },
     {
+      "id": "examine",
       "kind": "examine",
       "label": "진찰"
     },
     {
+      "id": "dose",
       "kind": "dose",
       "label": "약 복용",
       "sprite": "complete_item_bitter_moss"
@@ -2112,6 +2127,13 @@
       32,
       32
     ],
+    "av386_medical_bag": [
+      "av386_care_bedding_props_v1",
+      1134,
+      649,
+      278,
+      238
+    ],
     "complete_item_moonshine": [
       "direction_v303_items",
       224,
@@ -2173,6 +2195,7 @@
     "av322_trader_active_front_left": "sprites/original/direction-v322/trader-active-front-left.png",
     "av322_trader_active_right_back": "sprites/original/direction-v322/trader-active-right-back.png",
     "direction_v303_items": "sprites/original/direction-v303/items/items-atlas.png",
+    "av386_care_bedding_props_v1": "sprites/original/direction-v386/care-bedding-props-v1.png",
     "av320_equipment": "sprites/original/direction-v320/equipment.png",
     "av319_weapons": "sprites/original/direction-v319/weapons.png"
   },

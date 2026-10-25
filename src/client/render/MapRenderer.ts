@@ -8,7 +8,7 @@ import {CullerView,type CullerPartState} from './culler-view'
 import {cullerPartIds} from './culler-spec'
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
-import {groundObjectArt,isGroundCrop} from './terrain-art'
+import {beddingArtLayout,groundObjectArt,isGroundCrop} from './terrain-art'
 import {treeArt} from './forest-art'
 import {livingTreeArt} from './living-art'
 import {cropArt} from './crop-art'
@@ -581,7 +581,8 @@ export class MapRenderer {
       const forage=forageArt(terr,tile),crop=cropArt(terr,tile,vis.has(i),turnOf(w))
       const groundArt=groundObjectArt(terr,!!tile.searched)
       if (terr.bedding) {
-        const bed = new Sprite(tex(groundArt!));bed.position.set(px,py)
+        const bed = new Sprite(tex(groundArt!)),layout=beddingArtLayout(terr,bed.texture.width,bed.texture.height)
+        if(layout){bed.scale.set(layout.scale);bed.position.set(px+layout.x,py+layout.y)}else bed.position.set(px,py)
         this.dyn.addChild(bed)
         const scorch=beddingScorch(tile)
         if(scorch){const charred=new Sprite(tex('complete_bed_scorched'));charred.position.set(px,py);charred.alpha=Math.min(.85,scorch/100);this.dyn.addChild(charred)}

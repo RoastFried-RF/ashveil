@@ -1603,6 +1603,7 @@ export interface CompanionBond {
 export type CompanionAidMode='off'|'firstAid'|'rescue'
 export interface CompanionAidRule {supplyMemoryTurns?:number;range:number;rallyRadius:number;dragTurns:number;dragEnergy:number;dragBleedMax:number;minMedicine:number;minBleed:number;washContam:number;washAfterTurns:number;minBodyTemp:number;maxBodyTemp:number}
 export interface CompanionDef extends DefBase {
+  careSchedule?:{maxDelayTurns:number;maxSpanTurns:number;maxLateTurns:number;choicesTurns:number[]}
   carePlanMaxSteps?:number
   clinical?:string
   aid?:CompanionAidRule
@@ -1612,13 +1613,15 @@ export interface CompanionDef extends DefBase {
 }
 export type CompanionOrder='follow'|'hold'|'defend'
 export interface CompanionCareStep {
+  waitTurns?:number
   request:{kind:Exclude<ClinicKind|'dose','amputate'>;patient:number;uid?:number;woundId?:number;part?:string}
   label:string;turns:number;quality:number|null;lines:string[]
   bindings:{uid?:{uid:number;def:string};tool?:{uid:number;def:string};supplies:NonNullable<Activity['supplies']>}
 }
 export interface CompanionCarePlan {
   uid:number;patient:number;map:string;region?:string;startedAt:number;updatedAt:number
-  status:'running'|'paused'|'complete';cursor:number;steps:CompanionCareStep[];reason?:string
+  status:'running'|'waiting'|'paused'|'complete';cursor:number;steps:CompanionCareStep[];reason?:string
+  dueAt?:number;scheduleRule?:string
 }
 export interface CompanionContract {
   carePlan?:CompanionCarePlan

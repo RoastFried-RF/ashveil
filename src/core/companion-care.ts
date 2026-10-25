@@ -14,6 +14,7 @@ export interface CompanionCareRequest {kind:CompanionCareKind;woundId:number}
 export interface CompanionCareQuote {error:string|null;turns:number;quality:number|null;materialUid?:number;materialLabel?:string;activity?:Activity}
 export function companionCareQuote(w:World,provider:Creature,request:CompanionCareRequest):CompanionCareQuote{
  const out:CompanionCareQuote={error:null,turns:0,quality:null},patient=player(w),fail=(error:string)=>{out.error=error;return out}
+ if(provider.companion?.carePlan?.status==='waiting')return fail('이 동료에게 맡긴 예약 처치 순서를 먼저 중단해야 한다')
  if(!['bandage','disinfect','splint'].includes(request.kind)||!Number.isSafeInteger(request.woundId))return fail('붕대·세척·부목 중 실제 상처의 처치를 골라야 한다')
  if(!isCompanion(w,provider)||provider.companion?.status!=='employed'||provider.companion.paidUntil<=turnOf(w))return fail('급료 기간이 남은 내 동료에게 부탁해야 한다')
  const access=companionAccess(w,provider);if(access)return fail(access)

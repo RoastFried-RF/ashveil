@@ -1,7 +1,11 @@
+const graphicGrips = {
+    "av386_medical_bag": [0.5107913669064749, 0.06722689075630252]
+};
 export const medicalCycles = { examine: 1600, wrap: 1400, wash: 1400, splint: 1800, needle: 1500, cut: 1700, extract: 1600, reduce: 1800, dose: 1200 };
 export function medicalPropSpec(kind, primary, item) {
     const needle = primary && kind === 'needle', blade = primary && ['cut', 'extract'].includes(kind);
-    return { ...item, grip: needle ? [.7, .3] : blade ? [.52, .79] : [.5, .65], axis: needle ? Math.PI * .75 : -Math.PI / 2, length: needle ? 5 : !primary ? 5 : blade ? 12 : kind === 'splint' ? 14 : kind === 'dose' ? 3 : kind === 'wash' ? 6 : 5 };
+    const measured = graphicGrips[item.sprite];
+    return { ...item, grip: measured ? [measured[0], measured[1]] : needle ? [.7, .3] : blade ? [.52, .79] : [.5, .65], axis: needle ? Math.PI * .75 : -Math.PI / 2, length: needle ? 5 : !primary ? 5 : blade ? 12 : kind === 'splint' ? 14 : kind === 'dose' ? 3 : kind === 'wash' ? 6 : 5 };
 }
 /** Rotation only: grip stays at the registered palm throughout the cycle. */
 export function medicalPropAngle(kind, direction, phase) {

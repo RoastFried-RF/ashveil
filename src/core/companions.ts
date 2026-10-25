@@ -1,5 +1,6 @@
 import {companionAidDecision} from './companion-aid'
 import {pauseCompanionCarePlan} from './companion-care-plan-state'
+import {companionCareScheduleDecision,companionCareScheduleTick} from './companion-care-schedule'
 import {companionRecoveryDecision} from './companion-recovery'
 import {readyFood} from './open-food-state'
 import {rememberMeeting} from './first-impressions'
@@ -74,6 +75,7 @@ export function commandCompanion(w:World,c:Creature,order:CompanionOrder):string
   if(c.companion!.status!=='employed'&&order!=='hold')return '급료를 먼저 건네야 한다'
   clearBaseTask(w,c)
   c.companionRecovery=undefined
+  if(c.companion!.carePlan?.status==='waiting')pauseCompanionCarePlan(w,c,'동행·대기·방어 지시를 새로 받았다')
   c.companion!.order=order;c.companion!.anchor={...c.pos};c.companion!.lastLeader={...player(w).pos};c.ai.path=undefined;c.ai.target=undefined
   log(w,'info',`${c.name}: ${order==='follow'?'곁에서 동행한다':order==='hold'?'이 자리에서 대기한다':'이 주변을 지킨다'}.`);return null
 }
@@ -113,6 +115,7 @@ export function endCompanionContract(w:World,c:Creature,status:'dismissed'|'empl
   if(status!=='betrayed'&&c.recruitment?.employer===w.s.playerId&&c.recruitment.willing!==undefined)c.mercy={by:w.s.playerId,faction:player(w).faction,until:turnOf(w)+prisonerDef(w).mercyTurns,rewardedBy:c.mercy?.rewardedBy??[]}
 }
 export function companionTick(w:World,c:Creature){
+  companionCareScheduleTick(w,c)
   if(c.companion?.carePlan?.status==='running'&&(!c.alive||c.activity?.companionCarePlan!==c.companion.carePlan.uid))pauseCompanionCarePlan(w,c,'시술자 또는 원래 처치 활동이 달라졌다')
   if(!c.alive||!isCompanion(w,c))return
   if(!player(w).alive){endCompanionContract(w,c,'employerDead');return}
@@ -131,6 +134,7 @@ export function companionDecision(w:World,c:Creature,threats:Creature[]):{action
   const supply=baseWorkerSupply(w,c);if(supply)return supply
   const rest=baseRestDecision(w,c,threats);if(rest)return rest
   if(c.needs.fatigue>=d.sleepAt&&c.needs.bodyTemp>=35&&(c.drowsyUntil??0)<=turnOf(w))return{action:{type:'sleep'}}
+  const scheduledCare=companionCareScheduleDecision(w,c);if(scheduledCare)return scheduledCare
   const aid=companionAidDecision(w,c);if(aid)return aid
   const recovery=companionRecoveryDecision(w,c);if(recovery)return recovery
   const work=baseWorkDecision(w,c,threats);if(work)return work

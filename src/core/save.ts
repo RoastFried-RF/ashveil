@@ -418,6 +418,8 @@ export function deserialize(json: string): GameState {
   if(s.version===216)s.version=217
   // v218 retains explicitly approved finite care sequences; older saves receive no new consent.
   if(s.version===217)s.version=218
+  // v219 adds explicit delayed care; prior sequences acquire no waiting time or new consent.
+  if(s.version===218)s.version=219
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')

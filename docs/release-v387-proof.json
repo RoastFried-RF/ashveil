@@ -1,0 +1,654 @@
+{
+  "version": 387,
+  "saveVersion": 219,
+  "releaseApproved": false,
+  "scheduledCare": {
+    "finiteSteps": 8,
+    "maximumWaitPerStepTurns": 2400,
+    "maximumWaitSumTurns": 9600,
+    "startGraceTurns": 20,
+    "patientFreeWhileWaiting": true,
+    "endsOrdinaryRestOnlyWithPriorConsent": true,
+    "forcesSleepOrUnconsciousWake": false,
+    "preservesSourceUIDsAndDueTime": true,
+    "noAutomaticReplacementOrInfinitePrescribing": true,
+    "visibleOnlyHUDAndJournal": true,
+    "newOrdersOverrideWaiting": true
+  },
+  "presentationFix": {
+    "observedBug": "Old200step client batch completed clinical work before a render frame",
+    "tuBoundaryOnlyWhenObservedMedicalOrScheduledCare": true,
+    "activeWorkDelayMsAt1x": 140,
+    "instantModePreserved": true,
+    "hiddenNpcWorkDoesNotAffectTiming": true,
+    "wholeStateEqualsUnsplitCore": true
+  },
+  "native": {
+    "finiteInitial": true,
+    "afterTitle": "Actual keyboard/pointer; read-only debug only",
+    "animationSpeed": 1,
+    "runs": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "patient": 1,
+        "doctor": 67,
+        "beds": [
+          {
+            "pos": {
+              "x": 18,
+              "y": 18
+            },
+            "uid": 83,
+            "def": "Item.FieldMat"
+          },
+          {
+            "pos": {
+              "x": 19,
+              "y": 18
+            },
+            "uid": 84,
+            "def": "Item.Bedroll"
+          },
+          {
+            "pos": {
+              "x": 20,
+              "y": 18
+            },
+            "uid": 85,
+            "def": "Item.StrawBed"
+          },
+          {
+            "pos": {
+              "x": 20,
+              "y": 20
+            },
+            "uid": 86,
+            "def": "Item.Bed"
+          },
+          {
+            "pos": {
+              "x": 22,
+              "y": 18
+            },
+            "uid": 87,
+            "def": "Item.GoodBed"
+          }
+        ],
+        "icons": [
+          {
+            "uid": 89,
+            "def": "Item.Bedroll"
+          },
+          {
+            "uid": 90,
+            "def": "Item.StrawBed"
+          },
+          {
+            "uid": 91,
+            "def": "Item.Bed"
+          },
+          {
+            "uid": 92,
+            "def": "Item.GoodBed"
+          },
+          {
+            "uid": 88,
+            "def": "Item.FieldMat"
+          },
+          {
+            "uid": 93,
+            "def": "Item.MedicalBag"
+          }
+        ],
+        "plan": {
+          "uid": 94,
+          "patient": 1,
+          "map": "surface",
+          "startedAt": 14400,
+          "updatedAt": 14449,
+          "status": "complete",
+          "cursor": 3,
+          "steps": [
+            {
+              "request": {
+                "kind": "dose",
+                "patient": 1,
+                "uid": 80,
+                "woundId": 77
+              },
+              "label": "쓴이끼 습포 바르기",
+              "turns": 3,
+              "quality": null,
+              "lines": [
+                "규격 1회분 · 지속 1440분",
+                "해당 상처의 감염 진행 40% 감소",
+                "피부 자극: 통증 +2"
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 80,
+                  "def": "Item.BitterMoss"
+                },
+                "supplies": [
+                  {
+                    "uid": 80,
+                    "def": "Item.BitterMoss",
+                    "count": 1
+                  }
+                ]
+              },
+              "waitTurns": 20
+            },
+            {
+              "request": {
+                "kind": "dose",
+                "patient": 1,
+                "uid": 80,
+                "woundId": 77
+              },
+              "label": "쓴이끼 습포 바르기",
+              "turns": 3,
+              "quality": null,
+              "lines": [
+                "규격 1회분 · 지속 1440분",
+                "해당 상처의 감염 진행 40% 감소",
+                "피부 자극: 통증 +2",
+                "앞 단계에도 같은 약이 있다. 반복 투여는 내성·과용 위험과 지속 시간 갱신을 다시 확인해야 한다."
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 80,
+                  "def": "Item.BitterMoss"
+                },
+                "supplies": [
+                  {
+                    "uid": 80,
+                    "def": "Item.BitterMoss",
+                    "count": 1
+                  }
+                ]
+              },
+              "waitTurns": 20
+            },
+            {
+              "request": {
+                "kind": "bandage",
+                "patient": 1,
+                "woundId": 77
+              },
+              "label": "의료 가방 — 붕대 감기",
+              "turns": 5,
+              "quality": 76,
+              "lines": [
+                "의료 숙달 +16",
+                "도구 +15",
+                "실내 +5",
+                "× 조작 1.00 × 자가 1 = Q 76"
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 82,
+                  "def": "Item.MedicalBag"
+                },
+                "supplies": [
+                  {
+                    "uid": 82,
+                    "def": "Item.MedicalBag",
+                    "count": 1,
+                    "uses": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "scheduleRule": "{\"maxDelayTurns\":2400,\"maxSpanTurns\":9600,\"maxLateTurns\":20,\"choicesTurns\":[0,20,100,200,1200,2400]}"
+        },
+        "finalTU": 1445060
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "patient": 1,
+        "doctor": 67,
+        "beds": [
+          {
+            "pos": {
+              "x": 18,
+              "y": 18
+            },
+            "uid": 83,
+            "def": "Item.FieldMat"
+          },
+          {
+            "pos": {
+              "x": 19,
+              "y": 18
+            },
+            "uid": 84,
+            "def": "Item.Bedroll"
+          },
+          {
+            "pos": {
+              "x": 20,
+              "y": 18
+            },
+            "uid": 85,
+            "def": "Item.StrawBed"
+          },
+          {
+            "pos": {
+              "x": 20,
+              "y": 20
+            },
+            "uid": 86,
+            "def": "Item.Bed"
+          },
+          {
+            "pos": {
+              "x": 22,
+              "y": 18
+            },
+            "uid": 87,
+            "def": "Item.GoodBed"
+          }
+        ],
+        "icons": [
+          {
+            "uid": 89,
+            "def": "Item.Bedroll"
+          },
+          {
+            "uid": 90,
+            "def": "Item.StrawBed"
+          },
+          {
+            "uid": 91,
+            "def": "Item.Bed"
+          },
+          {
+            "uid": 92,
+            "def": "Item.GoodBed"
+          },
+          {
+            "uid": 88,
+            "def": "Item.FieldMat"
+          },
+          {
+            "uid": 93,
+            "def": "Item.MedicalBag"
+          }
+        ],
+        "plan": {
+          "uid": 94,
+          "patient": 1,
+          "map": "surface",
+          "startedAt": 14400,
+          "updatedAt": 14423,
+          "status": "paused",
+          "cursor": 1,
+          "steps": [
+            {
+              "request": {
+                "kind": "dose",
+                "patient": 1,
+                "uid": 80,
+                "woundId": 77
+              },
+              "label": "쓴이끼 습포 바르기",
+              "turns": 3,
+              "quality": null,
+              "lines": [
+                "규격 1회분 · 지속 1440분",
+                "해당 상처의 감염 진행 40% 감소",
+                "피부 자극: 통증 +2"
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 80,
+                  "def": "Item.BitterMoss"
+                },
+                "supplies": [
+                  {
+                    "uid": 80,
+                    "def": "Item.BitterMoss",
+                    "count": 1
+                  }
+                ]
+              },
+              "waitTurns": 20
+            },
+            {
+              "request": {
+                "kind": "dose",
+                "patient": 1,
+                "uid": 80,
+                "woundId": 77
+              },
+              "label": "쓴이끼 습포 바르기",
+              "turns": 3,
+              "quality": null,
+              "lines": [
+                "규격 1회분 · 지속 1440분",
+                "해당 상처의 감염 진행 40% 감소",
+                "피부 자극: 통증 +2",
+                "앞 단계에도 같은 약이 있다. 반복 투여는 내성·과용 위험과 지속 시간 갱신을 다시 확인해야 한다."
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 80,
+                  "def": "Item.BitterMoss"
+                },
+                "supplies": [
+                  {
+                    "uid": 80,
+                    "def": "Item.BitterMoss",
+                    "count": 1
+                  }
+                ]
+              },
+              "waitTurns": 20
+            },
+            {
+              "request": {
+                "kind": "bandage",
+                "patient": 1,
+                "woundId": 77
+              },
+              "label": "의료 가방 — 붕대 감기",
+              "turns": 5,
+              "quality": 76,
+              "lines": [
+                "의료 숙달 +16",
+                "도구 +15",
+                "실내 +5",
+                "× 조작 1.00 × 자가 1 = Q 76"
+              ],
+              "bindings": {
+                "uid": {
+                  "uid": 82,
+                  "def": "Item.MedicalBag"
+                },
+                "supplies": [
+                  {
+                    "uid": 82,
+                    "def": "Item.MedicalBag",
+                    "count": 1,
+                    "uses": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "scheduleRule": "{\"maxDelayTurns\":2400,\"maxSpanTurns\":9600,\"maxLateTurns\":20,\"choicesTurns\":[0,20,100,200,1200,2400]}",
+          "dueAt": 14442,
+          "reason": "부탁한 예약·처치 순서를 직접 취소했다"
+        },
+        "finalTU": 1442530
+      }
+    ],
+    "pairs": [
+      {
+        "phase": "schedule-1440-loaded",
+        "hash": "a844938a"
+      },
+      {
+        "phase": "schedule-1440-readonly-review",
+        "hash": "a844938a"
+      },
+      {
+        "phase": "schedule-1440-booked",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1440-waiting-continued",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1440-journal-readonly",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1440-first-dose",
+        "hash": "435744d6"
+      },
+      {
+        "phase": "schedule-1440-complete",
+        "hash": "d6b4e69a"
+      },
+      {
+        "phase": "schedule-1440-final-continued",
+        "hash": "d6b4e69a"
+      },
+      {
+        "phase": "schedule-1440-inventory-readonly",
+        "hash": "d6b4e69a"
+      },
+      {
+        "phase": "schedule-1366-loaded",
+        "hash": "a844938a"
+      },
+      {
+        "phase": "schedule-1366-readonly-review",
+        "hash": "a844938a"
+      },
+      {
+        "phase": "schedule-1366-booked",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1366-waiting-continued",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1366-journal-readonly",
+        "hash": "1d5296c3"
+      },
+      {
+        "phase": "schedule-1366-first-dose",
+        "hash": "435744d6"
+      },
+      {
+        "phase": "schedule-1366-cancelled",
+        "hash": "532f3976"
+      },
+      {
+        "phase": "schedule-1366-final-continued",
+        "hash": "c3e4bdf6"
+      },
+      {
+        "phase": "schedule-1366-inventory-readonly",
+        "hash": "c3e4bdf6"
+      }
+    ],
+    "errors": [],
+    "scope": "Two finite delayed-care scenes: true waiting, due-time rest interruption, dose source quantities, save while waiting, second dose or exact-plan cancellation, HUD and journal, five placed bedding views and six actual inventory icons. No Full/World/1000 or long-term balance claim."
+  },
+  "nativeCheckpoint": "/workspace/.ashveil-checkpoints/v387-care-schedule-active-r3",
+  "publicationCheckpoint": "/workspace/.ashveil-checkpoints/v387-care-schedule-active-r4",
+  "clinicalBag": {
+    "originalUid": 82,
+    "beforeUses": 5,
+    "afterUses": 4,
+    "visibleActualMedicalSprite": true
+  },
+  "failedRunRetained": {
+    "path": "test-results/autonomy-v387/native-r2",
+    "reason": "Actual missing visible medical pose due old unsliced client batch; not counted as pass",
+    "fixedBeforeFinalNative": true
+  },
+  "checks": {
+    "focused-r2.txt": {
+      "bytes": 170,
+      "sha256": "e8649ca13c47a16aee55d9910cc68eebe6df217c9ed28281a5c92f613d9e11db"
+    },
+    "bed-save-final-r1.txt": {
+      "bytes": 170,
+      "sha256": "db0feeabeb48bc8fc5677c3e9d165d33ccbd8307d8fa88d585553039cb90c59e"
+    },
+    "medical-timing-r1.txt": {
+      "bytes": 170,
+      "sha256": "e5555dfdf65537fa1c84ba09eb3d452740e4eae671e7808ca7293f473632a466"
+    },
+    "types-final-r4.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lint-final-r1.txt": {
+      "bytes": 211,
+      "sha256": "2bbce9085a194666b352d595ecb8eec8e987ad6b796b2e8c1a202429819c8d58"
+    },
+    "lint-final-r3.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sprites-r1.txt": {
+      "bytes": 182,
+      "sha256": "261bbba5b5c940b47614890eb8e0f2b4db5f0b5b9f6e1224cc0654c67efc9509"
+    },
+    "schema-r1.txt": {
+      "bytes": 42,
+      "sha256": "cae38b5deb02dbe897c21855da3dfa7f1216bcfa388742895c2ec4443dbc9432"
+    },
+    "build-r4.txt": {
+      "bytes": 31821,
+      "sha256": "11b60da8080bc58101bb542e5f0260ac276c4caf53a4b99fc6b46c0386b7f4ab"
+    }
+  },
+  "testGroups": [
+    {
+      "files": 8,
+      "tests": 61
+    },
+    {
+      "files": 4,
+      "tests": 45
+    },
+    {
+      "files": 3,
+      "tests": 15
+    }
+  ],
+  "assets": {
+    "registeredOriginalPNGs": 1,
+    "selectedObjects": 6,
+    "itemBindings": 6,
+    "mapBeddingBindings": 5,
+    "newCharacters": 0,
+    "newAuthoredFullBodyFrames": 0,
+    "originalUnedited": true,
+    "separateInactiveClothCandidates": {
+      "pngs": 1,
+      "objects": 8,
+      "registeredFrames": 0,
+      "archive": "tools/art/direction-v386-trousers"
+    }
+  },
+  "catalogLocalDOM": {
+    "root": "http://localhost:4399/",
+    "actualDOM": true,
+    "gameTitle": true,
+    "newItems": 6,
+    "recentFilterPreservesAllSix": true,
+    "catalogVersion": "0.387-dev",
+    "medicalBagWorkbench": true,
+    "viewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "mobileFit": [
+      {
+        "frame": [
+          100.296875,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          85.09375,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          101.75,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          108.984375,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          116.28125,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          163.5,
+          139.96875
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      }
+    ],
+    "labels": [
+      "풀·가지 깔개",
+      "침낭",
+      "짚 침대",
+      "나무 침대",
+      "좋은 침대",
+      "의료 가방"
+    ],
+    "count": "물품 6개 · 0.387-dev",
+    "errors": [],
+    "scope": "Actual title and read-only original-art catalog/workbench. Main gameplay verified separately on immutable matching runtime."
+  },
+  "full": false,
+  "world": false,
+  "v3101000": false,
+  "limits": [
+    "Finite scheduled work, not an autonomous diagnosis/repeat nursing service",
+    "No new body-mounted wardrobe or prosthetic rendering",
+    "Bedding remains one-tile static artwork, no new lying body poses",
+    "No full/world/balance/human release evaluation claim"
+  ]
+}

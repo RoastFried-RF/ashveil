@@ -56160,6 +56160,123 @@
               "defType"
             ],
             "properties": {
+              "careSchedule": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "maxDelayTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxSpanTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxLateTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "choicesTurns": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "carePlanMaxSteps": {
                 "anyOf": [
                   {
@@ -56369,6 +56486,32 @@
               "id"
             ],
             "properties": {
+              "careSchedule": {
+                "type": "object",
+                "properties": {
+                  "maxDelayTurns": {
+                    "type": "number"
+                  },
+                  "maxSpanTurns": {
+                    "type": "number"
+                  },
+                  "maxLateTurns": {
+                    "type": "number"
+                  },
+                  "choicesTurns": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "required": [
+                  "maxDelayTurns",
+                  "maxSpanTurns",
+                  "maxLateTurns",
+                  "choicesTurns"
+                ]
+              },
               "carePlanMaxSteps": {
                 "type": "number"
               },

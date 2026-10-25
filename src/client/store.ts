@@ -5,6 +5,8 @@ import { ref, shallowRef, triggerRef, watch } from 'vue'
 import {setDisplayedModTextures} from './mod-texture-display'
 import {gameObservation} from './game-observation'
 import {mapAssetsLoading} from './map-asset-state'
+import {medicalSimulationTiming} from './medical-simulation-timing'
+import {preferences} from './preferences'
 import {
   IMPRINT_MODE, currentSaveMode, saveModeDef, checkpointQuote, GAME_VERSION, DEF_SCHEMA_VERSION, contentChangeReview, sha256, initializeScriptState, deserialize, enableOverworld, initializeFieldDevices, initializeClimate, initializeSettlement, initializeWorldSimulation, updatePlayerVision, player, loadMods, newGame, playerAct, runUntilInput, serialize,
   type Action, type DefDatabase, type DeathReport, type LoadReport, type World,
@@ -314,11 +316,11 @@ function resumeSimulation(w: World) {
   simulating.value = true
   simulationTimer = setTimeout(() => {
     if (world.value !== w || screen.value !== 'game') { simulating.value = false; return }
-    runUntilInput(w, 200)
+    runUntilInput(w, 200,medicalSimulationTiming(w,preferences.animationSpeed).untilTU)
     version.value++
     if (w.s.simulationPending) resumeSimulation(w)
     else finishAction(w)
-  }, 0)
+  }, medicalSimulationTiming(w,preferences.animationSpeed).delayMs)
 }
 
 export function act(a: Action, immediate = false): string | null {
@@ -328,7 +330,8 @@ export function act(a: Action, immediate = false): string | null {
   if(pendingCheckpoint.value||checkpointBusy.value)return '저장 지점 검토/저장을 마쳐야 한다'
   if (w.s.simulationPending && a.type !== 'stopActivity') return '시간이 흐르는 중이다'
   if (a.type === 'stopActivity') clearTimeout(simulationTimer)
-  const err = playerAct(w, a, immediate ? undefined : 200)
+  const clinical=['clinic','companionCare','companionClinical','companionCarePlan','procedure','treat','medicate'].includes(a.type)
+  const err = playerAct(w, a, immediate ? undefined : 200,immediate?undefined:medicalSimulationTiming(w,preferences.animationSpeed,clinical).untilTU)
   version.value++
   if (w.s.simulationPending) resumeSimulation(w)
   else finishAction(w)

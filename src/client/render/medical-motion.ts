@@ -1,11 +1,13 @@
 /** Game and public workbench share this presentation-only geometry. */
 import type {Dir} from './atlas'
+import graphicGrips from './medical-prop-grips.json'
 export type MedicalKind='examine'|'wrap'|'wash'|'splint'|'needle'|'cut'|'extract'|'reduce'|'dose'
 export interface MedicalProp {uid:number;sprite:string;grip:[number,number];axis:number;length:number;arm:'main'|'off'}
 export const medicalCycles:Record<MedicalKind,number>={examine:1600,wrap:1400,wash:1400,splint:1800,needle:1500,cut:1700,extract:1600,reduce:1800,dose:1200}
 export function medicalPropSpec(kind:MedicalKind,primary:boolean,item:{uid:number;sprite:string;arm:'main'|'off'}):MedicalProp{
  const needle=primary&&kind==='needle',blade=primary&&['cut','extract'].includes(kind)
- return{...item,grip:needle?[.7,.3]:blade?[.52,.79]:[.5,.65],axis:needle?Math.PI*.75:-Math.PI/2,length:needle?5:!primary?5:blade?12:kind==='splint'?14:kind==='dose'?3:kind==='wash'?6:5}
+ const measured=(graphicGrips as Record<string,number[]>)[item.sprite]
+ return{...item,grip:measured?[measured[0],measured[1]]:needle?[.7,.3]:blade?[.52,.79]:[.5,.65],axis:needle?Math.PI*.75:-Math.PI/2,length:needle?5:!primary?5:blade?12:kind==='splint'?14:kind==='dose'?3:kind==='wash'?6:5}
 }
 /** Rotation only: grip stays at the registered palm throughout the cycle. */
 export function medicalPropAngle(kind:MedicalKind,direction:Dir,phase:number){

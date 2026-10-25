@@ -8,11 +8,11 @@ const objects:Record<string,string|readonly[string,string]>={
  'Terrain.BoatFrame':'complete_boat_frame',
  'Terrain.StairsUp':'complete_stairs_up',
  'Terrain.SpireLadderDown':'complete_ladder_down',
- 'Terrain.FieldMat':'complete_field_mat',
- 'Terrain.Bedroll':'complete_bed_insulated',
- 'Terrain.StrawBed':'complete_straw_bed',
- 'Terrain.Bed':'complete_bed_plain',
- 'Terrain.GoodBed':'complete_good_bed',
+ 'Terrain.FieldMat':'av386_field_mat',
+ 'Terrain.Bedroll':'av386_bedroll',
+ 'Terrain.StrawBed':'av386_straw_bed',
+ 'Terrain.Bed':'av386_bed',
+ 'Terrain.GoodBed':'av386_good_bed',
  'Terrain.LeakingConduit':'complete_leaking_conduit',
  'Terrain.Barricade':'complete_barricade',
  'Terrain.ResidentDepot':'complete_resident_depot',
@@ -30,7 +30,18 @@ const devices:Record<string,string>={
  'FieldDevice.SpireConsole':'complete_spire_console',
  'FieldDevice.ZeroVaultSeal':'complete_zero_vault_seal',
 }
-export const terrainArtFrames=[...new Set([...Object.values(objects).flat(),...Object.values(stations),...Object.values(devices),'complete_well','complete_campfire_cold','complete_beacon','complete_wall_crack','complete_wall_sealed','complete_bed_scorched','complete_sarcophagus_open','av_soil_residue_v315'])]
+export const terrainArtFrames=[...new Set([...Object.values(objects).flat(),...Object.values(stations),...Object.values(devices),'complete_well','complete_campfire_cold','complete_beacon','complete_wall_crack','complete_wall_sealed','complete_bed_plain','complete_bed_insulated','complete_bed_scorched','complete_sarcophagus_open','av_soil_residue_v315'])]
+
+// Source resolution never enlarges a placed bed beyond its original one-tile display.
+const beddingBounds:Record<string,readonly[number,number]>={
+ 'Terrain.FieldMat':[16,16],'Terrain.Bedroll':[16,16],'Terrain.StrawBed':[16,16],
+ 'Terrain.Bed':[16,16],'Terrain.GoodBed':[16,16],
+}
+export function beddingArtLayout(terrain:TerrainDef,width:number,height:number){
+ const bounds=beddingBounds[terrain.id];if(!bounds||width<=0||height<=0)return
+ const scale=Math.min(bounds[0]/width,bounds[1]/height)
+ return{scale,x:(bounds[0]-width*scale)/2,y:(bounds[1]-height*scale)/2}
+}
 
 export function groundObjectArt(terrain:TerrainDef,searched=false):string|undefined{
  if(terrain.residentWell)return 'complete_well'
