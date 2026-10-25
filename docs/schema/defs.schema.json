@@ -13576,6 +13576,20 @@
     "BodyPartDef": {
       "type": "object",
       "properties": {
+        "armor": {
+          "type": "object",
+          "properties": {
+            "sharp": {
+              "type": "number"
+            },
+            "blunt": {
+              "type": "number"
+            },
+            "heat": {
+              "type": "number"
+            }
+          }
+        },
         "id": {
           "type": "string"
         },
@@ -13933,6 +13947,41 @@
               "defType"
             ],
             "properties": {
+              "purifier": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "radius": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "attack": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/$defs/Inherited_AttackDef"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "neurotoxin": {
                 "anyOf": [
                   {
@@ -14410,6 +14459,7 @@
                 "anyOf": [
                   {
                     "enum": [
+                      "tool",
                       "weapon",
                       "apparel",
                       "shield",
@@ -14417,7 +14467,6 @@
                       "food",
                       "drink",
                       "drug",
-                      "tool",
                       "ammo",
                       "misc"
                     ]
@@ -16263,13 +16312,13 @@
                   {
                     "enum": [
                       "head",
+                      "neck",
                       "chest",
                       "lining",
                       "hands",
                       "feet",
                       "belt",
                       "back",
-                      "neck",
                       "main",
                       "off",
                       "ring"
@@ -16714,7 +16763,7 @@
                           {
                             "type": "object",
                             "properties": {
-                              "blunt": {
+                              "sharp": {
                                 "anyOf": [
                                   {
                                     "type": "number"
@@ -16724,7 +16773,7 @@
                                   }
                                 ]
                               },
-                              "sharp": {
+                              "blunt": {
                                 "anyOf": [
                                   {
                                     "type": "number"
@@ -17917,6 +17966,21 @@
               "id"
             ],
             "properties": {
+              "purifier": {
+                "type": "object",
+                "properties": {
+                  "radius": {
+                    "type": "number"
+                  },
+                  "attack": {
+                    "$ref": "#/$defs/AttackDef"
+                  }
+                },
+                "required": [
+                  "radius",
+                  "attack"
+                ]
+              },
               "neurotoxin": {
                 "type": "object",
                 "properties": {
@@ -18053,6 +18117,7 @@
               },
               "category": {
                 "enum": [
+                  "tool",
                   "weapon",
                   "apparel",
                   "shield",
@@ -18060,7 +18125,6 @@
                   "food",
                   "drink",
                   "drug",
-                  "tool",
                   "ammo",
                   "misc"
                 ]
@@ -18440,13 +18504,13 @@
               "slot": {
                 "enum": [
                   "head",
+                  "neck",
                   "chest",
                   "lining",
                   "hands",
                   "feet",
                   "belt",
                   "back",
-                  "neck",
                   "main",
                   "off",
                   "ring"
@@ -18569,10 +18633,10 @@
                   "armor": {
                     "type": "object",
                     "properties": {
-                      "blunt": {
+                      "sharp": {
                         "type": "number"
                       },
-                      "sharp": {
+                      "blunt": {
                         "type": "number"
                       },
                       "heat": {
@@ -18963,6 +19027,161 @@
         }
       ]
     },
+    "AttackDef": {
+      "type": "object",
+      "properties": {
+        "requiresParts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "woundDef": {
+          "type": "string"
+        },
+        "partWeights": {
+          "type": "object",
+          "properties": {
+            "head": {
+              "type": "number"
+            },
+            "torso": {
+              "type": "number"
+            },
+            "larm": {
+              "type": "number"
+            },
+            "rarm": {
+              "type": "number"
+            },
+            "lleg": {
+              "type": "number"
+            },
+            "rleg": {
+              "type": "number"
+            },
+            "neck": {
+              "type": "number"
+            }
+          }
+        },
+        "partCapacityWeights": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "prey": {
+          "type": "object",
+          "properties": {
+            "unconscious": {
+              "const": true
+            },
+            "capacity": {
+              "type": "string"
+            },
+            "faceCover": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "unconscious",
+            "capacity"
+          ]
+        },
+        "armorDamage": {
+          "type": "number"
+        },
+        "targetHeat": {
+          "type": "number"
+        },
+        "requiresLit": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "damageType": {
+          "enum": [
+            "blunt",
+            "cut",
+            "stab",
+            "bite",
+            "burn",
+            "gunshot"
+          ]
+        },
+        "damage": {
+          "type": "number"
+        },
+        "pen": {
+          "type": "number"
+        },
+        "energy": {
+          "type": "number"
+        },
+        "family": {
+          "type": "string"
+        },
+        "accuracy": {
+          "type": "number"
+        },
+        "reach": {
+          "type": "number"
+        },
+        "bleedMult": {
+          "type": "number"
+        },
+        "noise": {
+          "type": "number"
+        },
+        "requiresCapacity": {
+          "enum": [
+            "bite",
+            "consciousness",
+            "moving",
+            "manipulation",
+            "sight",
+            "hearing",
+            "breathing",
+            "bloodPumping",
+            "tool",
+            "peck",
+            "flight",
+            "signal",
+            "claw"
+          ]
+        },
+        "stunD": {
+          "type": "number"
+        },
+        "shortBlade": {
+          "type": "boolean"
+        },
+        "shieldDamage": {
+          "type": "number"
+        },
+        "shove": {
+          "type": "number"
+        },
+        "contam": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "label",
+        "damageType",
+        "damage",
+        "pen",
+        "energy",
+        "family",
+        "accuracy"
+      ]
+    },
     "WatercraftConfig": {
       "type": "object",
       "properties": {
@@ -19166,152 +19385,6 @@
         "repair"
       ]
     },
-    "AttackDef": {
-      "type": "object",
-      "properties": {
-        "partWeights": {
-          "type": "object",
-          "properties": {
-            "head": {
-              "type": "number"
-            },
-            "torso": {
-              "type": "number"
-            },
-            "larm": {
-              "type": "number"
-            },
-            "rarm": {
-              "type": "number"
-            },
-            "lleg": {
-              "type": "number"
-            },
-            "rleg": {
-              "type": "number"
-            },
-            "neck": {
-              "type": "number"
-            }
-          }
-        },
-        "partCapacityWeights": {
-          "type": "object",
-          "properties": {},
-          "additionalProperties": {
-            "type": "number"
-          }
-        },
-        "prey": {
-          "type": "object",
-          "properties": {
-            "unconscious": {
-              "const": true
-            },
-            "capacity": {
-              "type": "string"
-            },
-            "faceCover": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "unconscious",
-            "capacity"
-          ]
-        },
-        "armorDamage": {
-          "type": "number"
-        },
-        "targetHeat": {
-          "type": "number"
-        },
-        "requiresLit": {
-          "type": "boolean"
-        },
-        "id": {
-          "type": "string"
-        },
-        "label": {
-          "type": "string"
-        },
-        "damageType": {
-          "enum": [
-            "cut",
-            "stab",
-            "blunt",
-            "bite",
-            "burn",
-            "gunshot"
-          ]
-        },
-        "damage": {
-          "type": "number"
-        },
-        "pen": {
-          "type": "number"
-        },
-        "energy": {
-          "type": "number"
-        },
-        "family": {
-          "type": "string"
-        },
-        "accuracy": {
-          "type": "number"
-        },
-        "reach": {
-          "type": "number"
-        },
-        "bleedMult": {
-          "type": "number"
-        },
-        "noise": {
-          "type": "number"
-        },
-        "requiresCapacity": {
-          "enum": [
-            "tool",
-            "bite",
-            "consciousness",
-            "moving",
-            "manipulation",
-            "sight",
-            "hearing",
-            "breathing",
-            "bloodPumping",
-            "peck",
-            "flight",
-            "signal",
-            "claw"
-          ]
-        },
-        "stunD": {
-          "type": "number"
-        },
-        "shortBlade": {
-          "type": "boolean"
-        },
-        "shieldDamage": {
-          "type": "number"
-        },
-        "shove": {
-          "type": "number"
-        },
-        "contam": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "label",
-        "damageType",
-        "damage",
-        "pen",
-        "energy",
-        "family",
-        "accuracy"
-      ]
-    },
     "RangedDef": {
       "type": "object",
       "properties": {
@@ -19458,6 +19531,16 @@
               "defType"
             ],
             "properties": {
+              "culler": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Inherited_CullerRules"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "crawler": {
                 "anyOf": [
                   {
@@ -20708,6 +20791,16 @@
                   {
                     "type": "object",
                     "properties": {
+                      "blunt": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "cut": {
                         "anyOf": [
                           {
@@ -20719,16 +20812,6 @@
                         ]
                       },
                       "stab": {
-                        "anyOf": [
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "null"
-                          }
-                        ]
-                      },
-                      "blunt": {
                         "anyOf": [
                           {
                             "type": "number"
@@ -21812,7 +21895,7 @@
                   {
                     "type": "object",
                     "properties": {
-                      "blunt": {
+                      "sharp": {
                         "anyOf": [
                           {
                             "type": "number"
@@ -21822,7 +21905,7 @@
                           }
                         ]
                       },
-                      "sharp": {
+                      "blunt": {
                         "anyOf": [
                           {
                             "type": "number"
@@ -22889,6 +22972,9 @@
               "id"
             ],
             "properties": {
+              "culler": {
+                "$ref": "#/$defs/CullerRules"
+              },
               "crawler": {
                 "$ref": "#/$defs/CrawlerRules"
               },
@@ -23188,13 +23274,13 @@
               "damageTaken": {
                 "type": "object",
                 "properties": {
+                  "blunt": {
+                    "type": "number"
+                  },
                   "cut": {
                     "type": "number"
                   },
                   "stab": {
-                    "type": "number"
-                  },
-                  "blunt": {
                     "type": "number"
                   },
                   "bite": {
@@ -23478,10 +23564,10 @@
               "naturalArmor": {
                 "type": "object",
                 "properties": {
-                  "blunt": {
+                  "sharp": {
                     "type": "number"
                   },
-                  "sharp": {
+                  "blunt": {
                     "type": "number"
                   },
                   "heat": {
@@ -23664,6 +23750,231 @@
             }
           }
         }
+      ]
+    },
+    "CullerRules": {
+      "type": "object",
+      "properties": {
+        "protectedRect": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "leashTiles": {
+          "type": "number"
+        },
+        "memoryTurns": {
+          "type": "number"
+        },
+        "minimumWeightKg": {
+          "type": "number"
+        },
+        "activationAlert": {
+          "type": "number"
+        },
+        "attacksBeforeCooling": {
+          "type": "number"
+        },
+        "coolingTurns": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "retreatDamage": {
+          "type": "number"
+        },
+        "tools": {
+          "type": "object",
+          "properties": {
+            "left": {
+              "type": "string"
+            },
+            "right": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "left",
+            "right"
+          ]
+        },
+        "drives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "part": {
+                "type": "string"
+              },
+              "item": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "part",
+              "item"
+            ]
+          }
+        },
+        "spray": {
+          "type": "object",
+          "properties": {
+            "part": {
+              "type": "string"
+            },
+            "item": {
+              "type": "string"
+            },
+            "radius": {
+              "type": "number"
+            },
+            "tu": {
+              "type": "number"
+            },
+            "attack": {
+              "$ref": "#/$defs/AttackDef"
+            }
+          },
+          "required": [
+            "part",
+            "item",
+            "radius",
+            "tu",
+            "attack"
+          ]
+        },
+        "net": {
+          "type": "object",
+          "properties": {
+            "part": {
+              "type": "string"
+            },
+            "item": {
+              "type": "string"
+            },
+            "range": {
+              "type": "number"
+            },
+            "turns": {
+              "type": "number"
+            },
+            "strength": {
+              "type": "number"
+            },
+            "tu": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "part",
+            "item",
+            "range",
+            "turns",
+            "strength",
+            "tu"
+          ]
+        },
+        "weaknesses": {
+          "type": "object",
+          "properties": {
+            "waterMl": {
+              "type": "number"
+            },
+            "shortChance": {
+              "type": "number"
+            },
+            "shutdownTurns": {
+              "type": "number"
+            },
+            "bellItem": {
+              "type": "string"
+            },
+            "bellFaction": {
+              "type": "string"
+            },
+            "machineBellChance": {
+              "type": "number"
+            },
+            "bellRadius": {
+              "type": "number"
+            },
+            "bellChance": {
+              "type": "number"
+            },
+            "coolingBellChance": {
+              "type": "number"
+            },
+            "bellTurns": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "required": [
+            "waterMl",
+            "shortChance",
+            "shutdownTurns",
+            "bellItem",
+            "bellFaction",
+            "machineBellChance",
+            "bellRadius",
+            "bellChance",
+            "coolingBellChance",
+            "bellTurns"
+          ]
+        }
+      },
+      "required": [
+        "protectedRect",
+        "leashTiles",
+        "memoryTurns",
+        "minimumWeightKg",
+        "activationAlert",
+        "attacksBeforeCooling",
+        "coolingTurns",
+        "retreatDamage",
+        "tools",
+        "drives",
+        "components",
+        "spray",
+        "net",
+        "weaknesses"
       ]
     },
     "CrawlerRules": {
@@ -30642,7 +30953,6 @@
                 "anyOf": [
                   {
                     "enum": [
-                      "tool",
                       "bite",
                       "consciousness",
                       "moving",
@@ -30651,6 +30961,7 @@
                       "hearing",
                       "breathing",
                       "bloodPumping",
+                      "tool",
                       "peck",
                       "flight",
                       "signal",
@@ -31095,7 +31406,6 @@
             "properties": {
               "requiresCapacity": {
                 "enum": [
-                  "tool",
                   "bite",
                   "consciousness",
                   "moving",
@@ -31104,6 +31414,7 @@
                   "hearing",
                   "breathing",
                   "bloodPumping",
+                  "tool",
                   "peck",
                   "flight",
                   "signal",
@@ -60962,6 +61273,472 @@
         }
       }
     },
+    "Inherited_AttackDef": {
+      "type": "object",
+      "properties": {
+        "requiresParts": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "woundDef": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "partWeights": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "head": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "torso": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "larm": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rarm": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "lleg": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "rleg": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "neck": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "partCapacityWeights": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "$inherit": {
+                  "const": false
+                }
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prey": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "unconscious": {
+                  "anyOf": [
+                    {
+                      "const": true
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "capacity": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "faceCover": {
+                  "anyOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "armorDamage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "targetHeat": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requiresLit": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "damageType": {
+          "anyOf": [
+            {
+              "enum": [
+                "blunt",
+                "cut",
+                "stab",
+                "bite",
+                "burn",
+                "gunshot"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "damage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "pen": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "energy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "family": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "accuracy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reach": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bleedMult": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "noise": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requiresCapacity": {
+          "anyOf": [
+            {
+              "enum": [
+                "bite",
+                "consciousness",
+                "moving",
+                "manipulation",
+                "sight",
+                "hearing",
+                "breathing",
+                "bloodPumping",
+                "tool",
+                "peck",
+                "flight",
+                "signal",
+                "claw"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stunD": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "shortBlade": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "shieldDamage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "shove": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contam": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
     "Inherited_WatercraftConfig": {
       "type": "object",
       "properties": {
@@ -62049,390 +62826,6 @@
         }
       }
     },
-    "Inherited_AttackDef": {
-      "type": "object",
-      "properties": {
-        "partWeights": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "head": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "torso": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "larm": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "rarm": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "lleg": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "rleg": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "neck": {
-                  "anyOf": [
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "$inherit": {
-                  "const": false
-                }
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "partCapacityWeights": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "$inherit": {
-                  "const": false
-                }
-              },
-              "additionalProperties": {
-                "anyOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "prey": {
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "unconscious": {
-                  "anyOf": [
-                    {
-                      "const": true
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "capacity": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "faceCover": {
-                  "anyOf": [
-                    {
-                      "type": "boolean"
-                    },
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "$inherit": {
-                  "const": false
-                }
-              }
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "armorDamage": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "targetHeat": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "requiresLit": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "id": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "label": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "damageType": {
-          "anyOf": [
-            {
-              "enum": [
-                "cut",
-                "stab",
-                "blunt",
-                "bite",
-                "burn",
-                "gunshot"
-              ]
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "damage": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "pen": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "energy": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "family": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "accuracy": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "reach": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "bleedMult": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "noise": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "requiresCapacity": {
-          "anyOf": [
-            {
-              "enum": [
-                "tool",
-                "bite",
-                "consciousness",
-                "moving",
-                "manipulation",
-                "sight",
-                "hearing",
-                "breathing",
-                "bloodPumping",
-                "peck",
-                "flight",
-                "signal",
-                "claw"
-              ]
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "stunD": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "shortBlade": {
-          "anyOf": [
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "shieldDamage": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "shove": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "contam": {
-          "anyOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "$inherit": {
-          "const": false
-        }
-      }
-    },
     "Inherited_WaterQuality": {
       "type": "object",
       "properties": {
@@ -62470,6 +62863,870 @@
           "anyOf": [
             {
               "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
+    "Inherited_CullerRules": {
+      "type": "object",
+      "properties": {
+        "protectedRect": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "leashTiles": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "memoryTurns": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minimumWeightKg": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "activationAlert": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attacksBeforeCooling": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coolingTurns": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retreatDamage": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tools": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "left": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "right": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drives": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "components": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "part": {
+                        "type": "string"
+                      },
+                      "item": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "part",
+                      "item"
+                    ]
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "part": {
+                            "type": "string"
+                          },
+                          "item": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "part",
+                          "item"
+                        ]
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "part": {
+                            "type": "string"
+                          },
+                          "item": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "part",
+                          "item"
+                        ]
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "part": {
+                                "type": "string"
+                              },
+                              "item": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "part",
+                              "item"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spray": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "part": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "item": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "radius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tu": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "attack": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/Inherited_AttackDef"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "net": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "part": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "item": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "range": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "turns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "strength": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "tu": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weaknesses": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "waterMl": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "shortChance": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "shutdownTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bellItem": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bellFaction": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "machineBellChance": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bellRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bellChance": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "coolingBellChance": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "bellTurns": {
+                  "anyOf": [
+                    {
+                      "anyOf": [
+                        {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ],
+                          "minItems": 2,
+                          "maxItems": 2
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "$append": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              }
+                            },
+                            "$prepend": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              }
+                            },
+                            "$remove": {
+                              "type": "array",
+                              "items": {
+                                "anyOf": [
+                                  {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "object",
+                                    "required": [
+                                      "id"
+                                    ],
+                                    "properties": {
+                                      "id": {}
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "$append"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$prepend"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "$remove"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
             },
             {
               "type": "null"

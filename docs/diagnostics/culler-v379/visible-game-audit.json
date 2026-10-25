@@ -1,0 +1,1217 @@
+{
+  "replaysExistingUnmodifiedInitialCombatFixture": true,
+  "noPostLoadWorldWrites": true,
+  "actualPeriodInput": true,
+  "independentWholeJSONAndHash": true,
+  "pairs": [
+    {
+      "phase": "initial-visible",
+      "hash": "05e64cd1"
+    },
+    {
+      "phase": "actual-net-wait",
+      "hash": "0bb28cc2"
+    }
+  ],
+  "netPresentation": {
+    "direction": "left",
+    "sourceFrame": "av379_culler_left_chassis",
+    "drawInstances": 23,
+    "visibleDrawInstances": 23,
+    "liveTextures": 23,
+    "tools": [
+      {
+        "id": "left",
+        "arm": "LeftScytheArm",
+        "blade": "LeftScytheBlade",
+        "stage": "guard",
+        "active": false,
+        "shoulder": {
+          "x": -8.5,
+          "y": -11.5
+        },
+        "elbow": {
+          "x": -18.05336489125606,
+          "y": -8.544797933386604
+        },
+        "tip": {
+          "x": -22.202706321382102,
+          "y": 6.401554989525376
+        },
+        "angles": [
+          2.8415926535897933,
+          1.841592653589793
+        ],
+        "armVisible": true,
+        "bladeVisible": true,
+        "disabled": false,
+        "contactError": null,
+        "contactTarget": null
+      },
+      {
+        "id": "right",
+        "arm": "RightScytheArm",
+        "blade": "RightScytheBlade",
+        "stage": "guard",
+        "active": false,
+        "shoulder": {
+          "x": -16,
+          "y": -19
+        },
+        "elbow": {
+          "x": -25.689124217106446,
+          "y": -21.47403959254523
+        },
+        "tip": {
+          "x": -25.236192186534215,
+          "y": -5.96902902899895
+        },
+        "angles": [
+          3.391592653589793,
+          1.541592653589793
+        ],
+        "armVisible": true,
+        "bladeVisible": true,
+        "disabled": false,
+        "contactError": null,
+        "contactTarget": null
+      }
+    ],
+    "effect": "net",
+    "cooling": false,
+    "body": {
+      "x": -23.700000000000003,
+      "y": -42.1,
+      "scale": 0.1
+    },
+    "root": {
+      "x": 376,
+      "y": 334
+    },
+    "owner": 2,
+    "pose": {
+      "owner": 2,
+      "root": {
+        "x": 376,
+        "y": 334
+      },
+      "distance": 0,
+      "tripod": [],
+      "maxLandingAdjustment": 0,
+      "legs": [
+        {
+          "id": "DriveRF",
+          "ownerId": "DriveRF",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 356,
+            "y": 319
+          },
+          "sole": {
+            "x": 356,
+            "y": 319
+          },
+          "ground": {
+            "x": 356,
+            "y": 319
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": true,
+          "mirror": true,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 360,
+            "y": 315
+          },
+          "knee": {
+            "x": 366.08197131446775,
+            "y": 328.71166018139274
+          },
+          "end": {
+            "x": 356.405,
+            "y": 315.7195
+          },
+          "requested": {
+            "x": 356.405,
+            "y": 315.7195
+          },
+          "error": 0
+        },
+        {
+          "id": "DriveRM",
+          "ownerId": "DriveRM",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 379,
+            "y": 313
+          },
+          "sole": {
+            "x": 379,
+            "y": 313
+          },
+          "ground": {
+            "x": 379,
+            "y": 313
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": true,
+          "mirror": true,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 376,
+            "y": 304.5
+          },
+          "knee": {
+            "x": 363.49851842271653,
+            "y": 312.789327980774
+          },
+          "end": {
+            "x": 379.405,
+            "y": 309.7195
+          },
+          "requested": {
+            "x": 379.405,
+            "y": 309.7195
+          },
+          "error": 0
+        },
+        {
+          "id": "DriveRH",
+          "ownerId": "DriveRH",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 403,
+            "y": 309
+          },
+          "sole": {
+            "x": 403,
+            "y": 309
+          },
+          "ground": {
+            "x": 403,
+            "y": 309
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": true,
+          "mirror": true,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 398.8,
+            "y": 304.4
+          },
+          "knee": {
+            "x": 393.23508020470746,
+            "y": 318.3295250339687
+          },
+          "end": {
+            "x": 403.405,
+            "y": 305.7195
+          },
+          "requested": {
+            "x": 403.405,
+            "y": 305.7195
+          },
+          "error": 0
+        },
+        {
+          "id": "DriveLF",
+          "ownerId": "DriveLF",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 350,
+            "y": 340
+          },
+          "sole": {
+            "x": 350,
+            "y": 340
+          },
+          "ground": {
+            "x": 350,
+            "y": 340
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": false,
+          "mirror": false,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 367.5,
+            "y": 322.5
+          },
+          "knee": {
+            "x": 366.5875033200546,
+            "y": 337.47221926800063
+          },
+          "end": {
+            "x": 350.405,
+            "y": 336.7195
+          },
+          "requested": {
+            "x": 350.405,
+            "y": 336.7195
+          },
+          "error": 0
+        },
+        {
+          "id": "DriveLM",
+          "ownerId": "DriveLM",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 366,
+            "y": 335
+          },
+          "sole": {
+            "x": 366,
+            "y": 335
+          },
+          "ground": {
+            "x": 366,
+            "y": 335
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": false,
+          "mirror": false,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 378.5,
+            "y": 317.3
+          },
+          "knee": {
+            "x": 382.60499808861,
+            "y": 331.72736950010324
+          },
+          "end": {
+            "x": 366.405,
+            "y": 331.7195
+          },
+          "requested": {
+            "x": 366.405,
+            "y": 331.7195
+          },
+          "error": 0
+        },
+        {
+          "id": "DriveLH",
+          "ownerId": "DriveLH",
+          "contact": true,
+          "disabled": false,
+          "anchor": {
+            "x": 392,
+            "y": 329
+          },
+          "sole": {
+            "x": 392,
+            "y": 329
+          },
+          "ground": {
+            "x": 392,
+            "y": 329
+          },
+          "epoch": 0,
+          "lift": 0,
+          "far": false,
+          "mirror": false,
+          "nominalLanding": null,
+          "plannedLanding": null,
+          "unconstrainedAirAnkle": null,
+          "airTrajectoryAdjustment": 0,
+          "hip": {
+            "x": 390.7,
+            "y": 312.8
+          },
+          "knee": {
+            "x": 405.3570961478293,
+            "y": 315.98897044722713
+          },
+          "end": {
+            "x": 392.405,
+            "y": 325.7195
+          },
+          "requested": {
+            "x": 392.405,
+            "y": 325.7195
+          },
+          "error": 0
+        }
+      ]
+    },
+    "maxReachError": 0,
+    "transition": false,
+    "transitionInstances": 0,
+    "parts": {
+      "Chassis": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "PowerCore": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "ControlCircuit": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "CoolingLoop": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "SensorHead": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "OpticalSensor": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "AcousticSensor": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "ThermalSensor": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "Antenna": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveRF": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveRM": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveRH": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveLF": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveLM": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "DriveLH": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "LeftScytheArm": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "LeftScytheBlade": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "RightScytheArm": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "RightScytheBlade": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "AcidTank": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      },
+      "NetLauncher": {
+        "missing": false,
+        "damage": 0,
+        "efficiency": 1
+      }
+    },
+    "action": "shoot",
+    "attackMode": "cullerNet",
+    "sourcePNGs": 4,
+    "sourceRegions": 24,
+    "authoredDirections": 4,
+    "authoredFullBodyWalkFrames": 0,
+    "clipRects": [
+      {
+        "x": -88,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -94,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -78,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -62,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -46,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -30,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": -14,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": 2,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": 18,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": 34,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": 50,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -88,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -72,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -56,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -40,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -24,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": -8,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 8,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 24,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 40,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 56,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "x": 72,
+        "y": 66,
+        "w": 16,
+        "h": 16
+      }
+    ],
+    "limits": [
+      "view-specific2D layouts, new contact owner at facing switch",
+      "hidden physical axes and opposite surfaces unverified",
+      "BACK appendages and toe/heel direction unproven",
+      "baked chassis sensors/tank are marked damaged, not independently detached art",
+      "no true3D collision or stability proof"
+    ]
+  },
+  "errors": [],
+  "browserFinallyClosed": true,
+  "scope": "Focused live-body and first net screenshot, because main final combat screenshot correctly showed impaired vision after severe wounds. Main five-scene19pair success remains separate."
+}

@@ -19,6 +19,7 @@ on:
       - 'tests/sower-policy.test.ts'
       - 'tests/swarm-v370.test.ts'
       - 'tests/crawler-v375.test.ts'
+      - 'tests/culler-v379.test.ts'
       - 'tests/swarm-filter-boundary.test.ts'
       - 'tests/sower-assault.test.ts'
       - 'tests/sower-content-v364.test.ts'
@@ -46,7 +47,7 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec vitest run tests/crawler-v375.test.ts tests/swarm-filter-boundary.test.ts tests/swarm-v370.test.ts tests/sower-assault.test.ts tests/sower-content-v364.test.ts tests/sower-policy.test.ts tests/articulated-gait.test.ts tests/bear-v348.test.ts tests/asset-lifecycle.test.ts tests/atlas-plan.test.ts tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/discovery-archive.test.ts tests/medical-presentation.test.ts tests/equipment-completion-v331.test.ts tests/wildlife-v333.test.ts tests/forage-v336.test.ts tests/crow-v338.test.ts tests/surveyor-v340.test.ts tests/climate.test.ts tests/map-memory.test.ts tests/plant-foods.test.ts tests/cultivation.test.ts tests/blackwood.test.ts tests/body.test.ts tests/machines.test.ts tests/bestiary.test.ts tests/animal-fear.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1
+      - run: pnpm exec vitest run tests/culler-v379.test.ts tests/crawler-v375.test.ts tests/swarm-filter-boundary.test.ts tests/swarm-v370.test.ts tests/sower-assault.test.ts tests/sower-content-v364.test.ts tests/sower-policy.test.ts tests/articulated-gait.test.ts tests/bear-v348.test.ts tests/asset-lifecycle.test.ts tests/atlas-plan.test.ts tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/discovery-archive.test.ts tests/medical-presentation.test.ts tests/equipment-completion-v331.test.ts tests/wildlife-v333.test.ts tests/forage-v336.test.ts tests/crow-v338.test.ts tests/surveyor-v340.test.ts tests/climate.test.ts tests/map-memory.test.ts tests/plant-foods.test.ts tests/cultivation.test.ts tests/blackwood.test.ts tests/body.test.ts tests/machines.test.ts tests/bestiary.test.ts tests/animal-fear.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1
       - run: pnpm validate-sprites
       - run: pnpm build
       - uses: actions/upload-pages-artifact@v3

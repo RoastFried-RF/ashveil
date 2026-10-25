@@ -1,0 +1,16 @@
+{
+  "source": "source-contract.json + unchanged referencePNG",
+  "runtime": [
+    "model.mjs",
+    "app.mjs",
+    "index.html"
+  ],
+  "observation": "observe.mjs + diagnostics + records",
+  "cycleBudget": {
+    "implementationPasses": 1,
+    "coreCorrectionPassesMax": 1,
+    "imageGenerationCalls": 0
+  },
+  "allowedWritesOnly": "/workspace/.ashveil-planned/v377-culler-runtime",
+  "prohibited": "authoring/publisher/Core/shared dist/build/game/global tests/commit/push"
+}

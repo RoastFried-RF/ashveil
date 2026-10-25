@@ -173,6 +173,8 @@ export function confirmTarget(id?: number) {
 export function useItem(w: World, it: ItemInst): string | null {
   const d = itemDef(w, it)
   const pl = player(w)
+  if(d.purifier){craftSection.value='field';setWin('inv',false);setWin('craft',true);hint.value='정화액을 분사할 대상을 고르자. 앞쪽의 다른 생물도 맞을 수 있다.';return null}
+  if(w.db.all<import('../core').CreatureDef>('Creature').some(c=>c.culler?.weaknesses.bellItem===it.def))return doAct({type:'ringMaintenanceBell',uid:it.uid})
   if(d.throwable)return startThrow(it.uid)
   if(d.powder){hint.value='화약은 장총의 장전 메뉴에서 실제 납탄과 함께 쓴다';return null}
   if(d.category==='ammo')return doAct({type:'selectAmmo',uid:it.uid})

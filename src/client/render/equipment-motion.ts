@@ -19,7 +19,7 @@ export function equipmentSpec(def:ItemDef,uid?:number,lit=false):HeldEquipment{
 export function equipmentTipReach(item:HeldEquipment){return item.length*(item.tipFraction??(item.axis===0?1-item.grip[0]:item.grip[1]))}
 export function attackStyle(family:string|undefined,damage:string|undefined,weapon:HeldEquipment|undefined,ranged=false,throwing=false):AttackStyle{
  if(throwing)return'throw';if(ranged)return'shoot';if(!weapon)return'unarmed'
- if(damage==='stab'||family==='spear')return'thrust'
+ if(damage==='stab'||family==='spear'&&damage!=='cut')return'thrust'
  if(family==='axe')return'chop'
  return family==='blunt'||weapon.kind==='torch'?'smash':'slash'
 }

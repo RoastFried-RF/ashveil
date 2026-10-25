@@ -88,6 +88,34 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   }
   if(typeof value.layout.stride==='number'&&typeof value.layout.swingTravel==='number'&&value.layout.swingTravel>=value.layout.stride)errors.push(where+'.layout: 회복 거리는 보행 주기보다 작아야 한다')
  }
+ const cullerSpec=(value:unknown,where:string)=>{
+  const finite=(v:unknown,path:string,positive=false)=>{if(typeof v!=='number'||!Number.isFinite(v)||positive&&v<=0){errors.push(path+': 유한한 '+(positive?'양수':'수')+'가 필요하다');return false}return true}
+  const point=(v:unknown,path:string,frame?:unknown)=>{if(!object(v)){errors.push(path+': x/y 좌표가 필요하다');return}if(!finite(v.x,path+'.x')||!finite(v.y,path+'.y'))return;const rect=typeof frame==='string'?frames[frame]:undefined;if(Array.isArray(rect)&&((v.x as number)<0||(v.y as number)<0||(v.x as number)>rect[3]||(v.y as number)>rect[4]))errors.push(path+': frame 범위를 벗어난다')}
+  if(!object(value)||!object(value.directions)||!object(value.attackTools)){errors.push(where+': directions/attackTools 구성이 필요하다');return}
+  for(const [mode,tool]of Object.entries(value.attackTools))if(!mode||!['left','right','acid','net'].includes(String(tool)))errors.push(where+'.attackTools.'+mode+': left/right/acid/net 중 하나가 필요하다')
+  for(const dir of directions){
+   const d=value.directions[dir],path=where+'.directions.'+dir
+   if(!object(d)||!object(d.art)||!object(d.layout)){errors.push(path+': 방향별 art/layout가 필요하다');continue}
+   if(d.physical3DVerified!==false)errors.push(path+': physical3DVerified:false가 필요하다')
+   for(const name of ['chassis','driveUpper','driveLower','foot','scytheUpper','scytheBlade']){
+    const a=d.art[name],partPath=path+'.art.'+name;if(!object(a)){errors.push(partPath+': 원문 부품이 필요하다');continue}
+    if(typeof a.frame!=='string'||!Object.hasOwn(frames,a.frame))errors.push(partPath+'.frame: 등록된 원문 frame이 필요하다')
+    const keys=name==='chassis'?['pivot']:name==='foot'?['ankle','sole']:name==='scytheBlade'?['proximal','tip']:['proximal','distal']
+    for(const key of keys)point(a[key],partPath+'.'+key,a.frame)
+    const x=a[keys[0]],y=a[keys[1]];if(keys[1]&&object(x)&&object(y)&&x.x===y.x&&x.y===y.y)errors.push(partPath+': 서로 다른 두 원문점이 필요하다')
+    if(name==='chassis'||name==='foot')finite(a.scale,partPath+'.scale',true)
+    if(name==='chassis')point(a.offset,partPath+'.offset')
+   }
+   const L=d.layout
+   for(const key of ['upper','lower','stride','swingTravel','settleSeconds','clearance','deathLower'])finite(L[key],path+'.layout.'+key,true)
+   if(typeof L.stride==='number'&&typeof L.swingTravel==='number'&&L.swingTravel>=L.stride)errors.push(path+'.layout: 회복 거리는 주기보다 작아야 한다')
+   if(!object(L.legs))errors.push(path+'.layout.legs: 여섯 구동 소유가 필요하다')
+   else for(const id of ['DriveRF','DriveRM','DriveRH','DriveLF','DriveLM','DriveLH']){const p=L.legs[id],legPath=path+'.layout.legs.'+id;if(!object(p)){errors.push(legPath+': 독립 drive가 필요하다');continue}for(const key of ['hip','sole','bend'])point(p[key],legPath+'.'+key);for(const key of ['far','mirror'])if(typeof p[key]!=='boolean')errors.push(legPath+'.'+key+': boolean이 필요하다')}
+   if(!object(L.tools))errors.push(path+'.layout.tools: 좌우 낫 소유가 필요하다')
+   else for(const id of ['left','right']){const p=L.tools[id],toolPath=path+'.layout.tools.'+id;if(!object(p)){errors.push(toolPath+': 독립 낫이 필요하다');continue}point(p.shoulder,toolPath+'.shoulder');for(const key of ['upper','blade'])finite(p[key],toolPath+'.'+key,true);for(const key of ['guard','windup','follow','dead'])if(!Array.isArray(p[key])||p[key].length!==2||p[key].some(n=>typeof n!=='number'||!Number.isFinite(n)))errors.push(toolPath+'.'+key+': 유한한 각도2개가 필요하다');for(const key of ['far','mirror'])if(typeof p[key]!=='boolean')errors.push(toolPath+'.'+key+': boolean이 필요하다')}
+   if(!object(L.emitters))errors.push(path+'.layout.emitters: acid/net 표시 기부가 필요하다');else for(const key of ['acid','net'])point(L.emitters[key],path+'.layout.emitters.'+key)
+  }
+ }
  const rigSpec=(value:unknown,where:string)=>{
   const number=(v:unknown,path:string,minimum?:number)=>{if(typeof v!=='number'||!Number.isFinite(v)||(minimum!==undefined&&v<=minimum)){errors.push(path+': 유한한 '+(minimum===undefined?'수':'양수')+'가 필요하다');return false}return true}
   const point=(v:unknown,path:string,frame?:unknown)=>{
@@ -168,6 +196,7 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
   if(row.rig!==undefined)rigSpec(row.rig,'char '+key+'.rig')
   if(row.crawler!==undefined){crawlerSpec(row.crawler,'char '+key+'.crawler');if(row.rig!==undefined)errors.push('char '+key+': rig/crawler 두 표시 소유자를 동시에 가질 수 없다')}
+  if(row.culler!==undefined){cullerSpec(row.culler,'char '+key+'.culler');if(row.rig!==undefined||row.crawler!==undefined)errors.push('char '+key+': culler와 다른 표시 소유자를 동시에 가질 수 없다')}
   const gait=row.gait
   const durations=row.motionDurations
   if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!(motionNames as readonly string[]).includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')

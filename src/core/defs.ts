@@ -730,6 +730,25 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
         if(c.naturalAttack||c.naturalAttacks?.length)report.errors.push(c.id+': survey 비공격 개체에 직접 공격을 주지 않는다')
       }
     }
+    if(c.culler){
+      const d=c.culler,b=db.tryGet<BodyDef>(c.body),ids=new Set(b?.parts.map(p=>p.id)??[])
+      const bad=(message:string)=>report.errors.push(c.id+': culler '+message)
+      if(!b||b.kind!=='mechanical')bad('실제 기계 신체 필요')
+      if(!Array.isArray(d.protectedRect)||d.protectedRect.length!==4||d.protectedRect.some(n=>!Number.isSafeInteger(n)||n<0)||d.protectedRect[2]<1||d.protectedRect[3]<1)bad('보호구역 좌표 필요')
+      for(const key of['leashTiles','memoryTurns','minimumWeightKg','activationAlert','attacksBeforeCooling']as const)if(!Number.isSafeInteger(d[key])||d[key]<1)bad(key+' 양의 정수 필요')
+      if(!Number.isFinite(d.retreatDamage)||d.retreatDamage<=0||d.retreatDamage>=1)bad('복귀 손상 비율 필요')
+      const interval=(value:unknown)=>Array.isArray(value)&&value.length===2&&value.every(n=>Number.isSafeInteger(n)&&n>0)&&value[0]<=value[1]
+      if(!interval(d.coolingTurns))bad('냉각 기간 필요')
+      if(!Array.isArray(d.drives)||d.drives.length!==6||new Set(d.drives).size!==6||d.drives.some(id=>!ids.has(id)||!(b?.parts.find(p=>p.id===id)?.capacities?.moving??0)))bad('독립 실제 구동 다리6개 필요')
+      for(const id of[d.tools?.left,d.tools?.right])if(!c.naturalAttacks?.some(a=>a.id===id&&a.requiresParts?.length===2&&a.requiresParts.every(id=>ids.has(id))))bad('좌우 실제 낫팔/날 공격 필요')
+      if(!Array.isArray(d.components)||!d.components.length)bad('원래 실물 부품 매핑 필요')
+      for(const row of d.components??[]){need(c.id,row.item,'Item');if(!ids.has(row.part)||!b?.mechanical?.salvage.some(r=>r.item===row.item&&r.chance===1))bad('실제 부위/생성 시 보장 부품 필요')}
+      for(const kind of['spray','net']as const){const rule=d[kind];need(c.id,rule?.item,'Item');if(!rule||!ids.has(rule.part)||!d.components?.some(r=>r.part===rule.part&&r.item===rule.item)||!Number.isSafeInteger(rule.tu)||rule.tu<1)bad(kind+' 실제 작동 부위/실물/TU 필요')}
+      const tank=d.spray&&db.tryGet<ItemDef>(d.spray.item);if(!tank?.uses||!tank.purifier||JSON.stringify(tank.purifier.attack)!==JSON.stringify(d.spray.attack)||tank.purifier.radius!==d.spray.radius)bad('동일 실제 탱크/분사 규칙 필요')
+      if(!Number.isSafeInteger(d.spray?.radius)||d.spray.radius<1||d.spray.radius>8||!Number.isSafeInteger(d.net?.range)||d.net.range<1||d.net.range>12||!Number.isSafeInteger(d.net.turns)||d.net.turns<1||!Number.isFinite(d.net.strength)||d.net.strength<=0)bad('분사/망 사거리·기간·강도 오류')
+      const weak=d.weaknesses;need(c.id,weak?.bellItem,'Item');if(!weak||!db.all<FactionDef>('Faction').some(f=>f.key===weak.bellFaction)||!interval(weak.bellTurns))bad('실제 종/기계 세력/정지 기간 필요')
+      else{for(const key of['shortChance','bellChance','coolingBellChance','machineBellChance']as const)if(!Number.isFinite(weak[key])||weak[key]<0||weak[key]>1)bad(key+' 확률 오류');for(const key of['waterMl','shutdownTurns','bellRadius']as const)if(!Number.isSafeInteger(weak[key])||weak[key]<1)bad(key+' 양의 정수 필요')}
+    }
     need(c.id, c.body, 'Body')
     need(c.id, c.fearFamily, 'Creature')
     need(c.id, c.contactDisease?.id, 'Disease')
@@ -737,10 +756,14 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for (const id of c.diseaseImmune ?? []) need(c.id, id, 'Disease')
     for (const s of c.loadout?.slots ?? []) for (const it of s.items) need(c.id, it, 'Item')
   }
+  for(const item of db.all<ItemDef>('Item'))if(item.purifier&&(!isObj(item.purifier)||!Number.isSafeInteger(item.uses)||item.uses!<1||item.stackable||!Number.isSafeInteger(item.purifier.radius)||item.purifier.radius<1||item.purifier.radius>8||!isObj(item.purifier.attack)))report.errors.push(item.id+': purifier 실제 유한 탱크/분사 규칙 필요')
   for (const l of db.all<LootTableDef>('LootTable')) for (const e of l.entries) need(l.id, e.item, 'Item')
   for(const owner of[...db.all<CreatureDef>('Creature'),...db.all<ItemDef>('Item')]){
-    const attacks=owner.defType==='Creature'?[owner.naturalAttack,...(Array.isArray(owner.naturalAttacks)?owner.naturalAttacks:[])]:Array.isArray(owner.attacks)?owner.attacks:[]
+    const attacks=owner.defType==='Creature'?[owner.naturalAttack,...(Array.isArray(owner.naturalAttacks)?owner.naturalAttacks:[])]:[...(Array.isArray(owner.attacks)?owner.attacks:[]),...(owner.purifier?[owner.purifier.attack]:[])]
     for(const a of attacks){
+      if(a?.woundDef!==undefined){need(owner.id,a.woundDef,'Wound');if(a.damageType!=='burn')report.errors.push(owner.id+': woundDef는 화학/열 손상 경로에서만 사용한다')}
+      if(a?.requiresParts!==undefined&&(owner.defType!=='Creature'||!Array.isArray(a.requiresParts)||!a.requiresParts.length||new Set(a.requiresParts).size!==a.requiresParts.length||a.requiresParts.some(id=>!db.tryGet<BodyDef>((owner as CreatureDef).body)?.parts.some(p=>p.id===id))))report.errors.push(owner.id+': requiresParts는 실제 소유 신체 부위여야 함')
+
       if(a?.partWeights!==undefined&&(!isObj(a.partWeights)||Object.entries(a.partWeights).some(([key,n])=>!['head','torso','rarm','larm','rleg','lleg','neck'].includes(key)||!Number.isFinite(n)||n<0||n>10)))report.errors.push(owner.id+': partWeights 실제 부위/0~10 유한 가중치 필요')
       const capacities=new Set(db.all<BodyDef>('Body').flatMap(body=>body.parts.flatMap(p=>Object.keys(p.capacities??{}))))
       if(a?.partCapacityWeights!==undefined&&(!isObj(a.partCapacityWeights)||Object.entries(a.partCapacityWeights).some(([key,n])=>!capacities.has(key)||!Number.isFinite(n)||n<0||n>25)))report.errors.push(owner.id+': partCapacityWeights 실제 신체 기능/0~25 유한 가중치 필요')
@@ -2292,6 +2315,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
         else for(const row of d.salvage){need(b.id,row.item,'Item');if(!row.item)report.errors.push(`${b.id}: salvage.item 필요`);if(!Number.isFinite(row.count)||!Number.isFinite(row.chance))report.errors.push(`${b.id}: salvage.count/chance 필요`);range(b.id,'salvage.count',row.count,1,5,true);range(b.id,'salvage.chance',row.chance,0,1)}
       }
     }
+    for(const p of b.parts)if(p.armor!==undefined&&(!isObj(p.armor)||Object.entries(p.armor).some(([k,n])=>!['sharp','blunt','heat'].includes(k)||!Number.isFinite(n)||n<0||n>100)))report.errors.push(b.id+': 부위 armor 수치 오류')
     for (const p of b.parts) if (p.parent && !ids.has(p.parent)) report.errors.push(`${b.id}: 부위 '${p.id}' 의 부모 '${p.parent}' 없음`)
     for (const p of b.parts) if (p.stumpParent && (!ids.has(p.stumpParent) || p.stumpParent === p.id)) report.errors.push(`${b.id}: 부위 '${p.id}' 의 절단면 '${p.stumpParent}' 오류`)
     // 외부 부위 커버리지(‰) 합은 1000 (07 §2.3), 내부 부위는 부모가 있어야 한다

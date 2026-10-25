@@ -1,0 +1,952 @@
+[
+  {
+    "defType": "Body",
+    "id": "Body.Culler",
+    "label": "구제기의 여섯 구동 다리와 두 낫팔",
+    "kind": "mechanical",
+    "bloodMl": 0,
+    "parts": [
+      {
+        "id": "Chassis",
+        "label": "중장갑 섀시",
+        "hp": 160,
+        "coverage": 300,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "organMiss": 35
+      },
+      {
+        "id": "PowerCore",
+        "label": "고급 동력핵",
+        "hp": 45,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "ControlCircuit",
+        "label": "제어 회로",
+        "hp": 35,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 2,
+        "vital": true,
+        "capacities": {
+          "consciousness": 1
+        }
+      },
+      {
+        "id": "CoolingLoop",
+        "label": "냉각 루프",
+        "hp": 35,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "SensorHead",
+        "label": "센서 머리",
+        "hp": 38,
+        "coverage": 50,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis"
+      },
+      {
+        "id": "OpticalSensor",
+        "label": "광학 렌즈",
+        "hp": 18,
+        "coverage": 20,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "SensorHead",
+        "capacities": {
+          "sight": 1
+        }
+      },
+      {
+        "id": "AcousticSensor",
+        "label": "음향 센서",
+        "hp": 18,
+        "coverage": 15,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "SensorHead",
+        "capacities": {
+          "hearing": 1
+        }
+      },
+      {
+        "id": "ThermalSensor",
+        "label": "열 센서",
+        "hp": 20,
+        "coverage": 15,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "SensorHead",
+        "capacities": {
+          "sight": 1
+        }
+      },
+      {
+        "id": "Antenna",
+        "label": "통신 안테나",
+        "hp": 20,
+        "coverage": 20,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "SensorHead",
+        "capacities": {
+          "signal": 1
+        }
+      },
+      {
+        "id": "DriveRF",
+        "label": "오른쪽 앞 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "rleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "r",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "DriveRM",
+        "label": "오른쪽 가운데 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "rleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "r",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "DriveRH",
+        "label": "오른쪽 뒤 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "rleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "r",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "DriveLF",
+        "label": "왼쪽 앞 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "lleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "l",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "DriveLM",
+        "label": "왼쪽 가운데 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "lleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "l",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "DriveLH",
+        "label": "왼쪽 뒤 구동 다리",
+        "hp": 38,
+        "coverage": 60,
+        "region": "lleg",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "l",
+        "qleg": true,
+        "capacities": {
+          "moving": 1
+        },
+        "armor": {
+          "sharp": 6,
+          "blunt": 6,
+          "heat": 10
+        }
+      },
+      {
+        "id": "LeftScytheArm",
+        "label": "왼쪽 낫팔 구동부",
+        "hp": 42,
+        "coverage": 50,
+        "region": "larm",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "l",
+        "capacities": {
+          "manipulation": 1,
+          "tool": 1
+        }
+      },
+      {
+        "id": "LeftScytheBlade",
+        "label": "왼쪽 낫팔 날",
+        "hp": 40,
+        "coverage": 30,
+        "region": "larm",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "LeftScytheArm",
+        "side": "l"
+      },
+      {
+        "id": "RightScytheArm",
+        "label": "오른쪽 낫팔 구동부",
+        "hp": 42,
+        "coverage": 50,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis",
+        "side": "r",
+        "capacities": {
+          "manipulation": 1,
+          "tool": 1
+        }
+      },
+      {
+        "id": "RightScytheBlade",
+        "label": "오른쪽 낫팔 날",
+        "hp": 40,
+        "coverage": 30,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "RightScytheArm",
+        "side": "r"
+      },
+      {
+        "id": "AcidTank",
+        "label": "정화액 탱크와 분사구",
+        "hp": 30,
+        "coverage": 40,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis"
+      },
+      {
+        "id": "NetLauncher",
+        "label": "포획망 발사기",
+        "hp": 28,
+        "coverage": 20,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "parent": "Chassis"
+      }
+    ],
+    "mechanical": {
+      "core": "ControlCircuit",
+      "powerCell": "PowerCore",
+      "coolingLoop": "CoolingLoop",
+      "chassis": "Chassis",
+      "toolHead": "RightScytheArm",
+      "coolantMl": 2400,
+      "leakPerSeverity": 0.8,
+      "cooling": 4,
+      "ambientThreshold": 20,
+      "ambientDivisor": 10,
+      "protectiveHeat": 70,
+      "shutdownHeat": 90,
+      "shutdownChance": 0.2,
+      "shutdownTurns": [
+        2,
+        4
+      ],
+      "coreDamage": 2,
+      "shortChance": 0.01,
+      "moveHeat": 2,
+      "attackHeat": 12,
+      "weldHeat": 16,
+      "actionPower": 0.2,
+      "idlePower": 0.0001,
+      "retreatPower": 20,
+      "patch": {
+        "item": "Item.MachinePatch",
+        "turns": 10
+      },
+      "coolant": {
+        "item": "Item.HydraulicFluid",
+        "ml": 200,
+        "turns": 5
+      },
+      "repair": {
+        "item": "Item.SmallActuator",
+        "severity": 10,
+        "turns": 30,
+        "tool": "hammer"
+      },
+      "cell": {
+        "item": "Item.LowPowerCell",
+        "power": 25,
+        "turns": 10
+      },
+      "salvage": [
+        {
+          "item": "Item.CullerScytheBlade",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.CullerScytheBlade",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.CullerHeart",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.CullerArmorPlate",
+          "count": 4,
+          "chance": 1
+        },
+        {
+          "item": "Item.CullerNetFiber",
+          "count": 2,
+          "chance": 1
+        },
+        {
+          "item": "Item.CullerPurifierTank",
+          "count": 1,
+          "chance": 1
+        }
+      ],
+      "errorLoop": {
+        "damage": 0.25,
+        "checkTurns": 20,
+        "chance": 0.15,
+        "turns": 20
+      }
+    }
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Culler",
+    "label": "구제기",
+    "sprite": "av379_culler",
+    "body": "Body.Culler",
+    "faction": "gardeners",
+    "sizeClass": "huge",
+    "weightKg": 650,
+    "moveTU": 70,
+    "hpBase": 300,
+    "stats": {
+      "str": 24,
+      "agi": 16,
+      "per": 22,
+      "vit": 22,
+      "wil": 20
+    },
+    "skills": {},
+    "ai": "guard",
+    "morale": 100,
+    "noMorale": true,
+    "lightThreshold": 0,
+    "sightRange": 18,
+    "vision": {
+      "maxRange": 22,
+      "perceptionStep": 5,
+      "perceptionBonus": 0,
+      "darkPenalty": 0
+    },
+    "hearing": 10,
+    "smell": 0,
+    "bagSize": [
+      6,
+      5
+    ],
+    "naturalArmor": {
+      "sharp": 28,
+      "blunt": 16,
+      "heat": 18
+    },
+    "naturalAttacks": [
+      {
+        "id": "cullerLeftScythe",
+        "label": "왼쪽 낫팔 베기",
+        "damageType": "cut",
+        "damage": 34,
+        "pen": 38,
+        "energy": 0,
+        "accuracy": 18,
+        "family": "unarmed",
+        "noise": 10,
+        "bleedMult": 1.4,
+        "armorDamage": 6,
+        "requiresParts": [
+          "LeftScytheArm",
+          "LeftScytheBlade"
+        ]
+      },
+      {
+        "id": "cullerRightScythe",
+        "label": "오른쪽 낫팔 베기",
+        "damageType": "cut",
+        "damage": 34,
+        "pen": 38,
+        "energy": 0,
+        "accuracy": 18,
+        "family": "unarmed",
+        "noise": 10,
+        "bleedMult": 1.4,
+        "armorDamage": 6,
+        "requiresParts": [
+          "RightScytheArm",
+          "RightScytheBlade"
+        ]
+      }
+    ],
+    "xp": 420,
+    "culler": {
+      "protectedRect": [
+        44,
+        6,
+        12,
+        29
+      ],
+      "leashTiles": 200,
+      "minimumWeightKg": 20,
+      "activationAlert": 3,
+      "attacksBeforeCooling": 4,
+      "coolingTurns": [
+        1,
+        2
+      ],
+      "retreatDamage": 0.6,
+      "tools": {
+        "left": "cullerLeftScythe",
+        "right": "cullerRightScythe"
+      },
+      "drives": [
+        "DriveRF",
+        "DriveRM",
+        "DriveRH",
+        "DriveLF",
+        "DriveLM",
+        "DriveLH"
+      ],
+      "components": [
+        {
+          "part": "LeftScytheBlade",
+          "item": "Item.CullerScytheBlade"
+        },
+        {
+          "part": "RightScytheBlade",
+          "item": "Item.CullerScytheBlade"
+        },
+        {
+          "part": "PowerCore",
+          "item": "Item.CullerHeart"
+        },
+        {
+          "part": "Chassis",
+          "item": "Item.CullerArmorPlate"
+        },
+        {
+          "part": "NetLauncher",
+          "item": "Item.CullerNetFiber"
+        },
+        {
+          "part": "AcidTank",
+          "item": "Item.CullerPurifierTank"
+        }
+      ],
+      "spray": {
+        "part": "AcidTank",
+        "item": "Item.CullerPurifierTank",
+        "radius": 2,
+        "tu": 100,
+        "attack": {
+          "id": "cullerAcid",
+          "label": "정화액 분무",
+          "damageType": "burn",
+          "damage": 12,
+          "pen": 22,
+          "energy": 0,
+          "accuracy": 18,
+          "family": "unarmed",
+          "armorDamage": 12,
+          "woundDef": "Wound.ChemicalBurn",
+          "partWeights": {
+            "head": 2,
+            "torso": 2
+          },
+          "partCapacityWeights": {
+            "sight": 4
+          }
+        }
+      },
+      "net": {
+        "part": "NetLauncher",
+        "item": "Item.CullerNetFiber",
+        "range": 3,
+        "turns": 3,
+        "strength": 20,
+        "tu": 150
+      },
+      "weaknesses": {
+        "waterMl": 200,
+        "shortChance": 0.1,
+        "shutdownTurns": 4,
+        "bellItem": "Item.MaintenanceBell",
+        "bellRadius": 8,
+        "bellChance": 0.15,
+        "coolingBellChance": 0.85,
+        "bellTurns": [
+          2,
+          6
+        ],
+        "bellFaction": "gardeners",
+        "machineBellChance": 0.75
+      },
+      "memoryTurns": 120
+    },
+    "bestiary": [
+      "여섯 구동 다리와 두 낫팔을 가진 대형 전투 기계다.",
+      "보호 구역의 경보를 듣고 큰 생물을 제거한다.",
+      "네 번 공격하면 냉각한다. 틈을 보고 경계를 벗어나라."
+    ],
+    "char": "av379_culler"
+  },
+  {
+    "defType": "Wound",
+    "id": "Wound.ChemicalBurn",
+    "label": "화학 화상",
+    "bleedPerSeverity": 0,
+    "painPerSeverity": 1.5,
+    "contamination": 0,
+    "scarChance": 0.5,
+    "visible": true,
+    "healPerDay": 1.5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerScytheBlade",
+    "label": "구제기 낫팔 날",
+    "sprite": "av380_culler_scythe_blade",
+    "category": "misc",
+    "weight": 2,
+    "size": [
+      1,
+      3
+    ],
+    "value": 120
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerHeart",
+    "label": "정원사 심장",
+    "sprite": "av380_culler_heart",
+    "category": "misc",
+    "weight": 2,
+    "size": [
+      2,
+      2
+    ],
+    "value": 200
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerArmorPlate",
+    "label": "구제기 중장갑판",
+    "sprite": "av380_culler_armor_plate",
+    "category": "misc",
+    "weight": 3,
+    "size": [
+      2,
+      2
+    ],
+    "value": 50,
+    "stackable": true,
+    "maxStack": 4,
+    "description": "정원 구제기의 겹장갑. 망치로 고정쇠를 풀면 일부 손실을 감수하고 고철을 회수한다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerNetFiber",
+    "label": "포획망 섬유",
+    "sprite": "av380_culler_net_fiber",
+    "category": "misc",
+    "weight": 0.6,
+    "size": [
+      2,
+      2
+    ],
+    "value": 18,
+    "stackable": true,
+    "maxStack": 2
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerPurifierTank",
+    "label": "정화액 탱크",
+    "sprite": "av380_culler_purifier_tank",
+    "category": "misc",
+    "weight": 1.5,
+    "size": [
+      1,
+      2
+    ],
+    "value": 60,
+    "uses": 6,
+    "stackable": false,
+    "purifier": {
+      "radius": 2,
+      "attack": {
+        "id": "cullerAcid",
+        "label": "정화액 분무",
+        "damageType": "burn",
+        "damage": 12,
+        "pen": 22,
+        "energy": 0,
+        "accuracy": 18,
+        "family": "unarmed",
+        "armorDamage": 12,
+        "woundDef": "Wound.ChemicalBurn",
+        "partWeights": {
+          "head": 2,
+          "torso": 2
+        },
+        "partCapacityWeights": {
+          "sight": 4
+        }
+      }
+    },
+    "description": "산성 정화액. F2에서 분사할 수 있다. 원래 남은 회분만 회수되며 마실 수 없다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerGlaive",
+    "parent": "Item.Weapon",
+    "label": "정원사 낫창",
+    "description": "회수한 낫팔 날을 긴 자루에 고정했다. 양손으로 휘두르며 두 칸 거리에서 벤다.",
+    "sprite": "av380_culler_glaive",
+    "weight": 3.1,
+    "size": [
+      1,
+      5
+    ],
+    "value": 180,
+    "twoHanded": true,
+    "attacks": [
+      {
+        "id": "slash",
+        "label": "낫창 베기",
+        "damageType": "cut",
+        "damage": 23,
+        "pen": 32,
+        "energy": 10,
+        "accuracy": 5,
+        "family": "spear",
+        "reach": 2,
+        "noise": 8,
+        "bleedMult": 1.3
+      },
+      {
+        "id": "stab",
+        "label": "낫창 찌르기",
+        "damageType": "stab",
+        "damage": 20,
+        "pen": 35,
+        "energy": 8,
+        "accuracy": 8,
+        "family": "spear",
+        "reach": 2,
+        "noise": 7
+      }
+    ],
+    "weapon": {
+      "block": 12,
+      "parry": 18
+    },
+    "edgeStart": 100,
+    "heldSprite": {
+      "grip": [
+        0.2585858585858586,
+        0.7104722792607803
+      ],
+      "axisDegrees": -49.52476847283419,
+      "length": 36,
+      "tipFraction": 0.9325967047272141,
+      "restDegrees": -60
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MaintenanceBell",
+    "label": "세 음 정비종",
+    "description": "작은 금속 그릇을 세 음으로 울려 정원 기계에 정지 신호를 보낸다. 같은 개체에 반복할수록 효과가 약해진다.",
+    "sprite": "original_hearth_bowl",
+    "category": "misc",
+    "weight": 0.5,
+    "size": [
+      1,
+      2
+    ],
+    "value": 25
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Culler",
+    "label": "구제기",
+    "creatures": [
+      "Creature.Culler"
+    ],
+    "kind": "machine",
+    "difficulty": 35,
+    "silhouette": "여섯 다리와 두 낫팔을 가진 중장갑 기계",
+    "yields": [],
+    "facts": [
+      "경계 3에서 보호 구역의 큰 생물을 구제한다. 싸우기보다 도망쳐라.",
+      "네 번의 연속 공격 뒤 냉각 틈이 있다. 다리 연결부는 섀시보다 얇다.",
+      "냉각 중 물 200ml의 단락 확률은 10%다. 불붙은 횃불은 과열 정지를 일으킨다. 산과 망은 실물 잔량만 쓴다.",
+      "구역 관리 사양서: 경계 밖 200m까지 작동하며 체중 20kg 이상의 생물을 구제 대상으로 삼는다."
+    ]
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CullerGlaive",
+    "label": "정원사 낫창 조립",
+    "category": "smithing",
+    "primaryAttr": "str",
+    "basic": false,
+    "workTurns": 600,
+    "tools": [
+      "hammer"
+    ],
+    "inputs": [
+      {
+        "item": "Item.CullerScytheBlade",
+        "count": 1
+      },
+      {
+        "item": "Item.Wood",
+        "count": 1
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.CullerGlaive",
+      "count": 1
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CullerNetRope",
+    "label": "포획망 섬유로 밧줄 엮기",
+    "category": "textile",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 70,
+    "inputs": [
+      {
+        "item": "Item.CullerNetFiber",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.Rope",
+      "count": 2
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CullerHeartCells",
+    "label": "정원사 심장의 전원셀 분리",
+    "category": "survival",
+    "primaryAttr": "per",
+    "basic": false,
+    "workTurns": 240,
+    "tools": [
+      "hammer"
+    ],
+    "inputs": [
+      {
+        "item": "Item.CullerHeart",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.LowPowerCell",
+      "count": 4
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CullerSpecifications",
+    "label": "구역 생태 관리 사양서",
+    "sprite": "complete_item_craft_manual",
+    "category": "misc",
+    "weight": 0.06,
+    "size": [
+      1,
+      1
+    ],
+    "value": 8,
+    "readable": true,
+    "book": {
+      "pages": 8,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 1,
+      "unlocks": [
+        "Recipe.CullerGlaive",
+        "Recipe.CullerHeartCells"
+      ],
+      "bestiary": [
+        "BestiaryEntry.Culler"
+      ]
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CullerPlateScrap",
+    "label": "구제기 장갑판에서 고철 회수",
+    "category": "smithing",
+    "primaryAttr": "str",
+    "basic": true,
+    "workTurns": 180,
+    "tools": [
+      "hammer"
+    ],
+    "inputs": [
+      {
+        "item": "Item.CullerArmorPlate",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.IronScrap",
+      "count": 5
+    }
+  }
+]

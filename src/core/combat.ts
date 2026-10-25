@@ -1,3 +1,4 @@
+import {cullerCooling,limitCullerStock} from './culler-state'
 import {crawlerBiteToxin,limitCrawlerCarcass} from './crawlers'
 import {applyLocalToxin} from './neurotoxin'
 import {diagonalBlocked} from './path'
@@ -152,6 +153,7 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   const wl = wd ?? (ranged ? wield(w, a) : meleeWield(w, a))
   if (!wl) return null
   const atk = wl.atk
+  if(cullerCooling(w,a)||atk.requiresParts?.some(id=>partEff(w,a,id)<.1))return null
   if(attackPreyError(w,d,atk))return null
   const turn = turnOf(w)
   const lines: string[] = []
@@ -367,6 +369,8 @@ const WOUND_FOR: Record<DamageType, string> = {
 
 export interface AttackResult { hit: boolean; damage: number; killed: boolean; woundId?: number; reacted?: string }
 export interface AttackOpts {
+  /** The actual carried sprayer, distinct from any equipped weapon. */
+  prop?:{uid:number;def:string}
   /** 투척 등 실제 공격 물품을 명시한다. 장비를 임시 교체하지 않는다. */
   wield?: Wield
   toxin?:import('./types').ToxinCoating
@@ -380,6 +384,8 @@ export interface AttackOpts {
   mode?: string
   /** 기력을 이미 냈다 (능력) */
   paid?: boolean
+  /** A cone action pays actual machine work once for all affected bodies. */
+  machinePaid?:boolean
 }
 
 export function fx(w: World, ev: FxEvent) {
@@ -440,7 +446,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const atk = pv.attack
   // 투척물은 원래 상태로 바닥에 남긴다. 손에 쥔 무기의 마모만 적용한다.
   const wornWeapon = wl.throwing ? undefined : wl.item
-  machineAction(w,a,atk.damageType==='burn'?'weld':'attack')
+  if(!opts.machinePaid)machineAction(w,a,atk.damageType==='burn'?'weld':'attack')
   const detail: string[] = [...pv.lines]
   const isPlayer = a.faction === 'player' || d.faction === 'player'
   const aName = a.faction === 'player' ? '당신' : knownCreatureName(w,a)
@@ -455,7 +461,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   // 기본 공격은 무기 기력 전부, 능력은 능력 비용으로 대체 (07 §2.7 · §6)
   if (!opts.paid && !opts.counter) a.needs.energy = Math.max(0, a.needs.energy - atk.energy * (a.breakdown?.kind === 'berserk' ? 1.5 : 1))
   a.facing = dirIndex(d.pos.x - a.pos.x, d.pos.y - a.pos.y)
-  fx(w, { k: 'attack', id: a.id, target: d.id, turn,...(atk.id?{mode:atk.id}:{}),...(opts.ranged?{ranged:true,...(wl.throwing?{throwing:true}:{})}:{}) })
+  fx(w, { k: 'attack', id: a.id, target: d.id, turn,...(opts.prop?{prop:{...opts.prop}}:{}),...(atk.id?{mode:atk.id}:{}),...(opts.ranged?{ranged:true,...(wl.throwing?{throwing:true}:{})}:{}) })
   emitNoise(w, a.pos, atk.noise ?? 6, a.id)
   d.ai.alertTurn = turn
   noteFight(w, a, d)
@@ -549,7 +555,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
     .filter(({ def }) => def.apparel!.groups.includes(tag))
     .sort((x, y) => y.def.apparel!.layer - x.def.apparel!.layer)
     .map(({ it, def }) => ({ label: def.label, armor: def.apparel!.armor, it, max: Math.floor(def.apparel!.durability * qualityInfo(it).dur) }))
-  const nat = w.db.creature(d.def).naturalArmor
+  const nat = pd.armor??w.db.creature(d.def).naturalArmor
   if (nat) layers.push({ label: '자연 방어', armor: nat, max: 0 })
   const mud=wildlifeMudArmor(w,d)
   if(mud)layers.push({label:'진흙 껍질',armor:mud,max:0})
@@ -694,7 +700,7 @@ function applyWound(w: World, a: Creature, d: Creature, pd: BodyPartDef, D: numb
       fracture = { grade: margin <= 3 ? 'hairline' : margin <= 9 ? 'simple' : 'compound', progress: 0 }
     }
   }
-  const woundId = WOUND_FOR[dtype]
+  const woundId = atk.woundDef??WOUND_FOR[dtype]
   const bullet = dtype === 'gunshot' && !machineRules(w,d)
   const exits = bullet && D >= 2 && r.chance(.5)
   const { wound, damage, destroyed, severed } = addWound(w, d, {
@@ -898,6 +904,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
   releaseCaptivity(w,c)
   const t = w.s.map.tiles[c.pos.y * w.s.map.w + c.pos.x]
   caravanLeaderDied(w,c)
+  limitCullerStock(w,c)
   if(c.body.machine?.components){c.bag.push(...c.body.machine.components);c.body.machine.components=[]}
   for (const wd of c.body.wounds) if (wd.foreign?.kind === 'arrow' && wd.foreign.ammo) {
     const arrow=makeItem(w, wd.foreign.ammo);if(wd.foreign.fletchingDamaged)arrow.fletchingDamaged=true;t.items.push(arrow); wd.foreign = undefined

@@ -1,3 +1,4 @@
+import {decideCuller} from './culler'
 import {decideCrawler} from './crawlers'
 import {decideSower} from './sower'
 import {firearmReady,firearmSupply} from './firearms'
@@ -769,6 +770,7 @@ function machineDecisionRaw(w:World,c:Creature):Action{
   const m=c.body.machine,d=machineRules(w,c)!
   if(!m||!machineReady(w,c)||capacity(w,c,'consciousness')<0.3)return{type:'wait'}
   // Keep the shared real controller-fault wrapper, before the repair-drone policy.
+  if(w.db.creature(c.def).culler)return decideCuller(w,c,{toward:p=>stepToward(w,c,p)})
   if(w.db.creature(c.def).sower)return decideSower(w,c,{toward:p=>stepToward(w,c,p)})
   if(w.db.creature(c.def).survey)return decideSurveyor(w,c,{toward:p=>stepToward(w,c,p),away:threats=>stepAway(w,c,threats)})
   const toward=(pos:Pos):Action=>{
@@ -777,6 +779,15 @@ function machineDecisionRaw(w:World,c:Creature):Action{
     return action??{type:'wait'}
   }
   const home=():Action=>c.home&&cheb(c.pos,c.home)>1?toward(c.home):{type:'wait'}
+  // A returning guardian needs a real repair drone, tool and existing supply UID.
+  const patient=w.s.creatures.filter(t=>t.alive&&t.id!==c.id&&t.faction===c.faction&&t.cullerState?.returning&&t.home&&cheb(t.pos,t.home)<=1&&canSee(w,c,t.pos)).sort((a,b)=>cheb(c.pos,a.pos)-cheb(c.pos,b.pos)||a.id-b.id)[0]
+  if(patient){
+    const rule=machineRules(w,patient)!,pm=patient.body.machine!,wound=patient.body.wounds.find(wd=>!wd.patched&&wd.def==='Wound.MachinePerforation'&&[rule.chassis,rule.coolingLoop].includes(wd.part)&&wd.severity>wd.healed),damaged=w.db.body(patient.body.def).parts.find(p=>partDamage(patient,p.id)>0)
+    const op:import('./types').MachineOperation|undefined=pm.power<rule.retreatPower?'cell':wound?'patch':pm.coolant<rule.coolantMl*.75?'coolant':damaged?'repair':undefined
+    if(op){const supply=c.bag.find(i=>i.def===rule[op].item&&i.count>0);if(supply)return cheb(c.pos,patient.pos)<=1?{type:'machineCare',target:patient.id,operation:op,uid:supply.uid,woundId:wound?.id,part:damaged?.id}:toward(patient.pos)
+      const floor=c.home&&tileAt(w,c.home).items.find(i=>i.def===rule[op].item&&i.count>0);if(floor&&findSpot(w,c,itemDef(w,floor)))return cheb(c.pos,c.home!)<=1?{type:'machineHaul',uid:floor.uid}:toward(c.home!)
+    }
+  }
   if(c.home&&cheb(c.pos,c.home)<=1){
     const wd=c.body.wounds.find(wd=>!wd.patched&&wd.def==='Wound.MachinePerforation'&&[d.chassis,d.coolingLoop].includes(wd.part)&&wd.severity>wd.healed),damaged=w.db.body(c.body.def).parts.find(p=>partDamage(c,p.id)>0)
     const op:import('./types').MachineOperation|undefined=m.power<d.retreatPower?'cell':wd?'patch':m.coolant<d.coolantMl*.75?'coolant':damaged?'repair':undefined

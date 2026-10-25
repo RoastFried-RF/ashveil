@@ -1,0 +1,124 @@
+{
+  "kind": "isolated actual SVG DOM source-fragment runtime observation, not main game Native",
+  "implementationPasses": 1,
+  "actualCoreCorrectionPasses": 1,
+  "runtimeDOMObservationPasses": 2,
+  "bootstrapFailureBeforePageCreation": 1,
+  "additionalImagegenCalls": 0,
+  "finalObservedStates": 60,
+  "finalSVGSceneScreenshots": 24,
+  "finalPrivatePageErrors": [],
+  "measured": {
+    "maximumPlanarReachErrorPixels": 7.160723346098895e-15,
+    "maximumFixedPlanarLengthErrorPixels": 1.7763568394002505e-14,
+    "maximumContinuousSameOwnerContactSlipPixels": 8.881784197001252e-16,
+    "maximumTransformedSourcePinArithmeticErrorPixels": 2.842170943040401e-14,
+    "minimumProjectedSupportMarginPixels": 6.694146120310034
+  },
+  "actualDOMOwnership": {
+    "partInstances": 23,
+    "sourceRegions": 6,
+    "legOwners": [
+      "RF",
+      "RM",
+      "RH",
+      "LF",
+      "LM",
+      "LH"
+    ],
+    "toolOwners": [
+      "right",
+      "left"
+    ],
+    "oldFourLegModuloReused": false
+  },
+  "coverage": {
+    "uninterruptedDistanceWalk": true,
+    "tripodA": [
+      "RF",
+      "LM",
+      "RH"
+    ],
+    "tripodB": [
+      "LF",
+      "RM",
+      "LH"
+    ],
+    "stopReturnsSixContacts": true,
+    "restartObserved": true,
+    "speedHalfOneTwoObserved": true,
+    "zeroInstantMovementAndToolAndDeathObserved": true,
+    "rightToolFourPhasesWithOtherGuarded": {
+      "windup": true,
+      "contact": true,
+      "follow": true,
+      "recover": true
+    },
+    "leftToolFourPhasesWithOtherGuarded": {
+      "windup": true,
+      "contact": true,
+      "follow": true,
+      "recover": true
+    },
+    "movingAttackWaitsForSixSupport": true,
+    "cancelRecovers": true,
+    "hitInterruptsBothTools": true,
+    "hitReturnsGuard": true,
+    "deathDisablesMovementAndAttackButtons": true,
+    "deadKeyboardIgnored": true,
+    "keyboardStepObserved": true
+  },
+  "directlyOpenedFinalPNGFiles": [
+    "diagnostics/v2/walk-chronology.png",
+    "diagnostics/v2/death-procedural-lowering.png",
+    "diagnostics/v2/right-windup.png",
+    "diagnostics/v2/right-follow.png",
+    "diagnostics/v2/right-recover.png",
+    "diagnostics/v2/hurt-interrupt.png",
+    "diagnostics/v2/right-contact.png",
+    "diagnostics/v2/left-contact.png",
+    "diagnostics/v2/walk-sequence-2.png",
+    "diagnostics/v2/walk-sequence-5.png",
+    "diagnostics/v2/walk-sequence-8.png",
+    "diagnostics/v2/initial-clean-native1x.png",
+    "diagnostics/v2/left-windup.png",
+    "diagnostics/v2/left-follow.png",
+    "diagnostics/v2/left-recover.png",
+    "diagnostics/v2/stop-settled.png",
+    "diagnostics/v2/zero-instant.png"
+  ],
+  "visualAssessment": {
+    "neutral": "same front hull/sensor and asymmetrical viewer-right tank retained; six separate pad/link groups plus two independent blades visible",
+    "walk": "chronological captures show RF/LM/RH vs LF/RM/LH exchange lift/contact; planted pads remain with moving2D grid while hull follows root; direct individual frame2/5/8 checks preserve full silhouettes",
+    "pinCaps": "upper/lower and tool upper/blade meet at visible metal caps; source-axis rotations and uniform scales used, not stretched lower raster",
+    "deathCorrection": "v1 blades drooped below foreground feet; v2 twelve-pixel hull lowering and upward/inward stow keep tips above foreground pad line in2D. This is procedural deactivation, not authored death art or real3D collision",
+    "qualityLimit": "fixed front face and highlights rotate with links; three simultaneous feet and static hull still look like a mechanical 2D puppet. No global naturalness/release approval."
+  },
+  "captureLimitations": [
+    {
+      "file": "diagnostics/v2/walk-chronology.png",
+      "issue": "static contact-sheet viewport clipped its third column on the right; preserve as held diagnostic layout. Individual walk-sequence2/5/8 were directly opened whole. Original source and actual SVG scene captures are not clipped."
+    },
+    {
+      "issue": "PNG capture spans RAF time. Named contact PNG was requested during late contact; its after-capture state can already be early follow. Before-capture event and after-capture shot states are both preserved; no frozen phase/world injection used."
+    },
+    {
+      "issue": "No video produced. Optional recordVideo failed before page creation because ffmpeg unavailable; actual uninterrupted DOM sequence is captured as PNGs."
+    }
+  ],
+  "unreviewed": [
+    "source side/back/opposite/underside",
+    "real3D mechanics/gravity/collision/mass",
+    "sharp inner cutting edge",
+    "Core-selected attack/limb loss/body UID mapping",
+    "acid/net/chase/repair/target hit/game activation",
+    "direction turn/reverse/walls/FOV/save/map transfer/GPU texture lifetimes",
+    "death during every gait/attack interruption combination",
+    "complete release-quality motion"
+  ],
+  "frontPlanarRuntimeCandidate": true,
+  "semanticGaitApproval": false,
+  "fullGameNativePassed": false,
+  "physical3DSkeletonAccepted": false,
+  "releaseAccepted": false
+}

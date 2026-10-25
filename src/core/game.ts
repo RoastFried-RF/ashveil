@@ -1,3 +1,4 @@
+import {limitCullerStock} from './culler-state'
 import {crawlerTick} from './crawlers'
 import {paralysisTick} from './neurotoxin'
 import {camouflageTick} from './camouflage'
@@ -101,7 +102,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 216
+export const SAVE_VERSION = 217
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -358,7 +359,7 @@ function globalTurnTick(w: World) {
   for (const c of w.s.creatures) {
     if (!c.alive) { flightTick(w,c);releaseHostParasites(w,c); wetnessTick(w,c,false); gearTick(w, c); if(!machineRules(w,c))scentTick(w, c, 0); continue }
     const sleeping = isSleeping(c) || !!c.asleep
-    if(machineRules(w,c)){gearTick(w,c);bodyTick(w,c,false)}else{
+    if(machineRules(w,c)){limitCullerStock(w,c);gearTick(w,c);bodyTick(w,c,false)}else{
     crawlerTick(w,c)
     paralysisTick(w,c)
     prostheticTick(w, c)
@@ -779,6 +780,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     if (c.movedTurn !== undefined) c.movedTurn += elapsed
     if (c.freeActTurn !== undefined) c.freeActTurn += elapsed
     if(c.crawlerState)c.crawlerState.nextClimbAt+=elapsed
+    if(c.cullerState)c.cullerState.coolUntil+=elapsed
     if (c.reactions) c.reactions.turn += elapsed
     if (c.heat) c.heat.at += elapsed
     for (const id of Object.keys(c.cooldowns)) c.cooldowns[id] += elapsed

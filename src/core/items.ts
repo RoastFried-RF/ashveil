@@ -8,7 +8,7 @@ import { clothingRemoveSlots } from './lining-state'
 
 import { agedItemDef, bowProblem } from './gear-state'
 import { materialItemDef } from './materials'
-import { capacity, regionState } from './body'
+import { capacity, regionState, partEff } from './body'
 import { turnOf, type World } from './ctx'
 import type { AttackDef, Creature, ItemDef, ItemInst, Slot } from './types'
 
@@ -456,14 +456,15 @@ function naturalWield(w: World, c: Creature,mode?:string): Wield | undefined {
     if (hook?.rule.attack && (side === 'Right' ? ra : la) < 4) return { atk: hook.rule.attack, arm: side === 'Right' ? 'rarm' : 'larm', twoHanded: false }
   }
   const def=w.db.creature(c.def),chosen=def.naturalAttacks?.find(a=>a.id===(mode??c.attackMode))??def.naturalAttack
-  const nat=[chosen,...(def.naturalAttacks??[]).filter(a=>a!==chosen)].find(a=>a&&(!a.requiresCapacity||capacity(w,c,a.requiresCapacity)>=.1))
+  if(mode&&chosen?.requiresParts?.some(id=>partEff(w,c,id)<.1))return undefined
+  const nat=[chosen,...(def.naturalAttacks??[]).filter(a=>a!==chosen)].find(a=>a&&(!a.requiresCapacity||capacity(w,c,a.requiresCapacity)>=.1)&&(!a.requiresParts||a.requiresParts.every(id=>partEff(w,c,id)>=.1)))
   if (!nat) return undefined
   if (nat.family === 'unarmed' && w.db.body(c.body.def).kind === 'humanoid') {
-    if (ra < 4&&c.leading?.hand!=='Right') return { atk: nat, arm: 'rarm', twoHanded: false }
+    if (ra < 4&&c.leading?.hand!=='Right') return { atk: nat, arm: nat.requiresParts?.some(id=>w.db.body(c.body.def).parts.find(p=>p.id===id)?.region==='larm')?'larm':'rarm', twoHanded: false }
     if (la < 4&&c.leading?.hand!=='Left') return { atk: nat, arm: 'larm', twoHanded: false }
     return undefined
   }
-  return { atk: nat, arm: 'rarm', twoHanded: false }
+  return { atk: nat, arm: nat.requiresParts?.some(id=>w.db.body(c.body.def).parts.find(p=>p.id===id)?.region==='larm')?'larm':'rarm', twoHanded: false }
 }
 
 /** 근접에 쓰는 무기 (활을 들고 있으면 주먹) */

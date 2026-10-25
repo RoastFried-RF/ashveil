@@ -1,3 +1,5 @@
+import {cullerCooling} from './culler-state'
+import {cullerSpray,cullerNet,cullerWater,cullerIgnite,ringMaintenanceBell,escapeCullerNet,sprayPurifier} from './culler'
 import {crawlerClimb,crawlerDrop,crawlerDescend,crawlerFeed,crawlerEat,crawlerDrink,crawlerCeilingMove,inspectCeiling} from './crawlers'
 import {coatArrow} from './neurotoxin'
 import {paralysisMoveMult} from './neurotoxin-state'
@@ -415,6 +417,12 @@ export type Action =
   | {type:'sowerSpray';target:number;uid:number}
   | {type:'fly';dir:number}
   | {type:'land'}
+  | {type:'sprayPurifier';uid:number;target:number}
+  | {type:'cullerSpray';target:number}
+  | {type:'cullerNet';target:number}
+  | {type:'cullerWater';target:number;uid:number}
+  | {type:'cullerIgnite';target:number;uid:number}
+  | {type:'ringMaintenanceBell';uid:number}
   | {type:'crawlerDrink'}
   | {type:'crawlerCeilingMove';dir:number}
   | {type:'crawlerDescend'}
@@ -640,6 +648,12 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
   if (c.breakdown?.kind === 'catatonia' && a.type !== 'wait') return FAIL('몸이 굳어 움직일 수 없다. (정신붕괴: 긴장증)')
   if (c.breakdown?.kind === 'lie' && a.type === 'move') return FAIL('몸을 일으키고 싶지 않다. (정신붕괴: 드러눕기)')
   switch (a.type) {
+    case 'sprayPurifier':return sprayPurifier(w,c,a.uid,a.target)
+    case 'cullerSpray':return cullerSpray(w,c,a.target)
+    case 'cullerNet':return cullerNet(w,c,a.target)
+    case 'cullerWater':return cullerWater(w,c,a.target,a.uid)
+    case 'cullerIgnite':return cullerIgnite(w,c,a.target,a.uid)
+    case 'ringMaintenanceBell':return ringMaintenanceBell(w,c,a.uid)
     case 'crawlerDrink':return crawlerDrink(w,c)
     case 'crawlerCeilingMove':return crawlerCeilingMove(w,c,a.dir)
     case 'crawlerDescend':return crawlerDescend(w,c)
@@ -846,6 +860,8 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
         if (other.ai.mode === 'surrender' && isPl(c)) return FAIL(`${knownCreatureName(w,other)}은(는) 항복했다.`)
         return FAIL('길이 막혔다')
       }
+      // Cutting free is its own paid attempt; no free success before a later blocked move.
+      if(escapeCullerNet(w,c)!==null)return{ok:true,tu:100}
       // 붙잡힘: 이동은 탈출 시도 (근력·민첩 대결)
       const held = c.effects.find((e) => e.kind === 'grabbed' && e.untilTurn > turn)
       if (held) {
@@ -918,6 +934,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     }
 
     case 'attack': {
+      if(cullerCooling(w,c))return FAIL('연속 공격 뒤 냉각하는 중이다')
       if(c.crawlerState?.mode==='ceiling')return FAIL('지상으로 내려와야 물 수 있다')
       const t = creatureById(w, a.target)
       if (!t || !t.alive) return FAIL('대상이 없다')

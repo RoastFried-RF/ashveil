@@ -1,3 +1,4 @@
+import {recordCullerAttack} from './culler-state'
 // 기계의 물리 상태는 생물학적 욕구·혈액·통증에 의존하지 않는다.
 import { clamp, turnOf, type World } from './ctx'
 import type { Creature, MechanicalRules } from './types'
@@ -19,5 +20,5 @@ export function machineAction(w: World, c: Creature, kind: 'move' | 'attack' | '
   if (!d || !m) return
   m.heat = clamp(m.heat + (kind === 'move'||kind==='work' ? d.moveHeat : kind === 'weld' ? d.weldHeat : d.attackHeat), 0, 100)
   m.power = Math.max(0, m.power - d.actionPower)
-  if(kind==='attack'||kind==='weld')m.attacks=(m.attacks??0)+1
+  if(kind==='attack'||kind==='weld'){m.attacks=(m.attacks??0)+1;recordCullerAttack(w,c)}
 }

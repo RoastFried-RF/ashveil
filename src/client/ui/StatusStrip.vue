@@ -11,6 +11,7 @@ import { version, world } from '../store'
 import { hideTip, showTip, toggleWin } from '../ui'
 
 const EFFECT: Record<string, [string, string]> = {
+  netted:['포획망','#b9b49a'],
   grabbed:['붙잡힘','#e09060'],
   sensorFlash:['눈부심','#f0dba0'],
   painkiller: ['진통', '#a0c0a0'], analgesic: ['마취', '#a0c0a0'], alcohol: ['취기', '#d0a060'], stimulant: ['각성', '#e0d070'],

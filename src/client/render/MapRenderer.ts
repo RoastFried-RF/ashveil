@@ -4,6 +4,8 @@ import {validSwarmRule} from '../../core/swarm-state'
 import {RigOwner} from './rig-owner'
 import {CrawlerView,type CrawlerPartState} from './crawler-view'
 import {crawlerPartIds} from './crawler-spec'
+import {CullerView,type CullerPartState} from './culler-view'
+import {cullerPartIds} from './culler-spec'
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
 import {groundObjectArt,isGroundCrop} from './terrain-art'
@@ -30,10 +32,10 @@ import {
 } from 'pixi.js'
 import {
   hostile,crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
-  meleeWield,wield,isMissing,partDamage,partEff,type Creature, type FxEvent, type Pos, type World,
+  meleeWield,wield,isMissing,partDamage,partEff,cullerCooling,type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
-import {crawlerArt,swarmArt, atlasStats,animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
+import {cullerArt,crawlerArt,swarmArt, atlasStats,animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
 
 export const T = 16
 type MedicalGrip={point:number[];color:number}
@@ -57,6 +59,9 @@ interface CView {
   crawlerParts:Record<string,CrawlerPartState>
   crawlerMode:'floor'|'ceiling'
   crawlerHeading:number
+  culler:CullerView|null
+  cullerParts:Record<string,CullerPartState>
+  cullerCooling:boolean
   rigMix:number
   rigWasActive:boolean
   body: Sprite
@@ -97,6 +102,7 @@ interface CView {
   dir: Dir
   attackT: number
   attackVec: Pos
+  attackDistance:number
   flashT: number
   deadT: number
   alive: boolean
@@ -207,7 +213,7 @@ export class MapRenderer {
     this.app.destroy(true, { children: true })
   }
 
-  private destroyView(v:CView){v.crawler?.destroy();v.rig?.destroy();v.root.destroy({children:true})}
+  private destroyView(v:CView){v.culler?.destroy();v.crawler?.destroy();v.rig?.destroy();v.root.destroy({children:true})}
 
   private tileAt(e: PointerEvent): Pos | null {
     const r = this.app.canvas.getBoundingClientRect()
@@ -226,7 +232,7 @@ export class MapRenderer {
     for(const view of visible){
       const actor=w.s.creatures.find(actor=>actor.id===view.id)
       if(!actor||actor.id!==w.s.playerId&&!this.displayVisible.has(actor.pos.y*w.s.map.w+actor.pos.x))continue
-      if(!view.crawler?.hit(point)&&!view.rig?.hit(point)&&![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
+      if(!view.culler?.hit(point)&&!view.crawler?.hit(point)&&!view.rig?.hit(point)&&![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
       // An opaque prop drawn in front still owns its visible pixels.
       if(this.objs.children.some(child=>child instanceof Sprite&&child.zIndex>view.root.zIndex&&child.visible&&child.alpha>=.95&&spritePixelHit(child,point)))return null
       return{...actor.pos}
@@ -284,6 +290,7 @@ export class MapRenderer {
     for(const cue of takeActionPresentations(w,resolvedAttacks)){
       const view=this.views.get(cue.actor)
       if(!view?.root.visible||!view.alive||view.prone)continue
+      if(cue.kind==='use'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='use'&&view.pose.current.prop&&view.pose.current.equipment?.weapon)continue
       if(cue.direction)view.dir=cue.direction
       if(cue.kind==='throw'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='throw'){view.pose.current.prop=cue.prop;continue}
       const duration=view.char?.motionDurations?.[cue.kind]
@@ -759,12 +766,13 @@ export class MapRenderer {
     this.objs.addChild(root)
     const initiallyStanding=!!ch?.rig&&c.alive&&!c.asleep&&!c.unconscious&&!hasEffect(c,'knockedDown',turnOf(w))
     const v: CView = {
-      id: c.id, selectedSprite, root, rig:ch?.rig?new RigOwner(ch.rig):null,crawler:ch?.crawler?new CrawlerView(crawlerArt(ch.crawler)):null,crawlerParts:{},crawlerMode:c.crawlerState?.mode??'floor',crawlerHeading:c.facing*Math.PI/4-Math.PI/2,rigMix:initiallyStanding?1:0,rigWasActive:initiallyStanding,body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
-      dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 }, flashT: 0, deadT: c.alive ? -1 : 1,
+      id: c.id, selectedSprite, root, rig:ch?.rig?new RigOwner(ch.rig):null,crawler:ch?.crawler?new CrawlerView(crawlerArt(ch.crawler)):null,crawlerParts:{},culler:ch?.culler?new CullerView(cullerArt(ch.culler)):null,cullerParts:{},cullerCooling:false,crawlerMode:c.crawlerState?.mode??'floor',crawlerHeading:c.facing*Math.PI/4-Math.PI/2,rigMix:initiallyStanding?1:0,rigWasActive:initiallyStanding,body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 },attackDistance:1, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
     if(v.rig){v.rig.root.zIndex=1;root.addChild(v.rig.root);v.rig.update(v.dir,{x:c.pos.x*T,y:c.pos.y*T},null,0,true);v.rig.root.visible=initiallyStanding;body.visible=!initiallyStanding}
     if(v.crawler){v.crawler.root.zIndex=1;root.addChild(v.crawler.root);body.visible=false;shadow.visible=false}
+    if(v.culler){v.culler.root.zIndex=1;root.addChild(v.culler.root);body.visible=false;shadow.visible=false}
     root.position.set(c.pos.x*T+T/2,c.pos.y*T+T-2)
     return v
   }
@@ -787,7 +795,7 @@ export class MapRenderer {
       }
       if (v && v.selectedSprite !== creatureSprite(w,c)) { this.destroyView(v);this.views.delete(c.id);v=undefined }
       if (!v) { v = this.makeView(w, c); this.views.set(c.id, v) }
-      if(c.body.machine){const active=chars[v.selectedSprite];v.char=active?.motions?.fall?active:chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]}
+      if(c.body.machine){const active=chars[v.selectedSprite];v.char=active?.motions?.fall||active?.culler?active:chars[(!c.alive||c.unconscious?w.db.creature(c.def).dormantChar:undefined)??v.selectedSprite]}
       seen.add(c.id)
       v.root.visible = true
       const moves=w.s.fx.filter((e):e is Extract<FxEvent,{k:'move'}>=>e.k==='move'&&e.id===c.id)
@@ -795,10 +803,11 @@ export class MapRenderer {
       const altitude=c.alive&&c.flight?(w.db.creature(c.def).flight?.height??0)*T:0
       if(altitude&&!v.flightHeight){clearPoses(v.pose);v.arrivingPose=null}
       v.flightHeight=altitude
-      if(!wasShown){v.rig?.reset();v.crawler?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
-      else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){v.rig?.reset();v.crawler?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
+      if(!wasShown){v.rig?.reset();v.crawler?.reset();v.culler?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos};clearPoses(v.pose);v.arrivingPose=null;v.transition=0}
+      else if(c.id!==pl.id&&moves.some(move=>![move.from,move.to].every(p=>vis.has(p.y*w.s.map.w+p.x)))){v.rig?.reset();v.crawler?.reset();v.culler?.reset();resetWalk(v.motion,c.pos);v.lightPos={...c.pos}}
       else observeWalk(v.motion,c.pos,moves)
       if(v.crawler){v.crawlerMode=c.crawlerState?.mode??'floor';v.crawlerHeading=c.facing*Math.PI/4-Math.PI/2;v.crawlerParts=Object.fromEntries(crawlerPartIds.map(id=>[id,{missing:isMissing(w,c,id),damage:Math.max(0,Math.min(1,partDamage(c,id)/Math.max(1,c.body.maxHp[id]??1))),mobility:id.endsWith('Leg')?partEff(w,c,id):undefined}]))}
+      if(v.culler){v.cullerCooling=cullerCooling(w,c);v.cullerParts=Object.fromEntries(cullerPartIds.map(id=>[id,{missing:isMissing(w,c,id),damage:Math.max(0,Math.min(1,partDamage(c,id)/Math.max(1,c.body.maxHp[id]??1))),efficiency:partEff(w,c,id)}]))}
       if (c.alive&&v.pose.current?.kind!=='wallow') v.dir = DIR_OF_FACING[c.facing] ?? v.dir
       v.unknown=c.id!==pl.id&&!c.met&&!!bestiaryEntry(w,c.def)&&bestiaryStage(w,c.def)===0
       // New bodies contain no invented weapons. Display only the visible actor's real held items.
@@ -848,6 +857,7 @@ export class MapRenderer {
   }
 
   private headY(v: CView): number {
+    if(v.culler)return Math.min(-(v.char?.headOffset??62),v.culler.headY())
     if(v.crawler)return Math.min(-(v.char?.headOffset??12),v.crawler.headY())
     if(v.rig&&v.rigMix>.5)return Math.min(-(v.char?.headOffset??50),v.rig.headY()-2)
     if (v.anim) return -44
@@ -928,14 +938,16 @@ export class MapRenderer {
         if (t) {
           const dx=t.pos.x-c.pos.x,dy=t.pos.y-c.pos.y,length=Math.hypot(dx,dy)||1
           v.attackVec = { x:dx/length,y:dy/length }
+          v.attackDistance=length
           v.dir = v.attackVec.x > 0 ? 'right' : v.attackVec.x < 0 ? 'left' : v.attackVec.y < 0 ? 'up' : 'down'
         }
-        const mode=e.throwing?'throw':e.ranged?'shoot':'attack'
-        const used=e.ranged?wield(w,c,e.mode):meleeWield(w,c,e.mode),item=used?.item
-        const weapon=item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined
-        const equipment:EquipmentAction={naturalMode:e.mode,style:attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
+        const prop=e.prop?equipmentSpec(w.db.item(e.prop.def),e.prop.uid,false):undefined
+        const mode=prop?'use':e.throwing?'throw':e.ranged?'shoot':'attack'
+        const used=prop?undefined:e.ranged?wield(w,c,e.mode):meleeWield(w,c,e.mode),item=used?.item
+        const weapon=prop??(item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined)
+        const equipment:EquipmentAction={naturalMode:e.mode,style:prop?'unarmed':attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:prop?0:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
         v.attackT = mode==='attack'?0:-1
-        requestPose(v.pose,mode,undefined,{duration:v.char?.motionDurations?.[mode]??attackDuration(equipment.style,weapon),equipment})
+        requestPose(v.pose,mode,prop?.sprite,{duration:v.char?.motionDurations?.[mode]??(prop?motionDurations.use:attackDuration(equipment.style,weapon)),equipment})
         break
       }
       case 'dmg': {
@@ -1077,13 +1089,13 @@ export class MapRenderer {
     const logicalScreen=this.world.toGlobal({x:p.pos.x*T+T/2,y:p.pos.y*T+T-2})
     const feetScreen=v.root.getGlobalPosition()
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
-    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.crawler?view.crawler.sourceFrame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,rig:view.rig?.inspect(),crawler:view.crawler?.inspect()}))
+    const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.culler?view.culler.sourceFrame:view.crawler?view.crawler.sourceFrame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,rig:view.rig?.inspect(),crawler:view.crawler?.inspect(),culler:view.culler?.inspect()}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style,prop:v.pose.current.prop,propUid:v.pose.current.prop?v.pose.current.equipment?.weapon?.uid:undefined,propDef:v.pose.current.prop?v.pose.current.equipment?.weapon?.id:undefined}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
-    if(v.crawler&&!v.root.visible)return
+    if((v.crawler||v.culler)&&!v.root.visible)return
     const instant=preferences.animationSpeed===0
     if (instant) { advanceWalk(v.motion,0,true);v.arrivingPose=null;v.deadT=v.alive?-1:1;v.groundT=1;v.transition=0 }
     advancePose(v.pose,dt,instant)
@@ -1119,7 +1131,7 @@ export class MapRenderer {
       ox += (Math.random() - 0.5) * (v.char?.motions?.hurt?.6:2) * v.flashT
     }
     // The crawler head/chain follow the exact walk root; attack/hurt stay inside its display owner.
-    if(v.crawler){ox=0;oy=0}
+    if(v.crawler||v.culler){ox=0;oy=0}
     const ch = v.char
     let bodyScale=v.scale
     let mode:MotionName='idle',phase=0,loop=false
@@ -1157,8 +1169,8 @@ export class MapRenderer {
     this.animateEquipment(v,mode,phase,moving,hop,dt)
     this.animateMedical(v,mode,phase,moving,hop)
     const cue=v.pose.current
-    v.actionItem.visible=!v.char?.rig&&!v.crawler&&!v.medical&&!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
-    if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=0}
+    v.actionItem.visible=!v.char?.rig&&!v.crawler&&!v.culler&&!v.medical&&!!cue?.prop&&!v.unknown&&v.alive&&!v.prone&&!(mode==='throw'&&phase>=.5)&&!(mode==='use'&&phase>=.85)&&!v.hands.some(hand=>hand.visible&&hand.texture===tex(cue!.prop!))
+    if(v.actionItem.visible&&cue?.prop){v.actionItem.texture=tex(cue.prop);v.actionItem.scale.set(10/Math.max(v.actionItem.texture.width,v.actionItem.texture.height));v.actionItem.position.set(v.dir==='left'?-5:v.dir==='right'?5:0,mode==='use'?-22:-15);v.actionItem.rotation=mode==='use'&&cue.equipment?.weapon?Math.sin(Math.min(1,phase)*Math.PI)*.45*(v.dir==='left'?-1:1):0}
     // Equal ground depth must keep the player readable beside a wide body.
     v.root.zIndex = (p.y + 1) * T + (v.alive ? v.id===this.w?.s.playerId ? 0.3 : 0.2 : -8)+(v.crawler&&v.alive&&v.crawlerMode==='ceiling'?T/2:0)
     if (v.char || v.anim) v.body.scale.set(bodyScale*(ch?.frameTransforms?.[v.poseFrame]?.flipX?-1:1),bodyScale*(v.crouched&&!['crouchWalk','crouchDown','stand'].includes(mode)&&!v.prone ? .78 : 1))
@@ -1197,6 +1209,13 @@ export class MapRenderer {
       const map=this.w.s.map,rects=[],radius=v.crawler.clipRadius()
       for(let y=Math.max(0,Math.floor((point.y-radius)/T));y<=Math.min(map.h-1,Math.floor((point.y+radius)/T));y++)for(let x=Math.max(0,Math.floor((point.x-radius)/T));x<=Math.min(map.w-1,Math.floor((point.x+radius)/T));x++){const index=y*map.w+x;if(this.displayVisible.has(index)&&!this.w.db.terrain(map.tiles[index].t).wall)rects.push({x:x*T-point.x,y:y*T-point.y,w:T,h:T})}
       v.crawler.setClip(rects);v.body.visible=false;v.previousBody.visible=false;v.shadow.visible=false;v.poseFrame=v.crawler.sourceFrame
+    }
+    if(v.culler&&this.w){
+      const point={x:p.x*T+T/2,y:p.y*T+T-2}
+      v.culler.update(point,{direction:v.dir,alive:v.alive,prone:v.prone,cooling:v.cullerCooling,action:mode,phase,attackMode:v.pose.current?.equipment?.naturalMode,attackVector:v.attackVec,attackDistance:v.attackDistance,flash:v.flashT,tint:v.unknown?0x202028:0xffffff,parts:v.cullerParts},dt,instant)
+      const map=this.w.s.map,rects=[],radius=v.culler.clipRadius()
+      for(let y=Math.max(0,Math.floor((point.y-radius)/T));y<=Math.min(map.h-1,Math.floor((point.y+radius)/T));y++)for(let x=Math.max(0,Math.floor((point.x-radius)/T));x<=Math.min(map.w-1,Math.floor((point.x+radius)/T));x++){const index=y*map.w+x;if(this.displayVisible.has(index)&&!this.w.db.terrain(map.tiles[index].t).wall)rects.push({x:x*T-point.x,y:y*T-point.y,w:T,h:T})}
+      v.culler.setClip(rects);v.body.visible=false;v.previousBody.visible=false;v.shadow.visible=false;v.poseFrame=v.culler.sourceFrame
     }
     // 잠든 적: Zz
     if (v.alive && this.w) {

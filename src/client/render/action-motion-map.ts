@@ -239,4 +239,10 @@ export const actionMotions={
  "worldMapSurveyAccept":"interact",
  "worldMapSurveyDeliver":"interact",
  "worldRaidLoot":"interact",
+ "sprayPurifier":"shoot",
+ "cullerSpray":"shoot",
+ "cullerNet":"throw",
+ "cullerWater":"throw",
+ "cullerIgnite":"attack",
+ "ringMaintenanceBell":"use",
 }as const satisfies Record<Action['type'],ActionPose|null>

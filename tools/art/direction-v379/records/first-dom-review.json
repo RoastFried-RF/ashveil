@@ -1,0 +1,11 @@
+{
+  "firstResult": "test-results/autonomy-v379/culler-preview-r1/audit.json",
+  "completed": false,
+  "observations": 119,
+  "browserErrors": [],
+  "failure": "Observer waited for120ms contact after blocking windup PNG; contact had elapsed. No phase/state injection.",
+  "visualProblem": "LEFT/RIGHT far knee bend went above hull and looked like antenna supports.",
+  "visualCorrection": "Only side-facing far bend.y from -1 to +1, hidden under/behind hull; sourcePNG and measured source pins unchanged.",
+  "observerCorrection": "Collect all4tool phases without PNG blocking, then separate real button attack for one contact capture; do not freeze/synthesize game state.",
+  "initialSources": "test-results/autonomy-v379/culler-preview-r1/executed-sources/"
+}

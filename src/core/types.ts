@@ -33,6 +33,8 @@ export type Capacity=typeof CAPACITIES[number]
 export type Height = 'low' | 'mid' | 'high'
 
 export interface BodyPartDef {
+  /** Actual exposed joint armor, when different from the enclosing chassis. */
+  armor?:Partial<Record<ArmorCategory,number>>
   id: string
   label: string
   parent?: string
@@ -154,6 +156,10 @@ export interface WoundDef extends DefBase {
 }
 
 export interface AttackDef {
+  /** Actual owner anatomy must function; never selects a missing tool. */
+  requiresParts?:string[]
+  /** Chemical injury shares heat armor routing but keeps its actual wound type. */
+  woundDef?:string
   /** 실제 공격의 부위 선호. 능력 가중과 곱하며 부위 선택 규칙을 우회하지 않는다. */
   partWeights?:Partial<Record<Region|'neck',number>>
   /** 부위 자체의 실제 기능을 선호한다. 작은 부위도 강제 명중하지 않는다. */
@@ -234,6 +240,7 @@ export interface MaterialBinding {uid:number;def:string;material:string;unitGram
 export interface MaterialPlan {bindings:MaterialBinding[];stuff:Stuff}
 
 export interface ItemDef extends DefBase {
+  purifier?:{radius:number;attack:AttackDef}
   neurotoxin?:{turns:[number,number]}
   camouflageCoating?:{durationTurns:number;sightMult:number;washAt:number;tint:number}
   compWorker?:string
@@ -411,7 +418,22 @@ export interface CrawlerState {
  lastDrop?:{at:number;target:number;aware:boolean};lastBite?:{at:number;target:number;woundId:number;sourceUid:number}
  harvestLost?:{plates:number;legs:number;meat:number}
 }
+export interface CullerRules {
+ protectedRect:[number,number,number,number];leashTiles:number;memoryTurns:number;minimumWeightKg:number;activationAlert:number
+ attacksBeforeCooling:number;coolingTurns:[number,number];retreatDamage:number
+ tools:{left:string;right:string};drives:string[]
+ components:{part:string;item:string}[]
+ spray:{part:string;item:string;radius:number;tu:number;attack:AttackDef}
+ net:{part:string;item:string;range:number;turns:number;strength:number;tu:number}
+ weaknesses:{waterMl:number;shortChance:number;shutdownTurns:number;bellItem:string;bellFaction:string;machineBellChance:number;bellRadius:number;bellChance:number;coolingBellChance:number;bellTurns:[number,number]}
+}
+export interface CullerState {
+ rule:string;attacks:number;coolUntil:number;returning:boolean;tracked?:{id:number;pos:Pos;at:number}
+ components:{uid:number;part:string;def:string;initial:number;spent:number;lost:number;unit:'count'|'uses'}[]
+ lastAttack?:{at:number;kind:string;target:number};lastWater?:{at:number;uid:number;ml:number;shorted:boolean}
+}
 export interface CreatureDef extends DefBase {
+  culler?:CullerRules
   crawler?:CrawlerRules
   sower?:SowerRules
   survey?:{antenna:string;reportTurns:number;reportCooldown:number;keepDistance:[number,number];watchRect:[number,number,number,number];patrol:Pos[];flashRadius:number;flashTurns:number;flashSightMult:number;flashCooldown:number}
@@ -2140,7 +2162,7 @@ export interface Needs {
   sleepDebt?: number
 }
 
-export interface Effect { kind: string; untilTurn: number; magnitude?: number }
+export interface Effect { kind: string; untilTurn: number; magnitude?: number; sourceUid?:number; sourceId?:number; sourceDef?:string }
 
 export interface Thought { def: string; untilTurn: number; count: number; events?: { at: number; untilTurn: number; mood?: number }[] }
 
@@ -2290,6 +2312,7 @@ export interface MedicalReport {
 }
 
 export interface Creature {
+  cullerState?:CullerState
   crawlerState?:CrawlerState
   paralysis?:LocalParalysis[]
   camouflage?:{sourceUid:number;sourceDef:string;appliedAt:number;until:number;sightMult:number;washAt:number;tint:number}
@@ -2576,7 +2599,7 @@ export interface MapRoom {
 export interface PopSource { id: string; label: string; species: string; count: number; cap: number; regenDays: number; floors: string[]; lastRegenDay: number; needsAlive?: string; deployed?: boolean;members?:number[];faction?:string;kind?:'residents';closed?:{at:number;by:number;mapId:string;deviceUid:number} }
 export interface MapLight { pos: Pos; radius: number; kind: string; off?: boolean; sourceUid?:number; fuelUntil?:number;beddingFireId?:number;beddingSparkAt?:number;terrainFireId?:number;terrainSparkAt?:number }
 
-export interface GardenAlertState {level:number;events:{at:number;source:number;target?:number;sourcePos:Pos;targetPos?:Pos;level:number;kind?:'attack'}[]}
+export interface GardenAlertState {bellSignals?:number;level:number;events:{at:number;source:number;target?:number;sourcePos:Pos;targetPos?:Pos;level:number;kind?:'attack'}[]}
 /** A finite environmental colony; never a fabricated anatomical creature. */
 export interface SwarmDef extends DefBase {
  defType:'Swarm';label:string;sprite:string;members:number;moveTU:number
@@ -2851,7 +2874,7 @@ export type FxEvent =
   | { k: 'dmg'; id: number; v: number; crit?: boolean; text?: string; turn: number }
   | { k: 'miss' | 'block' | 'parry' | 'deflect'; id: number; turn: number }
   | { k: 'status'; id: number; text: string; color: string; turn: number }
-  | { k: 'attack'; id: number; target: number; turn: number; ranged?:boolean;throwing?:boolean;mode?:string }
+  | { k: 'attack'; id: number; target: number; turn: number; ranged?:boolean;throwing?:boolean;mode?:string;prop?:{uid:number;def:string} }
   | { k: 'move'; id: number; from: Pos; to: Pos; turn: number }
   | { k: 'death'; id: number; turn: number }
   | { k: 'level'; id: number; turn: number }

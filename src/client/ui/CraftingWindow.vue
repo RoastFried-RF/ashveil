@@ -18,6 +18,7 @@ import ContainerLockPanel from './ContainerLockPanel.vue'
 import MachinePanel from './MachinePanel.vue'
 import SwarmPanel from './SwarmPanel.vue'
 import CrawlerPanel from './CrawlerPanel.vue'
+import CullerPanel from './CullerPanel.vue'
 import FieldDevicePanel from './FieldDevicePanel.vue'
 import MarinePanel from './MarinePanel.vue'
 import BeaconPanel from './BeaconPanel.vue'
@@ -82,6 +83,7 @@ function tip(e: MouseEvent, uid: number) {
     <template v-if="tab==='field'">
       <p class="mb-3 text-xs text-ash-400">곁에 있는 불·시설·밭에서 할 수 있는 일. 필요한 장소로 이동하면 작업이 나타난다.</p>
       <CrawlerPanel />
+      <CullerPanel />
       <SwarmPanel />
       <ContainerLockPanel />
       <AquaticPanel />

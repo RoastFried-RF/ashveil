@@ -1,6 +1,7 @@
 import type {CharDef} from './atlas'
 import {rigSpecFrameKeys} from './rig-spec'
 import {crawlerSpecFrameKeys} from './crawler-spec'
+import {cullerSpecFrameKeys} from './culler-spec'
 export interface AtlasManifest {
  sheets:Record<string,string>
  frames:Record<string,[string,number,number,number,number]>
@@ -18,6 +19,7 @@ export function atlasPlan(m:AtlasManifest,iconNames:readonly string[],characterN
   if(c.portrait&&m.frames[c.portrait])characterSheets.add(m.frames[c.portrait][0])
   if(c.rig)for(const key of rigSpecFrameKeys(c.rig)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
   if(c.crawler)for(const key of crawlerSpecFrameKeys(c.crawler)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
+  if(c.culler)for(const key of cullerSpecFrameKeys(c.culler)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
  }
  for(const sheet of Object.keys(m.sheets))if(!characterSheets.has(sheet)&&!retired.has(sheet))required.add(sheet)
  const frame=(key:string)=>{const rect=m.frames[key];if(rect)required.add(rect[0])}
@@ -27,6 +29,7 @@ export function atlasPlan(m:AtlasManifest,iconNames:readonly string[],characterN
   if(c.portrait)frame(c.portrait)
   if(c.rig)rigSpecFrameKeys(c.rig).forEach(frame)
   if(c.crawler)crawlerSpecFrameKeys(c.crawler).forEach(frame)
+  if(c.culler)cullerSpecFrameKeys(c.culler).forEach(frame)
   return true
  }
  const need=(name:string,preferBody=false)=>{
