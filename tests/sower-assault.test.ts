@@ -5,6 +5,7 @@ import {resolveAttack} from '../src/core/combat'
 import {turnOf} from '../src/core/ctx'
 import {invalidateLights} from '../src/core/fov'
 import {gardenAlertState} from '../src/core/garden-alert'
+import {SAVE_VERSION} from '../src/core/game'
 import {deserialize,serialize,stateHash} from '../src/core/save'
 import {observeSowerAssault} from '../src/core/sower-state'
 import {sowerFixture} from './sower-fixture'
@@ -29,5 +30,5 @@ it('serialized pending assault evidence survives exactly, while an old episode e
  const first=sower.sowerState!.assault!.serial;sower.body.machine!.power=0;observeSowerAssault(w,p,sower);expect(sower.sowerState!.assault!.serial).toBe(first);sower.body.machine!.power=100;s.time+=6100;const oldHash=stateHash(s);expect(perform(w,sower,{type:'sowerAlarm',attack:first+1}).ok).toBe(false);expect(stateHash(s)).toBe(oldHash)
 })
 it('the prior213 save migrates without inventing attacks, inventory or signal history',()=>{
- const {s,sower}=sowerFixture(),before=stateHash(s),raw=JSON.parse(serialize(s));raw.version=213;const restored=deserialize(JSON.stringify(raw));expect(restored.version).toBe(214);expect(stateHash(restored)).toBe(before);expect(restored.creatures.find(c=>c.id===sower.id)!.sowerState).toBeUndefined()
+ const {s,sower}=sowerFixture(),before=stateHash(s),raw=JSON.parse(serialize(s));raw.version=213;const restored=deserialize(JSON.stringify(raw));expect(restored.version).toBe(SAVE_VERSION);expect(stateHash(restored)).toBe(before);expect(restored.creatures.find(c=>c.id===sower.id)!.sowerState).toBeUndefined()
 })

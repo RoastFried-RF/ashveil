@@ -40,11 +40,11 @@
       "log": "test-results/autonomy-v370/swarm-final-r5.txt"
     },
     "uniqueTotal": {
-      "files": 6,
-      "tests": 83
+      "files": 7,
+      "tests": 88
     },
     "typecheck": "pass: types-freeze.txt",
-    "lint": "pass: lint-publish.txt and lint-last.txt",
+    "lint": "pass: lint-publish.txt and lint-last.txt; lint-migration-final.txt",
     "schema": {
       "files": 174,
       "errors": 0,
@@ -69,7 +69,13 @@
     },
     "sourceReproduction": "both --check installers pass; byte-identical source PNGs and unchanged prior registry entries",
     "build": "pass: build-r2-freeze.txt",
-    "FullWorld1000Run": false
+    "FullWorld1000Run": false,
+    "legacyMigration": {
+      "files": 1,
+      "tests": 5,
+      "log": "test-results/autonomy-v370/sower-migration-final.txt",
+      "correction": "CI found hardcoded214 expectation in prior213 migration. Assert current SAVE_VERSION while retaining whole state hash equality and no invented attack/history checks."
+    }
   },
   "native": {
     "mainGame": {
@@ -103,9 +109,21 @@
     "browserAndPreviewFinallyClosed": true
   },
   "publication": {
-    "checkpoint": "/workspace/.ashveil-checkpoints/v370-ashmoth-r3",
+    "checkpoint": "/workspace/.ashveil-checkpoints/v370-ashmoth-r4",
     "runtimeMustMatchReviewedR2": true,
-    "publicByteVerification": "record follows successful Pages deployment; not claimed before publication"
+    "publicByteVerification": "record follows successful Pages deployment; not claimed before publication",
+    "priorAttempt": {
+      "commit": "0fff0d02803361a976e1efcac2b51aab183b0cec",
+      "run": 40169498643,
+      "conclusion": "failure",
+      "focusedChecks": {
+        "files": 36,
+        "passed": 408,
+        "failed": 1
+      },
+      "deploymentOccurred": false,
+      "reason": "Only prior213 save migration expected214; actual current version215. No game/runtime bytes changed by corrective test."
+    }
   },
   "remaining": [
     "Conduit crawler and Culler actual bodies/behavior/resources",
