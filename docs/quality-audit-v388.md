@@ -87,3 +87,6 @@ surface/dungeon/world2의 명령 오류는 같았다. freeze-reentry는119번째
 화면 근거: [작은 화면의 원래 지도](diagnostics/quality-v388/narrow-world.png) · [실제 낫창 회전](diagnostics/quality-v388/inventory-rotation.png) · [손상 파종기](diagnostics/quality-v388/sower-damage.png) · [도감 확대](diagnostics/quality-v388/artbook-zoom.png).
 
 Full 뒤 남은 두 무작업 석방 거절 검사의 고정UID도 실제 원래 밧줄로 바꿔 거절 원인이 ‘작업 없음’에만 의존하도록 강화했다. 변경한 몸값/교환2파일79검사도 통과했다. Core/렌더/콘텐츠/빌드 바이트는 바꾸지 않았고 최종 CI 역시 전체 회귀를 실행한다. [추가 검사](diagnostics/quality-v388/negative-identity-final.json).
+
+
+최초 원격 전체 검사(`40242243409`, `9a64562`)에서는6,543개 통과·2개 시간 제한 초과가 발생했다(1,169.18초). 활성 PNG409개의 CRC를 여러 번 검사하는 리소스 통합 사례와 전체 세계의 각인 검토/승인 사례가 기본5초를 넘었다. 이전 로컬에서도 각각4.49초·3.65초가 필요했다. 해당 PNG 사례1개와 각인 이행3개 사례에만 기존 통합 검사와 같은30초 제한을 명시했으며 단언·명령·전체 상태 비교·작업자2개·런타임은 그대로다. 수정 후2파일15검사 모두 통과(11.45초). 원격 전체 재검사와 실제 게시 확인은 별도 완료 기록으로 남긴다. [CI 원문 식별과 보정 근거](diagnostics/quality-v388/ci-integration-budget.json).

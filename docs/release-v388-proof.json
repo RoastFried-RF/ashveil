@@ -865,7 +865,7 @@
     "v388-quality-audit-r3",
     "v388-quality-audit-r4"
   ],
-  "publicationCheckpoint": "/workspace/.ashveil-checkpoints/v388-quality-audit-r7",
+  "publicationCheckpoint": "/workspace/.ashveil-checkpoints/v388-quality-audit-r8",
   "originalArt": {
     "newAuthoredPNG": 0,
     "retainedOriginalPNGsUnchanged": 1199,
@@ -886,7 +886,7 @@
   ],
   "finalRuntimeComparison": {
     "tested": "v388-quality-audit-r4",
-    "publication": "v388-quality-audit-r7",
+    "publication": "v388-quality-audit-r8",
     "files": 5875,
     "changed": [],
     "allSourcePublicDistModsExact": true
@@ -896,5 +896,42 @@
     "tests": 79,
     "changedAssertions": "Two no-work release checks now pass the actual original rope UID, isolating absent authorization from UID mismatch. Core and runtime unchanged since the full385/6545 run.",
     "rawSHA256": "d425015445d9d0a8aca43c153df643d2f6a0bb4259dc8f5add80c3c88b5ada09"
+  },
+  "ciIntegrationBudgetCorrection": {
+    "initialRun": {
+      "id": 40242243409,
+      "commit": "9a6456258c64f191aa569176ebcf027c93322921",
+      "passed": 6543,
+      "failedTimeout": 2,
+      "total": 6545,
+      "files": 385,
+      "durationSeconds": 1169.18,
+      "rawLogSHA256": "840027fae5be571a05640e9b1a7fca53636799191126c2c25cbded9d4ace8206",
+      "failures": [
+        {
+          "file": "tests/mod-textures.test.ts",
+          "case": "리소스CLI도활성16pxPNG만인식하고 잘못된경로를 public파일로우회하지않는다",
+          "localPreviousDurationMs": 4490.765
+        },
+        {
+          "file": "tests/item-renames-start.test.ts",
+          "case": "검토 전 원본을 보존하고 승인 후 ID/현재 헤더 외 전체 상태가 같다",
+          "localPreviousDurationMs": 3646.917
+        }
+      ]
+    },
+    "correction": {
+      "scope": "Only explicit 30000ms integration-case budgets and comments; all assertions unchanged; no runtime changes.",
+      "cases": 4,
+      "files": 2,
+      "workers": 2
+    },
+    "focusedLocal": {
+      "passed": 15,
+      "failed": 0,
+      "files": 2,
+      "durationSeconds": 11.45,
+      "rawSHA256": "561d6b8e7565dd19344d50ec717421c88b9e0d241e1eb4aa89755e2b03f15e90"
+    }
   }
 }

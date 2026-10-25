@@ -60,7 +60,8 @@ describe('모드16×16 PNG의 원문·설치·콘텐츠 식별',()=>{
   const close=vi.fn(),decode=vi.fn().mockRejectedValueOnce(Error('invalid compressed pixels')).mockResolvedValue({width:16,height:16,close});vi.stubGlobal('createImageBitmap',decode)
   try{const{disk}=memoryDisk(),packages=readPackages().filter(p=>p.manifest.id!==id),manager=createModInstallation(packages,disk,vi.fn(),db=>inspectModTextureImages(db.modTextures));await expect(manager.review(modFromFiles(input()))).rejects.toThrow('PNG 픽셀');expect(packages.some(p=>p.manifest.id===id)).toBe(false);const review=await manager.review(modFromFiles(input()));expect(close).toHaveBeenCalledTimes(1);expect(review.textures).toBe(1)}finally{vi.unstubAllGlobals()}
  })
+ // Several complete PNG/CRC passes are an integration check, not a five-second performance budget.
  it('리소스CLI도활성16pxPNG만인식하고 잘못된경로를 public파일로우회하지않는다',()=>{
   const manifest=JSON.parse(readFileSync('src/client/sprites.json','utf8')),db=loadDb([id]).db,result=validateSpriteAssets(resolve('public'),manifest,[key,key],[],db.modTextures);expect(result.errors).toEqual([]);expect(result.counts.uniquePngFiles).toBe(validateSpriteAssets(resolve('public'),manifest).counts.uniquePngFiles+1);expect(validateSpriteAssets(resolve('public'),manifest,[key]).errors.join()).toMatch(/활성 모드 텍스처/)
- })
+ },30000)
 })
