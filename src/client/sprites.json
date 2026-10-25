@@ -370,7 +370,9 @@
     "av352_sower_fall_v1": "sprites/original/direction-v364/states/sower-fall-v1.png",
     "av352_sower_rise_v1": "sprites/original/direction-v364/states/sower-rise-v1.png",
     "av352_sower_attack_v1": "sprites/original/direction-v364/states/sower-attack-v1.png",
-    "av366_sower_left_collapsed_v1": "sprites/original/direction-v364/states/sower-left-collapsed-v1.png"
+    "av366_sower_left_collapsed_v1": "sprites/original/direction-v364/states/sower-left-collapsed-v1.png",
+    "av370_ashmoth_flight_v1": "sprites/original/direction-v370/ashmoth-flight-four-poses-v1.png",
+    "av371_ashmoth_harvest_icons_v1": "sprites/original/direction-v371/ashmoth-harvest-icons-v1.png"
   },
   "frames": {
     "kt_floor_q0": [
@@ -57065,6 +57067,48 @@
       658,
       287,
       228
+    ],
+    "av370_ashmoth_raised": [
+      "av370_ashmoth_flight_v1",
+      226,
+      162,
+      225,
+      363
+    ],
+    "av370_ashmoth_spread": [
+      "av370_ashmoth_flight_v1",
+      635,
+      202,
+      550,
+      323
+    ],
+    "av370_ashmoth_downstroke": [
+      "av370_ashmoth_flight_v1",
+      136,
+      740,
+      410,
+      353
+    ],
+    "av370_ashmoth_folded": [
+      "av370_ashmoth_flight_v1",
+      817,
+      740,
+      185,
+      345
+    ],
+    "av371_moth_wing_dust": [
+      "av371_ashmoth_harvest_icons_v1",
+      245,
+      343,
+      454,
+      324
+    ],
+    "av371_roasted_moths": [
+      "av371_ashmoth_harvest_icons_v1",
+      1080,
+      323,
+      445,
+      349
     ]
   },
   "anims": {
@@ -57193,6 +57237,34 @@
         "complete_fire2"
       ],
       "fps": 7
+    },
+    "av370_ashmoth_flight": {
+      "frames": [
+        "av370_ashmoth_raised",
+        "av370_ashmoth_spread",
+        "av370_ashmoth_downstroke",
+        "av370_ashmoth_folded"
+      ],
+      "fps": 20,
+      "anchors": {
+        "av370_ashmoth_raised": [
+          0.5022222222222222,
+          0.5206611570247934
+        ],
+        "av370_ashmoth_spread": [
+          0.49636363636363634,
+          0.4613003095975232
+        ],
+        "av370_ashmoth_downstroke": [
+          0.4951219512195122,
+          0.42492917847025496
+        ],
+        "av370_ashmoth_folded": [
+          0.4972972972972973,
+          0.43478260869565216
+        ]
+      },
+      "renderScale": 0.012
     }
   },
   "chars": {
@@ -131628,6 +131700,14 @@
     "av366_sower_left_collapsed_v1": [
       1254,
       1254
+    ],
+    "av370_ashmoth_flight_v1": [
+      1254,
+      1254
+    ],
+    "av371_ashmoth_harvest_icons_v1": [
+      1774,
+      887
     ]
   },
   "characterSheetHistory": [

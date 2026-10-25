@@ -1,3 +1,5 @@
+import {applyCamouflage} from './camouflage'
+import {captureSwarm,studyMoths} from './swarms'
 import {placementQuote} from './placement'
 import {recordSowerMove,recordSowerPlacement,sowerWaypoint,sowerAlarm,sowerPush,sowerSpray} from './sower'
 import {animalWarn,seasonalSleepError,beginSeasonalSleep} from './bear-state'
@@ -205,6 +207,9 @@ export type Action =
   | {type:'machineCare';target:number;operation:import('./types').MachineOperation;uid:number;woundId?:number;part?:string}
   | {type:'fireWork';pos:Pos;uid:number;baseOrder?:number}
   | {type:'extinguishFire';pos:Pos}
+  | {type:'captureSwarm';target:number;toolUid:number}
+  | {type:'studyMoths';uid:number}
+  | {type:'applyCamouflage';uid:number}
   | {type:'baseBed';pos:Pos;target?:number}
   | {type:'baseWaterTake';uid:number}
   | {type:'baseWaterFill';uid:number;pos:Pos}
@@ -1519,6 +1524,9 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
     }
 
+    case 'captureSwarm': {const error=captureSwarm(w,c,a.target,a.toolUid);return error?FAIL(error):{ok:true,tu:100}}
+    case 'applyCamouflage': {const error=applyCamouflage(w,c,a.uid);return error?FAIL(error):{ok:true,tu:100}}
+    case 'studyMoths': {const error=studyMoths(w,c,a.uid);return error?FAIL(error):{ok:true,tu:100}}
     case 'toggleLight': {
       const it = findItem(c, a.uid)
       if (!it || !itemDef(w, it).light) return FAIL('켤 수 없다')

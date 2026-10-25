@@ -1,3 +1,6 @@
+import {camouflageTick} from './camouflage'
+import {swarmTick,swarmExposure} from './swarms'
+import {pauseSwarmClock} from './swarm-state'
 import {calendar} from './climate-state'
 import {seasonalActionTU} from './bear-state'
 import {urgentCompanionAid} from './companion-aid'
@@ -96,7 +99,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 214
+export const SAVE_VERSION = 215
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -338,6 +341,7 @@ function globalTurnTick(w: World) {
   beaconTick(w)
   climateTick(w)
   cultivationTick(w)
+  swarmTick(w)
   storyDirectorTick(w)
   gearWeatherTick(w)
   foodTick(w)
@@ -361,6 +365,8 @@ function globalTurnTick(w: World) {
     diseaseTick(w, c, sleeping)
     aquaticTick(w,c)
     inhalationTick(w,c)
+    swarmExposure(w,c)
+    camouflageTick(w,c)
     parasiteTick(w,c)
     observeBleeding(w,c)
     bodyTick(w, c, sleeping)
@@ -727,6 +733,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
   const now = turnOf(w)
   const elapsed = now - leftAt
   settleDormantCultivation(w,map,leftAt)
+  pauseSwarmClock(map,elapsed)
   markCleared(w, map, residents)
   // 포자 구름도 턴 단위 과정이라 층과 함께 정지한다.
   for (const t of map.tiles) if (t.spores) t.spores.until += elapsed

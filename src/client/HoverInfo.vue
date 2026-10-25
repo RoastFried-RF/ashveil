@@ -11,6 +11,7 @@ import { targeting } from './ui'
 import { machineStatus } from '../core/machines'
 import {cultivationStatus} from '../core/cultivation'
 import {flightHeight} from '../core/flight'
+import {coveringSwarms} from '../core/swarm-state'
 
 const props = defineProps<{ pos: Pos | null; detail: boolean }>()
 const AI: Record<string, string> = { idle: '가만히 있다', wander: '어슬렁거린다', hunt: '당신을 노린다', investigate: '무언가를 찾는다', flee: '달아난다', eat: '먹고 있다', surrender: '항복했다', guard: '자리를 지킨다', return: '제자리로 돌아간다',patrol:'경계를 순회한다' }
@@ -37,6 +38,7 @@ const d = computed(() => {
     const bed = innBedAt(w, p)
     if (residentBedAt(w, p)) lines.push('주민 개인 침대 · 손님은 여관 침대를 빌려야 한다')
     if (bed) lines.push(bed.lease?.tenant === w.s.playerId && bed.lease.until > turnOf(w) ? `빌린 침대 · ${fmtClock(bed.lease.until)}까지 · Z 수면` : '여관 침대 · 주인 곁에서 N으로 대여')
+    if(coveringSwarms(w,p).length)lines.push('재빛 날개 떼 · 시야 방해/가루 흡입 · F2 현장에서 면포로 채집')
     lines.push(`밝기 ${Math.round(lightAt(w, p) * 100)}%`)
     if(tile.cropResidue)lines.push('정리한 밭의 잔재 · 다시 심으면 남은 오염도 옮는다')
     if(tile.cultivation){const crop=cultivationStatus(w,p)!;lines.push(`성장${crop.progress}% · 관수${Math.round(crop.waterMl*100)/100}ml · 증발 최대${crop.evaporationMlPerHour}ml/시간 · ${crop.ready?'수확 가능':crop.error??'자라는 중'}`);if(crop.rule?.substrate)lines.push(`배지 수확 ${crop.state.remainingCycles}/${crop.rule.substrate.cycles}회 남음`);if(crop.state.ownerId&&crop.state.ownerId!==player(w).id)lines.push('타인이 심은 밭');if(crop.state.irrigation)lines.push('물·밭 잔재에서 옮은 오염 · 수확물에 남는다')}

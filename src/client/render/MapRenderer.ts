@@ -1,3 +1,6 @@
+import {camouflageActive} from '../../core/camouflage'
+import {SwarmView} from './swarm-view'
+import {validSwarmRule} from '../../core/swarm-state'
 import {RigOwner} from './rig-owner'
 import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
@@ -28,7 +31,7 @@ import {
   meleeWield,wield,type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
-import { atlasStats,animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
+import {swarmArt, atlasStats,animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
 
 export const T = 16
 type MedicalGrip={point:number[];color:number}
@@ -129,6 +132,8 @@ export class MapRenderer {
   private walls = new Container()
   private dyn = new Container()
   private objs = new Container()
+  private swarmLayer=new Container()
+  private swarmViews=new Map<number,SwarmView>()
   private glow!: Sprite
   private dark!: Sprite
   private overlay = new Graphics()
@@ -177,7 +182,7 @@ export class MapRenderer {
     this.glow = new Sprite(Texture.from(this.glowCanvas))
     this.glow.blendMode = 'add'
     this.dark = new Sprite(Texture.from(this.darkCanvas))
-    this.world.addChild(this.ground, this.deco, this.walls, this.dyn, this.objs, this.glow, this.dark, this.overlay, this.floatLayer)
+    this.world.addChild(this.ground, this.deco, this.walls, this.dyn, this.objs, this.swarmLayer, this.glow, this.dark, this.overlay, this.floatLayer)
     this.app.stage.addChild(this.world, this.rain)
     const cv = this.app.canvas
     cv.addEventListener('pointermove', (e) => this.onHover(this.creatureAtPointer(e)??this.tileAt(e)))
@@ -247,6 +252,7 @@ export class MapRenderer {
     this.displayVisible=appearance.visible
     const terrainChanged = mapChanged || appearance.terrain.some((id,i)=>id!==this.renderedTerrain[i])
     if (mapChanged) {
+      for(const view of this.swarmViews.values())view.destroy();this.swarmViews.clear()
       for (const v of this.views.values()) v.root.destroy({ children: true })
       this.views.clear()
       this.camInit = false
@@ -259,6 +265,9 @@ export class MapRenderer {
     }
     this.buildDynamic(w)
     this.syncCreatures(w)
+    const colonyIds=new Set<number>()
+    for(const colony of w.s.map.swarms??[]){const d=validSwarmRule(w,colony);if(!d)continue;colonyIds.add(colony.uid);let view=this.swarmViews.get(colony.uid);if(!view){view=new SwarmView(colony,swarmArt(d.sprite));this.swarmLayer.addChild(view.root);this.swarmViews.set(colony.uid,view)}view.sync(w,colony,this.displayVisible,w.s.fx.filter(e=>e.k==='move'&&e.id===colony.uid) as {from:Pos;to:Pos}[])}
+    for(const [id,view]of this.swarmViews)if(!colonyIds.has(id)){view.destroy();this.swarmViews.delete(id)}
     this.updateLight(w)
     const resolvedAttacks=new Set(w.s.fx.filter(event=>event.k==='attack').map(event=>event.id))
     this.consumeFx(w)
@@ -1003,6 +1012,7 @@ export class MapRenderer {
       if (v.body instanceof AnimatedSprite) { v.body.animationSpeed = 0.1 * preferences.animationSpeed; if (immediate) v.body.stop(); else if (!v.body.playing) v.body.play() }
       this.animateView(v, Math.min(48,dt) * (preferences.animationSpeed || 1))
     }
+    for(const view of this.swarmViews.values())view.update(w,Math.min(48,dt)*(preferences.animationSpeed||1),this.displayVisible,immediate)
     this.drawLight(w)
     this.notifyPlayerMotion()
     // 떠오르는 글자·불꽃
@@ -1056,7 +1066,7 @@ export class MapRenderer {
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
     const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,rig:view.rig?.inspect()}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{assets:atlasStats(),actors,medical,forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.body.texture.width,scale:v.body.scale.x,key:v.poseFrame,mode:v.poseName}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),style:v.pose.current.equipment?.style}:null,equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
@@ -1147,9 +1157,10 @@ export class MapRenderer {
       v.bar.visible = false
       v.marks.visible = false
     } else {
+      const actor=this.w?.s.creatures.find(c=>c.id===v.id),neutralTint=actor&&this.w&&camouflageActive(this.w,actor)?actor.camouflage!.tint:0xffffff
       const tilt=mode==='hurt'?.035*(v.dir==='left'?1:-1):mode==='work'&&!v.medical?.024*Math.cos(phase*Math.PI):mode==='throw'?.025*(v.dir==='left'?-1:1):0
       v.body.rotation=Math.sin(phase*Math.PI)*tilt;v.body.alpha=1
-      v.body.tint = v.unknown ? 0x202028 : v.flashT > 0.5 ? 0xffffff : v.flashT > 0 ? 0xff7060 : 0xffffff
+      v.body.tint = v.unknown ? 0x202028 : v.flashT > 0.5 ? 0xffffff : v.flashT > 0 ? 0xff7060 : neutralTint
       if (!v.unknown && v.flashT > 0.5) v.body.tint = 0xffb0a0
     }
     v.transition=instant?0:Math.max(0,v.transition-dt)

@@ -407,6 +407,8 @@ export function deserialize(json: string): GameState {
   if(s.version===212)s.version=213
   // v214 records real resolved assault episodes; older wounds/stock gain no invented attacks.
   if(s.version===213)s.version=214
+  // v215 adds finite map colonies; older maps acquire no retroactive insects or stock.
+  if(s.version===214)s.version=215
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -422,7 +424,16 @@ export function deserialize(json: string): GameState {
   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
   const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)
+  const swarmMaps=[s.map,...Object.values(s.maps??{}),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[scene.map,...Object.values(scene.maps??{})])]
+  for(const map of swarmMaps){if(map.swarms===undefined)continue
+    if(!Array.isArray(map.swarms)||map.swarms.length>128)throw Error('군체 목록 형식이 올바르지 않다')
+    const ids=new Set<number>()
+    for(const c of map.swarms){if(!c||!integer(c.uid)||c.uid<1||ids.has(c.uid)||typeof c.def!=='string'||!c.def||typeof c.rule!=='string'||c.rule.length>16384||!position(c.pos)||!position(c.origin)||c.pos.x>=map.w||c.pos.y>=map.h||c.origin.x>=map.w||c.origin.y>=map.h||![c.members,c.initialMembers,c.captured,c.burned,c.cohesion,c.nextMoveAt,c.lastTick].every(integer)||c.initialMembers<1||c.initialMembers>100000||c.members+c.captured+c.burned!==c.initialMembers||c.cohesion>100||c.lostLightAt!==undefined&&!integer(c.lostLightAt)||c.disperseAt!==undefined&&(!integer(c.disperseAt)||c.lostLightAt===undefined||c.disperseAt<c.lostLightAt))throw Error('군체의 원래 개체/수량/시계 형식이 올바르지 않다');ids.add(c.uid)}
+  }
   for(const c of actors){
+    const coat=c.camouflage
+    if(coat&&(!integer(coat.sourceUid)||coat.sourceUid<1||typeof coat.sourceDef!=='string'||!integer(coat.appliedAt)||!integer(coat.until)||coat.until<=coat.appliedAt||!Number.isFinite(coat.sightMult)||coat.sightMult<.1||coat.sightMult>1||!Number.isFinite(coat.washAt)||coat.washAt<1||coat.washAt>100||!integer(coat.tint)||coat.tint>0xffffff))throw Error('원래 위장 가루/시간/규칙 기록 형식이 올바르지 않다')
+
     const m=c.sowerState
     if(m!==undefined&&(!m||typeof m!=='object'||typeof m.rule!=='string'||!m.rule||m.rule.length>16384||!integer(m.routeIndex)||m.routeIndex>15||!integer(m.moves)||m.moves>100||!integer(m.seedsSpent)||!integer(m.resumeAt)||!integer(m.alarmWound)||m.nextSprayAt!==undefined&&!integer(m.nextSprayAt)||m.lastSeed&&(!integer(m.lastSeed.uid)||m.lastSeed.uid<1||!integer(m.lastSeed.at)||!position(m.lastSeed.pos))||m.lastSpray&&(!integer(m.lastSpray.uid)||m.lastSpray.uid<1||!integer(m.lastSpray.at))))throw Error('파종기의 원래 경로/종자 작업 기록 형식이 올바르지 않다')
     if(m?.alarmAttack!==undefined&&!integer(m.alarmAttack))throw Error('파종기의 실제 공격 경보 기록 형식이 올바르지 않다')

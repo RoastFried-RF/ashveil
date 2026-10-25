@@ -1,3 +1,4 @@
+import {swarmAshDose} from './swarm-state'
 // 실제 바깥 재 먼지/젖은 여과포·원래 현물 교체와 남은 작업.
 import {channelTurns} from './action-time'
 import {airRules,ashLungStage,dustMask,inhaledAsh} from './air-state'
@@ -9,7 +10,7 @@ import type {Creature,ItemInst} from './types'
 export function inhalationTick(w:World,c:Creature){
  const d=airRules(w);if(!d||!c.alive||w.db.body(c.body.def).kind==='mechanical'||w.db.body(c.body.def).waterBreathing)return
  if(c.body.inhaledAsh!==undefined&&(!Number.isFinite(c.body.inhaledAsh)||c.body.inhaledAsh<0))return
- const turn=turnOf(w),oldStage=ashLungStage(w,c),rate=w.s.map.kind==='surface'&&inBounds(w,c.pos)&&!tileAt(w,c.pos).roof&&!c.aquatic?.submerged?d.weather[w.s.weather]??0:0
+ const turn=turnOf(w),oldStage=ashLungStage(w,c),rate=swarmAshDose(w,c)+(w.s.map.kind==='surface'&&inBounds(w,c.pos)&&!tileAt(w,c.pos).roof&&!c.aquatic?.submerged?d.weather[w.s.weather]??0:0)
  if(rate>0){const mask=dustMask(w,c);c.body.inhaledAsh=Math.round((inhaledAsh(c)+rate*(1-(mask?.protection??0)))*1e6)/1e6;if(mask)mask.it.uses=Math.max(0,mask.it.uses!-1)}
  const stage=ashLungStage(w,c)
  if(stage>oldStage&&c.id===w.s.playerId)log(w,'danger','오래 들이마신 재가 폐에 남았다. 호흡의 손상은 회복되지 않는다. 재바람을 피하고 실제 여과포를 써야 한다.')

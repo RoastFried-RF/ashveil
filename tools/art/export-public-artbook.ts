@@ -1,7 +1,7 @@
 // Standalone original-art review catalog. No live world state or reference raster files.
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs'
 import {loadDb} from '../loadContent'
-import type {ItemDef,CreatureDef,TerrainDef,AbilityDef} from '../../src/core/types'
+import type {ItemDef,CreatureDef,TerrainDef,AbilityDef,SwarmDef} from '../../src/core/types'
 import {groundObjectArt} from '../../src/client/render/terrain-art'
 import {motionDurations} from '../../src/client/render/character-motion'
 const {db,report}=loadDb();if(report.errors.length)throw Error(report.errors.join('\n'))
@@ -27,10 +27,11 @@ const terrainRepresentative=(terrain:TerrainDef)=>{
  if(terrain.floor==='cd')return 'cd_floor0'
  return 'kt_floor_q0'
 }
-const defs=[...items.map(item=>({id:item.id,label:item.label,kind:'items',frame:item.sprite,grid:item.size})),...abilities.map(ability=>({id:ability.id,label:ability.label,kind:'abilities',frame:ability.icon})),...terrains.map(terrain=>({id:terrain.id,label:terrain.label,kind:'terrain',frame:terrainRepresentative(terrain)}))]
+const swarmEntries=db.all<SwarmDef>('Swarm').map(s=>({id:s.id,label:s.label+' · 개별 비행 원문',kind:'swarms',frame:m.anims[s.sprite]?.frames[1]}))
+const defs=[...swarmEntries,...items.map(item=>({id:item.id,label:item.label,kind:'items',frame:item.sprite,grid:item.size})),...abilities.map(ability=>({id:ability.id,label:ability.label,kind:'abilities',frame:ability.icon})),...terrains.map(terrain=>({id:terrain.id,label:terrain.label,kind:'terrain',frame:terrainRepresentative(terrain)}))]
 const resolvedDefs=defs.map(entry=>Object.hasOwn(m.frames,entry.frame)?entry:{...entry,url:'tiles/'+entry.frame+'.png'})
 for(const entry of resolvedDefs)if('url'in entry&&!existsSync('public/'+entry.url))throw Error('Missing preview asset: '+entry.id+' '+entry.url)
 const frames=Object.keys(m.frames).map(id=>({id,label:id,kind:'frames',frame:id})),ui=Object.entries(m.ui).map(([id,url])=>({id,label:id,kind:'ui',url}))
 mkdirSync('public/artbook',{recursive:true})
-writeFileSync('public/artbook/catalog.json',JSON.stringify({version:'0.364-dev',motionDurations,note:'독립 원화 미리보기. 실제 세계의 이동·장비·시야·발견 상태는 진행하지 않는다. 지형 정의와 전체 프레임에는 호환/기억/상태별 표현도 포함한다.',sheets:m.sheets,sheetSizes:m.sheetSizes,frames:m.frames,characters:m.chars,entries:[...actors,...portraits,...resolvedDefs,...ui,...frames]},null,2)+'\n')
+writeFileSync('public/artbook/catalog.json',JSON.stringify({version:'0.370-dev',motionDurations,note:'독립 원화 미리보기. 실제 세계의 이동·장비·시야·발견 상태는 진행하지 않는다. 지형 정의와 전체 프레임에는 호환/기억/상태별 표현도 포함한다.',sheets:m.sheets,sheetSizes:m.sheetSizes,frames:m.frames,characters:m.chars,entries:[...actors,...portraits,...resolvedDefs,...ui,...frames]},null,2)+'\n')
 console.log(JSON.stringify({actors:actors.length,portraits:portraits.length,items:items.length,terrains:terrains.length,abilities:abilities.length,ui:ui.length,frames:frames.length}))

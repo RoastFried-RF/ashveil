@@ -212,3 +212,8 @@ image_gen 자체 원문15PNG에서 잿곰의9동작 가족/144고유 몸 영역�
 ## v364 파종기 게임 적용
 
 자체 image_gen 원문16PNG의115고유 영역을 선택했다. 관절/작업8PNG·30영역을 런타임 조합하며 authored 보행 프레임0이다. 좌/우 회복 준비 공유·잘린 후보·잘못된 왼쪽 쓰러짐·v363 실패0PNG와 v365 수동 재요청1PNG를 구분해 보존한다. [원문 SHA/선택](tools/art/direction-v364/installation.json) · [전체 몸 상태](tools/art/direction-v364/state-installation.json) · [적용·제약](docs/sower-v364.md). 원문 픽셀 수정/리샘플링이나 타 게임 픽셀 복제를 하지 않았다.
+
+
+## v370 재나방과 가루/음식
+
+image_gen 자체 원본2PNG/6영역(개별 나방4비행 포즈·수확물2아이콘)을 등록했다. 원문 픽셀 편집/리샘플/알파 제거를 하지 않았다. 한 등 시점의 runtime 회전·대표 나방 수와실제마릿수를구분한다. 이전v369군체원화는보류로보존한다. [비행 원문/한계](tools/art/direction-v370/installation.json) · [수확물](tools/art/direction-v371/installation.json) · [실제 적용](docs/swarm-v370.md). 쪽지는기존일반수첩그림,날것표본은접힌비행원문을명시공유한다.

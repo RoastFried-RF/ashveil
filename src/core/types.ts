@@ -234,6 +234,7 @@ export interface MaterialBinding {uid:number;def:string;material:string;unitGram
 export interface MaterialPlan {bindings:MaterialBinding[];stuff:Stuff}
 
 export interface ItemDef extends DefBase {
+  camouflageCoating?:{durationTurns:number;sightMult:number;washAt:number;tint:number}
   compWorker?:string
   respirator?:{filter:string;chargeTurns:number;protection:number;wetAbove:number;wetProtection:number;refillTurns:number}
   defType: 'Item'
@@ -1394,6 +1395,7 @@ export interface RegionLayoutDef extends DefBase {
   residentRest?:boolean
   legacyObjects?:{key:string;pos:[number,number];terrain:string;from:string[]}[]
   lights?:{pos:[number,number];radius:number;kind:string}[]
+  swarms?:{def:string;pos:[number,number]}[]
   defType:'RegionLayout'
   label:string
   mapId:string
@@ -1881,13 +1883,14 @@ export interface BestiaryEntryDef extends DefBase {
   defType: 'BestiaryEntry'
   label: string
   creatures: string[]
-  kind: 'animal' | 'human' | 'unavailable' | 'machine'
+  kind: 'animal' | 'human' | 'unavailable' | 'machine' | 'swarm'
   difficulty: number
   silhouette: string
   yields: { item: string; count: number }[]
   facts: string[]
 }
 export interface BestiaryRecord {
+  swarmExposureAt?:number
   seen: number
   fought: number
   killed: number
@@ -1902,6 +1905,7 @@ export interface BestiaryRecord {
   fights?: { id: number; map: string; lastTurn: number }[]
 }
 export type AnyDef =
+  | SwarmDef
   | SaveModeDef
   | PostureDef
   | ManeuverDef
@@ -2265,6 +2269,7 @@ export interface MedicalReport {
 }
 
 export interface Creature {
+  camouflage?:{sourceUid:number;sourceDef:string;appliedAt:number;until:number;sightMult:number;washAt:number;tint:number}
   carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
   sowerState?:SowerState
   surveyState?:{call?:{source:number;at:number;expiresAt:number;pos:Pos};target?:number;progress:number;lastObservedAt?:number;nextReportAt:number;flashAt?:number;patrolIndex:number;lastInterrupted?:{at:number;progress:number;target:number}}
@@ -2549,7 +2554,20 @@ export interface PopSource { id: string; label: string; species: string; count: 
 export interface MapLight { pos: Pos; radius: number; kind: string; off?: boolean; sourceUid?:number; fuelUntil?:number;beddingFireId?:number;beddingSparkAt?:number;terrainFireId?:number;terrainSparkAt?:number }
 
 export interface GardenAlertState {level:number;events:{at:number;source:number;target?:number;sourcePos:Pos;targetPos?:Pos;level:number;kind?:'attack'}[]}
+/** A finite environmental colony; never a fabricated anatomical creature. */
+export interface SwarmDef extends DefBase {
+ defType:'Swarm';label:string;sprite:string;members:number;moveTU:number
+ attractionRadiusMult:number;coverRadius:number;sightMult:number;activeDaylightMax:number
+ disperseTurns:[number,number];ashPerTurn:number;coughEvery:number;minCoughDose:number;snuffChance:number;snuffItems:string[]
+ burnKinds:string[];burnMembersPerTurn:number;captureMembers:number;captureTool:string;bodyItem:string;studyTU:number
+ facts:string[]
+}
+export interface SwarmState {
+ uid:number;def:string;rule:string;origin:Pos;pos:Pos;initialMembers:number;members:number;captured:number;burned:number
+ cohesion:number;nextMoveAt:number;lastTick:number;lostLightAt?:number;disperseAt?:number
+}
 export interface MapState {
+  swarms?:SwarmState[]
   gardenAlert?:GardenAlertState
   fog?:{sightMult:number;color:number;opacity:number}
   vessel?:VesselState

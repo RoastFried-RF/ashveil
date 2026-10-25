@@ -1,0 +1,87 @@
+{
+  "format": 1,
+  "subject": "Ashmoth Swarm",
+  "createdUTC": "2026-10-24T12:08:20.624955+00:00",
+  "originalArtFound": false,
+  "reusableSpeciesSourceFound": false,
+  "registrySnapshot": {
+    "sheets": 371,
+    "frames": 8099,
+    "chars": 34,
+    "mothSwarmInsectRelatedRegisteredKeys": 0
+  },
+  "imageFilenameInventory": {
+    "/workspace/ashveil/public": 2022,
+    "/workspace/ashveil/tools/art": 333,
+    "/workspace/.ashveil-planned": 432,
+    "matchingMothSwarmButterflyNames": 0
+  },
+  "textReferences": {
+    "stagingMatchingFiles": 9,
+    "toolsArtMatchingFiles": 0,
+    "publicMatchingFiles": 0,
+    "srcClientMatchingFiles": 0,
+    "foundTypes": [
+      "v331 draft Creature/Body/Bestiary/harvest definitions",
+      "v331 art requirements and behavior policy; not sprite sources"
+    ]
+  },
+  "inventoryLimit": "Image paths, registries and searchable metadata were exhaustively checked in the stated roots. This is not a claim that every generic or unlabeled image was individually opened or contains no moth.",
+  "lore": {
+    "environmentalHazard": true,
+    "intentionalAttack": false,
+    "drawnLightSource": false,
+    "visualInsectMarksEqualPopulationOrHealth": false,
+    "loreDensityRange": [
+      0,
+      100
+    ],
+    "loreMoveTU": 40
+  },
+  "draftDiscrepanciesNotImplemented": [
+    "Draft Creature.moveTU=100 differs from lore moveTU=40.",
+    "Draft Body.bloodMl=1, breathing/bloodPumping, civilian AI do not implement bloodless density/light-attraction behavior. Parent owns Core integration."
+  ],
+  "references": [
+    {
+      "path": "/workspace/ashveil/docs/lore/bestiary.md",
+      "sha256": "e36613b4e10d4055123563cdcd4399038e7913239036012514e3547505ed0f5a"
+    },
+    {
+      "path": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/art-direction.md",
+      "sha256": "a8b45e94bac75a9491e30c9c9605263fc0215c622af0ee7998e12ee28b9d80fa"
+    },
+    {
+      "path": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/core-fragment/defs/bodies-v331.json",
+      "sha256": "3a2db60725648bbb01f86e2a2d2ff6cab5c29c142ccff8f892e1d6a9bd98c889"
+    },
+    {
+      "path": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/core-fragment/defs/creatures-v331.json",
+      "sha256": "63941a42bbeb26fd17568464fbd18b4eb40dc89793626ac9d4d823ad58e1faf5"
+    },
+    {
+      "path": "/workspace/ashveil/src/client/sprites.json",
+      "sha256": "68f623397608be970c19415b8998f3416ff405dba31af1483897f1b7287848ba"
+    },
+    {
+      "path": "/workspace/ashveil/.agents/skills/ashveil-character-motion/SKILL.md",
+      "sha256": "f6428a240e59e2c5e6c65d7e502ea83a52a68f172a6e4d2450cf883b77d3b168"
+    }
+  ],
+  "imageReferenceInputs": [],
+  "maximumGenerationCalls": 1,
+  "newlyGeneratedPNGMaximum": 1,
+  "forbiddenActions": [
+    "authoring source edits",
+    "publisher changes",
+    "existing staging modifications",
+    "Core/Def changes",
+    "build",
+    "Native",
+    "game",
+    "tests",
+    "commit",
+    "push",
+    "Pillow pixel edits/resampling"
+  ]
+}

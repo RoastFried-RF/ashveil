@@ -16,8 +16,8 @@ export function startActionObservation(w:World){
 export function beginActionObservation(w:World,c:Creature,action:Action):ObservationToken|undefined{
  const channel=channels.get(w);if(!channel||channel.running.has(c.id))return
  channel.running.add(c.id)
- const uid='uid'in action?action.uid:undefined,item=typeof uid==='number'?[...c.bag,...Object.values(c.equip)].find(item=>item?.uid===uid):undefined
- const target='target'in action?(typeof action.target==='number'?w.s.creatures.find(actor=>actor.id===action.target)?.pos:action.target):undefined
+ const uid='uid'in action?action.uid:'toolUid'in action?action.toolUid:undefined,item=typeof uid==='number'?[...c.bag,...Object.values(c.equip)].find(item=>item?.uid===uid):undefined
+ const target='target'in action?(typeof action.target==='number'?w.s.creatures.find(actor=>actor.id===action.target)?.pos??(action.type==='captureSwarm'?w.s.map.swarms?.find(s=>s.uid===action.target)?.pos:undefined):action.target):undefined
  return{channel,actor:c,event:{id:c.id,at:w.s.time,action:{...action},item:item?{...item}:undefined,target:target?{...target}:undefined}}
 }
 function append(channel:Channel,event:ActionObservation){

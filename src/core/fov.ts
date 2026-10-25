@@ -1,3 +1,5 @@
+import {camouflageSight} from './camouflage'
+import {swarmSightMultiplier} from './swarm-state'
 import {rememberVisiblePrisoners} from './prisoner-memory'
 import {observedGatherAvailable} from './gather-state'
 import {turnOf} from './ctx'
@@ -139,7 +141,7 @@ export function sightRange(w: World, c: Creature): number {
     : def.sightRange + Math.floor(perception / 2)
   const base = Math.min(vision?.maxRange ?? Infinity, statRange + traitAdd(w, c, 'sightRange') - (c.breakdown?.kind === 'cry' ? 2 : 0))
   const weather = weatherSight(w), protectedEyes = hasEyeProtection(w,c)
-  return Math.max(1, Math.min(vision?.maxRange ?? Infinity, Math.round((base + weather.flat) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight'))*(1-Math.min(.95,Math.max(0,effectMag(c,'sensorFlash',turnOf(w))))))))
+  return Math.max(1, Math.min(vision?.maxRange ?? Infinity, Math.round((base + weather.flat) * swarmSightMultiplier(w,c) * weather.mult * (w.s.map.fog?.sightMult??1) * (protectedEyes ? 1 : weather.eyes) * Math.max(0.15, capacity(w, c, 'sight'))*(1-Math.min(.95,Math.max(0,effectMag(c,'sensorFlash',turnOf(w))))))))
 }
 
 /** 광원이 닿지 않는 곳을 볼 수 있는 거리. 조명된 대상은 전체 시야 범위를 사용한다. */
@@ -163,6 +165,7 @@ export function canSee(w: World, viewer: Creature, p: Pos, fov?: Set<number>, ba
     range = darkSightRange(w, viewer, range)
   }
   const target = creatureAt(w, p)
+  if(target&&target.id!==viewer.id)range=Math.floor(range*camouflageSight(w,target))
   if (target?.sneaking && target.id !== viewer.id) range = Math.floor(range * 0.6)
   if (d > 5) range = Math.max(5, Math.floor(range * traitMul(w, viewer, 'farSightMult')))
   if (d > range) return false

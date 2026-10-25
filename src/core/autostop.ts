@@ -1,3 +1,4 @@
+import {coveringSwarms} from './swarm-state'
 import {privateSound} from './hallucination-state'
 import {visibleBeddingFires} from './bedding-fire'
 import { aquaticRules } from './aquatic-state'
@@ -10,13 +11,15 @@ import { hungerStage, thirstStage } from './nutrition-state'
 import { bloodLoss, painStage, painTotal, regionState, totalBleed } from './body'
 import { canSee } from './fov'
 import { cheb } from './geom'
-import { bagGrid, gridSpot } from './items'
+import { bagGrid, gridSpot, lightSource } from './items'
 import { ambientNoise, hearingBonus, smells } from './perception'
 import { player, turnOf, type World } from './ctx'
 import {hasEffect} from './traits'
 import type { Creature, ItemDef, Region } from './types'
 
 export interface AutoSnap {
+  moths?:boolean
+  emittedLight?:number
   lice?:boolean
   beddingFires?:number[]
   water?:{submerged:boolean;air:number}
@@ -108,6 +111,7 @@ export function autoSnap(w: World): AutoSnap {
   const fuel = litFuel(pl)
   return {
     turn: turnOf(w),
+    ...(lightSource(w,pl)?{emittedLight:lightSource(w,pl)!.it.uid}:{}),
     hp: pl.hp,
     ...(hasEffect(pl,'lice',turnOf(w))?{lice:true}:{}),
     ...(visibleBeddingFires(w,pl).length?{beddingFires:visibleBeddingFires(w,pl)}:{}),
@@ -124,6 +128,7 @@ export function autoSnap(w: World): AutoSnap {
     fuelWarned: fuel !== undefined && fuel <= FUEL_WARN_TURNS,
     bagFull: !gridSpot(w, bagGrid(pl), ONE_CELL),
     spores: sporesNear(w, pl),
+    ...(coveringSwarms(w,pl.pos).length?{moths:true}:{}),
     smells: detectedSmells(w, pl),
     coldStage: coldStage(pl.needs.bodyTemp),
     heatStage: heatStage(pl.needs.bodyTemp),
@@ -178,7 +183,9 @@ export function autoStop(w: World, s: AutoSnap, opts: AutoStopOpts = {}): string
   if (Math.max(0, ...Object.values(pl.frostbite ?? {}).map((f) => f.grade)) > (s.frostbiteStage ?? 0)) return '말단의 동상이 심해졌다'
   // T5 환경 위험: 포자 구름 3칸 이내
   if(visibleBeddingFires(w,pl).some(id=>!s.beddingFires?.includes(id)))return '가까운 침구에 불이 붙었다'
+  if(!s.moths&&coveringSwarms(w,pl.pos).length)return '나방 떼가 불빛을 덮었다'
   if (!s.spores && sporesNear(w, pl)) return '포자 구름이 가깝다'
+  if(s.emittedLight!==undefined&&!lightSource(w,pl))return '불빛이 꺼졌다'
   // T6 자원 경고: 등불 1분 · 배낭 가득
   const fuel = litFuel(pl)
   if (!s.fuelWarned && fuel !== undefined && fuel <= FUEL_WARN_TURNS) return '등불 기름이 거의 다 됐다'

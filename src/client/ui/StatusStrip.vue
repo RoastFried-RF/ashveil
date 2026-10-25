@@ -2,7 +2,7 @@
 // 좌상단: 장소·시각·날씨 + 6부위 미니 인형 + 상태 이상 칩 (한눈 보기)
 import { computed } from 'vue'
 import {
-  crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef, resonanceState,
+  camouflageActive, camouflageSight, coveringSwarms, crouched, crouchRule, hallucinating, dietStatus, hungerBand, hungerStage, thirstBand, thirstStage, nutritionDef, resonanceState,
   ambientTemp, bloodLoss, fmtClock, LIGHT_LABEL, lightLevel, mood, painLabel, painTotal, player, regionState, totalBleed, turnOf,
   REGION_LABEL, STATE_LABEL, calendar, weatherLabel, type Region, type World,
 } from '../../core'
@@ -27,6 +27,8 @@ const d = computed(() => {
   const turn = turnOf(w)
   const diet=dietStatus(w,pl)
   const chips: { t: string; c: string; tip: string[] }[] = []
+  if(coveringSwarms(w,pl.pos).length)chips.push({t:'나방 떼',c:'#c3b99d',tip:['날개와 가루가 시야를 방해한다. 불을 끄거나 다른 불로 유도하자.','F2 현장: 면포로 채집 · 방진 면포는 가루 흡입을 줄인다.']})
+  if(camouflageActive(w,pl))chips.push({t:camouflageSight(w,pl)<1?'회색 위장':'회색 가루',c:'#b4b09f',tip:[`남은 시간 ${Math.ceil((pl.camouflage!.until-turn)/20)}분 · 젖으면 씻긴다.`,camouflageSight(w,pl)<1?'빛을 끄고 몸을 낮춰 멀리서 덜 눈에 띈다.':'불빛을 끄고 웅크리거나 잠행하면 위장이 작동한다.']})
   const resonance=resonanceState(w,pl)
   if(resonance.machine)chips.push({t:'기계 정비음',c:'#a8b7bd',tip:['가느다란 고음이 들린다. 가까운 곳에 작동 중인 기계가 있다.','소리만으로 위치나 종류를 알 수는 없다.']})
   if(resonance.tower)chips.push({t:'탑의 고음',c:'#c0a080',tip:['탑의 높은 울림이 귀를 찌른다. 이 지역에 있는 동안 두통으로 기분이 내려간다.']})

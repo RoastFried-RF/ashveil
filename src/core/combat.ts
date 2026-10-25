@@ -929,7 +929,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
       // 사망 원인 기여: 플레이어가 준 상처가 하나라도 남아 있으면 전액 (15 §3)
       if (byPlayer) {
         // 구형 저장의 기존 살인 이력도 생애 1회 판정에 포함한다.
-        pl.firstHumanKill ??= Object.entries(w.s.knowledge.bestiary).some(([id, record]) => ['reavers', 'shades'].includes(w.db.creature(id).faction) && record.killed > 0)
+        pl.firstHumanKill ??= Object.entries(w.s.knowledge.bestiary).some(([id, record]) => w.db.tryGet(id)?.defType==='Creature'&&['reavers', 'shades'].includes(w.db.creature(id).faction) && record.killed > 0)
         b.killed++
         if (c.faction === 'reavers' || c.faction === 'shades') {
           if (!pl.firstHumanKill) { pl.firstHumanKill = true; addThought(w, pl, 'Thought.FirstHumanKill', traitOverride(w, pl, 'killMood')) }

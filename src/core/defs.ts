@@ -14,7 +14,7 @@ import {SCRIPT_SOURCE_LIMIT,scriptBytes,type ScriptHost,type ScriptModule,type S
 // 엔진 독립: 입력은 순수 JSON 객체, 파일 시스템/번들러에 의존하지 않음.
 
 import type {
-  PostureDef, ManeuverDef, ResidentCultivationDef, NpcCareDef, ExcavationContractDef, EscortContractDef, NpcIdentityDef, NpcSocialReportDef, NpcSocialDef, PatrolContractDef, PrisonerExchangeDef, RansomDef, NpcAbductionDef, RescueRemainsDef, RescueContractDef, RecoveryContractDef, SourceContractDef, CartographyDef, InteractionDef, NpcPsycheDef, FatigueDef, AbilityDef, AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
+  SwarmDef, PostureDef, ManeuverDef, ResidentCultivationDef, NpcCareDef, ExcavationContractDef, EscortContractDef, NpcIdentityDef, NpcSocialReportDef, NpcSocialDef, PatrolContractDef, PrisonerExchangeDef, RansomDef, NpcAbductionDef, RescueRemainsDef, RescueContractDef, RecoveryContractDef, SourceContractDef, CartographyDef, InteractionDef, NpcPsycheDef, FatigueDef, AbilityDef, AnyDef, BodyDef, CreatureDef, DefBase, EventDef, ItemDef, LootTableDef, PillEffectDef,
   SkillDef, TerrainDef, ThoughtDef, TraitDef, BackgroundDef, WoundDef, DiseaseDef, BreakDef, RecipeDef, MaterialDef, TraumaDef, GrowthDef, RecoveryDef, SurgeryDef, ProcedureDef, NutritionDef, FoodSafetyDef, WaterSafetyDef, ProstheticDef, WorldGenDef, BiomeDef, RegionSiteDef, SeasonDef, WeatherDef, ClimateDef, FactionDef, DiplomacyDef, EconomyDef, TraderStockDef, WorldSimulationDef, DrugDef, PharmacologyDef, KnowledgeDef, BestiaryDef, BestiaryEntryDef, ClinicDef, InnDef, HandHygieneDef, NpcRestDef, ResidentProvisionDef, ResidentWaterDef, ResidentPurificationDef, TeacherDef, ResidentWarmthDef, BeddingMoveDef, SupplyContractDef, BountyContractDef, InvestigationDef, FactionRelationsDef, ColdConfusionDef, CompanionDef, CompanionBondDef, PrisonerDef, PrisonerCareDef, PrisonerEscortDef, RecruitmentDef, RescueDef, NpcCustodyDef, BaseCampDef, BaseDefenseDef, BaseLogisticsDef, BaseWaterDef, BaseRestDef, CampfireDef, BeddingContactDef, GearWeatherDef, MaterialCraftingDef, RegionLayoutDef, KinshipDef, FieldDeviceDef, EvidenceDef, RetirementDef,
 } from './types'
 
@@ -400,6 +400,7 @@ const REQUIRED: Record<string, string[]> = {
   NpcRest: ['label','terrain','radius','sleepAt','debtAt','wakeAt','retryTurns'],
   HandHygiene: ['label','waterMl','washTurns','cleanTurns','washedBonus','dirtyPenalty','dirtyContam'],
   Bestiary: ['observeTurns','encounterCount','encounterGap','fightClearTurns','rangeWidth','perRange','keenRange','dissectTurns','dissectBase','dissectMastery','dissectPer','dissectMin','dissectMax','autoDissectAfter','failedYield','toolBonus','tabooThought','tabooLoss'],
+  Swarm:['label','sprite','members','moveTU','attractionRadiusMult','coverRadius','sightMult','activeDaylightMax','disperseTurns','ashPerTurn','coughEvery','minCoughDose','snuffChance','snuffItems','burnKinds','burnMembersPerTurn','captureMembers','captureTool','bodyItem','studyTU','facts'],
   BestiaryEntry: ['label','creatures','kind','difficulty','silhouette','yields','facts'],
   Knowledge: ['examineTurns','tasteTurns','tasteFraction','tasteBonus','baseChance','chancePerPoint','minChance','maxChance','masteryScore','defaultDifficulty','noticeablePain','pageTurns','literacySpeed','misreadChance','literacyBooks'],
   Drug: ['label', 'durationTurns', 'pain', 'consciousness', 'breathing', 'sleep', 'fatigue', 'reaction', 'bleedMult', 'tolerance', 'addiction'],
@@ -1437,10 +1438,17 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     need(d.id,d.tabooThought,'Thought');range(d.id,'tabooLoss',d.tabooLoss,-100,0)
   }
   const species=new Set<string>()
+  for(const d of db.all<ItemDef>('Item'))if(d.camouflageCoating){const c=d.camouflageCoating;range(d.id,'coating.durationTurns',c.durationTurns,1,28800,true);range(d.id,'coating.sightMult',c.sightMult,.1,1);range(d.id,'coating.washAt',c.washAt,1,100);range(d.id,'coating.tint',c.tint,0,0xffffff,true)}
+  for(const d of db.all<SwarmDef>('Swarm')){
+    for(const [key,min,max,integer] of [['members',1,100000,true],['moveTU',25,1000,true],['attractionRadiusMult',1,4,false],['coverRadius',0,3,true],['sightMult',.1,1,false],['activeDaylightMax',0,1,false],['ashPerTurn',0,1,false],['coughEvery',1,1200,true],['minCoughDose',0,1,false],['snuffChance',0,100,false],['burnMembersPerTurn',0,100000,true],['captureMembers',1,10000,true],['studyTU',100,100,true]] as const){if(!Number.isFinite(d[key]))report.errors.push(d.id+': '+key+' 필요');else range(d.id,key,d[key],min,max,integer)}
+    if(!Array.isArray(d.disperseTurns)||d.disperseTurns.length!==2||d.disperseTurns.some(n=>!Number.isSafeInteger(n)||n<1||n>100)||d.disperseTurns[0]>d.disperseTurns[1])report.errors.push(d.id+': disperseTurns 범위 오류')
+    need(d.id,d.captureTool,'Item');need(d.id,d.bodyItem,'Item');for(const id of d.snuffItems??[])need(d.id,id,'Item')
+    if(!d.sprite||!Array.isArray(d.burnKinds)||!Array.isArray(d.facts))report.errors.push(d.id+': 군체 표시/불빛/기록 필요')
+  }
   for(const d of db.all<BestiaryEntryDef>('BestiaryEntry')){
-    if(!['animal','human','unavailable','machine'].includes(d.kind))report.errors.push(`${d.id}: 알 수 없는 해부 kind`)
+    if(!['animal','human','unavailable','machine','swarm'].includes(d.kind))report.errors.push(`${d.id}: 알 수 없는 해부 kind`)
     if(!d.creatures.length)report.errors.push(`${d.id}: 도감 종 참조 없음`)
-    for(const id of d.creatures){need(d.id,id,'Creature');if(species.has(id))report.errors.push(`${d.id}: 도감 종 중복 '${id}'`);species.add(id)}
+    for(const id of d.creatures){need(d.id,id,d.kind==='swarm'?'Swarm':'Creature');if(species.has(id))report.errors.push(`${d.id}: 도감 종 중복 '${id}'`);species.add(id)}
     range(d.id,'difficulty',d.difficulty,0,100)
     for(const y of d.yields){need(d.id,y.item,'Item');range(d.id,'yields.count',y.count,1,Infinity,true)}
   }
@@ -2236,6 +2244,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for(const row of d.clear??[]){rect(row,'clear');need(d.id,row.terrain,'Terrain')}
     for(const b of d.buildings??[]){rect(b,'building');pos(b.door,'door');for(const id of [b.wall,b.floor,b.doorTerrain])need(d.id,id,'Terrain')}
     for(const row of d.objects??[]){pos(row.pos,'object');need(d.id,row.terrain,'Terrain');for(const item of row.items??[]){need(d.id,item.item,'Item');range(d.id,'object.count',item.count,1,99,true)}}
+    for(const row of d.swarms??[]){need(d.id,row.def,'Swarm');pos(row.pos,'swarm')}
     for(const row of d.spawns??[]){if(row.settlementResident!==undefined&&typeof row.settlementResident!=='boolean')report.errors.push(`${d.id}: settlementResident 오류`);need(d.id,row.creature,'Creature');pos(row.pos,'spawn');pos(row.home,'home')}
     for(const row of d.links??[]){pos(row.pos,'link');const targets=db.all<RegionLayoutDef>('RegionLayout').filter(t=>t.mapId===row.to);if(!row.to||!targets.length&&!['surface','crypt1','crypt2','crypt3'].includes(row.to))report.errors.push(`${d.id}: link.to 참조 오류`);if(!Array.isArray(row.at)||row.at.length!==2||row.at.some(n=>!Number.isSafeInteger(n)||n<0)||targets.length&&!targets.some(t=>row.at[0]<t.width&&row.at[1]<t.height))report.errors.push(`${d.id}: link.at 도착 좌표 오류`)}
     const subIds=new Set<string>();for(const row of d.submaps??[]){need(d.id,row.layout,'RegionLayout');if(!row.mapId||subIds.has(row.mapId)||db.tryGet<RegionLayoutDef>(row.layout)?.mapId!==row.mapId)report.errors.push(`${d.id}: submap.mapId 참조/중복 오류`);subIds.add(row.mapId)}

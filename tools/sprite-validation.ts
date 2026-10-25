@@ -119,7 +119,23 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
    }
   }
  }
- for(const[key,row]of Object.entries(anims)){counts.animations++;if(!object(row)){errors.push('anim '+key+': 객체가 필요하다');continue}frameList(row.frames,'anim '+key);if(typeof row.fps!=='number'||!Number.isFinite(row.fps)||row.fps<=0)errors.push('anim '+key+': fps는 양수여야 한다')}
+ for(const[key,row]of Object.entries(anims)){
+  counts.animations++;if(!object(row)){errors.push('anim '+key+': 객체가 필요하다');continue}
+  frameList(row.frames,'anim '+key)
+  if(typeof row.fps!=='number'||!Number.isFinite(row.fps)||row.fps<=0)errors.push('anim '+key+': fps는 양수여야 한다')
+  if(row.anchors!==undefined){
+   if(!object(row.anchors))errors.push('anim '+key+'.anchors: frame별 정규화 좌표 객체가 필요하다')
+   else{
+    const keys=Array.isArray(row.frames)?row.frames:[]
+    for(const[frame,anchor]of Object.entries(row.anchors)){
+     if(!Object.hasOwn(frames,frame)||!keys.includes(frame))errors.push('anim '+key+'.anchors.'+frame+': 이 anim에 등록된 frame이 필요하다')
+     if(!Array.isArray(anchor)||anchor.length!==2||!anchor.every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1))errors.push('anim '+key+'.anchors.'+frame+': 0~1의 유한 좌표2개가 필요하다')
+    }
+    for(const frame of keys)if(typeof frame==='string'&&!Object.hasOwn(row.anchors,frame))errors.push('anim '+key+'.anchors.'+frame+': 모든 프레임에 앵커가 필요하다')
+   }
+   if(row.renderScale!==undefined&&(typeof row.renderScale!=='number'||!Number.isFinite(row.renderScale)||row.renderScale<=0))errors.push('anim '+key+'.renderScale: 앵커 원본을 표시할 양수 배율이 필요하다')
+  }
+ }
  for(const[key,row]of Object.entries(chars)){
   counts.characters++
   if(!object(row)){errors.push('char '+key+': 객체가 필요하다');continue}

@@ -42,7 +42,7 @@ export type Dir = 'down' | 'left' | 'right' | 'up'
 const M = manifest as unknown as {
   sheets: Record<string, string>
   frames: Record<string, [string, number, number, number, number]>
-  anims: Record<string, { frames: string[]; fps: number }>
+  anims: Record<string, { frames: string[]; fps: number; anchors?:Record<string,[number,number]>;renderScale?:number }>
   chars: Record<string, CharDef>
   ui: Record<string, string>
   sheetSizes?:Record<string,[number,number]>
@@ -167,3 +167,6 @@ export function iconFrame(name:string){
   const extent=f&&sheetExtent.get(f[0])
   return f?{url:base()+M.sheets[f[0]],x:f[1],y:f[2],w:f[3],h:f[4],sheetWidth:extent!.width,sheetHeight:extent!.height}:undefined
 }
+
+/** Borrow only the current original frames; display owners never destroy the shared atlas. */
+export function swarmArt(name:string){const art=anims[name];if(!art)throw Error('등록된 군체 비행 원문이 없다: '+name);return{...art,textures:Object.fromEntries(art.frames.map(key=>[key,tex(key)]))}}

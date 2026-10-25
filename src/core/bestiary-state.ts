@@ -3,7 +3,7 @@ import { createBody } from './body'
 // 도감의 단계·종 공유·수치 범위. 표시 조회는 상태/RNG를 바꾸지 않는다.
 import { player, type World } from './ctx'
 import { effectiveStat } from './traits'
-import type { BestiaryDef, BestiaryEntryDef, BestiaryRecord, Creature } from './types'
+import type { BestiaryDef, BestiaryEntryDef, BestiaryRecord, Creature, SwarmDef } from './types'
 export const bestiaryDef=(w:World)=>w.db.get<BestiaryDef>('Bestiary.Human')
 const indexes=new WeakMap<World['db'],Map<string,BestiaryEntryDef>>()
 export function bestiaryEntry(w:World,creature:string):BestiaryEntryDef|undefined {
@@ -48,6 +48,7 @@ export function speciesDissections(w:World,creature:string,observer=player(w)):n
 export function bestiaryProgress(w:World,creature:string,observer=player(w)):string {
  const stage=bestiaryStage(w,creature,observer),all=bestiaryRecords(w,creature,observer),d=bestiaryDef(w)
  if(stage===0)return `관찰${Math.max(0,...all.map((b)=>b.observeTurns??b.seen))}/${d.observeTurns}턴 · 조우${Math.max(0,...all.map((b)=>b.encounters??0))}/${d.encounterCount}회`
+ if(w.db.tryGet(creature)?.defType==='Swarm')return stage===1?'다음: 군체의 날개 가루에서 살아 벗어나기':stage===2?'다음: 채집한 실제 나방 표본 살피기':stage===3?'다음: 관련 문헌':'군체의 습성을 기록했다'
  if(stage===1)return '다음: 교전 뒤 살아서 벗어나거나 상대를 쓰러뜨리기'
  if(stage===2)return '다음: 사체 해부 성공'
  if(stage===3)return `해부 성공${speciesDissections(w,creature,observer)}/${d.autoDissectAfter}회 · 다음: 관련 문헌`
@@ -66,6 +67,7 @@ function referenceSpecimen(w:World,id:string,observer:Creature) {
 export function bestiaryDetails(w:World,id:string,observer=player(w)):string[] {
  const entry=bestiaryEntry(w,id),stage=bestiaryStage(w,id,observer)
  if(stage===0)return bestiaryKnown(w,id,observer)?[entry?.silhouette??'정체를 모른다',bestiaryProgress(w,id,observer)]:['아직 관찰하지 못했다']
+ const colony=w.db.tryGet<SwarmDef>(id);if(colony?.defType==='Swarm')return[`S${stage} · 환경 군체 · 신체 부위 없음`,...colony.facts.slice(0,stage),bestiaryProgress(w,id,observer)]
  const def=w.db.creature(id),lines=[`S${stage} · ${['','관찰','전투','해부','문헌'][stage]}`]
  {const range=bestiaryRange(w,observer,referenceSpecimen(w,id,observer).blood,stage)!;lines.push(`혈액 ${range[0]===range[1]?range[0]:`약 ${range[0]}~${range[1]}`}ml`)}
  lines.push(`이동 ${def.moveTU<100?'빠름':def.moveTU>100?'느림':'보통'}`)
@@ -79,6 +81,7 @@ export function bestiaryDetails(w:World,id:string,observer=player(w)):string[] {
 export function bestiaryBody(w:World,id:string,observer=player(w)):string[] {
  const stage=bestiaryStage(w,id,observer)
  if(!stage)return []
+ if(w.db.tryGet(id)?.defType==='Swarm')return['밀도는 남은 개체와 집결 정도에 따른다. 단일 머리·팔·혈액을 가진 몸이 아니다.']
  const sample=referenceSpecimen(w,id,observer),body=w.db.body(w.db.creature(sample.def).body)
  return body.parts.filter((p)=>stage>=3||!p.internal).map((p)=>{
   const max=sample.maxHp[p.id]??p.hp,range=bestiaryRange(w,observer,max,stage,1)!

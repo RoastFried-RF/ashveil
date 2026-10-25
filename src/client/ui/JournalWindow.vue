@@ -54,7 +54,7 @@ const d = computed(() => {
     fieldNotes:pl.fieldNotes??[],
     bookNotes:(pl.booksRead??[]).flatMap(id=>{const item=w.db.item(id);return item.book?.note&&(pl.literacyBooks??pl.booksRead??[]).includes(id)&&!pl.misreadBooks?.includes(id)?[{id,label:item.label,note:item.book.note}]:[]}),
     pills: w.db.all<ItemDef>('Item').filter((i) => i.unidentified === 'pill').map((i) => { const b = pillBelief(w,i.id); return { id: i.id, label: i.label, known: b?.belief ? w.db.pill(b.belief) : null, confidence: b?.confidence, excluded: (b?.ruledOut ?? []).map((id) => w.db.pill(id).label).join(', '), evidence: b?.evidence ?? [] } }),
-    beasts: w.db.all<CreatureDef>('Creature').filter((c) => !c.abstract && !!bestiaryEntry(w,c.id) && bestiaryKnown(w,c.id)).map((c) => {
+    beasts: [...w.db.all<CreatureDef>('Creature'),...w.db.all<import('../../core/types').SwarmDef>('Swarm')].filter((c) => !c.abstract && !!bestiaryEntry(w,c.id) && bestiaryKnown(w,c.id)).map((c) => {
       const b=k.bestiary[c.id],stage=bestiaryStage(w,c.id)
       return {c,b,stage,lines:bestiaryDetails(w,c.id),body:bestiaryBody(w,c.id)}
     }),
@@ -228,7 +228,7 @@ const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==
         <p v-if="!d.beasts.length" class="text-ash-500">아직 관찰한 생물이 없다.</p>
         <p class="mb-1 text-ash-400">관찰 → 전투 생존 → 해부 → 문헌으로 몸과 습성을 익힌다.</p>
         <div v-for="x in d.beasts" :key="x.c.id" class="df df-tab mb-1" :data-testid="`bestiary-${x.c.id}`">
-          <div class="flex justify-between"><span :class="x.stage ? 'text-ash-100' : 'text-ash-500'">{{ x.stage ? x.c.label : '???' }}</span><span v-if="x.b" class="text-ash-500">교전 공격 {{ x.b.fought }}회 · 처치 {{ x.b.killed }}</span></div>
+          <div class="flex justify-between"><span :class="x.stage ? 'text-ash-100' : 'text-ash-500'">{{ x.stage ? x.c.label : '???' }}</span><span v-if="x.b" class="text-ash-500"><template v-if="x.c.defType==='Swarm'">환경 군체 · 표본 {{ x.b.dissected??0 }}회</template><template v-else>교전 공격 {{ x.b.fought }}회 · 처치 {{ x.b.killed }}</template></span></div>
           <p v-for="(line,i) in x.lines" :key="i" class="mt-0.5 text-ash-300">{{ line }}</p>
           <details v-if="x.body.length" class="mt-1 text-ash-300"><summary>{{ x.stage>=3?'해부한 몸 구조':'관찰한 외부 부위' }} (기록한 개체 기준)</summary><p v-for="line in x.body" :key="line">{{ line }}</p></details>
         </div>

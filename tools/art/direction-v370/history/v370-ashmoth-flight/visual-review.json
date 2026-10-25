@@ -1,0 +1,141 @@
+{
+  "format": 1,
+  "actuallyOpened": [
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/originals/ashmoth-flight-four-poses-v1.png",
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/diagnostics/body-anchor-comparison.png",
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/diagnostics/downstroke-source-on-checker.png",
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/diagnostics/folded-source-on-checker.png",
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/diagnostics/raised-source-on-checker.png",
+    "/workspace/.ashveil-planned/v370-ashmoth-flight/diagnostics/spread-source-on-checker.png"
+  ],
+  "originalOpened": true,
+  "individualSourceCropCompositesOpened": 4,
+  "bodyAnchorComparisonOpened": true,
+  "sourceView": "All four seen at 1:1 pixel crops on an opaque checkerboard; full original also opened. No game/browser/Native animation viewed.",
+  "observations": {
+    "fourDistinctWingSilhouettes": true,
+    "sameHeadUpDorsalView": true,
+    "oneMothPerQuadrant": true,
+    "twoAntennaeObservedEachPose": true,
+    "consistentCharcoalHeadThoraxTaperedAbdomen": true,
+    "grayBoneCrossbandPaletteConsistent": true,
+    "noSwarmCloudPainted": true,
+    "noFogGlowShadowGroundTextSceneObserved": true,
+    "meaningfulWingOrAntennaCanvasClippingObserved": false,
+    "coarsePixelClusterStyleObserved": true,
+    "strictUniformPixelGridProven": false,
+    "fourFullyIdenticalBodyPixelArrays": false,
+    "fullWingbeatSmoothnessInActualGameObserved": false
+  },
+  "poseFindings": {
+    "raised": {
+      "observed": "narrow raised forewing V toward head, exposed narrow hindwing side slivers",
+      "limits": "Raised V is visible only as a 2D pose; actual above-body 3D wing height is an interpretation, not measured geometry."
+    },
+    "spread": {
+      "observed": "broad lateral forewings and separate smaller rearward hindwing lobes",
+      "limits": "Exceeds requested60% cell width: alpha16 silhouette532/627=84.85%; alpha8 silhouette534/627=85.17%. Still inside cell and isolated from other meaningful art."
+    },
+    "downstroke": {
+      "observed": "broad forewings swept backward toward tail, visibly different from spread",
+      "limits": "Exceeds60% cell width slightly: alpha16 silhouette392/627=62.52%. Backward V differs from lateral spread; 3D below-body trajectory is not proved by a static image."
+    },
+    "folded": {
+      "observed": "compact wings close beside abdomen, pointed folded silhouette",
+      "limits": "Compact pointed silhouette is distinct from raised recovery; no in-game transition/continuous wing motion demonstrated."
+    }
+  },
+  "anchorReview": {
+    "kind": "visible painted thorax center, manually selected",
+    "sourceCoordinates": {
+      "raised": [
+        339,
+        351
+      ],
+      "spread": [
+        908,
+        351
+      ],
+      "downstroke": [
+        339,
+        890
+      ],
+      "folded": [
+        909,
+        890
+      ]
+    },
+    "poseRelativeHeadSample": [
+      0,
+      -38
+    ],
+    "poseRelativeAbdomenRootSample": [
+      0,
+      43
+    ],
+    "distalAbdomenSampleDeltaY": [
+      156,
+      156,
+      159,
+      159
+    ],
+    "bodyPixelIdentical": false,
+    "localCellAnchorPositions": {
+      "raised": [
+        339,
+        351
+      ],
+      "spread": [
+        281,
+        351
+      ],
+      "downstroke": [
+        339,
+        263
+      ],
+      "folded": [
+        282,
+        263
+      ]
+    },
+    "notes": [
+      "Bodies have a comparable visible size and direction, but exact body pixels and cell-local thorax placement are not identical.",
+      "Cropping/anchor metadata can align visible thorax centers without image scaling; no actual sprite registration or runtime alignment was done.",
+      "Selected head/root/distal abdomen points are visible body samples, not exact shape extrema or a complete anatomy mask.",
+      "True wing hinge axes/3D lift are obscured and are not registered as observed joints."
+    ]
+  },
+  "alphaReview": {
+    "strictZeroAlphaMarginsPassed": false,
+    "alphaZeroPixels": 1334677,
+    "alphaOnePixels": 22943,
+    "canvasEdge": {
+      "nonzeroPixels": 61,
+      "maxAlpha": 1,
+      "alphaAtLeast8Pixels": 0
+    },
+    "safeGutters": {
+      "observedSafeVertical_x550_635": {
+        "nonzeroPixels": 231,
+        "alphaAtLeast8Pixels": 0,
+        "alphaAtLeast16Pixels": 0,
+        "maxAlpha": 1
+      },
+      "observedSafeHorizontal_y530_730": {
+        "nonzeroPixels": 1214,
+        "alphaAtLeast8Pixels": 0,
+        "alphaAtLeast16Pixels": 0,
+        "maxAlpha": 1
+      }
+    },
+    "noAlphaCleanupPerformed": true
+  },
+  "acceptance": {
+    "fourSourcePoseSemanticsReviewed": true,
+    "strictOriginalPromptContractPassed": false,
+    "requiresParentAcceptance": true,
+    "activationReady": false,
+    "runtimeReviewed": false,
+    "releaseAccepted": false
+  }
+}

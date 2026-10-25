@@ -1,3 +1,4 @@
+import {installMapSwarms} from './swarms'
 // 장소별 지도 정의. 최초 생성에만 RNG/현물 UID를 쓰고 이후에는 각인 지도를 재사용한다.
 import { rng, type World } from './ctx'
 import {applyScriptMapGen,type ScriptMapGenOptions} from './script-mapgen'
@@ -40,6 +41,7 @@ function generateLayoutCore(w:World,d:RegionLayoutDef,options:ScriptMapGenOption
       for(const row of object.items){const it=makeItem(w,row.item,row.count),left=gridAdd(w,g,it);if(left)tile.items.push({...it,count:left,gx:undefined,gy:undefined,rot:undefined})}
     }
   }
+  installMapSwarms(w,map,d.swarms??[])
   const spawns=d.spawns.map(s=>({def:s.creature,pos:{x:s.pos[0],y:s.pos[1]},home:{x:s.home[0],y:s.home[1]},room:s.room,settlementResident:s.settlementResident}))
   return applyScriptMapGen(w,d,{map,start:{x:d.start[0],y:d.start[1]},spawns},options)
 }

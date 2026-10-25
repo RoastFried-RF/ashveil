@@ -341,3 +341,8 @@ export * from './expedition-endings'
 export * from './research'
 
 export * from './companion-aid'
+
+export * from './swarms'
+export * from './swarm-state'
+
+export * from './camouflage'
