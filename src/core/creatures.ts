@@ -1,3 +1,4 @@
+import {initializeCrawler} from './crawlers'
 // 생물 생성: 플레이어(배경·특성·시작 능력)와 NPC(로드아웃·잠듦·거점)
 
 import {diseaseStream} from './disease-state'
@@ -81,6 +82,7 @@ export function createCreature(w: World, defId: string, pos: Pos, name?: string)
     for(const drop of w.db.body(body.def).mechanical!.salvage)if(r.chance(drop.chance))(body.machine.components??=[]).push(makeItem(w,drop.item,drop.count))
     body.machine.alert=0
   }
+  initializeCrawler(w,c)
   c.needs.energy = energyMax(w, c)
   return c
 }
@@ -158,6 +160,7 @@ export function createPlayer(w: World, pos: Pos, bgId?: string, reroll: 0 | 1 = 
   }
   if (c.traits.includes('Trait.Alcoholic')) c.effects.push({ kind: 'drankRecently', untilTurn: 14400 })
   c.hp = hpMax(w, c)
+  initializeCrawler(w,c)
   c.needs.energy = energyMax(w, c)
   return c
 }

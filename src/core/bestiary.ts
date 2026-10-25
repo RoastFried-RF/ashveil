@@ -1,3 +1,5 @@
+import {crawlerRules} from './crawler-state'
+import {crawlerHarvest} from './crawlers'
 import { diagonalBlocked } from './path'
 // 관찰/교전의 결과와 실제 사체 해부. UI 조회와 독립적으로 턴에서만 기록한다.
 import { capacity } from './body'
@@ -5,7 +7,7 @@ import { bestiaryDef, bestiaryEntry, ensureBestiary, speciesDissections } from '
 import { clamp, log, player, rng, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import { canSee, lightLevel } from './fov'
 import { cheb } from './geom'
-import { allItems, itemDef, makeItem, qualityOf } from './items'
+import { allItems, itemDef, makeItem, maxStack, qualityOf } from './items'
 import { masteryStage, practice } from './skills'
 import { effectiveStat } from './traits'
 import { addThought } from './thoughts'
@@ -53,6 +55,7 @@ export function dissectionError(w:World,actor:Creature,targetId:number,toolUid?:
  if(!corpse||corpse.alive||corpse.id===actor.id)return '해부할 사체가 없다'
  if(cheb(actor.pos,corpse.pos)>1||diagonalBlocked(w,actor.pos,corpse.pos.x-actor.pos.x,corpse.pos.y-actor.pos.y))return '사체 곁으로 가야 한다'
  if(!entry)return '이 사체를 해부할 방법을 모른다'
+ if(w.db.creature(corpse.def).crawler&&!crawlerRules(w,corpse))return '원래 지네 신체와 현재 독샘·체절 규칙이 다르다'
  if(entry.kind==='unavailable')return '그는 얼마 전까지 사람이었다. 해부할 수 없다'
  if(corpse.dissected)return '이미 해부를 시도한 사체다'
  if(!actor.alive||actor.unconscious||capacity(w,actor,'manipulation')<.2)return '손을 쓸 수 없다'
@@ -100,12 +103,14 @@ export function finishDissection(w:World,actor:Creature,activity:Activity):strin
   if(corpse.carcassStock&&separated.has(yield0.item))continue
   separated.add(yield0.item)
   const stock=corpse.carcassStock?.[yield0.item],available=corpse.carcassStock?stock?.remaining??0:yield0.count
-  for(let n=0;n<Math.floor(available*mult);n++){
-   const it=makeItem(w,yield0.item)
+  const quantity=Math.floor(available*mult),batch=w.db.creature(corpse.def).crawler?maxStack(w.db.item(yield0.item)):1
+  for(let n=0;n<quantity;n+=batch){
+   const it=makeItem(w,yield0.item,Math.min(batch,quantity-n))
    if(stock){for(const key of['freshness','foodFrozen','foodThawed','foodWet','foodLeftover','foodSealed']as const)if(stock[key]!==undefined)Object.assign(it,{[key]:stock[key]});if(stock.freshness!==undefined)it.foodAgedAt=stock.at}
    tile.items.push(it)
   }
  }
+ crawlerHarvest(w,corpse,mult)
  for(const stock of Object.values(corpse.carcassStock??{}))stock.remaining=0
  if(entry.kind==='human'){addThought(w,actor,d.tabooThought);witnessTaboo(w,actor,corpse)}
  if(actor.id===w.s.playerId&&tile.items.length>beforeItems)w.s.loot={pos:{...corpse.pos},kind:'floor'}

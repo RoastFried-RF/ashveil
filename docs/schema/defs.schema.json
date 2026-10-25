@@ -13933,6 +13933,121 @@
               "defType"
             ],
             "properties": {
+              "neurotoxin": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "turns": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "prefixItems": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ],
+                                "minItems": 2,
+                                "maxItems": 2
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "anyOf": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "camouflageCoating": {
                 "anyOf": [
                   {
@@ -17802,6 +17917,27 @@
               "id"
             ],
             "properties": {
+              "neurotoxin": {
+                "type": "object",
+                "properties": {
+                  "turns": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "number"
+                      }
+                    ],
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "required": [
+                  "turns"
+                ]
+              },
               "camouflageCoating": {
                 "type": "object",
                 "properties": {
@@ -19322,6 +19458,16 @@
               "defType"
             ],
             "properties": {
+              "crawler": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/Inherited_CrawlerRules"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "sower": {
                 "anyOf": [
                   {
@@ -22743,6 +22889,9 @@
               "id"
             ],
             "properties": {
+              "crawler": {
+                "$ref": "#/$defs/CrawlerRules"
+              },
               "sower": {
                 "$ref": "#/$defs/SowerRules"
               },
@@ -23515,6 +23664,173 @@
             }
           }
         }
+      ]
+    },
+    "CrawlerRules": {
+      "type": "object",
+      "properties": {
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "string"
+              },
+              "ganglion": {
+                "type": "string"
+              },
+              "legs": {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "body",
+              "ganglion",
+              "legs"
+            ]
+          }
+        },
+        "head": {
+          "type": "string"
+        },
+        "glands": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "venomItem": {
+          "type": "string"
+        },
+        "dosesPerGland": {
+          "type": "number"
+        },
+        "venomAttack": {
+          "type": "string"
+        },
+        "coilAbility": {
+          "type": "string"
+        },
+        "prey": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "foodIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "huntBelowKcal": {
+          "type": "number"
+        },
+        "eatBelowKcal": {
+          "type": "number"
+        },
+        "drinkAboveMl": {
+          "type": "number"
+        },
+        "drinkMl": {
+          "type": "number"
+        },
+        "smokeKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smokeRadius": {
+          "type": "number"
+        },
+        "ceiling": {
+          "type": "object",
+          "properties": {
+            "dropRadius": {
+              "type": "number"
+            },
+            "inspectRadius": {
+              "type": "number"
+            },
+            "awarenessTurns": {
+              "type": "number"
+            },
+            "ambushHit": {
+              "type": "number"
+            },
+            "reclimbTurns": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "dropRadius",
+            "inspectRadius",
+            "awarenessTurns",
+            "ambushHit",
+            "reclimbTurns"
+          ]
+        },
+        "harvest": {
+          "type": "object",
+          "properties": {
+            "plateItem": {
+              "type": "string"
+            },
+            "legItem": {
+              "type": "string"
+            },
+            "meatItem": {
+              "type": "string"
+            },
+            "meatCount": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "plateItem",
+            "legItem",
+            "meatItem",
+            "meatCount"
+          ]
+        }
+      },
+      "required": [
+        "segments",
+        "head",
+        "glands",
+        "venomItem",
+        "dosesPerGland",
+        "venomAttack",
+        "coilAbility",
+        "prey",
+        "foodIds",
+        "huntBelowKcal",
+        "eatBelowKcal",
+        "drinkAboveMl",
+        "drinkMl",
+        "smokeKinds",
+        "smokeRadius",
+        "ceiling",
+        "harvest"
       ]
     },
     "SowerRules": {
@@ -30939,6 +31255,9 @@
     "AbilityAttackMods": {
       "type": "object",
       "properties": {
+        "fromAbove": {
+          "type": "boolean"
+        },
         "hitBonus": {
           "type": "number"
         },
@@ -62162,6 +62481,726 @@
         }
       }
     },
+    "Inherited_CrawlerRules": {
+      "type": "object",
+      "properties": {
+        "segments": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "body": {
+                        "type": "string"
+                      },
+                      "ganglion": {
+                        "type": "string"
+                      },
+                      "legs": {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "minItems": 2,
+                        "maxItems": 2
+                      }
+                    },
+                    "required": [
+                      "body",
+                      "ganglion",
+                      "legs"
+                    ]
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "body": {
+                            "type": "string"
+                          },
+                          "ganglion": {
+                            "type": "string"
+                          },
+                          "legs": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "minItems": 2,
+                            "maxItems": 2
+                          }
+                        },
+                        "required": [
+                          "body",
+                          "ganglion",
+                          "legs"
+                        ]
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "body": {
+                            "type": "string"
+                          },
+                          "ganglion": {
+                            "type": "string"
+                          },
+                          "legs": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ],
+                            "minItems": 2,
+                            "maxItems": 2
+                          }
+                        },
+                        "required": [
+                          "body",
+                          "ganglion",
+                          "legs"
+                        ]
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "body": {
+                                "type": "string"
+                              },
+                              "ganglion": {
+                                "type": "string"
+                              },
+                              "legs": {
+                                "type": "array",
+                                "prefixItems": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ],
+                                "minItems": 2,
+                                "maxItems": 2
+                              }
+                            },
+                            "required": [
+                              "body",
+                              "ganglion",
+                              "legs"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "head": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "glands": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ]
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "venomItem": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dosesPerGland": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "venomAttack": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coilAbility": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prey": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "foodIds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "huntBelowKcal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "eatBelowKcal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drinkAboveMl": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "drinkMl": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "smokeKinds": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$append": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$prepend": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "$remove": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "required": [
+                              "id"
+                            ],
+                            "properties": {
+                              "id": {}
+                            },
+                            "additionalProperties": false
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "additionalProperties": false,
+                  "anyOf": [
+                    {
+                      "required": [
+                        "$append"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$prepend"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "$remove"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "smokeRadius": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ceiling": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "dropRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "inspectRadius": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "awarenessTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "ambushHit": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "reclimbTurns": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "harvest": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "plateItem": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "legItem": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "meatItem": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "meatCount": {
+                  "anyOf": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "$inherit": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "$inherit": {
+          "const": false
+        }
+      }
+    },
     "Inherited_SowerRules": {
       "type": "object",
       "properties": {
@@ -64491,6 +65530,16 @@
     "Inherited_AbilityAttackMods": {
       "type": "object",
       "properties": {
+        "fromAbove": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "hitBonus": {
           "anyOf": [
             {

@@ -7,10 +7,14 @@ import type {MotionName} from './character-motion'
 import {atlasPlan} from './atlas-plan'
 import {AssetLifecycle} from './asset-lifecycle'
 import type {RigSpec} from './rig-spec'
+import type {CrawlerSpec} from './crawler-spec'
+import {crawlerSpecFrameKeys} from './crawler-spec'
 
 export interface CharDef {
   /** Separate original parts resolved only while this body model is selected. */
   rig?:RigSpec
+  /** Eight owned body segments/16 legs assembled from one immutable dorsal source. */
+  crawler?:CrawlerSpec
   walk: Record<Dir, string[]>
   idle: Record<Dir, string[]>
   attack?: Record<Dir, string[]>
@@ -170,3 +174,5 @@ export function iconFrame(name:string){
 
 /** Borrow only the current original frames; display owners never destroy the shared atlas. */
 export function swarmArt(name:string){const art=anims[name];if(!art)throw Error('등록된 군체 비행 원문이 없다: '+name);return{...art,textures:Object.fromEntries(art.frames.map(key=>[key,tex(key)]))}}
+
+export function crawlerArt(spec:CrawlerSpec){return{spec,textures:Object.fromEntries(crawlerSpecFrameKeys(spec).map(key=>[key,tex(key)]))}}

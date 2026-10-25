@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 개발 미리보기는 **v0.370-dev·저장215**이다. 새 정비 구역의 유한 재나방 군체2개를 실제 광원 유도·시야/흡입·횃불 꺼짐·분산, 면포 채집/표본 조사·가루/조리·회색 위장·저장으로 연결했다. [구현·한계](docs/swarm-v370.md) · [비행 미리보기](https://roastfried-rf.github.io/ashveil/artbook/swarm/). 기존 지도/인구를 소급 보충하지 않는다. 파종기와 잿곰·측량기·까마귀의 연결은 유지한다. [파종기](docs/sower-v364.md) · [자율 구현 추적](docs/autonomous-implementation.md) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/) · [게임 실행](https://roastfried-rf.github.io/ashveil/). 관로 지네/구제기·착용/절단/보철 외형·X1–X4와 전체 출시 검증은 남아 있다.
+현재 작업 묶음은 **v0.375-dev·저장216**이다. 새 굴뚝탑/늪 점검실의 관로 지네를57부위·8체절/16다리·유한 독샘·천장 이동/낙하/경계·국소 마비·실제 먹이/물·해부·독 화살/장전·흉갑/조리·저장과 연결한다. [구현·한계](docs/crawler-v375.md) · [조립 미리보기](https://roastfried-rf.github.io/ashveil/artbook/crawler/) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/). 기존 재나방과 파종기·잿곰·측량기·까마귀의 원래 개체/재고를 유지하며 방문한 지도에 새 생물을 보충하지 않는다. 구제기·착용/손상 몸·장기 확장 및 전체 출시 게이트는 남는다. [실행 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

@@ -1,3 +1,6 @@
+import {crawlerClimb,crawlerDrop,crawlerDescend,crawlerFeed,crawlerEat,crawlerDrink,crawlerCeilingMove,inspectCeiling} from './crawlers'
+import {coatArrow} from './neurotoxin'
+import {paralysisMoveMult} from './neurotoxin-state'
 import {applyCamouflage} from './camouflage'
 import {captureSwarm,studyMoths} from './swarms'
 import {placementQuote} from './placement'
@@ -170,7 +173,7 @@ import { masteryStage, practice, studyBook } from './skills'
 import type { Surgery } from './surgery'
 import { canHeatBlade, strainProjectiles, treatmentArm, type Procedure } from './medical'
 import { attemptFirearm, firearmAmmo, firearmCareStep, firearmShock, magazineReloadStep, startFirearmCare } from './firearms'
-import { finishReload, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
+import { finishReload, projectileToxin, projectileFletching, projectileReady, spendProjectile, startReload } from './ranged'
 import { throwAtCreature } from './throwing'
 import { bowProblem } from './gear-state'
 import { bowStringBreaks, gearCareStep, startGearCare, type GearCare } from './gear-care'
@@ -412,6 +415,15 @@ export type Action =
   | {type:'sowerSpray';target:number;uid:number}
   | {type:'fly';dir:number}
   | {type:'land'}
+  | {type:'crawlerDrink'}
+  | {type:'crawlerCeilingMove';dir:number}
+  | {type:'crawlerDescend'}
+  | {type:'crawlerFeed';target:number}
+  | {type:'crawlerEat';uid:number}
+  | {type:'crawlerClimb'}
+  | {type:'crawlerDrop';target:number}
+  | {type:'inspectCeiling'}
+  | {type:'coatArrow';uid:number;arrowUid:number}
   | {type:'tearCarrion';target:number}
   | {type:'tearFood';uid:number}
   | { type: 'stairs' }
@@ -443,9 +455,10 @@ function isPl(c: Creature) { return c.faction === 'player' }
 
 /** 이동 = 1턴(01 §4). 잠행 2턴, 양다리 불구면 기어가기 2턴 */
 export function moveTU(w: World, c: Creature, to: Pos): number {
+  if(w.db.creature(c.def).crawler)return Math.ceil(w.db.creature(c.def).moveTU/Math.max(.1,capacity(w,c,'moving')))*paralysisMoveMult(w,c)
   if(terrainAt(w,to).water==='deep'&&(!tileAt(w,to).icy||(tileAt(w,to).iceHoleUntil??0)>turnOf(w)))return 200
   if (regionPenalties(w, c).crawl) return 200
-  return Math.max(c.sneaking ? 200 : 100,crouched(w,c)?crouchRule(w)!.movementTurns*100:100)
+  return Math.max(c.sneaking ? 200 : 100,crouched(w,c)?crouchRule(w)!.movementTurns*100:100)*paralysisMoveMult(w,c)
 }
 
 /** 비틀거림% = clamp(0, 60, 왼다리 + 오른다리 + 지형 + 몸) (01 §5.2) */
@@ -627,6 +640,15 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
   if (c.breakdown?.kind === 'catatonia' && a.type !== 'wait') return FAIL('몸이 굳어 움직일 수 없다. (정신붕괴: 긴장증)')
   if (c.breakdown?.kind === 'lie' && a.type === 'move') return FAIL('몸을 일으키고 싶지 않다. (정신붕괴: 드러눕기)')
   switch (a.type) {
+    case 'crawlerDrink':return crawlerDrink(w,c)
+    case 'crawlerCeilingMove':return crawlerCeilingMove(w,c,a.dir)
+    case 'crawlerDescend':return crawlerDescend(w,c)
+    case 'crawlerFeed':return crawlerFeed(w,c,a.target)
+    case 'crawlerEat':return crawlerEat(w,c,a.uid)
+    case 'crawlerClimb':return crawlerClimb(w,c)
+    case 'crawlerDrop':return crawlerDrop(w,c,a.target)
+    case 'inspectCeiling':return inspectCeiling(w,c)
+    case 'coatArrow':{const error=coatArrow(w,c,a.uid,a.arrowUid);return error?FAIL(error):{ok:true,tu:100}}
     case 'mapSurveyAccept':{const trader=creatureById(w,a.target),error=trader?acceptMapSurvey(w,c,trader,a.offer,a.expectedReward):'상인을 찾을 수 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'mapSurveyDeliver':{const trader=creatureById(w,a.target),error=trader?deliverMapSurvey(w,c,trader,a.contract,a.paperUid,a.expectedReward):'상인을 찾을 수 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'worldRaidLoot': {const error=worldRaidLoot(w,c);return error?FAIL(error):{ok:true,tu:100}}
@@ -811,6 +833,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
 
     case 'move': {
+      if(w.db.creature(c.def).crawler&&(capacity(w,c,'moving')<=0||c.crawlerState?.mode==='ceiling'))return FAIL('지상으로 내려설 실제 다리가 필요하다')
       if(c.flight)return fly(w,c,a.dir)
       const d = DIRS[a.dir]
       if (!d) return FAIL('방향 오류')
@@ -895,6 +918,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     }
 
     case 'attack': {
+      if(c.crawlerState?.mode==='ceiling')return FAIL('지상으로 내려와야 물 수 있다')
       const t = creatureById(w, a.target)
       if (!t || !t.alive) return FAIL('대상이 없다')
       const wl = meleeWield(w, c,a.mode)
@@ -938,9 +962,9 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
         return {ok:true,tu:100}
       }
       if (bowStringBreaks(w, c)) return { ok: true, tu: 100 }
-      const projectileDamaged=projectileFletching(w,c,mw)
+      const projectileDamaged=projectileFletching(w,c,mw),toxin=projectileToxin(w,c,mw)
       spendProjectile(w, c, mw)
-      const res = resolveAttack(w, c, t, { ranged: true,projectileDamaged })
+      const res = resolveAttack(w, c, t, { ranged: true,projectileDamaged,...(toxin?{toxin}:{}) })
       recoverArrow(w, c, t, res.hit, res.woundId,projectileDamaged)
       return { ok: true, tu: 100 }
     }
@@ -1682,8 +1706,9 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       const weapon=c.equip.main,rd=weapon&&itemDef(w,weapon).ranged
       if(rd&&rd.ammo!==ammo.def&&!(weapon&&firearmAmmo(w,weapon,ammo)))return FAIL('현재 원거리 무기에 맞지 않는 탄약이다')
       if(weapon?.loadedAmmo&&!!weapon.loadedAmmoFletching!==!!ammo.fletchingDamaged)return FAIL('이미 장전된 탄약의 깃 상태는 선택으로 바꿀 수 없다')
-      const preference={def:ammo.def,fletchingDamaged:!!ammo.fletchingDamaged}
-      if(c.ammoPreference?.def!==preference.def||c.ammoPreference.fletchingDamaged!==preference.fletchingDamaged){c.ammoPreference=preference;if(isPl(c))log(w,'info',`다음 사격 탄약: ${itemLabel(w,ammo)}.`)}
+      if(weapon?.loadedAmmo&&!!weapon.loadedAmmoToxin!==!!ammo.toxin)return FAIL('이미 장전된 화살의 독은 선택으로 바꿀 수 없다')
+      const preference={def:ammo.def,fletchingDamaged:!!ammo.fletchingDamaged,...(ammo.toxin?{toxin:true}:c.ammoPreference?.toxin!==undefined?{toxin:false}:{})}
+      if(c.ammoPreference?.def!==preference.def||c.ammoPreference.fletchingDamaged!==preference.fletchingDamaged||c.ammoPreference.toxin!==preference.toxin){c.ammoPreference=preference;if(isPl(c))log(w,'info',`다음 사격 탄약: ${itemLabel(w,ammo)}.`)}
       return FREE
     }
 

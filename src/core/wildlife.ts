@@ -31,7 +31,7 @@ const fail=(msg:string):ActResult=>({ok:false,tu:0,msg})
 export function wildlifeRules(w:World,c:Creature){return w.db.creature(c.def).wildlife}
 export function animalMouthReady(w:World,c:Creature){const kind=w.db.body(c.body.def).kind;return !!wildlifeRules(w,c)&&kind!=='humanoid'&&kind!=='mechanical'&&c.alive&&!c.flight&&!c.asleep&&!c.unconscious&&capacity(w,c,'consciousness')>=.3&&capacity(w,c,'eating')>=.1}
 export function animalFoodAllowed(w:World,c:Creature,item:ItemInst){const d=itemDef(w,item);return !!wildlifeRules(w,c)?.foodIds.includes(item.def)&&!!d.food&&!d.openFood&&!d.food.servings&&!d.food.needsTool&&!item.missingItem&&!item.half&&!item.foodFrozen&&item.count>0}
-function swallow(w:World,c:Creature,item:ItemInst,count:number){
+export function swallowAnimalFood(w:World,c:Creature,item:ItemInst,count:number){
  const d=itemDef(w,item).food!
  for(let i=0;i<count;i++){
   nourish(w,c,foodKcal(w,item),d.protein,d.vitamin,{uid:item.uid,def:item.def});hydrate(w,c,d.water??0,(d.thirst??0)+(item.foodSaltGrams??0)*waterSafetyDef(w).saltFlushMlPerGram!)
@@ -46,15 +46,18 @@ export function animalEat(w:World,c:Creature,uid:number):ActResult{
  if(!animalMouthReady(w,c))return fail('입과 의식을 쓸 수 없다')
  const floor=tileAt(w,c.pos).items,item=floor.find(i=>i.uid===uid)??c.bag.find(i=>i.uid===uid)
  if(!item||!animalFoodAllowed(w,c,item))return fail('원래 먹이가 없거나 이 동물이 먹을 수 없다')
- swallow(w,c,item,1);item.count--
+ swallowAnimalFood(w,c,item,1);item.count--
  if(item.count===0){c.bag=c.bag.filter(i=>i!==item);tileAt(w,c.pos).items=floor.filter(i=>i!==item)}
  return{ok:true,tu:100}
 }
 export function animalDrink(w:World,c:Creature):ActResult{
  if(!animalMouthReady(w,c))return fail('입과 의식을 쓸 수 없다')
+ return drinkAnimalWater(w,c,wildlifeRules(w,c)!.drinkMl??300)
+}
+export function drinkAnimalWater(w:World,c:Creature,ml:number):ActResult{
  const source=nearbyWater(w,c);if(!source)return fail('곁에 마실 수 있는 물이 없다')
  const facing=dirIndex(source.pos.x-c.pos.x,source.pos.y-c.pos.y);if(facing>=0)c.facing=facing
- const ml=wildlifeRules(w,c)!.drinkMl??300;hydrate(w,c,ml,salineWaterLoss(w,source.quality,ml));drinkContaminants(w,c,source.quality,ml);return{ok:true,tu:100}
+ hydrate(w,c,ml,salineWaterLoss(w,source.quality,ml));drinkContaminants(w,c,source.quality,ml);return{ok:true,tu:100}
 }
 export function animalBrowseError(w:World,c:Creature,p:Pos){
  if(wildlifeRules(w,c)?.browse===false)return '이 동물은 밭을 통째로 뜯어 먹지 않는다'
@@ -72,7 +75,7 @@ export function finishAnimalBrowse(w:World,c:Creature,p:Pos,fertility:number){
  if(animalBrowseError(w,c,p))return
  const g=terrainAt(w,p).gather!,count=Math.min(gatherStockCount(w,p),wildlifeRules(w,c)?.browseCount??g.count),food=makeItem(w,g.item,count),q=cropHarvestContaminants(w,p,g.count)
  food.contaminantAsh=q.ash;food.foodWater=q.water
- swallow(w,c,food,count)
+ swallowAnimalFood(w,c,food,count)
  takeGatherStock(w,p,count,Math.ceil(g.regrowTurns/fertility))
 }
 export function wildlifeThreats(w:World,c:Creature,rule=wildlifeRules(w,c)){

@@ -1,3 +1,5 @@
+import {crawlerBiteToxin,limitCrawlerCarcass} from './crawlers'
+import {applyLocalToxin} from './neurotoxin'
 import {diagonalBlocked} from './path'
 import {observeSowerAssault} from './sower-state'
 import {endSeasonalSleep} from './bear-state'
@@ -164,8 +166,9 @@ export function previewHit(w: World, a: Creature, d: Creature, ranged = false, m
   if (helpless(d)) add(d.unconscious ? '의식 없는 상대' : '잠든 상대', 40)
   else {
     const rel = relationOf(w, d, a.pos)
-    add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
-    if (unaware(w, a, d)) add('기습', 20)
+    if(mods?.fromAbove)lines.push('위쪽 낙하: 평면 방향 보정 없음')
+    else add(rel === 'back' ? '후면' : rel === 'side' ? '측면' : '정면', rel === 'back' ? 20 : rel === 'side' ? 10 : 0)
+    if (!mods?.fromAbove&&unaware(w, a, d)) add('기습', 20)
   }
   // 조명 (대상 칸): 밝음 0 · 어스름 −5 · 어둠 −15 · 칠흑 −30
   const lv = lightLevel(w, d.pos)
@@ -249,8 +252,9 @@ function reactionMult(w: World, d: Creature): number {
   return n === 0 ? 1 : n === 1 ? 1.5 : 2
 }
 
-function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: boolean): Reaction[] {
+function reactionOptions(w: World, a: Creature, d: Creature, D: number, ranged: boolean,fromAbove=false): Reaction[] {
   const turn = turnOf(w)
+  if(fromAbove)return[]
   if (d.breakdown?.kind === 'berserk' || d.breakdown?.kind === 'catatonia' || helpless(d) || d.ai.mode === 'surrender' || d.ai.cornered || d.needs.energy <= 0) return []
   if (hasEffect(d, 'stunned', turn) || unaware(w, a, d) || !canSee(w, d, a.pos)) return []
   const rel = relationOf(w, d, a.pos)
@@ -365,6 +369,7 @@ export interface AttackResult { hit: boolean; damage: number; killed: boolean; w
 export interface AttackOpts {
   /** 투척 등 실제 공격 물품을 명시한다. 장비를 임시 교체하지 않는다. */
   wield?: Wield
+  toxin?:import('./types').ToxinCoating
   projectileDamaged?:boolean
   ranged?: boolean
   mods?: AbilityAttackMods
@@ -441,7 +446,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   const aName = a.faction === 'player' ? '당신' : knownCreatureName(w,a)
   const dName = d.faction === 'player' ? '당신' : knownCreatureName(w,d)
   const label = opts.abilityLabel ?? atk.label
-  const sneak = helpless(d)
+  const sneak = !mods?.fromAbove&&helpless(d)
   const firstSneak = sneak
 
   a.exerted = true
@@ -490,7 +495,7 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   let shieldFailed = false
   let forcedPart: string | undefined
   if (!sneak && !opts.counter) {
-    const react = chooseReaction(d, reactionOptions(w, a, d, D, !!opts.ranged))
+    const react = chooseReaction(d, reactionOptions(w, a, d, D, !!opts.ranged,!!mods?.fromAbove))
     if (react) {
       d.needs.energy -= react.cost
       d.exerted = true
@@ -628,6 +633,8 @@ function resolveAttackCore(w: World, a: Creature, d: Creature, opts: AttackOpts)
   if (isPlayer) log(w, d.faction === 'player' ? 'danger' : 'combat', text, bestiaryCombatDetails(w,d,detail))
   if (d.faction === 'player') d.history.push({ turn, kind: 'wound', text: `${knownCreatureName(w,a)}에게 ${out.target.label} ${out.woundLabel}${out.arterial ? '(동맥)' : ''}${out.fracture ? '(골절)' : ''}` })
 
+  crawlerBiteToxin(w,a,d,atk.id,out.target.id,out.woundId)
+  if(opts.toxin)applyLocalToxin(w,a,d,out.target.id,out.woundId,opts.toxin)
   observeBleeding(w,d)
   // 6 2차 효과
   secondary(w, a, d, out.target, D, dtype, atk, mods, out.tendon, isPlayer, dName, out.woundId)
@@ -921,6 +928,7 @@ export function killCreature(w: World, c: Creature, cause: string,options:{execu
     initializeCarcass(w,c,count>0?{item:rule?.item??'Item.RawMeat',count}:undefined)
     if(count>0){const food=c.carcassStock?takeCarcassStock(w,c,rule?.item??'Item.RawMeat',count):makeItem(w,rule?.item??'Item.RawMeat',count);if(food)t.items.push(food)}
   }else initializeCarcass(w,c)
+  limitCrawlerCarcass(w,c)
   if (c.id !== pl.id && pl.alive && (byPlayer || witnessedDeath)) traumaVictory(w, pl, c, c.body.wounds.at(-1)?.sourceId === pl.id || !!c.lastAttacker?.startsWith(pl.name))
   fx(w, { k: 'death', id: c.id, turn })
   if (c.id !== pl.id) {
@@ -968,6 +976,7 @@ export function canReach(w: World, a: Creature, d: Creature): boolean {
   if (!atk) return false
   if(attackPreyError(w,d,atk))return false
   const reach = atk.reach ?? 1
+  if(d.crawlerState?.mode==='ceiling'&&a.crawlerState?.mode!=='ceiling'&&reach<2)return false
   if(Math.abs(flightHeight(w,a)-flightHeight(w,d))>reach)return false
   const dist = cheb(a.pos, d.pos)
   if (dist <= 1) {

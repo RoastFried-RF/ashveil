@@ -1,3 +1,5 @@
+import {crawlerMotorBlocked} from './crawler-state'
+import {paralysedPart,paralysisKey} from './neurotoxin-state'
 import {runScriptHooks} from './script-hooks'
 import {recordBrainTrauma} from './brain-recovery'
 import {npcStressEvent} from './npc-psyche'
@@ -61,7 +63,7 @@ function stateKey(w: World, c: Creature): string {
   const n = c.needs
   const fx = c.effects.filter((e) => e.untilTurn > turn).map((e) => e.kind + (e.magnitude ?? '')).sort().join(',')
   const eq = Object.values(c.equip).map((i) => i?.uid ?? '').join(',')
-  return `${k}|${c.body.concussionCap ?? ''}:${c.aquatic?.hypoxia??''}|${prostheticKey(w, c)}|${nutritionKey(w, c)}|${drugKey(w, c)}|${Object.entries(c.body.organDamage ?? {}).map(([id, n]) => id + n).join(',')}|${recoveryKey(w, c)}|${frozenHands(w, c) ? 1 : 0}|${diseaseKey(w,c)}:${inhaledAsh(c)}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.sleepDebt ?? 0}|${fatigueBand(w,c).consciousness}:${infectionSystemic(w,c).consciousness}|${c.cond?.shock ? 1 : 0}|${c.age?.years ?? 30}:${c.age?.jointPain ? 1 : 0}:${c.age?.senses ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}|${c.leading?.hand??''}`
+  return `${k}|${paralysisKey(w,c)}|${c.body.concussionCap ?? ''}:${c.aquatic?.hypoxia??''}|${prostheticKey(w, c)}|${nutritionKey(w, c)}|${drugKey(w, c)}|${Object.entries(c.body.organDamage ?? {}).map(([id, n]) => id + n).join(',')}|${recoveryKey(w, c)}|${frozenHands(w, c) ? 1 : 0}|${diseaseKey(w,c)}:${inhaledAsh(c)}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.sleepDebt ?? 0}|${fatigueBand(w,c).consciousness}:${infectionSystemic(w,c).consciousness}|${c.cond?.shock ? 1 : 0}|${c.age?.years ?? 30}:${c.age?.jointPain ? 1 : 0}:${c.age?.senses ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}|${c.leading?.hand??''}`
 }
 
 function cached(w: World, c: Creature, name: string, fn: () => number): number {
@@ -175,7 +177,7 @@ export function partEff(w: World, c: Creature, id: string): number {
   const replacement = prostheticPartEfficiency(w, c, id)
   if (replacement !== undefined) return replacement
   const p = tryPart(w, c, id)
-  if (!p || isMissing(w, c, id)) return 0
+  if (!p || isMissing(w, c, id)||paralysedPart(w,c,id)||crawlerMotorBlocked(w,c,id)) return 0
   if (partDamage(c, id) >= c.body.maxHp[id]) return 0
   let e = p.internal || p.capacities ? partHealth(w, c, id) : 1
   for (const wd of c.body.wounds) {

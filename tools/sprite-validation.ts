@@ -66,6 +66,28 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   if(x<0||y<0||width<=0||height<=0||size&&(x+width>size.width||y+height>size.height))errors.push('frame '+key+': 픽셀 영역이 PNG 범위를 벗어난다')
  }
  const frameList=(value:unknown,where:string)=>{if(!Array.isArray(value)||!value.length){errors.push(where+': 비어 있지 않은 프레임 목록이 필요하다');return}for(const name of value)if(typeof name!=='string'||!Object.hasOwn(frames,name))errors.push(where+': 등록되지 않은 frame '+String(name))}
+ const crawlerSpec=(value:unknown,where:string)=>{
+  if(!object(value)||!object(value.art)||!object(value.layout)){errors.push(where+': art/layout 지네 구성이 필요하다');return}
+  const point=(v:unknown,path:string,rect:unknown)=>{
+   if(!object(v)||typeof v.x!=='number'||typeof v.y!=='number'||!Number.isFinite(v.x)||!Number.isFinite(v.y)){errors.push(path+': 유한한 x/y 원문 좌표가 필요하다');return false}
+   if(Array.isArray(rect)&&(v.x<0||v.y<0||v.x>rect[3]||v.y>rect[4]))errors.push(path+': 등록 frame을 벗어난다')
+   return true
+  }
+  for(const name of ['headClosed','headOpen','middle','tail','upper','lower']){
+   const p=value.art[name],path=where+'.art.'+name
+   if(!object(p)){errors.push(path+': 독립 원문 부품이 필요하다');continue}
+   if(typeof p.frame!=='string'||!Object.hasOwn(frames,p.frame))errors.push(path+'.frame: 등록된 frame이 필요하다')
+   const rect=typeof p.frame==='string'?frames[p.frame]:undefined
+   const keys=['upper','lower'].includes(name)?['proximal','distal']:['middle','tail'].includes(name)?['pivot','left','right']:['pivot']
+   for(const key of keys)point(p[key],path+'.'+key,rect)
+   const pair=['middle','tail'].includes(name)?['left','right']:keys,a=p[pair[0]],b=p[pair[1]]
+   if(pair[1]&&object(a)&&object(b)&&a.x===b.x&&a.y===b.y)errors.push(path+': 등록 축의 두 점이 같을 수 없다')
+  }
+  for(const key of ['bodyScale','headScale','pitch','firstOffset','tailOffset','upper','lower','outreach','stride','swingTravel','settleSeconds','ceilingLift']){
+   const n=value.layout[key];if(typeof n!=='number'||!Number.isFinite(n)||n<=0)errors.push(where+'.layout.'+key+': 유한한 양수가 필요하다')
+  }
+  if(typeof value.layout.stride==='number'&&typeof value.layout.swingTravel==='number'&&value.layout.swingTravel>=value.layout.stride)errors.push(where+'.layout: 회복 거리는 보행 주기보다 작아야 한다')
+ }
  const rigSpec=(value:unknown,where:string)=>{
   const number=(v:unknown,path:string,minimum?:number)=>{if(typeof v!=='number'||!Number.isFinite(v)||(minimum!==undefined&&v<=minimum)){errors.push(path+': 유한한 '+(minimum===undefined?'수':'양수')+'가 필요하다');return false}return true}
   const point=(v:unknown,path:string,frame?:unknown)=>{
@@ -145,6 +167,7 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
   if(row.rig!==undefined)rigSpec(row.rig,'char '+key+'.rig')
+  if(row.crawler!==undefined){crawlerSpec(row.crawler,'char '+key+'.crawler');if(row.rig!==undefined)errors.push('char '+key+': rig/crawler 두 표시 소유자를 동시에 가질 수 없다')}
   const gait=row.gait
   const durations=row.motionDurations
   if(durations!==undefined&&(!object(durations)||Object.entries(durations).some(([name,ms])=>!(motionNames as readonly string[]).includes(name)||typeof ms!=='number'||!Number.isFinite(ms)||ms<200||ms>5000)))errors.push('char '+key+'.motionDurations: 실제 동작과200~5000ms 주기가 필요하다')

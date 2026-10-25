@@ -1,0 +1,314 @@
+{
+  "version": 375,
+  "files": {
+    "src/client/render/crawler-spec.ts": {
+      "sha256": "23dd757a54b7b2e25caa895d4f1003fdd8e6ea34582a1995120547f6af1962fa",
+      "bytes": 1337
+    },
+    "src/client/render/crawler-motion.ts": {
+      "sha256": "aa162b08838b267090d1fd9971380b97805a8af298455ef3e6af860311cf7841",
+      "bytes": 7617
+    },
+    "src/client/render/crawler-view.ts": {
+      "sha256": "269fbf3c528238012ea66145b83d08ee6131c371915634205eefb18070d9120f",
+      "bytes": 7752
+    },
+    "src/client/render/MapRenderer.ts": {
+      "sha256": "0870aa8f230f91255e77e6bae267ee238cc5bdcb3037a9eb93eac89cb463e222",
+      "bytes": 80152
+    },
+    "src/client/render/atlas.ts": {
+      "sha256": "0e768e9bd2c4e1291479a0696e4745575ba932c4c3962035936c3456b7fbf43e",
+      "bytes": 8446
+    },
+    "src/client/render/atlas-plan.ts": {
+      "sha256": "0c3fc313c8d2a2e73a785039315533f3db671191b88e03ce17b3a526482655b3",
+      "bytes": 2557
+    },
+    "tools/sprite-validation.ts": {
+      "sha256": "9545e1f79b286b179d8671d754c870434256f3ab967f5419903126dc692846fb",
+      "bytes": 19253
+    },
+    "tools/art/install-crawler-v375.py": {
+      "sha256": "035facf5af9262bc1e4657858381c6be062e5c263fadc3507f01b24b7655b614",
+      "bytes": 3411
+    },
+    "tools/art/export-crawler-v375.mjs": {
+      "sha256": "e933ccf9ee4b355faf557266aa02507a064c3021dc386a9e17d07e4a24d78d2a",
+      "bytes": 1631
+    },
+    "tools/art/check-crawler-v375.ts": {
+      "sha256": "b21c2699faee5883ab2fc974c25f77d6114ac8cfd8531dd800d1731fbc0a6ad9",
+      "bytes": 4236
+    },
+    "tools/art/crawler-preview-v375/index.html": {
+      "sha256": "11e1e3cf1d854759533dbaaac7d74a01d74f3d0f449b3876140de9b0cf7a8015",
+      "bytes": 2909
+    },
+    "tools/art/crawler-preview-v375/stage.ts": {
+      "sha256": "db524e756234ff992456fd1379be5147f1ea2f164cb0bbf5536cca1760d9204e",
+      "bytes": 6576
+    },
+    "tools/art/crawler-preview-v375/vite.config.ts": {
+      "sha256": "b02fe984fcca2610b2e96e949aec1721a02161d7555bb8a0498f1105b101a3b6",
+      "bytes": 238
+    },
+    "tools/inspect-crawler-preview-v375.ts": {
+      "sha256": "baa362b8291cccfc67fe02c4aa4cef6af244a24513d96c049a97b313c378add3",
+      "bytes": 9608
+    },
+    "public/artbook/index.html": {
+      "sha256": "0632f21667197fca22bd5d0ac856ad0f9bcd5c4821c8d51eca6de3801d2bcd02",
+      "bytes": 13526
+    },
+    "public/sprites/original/direction-v375/crawler-parts-v372.png": {
+      "sha256": "d79e58402ddfe288399997088a83bd85ee08d171e83b7dcfc342fdaf49d29d2f",
+      "bytes": 1672238
+    },
+    "test-results/autonomy-v375/crawler-preview-r1/audit.json": {
+      "sha256": "2ab06e97f5cb2da68d6e0fb3d06a8967f2f45d6b45c05ff96c0c2d648d7551f8",
+      "bytes": 2114862
+    },
+    "test-results/autonomy-v375/crawler-preview-r1/server-lifecycle.json": {
+      "sha256": "f211b40b6333f98b72aa01a6e61b107e434f76186dea23c32cb1708a95dfcee4",
+      "bytes": 332
+    },
+    "test-results/autonomy-v375/crawler-hit-r2/audit.json": {
+      "sha256": "aa5973883aeccc5d8e5bade3f0cd282cda42256fd47297d4ed1c4d6d55d7bfad",
+      "bytes": 123389
+    },
+    "test-results/autonomy-v375/crawler-hit-r2/server-lifecycle.json": {
+      "sha256": "78ed27d0427d836e647bedc3982113b43a6ba3e6be4f8b28fcb35add47e20aec",
+      "bytes": 236
+    },
+    "test-results/autonomy-v375/crawler-contract-r2/audit.json": {
+      "sha256": "143bee0acbac5b5da71002178ca5a946179f099d27b86e759e7f19555eabcede",
+      "bytes": 597
+    },
+    "tools/art/direction-v375/installation.json": {
+      "sha256": "52967c8a6806c671ee2654125e1a6a36fae50d6df3412a0668312de9b6bdce8e",
+      "bytes": 3130
+    },
+    "tools/art/direction-v375/README.md": {
+      "sha256": "4e9a5ec362009a407e1f6b8aa09b79570bee90932a82d4bfd669805f22d048ee",
+      "bytes": 5460
+    }
+  },
+  "crawlerManifestSelection": {
+    "sheets": {
+      "av375_crawler_source": "sprites/original/direction-v375/crawler-parts-v372.png"
+    },
+    "sheetSizes": {
+      "av375_crawler_source": [
+        1536,
+        1024
+      ]
+    },
+    "frames": {
+      "av375_crawler_head_closed": [
+        "av375_crawler_source",
+        66,
+        86,
+        411,
+        368
+      ],
+      "av375_crawler_head_open": [
+        "av375_crawler_source",
+        570,
+        79,
+        412,
+        379
+      ],
+      "av375_crawler_middle_plate": [
+        "av375_crawler_source",
+        1103,
+        127,
+        329,
+        304
+      ],
+      "av375_crawler_tail_plate": [
+        "av375_crawler_source",
+        145,
+        601,
+        249,
+        309
+      ],
+      "av375_crawler_upper_leg": [
+        "av375_crawler_source",
+        701,
+        577,
+        139,
+        337
+      ],
+      "av375_crawler_lower_hook": [
+        "av375_crawler_source",
+        1213,
+        569,
+        156,
+        333
+      ]
+    },
+    "character": {
+      "walk": {
+        "down": [
+          "av375_crawler_head_closed"
+        ],
+        "left": [
+          "av375_crawler_head_closed"
+        ],
+        "right": [
+          "av375_crawler_head_closed"
+        ],
+        "up": [
+          "av375_crawler_head_closed"
+        ]
+      },
+      "idle": {
+        "down": [
+          "av375_crawler_head_closed"
+        ],
+        "left": [
+          "av375_crawler_head_closed"
+        ],
+        "right": [
+          "av375_crawler_head_closed"
+        ],
+        "up": [
+          "av375_crawler_head_closed"
+        ]
+      },
+      "attack": {
+        "down": [
+          "av375_crawler_head_open"
+        ],
+        "left": [
+          "av375_crawler_head_open"
+        ],
+        "right": [
+          "av375_crawler_head_open"
+        ],
+        "up": [
+          "av375_crawler_head_open"
+        ]
+      },
+      "anchor": [
+        0.5036496350364964,
+        0.9266304347826086
+      ],
+      "renderScale": 0.0225,
+      "headOffset": 12,
+      "healthBarWidth": 18,
+      "shadow": [
+        4,
+        2
+      ],
+      "heldItems": false,
+      "gait": {
+        "walk": 900,
+        "crouchWalk": 1100
+      },
+      "motionDurations": {
+        "attack": 650,
+        "hurt": 360,
+        "fall": 700,
+        "rise": 600
+      },
+      "portrait": "av375_crawler_head_closed",
+      "crawler": {
+        "art": {
+          "headClosed": {
+            "frame": "av375_crawler_head_closed",
+            "pivot": {
+              "x": 207,
+              "y": 341
+            }
+          },
+          "headOpen": {
+            "frame": "av375_crawler_head_open",
+            "pivot": {
+              "x": 201,
+              "y": 356
+            }
+          },
+          "middle": {
+            "frame": "av375_crawler_middle_plate",
+            "pivot": {
+              "x": 165,
+              "y": 157
+            },
+            "left": {
+              "x": 31,
+              "y": 157
+            },
+            "right": {
+              "x": 299,
+              "y": 157
+            }
+          },
+          "tail": {
+            "frame": "av375_crawler_tail_plate",
+            "pivot": {
+              "x": 128,
+              "y": 116
+            },
+            "left": {
+              "x": 26,
+              "y": 116
+            },
+            "right": {
+              "x": 230,
+              "y": 116
+            }
+          },
+          "upper": {
+            "frame": "av375_crawler_upper_leg",
+            "proximal": {
+              "x": 72,
+              "y": 47
+            },
+            "distal": {
+              "x": 76,
+              "y": 289
+            }
+          },
+          "lower": {
+            "frame": "av375_crawler_lower_hook",
+            "proximal": {
+              "x": 54,
+              "y": 49
+            },
+            "distal": {
+              "x": 53,
+              "y": 285
+            }
+          }
+        },
+        "layout": {
+          "bodyScale": 0.0225,
+          "headScale": 0.0225,
+          "pitch": 5.04,
+          "firstOffset": 2.8575,
+          "tailOffset": 4.455,
+          "upper": 3.825,
+          "lower": 3.7125,
+          "outreach": 5.31,
+          "stride": 6.3,
+          "swingTravel": 1.62,
+          "settleSeconds": 0.3,
+          "ceilingLift": 5
+        }
+      }
+    }
+  },
+  "newOriginalPNGs": 0,
+  "imageGenerationCalls": 0,
+  "reusedOriginalPNGs": 1,
+  "uniqueSourceRegions": 6,
+  "sharedDrawInstances": 41,
+  "authoredDirections": 1,
+  "authoredFullBodyGaits": 0,
+  "targetLintExit": 0,
+  "publicViewerBuildExecuted": false,
+  "mainNativeExecuted": false,
+  "scope": "Renderer/resource registration/shared private viewer only. Authoring integration remains parent-owned and these are point-in-time hashes, not full release freeze."
+}

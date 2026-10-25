@@ -63,6 +63,7 @@ export function durabilityBand(d: number): { label: string; color: string } {
 
 /** 쌓임 키 (13 §5): 같은 Def·품질·내구·오염 상태만 쌓인다. */
 export function canStack(a: ItemInst, b: ItemInst): boolean {
+  if(JSON.stringify(a.toxin)!==JSON.stringify(b.toxin))return false
   if ((a.pillAge?.potency ?? 100) !== (b.pillAge?.potency ?? 100) || !!a.pillAge?.spoiled !== !!b.pillAge?.spoiled) return false
   if((a.powderWetness!==undefined||b.powderWetness!==undefined)&&a.gearAgedAt!==b.gearAgedAt)return false
   if((a.powderWetness??0)!==(b.powderWetness??0)||a.loadedRound||b.loadedRound||a.loadedCartridges||b.loadedCartridges)return false
@@ -535,6 +536,7 @@ export function itemLabel(w: World, it: ItemInst): string {
   }
   if (it.pillRemaining !== undefined) s += ` [${Math.round(it.pillRemaining * 4)}/4정]`
   if(def.rawFragment)s+=` [${it.rawGrams??0}g]`
+  if(it.toxin)s+=' (마비독)'
   if(it.fletchingDamaged)s+=' (깃 손상)'
   if (it.count > 1) s += ` ×${it.count}`
   if (it.uses !== undefined) s += ` [${it.uses}회]`

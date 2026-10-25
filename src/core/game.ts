@@ -1,3 +1,5 @@
+import {crawlerTick} from './crawlers'
+import {paralysisTick} from './neurotoxin'
 import {camouflageTick} from './camouflage'
 import {swarmTick,swarmExposure} from './swarms'
 import {pauseSwarmClock} from './swarm-state'
@@ -99,7 +101,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 215
+export const SAVE_VERSION = 216
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -357,6 +359,8 @@ function globalTurnTick(w: World) {
     if (!c.alive) { flightTick(w,c);releaseHostParasites(w,c); wetnessTick(w,c,false); gearTick(w, c); if(!machineRules(w,c))scentTick(w, c, 0); continue }
     const sleeping = isSleeping(c) || !!c.asleep
     if(machineRules(w,c)){gearTick(w,c);bodyTick(w,c,false)}else{
+    crawlerTick(w,c)
+    paralysisTick(w,c)
     prostheticTick(w, c)
     growthTick(w, c)
     needsTick(w, c, sleeping)
@@ -364,8 +368,9 @@ function globalTurnTick(w: World) {
     flightTick(w,c)
     diseaseTick(w, c, sleeping)
     aquaticTick(w,c)
-    inhalationTick(w,c)
+    // 마지막 여과 시간도 소비 전의 같은 보호율로 기침을 막는다.
     swarmExposure(w,c)
+    inhalationTick(w,c)
     camouflageTick(w,c)
     parasiteTick(w,c)
     observeBleeding(w,c)
@@ -773,6 +778,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     for (const k of ['alertTurn', 'moraleCheck', 'goneSince', 'waitUntil'] as const) if (c.ai[k] !== undefined) c.ai[k]! += elapsed
     if (c.movedTurn !== undefined) c.movedTurn += elapsed
     if (c.freeActTurn !== undefined) c.freeActTurn += elapsed
+    if(c.crawlerState)c.crawlerState.nextClimbAt+=elapsed
     if (c.reactions) c.reactions.turn += elapsed
     if (c.heat) c.heat.at += elapsed
     for (const id of Object.keys(c.cooldowns)) c.cooldowns[id] += elapsed

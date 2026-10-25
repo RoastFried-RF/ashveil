@@ -11,6 +11,7 @@ import { version, world } from '../store'
 import { hideTip, showTip, toggleWin } from '../ui'
 
 const EFFECT: Record<string, [string, string]> = {
+  grabbed:['붙잡힘','#e09060'],
   sensorFlash:['눈부심','#f0dba0'],
   painkiller: ['진통', '#a0c0a0'], analgesic: ['마취', '#a0c0a0'], alcohol: ['취기', '#d0a060'], stimulant: ['각성', '#e0d070'],
   antibiotic: ['항생', '#90c0d0'], sedative: ['진정', '#a0a0d0'], dysentery: ['이질', '#c08040'], foodPoisoning: ['식중독', '#c08040'], lice: ['이', '#c08040'],
@@ -27,6 +28,7 @@ const d = computed(() => {
   const turn = turnOf(w)
   const diet=dietStatus(w,pl)
   const chips: { t: string; c: string; tip: string[] }[] = []
+  for(const e of pl.paralysis??[])if(e.until>turn)chips.push({t:REGION_LABEL[e.region]+(['larm','rarm','lleg','rleg'].includes(e.region)?' 마비':' 저림'),c:'#b5bf67',tip:[`${e.until-turn}턴 남음`,e.region==='larm'||e.region==='rarm'?'물린 팔을 쓸 수 없고 쥐던 물건을 떨어뜨린다.':e.region==='lleg'||e.region==='rleg'?'물린 다리가 마비되어 이동 시간이 두 배다.':'물린 부위의 기능이 멈춘다.','마비가 풀려도 실제 상처는 남는다.']})
   if(coveringSwarms(w,pl.pos).length)chips.push({t:'나방 떼',c:'#c3b99d',tip:['날개와 가루가 시야를 방해한다. 불을 끄거나 다른 불로 유도하자.','F2 현장: 면포로 채집 · 방진 면포는 가루 흡입을 줄인다.']})
   if(camouflageActive(w,pl))chips.push({t:camouflageSight(w,pl)<1?'회색 위장':'회색 가루',c:'#b4b09f',tip:[`남은 시간 ${Math.ceil((pl.camouflage!.until-turn)/20)}분 · 젖으면 씻긴다.`,camouflageSight(w,pl)<1?'빛을 끄고 몸을 낮춰 멀리서 덜 눈에 띈다.':'불빛을 끄고 웅크리거나 잠행하면 위장이 작동한다.']})
   const resonance=resonanceState(w,pl)

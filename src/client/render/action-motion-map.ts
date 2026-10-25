@@ -2,6 +2,7 @@
 import type {Action} from '../../core'
 import type {ActionPose} from './character-motion'
 export const actionMotions={
+ crawlerDrink:'use',crawlerCeilingMove:null,crawlerDescend:'interact',crawlerFeed:'work',crawlerEat:'use',crawlerClimb:'interact',crawlerDrop:'attack',inspectCeiling:'interact',coatArrow:'work',
  captureSwarm:'interact',studyMoths:'work',applyCamouflage:'use',
  "sowerWaypoint":null,"sowerAlarm":"work","sowerPush":"attack","sowerSpray":"work",
  "takeFlight":null,"fly":null,"land":null,

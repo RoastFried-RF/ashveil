@@ -68,7 +68,7 @@ export function terrainAt(w: World, p: Pos): TerrainDef {
 }
 
 export function creatureAt(w: World, p: Pos, includeDead = false): Creature | undefined {
-  return w.s.creatures.find((c) => (includeDead || c.alive) && c.pos.x === p.x && c.pos.y === p.y)
+  return w.s.creatures.find((c) => (includeDead || c.alive&&c.crawlerState?.mode!=='ceiling') && c.pos.x === p.x && c.pos.y === p.y)
 }
 
 export function isPassable(w: World, p: Pos): boolean {

@@ -1,0 +1,46 @@
+{
+  "scope": "v376 icon installer only; actual Native/item-art acceptance remains parent pending",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/art/install-crawler-icons-v376.py",
+        "--write"
+      ],
+      "exitCode": 0,
+      "manifestChanged": true
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/art/install-crawler-icons-v376.py",
+        "--check"
+      ],
+      "exitCode": 0,
+      "manifestChanged": false
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/art/install-crawler-icons-v376.py",
+        "--check"
+      ],
+      "exitCode": 0,
+      "manifestChanged": false
+    }
+  ],
+  "sourceSHA256": "32be48c2f616bd37511b0d09a703fdedf2c42b9f659fd30e2b01b97d45c0ed7b",
+  "installationSHA256": "78739e5782942935fccdab9b26a9cb68a70bc188a790848b138a7ab4eab580f4",
+  "installerSHA256": "98eec5f48eaf125a4b7e938274b03eb9c5784c206aa07cfe32f30ef9367510ab",
+  "allPreviousRegistryValueBytesPreserved": true,
+  "historyFilesByteMatched": 27,
+  "newSourcePNGs": 1,
+  "newIconRegions": 6,
+  "newChars": 0,
+  "newAnims": 0,
+  "historicalActivePendingFlagsModified": false,
+  "mainContentOrCoreOrRendererOrSharedDocsModifiedByInstaller": false,
+  "sharedBuildGameNativeTestsPushExecuted": false,
+  "releaseApproved": false,
+  "nativeItemIconAcceptance": "pending-parent-native"
+}

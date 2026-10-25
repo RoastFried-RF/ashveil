@@ -1,0 +1,112 @@
+{
+  "format": 1,
+  "scope": "source-only FRONT/elevated Culler component candidate, no runtime registration",
+  "sourcePng": "originals/culler-front-parts-v1.png",
+  "sourceSha256": "6f30979dc5c4db6496c135718e84fa70eef52ebfc936af126a1b121471c6542a",
+  "sourceByteCount": 1627696,
+  "sourceSize": [
+    1536,
+    1024
+  ],
+  "exactPromptPath": "requests/exact-prompt.txt",
+  "exactRequestPath": "requests/culler-front-parts-v1.json",
+  "sourceParts": 6,
+  "sourcePngs": 1,
+  "imagegenCalls": 1,
+  "regenerationCalls": 0,
+  "authoredWalkFrames": 0,
+  "authoredAttackFrames": 0,
+  "authoredOtherDirections": 0,
+  "suggestedRuntimeInstancesIfParentBuildsRig": {
+    "chassis": 1,
+    "driveUpper": 6,
+    "driveLower": 6,
+    "footpad": 6,
+    "scytheUpper": 2,
+    "scytheBlade": 2,
+    "totalSpriteInstances": 23,
+    "thisIsNot23NewSourcePartsOrFrames": true
+  },
+  "displayRegistrationOnly": {
+    "spritesFragment": "sprites.fragment.json",
+    "jointMetadata": "joint-registration.json",
+    "perPartCropAlpha": "parts-review.json",
+    "sheetKey": "held_av373_culler_front_parts_v1",
+    "destinationPathOnlyProposed": "sprites/original/direction-v373/culler-front-parts-v1.png",
+    "publishedOrRegistered": false
+  },
+  "ownership": {
+    "body": "Body.Culler chassis/sensor/tank identity only",
+    "driveSources": "DriveLeg1..6 repeated instances; no independent physical hip data observed",
+    "toolSources": "ManipulatorL/larm and ManipulatorR/rarm intended reuse; exact shoulder centers not mechanically established",
+    "toolHead": "blade/lower-arm art belongs to scythe tool, never seventh foot",
+    "frontAnatomicalRightToolProjects": "screen-left if parent keeps canonical tank/sensor direction",
+    "graphicBossesAreNotAssignedPhysicalHips": true,
+    "toolShoulderObserved": null
+  },
+  "assemblyConstraints": [
+    "Use source proximal/distal pin vectors, do not assume vertical source axes or crop centers are pivots.",
+    "Keep the lower source fixed length; no new piston stroke was authored. Uniform display scale is not a physical source bone length.",
+    "Attach inside solid round caps with overlap; occlusion order is a proposed runtime contract, not already reviewed assembly.",
+    "Suggested broad depth order far drive links / hull / near links and tools, with independent projected foot sorting; ownership/depth requires parent rig review.",
+    "One source face may be reused for left/right with explicit flip metadata only; flipped pixels are not new authored opposite-face art and illumination flips too.",
+    "No tool mirror or anatomical side swap has been applied in this staging fragment.",
+    "Foot bottom chord is a projected front silhouette landmark, not an observed physical underside. Root displacement and actual foot lock remain to be reviewed.",
+    "Curved blade root and tip are observed; sharp inner cutting edge/safe guarded attack cannot be approved from the broad bright outer bevel.",
+    "Do not resample, remove alpha, mask, repair or overwrite original pixels. Rectangles preserve included alpha1 fringes byte-for-byte."
+  ],
+  "observedQuality": {
+    "sourceOriginalDirectlyViewed": true,
+    "sixPartDiagnosticsDirectlyViewed": true,
+    "sameFrontSensorAndTankSide": true,
+    "bakedSupportLegsInChassis": 0,
+    "bakedScytheArmsInChassis": 0,
+    "majorPartsAtAlpha16": 6,
+    "foreignMajorPartPixelsInDeclaredCrops": 0,
+    "majorPartClippingByCanvasOrDeclaredCrop": 0,
+    "pinRadius12SquareMinAlpha": [
+      251,
+      252,
+      252,
+      252,
+      252,
+      252,
+      252,
+      252
+    ],
+    "noVisibleLargeFogOrShadowOnWhiteAndCheckerDiagnostic": true
+  },
+  "heldDeviations": [
+    {
+      "id": "strict-alpha1-gutters",
+      "detail": "2015 alpha1 pixels lie outside6 major components;1777 outside declared rectangles;26 touch whole PNG canvas edge. All have alpha below16. Original retained; strict alpha1-clean whole atlas not accepted."
+    },
+    {
+      "id": "requested-central55-percent",
+      "detail": "All6 major parts exceed55percent of requested512cell in at least one dimension; actual six rectangles have alpha1 border0 and alpha16 foreign pixels0. Deviation recorded; not repaired with scale."
+    },
+    {
+      "id": "blade-inner-edge",
+      "detail": "Bright bevel follows convex screen-right body; requested sharp INNER cutting edge not proven. Geometric source candidate only."
+    },
+    {
+      "id": "single-direction-only",
+      "detail": "No rear/side/underside source. Source lighting rotates with sprites; a complete3D mechanism is not authored."
+    },
+    {
+      "id": "body-hip-ownership",
+      "detail": "Visible bronze bosses are graphics only. All six physical hip source coordinates, actual 3D axes and left/right tool shoulder ownership are null."
+    }
+  ],
+  "diagnostics": "Static display crops plus SVG markers only; not authored PNG sprites. Marker coordinates in records/provisional-parts.json were manually refined by1-3px in final joint-registration.json after visual review; final metadata is authoritative.",
+  "runtimeAssemblyReviewed": false,
+  "sixLegGaitAccepted": false,
+  "fullScytheAttackAccepted": false,
+  "acidSprayAccepted": false,
+  "captureNetAccepted": false,
+  "physical3DSkeletonAccepted": false,
+  "active": false,
+  "releaseAccepted": false,
+  "noMainOrExistingStageMutation": true,
+  "noCoreOrRendererOrDefOrBuildOrTestOrGameOrCommitOrPush": true
+}

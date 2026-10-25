@@ -234,6 +234,7 @@ export interface MaterialBinding {uid:number;def:string;material:string;unitGram
 export interface MaterialPlan {bindings:MaterialBinding[];stuff:Stuff}
 
 export interface ItemDef extends DefBase {
+  neurotoxin?:{turns:[number,number]}
   camouflageCoating?:{durationTurns:number;sightMult:number;washAt:number;tint:number}
   compWorker?:string
   respirator?:{filter:string;chargeTurns:number;protection:number;wetAbove:number;wetProtection:number;refillTurns:number}
@@ -395,7 +396,23 @@ export interface SowerState {
  rule:string;routeIndex:number;moves:number;seedsSpent:number;resumeAt:number;alarmWound:number
  lastSeed?:{uid:number;at:number;pos:Pos};lastSpray?:{uid:number;at:number};nextSprayAt?:number
 }
+export interface ToxinCoating {sourceUid:number;sourceDef:string;turns:[number,number]}
+export interface LocalParalysis {sourceUid:number;sourceDef:string;woundId:number;parts:string[];region:Region;appliedAt:number;until:number}
+export interface CrawlerRules {
+ segments:{body:string;ganglion:string;legs:[string,string]}[]
+ head:string;glands:[string,string];venomItem:string;dosesPerGland:number
+ venomAttack:string;coilAbility:string;prey:string[];foodIds:string[];huntBelowKcal:number;eatBelowKcal:number;drinkAboveMl:number;drinkMl:number;smokeKinds:string[];smokeRadius:number
+ ceiling:{dropRadius:number;inspectRadius:number;awarenessTurns:number;ambushHit:number;reclimbTurns:number}
+ harvest:{plateItem:string;legItem:string;meatItem:string;meatCount:number}
+}
+export interface CrawlerState {
+ rule:string;mode:'floor'|'ceiling';nextClimbAt:number;observedBy:Record<string,number>
+ glands:{part:string;uid:number;initialDoses:number;spentDoses:number;lostDoses:number;harvestedDoses:number;item?:ItemInst}[]
+ lastDrop?:{at:number;target:number;aware:boolean};lastBite?:{at:number;target:number;woundId:number;sourceUid:number}
+ harvestLost?:{plates:number;legs:number;meat:number}
+}
 export interface CreatureDef extends DefBase {
+  crawler?:CrawlerRules
   sower?:SowerRules
   survey?:{antenna:string;reportTurns:number;reportCooldown:number;keepDistance:[number,number];watchRect:[number,number,number,number];patrol:Pos[];flashRadius:number;flashTurns:number;flashSightMult:number;flashCooldown:number}
   wildlife?:WildlifeRules
@@ -1221,6 +1238,7 @@ export interface ManeuverDef extends DefBase {
 }
 
 export interface AbilityAttackMods {
+  fromAbove?:boolean
   /** 명중 가산 (조준 사격 +25) */
   hitBonus?: number
   damageMult?: number
@@ -1916,6 +1934,8 @@ export type AnyDef =
 // ───────────── 런타임 상태 (직렬화 가능) ─────────────
 
 export interface ItemInst {
+  toxin?:ToxinCoating
+  loadedAmmoToxin?:ToxinCoating
   /** 실제 내부 물품. 능력치와 격자 크기는 Def에서 읽는다. */
   contents?: ItemInst[]
   /** 원래 인스턴스 상태만 보관한다. Def의 전투/음식 수치를 복사하지 않는다. */
@@ -2172,6 +2192,7 @@ export interface Activity {
   lessonDay?: number
   course?: string
   /** 타인 처치: 도구/숙달은 활동 주인, 몸은 patientId. 대기 활동은 healerId를 참조한다. */
+  ammoToxin?:ToxinCoating
   patientId?: number
   healerId?: number
   /** 실제로 진행한 마지막 부목 작업의 품질. 중단 뒤 이미 묶인 부분에 적용한다. */
@@ -2269,6 +2290,8 @@ export interface MedicalReport {
 }
 
 export interface Creature {
+  crawlerState?:CrawlerState
+  paralysis?:LocalParalysis[]
   camouflage?:{sourceUid:number;sourceDef:string;appliedAt:number;until:number;sightMult:number;washAt:number;tint:number}
   carcassStock?:Record<string,{remaining:number;original:number;at:number;freshness?:number;foodFrozen?:boolean;foodThawed?:boolean;foodWet?:boolean;foodLeftover?:boolean;foodSealed?:boolean}>
   sowerState?:SowerState
@@ -2390,7 +2413,7 @@ export interface Creature {
   /** 빠른 슬롯 10칸 */
   hotbar: (HotbarRef | null)[]
   /** 선택한 실제 탄약의 종류/깃 상태. 소진 후 다른 상태로 자동 교체하지 않는다. */
-  ammoPreference?: {def:string;fletchingDamaged:boolean}
+  ammoPreference?: {def:string;fletchingDamaged:boolean;toxin?:boolean}
   hp: number
   level: number
   xp: number

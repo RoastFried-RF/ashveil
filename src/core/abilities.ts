@@ -1,3 +1,4 @@
+import {crawlerCoilError} from './crawlers'
 import {attemptFirearm,firearmShock} from './firearms'
 import { knownCreatureName } from './bestiary-state'
 import { alcoholWithdrawalStage } from './drug-state'
@@ -221,6 +222,7 @@ function sweep(w: World, c: Creature, d: AbilityDef): ActResult {
 
 /** 붙잡기: 명중하면 대상은 이동할 수 없다. 탈출 = 근력·민첩 대결 (bestiary §19·§20) */
 function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResult {
+  const coilError=crawlerCoilError(w,c);if(coilError)return {ok:false,tu:0,msg:coilError}
   const t = creatureById(w, targetId)
   if (!t || !t.alive || cheb(t.pos, c.pos) > 1) return { ok: false, tu: 0, msg: '붙잡을 대상이 없다' }
   if (hasEffect(t, 'grabbed', turnOf(w))) return { ok: false, tu: 0, msg: '이미 붙잡혀 있다' }
@@ -234,7 +236,8 @@ function grab(w: World, c: Creature, d: AbilityDef, targetId?: number): ActResul
   }
   addEffect(t, 'grabbed', turnOf(w) + 60, c.id)
   fx(w, { k: 'status', id: t.id, text: '붙잡힘', color: '#e09060', turn: turnOf(w) })
-  if (isPl) log(w, 'danger', w.db.body(c.body.def).kind==='humanoid'?`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신의' : knownCreatureName(w,t) + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`:`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신을' : knownCreatureName(w,t)+'을(를)'} 앞발로 붙들었다! (이동하면 탈출 시도)`)
+  if(isPl&&w.db.creature(c.def).crawler)log(w,'danger',`${knownCreatureName(w,c)}이(가) ${t.faction==='player'?'당신':knownCreatureName(w,t)}을(를) 몸으로 휘감았다! (이동하면 탈출 시도)`)
+  else if (isPl) log(w, 'danger', w.db.body(c.body.def).kind==='humanoid'?`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신의' : knownCreatureName(w,t) + '의'} 팔을 움켜쥐었다! (이동하면 탈출 시도)`:`${knownCreatureName(w,c)}이(가) ${t.faction === 'player' ? '당신을' : knownCreatureName(w,t)+'을(를)'} 앞발로 붙들었다! (이동하면 탈출 시도)`)
   return { ok: true, tu: 100 }
 }
 

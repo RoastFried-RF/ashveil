@@ -685,6 +685,25 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       if(!isObj(d)||body?.kind!=='bird'||body.parts.filter(p=>(p.capacities?.flight??0)>0).length!==2)report.errors.push(c.id+': flight 실제 조류 몸과 두 날개 필요')
       else{for(const[key,lo,hi]of[['height',1,3],['takeoffEnergy',1,50],['moveEnergy',1,20],['maxTurns',2,300],['fallDamage',1,50],['noise',1,20]]as const)if(!Number.isSafeInteger(d[key])||d[key]<lo||d[key]>hi)report.errors.push(c.id+': flight.'+key+' 범위 오류');if(!Number.isFinite(d.minCapacity)||d.minCapacity<=.5||d.minCapacity>1)report.errors.push(c.id+': flight.minCapacity 실제 양쪽 날개 기능 필요')}
     }
+    if(c.crawler!==undefined){
+      const d=c.crawler,b=db.tryGet<BodyDef>(c.body??''),parts=b?.parts??[],has=(id:string)=>parts.some(p=>p.id===id)
+      if(!isObj(d)||b?.kind!=='invertebrate'||c.sower||c.survey||c.wildlife)report.errors.push(c.id+': crawler 독립 절지 신체/정책 필요')
+      else{
+        if(!Array.isArray(d.segments)||d.segments.length!==8||new Set(d.segments.map(g=>g.body)).size!==8)report.errors.push(c.id+': crawler 서로 다른8체절 필요')
+        else for(const g of d.segments)if(!has(g.body)||!has(g.ganglion)||!Array.isArray(g.legs)||g.legs.length!==2||g.legs[0]===g.legs[1]||g.legs.some(id=>!parts.some(p=>p.id===id&&p.parent===g.body&&(p.capacities?.moving??0)>0)))report.errors.push(c.id+': crawler 실제 체절/신경절/소유한 두 다리 필요')
+        if(!has(d.head)||!Array.isArray(d.glands)||d.glands.length!==2||new Set(d.glands).size!==2||d.glands.some(id=>!has(id)))report.errors.push(c.id+': crawler 실제 머리와 서로 다른 두 독샘 필요')
+        need(c.id,d.venomItem,'Item');need(c.id,d.coilAbility,'Ability');const venom=db.tryGet<ItemDef>(d.venomItem)
+        if(!venom?.neurotoxin||!Number.isSafeInteger(d.dosesPerGland)||d.dosesPerGland<1||d.dosesPerGland>64||venom.uses!==d.dosesPerGland)report.errors.push(c.id+': crawler 원래 독샘의 유한 회수 필요')
+        if(![c.naturalAttack,...c.naturalAttacks??[]].some(a=>a?.id===d.venomAttack&&a.requiresCapacity==='bite'))report.errors.push(c.id+': crawler 실제 독턱 공격 필요')
+        for(const id of d.prey??[])need(c.id,id,'Creature')
+        if(!Array.isArray(d.foodIds)||!d.foodIds.length||d.foodIds.some(id=>!db.tryGet<ItemDef>(id)?.food)||!Number.isFinite(d.huntBelowKcal)||!Number.isFinite(d.eatBelowKcal)||!Number.isFinite(d.drinkAboveMl)||!Number.isSafeInteger(d.drinkMl)||d.drinkMl<1||d.drinkMl>1000)report.errors.push(c.id+': crawler 실제 먹이와 열량 문턱 필요')
+        if(!d.ceiling||!Number.isSafeInteger(d.ceiling.dropRadius)||d.ceiling.dropRadius<1||d.ceiling.dropRadius>2||!Number.isSafeInteger(d.ceiling.inspectRadius)||d.ceiling.inspectRadius<1||d.ceiling.inspectRadius>6||!Number.isSafeInteger(d.ceiling.awarenessTurns)||d.ceiling.awarenessTurns<1||d.ceiling.awarenessTurns>600||!Number.isSafeInteger(d.ceiling.ambushHit)||d.ceiling.ambushHit<0||d.ceiling.ambushHit>40||!Number.isSafeInteger(d.ceiling.reclimbTurns)||d.ceiling.reclimbTurns<1)report.errors.push(c.id+': crawler 천장 관찰/기습/복귀 범위 오류')
+        if(!Array.isArray(d.smokeKinds)||!d.smokeKinds.length||!Number.isSafeInteger(d.smokeRadius)||d.smokeRadius<1||d.smokeRadius>12)report.errors.push(c.id+': crawler 실제 연기 회피 범위 필요')
+        const entry=db.all<BestiaryEntryDef>('BestiaryEntry').find(e=>e.creatures.includes(c.id));if(d.harvest&&(!entry||entry.kind!=='animal'||entry.yields.length!==3||[[d.harvest.plateItem,8],[d.harvest.legItem,16],[d.harvest.meatItem,d.harvest.meatCount]].some(([id,n])=>entry.yields.find(y=>y.item===id)?.count!==n)))report.errors.push(c.id+': crawler 실제8판/16다리/유한 고기와 일치하는 해부 재고 필요')
+        if(!d.harvest)report.errors.push(c.id+': crawler 실제 해부 재고 필요')
+        else{for(const id of[d.harvest.plateItem,d.harvest.legItem,d.harvest.meatItem])need(c.id,id,'Item');if(!Number.isSafeInteger(d.harvest.meatCount)||d.harvest.meatCount<1||d.harvest.meatCount>1000)report.errors.push(c.id+': crawler 유한 고기 재고 오류')}
+      }
+    }
     if(c.sower!==undefined){
       const d=c.sower,b=db.tryGet<BodyDef>(c.body??'')
       if(!isObj(d)||b?.kind!=='mechanical'||!b.mechanical||!b.parts.some(p=>p.id===d.signalPart&&(p.capacities?.signal??0)>0)||!b.parts.some(p=>(p.capacities?.manipulation??0)>0)||!b.parts.some(p=>p.id===b.mechanical!.toolHead&&(p.capacities?.tool??0)>0))report.errors.push(c.id+': sower 실제 기계/파종팔/공구/신호부 필요')
@@ -744,6 +763,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
   }
   for(const layout of db.all<RegionLayoutDef>('RegionLayout'))if(layout.genWorker!==undefined){if(typeof layout.genWorker!=='string'||!/^[-A-Za-z0-9._]+:[A-Za-z][A-Za-z0-9_]{0,63}$/.test(layout.genWorker)||!db.scriptSources.some(s=>s.modId===layout.genWorker!.split(':')[0]&&s.stage===2))report.errors.push(layout.id+': 실제 단계2 genWorker 참조가 필요하다')}
   for(const item of db.all<ItemDef>('Item'))if(item.compWorker!==undefined){if(typeof item.compWorker!=='string'||!/^[-A-Za-z0-9._]+:[A-Za-z][A-Za-z0-9_]{0,63}$/.test(item.compWorker)||!db.scriptSources.some(s=>s.modId===item.compWorker!.split(':')[0]&&s.stage===2))report.errors.push(item.id+': 실제 단계2 compWorker 참조가 필요하다')}
+  for(const item of db.all<ItemDef>('Item'))if(item.neurotoxin){const d=item.neurotoxin;if(item.stackable||item.uses===undefined||!Number.isSafeInteger(item.uses)||item.uses<1||item.uses>64||!Array.isArray(d.turns)||d.turns.length!==2||d.turns.some(n=>!Number.isSafeInteger(n)||n<1||n>10000)||d.turns[0]>d.turns[1])report.errors.push(item.id+': 신경독의 실제1개 독샘과 유한 회수/기간 필요')}
   for(const item of db.all<ItemDef>('Item'))if(item.storage!==undefined){
     if(!Array.isArray(item.storage)||item.storage.length!==2||item.storage.some(n=>!Number.isSafeInteger(n)||n<1||n>20)||item.stackable||item.maxStack!==1||item.slot||item.food||item.drink||item.drug||item.medical||item.refuel||item.unidentified||item.light||item.place||item.rawMaterial||item.rawFragment||item.watercraft)report.errors.push(item.id+': 가방은 1~20칸의 내부 격자와 최대 개수1이 필요하며 장착/소모/설치/원재료로 겸용할 수 없다')
   }

@@ -1,3 +1,4 @@
+import {decideCrawler} from './crawlers'
 import {decideSower} from './sower'
 import {firearmReady,firearmSupply} from './firearms'
 import {decideWildlife} from './wildlife'
@@ -78,7 +79,7 @@ function stepToward(w: World, c: Creature, dest: Pos): Action | null {
   let path = c.ai.path
   const avoidCells=knownFireDanger(w,c)
   if (!path || !path.length || path.some(p=>avoidCells.has(p.y*w.s.map.w+p.x)) || !eq(path[path.length - 1], dest) || (c.id + turnOf(w)) % 7 === 0) {
-    path = findPath(w, c.pos, dest, { avoidCreatures: true, selfId: c.id, maxNodes: 1200,avoidWater:!!machineRules(w,c),avoidCells }) ?? undefined
+    path = findPath(w, c.pos, dest, { avoidCreatures: true, selfId: c.id, maxNodes: 1200,avoidWater:!!machineRules(w,c)||!!w.db.creature(c.def).crawler,avoidCells }) ?? undefined
     c.ai.path = path
   }
   if (!path || !path.length) return null
@@ -399,6 +400,7 @@ function decideAction(w: World, c: Creature): Action {
     if(c.captivity.anklesFree){const seen=w.s.creatures.filter((o)=>o.alive&&o.id!==c.id&&hostile(w,c,o)&&canSee(w,c,o.pos)&&cheb(c.pos,o.pos)<=prisonerCareDef(w).guardRadius);if(seen.length){const away=stepAway(w,c,seen);if(away)return away}}
     return !struggleQuote(w,c).error?{type:'struggle'}:{type:'wait'}
   }
+  if(w.db.creature(c.def).crawler)return decideCrawler(w,c,{toward:p=>stepToward(w,c,p)})
   noticeKinFlee(w,c)
   if(returningKin(c)&&!isCompanion(w,c)&&!c.asleep&&!c.unconscious){
     const dest=fleeDest(w,c)

@@ -1,3 +1,4 @@
+import {crawlerRules} from './crawler-state'
 /** Finite original dissection stock, shared with real scavenging and actual hourly decay. */
 import {bestiaryEntry} from './bestiary-state'
 import {terrainAt,tileAt,turnOf,type World} from './ctx'
@@ -9,6 +10,7 @@ import type {Creature,ItemInst} from './types'
 export function initializeCarcass(w:World,c:Creature,drop?:{item:string;count:number}){
  const entry=bestiaryEntry(w,c.def);if(entry?.kind!=='animal'||c.carcassStock)return
  c.carcassStock={}
+ if(w.db.creature(c.def).crawler&&!crawlerRules(w,c))return
  for(const row of entry.yields){const existing=c.carcassStock[row.item],count=Math.max(0,Math.floor(row.count));if(!count)continue;if(existing){existing.remaining+=count;existing.original+=count}else c.carcassStock[row.item]={remaining:count,original:count,at:turnOf(w),...(w.db.item(row.item).food?{freshness:100}:{})}}
  if(drop&&drop.count>0){const previous=c.carcassStock[drop.item];if(!previous)c.carcassStock[drop.item]={remaining:drop.count,original:drop.count,at:turnOf(w),...(w.db.item(drop.item).food?{freshness:100}:{})};else if(previous.original<drop.count){previous.remaining+=drop.count-previous.original;previous.original=drop.count}}
 }
