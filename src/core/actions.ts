@@ -34,6 +34,8 @@ import {player} from './ctx'
 import {assignCompanionRecovery,collectRecoveryCargo,companionRecoveryFetch,companionRecoveryReturn,companionRecoverySearchError,stopCompanionRecovery} from './companion-recovery'
 import {requestCompanionCare,type CompanionCareRequest} from './companion-care'
 import {cancelCompanionClinical,requestCompanionClinical,type CompanionClinicalRequest} from './companion-clinical'
+import {advanceCompanionCarePlan,requestCompanionCarePlan} from './companion-care-plan'
+import {pauseCompanionCarePlan} from './companion-care-plan-state'
 import {acceptRecovery,deliverRecovery} from './recovery-contracts'
 import {acceptSourceContract,reportSourceContract,surveySourceContract} from './source-contracts'
 import {acceptBounty,questionBounty,reportBounty,surveyBounty} from './bounty-contracts'
@@ -304,6 +306,7 @@ export type Action =
   | { type:'hireCompanion';target:number }
   | {type:'companionCare';target:number;request:CompanionCareRequest;expectedUid:number;expectedTurns:number;expectedQuality:number}
   | {type:'companionClinical';target:number;request:CompanionClinicalRequest;expected:string}
+  | {type:'companionCarePlan';target:number;requests:CompanionClinicalRequest[];expected:string}
   | {type:'cancelCompanionClinical';target:number;patient:number}
   | { type:'payCompanion';target:number }
   | { type:'dismissCompanion';target:number }
@@ -753,6 +756,11 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'companionClinical':{
       if(c.id!==w.s.playerId)return FAIL('직접 곁의 동료에게 진찰·투약을 부탁해야 한다')
       const provider=creatureById(w,a.target),error=provider?requestCompanionClinical(w,provider,a.request,a.expected):'동료가 곁에 없다';return error?FAIL(error):a.request.patient===undefined||a.request.patient===c.id?FREE:{ok:true,tu:100}
+    }
+    case 'companionCarePlan':{
+      if(c.id!==w.s.playerId)return FAIL('직접 동료에게 처치 순서를 맡겨야 한다')
+      const provider=creatureById(w,a.target),error=provider?requestCompanionCarePlan(w,provider,a.requests,a.expected):'동료가 곁에 없다'
+      return error?FAIL(error):a.requests[0]?.patient===undefined||a.requests[0]?.patient===c.id?FREE:{ok:true,tu:100}
     }
     case 'companionCare':{
       if(c.id!==w.s.playerId)return FAIL('내 동료에게만 응급 처치를 부탁할 수 있다')
@@ -1914,7 +1922,7 @@ export function activityStep(w: World, c: Creature): boolean {
   if(act.kind==='gearSwap')return gearSwapStep(w,c)
   if(!clothingPairPresent(w,c,act)){c.activity=undefined;return true}
   const error = externalTreatmentError(w, c, act)
-  if (error) { if (act.patientId === w.s.playerId) log(w, 'warn', `진료 중단: ${error}.`); interruptTreat(w, c); c.activity = undefined; return true }
+  if (error) { if (act.patientId === w.s.playerId) log(w, 'warn', `진료 중단: ${error}.`);if(act.companionCarePlan)pauseCompanionCarePlan(w,c,error); interruptTreat(w, c); c.activity = undefined; return true }
   // Turning toward a real adjacent patient is part of an actual clinical work turn, never a quote.
   if(act.patientId!==undefined&&act.patientId!==c.id&&['treat','diagnose','dose'].includes(act.kind)){
     const patient=creatureById(w,act.patientId)!,facing=dirIndex(patient.pos.x-c.pos.x,patient.pos.y-c.pos.y)
@@ -2061,7 +2069,7 @@ export function activityStep(w: World, c: Creature): boolean {
       const healer = creatureById(w, act.healerId)
       if (healer?.activity?.patientId === c.id) {
         const error = externalTreatmentError(w, healer, healer.activity)
-        if (error) { log(w, 'warn', `진료 중단: ${error}.`); interruptTreat(w, healer); healer.activity = undefined; c.activity = undefined; return true }
+        if (error) { log(w, 'warn', `진료 중단: ${error}.`);if(healer.activity.companionCarePlan)pauseCompanionCarePlan(w,healer,error); interruptTreat(w, healer); healer.activity = undefined; c.activity = undefined; return true }
         act.remaining = Math.max(1, act.remaining); return false }
       c.activity = undefined
       return true
@@ -2070,7 +2078,11 @@ export function activityStep(w: World, c: Creature): boolean {
     case 'diagnose':
     case 'treat': {
       if (act.treat === 'cauterize' && act.remaining === 1 && isPl(c)) log(w, 'info', '칼날이 벌겋게 달았다.')
-      if (act.remaining <= 0) { if (act.kind === 'dose') finishClinicalDose(w, c, act); else if (act.kind === 'diagnose') finishDiagnostic(w, c, act); else finishTreat(w, c, act); releasePatient(w, c, act, true) }
+      if (act.remaining <= 0) {
+        const applied=act.kind==='dose'?finishClinicalDose(w,c,act):act.kind==='diagnose'?finishDiagnostic(w,c,act):finishTreat(w,c,act)
+        releasePatient(w,c,act,true)
+        if(act.companionCarePlan&&advanceCompanionCarePlan(w,c,act,applied===true))return false
+      }
       break
     }
     case 'aim':

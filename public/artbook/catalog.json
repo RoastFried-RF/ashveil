@@ -1,5 +1,5 @@
 {
-  "version": "0.379-dev",
+  "version": "0.385-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -401,7 +401,9 @@
     "av379_culler_left_source": "sprites/original/direction-v379/culler-left-parts-v1.png",
     "av379_culler_right_source": "sprites/original/direction-v379/culler-right-parts-v1.png",
     "av379_culler_back_source": "sprites/original/direction-v379/culler-back-parts-v1.png",
-    "av380_culler_harvest_icons_v1": "sprites/original/direction-v380/culler-harvest-icons-v1.png"
+    "av380_culler_harvest_icons_v1": "sprites/original/direction-v380/culler-harvest-icons-v1.png",
+    "av384_prosthetic_objects_v1": "sprites/original/direction-v384/prosthetic-objects-v1.png",
+    "av384_prosthetic_leg_pioneer_v2": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1923,6 +1925,14 @@
     "av380_culler_harvest_icons_v1": [
       1536,
       1024
+    ],
+    "av384_prosthetic_objects_v1": [
+      1536,
+      1024
+    ],
+    "av384_prosthetic_leg_pioneer_v2": [
+      1774,
+      887
     ]
   },
   "frames": {
@@ -58954,6 +58964,48 @@
       498,
       495,
       487
+    ],
+    "av384_peg_leg": [
+      "av384_prosthetic_objects_v1",
+      144,
+      21,
+      291,
+      511
+    ],
+    "av384_articulated_leg": [
+      "av384_prosthetic_leg_pioneer_v2",
+      152,
+      80,
+      425,
+      749
+    ],
+    "av384_hook_hand": [
+      "av384_prosthetic_objects_v1",
+      1169,
+      25,
+      262,
+      505
+    ],
+    "av384_glass_eye": [
+      "av384_prosthetic_objects_v1",
+      127,
+      622,
+      294,
+      293
+    ],
+    "av384_pioneer_arm": [
+      "av384_prosthetic_leg_pioneer_v2",
+      1073,
+      105,
+      596,
+      707
+    ],
+    "av384_gardener_limb": [
+      "av384_prosthetic_objects_v1",
+      1137,
+      540,
+      309,
+      454
     ]
   },
   "characters": {
@@ -135319,7 +135371,7 @@
       "id": "Item.PegLeg",
       "label": "막대 의족",
       "kind": "items",
-      "frame": "complete_item_peg_leg",
+      "frame": "av384_peg_leg",
       "grid": [
         1,
         2
@@ -135329,7 +135381,7 @@
       "id": "Item.ArticulatedLeg",
       "label": "관절 의족",
       "kind": "items",
-      "frame": "complete_item_articulated_leg",
+      "frame": "av384_articulated_leg",
       "grid": [
         1,
         2
@@ -135339,7 +135391,7 @@
       "id": "Item.HookHand",
       "label": "갈고리 손",
       "kind": "items",
-      "frame": "complete_item_hook_hand",
+      "frame": "av384_hook_hand",
       "grid": [
         1,
         2
@@ -135349,7 +135401,7 @@
       "id": "Item.GlassEye",
       "label": "유리 눈",
       "kind": "items",
-      "frame": "original_glass_eye",
+      "frame": "av384_glass_eye",
       "grid": [
         1,
         1
@@ -135359,7 +135411,7 @@
       "id": "Item.PioneerArm",
       "label": "개척 의수",
       "kind": "items",
-      "frame": "complete_item_pioneer_arm",
+      "frame": "av384_pioneer_arm",
       "grid": [
         1,
         2
@@ -135369,7 +135421,7 @@
       "id": "Item.GardenerLimb",
       "label": "정원사 이식지",
       "kind": "items",
-      "frame": "complete_item_gardener_limb",
+      "frame": "av384_gardener_limb",
       "grid": [
         1,
         2
@@ -185614,6 +185666,42 @@
       "label": "av380_culler_glaive",
       "kind": "frames",
       "frame": "av380_culler_glaive"
+    },
+    {
+      "id": "av384_peg_leg",
+      "label": "av384_peg_leg",
+      "kind": "frames",
+      "frame": "av384_peg_leg"
+    },
+    {
+      "id": "av384_articulated_leg",
+      "label": "av384_articulated_leg",
+      "kind": "frames",
+      "frame": "av384_articulated_leg"
+    },
+    {
+      "id": "av384_hook_hand",
+      "label": "av384_hook_hand",
+      "kind": "frames",
+      "frame": "av384_hook_hand"
+    },
+    {
+      "id": "av384_glass_eye",
+      "label": "av384_glass_eye",
+      "kind": "frames",
+      "frame": "av384_glass_eye"
+    },
+    {
+      "id": "av384_pioneer_arm",
+      "label": "av384_pioneer_arm",
+      "kind": "frames",
+      "frame": "av384_pioneer_arm"
+    },
+    {
+      "id": "av384_gardener_limb",
+      "label": "av384_gardener_limb",
+      "kind": "frames",
+      "frame": "av384_gardener_limb"
     }
   ]
 }

@@ -56160,6 +56160,16 @@
               "defType"
             ],
             "properties": {
+              "carePlanMaxSteps": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "clinical": {
                 "anyOf": [
                   {
@@ -56359,6 +56369,9 @@
               "id"
             ],
             "properties": {
+              "carePlanMaxSteps": {
+                "type": "number"
+              },
               "clinical": {
                 "type": "string"
               },

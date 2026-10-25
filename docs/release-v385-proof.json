@@ -1,0 +1,311 @@
+{
+  "version": 385,
+  "saveVersion": 218,
+  "releaseApproved": false,
+  "carePlan": {
+    "maxSteps": 8,
+    "finiteExplicitSamePatient": true,
+    "separatePermanentAmputationConsent": true,
+    "actualSourceUIDs": true,
+    "privateInventoryReservation": true,
+    "revalidateAtEachTransition": true,
+    "noAutomaticReplacementOrResume": true,
+    "historicalCursorAndReason": true,
+    "automaticLongTermNursing": false
+  },
+  "native": {
+    "finiteInitial": true,
+    "afterTitle": "real keyboard/pointer only; debug read-only",
+    "animationSpeed": 1,
+    "runs": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "patient": 1,
+        "doctor": 67,
+        "steps": 4,
+        "initialTU": 1440000,
+        "finalTU": 1443000,
+        "originalUIDs": {
+          "drug": 80,
+          "thread": 78,
+          "needle": 79,
+          "bandage": 81
+        }
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "patient": 1,
+        "doctor": 67,
+        "steps": 4,
+        "initialTU": 1440000,
+        "finalTU": 1443000,
+        "originalUIDs": {
+          "drug": 80,
+          "thread": 78,
+          "needle": 79,
+          "bandage": 81
+        }
+      }
+    ],
+    "pairs": [
+      {
+        "phase": "care-1440-loaded",
+        "hash": "f9a5d65a"
+      },
+      {
+        "phase": "care-1440-review-readonly",
+        "hash": "f9a5d65a"
+      },
+      {
+        "phase": "care-1440-complete",
+        "hash": "9fffb851"
+      },
+      {
+        "phase": "care-1440-continued",
+        "hash": "9fffb851"
+      },
+      {
+        "phase": "care-1366-loaded",
+        "hash": "f9a5d65a"
+      },
+      {
+        "phase": "care-1366-review-readonly",
+        "hash": "f9a5d65a"
+      },
+      {
+        "phase": "care-1366-complete",
+        "hash": "9fffb851"
+      },
+      {
+        "phase": "care-1366-continued",
+        "hash": "9fffb851"
+      },
+      {
+        "phase": "prosthetics-readonly",
+        "hash": "1d76c1c2"
+      }
+    ],
+    "prosthetics": [
+      {
+        "uid": 82,
+        "def": "Item.PegLeg"
+      },
+      {
+        "uid": 83,
+        "def": "Item.ArticulatedLeg"
+      },
+      {
+        "uid": 84,
+        "def": "Item.HookHand"
+      },
+      {
+        "uid": 85,
+        "def": "Item.GlassEye"
+      },
+      {
+        "uid": 86,
+        "def": "Item.PioneerArm"
+      },
+      {
+        "uid": 87,
+        "def": "Item.GardenerLimb"
+      }
+    ],
+    "errors": [],
+    "scope": "Two actual four-step self-patient sequences, unchanged review state, real saved continuation and six inventory icon bindings. Unit checks separately cover ally care, cancellation and future UID loss. No Full/World/long-run test."
+  },
+  "nativeCheckpoint": "/workspace/.ashveil-checkpoints/v385-care-plan-active-r2",
+  "publicationCheckpoint": "/workspace/.ashveil-checkpoints/v385-care-plan-active-r4",
+  "finalStaticChange": "Original-art catalog recent-source filter includes v384 and resized cards fit all six full crops at390px. Game src and built JS/CSS/assets remain byte-identical to Native r2. r4 also adds documentation, source acceptance receipts and public DOM check tool.",
+  "screenshots": [
+    "diagnostics/care-plan-v385/care-1440-draft.png",
+    "diagnostics/care-plan-v385/care-1440-complete.png",
+    "diagnostics/care-plan-v385/care-1366-draft.png",
+    "diagnostics/care-plan-v385/care-1366-complete.png",
+    "diagnostics/care-plan-v385/prosthetics-inventory.png"
+  ],
+  "checks": {
+    "focused-r2.txt": {
+      "bytes": 369,
+      "sha256": "15e908315ba2b5b526ac490835e9c602be682581e6d25d4d56f42eb17f9fe521"
+    },
+    "plan-final-r1.txt": {
+      "bytes": 168,
+      "sha256": "dd92644e7adb803ac0c14aa91ae90567487748a42734960220a50cf70121d3a6"
+    },
+    "types-final-r1.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "defs-r2.txt": {
+      "bytes": 1683,
+      "sha256": "1c3ba360cd90d7283ebb1027b2d528b097e6a6e7c1c1735893e3451f8f85b832"
+    },
+    "sprites-r1.txt": {
+      "bytes": 182,
+      "sha256": "0e0e9d809cd3d1978551d9ebb7480c89a50966c037bb1dbee48b6f57cf3caad7"
+    },
+    "schema-r1.txt": {
+      "bytes": 42,
+      "sha256": "cae38b5deb02dbe897c21855da3dfa7f1216bcfa388742895c2ec4443dbc9432"
+    },
+    "lint-r2.txt": {
+      "bytes": 211,
+      "sha256": "2bbce9085a194666b352d595ecb8eec8e987ad6b796b2e8c1a202429819c8d58"
+    },
+    "lint-final-r1.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build-r3.txt": {
+      "bytes": 31762,
+      "sha256": "239020059d4877820e6c891f853c8cfe79e0039d77998fbc3381fd5413e547fc"
+    },
+    "build-r4.txt": {
+      "bytes": 31494,
+      "sha256": "280c733689aed0814078bd8d18ad042a833c0dfd01fa6fb227a5821078aa617d"
+    },
+    "lint-public-tool-r2.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "tests": {
+    "focusedFiles": 9,
+    "focusedTests": 54,
+    "laterCarePlanTests": 9,
+    "laterAddedBoundaryCases": 2,
+    "full": false,
+    "world": false,
+    "v3101000": false
+  },
+  "assets": {
+    "newPNGs": 2,
+    "calls": 2,
+    "automaticRegeneration": 0,
+    "selectedOriginalObjects": 6,
+    "bodyMountedAccepted": false,
+    "readOnlyHumanStateAdapter": true,
+    "humanRendererBound": false,
+    "sourceReview": "tools/art/direction-v384/parent-native-review-v385.json",
+    "privateHumanCandidates": "v381/v382 remain inactive; side thigh/cuirass fit not accepted"
+  },
+  "lint": {
+    "errors": 0,
+    "existingWarnings": 1,
+    "warning": "unused mirror in tools/art/draw-amalgam.mjs",
+    "history": "unaltered archived art diagnostics excluded from maintained-code lint"
+  },
+  "limits": [
+    "No automatic surgical diagnosis or repeat nursing schedule",
+    "No body-mounted prosthetic/wardrobe acceptance",
+    "No Full/World/1000 or release/balance claim"
+  ],
+  "finalRuntimeComparison": {
+    "nativeCheckpoint": "/workspace/.ashveil-checkpoints/v385-care-plan-active-r2",
+    "onlyChanges": [
+      "public/artbook/index.html",
+      "dist/artbook/index.html"
+    ],
+    "allSourceAndBuiltGameAssetsByteIdentical": true
+  },
+  "staticCatalogLocalDOM": {
+    "root": "http://localhost:4395/",
+    "actualDOM": true,
+    "gameTitle": true,
+    "newItems": 6,
+    "recentFilterPreservesAllSix": true,
+    "catalogVersion": "0.385-dev",
+    "viewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "mobileFit": [
+      {
+        "frame": [
+          87.6875,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          87.375,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          79.890625,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          154.515625,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          129.8125,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      },
+      {
+        "frame": [
+          104.8125,
+          154
+        ],
+        "card": [
+          177.5,
+          170
+        ],
+        "fits": true
+      }
+    ],
+    "labels": [
+      "막대 의족",
+      "관절 의족",
+      "갈고리 손",
+      "유리 눈",
+      "개척 의수",
+      "정원사 이식지"
+    ],
+    "count": "물품 6개 · 0.385-dev",
+    "errors": [],
+    "scope": "Actual title and read-only original-art catalog. Main gameplay verified separately on immutable matching runtime."
+  }
+}

@@ -69,4 +69,5 @@ export function finishClinicalDose(w: World, doctor: Creature, act: Activity) {
   if (patient.activity?.drugSleep) { patient.activity.woundCount = patient.body.wounds.length; patient.nextAct = Math.max(patient.nextAct, w.s.time + 100) }
   patient.history.push({ turn: turnOf(w), kind: 'treat', text: `${doctor.name}의 ${drug.label} ${drug.external ? '도포' : '투약'}` })
   if (patient.id === w.s.playerId) log(w, 'info', `${doctor.name}이(가) ${drug.label}을(를) ${drug.external ? '상처에 발랐다' : '투여했다'}.`)
+  return true
 }

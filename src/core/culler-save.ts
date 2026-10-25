@@ -4,6 +4,7 @@ const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
 export function validateCullerSave(s:GameState){
  const pending:unknown[]=[s],visited=new Set<object>()
  while(pending.length){const value=pending.pop();if(!value||typeof value!=='object'||visited.has(value))continue;visited.add(value);const o=value as Record<string,unknown>
+  if(o.bellSignals!==undefined&&Array.isArray(o.events)&&o.level!==undefined&&!integer(o.bellSignals))throw Error('구역의 반복 정비 신호 기록이 올바르지 않다')
   if(o.cullerState!==undefined){const c=o as unknown as Creature,r=c.cullerState!
    if(!r||typeof r.rule!=='string'||!r.rule||r.rule.length>65536||!integer(r.attacks)||r.attacks>1000||!integer(r.coolUntil)||typeof r.returning!=='boolean'||!Array.isArray(r.components)||r.components.length>128)throw Error('구제기의 원래 행동/부품 기록이 올바르지 않다')
    if(r.tracked&&(!integer(r.tracked.id)||!integer(r.tracked.at)||!r.tracked.pos||!integer(r.tracked.pos.x)||!integer(r.tracked.pos.y)))throw Error('구제기의 실제 마지막 관찰 기록이 올바르지 않다')

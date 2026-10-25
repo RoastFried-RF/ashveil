@@ -1,4 +1,5 @@
 import {companionAidDecision} from './companion-aid'
+import {pauseCompanionCarePlan} from './companion-care-plan-state'
 import {companionRecoveryDecision} from './companion-recovery'
 import {readyFood} from './open-food-state'
 import {rememberMeeting} from './first-impressions'
@@ -103,6 +104,7 @@ export function dismissCompanion(w:World,c:Creature):string|null{
   endCompanionContract(w,c,'dismissed');log(w,'info',`${c.name}과(와) 이곳에서 헤어졌다. 이미 건넨 돈은 돌려받지 않는다.`);return null
 }
 export function endCompanionContract(w:World,c:Creature,status:'dismissed'|'employerDead'|'betrayed'|'left'){
+  pauseCompanionCarePlan(w,c,'동행 계약이 끝났다')
   releaseBaseBeds(w,c.id)
   clearBaseTask(w,c)
   c.companionRecovery=undefined
@@ -111,6 +113,7 @@ export function endCompanionContract(w:World,c:Creature,status:'dismissed'|'empl
   if(status!=='betrayed'&&c.recruitment?.employer===w.s.playerId&&c.recruitment.willing!==undefined)c.mercy={by:w.s.playerId,faction:player(w).faction,until:turnOf(w)+prisonerDef(w).mercyTurns,rewardedBy:c.mercy?.rewardedBy??[]}
 }
 export function companionTick(w:World,c:Creature){
+  if(c.companion?.carePlan?.status==='running'&&(!c.alive||c.activity?.companionCarePlan!==c.companion.carePlan.uid))pauseCompanionCarePlan(w,c,'시술자 또는 원래 처치 활동이 달라졌다')
   if(!c.alive||!isCompanion(w,c))return
   if(!player(w).alive){endCompanionContract(w,c,'employerDead');return}
   if(c.companion!.status==='employed'&&turnOf(w)>=c.companion!.paidUntil){c.companion!.status='unpaid';c.companion!.order='hold';c.companion!.anchor={...c.pos};c.ai.path=undefined;c.history.push({turn:turnOf(w),kind:'companion',text:'선불 기간이 끝나 급료를 기다린다.'});recordCompanionBond(w,c,'arrears',companionBondDef(w).arrears,'선불 기간이 끝났는데 급료를 받지 못했다.');if(isCompanion(w,c)&&w.s.creatures.includes(c)&&canSee(w,player(w),c.pos))log(w,'warn',`${c.name}의 선불 기간이 끝났다. 곁에서 급료를 건네야 동행한다.`)}

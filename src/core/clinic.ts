@@ -145,4 +145,5 @@ export function finishDiagnostic(w: World, doctor: Creature, act: Activity) {
   if (reports.length > rule.examination.reportLimit) reports.splice(0, reports.length - rule.examination.reportLimit)
   patient.history.push({ turn: report.at, kind: 'treat', text: `${doctor.name}의 진찰: ${findings.join(' ')}` })
   if (patient.id === w.s.playerId) log(w, 'info', `${doctor.name}의 진찰이 끝났다. ${findings.join(' ')}`)
+  return true
 }

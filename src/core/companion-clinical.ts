@@ -12,13 +12,18 @@ import type {Activity,Creature} from './types'
 
 export type CompanionClinicalRequest=ClinicRequest&{patient?:number;permanentLossAccepted?:boolean}
 export function companionClinicalQuote(w:World,c:Creature,request:CompanionClinicalRequest){
+ return companionClinicalWorkQuote(w,c,request)
+}
+/** Continuing an explicitly approved sequence requires the patient, not another conversation with the leader. */
+export function companionClinicalWorkQuote(w:World,c:Creature,request:CompanionClinicalRequest,continuing=false){
  const leader=player(w),p=request?.patient===undefined?leader:creatureById(w,request.patient),policy=companionClinicalRule(w),out={error:null as string|null,turns:0,quality:null as number|null,lines:[] as string[],activity:undefined as Activity|undefined,signature:''}
  const fail=(error:string)=>{out.error=error;return out}
  if(!request||request.patient!==undefined&&!Number.isSafeInteger(request.patient)||request.uid!==undefined&&!Number.isSafeInteger(request.uid)||request.woundId!==undefined&&!Number.isSafeInteger(request.woundId)||request.part!==undefined&&typeof request.part!=='string')return fail('실제 환자·상처·약·부위의 진료를 골라야 한다')
  if(!policy||policy.defType!=='Clinic')return fail('현재 구성에 동료 진료 규칙이 없다')
- if(!p||p===c||p!==leader&&!isCompanion(w,p)||!p.alive||p.captivity||p.asleep||p.unconscious||p.activity||p.breakdown||capacity(w,p,'consciousness')<.5||!canSee(w,leader,p.pos))return fail('직접 관찰한 깨어 있는 나 또는 동료를 환자로 골라야 한다')
+ if(!p||p===c||p!==leader&&!isCompanion(w,p)||!p.alive||p.captivity||p.asleep||p.unconscious||p.activity||p.breakdown||capacity(w,p,'consciousness')<.5||!continuing&&!canSee(w,leader,p.pos))return fail('직접 관찰한 깨어 있는 나 또는 동료를 환자로 골라야 한다')
  if(!isCompanion(w,c)||c.companion!.status!=='employed'||c.companion!.paidUntil<=turnOf(w))return fail('급료 기간이 남은 동료에게 부탁해야 한다')
- const access=companionAccess(w,c)??treatmentAccess(w,c,p);if(access)return fail(access)
+ const access=(continuing?null:companionAccess(w,c))??treatmentAccess(w,c,p);if(access)return fail(access)
+ if(!w.s.creatures.includes(c)||!w.s.creatures.includes(p)||c.activity)return fail('같은 현장에서 하던 일을 마친 뒤 진료해야 한다')
  if([c,p].some(a=>a.mapId!==undefined&&a.mapId!==w.s.map.id)||c.body.machine||w.db.body(c.body.def).kind!=='humanoid'||c.breakdown||c.leading)return fail('같은 현장의 손을 쓸 수 있는 동료가 필요하다')
  if(c.companionRecovery||c.recoveryCargo||w.s.map.baseCamp?.tasks[c.id])return fail('맡긴 현장 작업을 먼저 마치거나 중단해야 한다')
  if(hostileAware(w,c)||hostileAware(w,p))return fail('위협을 벗어난 뒤 진료를 부탁해야 한다')

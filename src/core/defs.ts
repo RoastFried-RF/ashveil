@@ -1259,6 +1259,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if(d.clinical!==undefined)need(d.id,d.clinical,'Clinic')
     for(const[key,min,max]of[['hireFee',1,100000],['dailyWage',1,100000],['maxMembers',1,8],['minReputation',-100,100],['followDistance',1,4],['arrivalRadius',1,6],['defendRadius',1,12],['eatBelow',0,2500],['drinkAbove',0,2000],['sleepAt',1,100],['wakeAt',0,99]]as const){if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}가 필요함`);else range(d.id,key,d[key],min,max,true)}
     if(d.joinRadius<d.followDistance||d.sleepAt<=d.wakeAt)report.errors.push(`${d.id}: 동행 거리/수면 임계 순서가 잘못됨`)
+    if(d.carePlanMaxSteps!==undefined)range(d.id,'carePlanMaxSteps',d.carePlanMaxSteps,1,128,true)
     if(d.aid!==undefined){
       const r=d.aid
       if(!r||typeof r!=='object'||Array.isArray(r))report.errors.push(d.id+': aid 객체 필요')

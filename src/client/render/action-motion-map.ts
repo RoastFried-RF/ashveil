@@ -58,6 +58,7 @@ export const actionMotions={
  "commandCompanion":null,
  "companionCare":"interact",
  "companionClinical":"interact",
+ "companionCarePlan":"interact",
  "cancelCompanionClinical":null,
  "companionMap":"interact",
  "companionRecoveryAssign":"interact",

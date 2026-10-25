@@ -5,7 +5,7 @@ import globals from 'globals'
 
 export default tseslint.config(
   // Preserve historical diagnostic programs as records, outside maintained runtime/tool lint.
-  { ignores: ['dist/**', 'node_modules/**', 'public/**', 'test-results/**', 'output/**', 'docs/diagnostics/**', 'tools/vendor/openai-web-game/**'] },
+  { ignores: ['dist/**', 'node_modules/**', 'public/**', 'test-results/**', 'output/**', 'docs/diagnostics/**', 'tools/art/**/history/**', 'tools/vendor/openai-web-game/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...vue.configs['flat/recommended'],

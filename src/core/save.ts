@@ -1,4 +1,5 @@
 import {validateCullerSave} from './culler-save'
+import {validateCompanionCarePlans} from './companion-care-plan-save'
 import {validateCrawlerSave} from './crawler-save'
 import {validRecordedItemShape} from './missing-items'
 import {storedItemStateError} from './storage-state'
@@ -415,6 +416,8 @@ export function deserialize(json: string): GameState {
   if(s.version===215)s.version=216
   // v217 records finite guardian stock; old actors gain no new components.
   if(s.version===216)s.version=217
+  // v218 retains explicitly approved finite care sequences; older saves receive no new consent.
+  if(s.version===217)s.version=218
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -428,10 +431,11 @@ export function deserialize(json: string): GameState {
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
+  if(json.includes('"carePlan"')||json.includes('"companionCarePlan"'))validateCompanionCarePlans(actors)
   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
   const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)
   if(json.includes('"crawlerState"')||json.includes('"paralysis"')||json.includes('"toxin"')||json.includes('"loadedAmmoToxin"'))validateCrawlerSave(s)
-  if(json.includes('"cullerState"')||json.includes('"netted"'))validateCullerSave(s)
+  if(json.includes('"cullerState"')||json.includes('"netted"')||json.includes('"bellSignals"'))validateCullerSave(s)
   const swarmMaps=[s.map,...Object.values(s.maps??{}),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[scene.map,...Object.values(scene.maps??{})])]
   for(const map of swarmMaps){if(map.swarms===undefined)continue
     if(!Array.isArray(map.swarms)||map.swarms.length>128)throw Error('군체 목록 형식이 올바르지 않다')

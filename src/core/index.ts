@@ -140,6 +140,7 @@ export * from './companion-state'
 export * from './companions'
 export * from './companion-care'
 export * from './companion-clinical'
+export * from './companion-care-plan'
 export * from './recipe-renames'
 export * from './discovery-archive'
 

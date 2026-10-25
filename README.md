@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업 묶음은 **v0.379-dev·저장217**이다. 실제21부위/6구동 다리/두 낫팔의 구제기와 유한 산·포획망·냉각/경계·수리 드론의 실물 보급·회수한 탱크 사용·낫창/전원셀/밧줄/고철 제작을 연결한다. [구현·한계](docs/culler-v379.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/). 공개 v375 지네의 [조립 미리보기](https://roastfried-rf.github.io/ashveil/artbook/crawler/)와 기존 원래 개체/재고를 유지하며 방문한 지도에 새 생물을 보충하지 않는다. 착용/손상 몸·장기 확장 및 전체 출시 게이트는 남는다. [실행 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
+현재 작업 묶음은 **v0.385-dev·저장218**이다. 동료에게 같은 환자의 진찰·약·상처 처치를 최대8개까지 순서대로 맡기고 실제 물품·몸 상태 재검토·중단/재검토·저장 복원을 연결했다. 의수족6종은 새 자체 원화 아이콘을 적용했다. [사용법·구현·한계](docs/companion-care-plan-v385.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/). 기존 [구제기](docs/culler-v379.md)·[조립 미리보기](https://roastfried-rf.github.io/ashveil/artbook/culler/)와 실제 재고는 유지한다. 인물 착용/보철 몸 표현·장기 확장·전체 출시 게이트는 남는다. [실행 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
 v319/320의 무기·의복·도구 등 물품80종은 유지한다. [물품 원화](docs/equipment-art-v320.md) · [이전 위키 조사](docs/wiki-resource-study-v319.md). 거점 최소 재고와 동료 응급 처치도 구현했으며 통합 검증은 대기 중이다. [최소 재고](docs/base-craft-stock-v318.md) · [동료 처치](docs/companion-care-v317.md). [이동·광원 변경](docs/movement-people-v316.md). 전체 회귀는 후속 단계이며 마지막 전체 회귀 검증본은 v0.312·저장206이다. [밭 관리](docs/crop-management-v315.md) · [실마리](docs/conclusions-research-v314.md) · [작물 원화·UI](docs/feature-ui-v313.md).
 

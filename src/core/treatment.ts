@@ -1,4 +1,5 @@
 import {companionClinicalRule,isCompanion} from './companion-state'
+import {pauseCompanionCarePlan} from './companion-care-plan-state'
 import {hasItemWorkerMethod,runItemAppliedWorker} from './script-item'
 import {recordNpcCare} from './npc-care-state'
 import {rememberLifeEvent} from './life-memories'
@@ -231,11 +232,12 @@ export function finishTreat(w:World,c:Creature,act:Activity,half=false){
   const patient=act.patientId===undefined?c:creatureById(w,act.patientId)
   if(!patient?.alive||!w.s.creatures.includes(patient))return finishTreatCore(w,c,act,half)
   const before=allItems(c).filter(i=>w.db.item(i.def).compWorker).map(i=>({uid:i.uid,item:i.def,count:i.count,uses:i.uses})),wound=patient.body.wounds.find(x=>x.id===act.woundId),part=act.limb??wound?.part
-  finishTreatCore(w,c,act,half)
+  const applied=finishTreatCore(w,c,act,half)
   for(const source of before){
     const after=allItems(c).find(i=>i.uid===source.uid&&i.def===source.item),countConsumed=Math.max(0,source.count-(after?.count??0)),usesConsumed=source.uses===undefined?0:Math.max(0,source.uses-(after?.uses??0))
     if(countConsumed||usesConsumed)runItemAppliedWorker(w,c,patient,{uid:source.uid,item:source.item,countConsumed,usesConsumed,mlConsumed:0,gramsConsumed:0},{effect:act.treat??'treat',partial:half,...(act.woundId===undefined?{}:{woundId:act.woundId}),...(part?{part}:{})})
   }
+  return applied
 }
 function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
   const patient = act.patientId === undefined ? c : creatureById(w, act.patientId)
@@ -252,7 +254,7 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
     finishProcedure(w, patient, rule, q, wd, act.limb ?? wd?.part, c)
     if (rule.kind === 'amputate') dirtyHands(w, c)
     if (blade) blade.durability = Math.max(0, (blade.durability ?? 100) - 1)
-    return
+    return true
   }
   if (isSurgery(act.treat)) {
     const rule = surgeryDef(w, act.treat), needle = allItems(c).find((i) => i.uid === act.toolUid)
@@ -282,13 +284,13 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
     }
     practice(w, c, 'medicine', wd ? `wound:${wd.id}` : `tendon:${target}:${turn}`)
     if (isPl(patient)) { log(w, 'good', `${rule.label} 완료 (Q ${q}).${wd?.washedAt === undefined && wd ? ' 세척하지 않아 오염이 늘었다.' : ''}`); patient.history.push({ turn, kind: 'treat', text: `${target ? part(w, patient, target).label : ''} ${rule.label} (Q ${q})` }) }
-    return
+    return true
   }
   if (act.treat === 'cauterize') {
     if (!wd) return
     if (!canHeatBlade(w, c) || c.traumas?.some((t) => t.def === 'Trauma.Fire')) { if (isPl(patient)) log(w, 'warn', '불이나 칼날을 잃었거나 불 공포 때문에 소작을 중단했다.'); return }
     cauterize(w, c, wd)
-    return
+    return true
   }
   const it = act.uid !== undefined ? findItem(c, act.uid) : undefined
   if (!it) return
@@ -317,7 +319,7 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
         log(w, wd.arterial ? 'warn' : 'info', msg, lines)
         patient.history.push({ turn, kind: 'treat', text: `${part(w, patient, wd.part).label} 붕대 (Q ${q})` })
       }
-      return
+      return true
     }
     case 'tourniquet': {
       const lb = act.limb
@@ -327,7 +329,7 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
       removeOne(w, c, it.uid)
       practice(w, c, 'medicine', `limb:${lb}`)
       if (isPl(patient)) log(w, 'info', `${part(w, patient, lb).label}에 지혈대를 단단히 감았다. 아래로는 피가 돌지 않는다. 두 시간 안에 풀어야 한다.`)
-      return
+      return true
     }
     case 'splint': {
       if (!wd?.fracture) return
@@ -336,7 +338,7 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
       practice(w, c, 'medicine', `wound:${wd.id}`)
       if (!half) traumaTreat(w, patient, wd.id)
       if (isPl(patient)) log(w, 'info', half ? `${part(w, patient, wd.part).label}에 부목을 반만 묶었다. 효과가 절반이다.` : `${part(w, patient, wd.part).label}에 부목을 댔다. (Q ${q})`, lines)
-      return
+      return true
     }
     case 'disinfect': {
       if (!wd) return
@@ -350,7 +352,7 @@ function finishTreatCore(w: World, c: Creature, act: Activity, half = false) {
       practice(w, c, 'medicine', `wound:${wd.id}`)
       if (!half) traumaTreat(w, patient, wd.id)
       if (isPl(patient)) log(w, 'info', `${part(w, patient, wd.part).label}의 상처를 술로 씻었다. 타는 듯이 쓰라리다. (오염 ${wd.contam})`)
-      return
+      return true
     }
   }
 }
@@ -393,6 +395,7 @@ function cauterize(w: World, c: Creature, wd: Wound) {
 /** 처치 채널이 끊겼을 때 (01 §7): 부목은 절반 이상 묶었으면 반쪽 부목, 소작은 가열 보존 */
 export function interruptTreat(w: World, c: Creature) {
   const act = c.activity
+  if(act?.companionCarePlan)pauseCompanionCarePlan(w,c,'환자 또는 시술자가 진행 중인 처치를 중단했다')
   if (act?.kind === 'careWait') {
     const healer = creatureById(w, act.healerId)
     if (healer?.activity?.patientId === c.id) {

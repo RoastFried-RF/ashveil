@@ -26,5 +26,5 @@ export function recordGardenAlarm(w:World,source:Creature,seen?:{id:number;pos:P
 export function recordGardenBell(w:World){
  const p=w.s.map.worldCell??w.s.overworld?.position
  const state=w.s.overworld&&p?((w.s.overworld.gardenAlerts??={})[p.x+','+p.y]??={level:0,events:[]}):(w.s.map.gardenAlert??={level:0,events:[]})
- const prior=state.bellSignals??0;state.bellSignals=prior+1;return prior
+ const prior=state.bellSignals??0;state.bellSignals=Math.min(Number.MAX_SAFE_INTEGER,prior+1);return prior
 }

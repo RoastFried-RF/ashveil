@@ -1,0 +1,847 @@
+{
+  "scope": "Read-only six existing original inventory frames; no new source pixels; each view rotation/flip is runtime reuse, not four authored views. Mounts are measured graphic candidates and not real3D pins.",
+  "coordinateConvention": "source/crop logical pixel coordinates; sourceRGBA sampled at integer pixel index. Runtime flip pivots use w-x and no second anatomical side swap.",
+  "sixOldUniqueRegions": 6,
+  "newSources": 0,
+  "defs": [
+    {
+      "def": "Prosthetic.PegLeg",
+      "item": "Item.PegLeg",
+      "sprite": "complete_item_peg_leg",
+      "sourceFrame": [
+        "direction_v303_items",
+        416,
+        320,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": {
+        "crop": [
+          16,
+          6
+        ],
+        "source": [
+          432,
+          326
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisEnd": {
+        "crop": [
+          16,
+          28
+        ],
+        "source": [
+          432,
+          348
+        ],
+        "sourceRGBA": [
+          101,
+          75,
+          55,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 90.0,
+      "axisLengthSourcePx": 22.0,
+      "tip": {
+        "crop": [
+          16,
+          30
+        ],
+        "source": [
+          432,
+          350
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "cuffMetalCenter": {
+          "crop": [
+            16,
+            12
+          ],
+          "source": [
+            432,
+            332
+          ],
+          "sourceRGBA": [
+            105,
+            112,
+            117,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [
+        "LeftShin",
+        "RightShin"
+      ],
+      "rootBindingsHeld": [
+        "LeftFoot",
+        "RightFoot"
+      ],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "observedPalmSocket": null,
+      "note": "One intact cuff-to-peg single object. No authored foot or independently visible ankle. Foot-only binding is held instead of rendering a whole shin on an ankle stump.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    },
+    {
+      "def": "Prosthetic.ArticulatedLeg",
+      "item": "Item.ArticulatedLeg",
+      "sprite": "complete_item_articulated_leg",
+      "sourceFrame": [
+        "direction_v303_items",
+        448,
+        320,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": {
+        "crop": [
+          16,
+          5
+        ],
+        "source": [
+          464,
+          325
+        ],
+        "sourceRGBA": [
+          41,
+          40,
+          42,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisEnd": {
+        "crop": [
+          16,
+          26
+        ],
+        "source": [
+          464,
+          346
+        ],
+        "sourceRGBA": [
+          139,
+          144,
+          144,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 90.0,
+      "axisLengthSourcePx": 21.0,
+      "tip": {
+        "crop": [
+          20,
+          30
+        ],
+        "source": [
+          468,
+          350
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "visibleRoundBoss": {
+          "crop": [
+            17,
+            17
+          ],
+          "source": [
+            465,
+            337
+          ],
+          "sourceRGBA": [
+            158,
+            134,
+            85,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "distalMetal": {
+          "crop": [
+            16,
+            26
+          ],
+          "source": [
+            464,
+            346
+          ],
+          "sourceRGBA": [
+            139,
+            144,
+            144,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "soleLeft": {
+          "crop": [
+            12,
+            30
+          ],
+          "source": [
+            460,
+            350
+          ],
+          "sourceRGBA": [
+            25,
+            25,
+            27,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "soleRight": {
+          "crop": [
+            25,
+            30
+          ],
+          "source": [
+            473,
+            350
+          ],
+          "sourceRGBA": [
+            25,
+            25,
+            27,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [
+        "LeftShin",
+        "RightShin"
+      ],
+      "rootBindingsHeld": [
+        "LeftFoot",
+        "RightFoot"
+      ],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "observedPalmSocket": null,
+      "note": "Complete cuff/strut/boss/metal-foot object. The visible boss is not asserted to be a knee or ankle. Distal foot-only region has no reviewed independent proximal cap.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    },
+    {
+      "def": "Prosthetic.HookHand",
+      "item": "Item.HookHand",
+      "sprite": "complete_item_hook_hand",
+      "sourceFrame": [
+        "direction_v303_items",
+        480,
+        320,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": {
+        "crop": [
+          15,
+          27
+        ],
+        "source": [
+          495,
+          347
+        ],
+        "sourceRGBA": [
+          121,
+          96,
+          71,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisEnd": {
+        "crop": [
+          15,
+          19
+        ],
+        "source": [
+          495,
+          339
+        ],
+        "sourceRGBA": [
+          105,
+          112,
+          117,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": -90.0,
+      "axisLengthSourcePx": 8.0,
+      "tip": {
+        "crop": [
+          27,
+          13
+        ],
+        "source": [
+          507,
+          333
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "metalStem": {
+          "crop": [
+            15,
+            19
+          ],
+          "source": [
+            495,
+            339
+          ],
+          "sourceRGBA": [
+            105,
+            112,
+            117,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "hookSilverNearTip": {
+          "crop": [
+            27,
+            12
+          ],
+          "source": [
+            507,
+            332
+          ],
+          "sourceRGBA": [
+            105,
+            112,
+            117,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [
+        "LeftHand",
+        "RightHand"
+      ],
+      "rootBindingsHeld": [],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": false,
+      "twoHandSupportCore": 0.5,
+      "observedPalmSocket": null,
+      "note": "Brown cuff bottom is proximal; actual metal hook curves above it. No biological palm, no conventional grip. Core twoHandSupport0.5 does not manufacture a hand.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    },
+    {
+      "def": "Prosthetic.GlassEye",
+      "item": "Item.GlassEye",
+      "sprite": "original_glass_eye",
+      "sourceFrame": [
+        "direction_v303_items",
+        0,
+        352,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": {
+        "crop": [
+          18,
+          17
+        ],
+        "source": [
+          18,
+          369
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisEnd": {
+        "crop": [
+          18,
+          8
+        ],
+        "source": [
+          18,
+          360
+        ],
+        "sourceRGBA": [
+          25,
+          25,
+          27,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": -90.0,
+      "axisLengthSourcePx": 9.0,
+      "tip": null,
+      "landmarks": {
+        "irisCenter": {
+          "crop": [
+            18,
+            17
+          ],
+          "source": [
+            18,
+            369
+          ],
+          "sourceRGBA": [
+            25,
+            25,
+            27,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "ivoryGlass": {
+          "crop": [
+            11,
+            10
+          ],
+          "source": [
+            11,
+            362
+          ],
+          "sourceRGBA": [
+            221,
+            209,
+            180,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [
+        "LeftEye",
+        "RightEye"
+      ],
+      "rootBindingsHeld": [],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "observedPalmSocket": null,
+      "note": "Cosmetic glass eye, not relic sight hardware. Mount only at an actually visible biological eye landmark; behind-head and far hidden eye stay null.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    },
+    {
+      "def": "Prosthetic.PioneerArm",
+      "item": "Item.PioneerArm",
+      "sprite": "complete_item_pioneer_arm",
+      "sourceFrame": [
+        "direction_v303_items",
+        32,
+        352,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": {
+        "crop": [
+          14,
+          7
+        ],
+        "source": [
+          46,
+          359
+        ],
+        "sourceRGBA": [
+          73,
+          65,
+          59,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisEnd": {
+        "crop": [
+          23,
+          25
+        ],
+        "source": [
+          55,
+          377
+        ],
+        "sourceRGBA": [
+          41,
+          40,
+          42,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 63.43494882292201,
+      "axisLengthSourcePx": 20.12461179749811,
+      "tip": {
+        "crop": [
+          26,
+          27
+        ],
+        "source": [
+          58,
+          379
+        ],
+        "sourceRGBA": [
+          139,
+          144,
+          144,
+          255
+        ],
+        "graphicUncertaintySourcePx": 1,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "brassCuffCenter": {
+          "crop": [
+            14,
+            7
+          ],
+          "source": [
+            46,
+            359
+          ],
+          "sourceRGBA": [
+            73,
+            65,
+            59,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "wristGraphicCandidate": {
+          "crop": [
+            23,
+            25
+          ],
+          "source": [
+            55,
+            377
+          ],
+          "sourceRGBA": [
+            41,
+            40,
+            42,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "gripperMetal": {
+          "crop": [
+            26,
+            27
+          ],
+          "source": [
+            58,
+            379
+          ],
+          "sourceRGBA": [
+            139,
+            144,
+            144,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [
+        "LeftForearm",
+        "RightForearm"
+      ],
+      "rootBindingsHeld": [
+        "LeftHand",
+        "RightHand"
+      ],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "observedPalmSocket": null,
+      "note": "Complete forearm/claw source. No physically reviewed palm or thumb, and no independently reviewed Hand-only cut. Depleted power never hides this metal or restores skin.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    },
+    {
+      "def": "Prosthetic.GardenerLimb",
+      "item": "Item.GardenerLimb",
+      "sprite": "complete_item_gardener_limb",
+      "sourceFrame": [
+        "direction_v303_items",
+        64,
+        352,
+        32,
+        32
+      ],
+      "sourceSha256": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b",
+      "mount": null,
+      "axisEnd": null,
+      "axisDegrees": null,
+      "axisLengthSourcePx": null,
+      "tip": null,
+      "landmarks": {
+        "paleBranchJunction": {
+          "crop": [
+            15,
+            26
+          ],
+          "source": [
+            79,
+            378
+          ],
+          "sourceRGBA": [
+            208,
+            194,
+            160,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "firstFork": {
+          "crop": [
+            10,
+            6
+          ],
+          "source": [
+            74,
+            358
+          ],
+          "sourceRGBA": [
+            208,
+            194,
+            160,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        },
+        "secondFork": {
+          "crop": [
+            26,
+            6
+          ],
+          "source": [
+            90,
+            358
+          ],
+          "sourceRGBA": [
+            208,
+            194,
+            160,
+            255
+          ],
+          "graphicUncertaintySourcePx": 1,
+          "physical3DAxisObserved": null
+        }
+      },
+      "rootBindingCandidates": [],
+      "rootBindingsHeld": [
+        "LeftUpperArm",
+        "LeftForearm",
+        "LeftHand",
+        "LeftThigh",
+        "LeftShin",
+        "LeftFoot",
+        "RightUpperArm",
+        "RightForearm",
+        "RightHand",
+        "RightThigh",
+        "RightShin",
+        "RightFoot"
+      ],
+      "oneOriginalViewOnly": true,
+      "availableAuthoredViews": 1,
+      "directionReuse": {
+        "down": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "right": {
+          "borrowedView": true,
+          "flipX": false
+        },
+        "left": {
+          "borrowedView": true,
+          "flipX": true
+        },
+        "up": {
+          "borrowedView": true,
+          "flipX": false,
+          "reverseSurfaceAuthored": false
+        }
+      },
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "observedPalmSocket": null,
+      "note": "Actual pale Y-branch inventory object matches unknown description. Which short stem is proximal is unobserved; do not invent a socket or a complete arm/leg from its forks.",
+      "visualBodyFitAccepted": false,
+      "active": false
+    }
+  ]
+}
