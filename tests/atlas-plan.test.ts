@@ -11,8 +11,10 @@ import {stateHash} from '../src/core/save'
 import {createCreature} from '../src/core/creatures'
 import {prisonerFixture} from './prisoner-fixture'
 import {rigSpecFrameKeys} from '../src/client/render/rig-spec'
+import {humanSpecFrameKeys} from '../src/client/render/human-spec'
+import {humanArt} from '../src/client/render/human-art'
 const m=JSON.parse(readFileSync('src/client/sprites.json','utf8'))as AtlasManifest
-function keys(c:AtlasManifest['chars'][string]){return[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})].flatMap(clip=>clip?Object.values(clip).flat():[])}
+function keys(c:AtlasManifest['chars'][string]){if(c.human)return humanSpecFrameKeys(humanArt);return[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})].flatMap(clip=>clip?Object.values(clip).flat():[])}
 it('keeps all original common terrain/prop/FX sheets while loading every actual phase of only selected body models',()=>{
  const {w,s,p}=prisonerFixture();s.creatures=[p,createCreature(w,'Creature.Surveyor',{x:24,y:20})];const request=worldAssets(w),before=stateHash(s),plan=atlasPlan(m,request.icons,request.characters)
  for(const key of [...mapIconKeys,...terrainArtFrames,...forestArtFrames,...livingArtFrames,...cropArtFrames,...forageArtFrames,'shove','trip','disarm','crouch'])if(m.frames[key])expect(plan.sheets).toContain(m.frames[key][0])

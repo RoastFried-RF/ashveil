@@ -1,0 +1,679 @@
+{
+  "format": 1,
+  "status": "torso-candidate-coordinate-handoff",
+  "source": "originals/wanderer-components-four-facings-v1.png",
+  "sha256": "f05cfe92abe4e81218d5f415310a008a0335379729ad5b6af2c641c45938e25e",
+  "directions": {
+    "down": {
+      "rawId": "av381_down_TorsoPelvis",
+      "sourceCrop": [
+        229,
+        38,
+        163,
+        226
+      ],
+      "actualFacing": "down",
+      "landmarks": {
+        "neckSocket": {
+          "source": [
+            310,
+            61
+          ],
+          "crop": [
+            81,
+            23
+          ],
+          "sourceRGBA": [
+            97,
+            66,
+            50,
+            252
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftShoulder": {
+          "source": [
+            358,
+            91
+          ],
+          "crop": [
+            129,
+            53
+          ],
+          "sourceRGBA": [
+            153,
+            112,
+            85,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightShoulder": {
+          "source": [
+            266,
+            91
+          ],
+          "crop": [
+            37,
+            53
+          ],
+          "sourceRGBA": [
+            159,
+            115,
+            88,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistLeft": {
+          "source": [
+            264,
+            164
+          ],
+          "crop": [
+            35,
+            126
+          ],
+          "sourceRGBA": [
+            64,
+            46,
+            33,
+            250
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistRight": {
+          "source": [
+            355,
+            164
+          ],
+          "crop": [
+            126,
+            126
+          ],
+          "sourceRGBA": [
+            47,
+            27,
+            18,
+            251
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftHip": {
+          "source": [
+            342,
+            232
+          ],
+          "crop": [
+            113,
+            194
+          ],
+          "sourceRGBA": [
+            177,
+            136,
+            104,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightHip": {
+          "source": [
+            276,
+            232
+          ],
+          "crop": [
+            47,
+            194
+          ],
+          "sourceRGBA": [
+            166,
+            126,
+            96,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        }
+      },
+      "pelvisSplitProposal": {
+        "lineSource": [
+          [
+            264,
+            164
+          ],
+          [
+            355,
+            164
+          ]
+        ],
+        "proximalKeep": "neck side of waistband line retains Chest+Abdomen",
+        "distalKeep": "hip side contains Pelvis/underpants",
+        "certainty": "proposed2Dsource mask boundary at visible waistband; not an authored independent pelvis"
+      }
+    },
+    "right": {
+      "rawId": "av381_left_TorsoPelvis",
+      "sourceCrop": [
+        246,
+        263,
+        147,
+        243
+      ],
+      "actualFacing": "right",
+      "landmarks": {
+        "neckSocket": {
+          "source": [
+            315,
+            286
+          ],
+          "crop": [
+            69,
+            23
+          ],
+          "sourceRGBA": [
+            90,
+            58,
+            43,
+            251
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftShoulder": {
+          "source": [
+            352,
+            322
+          ],
+          "crop": [
+            106,
+            59
+          ],
+          "sourceRGBA": [
+            177,
+            159,
+            137,
+            253
+          ],
+          "certainty": "hidden far-side inferred socket, not visible joint",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 12,
+          "physical3DAxisObserved": null
+        },
+        "rightShoulder": {
+          "source": [
+            299,
+            331
+          ],
+          "crop": [
+            53,
+            68
+          ],
+          "sourceRGBA": [
+            171,
+            124,
+            95,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistLeft": {
+          "source": [
+            283,
+            395
+          ],
+          "crop": [
+            37,
+            132
+          ],
+          "sourceRGBA": [
+            62,
+            41,
+            31,
+            252
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistRight": {
+          "source": [
+            362,
+            402
+          ],
+          "crop": [
+            116,
+            139
+          ],
+          "sourceRGBA": [
+            88,
+            59,
+            42,
+            251
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftHip": {
+          "source": [
+            351,
+            460
+          ],
+          "crop": [
+            105,
+            197
+          ],
+          "sourceRGBA": [
+            74,
+            48,
+            35,
+            252
+          ],
+          "certainty": "hidden far-side inferred socket, not visible joint",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 12,
+          "physical3DAxisObserved": null
+        },
+        "rightHip": {
+          "source": [
+            299,
+            465
+          ],
+          "crop": [
+            53,
+            202
+          ],
+          "sourceRGBA": [
+            180,
+            138,
+            107,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        }
+      },
+      "pelvisSplitProposal": {
+        "lineSource": [
+          [
+            283,
+            395
+          ],
+          [
+            362,
+            402
+          ]
+        ],
+        "proximalKeep": "neck side of waistband line retains Chest+Abdomen",
+        "distalKeep": "hip side contains Pelvis/underpants",
+        "certainty": "proposed2Dsource mask boundary at visible waistband; not an authored independent pelvis"
+      }
+    },
+    "left": {
+      "rawId": "av381_right_TorsoPelvis",
+      "sourceCrop": [
+        246,
+        504,
+        148,
+        227
+      ],
+      "actualFacing": "left",
+      "landmarks": {
+        "neckSocket": {
+          "source": [
+            317,
+            525
+          ],
+          "crop": [
+            71,
+            21
+          ],
+          "sourceRGBA": [
+            99,
+            64,
+            48,
+            252
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftShoulder": {
+          "source": [
+            343,
+            565
+          ],
+          "crop": [
+            97,
+            61
+          ],
+          "sourceRGBA": [
+            159,
+            111,
+            84,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightShoulder": {
+          "source": [
+            283,
+            554
+          ],
+          "crop": [
+            37,
+            50
+          ],
+          "sourceRGBA": [
+            164,
+            146,
+            129,
+            252
+          ],
+          "certainty": "hidden far-side inferred socket, not visible joint",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 12,
+          "physical3DAxisObserved": null
+        },
+        "waistLeft": {
+          "source": [
+            276,
+            625
+          ],
+          "crop": [
+            30,
+            121
+          ],
+          "sourceRGBA": [
+            17,
+            9,
+            7,
+            252
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistRight": {
+          "source": [
+            356,
+            636
+          ],
+          "crop": [
+            110,
+            132
+          ],
+          "sourceRGBA": [
+            31,
+            19,
+            14,
+            251
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftHip": {
+          "source": [
+            344,
+            694
+          ],
+          "crop": [
+            98,
+            190
+          ],
+          "sourceRGBA": [
+            128,
+            86,
+            62,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightHip": {
+          "source": [
+            288,
+            688
+          ],
+          "crop": [
+            42,
+            184
+          ],
+          "sourceRGBA": [
+            117,
+            98,
+            85,
+            253
+          ],
+          "certainty": "hidden far-side inferred socket, not visible joint",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 12,
+          "physical3DAxisObserved": null
+        }
+      },
+      "pelvisSplitProposal": {
+        "lineSource": [
+          [
+            276,
+            625
+          ],
+          [
+            356,
+            636
+          ]
+        ],
+        "proximalKeep": "neck side of waistband line retains Chest+Abdomen",
+        "distalKeep": "hip side contains Pelvis/underpants",
+        "certainty": "proposed2Dsource mask boundary at visible waistband; not an authored independent pelvis"
+      }
+    },
+    "up": {
+      "rawId": "av381_up_TorsoPelvis",
+      "sourceCrop": [
+        231,
+        734,
+        163,
+        232
+      ],
+      "actualFacing": "up",
+      "landmarks": {
+        "neckSocket": {
+          "source": [
+            310,
+            755
+          ],
+          "crop": [
+            79,
+            21
+          ],
+          "sourceRGBA": [
+            167,
+            126,
+            96,
+            252
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftShoulder": {
+          "source": [
+            264,
+            784
+          ],
+          "crop": [
+            33,
+            50
+          ],
+          "sourceRGBA": [
+            186,
+            144,
+            109,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightShoulder": {
+          "source": [
+            360,
+            784
+          ],
+          "crop": [
+            129,
+            50
+          ],
+          "sourceRGBA": [
+            170,
+            126,
+            95,
+            253
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistLeft": {
+          "source": [
+            260,
+            865
+          ],
+          "crop": [
+            29,
+            131
+          ],
+          "sourceRGBA": [
+            65,
+            44,
+            32,
+            250
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "waistRight": {
+          "source": [
+            358,
+            865
+          ],
+          "crop": [
+            127,
+            131
+          ],
+          "sourceRGBA": [
+            66,
+            47,
+            34,
+            250
+          ],
+          "certainty": "visible neckline/waistband feature midpoint, not physical axis",
+          "anchorMethod": "manual feature row, alpha200 silhouette inward3px",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "leftHip": {
+          "source": [
+            276,
+            929
+          ],
+          "crop": [
+            45,
+            195
+          ],
+          "sourceRGBA": [
+            90,
+            63,
+            48,
+            252
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        },
+        "rightHip": {
+          "source": [
+            343,
+            929
+          ],
+          "crop": [
+            112,
+            195
+          ],
+          "sourceRGBA": [
+            117,
+            84,
+            64,
+            252
+          ],
+          "certainty": "visible skin/cloth contour-based graphic center; actual physical joint inferred",
+          "anchorMethod": "manual visible contour or inferred hidden center",
+          "manualUncertaintySourcePx": 5,
+          "physical3DAxisObserved": null
+        }
+      },
+      "pelvisSplitProposal": {
+        "lineSource": [
+          [
+            260,
+            865
+          ],
+          [
+            358,
+            865
+          ]
+        ],
+        "proximalKeep": "neck side of waistband line retains Chest+Abdomen",
+        "distalKeep": "hip side contains Pelvis/underpants",
+        "certainty": "proposed2Dsource mask boundary at visible waistband; not an authored independent pelvis"
+      }
+    }
+  },
+  "allDirectionModelAccepted": false,
+  "active": false,
+  "releaseApproved": false
+}

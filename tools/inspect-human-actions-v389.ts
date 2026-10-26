@@ -1,0 +1,29 @@
+/** Finite initial body/items, then actual UI/keys and independent whole Node state. */
+import {chromium} from 'playwright-core'
+import assert from 'node:assert/strict'
+import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
+import {join} from 'node:path'
+import {prisonerFixture} from '../tests/prisoner-fixture'
+import {makeItem,addToBag} from '../src/core/items'
+import {serialize,deserialize,stateHash} from '../src/core/save'
+import {playerAct} from '../src/core/game'
+import {invalidateLights,updatePlayerVision} from '../src/core/fov'
+import type {World} from '../src/core/ctx'
+import type {Action} from '../src/core/actions'
+import type {MapRenderer} from '../src/client/render/MapRenderer'
+type Hook={__ashveil:{world():World};render_game_presentation():NonNullable<ReturnType<MapRenderer['presentation']>>}
+const out=process.argv[2],url=process.argv[3];assert.ok(out&&url);assert.equal(existsSync(out),false);mkdirSync(out,{recursive:true})
+const{w,s,p,target}=prisonerFixture();s.overworld=undefined;s.maps={};s.offCreatures={};s.creatures=[p,target];target.pos={x:20,y:22};target.nextAct=s.time+1e9;target.met=true;target.ai.mode='guard';s.sources=[];s.map.kind='dungeon';s.map.ambient=1;s.map.lights=[];s.weather='clear';s.weatherUntil=1e12
+for(const tile of s.map.tiles)Object.assign(tile,{t:'Terrain.KtFloor',roof:true,seen:true,items:[]})
+p.bag=[];p.equip={};p.body.missing=['LeftHand'];const hook=makeItem(w,'Item.HookHand'),coat=makeItem(w,'Item.LeatherCoat');assert.equal(addToBag(w,p,hook),0);assert.equal(addToBag(w,p,coat),0);s.fx=[];invalidateLights(w);updatePlayerVision(w,p)
+const initial=serialize(s),expected={db:w.db,s:deserialize(initial)},pairs:unknown[]=[],errors:string[]=[];writeFileSync(join(out,'initial.json'),initial)
+const browser=await chromium.launch({executablePath:'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']}),page=await browser.newPage({viewport:{width:1366,height:768}})
+page.on('pageerror',e=>errors.push(e.message));page.on('console',e=>{if(e.type()==='error')errors.push(e.text())})
+async function check(label:string,action?:Action){if(action)assert.equal(playerAct(expected,action),null,label);await page.waitForFunction(time=>(window as unknown as Hook).__ashveil.world().s.time===time,expected.s.time);await page.waitForTimeout(120);expected.s.fx=[];const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);writeFileSync(join(out,label+'-actual.json'),serialize(actual));writeFileSync(join(out,label+'-expected.json'),serialize(expected.s));assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(expected.s)),label);assert.equal(stateHash(actual),stateHash(expected.s));const presentation=await page.evaluate(()=>(window as unknown as Hook).render_game_presentation());writeFileSync(join(out,label+'-presentation.json'),JSON.stringify(presentation));await page.screenshot({path:join(out,label+'.png')});pairs.push({label,hash:stateHash(actual)});return presentation}
+try{
+ await page.goto(url);await page.evaluate(initial=>{localStorage.setItem('ashveil.imprint.v1',initial);localStorage.setItem('ashveil.preferences.v1',JSON.stringify({animationSpeed:1,screenShake:false,torchFlicker:false}))},initial);await page.reload();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await check('loaded')
+ await page.keyboard.press('i');await page.getByTestId('item-Item.LeatherCoat').dblclick();await check('equipped',{type:'equip',uid:coat.uid});await page.keyboard.press('Escape')
+ await page.keyboard.press('Shift+B');await page.getByTestId('prosthetic-panel').waitFor();await page.getByLabel('설치할 의수족').selectOption(String(hook.uid));await page.getByLabel('의수족 설치 부위').selectOption('LeftHand');await page.getByRole('button',{name:'선택한 의수족 설치',exact:true}).click();await check('installed',{type:'prosthetic',operation:'install',part:'LeftHand',uid:hook.uid});await page.keyboard.press('Escape')
+ for(const[key,dir]of [['ArrowRight',2],['ArrowDown',4],['Numpad3',3],['ArrowLeft',6]]as const){await page.keyboard.press(key);await check('move-'+dir,{type:'move',dir})}
+ await page.keyboard.press('i');await page.getByTestId('slot-chest').dblclick();await check('unequipped',{type:'unequip',slot:'chest'});await page.keyboard.press('Escape');await page.keyboard.press('ArrowLeft');const attackSamples=await page.evaluate(async()=>{const rows:{mode:string;human:NonNullable<ReturnType<MapRenderer['presentation']>>['actors'][number]['human']}[]=[];for(let i=0;i<12;i++){await new Promise(resolve=>requestAnimationFrame(resolve));const human=(window as unknown as Hook).render_game_presentation().actors.find(a=>a.actor===1)?.human;if(human)rows.push({mode:human.mode,human})}return rows});writeFileSync(join(out,'natural-attack-samples.json'),JSON.stringify(attackSamples));assert.ok(new Set(attackSamples.filter(sample=>sample.mode==='attack').map(sample=>JSON.stringify(sample.human?.grips.left))).size>1);await check('natural-attack',{type:'move',dir:6});await check('unarmed-animation-observed');await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');const restored=await check('continued');assert.ok(restored.actors.find(a=>a.actor===1)?.human?.parts.some(part=>part.uid===hook.uid&&part.role==='prosthetic'));assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({finiteInitial:true,afterTitle:'actual UI/keys only',originalHookUid:hook.uid,originalCoatUid:coat.uid,pairs,errors},null,2));console.log(JSON.stringify({pairs:pairs.length,errors}))
+}catch(error){await page.screenshot({path:join(out,'failure.png')});writeFileSync(join(out,'failure.txt'),String(error)+'\n'+await page.locator('body').innerText());throw error}finally{await browser.close()}

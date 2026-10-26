@@ -1,5 +1,5 @@
 {
-  "version": "0.387-dev",
+  "version": "0.389-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -404,7 +404,13 @@
     "av380_culler_harvest_icons_v1": "sprites/original/direction-v380/culler-harvest-icons-v1.png",
     "av384_prosthetic_objects_v1": "sprites/original/direction-v384/prosthetic-objects-v1.png",
     "av384_prosthetic_leg_pioneer_v2": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png",
-    "av386_care_bedding_props_v1": "sprites/original/direction-v386/care-bedding-props-v1.png"
+    "av386_care_bedding_props_v1": "sprites/original/direction-v386/care-bedding-props-v1.png",
+    "av389_human_base_v381": "sprites/original/direction-v389/human-base-parts-v381.png",
+    "av389_human_trousers_v386": "sprites/original/direction-v389/sewn-trouser-panels-v386.png",
+    "av389_worn_torso_panels_v1": "sprites/original/direction-v389/worn-torso-panels-v1.png",
+    "av389_worn_limb_garments_v1": "sprites/original/direction-v389/worn-limb-garments-v1.png",
+    "av389_worn_accessories_v1": "sprites/original/direction-v389/worn-accessories-v1.png",
+    "av389_role_heads_v1": "sprites/original/direction-v389/role-heads-four-facings-v1.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1936,6 +1942,30 @@
       887
     ],
     "av386_care_bedding_props_v1": [
+      1536,
+      1024
+    ],
+    "av389_human_base_v381": [
+      1536,
+      1024
+    ],
+    "av389_human_trousers_v386": [
+      1024,
+      1536
+    ],
+    "av389_worn_torso_panels_v1": [
+      1254,
+      1254
+    ],
+    "av389_worn_limb_garments_v1": [
+      1536,
+      1024
+    ],
+    "av389_worn_accessories_v1": [
+      1774,
+      887
+    ],
+    "av389_role_heads_v1": [
       1536,
       1024
     ]
@@ -59053,6 +59083,972 @@
       649,
       278,
       238
+    ],
+    "av381_down_Head": [
+      "av389_human_base_v381",
+      57,
+      70,
+      129,
+      163
+    ],
+    "av381_down_TorsoPelvis": [
+      "av389_human_base_v381",
+      229,
+      38,
+      163,
+      226
+    ],
+    "av381_down_SharedLeftShinFoot": [
+      "av389_human_base_v381",
+      1380,
+      55,
+      88,
+      209
+    ],
+    "av381_down_LeftUpperArm": [
+      "av389_human_base_v381",
+      441,
+      57,
+      114,
+      175
+    ],
+    "av381_down_LeftForearmPalm": [
+      "av389_human_base_v381",
+      617,
+      58,
+      97,
+      210
+    ],
+    "av386_trouser_panel_r1c1": [
+      "av389_human_trousers_v386",
+      233,
+      55,
+      161,
+      322
+    ],
+    "av381_down_RightUpperArm": [
+      "av389_human_base_v381",
+      792,
+      57,
+      112,
+      175
+    ],
+    "av381_down_RightForearmPalm": [
+      "av389_human_base_v381",
+      982,
+      57,
+      101,
+      210
+    ],
+    "av386_trouser_panel_r1c2": [
+      "av389_human_trousers_v386",
+      633,
+      56,
+      159,
+      324
+    ],
+    "av381_right_Head": [
+      "av389_human_base_v381",
+      55,
+      539,
+      147,
+      160
+    ],
+    "av381_right_TorsoPelvis": [
+      "av389_human_base_v381",
+      246,
+      504,
+      148,
+      227
+    ],
+    "av381_left_SharedLeftShinFoot": [
+      "av389_human_base_v381",
+      1346,
+      281,
+      137,
+      210
+    ],
+    "av381_left_LeftUpperArm": [
+      "av389_human_base_v381",
+      441,
+      278,
+      110,
+      179
+    ],
+    "av381_left_LeftForearmPalm": [
+      "av389_human_base_v381",
+      631,
+      296,
+      89,
+      206
+    ],
+    "av386_trouser_panel_r2c1": [
+      "av389_human_trousers_v386",
+      233,
+      421,
+      177,
+      343
+    ],
+    "av381_left_RightUpperArm": [
+      "av389_human_base_v381",
+      791,
+      294,
+      118,
+      162
+    ],
+    "av381_left_RightForearmPalm": [
+      "av389_human_base_v381",
+      967,
+      297,
+      101,
+      197
+    ],
+    "av386_trouser_panel_r3c2": [
+      "av389_human_trousers_v386",
+      614,
+      790,
+      177,
+      340
+    ],
+    "av381_left_Head": [
+      "av389_human_base_v381",
+      50,
+      308,
+      139,
+      157
+    ],
+    "av381_left_TorsoPelvis": [
+      "av389_human_base_v381",
+      246,
+      263,
+      147,
+      243
+    ],
+    "av381_right_SharedLeftShinFoot": [
+      "av389_human_base_v381",
+      1363,
+      521,
+      132,
+      209
+    ],
+    "av381_right_LeftUpperArm": [
+      "av389_human_base_v381",
+      437,
+      521,
+      118,
+      159
+    ],
+    "av381_right_LeftForearmPalm": [
+      "av389_human_base_v381",
+      629,
+      534,
+      90,
+      198
+    ],
+    "av386_trouser_panel_r2c2": [
+      "av389_human_trousers_v386",
+      632,
+      421,
+      172,
+      340
+    ],
+    "av381_right_RightUpperArm": [
+      "av389_human_base_v381",
+      791,
+      521,
+      103,
+      160
+    ],
+    "av381_right_RightForearmPalm": [
+      "av389_human_base_v381",
+      973,
+      534,
+      93,
+      198
+    ],
+    "av386_trouser_panel_r3c1": [
+      "av389_human_trousers_v386",
+      233,
+      790,
+      179,
+      342
+    ],
+    "av381_up_Head": [
+      "av389_human_base_v381",
+      55,
+      786,
+      131,
+      151
+    ],
+    "av381_up_TorsoPelvis": [
+      "av389_human_base_v381",
+      231,
+      734,
+      163,
+      232
+    ],
+    "av381_up_SharedLeftShinFoot": [
+      "av389_human_base_v381",
+      1372,
+      755,
+      96,
+      211
+    ],
+    "av381_up_LeftUpperArm": [
+      "av389_human_base_v381",
+      452,
+      751,
+      86,
+      183
+    ],
+    "av381_up_LeftForearmPalm": [
+      "av389_human_base_v381",
+      615,
+      745,
+      101,
+      223
+    ],
+    "av386_trouser_panel_r4c1": [
+      "av389_human_trousers_v386",
+      233,
+      1153,
+      175,
+      330
+    ],
+    "av381_up_RightUpperArm": [
+      "av389_human_base_v381",
+      791,
+      748,
+      100,
+      180
+    ],
+    "av381_up_RightForearmPalm": [
+      "av389_human_base_v381",
+      981,
+      747,
+      99,
+      223
+    ],
+    "av386_trouser_panel_r4c2": [
+      "av389_human_trousers_v386",
+      615,
+      1153,
+      177,
+      329
+    ],
+    "av389_worn_rag_shirt_torso_down": [
+      "av389_worn_torso_panels_v1",
+      73,
+      51,
+      213,
+      245
+    ],
+    "av389_worn_leather_coat_body_down": [
+      "av389_worn_torso_panels_v1",
+      371,
+      31,
+      215,
+      281
+    ],
+    "av389_worn_iron_mail_torso_down": [
+      "av389_worn_torso_panels_v1",
+      687,
+      50,
+      207,
+      247
+    ],
+    "av389_worn_hood_shell_down": [
+      "av389_worn_torso_panels_v1",
+      977,
+      31,
+      235,
+      270
+    ],
+    "av389_worn_rag_shirt_torso_left": [
+      "av389_worn_torso_panels_v1",
+      92,
+      343,
+      167,
+      256
+    ],
+    "av389_worn_leather_coat_body_left": [
+      "av389_worn_torso_panels_v1",
+      388,
+      335,
+      188,
+      279
+    ],
+    "av389_worn_iron_mail_torso_left": [
+      "av389_worn_torso_panels_v1",
+      703,
+      340,
+      170,
+      264
+    ],
+    "av389_worn_hood_shell_left": [
+      "av389_worn_torso_panels_v1",
+      992,
+      337,
+      201,
+      264
+    ],
+    "av389_worn_rag_shirt_torso_right": [
+      "av389_worn_torso_panels_v1",
+      86,
+      644,
+      167,
+      247
+    ],
+    "av389_worn_leather_coat_body_right": [
+      "av389_worn_torso_panels_v1",
+      379,
+      634,
+      190,
+      275
+    ],
+    "av389_worn_iron_mail_torso_right": [
+      "av389_worn_torso_panels_v1",
+      702,
+      639,
+      168,
+      263
+    ],
+    "av389_worn_hood_shell_right": [
+      "av389_worn_torso_panels_v1",
+      993,
+      638,
+      197,
+      252
+    ],
+    "av389_worn_rag_shirt_torso_up": [
+      "av389_worn_torso_panels_v1",
+      72,
+      931,
+      214,
+      245
+    ],
+    "av389_worn_leather_coat_body_up": [
+      "av389_worn_torso_panels_v1",
+      370,
+      917,
+      212,
+      278
+    ],
+    "av389_worn_iron_mail_torso_up": [
+      "av389_worn_torso_panels_v1",
+      681,
+      927,
+      210,
+      253
+    ],
+    "av389_worn_hood_shell_up": [
+      "av389_worn_torso_panels_v1",
+      975,
+      919,
+      241,
+      259
+    ],
+    "v389_linen_short_upper_sleeve_front": [
+      "av389_worn_limb_garments_v1",
+      37,
+      59,
+      132,
+      170
+    ],
+    "v389_worn_leather_upper_sleeve_front": [
+      "av389_worn_limb_garments_v1",
+      227,
+      58,
+      143,
+      181
+    ],
+    "v389_iron_mail_upper_sleeve_front": [
+      "av389_worn_limb_garments_v1",
+      432,
+      59,
+      125,
+      183
+    ],
+    "v389_padded_cloth_forearm_sleeve_front": [
+      "av389_worn_limb_garments_v1",
+      635,
+      60,
+      103,
+      193
+    ],
+    "v389_leather_forearm_sleeve_front": [
+      "av389_worn_limb_garments_v1",
+      811,
+      60,
+      98,
+      196
+    ],
+    "v389_leather_glove_front": [
+      "av389_worn_limb_garments_v1",
+      986,
+      61,
+      117,
+      194
+    ],
+    "v389_wool_glove_front": [
+      "av389_worn_limb_garments_v1",
+      1171,
+      60,
+      120,
+      195
+    ],
+    "v389_ankle_leather_boot_front": [
+      "av389_worn_limb_garments_v1",
+      1374,
+      95,
+      113,
+      165
+    ],
+    "v389_linen_short_upper_sleeve_left": [
+      "av389_worn_limb_garments_v1",
+      52,
+      297,
+      138,
+      160
+    ],
+    "v389_worn_leather_upper_sleeve_left": [
+      "av389_worn_limb_garments_v1",
+      244,
+      295,
+      135,
+      179
+    ],
+    "v389_iron_mail_upper_sleeve_left": [
+      "av389_worn_limb_garments_v1",
+      442,
+      295,
+      128,
+      180
+    ],
+    "v389_padded_cloth_forearm_sleeve_left": [
+      "av389_worn_limb_garments_v1",
+      633,
+      298,
+      102,
+      187
+    ],
+    "v389_leather_forearm_sleeve_left": [
+      "av389_worn_limb_garments_v1",
+      809,
+      296,
+      94,
+      188
+    ],
+    "v389_leather_glove_left": [
+      "av389_worn_limb_garments_v1",
+      992,
+      295,
+      93,
+      200
+    ],
+    "v389_wool_glove_left": [
+      "av389_worn_limb_garments_v1",
+      1164,
+      298,
+      118,
+      191
+    ],
+    "v389_ankle_leather_boot_left": [
+      "av389_worn_limb_garments_v1",
+      1333,
+      342,
+      174,
+      135
+    ],
+    "v389_linen_short_upper_sleeve_right": [
+      "av389_worn_limb_garments_v1",
+      35,
+      524,
+      145,
+      170
+    ],
+    "v389_worn_leather_upper_sleeve_right": [
+      "av389_worn_limb_garments_v1",
+      235,
+      524,
+      146,
+      180
+    ],
+    "v389_iron_mail_upper_sleeve_right": [
+      "av389_worn_limb_garments_v1",
+      436,
+      523,
+      129,
+      182
+    ],
+    "v389_padded_cloth_forearm_sleeve_right": [
+      "av389_worn_limb_garments_v1",
+      636,
+      527,
+      100,
+      189
+    ],
+    "v389_leather_forearm_sleeve_right": [
+      "av389_worn_limb_garments_v1",
+      810,
+      525,
+      100,
+      193
+    ],
+    "v389_leather_glove_right": [
+      "av389_worn_limb_garments_v1",
+      996,
+      526,
+      102,
+      197
+    ],
+    "v389_wool_glove_right": [
+      "av389_worn_limb_garments_v1",
+      1178,
+      527,
+      114,
+      194
+    ],
+    "v389_ankle_leather_boot_right": [
+      "av389_worn_limb_garments_v1",
+      1341,
+      579,
+      174,
+      136
+    ],
+    "v389_linen_short_upper_sleeve_back": [
+      "av389_worn_limb_garments_v1",
+      36,
+      754,
+      144,
+      171
+    ],
+    "v389_worn_leather_upper_sleeve_back": [
+      "av389_worn_limb_garments_v1",
+      227,
+      752,
+      154,
+      177
+    ],
+    "v389_iron_mail_upper_sleeve_back": [
+      "av389_worn_limb_garments_v1",
+      435,
+      751,
+      126,
+      185
+    ],
+    "v389_padded_cloth_forearm_sleeve_back": [
+      "av389_worn_limb_garments_v1",
+      636,
+      751,
+      96,
+      190
+    ],
+    "v389_leather_forearm_sleeve_back": [
+      "av389_worn_limb_garments_v1",
+      808,
+      752,
+      98,
+      192
+    ],
+    "v389_leather_glove_back": [
+      "av389_worn_limb_garments_v1",
+      986,
+      750,
+      119,
+      197
+    ],
+    "v389_wool_glove_back": [
+      "av389_worn_limb_garments_v1",
+      1166,
+      751,
+      125,
+      197
+    ],
+    "v389_ankle_leather_boot_back": [
+      "av389_worn_limb_garments_v1",
+      1371,
+      792,
+      107,
+      159
+    ],
+    "av389_worn_apron_down": [
+      "av389_worn_accessories_v1",
+      32,
+      16,
+      166,
+      203
+    ],
+    "av389_worn_cloak_down": [
+      "av389_worn_accessories_v1",
+      257,
+      39,
+      170,
+      178
+    ],
+    "av389_worn_helmet_down": [
+      "av389_worn_accessories_v1",
+      483,
+      46,
+      168,
+      154
+    ],
+    "av389_worn_mask_down": [
+      "av389_worn_accessories_v1",
+      694,
+      91,
+      180,
+      100
+    ],
+    "av389_worn_goggles_down": [
+      "av389_worn_accessories_v1",
+      909,
+      91,
+      200,
+      89
+    ],
+    "av389_worn_quiver_down": [
+      "av389_worn_accessories_v1",
+      1159,
+      16,
+      111,
+      203
+    ],
+    "av389_worn_belt_down": [
+      "av389_worn_accessories_v1",
+      1351,
+      89,
+      184,
+      90
+    ],
+    "av389_worn_cuirass_down": [
+      "av389_worn_accessories_v1",
+      1590,
+      36,
+      149,
+      179
+    ],
+    "av389_worn_apron_left": [
+      "av389_worn_accessories_v1",
+      67,
+      234,
+      113,
+      202
+    ],
+    "av389_worn_cloak_left": [
+      "av389_worn_accessories_v1",
+      280,
+      247,
+      131,
+      189
+    ],
+    "av389_worn_helmet_left": [
+      "av389_worn_accessories_v1",
+      470,
+      258,
+      177,
+      158
+    ],
+    "av389_worn_mask_left": [
+      "av389_worn_accessories_v1",
+      694,
+      302,
+      185,
+      103
+    ],
+    "av389_worn_goggles_left": [
+      "av389_worn_accessories_v1",
+      920,
+      305,
+      181,
+      88
+    ],
+    "av389_worn_quiver_left": [
+      "av389_worn_accessories_v1",
+      1169,
+      230,
+      92,
+      206
+    ],
+    "av389_worn_belt_left": [
+      "av389_worn_accessories_v1",
+      1356,
+      305,
+      170,
+      80
+    ],
+    "av389_worn_cuirass_left": [
+      "av389_worn_accessories_v1",
+      1601,
+      240,
+      118,
+      193
+    ],
+    "av389_worn_apron_right": [
+      "av389_worn_accessories_v1",
+      55,
+      453,
+      112,
+      201
+    ],
+    "av389_worn_cloak_right": [
+      "av389_worn_accessories_v1",
+      272,
+      467,
+      135,
+      185
+    ],
+    "av389_worn_helmet_right": [
+      "av389_worn_accessories_v1",
+      478,
+      478,
+      168,
+      155
+    ],
+    "av389_worn_mask_right": [
+      "av389_worn_accessories_v1",
+      689,
+      523,
+      183,
+      100
+    ],
+    "av389_worn_goggles_right": [
+      "av389_worn_accessories_v1",
+      914,
+      526,
+      181,
+      87
+    ],
+    "av389_worn_quiver_right": [
+      "av389_worn_accessories_v1",
+      1164,
+      447,
+      109,
+      206
+    ],
+    "av389_worn_belt_right": [
+      "av389_worn_accessories_v1",
+      1352,
+      520,
+      175,
+      78
+    ],
+    "av389_worn_cuirass_right": [
+      "av389_worn_accessories_v1",
+      1605,
+      460,
+      120,
+      190
+    ],
+    "av389_worn_apron_up": [
+      "av389_worn_accessories_v1",
+      36,
+      667,
+      163,
+      198
+    ],
+    "av389_worn_cloak_up": [
+      "av389_worn_accessories_v1",
+      244,
+      677,
+      195,
+      188
+    ],
+    "av389_worn_helmet_up": [
+      "av389_worn_accessories_v1",
+      486,
+      692,
+      148,
+      147
+    ],
+    "av389_worn_mask_up": [
+      "av389_worn_accessories_v1",
+      690,
+      728,
+      186,
+      108
+    ],
+    "av389_worn_goggles_up": [
+      "av389_worn_accessories_v1",
+      913,
+      733,
+      196,
+      80
+    ],
+    "av389_worn_quiver_up": [
+      "av389_worn_accessories_v1",
+      1165,
+      665,
+      107,
+      204
+    ],
+    "av389_worn_belt_up": [
+      "av389_worn_accessories_v1",
+      1352,
+      734,
+      176,
+      80
+    ],
+    "av389_worn_cuirass_up": [
+      "av389_worn_accessories_v1",
+      1590,
+      676,
+      146,
+      187
+    ],
+    "av389_pioneer_hand_owned": [
+      "av384_prosthetic_leg_pioneer_v2",
+      1083,
+      493,
+      300,
+      315
+    ],
+    "av389_articulated_foot_owned": [
+      "av384_prosthetic_leg_pioneer_v2",
+      156,
+      684,
+      360,
+      141
+    ],
+    "av389_head_worker_down": [
+      "av389_role_heads_v1",
+      74,
+      43,
+      186,
+      240
+    ],
+    "av389_head_worker_left": [
+      "av389_role_heads_v1",
+      63,
+      287,
+      216,
+      238
+    ],
+    "av389_head_worker_right": [
+      "av389_role_heads_v1",
+      62,
+      528,
+      208,
+      229
+    ],
+    "av389_head_worker_up": [
+      "av389_role_heads_v1",
+      75,
+      761,
+      181,
+      217
+    ],
+    "av389_head_healer_down": [
+      "av389_role_heads_v1",
+      376,
+      43,
+      185,
+      244
+    ],
+    "av389_head_healer_left": [
+      "av389_role_heads_v1",
+      372,
+      287,
+      195,
+      240
+    ],
+    "av389_head_healer_right": [
+      "av389_role_heads_v1",
+      376,
+      530,
+      192,
+      230
+    ],
+    "av389_head_healer_up": [
+      "av389_role_heads_v1",
+      374,
+      757,
+      179,
+      222
+    ],
+    "av389_head_trader_down": [
+      "av389_role_heads_v1",
+      679,
+      61,
+      173,
+      226
+    ],
+    "av389_head_trader_left": [
+      "av389_role_heads_v1",
+      664,
+      299,
+      188,
+      230
+    ],
+    "av389_head_trader_right": [
+      "av389_role_heads_v1",
+      681,
+      541,
+      189,
+      217
+    ],
+    "av389_head_trader_up": [
+      "av389_role_heads_v1",
+      678,
+      769,
+      173,
+      210
+    ],
+    "av389_head_guard_down": [
+      "av389_role_heads_v1",
+      984,
+      54,
+      168,
+      233
+    ],
+    "av389_head_guard_left": [
+      "av389_role_heads_v1",
+      969,
+      296,
+      182,
+      233
+    ],
+    "av389_head_guard_right": [
+      "av389_role_heads_v1",
+      983,
+      535,
+      184,
+      225
+    ],
+    "av389_head_guard_up": [
+      "av389_role_heads_v1",
+      986,
+      763,
+      169,
+      214
+    ],
+    "av389_head_reaver_down": [
+      "av389_role_heads_v1",
+      1274,
+      43,
+      195,
+      243
+    ],
+    "av389_head_reaver_left": [
+      "av389_role_heads_v1",
+      1271,
+      284,
+      214,
+      245
+    ],
+    "av389_head_reaver_right": [
+      "av389_role_heads_v1",
+      1271,
+      531,
+      209,
+      230
+    ],
+    "av389_head_reaver_up": [
+      "av389_role_heads_v1",
+      1278,
+      758,
+      188,
+      220
     ]
   },
   "characters": {
@@ -61520,7 +62516,8 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true
     },
     "reaver0": {
       "anchor": [
@@ -63994,7 +64991,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "reaver"
     },
     "reaver1": {
       "anchor": [
@@ -66412,7 +67411,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "reaver"
     },
     "shade0": {
       "anchor": [
@@ -96657,7 +97658,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "worker"
     },
     "resident_healer": {
       "anchor": [
@@ -99123,7 +100126,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "healer"
     },
     "resident_guard": {
       "anchor": [
@@ -101597,7 +102602,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "guard"
     },
     "resident_trader": {
       "anchor": [
@@ -104063,7 +105070,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "trader"
     },
     "original_wanderer_hero": {
       "anchor": [
@@ -106529,7 +107538,8 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true
     },
     "ash_hound": {
       "anchor": [
@@ -117055,7 +118065,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "reaver"
     },
     "complete_reaver_archer": {
       "anchor": [
@@ -119521,7 +120533,9 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
-      }
+      },
+      "human": true,
+      "humanHead": "reaver"
     },
     "player": {
       "anchor": [
@@ -185785,6 +186799,834 @@
       "label": "av386_medical_bag",
       "kind": "frames",
       "frame": "av386_medical_bag"
+    },
+    {
+      "id": "av381_down_Head",
+      "label": "av381_down_Head",
+      "kind": "frames",
+      "frame": "av381_down_Head"
+    },
+    {
+      "id": "av381_down_TorsoPelvis",
+      "label": "av381_down_TorsoPelvis",
+      "kind": "frames",
+      "frame": "av381_down_TorsoPelvis"
+    },
+    {
+      "id": "av381_down_SharedLeftShinFoot",
+      "label": "av381_down_SharedLeftShinFoot",
+      "kind": "frames",
+      "frame": "av381_down_SharedLeftShinFoot"
+    },
+    {
+      "id": "av381_down_LeftUpperArm",
+      "label": "av381_down_LeftUpperArm",
+      "kind": "frames",
+      "frame": "av381_down_LeftUpperArm"
+    },
+    {
+      "id": "av381_down_LeftForearmPalm",
+      "label": "av381_down_LeftForearmPalm",
+      "kind": "frames",
+      "frame": "av381_down_LeftForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r1c1",
+      "label": "av386_trouser_panel_r1c1",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r1c1"
+    },
+    {
+      "id": "av381_down_RightUpperArm",
+      "label": "av381_down_RightUpperArm",
+      "kind": "frames",
+      "frame": "av381_down_RightUpperArm"
+    },
+    {
+      "id": "av381_down_RightForearmPalm",
+      "label": "av381_down_RightForearmPalm",
+      "kind": "frames",
+      "frame": "av381_down_RightForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r1c2",
+      "label": "av386_trouser_panel_r1c2",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r1c2"
+    },
+    {
+      "id": "av381_right_Head",
+      "label": "av381_right_Head",
+      "kind": "frames",
+      "frame": "av381_right_Head"
+    },
+    {
+      "id": "av381_right_TorsoPelvis",
+      "label": "av381_right_TorsoPelvis",
+      "kind": "frames",
+      "frame": "av381_right_TorsoPelvis"
+    },
+    {
+      "id": "av381_left_SharedLeftShinFoot",
+      "label": "av381_left_SharedLeftShinFoot",
+      "kind": "frames",
+      "frame": "av381_left_SharedLeftShinFoot"
+    },
+    {
+      "id": "av381_left_LeftUpperArm",
+      "label": "av381_left_LeftUpperArm",
+      "kind": "frames",
+      "frame": "av381_left_LeftUpperArm"
+    },
+    {
+      "id": "av381_left_LeftForearmPalm",
+      "label": "av381_left_LeftForearmPalm",
+      "kind": "frames",
+      "frame": "av381_left_LeftForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r2c1",
+      "label": "av386_trouser_panel_r2c1",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r2c1"
+    },
+    {
+      "id": "av381_left_RightUpperArm",
+      "label": "av381_left_RightUpperArm",
+      "kind": "frames",
+      "frame": "av381_left_RightUpperArm"
+    },
+    {
+      "id": "av381_left_RightForearmPalm",
+      "label": "av381_left_RightForearmPalm",
+      "kind": "frames",
+      "frame": "av381_left_RightForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r3c2",
+      "label": "av386_trouser_panel_r3c2",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r3c2"
+    },
+    {
+      "id": "av381_left_Head",
+      "label": "av381_left_Head",
+      "kind": "frames",
+      "frame": "av381_left_Head"
+    },
+    {
+      "id": "av381_left_TorsoPelvis",
+      "label": "av381_left_TorsoPelvis",
+      "kind": "frames",
+      "frame": "av381_left_TorsoPelvis"
+    },
+    {
+      "id": "av381_right_SharedLeftShinFoot",
+      "label": "av381_right_SharedLeftShinFoot",
+      "kind": "frames",
+      "frame": "av381_right_SharedLeftShinFoot"
+    },
+    {
+      "id": "av381_right_LeftUpperArm",
+      "label": "av381_right_LeftUpperArm",
+      "kind": "frames",
+      "frame": "av381_right_LeftUpperArm"
+    },
+    {
+      "id": "av381_right_LeftForearmPalm",
+      "label": "av381_right_LeftForearmPalm",
+      "kind": "frames",
+      "frame": "av381_right_LeftForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r2c2",
+      "label": "av386_trouser_panel_r2c2",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r2c2"
+    },
+    {
+      "id": "av381_right_RightUpperArm",
+      "label": "av381_right_RightUpperArm",
+      "kind": "frames",
+      "frame": "av381_right_RightUpperArm"
+    },
+    {
+      "id": "av381_right_RightForearmPalm",
+      "label": "av381_right_RightForearmPalm",
+      "kind": "frames",
+      "frame": "av381_right_RightForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r3c1",
+      "label": "av386_trouser_panel_r3c1",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r3c1"
+    },
+    {
+      "id": "av381_up_Head",
+      "label": "av381_up_Head",
+      "kind": "frames",
+      "frame": "av381_up_Head"
+    },
+    {
+      "id": "av381_up_TorsoPelvis",
+      "label": "av381_up_TorsoPelvis",
+      "kind": "frames",
+      "frame": "av381_up_TorsoPelvis"
+    },
+    {
+      "id": "av381_up_SharedLeftShinFoot",
+      "label": "av381_up_SharedLeftShinFoot",
+      "kind": "frames",
+      "frame": "av381_up_SharedLeftShinFoot"
+    },
+    {
+      "id": "av381_up_LeftUpperArm",
+      "label": "av381_up_LeftUpperArm",
+      "kind": "frames",
+      "frame": "av381_up_LeftUpperArm"
+    },
+    {
+      "id": "av381_up_LeftForearmPalm",
+      "label": "av381_up_LeftForearmPalm",
+      "kind": "frames",
+      "frame": "av381_up_LeftForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r4c1",
+      "label": "av386_trouser_panel_r4c1",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r4c1"
+    },
+    {
+      "id": "av381_up_RightUpperArm",
+      "label": "av381_up_RightUpperArm",
+      "kind": "frames",
+      "frame": "av381_up_RightUpperArm"
+    },
+    {
+      "id": "av381_up_RightForearmPalm",
+      "label": "av381_up_RightForearmPalm",
+      "kind": "frames",
+      "frame": "av381_up_RightForearmPalm"
+    },
+    {
+      "id": "av386_trouser_panel_r4c2",
+      "label": "av386_trouser_panel_r4c2",
+      "kind": "frames",
+      "frame": "av386_trouser_panel_r4c2"
+    },
+    {
+      "id": "av389_worn_rag_shirt_torso_down",
+      "label": "av389_worn_rag_shirt_torso_down",
+      "kind": "frames",
+      "frame": "av389_worn_rag_shirt_torso_down"
+    },
+    {
+      "id": "av389_worn_leather_coat_body_down",
+      "label": "av389_worn_leather_coat_body_down",
+      "kind": "frames",
+      "frame": "av389_worn_leather_coat_body_down"
+    },
+    {
+      "id": "av389_worn_iron_mail_torso_down",
+      "label": "av389_worn_iron_mail_torso_down",
+      "kind": "frames",
+      "frame": "av389_worn_iron_mail_torso_down"
+    },
+    {
+      "id": "av389_worn_hood_shell_down",
+      "label": "av389_worn_hood_shell_down",
+      "kind": "frames",
+      "frame": "av389_worn_hood_shell_down"
+    },
+    {
+      "id": "av389_worn_rag_shirt_torso_left",
+      "label": "av389_worn_rag_shirt_torso_left",
+      "kind": "frames",
+      "frame": "av389_worn_rag_shirt_torso_left"
+    },
+    {
+      "id": "av389_worn_leather_coat_body_left",
+      "label": "av389_worn_leather_coat_body_left",
+      "kind": "frames",
+      "frame": "av389_worn_leather_coat_body_left"
+    },
+    {
+      "id": "av389_worn_iron_mail_torso_left",
+      "label": "av389_worn_iron_mail_torso_left",
+      "kind": "frames",
+      "frame": "av389_worn_iron_mail_torso_left"
+    },
+    {
+      "id": "av389_worn_hood_shell_left",
+      "label": "av389_worn_hood_shell_left",
+      "kind": "frames",
+      "frame": "av389_worn_hood_shell_left"
+    },
+    {
+      "id": "av389_worn_rag_shirt_torso_right",
+      "label": "av389_worn_rag_shirt_torso_right",
+      "kind": "frames",
+      "frame": "av389_worn_rag_shirt_torso_right"
+    },
+    {
+      "id": "av389_worn_leather_coat_body_right",
+      "label": "av389_worn_leather_coat_body_right",
+      "kind": "frames",
+      "frame": "av389_worn_leather_coat_body_right"
+    },
+    {
+      "id": "av389_worn_iron_mail_torso_right",
+      "label": "av389_worn_iron_mail_torso_right",
+      "kind": "frames",
+      "frame": "av389_worn_iron_mail_torso_right"
+    },
+    {
+      "id": "av389_worn_hood_shell_right",
+      "label": "av389_worn_hood_shell_right",
+      "kind": "frames",
+      "frame": "av389_worn_hood_shell_right"
+    },
+    {
+      "id": "av389_worn_rag_shirt_torso_up",
+      "label": "av389_worn_rag_shirt_torso_up",
+      "kind": "frames",
+      "frame": "av389_worn_rag_shirt_torso_up"
+    },
+    {
+      "id": "av389_worn_leather_coat_body_up",
+      "label": "av389_worn_leather_coat_body_up",
+      "kind": "frames",
+      "frame": "av389_worn_leather_coat_body_up"
+    },
+    {
+      "id": "av389_worn_iron_mail_torso_up",
+      "label": "av389_worn_iron_mail_torso_up",
+      "kind": "frames",
+      "frame": "av389_worn_iron_mail_torso_up"
+    },
+    {
+      "id": "av389_worn_hood_shell_up",
+      "label": "av389_worn_hood_shell_up",
+      "kind": "frames",
+      "frame": "av389_worn_hood_shell_up"
+    },
+    {
+      "id": "v389_linen_short_upper_sleeve_front",
+      "label": "v389_linen_short_upper_sleeve_front",
+      "kind": "frames",
+      "frame": "v389_linen_short_upper_sleeve_front"
+    },
+    {
+      "id": "v389_worn_leather_upper_sleeve_front",
+      "label": "v389_worn_leather_upper_sleeve_front",
+      "kind": "frames",
+      "frame": "v389_worn_leather_upper_sleeve_front"
+    },
+    {
+      "id": "v389_iron_mail_upper_sleeve_front",
+      "label": "v389_iron_mail_upper_sleeve_front",
+      "kind": "frames",
+      "frame": "v389_iron_mail_upper_sleeve_front"
+    },
+    {
+      "id": "v389_padded_cloth_forearm_sleeve_front",
+      "label": "v389_padded_cloth_forearm_sleeve_front",
+      "kind": "frames",
+      "frame": "v389_padded_cloth_forearm_sleeve_front"
+    },
+    {
+      "id": "v389_leather_forearm_sleeve_front",
+      "label": "v389_leather_forearm_sleeve_front",
+      "kind": "frames",
+      "frame": "v389_leather_forearm_sleeve_front"
+    },
+    {
+      "id": "v389_leather_glove_front",
+      "label": "v389_leather_glove_front",
+      "kind": "frames",
+      "frame": "v389_leather_glove_front"
+    },
+    {
+      "id": "v389_wool_glove_front",
+      "label": "v389_wool_glove_front",
+      "kind": "frames",
+      "frame": "v389_wool_glove_front"
+    },
+    {
+      "id": "v389_ankle_leather_boot_front",
+      "label": "v389_ankle_leather_boot_front",
+      "kind": "frames",
+      "frame": "v389_ankle_leather_boot_front"
+    },
+    {
+      "id": "v389_linen_short_upper_sleeve_left",
+      "label": "v389_linen_short_upper_sleeve_left",
+      "kind": "frames",
+      "frame": "v389_linen_short_upper_sleeve_left"
+    },
+    {
+      "id": "v389_worn_leather_upper_sleeve_left",
+      "label": "v389_worn_leather_upper_sleeve_left",
+      "kind": "frames",
+      "frame": "v389_worn_leather_upper_sleeve_left"
+    },
+    {
+      "id": "v389_iron_mail_upper_sleeve_left",
+      "label": "v389_iron_mail_upper_sleeve_left",
+      "kind": "frames",
+      "frame": "v389_iron_mail_upper_sleeve_left"
+    },
+    {
+      "id": "v389_padded_cloth_forearm_sleeve_left",
+      "label": "v389_padded_cloth_forearm_sleeve_left",
+      "kind": "frames",
+      "frame": "v389_padded_cloth_forearm_sleeve_left"
+    },
+    {
+      "id": "v389_leather_forearm_sleeve_left",
+      "label": "v389_leather_forearm_sleeve_left",
+      "kind": "frames",
+      "frame": "v389_leather_forearm_sleeve_left"
+    },
+    {
+      "id": "v389_leather_glove_left",
+      "label": "v389_leather_glove_left",
+      "kind": "frames",
+      "frame": "v389_leather_glove_left"
+    },
+    {
+      "id": "v389_wool_glove_left",
+      "label": "v389_wool_glove_left",
+      "kind": "frames",
+      "frame": "v389_wool_glove_left"
+    },
+    {
+      "id": "v389_ankle_leather_boot_left",
+      "label": "v389_ankle_leather_boot_left",
+      "kind": "frames",
+      "frame": "v389_ankle_leather_boot_left"
+    },
+    {
+      "id": "v389_linen_short_upper_sleeve_right",
+      "label": "v389_linen_short_upper_sleeve_right",
+      "kind": "frames",
+      "frame": "v389_linen_short_upper_sleeve_right"
+    },
+    {
+      "id": "v389_worn_leather_upper_sleeve_right",
+      "label": "v389_worn_leather_upper_sleeve_right",
+      "kind": "frames",
+      "frame": "v389_worn_leather_upper_sleeve_right"
+    },
+    {
+      "id": "v389_iron_mail_upper_sleeve_right",
+      "label": "v389_iron_mail_upper_sleeve_right",
+      "kind": "frames",
+      "frame": "v389_iron_mail_upper_sleeve_right"
+    },
+    {
+      "id": "v389_padded_cloth_forearm_sleeve_right",
+      "label": "v389_padded_cloth_forearm_sleeve_right",
+      "kind": "frames",
+      "frame": "v389_padded_cloth_forearm_sleeve_right"
+    },
+    {
+      "id": "v389_leather_forearm_sleeve_right",
+      "label": "v389_leather_forearm_sleeve_right",
+      "kind": "frames",
+      "frame": "v389_leather_forearm_sleeve_right"
+    },
+    {
+      "id": "v389_leather_glove_right",
+      "label": "v389_leather_glove_right",
+      "kind": "frames",
+      "frame": "v389_leather_glove_right"
+    },
+    {
+      "id": "v389_wool_glove_right",
+      "label": "v389_wool_glove_right",
+      "kind": "frames",
+      "frame": "v389_wool_glove_right"
+    },
+    {
+      "id": "v389_ankle_leather_boot_right",
+      "label": "v389_ankle_leather_boot_right",
+      "kind": "frames",
+      "frame": "v389_ankle_leather_boot_right"
+    },
+    {
+      "id": "v389_linen_short_upper_sleeve_back",
+      "label": "v389_linen_short_upper_sleeve_back",
+      "kind": "frames",
+      "frame": "v389_linen_short_upper_sleeve_back"
+    },
+    {
+      "id": "v389_worn_leather_upper_sleeve_back",
+      "label": "v389_worn_leather_upper_sleeve_back",
+      "kind": "frames",
+      "frame": "v389_worn_leather_upper_sleeve_back"
+    },
+    {
+      "id": "v389_iron_mail_upper_sleeve_back",
+      "label": "v389_iron_mail_upper_sleeve_back",
+      "kind": "frames",
+      "frame": "v389_iron_mail_upper_sleeve_back"
+    },
+    {
+      "id": "v389_padded_cloth_forearm_sleeve_back",
+      "label": "v389_padded_cloth_forearm_sleeve_back",
+      "kind": "frames",
+      "frame": "v389_padded_cloth_forearm_sleeve_back"
+    },
+    {
+      "id": "v389_leather_forearm_sleeve_back",
+      "label": "v389_leather_forearm_sleeve_back",
+      "kind": "frames",
+      "frame": "v389_leather_forearm_sleeve_back"
+    },
+    {
+      "id": "v389_leather_glove_back",
+      "label": "v389_leather_glove_back",
+      "kind": "frames",
+      "frame": "v389_leather_glove_back"
+    },
+    {
+      "id": "v389_wool_glove_back",
+      "label": "v389_wool_glove_back",
+      "kind": "frames",
+      "frame": "v389_wool_glove_back"
+    },
+    {
+      "id": "v389_ankle_leather_boot_back",
+      "label": "v389_ankle_leather_boot_back",
+      "kind": "frames",
+      "frame": "v389_ankle_leather_boot_back"
+    },
+    {
+      "id": "av389_worn_apron_down",
+      "label": "av389_worn_apron_down",
+      "kind": "frames",
+      "frame": "av389_worn_apron_down"
+    },
+    {
+      "id": "av389_worn_cloak_down",
+      "label": "av389_worn_cloak_down",
+      "kind": "frames",
+      "frame": "av389_worn_cloak_down"
+    },
+    {
+      "id": "av389_worn_helmet_down",
+      "label": "av389_worn_helmet_down",
+      "kind": "frames",
+      "frame": "av389_worn_helmet_down"
+    },
+    {
+      "id": "av389_worn_mask_down",
+      "label": "av389_worn_mask_down",
+      "kind": "frames",
+      "frame": "av389_worn_mask_down"
+    },
+    {
+      "id": "av389_worn_goggles_down",
+      "label": "av389_worn_goggles_down",
+      "kind": "frames",
+      "frame": "av389_worn_goggles_down"
+    },
+    {
+      "id": "av389_worn_quiver_down",
+      "label": "av389_worn_quiver_down",
+      "kind": "frames",
+      "frame": "av389_worn_quiver_down"
+    },
+    {
+      "id": "av389_worn_belt_down",
+      "label": "av389_worn_belt_down",
+      "kind": "frames",
+      "frame": "av389_worn_belt_down"
+    },
+    {
+      "id": "av389_worn_cuirass_down",
+      "label": "av389_worn_cuirass_down",
+      "kind": "frames",
+      "frame": "av389_worn_cuirass_down"
+    },
+    {
+      "id": "av389_worn_apron_left",
+      "label": "av389_worn_apron_left",
+      "kind": "frames",
+      "frame": "av389_worn_apron_left"
+    },
+    {
+      "id": "av389_worn_cloak_left",
+      "label": "av389_worn_cloak_left",
+      "kind": "frames",
+      "frame": "av389_worn_cloak_left"
+    },
+    {
+      "id": "av389_worn_helmet_left",
+      "label": "av389_worn_helmet_left",
+      "kind": "frames",
+      "frame": "av389_worn_helmet_left"
+    },
+    {
+      "id": "av389_worn_mask_left",
+      "label": "av389_worn_mask_left",
+      "kind": "frames",
+      "frame": "av389_worn_mask_left"
+    },
+    {
+      "id": "av389_worn_goggles_left",
+      "label": "av389_worn_goggles_left",
+      "kind": "frames",
+      "frame": "av389_worn_goggles_left"
+    },
+    {
+      "id": "av389_worn_quiver_left",
+      "label": "av389_worn_quiver_left",
+      "kind": "frames",
+      "frame": "av389_worn_quiver_left"
+    },
+    {
+      "id": "av389_worn_belt_left",
+      "label": "av389_worn_belt_left",
+      "kind": "frames",
+      "frame": "av389_worn_belt_left"
+    },
+    {
+      "id": "av389_worn_cuirass_left",
+      "label": "av389_worn_cuirass_left",
+      "kind": "frames",
+      "frame": "av389_worn_cuirass_left"
+    },
+    {
+      "id": "av389_worn_apron_right",
+      "label": "av389_worn_apron_right",
+      "kind": "frames",
+      "frame": "av389_worn_apron_right"
+    },
+    {
+      "id": "av389_worn_cloak_right",
+      "label": "av389_worn_cloak_right",
+      "kind": "frames",
+      "frame": "av389_worn_cloak_right"
+    },
+    {
+      "id": "av389_worn_helmet_right",
+      "label": "av389_worn_helmet_right",
+      "kind": "frames",
+      "frame": "av389_worn_helmet_right"
+    },
+    {
+      "id": "av389_worn_mask_right",
+      "label": "av389_worn_mask_right",
+      "kind": "frames",
+      "frame": "av389_worn_mask_right"
+    },
+    {
+      "id": "av389_worn_goggles_right",
+      "label": "av389_worn_goggles_right",
+      "kind": "frames",
+      "frame": "av389_worn_goggles_right"
+    },
+    {
+      "id": "av389_worn_quiver_right",
+      "label": "av389_worn_quiver_right",
+      "kind": "frames",
+      "frame": "av389_worn_quiver_right"
+    },
+    {
+      "id": "av389_worn_belt_right",
+      "label": "av389_worn_belt_right",
+      "kind": "frames",
+      "frame": "av389_worn_belt_right"
+    },
+    {
+      "id": "av389_worn_cuirass_right",
+      "label": "av389_worn_cuirass_right",
+      "kind": "frames",
+      "frame": "av389_worn_cuirass_right"
+    },
+    {
+      "id": "av389_worn_apron_up",
+      "label": "av389_worn_apron_up",
+      "kind": "frames",
+      "frame": "av389_worn_apron_up"
+    },
+    {
+      "id": "av389_worn_cloak_up",
+      "label": "av389_worn_cloak_up",
+      "kind": "frames",
+      "frame": "av389_worn_cloak_up"
+    },
+    {
+      "id": "av389_worn_helmet_up",
+      "label": "av389_worn_helmet_up",
+      "kind": "frames",
+      "frame": "av389_worn_helmet_up"
+    },
+    {
+      "id": "av389_worn_mask_up",
+      "label": "av389_worn_mask_up",
+      "kind": "frames",
+      "frame": "av389_worn_mask_up"
+    },
+    {
+      "id": "av389_worn_goggles_up",
+      "label": "av389_worn_goggles_up",
+      "kind": "frames",
+      "frame": "av389_worn_goggles_up"
+    },
+    {
+      "id": "av389_worn_quiver_up",
+      "label": "av389_worn_quiver_up",
+      "kind": "frames",
+      "frame": "av389_worn_quiver_up"
+    },
+    {
+      "id": "av389_worn_belt_up",
+      "label": "av389_worn_belt_up",
+      "kind": "frames",
+      "frame": "av389_worn_belt_up"
+    },
+    {
+      "id": "av389_worn_cuirass_up",
+      "label": "av389_worn_cuirass_up",
+      "kind": "frames",
+      "frame": "av389_worn_cuirass_up"
+    },
+    {
+      "id": "av389_pioneer_hand_owned",
+      "label": "av389_pioneer_hand_owned",
+      "kind": "frames",
+      "frame": "av389_pioneer_hand_owned"
+    },
+    {
+      "id": "av389_articulated_foot_owned",
+      "label": "av389_articulated_foot_owned",
+      "kind": "frames",
+      "frame": "av389_articulated_foot_owned"
+    },
+    {
+      "id": "av389_head_worker_down",
+      "label": "av389_head_worker_down",
+      "kind": "frames",
+      "frame": "av389_head_worker_down"
+    },
+    {
+      "id": "av389_head_worker_left",
+      "label": "av389_head_worker_left",
+      "kind": "frames",
+      "frame": "av389_head_worker_left"
+    },
+    {
+      "id": "av389_head_worker_right",
+      "label": "av389_head_worker_right",
+      "kind": "frames",
+      "frame": "av389_head_worker_right"
+    },
+    {
+      "id": "av389_head_worker_up",
+      "label": "av389_head_worker_up",
+      "kind": "frames",
+      "frame": "av389_head_worker_up"
+    },
+    {
+      "id": "av389_head_healer_down",
+      "label": "av389_head_healer_down",
+      "kind": "frames",
+      "frame": "av389_head_healer_down"
+    },
+    {
+      "id": "av389_head_healer_left",
+      "label": "av389_head_healer_left",
+      "kind": "frames",
+      "frame": "av389_head_healer_left"
+    },
+    {
+      "id": "av389_head_healer_right",
+      "label": "av389_head_healer_right",
+      "kind": "frames",
+      "frame": "av389_head_healer_right"
+    },
+    {
+      "id": "av389_head_healer_up",
+      "label": "av389_head_healer_up",
+      "kind": "frames",
+      "frame": "av389_head_healer_up"
+    },
+    {
+      "id": "av389_head_trader_down",
+      "label": "av389_head_trader_down",
+      "kind": "frames",
+      "frame": "av389_head_trader_down"
+    },
+    {
+      "id": "av389_head_trader_left",
+      "label": "av389_head_trader_left",
+      "kind": "frames",
+      "frame": "av389_head_trader_left"
+    },
+    {
+      "id": "av389_head_trader_right",
+      "label": "av389_head_trader_right",
+      "kind": "frames",
+      "frame": "av389_head_trader_right"
+    },
+    {
+      "id": "av389_head_trader_up",
+      "label": "av389_head_trader_up",
+      "kind": "frames",
+      "frame": "av389_head_trader_up"
+    },
+    {
+      "id": "av389_head_guard_down",
+      "label": "av389_head_guard_down",
+      "kind": "frames",
+      "frame": "av389_head_guard_down"
+    },
+    {
+      "id": "av389_head_guard_left",
+      "label": "av389_head_guard_left",
+      "kind": "frames",
+      "frame": "av389_head_guard_left"
+    },
+    {
+      "id": "av389_head_guard_right",
+      "label": "av389_head_guard_right",
+      "kind": "frames",
+      "frame": "av389_head_guard_right"
+    },
+    {
+      "id": "av389_head_guard_up",
+      "label": "av389_head_guard_up",
+      "kind": "frames",
+      "frame": "av389_head_guard_up"
+    },
+    {
+      "id": "av389_head_reaver_down",
+      "label": "av389_head_reaver_down",
+      "kind": "frames",
+      "frame": "av389_head_reaver_down"
+    },
+    {
+      "id": "av389_head_reaver_left",
+      "label": "av389_head_reaver_left",
+      "kind": "frames",
+      "frame": "av389_head_reaver_left"
+    },
+    {
+      "id": "av389_head_reaver_right",
+      "label": "av389_head_reaver_right",
+      "kind": "frames",
+      "frame": "av389_head_reaver_right"
+    },
+    {
+      "id": "av389_head_reaver_up",
+      "label": "av389_head_reaver_up",
+      "kind": "frames",
+      "frame": "av389_head_reaver_up"
     }
   ]
 }

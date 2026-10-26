@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>ASHVEIL · 인체와 착용 원본 작업대</title>
+  <style>:root{--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark;color:#d8d1bc;background:#171914;font:15px/1.6 system-ui,sans-serif}*{box-sizing:border-box}body{margin:0}main{max-width:1260px;margin:auto;padding:24px}h1{margin:8px 0;font-size:26px}h2{margin:0 0 10px;font-size:17px}p{margin:8px 0 14px}a{color:#d3b977}button,select,input{font:inherit}button,select{color:inherit;background:#292d23;border:1px solid #67674f;border-radius:3px;padding:7px 10px}button{cursor:pointer}button:hover{background:#353a2c}button:focus-visible,select:focus-visible,input:focus-visible{outline-offset:3px;outline:2px solid #d3b977}input[type=checkbox]{accent-color:#c3ad73}input[type=range]{accent-color:#c3ad73;width:130px}label{align-items:center;gap:7px;display:inline-flex}fieldset{border:1px solid #4c5141;border-radius:4px;min-width:0;margin:0;padding:12px}legend{color:#c3ad73;padding:0 6px}.disclosure{background:#24281f;border-left:3px solid #c3ad73;padding:12px 16px}.toolbar{flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0;display:flex}.layout{grid-template-columns:minmax(0,1fr) 330px;gap:16px;display:grid}.viewer{min-width:0}.stage-scroll{background:#20241c;border:1px solid #64694e;overflow:auto}#stage{aspect-ratio:3;width:100%;min-width:650px;position:relative}#stage canvas{width:100%;height:100%;image-rendering:pixelated;display:block}.scale-labels{color:#c6bfaa;justify-content:space-around;font-size:13px;display:flex}.controls{gap:12px;display:grid}.control-row{flex-wrap:wrap;align-items:center;gap:10px;margin:8px 0;display:flex}.full{width:100%}.full select{max-width:100%}.minor{color:#b5b4a1;font-size:13px}.garments{grid-template-columns:1fr;gap:4px;max-height:330px;display:grid;overflow:auto}.garments label{align-items:flex-start;padding:4px}.garments small{color:#a6ab94;font-size:11px;display:block}.garments input{margin-top:6px}#status{color:#c8c9ae;min-height:3em;padding:10px 0;display:block}#notice{color:#dfbc82;min-height:1.6em}details{border-top:1px solid #444c3b;margin-top:12px;padding-top:8px}summary{cursor:pointer;color:#c3ad73}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#10140e;max-height:320px;padding:12px;font-size:12px;overflow:auto}.hand-targets{flex-wrap:wrap;gap:8px;display:flex}.hand-targets input{width:64px}footer{color:#a8ae98;margin-top:20px;font-size:13px}.error{color:#ffb4a0!important}@media (width<=950px){main{padding:14px}.layout{grid-template-columns:1fr}.controls{grid-template-columns:repeat(2,minmax(0,1fr))}.controls>fieldset:last-child{grid-column:1/-1}.garments{grid-template-columns:repeat(2,minmax(0,1fr));max-height:300px}}@media (width<=600px){h1{font-size:22px}.controls,.garments{grid-template-columns:1fr}.toolbar label{font-size:13px}}</style>
+  <script type="module" crossorigin src="./assets/index-kgd2ldUc.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/CanvasPool-CTz6W2rm.js">
+  <link rel="modulepreload" crossorigin href="./assets/Filter-DRxFPdtj.js">
+  <link rel="modulepreload" crossorigin href="./assets/canvasUtils-B5KrsTsU.js">
+  <link rel="modulepreload" crossorigin href="./assets/Cache-D0EC7riK.js">
+  <link rel="modulepreload" crossorigin href="./assets/GCManagedHash-Ap6rl--7.js">
+  <link rel="modulepreload" crossorigin href="./assets/RenderTargetSystem-CrTdBQVt.js">
+  <link rel="modulepreload" crossorigin href="./assets/getTextureBatchBindGroup-BOmbyaNZ.js">
+  <link rel="modulepreload" crossorigin href="./assets/GraphicsContext-BdlONEsd.js">
+  <link rel="modulepreload" crossorigin href="./assets/getTexelRangeRects--zc5SBJR.js">
+</head>
+<body><main>
+  <p><a id="game-link" href="../../">게임</a> · <a id="art-link" href="../../artbook/">원본 도감</a></p>
+  <h1>인체와 착용 원본 작업대</h1>
+  <p class="disclosure" id="disclosure">진단용 합성 인체·UID·착용 상태입니다. 실제 게임의 저장·물품·장착·행동·시간·난수를 만들거나 바꾸지 않습니다. 같은 HumanView와 등록 원본을 그대로 표시합니다.</p>
+  <div class="toolbar">
+    <button id="play" type="button">표현 정지</button><button id="step" type="button">표현 0.1초</button><button id="reset" type="button">초기 자세</button>
+    <label>방향 <select id="direction"><option value="down">앞</option><option value="left">왼쪽</option><option value="right">오른쪽</option><option value="up">뒤</option></select></label>
+    <label>동작 <select id="motion"></select></label>
+    <label>속도 <select id="speed"><option value="0">0× · 동결</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+    <label>얼굴 <select id="head"><option value="">방랑자</option></select></label>
+    <label>크기 <select id="scale"><option value="all">1× / 2× / 4× 비교</option><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></label>
+    <label><input id="loop" type="checkbox" checked>표현 반복</label><label><input id="instant" type="checkbox">순간 표시 · 연속 접지 아님</label>
+  </div>
+  <div class="layout">
+    <section class="viewer" aria-label="동일 원본 표시">
+      <div class="stage-scroll"><div id="stage" role="img" aria-label="실제 HumanView가 표시하는 합성 인체 비교"></div></div>
+      <div id="scale-labels" class="scale-labels"><span>원래 크기 · 1×</span><span>동일 원본 · 2×</span><span>동일 원본 · 4×</span></div>
+      <div class="control-row"><label class="full">동작 위상 <input id="phase" type="range" min="0" max="1000" value="0"><output id="phase-value">0%</output></label><label><input id="guides" type="checkbox" checked>뿌리·바닥·손 목표 표시</label></div>
+      <output id="status" aria-live="polite">등록 원본과 실제 정의 목록을 불러오는 중입니다.</output>
+      <p id="notice" aria-live="polite"></p>
+      <p class="minor">카메라는 합성 이동 뿌리를 따라갑니다. 16px 격자는 화면 기하의 비교용입니다. 같은 원본의 관절 변환·소유별 가림을 표시하며, 새로운 공격 프레임이나 물리적3D 접지를 뜻하지 않습니다.</p>
+      <details><summary>관찰값 · 읽기 전용</summary><pre id="inspection">준비 중</pre></details>
+      <details><summary>표현 범위와 출처</summary><div id="limits" class="minor"></div></details>
+    </section>
+    <aside class="controls">
+      <fieldset><legend>착용 조합</legend>
+        <label class="full">묶음 <select id="preset"></select></label>
+        <div class="control-row"><label class="full">안감 <select id="lining"><option value="">없음</option></select></label></div>
+        <p class="minor">같은 실제 장착 칸은 하나만 선택합니다. 안감은 등록된 안감 수용 겉옷과 안감 후보가 있어야 표시됩니다.</p>
+        <div id="garments" class="garments"></div>
+      </fieldset>
+      <fieldset><legend>합성 조건</legend>
+        <div class="control-row"><label>조건 대상 <select id="condition-target"><option value="*">선택 의복 전체</option></select></label></div>
+        <div class="control-row"><label>의복·의수족 내구 <input id="durability" type="range" min="0" max="100" value="100"><output id="durability-value">100%</output></label></div>
+        <div class="control-row"><label><input id="half" type="checkbox">대상 의복 반착용</label></div>
+        <div class="control-row"><label>진행 표시 <select id="progress"><option value="">없음</option><option value="equip">입는 중</option><option value="unequip">벗는 중</option></select></label></div>
+        <div class="control-row"><label>피부 손상 표현 <input id="damage" type="range" min="0" max="100" value="0"><output id="damage-value">0%</output></label></div>
+        <p class="minor">조건은 이 페이지의 합성 표시값입니다. 상처·출혈·치료·방어·보온 판정을 실행하지 않습니다.</p>
+      </fieldset>
+      <fieldset><legend>결손과 의수족</legend>
+        <div class="control-row"><label class="full">결손 뿌리 <select id="missing"><option value="">없음</option></select></label></div>
+        <div class="control-row"><label class="full">의수족 <select id="replacement"><option value="">없음</option></select></label></div>
+        <div class="control-row"><label class="full">설치 뿌리 <select id="replacement-root" disabled></select></label></div>
+        <label><input id="replacement-zero" type="checkbox">의수족 기능효율0으로 보기</label>
+        <p class="minor">의수족은6종의 기존 단일 물체 원본을 공유합니다. 효율0도 살로 되돌리지 않습니다. 같은 합성 설치UID를 자손마다 새 물체로 세지 않습니다.</p>
+      </fieldset>
+      <fieldset><legend>손 소켓 진단</legend>
+        <label><input id="targets" type="checkbox">합성 손 목표 사용</label>
+        <div class="hand-targets"><label>오른손 x <input id="right-x" type="number" value="5" min="-20" max="20" step="0.5"></label><label>y <input id="right-y" type="number" value="-12" min="-30" max="10" step="0.5"></label><label>왼손 x <input id="left-x" type="number" value="-5" min="-20" max="20" step="0.5"></label><label>y <input id="left-y" type="number" value="-12" min="-30" max="10" step="0.5"></label></div>
+        <p class="minor">실제 HumanView.grip/handTarget의 도달 범위를 봅니다. 장착 무기·발사·명중·피해 판정이 없으며, 기본 모드 선택만으로 별도 무기 동작을 완성했다고 주장하지 않습니다.</p>
+      </fieldset>
+    </aside>
+  </div>
+  <footer>화면 전용 진단 · 실제 Core 세계 없음 · 원본 PNG 재작성 없음 · 전체 상태 회귀 증거가 아님</footer>
+</main></body>
+</html>

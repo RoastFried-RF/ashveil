@@ -1,6 +1,6 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업 묶음은 **v0.388-dev · 저장219**이다. 전수 품질 감사에서 동물 물기 공격, 예약 진료와 응급처치 충돌, 시술자 사망 정리, 손 절단 후 장비 낙하, 파종기 손상 표시, 검색·분류·키보드 상세·긴 무기·작은 화면·도감 확대를 수정했다. **기준 전체 검사에서 발견한48개 실패를 해결하고, 수정본385파일6,545검사 전체가 통과했다.** [감사 목록·근거·남은 작업](docs/quality-audit-v388.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 작업 묶음은 **v0.389-dev · 저장219**이다. 일반 인간형의 의복25종·결손 사지·의수족6종을 실제 소유 부위와 장비에 맞춰 표시하고, 주민·치료사·상인·경비·약탈자의4방향 머리를 연결했다. 몸·옷·손 장비와 거리 기반 발 디딤을 조립한다. [구현·한계·검증](docs/human-paperdoll-v389.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
 
 실제 인물의 착용 의복·절단·의수족을 몸 그림에 반영하는 작업과 장기 확장·전체 출시 게이트는 남아 있다. 기존 예약 진료·침구 원화는 유지하며 이번 감사에서 새 PNG는 만들지 않았다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 

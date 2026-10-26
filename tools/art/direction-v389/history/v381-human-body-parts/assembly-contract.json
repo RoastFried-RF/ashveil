@@ -1,0 +1,90 @@
+{
+  "format": 1,
+  "active": false,
+  "releaseApproved": false,
+  "sourcePNGs": 1,
+  "rawRegions": 32,
+  "usableRegionCandidates": 28,
+  "heldRawThighRegions": 4,
+  "derivedThighAccepted": {
+    "down": "limited-private-candidate",
+    "left": false,
+    "right": false,
+    "up": "limited-private-candidate"
+  },
+  "authoredFullBodyFrames": 0,
+  "expectedDisplayInstances": 10,
+  "facings": {
+    "down": {
+      "head": "av381_down_Head",
+      "torso": "av381_down_TorsoPelvis",
+      "upperArms": {
+        "left": "av381_down_LeftUpperArm",
+        "right": "av381_down_RightUpperArm"
+      },
+      "forearmHands": {
+        "left": "av381_down_LeftForearmPalm",
+        "right": "av381_down_RightForearmPalm"
+      },
+      "shinFoot": "av381_down_SharedLeftShinFoot",
+      "thigh": "derived-runtime-clothed-keepmask:down",
+      "thighCandidateMask": "down",
+      "sourceFacingSemantics": "head/torso corrected by actual viewing, foot toe/heel direction observed; lateral arm surfaces are intended binding candidates, not proven3D anatomy"
+    },
+    "left": {
+      "head": "av381_right_Head",
+      "torso": "av381_right_TorsoPelvis",
+      "upperArms": {
+        "left": "av381_left_LeftUpperArm",
+        "right": "av381_left_RightUpperArm"
+      },
+      "forearmHands": {
+        "left": "av381_left_LeftForearmPalm",
+        "right": "av381_left_RightForearmPalm"
+      },
+      "shinFoot": "av381_left_SharedLeftShinFoot",
+      "thigh": null,
+      "thighCandidateMask": "left",
+      "sourceFacingSemantics": "head/torso corrected by actual viewing, foot toe/heel direction observed; lateral arm surfaces are intended binding candidates, not proven3D anatomy"
+    },
+    "right": {
+      "head": "av381_left_Head",
+      "torso": "av381_left_TorsoPelvis",
+      "upperArms": {
+        "left": "av381_right_LeftUpperArm",
+        "right": "av381_right_RightUpperArm"
+      },
+      "forearmHands": {
+        "left": "av381_right_LeftForearmPalm",
+        "right": "av381_right_RightForearmPalm"
+      },
+      "shinFoot": "av381_right_SharedLeftShinFoot",
+      "thigh": null,
+      "thighCandidateMask": "right",
+      "sourceFacingSemantics": "head/torso corrected by actual viewing, foot toe/heel direction observed; lateral arm surfaces are intended binding candidates, not proven3D anatomy"
+    },
+    "up": {
+      "head": "av381_up_Head",
+      "torso": "av381_up_TorsoPelvis",
+      "upperArms": {
+        "left": "av381_up_LeftUpperArm",
+        "right": "av381_up_RightUpperArm"
+      },
+      "forearmHands": {
+        "left": "av381_up_LeftForearmPalm",
+        "right": "av381_up_RightForearmPalm"
+      },
+      "shinFoot": "av381_up_SharedLeftShinFoot",
+      "thigh": "derived-runtime-clothed-keepmask:up",
+      "thighCandidateMask": "up",
+      "sourceFacingSemantics": "head/torso corrected by actual viewing, foot toe/heel direction observed; lateral arm surfaces are intended binding candidates, not proven3D anatomy"
+    }
+  },
+  "bodyLogic": "Use anatomicalMissing separately from prostheticAt. Hand-only/Foot-only distal source masks preserve proximal Forearm/Shin; no separate authored Hand/Foot textures. Finger/Toe-only appearance remains incomplete.",
+  "coordinateConvention": "source x/y and crop-local x/y, end-exclusive crops; all socket centers2D assumptions, no true3D axes",
+  "prototypeRigReady": true,
+  "source": "originals/wanderer-components-four-facings-v1.png",
+  "sourceSHA256": "f05cfe92abe4e81218d5f415310a008a0335379729ad5b6af2c641c45938e25e",
+  "completeFourFacingRigAccepted": false,
+  "derivedOwnerDrawPasses": 15
+}

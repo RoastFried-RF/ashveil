@@ -1,0 +1,1679 @@
+{
+  "finiteInitial": true,
+  "actualInputs": true,
+  "pairs": [
+    {
+      "scene": "Prosthetic.ArticulatedLeg-LeftFoot",
+      "direction": "down",
+      "hash": "57f69ddd",
+      "human": {
+        "direction": "down",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_down_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            3.7399999999999993,
+            -5.74590620817559
+          ],
+          "right": [
+            -3.38,
+            -5.809765825800486
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "down",
+          "left": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 37,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 38,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 19
+        },
+        "maxArmReachError": 1.7763568394002505e-15,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 37,
+            "stanceAnchor": null,
+            "actual": [
+              2.1999999999999886,
+              0
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 38,
+            "stanceAnchor": null,
+            "actual": [
+              -2.1999999999999886,
+              0
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_down_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_down_LeftUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_down_LeftForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_down_LeftForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c1",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c1",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_down_RightUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_down_RightForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_down_RightForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c2",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c2",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "role": "flesh",
+            "source": "av381_down_SharedLeftShinFoot",
+            "clip": true,
+            "z": 22
+          },
+          {
+            "owner": "LeftFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 12.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-LeftFoot",
+      "direction": "left",
+      "hash": "32b84315",
+      "human": {
+        "direction": "left",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_right_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            0.8199999999999992,
+            -6.288213467673334
+          ],
+          "right": [
+            -2.7800000000000002,
+            -6.88064423143719
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "left",
+          "left": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 93,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 94,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 47
+        },
+        "maxArmReachError": 1.7763568394002505e-15,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 93,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              2.1999999999999886
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 94,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              -2.1999999999999886
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_right_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_left_LeftUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_left_LeftForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_left_LeftForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c1",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c1",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_left_RightUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_left_RightForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_left_RightForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c2",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c2",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "RightFoot",
+            "role": "flesh",
+            "source": "av381_left_SharedLeftShinFoot",
+            "clip": true,
+            "z": 12
+          },
+          {
+            "owner": "LeftFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 22.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-LeftFoot",
+      "direction": "right",
+      "hash": "f27eca3b",
+      "human": {
+        "direction": "right",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_left_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            2.419999999999999,
+            -7.235738760935163
+          ],
+          "right": [
+            -0.7600000000000005,
+            -6.583813003479726
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "right",
+          "left": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 147,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 148,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 74
+        },
+        "maxArmReachError": 0,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 147,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              -2.1999999999999886
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 148,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              2.1999999999999886
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_left_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_right_LeftUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_right_LeftForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_right_LeftForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c2",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c2",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_right_RightUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_right_RightForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_right_RightForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c1",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c1",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "role": "flesh",
+            "source": "av381_right_SharedLeftShinFoot",
+            "clip": true,
+            "z": 22
+          },
+          {
+            "owner": "LeftFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 12.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-LeftFoot",
+      "direction": "up",
+      "hash": "bff8d8a9",
+      "human": {
+        "direction": "up",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_up_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            -3.5300000000000002,
+            -5.766867734914717
+          ],
+          "right": [
+            3.829999999999999,
+            -5.815988870545933
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "up",
+          "left": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 201,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 202,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 101
+        },
+        "maxArmReachError": 0,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 201,
+            "stanceAnchor": null,
+            "actual": [
+              -2.1999999999999886,
+              0
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 202,
+            "stanceAnchor": null,
+            "actual": [
+              2.1999999999999886,
+              0
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_up_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_up_LeftUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_up_LeftForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_up_LeftForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c1",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c1",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_up_RightUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_up_RightForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_up_RightForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c2",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c2",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "role": "flesh",
+            "source": "av381_up_SharedLeftShinFoot",
+            "clip": true,
+            "z": 22
+          },
+          {
+            "owner": "LeftFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 12.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-RightFoot",
+      "direction": "down",
+      "hash": "b29a379f",
+      "human": {
+        "direction": "down",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_down_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            3.7399999999999993,
+            -5.74590620817559
+          ],
+          "right": [
+            -3.38,
+            -5.809765825800486
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "down",
+          "left": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 35,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 36,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 18
+        },
+        "maxArmReachError": 1.7763568394002505e-15,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 35,
+            "stanceAnchor": null,
+            "actual": [
+              2.1999999999999886,
+              0
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 36,
+            "stanceAnchor": null,
+            "actual": [
+              -2.1999999999999886,
+              0
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_down_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_down_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_down_LeftUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_down_LeftForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_down_LeftForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c1",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c1",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "LeftFoot",
+            "role": "flesh",
+            "source": "av381_down_SharedLeftShinFoot",
+            "clip": true,
+            "z": 12
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_down_RightUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_down_RightForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_down_RightForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c2",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r1c2",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 22.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-RightFoot",
+      "direction": "left",
+      "hash": "aa663117",
+      "human": {
+        "direction": "left",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_right_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            0.8199999999999992,
+            -6.288213467673334
+          ],
+          "right": [
+            -2.7800000000000002,
+            -6.88064423143719
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "left",
+          "left": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 87,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 88,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 44
+        },
+        "maxArmReachError": 1.7763568394002505e-15,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 87,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              2.1999999999999886
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 88,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              -2.1999999999999886
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_right_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_right_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_left_LeftUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_left_LeftForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_left_LeftForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c1",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c1",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "LeftFoot",
+            "role": "flesh",
+            "source": "av381_left_SharedLeftShinFoot",
+            "clip": true,
+            "z": 22
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_left_RightUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_left_RightForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_left_RightForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c2",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c2",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "RightFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 12.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-RightFoot",
+      "direction": "right",
+      "hash": "6aef511d",
+      "human": {
+        "direction": "right",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_left_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            2.419999999999999,
+            -7.235738760935163
+          ],
+          "right": [
+            -0.7600000000000005,
+            -6.583813003479726
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "right",
+          "left": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 143,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 144,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 72
+        },
+        "maxArmReachError": 0,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 328,
+            "y": 331.8,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 143,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              -2.1999999999999886
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 328,
+            "y": 336.2,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 144,
+            "stanceAnchor": null,
+            "actual": [
+              0,
+              2.1999999999999886
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_left_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_left_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_right_LeftUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_right_LeftForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_right_LeftForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c2",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r2c2",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "LeftFoot",
+            "role": "flesh",
+            "source": "av381_right_SharedLeftShinFoot",
+            "clip": true,
+            "z": 12
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_right_RightUpperArm",
+            "clip": false,
+            "z": 50
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_right_RightForearmPalm",
+            "clip": true,
+            "z": 51
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_right_RightForearmPalm",
+            "clip": true,
+            "z": 52
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c1",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r3c1",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 22.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    },
+    {
+      "scene": "Prosthetic.ArticulatedLeg-RightFoot",
+      "direction": "up",
+      "hash": "0ad1ec07",
+      "human": {
+        "direction": "up",
+        "mode": "idle",
+        "base": "av389_human",
+        "headRole": "wanderer",
+        "frame": "av381_up_TorsoPelvis",
+        "root": [
+          328,
+          334
+        ],
+        "grips": {
+          "left": [
+            -3.5300000000000002,
+            -5.766867734914717
+          ],
+          "right": [
+            3.829999999999999,
+            -5.815988870545933
+          ]
+        },
+        "gait": {
+          "root": {
+            "x": 328,
+            "y": 334
+          },
+          "facing": "up",
+          "left": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 193,
+            "stanceAnchor": null
+          },
+          "right": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 194,
+            "stanceAnchor": null
+          },
+          "supportContacts": 0,
+          "maxStanceDrift": 0,
+          "stepCount": 0,
+          "rebased": true,
+          "epoch": 97
+        },
+        "maxArmReachError": 0,
+        "legProjection": "2d-cutout",
+        "fixedLegLengths": false,
+        "footProjection": {
+          "left": {
+            "x": 325.8,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 193,
+            "stanceAnchor": null,
+            "actual": [
+              -2.1999999999999886,
+              0
+            ],
+            "error": 0
+          },
+          "right": {
+            "x": 330.2,
+            "y": 334,
+            "lift": 0,
+            "present": true,
+            "contact": false,
+            "swing": false,
+            "plantId": 194,
+            "stanceAnchor": null,
+            "actual": [
+              2.1999999999999886,
+              0
+            ],
+            "error": 0
+          }
+        },
+        "parts": [
+          {
+            "owner": "Chest",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Abdomen",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 30
+          },
+          {
+            "owner": "Pelvis",
+            "role": "flesh",
+            "source": "av381_up_TorsoPelvis",
+            "clip": true,
+            "z": 31
+          },
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av381_up_Head",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "LeftUpperArm",
+            "role": "flesh",
+            "source": "av381_up_LeftUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "LeftForearm",
+            "role": "flesh",
+            "source": "av381_up_LeftForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "LeftHand",
+            "role": "flesh",
+            "source": "av381_up_LeftForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "LeftThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c1",
+            "clip": true,
+            "z": 10
+          },
+          {
+            "owner": "LeftShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c1",
+            "clip": true,
+            "z": 11
+          },
+          {
+            "owner": "LeftFoot",
+            "role": "flesh",
+            "source": "av381_up_SharedLeftShinFoot",
+            "clip": true,
+            "z": 12
+          },
+          {
+            "owner": "RightUpperArm",
+            "role": "flesh",
+            "source": "av381_up_RightUpperArm",
+            "clip": false,
+            "z": 5
+          },
+          {
+            "owner": "RightForearm",
+            "role": "flesh",
+            "source": "av381_up_RightForearmPalm",
+            "clip": true,
+            "z": 6
+          },
+          {
+            "owner": "RightHand",
+            "role": "flesh",
+            "source": "av381_up_RightForearmPalm",
+            "clip": true,
+            "z": 7
+          },
+          {
+            "owner": "RightThigh",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c2",
+            "clip": true,
+            "z": 20
+          },
+          {
+            "owner": "RightShin",
+            "role": "intrinsic-underclothing",
+            "source": "av386_trouser_panel_r4c2",
+            "clip": true,
+            "z": 21
+          },
+          {
+            "owner": "RightFoot",
+            "uid": 66,
+            "role": "prosthetic",
+            "source": "av389_articulated_foot_owned",
+            "clip": false,
+            "z": 22.15
+          }
+        ],
+        "sourceFramesAreNotAuthoredActionFrames": true
+      }
+    }
+  ],
+  "errors": []
+}

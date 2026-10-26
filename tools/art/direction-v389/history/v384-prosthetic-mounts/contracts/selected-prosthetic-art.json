@@ -1,0 +1,1329 @@
+{
+  "format": 1,
+  "selectedOriginalObjects": 6,
+  "initialOriginalObjects": 6,
+  "correctiveOriginalObjects": 2,
+  "selectedSources": 2,
+  "totalImageCalls": 2,
+  "initialCalls": 1,
+  "manualCorrectionCallsAfterParentReview": 1,
+  "automaticRegeneration": 0,
+  "pixelsEdited": 0,
+  "newAuthoredHumanCharacters": 0,
+  "newAnimationFrames": 0,
+  "new4DirectionalSets": 0,
+  "items": [
+    {
+      "def": "Prosthetic.PegLeg",
+      "item": "Item.PegLeg",
+      "currentSprite": "complete_item_peg_leg",
+      "proposedSprite": "av384_peg_leg",
+      "source": "originals/prosthetic-objects-v1.png",
+      "sourceSha256": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332",
+      "sourceRect": [
+        144,
+        21,
+        291,
+        511
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          289,
+          82
+        ],
+        "crop": [
+          145,
+          61
+        ],
+        "normalizedCrop": [
+          0.49828178694158076,
+          0.11937377690802348
+        ],
+        "sourceRGBA": [
+          32,
+          24,
+          18,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          299,
+          478
+        ],
+        "crop": [
+          155,
+          457
+        ],
+        "normalizedCrop": [
+          0.5326460481099656,
+          0.8943248532289628
+        ],
+        "sourceRGBA": [
+          110,
+          103,
+          89,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 88.55344431342608,
+      "axisLengthSourcePx": 396.1262425035736,
+      "tipGraphicCandidate": {
+        "source": [
+          299,
+          520
+        ],
+        "crop": [
+          155,
+          499
+        ],
+        "normalizedCrop": [
+          0.5326460481099656,
+          0.9765166340508806
+        ],
+        "sourceRGBA": [
+          50,
+          45,
+          43,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "cuffRim": {
+          "source": [
+            289,
+            82
+          ],
+          "crop": [
+            145,
+            61
+          ],
+          "normalizedCrop": [
+            0.49828178694158076,
+            0.11937377690802348
+          ],
+          "sourceRGBA": [
+            32,
+            24,
+            18,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "metalLowerBand": {
+          "source": [
+            299,
+            478
+          ],
+          "crop": [
+            155,
+            457
+          ],
+          "normalizedCrop": [
+            0.5326460481099656,
+            0.8943248532289628
+          ],
+          "sourceRGBA": [
+            110,
+            103,
+            89,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "contact": {
+          "source": [
+            299,
+            520
+          ],
+          "crop": [
+            155,
+            499
+          ],
+          "normalizedCrop": [
+            0.5326460481099656,
+            0.9765166340508806
+          ],
+          "sourceRGBA": [
+            50,
+            45,
+            43,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 2,
+        "mainAlpha16Pixels": 78238,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 0,
+        "frameAlpha1Border": 0
+      },
+      "rootBindingCandidates": [
+        "LeftShin",
+        "RightShin"
+      ],
+      "rootBindingsHeldPendingDistalReview": [
+        "LeftFoot",
+        "RightFoot"
+      ],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "physicalPalmSocket": null,
+      "hookContact": null,
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    },
+    {
+      "def": "Prosthetic.ArticulatedLeg",
+      "item": "Item.ArticulatedLeg",
+      "currentSprite": "complete_item_articulated_leg",
+      "proposedSprite": "av384_articulated_leg",
+      "source": "originals/prosthetic-leg-pioneer-v2.png",
+      "sourceSha256": "64b83b162a71bbc6cc56331a057e7f79b70379d694a420eb1bfc5f81a8294b46",
+      "sourceRect": [
+        152,
+        80,
+        425,
+        749
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          404,
+          135
+        ],
+        "crop": [
+          252,
+          55
+        ],
+        "normalizedCrop": [
+          0.5929411764705882,
+          0.07343124165554073
+        ],
+        "sourceRGBA": [
+          2,
+          1,
+          1,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          455,
+          655
+        ],
+        "crop": [
+          303,
+          575
+        ],
+        "normalizedCrop": [
+          0.7129411764705882,
+          0.7676902536715621
+        ],
+        "sourceRGBA": [
+          0,
+          0,
+          0,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 84.39852076508592,
+      "axisLengthSourcePx": 522.4949760524019,
+      "tipGraphicCandidate": {
+        "source": [
+          300,
+          807
+        ],
+        "crop": [
+          148,
+          727
+        ],
+        "normalizedCrop": [
+          0.34823529411764703,
+          0.9706275033377837
+        ],
+        "sourceRGBA": [
+          0,
+          0,
+          0,
+          255
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "cuffRim": {
+          "source": [
+            404,
+            135
+          ],
+          "crop": [
+            252,
+            55
+          ],
+          "normalizedCrop": [
+            0.5929411764705882,
+            0.07343124165554073
+          ],
+          "sourceRGBA": [
+            2,
+            1,
+            1,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "proximalRoundBoss": {
+          "source": [
+            442,
+            386
+          ],
+          "crop": [
+            290,
+            306
+          ],
+          "normalizedCrop": [
+            0.6823529411764706,
+            0.40854472630173566
+          ],
+          "sourceRGBA": [
+            0,
+            0,
+            0,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "distalRoundBoss": {
+          "source": [
+            455,
+            655
+          ],
+          "crop": [
+            303,
+            575
+          ],
+          "normalizedCrop": [
+            0.7129411764705882,
+            0.7676902536715621
+          ],
+          "sourceRGBA": [
+            0,
+            0,
+            0,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "footPinCandidate": {
+          "source": [
+            469,
+            727
+          ],
+          "crop": [
+            317,
+            647
+          ],
+          "normalizedCrop": [
+            0.7458823529411764,
+            0.8638184245660881
+          ],
+          "sourceRGBA": [
+            103,
+            60,
+            23,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "soleFront": {
+          "source": [
+            227,
+            806
+          ],
+          "crop": [
+            75,
+            726
+          ],
+          "normalizedCrop": [
+            0.17647058823529413,
+            0.9692923898531375
+          ],
+          "sourceRGBA": [
+            55,
+            51,
+            41,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "soleBack": {
+          "source": [
+            378,
+            779
+          ],
+          "crop": [
+            226,
+            699
+          ],
+          "normalizedCrop": [
+            0.5317647058823529,
+            0.9332443257676902
+          ],
+          "sourceRGBA": [
+            51,
+            51,
+            51,
+            5
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 1,
+        "mainAlpha16Pixels": 153837,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 0,
+        "frameAlpha1Border": 6
+      },
+      "rootBindingCandidates": [
+        "LeftShin",
+        "RightShin"
+      ],
+      "rootBindingsHeldPendingDistalReview": [
+        "LeftFoot",
+        "RightFoot"
+      ],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "physicalPalmSocket": null,
+      "hookContact": null,
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    },
+    {
+      "def": "Prosthetic.HookHand",
+      "item": "Item.HookHand",
+      "currentSprite": "complete_item_hook_hand",
+      "proposedSprite": "av384_hook_hand",
+      "source": "originals/prosthetic-objects-v1.png",
+      "sourceSha256": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332",
+      "sourceRect": [
+        1169,
+        25,
+        262,
+        505
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          1303,
+          79
+        ],
+        "crop": [
+          134,
+          54
+        ],
+        "normalizedCrop": [
+          0.5114503816793893,
+          0.10693069306930693
+        ],
+        "sourceRGBA": [
+          25,
+          18,
+          12,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          1295,
+          266
+        ],
+        "crop": [
+          126,
+          241
+        ],
+        "normalizedCrop": [
+          0.48091603053435117,
+          0.4772277227722772
+        ],
+        "sourceRGBA": [
+          40,
+          31,
+          24,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 92.44966262012704,
+      "axisLengthSourcePx": 187.17104476921637,
+      "tipGraphicCandidate": {
+        "source": [
+          1214,
+          385
+        ],
+        "crop": [
+          45,
+          360
+        ],
+        "normalizedCrop": [
+          0.1717557251908397,
+          0.7128712871287128
+        ],
+        "sourceRGBA": [
+          134,
+          130,
+          124,
+          246
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "cuffRim": {
+          "source": [
+            1303,
+            79
+          ],
+          "crop": [
+            134,
+            54
+          ],
+          "normalizedCrop": [
+            0.5114503816793893,
+            0.10693069306930693
+          ],
+          "sourceRGBA": [
+            25,
+            18,
+            12,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "wristStem": {
+          "source": [
+            1295,
+            266
+          ],
+          "crop": [
+            126,
+            241
+          ],
+          "normalizedCrop": [
+            0.48091603053435117,
+            0.4772277227722772
+          ],
+          "sourceRGBA": [
+            40,
+            31,
+            24,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "hookRootBoss": {
+          "source": [
+            1335,
+            321
+          ],
+          "crop": [
+            166,
+            296
+          ],
+          "normalizedCrop": [
+            0.6335877862595419,
+            0.5861386138613861
+          ],
+          "sourceRGBA": [
+            76,
+            48,
+            20,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "hookTip": {
+          "source": [
+            1214,
+            385
+          ],
+          "crop": [
+            45,
+            360
+          ],
+          "normalizedCrop": [
+            0.1717557251908397,
+            0.7128712871287128
+          ],
+          "sourceRGBA": [
+            134,
+            130,
+            124,
+            246
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 3,
+        "mainAlpha16Pixels": 66921,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 0,
+        "frameAlpha1Border": 1
+      },
+      "rootBindingCandidates": [
+        "LeftHand",
+        "RightHand"
+      ],
+      "rootBindingsHeldPendingDistalReview": [],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": false,
+      "twoHandSupportCore": 0.5,
+      "physicalPalmSocket": null,
+      "hookContact": {
+        "source": [
+          1214,
+          385
+        ],
+        "crop": [
+          45,
+          360
+        ],
+        "normalizedCrop": [
+          0.1717557251908397,
+          0.7128712871287128
+        ],
+        "sourceRGBA": [
+          134,
+          130,
+          124,
+          246
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    },
+    {
+      "def": "Prosthetic.GlassEye",
+      "item": "Item.GlassEye",
+      "currentSprite": "original_glass_eye",
+      "proposedSprite": "av384_glass_eye",
+      "source": "originals/prosthetic-objects-v1.png",
+      "sourceSha256": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332",
+      "sourceRect": [
+        127,
+        622,
+        294,
+        293
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          328,
+          786
+        ],
+        "crop": [
+          201,
+          164
+        ],
+        "normalizedCrop": [
+          0.6836734693877551,
+          0.5597269624573379
+        ],
+        "sourceRGBA": [
+          4,
+          4,
+          3,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          328,
+          735
+        ],
+        "crop": [
+          201,
+          113
+        ],
+        "normalizedCrop": [
+          0.6836734693877551,
+          0.3856655290102389
+        ],
+        "sourceRGBA": [
+          95,
+          66,
+          37,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": -90.0,
+      "axisLengthSourcePx": 51.0,
+      "tipGraphicCandidate": null,
+      "landmarks": {
+        "artificialIris": {
+          "source": [
+            328,
+            786
+          ],
+          "crop": [
+            201,
+            164
+          ],
+          "normalizedCrop": [
+            0.6836734693877551,
+            0.5597269624573379
+          ],
+          "sourceRGBA": [
+            4,
+            4,
+            3,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "milkyGlass": {
+          "source": [
+            210,
+            735
+          ],
+          "crop": [
+            83,
+            113
+          ],
+          "normalizedCrop": [
+            0.282312925170068,
+            0.3856655290102389
+          ],
+          "sourceRGBA": [
+            224,
+            198,
+            167,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 9,
+        "mainAlpha16Pixels": 58574,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 0,
+        "frameAlpha1Border": 0
+      },
+      "rootBindingCandidates": [
+        "LeftEye",
+        "RightEye"
+      ],
+      "rootBindingsHeldPendingDistalReview": [],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "physicalPalmSocket": null,
+      "hookContact": null,
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    },
+    {
+      "def": "Prosthetic.PioneerArm",
+      "item": "Item.PioneerArm",
+      "currentSprite": "complete_item_pioneer_arm",
+      "proposedSprite": "av384_pioneer_arm",
+      "source": "originals/prosthetic-leg-pioneer-v2.png",
+      "sourceSha256": "64b83b162a71bbc6cc56331a057e7f79b70379d694a420eb1bfc5f81a8294b46",
+      "sourceRect": [
+        1073,
+        105,
+        596,
+        707
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          1530,
+          167
+        ],
+        "crop": [
+          457,
+          62
+        ],
+        "normalizedCrop": [
+          0.7667785234899329,
+          0.0876944837340877
+        ],
+        "sourceRGBA": [
+          0,
+          0,
+          2,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          1252,
+          548
+        ],
+        "crop": [
+          179,
+          443
+        ],
+        "normalizedCrop": [
+          0.30033557046979864,
+          0.6265912305516266
+        ],
+        "sourceRGBA": [
+          238,
+          228,
+          204,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 126.11668863545984,
+      "axisLengthSourcePx": 471.6407531161827,
+      "tipGraphicCandidate": {
+        "source": [
+          1196,
+          797
+        ],
+        "crop": [
+          123,
+          692
+        ],
+        "normalizedCrop": [
+          0.2063758389261745,
+          0.9787835926449788
+        ],
+        "sourceRGBA": [
+          76,
+          56,
+          43,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "cuffRim": {
+          "source": [
+            1530,
+            167
+          ],
+          "crop": [
+            457,
+            62
+          ],
+          "normalizedCrop": [
+            0.7667785234899329,
+            0.0876944837340877
+          ],
+          "sourceRGBA": [
+            0,
+            0,
+            2,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "wristBoss": {
+          "source": [
+            1252,
+            548
+          ],
+          "crop": [
+            179,
+            443
+          ],
+          "normalizedCrop": [
+            0.30033557046979864,
+            0.6265912305516266
+          ],
+          "sourceRGBA": [
+            238,
+            228,
+            204,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "clawLeftTip": {
+          "source": [
+            1118,
+            732
+          ],
+          "crop": [
+            45,
+            627
+          ],
+          "normalizedCrop": [
+            0.07550335570469799,
+            0.8868458274398868
+          ],
+          "sourceRGBA": [
+            41,
+            39,
+            31,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "clawRightTip": {
+          "source": [
+            1196,
+            797
+          ],
+          "crop": [
+            123,
+            692
+          ],
+          "normalizedCrop": [
+            0.2063758389261745,
+            0.9787835926449788
+          ],
+          "sourceRGBA": [
+            76,
+            56,
+            43,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "clawGap": {
+          "source": [
+            1180,
+            681
+          ],
+          "crop": [
+            107,
+            576
+          ],
+          "normalizedCrop": [
+            0.17953020134228187,
+            0.8147100424328148
+          ],
+          "sourceRGBA": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 2,
+        "mainAlpha16Pixels": 147965,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 0,
+        "frameAlpha1Border": 13
+      },
+      "rootBindingCandidates": [
+        "LeftForearm",
+        "RightForearm"
+      ],
+      "rootBindingsHeldPendingDistalReview": [
+        "LeftHand",
+        "RightHand"
+      ],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "physicalPalmSocket": null,
+      "hookContact": null,
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    },
+    {
+      "def": "Prosthetic.GardenerLimb",
+      "item": "Item.GardenerLimb",
+      "currentSprite": "complete_item_gardener_limb",
+      "proposedSprite": "av384_gardener_limb",
+      "source": "originals/prosthetic-objects-v1.png",
+      "sourceSha256": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332",
+      "sourceRect": [
+        1137,
+        540,
+        309,
+        454
+      ],
+      "sourceView": "one authored oblique object view, not a biological anatomical facing",
+      "mountGraphicCandidate": {
+        "source": [
+          1311,
+          568
+        ],
+        "crop": [
+          174,
+          28
+        ],
+        "normalizedCrop": [
+          0.5631067961165048,
+          0.06167400881057269
+        ],
+        "sourceRGBA": [
+          63,
+          57,
+          37,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisEndGraphicCandidate": {
+        "source": [
+          1296,
+          747
+        ],
+        "crop": [
+          159,
+          207
+        ],
+        "normalizedCrop": [
+          0.5145631067961165,
+          0.45594713656387664
+        ],
+        "sourceRGBA": [
+          159,
+          131,
+          85,
+          253
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "axisDegrees": 94.79013072236323,
+      "axisLengthSourcePx": 179.62739212046696,
+      "tipGraphicCandidate": {
+        "source": [
+          1214,
+          965
+        ],
+        "crop": [
+          77,
+          425
+        ],
+        "normalizedCrop": [
+          0.24919093851132687,
+          0.9361233480176211
+        ],
+        "sourceRGBA": [
+          175,
+          146,
+          109,
+          252
+        ],
+        "observedGraphicFeature": true,
+        "manualUncertaintySourcePx": 4,
+        "physical3DAxisObserved": null
+      },
+      "landmarks": {
+        "proximalHollowStem": {
+          "source": [
+            1311,
+            568
+          ],
+          "crop": [
+            174,
+            28
+          ],
+          "normalizedCrop": [
+            0.5631067961165048,
+            0.06167400881057269
+          ],
+          "sourceRGBA": [
+            63,
+            57,
+            37,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "mountBand": {
+          "source": [
+            1297,
+            631
+          ],
+          "crop": [
+            160,
+            91
+          ],
+          "normalizedCrop": [
+            0.517799352750809,
+            0.20044052863436124
+          ],
+          "sourceRGBA": [
+            58,
+            51,
+            44,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "Yjunction": {
+          "source": [
+            1296,
+            747
+          ],
+          "crop": [
+            159,
+            207
+          ],
+          "normalizedCrop": [
+            0.5145631067961165,
+            0.45594713656387664
+          ],
+          "sourceRGBA": [
+            159,
+            131,
+            85,
+            253
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "leftProngTip": {
+          "source": [
+            1214,
+            965
+          ],
+          "crop": [
+            77,
+            425
+          ],
+          "normalizedCrop": [
+            0.24919093851132687,
+            0.9361233480176211
+          ],
+          "sourceRGBA": [
+            175,
+            146,
+            109,
+            252
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        },
+        "rightProngTip": {
+          "source": [
+            1392,
+            973
+          ],
+          "crop": [
+            255,
+            433
+          ],
+          "normalizedCrop": [
+            0.8252427184466019,
+            0.9537444933920705
+          ],
+          "sourceRGBA": [
+            63,
+            46,
+            31,
+            251
+          ],
+          "observedGraphicFeature": true,
+          "manualUncertaintySourcePx": 4,
+          "physical3DAxisObserved": null
+        }
+      },
+      "sourceAnalysis": {
+        "mainAlpha16ComponentId": 8,
+        "mainAlpha16Pixels": 57405,
+        "mainAlpha16OutsideFrame": 0,
+        "otherMajorAlpha16InsideFrame": 0,
+        "nonMajorAlpha16InsideFrame": 1,
+        "frameAlpha1Border": 0
+      },
+      "rootBindingCandidates": [
+        "LeftUpperArm",
+        "LeftForearm",
+        "LeftHand",
+        "LeftThigh",
+        "LeftShin",
+        "LeftFoot",
+        "RightUpperArm",
+        "RightForearm",
+        "RightHand",
+        "RightThigh",
+        "RightShin",
+        "RightFoot"
+      ],
+      "rootBindingsHeldPendingDistalReview": [],
+      "visibleWristOrAnkleIsGraphicCandidateOnly": true,
+      "gripSocketConfirmed": false,
+      "ordinaryGripCore": true,
+      "twoHandSupportCore": null,
+      "physicalPalmSocket": null,
+      "hookContact": null,
+      "fleshReplacementPolicy": "owner root from humanSurfaceState replacement.root; UID from replacement.uid, no biological flesh restoration, including efficiency0",
+      "observedRuntimeItemUID": null,
+      "reuse": {
+        "authoredObjectViews": 1,
+        "runtimeMirror": "explicit per facing/side; source pivot x->frameWidth-x on flip, not another anatomical side swap",
+        "runtimeRotation": "around measured source graphic mount with fixed rest scale, no per-frame stretch",
+        "rearSurfaceObserved": null
+      },
+      "inventoryProposalReady": true,
+      "wornFitAccepted": false,
+      "active": false,
+      "releaseAccepted": false
+    }
+  ],
+  "cropUnionPipeline": false,
+  "registrationWrites": 0,
+  "active": false,
+  "releaseApproved": false
+}
