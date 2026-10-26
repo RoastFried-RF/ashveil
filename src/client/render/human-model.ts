@@ -41,6 +41,7 @@ export interface HumanPoseInput {
  direction:HumanDirection;root:HumanPoint;mode:MotionName;phase:number;stride:number;moving:boolean;crouched:boolean;prone:boolean;alive:boolean;fall:number;hipDip?:number
  hands?:Partial<Record<HumanSide,HumanPoint>>
  actionSide?:HumanSide
+ actionVector?:HumanPoint
  footMounts?:Partial<Record<HumanSide,HumanPoint>>
 }
 export interface HumanBone {a:HPoint;b:HPoint;matrix:HMatrix;z:number;reachError:number}
@@ -52,7 +53,7 @@ export interface HumanPose {
 }
 /** Major anatomical owners share a persistent skeleton through all action families. */
 export function humanPose(base:HumanBaseDirection,input:HumanPoseInput,feet:Record<HumanSide,HumanFootInput>):HumanPose{
- const {direction,mode,phase}=input,forward=heading[direction],sway=input.moving?Math.sin(input.stride*Math.PI):0,work=mode==='work'?Math.sin(phase*Math.PI*2):0
+ const {direction,mode,phase}=input,forward=(mode==='attack'||mode==='throw')&&input.actionVector?input.actionVector:heading[direction],sway=input.moving?Math.sin(input.stride*Math.PI):0,work=mode==='work'?Math.sin(phase*Math.PI*2):0
  const lowering=(input.crouched?4:mode==='crouchDown'?4*phase:mode==='stand'?4*(1-phase):0)+(input.hipDip??0)
  const hipHeight=14.5-lowering/projection,hip:HPoint=[0,-hipHeight*projection],lean=(mode==='attack'?.025*Math.sin(phase*Math.PI):mode==='hurt'?-.055*Math.sin(phase*Math.PI):mode==='work'?.025*work:mode==='throw'?.045*Math.sin(phase*Math.PI):0)*(direction==='left'?-1:1)
  const torso=hAt(base.torso.a,hip,.06,lean),neck=hTransform(torso,base.torso.neck),head=hAt(base.head.a,neck,base.head.scale??.06,lean*.5),bones:Record<string,HumanBone>={},shoulders={}as Record<HumanSide,HPoint>,hips={}as Record<HumanSide,HPoint>,grips={}as Record<HumanSide,HPoint>,footResults={}as HumanPose['feet'];let maxReachError=0
@@ -69,6 +70,10 @@ export function humanPose(base:HumanBaseDirection,input:HumanPoseInput,feet:Reco
   const upper=base.upper[side],lower=base.forearm[side],shoulder=hTransform(torso,base.torso.shoulders[side]),armSign=direction==='left'?-1:direction==='right'?1:(side==='left'?1:-1)*(direction==='up'?-1:1),lUpper=hpLength(hpSub(upper.b,upper.a))*.052,lLower=hpLength(hpSub(lower.b,lower.a))*.052
   shoulders[side]=shoulder
   const localSway=sway*(side==='left'?1:-1),normal:HPoint=hpAdd(shoulder,[armSign*(.8+localSway),lUpper+lLower-.2]),pulse=Math.sin(Math.PI*clamp((phase-.12)/.72,0,1))**2,active=side===(input.actionSide??'right'),strike=hpAdd(shoulder,[forward[0]*6+armSign,5+forward[1]*5]),guard=hpAdd(neck,[armSign*3,5]),defaultGrip=mode==='attack'?hpMix(normal,active?strike:guard,pulse*(active?1:.4)):mode==='block'?hpMix(normal,guard,Math.sin(phase*Math.PI)**2):mode==='throw'&&active?hpMix(normal,strike,Math.sin(phase*Math.PI)**2):mode==='work'?hpAdd(shoulder,[forward[0]*5+armSign*1.5,7+work*.7]):mode==='use'?hpMix(normal,hpAdd(neck,[armSign*1.5,4+Math.sin(phase*Math.PI)*2]),Math.sin(phase*Math.PI)**2):mode==='interact'?hpMix(normal,hpAdd(shoulder,[armSign*3,6]),Math.sin(phase*Math.PI)**2):normal,targetGrip=input.hands?.[side]??defaultGrip,arm=hTwoLink(shoulder,targetGrip,lUpper,lLower,-armSign),armZ=direction==='left'?side==='right'?5:50:direction==='right'?side==='left'?5:50:direction==='up'?5:50
+  if(mode==='throw'&&active&&!input.hands?.[side]){
+   const windup=hpAdd(shoulder,[armSign*4-forward[0]*2,3-forward[1]*2]),release=hpAdd(shoulder,[forward[0]*7+armSign,4+forward[1]*7]),ease=(n:number)=>{const t=clamp(n,0,1);return t*t*(3-2*t)},target=phase<.24?hpMix(normal,windup,ease(phase/.24)):phase<.48?hpMix(windup,release,ease((phase-.24)/.24)):hpMix(release,normal,ease((phase-.48)/.52)),solved=hTwoLink(shoulder,target,lUpper,lLower,-armSign)
+   arm.joint=solved.joint;arm.end=solved.end;arm.error=solved.error
+  }
   bones[Side+'UpperArm']={a:shoulder,b:arm.joint,matrix:hPin(upper,shoulder,arm.joint,.052),z:armZ,reachError:arm.error}
   bones[Side+'Forearm']={a:arm.joint,b:arm.end,matrix:hPin(lower,arm.joint,arm.end,.052),z:armZ+1,reachError:arm.error}
   const wrist=hTransform(bones[Side+'Forearm'].matrix,lower.wrist)

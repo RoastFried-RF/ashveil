@@ -1,16 +1,19 @@
 // Optional, bounded domain observations. Never stored in GameState or saves.
 import type {World} from './ctx'
 import type {Action} from './actions'
-import type {Creature,ItemInst,Activity} from './types'
+import type {Creature,ItemInst,Activity,AttackDef,FxEvent} from './types'
+import type {Wield} from './items'
 import type {Pos} from './geom'
 
 export interface ActionObservation {id:number;at:number;action:Action;item?:ItemInst;target?:Pos;activity?:Activity['kind']}
-interface Channel {events:ActionObservation[];running:Set<number>;primary:number}
+type AttackEvent=Extract<FxEvent,{k:'attack'}>
+export interface AttackObservation {wield:Wield;from:Pos;to:Pos}
+interface Channel {events:ActionObservation[];running:Set<number>;primary:number;attacks:WeakMap<AttackEvent,AttackObservation>}
 export interface ObservationToken {channel:Channel;event:ActionObservation;actor:Creature}
 const channels=new WeakMap<World,Channel>()
 /** An observer opts in; headless simulation does not allocate action records. */
 export function startActionObservation(w:World){
- const channel:Channel={events:[],running:new Set(),primary:w.s.playerId};channels.set(w,channel)
+ const channel:Channel={events:[],running:new Set(),primary:w.s.playerId,attacks:new WeakMap()};channels.set(w,channel)
  return()=>{if(channels.get(w)===channel)channels.delete(w)}
 }
 export function beginActionObservation(w:World,c:Creature,action:Action):ObservationToken|undefined{
@@ -32,3 +35,9 @@ export function finishActionObservation(token:ObservationToken|undefined,success
  append(token.channel,token.event)
 }
 export function takeActionObservations(w:World){return channels.get(w)?.events.splice(0)??[]}
+/** Bind the actual resolved source to its existing event; never add fields to state/FX/save. */
+export function recordAttackObservation(w:World,event:AttackEvent,source:Wield,attack:AttackDef,from:Pos,to:Pos){
+ const channel=channels.get(w);if(!channel)return
+ channel.attacks.set(event,{wield:structuredClone({...source,atk:attack}),from:{...from},to:{...to}})
+}
+export function takeAttackObservation(w:World,event:AttackEvent){const channel=channels.get(w),source=channel?.attacks.get(event);channel?.attacks.delete(event);return source}

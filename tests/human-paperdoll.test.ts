@@ -15,6 +15,12 @@ import type {ItemDef,ProstheticDef} from '../src/core/types'
 const m=manifest as unknown as AtlasManifest
 const feet=(x=0,y=0)=>({left:{x:x+2.2,y,lift:0,contact:true,present:true,swing:false},right:{x:x-2.2,y,lift:0,contact:true,present:true,swing:false}})
 describe('실제 인체/의복 원본과 표현 소유',()=>{
+ it('실제투척벡터의준비/발사/회복을거쳐같은손의대기위치로돌아온다',()=>{
+  for(const direction of humanDirections)for(const side of ['left','right']as const){const base=humanArt.base[direction],input={direction,root:[0,0]as[number,number],mode:'throw'as const,phase:0,stride:0,moving:false,crouched:false,prone:false,alive:true,fall:0,actionSide:side,actionVector:[Math.SQRT1_2,-Math.SQRT1_2]as[number,number]},start=humanPose(base,input,feet()),windup=humanPose(base,{...input,phase:.24},feet()),release=humanPose(base,{...input,phase:.48},feet()),end=humanPose(base,{...input,phase:1},feet())
+   expect(end.grips[side]).toEqual(start.grips[side]);expect(hpLength(hpSub(windup.grips[side],start.grips[side]))).toBeGreaterThan(1);expect(hpLength(hpSub(release.grips[side],windup.grips[side]))).toBeGreaterThan(1)
+   for(const seam of [.24,.48]){const a=humanPose(base,{...input,phase:seam-1e-5},feet()),b=humanPose(base,{...input,phase:seam+1e-5},feet());expect(hpLength(hpSub(a.grips[side],b.grips[side]))).toBeLessThan(.001)}
+  }
+ })
  it('얼굴장구의실제lens/panel고정점과폭측정점을분리해모든역할의눈·입에맞춘다',()=>{
   for(const role of ['',...Object.keys(humanArt.heads!)])for(const direction of ['down','left','right']as const){const head=humanWithHead(humanArt,role).base[direction].head,near=humanProfileNearSide(direction),point=near?head.eyes![near]!:hpMix(head.eyes!.left!,head.eyes!.right!,.5),headMatrix=hAt(head.a,[0,-20],head.scale??.06)
    for(const[kind,width,sourcePoint]of [['goggles',4.8,point],['mask',4.1,head.mouth!]]as const){const source=humanArt.pieces[kind][direction],target=hTransform(headMatrix,sourcePoint),matrix=hPinMount(source,[target[0]-width/2,target[1]],[target[0]+width/2,target[1]],width/hpLength(hpSub(source.b,source.a)),target),actual=hTransform(matrix,source.mount!);expect(actual[0]).toBeCloseTo(target[0],9);expect(actual[1]).toBeCloseTo(target[1],9);expect(hpLength(hpSub(hTransform(matrix,source.a),hTransform(matrix,source.b)))).toBeCloseTo(width,9)}

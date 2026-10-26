@@ -1,0 +1,127 @@
+{
+  "preview": "0.391-dev",
+  "save": 219,
+  "coreGameVersion": "0.1.0",
+  "status": "Local19-scene/58-pair native, targeted90 tests, complete golden observer on/off accepted; remote full CI/public pending",
+  "runtimeSnapshot": "/workspace/.ashveil-checkpoints/v391-attack-source-r2",
+  "scope": "Resolved attack source observation and existing original weapon/body throw preparation-release-recovery; no new original PNG or authored action frames",
+  "local": {
+    "focusedFiles": 7,
+    "focusedTests": 90,
+    "focusedLog": "test-results/autonomy-v391/focused-r2.txt",
+    "type": "type-final-r6.txt",
+    "lint": "lint-final-r4.txt",
+    "build": "build-r3.txt",
+    "nativeAcceptance": {
+      "status": "passed",
+      "scenes": 19,
+      "actualThrows": 20,
+      "wholeStatePairs": 58,
+      "errors": [],
+      "finiteInitial": true,
+      "postTitleWorldWrites": false,
+      "script": "tools/inspect-attack-owner-v391.ts",
+      "toolSHA256": "0975f1f4958751d809f764702e921cc33d47e2cb058a4f19866cc013a82669ff",
+      "runtimeSnapshot": "v391-attack-source-r2",
+      "source": "test-results/autonomy-v391/matrix-final-r4",
+      "receipt": "docs/diagnostics/attack-v391/native-matrix-r4-audit.json"
+    },
+    "directPNGOpened": [
+      "baseline-native-r1/actual-throw.png",
+      "fixed-native-r1/actual-throw.png",
+      "matrix-preflight-r3/slow-throw-0-preparation.png",
+      "matrix-final-r4/slow-throw-0-preparation.png"
+    ],
+    "nativeRegressions": "Pending existing real-input human equipment/natural attack and v390 tank/utility tests; record separately after frozen publication"
+  },
+  "golden": {
+    "fullInitialFinalAndErrorsEqual": true,
+    "expectedFixturesChanged": false,
+    "vectors": [
+      {
+        "name": "surface",
+        "initialHash": "8f3f3650",
+        "hash": "89a915ef",
+        "commands": 80
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "a5475cc2",
+        "hash": "e058f17f",
+        "commands": 81
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "25a4254c",
+        "hash": "92313f7d",
+        "commands": 147
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "8deed312",
+        "hash": "e8af5e82",
+        "commands": 28
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "8deed312",
+        "hash": "a30d02ca",
+        "commands": 30
+      }
+    ],
+    "observerEnabledCompleteVectorsEqual": true,
+    "observerEnabledCapture": "golden-observed-r1.json"
+  },
+  "protectedSource": {
+    "src/core/": {
+      "total": 335,
+      "same": 333,
+      "changed": [
+        "src/core/action-observations.ts",
+        "src/core/combat.ts"
+      ]
+    },
+    "src/content/": {
+      "total": 320,
+      "same": 320,
+      "changed": []
+    },
+    "mods/": {
+      "total": 89,
+      "same": 89,
+      "changed": []
+    },
+    "public/sprites/": {
+      "total": 2038,
+      "same": 2038,
+      "changed": []
+    }
+  },
+  "actualBaseline": "docs/diagnostics/attack-v391/baseline-audit.json",
+  "CI": {
+    "status": "pending"
+  },
+  "public": {
+    "status": "pending"
+  },
+  "art": {
+    "newPNG": 0,
+    "newAuthoredFrames": 0,
+    "all2038PublicSpriteFilesUnchanged": true
+  },
+  "stateContracts": {
+    "newGameStateFields": 0,
+    "newFXFields": 0,
+    "saveSchemaUnchanged": true,
+    "rawCompleteWorldsLocalOnly": true,
+    "wholeComparisonNormalization": "Consumed render FX only"
+  },
+  "notClaimed": [
+    "Physical projectile flight or delayed ground landing",
+    "All modified/mutant humanoids or fine/compound limb losses",
+    "Pocket generic noncombat prop ownership",
+    "Every attack/ability/anatomy combination in actual browser",
+    "World30 or new1000 expedition rerun; balance unchanged",
+    "External human release evaluation and full v1.0/X1-X4 completion"
+  ]
+}

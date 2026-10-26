@@ -2,7 +2,8 @@ import {HumanView} from './human-view'
 import {humanArt} from './human-art'
 import {humanOwners} from './human-spec'
 import {humanSurfaceState} from './human-state'
-import {bindActionProp,presentationHands,utilityPropLength} from './hand-presentation'
+import {attackPresentation} from './attack-presentation'
+import {presentationHands,utilityPropLength} from './hand-presentation'
 import {camouflageActive} from '../../core/camouflage'
 import {SwarmView} from './swarm-view'
 import {validSwarmRule} from '../../core/swarm-state'
@@ -24,7 +25,7 @@ import {projectVisibleFog} from './projected-fog'
 import {advanceWalk,createWalkMotion,observeWalk,resetWalk,walkPosition,walking,type WalkMotion} from './walk-motion'
 import {spritePixelHit} from './sprite-hit'
 import {advancePose,clearPoses,createPoseClock,motionDurations,poseDuration,poseFrame,posePriority,requestPose,type MotionName,type PoseClock,type PoseCue} from './character-motion'
-import {attackBodyPhase,attackDuration,attackStyle,actionStage,equipmentSpec,equipmentTipReach,heldPose,supportHand,type HeldEquipment,type EquipmentAction} from './equipment-motion'
+import {attackBodyPhase,attackDuration,actionStage,equipmentSpec,equipmentTipReach,heldPose,supportHand,type HeldEquipment} from './equipment-motion'
 import {activityMotion,takeActionPresentations} from './action-presentation'
 import {isMedicalActivity,medicalPresentation,medicalPropAngle,type MedicalPresentation} from './medical-presentation'
 import medicalGripData from './medical-grips.json'
@@ -39,7 +40,7 @@ import {
 } from 'pixi.js'
 import {
   hostile,crouched, beddingScorch,bestiaryEntry, bestiaryStage, bloodLoss, hpMax, isRaining, weatherDef, lightAt, lightSource, hasLos, itemDef, player, regionState, sightRange, totalBleed, turnOf, hasEffect,
-  meleeWield,wield,isMissing,partDamage,partEff,cullerCooling,type Creature, type FxEvent, type Pos, type World,
+  isMissing,partDamage,partEff,cullerCooling,type Creature, type FxEvent, type Pos, type World,
 } from '../../core'
 import { paletteColor, preferences } from '../preferences'
 import {cullerArt,crawlerArt,swarmArt, atlasStats,animFrames, chars, hasFrame, icon, sub, tex, type CharDef, type Dir } from './atlas'
@@ -101,6 +102,7 @@ interface CView {
   guarding:boolean
   annotationHead:number
   poseWasCue:boolean
+  drawnEquipment:[HeldEquipment|null,HeldEquipment|null]
   hands:[Sprite,Sprite]
   shadow: Graphics
   bar: Graphics
@@ -302,7 +304,7 @@ export class MapRenderer {
       if(!view?.root.visible||!view.alive||view.prone)continue
       if(cue.kind==='use'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='use'&&view.pose.current.prop&&view.pose.current.equipment?.weapon)continue
       if(cue.direction)view.dir=cue.direction
-      if(cue.kind==='throw'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='throw'){view.pose.current.prop=cue.prop;continue}
+      if(cue.kind==='throw'&&resolvedAttacks.has(cue.actor)&&view.pose.current?.kind==='throw'){if(!view.pose.current.equipment?.sourceObserved)view.pose.current.prop=cue.prop;continue}
       const duration=view.char?.motionDurations?.[cue.kind]
       if(preferences.animationSpeed!==0&&walking(view.motion)&&['work','use','interact','wallow'].includes(cue.kind)){
         if(view.pose.current&&posePriority(cue.kind)<posePriority(view.pose.current.kind))continue
@@ -777,7 +779,7 @@ export class MapRenderer {
     this.objs.addChild(root)
     const initiallyStanding=!!ch?.rig&&c.alive&&!c.asleep&&!c.unconscious&&!hasEffect(c,'knockedDown',turnOf(w))
     const v: CView = {
-      id: c.id, selectedSprite, root, human:ch?.human?new HumanView(humanArt,ch.humanHead):null,rig:ch?.rig?new RigOwner(ch.rig):null,rigDrives:ch?.rig?sowerDriveState(w,c):undefined,crawler:ch?.crawler?new CrawlerView(crawlerArt(ch.crawler)):null,crawlerParts:{},culler:ch?.culler?new CullerView(cullerArt(ch.culler)):null,cullerParts:{},cullerCooling:false,crawlerMode:c.crawlerState?.mode??'floor',crawlerHeading:c.facing*Math.PI/4-Math.PI/2,rigMix:initiallyStanding?1:0,rigWasActive:initiallyStanding,body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,handUse:presentationHands(w,c),gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
+      id: c.id, selectedSprite, root, human:ch?.human?new HumanView(humanArt,ch.humanHead):null,rig:ch?.rig?new RigOwner(ch.rig):null,rigDrives:ch?.rig?sowerDriveState(w,c):undefined,crawler:ch?.crawler?new CrawlerView(crawlerArt(ch.crawler)):null,crawlerParts:{},culler:ch?.culler?new CullerView(cullerArt(ch.culler)):null,cullerParts:{},cullerCooling:false,crawlerMode:c.crawlerState?.mode??'floor',crawlerHeading:c.facing*Math.PI/4-Math.PI/2,rigMix:initiallyStanding?1:0,rigWasActive:initiallyStanding,body,previousBody,actionItem,medicalItems,medical:null,pose:createPoseClock(),arrivingPose:null,poseName:'idle',poseFrame:'',poseDirection:'down',transition:0,flightHeight:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,flightLift:c.flight?(w.db.creature(c.def).flight?.height??0)*T:0,asleep:!!c.asleep,prone:!!(c.asleep||c.unconscious||hasEffect(c,'knockedDown',turnOf(w))),groundT:1,activity:activityMotion(c.activity),activityTime:0,held:[false,false],equipment:[null,null],equipmentAge:[0,0],handsBusy:false,handUse:presentationHands(w,c),gearEffects,gripCovers,guarding:false,annotationHead:0,poseWasCue:false,drawnEquipment:[null,null],hands, shadow, bar, marks, char: ch, anim, motion:createWalkMotion(c.pos),lightPos:{...c.pos},
       dir: DIR_OF_FACING[c.facing] ?? 'down', attackT: -1, attackVec: { x: 0, y: 0 },attackDistance:1, flashT: 0, deadT: c.alive ? -1 : 1,
       alive: c.alive, mechanical:!!c.body.machine, crouched:crouched(w,c), unknown: false, scale, zzT: (c.id * 37) % 1000, limp: false,
     }
@@ -950,21 +952,10 @@ export class MapRenderer {
     const pl = player(w)
     switch (e.k) {
       case 'attack': {
-        const t = w.s.creatures.find((x) => x.id === e.target)
-        if (t) {
-          const dx=t.pos.x-c.pos.x,dy=t.pos.y-c.pos.y,length=Math.hypot(dx,dy)||1
-          v.attackVec = { x:dx/length,y:dy/length }
-          v.attackDistance=length
-          v.dir = v.attackVec.x > 0 ? 'right' : v.attackVec.x < 0 ? 'left' : v.attackVec.y < 0 ? 'up' : 'down'
-        }
-        const prop=e.prop?equipmentSpec(w.db.item(e.prop.def),e.prop.uid,false):undefined
-        const mode=prop?'use':e.throwing?'throw':e.ranged?'shoot':'attack'
-        const used=prop?undefined:e.ranged?wield(w,c,e.mode):meleeWield(w,c,e.mode),item=used?.item
-        const weapon=prop??(item&&!e.throwing?equipmentSpec(itemDef(w,item),item.uid,!!item.lit&&(item.fuel??0)>0):undefined)
-        const propBinding=e.prop?bindActionProp(w,c,e.prop):undefined
-        const equipment:EquipmentAction={arm:propBinding?.hand===1?'larm':propBinding?.hand===0?'rarm':used?.arm,naturalMode:e.mode,style:prop?'unarmed':attackStyle(used?.atk.family,used?.atk.damageType,weapon,!!e.ranged,!!e.throwing),slot:propBinding?propBinding.hand:weapon?(used?.arm==='larm'?1:0):null,weapon,direction:v.dir,vector:{...v.attackVec}}
-        v.attackT = mode==='attack'?0:-1
-        requestPose(v.pose,mode,prop?.sprite,{duration:v.char?.motionDurations?.[mode]??(prop?motionDurations.use:attackDuration(equipment.style,weapon)),equipment,propBinding})
+        const cue=attackPresentation(w,c,e,v.dir),{mode,equipment,prop,propBinding}=cue
+        v.attackVec={...equipment.vector};v.attackDistance=cue.distance;v.dir=equipment.direction
+        v.attackT=mode==='attack'?0:-1
+        requestPose(v.pose,mode,prop,{duration:v.char?.motionDurations?.[mode]??(prop?motionDurations.use:attackDuration(equipment.style,equipment.weapon)),equipment,propBinding})
         break
       }
       case 'dmg': {
@@ -1108,7 +1099,7 @@ export class MapRenderer {
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
     const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&knownVisible.has(view.id)).map(view=>({actor:view.id,frame:view.human?view.human.sourceFrame:view.culler?view.culler.sourceFrame:view.crawler?view.crawler.sourceFrame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,human:view.human?.inspect(),rig:view.rig?.inspect(),crawler:view.crawler?.inspect(),culler:view.culler?.inspect()}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.human?tex(v.human.sourceFrame).width:v.body.texture.width,scale:v.human?.06:v.body.scale.x,key:v.poseFrame,mode:v.poseName,...(v.human?{composed:true}:{} )}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),phase:v.pose.current.elapsed/poseDuration(v.pose.current),consuming:!!v.pose.current.propBinding?.consume,style:v.pose.current.equipment?.style,prop:v.pose.current.prop,propUid:v.pose.current.prop?v.pose.current.propBinding?.uid??v.pose.current.equipment?.weapon?.uid:undefined,propDef:v.pose.current.prop?v.pose.current.propBinding?.def??v.pose.current.equipment?.weapon?.id:undefined,propHand:v.pose.current.propBinding?.hand}:null,actionProp:{visible:v.actionItem.visible,x:v.actionItem.x,y:v.actionItem.y,anchor:{x:v.actionItem.anchor.x,y:v.actionItem.anchor.y},width:v.actionItem.width,height:v.actionItem.height,rotation:v.actionItem.rotation},equipment:v.hands.map((hand,index)=>({id:v.equipment[index]?.id,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.human?tex(v.human.sourceFrame).width:v.body.texture.width,scale:v.human?.06:v.body.scale.x,key:v.poseFrame,mode:v.poseName,...(v.human?{composed:true}:{} )}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),phase:v.pose.current.elapsed/poseDuration(v.pose.current),consuming:!!v.pose.current.propBinding?.consume,style:v.pose.current.equipment?.style,arm:v.pose.current.equipment?.arm,sourceObserved:v.pose.current.equipment?.sourceObserved,vector:v.pose.current.equipment?{...v.pose.current.equipment.vector}:undefined,weaponUid:v.pose.current.equipment?.weapon?.uid,weaponDef:v.pose.current.equipment?.weapon?.id,prop:v.pose.current.prop,propUid:v.pose.current.prop?v.pose.current.propBinding?.uid??v.pose.current.equipment?.weapon?.uid:undefined,propDef:v.pose.current.prop?v.pose.current.propBinding?.def??v.pose.current.equipment?.weapon?.id:undefined,propHand:v.pose.current.propBinding?.hand}:null,actionProp:{visible:v.actionItem.visible,x:v.actionItem.x,y:v.actionItem.y,anchor:{x:v.actionItem.anchor.x,y:v.actionItem.anchor.y},width:v.actionItem.width,height:v.actionItem.height,rotation:v.actionItem.rotation},equipment:v.hands.map((hand,index)=>({id:v.drawnEquipment[index]?.id??v.equipment[index]?.id,uid:v.drawnEquipment[index]?.uid??v.equipment[index]?.uid,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {
@@ -1183,7 +1174,7 @@ export class MapRenderer {
     v.lightPos={x:p.x+ox/T,y:p.y+oy/T}
     const flightChest=mode==='flight'?(ch?.headOffset??10)*.45:0
     v.body.y=hop-v.flightLift-flightChest
-    v.human?.prepare({direction:v.dir,root:[v.root.x,v.root.y],mode,phase,stride:v.motion.stride,moving,crouched:v.crouched,prone:v.prone,alive:v.alive,fall:!v.alive?v.deadT:v.prone?v.groundT:0,hipDip:hop,actionSide:v.pose.current?.propBinding?.hand===1||v.pose.current?.equipment?.arm==='larm'||v.pose.current?.equipment?.slot===1?'left':'right',dtMs:dt,instant,tint:v.body.tint,alpha:1,unknown:v.unknown})
+    v.human?.prepare({direction:v.dir,root:[v.root.x,v.root.y],mode,phase,stride:v.motion.stride,moving,crouched:v.crouched,prone:v.prone,alive:v.alive,fall:!v.alive?v.deadT:v.prone?v.groundT:0,hipDip:hop,actionVector:v.pose.current?.equipment?[v.pose.current.equipment.vector.x,v.pose.current.equipment.vector.y]:undefined,actionSide:v.pose.current?.propBinding?.hand===1||v.pose.current?.equipment?.arm==='larm'||v.pose.current?.equipment?.slot===1?'left':'right',dtMs:dt,instant,tint:v.body.tint,alpha:1,unknown:v.unknown})
     this.animateEquipment(v,mode,phase,moving,hop,dt)
     this.animateMedical(v,mode,phase,moving,hop)
     const cue=v.pose.current
@@ -1288,14 +1279,14 @@ export class MapRenderer {
   }
 
   private animateEquipment(v:CView,mode:MotionName,phase:number,moving:boolean,hop:number,dt:number){
-    const effects=v.gearEffects,covers=v.gripCovers;effects.clear();covers.clear()
+    const effects=v.gearEffects,covers=v.gripCovers;effects.clear();covers.clear();v.drawnEquipment=[null,null]
     const action=v.pose.current?.equipment,transform=v.char?.frameTransforms?.[v.poseFrame],bodyRatio=(v.char?.headOffset??35)/35,utility=!!v.pose.current?.prop&&['use','work'].includes(mode),fall=!v.alive?v.deadT:v.prone?v.groundT:0
     effects.zIndex=v.human?55:v.dir==='up'?.5:2;covers.zIndex=v.dir==='up'?.8:5
     let supporting=false
     for(const index of[0,1]as const){
-      const hand=v.hands[index],item=action?.slot===index?action.weapon??v.equipment[index]:v.equipment[index]
+      const hand=v.hands[index],snapshot=!!action?.sourceObserved&&action.slot===index&&!!action.weapon&&['attack','shoot','throw'].includes(mode),item=snapshot?action!.weapon:v.equipment[index]
       v.equipmentAge[index]=preferences.animationSpeed===0?180:Math.min(180,v.equipmentAge[index]+dt)
-      hand.visible=!!item&&v.held[index]&&!v.handsBusy&&!utility&&(v.alive&&!v.prone||fall>0&&fall<.8)&&!(index===1&&supporting)
+      hand.visible=!!item&&(snapshot||v.held[index])&&v.handUse[index].hold&&!v.handsBusy&&!utility&&(v.alive&&!v.prone||fall>0&&fall<.8)&&!(index===1&&supporting)
       if(!hand.visible||!item)continue
       const registered=v.human?undefined:heldGrips[v.poseFrame],grip=registered?.[index===0?'main':'off']
       if(registered&&!grip){hand.visible=false;continue}
@@ -1304,8 +1295,9 @@ export class MapRenderer {
       const pose=heldPose({item,slot:index,direction:v.dir,mode,phase,stride:v.motion.stride,moving,crouched:v.crouched,action,wrist,sourceGrip:!!source})
       hand.visible=pose.visible&&(!v.human||v.alive&&!v.prone);if(!hand.visible)continue
       if(v.human){const point=v.human.handTarget(humanSide,[pose.x,pose.y]);pose.x=point[0];pose.y=point[1]}
-      hand.texture=tex(item.sprite);hand.anchor.set(...item.grip);hand.scale.set(item.length*bodyRatio/Math.max(hand.texture.width,hand.texture.height));hand.position.set(pose.x*(wrist?1:bodyRatio),pose.y*(wrist?1:bodyRatio)+(v.human?0:hop+fall*15+(1-v.equipmentAge[index]/180)*3))
-      hand.rotation=pose.angle-item.axis;hand.alpha=pose.alpha*(1-fall)*Math.min(1,v.equipmentAge[index]/120);hand.zIndex=v.human?v.human.handDepth(humanSide)-.1:pose.behind?.7:3+index*.1
+      v.drawnEquipment[index]=item;const equipmentAge=snapshot?180:v.equipmentAge[index]
+      hand.texture=tex(item.sprite);hand.anchor.set(...item.grip);hand.scale.set(item.length*bodyRatio/Math.max(hand.texture.width,hand.texture.height));hand.position.set(pose.x*(wrist?1:bodyRatio),pose.y*(wrist?1:bodyRatio)+(v.human?0:hop+fall*15+(1-equipmentAge/180)*3))
+      hand.rotation=pose.angle-item.axis;hand.alpha=pose.alpha*(1-fall)*Math.min(1,equipmentAge/120);hand.zIndex=v.human?v.human.handDepth(humanSide)-.1:pose.behind?.7:3+index*.1
       // A small cuff occludes the handle at the actual grip; the source body's arm stays intact.
       if(!v.human)covers.ellipse(hand.x,hand.y,(grip?.8:1.2)*bodyRatio,(grip?.65:.9)*bodyRatio).fill({color:grip?.color??0x807261,alpha:hand.alpha})
       if(index===0&&item.twoHanded&&['attack','shoot','block','work'].includes(mode)&&(!action||action.slot===0)){

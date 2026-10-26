@@ -1,6 +1,7 @@
 import {it,expect} from 'vitest'
+import type {Dir} from '../src/client/render/atlas'
 import {db} from './helpers'
-import {equipmentSpec,attackStyle,attackDuration,heldPose} from '../src/client/render/equipment-motion'
+import {equipmentSpec,attackStyle,attackDuration,heldPose,throwReleasePhase} from '../src/client/render/equipment-motion'
 import {advanceWalk,createWalkMotion,observeWalk,walkPosition} from '../src/client/render/walk-motion'
 it('normal walking takes720ms for two tiles and alternates foot contacts without accelerated backlog',()=>{
  const m=createWalkMotion({x:0,y:0});observeWalk(m,{x:2,y:0},[{from:{x:0,y:0},to:{x:1,y:0}},{from:{x:1,y:0},to:{x:2,y:0}}])
@@ -11,6 +12,15 @@ it('normal walking takes720ms for two tiles and alternates foot contacts without
  const queued=createWalkMotion({x:0,y:0});observeWalk(queued,{x:20,y:0},Array.from({length:20},(_,i)=>({from:{x:i,y:0},to:{x:i+1,y:0}})))
  for(let i=0;i<6;i++)advanceWalk(queued,60)
  expect(walkPosition(queued).x).toBeLessThanOrEqual(1.21)
+})
+it('aims the released original projectile along all eight actual vectors and keeps the other hand steady',()=>{
+ const item=equipmentSpec(db.item('Item.Javelin')),other=equipmentSpec(db.item('Item.Hatchet'))
+ for(const slot of[0,1]as const)for(const [x,y]of [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]]){
+  const n=Math.hypot(x,y),vector={x:x/n,y:y/n},direction:Dir=x<0?'left':x>0?'right':y<0?'up':'down',action={sourceObserved:true,arm:slot===0?'rarm'as const:'larm'as const,style:'throw'as const,slot,weapon:item,direction,vector},base={item,slot,direction,stride:0,moving:false,crouched:false,wrist:[0,-15]as const}
+  const idle=heldPose({...base,mode:'idle',phase:0}),first=heldPose({...base,mode:'throw',phase:0,action}),released=heldPose({...base,mode:'throw',phase:.48,action})
+  expect(first.angle).toBe(idle.angle);expect(Math.cos(released.angle)).toBeCloseTo(vector.x,8);expect(Math.sin(released.angle)).toBeCloseTo(vector.y,8);expect(heldPose({...base,mode:'throw',phase:throwReleasePhase,action}).visible).toBe(false)
+  const off={...base,item:other,slot:(slot===0?1:0)as 0|1};expect(heldPose({...off,mode:'throw',phase:.3,action})).toEqual(heldPose({...off,mode:'idle',phase:.3}))
+ }
 })
 it('selects different stabbing, cutting and heavy attack choreography from actual definitions',()=>{
  const knife=equipmentSpec(db.item('Item.RustyKnife')),axe=equipmentSpec(db.item('Item.Hatchet')),sword=equipmentSpec(db.item('Item.Greatsword'))

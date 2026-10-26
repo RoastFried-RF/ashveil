@@ -4,6 +4,7 @@ import {resolve,dirname} from 'node:path'
 import {loadDb} from './loadContent'
 import {serialize,stateHash} from '../src/core/save'
 import {replayOp,replayWorld,type GoldenVector} from './replay'
+import {startActionObservation} from '../src/core/action-observations'
 
 const output=process.argv[2]
 if(!output)throw Error('출력 경로가 필요하다: pnpm exec tsx tools/capture-golden-state.ts test-results/새이름.json')
@@ -12,8 +13,9 @@ if(existsSync(target))throw Error('기존 결과를 덮어쓰지 않는다: '+ta
 const{db,report}=loadDb();if(report.errors.length)throw Error(report.errors.join('\n'))
 const vectors=['golden','world-golden'].flatMap(name=>JSON.parse(readFileSync('tests/fixtures/'+name+'.json','utf8')) as GoldenVector[])
 const rows=vectors.map(vector=>{
- const w=replayWorld(db,vector),initial=JSON.parse(serialize(w.s)),initialHash=stateHash(w.s)
+ const w=replayWorld(db,vector),stop=process.argv.includes('--observe')?startActionObservation(w):undefined,initial=JSON.parse(serialize(w.s)),initialHash=stateHash(w.s)
  const errors=vector.ops.map(op=>replayOp(w,op))
+ stop?.()
  return{name:vector.name,initial,initialHash,state:JSON.parse(serialize(w.s)),hash:stateHash(w.s),errors}
 })
 mkdirSync(dirname(target),{recursive:true});writeFileSync(target,JSON.stringify(rows),'utf8')

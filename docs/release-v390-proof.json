@@ -2,7 +2,7 @@
   "preview": "0.390-dev",
   "save": 219,
   "coreGameVersion": "0.1.0",
-  "status": "local changes accepted; full CI and additional fixed-build acceptance pending at publication freeze",
+  "status": "published; full CI 6587 passed; selected public45 files exact; public real input accepted",
   "local": {
     "runtimeSnapshot": "/workspace/.ashveil-checkpoints/v390-quickbar-final-r4",
     "focusedFiles": 9,
@@ -41,7 +41,18 @@
         "inventoryKeyboardRotationWholePairs": 6
       }
     },
-    "additionalFinalNative": "15 body states + FX/UI/clinical regression scheduled on r4 bytes; record result separately, do not count pending work as passed"
+    "additionalFinalNative": {
+      "wholeStatePairs": 170,
+      "byTool": {
+        "hand-native-r4": 46,
+        "hand-fx-native-r3": 6,
+        "empty-ui-native-r4": 12,
+        "inventory-native-r2": 6,
+        "ui-regression-r1": 87,
+        "human-actions-r1": 13
+      },
+      "clinicalSeparateRuns": 2
+    }
   },
   "actualBaselineFailure": "diagnostics/hand-v390/quickbar-baseline-cause.json",
   "source": {
@@ -52,8 +63,30 @@
     "newAuthoredActionFrames": 0
   },
   "CI": {
-    "result": "pending before push",
-    "execution": "Existing main push workflow: lint, Defs, complete tests, sprites, type/build, Pages; do not redeploy without passing workflow"
+    "id": 40315055267,
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40315055267",
+    "result": "success",
+    "testFiles": 389,
+    "tests": 6587,
+    "failures": 0,
+    "skipped": 0,
+    "testDurationSeconds": 1126.16,
+    "lint": "0 errors; 1 pre-existing unused mirror warning",
+    "defsPatches": 660,
+    "sprites": "389 sheets /8297 frames /415 unique PNG; passed",
+    "typeBuildAndDeploy": "passed",
+    "completedJobs": [
+      {
+        "name": "build",
+        "conclusion": "success",
+        "completedAt": "2026-10-26T11:47:09Z"
+      },
+      {
+        "name": "deploy",
+        "conclusion": "success",
+        "completedAt": "2026-10-26T11:47:41Z"
+      }
+    ]
   },
   "WorldOr1000": "Not started: Core/content/mods/balance unchanged; never restart v3101000",
   "remaining": [
@@ -62,5 +95,6 @@
     "Artbook initial enlarged focus",
     "X1-X4, long ecology, external human release criteria"
   ],
-  "recordedAtUTC": "2026-10-26T11:24:16.899459+00:00"
+  "recordedAtUTC": "2026-10-26T11:24:16.899459+00:00",
+  "publicReceipt": "release-v390-publication.json"
 }

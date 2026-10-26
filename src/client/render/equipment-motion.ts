@@ -4,7 +4,7 @@ import type {Dir} from './atlas'
 export type WeaponKind='blade'|'greatblade'|'axe'|'club'|'hammer'|'polearm'|'staff'|'bow'|'crossbow'|'rifle'|'pistol'|'shield'|'torch'|'lantern'|'item'
 export type AttackStyle='slash'|'thrust'|'chop'|'smash'|'unarmed'|'shoot'|'throw'
 export interface HeldEquipment {id:string;uid?:number;sprite:string;kind:WeaponKind;grip:[number,number];axis:number;length:number;restAngle?:number;tipFraction?:number;twoHanded:boolean;lit:boolean}
-export interface EquipmentAction {arm?:'larm'|'rarm';naturalMode?:string;style:AttackStyle;slot:0|1|null;weapon?:HeldEquipment;direction:Dir;vector:{x:number;y:number}}
+export interface EquipmentAction {sourceObserved?:boolean;arm?:'larm'|'rarm';naturalMode?:string;style:AttackStyle;slot:0|1|null;weapon?:HeldEquipment;direction:Dir;vector:{x:number;y:number}}
 const HALF_PI=Math.PI/2
 export function equipmentSpec(def:ItemDef,uid?:number,lit=false):HeldEquipment{
  const family=def.attacks?.[0]?.family??'',name=def.sprite.toLowerCase()
@@ -24,6 +24,7 @@ export function attackStyle(family:string|undefined,damage:string|undefined,weap
  return family==='blunt'||weapon.kind==='torch'?'smash':'slash'
 }
 export const attackDurations:Record<AttackStyle,number>={slash:520,thrust:480,chop:640,smash:620,unarmed:400,shoot:500,throw:540}
+export const throwReleasePhase=.5
 export function attackDuration(style:AttackStyle,weapon?:HeldEquipment){return attackDurations[style]+(weapon?.kind==='greatblade'?120:0)}
 export const actionStage=(phase:number)=>phase<.3?'prepare':phase<.52?'strike':phase<.74?'followThrough':'recover'
 const smooth=(a:number,b:number,t:number)=>a+(b-a)*(t*t*(3-2*t))
@@ -63,8 +64,8 @@ export function heldPose(input:{item:HeldEquipment;slot:0|1;direction:Dir;mode:s
  }
  if(mode==='work'&&['bow','crossbow','rifle','pistol'].includes(item.kind)){angle=-HALF_PI+(side?facing*1.1:.65);y=crouched?-12:-16}
  if(mode==='use'||mode==='interact'){angle=-HALF_PI+sign*.35;y=crouched?-13:-17}
- if(mode==='throw'&&action?.slot===slot){angle=-HALF_PI+facing*curve(phase,[[0,-.5],[.3,-1],[.5,1],[1,0]])}
- return{x,y,angle,behind:dir==='up',visible:!(mode==='throw'&&action?.slot===slot&&phase>=.5),alpha:dir==='up'?.8:1}
+ if(mode==='throw'&&action?.slot===slot){const aim=Math.atan2(action.vector.y,action.vector.x),spin=(slot===0?1:-1)*(dir==='left'?-1:1),windup=aim-spin*2.1;angle=phase<.24?blendAngle(rest.angle,windup,curve(phase,[[0,0],[.24,1]])):blendAngle(windup,aim,curve(phase,[[.24,0],[.48,1]]))}
+ return{x,y,angle,behind:dir==='up',visible:!(mode==='throw'&&action?.slot===slot&&phase>=throwReleasePhase),alpha:dir==='up'?.8:1}
 }
 export function supportHand(main:HandPose,item:HeldEquipment):{x:number;y:number}{
  const distance=item.kind==='bow'?-6:Math.min(6,item.length*.18)
