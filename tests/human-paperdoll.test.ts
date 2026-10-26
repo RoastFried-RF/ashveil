@@ -1,9 +1,9 @@
 import {describe,it,expect} from 'vitest'
 import manifest from '../src/client/sprites.json'
 import {humanArt} from '../src/client/render/human-art'
-import {humanDirections,humanOwners,humanSpecFrameKeys,humanEndpointOwner,humanWithHead} from '../src/client/render/human-spec'
+import {humanDirections,humanOwners,humanSpecFrameKeys,humanEndpointOwner,humanWithHead,humanProfileNearSide} from '../src/client/render/human-spec'
 import {HumanGait} from '../src/client/render/human-gait'
-import {humanPose,hSoleMatrix,hTransform,hpLength,hpSub,hHalfPlane} from '../src/client/render/human-model'
+import {hAt,hPinMount,humanPose,hSoleMatrix,hTransform,hpLength,hpSub,hHalfPlane,hpMix} from '../src/client/render/human-model'
 import {humanSurfaceState} from '../src/client/render/human-state'
 import {atlasPlan,type AtlasManifest} from '../src/client/render/atlas-plan'
 import {motionNames} from '../src/client/render/character-motion'
@@ -15,6 +15,14 @@ import type {ItemDef,ProstheticDef} from '../src/core/types'
 const m=manifest as unknown as AtlasManifest
 const feet=(x=0,y=0)=>({left:{x:x+2.2,y,lift:0,contact:true,present:true,swing:false},right:{x:x-2.2,y,lift:0,contact:true,present:true,swing:false}})
 describe('실제 인체/의복 원본과 표현 소유',()=>{
+ it('얼굴장구의실제lens/panel고정점과폭측정점을분리해모든역할의눈·입에맞춘다',()=>{
+  for(const role of ['',...Object.keys(humanArt.heads!)])for(const direction of ['down','left','right']as const){const head=humanWithHead(humanArt,role).base[direction].head,near=humanProfileNearSide(direction),point=near?head.eyes![near]!:hpMix(head.eyes!.left!,head.eyes!.right!,.5),headMatrix=hAt(head.a,[0,-20],head.scale??.06)
+   for(const[kind,width,sourcePoint]of [['goggles',4.8,point],['mask',4.1,head.mouth!]]as const){const source=humanArt.pieces[kind][direction],target=hTransform(headMatrix,sourcePoint),matrix=hPinMount(source,[target[0]-width/2,target[1]],[target[0]+width/2,target[1]],width/hpLength(hpSub(source.b,source.a)),target),actual=hTransform(matrix,source.mount!);expect(actual[0]).toBeCloseTo(target[0],9);expect(actual[1]).toBeCloseTo(target[1],9);expect(hpLength(hpSub(hTransform(matrix,source.a),hTransform(matrix,source.b)))).toBeCloseTo(width,9)}
+  }
+ })
+ it('프로필의눈소유는같은쪽팔깊이와일치한다',()=>{
+  for(const direction of ['left','right']as const){const side=humanProfileNearSide(direction)!,other=side==='left'?'right':'left',label=(s:string)=>(s==='left'?'Left':'Right')+'UpperArm',base=humanArt.base[direction],pose=humanPose(base,{direction,root:[0,0],mode:'idle',phase:0,stride:0,moving:false,crouched:false,prone:false,alive:true,fall:0},feet());expect(pose.bones[label(side)].z).toBeGreaterThan(pose.bones[label(other)].z);expect(base.head.eyes![side]).toBeDefined();expect(base.head.eyes![other]).toBeUndefined()}
+ })
  it('역할별5머리/4방향은고유원문을보존하고기존목-정수리표시길이로맞춘다',()=>{
   const keys=new Set<string>()
   for(const role of ['worker','healer','trader','guard','reaver'])for(const direction of humanDirections){const source=humanWithHead(humanArt,role).base[direction].head,base=humanArt.base[direction].head;expect(m.frames[source.frame]).toBeDefined();keys.add(source.frame);expect(hpLength(hpSub(source.b,source.a))*source.scale!).toBeCloseTo(hpLength(hpSub(base.b,base.a))*.06,7);if(direction==='up')expect(source.face).toBeUndefined();else expect(source.face!.length).toBeGreaterThanOrEqual(3);for(const point of source.face??[]){expect(point[0]).toBeGreaterThanOrEqual(0);expect(point[0]).toBeLessThanOrEqual(m.frames[source.frame][3]);expect(point[1]).toBeGreaterThanOrEqual(0);expect(point[1]).toBeLessThanOrEqual(m.frames[source.frame][4])}}

@@ -10,6 +10,10 @@ export interface HumanSource {
  split?:{origin:HumanPoint;normal:HumanPoint}
  /** Observed skin-only area that may occlude an opaque hood lining. */
  face?:readonly HumanPoint[]
+ eyes?:Partial<Record<HumanSide,HumanPoint>>
+ mouth?:HumanPoint
+ /** Visible lens/attachment point; separate from the size/orientation span a/b. */
+ mount?:HumanPoint
  scale?:number
  /** Uniform original footprint at its observed lower silhouette, not an ankle-to-toe rotation. */
  solePinned?:boolean
@@ -44,6 +48,8 @@ export interface HumanSpec {
  heads?:Record<string,Record<HumanDirection,HumanSource>>
 }
 export const humanDirections:readonly HumanDirection[]=['down','left','right','up']
+/** Profile eye ownership follows the same anatomical near side as arms/legs. */
+export function humanProfileNearSide(direction:HumanDirection):HumanSide|undefined{return direction==='left'?'left':direction==='right'?'right':undefined}
 export const humanOwners= ['Skull','Chest','Abdomen','Pelvis','Neck','LeftEye','RightEye','Nose','LeftEar','RightEar','Jaw','LeftUpperArm','LeftForearm','LeftHand','RightUpperArm','RightForearm','RightHand','LeftThigh','LeftShin','LeftFoot','RightThigh','RightShin','RightFoot']as const
 export function humanSpecFrameKeys(spec:HumanSpec){
  const keys=new Set<string>()

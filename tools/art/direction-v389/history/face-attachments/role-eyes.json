@@ -1,0 +1,822 @@
+{
+  "format": 1,
+  "createdAtUTC": "2026-10-26T05:43:00.072752+00:00",
+  "source": "/workspace/.ashveil-planned/v389-human-role-heads/originals/role-heads-four-facings-v1.png",
+  "sourceSHA256": "2d6f88f7119b623423660b39826e4c1ff05a914f053703507e81853675deecfe",
+  "sourceBytes": 2432733,
+  "size": [
+    1536,
+    1024
+  ],
+  "coordinateConvention": "crop is rawglobal[x,y,w,h], end-exclusive; every roles[role][dir].eyes value exclusively crop-local[x,y]. Observations explicitly name sourceGlobal vs cropLocal.",
+  "anatomicalMapping": "Downscreenright=LeftEye; downscreenleft=RightEye. LEFTprofile near=RightEye only. RIGHTprofile near=LeftEye only. BACKeyes={} (no observed eye).",
+  "roles": {
+    "worker": {
+      "down": {
+        "frame": "av389_head_worker_down",
+        "crop": [
+          74,
+          43,
+          186,
+          240
+        ],
+        "eyes": {
+          "right": [
+            68,
+            128
+          ],
+          "left": [
+            116,
+            128
+          ]
+        }
+      },
+      "left": {
+        "frame": "av389_head_worker_left",
+        "crop": [
+          63,
+          287,
+          216,
+          238
+        ],
+        "eyes": {
+          "right": [
+            55,
+            121
+          ]
+        }
+      },
+      "right": {
+        "frame": "av389_head_worker_right",
+        "crop": [
+          62,
+          528,
+          208,
+          229
+        ],
+        "eyes": {
+          "left": [
+            162,
+            114
+          ]
+        }
+      },
+      "up": {
+        "frame": "av389_head_worker_up",
+        "crop": [
+          75,
+          761,
+          181,
+          217
+        ],
+        "eyes": {}
+      }
+    },
+    "healer": {
+      "down": {
+        "frame": "av389_head_healer_down",
+        "crop": [
+          376,
+          43,
+          185,
+          244
+        ],
+        "eyes": {
+          "right": [
+            70,
+            125
+          ],
+          "left": [
+            120,
+            125
+          ]
+        }
+      },
+      "left": {
+        "frame": "av389_head_healer_left",
+        "crop": [
+          372,
+          287,
+          195,
+          240
+        ],
+        "eyes": {
+          "right": [
+            43,
+            117
+          ]
+        }
+      },
+      "right": {
+        "frame": "av389_head_healer_right",
+        "crop": [
+          376,
+          530,
+          192,
+          230
+        ],
+        "eyes": {
+          "left": [
+            151,
+            110
+          ]
+        }
+      },
+      "up": {
+        "frame": "av389_head_healer_up",
+        "crop": [
+          374,
+          757,
+          179,
+          222
+        ],
+        "eyes": {}
+      }
+    },
+    "trader": {
+      "down": {
+        "frame": "av389_head_trader_down",
+        "crop": [
+          679,
+          61,
+          173,
+          226
+        ],
+        "eyes": {
+          "right": [
+            63,
+            110
+          ],
+          "left": [
+            111,
+            110
+          ]
+        }
+      },
+      "left": {
+        "frame": "av389_head_trader_left",
+        "crop": [
+          664,
+          299,
+          188,
+          230
+        ],
+        "eyes": {
+          "right": [
+            42,
+            103
+          ]
+        }
+      },
+      "right": {
+        "frame": "av389_head_trader_right",
+        "crop": [
+          681,
+          541,
+          189,
+          217
+        ],
+        "eyes": {
+          "left": [
+            154,
+            99
+          ]
+        }
+      },
+      "up": {
+        "frame": "av389_head_trader_up",
+        "crop": [
+          678,
+          769,
+          173,
+          210
+        ],
+        "eyes": {}
+      }
+    },
+    "guard": {
+      "down": {
+        "frame": "av389_head_guard_down",
+        "crop": [
+          984,
+          54,
+          168,
+          233
+        ],
+        "eyes": {
+          "right": [
+            58,
+            118
+          ],
+          "left": [
+            111,
+            118
+          ]
+        }
+      },
+      "left": {
+        "frame": "av389_head_guard_left",
+        "crop": [
+          969,
+          296,
+          182,
+          233
+        ],
+        "eyes": {
+          "right": [
+            43,
+            111
+          ]
+        }
+      },
+      "right": {
+        "frame": "av389_head_guard_right",
+        "crop": [
+          983,
+          535,
+          184,
+          225
+        ],
+        "eyes": {
+          "left": [
+            148,
+            105
+          ]
+        }
+      },
+      "up": {
+        "frame": "av389_head_guard_up",
+        "crop": [
+          986,
+          763,
+          169,
+          214
+        ],
+        "eyes": {}
+      }
+    },
+    "reaver": {
+      "down": {
+        "frame": "av389_head_reaver_down",
+        "crop": [
+          1274,
+          43,
+          195,
+          243
+        ],
+        "eyes": {
+          "right": [
+            72,
+            131
+          ],
+          "left": [
+            122,
+            131
+          ]
+        }
+      },
+      "left": {
+        "frame": "av389_head_reaver_left",
+        "crop": [
+          1271,
+          284,
+          214,
+          245
+        ],
+        "eyes": {
+          "right": [
+            61,
+            125
+          ]
+        }
+      },
+      "right": {
+        "frame": "av389_head_reaver_right",
+        "crop": [
+          1271,
+          531,
+          209,
+          230
+        ],
+        "eyes": {
+          "left": [
+            159,
+            121
+          ]
+        }
+      },
+      "up": {
+        "frame": "av389_head_reaver_up",
+        "crop": [
+          1278,
+          758,
+          188,
+          220
+        ],
+        "eyes": {}
+      }
+    }
+  },
+  "observations": [
+    {
+      "role": "worker",
+      "direction": "down",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_worker_down",
+      "sourceGlobal": [
+        142,
+        171
+      ],
+      "cropLocal": [
+        68,
+        128
+      ],
+      "sourceRGBA": [
+        22,
+        15,
+        13,
+        252
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "worker",
+      "direction": "down",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_worker_down",
+      "sourceGlobal": [
+        190,
+        171
+      ],
+      "cropLocal": [
+        116,
+        128
+      ],
+      "sourceRGBA": [
+        33,
+        22,
+        21,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "worker",
+      "direction": "left",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_worker_left",
+      "sourceGlobal": [
+        118,
+        408
+      ],
+      "cropLocal": [
+        55,
+        121
+      ],
+      "sourceRGBA": [
+        30,
+        20,
+        15,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "worker",
+      "direction": "right",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_worker_right",
+      "sourceGlobal": [
+        224,
+        642
+      ],
+      "cropLocal": [
+        162,
+        114
+      ],
+      "sourceRGBA": [
+        12,
+        6,
+        4,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "healer",
+      "direction": "down",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_healer_down",
+      "sourceGlobal": [
+        446,
+        168
+      ],
+      "cropLocal": [
+        70,
+        125
+      ],
+      "sourceRGBA": [
+        48,
+        35,
+        28,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "healer",
+      "direction": "down",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_healer_down",
+      "sourceGlobal": [
+        496,
+        168
+      ],
+      "cropLocal": [
+        120,
+        125
+      ],
+      "sourceRGBA": [
+        40,
+        28,
+        28,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "healer",
+      "direction": "left",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_healer_left",
+      "sourceGlobal": [
+        415,
+        404
+      ],
+      "cropLocal": [
+        43,
+        117
+      ],
+      "sourceRGBA": [
+        30,
+        16,
+        14,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "healer",
+      "direction": "right",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_healer_right",
+      "sourceGlobal": [
+        527,
+        640
+      ],
+      "cropLocal": [
+        151,
+        110
+      ],
+      "sourceRGBA": [
+        47,
+        30,
+        21,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "trader",
+      "direction": "down",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_trader_down",
+      "sourceGlobal": [
+        742,
+        171
+      ],
+      "cropLocal": [
+        63,
+        110
+      ],
+      "sourceRGBA": [
+        46,
+        37,
+        34,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "trader",
+      "direction": "down",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_trader_down",
+      "sourceGlobal": [
+        790,
+        171
+      ],
+      "cropLocal": [
+        111,
+        110
+      ],
+      "sourceRGBA": [
+        50,
+        44,
+        36,
+        252
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "trader",
+      "direction": "left",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_trader_left",
+      "sourceGlobal": [
+        706,
+        402
+      ],
+      "cropLocal": [
+        42,
+        103
+      ],
+      "sourceRGBA": [
+        55,
+        37,
+        28,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "trader",
+      "direction": "right",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_trader_right",
+      "sourceGlobal": [
+        835,
+        640
+      ],
+      "cropLocal": [
+        154,
+        99
+      ],
+      "sourceRGBA": [
+        68,
+        49,
+        38,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "guard",
+      "direction": "down",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_guard_down",
+      "sourceGlobal": [
+        1042,
+        172
+      ],
+      "cropLocal": [
+        58,
+        118
+      ],
+      "sourceRGBA": [
+        43,
+        33,
+        30,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "guard",
+      "direction": "down",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_guard_down",
+      "sourceGlobal": [
+        1095,
+        172
+      ],
+      "cropLocal": [
+        111,
+        118
+      ],
+      "sourceRGBA": [
+        38,
+        26,
+        24,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "guard",
+      "direction": "left",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_guard_left",
+      "sourceGlobal": [
+        1012,
+        407
+      ],
+      "cropLocal": [
+        43,
+        111
+      ],
+      "sourceRGBA": [
+        36,
+        23,
+        22,
+        252
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "guard",
+      "direction": "right",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_guard_right",
+      "sourceGlobal": [
+        1131,
+        640
+      ],
+      "cropLocal": [
+        148,
+        105
+      ],
+      "sourceRGBA": [
+        60,
+        47,
+        34,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "reaver",
+      "direction": "down",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_reaver_down",
+      "sourceGlobal": [
+        1346,
+        174
+      ],
+      "cropLocal": [
+        72,
+        131
+      ],
+      "sourceRGBA": [
+        30,
+        13,
+        12,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "reaver",
+      "direction": "down",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_reaver_down",
+      "sourceGlobal": [
+        1396,
+        174
+      ],
+      "cropLocal": [
+        122,
+        131
+      ],
+      "sourceRGBA": [
+        31,
+        19,
+        16,
+        252
+      ],
+      "manualUncertaintySourcePx": 4,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": false
+    },
+    {
+      "role": "reaver",
+      "direction": "left",
+      "eye": "RightEye",
+      "sourceFrame": "av389_head_reaver_left",
+      "sourceGlobal": [
+        1332,
+        409
+      ],
+      "cropLocal": [
+        61,
+        125
+      ],
+      "sourceRGBA": [
+        56,
+        47,
+        43,
+        253
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    },
+    {
+      "role": "reaver",
+      "direction": "right",
+      "eye": "LeftEye",
+      "sourceFrame": "av389_head_reaver_right",
+      "sourceGlobal": [
+        1430,
+        652
+      ],
+      "cropLocal": [
+        159,
+        121
+      ],
+      "sourceRGBA": [
+        20,
+        11,
+        11,
+        252
+      ],
+      "manualUncertaintySourcePx": 5,
+      "observation": "Manually selected visible pupil/dark-iris center in actual source, checked with unmodified raw pixel neighborhood/RGBA; stylized iris/glint/eyelid limits remain.",
+      "physical3DEyeSocket": null,
+      "nearSideOnly": true
+    }
+  ],
+  "observedEyePoints": 20,
+  "viewsWithVisibleEyes": 15,
+  "backViewsWithoutEye": 5,
+  "headContractPreserved": {
+    "path": "/workspace/.ashveil-planned/v389-human-role-heads/head-contract-runtime.json",
+    "sha256": "3b3373543f0bc29efb8c550aee1773679c2a80f7cc32b4fa0b4454428243b252",
+    "faceAndScaleEdits": 0
+  },
+  "directlyViewedWith": "view_image rawPNG detail=original and image content detail=original",
+  "sourceRasterEdits": 0,
+  "newGenerationCalls": 0,
+  "browserGPUCoreRuns": 0,
+  "active": false,
+  "runtimeLensFitAccepted": false,
+  "limits": [
+    "Observed2D pupil/iris centers with4–5rawpx uncertainty, not measured3D eye sockets or eyewear pivots.",
+    "No far-side orback eye invented.",
+    "Use wholehead transform/actual nearLens graphic point; these do not locate a strap midpoint.",
+    "No actual goggles/lens fit accepted by this source-only record."
+  ]
+}

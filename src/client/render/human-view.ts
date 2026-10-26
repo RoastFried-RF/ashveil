@@ -3,11 +3,11 @@ import {Container,Graphics,Matrix,Sprite} from 'pixi.js'
 import {tex} from './atlas'
 import {spritePixelHit} from './sprite-hit'
 import {HumanGait,type HumanGaitPose} from './human-gait'
-import {hAt,hClip,hHalfPlane,hPin,hSoleMatrix,hTransform,hTwoLink,hpAdd,hpLength,hpMix,hpSub,humanPose,type HMatrix,type HPoint,type HumanPose,type HumanPoseInput} from './human-model'
+import {hAt,hClip,hHalfPlane,hPin,hPinMount,hSoleMatrix,hTransform,hTwoLink,hpAdd,hpLength,hpMix,hpSub,humanPose,type HMatrix,type HPoint,type HumanPose,type HumanPoseInput} from './human-model'
 import type {HumanClothingState,HumanSurface} from './human-state'
 import type {HumanPoint,HumanSide,HumanSource,HumanSpec} from './human-spec'
-import {humanEndpointOwner,humanWithHead} from './human-spec'
-interface DrawNode {root:Container;sprite:Sprite;mask:Graphics;clip:HPoint[]|null;owner:string;uid?:number;role:string;frame:string}
+import {humanEndpointOwner,humanProfileNearSide,humanWithHead} from './human-spec'
+interface DrawNode {root:Container;sprite:Sprite;mask:Graphics;clip:HPoint[]|null;owner:string;uid?:number;role:string;frame:string;mount?:HPoint}
 interface Input extends Omit<HumanPoseInput,'hands'> {dtMs:number;instant:boolean;tint:number;alpha:number;unknown:boolean}
 const sides=['left','right']as const
 const partName=(side:HumanSide)=>side==='left'?'Left':'Right'
@@ -44,6 +44,10 @@ export class HumanView {
   this.handTargets[side]=end;this.solve();return end
  }
  private dimensions(source:HumanSource){const t=tex(source.frame);return{w:t.width,h:t.height}}
+ private eyePoint(side?:HumanSide):HPoint{
+  const direction=this.input!.direction,head=this.spec.base[direction].head,size=this.dimensions(head),near=side??humanProfileNearSide(direction),eyes=head.eyes,source=near?eyes?.[near]:eyes?.left&&eyes.right?hpMix(eyes.left,eyes.right,.5):undefined
+  return hTransform(this.pose!.head,source??[size.w*(direction==='left'?.27:direction==='right'?.73:near==='left'?.64:near==='right'?.37:.5),size.h*.45])
+ }
  private rectangle(source:HumanSource):HPoint[]{const{w,h}=this.dimensions(source);return[[0,0],[w,0],[w,h],[0,h]]}
  private sourceBand(source:HumanSource,low:number,high:number){
   let polygon=this.rectangle(source);const normal=hpSub(source.b,source.a)
@@ -55,7 +59,7 @@ export class HumanView {
   const input=this.input!;if(clip&&clip.length<3)return
   let node=this.nodes.get(key)
   if(!node){const root=new Container(),sprite=new Sprite(tex(source.frame)),mask=new Graphics();root.addChild(sprite,mask);node={root,sprite,mask,clip:null,owner,uid,role,frame:source.frame};this.nodes.set(key,node);this.root.addChild(root)}
-  const sprite=node.sprite;node.owner=owner;node.uid=uid;node.role=role;node.frame=source.frame;node.clip=clip;node.root.visible=true;node.root.zIndex=z;node.root.setFromMatrix(new Matrix(...matrix));sprite.texture=tex(source.frame);sprite.tint=rgb(tint,input.unknown?0x202028:input.tint)
+  const sprite=node.sprite;node.owner=owner;node.uid=uid;node.role=role;node.frame=source.frame;node.clip=clip;node.mount=source.mount?hTransform(matrix,source.mount):undefined;node.root.visible=true;node.root.zIndex=z;node.root.setFromMatrix(new Matrix(...matrix));sprite.texture=tex(source.frame);sprite.tint=rgb(tint,input.unknown?0x202028:input.tint)
   node.mask.clear();if(clip){node.mask.poly(clip.flat()).fill(0xffffff);sprite.mask=node.mask}else sprite.mask=null
   this.used.add(key)
  }
@@ -118,12 +122,12 @@ export class HumanView {
  }
  private conditionTint(base:number,durability=100){return rgb(base,durability<=0?0x81736b:durability<35?0xb9a695:0xffffff)}
  private drawAccessory(uid:number,kind:NonNullable<import('./human-spec').HumanWardrobeRule['accessory']>,tint:number){
-  const input=this.input!,pose=this.pose!,surface=this.surface!,source=this.spec.pieces[kind][input.direction],base=this.spec.base[input.direction],size=this.dimensions(source);let a:HPoint,b:HPoint,z:number,owner:string,clip:HPoint[]|null=null
+  const input=this.input!,pose=this.pose!,surface=this.surface!,source=this.spec.pieces[kind][input.direction],base=this.spec.base[input.direction],size=this.dimensions(source);let a:HPoint,b:HPoint,z:number,owner:string,clip:HPoint[]|null=null,attachment:HPoint|undefined
   if(kind==='hood'||kind==='helmet'){
    if(!surface.parts.Skull?.present)return;owner='Skull';a=pose.neck;b=pose.headTop;z=72
   }else if(kind==='mask'||kind==='goggles'){
-   const eye=kind==='goggles',near=input.direction==='left'?'RightEye':input.direction==='right'?'LeftEye':undefined;if(eye&&near&&!surface.parts[near]?.present||!eye&&!surface.parts.Nose?.present)return
-   owner=eye?near??'LeftEye':'Nose';const head=this.dimensions(base.head),point=hTransform(pose.head,[head.w*(input.direction==='left'?.27:input.direction==='right'?.73:.5),head.h*(eye?.45:.61)]),width=eye?4.8:4.1;a=hpAdd(point,[-width/2,0]);b=hpAdd(point,[width/2,0]);z=input.direction==='up'?69:76
+   const eye=kind==='goggles',nearSide=humanProfileNearSide(input.direction),near=nearSide?partName(nearSide)+'Eye':undefined;if(eye&&near&&!surface.parts[near]?.present||!eye&&!surface.parts.Nose?.present)return
+   owner=eye?near??'LeftEye':'Nose';const head=this.dimensions(base.head),point=eye?this.eyePoint():hTransform(pose.head,base.head.mouth??[head.w*(input.direction==='left'?.27:input.direction==='right'?.73:.5),head.h*.61]),width=eye?4.8:4.1;attachment=source.mount?point:undefined;a=hpAdd(point,[-width/2,0]);b=hpAdd(point,[width/2,0]);z=input.direction==='up'?69:76
    if(input.direction==='up'&&eye)clip=[[0,size.h*.49],[size.w,size.h*.49],[size.w,size.h*.73],[0,size.h*.73]]
   }else if(kind==='belt'){
    if(!surface.parts.Pelvis?.present)return;owner='Pelvis';const point=hTransform(pose.torso,[base.torso.a[0],base.torso.waist+4]);a=hpAdd(point,[-3,0]);b=hpAdd(point,[3,0]);z=42
@@ -132,7 +136,8 @@ export class HumanView {
   }else{
    if(!surface.parts.Chest?.present)return;owner='Chest';a=pose.neck;b=hpAdd(pose.hip,[0,4]);z=input.direction==='up'?44:6
   }
-  const length=hpLength(hpSub(b,a)),scale=length/Math.max(1,hpLength(hpSub(source.b,source.a)));this.emit('accessory:'+uid,owner,source,hPin(source,a,b,scale),z,clip,uid,'clothing',tint)
+  const length=hpLength(hpSub(b,a)),scale=length/Math.max(1,hpLength(hpSub(source.b,source.a))),matrix=hPinMount(source,a,b,scale,attachment)
+  this.emit('accessory:'+uid,owner,source,matrix,z,clip,uid,'clothing',tint)
  }
  private drawReplacements(){
   const pose=this.pose!,surface=this.surface!,input=this.input!,seen=new Set<number>()
@@ -140,8 +145,8 @@ export class HumanView {
    const replacement=part.replacement;if(!replacement||seen.has(replacement.uid))continue;seen.add(replacement.uid);const registered=this.spec.replacements[replacement.def];if(!registered)continue
    const root=replacement.root,source=/(?:Hand|Foot)$/.test(root)&&registered.distal?registered.distal:registered,side:HumanSide=root.startsWith('Right')?'right':'left',bone=pose.bones[root],z=bone?.z??75;let a:HPoint,b:HPoint
    if(root.endsWith('Eye')){
-    if(input.direction==='up'||input.direction==='left'&&side==='left'||input.direction==='right'&&side==='right')continue
-    const head=this.spec.base[input.direction].head,size=this.dimensions(head),point=hTransform(pose.head,[size.w*(input.direction==='left'?.27:input.direction==='right'?.73:side==='left'?.64:.37),size.h*.45]),imageSize=this.dimensions(source)
+    if(input.direction==='up'||humanProfileNearSide(input.direction)&&side!==humanProfileNearSide(input.direction))continue
+    const point=this.eyePoint(side),imageSize=this.dimensions(source)
     this.emit('replacement:'+replacement.uid,root,source,hAt(source.a,point,.9/Math.max(imageSize.w,imageSize.h)),75,null,replacement.uid,'prosthetic');continue
    }else if(!bone)continue
    else{a=bone.a;const endpoint=humanEndpointOwner(root);if(!endpoint)continue;b=pose.bones[endpoint].b}
@@ -152,6 +157,6 @@ export class HumanView {
  hit(point:{x:number;y:number}){return this.root.visible&&[...this.nodes.values()].some(node=>{if(!node.root.visible||!spritePixelHit(node.sprite,point))return false;const local=node.sprite.toLocal(point);return !node.clip||inside([local.x,local.y],node.clip)})}
  headY(){return this.pose?.headTop[1]??-32}
  get sourceFrame(){return this.input?this.spec.base[this.input.direction].torso.frame:''}
- inspect(){return this.input&&this.pose?{direction:this.input.direction,mode:this.input.mode,base:this.spec.id,headRole:this.headRole??'wanderer',frame:this.sourceFrame,root:[...this.input.root],grips:structuredClone(this.pose.grips),gait:this.gaitPose?structuredClone(this.gaitPose):null,maxArmReachError:this.pose.maxReachError,legProjection:'2d-cutout',fixedLegLengths:false,footProjection:structuredClone(this.pose.feet),parts:[...this.nodes.values()].filter(n=>n.root.visible).map(n=>({owner:n.owner,uid:n.uid,role:n.role,source:n.frame,clip:!!n.clip,z:n.root.zIndex})),sourceFramesAreNotAuthoredActionFrames:true}:null}
+ inspect(){return this.input&&this.pose?{direction:this.input.direction,mode:this.input.mode,base:this.spec.id,headRole:this.headRole??'wanderer',frame:this.sourceFrame,root:[...this.input.root],grips:structuredClone(this.pose.grips),gait:this.gaitPose?structuredClone(this.gaitPose):null,maxArmReachError:this.pose.maxReachError,legProjection:'2d-cutout',fixedLegLengths:false,sourceLandmarks:{eyes:Object.fromEntries(Object.entries(this.spec.base[this.input.direction].head.eyes??{}).map(([side,point])=>[side,hTransform(this.pose!.head,point)])),mouth:this.spec.base[this.input.direction].head.mouth?hTransform(this.pose.head,this.spec.base[this.input.direction].head.mouth!):null},footProjection:structuredClone(this.pose.feet),parts:[...this.nodes.values()].filter(n=>n.root.visible).map(n=>({owner:n.owner,uid:n.uid,role:n.role,source:n.frame,clip:!!n.clip,z:n.root.zIndex,...(n.mount?{mount:[...n.mount]}:{})})),sourceFramesAreNotAuthoredActionFrames:true}:null}
  destroy(){this.nodes.clear();this.root.destroy({children:true})}
 }

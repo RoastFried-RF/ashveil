@@ -19,6 +19,12 @@ export function hSoleMatrix(source:HumanSource,target:HumanPoint,mirror=false):H
  const scale=source.scale??.013,x=mirror?-scale:scale
  return[x,0,0,scale,target[0]-x*source.b[0],target[1]-scale*source.b[1]]
 }
+/** Keep the measured span size/orientation while pinning a separately observed attachment. */
+export function hPinMount(source:HumanSource,a:HumanPoint,b:HumanPoint,widthScale:number,attachment?:HumanPoint):HMatrix{
+ const matrix=hPin(source,a,b,widthScale)
+ if(attachment&&source.mount){const projected=hTransform(matrix,source.mount);matrix[4]+=attachment[0]-projected[0];matrix[5]+=attachment[1]-projected[1]}
+ return matrix
+}
 /** Along-axis foreshortening is explicit; transverse source width is never enlarged to hide a gap. */
 export function hPin(source:HumanSource,a:HumanPoint,b:HumanPoint,widthScale:number,mirror=false):HMatrix{
  const s=hpSub(source.b,source.a),t=hpSub(b,a),sl=hpLength(s)||1,tl=hpLength(t)||1,sx=s[0]/sl,sy=s[1]/sl,tx=t[0]/tl,ty=t[1]/tl,k=tl/sl,w=widthScale*(mirror?-1:1)
