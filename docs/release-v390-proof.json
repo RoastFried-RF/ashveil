@@ -1,0 +1,66 @@
+{
+  "preview": "0.390-dev",
+  "save": 219,
+  "coreGameVersion": "0.1.0",
+  "status": "local changes accepted; full CI and additional fixed-build acceptance pending at publication freeze",
+  "local": {
+    "runtimeSnapshot": "/workspace/.ashveil-checkpoints/v390-quickbar-final-r4",
+    "focusedFiles": 9,
+    "focusedTests": 94,
+    "focusedResult": "passed",
+    "focusedLog": "test-results/autonomy-v390/focused-r6.txt",
+    "type": "typecheck-r11.txt",
+    "lint": "lint-target-r7.txt (0 errors/warnings for changed files); whole lint earlier 0 errors with old mirror plus subsequently fixed indentation warnings",
+    "build": "build-r7.txt",
+    "sprites": "sprites-r1.txt; all sprite source bytes unchanged",
+    "latestQuickSlotNative": {
+      "scenes": 1,
+      "wholeStatePairs": 4,
+      "actualUIDs": [
+        66,
+        67,
+        68
+      ],
+      "originalEmptyBottlesPreserved": true,
+      "emptySlotInputNoWorldChange": true,
+      "audit": "diagnostics/hand-v390/quickbar-fixed-audit.json",
+      "initialNonemptyBottles": 2,
+      "hudObservedAfterUses": [
+        1,
+        0
+      ]
+    },
+    "priorFixedBuildAcceptance": {
+      "fitR2": {
+        "bodyScenes": 14,
+        "wholePairs": 42,
+        "fxPropWholePairs": 6,
+        "emptyUIWholePairs": 12
+      },
+      "uiR1": {
+        "inventoryKeyboardRotationWholePairs": 6
+      }
+    },
+    "additionalFinalNative": "15 body states + FX/UI/clinical regression scheduled on r4 bytes; record result separately, do not count pending work as passed"
+  },
+  "actualBaselineFailure": "diagnostics/hand-v390/quickbar-baseline-cause.json",
+  "source": {
+    "coreFilesUnchanged": 335,
+    "contentFilesUnchanged": 320,
+    "modFilesUnchanged": 89,
+    "newAuthoredPng": 0,
+    "newAuthoredActionFrames": 0
+  },
+  "CI": {
+    "result": "pending before push",
+    "execution": "Existing main push workflow: lint, Defs, complete tests, sprites, type/build, Pages; do not redeploy without passing workflow"
+  },
+  "WorldOr1000": "Not started: Core/content/mods/balance unchanged; never restart v3101000",
+  "remaining": [
+    "Mutated humanoid bodies and micro/compound loss",
+    "Every medical/throw ownership branch",
+    "Artbook initial enlarged focus",
+    "X1-X4, long ecology, external human release criteria"
+  ],
+  "recordedAtUTC": "2026-10-26T11:24:16.899459+00:00"
+}

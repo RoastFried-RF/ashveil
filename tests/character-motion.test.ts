@@ -29,6 +29,13 @@ describe('character presentation timing',()=>{
   const clock=createPoseClock();requestPose(clock,'work');advancePose(clock,90);requestPose(clock,'work')
   expect(clock.current?.elapsed).toBe(90)
  })
+ it('a different original prop with the same sprite replaces the prior use, while repeated work keeps its cycle',()=>{
+  const clock=createPoseClock(),first={uid:71,def:'Item.WaterBottle',hand:0 as const},second={...first,uid:72,hand:1 as const}
+  requestPose(clock,'use','water_bottle',{propBinding:first});advancePose(clock,90);requestPose(clock,'use','water_bottle',{propBinding:second})
+  expect(clock.current?.propBinding).toEqual(second);expect(clock.current?.elapsed).toBe(0)
+  clearPoses(clock);requestPose(clock,'work','water_bottle',{propBinding:second});advancePose(clock,90);requestPose(clock,'work','water_bottle',{propBinding:second});expect(clock.current?.elapsed).toBe(90)
+  requestPose(clock,'work','thread',{propBinding:{uid:73,def:'Item.Thread',hand:0}});expect(clock.current?.prop).toBe('thread');expect(clock.current?.elapsed).toBe(0)
+ })
  it('a new physical interaction replaces a different unfinished utility pose',()=>{
   const clock=createPoseClock();requestPose(clock,'use','food');advancePose(clock,80);requestPose(clock,'interact','rope')
   expect(clock.current).toEqual({kind:'interact',elapsed:0,prop:'rope'});expect(clock.queue).toEqual([])

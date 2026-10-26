@@ -35,6 +35,7 @@ export class HumanView {
  private solve(){if(this.input&&this.gaitPose){const footMounts:Partial<Record<HumanSide,HumanPoint>>={};for(const side of sides){const replacement=this.surface?.parts[partName(side)+'Foot']?.replacement,source=replacement?.root===partName(side)+'Foot'?this.spec.replacements[replacement.def]?.distal:undefined;if(source?.solePinned)footMounts[side]=hTransform(hSoleMatrix(source,[0,0],this.soleMirror(side)),source.a)}this.pose=humanPose(this.spec.base[this.input.direction],{...this.input,hands:this.handTargets,footMounts},{left:this.gaitPose.left,right:this.gaitPose.right})}}
  private soleMirror(side:HumanSide){return this.input?.direction==='right'||(this.input?.direction==='down'||this.input?.direction==='up')&&side==='right'}
  grip(side:HumanSide):HPoint{return this.pose?.grips[side]??[0,-12]}
+ mouthPoint():HPoint|null{const source=this.input?this.spec.base[this.input.direction].head.mouth:undefined;return this.pose&&source?hTransform(this.pose.head,source):null}
  handDepth(side:HumanSide){return this.pose?.bones[partName(side)+'Hand'].z??52}
  usable(side:HumanSide){const p=this.surface?.parts[partName(side)+'Hand'];return !!p?.present&&p.efficiency>0}
  /** Keep a held item's actual grip within the same source arm's reachable chain. */

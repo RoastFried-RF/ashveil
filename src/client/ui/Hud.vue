@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { quickCount, abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
+import { abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
+import {quickbarCount} from '../quickbar-items'
 import {creatureSprite} from '../render/creature-sprite'
 import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
@@ -35,7 +36,7 @@ const d = computed(() => {
       return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
     const def = w.db.item(ref.def)
-    const count = quickCount(pl,ref.def,ref.fletchingDamaged,!!def.throwable)
+    const count = quickbarCount(w,pl,ref)
     return { i, empty: false as const, icon: def.sprite, label: def.label+(ref.fletchingDamaged?' (깃 손상)':''), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {

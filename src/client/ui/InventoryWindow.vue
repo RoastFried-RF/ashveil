@@ -17,6 +17,11 @@ import {definitionInspectorOpen} from '../definition-inspector-ui'
 import {inventoryMatches,type InventoryGroup} from '../inventory-filter'
 
 const itemSearch=ref('')
+const bagViewport=ref<HTMLElement|null>(null),bagOverflows=ref(false)
+let bagObserver:ResizeObserver|undefined
+onMounted(()=>{bagObserver=new ResizeObserver(()=>{const el=bagViewport.value;bagOverflows.value=!!el&&el.scrollWidth>el.clientWidth+1});if(bagViewport.value)bagObserver.observe(bagViewport.value)})
+onBeforeUnmount(()=>bagObserver?.disconnect())
+function bagKey(e:KeyboardEvent){if(e.target===e.currentTarget&&['ArrowLeft','ArrowRight'].includes(e.key))e.stopPropagation()}
 const itemGroup=ref<InventoryGroup>('all')
 const groups=[['all','전체'],['food','먹을 것'],['medical','의료'],['gear','장비'],['material','재료']] as const
 function matchesItem(it:ItemInst){
@@ -419,24 +424,27 @@ const iconBox = (it: ItemInst) => { const [a,b]=itemDef(world.value as World,it)
       </div>
 
       <!-- 배낭 격자 -->
-      <div>
+      <div class="min-w-0 max-w-full">
         <div class="mb-1 flex justify-between font-title text-xs text-ash-400"><span>배낭</span><span data-testid="wallet-balance">지갑 {{ d.pl.money??0 }}{{ d.currency }}</span><span>빈 칸 {{ d.free }}</span></div>
-        <div class="inset relative" :style="{ width: BAG_W * CELL + 4 + 'px', height: BAG_H * CELL + 4 + 'px' }" data-testid="bag">
-          <div
-            v-for="i in BAG_W * BAG_H" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="cell" :data-gx="(i - 1) % BAG_W" :data-gy="Math.floor((i - 1) / BAG_W)"
-            :style="{ left: ((i - 1) % BAG_W) * CELL + 'px', top: Math.floor((i - 1) / BAG_W) * CELL + 'px', width: CELL + 'px', height: CELL + 'px' }"
-          />
-          <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
-          <div
-            v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
-            :class="{'opacity-30':drag?.it.uid===it.uid&&drag.moved,'inventory-unmatched':!matchesItem(it),'inventory-matched':(itemSearch||itemGroup!=='all')&&matchesItem(it)}" :data-testid="`item-${it.def}`" :data-uid="it.uid" v-bind="itemAccess(it,'bag')"
-            :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
-            @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
-          >
-            <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" v-bind="iconBox(it)" /></div>
-            <ItemBadges :w="d.w" :it="it" />
-            <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
-            <span v-if="it.lit" class="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
+        <p v-if="bagOverflows" id="bag-scroll-hint" class="mb-1 text-[11px] text-ash-300" data-testid="bag-scroll-hint">배낭을 좌우로 밀어 끝 칸까지 확인하세요. 키보드는 아래 격자를 선택한 뒤 ← →.</p>
+        <div ref="bagViewport" class="max-w-full overflow-x-auto overscroll-x-contain focus-visible:outline focus-visible:outline-amber-400" role="region" aria-label="배낭 격자" :aria-describedby="bagOverflows?'bag-scroll-hint':undefined" tabindex="0" data-testid="bag-viewport" @keydown="bagKey">
+          <div class="inset relative" :style="{ width: BAG_W * CELL + 4 + 'px', height: BAG_H * CELL + 4 + 'px' }" data-testid="bag">
+            <div
+              v-for="i in BAG_W * BAG_H" :key="i" class="absolute border border-[#2c2a22] bg-[#15140f]/60" data-drop="cell" :data-gx="(i - 1) % BAG_W" :data-gy="Math.floor((i - 1) / BAG_W)"
+              :style="{ left: ((i - 1) % BAG_W) * CELL + 'px', top: Math.floor((i - 1) / BAG_W) * CELL + 'px', width: CELL + 'px', height: CELL + 'px' }"
+            />
+            <div v-if="hover?.grid === 'bag'" class="pointer-events-none absolute z-10 border-2" :class="OUTLINE(hover)" :style="outline(hover)" data-testid="drop-outline" />
+            <div
+              v-for="it in d.bag" :key="it.uid" class="absolute flex cursor-grab items-center justify-center border border-[#5a5340] bg-[#2a2720]/90 hover:border-amber-500"
+              :class="{'opacity-30':drag?.it.uid===it.uid&&drag.moved,'inventory-unmatched':!matchesItem(it),'inventory-matched':(itemSearch||itemGroup!=='all')&&matchesItem(it)}" :data-testid="`item-${it.def}`" :data-uid="it.uid" v-bind="itemAccess(it,'bag')"
+              :style="{ left: it.gx! * CELL + 1 + 'px', top: it.gy! * CELL + 1 + 'px', width: size(it)[0] * CELL - 2 + 'px', height: size(it)[1] * CELL - 2 + 'px' }"
+              @pointerdown="down($event, 'bag', it)" @dblclick="dbl(it, 'bag')" @contextmenu.prevent="ctx($event, it, 'bag')" @mouseenter="tip($event, it)" @mousemove="tip($event, it)" @mouseleave="hideTip"
+            >
+              <div :style="{ transform: it.rot ? 'rotate(90deg)' : '' }"><ItemIcon :name="d.w.db.item(it.def).sprite" v-bind="iconBox(it)" /></div>
+              <ItemBadges :w="d.w" :it="it" />
+              <span v-if="it.count > 1" class="absolute bottom-0 right-0.5 text-[10px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]">{{ it.count }}</span>
+              <span v-if="it.lit" class="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-amber-300 shadow-[0_0_4px_#ffb040]" />
+            </div>
           </div>
         </div>
         <div class="mt-0.5 text-[10px] text-ash-500">끌기 중 Ctrl = 절반 나누기 · Shift = 1개 · 같은 것 위에 놓으면 합치기</div>

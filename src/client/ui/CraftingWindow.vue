@@ -163,6 +163,7 @@ function tip(e: MouseEvent, uid: number) {
     </template>
     <template v-else-if="tab==='maintenance'">
       <p class="mb-2 text-xs text-ash-400">수리마다 최대 내구가 영구 감소한다. 현장 수리는 최대의 60%까지만 회복한다. 분해하면 물건은 사라진다.</p>
+      <p v-if="!d.gear.length" class="craft-empty" data-testid="maintenance-empty">지금 지닌 물품 중 수리하거나 분해할 장비가 없습니다. 장비를 얻으면 필요한 재료와 도구를 여기서 확인할 수 있습니다.</p>
       <div v-for="g in d.gear" :key="g.it.uid" :data-testid="`gear-${g.it.def}`" class="mb-2 border-b border-[#393428] pb-2 text-xs" @mouseenter="tip($event, g.it.uid)" @mousemove="tip($event, g.it.uid)" @mouseleave="hideTip">
         <p class="text-ash-100">{{ itemLabel(world as World, g.it) }} · 내구 {{ g.it.durability?.toFixed(1) ?? '-' }}/{{ (g.it.maxDurability ?? 100).toFixed(1) }}</p>
         <div v-if="g.care.length" class="my-1 flex flex-wrap gap-1">

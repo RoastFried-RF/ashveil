@@ -275,6 +275,7 @@ const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==
         <p v-if="!d.chron.length" class="text-ash-500">아직 없다.</p>
       </template>
       <template v-else>
+        <p v-if="!d.log.length" class="text-sm text-ash-300" data-testid="journal-log-empty">아직 기록이 없습니다. 행동하거나 주변을 살피면 이곳에 남습니다.</p>
         <div v-for="(e, i) in d.log" :key="i" :class="KIND_CLASS[e.kind]" class="font-mono text-[11px] leading-5"><span class="text-ash-400">{{ fmtClock(e.turn).slice(-5) }}</span> {{ e.text }}</div>
       </template>
     </div>

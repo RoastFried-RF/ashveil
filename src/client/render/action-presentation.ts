@@ -4,8 +4,9 @@ import {takeActionObservations} from '../../core/action-observations'
 import {actionMotions} from './action-motion-map'
 import type {ActionPose,MotionName} from './character-motion'
 import type {Dir} from './atlas'
+import {bindActionProp,type PropBinding} from './hand-presentation'
 
-export interface ActionPresentation {machineTask?:'sow'|'spray'|'alarm';actor:number;kind:ActionPose;prop?:string;direction?:Dir}
+export interface ActionPresentation {machineTask?:'sow'|'spray'|'alarm';actor:number;kind:ActionPose;prop?:string;propBinding?:PropBinding;direction?:Dir}
 function actionMotion(w:World,action:Action,actor:World['s']['creatures'][number]):ActionPose|null{
  if(action.type!=='ability')return actionMotions[action.type]
  const ability=w.db.ability(action.id)
@@ -30,7 +31,9 @@ export function takeActionPresentations(w:World,resolvedAttacks:ReadonlySet<numb
   let direction:Dir|undefined=dx>0?'right':dx<0?'left':dy<0?'up':dy>0?'down':undefined
   const sower=w.db.creature(actor.def).sower,machineTask=sower?(observation.action.type==='place'&&observation.item?.def===sower.seedItem?'sow':observation.action.type==='sowerSpray'?'spray':observation.action.type==='sowerAlarm'?'alarm':undefined):undefined
   if(machineTask)direction=actor.facing===0?'up':actor.facing===4?'down':actor.facing<4?'right':'left'
-  latest.set(actor.id,{actor:actor.id,kind,direction,machineTask,prop:observation.item&&!sower&&!w.db.creature(actor.def).wildlife?itemDef(w,observation.item).sprite:undefined})
+  const item=observation.item&&!sower&&!w.db.creature(actor.def).wildlife?observation.item:undefined
+  // Throws keep their resolved attack ownership; this binding is for utility attachments.
+  latest.set(actor.id,{actor:actor.id,kind,direction,machineTask,prop:item?itemDef(w,item).sprite:undefined,...(item&&kind!=='throw'?{propBinding:{...bindActionProp(w,actor,item),...(observation.action.type==='consume'?{consume:true}:{})}}:{})})
  }
  return[...latest.values()]
 }
