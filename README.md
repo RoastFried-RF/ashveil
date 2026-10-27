@@ -1,8 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업: [v396 옛 원화의 선택 로딩과 저장 호환](docs/character-history-v396.md) · [검증·게시 상태](docs/release-v396-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+현재 작업: [v397 통신탑의 자동 회신·네 번째 결말·자체 바위 원화](docs/spire-reply-rocks-v397.md) · [검증·게시 상태](docs/release-v397-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
 
-현재 개발 묶음은 **v0.396-dev · 저장219**이다. 사용하지 않는 옛 원화 로딩을 줄이고, 로딩 중 Escape로 창을 닫을 수 있게 했다. 현재/옛 모습과 저장 복원을 유지하며 작은 화면에서 로그가 주인공을 가리던 문제를 수정했다.41장소×3화면의615전체 상태 비교와9가지 반응형 설정 검사를 통과했다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v396-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
+현재 개발 묶음은 **v0.397-dev · 저장219**이다. 실물 인가 판을 사용하는 제한된 자동 회신·네 번째 결말과 탐구,여섯 바위 원화,다른 작업의 남은 시간 표시 수정을 연결했다. 기존 세 결말/저장/실물과 채집 규칙을 보존한다. 공개 배포 상태는 [검증·게시 기록](docs/release-v397-proof.json)을 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 

@@ -4,7 +4,7 @@ import {evidenceFixture} from './evidence-fixture'
 import {playerAct} from '../src/core/game'
 import {updatePlayerVision} from '../src/core/fov'
 import {expeditionEndingQuote} from '../src/core/expedition-endings'
-export type EndingKind='signal'|'unveiled'|'witness'
+export type EndingKind='signal'|'unveiled'|'witness'|'acknowledged'
 export function endingFixture(kind:EndingKind){
  if(kind==='witness'){
   const d=evidenceFixture(),begin=d.s.time,sourceUIDs=d.papers.map(i=>i.uid)
@@ -15,7 +15,7 @@ export function endingFixture(kind:EndingKind){
   return{w:d.w,s:d.s,p:d.p,m:d.m,kind,proof:{actualPreparationTU:d.s.time-begin,sourceUIDs,initialExitPositionExplicit:true}}
  }
  const d=spireFixture(),begin=d.s.time
- for(const operation of ['repair','transmit',...(kind==='unveiled'?['stop']:[])]){
+ for(const operation of ['repair','transmit',...(kind==='unveiled'?['stop']:kind==='acknowledged'?['receive']:[])]){
   const error=playerAct(d.w,{type:'deviceWork',pos:d.pos,uid:d.device.uid,operation});if(error||!d.device.completed.includes(operation))throw Error(error??'actual operation incomplete')
  }
  const back=d.s.map.links.find(l=>l.to==='surface')!;d.p.pos={...back.pos};const error=playerAct(d.w,{type:'stairs'});if(error)throw Error(error)

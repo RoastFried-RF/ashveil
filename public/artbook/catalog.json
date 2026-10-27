@@ -1,5 +1,5 @@
 {
-  "version": "0.396-dev",
+  "version": "0.397-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -422,7 +422,8 @@
     "av394_prosthetic_leg": "sprites/original/direction-v394/prosthetic-leg-v394.png",
     "av394_prosthetic_pioneer": "sprites/original/direction-v394/prosthetic-pioneer-v394.png",
     "av394_prosthetic_gardener": "sprites/original/direction-v394/prosthetic-gardener-v394.png",
-    "av394_prosthetic_hook": "sprites/original/direction-v394/prosthetic-hook-v394.png"
+    "av394_prosthetic_hook": "sprites/original/direction-v394/prosthetic-hook-v394.png",
+    "av397_boulders": "sprites/original/direction-v397/boulders.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -2028,6 +2029,10 @@
     "av394_prosthetic_hook": [
       2172,
       724
+    ],
+    "av397_boulders": [
+      1717,
+      916
     ]
   },
   "frames": {
@@ -61313,6 +61318,48 @@
       1068,
       111,
       155
+    ],
+    "av397_rock_1": [
+      "av397_boulders",
+      0,
+      0,
+      572,
+      458
+    ],
+    "av397_rock_2": [
+      "av397_boulders",
+      572,
+      0,
+      573,
+      458
+    ],
+    "av397_rock_3": [
+      "av397_boulders",
+      1145,
+      0,
+      572,
+      458
+    ],
+    "av397_rock_4": [
+      "av397_boulders",
+      0,
+      458,
+      572,
+      458
+    ],
+    "av397_rock_5": [
+      "av397_boulders",
+      572,
+      458,
+      573,
+      458
+    ],
+    "av397_rock_6": [
+      "av397_boulders",
+      1145,
+      458,
+      572,
+      458
     ]
   },
   "characters": {
@@ -138899,7 +138946,7 @@
       "id": "Terrain.Rock",
       "label": "바위",
       "kind": "terrain",
-      "frame": "rock"
+      "frame": "av397_rock_1"
     },
     {
       "id": "Terrain.LeakingConduit",
@@ -190206,6 +190253,42 @@
       "label": "av394_gardenerlimb_foot_up",
       "kind": "frames",
       "frame": "av394_gardenerlimb_foot_up"
+    },
+    {
+      "id": "av397_rock_1",
+      "label": "av397_rock_1",
+      "kind": "frames",
+      "frame": "av397_rock_1"
+    },
+    {
+      "id": "av397_rock_2",
+      "label": "av397_rock_2",
+      "kind": "frames",
+      "frame": "av397_rock_2"
+    },
+    {
+      "id": "av397_rock_3",
+      "label": "av397_rock_3",
+      "kind": "frames",
+      "frame": "av397_rock_3"
+    },
+    {
+      "id": "av397_rock_4",
+      "label": "av397_rock_4",
+      "kind": "frames",
+      "frame": "av397_rock_4"
+    },
+    {
+      "id": "av397_rock_5",
+      "label": "av397_rock_5",
+      "kind": "frames",
+      "frame": "av397_rock_5"
+    },
+    {
+      "id": "av397_rock_6",
+      "label": "av397_rock_6",
+      "kind": "frames",
+      "frame": "av397_rock_6"
     }
   ]
 }

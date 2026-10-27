@@ -18,6 +18,7 @@ import {mapAppearance,displayTile} from '../map-memory'
 import {creatureSprite} from './creature-sprite'
 import {beddingArtLayout,groundObjectArt,isGroundCrop} from './terrain-art'
 import {treeArt} from './forest-art'
+import {rockArt} from './rock-art'
 import {livingTreeArt} from './living-art'
 import {cropArt} from './crop-art'
 import {forageArt} from './forage-art'
@@ -177,6 +178,7 @@ export class MapRenderer {
   private renderedTerrain: (string|undefined)[] = []
   private displayVisible:ReadonlySet<number>=new Set()
   private staticFogProps:{index:number;sprite:Sprite}[]=[]
+  private rockViews:{pos:Pos;frame:string;scale:number;anchor:[number,number]}[]=[]
   private dynamicFogProps:{index:number;sprite:Sprite}[]=[]
   private forageViews:{pos:Pos;terrain:string;frame:string;state:string;variant:number;scale:number;visible:boolean;observedAt?:number}[]=[]
   private fixedLevels=new Float32Array()
@@ -331,6 +333,7 @@ export class MapRenderer {
 
   private buildStatic(w: World) {
     this.staticFogProps=[]
+    this.rockViews=[]
     this.clear(this.ground); this.clear(this.deco); this.clear(this.walls)
     const creatureRoots = new Set([...this.views.values()].map(v => v.root))
     for (const child of [...this.objs.children]) if (!creatureRoots.has(child as Container)) {
@@ -512,9 +515,11 @@ export class MapRenderer {
         break
       }
       case 'Terrain.Rock': {
-        const s = add(new Sprite(tex('rock')), 0.5, 0.9)
-        s.scale.set(0.45)
+        const art=rockArt(terr.sprites,h)
+        const s = add(new Sprite(tex(art.sprite)), art.anchor[0], art.anchor[1])
+        s.scale.set(art.scale)
         s.position.set(px + T / 2, py + T)
+        this.rockViews.push({pos:{x,y},frame:art.sprite,scale:art.scale,anchor:[...art.anchor]})
         break
       }
       case 'Terrain.Brazier': {
@@ -1106,7 +1111,8 @@ export class MapRenderer {
     const knownVisible=new Set(this.w.s.creatures.filter(c=>this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)).map(c=>c.id))
     const actors=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&(view.id===p.id||knownVisible.has(view.id))).map(view=>({actor:view.id,frame:view.human?view.human.sourceFrame:view.culler?view.culler.sourceFrame:view.crawler?view.crawler.sourceFrame:view.rig&&view.rigMix>.5?view.rig.frame:view.poseFrame,mode:view.poseName,direction:view.dir,moving:walking(view.motion),airborne:!!view.flightHeight,altitude:view.flightHeight/T,lift:view.flightLift,feet:this.viewPos(view),workCycle:view.char?.motionDurations?.work??motionDurations.work,human:view.human?.inspect(),rig:view.rig?.inspect(),crawler:view.crawler?.inspect(),culler:view.culler?.inspect()}))
     const medical=[...this.views.values()].filter(view=>view.root.visible&&!view.unknown&&view.medical&&this.w!.s.creatures.some(c=>c.id===view.id&&(c.id===p.id||this.w!.s.visible.includes(c.pos.y*this.w!.s.map.w+c.pos.x)))).map(view=>({actor:view.id,kind:view.medical!.kind,frame:view.poseFrame,direction:view.dir,tools:view.medicalItems.flatMap((sprite,i)=>sprite.visible?[{sprite:view.medical!.props[i].sprite,arm:view.medical!.props[i].arm,x:sprite.x,y:sprite.y,rotation:sprite.rotation}]:[])}))
-    return{assets:atlasStats(),actors,medical,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.human?tex(v.human.sourceFrame).width:v.body.texture.width,scale:v.human?.06:v.body.scale.x,key:v.poseFrame,mode:v.poseName,...(v.human?{composed:true}:{} )}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),phase:v.pose.current.elapsed/poseDuration(v.pose.current),consuming:!!v.pose.current.propBinding?.consume,style:v.pose.current.equipment?.style,arm:v.pose.current.equipment?.arm,sourceObserved:v.pose.current.equipment?.sourceObserved,vector:v.pose.current.equipment?{...v.pose.current.equipment.vector}:undefined,weaponUid:v.pose.current.equipment?.weapon?.uid,weaponDef:v.pose.current.equipment?.weapon?.id,prop:v.pose.current.prop,propUid:v.pose.current.prop?v.pose.current.propBinding?.uid??v.pose.current.equipment?.weapon?.uid:undefined,propDef:v.pose.current.prop?v.pose.current.propBinding?.def??v.pose.current.equipment?.weapon?.id:undefined,propHand:v.pose.current.propBinding?.hand}:null,actionProp:{visible:v.actionItem.visible,x:v.actionItem.x,y:v.actionItem.y,anchor:{x:v.actionItem.anchor.x,y:v.actionItem.anchor.y},width:v.actionItem.width,height:v.actionItem.height,rotation:v.actionItem.rotation},equipment:v.hands.map((hand,index)=>({id:v.drawnEquipment[index]?.id??v.equipment[index]?.id,uid:v.drawnEquipment[index]?.uid??v.equipment[index]?.uid,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
+    const rocks=this.rockViews.filter(row=>this.w!.s.visible.includes(row.pos.y*this.w!.s.map.w+row.pos.x)).map(row=>({...row,pos:{...row.pos},anchor:[...row.anchor]}))
+    return{assets:atlasStats(),actors,medical,rocks,swarms:[...this.swarmViews.values()].map(v=>v.inspect()).filter(s=>s.visible),forage:this.forageViews.map(row=>({...row,pos:{...row.pos}})),logical:{...p.pos},feet:this.viewPos(v),light:lightSource(this.w,p)?{...v.lightPos}:null,camera:{...this.cam},zoom:this.zoom,moving:walking(v.motion),stride:v.motion.stride,gait:v.char?.gait??{walk:motionDurations.walk,crouchWalk:motionDurations.crouchWalk},segment:{from:{...v.motion.from},to:{...v.motion.to},t:v.motion.t},queued:v.motion.queue.map(pos=>({...pos})),frame:v.char?{direction:v.dir,sourceWidth:v.human?tex(v.human.sourceFrame).width:v.body.texture.width,scale:v.human?.06:v.body.scale.x,key:v.poseFrame,mode:v.poseName,...(v.human?{composed:true}:{} )}:null,action:v.pose.current?{kind:v.pose.current.kind,duration:poseDuration(v.pose.current),stage:actionStage(v.pose.current.elapsed/poseDuration(v.pose.current)),phase:v.pose.current.elapsed/poseDuration(v.pose.current),consuming:!!v.pose.current.propBinding?.consume,style:v.pose.current.equipment?.style,arm:v.pose.current.equipment?.arm,sourceObserved:v.pose.current.equipment?.sourceObserved,vector:v.pose.current.equipment?{...v.pose.current.equipment.vector}:undefined,weaponUid:v.pose.current.equipment?.weapon?.uid,weaponDef:v.pose.current.equipment?.weapon?.id,prop:v.pose.current.prop,propUid:v.pose.current.prop?v.pose.current.propBinding?.uid??v.pose.current.equipment?.weapon?.uid:undefined,propDef:v.pose.current.prop?v.pose.current.propBinding?.def??v.pose.current.equipment?.weapon?.id:undefined,propHand:v.pose.current.propBinding?.hand}:null,actionProp:{visible:v.actionItem.visible,x:v.actionItem.x,y:v.actionItem.y,anchor:{x:v.actionItem.anchor.x,y:v.actionItem.anchor.y},width:v.actionItem.width,height:v.actionItem.height,rotation:v.actionItem.rotation},equipment:v.hands.map((hand,index)=>({id:v.drawnEquipment[index]?.id??v.equipment[index]?.id,uid:v.drawnEquipment[index]?.uid??v.equipment[index]?.uid,visible:hand.visible,alpha:hand.alpha,x:hand.x,y:hand.y,rotation:hand.rotation,grip:{x:hand.anchor.x,y:hand.anchor.y},behind:hand.zIndex<1})),screen:{logical:{x:logicalScreen.x,y:logicalScreen.y},feet:{x:feetScreen.x,y:feetScreen.y}}}
   }
 
   private animateView(v: CView, dt: number) {

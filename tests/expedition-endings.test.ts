@@ -10,7 +10,7 @@ import {makeItem} from '../src/core/items'
 import {turnOf} from '../src/core/ctx'
 const whole=(s:Parameters<typeof serialize>[0])=>JSON.parse(serialize(s))
 describe('personal expedition conclusions and physical-world conservation',()=>{
- for(const kind of ['signal','unveiled','witness']as const)it(`${kind}: real prerequisites lead to a0TU report and preserve the entire other World`,()=>{
+ for(const kind of ['signal','unveiled','witness','acknowledged']as const)it(`${kind}: real prerequisites lead to a0TU report and preserve the entire other World`,()=>{
   const d=endingFixture(kind),before=whole(d.s),q=expeditionEndingQuote(d.w,d.p,kind)
   knownExpeditionEndings(d.w,d.p);researchThreads(d.w,d.p);expect(whole(d.s)).toEqual(before)
   expect(finishExpedition(d.w,d.p,kind,'stale-signature')).toBeTruthy();expect(whole(d.s)).toEqual(before)

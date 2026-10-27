@@ -129,7 +129,7 @@ export function fieldDeviceQuote(w:World,c:Creature,pos:Pos,uid:number,operation
   if(!error)error=operationError(w,c,device!,op!)
   const old=device?.work,bound=!error?(old?{work:old,error:bindingsError(w,c,op!,old)}:bind(w,c,op!)):undefined
   if(!error)error=bound?.error??null
-  const work=bound?.work,remaining=work?Math.max(0,work.total-work.progress):op?.turns??0,turns=channelTurns(w,c,remaining)
+  const work=bound?.work,remaining=work&&work.operation===op?.id?Math.max(0,work.total-work.progress):op?.turns??0,turns=channelTurns(w,c,remaining)
   if(!error&&turns===null)error='몸 상태 때문에 정비를 할 수 없다'
   return{device,def,op,work,remaining,turns:turns??0,error}
 }
