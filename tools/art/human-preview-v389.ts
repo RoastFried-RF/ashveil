@@ -20,7 +20,7 @@ export interface HumanPreviewCatalog {
   frameKeys: string[]
   body: { id: string; label: string; kind: 'humanoid'; parts: { id: string; label: string; parent: string | null; groups: string[]; internal: boolean; coverage?: number; stumpParent?: string }[] }
   garments: HumanPreviewGarment[]
-  prosthetics: { id: string; label: string; item: string; itemLabel: string; sprite: string; targets: string[]; efficiency: number; grip: boolean | null; sourceFrame: string; authoredViews: 1 }[]
+  prosthetics: { id: string; label: string; item: string; itemLabel: string; sprite: string; targets: string[]; efficiency: number; grip: boolean | null; sourceFrame: string; sourceFrames:string[];authoredViews:number;segmented:boolean }[]
   liningCandidates: string[]
   presets: { id: string; label: string; garments: string[]; lining?: string }[]
   limits: string[]
@@ -294,7 +294,7 @@ async function start() {
   const response = await fetch(new URL('artbook/human/catalog.json', siteRoot))
   if (!response.ok) throw Error('정의 목록이 없습니다. export-human-preview-v389.ts를 빌드 전에 실행해야 합니다. HTTP' + response.status)
   catalog = await response.json() as HumanPreviewCatalog
-  const actualKeys = [...new Set(Object.values(humanModels).flatMap(humanSpecFrameKeys))]
+  const actualKeys = [...new Set(Object.values(humanModels).flatMap(spec=>humanSpecFrameKeys(spec)))]
   if (catalog.format !== 1 || catalog.specId !== spec.id || catalog.garments.length !== 25 || catalog.prosthetics.length !== 6 || [...actualKeys].sort().join('\n') !== [...catalog.frameKeys].sort().join('\n') || humanDirections.length !== 4) throw Error('현재 HumanView와 내보낸 정의 목록이 다릅니다.')
   populate()
   await loadAtlas(actualKeys, [], atlasOwner)

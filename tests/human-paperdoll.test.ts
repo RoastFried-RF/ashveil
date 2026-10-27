@@ -63,7 +63,8 @@ describe('실제 인체/의복 원본과 표현 소유',()=>{
  })
  it('현재 모든 의복 ID와4방향은 실제 원문 영역으로만 연결되며 미선택 몸 시트는 읽지 않는다',()=>{
   expect(Object.keys(humanArt.wardrobe).sort()).toEqual(db.all<ItemDef>('Item').filter(d=>d.apparel).map(d=>d.id).sort())
-  const plan=atlasPlan(m,[],['original_wanderer_hero']);for(const key of humanSpecFrameKeys(humanArt)){expect(m.frames[key],key).toBeDefined();expect(plan.sheets,key).toContain(m.frames[key][0])}
+  const plan=atlasPlan(m,[],['original_wanderer_hero']);for(const key of humanSpecFrameKeys(humanArt,new Set())){expect(m.frames[key],key).toBeDefined();expect(plan.sheets,key).toContain(m.frames[key][0])}
+  const explicit=atlasPlan(m,humanSpecFrameKeys(humanArt),[]);for(const key of humanSpecFrameKeys(humanArt))expect(explicit.sheets,key).toContain(m.frames[key][0])
   expect(plan.sheets).not.toContain(m.frames[m.chars.original_wanderer_hero.idle.down[0]][0])
   const nonhuman=atlasPlan(m,[],['tender_drone']);expect(nonhuman.sheets).not.toContain(m.frames[humanArt.base.down.torso.frame][0])
   expect(humanSpecFrameKeys(humanArt).some(key=>key.startsWith('av381_')&&key.includes('Thigh'))).toBe(false)

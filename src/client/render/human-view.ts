@@ -9,6 +9,7 @@ import type {HumanPoint,HumanSide,HumanSource,HumanSpec} from './human-spec'
 import {humanEndpointOwner,humanProfileNearSide,humanWithHead} from './human-spec'
 import {humanFootSource} from './human-spec'
 import {detailMaskPieces,digitLossMarks,faceLossMarks,lossAdjustedFoot,lossMarkMatrix,type HumanLossMark}from'./human-details'
+import {humanReplacementPieces,humanReplacementView} from './human-prosthetics'
 interface DrawNode {source:HumanSource;matrix:HMatrix;tint:number;root:Container;sprite:Sprite;mask:Graphics;clip:HPoint[]|null;cuts:HumanLossMark[];maskKey:string;owner:string;uid?:number;role:string;frame:string;mount?:HPoint}
 interface Input extends Omit<HumanPoseInput,'hands'> {dtMs:number;instant:boolean;tint:number;alpha:number;unknown:boolean}
 const sides=['left','right']as const
@@ -35,8 +36,29 @@ export class HumanView {
   this.gaitPose=this.gait.update({root:{x:input.root[0],y:input.root[1]},facing:input.direction,moving:input.moving&&!input.prone,dtMs:input.instant?0:input.dtMs,instant:input.instant,available:{left:supported('left'),right:supported('right')}})
   this.solve()
  }
- private solve(){if(this.input&&this.gaitPose){const footMounts:Partial<Record<HumanSide,HumanPoint>>={},footSources:Partial<Record<HumanSide,HumanSource>>={},base=this.spec.base[this.input.direction];for(const side of sides){const owner=partName(side)+'Foot',covered=this.surface?.clothing.some(c=>!c.half&&this.spec.wardrobe[c.def]?.feet&&c.parts.includes(owner)),original=covered?base.foot:humanFootSource(base,side);footSources[side]=this.surface&&!covered?lossAdjustedFoot(this.spec,original,side,this.surface.parts):original;const replacement=this.surface?.parts[owner]?.replacement,source=replacement?.root===owner?this.spec.replacements[replacement.def]?.distal:undefined;if(source?.solePinned)footMounts[side]=hTransform(hSoleMatrix(source,[0,0],this.soleMirror(side)),source.a)}this.footSources=footSources;this.pose=humanPose(base,{...this.input,hands:this.handTargets,footMounts,footSources},{left:this.gaitPose.left,right:this.gaitPose.right})}}
- private soleMirror(side:HumanSide){return this.input?.direction==='right'||(this.input?.direction==='down'||this.input?.direction==='up')&&side==='right'}
+ private solve(){
+  if(!this.input||!this.gaitPose)return
+  const footMounts:Partial<Record<HumanSide,HumanPoint>>={},footSources:Partial<Record<HumanSide,HumanSource>>={},base=this.spec.base[this.input.direction]
+  for(const side of sides){
+   const owner=partName(side)+'Foot',anatomical=humanFootSource(base,side),covered=this.surface?.clothing.some(c=>!c.half&&this.spec.wardrobe[c.def]?.feet&&c.parts.includes(owner)),original=covered?base.foot:anatomical
+   footSources[side]=this.surface&&!covered?lossAdjustedFoot(this.spec,original,side,this.surface.parts):original
+   const replacement=this.surface?.parts[owner]?.replacement
+   if(!replacement)continue
+   const registered=this.spec.replacements[replacement.def],view=humanReplacementView(this.spec,replacement.def,this.input.direction)
+   let source=view?.parts.Foot??(replacement.root===owner?view?.distal??registered?.distal:undefined)
+   if(source?.solePinned){
+    if(source.directional){
+     // Match this actual body's observed footprint, including the smaller bodies.
+     source={...source,scale:this.dimensions(anatomical).w*(anatomical.scale??.06)/this.dimensions(source).w,mirrorX:this.soleMirror(side,source)}
+     footSources[side]=source
+    }
+    footMounts[side]=hTransform(hSoleMatrix(source,[0,0],this.soleMirror(side,source)),source.a)
+   }
+  }
+  this.footSources=footSources
+  this.pose=humanPose(base,{...this.input,hands:this.handTargets,footMounts,footSources},{left:this.gaitPose.left,right:this.gaitPose.right})
+ }
+ private soleMirror(side:HumanSide,source?:HumanSource){return(!source?.directional&&this.input?.direction==='right')||(this.input?.direction==='down'||this.input?.direction==='up')&&side==='right'}
  grip(side:HumanSide):HPoint{return this.pose?.grips[side]??[0,-12]}
  mouthPoint():HPoint|null{const source=this.input?this.spec.base[this.input.direction].head.mouth:undefined;return this.pose&&source?hTransform(this.pose.head,source):null}
  handDepth(side:HumanSide){return this.pose?.bones[partName(side)+'Hand'].z??52}
@@ -103,8 +125,8 @@ export class HumanView {
   }
   this.drawLossMarks('Skull',base.head,pose.head,70)
   for(const state of clothing)this.drawClothing(state)
-  this.drawCuffSeats()
   this.drawReplacements()
+  this.drawCuffSeats()
   for(const state of surface.accessories){
    if(this.spec.wardrobe[state.def]?.accessory==='quiver'){if(surface.parts.Chest?.present)this.drawAccessory(state.uid,'quiver',0xffffff);continue}
    const ring=state.slot==='ring1'?'right':state.slot==='ring2'?'left':undefined,point=ring?pose.grips[ring]:hpAdd(pose.neck,[0,3]),owner=ring?partName(ring)+'Hand':'Neck'
@@ -146,7 +168,7 @@ export class HumanView {
    const opening=cuff.source.opening;if(cuff.role!=='clothing'||!opening)continue
    const parent=cuff.owner.endsWith('UpperArm')?'Chest':cuff.owner.endsWith('Forearm')?cuff.owner.replace('Forearm','UpperArm'):cuff.owner.endsWith('Hand')?cuff.owner.replace('Hand','Forearm'):cuff.owner.endsWith('Shin')?cuff.owner:undefined;if(!parent)continue
    const rotation=opening.rotation??0,cos=Math.cos(rotation),sin=Math.sin(rotation),hole=Array.from({length:16},(_,i)=>{const x=Math.cos(i*Math.PI/8)*opening.rx,y=Math.sin(i*Math.PI/8)*opening.ry;return hTransform(cuff.matrix,[opening.center[0]+cos*x-sin*y,opening.center[1]+sin*x+cos*y])})
-   const parents=snapshot.filter(([,node])=>node.owner===parent&&node.uid!==cuff.uid&&['flesh','intrinsic-underclothing','flesh-with-underclothing'].includes(node.role)).sort(([,a],[,b])=>a.root.zIndex-b.root.zIndex)
+   const parents=snapshot.filter(([,node])=>node.owner===parent&&node.uid!==cuff.uid&&['flesh','intrinsic-underclothing','flesh-with-underclothing','prosthetic'].includes(node.role)).sort(([,a],[,b])=>a.root.zIndex-b.root.zIndex)
    for(const[index,[parentKey,node]]of parents.entries()){
     const points=hole.map(p=>local(node.matrix,p));if(points.some(p=>!p))continue
     let clip=points as HPoint[]
@@ -181,20 +203,31 @@ export class HumanView {
   const pose=this.pose!,surface=this.surface!,input=this.input!,seen=new Set<number>()
   for(const part of Object.values(surface.parts)){
    const replacement=part.replacement;if(!replacement||seen.has(replacement.uid))continue;seen.add(replacement.uid);const registered=this.spec.replacements[replacement.def];if(!registered)continue
-   const root=replacement.root,source=/(?:Hand|Foot)$/.test(root)&&registered.distal?registered.distal:registered,side:HumanSide=root.startsWith('Right')?'right':'left',bone=pose.bones[root],z=bone?.z??75;let a:HPoint,b:HPoint
+   const root=replacement.root,view=humanReplacementView(this.spec,replacement.def,input.direction)
+   const pieces=view?humanReplacementPieces(root,view):[{owner:root,source:/(?:Hand|Foot)$/.test(root)&&registered.distal?registered.distal:registered}]
+   for(const piece of pieces){
+   const owner=piece.owner,side:HumanSide=owner.startsWith('Right')?'right':'left',bone=pose.bones[owner],z=bone?.z??75
+   if(surface.parts[owner]?.replacement?.uid!==replacement.uid)continue
+   const fittedFoot=this.footSources[side],source=owner.endsWith('Foot')&&fittedFoot?.frame===piece.source.frame?fittedFoot:piece.source
+   let a:HPoint,b:HPoint
    if(root.endsWith('Eye')){
     if(input.direction==='up'||humanProfileNearSide(input.direction)&&side!==humanProfileNearSide(input.direction))continue
     const point=this.eyePoint(side),imageSize=this.dimensions(source)
     this.emit('replacement:'+replacement.uid,root,source,hAt(source.a,point,.9/Math.max(imageSize.w,imageSize.h)),75,null,replacement.uid,'prosthetic');continue
    }else if(!bone)continue
-   else{a=bone.a;const endpoint=humanEndpointOwner(root);if(!endpoint)continue;b=pose.bones[endpoint].b}
-   const length=hpLength(hpSub(b,a)),scale=length/Math.max(1,hpLength(hpSub(source.b,source.a))),matrix=source.solePinned?hSoleMatrix(source,b,this.soleMirror(side)):hPin(source,a,b,scale,side==='right'&&(input.direction==='down'||input.direction==='up'))
-   this.emit('replacement:'+replacement.uid,root,source,matrix,z+.15,null,replacement.uid,'prosthetic',replacement.efficiency<=0?0x817b70:replacement.durability<35?0xb4a18c:0xffffff)
+   else{
+    a=bone.a
+    if(view&&!view.whole)b=owner.endsWith('Forearm')?pose.bones[partName(side)+'Hand'].a:bone.b
+    else{const endpoint=humanEndpointOwner(root);if(!endpoint)continue;b=pose.bones[endpoint].b}
+   }
+   const length=hpLength(hpSub(b,a)),scale=length/Math.max(1,hpLength(hpSub(source.b,source.a))),matrix=source.solePinned?hSoleMatrix(source,b,this.soleMirror(side,source)):hPin(source,a,b,scale,side==='right'&&(input.direction==='down'||input.direction==='up'))
+   this.emit('replacement:'+replacement.uid+':'+owner,owner,source,matrix,z+.15,null,replacement.uid,'prosthetic',replacement.efficiency<=0?0x817b70:replacement.durability<35?0xb4a18c:0xffffff)
+   }
   }
  }
  hit(point:{x:number;y:number}){return this.root.visible&&[...this.nodes.values()].some(node=>{if(!node.root.visible||!spritePixelHit(node.sprite,point))return false;const local=node.sprite.toLocal(point),p:[number,number]=[local.x,local.y];return(!node.clip||inside(p,node.clip))&&!node.cuts.some(cut=>cut.triangles?cut.triangles.some(triangle=>inside(p,triangle)):inside(p,cut.polygon))})}
  headY(){return this.pose?.headTop[1]??-32}
  get sourceFrame(){return this.input?this.spec.base[this.input.direction].torso.frame:''}
- inspect(){return this.input&&this.pose?{direction:this.input.direction,mode:this.input.mode,base:this.spec.id,headRole:this.headRole??'wanderer',frame:this.sourceFrame,root:[...this.input.root],grips:structuredClone(this.pose.grips),gait:this.gaitPose?structuredClone(this.gaitPose):null,maxArmReachError:this.pose.maxReachError,legProjection:'2d-cutout',fixedLegLengths:false,sourceLandmarks:{eyes:Object.fromEntries(Object.entries(this.spec.base[this.input.direction].head.eyes??{}).map(([side,point])=>[side,hTransform(this.pose!.head,point)])),mouth:this.spec.base[this.input.direction].head.mouth?hTransform(this.pose.head,this.spec.base[this.input.direction].head.mouth!):null},footProjection:structuredClone(this.pose.feet),footSources:Object.fromEntries(sides.map(side=>{const source=this.footSources[side]??humanFootSource(this.spec.base[this.input!.direction],side),bone=this.pose!.bones[partName(side)+'Foot'];return[side,{frame:source.frame,a:[...source.a],b:[...source.b],scale:source.scale??.06,solePinned:!!source.solePinned,anchor:hTransform(bone.matrix,source.a),sole:hTransform(bone.matrix,source.b)}]})),parts:[...this.nodes.values()].filter(n=>n.root.visible).map(n=>({owner:n.owner,uid:n.uid,role:n.role,source:n.frame,clip:!!n.clip,losses:n.cuts.map(c=>c.owner),z:n.root.zIndex,...(n.mount?{mount:[...n.mount]}:{})})),sourceFramesAreNotAuthoredActionFrames:true}:null}
+ inspect(){const result=this.input&&this.pose?{direction:this.input.direction,mode:this.input.mode,base:this.spec.id,headRole:this.headRole??'wanderer',frame:this.sourceFrame,root:[...this.input.root],grips:structuredClone(this.pose.grips),gait:this.gaitPose?structuredClone(this.gaitPose):null,maxArmReachError:this.pose.maxReachError,legProjection:'2d-cutout',fixedLegLengths:false,sourceLandmarks:{eyes:Object.fromEntries(Object.entries(this.spec.base[this.input.direction].head.eyes??{}).map(([side,point])=>[side,hTransform(this.pose!.head,point)])),mouth:this.spec.base[this.input.direction].head.mouth?hTransform(this.pose.head,this.spec.base[this.input.direction].head.mouth!):null},footProjection:structuredClone(this.pose.feet),footSources:Object.fromEntries(sides.map(side=>{const source=this.footSources[side]??humanFootSource(this.spec.base[this.input!.direction],side),bone=this.pose!.bones[partName(side)+'Foot'];return[side,{frame:source.frame,a:[...source.a],b:[...source.b],scale:source.scale??.06,solePinned:!!source.solePinned,anchor:hTransform(bone.matrix,source.a),sole:hTransform(bone.matrix,source.b)}]})),parts:[...this.nodes.values()].filter(n=>n.root.visible).map(n=>({owner:n.owner,uid:n.uid,role:n.role,source:n.frame,clip:!!n.clip,losses:n.cuts.map(c=>c.owner),z:n.root.zIndex,...(n.mount?{mount:[...n.mount]}:{})})),sourceFramesAreNotAuthoredActionFrames:true}:null;if(!result)return null;return{...result,prostheticJoints:[...this.nodes.values()].filter(n=>n.root.visible&&n.role==='prosthetic').map(n=>({owner:n.owner,uid:n.uid,source:n.frame,a:hTransform(n.matrix,n.source.a),b:hTransform(n.matrix,n.source.b),solePinned:!!n.source.solePinned,scale:n.source.scale}))}}
  destroy(){this.nodes.clear();this.root.destroy({children:true})}
 }

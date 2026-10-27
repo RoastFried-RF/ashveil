@@ -30,6 +30,10 @@ export interface HumanSource {
  material?:'flesh-with-underclothing'
  /** Uniform original footprint at its observed lower silhouette, not an ankle-to-toe rotation. */
  solePinned?:boolean
+ /** This source is an authored facing, rather than the legacy shared profile. */
+ directional?:boolean
+ /** Per-instance contralateral reflection; authored left/right facings keep their orientation. */
+ mirrorX?:boolean
 }
 export interface HumanBaseDirection {
  hipHeight?:number
@@ -61,7 +65,16 @@ export interface HumanWardrobeRule {
  accessory?:'hood'|'cloak'|'helmet'|'mask'|'goggles'|'quiver'|'belt'
  tint?:number
 }
-export interface HumanReplacementSource extends HumanSource {root:HumanPoint;tip:HumanPoint;distal?:HumanSource}
+export type HumanReplacementPart='UpperArm'|'Forearm'|'Hand'|'Thigh'|'Shin'|'Foot'
+export interface HumanReplacementView {
+ whole?:HumanSource
+ distal?:HumanSource
+ parts:Partial<Record<HumanReplacementPart,HumanSource>>
+}
+export interface HumanReplacementSource extends HumanSource {
+ root:HumanPoint;tip:HumanPoint;distal?:HumanSource
+ views?:Record<HumanDirection,HumanReplacementView>
+}
 export interface HumanSpec {
  id:string
  skinTint?:number
@@ -69,7 +82,7 @@ export interface HumanSpec {
  base:Record<HumanDirection,HumanBaseDirection>
  pieces:Record<HumanGarmentKind,Record<HumanDirection,HumanSource>>
  wardrobe:Record<string,HumanWardrobeRule>
- /** Existing actual prosthetic object sources are explicitly shared, not four new facings. */
+ /** Legacy object sources remain fallback; authored directional parts have explicit views. */
  replacements:Record<string,HumanReplacementSource>
  heads?:Record<string,Record<HumanDirection,HumanSource>>
  details?:HumanDetailSpec
@@ -83,11 +96,22 @@ export const humanToeSuffixes=['Toe1','Toe2','Toe3','Toe4','Toe5']as const
 export const humanFineOwners=['Left','Right'].flatMap(side=>[...humanDigitSuffixes,...humanToeSuffixes].map(suffix=>side+suffix))
 export const humanVisibleOwners=[...humanOwners,...humanFineOwners]
 export const humanFootSource=(base:HumanBaseDirection,side:HumanSide)=>base.feet?.[side]??base.foot
-export function humanSpecFrameKeys(spec:HumanSpec){
+export function humanReplacementFrameKeys(spec:HumanSpec,selected?:ReadonlySet<string>){
+ const keys=new Set<string>()
+ for(const[id,source]of Object.entries(spec.replacements)){
+  if(selected&&!selected.has(id))continue
+  if(source.views)for(const view of Object.values(source.views)){
+   for(const part of [view.whole,view.distal,...Object.values(view.parts)])if(part)keys.add(part.frame)
+  }
+  else{keys.add(source.frame);if(source.distal)keys.add(source.distal.frame)}
+ }
+ return [...keys]
+}
+export function humanSpecFrameKeys(spec:HumanSpec,selectedReplacements?:ReadonlySet<string>){
  const keys=new Set<string>()
  for(const direction of humanDirections){const b=spec.base[direction];for(const p of [b.head,b.torso,b.foot,...Object.values(b.feet??{}),...Object.values(b.upper),...Object.values(b.forearm),...Object.values(b.legs)])keys.add(p.frame)}
  for(const views of Object.values(spec.pieces))for(const p of Object.values(views))keys.add(p.frame)
- for(const source of Object.values(spec.replacements)){keys.add(source.frame);if(source.distal)keys.add(source.distal.frame)}
+ for(const key of humanReplacementFrameKeys(spec,selectedReplacements))keys.add(key)
  for(const views of Object.values(spec.heads??{}))for(const source of Object.values(views))keys.add(source.frame)
  for(const source of Object.values(spec.details?.patches??{}))keys.add(source.frame)
  return [...keys]

@@ -4,9 +4,9 @@
   "specId": "av389_human",
   "disclosure": "진단용 합성 인체·UID·착용 상태입니다. 실제 게임의 저장·물품·장착·행동·시간·난수를 만들거나 바꾸지 않습니다. 같은 HumanView와 등록 원본을 표시하며 새로운 동작 원화나 전체 세계 검증을 뜻하지 않습니다.",
   "sourceHashes": {
-    "spec": "3321b25052eae84249ea9df4177e2a4823fc6e469857adc632b84f757ed5b4ed",
-    "manifest": "99b12bf10a2b4c3b0b8a3b0ba607cf0130045ecafd197dfc96186c7bab561085",
-    "renderer": "dff9b3ed256f905f8f3a599e811ca7cd9d04f2d63a1799c8820436202f2f6c76"
+    "spec": "1e1934ab566895d6b967eaa9609eb1256c4a7a77b89cce32104b0c33d65994b5",
+    "manifest": "b2efe6b53a0163dc20e123b0f69c7a904ca8dde26b1b0255e93376f5f8c46b85",
+    "renderer": "91e01a18bf936ed42750e6702e6da3ce652f09a525669d342c0464a441d218cd"
   },
   "frameKeys": [
     "av381_down_Head",
@@ -133,14 +133,58 @@
     "av389_worn_cuirass_left",
     "av389_worn_cuirass_right",
     "av389_worn_cuirass_up",
-    "av384_peg_leg",
-    "av384_articulated_leg",
-    "av389_articulated_foot_owned",
-    "av384_hook_hand",
-    "av384_glass_eye",
-    "av384_pioneer_arm",
-    "av389_pioneer_hand_owned",
-    "av384_gardener_limb",
+    "av394_peg_down",
+    "av394_peg_left",
+    "av394_peg_right",
+    "av394_peg_up",
+    "av394_articulatedleg_shin_down",
+    "av394_articulatedleg_foot_down",
+    "av394_articulatedleg_shin_left",
+    "av394_articulatedleg_foot_left",
+    "av394_articulatedleg_shin_right",
+    "av394_articulatedleg_foot_right",
+    "av394_articulatedleg_shin_up",
+    "av394_articulatedleg_foot_up",
+    "av394_hook_down",
+    "av394_hook_left",
+    "av394_hook_right",
+    "av394_hook_up",
+    "av394_glass_eye_down",
+    "av394_glass_eye_left",
+    "av394_glass_eye_right",
+    "av394_glass_eye_up",
+    "av394_pioneerarm_forearm_down",
+    "av394_pioneerarm_hand_down",
+    "av394_pioneerarm_forearm_left",
+    "av394_pioneerarm_hand_left",
+    "av394_pioneerarm_forearm_right",
+    "av394_pioneerarm_hand_right",
+    "av394_pioneerarm_forearm_up",
+    "av394_pioneerarm_hand_up",
+    "av394_gardenerlimb_upperarm_down",
+    "av394_gardenerlimb_forearm_down",
+    "av394_gardenerlimb_hand_down",
+    "av394_gardenerlimb_thigh_down",
+    "av394_gardenerlimb_shin_down",
+    "av394_gardenerlimb_foot_down",
+    "av394_gardenerlimb_upperarm_left",
+    "av394_gardenerlimb_forearm_left",
+    "av394_gardenerlimb_hand_left",
+    "av394_gardenerlimb_thigh_left",
+    "av394_gardenerlimb_shin_left",
+    "av394_gardenerlimb_foot_left",
+    "av394_gardenerlimb_upperarm_right",
+    "av394_gardenerlimb_forearm_right",
+    "av394_gardenerlimb_hand_right",
+    "av394_gardenerlimb_thigh_right",
+    "av394_gardenerlimb_shin_right",
+    "av394_gardenerlimb_foot_right",
+    "av394_gardenerlimb_upperarm_up",
+    "av394_gardenerlimb_forearm_up",
+    "av394_gardenerlimb_hand_up",
+    "av394_gardenerlimb_thigh_up",
+    "av394_gardenerlimb_shin_up",
+    "av394_gardenerlimb_foot_up",
     "av389_head_worker_down",
     "av389_head_worker_left",
     "av389_head_worker_right",
@@ -1461,8 +1505,15 @@
       ],
       "efficiency": 0.55,
       "grip": true,
-      "sourceFrame": "av384_peg_leg",
-      "authoredViews": 1
+      "sourceFrame": "av394_peg_down",
+      "sourceFrames": [
+        "av394_peg_down",
+        "av394_peg_left",
+        "av394_peg_right",
+        "av394_peg_up"
+      ],
+      "authoredViews": 4,
+      "segmented": false
     },
     {
       "id": "Prosthetic.ArticulatedLeg",
@@ -1478,8 +1529,19 @@
       ],
       "efficiency": 0.7,
       "grip": true,
-      "sourceFrame": "av384_articulated_leg",
-      "authoredViews": 1
+      "sourceFrame": "av394_articulatedleg_shin_down",
+      "sourceFrames": [
+        "av394_articulatedleg_shin_down",
+        "av394_articulatedleg_foot_down",
+        "av394_articulatedleg_shin_left",
+        "av394_articulatedleg_foot_left",
+        "av394_articulatedleg_shin_right",
+        "av394_articulatedleg_foot_right",
+        "av394_articulatedleg_shin_up",
+        "av394_articulatedleg_foot_up"
+      ],
+      "authoredViews": 4,
+      "segmented": true
     },
     {
       "id": "Prosthetic.HookHand",
@@ -1493,8 +1555,15 @@
       ],
       "efficiency": 0.3,
       "grip": false,
-      "sourceFrame": "av384_hook_hand",
-      "authoredViews": 1
+      "sourceFrame": "av394_hook_down",
+      "sourceFrames": [
+        "av394_hook_down",
+        "av394_hook_left",
+        "av394_hook_right",
+        "av394_hook_up"
+      ],
+      "authoredViews": 4,
+      "segmented": false
     },
     {
       "id": "Prosthetic.GlassEye",
@@ -1508,8 +1577,15 @@
       ],
       "efficiency": 0,
       "grip": true,
-      "sourceFrame": "av384_glass_eye",
-      "authoredViews": 1
+      "sourceFrame": "av394_glass_eye_down",
+      "sourceFrames": [
+        "av394_glass_eye_down",
+        "av394_glass_eye_left",
+        "av394_glass_eye_right",
+        "av394_glass_eye_up"
+      ],
+      "authoredViews": 4,
+      "segmented": false
     },
     {
       "id": "Prosthetic.PioneerArm",
@@ -1525,8 +1601,19 @@
       ],
       "efficiency": 0.85,
       "grip": true,
-      "sourceFrame": "av384_pioneer_arm",
-      "authoredViews": 1
+      "sourceFrame": "av394_pioneerarm_forearm_down",
+      "sourceFrames": [
+        "av394_pioneerarm_forearm_down",
+        "av394_pioneerarm_hand_down",
+        "av394_pioneerarm_forearm_left",
+        "av394_pioneerarm_hand_left",
+        "av394_pioneerarm_forearm_right",
+        "av394_pioneerarm_hand_right",
+        "av394_pioneerarm_forearm_up",
+        "av394_pioneerarm_hand_up"
+      ],
+      "authoredViews": 4,
+      "segmented": true
     },
     {
       "id": "Prosthetic.GardenerLimb",
@@ -1550,8 +1637,35 @@
       ],
       "efficiency": 1.1,
       "grip": true,
-      "sourceFrame": "av384_gardener_limb",
-      "authoredViews": 1
+      "sourceFrame": "av394_gardenerlimb_upperarm_down",
+      "sourceFrames": [
+        "av394_gardenerlimb_upperarm_down",
+        "av394_gardenerlimb_forearm_down",
+        "av394_gardenerlimb_hand_down",
+        "av394_gardenerlimb_thigh_down",
+        "av394_gardenerlimb_shin_down",
+        "av394_gardenerlimb_foot_down",
+        "av394_gardenerlimb_upperarm_left",
+        "av394_gardenerlimb_forearm_left",
+        "av394_gardenerlimb_hand_left",
+        "av394_gardenerlimb_thigh_left",
+        "av394_gardenerlimb_shin_left",
+        "av394_gardenerlimb_foot_left",
+        "av394_gardenerlimb_upperarm_right",
+        "av394_gardenerlimb_forearm_right",
+        "av394_gardenerlimb_hand_right",
+        "av394_gardenerlimb_thigh_right",
+        "av394_gardenerlimb_shin_right",
+        "av394_gardenerlimb_foot_right",
+        "av394_gardenerlimb_upperarm_up",
+        "av394_gardenerlimb_forearm_up",
+        "av394_gardenerlimb_hand_up",
+        "av394_gardenerlimb_thigh_up",
+        "av394_gardenerlimb_shin_up",
+        "av394_gardenerlimb_foot_up"
+      ],
+      "authoredViews": 4,
+      "segmented": true
     }
   ],
   "liningCandidates": [

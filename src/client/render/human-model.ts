@@ -16,7 +16,7 @@ export function hAt(source:HumanPoint,target:HumanPoint,scale:number,rotation=0)
  const a=Math.cos(rotation)*scale,b=Math.sin(rotation)*scale,c=-b,d=a
  return[a,b,c,d,target[0]-a*source[0]-c*source[1],target[1]-b*source[0]-d*source[1]]
 }
-export function hSoleMatrix(source:HumanSource,target:HumanPoint,mirror=false):HMatrix{
+export function hSoleMatrix(source:HumanSource,target:HumanPoint,mirror=source.mirrorX??false):HMatrix{
  const scale=source.scale??.013,x=mirror?-scale:scale
  return[x,0,0,scale,target[0]-x*source.b[0],target[1]-scale*source.b[1]]
 }

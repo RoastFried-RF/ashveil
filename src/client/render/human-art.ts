@@ -5,17 +5,19 @@ import detailData from './human-details.json'
 import mutantData from './human-mutants.json'
 import mutantDetails from './human-mutant-details.json'
 import wearFit from './human-wear-fit.json'
-import type {HumanDetailSpec,HumanDirection,HumanGarmentKind,HumanPoint,HumanReplacementSource,HumanSource,HumanSpec,HumanSide} from './human-spec'
+import prostheticViews from './human-prosthetic-views.json'
+import type {HumanDetailSpec,HumanDirection,HumanGarmentKind,HumanPoint,HumanReplacementSource,HumanReplacementView,HumanSource,HumanSpec,HumanSide} from './human-spec'
 const wearPieces=wearFit.pieces as unknown as Partial<Record<HumanGarmentKind,Partial<Record<HumanDirection,Partial<HumanSource>>>>>
 const registered=data as unknown as HumanSpec
 const anatomicalFeet=detailData.feet as unknown as Record<HumanDirection,Record<HumanSide,HumanSource>>
 const replacementSources=fit.replacementSources as unknown as Record<string,Partial<HumanReplacementSource>>
+const directionalProsthetics=prostheticViews as unknown as Record<string,Record<HumanDirection,HumanReplacementView>>
 const facePolygons=fit.facePolygons as unknown as Partial<Record<HumanDirection,HumanPoint[]>>
 const pieceSources=fit.pieceSources as unknown as Partial<Record<HumanGarmentKind,Partial<Record<HumanDirection,Partial<HumanSource>>>>>
 type Eyes=Partial<Record<HumanSide,HumanPoint>>
 const headEyes=fit.headEyes as unknown as Partial<Record<HumanDirection,Eyes>>,roleEyes=fit.roleEyes as unknown as Record<string,Partial<Record<HumanDirection,Eyes>>>,headMouths=fit.headMouths as unknown as Partial<Record<HumanDirection,HumanPoint>>,roleMouths=fit.roleMouths as unknown as Record<string,Partial<Record<HumanDirection,HumanPoint>>>
 const heads=Object.fromEntries(Object.entries(headData.heads).map(([role,views])=>[role,Object.fromEntries(Object.entries(views).map(([direction,head])=>[direction,{...head,eyes:roleEyes[role]?.[direction as HumanDirection],mouth:roleMouths[role]?.[direction as HumanDirection]}]))]))as unknown as HumanSpec['heads']
-const originalHumanArt:HumanSpec={...registered,heads,details:detailData as unknown as HumanDetailSpec,base:Object.fromEntries(Object.entries(registered.base).map(([direction,base])=>[direction,{...base,feet:anatomicalFeet[direction as HumanDirection],head:{...base.head,face:facePolygons[direction as HumanDirection],eyes:headEyes[direction as HumanDirection],mouth:headMouths[direction as HumanDirection]}}])) as HumanSpec['base'],pieces:Object.fromEntries(Object.entries(registered.pieces).map(([kind,views])=>[kind,Object.fromEntries(Object.entries(views).map(([direction,source])=>[direction,{...source,...pieceSources[kind as HumanGarmentKind]?.[direction as HumanDirection],...wearPieces[kind as HumanGarmentKind]?.[direction as HumanDirection]}]))]))as HumanSpec['pieces'],replacements:Object.fromEntries(Object.entries(registered.replacements).map(([id,source])=>[id,{...source,...replacementSources[id]}]))}
+const originalHumanArt:HumanSpec={...registered,heads,details:detailData as unknown as HumanDetailSpec,base:Object.fromEntries(Object.entries(registered.base).map(([direction,base])=>[direction,{...base,feet:anatomicalFeet[direction as HumanDirection],head:{...base.head,face:facePolygons[direction as HumanDirection],eyes:headEyes[direction as HumanDirection],mouth:headMouths[direction as HumanDirection]}}])) as HumanSpec['base'],pieces:Object.fromEntries(Object.entries(registered.pieces).map(([kind,views])=>[kind,Object.fromEntries(Object.entries(views).map(([direction,source])=>[direction,{...source,...pieceSources[kind as HumanGarmentKind]?.[direction as HumanDirection],...wearPieces[kind as HumanGarmentKind]?.[direction as HumanDirection]}]))]))as HumanSpec['pieces'],replacements:Object.fromEntries(Object.entries(registered.replacements).map(([id,source])=>[id,{...source,...replacementSources[id],views:directionalProsthetics[id]}]))}
 
 type BreadthFit=Pick<HumanSource,'breadth'|'palmBreadth'|'handTip'|'waistBreadth'>
 const wearBodies=wearFit.models as unknown as Record<string,Record<HumanDirection,{torso:BreadthFit;upper:Record<HumanSide,BreadthFit>;forearm:Record<HumanSide,BreadthFit>}>>

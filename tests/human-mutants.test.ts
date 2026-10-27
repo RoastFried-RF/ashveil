@@ -16,8 +16,8 @@ it('binds nine actual aliases to three distinct living bodies and nine distinct 
  for(const name of variants){const c=m.chars[name],spec=humanWithHead(humanArtFor(c.humanSpec),c.humanHead);expect(c.human).toBe(true);bodies.add(spec.id);heads.add(spec.base.down.head.frame);expect(c.portrait).toBe(spec.base.down.head.frame);expect(c.walk.down.length).toBeGreaterThan(0)}
  expect(bodies.size).toBe(3);expect(heads.size).toBe(9);expect(()=>humanArtFor('unregistered')).toThrow('Unknown registered human body')
 })
-it('requests only selected mutant body PNGs and all its actual head/garment/loss/prosthetic sources',()=>{
- for(const name of variants){const c=m.chars[name],spec=humanArtFor(c.humanSpec),plan=atlasPlan(m,[],[name]);for(const key of humanSpecFrameKeys(spec))expect(plan.sheets).toContain(m.frames[key][0]);for(const other of['shade','withered','spore'])if(other!==c.humanSpec)expect(plan.sheets).not.toContain('av392_mutant_'+other)}
+it('requests selected mutant body/head/garment/loss sources; explicit diagnostics retain every prosthetic original',()=>{
+ for(const name of variants){const c=m.chars[name],spec=humanArtFor(c.humanSpec),plan=atlasPlan(m,[],[name]);for(const key of humanSpecFrameKeys(spec,new Set()))expect(plan.sheets).toContain(m.frames[key][0]);const explicit=atlasPlan(m,humanSpecFrameKeys(spec),[name]);for(const key of humanSpecFrameKeys(spec))expect(explicit.sheets).toContain(m.frames[key][0]);for(const other of['shade','withered','spore'])if(other!==c.humanSpec)expect(plan.sheets).not.toContain('av392_mutant_'+other)}
  for(const kind of['shade','withered','spore'])expect(atlasPlan(m,[],[]).sheets).not.toContain('av392_mutant_'+kind)
 })
 it('keeps all authored head/arm/leg source landmarks inside the actual registered frame and the full-arm ownership split at the elbow',()=>{

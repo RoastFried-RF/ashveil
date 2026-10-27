@@ -19,7 +19,7 @@ const { db, report } = loadDb()
 if (report.errors.length) throw Error(report.errors.join('\n'))
 const body = db.body('Body.Humanoid'), bodyIds = new Set(body.parts.map(part => part.id))
 if (body.kind !== 'humanoid' || humanOwners.some(owner => !bodyIds.has(owner))) throw Error('HumanView/body ownership mismatch')
-const frameKeys = [...new Set(Object.values(humanModels).flatMap(humanSpecFrameKeys))]
+const frameKeys = [...new Set(Object.values(humanModels).flatMap(spec=>humanSpecFrameKeys(spec)))]
 for (const key of frameKeys) if (!manifest.frames[key]) throw Error('Unregistered HumanView source frame: ' + key)
 const garments = Object.keys(spec.wardrobe).map(id => {
   const def = db.item(id), apparel = def.apparel
@@ -35,7 +35,8 @@ if (garments.length !== 25) throw Error('Review the public garment inventory cou
 const prosthetics = Object.keys(spec.replacements).map(id => {
   const def = db.get<ProstheticDef>(id), item = db.item(def.item)
   if (def.targets.some(target => !bodyIds.has(target))) throw Error('Unknown prosthetic installation root: ' + id)
-  return { id, label: def.label, item: item.id, itemLabel: item.label, sprite: item.sprite, targets: [...def.targets], efficiency: def.efficiency, grip: def.grip ?? null, sourceFrame: spec.replacements[id].frame, authoredViews: 1 as const }
+  const source=spec.replacements[id],views=Object.values(source.views??{}),sourceFrames=[...new Set(views.flatMap(view=>[view.whole,view.distal,...Object.values(view.parts)].flatMap(part=>part?[part.frame]:[])))]
+  return { id, label: def.label, item: item.id, itemLabel: item.label, sprite: item.sprite, targets: [...def.targets], efficiency: def.efficiency, grip: def.grip ?? null, sourceFrame: sourceFrames[0]??source.frame,sourceFrames,authoredViews:views.length||1,segmented:views.some(view=>Object.keys(view.parts).length>1) }
 })
 if (prosthetics.length !== 6) throw Error('Review the public prosthetic inventory count: ' + prosthetics.length)
 const preset = (id: string, label: string, ids: string[], lining?: string) => {

@@ -13,8 +13,9 @@ import {prisonerFixture} from './prisoner-fixture'
 import {rigSpecFrameKeys} from '../src/client/render/rig-spec'
 import {humanSpecFrameKeys} from '../src/client/render/human-spec'
 import {humanArtFor} from '../src/client/render/human-art'
+import {makeItem} from '../src/core/items'
 const m=JSON.parse(readFileSync('src/client/sprites.json','utf8'))as AtlasManifest
-function keys(c:AtlasManifest['chars'][string]){if(c.human)return humanSpecFrameKeys(humanArtFor(c.humanSpec));return[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})].flatMap(clip=>clip?Object.values(clip).flat():[])}
+function keys(c:AtlasManifest['chars'][string]){if(c.human)return humanSpecFrameKeys(humanArtFor(c.humanSpec),new Set());return[c.walk,c.idle,c.attack,...Object.values(c.attackVariants??{}),...Object.values(c.motions??{})].flatMap(clip=>clip?Object.values(clip).flat():[])}
 it('keeps all original common terrain/prop/FX sheets while loading every actual phase of only selected body models',()=>{
  const {w,s,p}=prisonerFixture();s.creatures=[p,createCreature(w,'Creature.Surveyor',{x:24,y:20})];const request=worldAssets(w),before=stateHash(s),plan=atlasPlan(m,request.icons,request.characters)
  for(const key of [...mapIconKeys,...terrainArtFrames,...forestArtFrames,...livingArtFrames,...cropArtFrames,...forageArtFrames,'shove','trip','disarm','crouch'])if(m.frames[key])expect(plan.sheets).toContain(m.frames[key][0])
@@ -37,4 +38,20 @@ it('loads all thirty Sower rig originals only when its body is selected, includi
  expect(frames).toHaveLength(30)
  for(const key of frames){expect(selected.sheets).toContain(m.frames[key][0]);expect(common.sheets).not.toContain(m.frames[key][0])}
  for(const dir of ['left','right'] as const){expect(rig.directions[dir].work[3].frame).toBe(rig.directions[dir].work[0].frame);expect(frames).not.toContain('av364_sower_'+dir+'_work_chassis3')}
+})
+it('loads directional prosthetics from actual installed bodies, changes the request on install/remove, and preserves the memory budget',()=>{
+ const {w,s,p}=prisonerFixture();s.creatures=[p]
+ const empty=worldAssets(w),baseline=atlasPlan(m,empty.icons,empty.characters),newSheets=Object.keys(m.sheets).filter(key=>key.startsWith('av394_prosthetic_'))
+ expect(newSheets).toHaveLength(5)
+ for(const sheet of newSheets)expect(baseline.sheets).not.toContain(sheet)
+ expect(baseline.estimatedDecodedBytes).toBeLessThan(300*1024*1024)
+ const item=makeItem(w,'Item.PioneerArm');p.body.prosthetics={LeftForearm:{def:'Prosthetic.PioneerArm',item,installedAt:0,servicedAt:0,powerUntil:10000}}
+ const hash=stateHash(s),installed=worldAssets(w),plan=atlasPlan(m,installed.icons,installed.characters)
+ expect(stateHash(s)).toBe(hash);expect(installed.key).not.toBe(empty.key)
+ expect(plan.sheets.filter(key=>newSheets.includes(key))).toEqual(['av394_prosthetic_pioneer'])
+ expect(installed.icons.filter(key=>key.startsWith('av394_pioneerarm_'))).toHaveLength(8)
+ item.durability=0
+ expect(worldAssets(w).key).toBe(installed.key)
+ delete p.body.prosthetics
+ expect(worldAssets(w).key).toBe(empty.key)
 })

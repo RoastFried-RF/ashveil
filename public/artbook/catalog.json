@@ -1,5 +1,5 @@
 {
-  "version": "0.393-dev",
+  "version": "0.394-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -417,7 +417,12 @@
     "av392_mutant_withered": "sprites/original/direction-v392/mutant-withered-v392.png",
     "av392_mutant_spore": "sprites/original/direction-v392/mutant-spore-v392.png",
     "av392_mutant_heads": "sprites/original/direction-v392/mutant-heads-v392.png",
-    "av392_mutant_spore_heads": "sprites/original/direction-v392/mutant-spore_heads-v392.png"
+    "av392_mutant_spore_heads": "sprites/original/direction-v392/mutant-spore_heads-v392.png",
+    "av394_prosthetic_low": "sprites/original/direction-v394/prosthetic-low-v394.png",
+    "av394_prosthetic_leg": "sprites/original/direction-v394/prosthetic-leg-v394.png",
+    "av394_prosthetic_pioneer": "sprites/original/direction-v394/prosthetic-pioneer-v394.png",
+    "av394_prosthetic_gardener": "sprites/original/direction-v394/prosthetic-gardener-v394.png",
+    "av394_prosthetic_hook": "sprites/original/direction-v394/prosthetic-hook-v394.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -2003,6 +2008,26 @@
     "av392_mutant_spore_heads": [
       1024,
       1536
+    ],
+    "av394_prosthetic_low": [
+      1536,
+      1024
+    ],
+    "av394_prosthetic_leg": [
+      1774,
+      887
+    ],
+    "av394_prosthetic_pioneer": [
+      1536,
+      1024
+    ],
+    "av394_prosthetic_gardener": [
+      1254,
+      1254
+    ],
+    "av394_prosthetic_hook": [
+      2172,
+      724
     ]
   },
   "frames": {
@@ -60924,6 +60949,370 @@
       1134,
       306,
       351
+    ],
+    "av394_peg_down": [
+      "av394_prosthetic_low",
+      146,
+      24,
+      233,
+      380
+    ],
+    "av394_hook_down": [
+      "av394_prosthetic_hook",
+      61,
+      7,
+      373,
+      682
+    ],
+    "av394_glass_eye_down": [
+      "av394_prosthetic_low",
+      148,
+      786,
+      212,
+      211
+    ],
+    "av394_articulatedleg_shin_down": [
+      "av394_prosthetic_leg",
+      169,
+      43,
+      240,
+      534
+    ],
+    "av394_articulatedleg_foot_down": [
+      "av394_prosthetic_leg",
+      207,
+      604,
+      152,
+      232
+    ],
+    "av394_pioneerarm_forearm_down": [
+      "av394_prosthetic_pioneer",
+      156,
+      42,
+      228,
+      496
+    ],
+    "av394_pioneerarm_hand_down": [
+      "av394_prosthetic_pioneer",
+      133,
+      583,
+      251,
+      389
+    ],
+    "av394_gardenerlimb_upperarm_down": [
+      "av394_prosthetic_gardener",
+      169,
+      7,
+      120,
+      195
+    ],
+    "av394_gardenerlimb_forearm_down": [
+      "av394_prosthetic_gardener",
+      183,
+      206,
+      87,
+      210
+    ],
+    "av394_gardenerlimb_hand_down": [
+      "av394_prosthetic_gardener",
+      150,
+      417,
+      151,
+      186
+    ],
+    "av394_gardenerlimb_thigh_down": [
+      "av394_prosthetic_gardener",
+      144,
+      603,
+      143,
+      231
+    ],
+    "av394_gardenerlimb_shin_down": [
+      "av394_prosthetic_gardener",
+      171,
+      834,
+      92,
+      227
+    ],
+    "av394_gardenerlimb_foot_down": [
+      "av394_prosthetic_gardener",
+      162,
+      1068,
+      105,
+      158
+    ],
+    "av394_peg_left": [
+      "av394_prosthetic_low",
+      505,
+      21,
+      195,
+      383
+    ],
+    "av394_hook_left": [
+      "av394_prosthetic_hook",
+      700,
+      4,
+      275,
+      678
+    ],
+    "av394_glass_eye_left": [
+      "av394_prosthetic_low",
+      826,
+      786,
+      213,
+      211
+    ],
+    "av394_articulatedleg_shin_left": [
+      "av394_prosthetic_leg",
+      562,
+      42,
+      251,
+      535
+    ],
+    "av394_articulatedleg_foot_left": [
+      "av394_prosthetic_leg",
+      495,
+      603,
+      316,
+      210
+    ],
+    "av394_pioneerarm_forearm_left": [
+      "av394_prosthetic_pioneer",
+      493,
+      39,
+      219,
+      500
+    ],
+    "av394_pioneerarm_hand_left": [
+      "av394_prosthetic_pioneer",
+      384,
+      575,
+      318,
+      393
+    ],
+    "av394_gardenerlimb_upperarm_left": [
+      "av394_prosthetic_gardener",
+      444,
+      7,
+      113,
+      193
+    ],
+    "av394_gardenerlimb_forearm_left": [
+      "av394_prosthetic_gardener",
+      445,
+      206,
+      106,
+      209
+    ],
+    "av394_gardenerlimb_hand_left": [
+      "av394_prosthetic_gardener",
+      450,
+      417,
+      114,
+      180
+    ],
+    "av394_gardenerlimb_thigh_left": [
+      "av394_prosthetic_gardener",
+      429,
+      603,
+      141,
+      231
+    ],
+    "av394_gardenerlimb_shin_left": [
+      "av394_prosthetic_gardener",
+      450,
+      834,
+      98,
+      230
+    ],
+    "av394_gardenerlimb_foot_left": [
+      "av394_prosthetic_gardener",
+      366,
+      1069,
+      210,
+      140
+    ],
+    "av394_peg_right": [
+      "av394_prosthetic_low",
+      838,
+      21,
+      193,
+      383
+    ],
+    "av394_hook_right": [
+      "av394_prosthetic_hook",
+      1197,
+      3,
+      276,
+      679
+    ],
+    "av394_glass_eye_right": [
+      "av394_prosthetic_low",
+      497,
+      786,
+      214,
+      211
+    ],
+    "av394_articulatedleg_shin_right": [
+      "av394_prosthetic_leg",
+      957,
+      42,
+      253,
+      535
+    ],
+    "av394_articulatedleg_foot_right": [
+      "av394_prosthetic_leg",
+      963,
+      603,
+      311,
+      210
+    ],
+    "av394_pioneerarm_forearm_right": [
+      "av394_prosthetic_pioneer",
+      824,
+      38,
+      218,
+      501
+    ],
+    "av394_pioneerarm_hand_right": [
+      "av394_prosthetic_pioneer",
+      834,
+      575,
+      318,
+      393
+    ],
+    "av394_gardenerlimb_upperarm_right": [
+      "av394_prosthetic_gardener",
+      707,
+      7,
+      106,
+      193
+    ],
+    "av394_gardenerlimb_forearm_right": [
+      "av394_prosthetic_gardener",
+      708,
+      206,
+      105,
+      209
+    ],
+    "av394_gardenerlimb_hand_right": [
+      "av394_prosthetic_gardener",
+      696,
+      417,
+      111,
+      180
+    ],
+    "av394_gardenerlimb_thigh_right": [
+      "av394_prosthetic_gardener",
+      688,
+      603,
+      139,
+      231
+    ],
+    "av394_gardenerlimb_shin_right": [
+      "av394_prosthetic_gardener",
+      711,
+      834,
+      96,
+      230
+    ],
+    "av394_gardenerlimb_foot_right": [
+      "av394_prosthetic_gardener",
+      689,
+      1069,
+      203,
+      140
+    ],
+    "av394_peg_up": [
+      "av394_prosthetic_low",
+      1156,
+      22,
+      234,
+      382
+    ],
+    "av394_hook_up": [
+      "av394_prosthetic_hook",
+      1738,
+      7,
+      372,
+      682
+    ],
+    "av394_glass_eye_up": [
+      "av394_prosthetic_low",
+      1172,
+      785,
+      212,
+      212
+    ],
+    "av394_articulatedleg_shin_up": [
+      "av394_prosthetic_leg",
+      1359,
+      44,
+      249,
+      531
+    ],
+    "av394_articulatedleg_foot_up": [
+      "av394_prosthetic_leg",
+      1407,
+      604,
+      157,
+      218
+    ],
+    "av394_pioneerarm_forearm_up": [
+      "av394_prosthetic_pioneer",
+      1154,
+      38,
+      232,
+      500
+    ],
+    "av394_pioneerarm_hand_up": [
+      "av394_prosthetic_pioneer",
+      1152,
+      584,
+      252,
+      384
+    ],
+    "av394_gardenerlimb_upperarm_up": [
+      "av394_prosthetic_gardener",
+      975,
+      7,
+      117,
+      195
+    ],
+    "av394_gardenerlimb_forearm_up": [
+      "av394_prosthetic_gardener",
+      986,
+      206,
+      92,
+      210
+    ],
+    "av394_gardenerlimb_hand_up": [
+      "av394_prosthetic_gardener",
+      955,
+      417,
+      152,
+      186
+    ],
+    "av394_gardenerlimb_thigh_up": [
+      "av394_prosthetic_gardener",
+      970,
+      605,
+      137,
+      229
+    ],
+    "av394_gardenerlimb_shin_up": [
+      "av394_prosthetic_gardener",
+      990,
+      834,
+      91,
+      230
+    ],
+    "av394_gardenerlimb_foot_up": [
+      "av394_prosthetic_gardener",
+      983,
+      1068,
+      111,
+      155
     ]
   },
   "characters": {
@@ -189505,6 +189894,318 @@
       "label": "av392_mutant_spore1_up_head",
       "kind": "frames",
       "frame": "av392_mutant_spore1_up_head"
+    },
+    {
+      "id": "av394_peg_down",
+      "label": "av394_peg_down",
+      "kind": "frames",
+      "frame": "av394_peg_down"
+    },
+    {
+      "id": "av394_hook_down",
+      "label": "av394_hook_down",
+      "kind": "frames",
+      "frame": "av394_hook_down"
+    },
+    {
+      "id": "av394_glass_eye_down",
+      "label": "av394_glass_eye_down",
+      "kind": "frames",
+      "frame": "av394_glass_eye_down"
+    },
+    {
+      "id": "av394_articulatedleg_shin_down",
+      "label": "av394_articulatedleg_shin_down",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_shin_down"
+    },
+    {
+      "id": "av394_articulatedleg_foot_down",
+      "label": "av394_articulatedleg_foot_down",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_foot_down"
+    },
+    {
+      "id": "av394_pioneerarm_forearm_down",
+      "label": "av394_pioneerarm_forearm_down",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_forearm_down"
+    },
+    {
+      "id": "av394_pioneerarm_hand_down",
+      "label": "av394_pioneerarm_hand_down",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_hand_down"
+    },
+    {
+      "id": "av394_gardenerlimb_upperarm_down",
+      "label": "av394_gardenerlimb_upperarm_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_upperarm_down"
+    },
+    {
+      "id": "av394_gardenerlimb_forearm_down",
+      "label": "av394_gardenerlimb_forearm_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_forearm_down"
+    },
+    {
+      "id": "av394_gardenerlimb_hand_down",
+      "label": "av394_gardenerlimb_hand_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_hand_down"
+    },
+    {
+      "id": "av394_gardenerlimb_thigh_down",
+      "label": "av394_gardenerlimb_thigh_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_thigh_down"
+    },
+    {
+      "id": "av394_gardenerlimb_shin_down",
+      "label": "av394_gardenerlimb_shin_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_shin_down"
+    },
+    {
+      "id": "av394_gardenerlimb_foot_down",
+      "label": "av394_gardenerlimb_foot_down",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_foot_down"
+    },
+    {
+      "id": "av394_peg_left",
+      "label": "av394_peg_left",
+      "kind": "frames",
+      "frame": "av394_peg_left"
+    },
+    {
+      "id": "av394_hook_left",
+      "label": "av394_hook_left",
+      "kind": "frames",
+      "frame": "av394_hook_left"
+    },
+    {
+      "id": "av394_glass_eye_left",
+      "label": "av394_glass_eye_left",
+      "kind": "frames",
+      "frame": "av394_glass_eye_left"
+    },
+    {
+      "id": "av394_articulatedleg_shin_left",
+      "label": "av394_articulatedleg_shin_left",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_shin_left"
+    },
+    {
+      "id": "av394_articulatedleg_foot_left",
+      "label": "av394_articulatedleg_foot_left",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_foot_left"
+    },
+    {
+      "id": "av394_pioneerarm_forearm_left",
+      "label": "av394_pioneerarm_forearm_left",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_forearm_left"
+    },
+    {
+      "id": "av394_pioneerarm_hand_left",
+      "label": "av394_pioneerarm_hand_left",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_hand_left"
+    },
+    {
+      "id": "av394_gardenerlimb_upperarm_left",
+      "label": "av394_gardenerlimb_upperarm_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_upperarm_left"
+    },
+    {
+      "id": "av394_gardenerlimb_forearm_left",
+      "label": "av394_gardenerlimb_forearm_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_forearm_left"
+    },
+    {
+      "id": "av394_gardenerlimb_hand_left",
+      "label": "av394_gardenerlimb_hand_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_hand_left"
+    },
+    {
+      "id": "av394_gardenerlimb_thigh_left",
+      "label": "av394_gardenerlimb_thigh_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_thigh_left"
+    },
+    {
+      "id": "av394_gardenerlimb_shin_left",
+      "label": "av394_gardenerlimb_shin_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_shin_left"
+    },
+    {
+      "id": "av394_gardenerlimb_foot_left",
+      "label": "av394_gardenerlimb_foot_left",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_foot_left"
+    },
+    {
+      "id": "av394_peg_right",
+      "label": "av394_peg_right",
+      "kind": "frames",
+      "frame": "av394_peg_right"
+    },
+    {
+      "id": "av394_hook_right",
+      "label": "av394_hook_right",
+      "kind": "frames",
+      "frame": "av394_hook_right"
+    },
+    {
+      "id": "av394_glass_eye_right",
+      "label": "av394_glass_eye_right",
+      "kind": "frames",
+      "frame": "av394_glass_eye_right"
+    },
+    {
+      "id": "av394_articulatedleg_shin_right",
+      "label": "av394_articulatedleg_shin_right",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_shin_right"
+    },
+    {
+      "id": "av394_articulatedleg_foot_right",
+      "label": "av394_articulatedleg_foot_right",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_foot_right"
+    },
+    {
+      "id": "av394_pioneerarm_forearm_right",
+      "label": "av394_pioneerarm_forearm_right",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_forearm_right"
+    },
+    {
+      "id": "av394_pioneerarm_hand_right",
+      "label": "av394_pioneerarm_hand_right",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_hand_right"
+    },
+    {
+      "id": "av394_gardenerlimb_upperarm_right",
+      "label": "av394_gardenerlimb_upperarm_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_upperarm_right"
+    },
+    {
+      "id": "av394_gardenerlimb_forearm_right",
+      "label": "av394_gardenerlimb_forearm_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_forearm_right"
+    },
+    {
+      "id": "av394_gardenerlimb_hand_right",
+      "label": "av394_gardenerlimb_hand_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_hand_right"
+    },
+    {
+      "id": "av394_gardenerlimb_thigh_right",
+      "label": "av394_gardenerlimb_thigh_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_thigh_right"
+    },
+    {
+      "id": "av394_gardenerlimb_shin_right",
+      "label": "av394_gardenerlimb_shin_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_shin_right"
+    },
+    {
+      "id": "av394_gardenerlimb_foot_right",
+      "label": "av394_gardenerlimb_foot_right",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_foot_right"
+    },
+    {
+      "id": "av394_peg_up",
+      "label": "av394_peg_up",
+      "kind": "frames",
+      "frame": "av394_peg_up"
+    },
+    {
+      "id": "av394_hook_up",
+      "label": "av394_hook_up",
+      "kind": "frames",
+      "frame": "av394_hook_up"
+    },
+    {
+      "id": "av394_glass_eye_up",
+      "label": "av394_glass_eye_up",
+      "kind": "frames",
+      "frame": "av394_glass_eye_up"
+    },
+    {
+      "id": "av394_articulatedleg_shin_up",
+      "label": "av394_articulatedleg_shin_up",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_shin_up"
+    },
+    {
+      "id": "av394_articulatedleg_foot_up",
+      "label": "av394_articulatedleg_foot_up",
+      "kind": "frames",
+      "frame": "av394_articulatedleg_foot_up"
+    },
+    {
+      "id": "av394_pioneerarm_forearm_up",
+      "label": "av394_pioneerarm_forearm_up",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_forearm_up"
+    },
+    {
+      "id": "av394_pioneerarm_hand_up",
+      "label": "av394_pioneerarm_hand_up",
+      "kind": "frames",
+      "frame": "av394_pioneerarm_hand_up"
+    },
+    {
+      "id": "av394_gardenerlimb_upperarm_up",
+      "label": "av394_gardenerlimb_upperarm_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_upperarm_up"
+    },
+    {
+      "id": "av394_gardenerlimb_forearm_up",
+      "label": "av394_gardenerlimb_forearm_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_forearm_up"
+    },
+    {
+      "id": "av394_gardenerlimb_hand_up",
+      "label": "av394_gardenerlimb_hand_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_hand_up"
+    },
+    {
+      "id": "av394_gardenerlimb_thigh_up",
+      "label": "av394_gardenerlimb_thigh_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_thigh_up"
+    },
+    {
+      "id": "av394_gardenerlimb_shin_up",
+      "label": "av394_gardenerlimb_shin_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_shin_up"
+    },
+    {
+      "id": "av394_gardenerlimb_foot_up",
+      "label": "av394_gardenerlimb_foot_up",
+      "kind": "frames",
+      "frame": "av394_gardenerlimb_foot_up"
     }
   ]
 }

@@ -1,8 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업: [v393 보온 판단과 생존 안내](docs/thermal-recovery-v393.md) · [검증·게시 상태](docs/release-v393-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+현재 작업: [v394 방향별 의수족과 실제 관절](docs/prosthetic-views-v394.md) · [검증·게시 상태](docs/release-v394-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
 
-현재 개발 묶음은 **v0.393-dev · 저장219**이다. 불 곁에서도 체온이 떨어질 때의 보온 판단과 현재 옷·날씨·침구에 따른 휴식/수면/몸 풀기 비교를 연결한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v393-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
+현재 개발 묶음은 **v0.394-dev · 저장219**이다. 방향별 의수족6종/52고유 원문 영역과 실제 장착 관절, 설치 Def에 따른 원화 선택 로딩을 연결한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v394-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
