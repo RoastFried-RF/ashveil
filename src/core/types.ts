@@ -1523,6 +1523,7 @@ export interface EconomyDef extends DefBase {
   refusalTurns: number
 }
 export interface TraderStockDef extends DefBase {
+  initialAdditions?:{id:string;items:{item:string;count:number}[]}[]
   defType: 'TraderStock'
   label: string
   money: number
@@ -1732,6 +1733,7 @@ export interface SourceContractRecord extends ContractLedger {kind:'sealSource';
 export interface MapSurveyContract extends ContractLedger {worldSurvey?:{center:Pos;radius:number};worldRecipient?:{paperUid:number;at:number;document:WorldMapDocument};kind:'surveyMap';region:string;mapId:string;distance:number;minReliability:number;minFeatures:number;recipient?:{paperUid:number;at:number;document:MapDocument}}
 export type ContractRecord=ExcavationContractRecord|EscortContractRecord|PatrolContractRecord|SupplyContract|InvestigationContract|MapSurveyContract|BountyContractRecord|SourceContractRecord|RecoveryContractRecord|RescueContractRecord
 export interface SettlementMarket {
+  adoptedStockAdditions?:string[]
   mobile?:boolean
   worldCell?:Pos
   site: string
@@ -1883,7 +1885,7 @@ export interface CartographyDef extends DefBase {worldScouting?:{radius:number;m
 export interface WorldMapDocument {surveyedAt?:number;commission?:string;title:string;author:string;worldSeed:string;w:number;h:number;writtenAt:number;reliability:number;error:number;cartographer:{id:number;name:string;seed:string};cells:{x:number;y:number;seenAt:number;cell:WorldObservation['cell']}[]}
 export interface MapDocument {landmarks?:{x:number;y:number;kind:'water';label:string}[];title:string;author:string;mapId:string;kind:'surface'|'dungeon';depth:number;w:number;h:number;writtenAt:number;reliability:number;error:number;cartographer?:{id:number;name:string;seed:string};commission?:string;surveyedAt?:number;stairs?:{x:number;y:number;label:string}[];rooms:{roomIndex?:number;type?:string;name:string;x:number;y:number;w:number;h:number}[]}
 
-export interface ResearchStep {id:string;label:string;text:string;books?:string[];notes?:string[];disclosure?:string}
+export interface ResearchStep {id:string;label:string;text:string;books?:string[];notes?:string[];dissections?:string[];disclosure?:string}
 export interface ResearchThread {id:string;label:string;steps:ResearchStep[]}
 export interface KnowledgeDef extends DefBase {
   research?:ResearchThread[]

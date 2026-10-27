@@ -403,14 +403,14 @@ onBeforeUnmount(() => {
     <div class="absolute left-3 top-1/2 -translate-y-1/2"><SideBars /></div>
     <div class="game-top-bar pointer-events-none absolute inset-x-3 top-3 flex items-start justify-between gap-3">
       <StatusStrip class="min-w-0" />
-      <div class="game-top-tools pointer-events-auto flex shrink-0 flex-col items-end gap-3">
-        <div class="game-tools flex gap-1.5">
+      <div class="game-top-tools pointer-events-none flex shrink-0 flex-col items-end gap-3">
+        <div class="game-tools pointer-events-auto flex gap-1.5">
           <button class="dbtn" @click="preferencesOpen = true">설정 (F3)</button>
           <button class="dbtn" @click="help = !help">? 조작법</button>
           <button class="dbtn" @click="abandonToTitle">타이틀</button>
         </div>
         <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
-        <div v-if="saveStatus === 'error'" class="df df-celtic max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
+        <div v-if="saveStatus === 'error'" class="df df-celtic pointer-events-auto max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
         <Banners />
         <ExpeditionGuide v-if="!over&&!hover&&!targeting" />
         <HoverInfo v-if="hover" :pos="hover" :detail="shift" />

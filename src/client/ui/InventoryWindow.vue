@@ -300,7 +300,7 @@ function ctx(e:{clientX:number;clientY:number;currentTarget:EventTarget|null},it
 function itemAccess(it:ItemInst,from:Drag['from'],slot?:Slot){return{
  role:'button',tabindex:0,'aria-label':itemLabel(d.value.w,it)+' · Enter: 메뉴','data-inventory-item':it.uid,
  'aria-describedby':'game-tooltip',
- onFocus:(e:FocusEvent)=>{const r=(e.currentTarget as HTMLElement).getBoundingClientRect();tip({clientX:r.right,clientY:r.top},it)},
+ onFocus:(e:FocusEvent)=>{const el=e.currentTarget as HTMLElement;if(!el.matches(':focus-visible'))return;const r=el.getBoundingClientRect();tip({clientX:r.right,clientY:r.top},it)},
  onBlur:hideTip,
  onKeydown:(e:KeyboardEvent)=>{
   if(!['Enter',' ','ContextMenu'].includes(e.key)&&!(e.shiftKey&&e.key==='F10'))return

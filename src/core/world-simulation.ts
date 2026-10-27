@@ -1,7 +1,7 @@
 // 월드 일 단위 인구·저장고·SIR. 지역의 실제 NPC/타일은 진입/06시 장소 변화에서만 바꾼다.
 import { log, player, rng, turnOf, TURNS_PER_DAY, type World } from './ctx'
 import { factionDef } from './diplomacy'
-import { createMarket, economyTick } from './economy'
+import { adoptMarketStockAdditions, createMarket, economyTick } from './economy'
 import { exposeDisease } from './conditions'
 import { towerSoilFertility } from './tower-consequences'
 import { climateDef,calendarAtDay } from './climate-state'
@@ -43,6 +43,7 @@ export function initializeWorldSimulation(w: World) {
     if (existing) for (const it of existing.items) { const unit = def.items[it.def]; if (unit) settlement.reserve[unit.commodity] = Math.max(0, quantize((settlement.reserve[unit.commodity] ?? 0) - it.count * unit.units)) }
     createMarket(w, site, factionDef(w, site.faction!)!.trader!)
   }
+  adoptMarketStockAdditions(w)
 }
 /** 09 검산4의 N은 최초 인구(사망을 포함한 조사 인구)다. S+I+R+사망=N을 보존한다. */
 export function sirDay(p: PopulationState, d: PopulationRates) {

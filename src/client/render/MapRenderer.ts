@@ -248,6 +248,8 @@ export class MapRenderer {
     for(const view of visible){
       const actor=w.s.creatures.find(actor=>actor.id===view.id)
       if(!actor||actor.id!==w.s.playerId&&!this.displayVisible.has(actor.pos.y*w.s.map.w+actor.pos.x))continue
+      // The player never steals a neighboring cell through its tall sprite; its own tile still resolves normally.
+      if(actor.id===w.s.playerId)continue
       if(!view.human?.hit(point)&&!view.culler?.hit(point)&&!view.crawler?.hit(point)&&!view.rig?.hit(point)&&![view.body,...view.hands].some(sprite=>spritePixelHit(sprite,point)))continue
       // An opaque prop drawn in front still owns its visible pixels.
       if(this.objs.children.some(child=>child instanceof Sprite&&child.zIndex>view.root.zIndex&&child.visible&&child.alpha>=.95&&spritePixelHit(child,point)))return null

@@ -46575,6 +46575,186 @@
               "defType"
             ],
             "properties": {
+              "initialAdditions": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "item": {
+                                    "type": "string"
+                                  },
+                                  "count": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "item",
+                                  "count"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "items"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "item": {
+                                        "type": "string"
+                                      },
+                                      "count": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "item",
+                                      "count"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "items"
+                              ]
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "items": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "item": {
+                                        "type": "string"
+                                      },
+                                      "count": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "item",
+                                      "count"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "items"
+                              ]
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "items": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "item": {
+                                            "type": "string"
+                                          },
+                                          "count": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "item",
+                                          "count"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "items"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "defType": {
                 "const": "TraderStock"
               },
@@ -46797,6 +46977,39 @@
               "id"
             ],
             "properties": {
+              "initialAdditions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "item": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "item",
+                          "count"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "items"
+                  ]
+                }
+              },
               "defType": {
                 "const": "TraderStock"
               },
@@ -50173,6 +50386,12 @@
           }
         },
         "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dissections": {
           "type": "array",
           "items": {
             "type": "string"

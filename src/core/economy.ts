@@ -24,7 +24,7 @@ import { capacity } from './body'
 import { cheb } from './geom'
 import { hasLos } from './fov'
 import { hearFactionRelations, hostile, reputation, reputationBand } from './diplomacy'
-import { addToBag, itemDef, makeItem, qualityInfo, storedItems } from './items'
+import { addToBag, itemDef, makeItem, maxStack, qualityInfo, storedItems } from './items'
 import { primaryMaterial } from './materials'
 import { effectiveStat, traitAdd } from './traits'
 import type { Creature, EconomyDef, ItemInst, SettlementMarket, TraderStockDef, WorldSite } from './types'
@@ -48,6 +48,22 @@ export function createMarket(w: World, site: WorldSite, stockId: string): Settle
   if (markets[site.id]) return markets[site.id]
   const stock = w.db.get<TraderStockDef>(stockId), day = dayOf(w)
   return markets[site.id] = { site: site.id, stockDef: stockId, items: stock.entries.flatMap((e) => { const count = withdrawForMarket(w, site.id, e.item, e.target); return count ? [makeMarketItem(w, e.item, count)] : [] }), money: stock.money, day, nextRestock: day + economyDef(w).restockDays }
+}
+/** Explicit content additions run after all original markets exist. Sold books never respawn. */
+export function adoptMarketStockAdditions(w:World){
+  for(const market of Object.values(w.s.overworld?.markets??{})){
+    if(market.mobile)continue
+    const stock=w.db.get<TraderStockDef>(market.stockDef)
+    for(const addition of stock.initialAdditions??[]){
+      const key=stock.id+'/'+addition.id
+      if(market.adoptedStockAdditions?.includes(key))continue
+      for(const row of addition.items){
+        const size=maxStack(w.db.item(row.item))
+        for(let left=row.count;left>0;left-=size)market.items.push(makeMarketItem(w,row.item,Math.min(left,size)))
+      }
+      ;(market.adoptedStockAdditions??=[]).push(key)
+    }
+  }
 }
 export function tradeAccess(w: World, c: Creature, trader: Creature): string | null {
   if (!c.alive || c.unconscious || capacity(w, c, 'consciousness') < .5) return '의식이 또렷해야 이야기할 수 있다'

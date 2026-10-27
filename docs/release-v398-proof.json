@@ -1,0 +1,138 @@
+{
+  "preview": "0.398-dev",
+  "save": 219,
+  "coreGameVersion": "0.1.0",
+  "runtimeSnapshot": "v398-specimens-r4",
+  "status": "Local focused, Native90, five full golden comparisons and fresh paired World30 accepted; final remote Full and publication pending",
+  "focused": {
+    "files": 3,
+    "tests": 26,
+    "failed": 0,
+    "logSHA256": "330792f63488d7e41052d890c3ea509bc72066d6e080e96ae19222a2298f57ad"
+  },
+  "schema": {
+    "files": 177,
+    "errors": 0
+  },
+  "coreChanged": [
+    "types.ts",
+    "research.ts",
+    "defs.ts",
+    "economy.ts",
+    "world-simulation.ts"
+  ],
+  "newContent": {
+    "physicalBooks": 2,
+    "personalResearchConnections": 4,
+    "onceOnlyPapersPerOverworld": 6,
+    "newPNG": 0
+  },
+  "goldens": {
+    "vectors": 5,
+    "allOriginalItemAndCreatureUIDsExact": true,
+    "allOtherInitialFinalWorldFieldsAndCommandErrorsExactExceptDeclaredMetadataAndSixPapers": true,
+    "commandsAndExpectedErrorsUnchanged": true
+  },
+  "pointerFix": {
+    "selfBaselineWholePairs": 4,
+    "selfFinalWholePairs": 8,
+    "ownLogicalTileHoverPreserved": true,
+    "sameNorthTileClick": "wait before, original carcass search after",
+    "tooltipBaselineWholePairs": 3,
+    "tooltipFinalWholePairs": 15,
+    "overlayBaselineWholePairs": 5,
+    "overlayFinalWholePairs": 15,
+    "overlaySameActualPoint": "transparent parent before, canvas and original corpse search after",
+    "settingsHelpGuideControlsPreserved": true,
+    "finalRuntime": "v398-specimens-r4"
+  },
+  "native": {
+    "wholePairs": 90,
+    "finiteInitial": true,
+    "postTitleWorldWrites": false,
+    "fxOnlyNormalized": true,
+    "runs": [
+      {
+        "name": "overlay-after-r2",
+        "wholePairs": 15,
+        "scenes": 3,
+        "auditSHA256": "1d7b39244e723364b41f6725621ff29a64666daa93153158902741e86e789c21",
+        "actualToolSHA256": "7c4943fdda9e9bad875d308c5c934995211423dba63c6e6e1726bcecd9aa9584"
+      },
+      {
+        "name": "menu-after-r3",
+        "wholePairs": 15,
+        "scenes": 3,
+        "auditSHA256": "d75b0c3e35a84f70951d53b234cb75bcb9d931e0d8c77423a1ca6af73a4ad6c7",
+        "actualToolSHA256": "672dfb144a11fc63de6caf344c5543b452e30f7e72f80a3777b902d683599fa7"
+      },
+      {
+        "name": "self-after-r5",
+        "wholePairs": 8,
+        "scenes": 2,
+        "auditSHA256": "ce4f19f8bde42cf298468440992fc9d9d096d604bb0d1ac2b52566c87cfb4ba5",
+        "actualToolSHA256": "251383ce94859ef31b55f5f86000b6031d3e2811f22c4e5bcf7e047fdea3ee72"
+      },
+      {
+        "name": "native-r5",
+        "wholePairs": 52,
+        "scenes": 6,
+        "auditSHA256": "0e159afd7c46e2af8640eb2ac6cefba378c500a8d4aaed962f40492672c55c46",
+        "actualToolSHA256": "a8a43cb7feb49c8cbdcb2de567be406778565c1f22217a0924db735082612afc"
+      }
+    ],
+    "errors": []
+  },
+  "world30": {
+    "runs": 30,
+    "maxDays": 3,
+    "averageDays": 0.9630601851851852,
+    "causes": {
+      "치명상": 14,
+      "과다 출혈": 6,
+      "생존(시간 종료)": 7,
+      "저체온": 3
+    },
+    "allSummaryRowsExact": true,
+    "worldsCompared": 60,
+    "allInitialOldItemAndCreatureUIDsExact": true,
+    "wholeWorldsEqualAfterExplicitMetadataSixPapersThreeMarkersAndFutureStockUIDOffset": true,
+    "declaration": "Only new item type/shape descriptors, two content hashes, six one-time books/three markers, stock nextItemId+6 and subsequent newly allocated stock uid+6. Original initial UIDs unchanged. No general field deletion.",
+    "baselineSummarySHA256": "5217036ddcbed61e5a571b4cc89184bac0a13f7f445d9f2dece89ab71f7bd287",
+    "candidateSummarySHA256": "619988c6ff9d50163065fb6e7c3134f897d5553e3b5267dbbcf5c8f1670c9362",
+    "futureStockUIDFieldsOffsetBySix": 2879,
+    "fullComparisonSHA256": "cf3921e90ac92cf13d626b36111b6f2e40223f8812b79d691b2350e4f8d3ef74",
+    "completeStateRoundTrips": 120,
+    "roundTripSHA256": [
+      "586a1b89754d080a28abf88b354919ac1b87f0b82de80935d11cb6d60c93bb35",
+      "e433a180ef50fc11903fd55c6a7538abb0f4b16d9e912b40f268228de62b5c3e"
+    ]
+  },
+  "finalFull": {
+    "result": "pending"
+  },
+  "scope": "Development preview. Finite initial fixtures are distinct from a natural full journey. No v1, minimum-hardware, 1000-expedition or external human-playtest certification.",
+  "runtimeManifestSHA256": "9f0081dc9a55e21750b321ca6fd3593c49c46d027de72b3c2dbd8e246a4fa2ed",
+  "selectedScreens": [
+    {
+      "file": "rat-390-confirmed.png",
+      "SHA256": "22d2cece2ac8c541c492d224945942cdf9648657074a120fdd9ff7f7a26bc2ee"
+    },
+    {
+      "file": "hound-1366-confirmed.png",
+      "SHA256": "d0f06193fbc6d814122306494baa1845bff4ab2bff6938266786f1c8a9fc4ede"
+    },
+    {
+      "file": "rat-1366-failed.png",
+      "SHA256": "e9e11df5d83adc87e7c6db9b6f9f005b381acde9cc22dd64dc16421c7cdfbbcc"
+    },
+    {
+      "file": "390-map-click.png",
+      "SHA256": "d8fc9da982fee5bb8153fc0e55c519d57009c9bf177d7185f27bc36135ea6368"
+    },
+    {
+      "file": "360-item-menu.png",
+      "SHA256": "83656b7fdb2b84e26f6c629d78e417a4ab0284d1515b555ed6a23d9b6db9e754"
+    }
+  ]
+}

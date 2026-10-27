@@ -1,19 +1,8 @@
-v0.393 thermal recovery — fresh overworld30 seeds × maximum3 days
-{
-  "runs": 30,
-  "maxDays": 3,
-  "workers": 4,
-  "seconds": 776.478301679,
-  "averageDays": 0.9630601851851852,
-  "causes": {
-    "치명상": 14,
-    "과다 출혈": 6,
-    "생존(시간 종료)": 7,
-    "저체온": 3
-  }
-}
-
-Baseline v388: average0.31523032407407403days; 치명상13/과다 출혈4/저체온13; survivor0.
-All30 complete initial worlds exact;13 final worlds change under new bot policy;17 remain exact. All60 retained initial/final saves round-trip and original hashes match.
-Numbers for temperature/clothing/fuel/food and content are unchanged. Remaining hypothermia: sim-9/18/19, all final fatigue100; two below-6000kcal, two100%wet, one fever. Final states do not reconstruct their complete causal history.
-This is automated bot evidence, not human playtests, 1000expeditions or hardware performance measurement. Logs/state JSON stay local under test-results/autonomy-v393/world-r1.
+v0.398-dev paired overworld simulation — 2026-10-27 UTC
+Baseline: immutable v397-publication-r3; candidate: immutable v398-specimens-r4.
+Same sim-0..29, maximum3days, --world --states;30runs per build.
+Average days: 0.963060185185185
+Causes: {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}
+All30 summary rows/metrics exact.60 whole initial/final worlds compared, with only explicitly declared new content metadata, six one-time papers, three market markers and stock UID allocation offset+6. All original initial item/creature UIDs unchanged. Newly allocated later stock UIDs are offset+6; this is not a claim of byte-identical final Worlds.
+Both builds'60 states (120 total) deserialize/serialize and original state hashes exact. Full raw states remain ignored/local. Public summary/SHA: diagnostics/v398/world-summary.json; detailed scope: specimen-research-v398.md.
+No new bot/survival tuning. Baseline profiling and concurrent build work make wall seconds unsuitable as a hardware benchmark. Not the1000-expedition or external human-playtest gate.

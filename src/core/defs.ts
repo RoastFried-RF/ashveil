@@ -1019,6 +1019,25 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       range(stock.id, 'target', e.target, 1, Infinity, true)
       range(stock.id, 'dailyProduction', e.dailyProduction, 0, Infinity, true); range(stock.id, 'dailyConsumption', e.dailyConsumption, 0, Infinity, true)
     }
+    if(stock.initialAdditions!==undefined){
+      if(!Array.isArray(stock.initialAdditions)||stock.initialAdditions.length>32)report.errors.push(`${stock.id}: initialAdditions 배열 오류`)
+      else{
+        const ids=new Set<string>()
+        for(const addition of stock.initialAdditions){
+          if(!isObj(addition)){report.errors.push(`${stock.id}: initialAdditions 구조 오류`);continue}
+          if(typeof addition.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(addition.id)||ids.has(addition.id))report.errors.push(`${stock.id}: initialAdditions id 오류/중복`)
+          ids.add(addition.id)
+          if(!Array.isArray(addition.items)||!addition.items.length||addition.items.length>32){report.errors.push(`${stock.id}: initialAdditions items 배열 오류`);continue}
+          const seen=new Set<string>()
+          for(const row of addition.items){
+            if(!isObj(row)){report.errors.push(`${stock.id}: initialAdditions item 구조 오류`);continue}
+            need(stock.id,row.item,'Item');range(stock.id,'initialAdditions.count',row.count,1,1000,true)
+            if(seen.has(row.item))report.errors.push(`${stock.id}: initialAdditions 중복 물품`)
+            seen.add(row.item)
+          }
+        }
+      }
+    }
   }
   for (const d of db.all<DiseaseDef>('Disease')) if (d.population) {
     for (const key of ['beta', 'gamma', 'mu'] as const) {
@@ -1520,13 +1539,16 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
             if(typeof step.id!=='string'||!/^[a-z][a-z0-9-]{0,63}$/.test(step.id)||steps.has(step.id))report.errors.push(`${d.id}: research step id 오류/중복`)
             steps.add(step.id)
             for(const key of ['label','text']as const)if(typeof step[key]!=='string'||!step[key].trim()||step[key].length>2000)report.errors.push(`${d.id}: research step ${key} 오류`)
-            for(const key of ['books','notes']as const){
+            for(const key of ['books','notes','dissections']as const){
               const values=step[key];if(values===undefined)continue
               if(!Array.isArray(values)||values.length>32||new Set(values).size!==values.length){report.errors.push(`${d.id}: research step ${key} 배열 오류`);continue}
-              for(const id of values)if(key==='books'?!db.tryGet<ItemDef>(id)?.book:!notes.has(id))report.errors.push(`${d.id}: research step ${key} 참조 오류`)
+              for(const id of values){
+                const specimen=key==='dissections'?db.tryGet<BestiaryEntryDef>(id):undefined
+                if(key==='books'?!db.tryGet<ItemDef>(id)?.book:key==='notes'?!notes.has(id):!specimen||specimen.defType!=='BestiaryEntry'||specimen.kind==='unavailable')report.errors.push(`${d.id}: research step ${key} 참조 오류`)
+              }
             }
             if(step.disclosure!==undefined)need(d.id,step.disclosure,'Evidence')
-            if(!step.books?.length&&!step.notes?.length&&!step.disclosure)report.errors.push(`${d.id}: research step 실제 증거 조건 필요`)
+            if(!step.books?.length&&!step.notes?.length&&!step.dissections?.length&&!step.disclosure)report.errors.push(`${d.id}: research step 실제 증거 조건 필요`)
           }
         }
       }

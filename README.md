@@ -1,8 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업: [v397 통신탑의 자동 회신·네 번째 결말·자체 바위 원화](docs/spire-reply-rocks-v397.md) · [검증·게시 상태](docs/release-v397-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+현재 작업: [v398 직접 해부한 표본·문헌의 실마리와 조작 수정](docs/specimen-research-v398.md) · [검증·게시 상태](docs/release-v398-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
 
-현재 개발 묶음은 **v0.397-dev · 저장219**이다. 실물 인가 판을 사용하는 제한된 자동 회신·네 번째 결말과 탐구,여섯 바위 원화,다른 작업의 남은 시간 표시 수정을 연결했다. 기존 세 결말/저장/실물과 채집 규칙을 보존한다. 공개 배포 상태는 [검증·게시 기록](docs/release-v397-proof.json)을 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 개발 묶음은 **v0.398-dev · 저장219**이다. 본인의 성공한 해부와 새 문헌을 연결하고, 기존 시장에 유한 문헌을 한 번 보완한다. 큰 자기 그림의 인접 칸 클릭 가림과 작은 화면의 우클릭 메뉴 실패도 수정했다. 공개 배포 상태는 [검증·게시 기록](docs/release-v398-proof.json)을 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
