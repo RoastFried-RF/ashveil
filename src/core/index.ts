@@ -92,6 +92,7 @@ export * from './overworld'
 
 export * from './journey'
 export * from './marine-state'
+export * from './marine-forecast'
 
 export * from './climate-state'
 

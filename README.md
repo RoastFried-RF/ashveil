@@ -1,10 +1,10 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업: [v394 방향별 의수족과 실제 관절](docs/prosthetic-views-v394.md) · [검증·게시 상태](docs/release-v394-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+현재 작업: [v395 항해 시간과 기록된 항로 예상](docs/sea-routing-v395.md) · [검증·게시 상태](docs/release-v395-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
 
-현재 개발 묶음은 **v0.394-dev · 저장219**이다. 방향별 의수족6종/52고유 원문 영역과 실제 장착 관절, 설치 Def에 따른 원화 선택 로딩을 연결한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v394-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
+현재 개발 묶음은 **v0.395-dev · 저장219**이다. 실제 날씨/역풍 비용에 따른 항해 우회와 기록된 지형·현재 위치 날씨에 한정한 지도 예상을 연결했다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v395-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
 
-실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
+실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
 > 규칙은 투명하게, 세계는 끝없이 낯설게.
 

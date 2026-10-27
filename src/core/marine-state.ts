@@ -5,6 +5,7 @@ import { player, terrainAt, type World } from './ctx'
 import { cheb, type Pos } from './geom'
 import { itemDef } from './items'
 import { worldIndex } from './overworld'
+import {RouteHeap} from './route-heap'
 import type { ItemInst, MapState, RegionLayoutDef, RegionSiteDef, WatercraftConfig } from './types'
 export const boatSceneKey=(p:Pos)=>`@boat.${p.x},${p.y}`
 export function portDock(w:World,pos=w.s.overworld?.position){
@@ -30,20 +31,21 @@ export function seaRoute(w:World,from:Pos,to:Pos):{cells:Pos[];hours:number}|nul
  const m=w.s.overworld,d=watercraft(w);if(!m||!d||[from,to].some(p=>!Number.isInteger(p.x)||!Number.isInteger(p.y)||p.x<0||p.y<0||p.x>=m.w||p.y>=m.h))return null
  const start=worldIndex(m,from),goal=worldIndex(m,to);if(start===goal)return{cells:[],hours:0}
  if(!m.cells[start].sea&&!portDock(w,from)||!m.cells[goal].sea&&!portDock(w,to))return null
- const parents=new Int32Array(m.cells.length).fill(-2),queue=[start];parents[start]=-1
- for(let at=0;at<queue.length;at++){
-  const i=queue[at];if(i===goal)break;const x=i%m.w,y=Math.floor(i/m.w)
-  for(const p of [{x,y:y-1},{x:x-1,y},{x:x+1,y},{x,y:y+1}]){
+ const parents=new Int32Array(m.cells.length).fill(-1),costs=new Array<number>(m.cells.length).fill(Infinity),queue=new RouteHeap()
+ costs[start]=0;queue.push(start,0)
+ while(queue.size){
+  const {id:i,cost}=queue.pop();if(cost!==costs[i])continue
+  if(i===goal){const cells:Pos[]=[];for(let j=goal;j!==start;j=parents[j])cells.push({x:j%m.w,y:Math.floor(j/m.w)});return{cells:cells.reverse(),hours:cost/1200}}
+  const fromCell={x:i%m.w,y:Math.floor(i/m.w)}
+  for(const p of [{x:fromCell.x,y:fromCell.y-1},{x:fromCell.x-1,y:fromCell.y},{x:fromCell.x+1,y:fromCell.y},{x:fromCell.x,y:fromCell.y+1}]){
    if(p.x<0||p.y<0||p.x>=m.w||p.y>=m.h)continue;const j=worldIndex(m,p)
-   if(parents[j]!==-2||!m.cells[j].sea&&j!==goal||!m.cells[i].sea&&!m.cells[j].sea)continue
-   parents[j]=i;queue.push(j)
+   if(!m.cells[j].sea&&j!==goal||!m.cells[i].sea&&!m.cells[j].sea)continue
+   const step=seaSegmentTurns(w,fromCell,p),next=cost+step
+   if(!Number.isFinite(step)||next>=costs[j])continue
+   costs[j]=next;parents[j]=i;queue.push(j,next)
   }
  }
- if(parents[goal]===-2)return null
- const cells:Pos[]=[];for(let i=goal;i!==start;i=parents[i])cells.push({x:i%m.w,y:Math.floor(i/m.w)})
- cells.reverse();let turns=0,previous=from
- for(const p of cells){const cost=seaSegmentTurns(w,previous,p);if(!Number.isFinite(cost))return null;turns+=cost;previous=p}
- return{cells,hours:turns/1200}
+ return null
 }
 export function seaSegmentTurns(w:World,from:Pos,to:Pos):number{
  const d=watercraft(w);if(!d||Math.abs(from.x-to.x)+Math.abs(from.y-to.y)!==1)return Infinity

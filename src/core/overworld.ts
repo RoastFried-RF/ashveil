@@ -1,34 +1,12 @@
 // 월드 지형과 경로. 지역 내부 한 턴의 길이에는 영향을 주지 않는다.
 import { clamp, rng, turnOf, type World } from './ctx'
 import {buildWorldTerritories} from './world-territories'
+import {RouteHeap} from './route-heap'
 import type { Pos } from './geom'
 import type { BiomeDef, OverworldState, RegionSiteDef, WorldCell, WorldGenDef, WorldSite, WorldTower, WorldObservation } from './types'
 
 const CARDINAL = [[0, -1], [-1, 0], [1, 0], [0, 1]] as const
-class Heap {
-  private entries: { id: number; score: number; cost: number }[] = []
-  get size() { return this.entries.length }
-  push(id: number, score: number, cost = score) {
-    const a = this.entries, entry = { id, score, cost }; let i = a.length; a.push(entry)
-    while (i > 0) { const p = (i - 1) >> 1; if (!this.less(entry, a[p])) break; a[i] = a[p]; i = p }
-    a[i] = entry
-  }
-  pop() {
-    const a = this.entries, out = a[0], last = a.pop()!
-    if (a.length) {
-      let i = 0
-      while (i * 2 + 1 < a.length) {
-        let j = i * 2 + 1
-        if (j + 1 < a.length && this.less(a[j + 1], a[j])) j++
-        if (!this.less(a[j], last)) break
-        a[i] = a[j]; i = j
-      }
-      a[i] = last
-    }
-    return out
-  }
-  private less(a: { id: number; score: number }, b: { id: number; score: number }) { return a.score < b.score || a.score === b.score && a.id < b.id }
-}
+
 export const worldGenDef = (w: World) => w.db.get<WorldGenDef>('WorldGen.Hearth')
 export function worldIndex(m: OverworldState, p: Pos): number { return p.y * m.w + p.x }
 export function worldPos(m: OverworldState, i: number): Pos { return { x: i % m.w, y: Math.floor(i / m.w) } }
@@ -72,7 +50,7 @@ function heights(w: World, d: WorldGenDef): number[] {
 /** 우선순위 채움. 같은 높이에서도 부모는 앞서 처리된 칸이라 배수 순환이 없다. */
 export function drainage(width: number, height: number, altitude: number[]) {
   const filled = altitude.slice(), parent = new Array<number>(altitude.length).fill(-1), order = new Array<number>(altitude.length).fill(-1)
-  const seen = new Uint8Array(altitude.length), heap = new Heap()
+  const seen = new Uint8Array(altitude.length), heap = new RouteHeap()
   for (let i = 0; i < altitude.length; i++) if (i < width || i >= width * (height - 1) || i % width === 0 || i % width === width - 1) { seen[i] = 1; heap.push(i, filled[i]) }
   let sequence = 0
   while (heap.size) {
@@ -106,7 +84,7 @@ export function worldRoute(w: World, from: Pos, to: Pos, buildingRoad = false): 
   const d = worldGenDef(w), minimumBiome = Math.min(...w.db.all<BiomeDef>('Biome').map((b) => b.worldTravelMult))
   const minimumStep = buildingRoad ? minimumBiome * .5 : Math.min(d.roadHours, d.offRoadHours * minimumBiome)
   if (m.cells[start].sea || m.cells[goal].sea) return null
-  const costs = new Array<number>(m.cells.length).fill(Infinity), parents = new Int32Array(m.cells.length).fill(-1), heap = new Heap()
+  const costs = new Array<number>(m.cells.length).fill(Infinity), parents = new Int32Array(m.cells.length).fill(-1), heap = new RouteHeap()
   costs[start] = 0; heap.push(start, 0, 0)
   while (heap.size) {
     const { id, cost } = heap.pop()

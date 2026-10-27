@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { allItems,itemDef,metabolicSize,nutritionDef,eq, observedCaravans, observedRoadRaids, player, settlementEntryError, seaRoute, worldIndex, worldRoute, type BiomeDef, type Pos, type RegionSiteDef, type World } from '../../core'
+import { allItems,itemDef,metabolicSize,nutritionDef,eq, observedCaravans, observedRoadRaids, player, settlementEntryError, seaRouteForecast, worldIndex, worldRoute, type BiomeDef, type Pos, type RegionSiteDef, type World } from '../../core'
 import {drinkVolume} from '../../core/wash-water'
 import { simulating, version, world } from '../store'
 import { doAct, hint } from '../ui'
@@ -15,7 +15,7 @@ const m = computed(() => { void version.value; return { ...w.value.s.overworld! 
 const seen = computed(() => new Set(m.value.seen))
 const known = computed(() => m.value.sites.filter((s) => !!w.value.db.tryGet<RegionSiteDef>(s.id) || seen.value.has(worldIndex(m.value, s.cell))))
 const site = computed(() => known.value.find((s) => selected.value && eq(s.cell, selected.value)))
-const route = computed(() => selected.value ? (w.value.s.map.vessel?seaRoute(w.value,m.value.position,selected.value):worldRoute(worldWithKnownTerrain(w.value), m.value.position, selected.value)) : null)
+const route = computed(() => selected.value ? (w.value.s.map.vessel?seaRouteForecast(w.value,m.value.position,selected.value):worldRoute(worldWithKnownTerrain(w.value), m.value.position, selected.value)) : null)
 const here = computed(() => m.value.sites.find((s) => eq(s.cell, m.value.position)))
 const gateError = computed(() => { void version.value; return here.value ? settlementEntryError(w.value, here.value.id) : null })
 const atExit = computed(() => { void version.value; return w.value.s.map.exits.some((p) => eq(p, player(w.value).pos)) })
@@ -105,13 +105,13 @@ watch([version, selected,showTerritories,nearby], () => nextTick(draw))
       <p v-if="cell" class="text-ash-300" data-testid="world-territory">{{ cell.territory?'당시 영향권: '+territoryLabel(cell.territory):'당시 영향권 기록 없음' }}</p>
       <p v-else class="text-ash-400" data-testid="world-unrecorded">지형과 관찰 시각이 남아 있지 않다. 직접 살펴보거나 여행해서 기록하자.</p>
       <p v-for="claim in selectedClaims" :key="claim.claimId" :class="claim.status==='contradicted'||claim.conflict?'text-red-300':claim.origin==='rumor'?'text-amber-200':'text-sky-300'" data-testid="world-map-claim" :data-origin="claim.origin">{{ claim.title }} · {{ w.db.get<BiomeDef>(claim.cell.biome).label }} · 당시 장막{{ claim.cell.veil }}/기온{{ claim.cell.temperature }}°C · 관찰 {{ fmtClock(claim.seenAt) }} · {{ claim.origin==='document'?'작성':'보고 원기록' }} {{ fmtClock(claim.writtenAt) }} · {{ claim.source }}<span v-if="claim.origin==='document'"> · 신뢰도{{ claim.reliability }}/오차±{{ claim.error }}</span> · {{ claim.status==='verified'?'직접 본 기록과 일치':claim.status==='contradicted'?'직접 본 기록과 다름':'미확인 주장' }}{{ claim.conflict?' · 기록끼리 충돌':'' }}</p>
-      <p v-if="route">{{ route.cells.length * 2 }}km · 예상{{ hours(route.hours) }} {{ w.s.map.vessel?'(노 젓기·날씨에 따른 바닷길)':'(당시 관찰/종이 지도 기록으로 예상)' }}</p>
+      <p v-if="route" data-testid="world-route-estimate">{{ route.cells.length * 2 }}km · 예상{{ hours(route.hours) }} {{ w.s.map.vessel?'(기록된 바닷길·현재 이곳 날씨로 예상)':'(당시 관찰/종이 지도 기록으로 예상)' }}</p>
       <section v-if="provision" class="route-provisions" aria-label="여행 보급 예상" data-testid="route-provisions">
         <div class="route-provisions-head"><strong>길을 떠나기 전에</strong><label>여유 <select v-model.number="reserveHours" aria-label="여행 여유 시간"><option :value="0">없음</option><option :value="6">6시간</option><option :value="12">12시간</option><option :value="24">하루</option></select></label></div>
         <div class="route-provision-grid"><div :class="{'is-short':provision.kcal<provision.needKcal}"><span>음식 열량</span><strong>{{ provision.kcal.toLocaleString() }} <small>kcal</small></strong><p>기본 필요 약 {{ provision.needKcal.toLocaleString() }}kcal</p></div><div :class="{'is-short':provision.water<provision.needWater}"><span>지닌 음료</span><strong>{{ provision.water.toLocaleString() }} <small>ml</small></strong><p>기본 필요 약 {{ provision.needWater.toLocaleString() }}ml</p></div></div>
         <p class="route-provision-note">예상 이동+여유 {{ hours(provision.time) }} 기준. 음식의 생식·부패, 물의 수질을 확인하자. 추위·더위·부상·질병은 소모를 늘린다.</p>
       </section>
-      <p v-else class="text-ash-400">{{ w.s.map.vessel?'배로 갈 바닷길과 부두를 확인하자.':'기록된 지형만으로 경로를 예상할 수 없다. 실제로 여행하며 확인할 수 있다.' }}</p>
+      <p v-else class="text-ash-400">{{ w.s.map.vessel?'기록된 바닷길만으로 항로를 예상할 수 없다. 직접 살펴보거나 읽은 해도를 확인하자.':'기록된 지형만으로 경로를 예상할 수 없다. 실제로 여행하며 확인할 수 있다.' }}</p>
       <button v-if="!m.currentRegion && selected && !eq(selected,m.position)" class="dbtn-gold" :disabled="simulating" data-testid="world-travel" @click="travel">{{ w.s.map.vessel?'이곳으로 배 젓기':'이곳으로 걷기' }}</button>
       <button v-if="!m.currentRegion && m.travel && !player(w).activity" class="dbtn" :disabled="simulating" data-testid="resume-world-travel" @click="doAct({ type: 'travel', target: m.travel.destination })">가던 길 계속 ({{ hours(m.travel.totalRemaining / 1200) }})</button>
     </div>
