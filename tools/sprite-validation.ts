@@ -193,6 +193,8 @@ export function validateSpriteAssets(publicRoot:string,manifest:unknown,icons:It
   for(const name of['anchor',...(row.attackAnchor!==undefined?['attackAnchor']:[])]){const anchor=row[name];if(!Array.isArray(anchor)||anchor.length!==2||!anchor.every(n=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1))errors.push('char '+key+'.'+name+': 0~1의 좌표2개가 필요하다')}
   for(const name of['renderScale','headOffset','healthBarWidth'])if(row[name]!==undefined&&(typeof row[name]!=='number'||!Number.isFinite(row[name])||row[name]<=0))errors.push('char '+key+'.'+name+': 양수여야 한다')
   if(row.portrait!==undefined&&(typeof row.portrait!=='string'||!Object.hasOwn(frames,row.portrait)))errors.push('char '+key+'.portrait: 등록된 frame이 필요하다')
+  if(row.human!==undefined&&typeof row.human!=='boolean')errors.push('char '+key+'.human: boolean이 필요하다')
+  if(row.humanSpec!==undefined&&(!row.human||!['human','shade','withered','spore'].includes(String(row.humanSpec))))errors.push('char '+key+'.humanSpec: 등록된 인간 몸이 필요하다')
   if(row.heldItems!==undefined&&typeof row.heldItems!=='boolean')errors.push('char '+key+'.heldItems: boolean이 필요하다')
   if(row.rig!==undefined)rigSpec(row.rig,'char '+key+'.rig')
   if(row.crawler!==undefined){crawlerSpec(row.crawler,'char '+key+'.crawler');if(row.rig!==undefined)errors.push('char '+key+': rig/crawler 두 표시 소유자를 동시에 가질 수 없다')}

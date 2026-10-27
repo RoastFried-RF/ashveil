@@ -39,6 +39,7 @@ try{
   },destination)
   await page.mouse.click(map.x+start.screen.logical.x+7*16*start.zoom,map.y+start.screen.logical.y-6*16*start.zoom-6*start.zoom)
   const samples=await record,end=await sample()
+  writeFileSync(join(out,`${width}-${height}-${speed}-raw-samples.json`),JSON.stringify({samples,end}))
   assert.deepEqual(end.logical,destination);assert.equal(end.moving,false);assert.deepEqual(end.feet,destination)
   let maxStep=0,maxLightError=0,maxQueued=0,movingSamples=0
   for(let i=0;i<samples.length;i++){

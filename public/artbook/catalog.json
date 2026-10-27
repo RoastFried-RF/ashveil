@@ -1,5 +1,5 @@
 {
-  "version": "0.389-dev",
+  "version": "0.392-dev",
   "motionDurations": {
     "idle": 3200,
     "walk": 720,
@@ -410,7 +410,14 @@
     "av389_worn_torso_panels_v1": "sprites/original/direction-v389/worn-torso-panels-v1.png",
     "av389_worn_limb_garments_v1": "sprites/original/direction-v389/worn-limb-garments-v1.png",
     "av389_worn_accessories_v1": "sprites/original/direction-v389/worn-accessories-v1.png",
-    "av389_role_heads_v1": "sprites/original/direction-v389/role-heads-four-facings-v1.png"
+    "av389_role_heads_v1": "sprites/original/direction-v389/role-heads-four-facings-v1.png",
+    "av392_micro": "sprites/original/direction-v392/micro-loss-overlays-v392.png",
+    "av392_feet": "sprites/original/direction-v392/anatomical-feet-v392.png",
+    "av392_mutant_shade": "sprites/original/direction-v392/mutant-shade-v392.png",
+    "av392_mutant_withered": "sprites/original/direction-v392/mutant-withered-v392.png",
+    "av392_mutant_spore": "sprites/original/direction-v392/mutant-spore-v392.png",
+    "av392_mutant_heads": "sprites/original/direction-v392/mutant-heads-v392.png",
+    "av392_mutant_spore_heads": "sprites/original/direction-v392/mutant-spore_heads-v392.png"
   },
   "sheetSizes": {
     "av_direction_terrain_floor_v303": [
@@ -1968,6 +1975,34 @@
     "av389_role_heads_v1": [
       1536,
       1024
+    ],
+    "av392_micro": [
+      1536,
+      1024
+    ],
+    "av392_feet": [
+      1024,
+      1536
+    ],
+    "av392_mutant_shade": [
+      1024,
+      1536
+    ],
+    "av392_mutant_withered": [
+      1024,
+      1536
+    ],
+    "av392_mutant_spore": [
+      1024,
+      1536
+    ],
+    "av392_mutant_heads": [
+      1536,
+      1024
+    ],
+    "av392_mutant_spore_heads": [
+      1024,
+      1536
     ]
   },
   "frames": {
@@ -60049,6 +60084,846 @@
       758,
       188,
       220
+    ],
+    "av392_eye_down": [
+      "av392_micro",
+      68,
+      71,
+      274,
+      255
+    ],
+    "av392_eye_left": [
+      "av392_micro",
+      467,
+      52,
+      236,
+      285
+    ],
+    "av392_eye_right": [
+      "av392_micro",
+      836,
+      51,
+      231,
+      286
+    ],
+    "av392_finger_cap": [
+      "av392_micro",
+      1254,
+      77,
+      215,
+      259
+    ],
+    "av392_nose_down": [
+      "av392_micro",
+      68,
+      400,
+      273,
+      241
+    ],
+    "av392_nose_left": [
+      "av392_micro",
+      483,
+      396,
+      205,
+      254
+    ],
+    "av392_nose_right": [
+      "av392_micro",
+      858,
+      396,
+      206,
+      262
+    ],
+    "av392_ear_cap": [
+      "av392_micro",
+      1250,
+      394,
+      207,
+      258
+    ],
+    "av392_jaw_down": [
+      "av392_micro",
+      42,
+      719,
+      322,
+      220
+    ],
+    "av392_jaw_left": [
+      "av392_micro",
+      445,
+      692,
+      281,
+      238
+    ],
+    "av392_jaw_right": [
+      "av392_micro",
+      836,
+      695,
+      269,
+      237
+    ],
+    "av392_toe_cap": [
+      "av392_micro",
+      1257,
+      699,
+      210,
+      247
+    ],
+    "av392_foot_left_down": [
+      "av392_feet",
+      658,
+      22,
+      182,
+      357
+    ],
+    "av392_foot_right_down": [
+      "av392_feet",
+      185,
+      22,
+      184,
+      358
+    ],
+    "av392_foot_left_left": [
+      "av392_feet",
+      92,
+      420,
+      385,
+      285
+    ],
+    "av392_foot_right_left": [
+      "av392_feet",
+      569,
+      421,
+      393,
+      282
+    ],
+    "av392_foot_left_right": [
+      "av392_feet",
+      105,
+      765,
+      379,
+      276
+    ],
+    "av392_foot_right_right": [
+      "av392_feet",
+      583,
+      759,
+      381,
+      289
+    ],
+    "av392_foot_left_up": [
+      "av392_feet",
+      204,
+      1091,
+      178,
+      312
+    ],
+    "av392_foot_right_up": [
+      "av392_feet",
+      650,
+      1091,
+      177,
+      312
+    ],
+    "av392_mutant_shade_down_torso": [
+      "av392_mutant_shade",
+      181,
+      54,
+      179,
+      292
+    ],
+    "av392_mutant_shade_down_left_arm": [
+      "av392_mutant_shade",
+      399,
+      63,
+      95,
+      298
+    ],
+    "av392_mutant_shade_down_left_leg": [
+      "av392_mutant_shade",
+      714,
+      50,
+      110,
+      316
+    ],
+    "av392_mutant_shade_down_right_arm": [
+      "av392_mutant_shade",
+      566,
+      63,
+      93,
+      298
+    ],
+    "av392_mutant_shade_down_right_leg": [
+      "av392_mutant_shade",
+      877,
+      50,
+      110,
+      316
+    ],
+    "av392_mutant_shade_down_head": [
+      "av392_mutant_shade",
+      30,
+      122,
+      141,
+      185
+    ],
+    "av392_mutant_shade_left_torso": [
+      "av392_mutant_shade",
+      198,
+      756,
+      151,
+      314
+    ],
+    "av392_mutant_shade_left_left_arm": [
+      "av392_mutant_shade",
+      390,
+      405,
+      107,
+      317
+    ],
+    "av392_mutant_shade_left_left_leg": [
+      "av392_mutant_shade",
+      699,
+      398,
+      123,
+      326
+    ],
+    "av392_mutant_shade_left_right_arm": [
+      "av392_mutant_shade",
+      552,
+      405,
+      110,
+      314
+    ],
+    "av392_mutant_shade_left_right_leg": [
+      "av392_mutant_shade",
+      699,
+      398,
+      123,
+      326
+    ],
+    "av392_mutant_shade_left_head": [
+      "av392_mutant_shade",
+      22,
+      466,
+      154,
+      186
+    ],
+    "av392_mutant_shade_right_torso": [
+      "av392_mutant_shade",
+      203,
+      398,
+      149,
+      317
+    ],
+    "av392_mutant_shade_right_left_arm": [
+      "av392_mutant_shade",
+      402,
+      766,
+      92,
+      319
+    ],
+    "av392_mutant_shade_right_left_leg": [
+      "av392_mutant_shade",
+      879,
+      759,
+      138,
+      327
+    ],
+    "av392_mutant_shade_right_right_arm": [
+      "av392_mutant_shade",
+      554,
+      765,
+      94,
+      319
+    ],
+    "av392_mutant_shade_right_right_leg": [
+      "av392_mutant_shade",
+      879,
+      759,
+      138,
+      327
+    ],
+    "av392_mutant_shade_right_head": [
+      "av392_mutant_shade",
+      26,
+      826,
+      151,
+      183
+    ],
+    "av392_mutant_shade_up_torso": [
+      "av392_mutant_shade",
+      182,
+      1119,
+      187,
+      307
+    ],
+    "av392_mutant_shade_up_left_arm": [
+      "av392_mutant_shade",
+      408,
+      1124,
+      96,
+      319
+    ],
+    "av392_mutant_shade_up_left_leg": [
+      "av392_mutant_shade",
+      712,
+      1119,
+      119,
+      339
+    ],
+    "av392_mutant_shade_up_right_arm": [
+      "av392_mutant_shade",
+      554,
+      1124,
+      95,
+      317
+    ],
+    "av392_mutant_shade_up_right_leg": [
+      "av392_mutant_shade",
+      870,
+      1119,
+      119,
+      339
+    ],
+    "av392_mutant_shade_up_head": [
+      "av392_mutant_shade",
+      24,
+      1195,
+      147,
+      182
+    ],
+    "av392_mutant_withered_down_torso": [
+      "av392_mutant_withered",
+      193,
+      45,
+      166,
+      317
+    ],
+    "av392_mutant_withered_down_left_arm": [
+      "av392_mutant_withered",
+      399,
+      44,
+      92,
+      325
+    ],
+    "av392_mutant_withered_down_left_leg": [
+      "av392_mutant_withered",
+      717,
+      38,
+      112,
+      332
+    ],
+    "av392_mutant_withered_down_right_arm": [
+      "av392_mutant_withered",
+      579,
+      42,
+      88,
+      327
+    ],
+    "av392_mutant_withered_down_right_leg": [
+      "av392_mutant_withered",
+      868,
+      37,
+      114,
+      333
+    ],
+    "av392_mutant_withered_down_head": [
+      "av392_mutant_withered",
+      36,
+      112,
+      125,
+      194
+    ],
+    "av392_mutant_withered_left_torso": [
+      "av392_mutant_withered",
+      210,
+      757,
+      141,
+      332
+    ],
+    "av392_mutant_withered_left_left_arm": [
+      "av392_mutant_withered",
+      389,
+      405,
+      106,
+      322
+    ],
+    "av392_mutant_withered_left_left_leg": [
+      "av392_mutant_withered",
+      691,
+      404,
+      134,
+      332
+    ],
+    "av392_mutant_withered_left_right_arm": [
+      "av392_mutant_withered",
+      563,
+      405,
+      105,
+      322
+    ],
+    "av392_mutant_withered_left_right_leg": [
+      "av392_mutant_withered",
+      691,
+      404,
+      134,
+      332
+    ],
+    "av392_mutant_withered_left_head": [
+      "av392_mutant_withered",
+      32,
+      478,
+      140,
+      191
+    ],
+    "av392_mutant_withered_right_torso": [
+      "av392_mutant_withered",
+      213,
+      394,
+      138,
+      335
+    ],
+    "av392_mutant_withered_right_left_arm": [
+      "av392_mutant_withered",
+      411,
+      761,
+      100,
+      325
+    ],
+    "av392_mutant_withered_right_left_leg": [
+      "av392_mutant_withered",
+      879,
+      763,
+      131,
+      328
+    ],
+    "av392_mutant_withered_right_right_arm": [
+      "av392_mutant_withered",
+      548,
+      761,
+      98,
+      325
+    ],
+    "av392_mutant_withered_right_right_leg": [
+      "av392_mutant_withered",
+      879,
+      763,
+      131,
+      328
+    ],
+    "av392_mutant_withered_right_head": [
+      "av392_mutant_withered",
+      34,
+      842,
+      137,
+      180
+    ],
+    "av392_mutant_withered_up_torso": [
+      "av392_mutant_withered",
+      184,
+      1121,
+      187,
+      328
+    ],
+    "av392_mutant_withered_up_left_arm": [
+      "av392_mutant_withered",
+      415,
+      1121,
+      85,
+      336
+    ],
+    "av392_mutant_withered_up_left_leg": [
+      "av392_mutant_withered",
+      712,
+      1123,
+      118,
+      354
+    ],
+    "av392_mutant_withered_up_right_arm": [
+      "av392_mutant_withered",
+      557,
+      1121,
+      86,
+      336
+    ],
+    "av392_mutant_withered_up_right_leg": [
+      "av392_mutant_withered",
+      867,
+      1122,
+      121,
+      354
+    ],
+    "av392_mutant_withered_up_head": [
+      "av392_mutant_withered",
+      32,
+      1196,
+      130,
+      180
+    ],
+    "av392_mutant_spore_down_torso": [
+      "av392_mutant_spore",
+      175,
+      29,
+      204,
+      341
+    ],
+    "av392_mutant_spore_down_left_arm": [
+      "av392_mutant_spore",
+      404,
+      36,
+      92,
+      335
+    ],
+    "av392_mutant_spore_down_left_leg": [
+      "av392_mutant_spore",
+      709,
+      29,
+      124,
+      345
+    ],
+    "av392_mutant_spore_down_right_arm": [
+      "av392_mutant_spore",
+      556,
+      35,
+      100,
+      335
+    ],
+    "av392_mutant_spore_down_right_leg": [
+      "av392_mutant_spore",
+      870,
+      28,
+      125,
+      347
+    ],
+    "av392_mutant_spore_down_head": [
+      "av392_mutant_spore",
+      20,
+      136,
+      155,
+      203
+    ],
+    "av392_mutant_spore_left_torso": [
+      "av392_mutant_spore",
+      202,
+      744,
+      157,
+      348
+    ],
+    "av392_mutant_spore_left_left_arm": [
+      "av392_mutant_spore",
+      390,
+      392,
+      104,
+      338
+    ],
+    "av392_mutant_spore_left_left_leg": [
+      "av392_mutant_spore",
+      718,
+      389,
+      122,
+      340
+    ],
+    "av392_mutant_spore_left_right_arm": [
+      "av392_mutant_spore",
+      557,
+      389,
+      109,
+      340
+    ],
+    "av392_mutant_spore_left_right_leg": [
+      "av392_mutant_spore",
+      718,
+      389,
+      122,
+      340
+    ],
+    "av392_mutant_spore_left_head": [
+      "av392_mutant_spore",
+      18,
+      482,
+      163,
+      202
+    ],
+    "av392_mutant_spore_right_torso": [
+      "av392_mutant_spore",
+      207,
+      381,
+      151,
+      349
+    ],
+    "av392_mutant_spore_right_left_arm": [
+      "av392_mutant_spore",
+      401,
+      752,
+      99,
+      340
+    ],
+    "av392_mutant_spore_right_left_leg": [
+      "av392_mutant_spore",
+      883,
+      748,
+      131,
+      343
+    ],
+    "av392_mutant_spore_right_right_arm": [
+      "av392_mutant_spore",
+      548,
+      748,
+      103,
+      344
+    ],
+    "av392_mutant_spore_right_right_leg": [
+      "av392_mutant_spore",
+      883,
+      748,
+      131,
+      343
+    ],
+    "av392_mutant_spore_right_head": [
+      "av392_mutant_spore",
+      22,
+      835,
+      163,
+      198
+    ],
+    "av392_mutant_spore_up_torso": [
+      "av392_mutant_spore",
+      168,
+      1102,
+      222,
+      352
+    ],
+    "av392_mutant_spore_up_left_arm": [
+      "av392_mutant_spore",
+      411,
+      1108,
+      96,
+      367
+    ],
+    "av392_mutant_spore_up_left_leg": [
+      "av392_mutant_spore",
+      710,
+      1108,
+      124,
+      373
+    ],
+    "av392_mutant_spore_up_right_arm": [
+      "av392_mutant_spore",
+      548,
+      1107,
+      107,
+      368
+    ],
+    "av392_mutant_spore_up_right_leg": [
+      "av392_mutant_spore",
+      867,
+      1108,
+      128,
+      374
+    ],
+    "av392_mutant_spore_up_head": [
+      "av392_mutant_spore",
+      19,
+      1198,
+      150,
+      191
+    ],
+    "av392_mutant_shade0_down_head": [
+      "av392_mutant_heads",
+      30,
+      27,
+      167,
+      233
+    ],
+    "av392_mutant_shade0_left_head": [
+      "av392_mutant_heads",
+      15,
+      271,
+      187,
+      229
+    ],
+    "av392_mutant_shade0_right_head": [
+      "av392_mutant_heads",
+      20,
+      512,
+      189,
+      226
+    ],
+    "av392_mutant_shade0_up_head": [
+      "av392_mutant_heads",
+      28,
+      755,
+      164,
+      219
+    ],
+    "av392_mutant_shade1_down_head": [
+      "av392_mutant_heads",
+      249,
+      11,
+      183,
+      251
+    ],
+    "av392_mutant_shade1_left_head": [
+      "av392_mutant_heads",
+      222,
+      263,
+      224,
+      234
+    ],
+    "av392_mutant_shade1_right_head": [
+      "av392_mutant_heads",
+      222,
+      504,
+      216,
+      230
+    ],
+    "av392_mutant_shade1_up_head": [
+      "av392_mutant_heads",
+      244,
+      741,
+      172,
+      232
+    ],
+    "av392_mutant_shade2_down_head": [
+      "av392_mutant_heads",
+      477,
+      26,
+      164,
+      235
+    ],
+    "av392_mutant_shade2_left_head": [
+      "av392_mutant_heads",
+      464,
+      276,
+      183,
+      224
+    ],
+    "av392_mutant_shade2_right_head": [
+      "av392_mutant_heads",
+      458,
+      520,
+      187,
+      219
+    ],
+    "av392_mutant_shade2_up_head": [
+      "av392_mutant_heads",
+      468,
+      752,
+      168,
+      225
+    ],
+    "av392_mutant_shade_chief_down_head": [
+      "av392_mutant_heads",
+      679,
+      17,
+      183,
+      244
+    ],
+    "av392_mutant_shade_chief_left_head": [
+      "av392_mutant_heads",
+      676,
+      270,
+      190,
+      229
+    ],
+    "av392_mutant_shade_chief_right_head": [
+      "av392_mutant_heads",
+      673,
+      511,
+      196,
+      228
+    ],
+    "av392_mutant_shade_chief_up_head": [
+      "av392_mutant_heads",
+      678,
+      747,
+      182,
+      224
+    ],
+    "av392_mutant_priest_down_head": [
+      "av392_mutant_heads",
+      1342,
+      27,
+      168,
+      235
+    ],
+    "av392_mutant_priest_left_head": [
+      "av392_mutant_heads",
+      1334,
+      271,
+      180,
+      228
+    ],
+    "av392_mutant_priest_right_head": [
+      "av392_mutant_heads",
+      1339,
+      513,
+      180,
+      224
+    ],
+    "av392_mutant_priest_up_head": [
+      "av392_mutant_heads",
+      1345,
+      750,
+      160,
+      222
+    ],
+    "av392_mutant_spore0_down_head": [
+      "av392_mutant_spore_heads",
+      163,
+      31,
+      266,
+      340
+    ],
+    "av392_mutant_spore0_left_head": [
+      "av392_mutant_spore_heads",
+      149,
+      390,
+      295,
+      345
+    ],
+    "av392_mutant_spore0_right_head": [
+      "av392_mutant_spore_heads",
+      155,
+      762,
+      300,
+      337
+    ],
+    "av392_mutant_spore0_up_head": [
+      "av392_mutant_spore_heads",
+      163,
+      1126,
+      278,
+      343
+    ],
+    "av392_mutant_spore1_down_head": [
+      "av392_mutant_spore_heads",
+      584,
+      39,
+      295,
+      346
+    ],
+    "av392_mutant_spore1_left_head": [
+      "av392_mutant_spore_heads",
+      578,
+      396,
+      331,
+      351
+    ],
+    "av392_mutant_spore1_right_head": [
+      "av392_mutant_spore_heads",
+      567,
+      768,
+      327,
+      345
+    ],
+    "av392_mutant_spore1_up_head": [
+      "av392_mutant_spore_heads",
+      581,
+      1134,
+      306,
+      351
     ]
   },
   "characters": {
@@ -62517,7 +63392,13 @@
         "walk": 720,
         "crouchWalk": 1000
       },
-      "human": true
+      "human": true,
+      "humanFrames": {
+        "down": "av381_down_Head",
+        "left": "av381_right_Head",
+        "right": "av381_left_Head",
+        "up": "av381_up_Head"
+      }
     },
     "reaver0": {
       "anchor": [
@@ -64993,7 +65874,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "reaver"
+      "humanHead": "reaver",
+      "humanFrames": {
+        "down": "av389_head_reaver_down",
+        "left": "av389_head_reaver_left",
+        "right": "av389_head_reaver_right",
+        "up": "av389_head_reaver_up"
+      }
     },
     "reaver1": {
       "anchor": [
@@ -67413,7 +68300,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "reaver"
+      "humanHead": "reaver",
+      "humanFrames": {
+        "down": "av389_head_reaver_down",
+        "left": "av389_head_reaver_left",
+        "right": "av389_head_reaver_right",
+        "up": "av389_head_reaver_up"
+      }
     },
     "shade0": {
       "anchor": [
@@ -67423,7 +68316,7 @@
       "renderScale": 0.09213051823416507,
       "heldItems": true,
       "headOffset": 25.6,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_shade0_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -69871,6 +70764,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "shade",
+      "humanHead": "shade0",
+      "humanFrames": {
+        "down": "av392_mutant_shade0_down_head",
+        "left": "av392_mutant_shade0_left_head",
+        "right": "av392_mutant_shade0_right_head",
+        "up": "av392_mutant_shade0_up_head"
       }
     },
     "shade1": {
@@ -69881,7 +70783,7 @@
       "renderScale": 0.09213051823416507,
       "heldItems": true,
       "headOffset": 25.6,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_shade1_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -72329,6 +73231,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "shade",
+      "humanHead": "shade1",
+      "humanFrames": {
+        "down": "av392_mutant_shade1_down_head",
+        "left": "av392_mutant_shade1_left_head",
+        "right": "av392_mutant_shade1_right_head",
+        "up": "av392_mutant_shade1_up_head"
       }
     },
     "shade2": {
@@ -72339,7 +73250,7 @@
       "renderScale": 0.09213051823416507,
       "heldItems": true,
       "headOffset": 25.6,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_shade2_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -74787,6 +75698,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "shade",
+      "humanHead": "shade2",
+      "humanFrames": {
+        "down": "av392_mutant_shade2_down_head",
+        "left": "av392_mutant_shade2_left_head",
+        "right": "av392_mutant_shade2_right_head",
+        "up": "av392_mutant_shade2_up_head"
       }
     },
     "shade_chief": {
@@ -74797,7 +75717,7 @@
       "renderScale": 0.09213051823416507,
       "heldItems": true,
       "headOffset": 25.6,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_shade_chief_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -77245,6 +78165,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "shade",
+      "humanHead": "shade_chief",
+      "humanFrames": {
+        "down": "av392_mutant_shade_chief_down_head",
+        "left": "av392_mutant_shade_chief_left_head",
+        "right": "av392_mutant_shade_chief_right_head",
+        "up": "av392_mutant_shade_chief_up_head"
       }
     },
     "shade3": {
@@ -77255,7 +78184,7 @@
       "renderScale": 0.09213051823416507,
       "heldItems": true,
       "headOffset": 25.6,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_shade_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -79703,6 +80632,14 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "shade",
+      "humanFrames": {
+        "down": "av392_mutant_shade_down_head",
+        "left": "av392_mutant_shade_left_head",
+        "right": "av392_mutant_shade_right_head",
+        "up": "av392_mutant_shade_up_head"
       }
     },
     "withered": {
@@ -79713,7 +80650,7 @@
       "renderScale": 0.11516314779270634,
       "heldItems": true,
       "headOffset": 32,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_withered_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -82161,6 +83098,14 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "withered",
+      "humanFrames": {
+        "down": "av392_mutant_withered_down_head",
+        "left": "av392_mutant_withered_left_head",
+        "right": "av392_mutant_withered_right_head",
+        "up": "av392_mutant_withered_up_head"
       }
     },
     "withered_priest": {
@@ -82171,7 +83116,7 @@
       "renderScale": 0.11516314779270634,
       "heldItems": true,
       "headOffset": 32,
-      "portrait": "av321_portrait_patient",
+      "portrait": "av392_mutant_priest_down_head",
       "walk": {
         "down": [
           "av322_patient_walk_down0",
@@ -84619,6 +85564,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "withered",
+      "humanHead": "priest",
+      "humanFrames": {
+        "down": "av392_mutant_priest_down_head",
+        "left": "av392_mutant_priest_left_head",
+        "right": "av392_mutant_priest_right_head",
+        "up": "av392_mutant_priest_up_head"
       }
     },
     "spore0": {
@@ -84629,7 +85583,7 @@
       "renderScale": 0.14423076923076922,
       "heldItems": true,
       "headOffset": 32,
-      "portrait": "av321_portrait_spore",
+      "portrait": "av392_mutant_spore0_down_head",
       "walk": {
         "down": [
           "av322_spore_walk_down0",
@@ -87077,6 +88031,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "spore",
+      "humanHead": "spore0",
+      "humanFrames": {
+        "down": "av392_mutant_spore0_down_head",
+        "left": "av392_mutant_spore0_left_head",
+        "right": "av392_mutant_spore0_right_head",
+        "up": "av392_mutant_spore0_up_head"
       }
     },
     "spore1": {
@@ -87087,7 +88050,7 @@
       "renderScale": 0.14423076923076922,
       "heldItems": true,
       "headOffset": 32,
-      "portrait": "av321_portrait_spore",
+      "portrait": "av392_mutant_spore1_down_head",
       "walk": {
         "down": [
           "av322_spore_walk_down0",
@@ -89535,6 +90498,15 @@
       "gait": {
         "walk": 720,
         "crouchWalk": 1000
+      },
+      "human": true,
+      "humanSpec": "spore",
+      "humanHead": "spore1",
+      "humanFrames": {
+        "down": "av392_mutant_spore1_down_head",
+        "left": "av392_mutant_spore1_left_head",
+        "right": "av392_mutant_spore1_right_head",
+        "up": "av392_mutant_spore1_up_head"
       }
     },
     "tender_drone": {
@@ -97660,7 +98632,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "worker"
+      "humanHead": "worker",
+      "humanFrames": {
+        "down": "av389_head_worker_down",
+        "left": "av389_head_worker_left",
+        "right": "av389_head_worker_right",
+        "up": "av389_head_worker_up"
+      }
     },
     "resident_healer": {
       "anchor": [
@@ -100128,7 +101106,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "healer"
+      "humanHead": "healer",
+      "humanFrames": {
+        "down": "av389_head_healer_down",
+        "left": "av389_head_healer_left",
+        "right": "av389_head_healer_right",
+        "up": "av389_head_healer_up"
+      }
     },
     "resident_guard": {
       "anchor": [
@@ -102604,7 +103588,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "guard"
+      "humanHead": "guard",
+      "humanFrames": {
+        "down": "av389_head_guard_down",
+        "left": "av389_head_guard_left",
+        "right": "av389_head_guard_right",
+        "up": "av389_head_guard_up"
+      }
     },
     "resident_trader": {
       "anchor": [
@@ -105072,7 +106062,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "trader"
+      "humanHead": "trader",
+      "humanFrames": {
+        "down": "av389_head_trader_down",
+        "left": "av389_head_trader_left",
+        "right": "av389_head_trader_right",
+        "up": "av389_head_trader_up"
+      }
     },
     "original_wanderer_hero": {
       "anchor": [
@@ -107539,7 +108535,13 @@
         "walk": 720,
         "crouchWalk": 1000
       },
-      "human": true
+      "human": true,
+      "humanFrames": {
+        "down": "av381_down_Head",
+        "left": "av381_right_Head",
+        "right": "av381_left_Head",
+        "up": "av381_up_Head"
+      }
     },
     "ash_hound": {
       "anchor": [
@@ -118067,7 +119069,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "reaver"
+      "humanHead": "reaver",
+      "humanFrames": {
+        "down": "av389_head_reaver_down",
+        "left": "av389_head_reaver_left",
+        "right": "av389_head_reaver_right",
+        "up": "av389_head_reaver_up"
+      }
     },
     "complete_reaver_archer": {
       "anchor": [
@@ -120535,7 +121543,13 @@
         "crouchWalk": 1000
       },
       "human": true,
-      "humanHead": "reaver"
+      "humanHead": "reaver",
+      "humanFrames": {
+        "down": "av389_head_reaver_down",
+        "left": "av389_head_reaver_left",
+        "right": "av389_head_reaver_right",
+        "up": "av389_head_reaver_up"
+      }
     },
     "player": {
       "anchor": [
@@ -134200,7 +135214,7 @@
       "id": "hero",
       "label": "정착한 떠돌이",
       "kind": "actors",
-      "frame": "av322_wanderer_idle_down0",
+      "frame": "av381_down_Head",
       "character": "hero",
       "scale": 0.125
     },
@@ -134208,32 +135222,80 @@
       "id": "reaver0",
       "label": "약탈자 · 철모",
       "kind": "actors",
-      "frame": "av322_guard_idle_down0",
+      "frame": "av389_head_reaver_down",
       "character": "reaver0",
       "scale": 0.12062256809338522
-    },
-    {
-      "id": "reaver1",
-      "label": "약탈자 · 비대칭 외투",
-      "kind": "actors",
-      "frame": "av322_reaver_idle_down0",
-      "character": "reaver1",
-      "scale": 0.13135593220338984
     },
     {
       "id": "shade0",
       "label": "그늘 사람 · 짧은 작업복",
       "kind": "actors",
-      "frame": "av322_patient_idle_down0",
+      "frame": "av392_mutant_shade0_down_head",
       "character": "shade0",
       "scale": 0.09213051823416507
+    },
+    {
+      "id": "shade1",
+      "label": "그늘 사람 · 조끼",
+      "kind": "actors",
+      "frame": "av392_mutant_shade1_down_head",
+      "character": "shade1",
+      "scale": 0.09213051823416507
+    },
+    {
+      "id": "shade2",
+      "label": "그늘 사람 · 긴 머리",
+      "kind": "actors",
+      "frame": "av392_mutant_shade2_down_head",
+      "character": "shade2",
+      "scale": 0.09213051823416507
+    },
+    {
+      "id": "shade_chief",
+      "label": "그늘 사람 우두머리",
+      "kind": "actors",
+      "frame": "av392_mutant_shade_chief_down_head",
+      "character": "shade_chief",
+      "scale": 0.09213051823416507
+    },
+    {
+      "id": "shade3",
+      "label": "그늘 사람 · 묶은 머리",
+      "kind": "actors",
+      "frame": "av392_mutant_shade_down_head",
+      "character": "shade3",
+      "scale": 0.09213051823416507
+    },
+    {
+      "id": "withered",
+      "label": "말라붙은 자",
+      "kind": "actors",
+      "frame": "av392_mutant_withered_down_head",
+      "character": "withered",
+      "scale": 0.11516314779270634
+    },
+    {
+      "id": "withered_priest",
+      "label": "말라붙은 사제",
+      "kind": "actors",
+      "frame": "av392_mutant_priest_down_head",
+      "character": "withered_priest",
+      "scale": 0.11516314779270634
     },
     {
       "id": "spore0",
       "label": "감염 순례자 · 어깨 균체",
       "kind": "actors",
-      "frame": "av322_spore_idle_down0",
+      "frame": "av392_mutant_spore0_down_head",
       "character": "spore0",
+      "scale": 0.14423076923076922
+    },
+    {
+      "id": "spore1",
+      "label": "감염 순례자 · 등 균체",
+      "kind": "actors",
+      "frame": "av392_mutant_spore1_down_head",
+      "character": "spore1",
       "scale": 0.14423076923076922
     },
     {
@@ -134256,7 +135318,7 @@
       "id": "resident_worker",
       "label": "주민 · 노동자",
       "kind": "actors",
-      "frame": "av322_worker_idle_down0",
+      "frame": "av389_head_worker_down",
       "character": "resident_worker",
       "scale": 0.1276595744680851
     },
@@ -134264,15 +135326,23 @@
       "id": "resident_healer",
       "label": "주민 · 치료사",
       "kind": "actors",
-      "frame": "av322_healer_idle_down0",
+      "frame": "av389_head_healer_down",
       "character": "resident_healer",
       "scale": 0.1171875
+    },
+    {
+      "id": "resident_guard",
+      "label": "주민 · 경비",
+      "kind": "actors",
+      "frame": "av389_head_guard_down",
+      "character": "resident_guard",
+      "scale": 0.12062256809338522
     },
     {
       "id": "resident_trader",
       "label": "주민 · 상인",
       "kind": "actors",
-      "frame": "av322_trader_idle_down0",
+      "frame": "av389_head_trader_down",
       "character": "resident_trader",
       "scale": 0.125
     },
@@ -134299,6 +135369,22 @@
       "frame": "av322_leech_idle_down0",
       "character": "murk_leech",
       "scale": 0.05090909090909091
+    },
+    {
+      "id": "player",
+      "label": "player",
+      "kind": "actors",
+      "frame": "av322_wanderer_idle_down0",
+      "character": "player",
+      "scale": 0.125
+    },
+    {
+      "id": "reaver2",
+      "label": "reaver2",
+      "kind": "actors",
+      "frame": "av322_guard_idle_down0",
+      "character": "reaver2",
+      "scale": 0.12062256809338522
     },
     {
       "id": "av331_ashhorn_stag",
@@ -134381,27 +135467,75 @@
       "scale": 1
     },
     {
-      "id": "portrait:reaver1",
-      "label": "약탈자 · 비대칭 외투",
-      "kind": "portraits",
-      "frame": "av321_portrait_reaver",
-      "character": "reaver1",
-      "scale": 1
-    },
-    {
       "id": "portrait:shade0",
       "label": "그늘 사람 · 짧은 작업복",
       "kind": "portraits",
-      "frame": "av321_portrait_patient",
+      "frame": "av392_mutant_shade0_down_head",
       "character": "shade0",
+      "scale": 1
+    },
+    {
+      "id": "portrait:shade1",
+      "label": "그늘 사람 · 조끼",
+      "kind": "portraits",
+      "frame": "av392_mutant_shade1_down_head",
+      "character": "shade1",
+      "scale": 1
+    },
+    {
+      "id": "portrait:shade2",
+      "label": "그늘 사람 · 긴 머리",
+      "kind": "portraits",
+      "frame": "av392_mutant_shade2_down_head",
+      "character": "shade2",
+      "scale": 1
+    },
+    {
+      "id": "portrait:shade_chief",
+      "label": "그늘 사람 우두머리",
+      "kind": "portraits",
+      "frame": "av392_mutant_shade_chief_down_head",
+      "character": "shade_chief",
+      "scale": 1
+    },
+    {
+      "id": "portrait:shade3",
+      "label": "그늘 사람 · 묶은 머리",
+      "kind": "portraits",
+      "frame": "av392_mutant_shade_down_head",
+      "character": "shade3",
+      "scale": 1
+    },
+    {
+      "id": "portrait:withered",
+      "label": "말라붙은 자",
+      "kind": "portraits",
+      "frame": "av392_mutant_withered_down_head",
+      "character": "withered",
+      "scale": 1
+    },
+    {
+      "id": "portrait:withered_priest",
+      "label": "말라붙은 사제",
+      "kind": "portraits",
+      "frame": "av392_mutant_priest_down_head",
+      "character": "withered_priest",
       "scale": 1
     },
     {
       "id": "portrait:spore0",
       "label": "감염 순례자 · 어깨 균체",
       "kind": "portraits",
-      "frame": "av321_portrait_spore",
+      "frame": "av392_mutant_spore0_down_head",
       "character": "spore0",
+      "scale": 1
+    },
+    {
+      "id": "portrait:spore1",
+      "label": "감염 순례자 · 등 균체",
+      "kind": "portraits",
+      "frame": "av392_mutant_spore1_down_head",
+      "character": "spore1",
       "scale": 1
     },
     {
@@ -134421,11 +135555,35 @@
       "scale": 1
     },
     {
+      "id": "portrait:resident_guard",
+      "label": "주민 · 경비",
+      "kind": "portraits",
+      "frame": "av321_portrait_guard",
+      "character": "resident_guard",
+      "scale": 1
+    },
+    {
       "id": "portrait:resident_trader",
       "label": "주민 · 상인",
       "kind": "portraits",
       "frame": "av321_portrait_trader",
       "character": "resident_trader",
+      "scale": 1
+    },
+    {
+      "id": "portrait:player",
+      "label": "player",
+      "kind": "portraits",
+      "frame": "av321_portrait_wanderer",
+      "character": "player",
+      "scale": 1
+    },
+    {
+      "id": "portrait:reaver2",
+      "label": "reaver2",
+      "kind": "portraits",
+      "frame": "av321_portrait_guard",
+      "character": "reaver2",
       "scale": 1
     },
     {
@@ -187627,6 +188785,726 @@
       "label": "av389_head_reaver_up",
       "kind": "frames",
       "frame": "av389_head_reaver_up"
+    },
+    {
+      "id": "av392_eye_down",
+      "label": "av392_eye_down",
+      "kind": "frames",
+      "frame": "av392_eye_down"
+    },
+    {
+      "id": "av392_eye_left",
+      "label": "av392_eye_left",
+      "kind": "frames",
+      "frame": "av392_eye_left"
+    },
+    {
+      "id": "av392_eye_right",
+      "label": "av392_eye_right",
+      "kind": "frames",
+      "frame": "av392_eye_right"
+    },
+    {
+      "id": "av392_finger_cap",
+      "label": "av392_finger_cap",
+      "kind": "frames",
+      "frame": "av392_finger_cap"
+    },
+    {
+      "id": "av392_nose_down",
+      "label": "av392_nose_down",
+      "kind": "frames",
+      "frame": "av392_nose_down"
+    },
+    {
+      "id": "av392_nose_left",
+      "label": "av392_nose_left",
+      "kind": "frames",
+      "frame": "av392_nose_left"
+    },
+    {
+      "id": "av392_nose_right",
+      "label": "av392_nose_right",
+      "kind": "frames",
+      "frame": "av392_nose_right"
+    },
+    {
+      "id": "av392_ear_cap",
+      "label": "av392_ear_cap",
+      "kind": "frames",
+      "frame": "av392_ear_cap"
+    },
+    {
+      "id": "av392_jaw_down",
+      "label": "av392_jaw_down",
+      "kind": "frames",
+      "frame": "av392_jaw_down"
+    },
+    {
+      "id": "av392_jaw_left",
+      "label": "av392_jaw_left",
+      "kind": "frames",
+      "frame": "av392_jaw_left"
+    },
+    {
+      "id": "av392_jaw_right",
+      "label": "av392_jaw_right",
+      "kind": "frames",
+      "frame": "av392_jaw_right"
+    },
+    {
+      "id": "av392_toe_cap",
+      "label": "av392_toe_cap",
+      "kind": "frames",
+      "frame": "av392_toe_cap"
+    },
+    {
+      "id": "av392_foot_left_down",
+      "label": "av392_foot_left_down",
+      "kind": "frames",
+      "frame": "av392_foot_left_down"
+    },
+    {
+      "id": "av392_foot_right_down",
+      "label": "av392_foot_right_down",
+      "kind": "frames",
+      "frame": "av392_foot_right_down"
+    },
+    {
+      "id": "av392_foot_left_left",
+      "label": "av392_foot_left_left",
+      "kind": "frames",
+      "frame": "av392_foot_left_left"
+    },
+    {
+      "id": "av392_foot_right_left",
+      "label": "av392_foot_right_left",
+      "kind": "frames",
+      "frame": "av392_foot_right_left"
+    },
+    {
+      "id": "av392_foot_left_right",
+      "label": "av392_foot_left_right",
+      "kind": "frames",
+      "frame": "av392_foot_left_right"
+    },
+    {
+      "id": "av392_foot_right_right",
+      "label": "av392_foot_right_right",
+      "kind": "frames",
+      "frame": "av392_foot_right_right"
+    },
+    {
+      "id": "av392_foot_left_up",
+      "label": "av392_foot_left_up",
+      "kind": "frames",
+      "frame": "av392_foot_left_up"
+    },
+    {
+      "id": "av392_foot_right_up",
+      "label": "av392_foot_right_up",
+      "kind": "frames",
+      "frame": "av392_foot_right_up"
+    },
+    {
+      "id": "av392_mutant_shade_down_torso",
+      "label": "av392_mutant_shade_down_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_torso"
+    },
+    {
+      "id": "av392_mutant_shade_down_left_arm",
+      "label": "av392_mutant_shade_down_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_left_arm"
+    },
+    {
+      "id": "av392_mutant_shade_down_left_leg",
+      "label": "av392_mutant_shade_down_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_left_leg"
+    },
+    {
+      "id": "av392_mutant_shade_down_right_arm",
+      "label": "av392_mutant_shade_down_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_right_arm"
+    },
+    {
+      "id": "av392_mutant_shade_down_right_leg",
+      "label": "av392_mutant_shade_down_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_right_leg"
+    },
+    {
+      "id": "av392_mutant_shade_down_head",
+      "label": "av392_mutant_shade_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_down_head"
+    },
+    {
+      "id": "av392_mutant_shade_left_torso",
+      "label": "av392_mutant_shade_left_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_torso"
+    },
+    {
+      "id": "av392_mutant_shade_left_left_arm",
+      "label": "av392_mutant_shade_left_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_left_arm"
+    },
+    {
+      "id": "av392_mutant_shade_left_left_leg",
+      "label": "av392_mutant_shade_left_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_left_leg"
+    },
+    {
+      "id": "av392_mutant_shade_left_right_arm",
+      "label": "av392_mutant_shade_left_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_right_arm"
+    },
+    {
+      "id": "av392_mutant_shade_left_right_leg",
+      "label": "av392_mutant_shade_left_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_right_leg"
+    },
+    {
+      "id": "av392_mutant_shade_left_head",
+      "label": "av392_mutant_shade_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_left_head"
+    },
+    {
+      "id": "av392_mutant_shade_right_torso",
+      "label": "av392_mutant_shade_right_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_torso"
+    },
+    {
+      "id": "av392_mutant_shade_right_left_arm",
+      "label": "av392_mutant_shade_right_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_left_arm"
+    },
+    {
+      "id": "av392_mutant_shade_right_left_leg",
+      "label": "av392_mutant_shade_right_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_left_leg"
+    },
+    {
+      "id": "av392_mutant_shade_right_right_arm",
+      "label": "av392_mutant_shade_right_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_right_arm"
+    },
+    {
+      "id": "av392_mutant_shade_right_right_leg",
+      "label": "av392_mutant_shade_right_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_right_leg"
+    },
+    {
+      "id": "av392_mutant_shade_right_head",
+      "label": "av392_mutant_shade_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_right_head"
+    },
+    {
+      "id": "av392_mutant_shade_up_torso",
+      "label": "av392_mutant_shade_up_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_torso"
+    },
+    {
+      "id": "av392_mutant_shade_up_left_arm",
+      "label": "av392_mutant_shade_up_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_left_arm"
+    },
+    {
+      "id": "av392_mutant_shade_up_left_leg",
+      "label": "av392_mutant_shade_up_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_left_leg"
+    },
+    {
+      "id": "av392_mutant_shade_up_right_arm",
+      "label": "av392_mutant_shade_up_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_right_arm"
+    },
+    {
+      "id": "av392_mutant_shade_up_right_leg",
+      "label": "av392_mutant_shade_up_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_right_leg"
+    },
+    {
+      "id": "av392_mutant_shade_up_head",
+      "label": "av392_mutant_shade_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_up_head"
+    },
+    {
+      "id": "av392_mutant_withered_down_torso",
+      "label": "av392_mutant_withered_down_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_torso"
+    },
+    {
+      "id": "av392_mutant_withered_down_left_arm",
+      "label": "av392_mutant_withered_down_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_left_arm"
+    },
+    {
+      "id": "av392_mutant_withered_down_left_leg",
+      "label": "av392_mutant_withered_down_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_left_leg"
+    },
+    {
+      "id": "av392_mutant_withered_down_right_arm",
+      "label": "av392_mutant_withered_down_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_right_arm"
+    },
+    {
+      "id": "av392_mutant_withered_down_right_leg",
+      "label": "av392_mutant_withered_down_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_right_leg"
+    },
+    {
+      "id": "av392_mutant_withered_down_head",
+      "label": "av392_mutant_withered_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_down_head"
+    },
+    {
+      "id": "av392_mutant_withered_left_torso",
+      "label": "av392_mutant_withered_left_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_torso"
+    },
+    {
+      "id": "av392_mutant_withered_left_left_arm",
+      "label": "av392_mutant_withered_left_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_left_arm"
+    },
+    {
+      "id": "av392_mutant_withered_left_left_leg",
+      "label": "av392_mutant_withered_left_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_left_leg"
+    },
+    {
+      "id": "av392_mutant_withered_left_right_arm",
+      "label": "av392_mutant_withered_left_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_right_arm"
+    },
+    {
+      "id": "av392_mutant_withered_left_right_leg",
+      "label": "av392_mutant_withered_left_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_right_leg"
+    },
+    {
+      "id": "av392_mutant_withered_left_head",
+      "label": "av392_mutant_withered_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_left_head"
+    },
+    {
+      "id": "av392_mutant_withered_right_torso",
+      "label": "av392_mutant_withered_right_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_torso"
+    },
+    {
+      "id": "av392_mutant_withered_right_left_arm",
+      "label": "av392_mutant_withered_right_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_left_arm"
+    },
+    {
+      "id": "av392_mutant_withered_right_left_leg",
+      "label": "av392_mutant_withered_right_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_left_leg"
+    },
+    {
+      "id": "av392_mutant_withered_right_right_arm",
+      "label": "av392_mutant_withered_right_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_right_arm"
+    },
+    {
+      "id": "av392_mutant_withered_right_right_leg",
+      "label": "av392_mutant_withered_right_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_right_leg"
+    },
+    {
+      "id": "av392_mutant_withered_right_head",
+      "label": "av392_mutant_withered_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_right_head"
+    },
+    {
+      "id": "av392_mutant_withered_up_torso",
+      "label": "av392_mutant_withered_up_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_torso"
+    },
+    {
+      "id": "av392_mutant_withered_up_left_arm",
+      "label": "av392_mutant_withered_up_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_left_arm"
+    },
+    {
+      "id": "av392_mutant_withered_up_left_leg",
+      "label": "av392_mutant_withered_up_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_left_leg"
+    },
+    {
+      "id": "av392_mutant_withered_up_right_arm",
+      "label": "av392_mutant_withered_up_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_right_arm"
+    },
+    {
+      "id": "av392_mutant_withered_up_right_leg",
+      "label": "av392_mutant_withered_up_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_right_leg"
+    },
+    {
+      "id": "av392_mutant_withered_up_head",
+      "label": "av392_mutant_withered_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_withered_up_head"
+    },
+    {
+      "id": "av392_mutant_spore_down_torso",
+      "label": "av392_mutant_spore_down_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_torso"
+    },
+    {
+      "id": "av392_mutant_spore_down_left_arm",
+      "label": "av392_mutant_spore_down_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_left_arm"
+    },
+    {
+      "id": "av392_mutant_spore_down_left_leg",
+      "label": "av392_mutant_spore_down_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_left_leg"
+    },
+    {
+      "id": "av392_mutant_spore_down_right_arm",
+      "label": "av392_mutant_spore_down_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_right_arm"
+    },
+    {
+      "id": "av392_mutant_spore_down_right_leg",
+      "label": "av392_mutant_spore_down_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_right_leg"
+    },
+    {
+      "id": "av392_mutant_spore_down_head",
+      "label": "av392_mutant_spore_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_down_head"
+    },
+    {
+      "id": "av392_mutant_spore_left_torso",
+      "label": "av392_mutant_spore_left_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_torso"
+    },
+    {
+      "id": "av392_mutant_spore_left_left_arm",
+      "label": "av392_mutant_spore_left_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_left_arm"
+    },
+    {
+      "id": "av392_mutant_spore_left_left_leg",
+      "label": "av392_mutant_spore_left_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_left_leg"
+    },
+    {
+      "id": "av392_mutant_spore_left_right_arm",
+      "label": "av392_mutant_spore_left_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_right_arm"
+    },
+    {
+      "id": "av392_mutant_spore_left_right_leg",
+      "label": "av392_mutant_spore_left_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_right_leg"
+    },
+    {
+      "id": "av392_mutant_spore_left_head",
+      "label": "av392_mutant_spore_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_left_head"
+    },
+    {
+      "id": "av392_mutant_spore_right_torso",
+      "label": "av392_mutant_spore_right_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_torso"
+    },
+    {
+      "id": "av392_mutant_spore_right_left_arm",
+      "label": "av392_mutant_spore_right_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_left_arm"
+    },
+    {
+      "id": "av392_mutant_spore_right_left_leg",
+      "label": "av392_mutant_spore_right_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_left_leg"
+    },
+    {
+      "id": "av392_mutant_spore_right_right_arm",
+      "label": "av392_mutant_spore_right_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_right_arm"
+    },
+    {
+      "id": "av392_mutant_spore_right_right_leg",
+      "label": "av392_mutant_spore_right_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_right_leg"
+    },
+    {
+      "id": "av392_mutant_spore_right_head",
+      "label": "av392_mutant_spore_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_right_head"
+    },
+    {
+      "id": "av392_mutant_spore_up_torso",
+      "label": "av392_mutant_spore_up_torso",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_torso"
+    },
+    {
+      "id": "av392_mutant_spore_up_left_arm",
+      "label": "av392_mutant_spore_up_left_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_left_arm"
+    },
+    {
+      "id": "av392_mutant_spore_up_left_leg",
+      "label": "av392_mutant_spore_up_left_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_left_leg"
+    },
+    {
+      "id": "av392_mutant_spore_up_right_arm",
+      "label": "av392_mutant_spore_up_right_arm",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_right_arm"
+    },
+    {
+      "id": "av392_mutant_spore_up_right_leg",
+      "label": "av392_mutant_spore_up_right_leg",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_right_leg"
+    },
+    {
+      "id": "av392_mutant_spore_up_head",
+      "label": "av392_mutant_spore_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore_up_head"
+    },
+    {
+      "id": "av392_mutant_shade0_down_head",
+      "label": "av392_mutant_shade0_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade0_down_head"
+    },
+    {
+      "id": "av392_mutant_shade0_left_head",
+      "label": "av392_mutant_shade0_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade0_left_head"
+    },
+    {
+      "id": "av392_mutant_shade0_right_head",
+      "label": "av392_mutant_shade0_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade0_right_head"
+    },
+    {
+      "id": "av392_mutant_shade0_up_head",
+      "label": "av392_mutant_shade0_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade0_up_head"
+    },
+    {
+      "id": "av392_mutant_shade1_down_head",
+      "label": "av392_mutant_shade1_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade1_down_head"
+    },
+    {
+      "id": "av392_mutant_shade1_left_head",
+      "label": "av392_mutant_shade1_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade1_left_head"
+    },
+    {
+      "id": "av392_mutant_shade1_right_head",
+      "label": "av392_mutant_shade1_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade1_right_head"
+    },
+    {
+      "id": "av392_mutant_shade1_up_head",
+      "label": "av392_mutant_shade1_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade1_up_head"
+    },
+    {
+      "id": "av392_mutant_shade2_down_head",
+      "label": "av392_mutant_shade2_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade2_down_head"
+    },
+    {
+      "id": "av392_mutant_shade2_left_head",
+      "label": "av392_mutant_shade2_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade2_left_head"
+    },
+    {
+      "id": "av392_mutant_shade2_right_head",
+      "label": "av392_mutant_shade2_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade2_right_head"
+    },
+    {
+      "id": "av392_mutant_shade2_up_head",
+      "label": "av392_mutant_shade2_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade2_up_head"
+    },
+    {
+      "id": "av392_mutant_shade_chief_down_head",
+      "label": "av392_mutant_shade_chief_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_chief_down_head"
+    },
+    {
+      "id": "av392_mutant_shade_chief_left_head",
+      "label": "av392_mutant_shade_chief_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_chief_left_head"
+    },
+    {
+      "id": "av392_mutant_shade_chief_right_head",
+      "label": "av392_mutant_shade_chief_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_chief_right_head"
+    },
+    {
+      "id": "av392_mutant_shade_chief_up_head",
+      "label": "av392_mutant_shade_chief_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_shade_chief_up_head"
+    },
+    {
+      "id": "av392_mutant_priest_down_head",
+      "label": "av392_mutant_priest_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_priest_down_head"
+    },
+    {
+      "id": "av392_mutant_priest_left_head",
+      "label": "av392_mutant_priest_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_priest_left_head"
+    },
+    {
+      "id": "av392_mutant_priest_right_head",
+      "label": "av392_mutant_priest_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_priest_right_head"
+    },
+    {
+      "id": "av392_mutant_priest_up_head",
+      "label": "av392_mutant_priest_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_priest_up_head"
+    },
+    {
+      "id": "av392_mutant_spore0_down_head",
+      "label": "av392_mutant_spore0_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore0_down_head"
+    },
+    {
+      "id": "av392_mutant_spore0_left_head",
+      "label": "av392_mutant_spore0_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore0_left_head"
+    },
+    {
+      "id": "av392_mutant_spore0_right_head",
+      "label": "av392_mutant_spore0_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore0_right_head"
+    },
+    {
+      "id": "av392_mutant_spore0_up_head",
+      "label": "av392_mutant_spore0_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore0_up_head"
+    },
+    {
+      "id": "av392_mutant_spore1_down_head",
+      "label": "av392_mutant_spore1_down_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore1_down_head"
+    },
+    {
+      "id": "av392_mutant_spore1_left_head",
+      "label": "av392_mutant_spore1_left_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore1_left_head"
+    },
+    {
+      "id": "av392_mutant_spore1_right_head",
+      "label": "av392_mutant_spore1_right_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore1_right_head"
+    },
+    {
+      "id": "av392_mutant_spore1_up_head",
+      "label": "av392_mutant_spore1_up_head",
+      "kind": "frames",
+      "frame": "av392_mutant_spore1_up_head"
     }
   ]
 }

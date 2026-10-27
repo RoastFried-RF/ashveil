@@ -1189,12 +1189,14 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       if(slot&&itemDef(w,c.equip[slot]!).apparel)return perform(w,c,{type:'unequip',slot,dropAfter:true})
       // 떨구기 = 자유 행동 (0턴, 턴당 1회)
       if (c.freeActTurn === turn) return FAIL('자유 행동은 턴당 한 번')
+      const before=slot?equipmentSnapshot(c):undefined
       const it = removeStack(c, a.uid)
       if (!it) return FAIL('없다')
       if(w.s.loot?.kind==='bag'&&w.s.loot.id===it.uid)w.s.loot=undefined
       c.freeActTurn = turn
       dropFragile(w,c,it,c.pos)
       tileAt(w, c.pos).items.push(it)
+      if(before)runEquipmentWorkers(w,c,before)
       return FREE
     }
 
@@ -1663,16 +1665,19 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
       return { ok: true, tu: 100 }
     }
     case 'throw': {
+      // Reject before splitting a stack, removing equipment or changing any grid/UID.
+      if (!Number.isSafeInteger(a.target.x) || !Number.isSafeInteger(a.target.y) || !inBounds(w, a.target) || cheb(c.pos, a.target) > 6 || !hasLos(w, c.pos, a.target)) return FAIL('너무 멀거나 보이지 않는다')
+      const slot=(Object.keys(c.equip)as Slot[]).find(slot=>c.equip[slot]?.uid===a.uid)
+      if(slot&&itemDef(w,c.equip[slot]!).apparel)return FAIL('장비를 먼저 벗어야 던질 수 있다')
+      const before=slot?equipmentSnapshot(c):undefined
       const it = removeOne(w, c, a.uid)
       if (!it) return FAIL('없다')
-      if (cheb(c.pos, a.target) > 6 || !hasLos(w, c.pos, a.target)) {
-        addToInventory(w, c, it)
-        return FAIL('너무 멀거나 보이지 않는다')
-      }
+      if(w.s.loot?.kind==='bag'&&w.s.loot.id===it.uid)w.s.loot=undefined
       const t = inBounds(w, a.target) && terrainAt(w, a.target).passable ? a.target : c.pos
       tileAt(w, t).items.push(it)
       emitNoise(w, t, 3, c.id)
       if (isPl(c)) log(w, 'info', `${itemDef(w, it).label}을(를) 던졌다.`)
+      if(before)runEquipmentWorkers(w,c,before)
       return { ok: true, tu: 100 }
     }
 

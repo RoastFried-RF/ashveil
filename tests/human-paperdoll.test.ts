@@ -1,7 +1,7 @@
 import {describe,it,expect} from 'vitest'
 import manifest from '../src/client/sprites.json'
 import {humanArt} from '../src/client/render/human-art'
-import {humanDirections,humanOwners,humanSpecFrameKeys,humanEndpointOwner,humanWithHead,humanProfileNearSide} from '../src/client/render/human-spec'
+import {humanDirections,humanOwners,humanSpecFrameKeys,humanEndpointOwner,humanWithHead,humanProfileNearSide,humanFootSource} from '../src/client/render/human-spec'
 import {HumanGait} from '../src/client/render/human-gait'
 import {hAt,hPinMount,humanPose,hSoleMatrix,hTransform,hpLength,hpSub,hHalfPlane,hpMix} from '../src/client/render/human-model'
 import {humanSurfaceState} from '../src/client/render/human-state'
@@ -46,7 +46,7 @@ describe('실제 인체/의복 원본과 표현 소유',()=>{
   const gait=new HumanGait();let maxError=0
   for(let i=0;i<800;i++){
    const direction=humanDirections[Math.floor(i/200)],root=[i*.09,i*.07]as[number,number],step=gait.update({root:{x:root[0],y:root[1]},facing:direction,moving:true,instant:false,dtMs:16}),base=humanArt.base[direction],pose=humanPose(base,{direction,root,mode:'walk',phase:(i%100)/100,stride:i*.006,moving:true,crouched:false,prone:false,alive:true,fall:0},{left:step.left,right:step.right})
-   for(const side of ['left','right']as const){const foot=step[side];if(!foot.contact)continue;const sole=hTransform(pose.bones[(side==='left'?'Left':'Right')+'Foot'].matrix,base.foot.b);maxError=Math.max(maxError,Math.hypot(sole[0]+root[0]-foot.x,sole[1]+root[1]-foot.y))}
+   for(const side of ['left','right']as const){const foot=step[side];if(!foot.contact)continue;const sole=hTransform(pose.bones[(side==='left'?'Left':'Right')+'Foot'].matrix,humanFootSource(base,side).b);maxError=Math.max(maxError,Math.hypot(sole[0]+root[0]-foot.x,sole[1]+root[1]-foot.y))}
   }
   expect(maxError).toBeLessThan(1e-9)
  })

@@ -2,12 +2,12 @@
 import { Application, Container, Graphics } from 'pixi.js'
 import { HumanView } from '../../src/client/render/human-view'
 import { loadAtlas, releaseAtlas, atlasStats } from '../../src/client/render/atlas'
-import { humanDirections, humanOwners, humanSpecFrameKeys, type HumanDirection, type HumanSpec } from '../../src/client/render/human-spec'
+import { humanDirections, humanVisibleOwners, humanSpecFrameKeys, type HumanDirection, type HumanSpec } from '../../src/client/render/human-spec'
 import {WALK_STEP_MS} from '../../src/client/render/walk-motion'
 import { motionDurations, type MotionName } from '../../src/client/render/character-motion'
 import type { HumanSurface, HumanClothingState } from '../../src/client/render/human-state'
 import type { Slot } from '../../src/core/types'
-import {humanArt} from '../../src/client/render/human-art'
+import {humanArt,humanArtFor,humanModels} from '../../src/client/render/human-art'
 
 export interface HumanPreviewGarment {
   id: string; label: string; slot: Slot; sprite: string
@@ -37,7 +37,7 @@ const value = (id: string) => select(id).value
 const checked = (id: string) => input(id).checked
 const finiteValue = (id: string) => { const n = Number(input(id).value); return Number.isFinite(n) ? n : 0 }
 const option = (id: string, label: string) => { const node = document.createElement('option'); node.value = id; node.textContent = label; return node }
-const spec:HumanSpec = humanArt
+let spec:HumanSpec = humanArt
 const modes: readonly [MotionName, string][] = [
   ['idle', '대기'], ['walk', '걷기'], ['attack', '공격'], ['block', '막기'], ['work', '작업'], ['use', '사용'], ['shoot', '사격'], ['throw', '투척'], ['crouchDown', '웅크리기'], ['crouchWalk', '웅크려 걷기'], ['stand', '일어서기'], ['hurt', '피격 반응'], ['fall', '넘어짐'], ['sleep', '수면'], ['rise', '몸 일으키기'], ['interact', '상호작용'],
 ]
@@ -82,13 +82,13 @@ function descendant(owner: string, ancestor: string): boolean {
 function rebuildSurface() {
   if (!catalog) return
   warnings = []
-  const missing = value('missing'), replacement = catalog.prosthetics.find(p => p.id === value('replacement'))
-  const installRoot = value('replacement-root'), invalidMount = !!replacement && !!missing && missing !== installRoot && descendant(installRoot, missing)
+  const missing = value('missing'), missingRoots=[missing,...[...select('missing-extra').selectedOptions].map(option=>option.value)].filter(Boolean),replacement = catalog.prosthetics.find(p => p.id === value('replacement'))
+  const installRoot = value('replacement-root'), invalidMount = !!replacement && missingRoots.some(root=>root!==installRoot&&descendant(installRoot,root))
   if (invalidMount) warnings.push('선택한 의수족 설치 뿌리의 상위가 결손입니다. 이 합성 조합에서는 의수족을 표시하지 않습니다.')
   const parts: HumanSurface['parts'] = {}, durability = finiteValue('durability'), damage = finiteValue('damage') / 100
-  for (const id of humanOwners) {
+  for (const id of humanVisibleOwners) {
     const replaced = !!replacement && !invalidMount && descendant(id, installRoot)
-    const lost = descendant(id, missing) || replaced
+    const lost = missingRoots.some(root=>descendant(id,root)) || replaced
     parts[id] = { id, flesh: !lost, present: !lost || replaced, damage, efficiency: replaced ? checked('replacement-zero') ? 0 : replacement!.efficiency : lost ? 0 : 1,
       ...(replaced ? { replacement: { root: installRoot, def: replacement!.id, uid: 900001, sprite: replacement!.sprite, durability, efficiency: checked('replacement-zero') ? 0 : replacement!.efficiency } } : {}) }
   }
@@ -141,16 +141,17 @@ function replacementOptions() {
   if (replacement) for (const id of replacement.targets) control.append(option(id, catalog!.body.parts.find(p => p.id === id)?.label + ' · ' + id))
 }
 
+function populateHeads(){const labels:Record<string,string>={worker:'주민',healer:'치료사',trader:'상인',guard:'경비',reaver:'약탈자',shade0:'짧은 머리',shade1:'묶은 머리',shade2:'땋은 머리',shade_chief:'우두머리',priest:'늙은 사제',spore0:'짧은 머리 감염자',spore1:'긴 머리 감염자'};select('head').replaceChildren(option('','기본 얼굴'));for(const role of Object.keys(spec.heads??{}))select('head').append(option(role,labels[role]??role))}
+function replaceViews(reason:string){views=views.map((view,index)=>{view.destroy();const next=new HumanView(spec,value('head')||undefined);scenes[index].content.addChild(next.root);next.sync(surface??undefined);return next});resetViews(reason);draw()}
 function populate() {
   const data = catalog!
   element('disclosure').textContent = data.disclosure
-  const headLabels:Record<string,string>={worker:'주민',healer:'치료사',trader:'상인',guard:'경비',reaver:'약탈자'}
-  for(const role of Object.keys(spec.heads??{}))select('head').append(option(role,headLabels[role]??role))
+  populateHeads()
   for (const [id, label] of modes) select('motion').append(option(id, label))
   for (const preset of data.presets) select('preset').append(option(preset.id, preset.label))
   select('preset').append(option('custom', '개별 선택'))
   for (const id of data.liningCandidates) select('lining').append(option(id, data.garments.find(g => g.id === id)!.label))
-  for (const owner of humanOwners) select('missing').append(option(owner, (data.body.parts.find(p => p.id === owner)?.label ?? owner) + ' · ' + owner))
+  for (const owner of humanVisibleOwners)for(const id of['missing','missing-extra'])select(id).append(option(owner, (data.body.parts.find(p => p.id === owner)?.label ?? owner) + ' · ' + owner))
   for (const replacement of data.prosthetics) select('replacement').append(option(replacement.id, replacement.label))
   for (const garment of data.garments) {
     const label = document.createElement('label'), box = document.createElement('input'), text = document.createElement('span'), detail = document.createElement('small')
@@ -169,12 +170,13 @@ function populate() {
     })
   }
   for (const text of data.limits) { const p = document.createElement('p'); p.textContent = text; element('limits').append(p) }
-  const hashes = document.createElement('p'); hashes.textContent = '등록 spec: ' + data.specId + ' · 원본 ' + data.frameKeys.length + '영역 · export spec SHA256 ' + data.sourceHashes.spec
+  const hashes = document.createElement('p'); hashes.textContent = '등록 spec: ' + data.specId + ' · 원문 frame key ' + data.frameKeys.length + '개 · export spec SHA256 ' + data.sourceHashes.spec
   element('limits').append(hashes)
 }
 
 function bind() {
-  select('head').addEventListener('change',()=>{views=views.map((view,index)=>{view.destroy();const next=new HumanView(spec,value('head')||undefined);scenes[index].content.addChild(next.root);next.sync(surface??undefined);return next});resetViews('head role');draw()})
+  select('head').addEventListener('change',()=>replaceViews('head role'))
+  select('body').addEventListener('change',()=>{spec=humanArtFor(value('body'));populateHeads();replaceViews('body model')})
   element('play').addEventListener('click', () => { playing = !playing; last = null; element('play').textContent = playing ? '표현 정지' : '표현 재생' })
   element('step').addEventListener('click', () => { playing = false; element('play').textContent = '표현 재생'; advance(100 * Number(value('speed'))); draw() })
   element('reset').addEventListener('click', () => { resetViews('manual reset', true); draw() })
@@ -189,7 +191,7 @@ function bind() {
     resetViews('manual pose phase'); draw()
   })
   select('replacement').addEventListener('change', () => { replacementOptions(); rebuildSurface(); resetViews('prosthetic source'); draw() })
-  for (const id of ['lining', 'condition-target', 'durability', 'half', 'progress', 'damage', 'missing', 'replacement-root', 'replacement-zero']) {
+  for (const id of ['lining', 'condition-target', 'durability', 'half', 'progress', 'damage', 'missing','missing-extra', 'replacement-root', 'replacement-zero']) {
     element(id).addEventListener(id === 'durability' || id === 'damage' ? 'input' : 'change', () => { selectedConditionOptions(); rebuildSurface(); resetViews('synthetic surface'); draw() })
   }
   for (const id of ['scale', 'guides', 'targets', 'left-x', 'left-y', 'right-x', 'right-y']) element(id).addEventListener('change', () => draw())
@@ -213,6 +215,8 @@ function advance(dtMs: number) {
 
 function draw(dtMs = 0) {
   if (!ready || !app || !surface) return
+  const zoom=Number(value('scale')),stage=element('stage'),stageHeight=zoom>4?40*zoom+96:300;stage.style.height=stageHeight+'px'
+  if(app.screen.width!==stage.clientWidth||app.screen.height!==stageHeight)app.renderer.resize(stage.clientWidth,stageHeight)
   const direction = value('direction') as HumanDirection, mode = value('motion') as MotionName
   const moving = mode === 'walk' || mode === 'crouchWalk'
   const prone = mode === 'fall' || mode === 'sleep' || mode === 'rise' && phase < 1
@@ -223,8 +227,8 @@ function draw(dtMs = 0) {
     view.prepare({ direction, root, mode, phase, stride, moving, crouched: mode === 'crouchWalk', prone, alive: true, fall, dtMs, instant: pendingInstant || checked('instant'), tint: 0xffffff, alpha: 1, unknown: false })
     if (checked('targets')) for (const side of ['left', 'right'] as const) if (view.usable(side)) view.handTarget(side, [finiteValue(side + '-x'), finiteValue(side + '-y')])
     view.render()
-    const scene = scenes[index], scale = native[index]
-    scene.root.visible = all || Number(value('scale')) === scale
+    const scene = scenes[index], scale = zoom>4?zoom:native[index]
+    scene.root.visible = all || (zoom>4?index===2:zoom===scale)
     if (!scene.root.visible) return
     const span = all ? width / 3 : width, start = all ? index * span : 0
     scene.root.position.set(start, 0)
@@ -271,7 +275,7 @@ function observe() {
     diagnosticOnly: true, syntheticUIDs: true, coreWorldCreated: false, wholeStateEvidence: false, ready, errors: [...errors],
     spec: spec.id, catalogRevision: catalog?.revision ?? null, exportedSourceHashes: catalog?.sourceHashes ?? null,
     catalog: catalog ? { body: catalog.body, garments: catalog.garments, prosthetics: catalog.prosthetics, liningCandidates: catalog.liningCandidates } : null,
-    controls: { playing, speed: Number(value('speed')), direction: value('direction'), head:value('head'), mode: value('motion'), phase, stride, root: [...root], scale: value('scale'), selected: [...selected], lining: value('lining'), missing: value('missing'), replacement: value('replacement'), replacementRoot: value('replacement-root'), half: checked('half'), progress: value('progress'), durability: finiteValue('durability'), damage: finiteValue('damage'), replacementZero: checked('replacement-zero'), handTargets: checked('targets'), instant: checked('instant') },
+    controls: { body:value('body'),playing, speed: Number(value('speed')), direction: value('direction'), head:value('head'), mode: value('motion'), phase, stride, root: [...root], scale: value('scale'), selected: [...selected], lining: value('lining'), missing: value('missing'), missingExtra:[...select('missing-extra').selectedOptions].map(option=>option.value), replacement: value('replacement'), replacementRoot: value('replacement-root'), half: checked('half'), progress: value('progress'), durability: finiteValue('durability'), damage: finiteValue('damage'), replacementZero: checked('replacement-zero'), handTargets: checked('targets'), instant: checked('instant') },
     frames, resetReason, warnings: [...warnings], surface, atlas: atlasStats(), views: views.map(view => view.inspect()),
     sourceFramesAreNotAuthoredActionFrames: true,
   }
@@ -290,15 +294,16 @@ async function start() {
   const response = await fetch(new URL('artbook/human/catalog.json', siteRoot))
   if (!response.ok) throw Error('정의 목록이 없습니다. export-human-preview-v389.ts를 빌드 전에 실행해야 합니다. HTTP' + response.status)
   catalog = await response.json() as HumanPreviewCatalog
-  const actualKeys = humanSpecFrameKeys(spec)
+  const actualKeys = [...new Set(Object.values(humanModels).flatMap(humanSpecFrameKeys))]
   if (catalog.format !== 1 || catalog.specId !== spec.id || catalog.garments.length !== 25 || catalog.prosthetics.length !== 6 || [...actualKeys].sort().join('\n') !== [...catalog.frameKeys].sort().join('\n') || humanDirections.length !== 4) throw Error('현재 HumanView와 내보낸 정의 목록이 다릅니다.')
   populate()
-  await loadAtlas(humanSpecFrameKeys(spec), [], atlasOwner)
+  await loadAtlas(actualKeys, [], atlasOwner)
   app = new Application()
   const stage = element('stage'); stage.style.height = '300px'; stage.style.aspectRatio = 'auto'
   await app.init({ width: stage.clientWidth, height: 300, background: 0x20241c, antialias: false, resolution: 1, autoDensity: false, autoStart: false })
   stage.append(app.canvas)
-  views = [1, 2, 4].map(() => new HumanView(spec))
+  const params=new URLSearchParams(location.search),model=params.get('body');if(model&&humanModels[model]){select('body').value=model;spec=humanArtFor(model);populateHeads()}const requestedHead=params.get('head');if(requestedHead&&spec.heads?.[requestedHead])select('head').value=requestedHead
+  views = [1, 2, 4].map(() => new HumanView(spec,value('head')||undefined))
   scenes = views.map(view => {
     const root = new Container(), content = new Container(), floor = new Graphics(), guides = new Graphics(), mask = new Graphics()
     content.addChild(floor, view.root, guides); root.addChild(content, mask); root.mask = mask; app!.stage.addChild(root)
@@ -307,7 +312,7 @@ async function start() {
   for (const control of document.querySelectorAll<HTMLButtonElement | HTMLInputElement | HTMLSelectElement>('button,input,select')) control.disabled = false
   replacementOptions(); applyPreset(); bind()
   ready = true; draw()
-  resize = new ResizeObserver(() => { if (app) { app.renderer.resize(stage.clientWidth, 300); draw() } })
+  resize = new ResizeObserver(() => { if (app) { app.renderer.resize(stage.clientWidth, stage.clientHeight); draw() } })
   resize.observe(stage)
   frameLoop = (now: number) => {
     try {

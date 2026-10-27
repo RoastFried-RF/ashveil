@@ -1,6 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업 묶음은 **v0.389-dev · 저장219**이다. 일반 인간형의 의복25종·결손 사지·의수족6종을 실제 소유 부위와 장비에 맞춰 표시하고, 주민·치료사·상인·경비·약탈자의4방향 머리를 연결했다. 몸·옷·손 장비와 거리 기반 발 디딤을 조립한다. [구현·한계·검증](docs/human-paperdoll-v389.md) · [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
+현재 작업: [v392 인체·변형 인간/투척 경계 개선](docs/human-details-v392.md) · [검증·게시 상태](docs/release-v392-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+
+현재 개발 묶음은 **v0.392-dev · 저장219**이다. 실제 세부 결손과3계열/9종 인간형의 전용 원문, 벨트 소품·투척 실패 경계·도감 확대 중심을 개선한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v392-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
 
 실제 인물의 착용 의복·절단·의수족을 몸 그림에 반영하는 작업과 장기 확장·전체 출시 게이트는 남아 있다. 기존 예약 진료·침구 원화는 유지하며 이번 감사에서 새 PNG는 만들지 않았다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 

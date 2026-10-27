@@ -65,6 +65,7 @@ function exitTime(dx: number, dy: number, vx: number, vy: number, radius: number
 }
 
 export class HumanGait {
+  constructor(private readonly bodyScale=1){if(!Number.isFinite(bodyScale)||bodyScale<=0)throw Error('Human gait requires a positive body scale')}
   private root: HumanGaitPoint | null = null
   private heading: HumanGaitPoint = { x: 0, y: 1 }
   private feet: Record<HumanFootSide, Foot> = {
@@ -138,7 +139,7 @@ export class HumanGait {
         const ease = progress * progress * (3 - 2 * progress)
         foot.x = swing.from.x + (swing.to.x - swing.from.x) * ease
         foot.y = swing.from.y + (swing.to.y - swing.from.y) * ease
-        foot.lift = HUMAN_GAIT.lift * Math.sin(Math.PI * progress)
+        foot.lift = HUMAN_GAIT.lift * this.bodyScale * Math.sin(Math.PI * progress)
         if (swing.elapsed < HUMAN_GAIT.swingMs - EPS) break
         foot.x = swing.to.x
         foot.y = swing.to.y
@@ -152,7 +153,7 @@ export class HumanGait {
         const foot = this.feet[candidate]
         if (!foot.present) continue
         const rest = this.rest(here, facing, candidate)
-        const delay = exitTime(rest.x - foot.x, rest.y - foot.y, vx, vy, input.moving ? HUMAN_GAIT.threshold : .15)
+        const delay = exitTime(rest.x - foot.x, rest.y - foot.y, vx, vy, input.moving ? HUMAN_GAIT.threshold*this.bodyScale : .15*this.bodyScale)
         if (delay < wait - EPS) { side = candidate; wait = delay }
       }
       if (!side || wait > dtMs - time + EPS) break
@@ -160,8 +161,8 @@ export class HumanGait {
       const at = { x: start.x + vx * time, y: start.y + vy * time }
       const target = this.rest(at, facing, side), foot = this.feet[side]
       if (input.moving) {
-        target.x += this.heading.x * HUMAN_GAIT.ahead
-        target.y += this.heading.y * HUMAN_GAIT.ahead
+        target.x += this.heading.x * HUMAN_GAIT.ahead*this.bodyScale
+        target.y += this.heading.y * HUMAN_GAIT.ahead*this.bodyScale
       }
       this.swing = { side, from: { x: foot.x, y: foot.y }, to: target, elapsed: 0 }
       foot.anchor = null
@@ -174,7 +175,7 @@ export class HumanGait {
   }
 
   private rest(root: HumanGaitPoint, facing: HumanFacing, side: HumanFootSide): HumanGaitPoint {
-    const forward = FACING[facing], offset = HUMAN_GAIT.lateral * (side === 'left' ? 1 : -1)
+    const forward = FACING[facing], offset = HUMAN_GAIT.lateral * this.bodyScale * (side === 'left' ? 1 : -1)
     return { x: root.x + forward.y * offset, y: root.y - forward.x * offset }
   }
 

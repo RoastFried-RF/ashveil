@@ -3,7 +3,7 @@ import {rigSpecFrameKeys} from './rig-spec'
 import {crawlerSpecFrameKeys} from './crawler-spec'
 import {cullerSpecFrameKeys} from './culler-spec'
 import {humanSpecFrameKeys} from './human-spec'
-import {humanArt} from './human-art'
+import {humanArtFor} from './human-art'
 export interface AtlasManifest {
  sheets:Record<string,string>
  frames:Record<string,[string,number,number,number,number]>
@@ -22,13 +22,13 @@ export function atlasPlan(m:AtlasManifest,iconNames:readonly string[],characterN
   if(c.rig)for(const key of rigSpecFrameKeys(c.rig)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
   if(c.crawler)for(const key of crawlerSpecFrameKeys(c.crawler)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
   if(c.culler)for(const key of cullerSpecFrameKeys(c.culler)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
-  if(c.human)for(const key of humanSpecFrameKeys(humanArt)){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
+  if(c.human)for(const key of humanSpecFrameKeys(humanArtFor(c.humanSpec))){const rect=m.frames[key];if(rect)characterSheets.add(rect[0])}
  }
  for(const sheet of Object.keys(m.sheets))if(!characterSheets.has(sheet)&&!retired.has(sheet))required.add(sheet)
  const frame=(key:string)=>{const rect=m.frames[key];if(rect)required.add(rect[0])}
  const body=(name:string)=>{
   const c=m.chars[name];if(!c)return false
-  if(c.human){humanSpecFrameKeys(humanArt).forEach(frame);if(c.portrait)frame(c.portrait);return true}
+  if(c.human){humanSpecFrameKeys(humanArtFor(c.humanSpec)).forEach(frame);if(c.portrait)frame(c.portrait);return true}
   for(const clip of clips(c))if(clip)for(const keys of Object.values(clip))keys.forEach(frame)
   if(c.portrait)frame(c.portrait)
   if(c.rig)rigSpecFrameKeys(c.rig).forEach(frame)

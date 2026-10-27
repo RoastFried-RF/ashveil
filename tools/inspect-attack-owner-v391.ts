@@ -31,6 +31,7 @@ const available:Scene[]=baseline?[compass[4]]:[...compass,
  {name:'repeat-stones',dx:3,dy:0,source:'bag',stone:true,repeat:true},
 ]
 const only=process.argv.find(arg=>arg.startsWith('--only='))?.slice(7),scenes=only?available.filter(scene=>only.split(',').includes(scene.name)):available;assert.ok(scenes.length)
+const avatar=process.argv.find(arg=>arg.startsWith('--sprite='))?.slice(9);if(avatar)assert.ok(['shade0','shade1','shade2','shade3','shade_chief','withered','withered_priest','spore0','spore1'].includes(avatar),'Declared registered appearance only')
 const browser=await chromium.launch({executablePath:'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']}),page=await browser.newPage({viewport:{width:1366,height:768}})
 const pairs:{label:string;hash:string}[]=[],errors:string[]=[],runs:unknown[]=[];let current='startup',lastExpected:World|undefined
 page.on('pageerror',e=>errors.push(e.message));page.on('console',e=>{if(e.type()==='error')errors.push(e.text())})
@@ -41,6 +42,7 @@ try{
   current=scene.name
   const{w,s,p,target}=prisonerFixture();s.overworld=undefined;s.maps={};s.offCreatures={};s.creatures=[p,target];s.sources=[];s.map.kind='dungeon';s.map.ambient=1;s.map.lights=[];s.weather='clear';s.weatherUntil=1e12
   for(const tile of s.map.tiles)Object.assign(tile,{t:'Terrain.KtFloor',roof:true,seen:true,items:[]})
+  if(avatar)p.sprite=avatar; // Declared appearance only; original player physiology is unchanged.
   p.bag=[];p.equip={};p.facing=4;p.crouching=scene.crouched;target.pos={x:p.pos.x+scene.dx,y:p.pos.y+scene.dy};target.nextAct=s.time+1e9;target.met=true;target.reactPolicy='none';target.ai.mode='guard';target.equip={};target.bag=[]
   const other=makeItem(w,'Item.Hatchet'),projectile=makeItem(w,scene.stone?'Item.Stone':'Item.Javelin',scene.stone?3:1)
   if(scene.source==='main')p.equip={main:projectile,off:other}
@@ -90,5 +92,5 @@ try{
   }
   stop();await page.screenshot({path:join(out,current+'-recovered.png')});await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.getByTestId('continue').click();await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await compare(expected,current+'-continued');await page.getByRole('button',{name:'타이틀',exact:true}).click();runs.push({scene,throws})
  }
- assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({baseline,finiteInitial:true,noPostTitleWorldWrites:true,wholePairs:pairs.length,runs,pairs,errors},null,2));console.log(JSON.stringify({baseline,scenes:runs.length,pairs:pairs.length,errors}))
+ assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({baseline,avatar:avatar??'default',avatarChangesPhysiology:false,finiteInitial:true,noPostTitleWorldWrites:true,wholePairs:pairs.length,runs,pairs,errors},null,2));console.log(JSON.stringify({baseline,scenes:runs.length,pairs:pairs.length,errors}))
 }catch(error){try{writeFileSync(join(out,'failure-actual.json'),serialize(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s)));if(lastExpected)writeFileSync(join(out,'failure-expected.json'),serialize(lastExpected.s))}catch{/* title/load failure */}await page.screenshot({path:join(out,'failure.png')});writeFileSync(join(out,'failure.txt'),String(error)+'\n'+await page.locator('body').innerText());writeFileSync(join(out,'failure-audit.json'),JSON.stringify({scene:current,runs,pairs,errors},null,2));throw error}finally{await browser.close()}

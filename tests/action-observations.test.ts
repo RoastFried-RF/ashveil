@@ -33,3 +33,13 @@ describe('optional action observations',()=>{
   const events=takeActionObservations(w);expect(events).toHaveLength(64);expect(events.some(e=>e.id===p.id&&e.action.type==='drop')).toBe(true);expect(events.some(e=>e.id===npc.id)).toBe(true);stop()
  })
 })
+
+it('observes original pocket consumption without changing state or borrowing another identical item',()=>{
+ const a=prisonerFixture(),b=prisonerFixture()
+ for(const{w,p}of[a,b]){p.bag=[];p.equip={};const belt=makeItem(w,'Item.LeatherBelt'),food=makeItem(w,'Item.Jerky');food.gx=0;food.gy=0;belt.contents=[food];p.equip.belt=belt}
+ const uid=a.p.equip.belt!.contents![0].uid;startActionObservation(b.w)
+ expect(perform(a.w,a.p,{type:'consume',uid})).toEqual(perform(b.w,b.p,{type:'consume',uid}));expect(serialize(a.s)).toBe(serialize(b.s));const event=takeActionObservations(b.w).find(e=>e.action.type==='consume')!;expect(event.item).toMatchObject({uid,def:'Item.Jerky'});expect(b.p.equip.belt!.contents).toEqual([]);expect(serialize(a.s)).toBe(serialize(b.s))
+})
+it.each(['half','broken']as const)('does not read inaccessible %s belt contents into action observation',state=>{
+ const{w,p}=prisonerFixture();p.bag=[];p.equip={};const belt=makeItem(w,'Item.LeatherBelt'),food=makeItem(w,'Item.Jerky');food.gx=0;food.gy=0;belt.contents=[food];if(state==='half')belt.half=true;else belt.durability=0;p.equip.belt=belt;const before=serialize(w.s);startActionObservation(w);expect(perform(w,p,{type:'consume',uid:food.uid}).ok).toBe(false);expect(takeActionObservations(w)).toEqual([]);expect(serialize(w.s)).toBe(before)
+})

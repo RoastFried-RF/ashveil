@@ -32,3 +32,10 @@ describe('성공한 실제 아이템 착탈/제작/수리의 단계2 컴포넌�
  it('실제 물품이 없는 실패와 인물 사본의 착용은 실제 콜백을 만들지 않는다',()=>{const d=setup(),it=d.add('Item.PaddedJacket'),copy=structuredClone(d.p);expect(equip(d.w,d.p,-1)).not.toBeNull();expect(equip(d.w,copy,it.uid)).toBeNull();expect(events(d.w)).toEqual([]);expect(d.p.equip.chest).toBeUndefined()})
  it('저장 복원한 다음 실제 탈의의 전체 상태/난수/원래 물품은 동일하다',()=>{const d=setup(),it=d.add('Item.PaddedJacket');equip(d.w,d.p,it.uid);d.w.s=deserialize(serialize(d.w.s));const b:World={db:d.w.db,s:deserialize(serialize(d.w.s))};expect(unequip(d.w,player(d.w),'chest')).toBeNull();expect(unequip(b,player(b),'chest')).toBeNull();expect(serialize(b.s)).toBe(serialize(d.w.s))})
 })
+
+it.each(['drop','throw']as const)('actual held %s delivers exactly one onUnequip for the original UID and no callback on a rejection',operation=>{
+ const d=setup(),knife=d.add('Item.RustyKnife');expect(equip(d.w,d.p,knife.uid)).toBeNull()
+ if(operation==='throw'){const before=serialize(d.w.s);expect(perform(d.w,d.p,{type:'throw',uid:knife.uid,target:{x:-100,y:-100}}).ok).toBe(false);expect(serialize(d.w.s)).toBe(before)}
+ const action=operation==='drop'?{type:'drop'as const,uid:knife.uid}:{type:'throw'as const,uid:knife.uid,target:{...d.p.pos}}
+ expect(perform(d.w,d.p,action).ok).toBe(true);expect(events(d.w).map(e=>[e.kind,e.uid,e.slot])).toEqual([['onEquip',knife.uid,'main'],['onUnequip',knife.uid,'main']]);expect(d.p.equip.main).toBeUndefined();expect(d.w.s.map.tiles.flatMap(t=>t.items).filter(i=>i.uid===knife.uid)).toHaveLength(1);expect(serialize(deserialize(serialize(d.w.s)))).toBe(serialize(d.w.s))
+})

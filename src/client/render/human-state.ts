@@ -1,5 +1,6 @@
 /** Read-only surface ownership for the next human paperdoll. Never fills a missing limb. */
 import {anatomicalMissing,apparelItems,armorDurability,itemDef,partDamage,partEff,prostheticAt,prostheticEfficiency,type Creature,type Slot,type Stuff,type World} from '../../core'
+import {humanFineOwners} from './human-spec'
 export interface HumanSurfaceState {
  id:string;flesh:boolean;present:boolean;damage:number;efficiency:number
  replacement?:{root:string;def:string;uid:number;sprite:string;durability:number;efficiency:number}
@@ -13,7 +14,7 @@ export interface HumanAccessoryState {uid:number;def:string;slot:Slot;sprite:str
 export function humanSurfaceState(w:World,c:Creature,owners:readonly string[]){
  const body=w.db.body(c.body.def),ids=new Set(body.parts.map(p=>p.id));if(body.kind!=='humanoid'||owners.some(id=>!ids.has(id)))return
  const parts:Record<string,HumanSurfaceState>={}
- for(const id of owners){
+ for(const id of new Set([...owners,...humanFineOwners.filter(id=>ids.has(id))])){
   const missing=anatomicalMissing(w,c,id),replacement=prostheticAt(w,c,id)
   parts[id]={id,flesh:!missing&&!replacement,present:!missing||!!replacement,damage:Math.max(0,Math.min(1,partDamage(c,id)/Math.max(1,c.body.maxHp[id]??1))),efficiency:partEff(w,c,id),...(replacement?{replacement:{root:replacement.root,def:replacement.state.def,uid:replacement.state.item.uid,sprite:itemDef(w,replacement.state.item).sprite,durability:replacement.state.item.durability??100,efficiency:prostheticEfficiency(w,c,replacement.root,replacement.state)}}:{})}
  }

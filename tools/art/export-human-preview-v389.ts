@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { loadDb } from '../loadContent'
-import {humanArt} from '../../src/client/render/human-art'
+import {humanArt,humanModels} from '../../src/client/render/human-art'
 import { humanOwners, humanSpecFrameKeys, type HumanSpec } from '../../src/client/render/human-spec'
 import type { ItemDef, ProstheticDef } from '../../src/core/types'
 import type { HumanPreviewCatalog } from './human-preview-v389'
@@ -12,14 +12,14 @@ const args = process.argv.slice(2), check = args.includes('--check')
 if (args.some(arg => arg.startsWith('--') && arg !== '--check')) throw Error('Supported option: --check')
 const output = args.find(arg => !arg.startsWith('--')) ?? 'public/artbook/human/catalog.json'
 const hash = (text: string) => createHash('sha256').update(text).digest('hex')
-const spec:HumanSpec = humanArt, specText=JSON.stringify(spec)
+const spec:HumanSpec = humanArt, specText=JSON.stringify(humanModels)
 const manifestText = readFileSync('src/client/sprites.json', 'utf8')
 const manifest = JSON.parse(manifestText) as { frames: Record<string, unknown>; sheets: Record<string, string> }
 const { db, report } = loadDb()
 if (report.errors.length) throw Error(report.errors.join('\n'))
 const body = db.body('Body.Humanoid'), bodyIds = new Set(body.parts.map(part => part.id))
 if (body.kind !== 'humanoid' || humanOwners.some(owner => !bodyIds.has(owner))) throw Error('HumanView/body ownership mismatch')
-const frameKeys = humanSpecFrameKeys(spec)
+const frameKeys = [...new Set(Object.values(humanModels).flatMap(humanSpecFrameKeys))]
 for (const key of frameKeys) if (!manifest.frames[key]) throw Error('Unregistered HumanView source frame: ' + key)
 const garments = Object.keys(spec.wardrobe).map(id => {
   const def = db.item(id), apparel = def.apparel
@@ -45,7 +45,7 @@ const preset = (id: string, label: string, ids: string[], lining?: string) => {
   return { id, label, garments: ids, ...(lining ? { lining } : {}) }
 }
 const catalog: HumanPreviewCatalog = {
-  format: 1, revision: 389, specId: spec.id,
+  format: 1, revision: 392, specId: spec.id,
   disclosure: '진단용 합성 인체·UID·착용 상태입니다. 실제 게임의 저장·물품·장착·행동·시간·난수를 만들거나 바꾸지 않습니다. 같은 HumanView와 등록 원본을 표시하며 새로운 동작 원화나 전체 세계 검증을 뜻하지 않습니다.',
   sourceHashes: { spec: hash(specText), manifest: hash(manifestText), renderer: hash(readFileSync('src/client/render/human-view.ts', 'utf8')) },
   frameKeys,
@@ -64,6 +64,7 @@ const catalog: HumanPreviewCatalog = {
     '의복 덮임은 실제 Body 부위의 첫 번째 groups 태그와 resolved Item.apparel.groups를 비교한다.',
     '안감은 실제 liningHost/liner 조건을 확인하고 표시 layer0을 사용한다. 방어·보온 판정은 실행하지 않는다.',
     '의수족6종은 기존 단일 물체 원본을 공유한다. 네 방향의 새 착용 원화가 아니다.',
+    '좌우 발8개와 결손 표시12개는 신규 원문이다. 손가락 영역은 기존 원문 마스크이며, 가려진 부위의 새 면을 만들었다고 세지 않는다.',
     '표시되는 조건·효율0·반착용·결손은 조작 가능한 합성 surface이며 실제 Core 변화가 아니다.',
     '관절·접지·grip 값은 화면 기하 진단이다. 실제3D 균형·충돌·전투 유효성을 보증하지 않는다.',
   ],

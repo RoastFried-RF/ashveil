@@ -244,3 +244,7 @@ image_gen 자체 원본2PNG/6영역(개별 나방4비행 포즈·수확물2아�
 ### v389 몸·착용·역할 머리 원본
 
 OpenAI image_gen 새4PNG(의복80영역+역할머리20영역), 기존 자체 인체/봉제패널2PNG와 의수족 단일 원문을 재사용한다. 참고 입력은 자체 원문만 사용했다. 부위별 mask/affine 조립이며 원본 픽셀 재작성·100개 전신/동작 원화 제작이 아니다. [제작·요청·거절·SHA·한계](docs/human-paperdoll-v389.md), `tools/art/direction-v389/history/`에 원문 기록을 보존했다.
+
+## v392 인체·변형 인간
+
+OpenAI image_gen으로 자체 원문을 제작했으며 PNG 바이트를 보존했다. 활성7PNG·등록 고유114영역(캐릭터 선택110영역)이며 기존25의복·6의수족/방향별 공유와 별개다. 생성8원문의 실패/대체·프로필 정규화·프롬프트·SHA는 [세부 원화](tools/art/direction-v392/source-audit.json)와 [전용 몸](tools/art/direction-v392/mutants/source-audit.json)에 기록한다. 다른 게임의 픽셀을 복사하거나 트레이싱하지 않았다.

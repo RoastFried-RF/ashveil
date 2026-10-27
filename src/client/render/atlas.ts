@@ -15,6 +15,7 @@ export interface CharDef {
   /** Ordinary humanoid uses actual body/apparel owners instead of baked whole-body clothes. */
   human?:boolean
   humanHead?:string
+  humanSpec?:string
   /** Separate original parts resolved only while this body model is selected. */
   rig?:RigSpec
   /** Eight owned body segments/16 legs assembled from one immutable dorsal source. */
