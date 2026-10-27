@@ -1,16 +1,16 @@
 # ASHVEIL (애쉬베일)
 
-현재 작업: [v392 인체·변형 인간/투척 경계 개선](docs/human-details-v392.md) · [검증·게시 상태](docs/release-v392-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
+현재 작업: [v393 보온 판단과 생존 안내](docs/thermal-recovery-v393.md) · [검증·게시 상태](docs/release-v393-proof.json) · [v1.0.0 실행 기준](docs/v1-execution.md).
 
-현재 개발 묶음은 **v0.392-dev · 저장219**이다. 실제 세부 결손과3계열/9종 인간형의 전용 원문, 벨트 소품·투척 실패 경계·도감 확대 중심을 개선한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v392-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
+현재 개발 묶음은 **v0.393-dev · 저장219**이다. 불 곁에서도 체온이 떨어질 때의 보온 판단과 현재 옷·날씨·침구에 따른 휴식/수면/몸 풀기 비교를 연결한다. 공개 사이트의 실제 배포 여부는 [검증/게시 상태](docs/release-v393-proof.json)를 따른다. [게임](https://roastfried-rf.github.io/ashveil/) · [인체·착용 작업대](https://roastfried-rf.github.io/ashveil/artbook/human/).
 
-실제 인물의 착용 의복·절단·의수족을 몸 그림에 반영하는 작업과 장기 확장·전체 출시 게이트는 남아 있다. 기존 예약 진료·침구 원화는 유지하며 이번 감사에서 새 PNG는 만들지 않았다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
+실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
 > 규칙은 투명하게, 세계는 끝없이 낯설게.
 
 재의 장막에 덮인 변경 행성 **하스**를 탐험하는 턴제 RPG와 세계 시뮬레이션이다. 테라포밍 기계망이 침묵한 지70년, 떠돌이는 폐허와 다른 지역을 오가며 자기 몸·물품·시간으로 살아남는다. 독자적인 세계관과 무료2D 도트 그래픽을 사용한다.
 
-마지막 이전 통합 검증은 v0.312였다. 현재 v0.388에서 이후 기능을 포함한 전체 회귀385파일6,545검사를 통과했고, 실제 입력 검토를 완료했다. 같은30시드·최대3일 월드 검사와 전체 초기/최종 각인120개 복원도 통과했다. 아래 구현 범위와 v1.0.0 출시 완료는 구분한다. [이전 검증](docs/release-v312-proof.json) · [현재 감사](docs/quality-audit-v388.md).
+v388 이후에도 전체 회귀·실제 입력·전체 세계/각인 복원을 유지한다. 각 묶음의 실행 시점과 정확한 통과 범위는 검증 기록에 남기며, 개발 미리보기와 v1.0.0 출시 완료를 구분한다. [전수 감사](docs/quality-audit-v388.md) · [v392 검증](docs/release-v392-proof.json) · [v393 검증](docs/release-v393-proof.json).
 
 ## 현재 플레이할 수 있는 것
 

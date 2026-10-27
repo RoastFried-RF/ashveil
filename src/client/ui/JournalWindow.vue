@@ -9,6 +9,7 @@ import {
 } from '../../core'
 import { KIND_CLASS } from '../format'
 import { temperatureTip } from '../info'
+import { thermalGuidance } from '../thermal-guidance'
 import { act, simulating, version, world } from '../store'
 import {journalSection as tab,trackedContract,wins} from '../ui'
 import Bar from './Bar.vue'
@@ -78,6 +79,7 @@ const d = computed(() => {
     lice: hasEffect(pl, 'lice', turnOf(w)),
     temperature: temperatureTip(w, pl),
     warmth: residentWarmthDef(w), warmthError: warmthError(w,pl),
+    thermal: thermalGuidance(w,pl),
     fatigue:w.db.body(pl.body.def).kind==='mechanical'?undefined:fatigueBand(w,pl),
     rest:100-n.fatigue,
     sleep: `침구 ${beddingAt(w, pl.pos).label} (젖음 ${beddingAt(w, pl.pos).wetness.toFixed(0)}%) · 수면 질 ${sleepQuality(w, pl).toFixed(2)} · 시간당 피로 회복 ${sleepRecoveryPerHour(w, pl).toFixed(1)} · 수면 부채 ${(n.sleepDebt ?? 0).toFixed(1)}시간`,
@@ -135,6 +137,18 @@ const contracts=computed(()=>d.value.contracts.filter(r=>(contractStatus.value==
         <div class="mt-2 space-y-1 text-ash-300" data-testid="nutrition-detail"><p v-for="line in d.nutrition" :key="line">{{ line }}</p></div>
         <div class="mt-2 space-y-1 text-ash-300" data-testid="temperature-detail">
           <p v-for="line in d.temperature" :key="line">{{ line }}</p>
+          <div class="my-2 rounded border border-ash-600 bg-black/30 p-2" data-testid="thermal-forecast">
+            <p class="mb-1 font-bold text-ash-100">이 자리의 체온 변화율</p>
+            <dl class="grid grid-cols-[1fr_auto] gap-x-3 gap-y-1 font-mono">
+              <dt>휴식</dt><dd data-testid="thermal-rest" :class="d.thermal.rest<0?'text-[#8cb5de]':d.thermal.rest>0?'text-moss-300':'text-ash-400'">{{ d.thermal.format(d.thermal.rest) }}</dd>
+              <dt>수면 가정 · 현재 침구</dt><dd data-testid="thermal-sleep" :class="d.thermal.sleep<0?'text-[#8cb5de]':d.thermal.sleep>0?'text-moss-300':'text-ash-400'">{{ d.thermal.format(d.thermal.sleep) }}</dd>
+              <dt>불 곁에서 몸 풀기</dt><dd data-testid="thermal-warm" :class="d.thermal.warm!==undefined&&d.thermal.warm<0?'text-[#8cb5de]':d.thermal.warm!==undefined&&d.thermal.warm>0?'text-moss-300':'text-ash-400'">{{ d.thermal.warm===undefined?'불가':d.thermal.format(d.thermal.warm) }}</dd>
+            </dl>
+            <p class="mt-2 text-ash-300" data-testid="thermal-advice">{{ d.thermal.advice }}</p>
+            <p v-if="d.thermal.warmError" class="mt-1 text-ash-400">몸 풀기: {{ d.thermal.warmError }}</p>
+            <p class="mt-1 text-[10px] text-ash-400">수면은 잠든 경우의 값이다. 몸 상태·피로·주변 위협에 따라 잠들지 못할 수 있다.</p>
+            <p class="mt-1 text-[10px] text-ash-400">현재 옷·젖음·날씨가 유지될 때의 변화율이다. 행동 비용과 기상 변화는 실제 진행 중 반영된다.</p>
+          </div>
           <button v-if="d.warmth" class="dbtn" :disabled="!!d.warmthError" :title="d.warmthError ?? '실제 불 곁에서 몸을 움직인다. 열량과 피로를 쓰며 현재 옷·젖음·날씨에 따라 몸이 데워진다.'" data-testid="warm-by-fire" @click="act({ type: 'warmByFire' })">불 곁에서 몸 풀기 ({{ Math.ceil(d.warmth.turns / 20) }}분)</button>
         </div>
         <p class="mt-2 text-ash-300" data-testid="sleep-detail">{{ d.sleep }}</p>

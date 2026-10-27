@@ -1,0 +1,164 @@
+{
+  "preview": "0.393-dev",
+  "save": 219,
+  "coreGameVersion": "0.1.0",
+  "status": "Local implementation, final Native and fresh World30 passed; final main CI/publication pending",
+  "runtimeSnapshot": "v393-validation-r5",
+  "worldSnapshot": "v393-thermal-r3",
+  "all336CoreFilesIdenticalBetweenWorldAndFinalNative": true,
+  "changedCore": [
+    "src/core/bot.ts",
+    "src/core/bot-shelter.ts",
+    "src/core/index.ts",
+    "src/core/thermal.ts"
+  ],
+  "contentModsSpriteOriginalsAndGoldenExpectationsChanged": false,
+  "survivalBalanceNumbersChanged": false,
+  "localFocused": {
+    "files": 5,
+    "tests": 47,
+    "failed": 0,
+    "log": "test-results/autonomy-v393/focused-r5.txt",
+    "sha256": "43b4c835fbb25df52356d8453e00d96a9085ccc0ad355414ca9407cd1baac44d"
+  },
+  "typeBuild": "passed; latest build/type-r6",
+  "lint": {
+    "errors": 0,
+    "preExistingWarnings": 1,
+    "log": "test-results/autonomy-v393/lint-all-r5.txt",
+    "sha256": "2bbce9085a194666b352d595ecb8eec8e987ad6b796b2e8c1a202429819c8d58"
+  },
+  "native": {
+    "scenes": 24,
+    "sizes": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "wholePairs": 90,
+    "errors": [],
+    "finiteInitial": true,
+    "postTitleWorldWrites": false,
+    "fxOnlyNormalized": true,
+    "actualTabStepsToWarning": 3,
+    "auditSHA256": "4f6d84c54d970b3cd4c6a4a84c4537211a989fee27fa22a8a88bf6b1196f450a",
+    "selectedOpenedPNGs": [
+      "fire-1440-forecast.png",
+      "wind-390-forecast.png",
+      "bed-390-forecast.png",
+      "no-fire-1366-forecast.png",
+      "critical-390-map.png"
+    ],
+    "preflights": "First native-r1 used j (movement) and timed out opening journal; retained unchanged. Native-r2 had81 passing pairs with explicit DOM focus. Final90 pairs use real Tab then Enter and actual buttons/keys."
+  },
+  "goldens": {
+    "compared": 5,
+    "rows": [
+      {
+        "name": "surface",
+        "initialExact": true,
+        "finalExact": true,
+        "errorsExact": true
+      },
+      {
+        "name": "dungeon-combat",
+        "initialExact": true,
+        "finalExact": true,
+        "errorsExact": true
+      },
+      {
+        "name": "freeze-reentry",
+        "initialExact": true,
+        "finalExact": true,
+        "errorsExact": true
+      },
+      {
+        "name": "world-journey",
+        "initialExact": true,
+        "finalExact": true,
+        "errorsExact": true
+      },
+      {
+        "name": "world-climate-return",
+        "initialExact": true,
+        "finalExact": true,
+        "errorsExact": true
+      }
+    ],
+    "expectedFixturesChanged": false
+  },
+  "world": {
+    "runs": 30,
+    "maxDays": 3,
+    "sameInitialWholeWorlds": true,
+    "baseline": {
+      "runs": 30,
+      "maxDays": 3,
+      "averageDays": 0.31523032407407403,
+      "causes": {
+        "치명상": 13,
+        "과다 출혈": 4,
+        "저체온": 13
+      },
+      "seconds": 317.4429267510001
+    },
+    "after": {
+      "runs": 30,
+      "maxDays": 3,
+      "averageDays": 0.9630601851851852,
+      "causes": {
+        "치명상": 14,
+        "과다 출혈": 6,
+        "생존(시간 종료)": 7,
+        "저체온": 3
+      },
+      "seconds": 776.478301679
+    },
+    "physicallyChangedFinalSeeds": [
+      "sim-5",
+      "sim-6",
+      "sim-8",
+      "sim-9",
+      "sim-10",
+      "sim-12",
+      "sim-13",
+      "sim-14",
+      "sim-16",
+      "sim-18",
+      "sim-19",
+      "sim-20",
+      "sim-27"
+    ],
+    "retainedFinalInitialRestores": 60,
+    "remainingHypothermiaSeeds": [
+      "sim-9",
+      "sim-18",
+      "sim-19"
+    ],
+    "rawStates": "Local test-results only; not published"
+  },
+  "diagnostics": {
+    "native-summary.json": "b3acef4c8c695240bf04a10877de7eb01ee8fcca6ef909e61750569e127f0ca0",
+    "world-save-summary.json": "10b151f4e73df6102e93fb0bd735a6eddd701a1764ddb53ac4067468a22dd2d4",
+    "world-summary.json": "9255f9e8d1eb209ad67d9fd216ecf9bdeedcf7eef952464d0d7ea3a08460421e",
+    "critical-390-map.png": "6e330eb39c33e24000bd8747ed8e20f3338adf5f12d0755668c68fec51e2d402",
+    "fire-1440-forecast.png": "4c781a463a933fb156833db483c4c7721f5ef35a281200822a4528f858dc4b8b",
+    "no-fire-1366-forecast.png": "fb782a490cb5dcb97dd8209d290c5e37511487229127b2bfb1cd0e3f8e5ca4e1",
+    "golden-summary.json": "418efbc82d46e89500de737bcc4b04bdbe63736b46814d2c38ef63184ccbaf79",
+    "wind-390-forecast.png": "2a66ee7afbdf1f6c545fb8865a3fa52723e88a90ba905b57d206fc16bb36fc13",
+    "bed-390-forecast.png": "9195cbbecc567729f72bbe7649b55000cb25878c39ff377a578c6634bc4419fd",
+    "world-comparison.json": "f57706a9457a9e6e79e2b5c724f011f9db898531d545a8add48633372fb589d1",
+    "remaining-hypothermia.json": "3314d5fed5b18cb11a593a85c19d29aca54ef76ec7546b48039cae1c6c0c3407"
+  },
+  "finalFull": "Pending final main CI. Earlier v392 main394/6636 was successful, distinct from this change.",
+  "scope": "Development preview; no v1 completion, 1000-expedition or human playtest certification."
+}

@@ -6,6 +6,7 @@ import { corpseMoneyQuote } from './corpse-money'
 import { nearbyIce, nearbySnow } from './climate'
 import { handState, washHandsError } from './hand-hygiene'
 import { nearbyWater, waterTreatmentError } from './water'
+import { botShelterAction } from './bot-shelter'
 // 헤드리스 밸런스용 플레이어 봇. 사람처럼 잘하진 않지만 시스템이 돌아가는지 본다.
 // 지상 → 수도원 계단 → 지하 묘소를 탐색하며 상자를 뒤지고, 레벨업 포인트를 쓰고, 능력을 쓴다.
 // 전술 (bestiary L1~L3 · 07): 승산 계산 → 불리하면 위층으로 물러나 회복 후 재진입, 잠든 단독 적은 잠행 기습,
@@ -366,14 +367,12 @@ export function botDecide(w: World): Action {
   const homeFire = w.s.map.kind === 'surface' ? w.s.map.lights.find((L) => L.kind === 'campfire' && cheb(L.pos, pl.pos) <= 1) : undefined
   const cold = pl.needs.bodyTemp < 36.8 || (pl.needs.wetness > 40 && ['ashrain', 'ashstorm'].includes(w.s.weather))
   if (homeFire && !homeFire.off && !cold && pl.needs.bodyTemp >= 36.8 && pl.needs.fatigue <= 75 && !(pl.needs.sleepDebt ?? 0) && !pl.activity) return { type: 'toggleFire' }
-  if (homeFire && homeFire.off && (cold || pl.needs.fatigue > 75 || (pl.needs.sleepDebt ?? 0) > 0)) return { type: 'toggleFire' }
+  if (homeFire && homeFire.sourceUid === undefined && homeFire.off && (cold || pl.needs.fatigue > 75 || (pl.needs.sleepDebt ?? 0) > 0)) return { type: 'toggleFire' }
 
   // 춥거나 젖었으면 불가·지붕 밑으로 (03: 젖은 옷은 단열을 잃는다). 지하는 비가 안 온다
   if ((pl.needs.bodyTemp < 36.8 || (pl.needs.wetness > 40 && ['ashrain', 'ashstorm'].includes(w.s.weather))) && w.s.map.kind === 'surface') {
-    const fire = w.s.map.lights.filter((L) => L.kind === 'campfire' && !avoided(w, L.pos) && !(pl.level < 5 && w.s.map.rooms[tileAt(w, L.pos).room ?? -1]?.type === 'camp')).sort((a, b) => cheb(a.pos, pl.pos) - cheb(b.pos, pl.pos))[0]
-    const warm = fire ? nearest(w, (p) => cheb(p, fire.pos) <= (fire.off ? 1 : 2) && terrainAt(w, p).passable && (eq(p, pl.pos) || !creatureAt(w, p)) && hasLos(w, p, fire.pos)) : nearest(w, (p) => !!tileAt(w, p).roof && terrainAt(w, p).passable && (eq(p, pl.pos) || !creatureAt(w, p)) && !avoided(w, p))
-    if (warm && !eq(warm, pl.pos)) { const st = stepTo(w, warm); if (st !== null) return { type: 'move', dir: st } }
-    if (warm && eq(warm, pl.pos) && pl.needs.bodyTemp < 37) return { type: 'rest', turns: 60 }
+    const recovery = botShelterAction(w, p => avoided(w, p) || (pl.level < 5 && w.s.map.rooms[tileAt(w, p).room ?? -1]?.type === 'camp'))
+    if (recovery) return recovery
   }
   const awakeNear = w.s.creatures.some((o) => o.alive && !o.asleep && hostile(w, pl, o) && o.ai.mode !== 'surrender' && cheb(o.pos, pl.pos) <= 8)
   if (pl.needs.fatigue > 75 && pl.needs.bodyTemp >= 35 && !awakeNear) return { type: 'sleep' }

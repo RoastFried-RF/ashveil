@@ -6,7 +6,7 @@ import { regionalWindBonus, weatherWetPerTurn } from './climate-state'
 import { clamp, tileAt, terrainAt, turnOf, TURNS_PER_HOUR, type World } from './ctx'
 import {lyingOnBedding, beddingAt,beddingWetness,setBeddingWetness } from './camping'
 import { ambientTemp } from './environment'
-import { cheb } from './geom'
+import { cheb, type Pos } from './geom'
 import { hasLos } from './fov'
 import { apparelItems, itemDef, qualityInfo } from './items'
 import { metabolicSize, nutritionDef } from './nutrition-state'
@@ -106,6 +106,17 @@ export function innerWetness(w: World, c: Creature): number {
 }
 
 export function thermalState(w: World, c: Creature, sleeping = c.asleep || c.activity?.kind === 'sleep'): ThermalState {
+  return measureThermal(w, c, sleeping, thermalActivity(w, c, sleeping))
+}
+
+/** 현재 옷·몸·날씨로 다른 행동/자리를 비교한다. 세계/몸/열 적산은 바꾸지 않는다.
+ * 끝낸 활동의 건조 냉각·직전 보행·전투를 다음 휴식에 이월하지 않는다. */
+export function projectThermalState(w: World, c: Creature, activity: ThermalActivity, pos: Pos = c.pos): ThermalState {
+  const at = { ...c, pos, activity: undefined }
+  return measureThermal(w, at, activity === 'sleep', inDeepWater(w, at) ? 'work' : activity)
+}
+
+function measureThermal(w: World, c: Creature, sleeping: boolean, activity: ThermalActivity): ThermalState {
   const clothes = apparelItems(w, c)
   let ins = 0, innerWetness = 0
   for (const r of THERMAL_REGIONS) {
@@ -121,7 +132,6 @@ export function thermalState(w: World, c: Creature, sleeping = c.asleep || c.act
   const shelter = tileAt(w, c.pos).roof ? 3 : 0
   const heat = fireWarmth(w, c)
   const evaporation = innerWetness >= 50 ? 3 : 0
-  const activity = thermalActivity(w, c, sleeping)
   if (sleeping) ins += beddingAt(w, c.pos).insulation
   const drug = drugEffects(w, c)
   const fever=Math.max(c.effects.find(e=>e.kind==='fever'&&e.untilTurn>turnOf(w))?.magnitude??0,infectionSystemic(w,c).targetTemp)

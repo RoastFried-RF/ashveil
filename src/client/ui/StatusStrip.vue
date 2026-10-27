@@ -9,6 +9,8 @@ import {
 import BodyDiagram from './BodyDiagram.vue'
 import { version, world } from '../store'
 import { hideTip, showTip, toggleWin,journalSection,setWin } from '../ui'
+import { thermalGuidance } from '../thermal-guidance'
+import { temperatureTip } from '../info'
 
 const EFFECT: Record<string, [string, string]> = {
   netted:['포획망','#b9b49a'],
@@ -28,6 +30,7 @@ const d = computed(() => {
   const n = pl.needs
   const turn = turnOf(w)
   const diet=dietStatus(w,pl)
+  const thermal=thermalGuidance(w,pl)
   const chips: { t: string; c: string; tip: string[] }[] = []
   for(const e of pl.paralysis??[])if(e.until>turn)chips.push({t:REGION_LABEL[e.region]+(['larm','rarm','lleg','rleg'].includes(e.region)?' 마비':' 저림'),c:'#b5bf67',tip:[`${e.until-turn}턴 남음`,e.region==='larm'||e.region==='rarm'?'물린 팔을 쓸 수 없고 쥐던 물건을 떨어뜨린다.':e.region==='lleg'||e.region==='rleg'?'물린 다리가 마비되어 이동 시간이 두 배다.':'물린 부위의 기능이 멈춘다.','마비가 풀려도 실제 상처는 남는다.']})
   if(coveringSwarms(w,pl.pos).length)chips.push({t:'나방 떼',c:'#c3b99d',tip:['날개와 가루가 시야를 방해한다. 불을 끄거나 다른 불로 유도하자.','F2 현장: 면포로 채집 · 방진 면포는 가루 흡입을 줄인다.']})
@@ -53,7 +56,7 @@ const d = computed(() => {
   if (n.scurvy > 0) chips.push({ t: '괴혈병', c: '#e06050', tip: [`진행 ${n.scurvy.toFixed(0)}/100`, '비타민이 필요하다'] })
   if ((n.sleepDebt ?? 0) > 0) chips.push({ t: `수면 부채 ${(n.sleepDebt ?? 0).toFixed(1)}h`, c: '#b0a0d0', tip: ['피로를 다 풀고 더 자야 갚는다.', '8시간부터 10분마다 미세수면 위험'] })
   if (n.fatigue > 60) chips.push({ t: n.fatigue > 85 ? '탈진' : '피로', c: n.fatigue > 85 ? '#e06050' : '#b0a0c0', tip: [`피로 ${n.fatigue.toFixed(0)} — Z: 잠자기`] })
-  if (n.bodyTemp < 36) chips.push({ t: n.bodyTemp < 35 ? '저체온' : '추위', c: '#80b0e0', tip: [`체온 ${n.bodyTemp.toFixed(1)}°C`] })
+  if (n.bodyTemp < 36) chips.push({ t: n.bodyTemp < 35 ? '저체온' : '추위', c: '#80b0e0', tip: temperatureTip(w,pl) })
   if (n.wetness > 40) chips.push({ t: `젖음 ${n.wetness.toFixed(0)}%`, c: '#80a0c0', tip: ['단열이 떨어진다'] })
   if (pl.body.wounds.some((x) => x.infection)) chips.push({ t: '감염', c: '#c0d050', tip: ['소독·항생제·휴식'] })
   if (pl.body.wounds.some((x) => x.fracture && !x.splint)) chips.push({ t: '골절', c: '#e0c0a0', tip: ['부목으로 고정'] })
@@ -67,6 +70,7 @@ const d = computed(() => {
   const regions = (['head', 'torso', 'larm', 'rarm', 'lleg', 'rleg'] as Region[]).map((r) => ({ r, s: regionState(w, pl, r) }))
   const carePlans=w.s.creatures.filter(c=>c.alive&&isCompanion(w,c)&&canSee(w,pl,c.pos)&&c.companion?.carePlan&&['running','waiting'].includes(c.companion.carePlan.status)).map(c=>c.companion!.carePlan!),due=carePlans.flatMap(p=>p.status==='waiting'&&p.dueAt!==undefined?[p.dueAt]:[]).sort((a,b)=>a-b)[0]
   return {
+    thermal:thermal.notice?{label:thermal.notice,tip:[...temperatureTip(w,pl),thermal.advice,'클릭: 일지의 생존에서 휴식·수면·몸 풀기 비교']}:undefined,
     care:carePlans.length?{count:carePlans.length,due:due===undefined?undefined:Math.max(0,due-turn)}:undefined,
     name: w.s.map.name, depth: w.s.map.depth, clock: fmtClock(turn), weather: (w.s.overworld ? `${calendar(w).season.label}${calendar(w).seasonDay}일 · ` : '') + weatherLabel(w),
     temp: ambientTemp(w, pl.pos), surface: w.s.map.kind === 'surface', chips, regions,
@@ -78,6 +82,11 @@ function regionTip(e: MouseEvent, r: Region, s: number) {
     { head: '머리 → 명중·의식', torso: '몸통 → 기력 회복', larm: '왼팔 → 방패 막기', rarm: '오른팔 → 명중·피해', lleg: '왼다리 → 회피·비틀거림', rleg: '오른다리 → 회피·비틀거림' }[r],
     '클릭: 신체 창',
   ])
+}
+function thermalFocus(e: FocusEvent) {
+  if (!d.value.thermal) return
+  const rect=(e.currentTarget as HTMLElement).getBoundingClientRect()
+  showTip({clientX:rect.left,clientY:rect.bottom},d.value.thermal.label,d.value.thermal.tip)
 }
 const R = (r: string) => d.value.regions.find((x) => x.r === r)!.s
 const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${REGION_LABEL[r.r]} ${STATE_LABEL[r.s]}`).join(', ')}. 클릭해서 신체 창 열기`)
@@ -94,6 +103,7 @@ const bodyLabel = computed(() => `신체 상태: ${d.value.regions.map(r => `${R
       <BodyDiagram class="mini-body-drawing" :states="Object.fromEntries(d.regions.map(r=>[r.r,r.s]))" mini @region="(e,r)=>regionTip(e,r,R(r))" />
     </button>
     <div class="flex max-w-[46vw] flex-wrap gap-1" data-testid="status-chips">
+      <button v-if="d.thermal" class="df df-tab px-1 text-[11px] font-bold leading-4 text-[#8cb5de]" data-testid="thermal-guidance-chip" @click="hideTip();journalSection='needs';setWin('journal',true)" @mouseenter="showTip($event,d.thermal.label,d.thermal.tip)" @focus="thermalFocus" @mouseleave="hideTip" @blur="hideTip">{{ d.thermal.label }}</button>
       <button v-if="d.care" class="df df-tab px-1 text-[11px] font-bold leading-4 text-amber-100" data-testid="care-schedule-chip" @click="journalSection='medical';setWin('journal',true)">동료 진료 {{ d.care.count }}{{ d.care.due===undefined?'':` · ${d.care.due}턴 뒤` }}</button>
       <span v-for="c in d.chips" :key="c.t" class="df df-tab cursor-default px-1 text-[11px] font-bold leading-4" :style="{ color: c.c }" @mouseenter="showTip($event, c.t, c.tip)" @mouseleave="hideTip">{{ c.t }}</span>
     </div>

@@ -1,47 +1,19 @@
-v0.388 quality audit — fresh overworld30 seeds × maximum3 days
+v0.393 thermal recovery — fresh overworld30 seeds × maximum3 days
 {
   "runs": 30,
   "maxDays": 3,
   "workers": 4,
-  "seconds": 317.4429267510001,
-  "averageDays": 0.31523032407407403,
+  "seconds": 776.478301679,
+  "averageDays": 0.9630601851851852,
   "causes": {
-    "치명상": 13,
-    "과다 출혈": 4,
-    "저체온": 13
+    "치명상": 14,
+    "과다 출혈": 6,
+    "생존(시간 종료)": 7,
+    "저체온": 3
   }
 }
 
-시드별 요약 (전체 물리 세계와 복원 근거: docs/diagnostics/quality-v388/)
-{"seed": "sim-0", "cause": "치명상", "days": 0.0059375, "level": 1, "map": "crypt1", "background": "Bg.Boatman"}
-{"seed": "sim-1", "cause": "치명상", "days": 0.005, "level": 1, "map": "crypt1", "background": "Bg.FeverOrphan"}
-{"seed": "sim-2", "cause": "치명상", "days": 0.005555555555555556, "level": 1, "map": "crypt1", "background": "Bg.Scavenger"}
-{"seed": "sim-3", "cause": "치명상", "days": 0.004548611111111111, "level": 1, "map": "crypt1", "background": "Bg.GuardArchivist"}
-{"seed": "sim-4", "cause": "과다 출혈", "days": 0.00375, "level": 1, "map": "surface", "background": "Bg.SmithApprentice"}
-{"seed": "sim-5", "cause": "저체온", "days": 1.2916666666666667, "level": 1, "map": "surface", "background": "Bg.Hunter"}
-{"seed": "sim-6", "cause": "저체온", "days": 0.3680555555555556, "level": 1, "map": "surface", "background": "Bg.SmithApprentice"}
-{"seed": "sim-7", "cause": "치명상", "days": 0.00625, "level": 1, "map": "crypt1", "background": "Bg.Storyteller"}
-{"seed": "sim-8", "cause": "저체온", "days": 0.2777777777777778, "level": 1, "map": "surface", "background": "Bg.GuardArchivist"}
-{"seed": "sim-9", "cause": "저체온", "days": 1.5, "level": 1, "map": "surface", "background": "Bg.Excommunicate"}
-{"seed": "sim-10", "cause": "저체온", "days": 0.5555555555555556, "level": 1, "map": "surface", "background": "Bg.Excommunicate"}
-{"seed": "sim-11", "cause": "치명상", "days": 0.003993055555555555, "level": 1, "map": "crypt1", "background": "Bg.Boatman"}
-{"seed": "sim-12", "cause": "저체온", "days": 0.3263888888888889, "level": 1, "map": "surface", "background": "Bg.Storyteller"}
-{"seed": "sim-13", "cause": "저체온", "days": 0.7361111111111112, "level": 1, "map": "surface", "background": "Bg.Deserter"}
-{"seed": "sim-14", "cause": "저체온", "days": 0.9791666666666666, "level": 3, "map": "surface", "background": "Bg.GuildMerchant"}
-{"seed": "sim-15", "cause": "치명상", "days": 0.004131944444444444, "level": 1, "map": "crypt1", "background": "Bg.FeverOrphan"}
-{"seed": "sim-16", "cause": "저체온", "days": 1.1527777777777777, "level": 1, "map": "surface", "background": "Bg.Scavenger"}
-{"seed": "sim-17", "cause": "과다 출혈", "days": 0.006631944444444445, "level": 1, "map": "crypt1", "background": "Bg.SmithApprentice"}
-{"seed": "sim-18", "cause": "저체온", "days": 0.4236111111111111, "level": 1, "map": "surface", "background": "Bg.EscapedSlave"}
-{"seed": "sim-19", "cause": "저체온", "days": 0.8541666666666666, "level": 2, "map": "surface", "background": "Bg.Deserter"}
-{"seed": "sim-20", "cause": "저체온", "days": 0.4861111111111111, "level": 1, "map": "surface", "background": "Bg.Scavenger"}
-{"seed": "sim-21", "cause": "치명상", "days": 0.020833333333333332, "level": 2, "map": "crypt1", "background": "Bg.Hunter"}
-{"seed": "sim-22", "cause": "치명상", "days": 0.003611111111111111, "level": 1, "map": "crypt1", "background": "Bg.Storyteller"}
-{"seed": "sim-23", "cause": "치명상", "days": 0.01638888888888889, "level": 1, "map": "surface", "background": "Bg.GuildMerchant"}
-{"seed": "sim-24", "cause": "치명상", "days": 0.006736111111111111, "level": 1, "map": "crypt1", "background": "Bg.Boatman"}
-{"seed": "sim-25", "cause": "치명상", "days": 0.005347222222222222, "level": 1, "map": "crypt1", "background": "Bg.Storyteller"}
-{"seed": "sim-26", "cause": "과다 출혈", "days": 0.006319444444444444, "level": 1, "map": "surface", "background": "Bg.Excommunicate"}
-{"seed": "sim-27", "cause": "저체온", "days": 0.3819444444444444, "level": 1, "map": "surface", "background": "Bg.Storyteller"}
-{"seed": "sim-28", "cause": "과다 출혈", "days": 0.00875, "level": 1, "map": "crypt1", "background": "Bg.Boatman"}
-{"seed": "sim-29", "cause": "치명상", "days": 0.009791666666666667, "level": 1, "map": "surface", "background": "Bg.EscapedSlave"}
-
-Baseline387: same30 complete initial/final physical worlds except loadHash/core content hash. All120 initial/final save files round-trip exactly. Old v310 1,000 run not resumed. Bot samples are not human playtests.
+Baseline v388: average0.31523032407407403days; 치명상13/과다 출혈4/저체온13; survivor0.
+All30 complete initial worlds exact;13 final worlds change under new bot policy;17 remain exact. All60 retained initial/final saves round-trip and original hashes match.
+Numbers for temperature/clothing/fuel/food and content are unchanged. Remaining hypothermia: sim-9/18/19, all final fatigue100; two below-6000kcal, two100%wet, one fever. Final states do not reconstruct their complete causal history.
+This is automated bot evidence, not human playtests, 1000expeditions or hardware performance measurement. Logs/state JSON stay local under test-results/autonomy-v393/world-r1.

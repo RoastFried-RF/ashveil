@@ -3,6 +3,7 @@ import {
   bloodLoss, canSee, hungerBand, hungerStage, thirstBand, thirstStage, hostile, hpMax, moraleOf, painStage, painTotal, player, regionState, totalBleed, REGION_LABEL, STATE_LABEL,
   type Region, type World,
 } from '../core'
+import { thermalGuidance } from './thermal-guidance'
 
 export interface Banner { p: 0 | 1 | 2; text: string; turns?: number }
 
@@ -30,6 +31,8 @@ export function computeBanners(w: World): Banner[] {
   if (bad.length) out.push({ p: 1, text: bad.map(([r, s]) => `${REGION_LABEL[r]} ${STATE_LABEL[s]}`).join(' · ') })
   if (painStage(painTotal(w, pl)) >= 3) out.push({ p: 1, text: '통증 심각' })
   if (pl.needs.bodyTemp < 35 && pl.needs.bodyTemp >= 32) out.push({ p: 1, text: '저체온' })
+  const thermal = thermalGuidance(w, pl)
+  if (thermal.notice && pl.needs.bodyTemp >= 35) out.push({ p: 2, text: `${thermal.notice} · 일지의 생존에서 비교` })
   if (pl.needs.bodyTemp > 39.5 - heatShift && pl.needs.bodyTemp <= 41 - heatShift) out.push({ p: 1, text: '열사병 위험' })
   if (hungerStage(w, pl) >= 1) out.push({ p: hungerStage(w, pl) >= 4 ? 1 : 2, text: hungerBand(w, pl).label })
   if (thirstStage(w, pl) >= 1) out.push({ p: thirstStage(w, pl) >= 4 ? 0 : 2, text: thirstBand(w, pl).label })
