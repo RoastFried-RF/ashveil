@@ -25,7 +25,7 @@ it('keeps all original common terrain/prop/FX sheets while loading every actual 
 })
 it('retains a requested retired appearance but does not request arbitrary unregistered saved sprite URLs',()=>{
  const plan=atlasPlan(m,[],['not-a-known-historical-frame']);expect(plan.fallback).not.toContain('not-a-known-historical-frame')
- const key=Object.keys(m.frames).find(key=>m.characterSheetHistory?.includes(m.frames[key][0]))!;expect(key).toBeDefined();expect(atlasPlan(m,[],[key]).sheets).toContain(m.frames[key][0])
+ const key=Object.keys(m.frames).find(key=>!m.chars[key]&&m.characterSheetHistory?.includes(m.frames[key][0]))!;expect(key).toBeDefined();expect(atlasPlan(m,[],[key]).sheets).toContain(m.frames[key][0])
  expect(atlasPlan(m,['explicit-mod-texture'],[]).fallback).toContain('explicit-mod-texture')
 })
 it('preserves original rectangles and PNG paths; planning does not rewrite, resample or collapse motion sources',()=>{

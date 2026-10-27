@@ -133,6 +133,8 @@ interface Floater { t: Text; vy: number; life: number; max: number }
 
 export interface RenderOpts {
   hudHeight?: number
+  /** Extra bottom overlay strip on a narrow viewport; presentation only. */
+  bottomOverlayHeight?: number
   hover?: Pos | null
   targets?: Pos[]
   selected?: Pos | null
@@ -252,8 +254,13 @@ export class MapRenderer {
     return null
   }
 
+  private mapViewportHeight(height: number) {
+    const hud = this.opts.hudHeight ? Math.min(height * .45, this.opts.hudHeight) + 24 : 0
+    return Math.max(96, height - hud - (this.opts.bottomOverlayHeight ?? 0))
+  }
+
   setOpts(o: RenderOpts) {
-    const hudChanged = this.opts.hudHeight !== o.hudHeight
+    const hudChanged = this.opts.hudHeight !== o.hudHeight || this.opts.bottomOverlayHeight !== o.bottomOverlayHeight
     const previousHover=this.opts.hover
     this.opts = o
     if (hudChanged && preferences.mapZoom === 'vision' && this.w && this.ready) this.sync(this.w)
@@ -268,7 +275,7 @@ export class MapRenderer {
     // 기본 배율은 유지한다. 전체 시야 맞춤/수동 배율도 항상 정수 픽셀을 사용한다.
     const H = this.app.renderer.height / this.app.renderer.resolution
     const W = this.app.renderer.width / this.app.renderer.resolution
-    const usable = H - (this.opts.hudHeight ? Math.min(H * .45, this.opts.hudHeight) + 24 : 0)
+    const usable = this.mapViewportHeight(H)
     const p = player(w), diameter = 2 * Math.max(w.db.creature(p.def).sightRange, sightRange(w, p)) + 1
     const mode = preferences.mapZoom
     const zoom = mode === 'auto' ? Math.max(1, Math.floor(H / 360)) : mode === 'vision' ? Math.max(1, Math.min(4, Math.floor(Math.min(W, usable) / (T * diameter)))) : mode
@@ -1069,7 +1076,7 @@ export class MapRenderer {
     let ty = Hpx / 2 - (pp.y + 0.5) * s - s
     // At a map's south edge the old clamp could push the player under the HUD.
     // Reserve the measured client overlay only; game visibility remains unchanged.
-    const usableHeight = Hpx - (this.opts.hudHeight ? Math.min(Hpx * .45, this.opts.hudHeight) + 24 : 0)
+    const usableHeight = this.mapViewportHeight(Hpx)
     if (preferences.mapZoom !== 'auto') ty = usableHeight / 2 - (pp.y + .5) * s
     const mw = w.s.map.w * s, mh = w.s.map.h * s
     tx = mw < Wpx ? (Wpx - mw) / 2 : Math.min(0, Math.max(Wpx - mw, tx))

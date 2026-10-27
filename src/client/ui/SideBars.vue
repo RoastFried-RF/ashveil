@@ -63,4 +63,5 @@ const bars = computed<BarSpec[]>(() => {
 .needs-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: #080d0c9c; }
 .needs-center { position: absolute; top: 0; bottom: 0; width: 1px; background: #d8d8bfc7; }
 .needs-limit { position: absolute; top: 0; bottom: 0; width: 2px; }
+@media(max-width:680px){.needs-panel[data-testid="sidebars"]{width:120px;padding:6px}.needs-row{grid-template-columns:30px 40px minmax(0,1fr);gap:4px}}
 </style>

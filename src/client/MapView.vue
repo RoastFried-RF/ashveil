@@ -71,7 +71,7 @@ onBeforeUnmount(() => { disposed=true;++requestTicket;stopObserving?.();emit('mo
 <template>
   <div class="relative h-full w-full overflow-hidden bg-[#070707]">
     <div ref="host" class="h-full w-full outline-none" tabindex="0" aria-label="게임 지도" data-testid="map" :data-ready="!loading" @pointerdown="host?.focus({preventScroll:true})" />
-    <div v-if="loading" class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#070707] font-title text-ash-400" role="status" data-testid="map-loading">
+    <div v-if="loading" class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#070707] font-title text-ash-400" role="status" data-testid="map-loading" style="padding-bottom:var(--map-bottom-inset,0px)">
       <span>{{ loadError?'지도를 불러오지 못했습니다':'지도를 펼치는 중…' }}</span>
       <button v-if="loadError" class="dbtn" data-testid="map-retry" @click="initialize">다시 불러오기</button>
     </div>

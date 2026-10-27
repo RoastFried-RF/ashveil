@@ -44,6 +44,13 @@ const shift = ref(false)
 const help = ref(false)
 const hudDock = ref<HTMLElement | null>(null)
 const hudDockHeight = ref(190)
+const logDock = ref<HTMLElement | null>(null)
+const logDockHeight = ref(0)
+const compactViewport = ref(false)
+let compactMedia: MediaQueryList | undefined
+const syncCompactViewport = () => { compactViewport.value = compactMedia?.matches ?? false }
+// Expanded reading may cover the map; the normal compact strip always reserves its own height.
+const logBottomInset = computed(() => compactViewport.value ? Math.min(logDockHeight.value, 96) + 12 : 0)
 let hudObserver: ResizeObserver | undefined
 const helpDialog = ref<HTMLElement | null>(null)
 let helpOrigin: HTMLElement | null = null
@@ -94,6 +101,7 @@ const opts = computed<RenderOpts>(() => {
   const pos = (id: number) => ww.s.creatures.find((c) => c.id === id)?.pos
   return {
     hudHeight: hudDockHeight.value,
+    bottomOverlayHeight: logBottomInset.value,
     hover: hover.value,
     targets: t ? t.targets.map(pos).filter((p): p is Pos => !!p) : [],
     selected: t ? pos(t.targets[t.idx]) ?? null : null,
@@ -203,7 +211,7 @@ function allowMovement(){
 function onFocusIn(e:FocusEvent){if(e.target instanceof HTMLElement&&e.target.closest('.window-shell,button,summary,a[href],input,textarea,select,[contenteditable="true"]'))suspendInput()}
 function onUiPointer(e:PointerEvent){if(e.target instanceof HTMLElement&&e.target.closest('button,input,select,textarea,[role="dialog"],[role="menu"]'))suspendInput()}
 function onKey(raw:KeyboardEvent){
- if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value||mapAssetsLoading.value)return
+ if(raw.defaultPrevented||raw.isComposing||raw.metaKey||preferencesOpen.value||definitionInspectorOpen.value||pendingCheckpoint.value)return
  if(help.value){
   if(raw.key==='Escape'&&!raw.repeat){raw.preventDefault();help.value=false}
   else if(raw.key==='Tab'&&helpDialog.value)cycleFocus(helpDialog.value,raw)
@@ -216,10 +224,13 @@ function onKey(raw:KeyboardEvent){
   if(targeting.value){targeting.value=null;hint.value=null;return}
   if(travelling)return
   if(closeTopWin())return
+  // Loading blocks world actions; dismissing presentation UI remains immediate.
+  if(mapAssetsLoading.value)return
   if(w.value.s.loot)doAct({type:'lootClose'})
   else if(player(w.value).activity)doAct({type:'stopActivity'})
   return
  }
+ if(mapAssetsLoading.value)return
  if(editableTarget(raw.target))return
  if(raw.key==='Shift'){shift.value=true;return}
  const element=raw.target instanceof HTMLElement?raw.target:null
@@ -357,8 +368,10 @@ function onClick(p: Pos, button: number, ctrl=false) {
 }
 
 onMounted(() => {
-  hudObserver = new ResizeObserver(entries => { hudDockHeight.value = Math.ceil(entries[0].contentRect.height) })
+  compactMedia = window.matchMedia('(max-width:999px)'); syncCompactViewport(); compactMedia.addEventListener('change', syncCompactViewport)
+  hudObserver = new ResizeObserver(entries => { for (const entry of entries) { if (entry.target === hudDock.value) hudDockHeight.value = Math.ceil(entry.contentRect.height); else if (entry.target === logDock.value) logDockHeight.value = Math.ceil(entry.contentRect.height) } })
   if (hudDock.value) hudObserver.observe(hudDock.value)
+  if (logDock.value) hudObserver.observe(logDock.value)
   window.addEventListener('blur',suspendInput)
   document.addEventListener('focusin',onFocusIn)
   document.addEventListener('pointerdown',onUiPointer,true)
@@ -368,6 +381,7 @@ onMounted(() => {
 })
 onBeforeUnmount(() => {
   hudObserver?.disconnect()
+  compactMedia?.removeEventListener('change', syncCompactViewport)
   stopTravel()
   keyRepeat.clear()
   window.removeEventListener('blur',suspendInput)
@@ -380,7 +394,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative h-full w-full select-none overflow-hidden bg-black" :style="{ '--hud-dock-height': hudDockHeight + 'px' }">
+  <div class="relative h-full w-full select-none overflow-hidden bg-black" :style="{ '--hud-dock-height': hudDockHeight + 'px', '--map-bottom-inset': (hudDockHeight + logBottomInset) + 'px' }">
     <MapView :key="w.db.loadHash" :opts="opts" @hover="hover = $event" @click="onClick" @motion="playerMoving=$event" />
 
     <!-- 위험: 화면 가장자리 붉은 기운 -->
@@ -412,7 +426,7 @@ onBeforeUnmount(() => {
       <button v-if="resumeDest && w.s.autoThreat !== undefined" class="dbtn pointer-events-auto !text-xs" data-testid="ignore-threat" @click="ignoreAndResume">이번 개체를 무시하고 계속 (공격·3칸 접근 시 해제)</button>
       <Hud />
     </div>
-    <div class="game-log pointer-events-none absolute right-3"><LogPanel /></div>
+    <div ref="logDock" class="game-log pointer-events-none absolute right-3"><LogPanel /></div>
 
     <CraftingWindow v-if="wins.craft" />
     <SocietyWindow v-if="wins.society" />
