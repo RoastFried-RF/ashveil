@@ -63,3 +63,5 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 `--checkpoint-locale`는 탐구/표석의 실제 저장·복원 검토/취소/모드 선택·타이틀 복원을 heavy 단독으로 실행한다. 관련 저장/콘텐츠 계약 검사는 Full을 선행 차단한다. 원시 초기/실제/기대 세계는 아티팩트에서 제외한다.
 
 `cloud/ashveil-native-*` 브랜치는 기존 authoring 프로필로 도구/Native만 재검한다. 앱 원문이 같은 선행 Full 성공의 SHA를 별도로 기록해야 하며 새 Full 성공으로 합산하지 않는다. 일반 클라우드 release와 main Pages Full은 유지한다.
+
+`--item-detail-locale` adds the reviewed public item-detail boundary checks before Full and the exclusive v405 tooltip/actual-meal/save Native task after the selected prior Native tasks. No post-load World/time/RNG injection is used. Initial finite diagnostic stock is recorded separately from acquisition/cooking/appraisal.
