@@ -4,7 +4,7 @@ import { t } from '../locale'
 import { computed } from 'vue'
 import { bloodLoss, hungerBand, hungerStage, nutritionDef, nutritionProgress, metabolicSize, thirstBand, thirstStage, mood, painTotal, player, type World } from '../../core'
 import { version, world } from '../store'
-import { paletteColor } from '../preferences'
+import { paletteColor, preferences } from '../preferences'
 import { hideTip, showTip } from '../ui'
 import { temperatureTip } from '../info'
 
@@ -38,7 +38,7 @@ const bars = computed<BarSpec[]>(() => {
 </script>
 
 <template>
-  <div class="df df-olive needs-panel pointer-events-auto" data-testid="sidebars" :aria-label="t('생존 상태')">
+  <div class="df df-olive needs-panel pointer-events-auto" :class="{'is-english':preferences.language==='en'}" data-testid="sidebars" :aria-label="t('생존 상태')">
     <div v-for="b in bars" :key="b.key" class="needs-row" :data-testid="`need-${b.key}`" :data-level="b.level" :aria-label="`${t(b.label)}: ${t(b.value)}`" @mouseenter="showTip($event, t(b.label), b.tip)" @mousemove="showTip($event, t(b.label), b.tip)" @mouseleave="hideTip">
       <span class="needs-label">{{ t(b.label) }}</span>
       <span class="needs-value" :style="b.level ? { color: color(b) } : undefined">{{ t(b.value) }}</span>
@@ -53,8 +53,10 @@ const bars = computed<BarSpec[]>(() => {
 </template>
 
 <style scoped>
-.needs-panel[data-testid="sidebars"] { display: grid; width: 196px; gap: 0; padding: 6px 9px; }
-.needs-row { display: grid; grid-template-columns: 66px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #a08b641c; cursor: help; }
+.needs-panel[data-testid="sidebars"] { display: grid; width: 158px; gap: 0; padding: 6px 9px; }
+.needs-row { display: grid; grid-template-columns: 34px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #a08b641c; cursor: help; }
+.needs-panel.is-english[data-testid="sidebars"] { width: 196px; }
+.is-english .needs-row { grid-template-columns: 66px 47px minmax(0, 1fr); }
 .needs-row:last-child { border-bottom: 0; }
 .needs-label { color: #c7baa0; font-size: 10px; line-height: 1.2; white-space: nowrap; }
 .needs-value { overflow: hidden; color: #e1decb; font-size: 10px; line-height: 1.2; text-align: right; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -64,5 +66,5 @@ const bars = computed<BarSpec[]>(() => {
 .needs-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: #080d0c9c; }
 .needs-center { position: absolute; top: 0; bottom: 0; width: 1px; background: #d8d8bfc7; }
 .needs-limit { position: absolute; top: 0; bottom: 0; width: 2px; }
-@media(max-width:680px){.needs-panel[data-testid="sidebars"]{width:150px;padding:6px}.needs-row{grid-template-columns:59px 40px minmax(0,1fr);gap:4px}}
+@media(max-width:680px){.needs-panel[data-testid="sidebars"]{width:120px;padding:6px}.needs-row{grid-template-columns:30px 40px minmax(0,1fr);gap:4px}.needs-panel.is-english[data-testid="sidebars"]{width:150px}.is-english .needs-row{grid-template-columns:59px 40px minmax(0,1fr)}}
 </style>

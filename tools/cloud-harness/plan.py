@@ -19,14 +19,18 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=Fals
     add("environment", "light", "audit", "read-only", argv)
     add("typecheck", "light", "typecheck", "read-only", ["node", "node_modules/vue-tsc/bin/vue-tsc.js", "--noEmit"], ["environment"])
     add("lint", "light", "lint", "read-only", ["node", "node_modules/eslint/bin/eslint.js", "."], ["environment"])
+    if gameplay_locale:
+        add("locale-focused", "light", "focused-test", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "tests/locale.test.ts", "tests/locale-gameplay.test.ts", "tests/speech.test.ts", "--maxWorkers=2"], ["typecheck", "lint"])
     add("preview-helper", "heavy", "native", "output-only", ["node", "tools/verify-native-preview.mjs", "{task_out}/helper"], ["typecheck", "lint"])
     if profile == "release":
         add("defs", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-defs.ts"], ["typecheck", "lint"])
         add("sprites", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-sprites.ts"], ["typecheck", "lint"])
-        add("full", "heavy", "full", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"], ["defs", "sprites"])
+        add("full", "heavy", "full", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"], ["defs", "sprites"] + (["locale-focused"] if gameplay_locale else []))
         build_deps = ["full", "preview-helper"]
     else:
         build_deps = ["typecheck", "lint", "preview-helper"]
+        if gameplay_locale:
+            build_deps.append("locale-focused")
     add("build", "heavy", "build", "source-write", ["node", "node_modules/vite/bin/vite.js", "build"], build_deps)
     add("smoke", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"], ["build"])
     if locale:
