@@ -77,6 +77,16 @@ class FreshEnvironment(unittest.TestCase):
         self.assertIn("tests/locale-status.test.ts", status_tasks["locale-focused"]["argv"])
         self.assertEqual(status_tasks["locale-status"]["lane"], "heavy")
 
+    def test_item_plan_has_focused_and_exclusive_native_dependencies(self):
+        tasks={t["id"]:t for t in plan.make_plan("/tmp/checkout",profile="release",locale=True,item_locale=True)["tasks"]}
+        self.assertEqual(tasks["locale-items"]["deps"],["locale"])
+        self.assertEqual(tasks["locale-items"]["lane"],"heavy")
+        self.assertIn("tests/locale-items.test.ts",tasks["locale-focused"]["argv"])
+        self.assertEqual(tasks["locale-focused"]["argv"][2],"run")
+        self.assertIn("locale-focused",tasks["full"]["deps"])
+        combined=plan.make_plan("/tmp/checkout",status_locale=True,item_locale=True)["tasks"][-1]
+        self.assertEqual(combined["deps"],["locale-status"])
+
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:
             output = Path(folder) / "plan.json"
