@@ -55,3 +55,5 @@ Run self-verification while the heavy queue is free. Its 30-second subprocess de
 Both profiles first test the dependency-free preview helper with real owned HTTP subprocesses: plain/colored and split readiness output, occupied port and a missing Vite entry. Native readiness strips terminal color codes before checking the owned strict-port process's URL. It does not accept another server that happens to occupy the port.
 
 `--gameplay-locale` adds v401 gameplay inputs and independent full-world comparisons at 1440×1080, 1366×768 and 390×844. With `--locale`, it follows the existing v400 scenario. Both use heavy Native lanes; neither claims full-game translation.
+
+`--status-locale` adds the v402 declared low-HP fixture and actual fatal-warning acknowledgment/language/movement/save inputs in three viewports. Korean warning identity remains independent of display language. Its focused locale/thermal suites precede Full, and Native remains heavy and sequential.

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // Original ink anatomy, drawn as six separate observable regions.
+import {t} from '../locale'
 import {useId} from 'vue'
 import {REGION_LABEL,STATE_LABEL,type Region} from '../../core'
 import {hideTip} from '../ui'
@@ -20,7 +21,7 @@ const patterns=['','dots','diagonal','grid','cross']
 </script>
 
 <template>
-  <svg viewBox="0 0 64 112" fill="none" class="body-diagram" :class="{'is-mini':mini}" :aria-hidden="mini?true:undefined" :role="mini?undefined:'img'" :aria-label="mini?undefined:'여섯 부위의 신체 상태'">
+  <svg viewBox="0 0 64 112" fill="none" class="body-diagram" :class="{'is-mini':mini}" :aria-hidden="mini?true:undefined" :role="mini?undefined:'img'" :aria-label="mini?undefined:t('여섯 부위의 신체 상태')">
     <defs>
       <pattern :id="id+'-dots'" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#19191b" /></pattern>
       <pattern :id="id+'-diagonal'" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M-1 1 1-1M0 5 5 0M4 6 6 4" stroke="#19191b" stroke-width=".8" /></pattern>
@@ -30,7 +31,7 @@ const patterns=['','dots','diagonal','grid','cross']
     <path d="M32 2V110M6 30H58M6 62H58M6 3H13M51 3H58M6 109H13M51 109H58" stroke="#927a53" stroke-width=".5" opacity=".3" />
     <path d="M6 39H9M6 46H8M6 53H9M6 70H9M6 77H8M6 84H9M55 39H58M56 46H58M55 53H58M55 70H58M56 77H58M55 84H58" stroke="#a08b67" stroke-width=".5" opacity=".5" />
     <g v-for="part in parts" :key="part.region" class="body-region" :data-body-region="part.region" :data-state="state(part.region)" @mouseenter="emit('region',$event,part.region)" @mouseleave="hideTip">
-      <title>{{ REGION_LABEL[part.region] }}: {{ STATE_LABEL[state(part.region)] }}</title>
+      <title>{{ t(REGION_LABEL[part.region]) }}: {{ t(STATE_LABEL[state(part.region)]) }}</title>
       <path :d="part.shape" :fill="tone[state(part.region)]" stroke="#d0bea0" stroke-width=".65" stroke-linejoin="round" />
       <path :d="part.detail" stroke="#302a23" stroke-width=".75" stroke-linejoin="round" opacity=".8" pointer-events="none" />
       <path v-if="state(part.region)>0" :d="part.shape" :fill="`url(#${id}-${patterns[state(part.region)]})`" opacity=".75" pointer-events="none" />

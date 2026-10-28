@@ -3,7 +3,7 @@ import english from './en-content.json'
 import type {Language} from './message'
 
 type Field = 'label' | 'description'
-type DisplayDef = {id:string; label:string; description?:string}
+type DisplayDef = {id:string; label?:string; description?:string}
 type Entry = Partial<Record<Field, {source:string; text:string}>>
 const messages:Readonly<Record<string, Entry>> = english
 

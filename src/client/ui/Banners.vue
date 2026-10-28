@@ -3,11 +3,12 @@
 import { computed } from 'vue'
 import type { World } from '../../core'
 import { version, world } from '../store'
+import { preferences } from '../preferences'
 import { computeBanners } from '../warnings'
 
 const list = computed(() => {
   void version.value
-  return computeBanners(world.value as World)
+  return computeBanners(world.value as World,preferences.language)
 })
 const STYLE = ['bg-[#5a0e0a]/90 text-[#ffd8d0] ring-1 ring-[#ff5040] animate-pulse', 'bg-[#4a3a0a]/90 text-amber-100 ring-1 ring-amber-500/70', 'bg-black/60 text-ash-200 ring-1 ring-ash-600']
 </script>
