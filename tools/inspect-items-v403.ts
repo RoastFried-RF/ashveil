@@ -41,7 +41,7 @@ try {
   }
   const item=(uid:number)=>page.getByTestId('win-inv').locator(`[data-inventory-item="${uid}"]`)
   await page.goto(server.url);await page.evaluate(raw=>localStorage.setItem('ashveil.imprint.v1',raw),raw);await page.reload();await page.getByTestId('continue').click()
-  await page.keyboard.press('i');await compare('inventory-ko')
+  await page.waitForSelector('[data-testid=map][data-ready=true] canvas');await page.keyboard.press('i');await page.getByTestId('win-inv').waitFor();await compare('inventory-ko')
   await page.keyboard.press('F3');await page.getByTestId('settings-language').selectOption('en')
   assert.match(await page.getByTestId('checkpoint-controls').innerText(),/Save mode · Study/)
   await page.keyboard.press('Escape');await compare('inventory-en')

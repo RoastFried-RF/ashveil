@@ -6,6 +6,7 @@ import {chromium,type Page} from 'playwright-core'
 import {startNativePreview} from './native-preview'
 import {loadDb} from './loadContent'
 import {checkpointFixture} from '../tests/checkpoint-fixture'
+import {importedFiles,zipFixture} from '../tests/mod-archive-fixture'
 import {newGame,playerAct,runUntilInput} from '../src/core/game'
 import {serialize,deserialize,stateHash} from '../src/core/save'
 import {player,type World} from '../src/core/ctx'
@@ -41,7 +42,14 @@ try{
    await compare(label+'-review');await page.getByTestId('content-change-accept').click();await page.getByTestId('checkpoint-dialog').waitFor({state:'detached'});w={db:w.db,s:deserialize(raw)}
    await compare(label+'-restored')
   }
-  await page.goto(server.url);await page.getByTestId('seed').fill('ashveil-checkpoints-v404');await page.getByRole('button',{name:/탈영 경비병/}).click();await page.getByTestId('save-mode').selectOption('SaveMode.Study');await page.getByTestId('title-language').selectOption('en');await page.getByTestId('start').click();await compare('new-study')
+  await page.goto(server.url);await page.getByTestId('seed').fill('ashveil-checkpoints-v404');await page.getByRole('button',{name:/탈영 경비병/}).click();await page.getByTestId('save-mode').selectOption('SaveMode.Study');await page.getByTestId('title-language').selectOption('en')
+  // Real file input -> review -> install -> remove. The imported fixture stays unselected.
+  const upload={name:'local-floor.zip',mimeType:'application/zip',buffer:Buffer.from(zipFixture(importedFiles()))}
+  await page.getByTestId('mod-import-archive').setInputFiles(upload);await page.getByTestId('mod-import-review').waitFor();assert.equal(await page.getByTestId('mod-import-install').innerText(),'Install this mod');assert.equal(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world()),null)
+  await page.getByTestId('mod-import-review').scrollIntoViewIfNeeded();await page.screenshot({path:join(out,width+'-mod-package-review.png')});await page.getByTestId('mod-import-install').click();await page.getByTestId('installed-mod-local-floor').waitFor();assert.equal(await page.getByTestId('new-mod-local-floor').isChecked(),false);assert.match(await page.getByTestId('mod-import-message').innerText(),/^Installed 가져온 바닥\./)
+  await page.getByTestId('installed-mod-local-floor').getByRole('button',{name:'Remove installed files',exact:true}).click();await page.getByTestId('mod-import-remove-review').waitFor();await page.screenshot({path:join(out,width+'-mod-removal-review.png')});await page.getByTestId('mod-import-remove').click();await page.getByTestId('installed-mod-local-floor').waitFor({state:'detached'});assert.equal(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world()),null)
+  const share=page.getByTestId('seed-share');await share.locator('summary').click();await page.getByTestId('seed-share-create').click();const code=await page.getByTestId('seed-share-output').inputValue();await page.getByTestId('seed-share-input').fill(code);await page.getByTestId('seed-share-review').click();await page.getByTestId('seed-share-review-result').waitFor();assert.equal(await page.getByTestId('seed-share-apply').isDisabled(),false);await page.getByTestId('seed-share-review-result').scrollIntoViewIfNeeded();await page.screenshot({path:join(out,width+'-seed-share-review.png')});await page.getByTestId('seed-share-apply').click();assert.equal(await page.getByTestId('seed').inputValue(),'ashveil-checkpoints-v404');assert.equal(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world()),null);await share.locator('summary').click()
+  await page.getByTestId('start').click();await compare('new-study')
   await page.keyboard.press('F3');const live=page.getByTestId('live-content-reload');await live.locator('summary').first().click();await page.getByTestId('live-content-review').click();await page.getByTestId('content-change-accept').waitFor();assert.doesNotMatch(await page.getByTestId('content-change-review').innerText(),/[가-힣]/);await compare('live-review-readonly');await page.getByTestId('content-change-cancel').click();await compare('live-cancel-readonly',false);await page.keyboard.press('Escape')
   const originalName=player(w).name,saved=await save('study')
   await page.keyboard.press('Period');assert.equal(playerAct(w,{type:'wait'}),null);await compare('study-wait',false)
@@ -62,6 +70,6 @@ try{
   await page.getByTestId('checkpoint-load').click();await restore(mark,'waymark');await page.keyboard.press('Escape')
   await context.close()
  }
- assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({scope:'Fresh actual Study creation and save; real wait, modal blocking, changed-mod review revocation, cancellation and original whole-state restoration; Title checkpoint and reload continuation; declared finite Waymark campfire, real movement out of range and restoration. No natural campfire acquisition, death or human evaluation claimed.',postTitleWorldWrites:false,rows,fixtures,errors},null,2));console.log(JSON.stringify({wholePairs:rows.length,errors}))
+ assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({scope:'Real ZIP file import/review/install/remove with original package name and no selected mod or world; actual seed-code create/review/apply without starting a world until Enter. Fresh actual Study creation and save; real wait, modal blocking, changed-mod review revocation, cancellation and original whole-state restoration; Title checkpoint and reload continuation; declared finite Waymark campfire, real movement out of range and restoration. No natural campfire acquisition, death or human evaluation claimed.',postTitleWorldWrites:false,rows,fixtures,errors},null,2));console.log(JSON.stringify({wholePairs:rows.length,errors}))
 }catch(error){await active?.screenshot({path:join(out,'failure.png')}).catch(()=>{});writeFileSync(join(out,'failure.json'),JSON.stringify({error:String(error),rows,errors},null,2));throw error}
 finally{await browser.close();server.stop()}
