@@ -11,7 +11,7 @@ description: ASHVEIL의 게임 기능·UI·아트를 수정할 때 실제 키/�
 2. 코어는 순수 TypeScript와 JSON Def로 유지한다. UI·브라우저·이미지 리소스를 코어에 넣지 않는다. 기존 Def 변경 절차와 저장/로드·결정론 규약을 따른다.
 3. 기존 로컬 도구를 사용한다. `playwright-core`, Vite, 프로젝트 하네스가 준비되어 있다. 전역 설치나 `npx`의 자동 패키지 다운로드, 엔진 교체, 전역 환경 변수 변경을 하네스 설정 단계에 끼워 넣지 않는다.
 4. `node tools/game-harness.mjs --list`로 시나리오를 확인하고 `--scenario smoke --check`로 브라우저 없이 입력을 검사한다. 한 기능에 필요한 최소한의 실제 입력을 `tools/game-actions/` JSON으로 추가할 수 있다. API로 코어 행동을 직접 호출하거나 세계 상태를 주입하여 UI 성공처럼 보이게 하지 않는다.
-5. 이미 실행 중인 Vite 서버 또는 검증할 빌드의 preview URL에 `?debug`를 붙여 실행한다. 서버 실행과 빌드는 기존 프로젝트 명령을 사용한다. Full/World/GPU 검증이 다른 작업에서 돌고 있다면 담당자와 실행 순서를 조율한다. 느린 검사를 중복 실행해 타임아웃을 만들지 않는다.
+5. 이미 실행 중인 Vite 서버 또는 검증할 빌드의 preview URL에 `?debug`를 붙여 실행한다. 서버 실행과 빌드는 기존 프로젝트 명령을 사용한다. 클라우드 병렬 검사는 [공통 작업 실행기](../../../tools/cloud-harness/README.md)를 사용해 light 최대2개, 빌드/Full/World/원정/GPU/Native는 heavy 단독으로 실행한다. 실행기 밖의 작업이 있다면 담당자와 실행 순서를 조율한다. 느린 검사를 중복 실행해 타임아웃을 만들지 않는다.
 
    빌드의 두 화면 크기를 한 번에 검사하려면 `pnpm build` 뒤 `pnpm game:preview-check test-results/새접두사`를 사용한다. 자신의 preview가 실제 시작됐는지 확인한 뒤 기존 smoke를 순서대로 실행하고 자기 서버 그룹을 정리한다. 점유된 포트의 다른 빌드를 대신 검사하지 않으며 기존 결과는 덮어쓰지 않는다.
 

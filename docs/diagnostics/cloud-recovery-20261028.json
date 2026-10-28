@@ -1,0 +1,200 @@
+{
+  "dateUTC": "2026-10-28T03:47:55.677157+00:00",
+  "baselineRestoredCommit": "7fa6976b46a971ffbe1dc33261e5dad1f2aece31",
+  "recoveredPublishedCommit": "198824a3b9d37663975583c7afb713203206c6d4",
+  "setupOnlySource": {
+    "trackedFiles": 9055,
+    "allBytesUnchanged": true,
+    "gitStatusCleanBeforeImplementation": true,
+    "manifestSHA256": "4c7aee1f526625df4aca941b124d549920e3499823fd9881852330a1a62b3781"
+  },
+  "runtimeContentPublicAndDependenciesUnchangedFromV399": true,
+  "scheduler": {
+    "lightMax": 2,
+    "heavyMax": 1,
+    "heavyExcludesLight": true,
+    "sharedLockRoot": "/workspace/.ashveil-tools/cloud-harness/locks",
+    "realProcessContracts": {
+      "crossRunnerLightLimit": {
+        "tasks": 8,
+        "events": 16,
+        "maxConcurrent": {
+          "light": 2,
+          "heavy": 0
+        },
+        "heavyLightOverlap": false
+      },
+      "crossRunnerHeavyExclusion": {
+        "tasks": 8,
+        "events": 16,
+        "maxConcurrent": {
+          "light": 2,
+          "heavy": 1
+        },
+        "heavyLightOverlap": false
+      },
+      "failurePropagation": {
+        "runnerExit": 7,
+        "taskExit": 7,
+        "dependent": "blocked",
+        "independent": "passed"
+      },
+      "existingOutputRejected": {
+        "exit": 2,
+        "originalRunJsonUnchanged": true
+      },
+      "existingEmptyOutputRejected": {
+        "exit": 2,
+        "directoryStillEmpty": true
+      },
+      "snapshotPolicy": {
+        "buildRejectedBeforeOutput": true,
+        "manifestShaRecorded": true,
+        "trackedBytesVerifiedBeforeAfter": 1
+      },
+      "argvWithoutShell": {
+        "literalArgumentsPreserved": 4
+      },
+      "missingExecutable": {
+        "runnerExit": 127,
+        "childExit": null,
+        "failureCode": 127
+      },
+      "ownedProcessGroupCleanup": {
+        "runnerExit": 143,
+        "taskExit": -15,
+        "ownedChildStopped": true,
+        "outsiderStillAlive": true
+      }
+    },
+    "focusedRegressions": {
+      "browserless-check": {
+        "exit": 0,
+        "outputNotCreated": true
+      },
+      "browserless-list": {
+        "exit": 0,
+        "outputNotCreated": true
+      },
+      "browser-input-stays-heavy": {
+        "exit": 2,
+        "outputNotCreated": true
+      },
+      "preview-stays-heavy": {
+        "exit": 2,
+        "outputNotCreated": true
+      },
+      "copiedLocationUsesSharedLocks": {
+        "tasks": 4,
+        "events": 8,
+        "maxConcurrent": {
+          "light": 2,
+          "heavy": 1
+        },
+        "heavyLightOverlap": false,
+        "lockRoots": [
+          "/workspace/.ashveil-tools/cloud-harness/locks",
+          "/workspace/.ashveil-tools/cloud-harness/locks"
+        ]
+      },
+      "reusedOutputKeepsOriginalInvocationLog": {
+        "exit": 2,
+        "originalLogUnchanged": true,
+        "invocationLogs": 2
+      }
+    },
+    "contractReportSHA256": "e1501409e2762513ff388a24f3e4c190ff6b08793db9829080586c0d86df9f5f",
+    "regressionReportSHA256": "25e117b00e8208e2b69fd3d2b5f1b7bfff8eae1145158d6375cf5dffe034102a"
+  },
+  "v399Readiness": {
+    "typecheck": "passed",
+    "lint": "passed with one existing historical-generator warning",
+    "focusedFiles": 2,
+    "focusedTests": 9,
+    "build": "passed",
+    "smoke": [
+      {
+        "size": {
+          "width": 1366,
+          "height": 768
+        },
+        "steps": 11,
+        "errors": [],
+        "runSHA256": "143c4cb6f23980ddd667f04ff1c60a10c89b5bff35de5b6dcbdd737c80555343"
+      },
+      {
+        "size": {
+          "width": 1440,
+          "height": 1080
+        },
+        "steps": 11,
+        "errors": [],
+        "runSHA256": "23df5ae3203d19093f1a85bdcb8c17f5a6fd66cb991ad21df55d1ad0e4c9a90e"
+      }
+    ],
+    "runSHA256": "7a30e448e3ce88b354017ffddb885cc3b6a10fcefc124acdb304f048f0e8012c",
+    "taskTimes": {
+      "typecheck": {
+        "startedAt": "2026-10-28T03:41:04.440644+00:00",
+        "endedAt": "2026-10-28T03:42:19.120557+00:00",
+        "exitCode": 0
+      },
+      "lint": {
+        "startedAt": "2026-10-28T03:41:04.440437+00:00",
+        "endedAt": "2026-10-28T03:42:21.843125+00:00",
+        "exitCode": 0
+      },
+      "focused": {
+        "startedAt": "2026-10-28T03:42:19.147692+00:00",
+        "endedAt": "2026-10-28T03:42:25.014196+00:00",
+        "exitCode": 0
+      },
+      "build": {
+        "startedAt": "2026-10-28T03:42:25.016606+00:00",
+        "endedAt": "2026-10-28T03:42:33.842213+00:00",
+        "exitCode": 0
+      },
+      "smoke": {
+        "startedAt": "2026-10-28T03:42:41.043196+00:00",
+        "endedAt": "2026-10-28T03:44:10.754143+00:00",
+        "exitCode": 0
+      }
+    }
+  },
+  "localizationReconstruction": {
+    "version": 1,
+    "inputFiles": 913,
+    "entries": 8518,
+    "literals": 6183,
+    "formats": 2335,
+    "occurrences": 9597,
+    "exclusions": 46,
+    "byUsage": {
+      "ui": 2668,
+      "log": 620,
+      "content": 1748,
+      "candidate": 3714
+    },
+    "inputBytesUnchanged": true,
+    "parserFixtures": 5,
+    "typecheck": "passed",
+    "newFilesLintErrors": 0,
+    "newFilesLintWarnings": 0,
+    "runSHA256": "b168ef2d7c84267aa6fd96450614b5e31f2890524b0728a66e63be882d093da5",
+    "translatedEnglishRuntime": false,
+    "previousUnpublishedWipRecoveredByteForByte": false
+  },
+  "preservedEarlierFailures": [
+    "marker self-check reached its30second limit while waiting for game heavy lock; later rerun passed",
+    "new example initially set max-warnings0 above the existing lint contract; one pre-existing provenance-tracked art helper warning blocked build/smoke; aligned example with unchanged pnpm lint contract and reran",
+    "initial parser4fixture run1failed: transformed Vue bound expression type8 skipped; fixed AST provenance collection and reran",
+    "direct external HTTPS Chromium certificate trust failed; permanent NSS mutation rejected by automatic approval review and not applied"
+  ],
+  "configuration": {
+    "draftSaveConfirmed": true,
+    "requiresPublish": true,
+    "repositoriesNetworkAndCredentialsUnchanged": true,
+    "changesDoNotRestartOrDeploy": true
+  },
+  "scope": "Cloud harness and read-only localization inventory; not v1.0 acceptance. Original v399 CI407files/6739tests remains a separate exact-commit result; no new local full-suite claim."
+}

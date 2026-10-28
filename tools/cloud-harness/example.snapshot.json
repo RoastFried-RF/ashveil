@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "full",
+      "lane": "heavy",
+      "kind": "full",
+      "effect": "read-only",
+      "cwd": "/workspace/.ashveil-checkpoints/CHOOSE_EXISTING_CHECKPOINT",
+      "argv": ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"]
+    },
+    {
+      "id": "world",
+      "lane": "heavy",
+      "kind": "world",
+      "effect": "output-only",
+      "deps": ["full"],
+      "cwd": "/workspace/.ashveil-checkpoints/CHOOSE_EXISTING_CHECKPOINT",
+      "argv": ["node", "--import", "tsx", "tools/sim-batch.ts", "30", "3", "{task_out}/world", "--world", "--states"]
+    },
+    {
+      "id": "smoke",
+      "lane": "heavy",
+      "kind": "native",
+      "effect": "output-only",
+      "deps": ["full"],
+      "cwd": "/workspace/.ashveil-checkpoints/CHOOSE_EXISTING_CHECKPOINT",
+      "argv": ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"]
+    }
+  ]
+}

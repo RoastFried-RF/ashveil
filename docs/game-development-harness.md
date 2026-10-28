@@ -1,5 +1,7 @@
 # 게임 개발용 빠른 하네스
 
+클라우드에서 여러 검사를 실행할 때는 [병렬 실행·환경 복구 절차](cloud-development-harness.md)와 저장소의 [작업 실행기](../tools/cloud-harness/README.md)를 사용한다. 가벼운 검사 두 개만 겹치고 Full·World·GPU·Native·빌드는 같은 전역 잠금을 공유한다. 구현 담당자의 파일 소유권과 검증 작업의 실행 슬롯은 별도로 관리한다.
+
 `tools/game-harness.mjs`는 실행 중인 ASHVEIL에 실제 키·마우스 입력을 보내고 전체 화면과 상태를 저장하는 작은 Playwright 어댑터다. 게임을 짧게 조작하며 UI·캐릭터·아트·기능을 확인할 때 쓴다. 코어의 독립적인 기대 세계 비교, 저장 복원, Full/World 검증은 기존 테스트가 계속 담당한다.
 
 OpenAI의 삭제 전 `develop-web-game`을 검토한 뒤 기존 `playwright-core`와 프로젝트 구조에 맞게 구성했다. 공식 최신 카탈로그에는 그 스킬이 없으며, 보관한 원본을 유지보수 중인 공식 기능으로 표시하지 않는다. [원본 출처·수정 경계·SHA-256](../tools/vendor/openai-web-game/PROVENANCE.md)과 Apache 2.0 라이선스를 함께 보관한다. 프로젝트 스킬은 [.agents/skills/ashveil-game-development/SKILL.md](../.agents/skills/ashveil-game-development/SKILL.md)다.
