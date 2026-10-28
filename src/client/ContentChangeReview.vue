@@ -8,7 +8,7 @@ const emit=defineEmits<{accept:[token:string];cancel:[]}>()
   <section v-if="review" class="df df-celtic space-y-2 text-xs" data-testid="content-change-review">
     <h2 class="font-title text-base text-amber-100">{{ t(review.status==='same'?'동일한 각인 구성 검토':'각인 콘텐츠 변경 검토') }}</h2>
     <p>{{ t(review.status==='same'?'선택한 구성은 기록된 구성과 같다.':'기록된 구성과 선택한 내용이 다르다. 같은 Def ID의 수치 변경은 현재 정의를 따른다.') }} {{ t('기존 세계는 새로 만들지 않는다.') }}</p>
-    <p class="break-all font-mono text-[10px]">{{ t("기록: {0}" ,review.recorded) }}</p><p class="break-all font-mono text-[10px]">{{ t("현재: {0}" ,review.current) }}</p>
+    <p class="break-all font-mono text-[10px]">{{ t("기록: {0}" ,review.recorded??'') }}</p><p class="break-all font-mono text-[10px]">{{ t("현재: {0}" ,review.current) }}</p>
     <p v-if="review.selectedMods.length" data-testid="imprint-final-mod-order">{{ t("선택한 최종 적용 순서: {0}" ,review.selectedMods.join(' → ')) }}</p>
     <p v-for="mod in review.changedMods" :key="mod.id" class="break-all text-amber-200">{{ t("내용 변경: {0} · {1} → {2}" ,mod.id,mod.fromVersion,mod.toVersion) }}<span class="block font-mono text-[10px]">{{ mod.fromHash }} → {{ mod.toHash }}</span></p>
     <p v-if="!review.hasModRecord" class="text-ash-400">{{ t("구형 각인에는 개별 모드 버전/해시 기록이 없다.") }}</p>
