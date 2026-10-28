@@ -42,9 +42,10 @@ try{
    await compare(label+'-restored')
   }
   await page.goto(server.url);await page.getByTestId('seed').fill('ashveil-checkpoints-v404');await page.getByRole('button',{name:/탈영 경비병/}).click();await page.getByTestId('save-mode').selectOption('SaveMode.Study');await page.getByTestId('title-language').selectOption('en');await page.getByTestId('start').click();await compare('new-study')
+  await page.keyboard.press('F3');const live=page.getByTestId('live-content-reload');await live.locator('summary').first().click();await page.getByTestId('live-content-review').click();await page.getByTestId('content-change-accept').waitFor();assert.doesNotMatch(await page.getByTestId('content-change-review').innerText(),/[가-힣]/);await compare('live-review-readonly');await page.getByTestId('content-change-cancel').click();await compare('live-cancel-readonly',false);await page.keyboard.press('Escape')
   const originalName=player(w).name,saved=await save('study')
   await page.keyboard.press('Period');assert.equal(playerAct(w,{type:'wait'}),null);await compare('study-wait',false)
-  await page.keyboard.press('F3');await page.getByTestId('checkpoint-load').click();await page.getByTestId('content-change-accept').waitFor();await page.keyboard.press('Period');await compare('review-blocks-turn',false)
+  await page.keyboard.press('F3');await page.getByTestId('checkpoint-load').click();await page.getByTestId('content-change-accept').waitFor();await page.keyboard.press('Tab');assert.ok(await page.getByTestId('checkpoint-dialog').evaluate(el=>el.contains(document.activeElement)));await page.keyboard.press('ArrowLeft');await page.keyboard.press('Period');await compare('review-blocks-turn',false)
   const dialog=page.getByTestId('checkpoint-dialog');await dialog.locator('details > summary').click();await dialog.locator('input[value="sample-selector"]').check()
   assert.equal(await page.getByTestId('content-change-accept').count(),0);await page.getByTestId('checkpoint-review-mods').click();await page.getByTestId('content-change-accept').waitFor();assert.match(await page.getByTestId('content-change-review').innerText(),/sample-selector/)
   await compare('changed-selection-review');await page.keyboard.press('Escape');await compare('cancel-retains-current',false)
