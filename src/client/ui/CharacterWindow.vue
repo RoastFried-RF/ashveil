@@ -1,10 +1,12 @@
 <script setup lang="ts">
 // 캐릭터: 초상·배경·특성 / 능력치(+포인트) / 파생치 / 숙달
+import { t, defText } from '../locale'
 import { computed } from 'vue'
 import {
   attackScore, currentAttack, darkSightRange, energyMax, evasion, hpMax, insulation, mood, player, sightRange, masteryCount, masteryNext, masteryStage, MASTERY_LABEL, xpToNext, xpTotalFor,
   STAT_LABEL, regenerationPeriod, traitMul, effectiveStat, traitAdd, traumaLabel, traumaHelp, type Stats, type World,
 } from '../../core'
+import { preferences } from '../preferences'
 import { creatureSprite } from '../render/creature-sprite'
 import { modLines } from '../info'
 import { version, world } from '../store'
@@ -37,62 +39,62 @@ const d = computed(() => {
     traits: pl.traits.map((t) => w.db.trait(t)),
     stats: (Object.keys(STAT_LABEL) as (keyof Stats)[]).map((k) => ({ k, label: STAT_LABEL[k], v: effectiveStat(w, pl, k) })),
     derived: [
-      ['나이', pl.age ? `${pl.age.years}세` : '기록 없음'], ['HP 회복 주기', `${regenerationPeriod(w, pl)}턴`], ['면역 계수', `×${traitMul(w, pl, 'immunityMult').toFixed(2)}`],
+      ['나이', pl.age ? t('{0}세',pl.age.years) : '기록 없음'], ['HP 회복 주기', t('{0}턴',regenerationPeriod(w,pl))], ['면역 계수', `×${traitMul(w, pl, 'immunityMult').toFixed(2)}`],
       ['최대 체력', hpMax(w, pl)], ['최대 기력', energyMax(w, pl)],
       ['공격치', atk ? attackScore(w, pl, atk).toFixed(1) : '-'], ['회피치', evasion(w, pl).toFixed(1)],
-      ['문해', ['문맹', '더듬더듬', '읽음', '학자'][pl.literacy ?? (pl.literate ? 2 : 0)]], ['완독', `${pl.booksRead?.length ?? 0}권`],
-      ...(pl.literacyLessons ? [['글자 수업', `${pl.literacyLessons.days.length}일 수료`]] : []),
-      ['시야', `${sightRange(w, pl)}칸 · 어둠 ${darkSightRange(w, pl)}칸`], ['전신 단열', insulation(w, pl).toFixed(3)], ['기분', mood(w, pl).toFixed(0)],
-      ['무기', atk ? `${atk.label} ${atk.damage}` : '맨손'],
+      ['문해', ['문맹', '더듬더듬', '읽음', '학자'][pl.literacy ?? (pl.literate ? 2 : 0)]], ['완독', t('{0}권',pl.booksRead?.length ?? 0)],
+      ...(pl.literacyLessons ? [['글자 수업', t('{0}일 수료',pl.literacyLessons.days.length)]] : []),
+      ['시야', t('{0}칸 · 어둠 {1}칸',sightRange(w,pl),darkSightRange(w,pl))], ['전신 단열', insulation(w, pl).toFixed(3)], ['기분', mood(w, pl).toFixed(0)],
+      ['무기', atk ? `${t(atk.label)} ${atk.damage}` : '맨손'],
     ] as [string, string | number][],
-    skills: (['medicine', 'survival'] as const).map((k) => ({ label: `${MASTERY_LABEL[k]} 숙달`, lv: `${masteryStage(w, pl, k)}단계 (${masteryCount(pl, k)}/${masteryNext(w, pl, k) ?? '최고'})` })),
+    skills: (['medicine', 'survival'] as const).map((k) => ({ label: t('{0} 숙달',t(MASTERY_LABEL[k])), lv: t('{0}단계 ({1}/{2})',masteryStage(w,pl,k),masteryCount(pl,k),masteryNext(w,pl,k)??t('최고')) })),
     xp: pl.xp - prev, xpMax: xpToNext(pl.level) - prev,
   }
 })
 </script>
 
 <template>
-  <Win title="캐릭터" :x="16" :y="80" :width="430" testid="win-char" @close="wins.char = false">
+  <Win :title="t('캐릭터')" :x="16" :y="80" :width="430" testid="win-char" @close="wins.char = false">
     <div class="flex gap-3">
       <div class="df df-slot-sel flex h-[112px] w-[84px] shrink-0 items-end justify-center overflow-hidden bg-[#1a1712]">
         <CharacterPortrait :name="d.portrait" fill />
       </div>
       <div class="min-w-0 flex-1 space-y-1">
-        <div class="font-title text-lg font-bold text-[#e8d7a8]">{{ d.pl.name }} <span class="text-sm text-ash-400">레벨 {{ d.pl.level }}</span></div>
-        <div class="text-xs text-ash-300" @mouseenter="d.bg && showTip($event, d.bg.label, [d.bg.description, ...modLines(d.bg.mods)])" @mouseleave="hideTip">{{ d.bg?.label }}</div>
-        <Bar :value="d.xp" :max="d.xpMax" color="gold" :height="14" :label="`경험치 ${d.xp} / ${d.xpMax}`" />
+        <div class="font-title text-lg font-bold text-[#e8d7a8]">{{ d.pl.name }} <span class="text-sm text-ash-400">{{ t('레벨 {0}',d.pl.level) }}</span></div>
+        <div class="text-xs text-ash-300" @mouseenter="d.bg && showTip($event, defText(d.bg), [defText(d.bg,'description'), ...modLines(d.bg.mods)])" @mouseleave="hideTip">{{ d.bg ? defText(d.bg) : '' }}</div>
+        <Bar :value="d.xp" :max="d.xpMax" color="gold" :height="14" :label="t('경험치 {0} / {1}',d.xp,d.xpMax)" />
         <div class="flex flex-wrap gap-1 pt-0.5">
-          <span v-for="t in d.traits" :key="t.id" class="df df-tab cursor-help px-1 text-[11px] text-amber-200" @mouseenter="showTip($event, t.label, [t.description ?? '', ...modLines(t.mods)])" @mouseleave="hideTip">{{ t.label }}</span>
+          <span v-for="trait in d.traits" :key="trait.id" class="df df-tab cursor-help px-1 text-[11px] text-amber-200" @mouseenter="showTip($event, defText(trait), [defText(trait,'description'), ...modLines(trait.mods)])" @mouseleave="hideTip">{{ defText(trait) }}</span>
         </div>
       </div>
     </div>
 
     <div v-if="d.traumas.length || d.hunters.length" class="mt-3 space-y-1 text-xs" data-testid="traumas">
-      <div v-for="t in d.traumas" :key="t.label" class="flex cursor-help justify-between text-orange-200" @mouseenter="showTip($event, t.label, t.help)" @mouseleave="hideTip"><span>{{ t.label }}{{ t.active ? ' · 노출 중' : '' }}</span><span>극복 {{ t.score }}/100</span></div>
-      <div v-for="name in d.hunters" :key="name" class="text-emerald-200">{{ name }} 사냥꾼 · 명중 +10 / 사기 +10 / 생고기 +20%</div>
-      <div v-if="d.traumas.length" class="text-[11px] text-ash-400">공포 항목에 마우스를 올리면 효과와 극복 방법이 보인다.</div>
+      <div v-for="trauma in d.traumas" :key="trauma.label" class="flex cursor-help justify-between text-orange-200" @mouseenter="showTip($event, trauma.label, trauma.help)" @mouseleave="hideTip"><span>{{ trauma.label }}{{ trauma.active ? t(' · 노출 중') : '' }}</span><span>{{ t('극복 {0}/100',trauma.score) }}</span></div>
+      <div v-for="name in d.hunters" :key="name" class="text-emerald-200">{{ t('{0} 사냥꾼 · 명중 +10 / 사기 +10 / 생고기 +20%',name) }}</div>
+      <div v-if="d.traumas.length" class="text-[11px] text-ash-400">{{ t("공포 항목에 마우스를 올리면 효과와 극복 방법이 보인다.") }}</div>
     </div>
 
     <div class="mt-3 flex items-center justify-between font-title text-sm text-[#e8d7a8]">
-      <span>능력치</span>
-      <span v-if="d.pl.statPoints" class="pulse-gold text-xs text-amber-300">남은 포인트 {{ d.pl.statPoints }}</span>
+      <span>{{ t("능력치") }}</span>
+      <span v-if="d.pl.statPoints" class="pulse-gold text-xs text-amber-300">{{ t('남은 포인트 {0}',d.pl.statPoints) }}</span>
     </div>
     <div class="mt-1 grid grid-cols-5 gap-1" data-testid="stats">
-      <div v-for="s in d.stats" :key="s.k" class="df df-slot relative px-0 py-1 text-center" @mouseenter="showTip($event, s.label, [STAT_TIP[s.k]])" @mouseleave="hideTip">
-        <div class="text-[11px] text-ash-400">{{ s.label }}</div>
+      <div v-for="s in d.stats" :key="s.k" class="df df-slot relative px-0 py-1 text-center" @mouseenter="showTip($event, t(s.label), [t(STAT_TIP[s.k])])" @mouseleave="hideTip">
+        <div class="text-[11px] text-ash-400">{{ preferences.language==='en'?s.k.toUpperCase():s.label }}</div>
         <div class="font-title text-lg font-bold text-ash-50">{{ s.v }}</div>
         <button v-if="d.pl.statPoints" class="dbtn-gold absolute -right-1.5 -top-1.5 !px-0.5 !text-[11px]" :data-testid="`stat-${s.k}`" @click="doAct({ type: 'spendStat', stat: s.k })">+</button>
       </div>
     </div>
 
     <div class="mt-3 grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs">
-      <div v-for="[k, v] in d.derived" :key="k" class="flex justify-between border-b border-[#2e2a22] py-0.5"><span class="text-ash-400">{{ k }}</span><span class="font-mono text-ash-100">{{ v }}</span></div>
+      <div v-for="[k, v] in d.derived" :key="k" class="flex flex-wrap justify-between gap-x-2 border-b border-[#2e2a22] py-0.5"><span class="text-ash-400">{{ t(k) }}</span><span class="font-mono text-ash-100">{{ typeof v==='string'?t(v):v }}</span></div>
     </div>
-    <button v-if="d.prayer" class="dbtn mt-3 text-xs" data-testid="pray" @click="doAct({ type: 'pray' })">장막에 기도 (10분)</button>
+    <button v-if="d.prayer" class="dbtn mt-3 text-xs" data-testid="pray" @click="doAct({ type: 'pray' })">{{ t("장막에 기도 (10분)") }}</button>
     <div v-if="d.skills.length" class="mt-3 text-xs">
-      <div class="mb-1 font-title text-sm text-[#e8d7a8]">숙달 (성공할수록 오른다 · 같은 대상 1회 · 시간당 3회)</div>
+      <div class="mb-1 font-title text-sm text-[#e8d7a8]">{{ t("숙달 (성공할수록 오른다 · 같은 대상 1회 · 시간당 3회)") }}</div>
       <div class="grid grid-cols-2 gap-x-4">
-        <div v-for="s in d.skills" :key="s.label" class="flex justify-between"><span class="text-ash-300">{{ s.label }}</span><span class="font-mono">{{ s.lv }}</span></div>
+        <div v-for="s in d.skills" :key="s.label" class="flex justify-between"><span class="text-ash-300">{{ t(s.label) }}</span><span class="font-mono">{{ s.lv }}</span></div>
       </div>
     </div>
   </Win>

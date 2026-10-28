@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // 좌측 상태 막대 7개 (12 §2.2): 배고픔·갈증·피로·통증·정신력·체온·혈액. 단계에 따라 회색 → 호박 → 빨강
+import { t } from '../locale'
 import { computed } from 'vue'
 import { bloodLoss, hungerBand, hungerStage, nutritionDef, nutritionProgress, metabolicSize, thirstBand, thirstStage, mood, painTotal, player, type World } from '../../core'
 import { version, world } from '../store'
@@ -25,22 +26,22 @@ const bars = computed<BarSpec[]>(() => {
   const lvl = (v: number, a: number, b: number): 0 | 1 | 2 => (v >= b ? 2 : v >= a ? 1 : 0)
   const hunger = hungerStage(w, pl), thirst = thirstStage(w, pl), d = nutritionDef(w)
   return [
-    { key: 'hunger', label: '배고픔', value: hungerBand(w, pl).label, frac: nutritionProgress(w, pl, 'hunger'), level: lvl(hunger, 1, 2), ticks: d.hunger.slice(1).map((_, i) => (i + 1) / (d.hunger.length - 1)), tip: [`칼로리 균형 ${n.kcal.toFixed(0)} kcal · ${hungerBand(w, pl).label}`, ...d.hunger.slice(1).map((b) => `${b.label}: −${Math.round(b.deficit * metabolicSize(w, pl))} kcal`)] },
-    { key: 'thirst', label: '갈증', value: thirstBand(w, pl).label, frac: nutritionProgress(w, pl, 'thirst'), level: lvl(thirst, 1, 2), ticks: d.thirst.slice(1).map((_, i) => (i + 1) / (d.thirst.length - 1)), tip: [`수분 결손 ${n.waterDeficit.toFixed(0)} ml · ${thirstBand(w, pl).label}`, ...d.thirst.slice(1).map((b) => `${b.label}: ${b.deficit} ml`)] },
-    { key: 'fatigue', label: '피로', value: `${n.fatigue.toFixed(0)}%`, frac: n.fatigue / 100, level: lvl(n.fatigue, 60, 90), ticks: [0.6, 0.75, 0.9], tip: [`피로 ${n.fatigue.toFixed(0)}`, '60 피곤 · 75 지침 · 90 탈진'] },
-    { key: 'pain', label: '통증', value: pain.toFixed(0), frac: Math.min(1, pain / 150), level: pain >= 70 ? 2 : pain >= 30 ? 1 : 0, ticks: [15, 30, 50, 70, 90].map((x) => x / 150), mark: thr / 150, tip: [`통증 ${pain.toFixed(0)}`, '경미 15 · 중간 30 · 심각 50 · 극심 70 · 극한 90', `통증 기절 임계 ${thr}`] },
-    { key: 'mind', label: '정신력', value: `${m.toFixed(0)}/100`, frac: Math.max(0, Math.min(1, m / 100)), level: m < 15 ? 2 : m < 30 ? 1 : 0, ticks: [0.15, 0.3], tip: [`기분 ${m.toFixed(0)}`, '15 미만 붕괴 위험'] },
+    { key: 'hunger', label: '배고픔', value: hungerBand(w, pl).label, frac: nutritionProgress(w, pl, 'hunger'), level: lvl(hunger, 1, 2), ticks: d.hunger.slice(1).map((_, i) => (i + 1) / (d.hunger.length - 1)), tip: [t('칼로리 균형 {0} kcal · {1}',n.kcal.toFixed(0),t(hungerBand(w,pl).label)), ...d.hunger.slice(1).map((b) => `${t(b.label)}: −${Math.round(b.deficit * metabolicSize(w, pl))} kcal`)] },
+    { key: 'thirst', label: '갈증', value: thirstBand(w, pl).label, frac: nutritionProgress(w, pl, 'thirst'), level: lvl(thirst, 1, 2), ticks: d.thirst.slice(1).map((_, i) => (i + 1) / (d.thirst.length - 1)), tip: [t('수분 결손 {0} ml · {1}',n.waterDeficit.toFixed(0),t(thirstBand(w,pl).label)), ...d.thirst.slice(1).map((b) => `${t(b.label)}: ${b.deficit} ml`)] },
+    { key: 'fatigue', label: '피로', value: `${n.fatigue.toFixed(0)}%`, frac: n.fatigue / 100, level: lvl(n.fatigue, 60, 90), ticks: [0.6, 0.75, 0.9], tip: [t('피로 {0}',n.fatigue.toFixed(0)), t('60 피곤 · 75 지침 · 90 탈진')] },
+    { key: 'pain', label: '통증', value: pain.toFixed(0), frac: Math.min(1, pain / 150), level: pain >= 70 ? 2 : pain >= 30 ? 1 : 0, ticks: [15, 30, 50, 70, 90].map((x) => x / 150), mark: thr / 150, tip: [t('통증 {0}',pain.toFixed(0)), t('경미 15 · 중간 30 · 심각 50 · 극심 70 · 극한 90'), t('통증 기절 임계 {0}',thr)] },
+    { key: 'mind', label: '정신력', value: `${m.toFixed(0)}/100`, frac: Math.max(0, Math.min(1, m / 100)), level: m < 15 ? 2 : m < 30 ? 1 : 0, ticks: [0.15, 0.3], tip: [t('기분 {0}',m.toFixed(0)), t('15 미만 붕괴 위험')] },
     { key: 'temp', label: '체온', value: `${t.toFixed(1)}°C`, frac: Math.max(0, Math.min(1, (t - 30) / 14)), level: t < 32 || t > 41 - heatShift ? 2 : t < 35 || t > 39.5 - heatShift ? 1 : 0, center: true, ticks: [32, 35, 37, 39.5 - heatShift, 41 - heatShift].map((x) => (x - 30) / 14), tip: temperatureTip(w, pl) },
-    { key: 'blood', label: '혈액', value: `${Math.round((1 - loss) * 100)}%`, frac: 1 - loss, level: loss >= 0.3 ? 2 : loss >= 0.15 ? 1 : 0, ticks: [0.85, 0.7, 0.6, 0.5], tip: [`혈액 ${Math.round(pl.body.blood)} / ${pl.body.bloodMax} ml (손실 ${Math.round(loss * 100)}%)`, '15% 어지러움 · 30% 쇼크 위험 · 40% 기절 · 50% 사망'] },
+    { key: 'blood', label: '혈액', value: `${Math.round((1 - loss) * 100)}%`, frac: 1 - loss, level: loss >= 0.3 ? 2 : loss >= 0.15 ? 1 : 0, ticks: [0.85, 0.7, 0.6, 0.5], tip: [t('혈액 {0} / {1} ml (손실 {2}%)',Math.round(pl.body.blood),pl.body.bloodMax,Math.round(loss*100)), t('15% 어지러움 · 30% 쇼크 위험 · 40% 기절 · 50% 사망')] },
   ]
 })
 </script>
 
 <template>
-  <div class="df df-olive needs-panel pointer-events-auto" data-testid="sidebars" aria-label="생존 상태">
-    <div v-for="b in bars" :key="b.key" class="needs-row" :data-testid="`need-${b.key}`" :data-level="b.level" :aria-label="`${b.label}: ${b.value}`" @mouseenter="showTip($event, b.label, b.tip)" @mousemove="showTip($event, b.label, b.tip)" @mouseleave="hideTip">
-      <span class="needs-label">{{ b.label }}</span>
-      <span class="needs-value" :style="b.level ? { color: color(b) } : undefined">{{ b.value }}</span>
+  <div class="df df-olive needs-panel pointer-events-auto" data-testid="sidebars" :aria-label="t('생존 상태')">
+    <div v-for="b in bars" :key="b.key" class="needs-row" :data-testid="`need-${b.key}`" :data-level="b.level" :aria-label="`${t(b.label)}: ${t(b.value)}`" @mouseenter="showTip($event, t(b.label), b.tip)" @mousemove="showTip($event, t(b.label), b.tip)" @mouseleave="hideTip">
+      <span class="needs-label">{{ t(b.label) }}</span>
+      <span class="needs-value" :style="b.level ? { color: color(b) } : undefined">{{ t(b.value) }}</span>
       <div class="needs-meter" aria-hidden="true">
         <div class="needs-fill" :style="{ width: Math.max(0, Math.min(1, b.frac)) * 100 + '%', background: color(b) }" />
         <div v-for="(t, i) in b.ticks" :key="i" class="needs-tick" :style="{ left: t * 100 + '%' }" />
@@ -52,8 +53,8 @@ const bars = computed<BarSpec[]>(() => {
 </template>
 
 <style scoped>
-.needs-panel[data-testid="sidebars"] { display: grid; width: 158px; gap: 0; padding: 6px 9px; }
-.needs-row { display: grid; grid-template-columns: 34px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #a08b641c; cursor: help; }
+.needs-panel[data-testid="sidebars"] { display: grid; width: 196px; gap: 0; padding: 6px 9px; }
+.needs-row { display: grid; grid-template-columns: 66px 47px minmax(0, 1fr); align-items: center; min-height: 22px; gap: 5px; border-bottom: 1px solid #a08b641c; cursor: help; }
 .needs-row:last-child { border-bottom: 0; }
 .needs-label { color: #c7baa0; font-size: 10px; line-height: 1.2; white-space: nowrap; }
 .needs-value { overflow: hidden; color: #e1decb; font-size: 10px; line-height: 1.2; text-align: right; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -63,5 +64,5 @@ const bars = computed<BarSpec[]>(() => {
 .needs-tick { position: absolute; top: 0; bottom: 0; width: 1px; background: #080d0c9c; }
 .needs-center { position: absolute; top: 0; bottom: 0; width: 1px; background: #d8d8bfc7; }
 .needs-limit { position: absolute; top: 0; bottom: 0; width: 2px; }
-@media(max-width:680px){.needs-panel[data-testid="sidebars"]{width:120px;padding:6px}.needs-row{grid-template-columns:30px 40px minmax(0,1fr);gap:4px}}
+@media(max-width:680px){.needs-panel[data-testid="sidebars"]{width:150px;padding:6px}.needs-row{grid-template-columns:59px 40px minmax(0,1fr);gap:4px}}
 </style>

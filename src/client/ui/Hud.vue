@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // 하단 중앙 HUD: 초상 · 체력/기력/경험치 · 빠른 슬롯 1~0 · 창 버튼
+import { t, defText, keyLabel } from '../locale'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
 import {quickbarCount} from '../quickbar-items'
@@ -22,7 +23,7 @@ const d = computed(() => {
   const gunDef = gun && w.db.item(gun.def)
   const ranged = gunDef?.ranged
   const firearm = gun && gunDef && ranged?.firearm ? {
-    uid: gun.uid, label: gunDef.label,
+    uid: gun.uid, label: defText(gunDef),
     loaded: ranged.magazine ? gun.loadedCartridges?.length ?? 0 : gun.loadedRound ? 1 : 0,
     capacity: ranged.magazine?.capacity ?? 1,
     jammed: !!gun.firearmJammed,
@@ -33,11 +34,11 @@ const d = computed(() => {
       const a = w.db.ability(ref.id)
       const cd = Math.max(0, (pl.cooldowns[ref.id] ?? 0) - turn)
       const err = abilityReady(w, pl, ref.id)
-      return { i, empty: false as const, icon: a.icon, label: a.label, cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
+      return { i, empty: false as const, icon: a.icon, label: defText(a), cd, cdMax: a.cooldown ?? 1, ok: !err, count: null as number | null, on: a.kind === 'toggle' && pl.sneaking, ref }
     }
     const def = w.db.item(ref.def)
     const count = quickbarCount(w,pl,ref)
-    return { i, empty: false as const, icon: def.sprite, label: def.label+(ref.fletchingDamaged?' (깃 손상)':''), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
+    return { i, empty: false as const, icon: def.sprite, label: ref.fletchingDamaged?t('{0} (깃 손상)',defText(def)):defText(def), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {
     pl,portrait:creatureSprite(w,pl), hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
@@ -64,10 +65,10 @@ watch(() => d.value.hp, (now, before) => {
 onBeforeUnmount(() => clearTimeout(ghostTimer))
 
 function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
-  if (s.empty) return showTip(e, `빈 칸 ${s.i === 9 ? 0 : s.i + 1}`, [`능력 창(${primaryBindingText(preferences.keyBindings,'abilities')})이나 소지품(${primaryBindingText(preferences.keyBindings,'inventory')})에서 등록한다`])
+  if (s.empty) return showTip(e, t('빈 칸 {0}',s.i === 9 ? 0 : s.i + 1), [t('능력 창({0})이나 소지품({1})에서 등록한다',keyLabel(primaryBindingText(preferences.keyBindings,'abilities')),keyLabel(primaryBindingText(preferences.keyBindings,'inventory')))])
   const w = world.value as World
-  if (s.ref.kind === 'ability') { const t = abilityTip(w, w.db.ability(s.ref.id)); showTip(e, t.title, [...t.lines, '우클릭: 칸 비우기']) }
-  else { const t = itemTip(w, null, s.ref.def); showTip(e, s.label, [...t.lines,...(s.ref.fletchingDamaged?['깃 손상 탄약만 선택한다.']:[]), '우클릭: 칸 비우기'], t.color) }
+  if (s.ref.kind === 'ability') { const tooltip = abilityTip(w, w.db.ability(s.ref.id)); showTip(e, tooltip.title, [...tooltip.lines, t('우클릭: 칸 비우기')]) }
+  else { const tooltip = itemTip(w, null, s.ref.def); showTip(e, s.label, [...tooltip.lines,...(s.ref.fletchingDamaged?[t('깃 손상 탄약만 선택한다.')]:[]), t('우클릭: 칸 비우기')], tooltip.color) }
 }
 
 const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['inv','소지품','inventory'],['abil','능력','abilities'],['body','신체','body'],['journal','일지','journal'],['map','지도','map'],['craft','제작','craft'],['society','주민·세력','society']]
@@ -77,7 +78,7 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
 <template>
   <div class="hud-shell pointer-events-auto" data-testid="hud">
     <div v-if="d.chan" class="hud-channel" data-testid="channel">
-      <Bar :value="d.chan.done" :max="d.chan.total" color="gold" :height="18" :label="`${d.chan.label} ${d.chan.done}/${d.chan.total}턴`" />
+      <Bar :value="d.chan.done" :max="d.chan.total" color="gold" :height="18" :label="t('{0} {1}/{2}턴',d.chan.label,d.chan.done,d.chan.total)" />
     </div>
 
     <div class="hud-vitals">
@@ -87,25 +88,25 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
       </div>
       <div class="hud-gauges min-w-0 flex-1">
         <p class="hud-name">{{ d.pl.name }}</p>
-        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :height="19" :label="`체력 ${Math.ceil(d.hp)} / ${d.hpMax}`" :title="`상처로 묶인 회복 상한 ${d.cap} / ${d.hpMax}`" data-testid="hp-bar" />
-        <Bar :value="d.en" :max="d.enMax" color="blue" :height="18" :label="`기력 ${Math.floor(d.en)} / ${d.enMax}`" />
-        <Bar class="hud-xp" :value="d.xp" :max="d.xpNext" color="gold" :height="8" :label="''" :title="`경험치 ${d.xp} / ${d.xpNext}`" aria-label="다음 레벨까지 경험치" />
+        <Bar :value="d.hp" :max="d.hpMax" :ghost="ghost" :cap="d.cap" color="red" :height="19" :label="t('체력 {0} / {1}',Math.ceil(d.hp),d.hpMax)" :title="t('상처로 묶인 회복 상한 {0} / {1}',d.cap,d.hpMax)" data-testid="hp-bar" />
+        <Bar :value="d.en" :max="d.enMax" color="blue" :height="18" :label="t('기력 {0} / {1}',Math.floor(d.en),d.enMax)" />
+        <Bar class="hud-xp" :value="d.xp" :max="d.xpNext" color="gold" :height="8" :label="''" :title="t('경험치 {0} / {1}',d.xp,d.xpNext)" :aria-label="t('다음 레벨까지 경험치')" />
       </div>
     </div>
 
     <div class="hud-context">
-      <div class="hud-policy-context" role="group" aria-label="반응 정책 및 자세">
-        <button class="dbtn" :title="`반응 정책 순환 (${primaryBindingText(preferences.keyBindings,'reaction')})`" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">반응</span> {{ d.policy }} <kbd>{{ primaryBindingText(preferences.keyBindings,'reaction') }}</kbd></button>
-        <button class="dbtn hud-posture" :class="{ 'is-crouched': d.crouched }" data-testid="btn-crouch" :aria-pressed="d.crouched" :aria-label="`현재 자세: ${d.crouched ? '웅크림' : '서기'}. ${d.crouched ? '일어서기' : '웅크리기'} (${primaryBindingText(preferences.keyBindings,'crouch')})`" :title="`현재 ${d.crouched ? '웅크림' : '서기'} · ${d.crouched ? '일어서기' : '웅크리기'} (${primaryBindingText(preferences.keyBindings,'crouch')})`" @click="doAct({ type: 'crouch' })">
-          <ItemIcon name="crouch" :size="16" />{{ d.crouched ? '웅크림' : '서기' }}<kbd>{{ primaryBindingText(preferences.keyBindings,'crouch') }}</kbd>
+      <div class="hud-policy-context" role="group" :aria-label="t('반응 정책 및 자세')">
+        <button class="dbtn" :title="t('반응 정책 순환 ({0})',keyLabel(primaryBindingText(preferences.keyBindings,'reaction')))" @click="doAct({ type: 'reactPolicy' })"><span class="text-ash-400">{{ t("반응") }}</span> {{ t(d.policy) }} <kbd>{{ keyLabel(primaryBindingText(preferences.keyBindings,'reaction')) }}</kbd></button>
+        <button class="dbtn hud-posture" :class="{ 'is-crouched': d.crouched }" data-testid="btn-crouch" :aria-pressed="d.crouched" :aria-label="t('현재 자세: {0}. {1} ({2})',t(d.crouched ? '웅크림' : '서기'),t(d.crouched ? '일어서기' : '웅크리기'),keyLabel(primaryBindingText(preferences.keyBindings,'crouch')))" :title="t('현재 {0} · {1} ({2})',t(d.crouched ? '웅크림' : '서기'),t(d.crouched ? '일어서기' : '웅크리기'),keyLabel(primaryBindingText(preferences.keyBindings,'crouch')))" @click="doAct({ type: 'crouch' })">
+          <ItemIcon name="crouch" :size="16" />{{ t(d.crouched ? '웅크림' : '서기') }}<kbd>{{ keyLabel(primaryBindingText(preferences.keyBindings,'crouch')) }}</kbd>
         </button>
       </div>
       <div class="hud-attack-context">
-        <button class="dbtn" :disabled="!d.modes" :title="`공격 방식 바꾸기 (${primaryBindingText(preferences.keyBindings,'attackMode')}, 자유 행동)`" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">공격</span> <span class="hud-mode-label">{{ d.mode }}</span> <kbd>{{ primaryBindingText(preferences.keyBindings,'attackMode') }}</kbd></button>
-        <span v-if="d.firearm" class="hud-firearm-ammo" :class="{ 'is-empty': !d.firearm.loaded, 'is-jammed': d.firearm.jammed }" role="status" aria-live="polite" aria-atomic="true" :aria-label="`${d.firearm.label}: 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ', 걸림' : !d.firearm.loaded ? ', 빈 총' : ''}`" :title="`${d.firearm.label} · 장전 ${d.firearm.loaded}/${d.firearm.capacity}발${d.firearm.jammed ? ' · 걸림' : !d.firearm.loaded ? ' · 빈 총' : ''}`" data-testid="hud-firearm-ammo" :data-weapon-uid="d.firearm.uid" :data-loaded="d.firearm.loaded" :data-capacity="d.firearm.capacity" :data-jammed="d.firearm.jammed">
+        <button class="dbtn" :disabled="!d.modes" :title="t('공격 방식 바꾸기 ({0}, 자유 행동)',keyLabel(primaryBindingText(preferences.keyBindings,'attackMode')))" @click="doAct({ type: 'attackMode' })"><span class="text-ash-400">{{ t("공격") }}</span> <span class="hud-mode-label">{{ t(d.mode) }}</span> <kbd>{{ keyLabel(primaryBindingText(preferences.keyBindings,'attackMode')) }}</kbd></button>
+        <span v-if="d.firearm" class="hud-firearm-ammo" :class="{ 'is-empty': !d.firearm.loaded, 'is-jammed': d.firearm.jammed }" role="status" aria-live="polite" aria-atomic="true" :aria-label="t('{0}: 장전 {1}/{2}발{3}',d.firearm.label,d.firearm.loaded,d.firearm.capacity,t(d.firearm.jammed ? ', 걸림' : !d.firearm.loaded ? ', 빈 총' : ''))" :title="t('{0} · 장전 {1}/{2}발{3}',d.firearm.label,d.firearm.loaded,d.firearm.capacity,t(d.firearm.jammed ? ' · 걸림' : !d.firearm.loaded ? ' · 빈 총' : ''))" data-testid="hud-firearm-ammo" :data-weapon-uid="d.firearm.uid" :data-loaded="d.firearm.loaded" :data-capacity="d.firearm.capacity" :data-jammed="d.firearm.jammed">
           <svg width="6" height="11" viewBox="0 0 6 11" fill="none" aria-hidden="true"><path d="M2 1h2l1 2v6H1V3l1-2ZM1 7h4M0 10h6" stroke="currentColor" stroke-width=".8" /></svg>
-          <span v-if="d.firearm.jammed" class="hud-firearm-state">걸림</span><span v-else-if="!d.firearm.loaded" class="hud-firearm-state">빈 총</span>
-          <span class="hud-firearm-count">{{ d.firearm.loaded }}/{{ d.firearm.capacity }}<span class="hud-firearm-unit">발</span></span>
+          <span v-if="d.firearm.jammed" class="hud-firearm-state">{{ t("걸림") }}</span><span v-else-if="!d.firearm.loaded" class="hud-firearm-state">{{ t("빈 총") }}</span>
+          <span class="hud-firearm-count">{{ d.firearm.loaded }}/{{ d.firearm.capacity }}<span class="hud-firearm-unit">{{ t('{0}발','') }}</span></span>
         </span>
       </div>
     </div>
@@ -113,7 +114,7 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
     <div class="hud-hotbar" data-testid="hotbar">
       <button
         v-for="s in d.slots" :key="s.i" class="df df-slot hud-slot relative flex items-center justify-center" :class="{ 'df-slot-sel': !s.empty && s.on, 'is-selected': !s.empty && s.on, 'is-empty': s.empty }"
-        :data-testid="`hotbar-${s.i}`" :aria-label="`${primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command)}: ${s.empty ? '빈 빠른 슬롯' : s.label}`" :aria-pressed="!s.empty && s.on"
+        :data-testid="`hotbar-${s.i}`" :aria-label="`${keyLabel(primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command))}: ${s.empty ? t('빈 빠른 슬롯') : s.label}`" :aria-pressed="!s.empty && s.on"
         @click="useHotbar(s.i)" @contextmenu.prevent="!s.empty && doAct({ type: 'hotbar', index: s.i, ref: null })"
         @mouseenter="tipSlot($event, s)" @mousemove="tipSlot($event, s)" @mouseleave="hideTip"
       >
@@ -122,18 +123,18 @@ const MANEUVERS = [['trip', '넘어뜨리기'], ['disarm', '무장해제']] as c
           <div v-if="s.cd > 0" class="absolute inset-0 flex items-center justify-center rounded-sm bg-black/70 text-base font-bold text-[#e8d7a8]">{{ s.cd }}</div>
           <span v-if="s.count !== null" class="absolute bottom-0 right-0.5 rounded-sm bg-[#171416]/80 px-0.5 font-mono text-[11px] font-bold text-[#f0e6c8] [text-shadow:0_1px_0_#000]" :data-testid="`hotbar-count-${s.i}`">{{ s.count }}</span>
         </template>
-        <span class="hud-key">{{ primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command) }}</span>
+        <span class="hud-key">{{ keyLabel(primaryBindingText(preferences.keyBindings,`hotbar${s.i===9?0:s.i+1}` as Command)) }}</span>
       </button>
     </div>
 
-    <nav class="hud-nav" aria-label="게임 창 및 기본 전투 행동">
+    <nav class="hud-nav" :aria-label="t('게임 창 및 기본 전투 행동')">
       <button v-for="[k, l, key] in BTNS" :key="k" :class="wins[k] ? 'dbtn-gold' : 'dbtn'" class="relative whitespace-nowrap" :data-testid="`btn-${k}`" :aria-pressed="wins[k]" @click="toggleWin(k)">
-        {{ l }}<kbd>{{ primaryBindingText(preferences.keyBindings,key) }}</kbd>
+        {{ t(l) }}<kbd>{{ keyLabel(primaryBindingText(preferences.keyBindings,key)) }}</kbd>
         <span v-if="(k === 'char' && d.points) || (k === 'abil' && d.apoints)" class="pulse-gold absolute right-0 top-0 h-1.5 w-1.5 rounded-full bg-amber-300" />
       </button>
-      <div class="hud-maneuvers" role="group" aria-label="기본 전투 행동">
-        <button v-for="[command, label] in MANEUVERS" :key="command" class="dbtn hud-maneuver-button" :data-testid="`btn-${command}`" :title="`${label}: 대상을 고른다 (${primaryBindingText(preferences.keyBindings,command)})`" @click="startManeuver(command)">
-          <ItemIcon :name="command" :size="16" />{{ label }}<kbd>{{ primaryBindingText(preferences.keyBindings,command) }}</kbd>
+      <div class="hud-maneuvers" role="group" :aria-label="t('기본 전투 행동')">
+        <button v-for="[command, label] in MANEUVERS" :key="command" class="dbtn hud-maneuver-button" :data-testid="`btn-${command}`" :title="t('{0}: 대상을 고른다 ({1})',t(label),keyLabel(primaryBindingText(preferences.keyBindings,command)))" @click="startManeuver(command)">
+          <ItemIcon :name="command" :size="16" />{{ t(label) }}<kbd>{{ keyLabel(primaryBindingText(preferences.keyBindings,command)) }}</kbd>
         </button>
       </div>
     </nav>

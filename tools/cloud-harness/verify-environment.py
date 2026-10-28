@@ -68,6 +68,9 @@ class FreshEnvironment(unittest.TestCase):
         self.assertTrue(all(tasks[name]["deps"] == ["environment"] for name in ("typecheck", "lint")))
         locale = plan.make_plan(root, profile="release", locale=True)["tasks"][-1]
         self.assertEqual((locale["id"], locale["lane"], locale["kind"], locale["deps"]), ("locale", "heavy", "native", ["smoke"]))
+        gameplay = plan.make_plan(root, profile="release", locale=True, gameplay_locale=True)["tasks"][-1]
+        self.assertEqual((gameplay["id"], gameplay["lane"], gameplay["kind"], gameplay["deps"]), ("locale-gameplay", "heavy", "native", ["locale"]))
+        self.assertEqual(plan.make_plan(root, gameplay_locale=True)["tasks"][-1]["deps"], ["smoke"])
 
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:

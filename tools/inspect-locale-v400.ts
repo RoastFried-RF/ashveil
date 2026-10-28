@@ -71,7 +71,7 @@ try {
     assert.equal(playerAct(expected,{type:'wait'}),null)
     await compare('wait-en')
     // Normal autosave/load path. No localStorage/world/clock/seed mutation after creation.
-    await page.getByRole('button',{name:'타이틀',exact:true}).click()
+    await page.getByRole('button',{name:/^(타이틀|Title)$/,exact:true}).click()
     // This control appears only after abandonToTitle has awaited the normal save.
     await page.getByTestId('title-language').waitFor()
     await page.reload()

@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 
 
-def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=False):
+def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=False, gameplay_locale=False):
     root = str(Path(root).resolve())
     tasks = []
 
@@ -31,6 +31,8 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=Fals
     add("smoke", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"], ["build"])
     if locale:
         add("locale", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-locale-v400.ts", "{task_out}/locale"], ["smoke"])
+    if gameplay_locale:
+        add("locale-gameplay", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-locale-v401.ts", "{task_out}/locale-gameplay"], ["locale" if locale else "smoke"])
     return {"version": 1, "tasks": tasks}
 
 
@@ -41,11 +43,12 @@ def main():
     parser.add_argument("--chromium")
     parser.add_argument("--profile", choices=["authoring", "release"], default="authoring")
     parser.add_argument("--locale", action="store_true", help="Include real locale inputs after the common smoke")
+    parser.add_argument("--gameplay-locale", action="store_true", help="Include gameplay language/learning/save inputs in three viewports")
     parser.add_argument("--out", type=Path, required=True, help="New JSON file; never overwrites evidence")
     args = parser.parse_args()
     if not args.root.is_dir():
         parser.error("Checkout does not exist")
-    result = make_plan(args.root, args.pnpm, args.chromium, args.profile, args.locale)
+    result = make_plan(args.root, args.pnpm, args.chromium, args.profile, args.locale, args.gameplay_locale)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x", encoding="utf-8") as output:
         output.write(json.dumps(result, indent=2) + "\n")

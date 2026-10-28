@@ -1,3 +1,4 @@
+import { t, defText } from './locale'
 import {firearmRates} from '../core/firearms'
 import {qualityFromScore} from '../core/crafting'
 import {foodKcal,cookingRules} from '../core/cooking-state'
@@ -45,7 +46,7 @@ export function rarityColor(d: ItemDef): string {
 export function modLines(mods: Partial<Record<string, number>> | undefined): string[] {
   if (!mods) return []
   return Object.entries(mods).filter(([, v]) => v !== undefined).map(([k, v]) => {
-    const lab = MOD_LABEL[k] ?? k
+    const lab = t(MOD_LABEL[k] ?? k)
     if (lab.endsWith('×')) return `${lab}${v}`
     return `${lab} ${v! > 0 ? '+' : ''}${v}`
   })
@@ -215,43 +216,43 @@ export function abilityFormula(d: AbilityDef): string[] {
   const out: string[] = []
   const m = d.attack
   if (m) {
-    if (m.hitBonus) out.push(`명중 = 50 + (공격치 − 회피치) × 2 + 수정 ${m.hitBonus > 0 ? '+' : ''}${m.hitBonus}`)
-    if (m.damageMult) out.push(`피해 D = 기본 × 날 × 근력 × 팔 × (80 + r)% × ${m.damageMult}`)
-    if (m.penBonus) out.push(`관통 +${m.penBonus} → 방어구 유효 = 실효 − 관통`)
-    if (m.bleedMult) out.push(`상처 출혈 = D × 유형계수 × 혈관계수 × ${m.bleedMult} (동맥 고정값엔 곱하지 않음)`)
-    if (m.arterialBonus) out.push(`동맥 판정(D ≥ 부위 HP 30%) = D × 2% + ${m.arterialBonus}%p`)
-    if (m.fractureMult) out.push(`골절 = (D − 뼈 강도) × 8% × ${m.fractureMult}`)
-    if (m.stunBonus) out.push(`머리 기절 판정 +${m.stunBonus}%p`)
-    if (m.armorDamage) out.push(`맞은 방어구 내구 −${m.armorDamage}%p 추가`)
-    if (m.partWeights) out.push(`부위 가중: ${Object.entries(m.partWeights).map(([k, v]) => `${REGION_LABEL[k] ?? k} ×${v}`).join(' · ')}`)
-    if (m.aoe) out.push(m.aoe === 'adjacent' ? '범위: 인접 8칸 모두' : '범위: 앞 2칸 직선')
-    if (m.knockback) out.push(`밀쳐내기 ${m.knockback}칸`)
-    if (m.knockdownChance) out.push(`넘어뜨림 ${m.knockdownChance}%`)
-    if (m.aimed) out.push('조준형: 야행성이면 조명 감점 절반')
+    if (m.hitBonus) out.push(t('명중 = 50 + (공격치 − 회피치) × 2 + 수정 {0}{1}',m.hitBonus>0?'+':'',m.hitBonus))
+    if (m.damageMult) out.push(t('피해 D = 기본 × 날 × 근력 × 팔 × (80 + r)% × {0}',m.damageMult))
+    if (m.penBonus) out.push(t('관통 +{0} → 방어구 유효 = 실효 − 관통',m.penBonus))
+    if (m.bleedMult) out.push(t('상처 출혈 = D × 유형계수 × 혈관계수 × {0} (동맥 고정값엔 곱하지 않음)',m.bleedMult))
+    if (m.arterialBonus) out.push(t('동맥 판정(D ≥ 부위 HP 30%) = D × 2% + {0}%p',m.arterialBonus))
+    if (m.fractureMult) out.push(t('골절 = (D − 뼈 강도) × 8% × {0}',m.fractureMult))
+    if (m.stunBonus) out.push(t('머리 기절 판정 +{0}%p',m.stunBonus))
+    if (m.armorDamage) out.push(t('맞은 방어구 내구 −{0}%p 추가',m.armorDamage))
+    if (m.partWeights) out.push(t('부위 가중: {0}',Object.entries(m.partWeights).map(([k,v]) => `${t(REGION_LABEL[k]??k)} ×${v}`).join(' · ')))
+    if (m.aoe) out.push(t(m.aoe==='adjacent'?'범위: 인접 8칸 모두':'범위: 앞 2칸 직선'))
+    if (m.knockback) out.push(t('밀쳐내기 {0}칸',m.knockback))
+    if (m.knockdownChance) out.push(t('넘어뜨림 {0}%',m.knockdownChance*100))
+    if (m.aimed) out.push(t('조준형: 야행성이면 조명 감점 절반'))
   }
-  if (d.stance) out.push(`자세 ${d.stance.turns}턴 (반응 phase 1: 같은 시각이면 먼저 움직인다)${d.stance.magnitude ? ` · 크기 ${d.stance.magnitude}` : ''}`)
-  if (d.self?.energyPct) out.push(`기력 회복 최대치의 ${d.self.energyPct}%`)
-  if (d.self?.painRelief) out.push(`통증 −${d.self.painRelief}${d.self.turns ? ` (${d.self.turns}턴)` : ''}`)
-  if (d.channel) out.push(`채널 ${d.channel}턴 · 맞으면 끊기고 기력 절반 환급`)
-  if (d.lunge) out.push(`직선 ${d.lunge}칸 이동 후 공격`)
-  if (d.sweep) out.push(`연속 ${d.sweep}칸 휩쓸기`)
+  if (d.stance) out.push(t('자세 {0}턴 (반응 phase 1: 같은 시각이면 먼저 움직인다){1}',d.stance.turns,d.stance.magnitude?t(' · 크기 {0}',d.stance.magnitude):''))
+  if (d.self?.energyPct) out.push(t('기력 회복 최대치의 {0}%',d.self.energyPct*100))
+  if (d.self?.painRelief) out.push(t('통증 −{0}%{1}',d.self.painRelief*100,d.self.turns?t(' ({0}턴)',d.self.turns):''))
+  if (d.channel) out.push(t('채널 {0}턴 · 맞으면 끊기고 기력 절반 환급',d.channel))
+  if (d.lunge) out.push(t('직선 {0}칸 이동 후 공격',d.lunge))
+  if (d.sweep) out.push(t('연속 {0}칸 휩쓸기',d.sweep))
   out.push(...modLines(d.mods))
   return out
 }
 
 export function abilityTip(w: World, d: AbilityDef): { title: string; lines: string[] } {
-  const lines = [`${treeName(d.tree)} ${d.tier}단계 · ${d.kind === 'passive' ? '패시브' : d.kind === 'toggle' ? '전환' : '액티브'}`]
-  if (d.energy) lines.push(`기력 ${d.energy}`)
-  if (d.cooldown) lines.push(`재사용 ${d.cooldown}턴`)
-  if (d.weapon) lines.push(`필요: ${SKILL_LABEL[d.weapon] ?? d.weapon}`)
-  lines.push(d.description)
+  const lines = [t('{0} {1}단계 · {2}',treeName(d.tree),d.tier,t(d.kind === 'passive' ? '패시브' : d.kind === 'toggle' ? '전환' : '액티브'))]
+  if (d.energy) lines.push(t('기력 {0}',d.energy))
+  if (d.cooldown) lines.push(t('재사용 {0}턴',d.cooldown))
+  if (d.weapon) lines.push(t('필요: {0}',t(SKILL_LABEL[d.weapon] ?? d.weapon)))
+  lines.push(defText(d,'description'))
   lines.push(...modLines(d.mods))
-  if (d.requires?.length) lines.push(`선행: ${d.requires.map((r) => w.db.ability(r).label).join(', ')}`)
-  return { title: d.label, lines }
+  if (d.requires?.length) lines.push(t('선행: {0}',d.requires.map(r => defText(w.db.ability(r))).join(', ')))
+  return { title: defText(d), lines }
 }
 
-export function treeName(t: string): string {
-  return ({ blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활', survival: '생존' } as Record<string, string>)[t] ?? t
+export function treeName(tree: string): string {
+  return t(({ blade: '도검', axe: '도끼', blunt: '둔기', spear: '창', archery: '활', survival: '생존', unique:'고유' } as Record<string, string>)[tree] ?? tree)
 }
 
 /** 부위 상태 색: 멀쩡·타박·부상·중상·불구 */
@@ -263,16 +264,16 @@ export function temperatureTip(w: World, c: Creature): string[] {
   const delta = temperatureDelta(c, s)
   const act = { rest: '휴식', sleep: '수면', walk: '걷기', work: '작업', combat: '전투' }[s.activity]
   const lines = [
-    `심부 ${c.needs.bodyTemp.toFixed(1)}°C · ${delta >= 0 ? '+' : ''}${delta.toFixed(2)}°C/10분 (현재 조건 유지 시)`,
-    `체감 ${s.feels.toFixed(1)}°C = 기온 ${s.air.toFixed(1)} − 바람 ${s.windChill.toFixed(1)} + 열원 ${s.heat} + 지붕 ${s.shelter} − 젖음 ${s.evaporation}`,
-    `전신 단열 ${s.insulation.toFixed(3)} · 쾌적 ${s.low.toFixed(1)}~${s.high.toFixed(1)}°C (${act})`,
-    `내의 젖음 ${s.innerWetness.toFixed(0)}% · 50% 이상이면 증발 냉각 −3°C`,
+    t('심부 {0}°C · {1}{2}°C/10분 (현재 조건 유지 시)',c.needs.bodyTemp.toFixed(1),delta>=0?'+':'',delta.toFixed(2)),
+    t('체감 {0}°C = 기온 {1} − 바람 {2} + 열원 {3} + 지붕 {4} − 젖음 {5}',s.feels.toFixed(1),s.air.toFixed(1),s.windChill.toFixed(1),s.heat,s.shelter,s.evaporation),
+    t('전신 단열 {0} · 쾌적 {1}~{2}°C ({3})',s.insulation.toFixed(3),s.low.toFixed(1),s.high.toFixed(1),t(act)),
+    t('내의 젖음 {0}% · 50% 이상이면 증발 냉각 −3°C',s.innerWetness.toFixed(0)),
   ]
   for (const it of Object.values(c.equip)) {
     if (!it?.wetness) continue
     const values = Object.values(it.wetness)
-    if (values.some((v) => v > 0)) lines.push(`${itemDef(w, it).label} 젖음 ${Math.round(Math.min(...values))}~${Math.round(Math.max(...values))}%`)
+    if (values.some((v) => v > 0)) lines.push(t('{0} 젖음 {1}~{2}%',defText(itemDef(w,it)),Math.round(Math.min(...values)),Math.round(Math.max(...values))))
   }
-  lines.push(`35.0°C 저체온 · 32.0°C 위독 · ${(39.5 - thirstBand(w, c).heatShift).toFixed(1)}°C 열사병`)
+  lines.push(t('35.0°C 저체온 · 32.0°C 위독 · {0}°C 열사병',(39.5-thirstBand(w,c).heatShift).toFixed(1)))
   return lines
 }

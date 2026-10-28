@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // 게임 화면: 전체 화면 맵 + 좌상단 상태 + 하단 HUD + 우하단 기록 + 창(C/I/K/B/J)
+import { t, keyLabel } from './locale'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   maneuverQuote, bloodLoss, canReach, cheb, DIRS, findPath, hostile, hpMax, itemDef, mainWeapon, player, terrainAt,
@@ -405,25 +406,25 @@ onBeforeUnmount(() => {
       <StatusStrip class="min-w-0" />
       <div class="game-top-tools pointer-events-none flex shrink-0 flex-col items-end gap-3">
         <div class="game-tools pointer-events-auto flex gap-1.5">
-          <button class="dbtn" @click="preferencesOpen = true">설정 (F3)</button>
-          <button class="dbtn" @click="help = !help">? 조작법</button>
-          <button class="dbtn" @click="abandonToTitle">타이틀</button>
+          <button class="dbtn" @click="preferencesOpen = true">{{ t("설정 (F3)") }}</button>
+          <button class="dbtn" @click="help = !help">{{ t("? 조작법") }}</button>
+          <button class="dbtn" @click="abandonToTitle">{{ t("타이틀") }}</button>
         </div>
-        <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">각인 중…</p>
-        <div v-if="saveStatus === 'error'" class="df df-celtic pointer-events-auto max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">다시 저장</button></div>
+        <p v-if="saveStatus === 'saving'" class="rounded border border-ash-700 bg-ash-900/90 px-2 py-1 text-[11px] text-ash-300" data-testid="save-status">{{ t("각인 중…") }}</p>
+        <div v-if="saveStatus === 'error'" class="df df-celtic pointer-events-auto max-w-sm text-xs text-red-300" role="alert" data-testid="save-error">{{ saveError }} <button class="dbtn ml-2" @click="saveImprint">{{ t("다시 저장") }}</button></div>
         <Banners />
         <ExpeditionGuide v-if="!over&&!hover&&!targeting" />
         <HoverInfo v-if="hover" :pos="hover" :detail="shift" />
       </div>
 
-      <div v-if="activity" class="game-activity game-notice pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 text-xs">{{ activity }} 중… <span class="text-ash-300">위험을 감지하면 멈춘다</span></div>
-      <div v-if="targeting" class="game-targeting game-notice pointer-events-none absolute left-1/2 top-11 -translate-x-1/2 text-xs">{{ targeting.label }}: 대상 선택 <span v-if="maneuverPreview && !maneuverPreview.error">· {{ maneuverPreview.chance }}% · 기력 {{ maneuverPreview.cost }}</span><span class="text-ash-300">· 클릭 / Tab / Enter / Esc</span></div>
+      <div v-if="activity" class="game-activity game-notice pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 text-xs">{{ t('{0} 중…',activity) }} <span class="text-ash-300">{{ t("위험을 감지하면 멈춘다") }}</span></div>
+      <div v-if="targeting" class="game-targeting game-notice pointer-events-none absolute left-1/2 top-11 -translate-x-1/2 text-xs">{{ t('{0}: 대상 선택',targeting.label) }} <span v-if="maneuverPreview && !maneuverPreview.error">{{ t('· {0}% · 기력 {1}',maneuverPreview.chance,maneuverPreview.cost) }}</span><span class="text-ash-300">{{ t("· 클릭 / Tab / Enter / Esc") }}</span></div>
     </div>
 
     <div ref="hudDock" class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
-      <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ onStairs }}(으)로 ( &gt; )</button></div>
+      <div v-if="onStairs" class="pointer-events-auto"><button class="dbtn-gold !text-xs" data-testid="stairs" @click="doAct({ type: 'stairs' })">{{ t('{0}(으)로 ( > )',onStairs) }}</button></div>
       <div v-if="hint" class="game-notice pointer-events-auto max-w-md cursor-pointer text-xs font-semibold" data-testid="hint" @click="hint = null">{{ hint }}</div>
-      <button v-if="resumeDest && w.s.autoThreat !== undefined" class="dbtn pointer-events-auto !text-xs" data-testid="ignore-threat" @click="ignoreAndResume">이번 개체를 무시하고 계속 (공격·3칸 접근 시 해제)</button>
+      <button v-if="resumeDest && w.s.autoThreat !== undefined" class="dbtn pointer-events-auto !text-xs" data-testid="ignore-threat" @click="ignoreAndResume">{{ t("이번 개체를 무시하고 계속 (공격·3칸 접근 시 해제)") }}</button>
       <Hud />
     </div>
     <div ref="logDock" class="game-log pointer-events-none absolute right-3"><LogPanel /></div>
@@ -440,29 +441,29 @@ onBeforeUnmount(() => {
       <div class="font-title text-3xl tracking-widest text-[#e8d7a8] [text-shadow:0_2px_0_#000,0_0_12px_#000]">{{ card.big }}</div>
       <div v-if="card.small" class="mt-1 text-xs text-ash-300 [text-shadow:0_1px_0_#000]">{{ card.small }}</div>
     </div>
-    <div v-if="simulating" class="game-notice absolute bottom-40 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 text-xs" role="status" data-testid="simulation-progress"><span>시간이 흐르는 중…</span><button class="dbtn" data-testid="stop-activity" @click="doAct({ type: 'stopActivity' })">중단 (Esc)</button></div>
+    <div v-if="simulating" class="game-notice absolute bottom-40 left-1/2 z-20 flex -translate-x-1/2 items-center gap-3 text-xs" role="status" data-testid="simulation-progress"><span>{{ t("시간이 흐르는 중…") }}</span><button class="dbtn" data-testid="stop-activity" @click="doAct({ type: 'stopActivity' })">{{ t("중단 (Esc)") }}</button></div>
     <Tooltip />
 
     <div v-if="help" class="absolute inset-0 z-[5000] flex items-center justify-center bg-black/70 p-4" @click="help = false">
-      <div ref="helpDialog" class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" aria-label="조작법" @click.stop>
-        <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">고원에서 살아남기</h2><button class="dbtn" aria-label="조작법 닫기" @click="help = false">닫기</button></div>
-        <p>맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.</p>
-        <p>Ctrl+왼쪽 클릭은 사거리 안의 중립 대상도 의도해 공격한다. Ctrl+오른쪽 클릭은 그 방향을 바라본다.</p>
-        <p>창에 초점이 있으면 방향키로 캐릭터가 움직이지 않는다. 지도를 클릭하면 이동 입력을 다시 받는다. Esc는 메뉴·끌기를 먼저 취소한다.</p>
-        <p>Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.</p>
-        <p>방향에 Ctrl을 더하면 제자리 회전, Shift를 더하면 밀친다. 접두 키를 쓴 뒤 방향을 골라도 된다.</p>
-        <div class="grid grid-cols-2 gap-x-3 gap-y-1" data-testid="current-keybindings"><div v-for="[id,label] in COMMANDS" :key="id"><span>{{ label }}: </span><kbd>{{ bindingText(preferences.keyBindings,id) }}</kbd></div></div>
-        <p>소지품은 끌어서 옮기기/장착·우클릭 메뉴를 쓴다. 끄는 중 R·우클릭 회전은 유지한다.</p>
-        <p>남쪽 옛 수레길 끝(지역 출입구)에 서서 그 칸을 클릭하면 고원을 떠난다(탈출).</p>
-        <p>불 곁에서 옷 말리기 · 침구 우클릭 → 설치·그 위에서 수면(제작 창에서 회수) · 재료 우클릭 → 불에서 굽기 · 책 우클릭 → 읽기 (진행 보존)</p>
-        <h3 class="pt-1 font-title text-sm text-[#e8d7a8]">기억할 것</h3>
-        <label class="flex items-center gap-2"><input type="checkbox" :checked="w.s.autoSmells ?? false" @change="doAct({ type: 'smellWarnings', enabled: ($event.target as HTMLInputElement).checked })">연기·썩은 냄새가 나면 자동 이동 중단</label>
+      <div ref="helpDialog" class="df df-gold max-h-[85vh] w-full max-w-2xl space-y-3 overflow-y-auto text-xs leading-6 text-ash-200" role="dialog" aria-modal="true" :aria-label="t('조작법')" @click.stop>
+        <div class="mb-4 flex items-center justify-between border-b border-ash-600 pb-3"><h2 class="font-title text-2xl font-bold text-[#e8d7a8]">{{ t("고원에서 살아남기") }}</h2><button class="dbtn" :aria-label="t('조작법 닫기')" @click="help = false">{{ t("닫기") }}</button></div>
+        <p>{{ t("맵을 클릭하면 그 칸까지 걸어간다(적이 보이면 멈춤). 키는 F3 설정에서 바꿀 수 있다.") }}</p>
+        <p>{{ t("Ctrl+왼쪽 클릭은 사거리 안의 중립 대상도 의도해 공격한다. Ctrl+오른쪽 클릭은 그 방향을 바라본다.") }}</p>
+        <p>{{ t("창에 초점이 있으면 방향키로 캐릭터가 움직이지 않는다. 지도를 클릭하면 이동 입력을 다시 받는다. Esc는 메뉴·끌기를 먼저 취소한다.") }}</p>
+        <p>{{ t("Esc는 가장 위 창/선택/활동을 닫는다. 조준 중 Tab은 대상 변경, Enter/클릭은 확정이다.") }}</p>
+        <p>{{ t("방향에 Ctrl을 더하면 제자리 회전, Shift를 더하면 밀친다. 접두 키를 쓴 뒤 방향을 골라도 된다.") }}</p>
+        <div class="grid grid-cols-2 gap-x-3 gap-y-1" data-testid="current-keybindings"><div v-for="[id,label] in COMMANDS" :key="id"><span>{{ t(label) }}: </span><kbd>{{ keyLabel(bindingText(preferences.keyBindings,id)) }}</kbd></div></div>
+        <p>{{ t("소지품은 끌어서 옮기기/장착·우클릭 메뉴를 쓴다. 끄는 중 R·우클릭 회전은 유지한다.") }}</p>
+        <p>{{ t("남쪽 옛 수레길 끝(지역 출입구)에 서서 그 칸을 클릭하면 고원을 떠난다(탈출).") }}</p>
+        <p>{{ t("불 곁에서 옷 말리기 · 침구 우클릭 → 설치·그 위에서 수면(제작 창에서 회수) · 재료 우클릭 → 불에서 굽기 · 책 우클릭 → 읽기 (진행 보존)") }}</p>
+        <h3 class="pt-1 font-title text-sm text-[#e8d7a8]">{{ t("기억할 것") }}</h3>
+        <label class="flex items-center gap-2"><input type="checkbox" :checked="w.s.autoSmells ?? false" @change="doAct({ type: 'smellWarnings', enabled: ($event.target as HTMLInputElement).checked })">{{ t("연기·썩은 냄새가 나면 자동 이동 중단") }}</label>
         <ul class="list-disc pl-5 text-ash-300">
-          <li>적은 정해진 곳에 산다. 잠든 적은 기습하라(명중 95%, 피해 ×1.5). 잠행은 생존 능력.</li>
-          <li>체력(빨강)이 0이면 죽는다. 그 아래에 상처·출혈이 따로 돈다 — 머리 위 붉은 방울은 출혈이다.</li>
-          <li>부위가 다치면(좌상단 인형) 명중·회피·막기가 떨어진다. 다리가 상하면 비틀거린다.</li>
-          <li>던전은 어둡다. 등불을 켜지 않으면 명중이 깎인다. 연료는 등불 기름으로 채운다.</li>
-          <li>각인 모드: 저장은 하나, 죽으면 끝.</li>
+          <li>{{ t("적은 정해진 곳에 산다. 잠든 적은 기습하라(명중 95%, 피해 ×1.5). 잠행은 생존 능력.") }}</li>
+          <li>{{ t("체력(빨강)이 0이면 죽는다. 그 아래에 상처·출혈이 따로 돈다 — 머리 위 붉은 방울은 출혈이다.") }}</li>
+          <li>{{ t("부위가 다치면(좌상단 인형) 명중·회피·막기가 떨어진다. 다리가 상하면 비틀거린다.") }}</li>
+          <li>{{ t("던전은 어둡다. 등불을 켜지 않으면 명중이 깎인다. 연료는 등불 기름으로 채운다.") }}</li>
+          <li>{{ t("각인 모드: 저장은 하나, 죽으면 끝.") }}</li>
         </ul>
       </div>
     </div>
@@ -472,12 +473,12 @@ onBeforeUnmount(() => {
         <h2 class="text-center font-title text-3xl tracking-widest" :class="over.kind !== 'death' ? 'text-moss-300' : 'text-blood-300'">{{ over.report.title }}</h2>
         <p class="text-center text-sm text-ash-100">{{ over.report.epitaph }}</p>
         <p class="text-center text-ash-400">{{ over.report.background }} · {{ over.report.traits.join(', ') }} · 원인: {{ over.report.cause }}</p>
-        <div><h3 class="mb-1 font-title text-amber-300">마지막 기록</h3><ul class="space-y-0.5 font-mono text-[11px] text-ash-300"><li v-for="(l, i) in over.report.chain" :key="i">{{ l }}</li></ul></div>
-        <div><h3 class="mb-1 font-title text-amber-300">그때의 몸</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.vitals" :key="i">{{ l }}</li></ul></div>
-        <div><h3 class="mb-1 font-title text-amber-300">기록</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.stats" :key="i">{{ l }}</li></ul></div>
+        <div><h3 class="mb-1 font-title text-amber-300">{{ t("마지막 기록") }}</h3><ul class="space-y-0.5 font-mono text-[11px] text-ash-300"><li v-for="(l, i) in over.report.chain" :key="i">{{ l }}</li></ul></div>
+        <div><h3 class="mb-1 font-title text-amber-300">{{ t("그때의 몸") }}</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.vitals" :key="i">{{ l }}</li></ul></div>
+        <div><h3 class="mb-1 font-title text-amber-300">{{ t("기록") }}</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.stats" :key="i">{{ l }}</li></ul></div>
         <ReportActions :report="over.report" :seed="w.s.seed" />
         <CheckpointControls ended />
-        <div class="text-center"><button class="dbtn-gold !px-4 !text-sm" @click="abandonToTitle">연대기에 새기고 돌아가기</button></div>
+        <div class="text-center"><button class="dbtn-gold !px-4 !text-sm" @click="abandonToTitle">{{ t("연대기에 새기고 돌아가기") }}</button></div>
       </div>
     </div>
   </div>

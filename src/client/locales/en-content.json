@@ -1,0 +1,832 @@
+{
+  "Bg.Deserter": {
+    "label": {
+      "source": "탈영 경비병",
+      "text": "Deserter"
+    },
+    "description": {
+      "source": "잔존 경비대에서 도망쳤다. 싸울 줄은 알지만 쫓기는 신세다.",
+      "text": "You deserted the Remnant Wardens. You can fight, but you are on the run."
+    }
+  },
+  "Bg.Scavenger": {
+    "label": {
+      "source": "고물 발굴꾼",
+      "text": "Scavenger"
+    },
+    "description": {
+      "source": "폐허를 뒤져 먹고살았다. 어디에 뭐가 숨어 있는지 안다.",
+      "text": "You lived by searching ruins. You know where things tend to be hidden."
+    }
+  },
+  "Bg.Hunter": {
+    "label": {
+      "source": "촌락 사냥꾼",
+      "text": "Village hunter"
+    },
+    "description": {
+      "source": "고원 촌락에서 짐승을 쫓았다. 활과 칼을 다룬다.",
+      "text": "You hunted around the highland villages. You know your bow and knife."
+    }
+  },
+  "Bg.Herbalist": {
+    "label": {
+      "source": "떠돌이 약초꾼",
+      "text": "Wandering herbalist"
+    },
+    "description": {
+      "source": "약초와 상처를 다뤘다. 싸움은 서툴다.",
+      "text": "You know herbs and wounds. Fighting is another matter."
+    }
+  },
+  "Bg.Excommunicate": {
+    "label": {
+      "source": "파문된 순례자",
+      "text": "Excommunicated pilgrim"
+    },
+    "description": {
+      "source": "장막 순례회에서 쫓겨났다. 고통을 견디는 법을 배웠다.",
+      "text": "Cast out by the Pilgrims of the Veil, you learned to endure pain."
+    }
+  },
+  "Bg.GuildMerchant": {
+    "label": {
+      "source": "몰락한 길드 상인",
+      "text": "Ruined guild merchant"
+    },
+    "description": {
+      "source": "장부와 저울로 먹고살다 모든 것을 잃었다. 몸으로 익힌 기술은 없지만 배우는 데는 빠르다.",
+      "text": "Ledgers and scales were your living until you lost everything. You lack practical skills, but learn quickly."
+    }
+  },
+  "Bg.EscapedSlave": {
+    "label": {
+      "source": "약탈단 탈주 노예",
+      "text": "Escaped Reaver slave"
+    },
+    "description": {
+      "source": "족쇄를 끊고 달아났다. 다리에 흉터가 남았고 가진 것은 누더기뿐이다.",
+      "text": "You broke your shackles and fled. Scars mark your legs; rags are all you own."
+    }
+  },
+  "Bg.FeverOrphan": {
+    "label": {
+      "source": "회색열 고아",
+      "text": "Grey Fever orphan"
+    },
+    "description": {
+      "source": "열병이 가족을 앗아갔다. 살아남은 몸에는 회색열 면역이 남았다.",
+      "text": "The fever took your family. You survived, immune to Grey Fever."
+    }
+  },
+  "Bg.SmithApprentice": {
+    "label": {
+      "source": "대장간 도제",
+      "text": "Smith's apprentice"
+    },
+    "description": {
+      "source": "풀무와 망치를 다뤘다. 대장 제작법을 알고 금속 제작과 수리에 익숙하다.",
+      "text": "You worked bellows and hammer. You know smithing recipes, metalwork and repairs."
+    }
+  },
+  "Bg.GuardArchivist": {
+    "label": {
+      "source": "경비대 기록관",
+      "text": "Warden archivist"
+    },
+    "description": {
+      "source": "경비대의 기록과 지도를 베꼈다. 낡은 지도와 손당김 석궁을 챙겼다.",
+      "text": "You copied Warden records and maps. You brought an old map and a hand-drawn crossbow."
+    }
+  },
+  "Bg.Storyteller": {
+    "label": {
+      "source": "떠돌이 이야기꾼",
+      "text": "Wandering storyteller"
+    },
+    "description": {
+      "source": "길 위에서 류트와 이야기로 끼니를 이었다. 납골당에 얽힌 소문 셋을 안다.",
+      "text": "A lute and stories earned your meals on the road. You know three rumors about the crypts."
+    }
+  },
+  "Bg.Boatman": {
+    "label": {
+      "source": "강변 뱃사공",
+      "text": "River boatman"
+    },
+    "description": {
+      "source": "강바닥을 짚는 장대와 기름 먹인 우비가 재산이다. 물과 진흙에서 잘 미끄러지지 않는다.",
+      "text": "A pole and an oiled raincoat are your livelihood. You keep your footing in water and mud."
+    }
+  },
+  "Trait.ColdBlooded": {
+    "label": {
+      "source": "냉혈",
+      "text": "Cold-blooded"
+    },
+    "description": {
+      "source": "살인·처형·죽음 목격으로 기분이 내려가지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1.",
+      "text": "Killing, executions and witnessing death do not lower mood. Vital Stab and Head Bash cooldowns −1."
+    }
+  },
+  "Trait.TenderHearted": {
+    "label": {
+      "source": "다정",
+      "text": "Tender-hearted"
+    },
+    "description": {
+      "source": "살인 기억 기분 ×1.5, 짐승 죽임 −3, 항복 수용 +6. 흥정 항 +5.",
+      "text": "Mood effects of killing memories ×1.5; killing an animal −3; accepting surrender +6. Bargaining +5."
+    }
+  },
+  "Trait.Bloodlust": {
+    "label": {
+      "source": "피 냄새에 취함",
+      "text": "Bloodlust"
+    },
+    "description": {
+      "source": "출혈 중인 적이 3칸 안에 있으면 근접 피해 +10%, 기분 +3, 스트레스 −2/시간. 피 공포를 얻지 않는다.",
+      "text": "A bleeding enemy within 3 tiles grants melee damage +10%, mood +3 and stress −2/hour. Cannot develop a fear of blood."
+    }
+  },
+  "Trait.PainTolerant": {
+    "label": {
+      "source": "통증 둔감",
+      "text": "Pain tolerant"
+    },
+    "description": {
+      "source": "통증 ×0.6.",
+      "text": "Pain ×0.6."
+    }
+  },
+  "Trait.Sensitive": {
+    "label": {
+      "source": "예민",
+      "text": "Sensitive"
+    },
+    "description": {
+      "source": "통증 ×1.3, 지각 +1, 알약 감별 +10.",
+      "text": "Pain ×1.3; perception +1; pill identification +10."
+    }
+  },
+  "Trait.LightSleeper": {
+    "label": {
+      "source": "얕은 잠",
+      "text": "Light sleeper"
+    },
+    "description": {
+      "source": "각성 임계 −2, 수면 질 ×0.9.",
+      "text": "Waking threshold −2; sleep quality ×0.9."
+    }
+  },
+  "Trait.DeepSleeper": {
+    "label": {
+      "source": "깊은 잠꾸러기",
+      "text": "Deep sleeper"
+    },
+    "description": {
+      "source": "각성 임계 +3, 수면 질 ×1.1.",
+      "text": "Waking threshold +3; sleep quality ×1.1."
+    }
+  },
+  "Trait.NightOwl": {
+    "label": {
+      "source": "야행성",
+      "text": "Night owl"
+    },
+    "description": {
+      "source": "어둠 명중 감점 5 완화, 조준 사격·다리 쏘기 조명 감점 절반. 밤 +3, 낮 −2.",
+      "text": "Darkness hit penalty reduced by 5. Aimed Shot and Leg Shot take half the light penalty. Mood +3 at night, −2 by day."
+    }
+  },
+  "Trait.IronStomach": {
+    "label": {
+      "source": "철위장",
+      "text": "Iron stomach"
+    },
+    "description": {
+      "source": "식중독 확률 ×0.3. 날고기·상한 음식의 기분 감소가 없다.",
+      "text": "Food poisoning chance ×0.3. Raw meat and spoiled food do not lower mood."
+    }
+  },
+  "Trait.Gourmand": {
+    "label": {
+      "source": "미식가",
+      "text": "Gourmand"
+    },
+    "description": {
+      "source": "맛 사고의 기분 ×2. Q35부터 훌륭한 식사로 친다.",
+      "text": "Mood from taste thoughts ×2. Meals count as excellent from quality 35."
+    }
+  },
+  "Trait.Glutton": {
+    "label": {
+      "source": "대식가",
+      "text": "Big eater"
+    },
+    "description": {
+      "source": "칼로리 소비 ×1.2, 폭식 붕괴 ×3, 숨 고르기 50kcal 추가 소모.",
+      "text": "Calorie use ×1.2; binge-eating breakdowns ×3; catching your breath costs 50 extra kcal."
+    }
+  },
+  "Trait.SmallEater": {
+    "label": {
+      "source": "소식가",
+      "text": "Small eater"
+    },
+    "description": {
+      "source": "칼로리 소비 ×0.85.",
+      "text": "Calorie use ×0.85."
+    }
+  },
+  "Trait.ColdResistant": {
+    "label": {
+      "source": "추위 체질",
+      "text": "Cold adapted"
+    },
+    "description": {
+      "source": "쾌적 하한 −3°C·상한 −2°C, 동상 노출 ×0.7. 저체온1단계의 숨 고르기 회복 감소 없음.",
+      "text": "Comfortable minimum −3°C and maximum −2°C; frostbite exposure ×0.7. Mild hypothermia does not reduce recovery when catching your breath."
+    }
+  },
+  "Trait.HeatResistant": {
+    "label": {
+      "source": "더위 체질",
+      "text": "Heat adapted"
+    },
+    "description": {
+      "source": "쾌적 상한 +3°C·하한 +2°C.",
+      "text": "Comfortable maximum +3°C and minimum +2°C."
+    }
+  },
+  "Trait.IronWill": {
+    "label": {
+      "source": "강철 의지",
+      "text": "Iron will"
+    },
+    "description": {
+      "source": "스트레스 누적 ×0.6, 붕괴 확률 ×0.7.",
+      "text": "Stress accumulation ×0.6; breakdown chance ×0.7."
+    }
+  },
+  "Trait.Nervous": {
+    "label": {
+      "source": "신경과민",
+      "text": "Nervous"
+    },
+    "description": {
+      "source": "스트레스 누적 ×1.4, 트라우마 확률 ×1.5.",
+      "text": "Stress accumulation ×1.4; trauma chance ×1.5."
+    }
+  },
+  "Trait.Optimist": {
+    "label": {
+      "source": "낙천",
+      "text": "Optimist"
+    },
+    "description": {
+      "source": "기분 +6.",
+      "text": "Mood +6."
+    }
+  },
+  "Trait.Pessimist": {
+    "label": {
+      "source": "비관",
+      "text": "Pessimist"
+    },
+    "description": {
+      "source": "기분 −6, 죽을 뻔한 기억 ×0.7, 단식 붕괴 ×2.",
+      "text": "Mood −6; near-death memories ×0.7; fasting breakdowns ×2."
+    }
+  },
+  "Trait.Alcoholic": {
+    "label": {
+      "source": "알코올 의존",
+      "text": "Alcohol dependent"
+    },
+    "description": {
+      "source": "술이 당기는 상태로 시작한다. 술 기분 ×1.5, 폭음 붕괴 ×4. 금단 중 공격형 능력 명중 −10·조준 사격 불가.",
+      "text": "Starts craving alcohol. Alcohol mood effects ×1.5; binge-drinking breakdowns ×4. During withdrawal, offensive ability accuracy −10 and Aimed Shot is unavailable."
+    }
+  },
+  "Trait.Teetotaler": {
+    "label": {
+      "source": "금주가",
+      "text": "Teetotaler"
+    },
+    "description": {
+      "source": "술을 마시면 기분 −6. 상처 소독은 무관하다.",
+      "text": "Drinking alcohol lowers mood by 6. Disinfecting wounds does not."
+    }
+  },
+  "Trait.Loner": {
+    "label": {
+      "source": "외톨이",
+      "text": "Loner"
+    },
+    "description": {
+      "source": "혼자 있을 때 기분 +3.",
+      "text": "Mood +3 while alone."
+    }
+  },
+  "Trait.Talkative": {
+    "label": {
+      "source": "수다쟁이",
+      "text": "Talkative"
+    },
+    "description": {
+      "source": "잠행 중 10턴마다1% 확률로 혼잣말을 낸다.",
+      "text": "While sneaking, a 1% chance of talking to yourself every 10 turns."
+    }
+  },
+  "Trait.Paranoid": {
+    "label": {
+      "source": "편집증",
+      "text": "Paranoid"
+    },
+    "description": {
+      "source": "수면 질 ×0.7.",
+      "text": "Sleep quality ×0.7."
+    }
+  },
+  "Trait.Neat": {
+    "label": {
+      "source": "깔끔쟁이",
+      "text": "Neat"
+    },
+    "description": {
+      "source": "날50% 미만이나 녹슨 장비를 착용하면 기분 −3. 처치 청결 +5, 강박 정리 붕괴 ×3.",
+      "text": "Wearing rusty equipment or a blade below 50% sharpness lowers mood by 3. Treatment cleanliness +5; compulsive tidying breakdowns ×3."
+    }
+  },
+  "Trait.NimbleHands": {
+    "label": {
+      "source": "손재주",
+      "text": "Nimble hands"
+    },
+    "description": {
+      "source": "처치·착탈·제작·정비 시간 ×0.9, 제작 Q+5.",
+      "text": "Treatment, equipment changes, crafting and maintenance time ×0.9; crafting quality +5."
+    }
+  },
+  "Trait.ClumsyHands": {
+    "label": {
+      "source": "무딘 손",
+      "text": "Clumsy hands"
+    },
+    "description": {
+      "source": "손 조작 상한0.9, 피격 무기 떨굼 확률 ×1.5.",
+      "text": "Manipulation is capped at 0.9; chance of dropping a weapon when hit ×1.5."
+    }
+  },
+  "Trait.FleetFooted": {
+    "label": {
+      "source": "빠른 발",
+      "text": "Fleet-footed"
+    },
+    "description": {
+      "source": "비틀거림 −5%p(하한0), 회피+1.",
+      "text": "Stumble chance −5 percentage points, minimum 0; evasion +1."
+    }
+  },
+  "Trait.Plodder": {
+    "label": {
+      "source": "느림보",
+      "text": "Plodder"
+    },
+    "description": {
+      "source": "위험한 이동의 비틀거림 +5%p, 회피−1, 기력 회복 ×1.1.",
+      "text": "Stumble chance on risky moves +5 percentage points; evasion −1; energy recovery ×1.1."
+    }
+  },
+  "Trait.Robust": {
+    "label": {
+      "source": "튼튼한 체질",
+      "text": "Robust"
+    },
+    "description": {
+      "source": "면역 ×1.2.",
+      "text": "Immunity ×1.2."
+    }
+  },
+  "Trait.Frail": {
+    "label": {
+      "source": "허약",
+      "text": "Frail"
+    },
+    "description": {
+      "source": "면역 ×0.8, 밀치기에서 체중을0.9배로 친다.",
+      "text": "Immunity ×0.8; effective body mass when shoving ×0.9."
+    }
+  },
+  "Trait.KeenEyed": {
+    "label": {
+      "source": "매의 눈",
+      "text": "Keen-eyed"
+    },
+    "description": {
+      "source": "시야 +2, 원거리 명중 +5, 알약 감별 +5.",
+      "text": "Sight +2; ranged accuracy +5; pill identification +5."
+    }
+  },
+  "Trait.Nearsighted": {
+    "label": {
+      "source": "근시",
+      "text": "Nearsighted"
+    },
+    "description": {
+      "source": "5칸 너머 시야 거리 ×0.6, 원거리 명중 −10. 독서는 그대로다.",
+      "text": "Sight distance beyond 5 tiles ×0.6; ranged accuracy −10. Reading is unaffected."
+    }
+  },
+  "Trait.Coward": {
+    "label": {
+      "source": "겁쟁이",
+      "text": "Cowardly"
+    },
+    "description": {
+      "source": "사기−15, 도주 충동 붕괴 ×3, 받아넘기기·창벽 자세 +1턴, 공격형 능력 기력+2.",
+      "text": "Morale −15; panic-flight breakdowns ×3; Parry and Spear Wall stances last 1 extra turn; offensive abilities cost 2 extra energy."
+    }
+  },
+  "Trait.Reckless": {
+    "label": {
+      "source": "무모",
+      "text": "Reckless"
+    },
+    "description": {
+      "source": "사기+15, 위기 기억 ×0.5, 트라우마 확률 ×0.5, 도주 기억 −6.",
+      "text": "Morale +15; crisis memories ×0.5; trauma chance ×0.5; fleeing memories give mood −6."
+    }
+  },
+  "Trait.Vain": {
+    "label": {
+      "source": "허영",
+      "text": "Vain"
+    },
+    "description": {
+      "source": "얼굴 흉터 기분−10, 좋음 이상 품질의 의복 착용 기분+3.",
+      "text": "Facial scars give mood −10. Wearing clothing of good quality or better gives mood +3."
+    }
+  },
+  "Trait.Pious": {
+    "label": {
+      "source": "신앙심",
+      "text": "Pious"
+    },
+    "description": {
+      "source": "10분 기도를 마치면 스트레스−10.",
+      "text": "Completing 10 minutes of prayer reduces stress by 10."
+    }
+  },
+  "Trait.HardBones": {
+    "label": {
+      "source": "강골",
+      "text": "Strong bones"
+    },
+    "description": {
+      "source": "골절 판정 확률 ×0.7. 다리 찍기·뼈 부수기도 적용한다.",
+      "text": "Fracture chance ×0.7, including Leg Chop and Bone Breaker."
+    }
+  },
+  "Trait.ThinBlood": {
+    "label": {
+      "source": "묽은 피",
+      "text": "Thin blood"
+    },
+    "description": {
+      "source": "상처에서 피가 1.5배 흐르고 잘 굳지 않는다.",
+      "text": "Wounds bleed 1.5 times as much and clot poorly."
+    }
+  },
+  "Trait.FastHealer": {
+    "label": {
+      "source": "빠른 회복",
+      "text": "Fast healer"
+    },
+    "description": {
+      "source": "상처가 빨리 아물고 면역이 강하다.",
+      "text": "Wounds heal quickly and immunity is strong."
+    }
+  },
+  "Trait.Sickly": {
+    "label": {
+      "source": "병약",
+      "text": "Sickly"
+    },
+    "description": {
+      "source": "감염에 약하다.",
+      "text": "Vulnerable to infection."
+    }
+  },
+  "Trait.Light": {
+    "label": {
+      "source": "가벼운 발",
+      "text": "Quiet steps"
+    },
+    "description": {
+      "source": "발소리가 작다.",
+      "text": "Footsteps are quiet."
+    }
+  },
+  "Trait.HunterOf": {
+    "label": {
+      "source": "공포를 이긴 사냥꾼",
+      "text": "Fear-conquering hunter"
+    },
+    "description": {
+      "source": "극복한 종족 상대 명중 +10, 사기 +10, 생고기 수율 +20%.",
+      "text": "Against the species whose fear you overcame: accuracy +10, morale +10 and raw meat yield +20%."
+    }
+  },
+  "Trait.Forgetful": {
+    "label": {
+      "source": "건망",
+      "text": "Forgetful"
+    },
+    "description": {
+      "source": "누적 뇌진탕으로 얻는다. 앞으로 의료·생존 숙달 문턱×1.5. 이미 배운 단계는 보존한다.",
+      "text": "Acquired through repeated concussion. Future medicine and survival mastery thresholds ×1.5. Existing mastery is preserved."
+    }
+  },
+  "Ab.Blade.DeepCut": {
+    "label": {
+      "source": "깊게 베기",
+      "text": "Deep Cut"
+    },
+    "description": {
+      "source": "살을 깊게 갈라 출혈을 두 배로, 동맥을 끊을 확률을 높인다.",
+      "text": "Cuts deeply, doubling wound bleeding and increasing the chance of severing an artery."
+    }
+  },
+  "Ab.Blade.Edge": {
+    "label": {
+      "source": "칼끝 감각",
+      "text": "Edge Sense"
+    },
+    "description": {
+      "source": "도검 명중 +8.",
+      "text": "Blade accuracy +8."
+    }
+  },
+  "Ab.Blade.Parry": {
+    "label": {
+      "source": "받아넘기기 자세",
+      "text": "Parry Stance"
+    },
+    "description": {
+      "source": "2턴 동안 받아넘기기 확률 +40%. 성공하면 반격한다.",
+      "text": "Parry chance +40% for 2 turns. A successful parry triggers a counterattack."
+    }
+  },
+  "Ab.Blade.Vital": {
+    "label": {
+      "source": "급소 찌르기",
+      "text": "Vital Thrust"
+    },
+    "description": {
+      "source": "머리와 목을 노린다(부위 가중 ×4). 방어구 관통 +0.2.",
+      "text": "Targets the head and neck (part weight ×4). Armor penetration +0.2."
+    }
+  },
+  "Ab.Axe.Split": {
+    "label": {
+      "source": "쪼개기",
+      "text": "Split"
+    },
+    "description": {
+      "source": "방어구를 쪼갠다. 관통 +0.25, 방어구 내구 −10.",
+      "text": "Splits armor. Penetration +0.25; armor durability −10."
+    }
+  },
+  "Ab.Axe.Ferocity": {
+    "label": {
+      "source": "흉포",
+      "text": "Ferocity"
+    },
+    "description": {
+      "source": "출혈 중인 적에게 피해 +20%.",
+      "text": "Damage +20% against bleeding enemies."
+    }
+  },
+  "Ab.Axe.Sweep": {
+    "label": {
+      "source": "휘둘러 베기",
+      "text": "Sweeping Cut"
+    },
+    "description": {
+      "source": "인접한 모든 적을 벤다(피해 ×0.7).",
+      "text": "Cuts all adjacent enemies (damage ×0.7)."
+    }
+  },
+  "Ab.Axe.Hamstring": {
+    "label": {
+      "source": "다리 찍기",
+      "text": "Leg Chop"
+    },
+    "description": {
+      "source": "다리를 노린다(가중 ×5). 골절 확률 ×2.",
+      "text": "Targets the legs (weight ×5). Fracture chance ×2."
+    }
+  },
+  "Ab.Blunt.HeadBash": {
+    "label": {
+      "source": "머리 강타",
+      "text": "Head Bash"
+    },
+    "description": {
+      "source": "머리를 노린다(가중 ×4). 기절 확률 +40%p.",
+      "text": "Targets the head (weight ×4). Stun chance +40 percentage points."
+    }
+  },
+  "Ab.Blunt.BoneBreaker": {
+    "label": {
+      "source": "뼈 부수기",
+      "text": "Bone Breaker"
+    },
+    "description": {
+      "source": "골절 확률 ×1.5.",
+      "text": "Fracture chance ×1.5."
+    }
+  },
+  "Ab.Blunt.Shove": {
+    "label": {
+      "source": "밀쳐내기",
+      "text": "Shove"
+    },
+    "description": {
+      "source": "적을 한 칸 밀쳐내고 50% 확률로 넘어뜨린다.",
+      "text": "Pushes the enemy one tile back, with a 50% chance to knock them down."
+    }
+  },
+  "Ab.Blunt.Crumple": {
+    "label": {
+      "source": "갑옷 우그러뜨리기",
+      "text": "Crush Armor"
+    },
+    "description": {
+      "source": "상대 방어구의 튕겨냄 판정이 절반이 된다.",
+      "text": "Halves the deflection check of the target’s armor."
+    }
+  },
+  "Ab.Spear.Pierce": {
+    "label": {
+      "source": "꿰뚫기",
+      "text": "Pierce"
+    },
+    "description": {
+      "source": "일직선 두 칸의 모든 적을 찌른다.",
+      "text": "Thrusts through all enemies in a straight line two tiles long."
+    }
+  },
+  "Ab.Spear.Reach": {
+    "label": {
+      "source": "거리 유지",
+      "text": "Keep Distance"
+    },
+    "description": {
+      "source": "두 칸 거리에서 공격할 때 명중 +10.",
+      "text": "Accuracy +10 when attacking from two tiles away."
+    }
+  },
+  "Ab.Spear.Trip": {
+    "label": {
+      "source": "다리 걸기",
+      "text": "Leg Trip"
+    },
+    "description": {
+      "source": "창대로 다리를 걸어 60% 확률로 넘어뜨린다.",
+      "text": "Trips with the spear shaft, with a 60% chance to knock the target down."
+    }
+  },
+  "Ab.Spear.Wall": {
+    "label": {
+      "source": "창벽 자세",
+      "text": "Spear Wall"
+    },
+    "description": {
+      "source": "2턴 동안 다가오는 적을 먼저 찌른다.",
+      "text": "Strikes approaching enemies first for 2 turns."
+    }
+  },
+  "Ab.Archery.Aimed": {
+    "label": {
+      "source": "조준 사격",
+      "text": "Aimed Shot"
+    },
+    "description": {
+      "source": "숨을 고르고 쏜다. 명중 +25, 2턴 소요.",
+      "text": "Takes a breath and fires. Accuracy +25; takes 2 turns."
+    }
+  },
+  "Ab.Archery.Calm": {
+    "label": {
+      "source": "침착함",
+      "text": "Calm"
+    },
+    "description": {
+      "source": "원거리 거리 감점이 절반.",
+      "text": "Halves ranged distance penalties."
+    }
+  },
+  "Ab.Archery.LegShot": {
+    "label": {
+      "source": "다리 쏘기",
+      "text": "Leg Shot"
+    },
+    "description": {
+      "source": "다리를 노린다(가중 ×5).",
+      "text": "Targets the legs (weight ×5)."
+    }
+  },
+  "Ab.Archery.Recover": {
+    "label": {
+      "source": "화살 회수",
+      "text": "Arrow Recovery"
+    },
+    "description": {
+      "source": "쏜 화살을 회수할 확률 +30%p.",
+      "text": "Chance to recover fired arrows +30 percentage points."
+    }
+  },
+  "Ab.Survival.FirstAid": {
+    "label": {
+      "source": "응급 처치",
+      "text": "First Aid"
+    },
+    "description": {
+      "source": "붕대 효과 +50%, 처치 시간 −40%.",
+      "text": "Bandage effectiveness +50%; treatment time −40%."
+    }
+  },
+  "Ab.Survival.Breath": {
+    "label": {
+      "source": "숨 고르기",
+      "text": "Catch Breath"
+    },
+    "description": {
+      "source": "기력 50% 회복, 3턴 동안 통증 −50%.",
+      "text": "Restores 50% energy and reduces pain by 50% for 3 turns."
+    }
+  },
+  "Ab.Survival.Sneak": {
+    "label": {
+      "source": "잠행",
+      "text": "Stealth"
+    },
+    "description": {
+      "source": "몸을 낮춘다. 이동 소음 ×0.3, 적이 알아채는 거리 −40%. 이동이 2턴 걸린다.",
+      "text": "Lowers your body. Movement noise ×0.3; enemy detection distance −40%. Moving takes 2 turns."
+    }
+  },
+  "Ab.Survival.Tough": {
+    "label": {
+      "source": "강인함",
+      "text": "Toughness"
+    },
+    "description": {
+      "source": "최대 HP +15, 출혈 −20%.",
+      "text": "Maximum HP +15; bleeding −20%."
+    }
+  },
+  "Ab.Shade.Lunge": {
+    "label": {
+      "source": "달려들기",
+      "text": "Lunge"
+    },
+    "description": {
+      "source": "직선 2칸을 달려와 같은 턴에 근접 공격한다. 이동 칸마다 비틀거림 판정.",
+      "text": "Runs two tiles in a straight line and makes a melee attack in the same turn. Each tile checks for stumbling."
+    }
+  },
+  "Ab.Amalgam.Sweep": {
+    "label": {
+      "source": "휩쓸기",
+      "text": "Sweep"
+    },
+    "description": {
+      "source": "인접 8칸 중 대상이 가장 많은 연속 3칸을 후려친다. 남은 팔이 2개 이하면 2칸.",
+      "text": "Strikes the most crowded arc of 3 consecutive adjacent tiles. Only 2 tiles if at most 2 arms remain."
+    }
+  },
+  "Ab.Amalgam.SporeBurst": {
+    "label": {
+      "source": "포자 분출",
+      "text": "Spore Burst"
+    },
+    "description": {
+      "source": "반경 3에 짙은 포자 구름(농도 8, 4턴). 6턴마다, 머리 하나가 부서질 때마다 +2턴.",
+      "text": "Creates a dense spore cloud within radius 3 (concentration 8, 4 turns). Every 6 turns, plus 2 turns per destroyed head."
+    }
+  },
+  "Ab.Grab": {
+    "label": {
+      "source": "붙잡기",
+      "text": "Grab"
+    },
+    "description": {
+      "source": "인접 대상의 팔을 붙잡는다. 붙잡힌 동안 이동할 수 없다(탈출 = 근력·민첩 대결).",
+      "text": "Grabs an adjacent target’s arm. The target cannot move while held (escape contests strength and agility)."
+    }
+  }
+}

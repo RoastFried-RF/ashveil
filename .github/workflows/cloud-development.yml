@@ -46,8 +46,8 @@ jobs:
           python3 tools/cloud-harness/verify.py --regressions --out test-results/cloud-regressions
       - name: Build explicit check plan
         env:
-          CLOUD_PROFILE: ${{ inputs.profile || 'authoring' }}
-        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile "$CLOUD_PROFILE" --locale --out test-results/cloud-plan.json
+          CLOUD_PROFILE: ${{ inputs.profile || 'release' }}
+        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile "$CLOUD_PROFILE" --locale --gameplay-locale --out test-results/cloud-plan.json
       - name: Validate and run the shared queue
         run: |
           python3 tools/cloud-harness/run.py test-results/cloud-plan.json --out test-results/cloud-release --check
