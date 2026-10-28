@@ -30,7 +30,7 @@ describe('reviewed gameplay display fields',()=>{
     for(const [id,fields] of Object.entries(catalog)) {
       const def=db.get(id)
       for(const [field,entry] of Object.entries(fields)) {
-        expect(def[field as 'label'|'description'],id+'.'+field).toBe(entry.source)
+        expect((def as unknown as Record<string,unknown>)[field],id+'.'+field).toBe(entry.source)
         expect(entry.text.trim(),id).not.toBe('')
       }
     }

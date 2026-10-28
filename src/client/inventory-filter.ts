@@ -9,8 +9,8 @@ function materials(w:World){
  return ids
 }
 /** Filters describe actual capabilities and loaded recipes, without touching the world. */
-export function inventoryMatches(w:World,it:ItemInst,group:InventoryGroup,query:string){
+export function inventoryMatches(w:World,it:ItemInst,group:InventoryGroup,query:string,displayLabel?:string){
  const d=itemDef(w,it),q=inventorySearchKey(query)
  const category=group==='all'||(group==='food'?!!d.food||!!d.drink:group==='medical'?d.category==='medical'||d.category==='drug'||!!d.medical||!!d.toolTags?.includes('needle'):group==='gear'?!!d.slot||!!d.attacks:!!d.rawMaterial||!!d.rawFragment||materials(w).has(d.id))
- return category&&(!q||inventorySearchKey(itemLabel(w,it)).includes(q))
+ return category&&(!q||inventorySearchKey(itemLabel(w,it)).includes(q)||displayLabel!==undefined&&inventorySearchKey(displayLabel).includes(q))
 }

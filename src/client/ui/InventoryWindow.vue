@@ -3,8 +3,9 @@
 import { foodMergeQuote,isWaterVessel,waterCapacity,cookingQuote,nearbyCampfires,nearbyIce, nearbySnow } from '../../core'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  corpseMoneyQuote, economyDef, bestiaryEntry, knownCreatureName, dissectionChance, dissectionError, bestiaryDef, waterSafetyDef, waterPourQuote, drinkVolume, WATER_TREATMENT_LABEL, BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, knowledgeDef, itemDef, itemSize, itemLabel, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type WaterTreatment, type ItemInst, type Slot, type World,
+  corpseMoneyQuote, economyDef, bestiaryEntry, knownCreatureName, dissectionChance, dissectionError, bestiaryDef, waterSafetyDef, waterPourQuote, drinkVolume, WATER_TREATMENT_LABEL, BAG_W, BAG_H, canStack, fitsAt, gridFits, itemAtCell, knowledgeDef, itemDef, itemSize, lootEquip, lootGrid, lootItems, maxStack, player, terrainAt, tileAt, type WaterTreatment, type ItemInst, type Slot, type World,
 } from '../../core'
+import {displayItemLabel as itemLabel} from '../locales/item'
 import { itemTip, SLOT_LABEL } from '../info'
 import { act, version, world } from '../store'
 import { itemHotbarRef, assignHotbar, doAct, hideTip, hint, showTip, useItem, wins } from '../ui'
@@ -25,7 +26,7 @@ function bagKey(e:KeyboardEvent){if(e.target===e.currentTarget&&['ArrowLeft','Ar
 const itemGroup=ref<InventoryGroup>('all')
 const groups=[['all','전체'],['food','먹을 것'],['medical','의료'],['gear','장비'],['material','재료']] as const
 function matchesItem(it:ItemInst){
- return inventoryMatches(world.value as World,it,itemGroup.value,itemSearch.value)
+ return inventoryMatches(world.value as World,it,itemGroup.value,itemSearch.value,itemLabel(world.value as World,it))
 }
 const searchMatches=computed(()=>{void version.value;return player(world.value as World).bag.filter(matchesItem).length})
 const CELL = 38

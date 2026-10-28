@@ -3,7 +3,8 @@
 import { t, defText, keyLabel } from '../locale'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { abilityReady, crouched, energyMax, hpCap, hpMax, player, turnOf, wield, xpToNext, xpTotalFor, type World } from '../../core'
-import {quickbarCount} from '../quickbar-items'
+import {quickbarCount,quickbarItem} from '../quickbar-items'
+import {displayItemLabel,displayItemDefLabel} from '../locales/item'
 import {creatureSprite} from '../render/creature-sprite'
 import { abilityTip, itemTip } from '../info'
 import { primaryBindingText, type Command } from '../keybindings'
@@ -38,7 +39,8 @@ const d = computed(() => {
     }
     const def = w.db.item(ref.def)
     const count = quickbarCount(w,pl,ref)
-    return { i, empty: false as const, icon: def.sprite, label: ref.fletchingDamaged?t('{0} (깃 손상)',defText(def)):defText(def), cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
+    const selected=quickbarItem(w,pl,ref),label=selected?displayItemLabel(w,selected):ref.fletchingDamaged?t('{0} (깃 손상)',displayItemDefLabel(def)):displayItemDefLabel(def)
+    return { i, empty: false as const, icon: def.sprite, label, cd: 0, cdMax: 1, ok: count > 0, count, on: def.category==='ammo'&&pl.ammoPreference?.def===ref.def&&(ref.fletchingDamaged===undefined||pl.ammoPreference.fletchingDamaged===ref.fletchingDamaged), ref }
   })
   return {
     pl,portrait:creatureSprite(w,pl), hp: Math.max(0, pl.hp), hpMax: hpMax(w, pl), en: pl.needs.energy, enMax: energyMax(w, pl),
@@ -68,7 +70,7 @@ function tipSlot(e: MouseEvent, s: (typeof d.value.slots)[number]) {
   if (s.empty) return showTip(e, t('빈 칸 {0}',s.i === 9 ? 0 : s.i + 1), [t('능력 창({0})이나 소지품({1})에서 등록한다',keyLabel(primaryBindingText(preferences.keyBindings,'abilities')),keyLabel(primaryBindingText(preferences.keyBindings,'inventory')))])
   const w = world.value as World
   if (s.ref.kind === 'ability') { const tooltip = abilityTip(w, w.db.ability(s.ref.id)); showTip(e, tooltip.title, [...tooltip.lines, t('우클릭: 칸 비우기')]) }
-  else { const tooltip = itemTip(w, null, s.ref.def); showTip(e, s.label, [...tooltip.lines,...(s.ref.fletchingDamaged?[t('깃 손상 탄약만 선택한다.')]:[]), t('우클릭: 칸 비우기')], tooltip.color) }
+  else { const tooltip = itemTip(w, quickbarItem(w,player(w),s.ref)??null, s.ref.def); showTip(e, tooltip.title, [...tooltip.lines,...(s.ref.fletchingDamaged?[t('깃 손상 탄약만 선택한다.')]:[]), t('우클릭: 칸 비우기')], tooltip.color) }
 }
 
 const BTNS: [WinKey, string, Command][] = [['char','캐릭터','character'],['inv','소지품','inventory'],['abil','능력','abilities'],['body','신체','body'],['journal','일지','journal'],['map','지도','map'],['craft','제작','craft'],['society','주민·세력','society']]

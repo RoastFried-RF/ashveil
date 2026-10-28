@@ -1,3 +1,4 @@
+import {displayItemLabel as itemLabel,displayItemDefLabel} from './locales/item'
 import { t, defText } from './locale'
 import {firearmRates} from '../core/firearms'
 import {qualityFromScore} from '../core/crafting'
@@ -5,7 +6,7 @@ import {foodKcal,cookingRules} from '../core/cooking-state'
 import {pillAgeLines} from '../core/pill-aging'
 // 툴팁 문구: 아이템·능력·수정치를 한국어로 풀어 쓴다
 
-import { waterVesselForDef,drinkVolume, turnOf, pillBelief, knowledgeDef, readingPageTurns, drugPreview, type DrugDef, waterLines, player, ambientTemp, foodFreshness, freshnessBand, FRESHNESS_LABEL, rotRate, masteryStage, stuffProfile, rawStock, structuralDurability, durabilityBand, hasQuality, itemDef, itemLabel, qualityInfo, temperatureDelta, thermalState, type ProstheticDef, type AbilityDef, type Creature, type ItemDef, type ItemInst, type World, thirstBand } from '../core'
+import { waterVesselForDef,drinkVolume, turnOf, pillBelief, knowledgeDef, readingPageTurns, drugPreview, type DrugDef, waterLines, player, ambientTemp, foodFreshness, freshnessBand, FRESHNESS_LABEL, rotRate, masteryStage, stuffProfile, rawStock, structuralDurability, durabilityBand, hasQuality, itemDef, qualityInfo, temperatureDelta, thermalState, type ProstheticDef, type AbilityDef, type Creature, type ItemDef, type ItemInst, type World, thirstBand } from '../core'
 
 export const SLOT_LABEL: Record<string, string> = {
   head: '머리', chest: '몸', lining:'안감', hands: '손', feet: '발', belt: '허리', back: '등', neck: '목',
@@ -66,7 +67,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if(d.storage)lines.push(`내부 ${d.storage[0]}×${d.storage[1]}칸 · ${it?.contents?.length??0}더미 보관`, '더블클릭 또는 우클릭 → 열기. 물품은 꺼낸 뒤 사용한다. 가방을 겹쳐 넣을 수 없다.')
   if(it?.missingItem)return{title:d.label,lines:[`원래 정의: ${it.missingItem.def}`,`원래 칸 ${it.missingItem.size[0]}×${it.missingItem.size[1]} · ${it.count}개`, '원래 상태를 보관 중이다. 사용·장착·거래·분할할 수 없다.', '원래 정의가 돌아오면 같은 물품으로 복원한다.'],color:'#d9a040'}
   if (d.relic && (it?.appraisal ?? 0) < 2) {
-    return { title: it ? itemLabel(w, it) : d.unknownLabel ?? '미확인 유물', lines: [d.unknownDescription ?? '개척기 또는 그보다 오래된 물건이다.', (it?.appraisal ?? 0) === 1 ? '의료·신체 대체용 유물로 추정된다. 정확한 기능은 아직 모른다.' : '용도 미확인', '우클릭 → 살펴보기로 감정한다. 문해·지각·발굴꾼 배경이 도움이 된다.'], color: rarityColor(d) }
+    return { title: it ? itemLabel(w, it) : displayItemDefLabel(d), lines: [d.unknownDescription ?? '개척기 또는 그보다 오래된 물건이다.', (it?.appraisal ?? 0) === 1 ? '의료·신체 대체용 유물로 추정된다. 정확한 기능은 아직 모른다.' : '용도 미확인', '우클릭 → 살펴보기로 감정한다. 문해·지각·발굴꾼 배경이 도움이 된다.'], color: rarityColor(d) }
   }
   if(it)for(const contract of w.s.overworld?.contracts??[])if(contract.kind==='recover'&&contract.status==='active'&&turnOf(w)<contract.deadline&&contract.itemUid===it.uid)lines.push('회수 의뢰의 원본 · '+contract.label)
   if(it)for(const contract of w.s.overworld?.contracts??[])if(contract.kind==='excavate'&&contract.status==='active'&&turnOf(w)<contract.deadline&&contract.proof?.uid===it.uid)lines.push('발굴 의뢰의 원본 · '+contract.label)
@@ -206,7 +207,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
   if (it?.durability !== undefined) { const b = durabilityBand(it.durability); lines.push(`내구 ${Math.round(it.durability)}%${b.label ? ` — ${b.label}` : ''}`) }
   lines.push(`크기 ${d.size?.[0] ?? 1}×${d.size?.[1] ?? 1}`)
   if (d.description) lines.push(d.description)
-  return { title: it ? d.drink?.emptyVessel?d.label+' ['+drinkVolume(w,it)+'ml]':itemLabel(w, it) : d.label, lines, color: rarityColor(d) }
+  return { title: it ? d.drink?.emptyVessel?defText(d)+' ['+drinkVolume(w,it)+'ml]':itemLabel(w, it) : defText(d), lines, color: rarityColor(d) }
 }
 
 const REGION_LABEL: Record<string, string> = { head: '머리', torso: '몸통', larm: '왼팔', rarm: '오른팔', lleg: '왼다리', rleg: '오른다리', neck: '목' }
