@@ -57,12 +57,13 @@ class FreshEnvironment(unittest.TestCase):
         root = "/tmp/ASHVEIL checkout with spaces"
         result = plan.make_plan(root, profile="release", chromium="/tmp/installed chromium")
         tasks = {task["id"]: task for task in result["tasks"]}
-        self.assertEqual(len(tasks), 8)
+        self.assertEqual(len(tasks), 9)
         self.assertTrue(all(task["cwd"] == root for task in tasks.values()))
         self.assertEqual(tasks["environment"]["argv"][-1], "/tmp/installed chromium")
         self.assertEqual(tasks["full"]["lane"], "heavy")
         self.assertIn("--maxWorkers=2", tasks["full"]["argv"])
-        self.assertEqual(tasks["build"]["deps"], ["full"])
+        self.assertEqual(tasks["build"]["deps"], ["full", "preview-helper"])
+        self.assertEqual(tasks["preview-helper"]["lane"], "heavy")
         self.assertEqual(tasks["smoke"]["deps"], ["build"])
         self.assertTrue(all(tasks[name]["deps"] == ["environment"] for name in ("typecheck", "lint")))
         locale = plan.make_plan(root, profile="release", locale=True)["tasks"][-1]
@@ -78,7 +79,7 @@ class FreshEnvironment(unittest.TestCase):
             self.assertEqual(output.read_bytes(), original)
             result = subprocess.run([sys.executable, str(HERE / "run.py"), str(output), "--out", str(Path(folder) / "run"), "--check"], capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads(result.stdout)["tasks"], 5)
+            self.assertEqual(json.loads(result.stdout)["tasks"], 6)
             self.assertFalse((Path(folder) / "run").exists())
 
 
