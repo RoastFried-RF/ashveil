@@ -49,6 +49,8 @@ try {
     assert.equal(await page.locator('.title-passport h3').innerText(),personName)
     assert.equal(await page.getByTestId('seed').inputValue(),seed)
     await page.getByTestId('title-language').scrollIntoViewIfNeeded()
+    await page.evaluate(()=>document.fonts.ready.then(()=>true))
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'English title overflow')
     await page.screenshot({path:join(out,width+'-title-en.png')})
     await page.getByTestId('start').click()
     await compare('created-en')
@@ -70,6 +72,8 @@ try {
     await compare('wait-en')
     // Normal autosave/load path. No localStorage/world/clock/seed mutation after creation.
     await page.getByRole('button',{name:'타이틀',exact:true}).click()
+    // This control appears only after abandonToTitle has awaited the normal save.
+    await page.getByTestId('title-language').waitFor()
     await page.reload()
     assert.equal(await page.getByTestId('title-language').inputValue(),'en')
     await page.getByTestId('continue').click()
