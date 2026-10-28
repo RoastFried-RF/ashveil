@@ -21,3 +21,7 @@ node --import tsx tools/localization/source-catalog.ts --out test-results/locali
 ID는 파일 위치나 변수 이름이 아닌 정확한 `parts` 배열을 기준으로 만들고 literal과 format 접두사를 구분한다. 같은 고정 조각은 사용처의 표현식이 달라도 한 항목에 모인다. 이 목록에는 번역문·번역 품질·조사 변형·문장 재배치 규칙·런타임 치환 기능이 없다. 이후 영어 작업의 검토 자료다.
 
 입력은 유효한 UTF-8만 허용하며 SHA 재검은 실제 파일 바이트를 대상으로 한다. `src`·`mods` 루트나 하위 소스의 심볼릭 링크도 명시적 검토 없이 따라가지 않는다. 이 입력 명세는 위 조사 범위에만 해당하며 저장소 전체 추적 파일의 무결성 명세와 구분한다.
+
+## v400 표시 런타임과의 경계
+
+새 표시 경계는 `src/client/locale.ts`, 원문/영어 대응은 `src/client/locales/en.json`이다. [v400 범위와 검증](../../docs/localization-v400.md)을 따른다. 조사 도구는 계속 원문 후보를 읽기만 하며, 개인 이름·저장 로그·Def/World를 번역/변경하지 않는다. 실제 게임 전체의 번역 완료와 이 목록의 수집 완료를 구분한다.
