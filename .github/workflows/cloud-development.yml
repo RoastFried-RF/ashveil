@@ -33,6 +33,7 @@ jobs:
           node --input-type=module -e 'import {chromium} from "playwright-core"; import {appendFileSync} from "node:fs"; appendFileSync(process.env.GITHUB_ENV, "CHROMIUM_PATH=" + chromium.executablePath() + "\n")'
       - name: Verify shared lanes
         run: |
+          sudo install -d -o "$(id -u)" -g "$(id -g)" /workspace/.ashveil-tools/cloud-harness/locks
           python3 tools/cloud-harness/verify-environment.py
           python3 tools/cloud-harness/verify.py --out test-results/cloud-selfcheck
           python3 tools/cloud-harness/verify.py --regressions --out test-results/cloud-regressions
