@@ -1,0 +1,487 @@
+[
+  {
+    "defType": "Body",
+    "id": "Body.Sower",
+    "label": "파종기의 네 다리",
+    "bloodMl": 0,
+    "kind": "mechanical",
+    "parts": [
+      {
+        "id": "Chassis",
+        "label": "섀시",
+        "hp": 140,
+        "coverage": 460,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "organMiss": 40
+      },
+      {
+        "id": "Core",
+        "label": "코어",
+        "hp": 53,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "vital": true,
+        "weight": 2,
+        "capacities": {
+          "consciousness": 1
+        }
+      },
+      {
+        "id": "PowerCell",
+        "label": "전원셀",
+        "hp": 70,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "CoolingLoop",
+        "label": "냉각 루프",
+        "hp": 53,
+        "coverage": 0,
+        "region": "torso",
+        "height": "mid",
+        "groups": [],
+        "parent": "Chassis",
+        "internal": true,
+        "weight": 3,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "SensorMast",
+        "label": "센서 마스트",
+        "hp": 42,
+        "coverage": 100,
+        "region": "head",
+        "height": "mid",
+        "groups": [],
+        "capacities": {
+          "sight": 1,
+          "hearing": 1,
+          "signal": 1
+        }
+      },
+      {
+        "id": "ManipulatorL",
+        "label": "왼쪽 매니퓰레이터",
+        "hp": 42,
+        "coverage": 70,
+        "region": "larm",
+        "height": "mid",
+        "groups": [],
+        "side": "l",
+        "capacities": {
+          "manipulation": 0.4
+        }
+      },
+      {
+        "id": "ManipulatorR",
+        "label": "오른쪽 매니퓰레이터",
+        "hp": 42,
+        "coverage": 70,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "side": "r",
+        "capacities": {
+          "manipulation": 0.6
+        }
+      },
+      {
+        "id": "ToolHead",
+        "label": "공구 헤드",
+        "hp": 35,
+        "coverage": 40,
+        "region": "rarm",
+        "height": "mid",
+        "groups": [],
+        "capacities": {
+          "tool": 1
+        }
+      },
+      {
+        "id": "DriveLeg1",
+        "label": "왼쪽 앞 구동 다리",
+        "region": "lleg",
+        "hp": 88,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "DriveLeg2",
+        "label": "오른쪽 앞 구동 다리",
+        "region": "rleg",
+        "hp": 88,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "DriveLeg3",
+        "label": "왼쪽 뒤 구동 다리",
+        "region": "lleg",
+        "hp": 88,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      },
+      {
+        "id": "DriveLeg4",
+        "label": "오른쪽 뒤 구동 다리",
+        "region": "rleg",
+        "hp": 88,
+        "coverage": 65,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0,
+        "pain": 0,
+        "capacities": {
+          "moving": 1
+        },
+        "qleg": true
+      }
+    ],
+    "mechanical": {
+      "core": "Core",
+      "powerCell": "PowerCell",
+      "coolingLoop": "CoolingLoop",
+      "chassis": "Chassis",
+      "toolHead": "ToolHead",
+      "coolantMl": 3200,
+      "leakPerSeverity": 0.8,
+      "cooling": 4,
+      "ambientThreshold": 20,
+      "ambientDivisor": 10,
+      "protectiveHeat": 70,
+      "shutdownHeat": 90,
+      "shutdownChance": 0.2,
+      "shutdownTurns": [
+        2,
+        4
+      ],
+      "coreDamage": 2,
+      "shortChance": 0.01,
+      "moveHeat": 1,
+      "attackHeat": 5,
+      "weldHeat": 8,
+      "actionPower": 0.15,
+      "idlePower": 0.0001,
+      "retreatPower": 30,
+      "patch": {
+        "item": "Item.MachinePatch",
+        "turns": 10
+      },
+      "coolant": {
+        "item": "Item.HydraulicFluid",
+        "ml": 200,
+        "turns": 5
+      },
+      "repair": {
+        "item": "Item.LargeActuator",
+        "severity": 30,
+        "turns": 45,
+        "tool": "hammer"
+      },
+      "cell": {
+        "item": "Item.MediumPowerCell",
+        "power": 50,
+        "turns": 15
+      },
+      "salvage": [
+        {
+          "item": "Item.LargeActuator",
+          "count": 2,
+          "chance": 1
+        },
+        {
+          "item": "Item.SowerReservoir",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.MediumPowerCell",
+          "count": 1,
+          "chance": 1
+        },
+        {
+          "item": "Item.IronScrap",
+          "count": 4,
+          "chance": 1
+        }
+      ],
+      "errorLoop": {
+        "damage": 0.25,
+        "checkTurns": 20,
+        "chance": 0.15,
+        "turns": 20
+      }
+    }
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Sower",
+    "label": "파종기",
+    "body": "Body.Sower",
+    "char": "av331_sower",
+    "sprite": "av331_sower",
+    "faction": "gardeners",
+    "sizeClass": "huge",
+    "moveTU": 100,
+    "stats": {
+      "str": 20,
+      "agi": 5,
+      "per": 10,
+      "vit": 20,
+      "wil": 10
+    },
+    "skills": {},
+    "ai": "guard",
+    "morale": 100,
+    "lightThreshold": 0,
+    "sightRange": 8,
+    "hearing": 0,
+    "smell": 0,
+    "bagSize": [
+      5,
+      4
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "noMorale": true,
+    "weightKg": 1200,
+    "hpBase": 360,
+    "naturalArmor": {
+      "sharp": 35,
+      "blunt": 20,
+      "heat": 20
+    },
+    "naturalAttack": {
+      "label": "경로 밀어내기",
+      "damageType": "blunt",
+      "damage": 10,
+      "pen": 8,
+      "energy": 0,
+      "family": "unarmed",
+      "accuracy": 8,
+      "noise": 5,
+      "requiresCapacity": "tool",
+      "shove": 25,
+      "stunD": 3,
+      "id": "push"
+    },
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.SowerSeedCapsule"
+          ],
+          "count": [
+            8,
+            8
+          ]
+        },
+        {
+          "items": [
+            "Item.SettlementFungusCapsule"
+          ],
+          "count": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    "xp": 95,
+    "bestiary": [
+      "네 다리의 큰 기계가 같은 경로를 따라 경작한다.",
+      "경로를 막으면 밀어내지만, 곁을 지나는 사람을 쫓지는 않는다. 적재한 종자는 유한하다.",
+      "공격받으면 구역 경보와 측량기 호출 신호를 보낸다. 가까운 공격자에게 실제 남은 균 캡슐로 포자를 분사한다."
+    ],
+    "sower": {
+      "route": [
+        {
+          "x": 47,
+          "y": 14
+        },
+        {
+          "x": 51,
+          "y": 14
+        },
+        {
+          "x": 51,
+          "y": 20
+        },
+        {
+          "x": 47,
+          "y": 20
+        }
+      ],
+      "waitAtWaypointTurns": 1,
+      "seedItem": "Item.SowerSeedCapsule",
+      "seedEveryMoves": 4,
+      "pushDistance": 2,
+      "signalPart": "SensorMast",
+      "callRadius": 16,
+      "callTurns": 60,
+      "spray": {
+        "item": "Item.SettlementFungusCapsule",
+        "radius": 3,
+        "turns": 3,
+        "concentration": 0.35,
+        "cooldown": 20
+      }
+    }
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Sower",
+    "label": "파종기",
+    "creatures": [
+      "Creature.Sower"
+    ],
+    "kind": "machine",
+    "difficulty": 25,
+    "silhouette": "파종기의 실루엣",
+    "yields": [],
+    "facts": [
+      "코어와 전원셀, 냉각 루프가 따로 놓여 있다.",
+      "냉각관 천공에는 밀봉 패치가, 굽은 구동 다리에는 교체 부품과 망치가 필요하다.",
+      "광학·통신부와 네 구동 다리가 분리되어 있다. 센서나 신호부가 없으면 실제 공격자 위치를 확인하거나 호출할 수 없다.",
+      "기계 안에 처음부터 있던 부품과 남은 캡슐만 회수한다. 분사를 끝낸 균 캡슐은 해체로 되돌아오지 않는다."
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SowerSeedCapsule",
+    "label": "파종기 저조도 종자 캡슐",
+    "sprite": "av331_sower_seed_capsule",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "parent": "Item.ShadeSeeds",
+    "place": "Terrain.ShadePlot",
+    "description": "밀봉된 저조도 작물 종자 캡슐. 빈 흙에 한 개를 심으며, 파종기의 원래 적재량은 되살아나지 않는다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LargeActuator",
+    "label": "대형 액추에이터",
+    "sprite": "av331_large_actuator",
+    "category": "misc",
+    "weight": 2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 65,
+    "material": "Material.Alloy",
+    "rawMaterial": {
+      "material": "Material.Alloy",
+      "grams": 2000
+    },
+    "description": "굽은 기계 구동부를 고치는 실제 교체 부품. 합금 원재료2kg으로도 사용할 수 있다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SowerReservoir",
+    "label": "파종기 저장 탱크",
+    "sprite": "av331_sower_reservoir",
+    "category": "drink",
+    "weight": 2,
+    "size": [
+      2,
+      3
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 35,
+    "description": "기계에서 회수한4L 금속 물통. 처음에는 비어 있으며 같은 원본 탱크에 물을 채우고 옮긴다.",
+    "uses": 0,
+    "drink": {
+      "water": 200
+    },
+    "waterVessel": {
+      "capacityMl": 4000,
+      "clean": "Item.SowerReservoir",
+      "dirty": "Item.SowerReservoir"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SettlementFungusCapsule",
+    "label": "밀봉된 정착균 캡슐",
+    "sprite": "av331_settlement_fungus_capsule",
+    "category": "misc",
+    "weight": 0.3,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 60,
+    "relic": true,
+    "description": "회색 가루가 든 밀봉 용기. 파종기는 원래 적재된 한 개를 실제 포자 분사에 소모한다. 빈 재고에서 다시 생기지 않는다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MediumPowerCell",
+    "label": "중출력 동력핵",
+    "sprite": "av331_medium_power_cell",
+    "category": "misc",
+    "weight": 1.5,
+    "size": [
+      2,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 90,
+    "relic": true,
+    "description": "원래 기계에서 회수한 폐쇄형 동력 모듈. 대형 기계의 전원셀 교체에 한 개를 소비한다."
+  }
+]

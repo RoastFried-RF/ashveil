@@ -1,0 +1,25 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.CorpseOdor",
+    "label": "시체 냄새",
+    "mood": -3,
+    "durationTurns": 0,
+    "corpseOdor": {
+      "radius": 3,
+      "minAgeTurns": 28800,
+      "traitMoodKey": "corpseOdorMood"
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.SearchedCorpse",
+    "label": "시체를 뒤졌다",
+    "mood": -1,
+    "durationTurns": 7200,
+    "stack": 3,
+    "stackMult": 0.5,
+    "lifeEvent": "corpseSearch",
+    "traitMoodKey": "corpseLootMood"
+  }
+]

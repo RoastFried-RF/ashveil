@@ -1,0 +1,1090 @@
+{
+  "version": "v302",
+  "created": "2026-10-22",
+  "method": "Direct authored integer coordinates, silhouette vertex lists, masonry layouts, book arrangements, connected material strokes and ripple paths.",
+  "generator": "tools/art/draw-complete-terrain.py",
+  "generatorSha256": "de6d1885d6c2ccc336811ac17ddc02048c82fabbc9fcd89514fb376443d473df",
+  "externalImageInputs": [],
+  "externalPixelExtraction": false,
+  "tracing": false,
+  "recolouring": false,
+  "randomNoise": false,
+  "softwareReuse": "Canvas/PNG/SVG scanline and contact conventions from own repository art tools; no artwork data imported.",
+  "counts": {
+    "moss": 27,
+    "walls": 39,
+    "depth": 20,
+    "misc": 5,
+    "ground": 27
+  },
+  "totalFrames": 118,
+  "legacyFramesWithDimensionsPreserved": 89,
+  "newGroundFrames": 20,
+  "newMudFrames": 4,
+  "newDeckFrames": 3,
+  "nativeTilePixels": 16,
+  "newDirectionalAccessFrames": [
+    "complete_stairs_up",
+    "complete_ladder_down"
+  ],
+  "alpha": "Transparent moss, edges, ledges, skull, ladder and blood overlays; opaque base ground/depth/wall faces/stairs.",
+  "groundDimensionChoice": "Former unregistered ground textures had32x32 file extents. These new registered frames are authored at16x16 to match D13 and16px renderer output; legacy manifest-frame dimensions remain unchanged.",
+  "scopeExclusions": [
+    "murk_leech",
+    "kt_floor",
+    "item/ability icons",
+    "production manifest",
+    "Core/Def/renderer",
+    "browser/GPU/Full/World/type/project checks"
+  ],
+  "verification": [
+    "89 legacy frame keys/dimensions equal frozen catalog",
+    "118 distinct pixel hashes",
+    "ground/depth base layers opaque",
+    "regeneration byte equality with --check"
+  ],
+  "runtimeStatus": "Prepared fragment only; runtime integration and browser examination belong to coordinating task.",
+  "frames": [
+    {
+      "key": "moss_s0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "9e79581ae50fc94c076b33f52d5488d12399acb9a7076f2e9f163b8220303f27"
+    },
+    {
+      "key": "moss_s1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "a30d5a5eb031c3dd38be470ec4d2ef08323ca691e8b60450602fcc97ebe1eceb"
+    },
+    {
+      "key": "moss_s2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "8130f03ee5aa90ffe5b88a892e32b23f0ca0d9ebd0283b566fb3c3e2801e146a"
+    },
+    {
+      "key": "moss_s3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "880285cc62cb715b64b8d82d3de253049882f8b806ee1b64efc8482a94ca8270"
+    },
+    {
+      "key": "moss_s4",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "731f518955e4a7b5898756838e3a492d361b3e16755cee0565a41d2ba803ebd2"
+    },
+    {
+      "key": "moss_s5",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "e94e18f4bed43cc804b9a3d3056e7aad60a6ba325a6a68d4d966ff8285f50c9a"
+    },
+    {
+      "key": "moss_s6",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "3b0a4d87f14c56428f110e4981ce32b4ffb28ac493ad79885875bd73ced7d16d"
+    },
+    {
+      "key": "moss_s7",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "04d824b550a9bd5e3def970cc5ff8c5bad7ec956a77281debd69c0d8614dccde"
+    },
+    {
+      "key": "moss_s8",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "d1f2860e10c9832f52450355ed8205063482f903d11ad3aa455ffa117369da2e"
+    },
+    {
+      "key": "moss_s9",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "44d85db377b20b88322fd46081357b76bf1ec22f26203dea469b8771726e7f66"
+    },
+    {
+      "key": "moss_s10",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "cf35b205d282079b0ae391660829dc85d14464221cea1cf3e3004ef690ba4cff"
+    },
+    {
+      "key": "moss_s11",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "3a6ef298176ef20ad9a9d54fe6cf3be122d057f8a3f60aad8556aa9ff2dfd1c8"
+    },
+    {
+      "key": "moss_t0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "f92ff3dfaadb75a1f4b526210dd004e97946541e465f50cba6cb93ef6851ef3f"
+    },
+    {
+      "key": "moss_t1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "c6d752772a028d9798b0bbcff4bc385b39b4f60083af2ba40caa9980645f1857"
+    },
+    {
+      "key": "moss_t2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "a503c8d2fce389dc51cc724acf7e25f713effb6d2ea4d979fd14089614f42cfc"
+    },
+    {
+      "key": "moss_t3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "81f4471fe816f505e1c616553bd376b0e43a9f0f94ad17ab52aa480d366d7f23"
+    },
+    {
+      "key": "moss_t4",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "70e27eee0324bb46cc9d0b82fb2b4c05d1621b8033c41aae3b2f898fac0a8cd3"
+    },
+    {
+      "key": "moss_t5",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5a61bc6420b1d9b45562a548a781e99bff3a700c05a65d1a394e5977bfc25f2b"
+    },
+    {
+      "key": "moss_l0",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "356a0e5bfa1b573ab9d4ec65e7d4d82aec4416744174929bb0b722a212de008b"
+    },
+    {
+      "key": "moss_l1",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "13cd8721fc7ce5ef8ec7856905cc997f68d399ee74def9e3e8886ecf246728b5"
+    },
+    {
+      "key": "moss_l2",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "f72cf90d288c46ab1bda31be0108d2254bb0ddcb8d341b4b359324f2b25899c7"
+    },
+    {
+      "key": "moss_l3",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "a49783c143a0bc3ec0813c198d098ceae7a0736b593e6e6b22dc4dabfac568b7"
+    },
+    {
+      "key": "moss_l4",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "936570e4f270465b19b2fdb5ab006f9037cf2eb07ed945d64fad566fad5e92fb"
+    },
+    {
+      "key": "moss_l5",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "e0bfb9bcea6c2f6b163d3e5d228b266c71b68ba73b35e2a89397fb0c6fc35996"
+    },
+    {
+      "key": "moss_l6",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "c2cfee1ef0b5da968976d7d789629ca14599ba9e1d96c1bef910bfece1c19a82"
+    },
+    {
+      "key": "moss_l7",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "7161cddba3a5275d310c4f3baf5ca7a829925b486147aae7898ab8ab15c800c9"
+    },
+    {
+      "key": "moss_l8",
+      "size": [
+        32,
+        32
+      ],
+      "rgbaSha256": "5077a100ca60175e0379bf39050a7b506ae46f2d24ce4de9761139cd2e47d37c"
+    },
+    {
+      "key": "wall_face0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "1cf5e9368442e28daf2a7a517f4201c29f98d2abbac01779d33c504fd83cdab4"
+    },
+    {
+      "key": "wall_face1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "338a7f71204d0ba3f540402c3617380ba936f54b0e247b2655b3d07ca94339a9"
+    },
+    {
+      "key": "wall_face2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "4907512ac29a6ee81ec66b9ea6fe078deb0ab2f23079ddc95e7e60bedd82a11c"
+    },
+    {
+      "key": "wall_face3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "ec513da5323f6666d68200bf02c88d0a4c25e720f35ff88d65e60bca076db71c"
+    },
+    {
+      "key": "wall_face4",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "a682ac57af4cd2da733e315dccb376a5f5daf7bd542e9b4126b82820ae057c46"
+    },
+    {
+      "key": "wall_face5",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "2e716fc64dd9d43da3a5ba735c8bd28301d3c4f1b7850514ff32c0596cf82481"
+    },
+    {
+      "key": "wall_face6",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "125a5f4d60be0fe91326601c2ba1880a806037f7eed84d51788b5ccbd522f460"
+    },
+    {
+      "key": "wall_face7",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "340b7477dd0459abcb888c96147e6835697173554d3a581659091f3fe5003403"
+    },
+    {
+      "key": "wall_top",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "561b5cd159d822c8cc61e9667d5678fabd08c8c19aa3b7ac48be3b65a771ea3f"
+    },
+    {
+      "key": "wall_edge_N",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "52c881a35cb514d882d368a5e1a121e61d0009f7fcfd0603dd2a7f0f628c1cf6"
+    },
+    {
+      "key": "wall_edge_S",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "aa8c01326423da70c48c1b1a17250f3b64914e70917ca521be6a9f2993a20037"
+    },
+    {
+      "key": "wall_edge_E",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "c9000c6d4de778c9e181ac5aedc50fc8eddf6c5814754004eb72328586320745"
+    },
+    {
+      "key": "wall_edge_W",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "c8a83791d7214c0659b5c5acf69b20c7a6dcf4443969e2f2ae5e89887fb74129"
+    },
+    {
+      "key": "wall_ledge0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "6783d7fc3f49d9aa5459374df635b77ec3eb317dbd829abb555b4e7e5850474f"
+    },
+    {
+      "key": "wall_ledge1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "b982c2b12f59b3a7b9e68a8e59d3d000014b734c19c49ff9f29414d9809cbd0b"
+    },
+    {
+      "key": "shelf0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "f1db332f24b9c72d41ba7d70c05912e3eccdb3efb47d7050c01ce3f81b8a7c32"
+    },
+    {
+      "key": "shelf1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "40d8149961c773cee47c7ccda61c9137414c43f20e95e29654c7d2bbbbebb546"
+    },
+    {
+      "key": "shelf2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "654395e0ed6c341d13717d4d49aa81cd1049691eb71f71defb089e8006f570b2"
+    },
+    {
+      "key": "shelf3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "670283ce18c478fb59eb05beeaa98b67417928cabc12c1fbf97162c00038bbb4"
+    },
+    {
+      "key": "shelf4",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "129f9f35f0b1a968c9051b4f1a2633832ae667d9a8fa9a57e80aa558e223ec24"
+    },
+    {
+      "key": "shelf5",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "a69f578b4404abbe2ff3156876ffce898162ae93df4be29909889ab2e9db553d"
+    },
+    {
+      "key": "shelf6",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "3aaf95797260ff589c65284d44a71bd600809236b878c7979f4445da592be8eb"
+    },
+    {
+      "key": "shelf7",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5dc230405d169f26a235e2c669469db48bbcf0616f074a7dadb789e896de212e"
+    },
+    {
+      "key": "shelf8",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "626f7dcf753352a1d9cb7002855f4befe97d836c2c95439c5c2a2b8c5cc7c5ae"
+    },
+    {
+      "key": "shelf9",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "79925424538a06fcb5aba03a72b4fd2b4d45028c194c5c57e619ce9b92b5d524"
+    },
+    {
+      "key": "shelf10",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "3c2fcd24635c0ef51d62c20a9fcb3d326b7ccbc483cf6c5a970ea0c6692e6a79"
+    },
+    {
+      "key": "shelf11",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "63e29bd777d83f44b373524bab19f61ccd9e98d19ac6e3cbc2d7974068e92cb9"
+    },
+    {
+      "key": "shelf12",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "fc35ce2d6a2b3c1351cc5951a9fa5a986c7b8f18fc8b0542e3addd24b4050532"
+    },
+    {
+      "key": "shelf13",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "20d8710c4ed98ec25fdc7a8563d4a67375c9f850bdc532eba96e1ee1e17c68dd"
+    },
+    {
+      "key": "shelf14",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5ecc0fefc6af5bdf06fc773b518171f5efd5e2cdbb5aefcc640fe550b9ea7068"
+    },
+    {
+      "key": "shelf15",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "474aa6a2552e30f730402cbbc32ffc080b059a330fee42d015f09b2355b984a9"
+    },
+    {
+      "key": "shelf16",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "49d5e2b520e8c6ef5897a18fe5872f759217ae95473e7b3c3205a95c80e3c74c"
+    },
+    {
+      "key": "shelf17",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "3671aae75694e6a9207f5db3194051d3048e6081fdc0bad7900cfdc1bbf5955d"
+    },
+    {
+      "key": "shelf18",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "8fa0d3ea403ea986e1e8d7f76c53e34488b36870a1a4ef8cb35ca0d416dbf5c9"
+    },
+    {
+      "key": "shelf19",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "eaa5bcffc2e36b75a25fc77322b7be860e2d3d83f7883ddb182c4f91356ffae8"
+    },
+    {
+      "key": "shelf20",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5040f62fbf7753df831d681f2e3c89c16247958e68e9dd79ae70104b763cddd8"
+    },
+    {
+      "key": "shelf21",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "316f0d3cd0962290ad46c29fc0fc38f2ab70576125ce3243464377d70bcd9184"
+    },
+    {
+      "key": "shelf22",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "87aea9cc5b078fd313a4e675c677b4b0e25711adc03c33aaa0ab0150078f226d"
+    },
+    {
+      "key": "shelf23",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "b341f4db39fee636941e6ce402c6fc270d32b68cc95d807aa5aaa2691145797d"
+    },
+    {
+      "key": "cd_floor0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "7922a2b3c5215820124b479a4a508b9f7aa8973a4c3071b552de511da9dd0a49"
+    },
+    {
+      "key": "cd_floor1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "96435360d96d5e87f01d1cbf03413f26397365bd6ad9398a9892cf7fd4828ba1"
+    },
+    {
+      "key": "cd_floor2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "6e40bcf0bb51c5ddabc049162957609506fb8b5dc6c336d3d04e82692ea473d2"
+    },
+    {
+      "key": "cd_floor3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "caea6e00f4fb625d98f0f38b8b4d3ce49c4573f526a0c0adb23a7264f5258db1"
+    },
+    {
+      "key": "cd_floor4",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5454fe231279aa25fde1359fdc1baba9acc99e5ab8fb5477083d105ec1da40a7"
+    },
+    {
+      "key": "cd_floor5",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "05957927e2bc1b682f42851603efb06f256815386ab82bb4466d8afdff36ec97"
+    },
+    {
+      "key": "cd_floor6",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "da218b8f5a88eb9fe61a2b71eb7f3c133f7525b09e18269aa74cb2fe8fd1bfdd"
+    },
+    {
+      "key": "cd_floor7",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "0757a4c34b49c54da5cb182e9eaf9412dd638db6e7e03beda14e905661cecea1"
+    },
+    {
+      "key": "cd_floor8",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "7bf5c0f6e599fb55a20cf3724beb7be298fc90d62f342e0d5860dcd663f088b4"
+    },
+    {
+      "key": "cd_floor9",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "1cdeec0774186fd5790b66df23897894cd088c1cb0e22bf3e797d0ba0f1d7ff4"
+    },
+    {
+      "key": "cd_floor10",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "142a5860359dfc6929ceb70fc87dcb93c60b99698e92936dd6f8b30b06582038"
+    },
+    {
+      "key": "cd_floor11",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "bdb68eeefa5745e14c060b96db386bc6783c8c4a5bf7dac4bb8e28b3c836b024"
+    },
+    {
+      "key": "cd_floor12",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "89930ea0a40aae27b4f3d49f4148f7a5d8b3950ba95ce65cd626a6869bc86a96"
+    },
+    {
+      "key": "cd_floor13",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "ea99601676290a276a9d7592541ec3eb0a702fa8915fd4c7f57d9da6cb5d481c"
+    },
+    {
+      "key": "cd_floor14",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "03613fafc011f968704953fb958803cdb384deaa841c5299c8b4d3a84248fa88"
+    },
+    {
+      "key": "cd_floor15",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "7cf55f6c6c3c2acbcd2cbb2cd2eceb9083f57e812d57642749fdc1a06b12f938"
+    },
+    {
+      "key": "cd_floor16",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "489faba96c7c826f121f117f760f7686103b40378f719a451a379ac6bfd3fb19"
+    },
+    {
+      "key": "cd_floor17",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "6a4bcd8de8952dad97c79b93c8408af5a6f25bf7f31c5b9af250d6b535f5c341"
+    },
+    {
+      "key": "cd_floor18",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "a2e96e08043e31dabfdc9d58f2ed1c32f99e999a37339c73477b0f88238b76b1"
+    },
+    {
+      "key": "cd_floor19",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "794dae4616c98f623187dd1b4654dc3c7c980216e0df3cc416778ec5b5d2a43a"
+    },
+    {
+      "key": "floor_stairs",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "1bde230d58a5a59dc658cbe88e735d50c26723556acf593186fb0dd00086bcd6"
+    },
+    {
+      "key": "floor_ladder",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "c2e5656d540fa0442f7285a9605593f612bd395731ff8e5d7aad7377960acb1b"
+    },
+    {
+      "key": "skull",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "eacb2462c8caab51579ccdd2f6e562b279e01ca84aef7750dcfb53f60d2123fe"
+    },
+    {
+      "key": "complete_stairs_up",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "376534029e09334446f8a522f0e348831808d9ce33cab0c9cd8c674418b478fb"
+    },
+    {
+      "key": "complete_ladder_down",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "778bec2fb28687288c66db25c5c2371fc5b3d9008d04baaca5c95a69d8b7e293"
+    },
+    {
+      "key": "grass0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "8c2539fbb85c2cb25d5e39a5c32809fbe84cb9816df1fb46e1ccb3f8ddb0f153"
+    },
+    {
+      "key": "grass1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "777c8c9a201f01e0a8a4e83d830b390b0cd115376bff9c01eac638a3e331d65e"
+    },
+    {
+      "key": "grass2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "748773057e98f20df4ae0caef3608752da65b89ee4c250c321b5de432cf8f227"
+    },
+    {
+      "key": "grassdirt0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "1329e118551052a1d09c485d3235d87a6960176d7c7d6a5d002609152fa0082d"
+    },
+    {
+      "key": "grassdirt1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "7ef3ac42c35d1f4552a9451064c3444d71d31c6b4b0302178b0ae095c92a71fc"
+    },
+    {
+      "key": "grassdirt2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "73d3df3b421e0f481f2a00b68eed3831d7f0934069ea149b723989e91d1c434e"
+    },
+    {
+      "key": "dirt0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "eaa50f8314a67ccc5d346e1854025b7a30c6017ccc44ba57cb6f1bb7819c7899"
+    },
+    {
+      "key": "dirt1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "aab8014cd0b8667eaf4ac5ba4581d8c04533960471821a68cc8c4bb3a66390f2"
+    },
+    {
+      "key": "dirt2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "d45781658e864bb7453de42607498f579ebcb8a221b6405f7913771fba2f9bb6"
+    },
+    {
+      "key": "mud0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "abd15439089f63e89d57d6e6ac6004eb24a25adf5987642150af55b75adf0bf6"
+    },
+    {
+      "key": "mud1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "8287ee57ae29231a99fc1f2e88ea6e47c5dcdca2bab3c6bb605c3db865fb5267"
+    },
+    {
+      "key": "mud2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "0b204bb6e55fa1ef81ee8002d9290d6f445ca89e4b685911430efcd4ef409523"
+    },
+    {
+      "key": "mud3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "433bad0e458a68f894d0448ef9babf93eced285b39ac54e0f3352947a947c7ad"
+    },
+    {
+      "key": "ash0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "35f1f467e528351e967b8958fa1763183848537878ec0179f1a1fd55fe46f919"
+    },
+    {
+      "key": "ash1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "49c3d02b100941b118ffc82cdeaada240519a24454b8c193bf61c4ac0a9800b3"
+    },
+    {
+      "key": "ash2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "d8cc97c178046d60c10b43d7f647f66084b2ec6b72814c232f5daf1cf7ffea92"
+    },
+    {
+      "key": "ash3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "6868b21f9243b27d96ccce29e947a0ba2eaffb7e2d150dc6058d011df2caff9e"
+    },
+    {
+      "key": "water_shallow",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "9581cf43e33eeaf8868ec51af71bb8c58b9a74082412d114e93b81afed76bcab"
+    },
+    {
+      "key": "water_deep",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "64a7640991b89dcda48516fa93d49dd07adadd10f69e701764b91570bdd0f3d3"
+    },
+    {
+      "key": "blood0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "98d3e02a21d75c16a7c71bc45f6ef90008d51635ebd77d970339bffe7d9417ef"
+    },
+    {
+      "key": "blood1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "d428501a05571c9dd605fd563b83948315a816d0907c46c51bff405c5a02c7df"
+    },
+    {
+      "key": "blood2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "22b8f42415da3fa5fbdc1c43bd80a0d07d6afab31263b321ec62e5e70097eebe"
+    },
+    {
+      "key": "blood3",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "5954d5d0e8d114ac88cd643b2d2f523cf370cee55f01f5e8a70d7471e9a581bd"
+    },
+    {
+      "key": "blood_pool",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "508f0a29518eed43b30c12c6c2b1865650c02c495aa57063470a1264dfc8e7d2"
+    },
+    {
+      "key": "deck0",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "61c8ba837e9afed7ef344b9d3267dbc9b562d8976b9d9649966cc4f7e2b0a1f1"
+    },
+    {
+      "key": "deck1",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "8f3adfbb632fb2e0223f19aaa14953a6f9f828e19797dc3dc1b34efe5707c3d4"
+    },
+    {
+      "key": "deck2",
+      "size": [
+        16,
+        16
+      ],
+      "rgbaSha256": "c412a7dc471f546d496407cd60aa99e2f5b09c575e72e05320b8347a86600b5c"
+    }
+  ],
+  "files": [
+    {
+      "path": "public/sprites/original/complete/terrain/moss.png",
+      "bytes": 2386,
+      "sha256": "778af845bc3005d82a0454536b2cf93764df39ea0ba251e389c863744ffb4f6e"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/moss.svg",
+      "bytes": 85717,
+      "sha256": "f301ed2cd7a43dd169347df37649c86a07a8635959241be24feb0ba99ac7589b"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/walls.png",
+      "bytes": 2220,
+      "sha256": "d1050bb6e653dd308ad0c38ee4d9eb0c6a4c062674f2d1d314be72ffaf8511cb"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/walls.svg",
+      "bytes": 158371,
+      "sha256": "2c1c743b60425993cb839e3f8e08e8ef45ab53bd2affaadd0e63ddb4efa68518"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/depth.png",
+      "bytes": 1695,
+      "sha256": "16424b52357c3a10b822373409f3a7f4a063b13c4a0ce3ce5e0e92b6e37c432e"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/depth.svg",
+      "bytes": 98394,
+      "sha256": "b4a93c675edc9c2d0630f7617d9ec0d54095baf8fc9e67d653fa2c3983c9a64b"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/misc.png",
+      "bytes": 571,
+      "sha256": "ce0e7182a0af844ebf3edf79a910c8e85758dc328ff8554eca2c5765ea3ce21c"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/misc.svg",
+      "bytes": 25040,
+      "sha256": "955860cdef92c1a0824ee4c12d8f0aef194afce4f4c397061e12eb31aff32834"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/ground.png",
+      "bytes": 2085,
+      "sha256": "5c5cb5d32697f452b7fda6352008d338ebff44895df8341a2627bd89b7bd1774"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/ground.svg",
+      "bytes": 94352,
+      "sha256": "083cef93bd0599ed0015778539bc1339aad1d329dab4632650a181f4ad65f242"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-moss-small.png",
+      "bytes": 7570,
+      "sha256": "ad65fb0b004751684b09f648e18f55189272b1342c751d1f9a51cd705170b316"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-moss-large.png",
+      "bytes": 7169,
+      "sha256": "256735b04982354d5402d11830a12cdf559e74b3c8364829ca3c02cc3712256e"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-walls.png",
+      "bytes": 16799,
+      "sha256": "4909e38b783be8c0ca4333404dd96e865ddf3d4ffde705e420f4d0af59be2106"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-depth.png",
+      "bytes": 9280,
+      "sha256": "aba772433810b7b2af2d8a7c48ec6ab92a18eac0c177730d5b4622a00fd08036"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-ground.png",
+      "bytes": 12721,
+      "sha256": "2075c74d33cf97f6d293653ad08b9f7b59e29979e3c4445270549eb624f2e087"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/contact-misc.png",
+      "bytes": 3682,
+      "sha256": "d2f60971c1d4575d5a571daa8fe6b32329698e5db69072246c33e040825c3b7a"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/surface-study.png",
+      "bytes": 5114,
+      "sha256": "9d9051fe742333a0fd5d39aea09ed96dc207ce683f7d4d8c6339e23956d7fef9"
+    },
+    {
+      "path": "tools/art/complete-terrain.fragment.json",
+      "bytes": 12679,
+      "sha256": "ef81f388d4c07f37032e461502d3d4c9167cc0a7f0e61bd0b777b5fcecd78711"
+    },
+    {
+      "path": "public/sprites/original/complete/terrain/palette.json",
+      "bytes": 1350,
+      "sha256": "ca3253189289a35b4d669ae49244c29457408f4f037d6376fd2bd20ec6df8863"
+    }
+  ]
+}

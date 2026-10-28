@@ -1,0 +1,30 @@
+import {describe,it,expect} from 'vitest'
+import {npcCareFixture} from './npc-care-fixture'
+import {npcCareBondsFixture} from './npc-care-bonds-fixture'
+import {recordNpcCare} from '../src/core/npc-care-state'
+import {npcConversationQuote} from '../src/core/npc-social'
+import {heardNpcRelationships} from '../src/core/npc-relations'
+import {actualNpcName} from '../src/core/npc-identity'
+import {addWound} from '../src/core/body'
+import {npcCareAction} from '../src/core/npc-care'
+import {stateHash,serialize,deserialize} from '../src/core/save'
+import {runUntilInput,stopActivity,SAVE_VERSION} from '../src/core/game'
+import {TURNS_PER_DAY} from '../src/core/ctx'
+import {loadMods} from '../src/core/defs'
+import {readPackages} from '../tools/loadContent'
+describe('실제 완료한 이웃 돌봄의 관계와 직접 들은 과거 이야기',()=>{
+ it('완료한 같은 처치만 양쪽 관계의 하루 남은1점을 실제 돌봄 사건으로 기록한다',()=>{const d=npcCareFixture('done');for(const[owner,other]of[[d.a,d.b],[d.b,d.a]]){const t=owner.npcTies![other.id];expect(t.score).toBe(3);expect(t.gained).toBe(3);expect(t.events.at(-1)).toMatchObject({at:d.b.npcCareHistory![0].at,kind:'care',delta:1,mapId:d.s.map.id,region:d.m.currentRegion});expect(t.name).toBe(actualNpcName(other));expect(t.events.filter(e=>e.kind==='talk')).toHaveLength(1)}expect(d.p.money).toBeUndefined();expect(d.a.npcIdentity!.introducedAt).toBeUndefined();expect(d.s.knowledge.npcRelations).toBeUndefined()})
+ it('진행 중이거나 중단한 처치는 점수·만남 시각·돌봄 사건을 만들지 않는다',()=>{const d=npcCareFixture('started'),ties=structuredClone([d.a.npcTies,d.b.npcTies]);expect(d.a.npcTies![d.b.id].score).toBe(2);stopActivity(d.w,d.a);expect([d.a.npcTies,d.b.npcTies]).toEqual(ties);expect(d.a.npcTies![d.b.id].events.every(e=>e.kind==='talk')).toBe(true)})
+ it('같은 완료 기록을 두 번 통지해 관계·난수·로그를 중복 갱신하지 않는다',()=>{const d=npcCareFixture('started'),act=structuredClone(d.a.activity!);for(let n=0;d.a.activity&&n<20;n++)d.act({type:'wait'});const before=stateHash(d.s);recordNpcCare(d.w,d.a,d.b,act,82);expect(stateHash(d.s)).toBe(before)})
+ it('실제 처치를 목격해도 직접 묻기 전에는 이웃의 사적인 관계 보고서를 받지 않는다',()=>{const d=npcCareBondsFixture(),before=stateHash(d.s);expect(d.s.log.some(e=>e.text.includes('자기 의료 물품'))).toBe(true);expect(heardNpcRelationships(d.w,d.a.id)).toBeUndefined();expect(stateHash(d.s)).toBe(before)})
+ it('실제 당사자에게 이야기1턴을 쓴 뒤 과거 돌봄의 이름/시각/표현만 사본으로 듣는다',()=>{const d=npcCareBondsFixture(),at=d.s.time,careAt=d.a.npcTies![d.b.id].lastAt;d.act({type:'talk',target:d.a.id});expect(d.s.time-at).toBe(100);const report=heardNpcRelationships(d.w,d.a.id)!;expect(report).toMatchObject({source:d.a.id,at:at/100,fromName:d.a.name,people:[{person:d.b.id,name:actualNpcName(d.b),observedAt:careAt,lastKind:'care',attitude:'familiar'}]});expect(report.people[0]).not.toHaveProperty('quality');expect(report.people[0]).not.toHaveProperty('score');expect(report.people[0]).not.toHaveProperty('pos');expect(d.b.npcIdentity!.introducedAt).toBeUndefined()})
+ it('당사자의 비공개 관계/상처/현재 이름 변경은 마지막에 들은 돌봄 사본에 섞지 않는다',()=>{const d=npcCareBondsFixture('heard'),old=structuredClone(heardNpcRelationships(d.w,d.a.id));d.b.pos={x:12,y:30};d.b.name='현장에서 다시 듣지 못한 이름';d.b.npcIdentity!.name=d.b.name;d.b.body.wounds=[];d.a.npcTies![d.b.id].score=90;expect(heardNpcRelationships(d.w,d.a.id)).toEqual(old)})
+ it('받은 사본을 바꾸어도 자기 기록과 당사자의 개인 관계를 바꾸지 않는다',()=>{const d=npcCareBondsFixture('heard'),before=stateHash(d.s),copy=heardNpcRelationships(d.w,d.a.id)!;copy.people[0].name='사본';copy.people[0].lastKind='talk';expect(stateHash(d.s)).toBe(before)})
+ it('돌봄 사건이 남은 실제 관계는 다음 대화를 막지 않는다',()=>{const d=npcCareFixture('done');d.a.npcSocialAfter=d.s.time/100;d.b.npcSocialAfter=d.s.time/100;const before=stateHash(d.s);expect(npcConversationQuote(d.w,d.a,d.b).error).toBeNull();expect(stateHash(d.s)).toBe(before)})
+ it('관계 상한을 쓴 같은 날의 두 번째 실제 돌봄은 기록만 남기고 추가 점수를 만들지 않는다',()=>{const d=npcCareFixture('done');const wound=addWound(d.w,d.b,{def:'Wound.Cut',part:'RightForearm',severity:3,source:'별도 초기 상처',contam:0}).wound;for(let n=0;!wound.bandage&&n<30;n++)d.act({type:'wait'});expect(wound.bandage).toBeDefined();expect(d.a.npcTies![d.b.id].score).toBe(3);expect(d.a.npcTies![d.b.id].gained).toBe(3);expect(d.a.npcTies![d.b.id].events.at(-1)).toMatchObject({kind:'care',delta:0});expect(d.b.npcCareHistory).toHaveLength(2)})
+ it('다음 날의 실제 완료 처치는 새 날 상한 안에서2점을 얻는다',()=>{const d=npcCareFixture('done');d.s.time+=TURNS_PER_DAY*100;for(const c of d.s.creatures)c.nextAct=d.s.time;cNeeds(d.a);cNeeds(d.b);d.a.npcSocialAfter=d.s.time/100+1200;d.b.npcSocialAfter=d.s.time/100+1200;const wound=addWound(d.w,d.b,{def:'Wound.Cut',part:'RightForearm',severity:3,source:'다음 날 초기 상처',contam:0}).wound;expect(npcCareAction(d.w,d.a)).toEqual({type:'npcCare',target:d.b.id});for(let n=0;!wound.bandage&&n<30;n++)d.act({type:'wait'});expect(wound.bandage).toBeDefined();expect(d.a.npcTies![d.b.id].score).toBe(5);expect(d.a.npcTies![d.b.id].gained).toBe(2);expect(d.a.npcTies![d.b.id].events.at(-1)).toMatchObject({kind:'care',delta:2})})
+ it('실제 돌봄 보고서/개인 사건과 미완료 활동 전체는 복원 뒤 같다',()=>{const d=npcCareBondsFixture('pending'),w={db:d.w.db,s:deserialize(serialize(d.s))},at=d.s.time;runUntilInput(d.w);runUntilInput(w);expect(d.s.time-at).toBe(2000);expect(w.s).toEqual(d.s)})
+ it('159의 옛 완료 돌봄은 이관 때 점수/과거 대화를 소급하지 않는다',()=>{const d=npcCareFixture('done'),old=JSON.parse(serialize(d.s));old.version=159;for(const c of old.creatures)for(const tie of Object.values(c.npcTies??{})as{score:number;gained:number;lastAt:number;events:{at:number;kind:string}[]}[]){tie.events=tie.events.filter(e=>e.kind!=='care');tie.score=2;tie.gained=2;tie.lastAt=tie.events.at(-1)!.at}expect(deserialize(JSON.stringify(old))).toEqual({...old,version:SAVE_VERSION})})
+ it.each([-1,1.5,11])('잘못된 돌봄 관계 증가량을 시작 전에 거절한다 (%s)',value=>{const{report}=loadMods([...readPackages(),{manifest:{id:'bad-care-bonus',name:'검사',version:'1'},defs:[],patches:[{op:'replace',target:'NpcCare.Hearth',path:'/bondBonus',value}]}],['bad-care-bonus']);expect(report.errors.some(e=>e.includes('NpcCare.Hearth'))).toBe(true)})
+})
+function cNeeds(c:ReturnType<typeof npcCareFixture>['a']){c.needs.kcal=1000;c.needs.waterDeficit=0;c.needs.fatigue=10;c.needs.bodyTemp=37;c.needs.stress=0}

@@ -1,0 +1,36 @@
+{
+  "scope": "Standalone source and item32px/crop compositing only; not actual game inventory acceptance",
+  "newOriginal": {
+    "path": "originals/surveyor-material-icons-v1.png",
+    "sha256": "26dc36937beb2bb62c409ed1adef7d829baf137d8cb4c8ea36e938a9e13d5924",
+    "directlyViewed": true
+  },
+  "screenshots": [
+    {
+      "path": "diagnostics/four-icons-native32.png",
+      "sha256": "b1d81cf3374fe863178111c328762e270b204ddd261f1edec6fe169498c29fdb",
+      "directlyViewed": true
+    },
+    {
+      "path": "diagnostics/alpha-comparison.png",
+      "sha256": "cc9a630f7db8d1322fbad356f98e4823ddb95950658072c5950fd491d135dabf",
+      "directlyViewed": true
+    }
+  ],
+  "findings": {
+    "surveyLens": "Complete circular retaining barrel with alloy/bronze rim and curved dark blue-grey optical glass; small cool reflected highlight is not a powered light. No whole machine, eye or crystal ball.",
+    "antennaWire": "Exposed copper metallic coil with two attached bent ends and restrained verdigris.32px shows the warm coiled silhouette/open centre and ends; not a rope or gold jewellery ring.",
+    "lightLegFrame": "One articulated narrow grey alloy leg with triangular cutouts, hinge caps, lower strut and attached foot flange. Readable at32px; actual1x2/32x64 footprint preserves more joint structure. Not bone/wood, gun or whole tripod.",
+    "thermalSensor": "Compact rectangular dark ceramic/glass aperture module with metal housing, vent ribs and lower contact tabs. Distinct from round survey lens and power cell; unpowered/no heat-map screen.",
+    "materialMatch": "Grey alloy and restrained bronze/black glass follow the own Surveyor body and own industrial reference palette. Copper remains visibly distinct from alloy.",
+    "cropAndAlpha": "Complete items including wire ends/mount/foot/contacts, no visible cut silhouette or neighbouring item. Dark/light/black canvas composites preserve transparent background without floor/shadow/backdrop baked in.",
+    "nativeFit": "32px thumbnail and actual1x1/1x2 footprints use min(box.w/frame.w,box.h/frame.h), matching the inspected ItemIcon.vue fit formula; no per-icon fake stretch. Main component itself was not loaded.",
+    "limits": "Fine scratch/barb detail does not all survive16/32px. Actual inventory tooltip/drag/grid/crafting/salvage scene after parent integration not tested."
+  },
+  "newOriginalPNGs": 1,
+  "newIndependentIconRegions": 4,
+  "mirroredOrCopiedRegionsCountedNew": 0,
+  "artReadyForParentIntegration": true,
+  "active": false,
+  "mainGameAcceptancePending": true
+}

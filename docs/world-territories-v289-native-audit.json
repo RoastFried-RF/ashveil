@@ -1,0 +1,92 @@
+{
+  "save": 196,
+  "screenshots": 8,
+  "roundtrips": 3,
+  "phases": 10,
+  "rows": [
+    {
+      "legacy": false,
+      "initialTime": 4320000,
+      "finalTime": 4320200,
+      "actualInputTU": 200,
+      "index": 5123,
+      "old": "guild",
+      "current": "coalition",
+      "items": [
+        {
+          "uid": 70,
+          "def": "Item.Salt"
+        },
+        {
+          "uid": 71,
+          "def": "Item.GlassEye"
+        },
+        {
+          "uid": 72,
+          "def": "Item.PowerCell"
+        },
+        {
+          "uid": 73,
+          "def": "Item.HealthDraught"
+        },
+        {
+          "uid": 74,
+          "def": "Item.PurificationAmpoule"
+        },
+        {
+          "uid": 75,
+          "def": "Item.WaterBottle"
+        },
+        {
+          "uid": 76,
+          "def": "Item.WaterBucket"
+        }
+      ],
+      "bottleMl": 0,
+      "bucketMl": 300
+    },
+    {
+      "legacy": true,
+      "initialTime": 4320000,
+      "finalTime": 4320100,
+      "actualInputTU": 100,
+      "index": 5123,
+      "old": "guild",
+      "current": "coalition",
+      "items": [
+        {
+          "uid": 70,
+          "def": "Item.Salt"
+        },
+        {
+          "uid": 71,
+          "def": "Item.GlassEye"
+        },
+        {
+          "uid": 72,
+          "def": "Item.PowerCell"
+        },
+        {
+          "uid": 73,
+          "def": "Item.HealthDraught"
+        },
+        {
+          "uid": 74,
+          "def": "Item.PurificationAmpoule"
+        },
+        {
+          "uid": 75,
+          "def": "Item.WaterBottle"
+        },
+        {
+          "uid": 76,
+          "def": "Item.WaterBucket"
+        }
+      ],
+      "bottleMl": 300,
+      "bucketMl": 0
+    }
+  ],
+  "errors": [],
+  "source": "Two finite initial fixtures from real generated world boundary. Main contains explicit old territory observation differing from current, original seven item UIDs including finite300ml water/emptybucket; no claim past movement/territory change/crafting occurred. Legacy compatibility fixture is version195 with all territories absent and current header to isolate version migration; independent expected196 differs only version. Real TitleContinue/map/tab/readonlyborder/zoom/canvaspick/recenter/survey1T/whole196restore/inventory/pour300ml1T/whole196restore/1366resize; legacy real survey1T/whole196restore. No post-load world/time/RNG/owner injection; whole independent Node checks10phases; only normal rendererFX consumption."
+}

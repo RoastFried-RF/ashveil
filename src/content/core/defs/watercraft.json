@@ -1,0 +1,136 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.BoatDeck",
+    "parent": "Terrain.Path",
+    "label": "통가죽배 갑판",
+    "description": "나무틀과 가죽 위다. 선체와 짐을 그대로 싣고 노를 젓는다.",
+    "floor": "deck"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.BoatHold",
+    "parent": "Terrain.Chest",
+    "label": "배의 화물함",
+    "description": "이 배에 실제로 싣고 움직이는 짐이다.",
+    "lootGrid": [
+      4,
+      4
+    ],
+    "openTurns": 1
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CoracleKit",
+    "label": "접은 통가죽배",
+    "description": "나무틀과 꿰맨 가죽의 소형 배. 실제 부두에서 펴고 띄운다. 정원4명과 별도 화물함을 갖는다.",
+    "sprite": "chest",
+    "category": "tool",
+    "weight": 0,
+    "size": [
+      3,
+      3
+    ],
+    "value": 180,
+    "watercraft": {
+      "seats": 4,
+      "turnsPerCell": 600,
+      "launchTurns": 1,
+      "minDurability": 10,
+      "wearPerHour": 0.2,
+      "deckTerrain": "Terrain.BoatDeck",
+      "waterTerrain": "Terrain.SeaDeep",
+      "cargoTerrain": "Terrain.BoatHold",
+      "cargoPos": [
+        7,
+        6
+      ],
+      "deck": [
+        6,
+        4,
+        6,
+        5
+      ],
+      "anchor": [
+        8,
+        6
+      ],
+      "weather": {
+        "clear": 1,
+        "overcast": 1,
+        "deepOvercast": 1.1,
+        "ashrain": 1.2,
+        "frostfog": 1.5,
+        "ashsnow": 1.4,
+        "ashstorm": 0,
+        "ashgale": 0
+      },
+      "repair": {
+        "item": "Item.Wood",
+        "count": 1,
+        "turns": 120,
+        "restore": 20
+      }
+    },
+    "repair": {
+      "material": "Item.Wood",
+      "unitsPer10": 1,
+      "turns": 120,
+      "attr": "per",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CoastalBoatManual",
+    "parent": "Item.CraftManual",
+    "label": "통가죽배 조선 수첩",
+    "description": "가죽을 꿰고 나무틀을 짜는 법. 실제 사람과 짐을 싣고 바닷길을 건넌다.",
+    "book": {
+      "pages": 12,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 1,
+      "unlocks": [
+        "Recipe.CoracleKit"
+      ]
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CoracleKit",
+    "label": "통가죽배 조립",
+    "category": "survival",
+    "primaryAttr": "per",
+    "mastery": "survival",
+    "workTurns": 1200,
+    "stations": [
+      "workbench",
+      "artisan"
+    ],
+    "tools": [
+      "blade",
+      "needle"
+    ],
+    "inputs": [
+      {
+        "item": "Item.Wood",
+        "count": 6
+      },
+      {
+        "item": "Item.RawHide",
+        "count": 2
+      },
+      {
+        "item": "Item.Rope",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.CoracleKit",
+      "count": 1
+    }
+  }
+]

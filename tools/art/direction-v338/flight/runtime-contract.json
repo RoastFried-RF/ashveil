@@ -1,0 +1,22 @@
+{
+  "character": "av331_ash_crow",
+  "creature": "Creature.AshCrow",
+  "active": false,
+  "scope": "First flight wingbeat loop16only; no takeoff/landing/path/Core implementation",
+  "proposedMotionName": "flight",
+  "runtimeMotionNamePresent": false,
+  "requiredRuntimeLocation": "src/client/render/character-motion.ts currently lacks flight in motionNames/motionDurations/priority; atlas CharDef uses this MotionName. Parent must add deliberate flight support before applying authoring fragment.",
+  "clipAuthoringFile": "flight-loop.fragment.json",
+  "recommendedCycleMs": 400,
+  "reviewSlowCycleMs": 800,
+  "commonSourceScale": 0.055,
+  "anchorKind": "Stable airborne breast/body-centre; separate from ground/feet projection",
+  "altitude": "The renderer must supply actual world flight altitude and projected ground/shadow position separately. Do not infer height from current wingtip or body anchor, or give the sprite a fake baked shadow.",
+  "logicalTile": "16worldpx grid; full open-wing source is up to20.955px wide. Allow actual overhang, do not clip to a16px cell, shrink each phase to fit, or enlarge the body to disguise a frame mismatch.",
+  "nearestSampling": "Current MapRenderer TextureStyle default is nearest. First original has only2px silhouette separation in a rear pair and exact1px margins. Do not enlarge rectangles or replace nearest with filtered atlas sampling without re-review.",
+  "runtimeGate": "Select only while the core/presentation truth says the same crow is actually airborne and has sufficient functioning wings/flight capacity. Standing/hopping/work/eye-peck must retain their own clips.",
+  "coreOwned": ["finite flight paths and valid destinations", "roof/ceiling/interior restrictions", "injury and two-wing flight capacity", "energy and altitude", "takeoff and landing legality", "observable flight state and fog/memory", "actual ground shadow"],
+  "gameTime": "Wingbeat400ms is presentation only; it does not grant movement distance, TU, free energy, immune height, food or AI knowledge.",
+  "transitions": "Takeoff and landing have not been drawn in this first-pass bundle. Do not call an existing idle frame a newly completed takeoff/landing sequence. Parent controls interruptions/failed flight/fall/death and ground-mode recovery.",
+  "mainGameAcceptancePending": true
+}

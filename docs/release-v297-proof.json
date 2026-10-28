@@ -1,0 +1,755 @@
+{
+  "checkpoint": "v297-final",
+  "manifestSha256": "47524f023afe4ac28bb3e99a8e6886e08f4e73ddca3d9a350d4ec2601e738848",
+  "save": 201,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 334,
+  "samplePatches": 339,
+  "schemaFiles": 162,
+  "source": {
+    "src": {
+      "files": 676,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1056,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 241,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 520,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "nativeInputToFinal": {
+    "src": {
+      "files": 676,
+      "allBytesIdentical": true
+    },
+    "dist": {
+      "files": 919,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 520,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1056,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 241,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 330,
+    "passed": 6030,
+    "failed": 0,
+    "seconds": 445.5837888183594,
+    "workers": 4,
+    "ranIn": "immutable v297-final"
+  },
+  "checks": {
+    "typecheckExitCode": 0,
+    "buildExitCode": 0,
+    "lintExitCode": 0,
+    "schemaFiles": 162,
+    "definitions": 884,
+    "items": 206,
+    "recipes": 88,
+    "patches": 334,
+    "relatedFiles": 6,
+    "relatedPassed": 114,
+    "goldenAndCliFiles": 2,
+    "goldenAndCliPassed": 14,
+    "physicalBaselineScenarios": 6,
+    "physicalBaselineWholePairs": 18,
+    "spriteCounts": {
+      "sheets": 110,
+      "frames": 795,
+      "animations": 7,
+      "characters": 20,
+      "ui": 26,
+      "icons": 80,
+      "creatureCharacters": 18,
+      "uniquePngFiles": 174
+    },
+    "fullPending": false,
+    "evidence": [
+      "type-v297-first.log",
+      "build-v297-final.log",
+      "lint-v297-final.log",
+      "supply-v297-final.json",
+      "supply-v297-golden-final.json",
+      "supply-v297-accounting.json",
+      "golden-v297-whole.json",
+      "sprite-assets-v297.json",
+      "defs-v297.log",
+      "schema-v297.log",
+      "supply-v297-scope-final.json",
+      "build-v297-scope-final.log",
+      "lint-v297-scope-final.log",
+      "supply-v297-node-probe-final.jsonl"
+    ],
+    "earlierFailures": "Firstrelated6files114=112PASS2FAILwrongmarketempty/globalUIDexpectation ignored preexisting nonfood dailyProduction. Productunchanged; assert originalfoodUID/foodempty/localUID. Firstlint0err5warnings own4Vueformat warningsfixed; final0err1oldwarning. Firstmanifestpublicpathwrong,sourcecopydonebutlinkstepstopped; actualsrc/client/sprites.json additive3keys fixed.",
+    "scopeFinal": {
+      "relatedFiles": 2,
+      "relatedPassed": 30,
+      "newSupplyCases": 22,
+      "gameObservationCases": 8,
+      "buildExitCode": 0,
+      "lintExitCode": 0,
+      "economicRulesUnchanged": true,
+      "firstNativeRetainedNotFinal": true,
+      "originalUncountedEggUid": 1099511627784,
+      "originalEggCount": 6
+    }
+  },
+  "world": {
+    "status": "passed",
+    "measuredVersion": 297,
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 434.95404786499995,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo296": 30,
+    "comparison": "All30 complete RESULT rows/averageDays/causes exact previous296. Not entire WorldState: new daily ledger metadata intentionally changes settled worlds. Below1day survival does not cover long-term famine/ecology."
+  },
+  "goldens": {
+    "baseline": 296,
+    "current": 297,
+    "scope": "ALL5whole initial/final/errors: ONLY200→201 and last completed-day supply metadata in worldstates with settleddays. All load/contentmod hashes, other WorldState bodies/items/maps/production/reserves/market/SIR/time/UID/RNG/errors exact296. These vectors do not prove local ledger UI or famine; separate actualinput/wholepairs required.",
+    "rows": [
+      {
+        "name": "surface",
+        "initialHash": "3348d4d4",
+        "hash": "2ea632a4",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          },
+          "state": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          }
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "a1875c0d",
+        "hash": "8b50a81e",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          },
+          "state": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          }
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "70413711",
+        "hash": "a1ec5602",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          },
+          "state": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          }
+        }
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "3da3bcdb",
+        "hash": "5f20cf2c",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          },
+          "state": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          }
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "3da3bcdb",
+        "hash": "79c014c8",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          },
+          "state": {
+            "version200To201": true,
+            "allContentHashesExact296": true,
+            "addedLastCompletedSupply": [],
+            "allRemainingWholeStateExact296": true
+          }
+        }
+      }
+    ]
+  },
+  "physicalBaseline": {
+    "status": "PASS",
+    "previous": "/workspace/.ashveil-checkpoints/v296-verified",
+    "scenarios": 6,
+    "wholePairs": 18,
+    "scope": "Same finite initial worlds run through previous immutable WorldSimulation and current module. ONLY lastSupply metadata excluded; version normalized. All other bodies/items/reserves/market/UID/RNG/time/SIR/maps exact in6scenarios×3days. Not live browser, normal-play history, World30 or long-term famine proof.",
+    "previousWorldSimulationSha256": "173d3932e7bdb09f9b896ddcf1df711e392b745c7a9c1a4d10b804c67ff7bc5d",
+    "currentWorldSimulationSha256": "96873add22ee233f0fd46785096c07f80604e7249bc9d110948fa425b08cabd8"
+  },
+  "native": {
+    "save": 201,
+    "screenshots": 8,
+    "roundtrips": 3,
+    "phases": 12,
+    "actualInputTU": 300,
+    "rows": [
+      {
+        "shortage": true,
+        "declaredClock": 2879900,
+        "originalGeneratedFood": 2400,
+        "originalGeneratedReserve": 2396.192,
+        "originalHardtack": {
+          "uid": 1099511627776,
+          "count": 20
+        },
+        "originalProduction": 160,
+        "declaredReserve": 1.25,
+        "declaredProduction": 0,
+        "declaredRationFoodAtMarket": 0.42,
+        "originalUncountedEggs": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "actualResidentCredit": 0.56,
+        "actualConsumptionCarry": 0,
+        "source": "Actualgeneratedtown/depot/shop/Hardtack UID. Shortage initialscene explicitly declares commonFood1.25, originalHardtack3, noothercountedrationFood and production0; other uncounted foods such as originalEggs6 remain. Not historicalcropfailure or acquisition. Actual initialresidentconsumption retained. Finite near-midnightday0/pausedNPCs/healthyplayer/light and actualdepotneighbor; no postloadworld/time/RNG/material injection.",
+        "mode": "shortage",
+        "finalView": {
+          "site": "Region.ShepherdDale",
+          "population": 180,
+          "food": 0,
+          "fuel": 577.86,
+          "foodRate": 1,
+          "foodPersonDays": 0,
+          "fuelPersonDays": 3852.4,
+          "foodSettlementDays": 0,
+          "marketRationFood": 0,
+          "status": "empty",
+          "lastSupply": {
+            "day": 0,
+            "population": 180,
+            "commodities": {
+              "Food": {
+                "produced": 0,
+                "requested": 179,
+                "supplied": 1.67,
+                "unmet": 177.33,
+                "residentUsed": 0.56
+              },
+              "Fuel": {
+                "produced": 25,
+                "requested": 27,
+                "supplied": 27,
+                "unmet": 0,
+                "residentUsed": 0
+              },
+              "Salt": {
+                "produced": 0,
+                "requested": 9,
+                "supplied": 9,
+                "unmet": 0,
+                "residentUsed": 0
+              }
+            }
+          }
+        },
+        "actualInputTU": 100,
+        "hardtackUid": 1099511627776,
+        "hardtackRemaining": 0
+      },
+      {
+        "shortage": false,
+        "declaredClock": 2879900,
+        "originalGeneratedFood": 2400,
+        "originalGeneratedReserve": 2396.192,
+        "originalHardtack": {
+          "uid": 1099511627776,
+          "count": 20
+        },
+        "originalProduction": 160,
+        "declaredReserve": 2396.192,
+        "declaredProduction": 160,
+        "declaredRationFoodAtMarket": 3.808,
+        "originalUncountedEggs": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "actualResidentCredit": 0.56,
+        "actualConsumptionCarry": 0,
+        "source": "Actualgeneratedtown/depot/shop/Hardtack UID. Shortage initialscene explicitly declares commonFood1.25, originalHardtack3, noothercountedrationFood and production0; other uncounted foods such as originalEggs6 remain. Not historicalcropfailure or acquisition. Actual initialresidentconsumption retained. Finite near-midnightday0/pausedNPCs/healthyplayer/light and actualdepotneighbor; no postloadworld/time/RNG/material injection.",
+        "mode": "normal",
+        "finalView": {
+          "site": "Region.ShepherdDale",
+          "population": 180,
+          "food": 2585.192,
+          "fuel": 577.86,
+          "foodRate": 1,
+          "foodPersonDays": 2585.192,
+          "fuelPersonDays": 3852.4,
+          "foodSettlementDays": 14.362177778,
+          "marketRationFood": 3.808,
+          "status": "full",
+          "lastSupply": {
+            "day": 0,
+            "population": 180,
+            "commodities": {
+              "Food": {
+                "produced": 368,
+                "requested": 179,
+                "supplied": 179,
+                "unmet": 0,
+                "residentUsed": 0.56
+              },
+              "Fuel": {
+                "produced": 25,
+                "requested": 27,
+                "supplied": 27,
+                "unmet": 0,
+                "residentUsed": 0
+              },
+              "Salt": {
+                "produced": 0,
+                "requested": 9,
+                "supplied": 9,
+                "unmet": 0,
+                "residentUsed": 0
+              }
+            }
+          }
+        },
+        "actualInputTU": 100,
+        "hardtackUid": 1099511627776,
+        "hardtackRemaining": 20
+      },
+      {
+        "shortage": true,
+        "declaredClock": 2879900,
+        "originalGeneratedFood": 2400,
+        "originalGeneratedReserve": 2396.192,
+        "originalHardtack": {
+          "uid": 1099511627776,
+          "count": 20
+        },
+        "originalProduction": 160,
+        "declaredReserve": 1.25,
+        "declaredProduction": 0,
+        "declaredRationFoodAtMarket": 0.42,
+        "originalUncountedEggs": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "actualResidentCredit": 0.56,
+        "actualConsumptionCarry": 0,
+        "source": "Actualgeneratedtown/depot/shop/Hardtack UID. Shortage initialscene explicitly declares commonFood1.25, originalHardtack3, noothercountedrationFood and production0; other uncounted foods such as originalEggs6 remain. Not historicalcropfailure or acquisition. Actual initialresidentconsumption retained. Finite near-midnightday0/pausedNPCs/healthyplayer/light and actualdepotneighbor; no postloadworld/time/RNG/material injection.",
+        "mode": "legacy200",
+        "finalView": {
+          "site": "Region.ShepherdDale",
+          "population": 180,
+          "food": 0,
+          "fuel": 577.86,
+          "foodRate": 1,
+          "foodPersonDays": 0,
+          "fuelPersonDays": 3852.4,
+          "foodSettlementDays": 0,
+          "marketRationFood": 0,
+          "status": "empty",
+          "lastSupply": {
+            "day": 0,
+            "population": 180,
+            "commodities": {
+              "Food": {
+                "produced": 0,
+                "requested": 179,
+                "supplied": 1.67,
+                "unmet": 177.33,
+                "residentUsed": 0.56
+              },
+              "Fuel": {
+                "produced": 25,
+                "requested": 27,
+                "supplied": 27,
+                "unmet": 0,
+                "residentUsed": 0
+              },
+              "Salt": {
+                "produced": 0,
+                "requested": 9,
+                "supplied": 9,
+                "unmet": 0,
+                "residentUsed": 0
+              }
+            }
+          }
+        },
+        "actualInputTU": 100,
+        "hardtackUid": 1099511627776,
+        "hardtackRemaining": 0
+      }
+    ],
+    "errors": [],
+    "source": "Three finite actualgeneratedtown/depot/shop scenes, declared shortage reserve/stock/production, actual initialresidentcredit. ActualTitleContinue/n/quote/Period1T/whole201restores/small,12independentNodewholepairs. Legacy200header is same currentfinite shortage scene, not historical userfile. No postloadworld/time/RNG/material injection; nofamine/migration/deathclaim."
+  },
+  "nativeSourceProof": {
+    "native": {
+      "phases": 12,
+      "wholeActualExpectedPairsEqual": true,
+      "screenshots": 8,
+      "saveRestores": 3,
+      "actualInputTU": 300,
+      "errors": []
+    },
+    "execution": "Native and common ran in immutable /workspace/.ashveil-checkpoints/v297-scope app index-kHgPZ4RD.js on own strict4317 preview; all8Rootsource categories exact at completion. Finalfreeze must equal this input.",
+    "inputToCompletionSource": {
+      "src": {
+        "files": 676,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 919,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 520,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1056,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 241,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "legacy200To201HeaderOnlyWholeEquality": true,
+    "quoteWholeStatePure": true,
+    "roundtripsAllWholeEqual": true,
+    "originalUncountedEggs": {
+      "uid": 1099511627784,
+      "count": 6,
+      "all12ActualWholeStatesPreserveUidAndCount": true,
+      "rows": [
+        {
+          "phase": "legacy200-actual-one-turn-daily-supply-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "normal-actual-one-turn-daily-supply-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "legacy200-whole201-restored-same-actual-supply-and-original-items-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "normal-whole201-restored-same-actual-supply-and-original-items-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "shortage-actual-title-no-retroactive-ledger-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "legacy200-actual-title-no-retroactive-ledger-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "shortage-small-same-public-supply-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "normal-actual-title-no-retroactive-ledger-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "shortage-whole201-restored-same-actual-supply-and-original-items-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "shortage-actual-one-turn-daily-supply-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "legacy200-small-same-public-supply-actual",
+          "uid": 1099511627784,
+          "count": 6
+        },
+        {
+          "phase": "shortage-quote-and-public-observation-whole-state-pure-actual",
+          "uid": 1099511627784,
+          "count": 6
+        }
+      ],
+      "scope": "Eggs are still sold but outside current Food ration conversion. Their actual aging is preserved normally, not claimed entire item unchanged. Ration0 is not all marketfood0."
+    },
+    "genericRows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "genericAllThreeWholeStatesIdenticalAcrossViewports": true,
+    "rootDirectPngReview": "All8FINALNative and2FINALcommonTitles opened. FourFIRSTNative previously opened; first8 retained but excludedFINAL16. Independent FINAL16 review pending at audit creation.",
+    "earlierInputs": "FIRSTNative8/3/12/300/errors0 passed, direct4images revealed uncountedEgg6 still sold while UI saidmarketFood0. Scopedlabel/observation key to marketRationFood, added Egg unit and actual originalEggUID/count checks. Economic rules/Def/art pixels unchanged; finalNative rerun. No newfamine/death/migration or historicalcropfailure/useroldfile claims."
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "allThreeWholeStatesIdenticalAcrossViewports": true,
+    "source": {
+      "src": {
+        "files": 676,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 919,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 520,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1056,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 241,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "execution": "Native and common ran in immutable /workspace/.ashveil-checkpoints/v297-scope app index-kHgPZ4RD.js on own strict4317 preview; all8Rootsource categories exact at completion. Finalfreeze must equal this input."
+  },
+  "screenshots": {
+    "directIndependentReview": 16,
+    "finalNative": 8,
+    "finalGeneric": 8,
+    "firstNativeExcluded": true,
+    "reviewSha256": "e51c21b127b42097526a642581c58eefe424eb56040faf9bb24b6d25522bdff0"
+  },
+  "assets": {
+    "valid": true,
+    "counts": {
+      "sheets": 110,
+      "frames": 795,
+      "animations": 7,
+      "characters": 20,
+      "ui": 26,
+      "icons": 80,
+      "creatureCharacters": 18,
+      "uniquePngFiles": 174
+    },
+    "errors": [],
+    "warnings": [
+      "icon leather_coat: tiles/leather_coat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon oilcloth_cloak: tiles/oilcloth_cloak.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon bones: tiles/bones.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon cloth: tiles/cloth.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon raw_meat: tiles/raw_meat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon knife: tiles/knife.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon dried_apple: tiles/dried_apple.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon food_cheese: tiles/food_cheese.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다"
+    ],
+    "loadOrder": [
+      "core"
+    ],
+    "scriptsExecuted": false,
+    "scope": "Actual sheet PNG header/chunk CRC/frame bounds/animation+character references/UI paths and resolved Item+Ability icon files. Pixel appearance, PNG decompression, hardcoded renderer keys, font/audio and reproduction tools remain separate checks."
+  },
+  "art": {
+    "independentReviewSha256": "a26c990553fa61e3d155878dcd2908d26f6319e04bc5d548444d2f0d3f30961b",
+    "description": "CC0 original pantry full/low/empty,3PNG-SVG32px pairs+16px/contact,19palette alpha0/255, samebounds3/4/28/29 and foot16/30; independent7PNG/SVG/16/contact/rights/reproduction. Old508public/all oldmanifest values preserved,+12public/+3sheets3frames. No goods Def binding or nutrition/economy thresholds encoded in picture."
+  },
+  "freeze": {
+    "input": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v297-input",
+      "files": 5005,
+      "copied": 81,
+      "linkedFromImmutablePrevious": 4924,
+      "duplicateBytesAvoided": 143640824,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v297-input-manifest.json"
+    },
+    "scope": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v297-scope",
+      "files": 5005,
+      "copied": 14,
+      "linkedFromImmutablePrevious": 4991,
+      "duplicateBytesAvoided": 145298414,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v297-scope-manifest.json"
+    },
+    "final": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v297-final",
+      "files": 5008,
+      "copied": 4,
+      "linkedFromImmutablePrevious": 5004,
+      "duplicateBytesAvoided": 148553594,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v297-final-manifest.json"
+    }
+  },
+  "gameplay": "Last completed-day supply ledger only: actual rounded production/old integer summary demand/actual supplied/unmet/alreadycredited resident consumption, preSIR alive population and day. Same previous reserve/market physical consumption/rounding/carry/seasonalproduction/realresidentcredit/SIR/economy order. No unmet Food refill/death/migrant invented.200→201 versiononly, no retrospective history or zero-filled ledger. Current actualnear realDepot/aliveawake/sight/LOS guard returns cloned readable data. UI separates person-days/population-days, market ration-equivalents and actual prior-day shortage.",
+  "marketScope": "marketRationFood covers ONLY configured Food ration conversion, not every edible item. Actual originalEggUID1099511627784x6 remains across12actualstates despite mappedration0. Egg freshness/foodAgedAt age normally; entireEggobjectunchanged NOT claimed. Final text points to other food in trade list. No new Food mappings or economy modifiers in297.",
+  "harnessChanges": "Versioned golden:capture records5whole initial/final/errors without changing fixtures/oldoutput. game:freeze reuses identical immutableprevious files only, NEVERhardlinks Root, verifiesSHA/beforeafterstable/refusesexistingoutputs; temporary10file isolation/reuse/overwrite checks plus all3actual5005/5005/5008file freezes. Final reuses5004files/148553594bytes; see actual reports, no arbitrary engine/dependency install.",
+  "validationLimits": "Three finite actualgeneratedtown/depot/shop scenes near-midnightday0/healthyplayer/NPCsnextAct1e12/light. Shortage deliberately declares commonFood1.25/originalHardtack3/nootherCOUNTEDFood/production0; retains original uncountedEgg6 and actualresidentcredit0.56. Not priorcropfailure or normalacquisition/history. Each actualPeriod1T: demand179/supplied1.67/unmet177.33 or normalproduction368/supplied179/unmet0. Legacy200header samecurrentfinite scene, not historical userfile.3whole201restores/12wholepairs/300TU; no postloadworld/time/RNG/material injection. Whole oldWorldSimulation6scenariosx3days excludes ONLYmetadata/version, not generallongtermWorldproof. Bothsizes retain scrolling in society/trading. FullX1–X4/70yearhistory/fullfamine/migration/generalmodassets/productionready completion not claimed.",
+  "earlierFailures": "Firstrelated112/114 passed;2 wrong marketempty/globalUID expectations ignored preexisting nonfood dailyproduction, fixed foodUID/foodempty/localUID only and final114PASS. Firstmanifest lookup wrongly used publicpath; copydonebutconnectionstopped, fixed actualsrc/client/sprites.json additive3keys. Initiallint0errors5warn: own4Vueformat warningsfixed, final0errors1oldmirrorwarning.8oldduplicateIEND andexistingVitelargebundlewarnings. FirstNative8passed but direct4imagesrevealed food aggregate wording ambiguous with originalEggs; scopedlabel/observationalias+extraEggunit+NativeUIDcountchecks, final8rerun; economicrules/imagesunchanged."
+}

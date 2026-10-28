@@ -1,0 +1,54 @@
+{
+  "fromVersion": "v0.43",
+  "toVersion": "v0.44",
+  "commandsRewritten": false,
+  "saveVersion": 11,
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "b91005d1",
+      "initialHash": "8e0a1214",
+      "fromHash": "31bd0634",
+      "hash": "02bf6941",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "58502f07",
+      "initialHash": "d0442674",
+      "fromHash": "238bbe83",
+      "hash": "4e721f28",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "14c7aa11",
+      "initialHash": "0796e314",
+      "fromHash": "fe2a2e35",
+      "hash": "235df68e",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "3ab3ed35",
+      "initialHash": "62176a88",
+      "fromHash": "80ad545a",
+      "hash": "21378c87",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "3ab3ed35",
+      "initialHash": "62176a88",
+      "fromHash": "c7512871",
+      "hash": "bb19486e",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    }
+  ],
+  "note": "기존5입력의 초기/최종 차이는 저장 버전10→11뿐이다. 원본 명령과 오류를 보존한다. 실제 숙박은 별도 단위/브라우저 검증으로 확인한다."
+}

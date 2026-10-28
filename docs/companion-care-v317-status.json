@@ -1,0 +1,48 @@
+{
+  "version": "0.317-dev",
+  "save": 207,
+  "kind": "implementation-preview",
+  "checks": {
+    "types": {
+      "path": "test-results/v317-implementation-types.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outcome": "passed"
+    },
+    "lint": {
+      "path": "test-results/v317-implementation-lint.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "outcome": "passed"
+    },
+    "defs": {
+      "path": "test-results/v317-implementation-defs.txt",
+      "sha256": "5959e19883c67d1290920713c6ccf0caa9178c07db08ee0da62aa200598d118c",
+      "outcome": "passed"
+    },
+    "sprites": {
+      "path": "test-results/v317-implementation-sprites.txt",
+      "sha256": "b04a01a228c27a6cf2a43817a95c6121f3ba22dbf478e3dd5f97b58597fc3c76",
+      "outcome": "passed"
+    },
+    "build": {
+      "path": "test-results/v317-implementation-build.txt",
+      "sha256": "6a3e5ff40ba3cf8be8b7cadccf3b43d101034e2ddcedaf460fa80564f9a28615",
+      "outcome": "passed"
+    }
+  },
+  "newSerializedFields": [],
+  "newAction": "companionCare",
+  "kinds": [
+    "bandage",
+    "disinfect",
+    "splint"
+  ],
+  "existingTreatmentAndPatientWaitReused": true,
+  "fullRegression": "not-run",
+  "world30": "not-run",
+  "browserInputScreens": "not-run",
+  "newWholeStateAndSaveCases": "not-run",
+  "quotePurityAndAtomicFailureTests": "not-run",
+  "goldenRefresh": "not-run",
+  "v1Complete": false,
+  "order": "Feature implementation first; existing treatment completion/interruption used, new route regression deferred."
+}

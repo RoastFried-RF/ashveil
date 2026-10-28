@@ -1,0 +1,48 @@
+[
+  {
+    "defType": "Faction",
+    "id": "Faction.guardReform",
+    "label": "잔존 경비대 개혁파",
+    "key": "guardReform",
+    "unlock": "calvis-public",
+    "territorial": false,
+    "playerStart": 20,
+    "relations": {
+      "guard": -80,
+      "coalition": 10,
+      "guild": 0,
+      "reavers": -60,
+      "pilgrims": -10,
+      "shadefolk": 0,
+      "signalists": 10
+    }
+  },
+  {
+    "defType": "Evidence",
+    "id": "Evidence.Calvis",
+    "label": "칼비스의 원본 기록 공개",
+    "description": "빠진 장 없는 원본 일지와 실물 인가 판을 보여 주며 기록을 읽는다. 실제로 보고 들은 경비만 각자의 성향에 따라 규정을 따를지 거부할지 판단한다. 원래의 원한은 사라지지 않는다.",
+    "sourceFaction": "guard",
+    "reformFaction": "guardReform",
+    "unlock": "calvis-public",
+    "books": [
+      "Item.CalvisJournal",
+      "Item.CorporateCodePlate"
+    ],
+    "hold": [
+      "Item.CalvisJournal",
+      "Item.CorporateCodePlate"
+    ],
+    "turns": 20,
+    "radius": 3,
+    "reformChance": 40,
+    "traitChance": {
+      "Trait.TenderHearted": 60,
+      "Trait.Talkative": 30,
+      "Trait.Pious": -40,
+      "Trait.Paranoid": -40,
+      "Trait.ColdBlooded": -20
+    },
+    "loyalLoss": -15
+  }
+]

@@ -1,0 +1,176 @@
+{
+  "stage": "v374-crawler-runtime",
+  "status": "isolated2Ddisplayprototype-observed",
+  "frozen": true,
+  "active": false,
+  "activationReady": false,
+  "releaseApproved": false,
+  "newImageGenCalls": 0,
+  "newOriginalPixelArt": 0,
+  "existingSourceOriginalPngs": 1,
+  "sourceRegions": 6,
+  "sourceSha256": "d79e58402ddfe288399997088a83bd85ee08d171e83b7dcfc342fdaf49d29d2f",
+  "displayBodyInstances": 8,
+  "headInstances": 1,
+  "ownedLegs": 16,
+  "upperInstances": 16,
+  "lowerInstances": 16,
+  "totalDrawInstancesPerFrame": 41,
+  "authoredFullBodyFrames": 0,
+  "physical3DBodyProven": false,
+  "ownershipIDs": [
+    "Head",
+    "Segment1",
+    "Segment2",
+    "Segment3",
+    "Segment4",
+    "Segment5",
+    "Segment6",
+    "Segment7",
+    "TailSegment8"
+  ],
+  "legIDRule": "Segment1..8LeftLeg/RightLeg;owner=correspondingSegment,8owner=TailSegment8",
+  "distanceDrivenBodyTrailAndGait": true,
+  "requestedFootAnchorAndClampedEndKeptSeparate": true,
+  "initialObservedDomSamples": 195,
+  "initialMetrics": {
+    "sampleCount": 195,
+    "ownershipViolations": [],
+    "maxReachFromRenderedHook": 2.929642751054232e-14,
+    "maxReportedReach": 3.66205343881779e-15,
+    "maxRenderedStanceVsAnchor": 2.929642751054232e-14,
+    "maxSameEpochAnchorMutation": 0,
+    "maxSameEpochRenderedDrift": 5.728578676879116e-14,
+    "maxUpperProximalMismatch": 3.1776437161565096e-14,
+    "maxKneeSourceJoinMismatch": 5.728578676879116e-14,
+    "maxHookSourceMismatch": 2.929642751054232e-14,
+    "maxLinkLengthMismatch": 3.730349362740526e-14,
+    "minStance": 8,
+    "maxSwing": 8,
+    "ownedBodies": 8,
+    "ownedLegs": 16,
+    "sourceOriginals": 1,
+    "sourceRegions": 6,
+    "newAuthoredArt": 0
+  },
+  "initialUnacknowledgedFreezeMeasurementSuperseded": true,
+  "authoritativeBoundaryObservation": {
+    "kind": "focused-read-only-DOM-boundary-confirmation",
+    "controlMethod": "select/click\u2192audit-json reports actual speed/running\u21922rAF\u2192baseline\u2192wait\u21922rAF\u2192after",
+    "runtimeModelChangedForThisObservation": false,
+    "stateApiMutation": false,
+    "zeroControlValue": "0",
+    "zero": {
+      "distanceDelta": 0,
+      "timeDelta": 0,
+      "rootDelta": 0,
+      "maxRenderedHookDelta": 0,
+      "maxAnchorDeltaSameEpoch": 0,
+      "ownerSame": true
+    },
+    "stop": {
+      "distanceDelta": 0,
+      "timeDelta": 0.6999000000000066,
+      "rootDelta": 0,
+      "maxRenderedHookDelta": 7.765799960763886,
+      "maxAnchorDeltaSameEpoch": 0,
+      "ownerSame": true
+    },
+    "stopBeforeStance": 12,
+    "stopAfterStance": 16,
+    "settled": {
+      "distanceDelta": 0,
+      "timeDelta": 0.49990000000000556,
+      "rootDelta": 0,
+      "maxRenderedHookDelta": 0,
+      "maxAnchorDeltaSameEpoch": 0,
+      "ownerSame": true
+    },
+    "restart": {
+      "distanceDelta": 11.19839999999995,
+      "timeDelta": 0.6998999999999969,
+      "rootDelta": 11.198399999999925,
+      "maxRenderedHookDelta": 22.223525136848195,
+      "maxAnchorDeltaSameEpoch": 0,
+      "ownerSame": true
+    },
+    "restartOwnerRetainedFromStop": true,
+    "bodyCount": 8,
+    "legCount": 16,
+    "maxAccumulatedReachError": 3.972054645195637e-15,
+    "maxAccumulatedStanceDrift": 3.972054645195637e-15,
+    "errors": [],
+    "initialReportBoundaryCorrection": "Initial freeze firstsamplewasstill speed2;initialstop firstsamplewasrunningtrue. Preserveinitialreport;useacknowledgedboundarieshere. No foot/anchor/end overwrite fix."
+  },
+  "sourceOriginalAndPrior23FilesUnchanged": true,
+  "sourcePrincipalCropDataUnchanged": true,
+  "priorV372FilesChanged": [],
+  "privateServer6394Stopped": true,
+  "browserErrors": [],
+  "mainAuthoringPublisherExistingStagingChangedByThisAgent": false,
+  "CoreRegistrationMainGameBuildFullWorldTestsCommitPushExecuted": false,
+  "independentStagingDomObservationsExecuted": true,
+  "primaryFiles": {
+    "site/index.html": {
+      "bytes": 2886,
+      "sha256": "38e18ca6248e6b6941ed7d79733387aed15f692f8ea185f7b4e0ffa4211e6391"
+    },
+    "site/rig.js": {
+      "bytes": 7407,
+      "sha256": "7195f3f378e6f8a6dac603b38a3dcaee69c15b1249c8f58784f562a0ce500c63"
+    },
+    "site/workbench.js": {
+      "bytes": 6568,
+      "sha256": "2d31cc36c0fa93dcc3e69830cf3612d25f0c95272f81475173f141ab62a58cd6"
+    },
+    "site/crawler-parts-v372.png": {
+      "bytes": 1672238,
+      "sha256": "d79e58402ddfe288399997088a83bd85ee08d171e83b7dcfc342fdaf49d29d2f"
+    },
+    "site/source-contract.json": {
+      "bytes": 20012,
+      "sha256": "35b37c5e9c1e6353b96f7473f1a30bf3f635cd3b3e12a53836ae3548971bc967"
+    },
+    "inspect-runtime.mjs": {
+      "bytes": 8748,
+      "sha256": "02fb33d79cbd13de73940d7119b46914c904749a878f7ca6cd04498a28066dcb"
+    },
+    "inspect-boundaries.mjs": {
+      "bytes": 4864,
+      "sha256": "5cee8f67ea5c330218dbc5ffe57c699ded7e6e4c284128f7ac46d8da7eab9903"
+    },
+    "source-provenance.json": {
+      "bytes": 4229,
+      "sha256": "d9a017a69970c0f5464a26e1b4ee9b203caeb581f45eedae42345abc43db5cb4"
+    },
+    "observations/initial/report.json": {
+      "bytes": 5603,
+      "sha256": "42e95703fb15dfad303d293e0b8818541f042259eac689feac6bdb7a781644f3"
+    },
+    "observations/boundary-confirmation/report.json": {
+      "bytes": 1536,
+      "sha256": "9aaadf1af7e08dde0a6ec162a4006fbf2ba98a88dbd6ed5e87a5f7de6dffe415"
+    },
+    "observations/boundary-confirmation/same-epoch-stance-analysis.json": {
+      "bytes": 547,
+      "sha256": "ca10ec7e9a5e0f98c10864cb061d2df18b13b16a1a006a1a1c93ba155b8ef97c"
+    },
+    "README.md": {
+      "bytes": 7592,
+      "sha256": "1d37d45722e0c24153d80e59a9f360b3399e882fb6a15354e4bd2cdd265d9ff6"
+    },
+    "file-manifest.json": {
+      "bytes": 4850,
+      "sha256": "e5610427976ea5d195d8b21c7950b204c41244dcd76e77c6476f9376f4a7dd9e"
+    }
+  },
+  "wholeBundleFilesIncludingManifestAndFinal": 32,
+  "limitations": [
+    "Only2Ddisplayfixedlinks/surfaces/contactproxy,no3Daxis/mass/groundforceproof",
+    "90degdesiredheadingchangesimmediatelybuttrajectorycurvaturelimited.095radperdu,notmaininstantturnintegration",
+    "du/worldscale/mapwalls/occupancy/selfcollision/innercurvelegoverlapunimplemented",
+    "socket/neckdepthandlowerankleuncertain;observedhooktipusedas2Dendproxy",
+    "rotated/reflectedsinglepaintedsurface,nonewview/underside/oppositeanatomy",
+    "noCoreBody16legcapacity/damage/survivingprefix/poison/ceiling/drop/curl/releasecompletion"
+  ]
+}

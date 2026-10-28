@@ -1,0 +1,371 @@
+{
+  "captured": "2026-10-21",
+  "scope": "read-only reference snapshot; no old image pixels included or used by drawing source",
+  "existingHero": {
+    "walk": {
+      "down": [
+        "hero_w_down0",
+        "hero_w_down1",
+        "hero_w_down2"
+      ],
+      "left": [
+        "hero_w_left0",
+        "hero_w_left1",
+        "hero_w_left2"
+      ],
+      "right": [
+        "hero_w_right0",
+        "hero_w_right1",
+        "hero_w_right2"
+      ],
+      "up": [
+        "hero_w_up0",
+        "hero_w_up1",
+        "hero_w_up2"
+      ]
+    },
+    "idle": {
+      "down": [
+        "hero_w_down1"
+      ],
+      "left": [
+        "hero_w_left1"
+      ],
+      "right": [
+        "hero_w_right1"
+      ],
+      "up": [
+        "hero_w_up1"
+      ]
+    },
+    "anchor": [
+      0.5,
+      0.96875
+    ],
+    "attack": {
+      "down": [
+        "hero_a_down0",
+        "hero_a_down1",
+        "hero_a_down2",
+        "hero_a_down3"
+      ],
+      "left": [
+        "hero_a_left0",
+        "hero_a_left1",
+        "hero_a_left2",
+        "hero_a_left3"
+      ],
+      "right": [
+        "hero_a_right0",
+        "hero_a_right1",
+        "hero_a_right2",
+        "hero_a_right3"
+      ],
+      "up": [
+        "hero_a_up0",
+        "hero_a_up1",
+        "hero_a_up2",
+        "hero_a_up3"
+      ]
+    },
+    "attackAnchor": [
+      0.5,
+      0.975
+    ],
+    "renderScale": 1,
+    "headOffset": 30
+  },
+  "existingHeroFrames": {
+    "hero_a_down0": [
+      "hero_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "hero_a_down1": [
+      "hero_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "hero_a_down2": [
+      "hero_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "hero_a_down3": [
+      "hero_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "hero_a_left0": [
+      "hero_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "hero_a_left1": [
+      "hero_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "hero_a_left2": [
+      "hero_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "hero_a_left3": [
+      "hero_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "hero_a_right0": [
+      "hero_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "hero_a_right1": [
+      "hero_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "hero_a_right2": [
+      "hero_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "hero_a_right3": [
+      "hero_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "hero_a_up0": [
+      "hero_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "hero_a_up1": [
+      "hero_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "hero_a_up2": [
+      "hero_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "hero_a_up3": [
+      "hero_atk",
+      96,
+      120,
+      32,
+      40
+    ],
+    "hero_w_down0": [
+      "hero",
+      0,
+      0,
+      24,
+      32
+    ],
+    "hero_w_down1": [
+      "hero",
+      24,
+      0,
+      24,
+      32
+    ],
+    "hero_w_down2": [
+      "hero",
+      48,
+      0,
+      24,
+      32
+    ],
+    "hero_w_left0": [
+      "hero",
+      0,
+      32,
+      24,
+      32
+    ],
+    "hero_w_left1": [
+      "hero",
+      24,
+      32,
+      24,
+      32
+    ],
+    "hero_w_left2": [
+      "hero",
+      48,
+      32,
+      24,
+      32
+    ],
+    "hero_w_right0": [
+      "hero",
+      0,
+      64,
+      24,
+      32
+    ],
+    "hero_w_right1": [
+      "hero",
+      24,
+      64,
+      24,
+      32
+    ],
+    "hero_w_right2": [
+      "hero",
+      48,
+      64,
+      24,
+      32
+    ],
+    "hero_w_up0": [
+      "hero",
+      0,
+      96,
+      24,
+      32
+    ],
+    "hero_w_up1": [
+      "hero",
+      24,
+      96,
+      24,
+      32
+    ],
+    "hero_w_up2": [
+      "hero",
+      48,
+      96,
+      24,
+      32
+    ]
+  },
+  "existingSheets": {
+    "hero": "sprites/original/ashveil-wanderer-walk.png",
+    "hero_atk": "sprites/original/ashveil-wanderer-attack.png"
+  },
+  "rendererContract": {
+    "walkCell": [
+      24,
+      32
+    ],
+    "attackCell": [
+      32,
+      40
+    ],
+    "attackBodyOffset": [
+      4,
+      8
+    ],
+    "walkGroundY": 31,
+    "attackGroundY": 39,
+    "renderScale": 1,
+    "headOffset": 30,
+    "worldTile": 16,
+    "rootWorldPosition": "tile.x*16+8,tile.y*16+14",
+    "shadowEllipseRadius": [
+      6,
+      2
+    ],
+    "facingDirection": [
+      "up",
+      "right",
+      "right",
+      "right",
+      "down",
+      "left",
+      "left",
+      "left"
+    ],
+    "existingWalkBodyBoundsYInclusive": [
+      1,
+      30
+    ],
+    "existingAttackBodyBoundsYInclusive": [
+      9,
+      38
+    ],
+    "moveFrameIndex": "floor(t*3)%walk.length",
+    "attackFrameIndex": "min(length-1,floor(attackT*length))",
+    "renderLungeWorldPx": 5,
+    "hitTesting": "tile positions and existing renderer/controller untouched; no authored collision shape",
+    "currentSpriteHelper": "Def.characterAliases[savedSprite] once; no player-id branch at this snapshot",
+    "hardcodedHeroFallbackConsumers": [
+      "Hud.vue",
+      "CharacterWindow.vue",
+      "TitleScreen.vue"
+    ],
+    "newIdleChoice": "new walk0, per request; existinghero idle is walk1"
+  },
+  "references": [
+    {
+      "path": "src/client/sprites.json",
+      "sha256": "4118fc616baa79b86f21308b42b7c04c29b40e4c68634eea6d215e9d9d231d0b"
+    },
+    {
+      "path": "src/client/render/atlas.ts",
+      "sha256": "f68336e5073afa4e7a0003662d4e960d6abb7d16ab7fe6675bb519e48f287882"
+    },
+    {
+      "path": "src/client/render/MapRenderer.ts",
+      "sha256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721"
+    },
+    {
+      "path": "src/client/render/creature-sprite.ts",
+      "sha256": "2d20c0efef82b51fa2015001f837ccfe8e7e6f9a7288a265142299f6b69aca7f"
+    },
+    {
+      "path": "src/client/ui/Hud.vue",
+      "sha256": "1af5d27ad19aa8a073f7ac327404b83e7dda4a8151cd7de9aac454ec768b9377"
+    },
+    {
+      "path": "src/client/ui/CharacterWindow.vue",
+      "sha256": "1257d2df4f13625f33d60fc7e9ae58925f1664d714ec51b030ff6d2dbaac7892"
+    },
+    {
+      "path": "src/client/TitleScreen.vue",
+      "sha256": "60b05bfc378b3725ccfc540dbbf28c80f5f5a3a14bb227f128e71ec882f39e62"
+    },
+    {
+      "path": "docs/CANON.md",
+      "sha256": "fc6dcde298c5bdf18b1e648507abdd4b29c2d990b7a4c888a2957d7b586f72f7"
+    },
+    {
+      "path": "docs/lore/world-bible.md",
+      "sha256": "59df5652bfc698f362f0b40613fd457f063a0865a4316c7ad7a2a6c23d0850cd"
+    }
+  ]
+}

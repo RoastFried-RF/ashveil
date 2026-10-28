@@ -1,0 +1,587 @@
+{
+  "from": "v0.106 WORLD",
+  "to": "v0.107 WORLD",
+  "runs": 30,
+  "maxDays": 3,
+  "allWholeRowsReviewed": true,
+  "exactRows": 26,
+  "changedRows": 4,
+  "changes": [
+    {
+      "seed": "sim-0",
+      "review": "첫 분기27664턴의 동일 원래 UID65 통조림/같은 녹슨 칼. 실제 개봉2턴+식사1턴 후27667턴에 영양을 받는다. 이후 원래 식사는1턴 앞당겨지고 대사 소수 차이가 생겼다. 사망 원인/최종 시각은 같다.",
+      "trace": "../test-results/v107-sim-0-causal-trace.json",
+      "differences": [
+        {
+          "path": "/final/needs/dietHistory/2/at",
+          "old": 27664,
+          "new": 27667
+        },
+        {
+          "path": "/final/needs/dietHistory/3/at",
+          "old": 31926,
+          "new": 31925
+        },
+        {
+          "path": "/final/needs/dietHistory/4/at",
+          "old": 32576,
+          "new": 32575
+        },
+        {
+          "path": "/final/needs/dietHistory/5/at",
+          "old": 33239,
+          "new": 33238
+        },
+        {
+          "path": "/final/needs/dietHistory/6/at",
+          "old": 36543,
+          "new": 36542
+        },
+        {
+          "path": "/final/needs/kcal",
+          "old": -1109.07,
+          "new": -1109.12
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "old": 0.1944503819697072,
+          "new": 0.4027837153030358
+        },
+        {
+          "path": "/final/needs/lastDietMeal/at",
+          "old": 36543,
+          "new": 36542
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "old": 0.31076388888889883,
+          "new": 0.32812500000001044
+        }
+      ]
+    },
+    {
+      "seed": "sim-9",
+      "review": "첫 분기29273턴 직전 몸/모든 인물/시각/난수/봇 기억 동일. 실제 칼이 없어 원래 UID88 통조림을 먹는 구형 경로 대신 원래 UID87 말린 사과70kcal,29904턴 UID89 건빵350kcal을 먹는다. 식사 기록/단백/물/대사가 달라졌다. 사망 원인/최종 시각은 같다. 이후 양쪽 손 상실의 기존 섭취 실패는 원래 결과 그대로다.",
+      "trace": "../test-results/v107-sim-9-causal-trace.json",
+      "differences": [
+        {
+          "path": "/final/needs/dietHistory",
+          "old": [
+            {
+              "at": 26136,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 29273,
+              "kcal": 450,
+              "proteinKcal": 100
+            }
+          ],
+          "new": [
+            {
+              "at": 26136,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 29273,
+              "kcal": 70,
+              "proteinKcal": 0
+            },
+            {
+              "at": 29904,
+              "kcal": 350,
+              "proteinKcal": 40
+            }
+          ]
+        },
+        {
+          "path": "/final/needs/kcal",
+          "old": -1606.98,
+          "new": -1636.75
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "old": 0.8535489966973042,
+          "new": 0.4160489966973344
+        },
+        {
+          "path": "/final/needs/lastDietMeal/at",
+          "old": 29273,
+          "new": 29904
+        },
+        {
+          "path": "/final/needs/lastDietMeal/def",
+          "old": "Item.CannedMeat",
+          "new": "Item.Hardtack"
+        },
+        {
+          "path": "/final/needs/lastDietMeal/kcal",
+          "old": 450,
+          "new": 350
+        },
+        {
+          "path": "/final/needs/lastDietMeal/proteinKcal",
+          "old": 100,
+          "new": 40
+        },
+        {
+          "path": "/final/needs/lastDietMeal/uid",
+          "old": 88,
+          "new": 89
+        },
+        {
+          "path": "/final/needs/lastMealKcal",
+          "old": 450,
+          "new": 350
+        },
+        {
+          "path": "/final/needs/protein",
+          "old": 94.17,
+          "new": 91.67
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "old": 1051,
+          "new": 1291
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "old": 0.08680555555566992,
+          "new": 0.008680555555669489
+        }
+      ]
+    },
+    {
+      "seed": "sim-10",
+      "review": "첫 분기29285턴 직전 몸/모든 인물/시각/난수/봇 기억 동일. 실제 칼이 없어 원래 UID78 통조림450kcal 대신 UID79 건빵350kcal을 먹는다. 이후 같은 실제 UID91 버섯을32430/33462/34536/35610/36685턴에 먹고 마지막 식사에서 실제 식중독/즉시 구토가 생겼다. 원래 마지막 식사 기록이 사라지고 물/열량/단백/경로/열원/활동/장비 경과가 달라져 같은 저체온 원인으로0.5416667일에 종료한다(구형0.5555556일). 허위 피해/식사/몸 보정 없이 양쪽 공식 최종 전체 행이 추적 실행과 같다.",
+      "trace": "../test-results/v107-sim-10-causal-trace.json",
+      "differences": [
+        {
+          "path": "/days",
+          "old": 0.5555555555555556,
+          "new": 0.5416666666666666
+        },
+        {
+          "path": "/final/activity",
+          "old": {
+            "kind": "rest",
+            "remaining": 47,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 5,
+            "snap": {
+              "turn": 37587,
+              "hp": 108,
+              "hungerStage": 0,
+              "thirstStage": 0,
+              "wounds": 5,
+              "hostiles": [],
+              "bloodStage": 0,
+              "painStage": 0,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 3,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 13
+          },
+          "new": null
+        },
+        {
+          "path": "/final/equipment/0/corrosion",
+          "old": 922.0999999999074,
+          "new": 82.09999999990066
+        },
+        {
+          "path": "/final/needs/bodyTemp",
+          "old": 27.97359908062501,
+          "new": 27.79121908062501
+        },
+        {
+          "path": "/final/needs/dietHistory",
+          "old": [
+            {
+              "at": 26167,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 29285,
+              "kcal": 450,
+              "proteinKcal": 100
+            },
+            {
+              "at": 33302,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 36435,
+              "kcal": 450,
+              "proteinKcal": 100
+            }
+          ],
+          "new": [
+            {
+              "at": 26167,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 29285,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 32430,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 33462,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 34536,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 35610,
+              "kcal": 120,
+              "proteinKcal": 12
+            }
+          ]
+        },
+        {
+          "path": "/final/needs/kcal",
+          "old": -180.33,
+          "new": -557.87
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "old": 0.15410604753327561,
+          "new": 0.5688629919641937
+        },
+        {
+          "path": "/final/needs/lastDietMeal",
+          "old": {
+            "at": 36435,
+            "kcal": 450,
+            "proteinKcal": 100,
+            "uid": 80,
+            "def": "Item.CannedMeat"
+          },
+          "new": null
+        },
+        {
+          "path": "/final/needs/lastMealKcal",
+          "old": 450,
+          "new": 0
+        },
+        {
+          "path": "/final/needs/poisoning",
+          "old": null,
+          "new": {
+            "until": 71485,
+            "vomitAt": []
+          }
+        },
+        {
+          "path": "/final/needs/protein",
+          "old": 100,
+          "new": 94.17
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "old": 0.5358333333333389,
+          "new": 0.2024999999999995
+        },
+        {
+          "path": "/final/needs/stress",
+          "old": 43.12800000000001,
+          "new": 43.65600000000001
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "old": 347,
+          "new": 1066
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "old": 0.02256944444445108,
+          "new": 0.4322916666666723
+        },
+        {
+          "path": "/final/pos/x",
+          "old": 7,
+          "new": 13
+        },
+        {
+          "path": "/final/pos/y",
+          "old": 40,
+          "new": 32
+        },
+        {
+          "path": "/final/thermal/air",
+          "old": -10.8,
+          "new": -10.9
+        },
+        {
+          "path": "/final/thermal/feels",
+          "old": -0.3000000000000007,
+          "new": -15.4
+        },
+        {
+          "path": "/final/thermal/heat",
+          "old": 15,
+          "new": 0
+        },
+        {
+          "path": "/final/thoughts",
+          "old": [
+            {
+              "def": "Thought.SawDeath",
+              "untilTurn": 39272,
+              "count": 3,
+              "events": [
+                {
+                  "at": 33272,
+                  "untilTurn": 39272
+                },
+                {
+                  "at": 33272,
+                  "untilTurn": 39272
+                },
+                {
+                  "at": 32672,
+                  "untilTurn": 38672
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 236400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 34800,
+                  "untilTurn": 236400,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "new": [
+            {
+              "def": "Thought.SawDeath",
+              "untilTurn": 39272,
+              "count": 3,
+              "events": [
+                {
+                  "at": 33272,
+                  "untilTurn": 39272
+                },
+                {
+                  "at": 33072,
+                  "untilTurn": 39072
+                },
+                {
+                  "at": 32672,
+                  "untilTurn": 38672
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 236400,
+              "count": 1,
+              "events": [
+                {
+                  "at": 34800,
+                  "untilTurn": 236400,
+                  "mood": -12
+                }
+              ]
+            },
+            {
+              "def": "Thought.AteRaw",
+              "untilTurn": 43885,
+              "count": 2,
+              "events": [
+                {
+                  "at": 36685,
+                  "untilTurn": 43885,
+                  "mood": -4
+                },
+                {
+                  "at": 35610,
+                  "untilTurn": 42810,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.Vomited",
+              "untilTurn": 39085,
+              "count": 1,
+              "events": [
+                {
+                  "at": 36685,
+                  "untilTurn": 39085
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "seed": "sim-19",
+      "review": "첫 분기31916턴의 동일 원래 UID75 통조림/같은 녹슨 칼. 실제31919턴에 영양을 받는다. 이후 같은 버섯 식사 시각이1턴 앞당겨져 대사/체온/젖음/생각 시각 차이가 생겼다. 사망 원인/최종 시각은 같다.",
+      "trace": "../test-results/v107-sim-19-causal-trace.json",
+      "differences": [
+        {
+          "path": "/final/needs/bodyTemp",
+          "old": 27.778109669186293,
+          "new": 27.777850021686294
+        },
+        {
+          "path": "/final/needs/dietHistory/2/at",
+          "old": 31916,
+          "new": 31919
+        },
+        {
+          "path": "/final/needs/dietHistory/3/at",
+          "old": 36044,
+          "new": 36043
+        },
+        {
+          "path": "/final/needs/dietHistory/4/at",
+          "old": 36941,
+          "new": 36940
+        },
+        {
+          "path": "/final/needs/dietHistory/5/at",
+          "old": 37995,
+          "new": 37994
+        },
+        {
+          "path": "/final/needs/dietHistory/6/at",
+          "old": 39022,
+          "new": 39021
+        },
+        {
+          "path": "/final/needs/dietHistory/7/at",
+          "old": 40068,
+          "new": 40067
+        },
+        {
+          "path": "/final/needs/kcal",
+          "old": -760.42,
+          "new": -760.52
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "old": 0.21798638175634366,
+          "new": 0.7018705445652973
+        },
+        {
+          "path": "/final/needs/lastDietMeal/at",
+          "old": 40068,
+          "new": 40067
+        },
+        {
+          "path": "/final/needs/skinWetness/feet",
+          "old": 96.23499999986002,
+          "new": 96.23999999986
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "old": 4.649166666666987,
+          "new": 4.651666666666987
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "old": 0.09895833333333637,
+          "new": 0.1336805555555589
+        },
+        {
+          "path": "/final/thoughts/3/events/0/at",
+          "old": 40068,
+          "new": 40067
+        },
+        {
+          "path": "/final/thoughts/3/events/0/untilTurn",
+          "old": 47268,
+          "new": 47267
+        },
+        {
+          "path": "/final/thoughts/3/events/1/at",
+          "old": 39022,
+          "new": 39021
+        },
+        {
+          "path": "/final/thoughts/3/events/1/untilTurn",
+          "old": 46222,
+          "new": 46221
+        },
+        {
+          "path": "/final/thoughts/3/untilTurn",
+          "old": 47268,
+          "new": 47267
+        },
+        {
+          "path": "/final/thoughts/5/events/0/at",
+          "old": 41758,
+          "new": 41757
+        },
+        {
+          "path": "/final/thoughts/5/events/0/untilTurn",
+          "old": 47758,
+          "new": 47757
+        },
+        {
+          "path": "/final/thoughts/5/events/1/at",
+          "old": 41758,
+          "new": 41757
+        },
+        {
+          "path": "/final/thoughts/5/events/1/untilTurn",
+          "old": 47758,
+          "new": 47757
+        },
+        {
+          "path": "/final/thoughts/5/events/2/at",
+          "old": 40758,
+          "new": 40757
+        },
+        {
+          "path": "/final/thoughts/5/events/2/untilTurn",
+          "old": 46758,
+          "new": 46757
+        },
+        {
+          "path": "/final/thoughts/5/untilTurn",
+          "old": 47758,
+          "new": 47757
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2458 @@
+{
+  "completedAnalysis": true,
+  "source": "/workspace/.ashveil-checkpoints/v311-resonance-ground-final-r2",
+  "runs": 30,
+  "seconds": 239.51125243200002,
+  "averageDays": {
+    "before": 0.3793912037037036,
+    "after": 0.29346180555555545
+  },
+  "causes": {
+    "before": {
+      "치명상": 11,
+      "저체온": 13,
+      "과다 출혈": 6
+    },
+    "after": {
+      "치명상": 12,
+      "과다 출혈": 6,
+      "저체온": 12
+    }
+  },
+  "entireRowsExact310": [
+    "sim-1",
+    "sim-3",
+    "sim-4",
+    "sim-6",
+    "sim-7",
+    "sim-8",
+    "sim-10",
+    "sim-11",
+    "sim-12",
+    "sim-13",
+    "sim-15",
+    "sim-16",
+    "sim-17",
+    "sim-19",
+    "sim-20",
+    "sim-21",
+    "sim-22",
+    "sim-25",
+    "sim-26",
+    "sim-27",
+    "sim-29"
+  ],
+  "changedRows": [
+    {
+      "seed": "sim-0",
+      "changes": [
+        {
+          "path": "/final/traits/0",
+          "before": "Trait.ColdBlooded",
+          "after": "Trait.ResonantHearing"
+        },
+        {
+          "path": "/final/traits/1",
+          "before": "Trait.Pious",
+          "after": "Trait.Vain"
+        }
+      ]
+    },
+    {
+      "seed": "sim-2",
+      "changes": [
+        {
+          "path": "/cause",
+          "before": "저체온",
+          "after": "과다 출혈"
+        },
+        {
+          "path": "/days",
+          "before": 1.1527777777777777,
+          "after": 0.006215277777777778
+        },
+        {
+          "path": "/final/activity/elapsed",
+          "before": 14,
+          "after": 12
+        },
+        {
+          "path": "/final/activity/kind",
+          "before": "rest",
+          "after": "press"
+        },
+        {
+          "path": "/final/activity/label",
+          "before": "휴식",
+          "after": "상처 압박"
+        },
+        {
+          "path": "/final/activity/remaining",
+          "before": 46,
+          "after": 8
+        },
+        {
+          "path": "/final/activity/seenHostiles",
+          "before": [],
+          "after": [
+            53,
+            60,
+            63,
+            67
+          ]
+        },
+        {
+          "path": "/final/activity/snap/bleeding",
+          "before": false,
+          "after": true
+        },
+        {
+          "path": "/final/activity/snap/bloodStage",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "path": "/final/activity/snap/coldStage",
+          "before": 3,
+          "after": 0
+        },
+        {
+          "path": "/final/activity/snap/hostiles",
+          "before": [],
+          "after": [
+            53,
+            60,
+            63,
+            67
+          ]
+        },
+        {
+          "path": "/final/activity/snap/hp",
+          "before": 94,
+          "after": 32
+        },
+        {
+          "path": "/final/activity/snap/hungerStage",
+          "before": 1,
+          "after": 0
+        },
+        {
+          "path": "/final/activity/snap/painStage",
+          "before": 1,
+          "after": 5
+        },
+        {
+          "path": "/final/activity/snap/regions/2",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "path": "/final/activity/snap/regions/3",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "path": "/final/activity/snap/regions/4",
+          "before": 0,
+          "after": 1
+        },
+        {
+          "path": "/final/activity/snap/regions/5",
+          "before": 0,
+          "after": 2
+        },
+        {
+          "path": "/final/activity/snap/turn",
+          "before": 54786,
+          "after": 21758
+        },
+        {
+          "path": "/final/activity/snap/wounds",
+          "before": 8,
+          "after": 14
+        },
+        {
+          "path": "/final/activity/woundCount",
+          "before": 8,
+          "after": 14
+        },
+        {
+          "path": "/final/activity/woundId",
+          "before": "<absent>",
+          "after": 107
+        },
+        {
+          "path": "/final/equipment/0/def",
+          "before": "Item.LeatherCoat",
+          "after": "Item.PipeClub"
+        },
+        {
+          "path": "/final/equipment/0/durability",
+          "before": 100,
+          "after": 86
+        },
+        {
+          "path": "/final/equipment/0/wetness",
+          "before": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/1/def",
+          "before": "Item.Gloves",
+          "after": "Item.LeatherCoat"
+        },
+        {
+          "path": "/final/equipment/1/durability",
+          "before": 100,
+          "after": 98.77777777777777
+        },
+        {
+          "path": "/final/equipment/1/partDurability",
+          "before": "<absent>",
+          "after": {
+            "Chest": 100,
+            "Abdomen": 89,
+            "Pelvis": 100,
+            "LeftUpperArm": 100,
+            "LeftForearm": 100,
+            "LeftThigh": 100,
+            "RightUpperArm": 100,
+            "RightForearm": 100,
+            "RightThigh": 100
+          }
+        },
+        {
+          "path": "/final/equipment/1/wetness/arms",
+          "before": "<absent>",
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/1/wetness/hands",
+          "before": 0,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/1/wetness/legs",
+          "before": "<absent>",
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/1/wetness/torso",
+          "before": "<absent>",
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/2/def",
+          "before": "Item.Lantern",
+          "after": "Item.Gloves"
+        },
+        {
+          "path": "/final/equipment/2/durability",
+          "before": "<absent>",
+          "after": 100
+        },
+        {
+          "path": "/final/equipment/2/wetness",
+          "before": "<absent>",
+          "after": {
+            "hands": 0
+          }
+        },
+        {
+          "path": "/final/equipment/3/corrosion",
+          "before": 950.0999999999331,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/3/def",
+          "before": "Item.HuntingKnife",
+          "after": "Item.Lantern"
+        },
+        {
+          "path": "/final/equipment/3/durability",
+          "before": 94.99999999999999,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/3/edge",
+          "before": 70,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/3/rust",
+          "before": 3,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/ash",
+          "before": 3.8,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/bodyTemp",
+          "before": 27.97270054925023,
+          "after": 37
+        },
+        {
+          "path": "/final/needs/dietHistory",
+          "before": [
+            {
+              "at": 25865,
+              "kcal": 140,
+              "proteinKcal": 88
+            },
+            {
+              "at": 26718,
+              "kcal": 450,
+              "proteinKcal": 100
+            },
+            {
+              "at": 30649,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 33954,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 37081,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 40008,
+              "kcal": 450,
+              "proteinKcal": 100
+            },
+            {
+              "at": 43990,
+              "kcal": 350,
+              "proteinKcal": 40
+            },
+            {
+              "at": 47104,
+              "kcal": 70,
+              "proteinKcal": 0
+            },
+            {
+              "at": 47729,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 48800,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 49872,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 50946,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 52021,
+              "kcal": 120,
+              "proteinKcal": 12
+            }
+          ],
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/energy",
+          "before": 90,
+          "after": 41.39999999999999
+        },
+        {
+          "path": "/final/needs/fatigue",
+          "before": 100,
+          "after": 20.989583333333147
+        },
+        {
+          "path": "/final/needs/hygiene",
+          "before": 92,
+          "after": 100
+        },
+        {
+          "path": "/final/needs/kcal",
+          "before": -691.13,
+          "after": -25.14
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.7336810000466034,
+          "after": 0.6406432407410154
+        },
+        {
+          "path": "/final/needs/lastDietMeal",
+          "before": {
+            "at": 52021,
+            "kcal": 120,
+            "proteinKcal": 12,
+            "uid": 49,
+            "def": "Item.AshCap"
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/lastMealKcal",
+          "before": 120,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/nutritionDay",
+          "before": 1,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "before": 12.960833333329665,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/stress",
+          "before": 73.536,
+          "after": 25
+        },
+        {
+          "path": "/final/needs/thermal/delta",
+          "before": 0,
+          "after": -0.0979687500000001
+        },
+        {
+          "path": "/final/needs/thermal/turns",
+          "before": 0,
+          "after": 179
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "before": 313,
+          "after": 19
+        },
+        {
+          "path": "/final/needs/waterExposure",
+          "before": {
+            "ml": 400,
+            "pathogenMl": 28000
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "before": 0.9635416666666754,
+          "after": 0.5138888888888895
+        },
+        {
+          "path": "/final/pos/x",
+          "before": 10,
+          "after": 27
+        },
+        {
+          "path": "/final/pos/y",
+          "before": 39,
+          "after": 31
+        },
+        {
+          "path": "/final/psycheWatch/blood",
+          "before": false,
+          "after": true
+        },
+        {
+          "path": "/final/stats/agi",
+          "before": 12,
+          "after": 11
+        },
+        {
+          "path": "/final/stats/per",
+          "before": 11,
+          "after": 10
+        },
+        {
+          "path": "/final/thermal/air",
+          "before": -5.9,
+          "after": 6
+        },
+        {
+          "path": "/final/thermal/feels",
+          "before": 7.1,
+          "after": 6
+        },
+        {
+          "path": "/final/thermal/heat",
+          "before": 15,
+          "after": 0
+        },
+        {
+          "path": "/final/thermal/windChill",
+          "before": 2,
+          "after": 0
+        },
+        {
+          "path": "/final/thoughts/0/def",
+          "before": "Thought.FirstHumanKill",
+          "after": "Thought.WonderfulView"
+        },
+        {
+          "path": "/final/thoughts/0/events/0/at",
+          "before": 21795,
+          "after": 21641
+        },
+        {
+          "path": "/final/thoughts/0/events/0/mood",
+          "before": -10,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/thoughts/0/events/0/untilTurn",
+          "before": 309795,
+          "after": 50441
+        },
+        {
+          "path": "/final/thoughts/0/untilTurn",
+          "before": 309795,
+          "after": 50441
+        },
+        {
+          "path": "/final/thoughts/1/def",
+          "before": "Thought.NearDeath",
+          "after": "Thought.KilledFevered"
+        },
+        {
+          "path": "/final/thoughts/1/events/0/at",
+          "before": 42400,
+          "after": 21750
+        },
+        {
+          "path": "/final/thoughts/1/events/0/mood",
+          "before": -12,
+          "after": -6
+        },
+        {
+          "path": "/final/thoughts/1/events/0/untilTurn",
+          "before": 244000,
+          "after": 45750
+        },
+        {
+          "path": "/final/thoughts/1/untilTurn",
+          "before": 244000,
+          "after": 45750
+        },
+        {
+          "path": "/final/thoughts/2/count",
+          "before": 2,
+          "after": 1
+        },
+        {
+          "path": "/final/thoughts/2/def",
+          "before": "Thought.DangerousVictory",
+          "after": "Thought.SawBlood"
+        },
+        {
+          "path": "/final/thoughts/2/events",
+          "before": [
+            {
+              "at": 45281,
+              "untilTurn": 102881
+            },
+            {
+              "at": 41400,
+              "untilTurn": 99000
+            }
+          ],
+          "after": [
+            {
+              "at": 21755,
+              "untilTurn": 24155
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/2/untilTurn",
+          "before": 102881,
+          "after": 24155
+        },
+        {
+          "path": "/final/thoughts/3/count",
+          "before": 5,
+          "after": 1
+        },
+        {
+          "path": "/final/thoughts/3/def",
+          "before": "Thought.KilledHuman",
+          "after": "Thought.FirstHumanKill"
+        },
+        {
+          "path": "/final/thoughts/3/events",
+          "before": [
+            {
+              "at": 46281,
+              "untilTurn": 132681,
+              "mood": -4
+            },
+            {
+              "at": 45281,
+              "untilTurn": 131681,
+              "mood": -4
+            },
+            {
+              "at": 41400,
+              "untilTurn": 127800,
+              "mood": -4
+            },
+            {
+              "at": 39427,
+              "untilTurn": 125827,
+              "mood": -4
+            },
+            {
+              "at": 39421,
+              "untilTurn": 125821,
+              "mood": -4
+            }
+          ],
+          "after": [
+            {
+              "at": 21756,
+              "untilTurn": 309756,
+              "mood": -10
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/3/untilTurn",
+          "before": 132681,
+          "after": 309756
+        },
+        {
+          "path": "/final/thoughts/4/count",
+          "before": 2,
+          "after": 1
+        },
+        {
+          "path": "/final/thoughts/4/def",
+          "before": "Thought.AteRaw",
+          "after": "Thought.KilledHuman"
+        },
+        {
+          "path": "/final/thoughts/4/events",
+          "before": [
+            {
+              "at": 52021,
+              "untilTurn": 59221,
+              "mood": -4
+            },
+            {
+              "at": 50946,
+              "untilTurn": 58146,
+              "mood": -4
+            }
+          ],
+          "after": [
+            {
+              "at": 21756,
+              "untilTurn": 108156,
+              "mood": -4
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/4/untilTurn",
+          "before": 59221,
+          "after": 108156
+        },
+        {
+          "path": "/final/thoughts/5/def",
+          "before": "Thought.Breakdown",
+          "after": "Thought.NearDeath"
+        },
+        {
+          "path": "/final/thoughts/5/events/0/at",
+          "before": 53735,
+          "after": 21771
+        },
+        {
+          "path": "/final/thoughts/5/events/0/mood",
+          "before": "<absent>",
+          "after": -12
+        },
+        {
+          "path": "/final/thoughts/5/events/0/untilTurn",
+          "before": 82535,
+          "after": 223371
+        },
+        {
+          "path": "/final/thoughts/5/untilTurn",
+          "before": 82535,
+          "after": 223371
+        },
+        {
+          "path": "/final/traits/0",
+          "before": "Trait.ClumsyHands",
+          "after": "Trait.NimbleHands"
+        },
+        {
+          "path": "/level",
+          "before": 3,
+          "after": 1
+        },
+        {
+          "path": "/map",
+          "before": "surface",
+          "after": "crypt1"
+        }
+      ]
+    },
+    {
+      "seed": "sim-5",
+      "changes": [
+        {
+          "path": "/days",
+          "before": 2.7291666666666665,
+          "after": 1.2916666666666667
+        },
+        {
+          "path": "/final/activity",
+          "before": {
+            "kind": "rest",
+            "remaining": 55,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 3,
+            "snap": {
+              "turn": 96395,
+              "hp": 79.16666666666609,
+              "hungerStage": 3,
+              "thirstStage": 0,
+              "wounds": 3,
+              "hostiles": [],
+              "bloodStage": 1,
+              "painStage": 1,
+              "regions": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1
+              ],
+              "bleeding": false,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 2,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 5
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/0/wetness/arms",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/0/wetness/legs",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/0/wetness/torso",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/1/wetness/feet",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/equipment/3/corrosion",
+          "before": 51.049999999619885,
+          "after": 559.9999999998809
+        },
+        {
+          "path": "/final/equipment/3/durability",
+          "before": 61.66666666666657,
+          "after": 86.66666666666663
+        },
+        {
+          "path": "/final/needs/ash",
+          "before": 11.6,
+          "after": 2.2
+        },
+        {
+          "path": "/final/needs/bodyTemp",
+          "before": 27.928371508375157,
+          "after": 27.988389624500023
+        },
+        {
+          "path": "/final/needs/dietHistory",
+          "before": [
+            {
+              "at": 27945,
+              "kcal": 140,
+              "proteinKcal": 88
+            },
+            {
+              "at": 29208,
+              "kcal": 140,
+              "proteinKcal": 88
+            },
+            {
+              "at": 30482,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 31542,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 79234,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 79235,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 79236,
+              "kcal": 120,
+              "proteinKcal": 12
+            }
+          ],
+          "after": [
+            {
+              "at": 27118,
+              "kcal": 140,
+              "proteinKcal": 88
+            },
+            {
+              "at": 28156,
+              "kcal": 140,
+              "proteinKcal": 88
+            },
+            {
+              "at": 29204,
+              "kcal": 120,
+              "proteinKcal": 12
+            },
+            {
+              "at": 30102,
+              "kcal": 120,
+              "proteinKcal": 12
+            }
+          ]
+        },
+        {
+          "path": "/final/needs/hygiene",
+          "before": 76,
+          "after": 84
+        },
+        {
+          "path": "/final/needs/kcal",
+          "before": -7306.33,
+          "after": -3069.95
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.7256026831789768,
+          "after": 0.9811095291153826
+        },
+        {
+          "path": "/final/needs/lastDietMeal/at",
+          "before": 79236,
+          "after": 30102
+        },
+        {
+          "path": "/final/needs/lastDietMeal/uid",
+          "before": 108,
+          "after": 67
+        },
+        {
+          "path": "/final/needs/lastMealKcal",
+          "before": 60,
+          "after": 120
+        },
+        {
+          "path": "/final/needs/nutritionDay",
+          "before": 3,
+          "after": 2
+        },
+        {
+          "path": "/final/needs/protein",
+          "before": 76.17,
+          "after": 81
+        },
+        {
+          "path": "/final/needs/skinWetness/arms",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/skinWetness/feet",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/skinWetness/hands",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/skinWetness/head",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/skinWetness/legs",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/skinWetness/torso",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "before": 48.109999999964366,
+          "after": 18.192499999991576
+        },
+        {
+          "path": "/final/needs/stress",
+          "before": 100,
+          "after": 73.96000000000002
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "before": 948,
+          "after": 1026
+        },
+        {
+          "path": "/final/needs/waterExposure/ml",
+          "before": 300,
+          "after": 100
+        },
+        {
+          "path": "/final/needs/waterExposure/pathogenMl",
+          "before": 21000,
+          "after": 7000
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "before": 0.8420138888888837,
+          "after": 0.9722222222222917
+        },
+        {
+          "path": "/final/needs/wetness",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/pos/x",
+          "before": 6,
+          "after": 8
+        },
+        {
+          "path": "/final/thermal/air",
+          "before": -6.8,
+          "after": -5.1
+        },
+        {
+          "path": "/final/thermal/evaporation",
+          "before": 3,
+          "after": 0
+        },
+        {
+          "path": "/final/thermal/feels",
+          "before": 3.1999999999999993,
+          "after": 7.9
+        },
+        {
+          "path": "/final/thermal/fever",
+          "before": 39.5,
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/thermal/high",
+          "before": 23.5725,
+          "after": 24.575
+        },
+        {
+          "path": "/final/thermal/innerWetness",
+          "before": 100,
+          "after": 0
+        },
+        {
+          "path": "/final/thermal/insulation",
+          "before": 0.8550000000000001,
+          "after": 2.8499999999999996
+        },
+        {
+          "path": "/final/thermal/low",
+          "before": 12.8625,
+          "after": 10.875
+        },
+        {
+          "path": "/final/thoughts",
+          "before": [
+            {
+              "def": "Thought.Breakdown",
+              "untilTurn": 103200,
+              "count": 1,
+              "events": [
+                {
+                  "at": 74400,
+                  "untilTurn": 103200
+                }
+              ]
+            },
+            {
+              "def": "Thought.SunBreak",
+              "untilTurn": 105000,
+              "count": 1,
+              "events": [
+                {
+                  "at": 76200,
+                  "untilTurn": 105000
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 298000,
+              "count": 1,
+              "events": [
+                {
+                  "at": 96400,
+                  "untilTurn": 298000,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          "after": [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50444,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21644,
+                  "untilTurn": 50444
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 251000,
+              "count": 1,
+              "events": [
+                {
+                  "at": 49400,
+                  "untilTurn": 251000,
+                  "mood": -12
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/final/traits/1",
+          "before": "Trait.ColdResistant",
+          "after": "Trait.SmallEater"
+        }
+      ]
+    },
+    {
+      "seed": "sim-9",
+      "changes": [
+        {
+          "path": "/days",
+          "before": 0.7152777777777778,
+          "after": 0.875
+        },
+        {
+          "path": "/final/needs/bodyTemp",
+          "before": 27.878060350625145,
+          "after": 27.971510350625167
+        },
+        {
+          "path": "/final/needs/energy",
+          "before": 94,
+          "after": 105
+        },
+        {
+          "path": "/final/needs/kcal",
+          "before": -1150.99,
+          "after": -1693.45
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.48217517380275865,
+          "after": 0.5153773346834569
+        },
+        {
+          "path": "/final/needs/lastDietMeal",
+          "before": {
+            "at": 35582,
+            "kcal": 120,
+            "proteinKcal": 12,
+            "uid": 49,
+            "def": "Item.AshCap"
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/needs/lastMealKcal",
+          "before": 120,
+          "after": 0
+        },
+        {
+          "path": "/final/needs/poisoning",
+          "before": "<absent>",
+          "after": {
+            "until": 66974,
+            "vomitAt": [
+              51774,
+              59374
+            ]
+          }
+        },
+        {
+          "path": "/final/needs/protein",
+          "before": 92.5,
+          "after": 100
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "before": 4.415833333333617,
+          "after": 8.249166666667284
+        },
+        {
+          "path": "/final/needs/stress",
+          "before": 51.02800000000002,
+          "after": 76.72000000000003
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "before": 1152,
+          "after": 2244.467044953696
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "before": 0.2083333333333388,
+          "after": 0.9253472222222201
+        },
+        {
+          "path": "/final/pos/x",
+          "before": 6,
+          "after": 23
+        },
+        {
+          "path": "/final/thermal/air",
+          "before": 6,
+          "after": 0.6
+        },
+        {
+          "path": "/final/thermal/feels",
+          "before": 6,
+          "after": 3.1
+        },
+        {
+          "path": "/final/thermal/heat",
+          "before": 0,
+          "after": 3
+        },
+        {
+          "path": "/final/thermal/windChill",
+          "before": 0,
+          "after": 0.4999999999999999
+        },
+        {
+          "path": "/final/thoughts/3/count",
+          "before": 3,
+          "after": 1
+        },
+        {
+          "path": "/final/thoughts/3/def",
+          "before": "Thought.KilledFevered",
+          "after": "Thought.NearDeath"
+        },
+        {
+          "path": "/final/thoughts/3/events",
+          "before": [
+            {
+              "at": 22478,
+              "untilTurn": 46478,
+              "mood": -6
+            },
+            {
+              "at": 22214,
+              "untilTurn": 46214,
+              "mood": -6
+            },
+            {
+              "at": 21889,
+              "untilTurn": 45889,
+              "mood": -6
+            }
+          ],
+          "after": [
+            {
+              "at": 36600,
+              "untilTurn": 238200,
+              "mood": -12
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/3/untilTurn",
+          "before": 46478,
+          "after": 238200
+        },
+        {
+          "path": "/final/thoughts/4/count",
+          "before": 2,
+          "after": 1
+        },
+        {
+          "path": "/final/thoughts/4/def",
+          "before": "Thought.AteRaw",
+          "after": "Thought.Breakdown"
+        },
+        {
+          "path": "/final/thoughts/4/events",
+          "before": [
+            {
+              "at": 35582,
+              "untilTurn": 42782,
+              "mood": -4
+            },
+            {
+              "at": 34561,
+              "untilTurn": 41761,
+              "mood": -4
+            }
+          ],
+          "after": [
+            {
+              "at": 42142,
+              "untilTurn": 70942
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/4/untilTurn",
+          "before": 42782,
+          "after": 70942
+        },
+        {
+          "path": "/final/thoughts/5/def",
+          "before": "Thought.NearDeath",
+          "after": "Thought.AteRaw"
+        },
+        {
+          "path": "/final/thoughts/5/events/0/at",
+          "before": 36600,
+          "after": 44174
+        },
+        {
+          "path": "/final/thoughts/5/events/0/mood",
+          "before": -12,
+          "after": -4
+        },
+        {
+          "path": "/final/thoughts/5/events/0/untilTurn",
+          "before": 238200,
+          "after": 51374
+        },
+        {
+          "path": "/final/thoughts/5/untilTurn",
+          "before": 238200,
+          "after": 51374
+        },
+        {
+          "path": "/final/thoughts/6/def",
+          "before": "Thought.Breakdown",
+          "after": "Thought.SunBreak"
+        },
+        {
+          "path": "/final/thoughts/6/events/0/at",
+          "before": 39600,
+          "after": 46800
+        },
+        {
+          "path": "/final/thoughts/6/events/0/untilTurn",
+          "before": 68400,
+          "after": 75600
+        },
+        {
+          "path": "/final/thoughts/6/untilTurn",
+          "before": 68400,
+          "after": 75600
+        },
+        {
+          "path": "/final/traits/0",
+          "before": "Trait.Talkative",
+          "after": "Trait.Loner"
+        },
+        {
+          "path": "/final/traumas",
+          "before": "<absent>",
+          "after": [
+            {
+              "def": "Trauma.Dark",
+              "overcome": 45,
+              "lastStressTurn": 44220,
+              "active": false
+            }
+          ]
+        },
+        {
+          "path": "/map",
+          "before": "crypt1",
+          "after": "surface"
+        }
+      ]
+    },
+    {
+      "seed": "sim-14",
+      "changes": [
+        {
+          "path": "/final/needs/bodyTemp",
+          "before": 27.99584273667482,
+          "after": 27.995917736674823
+        },
+        {
+          "path": "/final/needs/kcal",
+          "before": -2448.65,
+          "after": -2448.7
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.2057502940641598,
+          "after": 0.4886137199909655
+        },
+        {
+          "path": "/final/needs/sleepDebt",
+          "before": 23.053333333320488,
+          "after": 23.054999999987153
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "before": 0.6961805555555685,
+          "after": 0.7135416666666796
+        },
+        {
+          "path": "/final/thoughts/1/events/0/at",
+          "before": 55201,
+          "after": 57874
+        },
+        {
+          "path": "/final/thoughts/1/events/0/untilTurn",
+          "before": 84001,
+          "after": 86674
+        },
+        {
+          "path": "/final/thoughts/1/untilTurn",
+          "before": 84001,
+          "after": 86674
+        },
+        {
+          "path": "/final/traits/2",
+          "before": "Trait.Talkative",
+          "after": "Trait.Loner"
+        }
+      ]
+    },
+    {
+      "seed": "sim-18",
+      "changes": [
+        {
+          "path": "/final/needs/stress",
+          "before": 41.016000000000005,
+          "after": 44.040000000000006
+        },
+        {
+          "path": "/final/thoughts/1/events/0/mood",
+          "before": -6,
+          "after": -9
+        },
+        {
+          "path": "/final/traits/1",
+          "before": "Trait.Bloodlust",
+          "after": "Trait.TenderHearted"
+        }
+      ]
+    },
+    {
+      "seed": "sim-23",
+      "changes": [
+        {
+          "path": "/cause",
+          "before": "과다 출혈",
+          "after": "치명상"
+        },
+        {
+          "path": "/days",
+          "before": 0.16989583333333333,
+          "after": 0.016354166666666666
+        },
+        {
+          "path": "/final/activity",
+          "before": {
+            "kind": "rest",
+            "remaining": 93,
+            "label": "휴식",
+            "seenHostiles": [],
+            "woundCount": 5,
+            "snap": {
+              "turn": 22113,
+              "hp": 60.42857142857139,
+              "hungerStage": 0,
+              "thirstStage": 0,
+              "wounds": 5,
+              "hostiles": [],
+              "bloodStage": 3,
+              "painStage": 2,
+              "regions": [
+                0,
+                0,
+                1,
+                0,
+                1,
+                1
+              ],
+              "bleeding": true,
+              "fuelWarned": false,
+              "bagFull": false,
+              "spores": false,
+              "smells": [],
+              "coldStage": 0,
+              "heatStage": 0,
+              "frostbiteStage": 0
+            },
+            "elapsed": 27
+          },
+          "after": "<absent>"
+        },
+        {
+          "path": "/final/equipment/0/durability",
+          "before": 97.875,
+          "after": 98.25
+        },
+        {
+          "path": "/final/equipment/0/partDurability/LeftForearm",
+          "before": 100,
+          "after": 90
+        },
+        {
+          "path": "/final/equipment/0/partDurability/Pelvis",
+          "before": 87,
+          "after": 100
+        },
+        {
+          "path": "/final/equipment/1/durability",
+          "before": 97,
+          "after": 61
+        },
+        {
+          "path": "/final/equipment/1/edge",
+          "before": 57,
+          "after": 17
+        },
+        {
+          "path": "/final/equipment/2/wetness/feet",
+          "before": 0.6400000000010859,
+          "after": 43.660000000000394
+        },
+        {
+          "path": "/final/needs/bodyTemp",
+          "before": 36.06495515750001,
+          "after": 36.8514057315
+        },
+        {
+          "path": "/final/needs/energy",
+          "before": 89,
+          "after": 58
+        },
+        {
+          "path": "/final/needs/fatigue",
+          "before": 45.49739583333675,
+          "after": 22.593749999999506
+        },
+        {
+          "path": "/final/needs/kcal",
+          "before": -445.79,
+          "after": -57.45
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.5935307113763031,
+          "after": 0.5062681160593776
+        },
+        {
+          "path": "/final/needs/skinWetness/feet",
+          "before": 0.6400000000010859,
+          "after": 43.660000000000394
+        },
+        {
+          "path": "/final/needs/skinWetness/legs",
+          "before": 0,
+          "after": 23.65999999999954
+        },
+        {
+          "path": "/final/needs/stress",
+          "before": 29.487999999999996,
+          "after": 25
+        },
+        {
+          "path": "/final/needs/thermal/delta",
+          "before": -0.00884395125000001,
+          "after": -0.032404822999999985
+        },
+        {
+          "path": "/final/needs/thermal/turns",
+          "before": 93,
+          "after": 71
+        },
+        {
+          "path": "/final/needs/waterDeficit",
+          "before": 453,
+          "after": 51
+        },
+        {
+          "path": "/final/needs/waterRemainder",
+          "before": 0.1406250000000029,
+          "after": 0.3888888888888904
+        },
+        {
+          "path": "/final/needs/wetness",
+          "before": 0.01600000000002715,
+          "after": 7.006499999999894
+        },
+        {
+          "path": "/final/pos/x",
+          "before": 3,
+          "after": 42
+        },
+        {
+          "path": "/final/pos/y",
+          "before": 4,
+          "after": 7
+        },
+        {
+          "path": "/final/psycheWatch/blood",
+          "before": true,
+          "after": false
+        },
+        {
+          "path": "/final/thermal/air",
+          "before": 6,
+          "after": -3.6
+        },
+        {
+          "path": "/final/thermal/feels",
+          "before": 6,
+          "after": -7.1
+        },
+        {
+          "path": "/final/thermal/high",
+          "before": 24.590112,
+          "after": 24.618343
+        },
+        {
+          "path": "/final/thermal/innerWetness",
+          "before": 0.01600000000002715,
+          "after": 7.006499999999894
+        },
+        {
+          "path": "/final/thermal/insulation",
+          "before": 2.8197759999999996,
+          "after": 2.7633140000000007
+        },
+        {
+          "path": "/final/thermal/low",
+          "before": 10.950560000000001,
+          "after": 11.091714999999997
+        },
+        {
+          "path": "/final/thermal/windChill",
+          "before": 0,
+          "after": 3.5
+        },
+        {
+          "path": "/final/thoughts/2/count",
+          "before": 1,
+          "after": 2
+        },
+        {
+          "path": "/final/thoughts/2/events",
+          "before": [
+            {
+              "at": 21826,
+              "untilTurn": 108226,
+              "mood": -4
+            }
+          ],
+          "after": [
+            {
+              "at": 22019,
+              "untilTurn": 108419,
+              "mood": -4
+            },
+            {
+              "at": 21826,
+              "untilTurn": 108226,
+              "mood": -4
+            }
+          ]
+        },
+        {
+          "path": "/final/thoughts/2/untilTurn",
+          "before": 108226,
+          "after": 108419
+        },
+        {
+          "path": "/final/thoughts/3/events/0/at",
+          "before": 21826,
+          "after": 22019
+        },
+        {
+          "path": "/final/thoughts/3/events/0/untilTurn",
+          "before": 79426,
+          "after": 79619
+        },
+        {
+          "path": "/final/thoughts/3/events/1/at",
+          "before": 21772,
+          "after": 21826
+        },
+        {
+          "path": "/final/thoughts/3/events/1/untilTurn",
+          "before": 79372,
+          "after": 79426
+        },
+        {
+          "path": "/final/thoughts/3/untilTurn",
+          "before": 79426,
+          "after": 79619
+        },
+        {
+          "path": "/final/thoughts/4/events/0/at",
+          "before": 21835,
+          "after": 22068
+        },
+        {
+          "path": "/final/thoughts/4/events/0/untilTurn",
+          "before": 24235,
+          "after": 24468
+        },
+        {
+          "path": "/final/thoughts/4/untilTurn",
+          "before": 24235,
+          "after": 24468
+        },
+        {
+          "path": "/final/thoughts/5/events/0/at",
+          "before": 22113,
+          "after": 22069
+        },
+        {
+          "path": "/final/thoughts/5/events/0/untilTurn",
+          "before": 223713,
+          "after": 223669
+        },
+        {
+          "path": "/final/thoughts/5/untilTurn",
+          "before": 223713,
+          "after": 223669
+        },
+        {
+          "path": "/final/traits/1",
+          "before": "Trait.Sensitive",
+          "after": "Trait.PainTolerant"
+        },
+        {
+          "path": "/map",
+          "before": "crypt1",
+          "after": "surface"
+        }
+      ]
+    },
+    {
+      "seed": "sim-24",
+      "changes": [
+        {
+          "path": "/final/thoughts/2/events/0/mood",
+          "before": -8.399999999999999,
+          "after": -12
+        },
+        {
+          "path": "/final/traits/2",
+          "before": "Trait.Pessimist",
+          "after": "Trait.Optimist"
+        }
+      ]
+    },
+    {
+      "seed": "sim-28",
+      "changes": [
+        {
+          "path": "/final/needs/kcal",
+          "before": -54.79,
+          "after": -77.35
+        },
+        {
+          "path": "/final/needs/kcalRemainder",
+          "before": 0.5685801099542527,
+          "after": 0.8615248611111426
+        },
+        {
+          "path": "/final/traits/1",
+          "before": "Trait.SmallEater",
+          "after": "Trait.Glutton"
+        }
+      ]
+    }
+  ],
+  "initialCreation": {
+    "roots": [
+      "/workspace/.ashveil-checkpoints/v310-visibility-final",
+      "/workspace/.ashveil-checkpoints/v311-resonance-ground-final-r2"
+    ],
+    "changedRows": [
+      "sim-0",
+      "sim-2",
+      "sim-5",
+      "sim-9",
+      "sim-14",
+      "sim-18",
+      "sim-23",
+      "sim-24",
+      "sim-28"
+    ],
+    "changedRowsAllHaveDifferentInitialTraits": true,
+    "records": [
+      {
+        "seed": "sim-0",
+        "initialTraits": [
+          [
+            "Trait.ColdBlooded",
+            "Trait.Pious"
+          ],
+          [
+            "Trait.ResonantHearing",
+            "Trait.Vain"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 11,
+            "agi": 11,
+            "per": 10,
+            "vit": 10,
+            "wil": 8
+          },
+          {
+            "str": 11,
+            "agi": 11,
+            "per": 10,
+            "vit": 10,
+            "wil": 8
+          }
+        ],
+        "backgrounds": [
+          "Bg.Boatman",
+          "Bg.Boatman"
+        ],
+        "initialSha256": [
+          "531d243e71abd76cfff303ec47dd378c52df7d7a0117b690f78d5a0ebeea558d",
+          "affeb9eb9b847e54ad62f128ac9be6784d2a0c3625f928206e1d7503f7831ac5"
+        ]
+      },
+      {
+        "seed": "sim-2",
+        "initialTraits": [
+          [
+            "Trait.ClumsyHands",
+            "Trait.Loner",
+            "Trait.LightSleeper"
+          ],
+          [
+            "Trait.NimbleHands",
+            "Trait.Loner",
+            "Trait.LightSleeper"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 9,
+            "agi": 11,
+            "per": 10,
+            "vit": 11,
+            "wil": 9
+          },
+          {
+            "str": 9,
+            "agi": 11,
+            "per": 10,
+            "vit": 11,
+            "wil": 9
+          }
+        ],
+        "backgrounds": [
+          "Bg.Scavenger",
+          "Bg.Scavenger"
+        ],
+        "initialSha256": [
+          "a685b923d7c8f7bf3c626c0181fe26ece3a4f235ac67769137cc0bd726c5b5e2",
+          "2c1f3e32d89cbf0a28fae965bf9757f1c2c8a26db952504d5839d40c71483c3c"
+        ]
+      },
+      {
+        "seed": "sim-5",
+        "initialTraits": [
+          [
+            "Trait.Neat",
+            "Trait.ColdResistant"
+          ],
+          [
+            "Trait.Neat",
+            "Trait.SmallEater"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 8,
+            "agi": 13,
+            "per": 10,
+            "vit": 8,
+            "wil": 11
+          },
+          {
+            "str": 8,
+            "agi": 13,
+            "per": 10,
+            "vit": 8,
+            "wil": 11
+          }
+        ],
+        "backgrounds": [
+          "Bg.Hunter",
+          "Bg.Hunter"
+        ],
+        "initialSha256": [
+          "2973fa72ac1ea0cca862dfbf90241e9a4176dc29c813a6aca9f74086c73da3be",
+          "b7589a45e8dc08e019260655cf9f3dabaef7bb42498b4b89e911508cadabe6ee"
+        ]
+      },
+      {
+        "seed": "sim-9",
+        "initialTraits": [
+          [
+            "Trait.Talkative",
+            "Trait.Optimist",
+            "Trait.Bloodlust"
+          ],
+          [
+            "Trait.Loner",
+            "Trait.Optimist",
+            "Trait.Bloodlust"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 9,
+            "agi": 12,
+            "per": 8,
+            "vit": 9,
+            "wil": 12
+          },
+          {
+            "str": 9,
+            "agi": 12,
+            "per": 8,
+            "vit": 9,
+            "wil": 12
+          }
+        ],
+        "backgrounds": [
+          "Bg.Excommunicate",
+          "Bg.Excommunicate"
+        ],
+        "initialSha256": [
+          "f551b0aede0afacb0d2108a6bf09e53a50975004e7be1b8e2307603c21722ec1",
+          "6acdda996731b93fcbb89458bdfe448342b0135b2375c4e11a51048308ecd973"
+        ]
+      },
+      {
+        "seed": "sim-14",
+        "initialTraits": [
+          [
+            "Trait.TenderHearted",
+            "Trait.Neat",
+            "Trait.Talkative"
+          ],
+          [
+            "Trait.TenderHearted",
+            "Trait.Neat",
+            "Trait.Loner"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 9,
+            "agi": 10,
+            "per": 10,
+            "vit": 10,
+            "wil": 11
+          },
+          {
+            "str": 9,
+            "agi": 10,
+            "per": 10,
+            "vit": 10,
+            "wil": 11
+          }
+        ],
+        "backgrounds": [
+          "Bg.GuildMerchant",
+          "Bg.GuildMerchant"
+        ],
+        "initialSha256": [
+          "c4771e8a84e7f6e9e098acce9e4524f484cd6ae03e50678803da51102854d5f9",
+          "2ec34628116ade8db7799a346abc12b7c95c90dd901915d4a11d5a2f665f1a9f"
+        ]
+      },
+      {
+        "seed": "sim-18",
+        "initialTraits": [
+          [
+            "Trait.Vain",
+            "Trait.Bloodlust"
+          ],
+          [
+            "Trait.Vain",
+            "Trait.TenderHearted"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 11,
+            "agi": 12,
+            "per": 11,
+            "vit": 9,
+            "wil": 7
+          },
+          {
+            "str": 11,
+            "agi": 12,
+            "per": 11,
+            "vit": 9,
+            "wil": 7
+          }
+        ],
+        "backgrounds": [
+          "Bg.EscapedSlave",
+          "Bg.EscapedSlave"
+        ],
+        "initialSha256": [
+          "1953e601c51294d5afd54dbc0800dfabc86fcbb4c47d26c23798f3f8186ec1ec",
+          "94dd32f8fb20dcac9612172364343dd1e706cc9ae8e18196dbd089d118651238"
+        ]
+      },
+      {
+        "seed": "sim-23",
+        "initialTraits": [
+          [
+            "Trait.SmallEater",
+            "Trait.Sensitive"
+          ],
+          [
+            "Trait.SmallEater",
+            "Trait.PainTolerant"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 9,
+            "agi": 11,
+            "per": 12,
+            "vit": 7,
+            "wil": 11
+          },
+          {
+            "str": 9,
+            "agi": 11,
+            "per": 12,
+            "vit": 7,
+            "wil": 11
+          }
+        ],
+        "backgrounds": [
+          "Bg.GuildMerchant",
+          "Bg.GuildMerchant"
+        ],
+        "initialSha256": [
+          "3c141e98eae71bfb18aca6c5860f968d198b8e45f8604b82989dbe8446dab5fb",
+          "c66c783e607d0a12c7bb00fdd33fb0012e4a025ddadcbb4ff893612a55fd39e7"
+        ]
+      },
+      {
+        "seed": "sim-24",
+        "initialTraits": [
+          [
+            "Trait.LightSleeper",
+            "Trait.IronStomach",
+            "Trait.Pessimist"
+          ],
+          [
+            "Trait.LightSleeper",
+            "Trait.IronStomach",
+            "Trait.Optimist"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 10,
+            "agi": 12,
+            "per": 10,
+            "vit": 8,
+            "wil": 10
+          },
+          {
+            "str": 10,
+            "agi": 12,
+            "per": 10,
+            "vit": 8,
+            "wil": 10
+          }
+        ],
+        "backgrounds": [
+          "Bg.Boatman",
+          "Bg.Boatman"
+        ],
+        "initialSha256": [
+          "a76b4c963beb7a425daf24e828dd6ea8e54ce174a6de5fa5db2e349a1a3a3192",
+          "0d8e966e6a9daec7fd71682016be78238b40bb6203f59b2b0702b2520bcc3555"
+        ]
+      },
+      {
+        "seed": "sim-28",
+        "initialTraits": [
+          [
+            "Trait.Teetotaler",
+            "Trait.SmallEater"
+          ],
+          [
+            "Trait.Teetotaler",
+            "Trait.Glutton"
+          ]
+        ],
+        "stats": [
+          {
+            "str": 10,
+            "agi": 9,
+            "per": 10,
+            "vit": 11,
+            "wil": 10
+          },
+          {
+            "str": 10,
+            "agi": 9,
+            "per": 10,
+            "vit": 11,
+            "wil": 10
+          }
+        ],
+        "backgrounds": [
+          "Bg.Boatman",
+          "Bg.Boatman"
+        ],
+        "initialSha256": [
+          "ea462a494bf6f2250d70d910d25447056ebb940d41c5e5c926fbaa23beeefabf",
+          "633346134db53040f1e2b0f87f4a3fec0329d22753bb55bba19f05df8941153e"
+        ]
+      }
+    ],
+    "traitCandidateOrderWithoutNewEntryExact310": true,
+    "traitOrders": [
+      [
+        {
+          "id": "Trait.ColdBlooded",
+          "weight": 1
+        },
+        {
+          "id": "Trait.TenderHearted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Bloodlust",
+          "weight": 1
+        },
+        {
+          "id": "Trait.PainTolerant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Sensitive",
+          "weight": 1
+        },
+        {
+          "id": "Trait.LightSleeper",
+          "weight": 1
+        },
+        {
+          "id": "Trait.DeepSleeper",
+          "weight": 1
+        },
+        {
+          "id": "Trait.NightOwl",
+          "weight": 1
+        },
+        {
+          "id": "Trait.IronStomach",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Gourmand",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Glutton",
+          "weight": 1
+        },
+        {
+          "id": "Trait.SmallEater",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ColdResistant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.HeatResistant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.IronWill",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Nervous",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Optimist",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Pessimist",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Alcoholic",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Teetotaler",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Loner",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Talkative",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Paranoid",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Neat",
+          "weight": 1
+        },
+        {
+          "id": "Trait.NimbleHands",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ClumsyHands",
+          "weight": 1
+        },
+        {
+          "id": "Trait.FleetFooted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Plodder",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Robust",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Frail",
+          "weight": 1
+        },
+        {
+          "id": "Trait.KeenEyed",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Nearsighted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Coward",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Reckless",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Vain",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Pious",
+          "weight": 1
+        },
+        {
+          "id": "Trait.HardBones",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ThinBlood",
+          "weight": 0
+        },
+        {
+          "id": "Trait.FastHealer",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Sickly",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Light",
+          "weight": 0
+        },
+        {
+          "id": "Trait.HunterOf",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Forgetful",
+          "weight": 0
+        }
+      ],
+      [
+        {
+          "id": "Trait.ResonantHearing",
+          "weight": 0.15
+        },
+        {
+          "id": "Trait.ColdBlooded",
+          "weight": 1
+        },
+        {
+          "id": "Trait.TenderHearted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Bloodlust",
+          "weight": 1
+        },
+        {
+          "id": "Trait.PainTolerant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Sensitive",
+          "weight": 1
+        },
+        {
+          "id": "Trait.LightSleeper",
+          "weight": 1
+        },
+        {
+          "id": "Trait.DeepSleeper",
+          "weight": 1
+        },
+        {
+          "id": "Trait.NightOwl",
+          "weight": 1
+        },
+        {
+          "id": "Trait.IronStomach",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Gourmand",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Glutton",
+          "weight": 1
+        },
+        {
+          "id": "Trait.SmallEater",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ColdResistant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.HeatResistant",
+          "weight": 1
+        },
+        {
+          "id": "Trait.IronWill",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Nervous",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Optimist",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Pessimist",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Alcoholic",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Teetotaler",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Loner",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Talkative",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Paranoid",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Neat",
+          "weight": 1
+        },
+        {
+          "id": "Trait.NimbleHands",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ClumsyHands",
+          "weight": 1
+        },
+        {
+          "id": "Trait.FleetFooted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Plodder",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Robust",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Frail",
+          "weight": 1
+        },
+        {
+          "id": "Trait.KeenEyed",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Nearsighted",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Coward",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Reckless",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Vain",
+          "weight": 1
+        },
+        {
+          "id": "Trait.Pious",
+          "weight": 1
+        },
+        {
+          "id": "Trait.HardBones",
+          "weight": 1
+        },
+        {
+          "id": "Trait.ThinBlood",
+          "weight": 0
+        },
+        {
+          "id": "Trait.FastHealer",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Sickly",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Light",
+          "weight": 0
+        },
+        {
+          "id": "Trait.HunterOf",
+          "weight": 0
+        },
+        {
+          "id": "Trait.Forgetful",
+          "weight": 0
+        }
+      ]
+    ],
+    "limits": "Actual natural newGame on both unchanged frozen Core/content sets; initial whole states persisted. No trait/body/time/RNG overrides. Establishes differing births for changed final rows, not a claim that whole final worlds are identical or a balance pass."
+  },
+  "rawSummarySha256": "f983e31e290a69ed7efd66ee30054182c8f8276646c8bb1092181d963a4027af",
+  "largestSingleCauseShare": 0.4,
+  "singleCauseAbove40Percent": false,
+  "limits": "Complete existing report rows, not30full-world pairs. Nine changed rows all have different natural initial traits after the additional weighted candidate; full initial worlds on both frozen versions are retained. No action/body/time/RNG injections or balance constants changed. Mean survival decreased; no general balance pass or final3111,000-run/human assessment claimed. Recorded310whole-start5scenario replay remains exact independently."
+}

@@ -1,0 +1,30 @@
+{
+  "id": "tuskhog-idle-v1",
+  "source": "/workspace/generated_images/exec-7e801790-400f-434d-b5dc-9625301adbdd.png",
+  "preserved": "/workspace/.ashveil-planned/v333-wildlife-art/originals/tuskhog-idle-v1.png",
+  "sha256": "a335ec320f60fd0b27d81b36dcafa1617b10880d841cee2b3f6e4dc589d246db",
+  "size": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "promptFile": "prompts/tuskhog-idle-v1.txt",
+  "prompt": "Create an ORIGINAL high-quality game sprite atlas for ASHVEIL, a grounded melancholy post-apocalyptic dark fantasy world. The attached image is our OWN ash-hound artwork and is provided ONLY for camera, restrained brown/grey palette, textured pixel-art rendering and material fidelity. Invent a NEW REALISTIC WILD BOAR, never copy the wolf body, head or pose. No assets or pixels from any existing commercial game.\n\nSUBJECT: one adult Tuskhog, 115kg, very broad low barrel body, high powerful shoulder ridge with coarse dark umber bristles, short thick neck, long wedge-shaped PIG head with broad flat pig snout and small eyes, triangular pig ears, TWO modest curved ivory tusks rising from the lower jaw, exactly FOUR short muscular legs with split dark hooves, thin short slightly curved pig tail. Cracked dried grey-brown mud plates on flanks, dark sparse bristle texture between plates. Healthy living animal, believable heavy anatomy. No wolf muzzle, fur mane, antlers, saddle, armor, clothing, glowing eyes, magic, skull face or wounds. Fine high-quality textured pixel clusters and restrained edges. Same slightly elevated RPG camera as the reference, enough back surface visible, no isometric tile rotation.\n\nSTRICT ATLAS: square canvas, exactly FOUR rows by FOUR columns = SIXTEEN separate complete figures. Large equal-size cells, enormous true transparent gutters between figures, each boar centered in its own cell. Alpha ZERO background, no ground, floor, shadow, text, labels, grid, border, props or extra silhouettes. Each full animal occupies at most 60% of cell width and 65% of cell height. No tusk, tail, hoof or ear touches neighboring cell or image edge.\n\nONE CONSTANT FACING PER ROW, no turning within any row:\nRow1 all four boars face FRONT / toward viewer: snout points to lower edge, paired tusks visible beside the muzzle, shoulder ridge behind head.\nRow2 all four boars face LEFT: snout points left edge, rump on right, side profile.\nRow3 all four boars face RIGHT: snout points right edge, rump on left, side profile.\nRow4 all four boars face BACK / away: rump and short tail nearest lower edge, head points upper edge; the pig snout, eyes and tusks are NOT visible from behind.\n\nEvery row is FOUR subtle sequential IDLE breathing poses of the SAME boar: 1 planted alert stand, 2 slight barrel breathing and ear flex, 3 settle and blink, 4 recover. All FOUR hooves remain planted. No walk, gallop, attack or direction change. Identical body proportions, tusks, bristle ridge and cracked mud pattern across all16. Front/back must be genuinely different anatomical views, not front views relabeled as back.\n",
+  "referencedOwnImages": [
+    "/workspace/ashveil/public/sprites/original/direction-v322/hound-locomotion-front-left.png"
+  ],
+  "transparentBackground": true,
+  "visualStatus": "source-inspected",
+  "acceptedMotions": [
+    "idle"
+  ],
+  "registrationMethod": "alpha64 gutter-bounded crop plus two original transparent pixels; opaque bottom6% contact pivot",
+  "rejectedMotions": [],
+  "sourceOutputBytesUnchanged": true,
+  "inputImageHashesAtFinalAudit": [
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v322/hound-locomotion-front-left.png",
+      "sha256": "c7e4b916865c3bd75d6df5f0b4e9fdfa47a9ccff31f1465382426c72ef240726"
+    }
+  ]
+}

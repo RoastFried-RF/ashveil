@@ -1,0 +1,41 @@
+[
+  {
+    "defType": "Maneuver",
+    "energy": 12,
+    "turns": 1,
+    "min": 5,
+    "weaponBonus": {
+      "spear": 5,
+      "axe": 10
+    },
+    "shortBladeBonus": 0,
+    "twoHandedBonus": 0,
+    "quadrupedBalance": 8,
+    "id": "Maneuver.Trip",
+    "kind": "trip",
+    "label": "넘어뜨리기",
+    "base": 50,
+    "max": 95,
+    "differenceMultiplier": 3,
+    "noise": 4
+  },
+  {
+    "defType": "Maneuver",
+    "energy": 12,
+    "turns": 1,
+    "min": 5,
+    "weaponBonus": {
+      "axe": 10
+    },
+    "shortBladeBonus": -10,
+    "twoHandedBonus": -15,
+    "quadrupedBalance": 0,
+    "id": "Maneuver.Disarm",
+    "kind": "disarm",
+    "label": "무장해제",
+    "base": 30,
+    "max": 75,
+    "differenceMultiplier": 2,
+    "noise": 4
+  }
+]

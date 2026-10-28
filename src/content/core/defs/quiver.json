@@ -1,0 +1,14 @@
+[
+  {
+    "defType":"Item","id":"Item.Quiver","label":"가죽 화살통",
+    "description":"화살 전용 1×6칸 화살통. 등에 착용하면 실제 화살을 바로 꺼내 쏜다. 망토와 같은 슬롯을 사용하며 비어 있는 상태로 만든다.",
+    "sprite":"arrow","category":"apparel","weight":0.5,"size":[2,2],"stackable":false,"maxStack":1,"value":14,"slot":"back","material":"Material.Leather",
+    "quiver":{"size":[1,6],"ammo":["Item.Arrow"]},
+    "apparel":{"layer":2,"groups":[],"insulation":0,"armor":{},"durability":40},
+    "equipTurns":[1,1]
+  },
+  {
+    "defType":"Recipe","id":"Recipe.Quiver","label":"가죽 화살통 꿰매기","category":"textile","primaryAttr":"agi","basic":true,"workTurns":300,
+    "inputs":[{"item":"Item.Leather","count":2},{"item":"Item.Thread","count":1}],"output":{"item":"Item.Quiver","count":1},"tools":["needle"]
+  }
+]

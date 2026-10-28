@@ -1,0 +1,369 @@
+{
+  "version": 370,
+  "status": "registered-source-candidates-parent-native-review-pending",
+  "resourceRegistrationCompleted": true,
+  "releaseApproved": false,
+  "runtimeAnimationReviewedByInstaller": false,
+  "coreOrRendererActivatedByInstaller": false,
+  "sourceOriginal": {
+    "path": "public/sprites/original/direction-v370/ashmoth-flight-four-poses-v1.png",
+    "bytes": 495665,
+    "sha256": "63ff12331193b3cff2410d6bdf006db64d59ce925c848209fbbeea1f69299215"
+  },
+  "sourceHistory": "tools/art/direction-v370/history/v370-ashmoth-flight",
+  "sourceSHA256": "63ff12331193b3cff2410d6bdf006db64d59ce925c848209fbbeea1f69299215",
+  "authoredOriginalPNGs": 1,
+  "authoredUniquePoseRegions": 4,
+  "authoredDirections": 1,
+  "authoredView": "dorsal; head points to source top",
+  "newCharEntries": 0,
+  "registeredFrames": [
+    "av370_ashmoth_raised",
+    "av370_ashmoth_spread",
+    "av370_ashmoth_downstroke",
+    "av370_ashmoth_folded"
+  ],
+  "selectedRegions": [
+    {
+      "pose": "raised",
+      "frame": "av370_ashmoth_raised",
+      "sourceCrop": [
+        226,
+        162,
+        225,
+        363
+      ],
+      "sourceThoraxCenter": [
+        339,
+        351
+      ],
+      "cropThoraxCenter": [
+        113,
+        189
+      ],
+      "normalizedThoraxAnchor": [
+        0.5022222222222222,
+        0.5206611570247934
+      ],
+      "sourceRGBARegionSHA256Declared": "29703f092fbcd305c9cc0a4a087d5597e98f5c702c4484eb9abe9c1a72dfa0af",
+      "producerDeclaredAlpha8Omissions": 0,
+      "producerDeclaredAlpha1to7OutsideCrop": 531
+    },
+    {
+      "pose": "spread",
+      "frame": "av370_ashmoth_spread",
+      "sourceCrop": [
+        635,
+        202,
+        550,
+        323
+      ],
+      "sourceThoraxCenter": [
+        908,
+        351
+      ],
+      "cropThoraxCenter": [
+        273,
+        149
+      ],
+      "normalizedThoraxAnchor": [
+        0.49636363636363634,
+        0.4613003095975232
+      ],
+      "sourceRGBARegionSHA256Declared": "e9c45633f21d6468e68d86fa330e9c795753f5099262b4e9b6869e3a8ed79a9d",
+      "producerDeclaredAlpha8Omissions": 0,
+      "producerDeclaredAlpha1to7OutsideCrop": 647
+    },
+    {
+      "pose": "downstroke",
+      "frame": "av370_ashmoth_downstroke",
+      "sourceCrop": [
+        136,
+        740,
+        410,
+        353
+      ],
+      "sourceThoraxCenter": [
+        339,
+        890
+      ],
+      "cropThoraxCenter": [
+        203,
+        150
+      ],
+      "normalizedThoraxAnchor": [
+        0.4951219512195122,
+        0.42492917847025496
+      ],
+      "sourceRGBARegionSHA256Declared": "bb8707dcf154c974dd42aa3a69a3bc6a6f850fab6b375bc4286cc421aa51db41",
+      "producerDeclaredAlpha8Omissions": 0,
+      "producerDeclaredAlpha1to7OutsideCrop": 598
+    },
+    {
+      "pose": "folded",
+      "frame": "av370_ashmoth_folded",
+      "sourceCrop": [
+        817,
+        740,
+        185,
+        345
+      ],
+      "sourceThoraxCenter": [
+        909,
+        890
+      ],
+      "cropThoraxCenter": [
+        92,
+        150
+      ],
+      "normalizedThoraxAnchor": [
+        0.4972972972972973,
+        0.43478260869565216
+      ],
+      "sourceRGBARegionSHA256Declared": "67e8b919c4c7b4a88b6399a92469f2dfd0ad6c6c25775a610a65a558a50cdfc4",
+      "producerDeclaredAlpha8Omissions": 0,
+      "producerDeclaredAlpha1to7OutsideCrop": 1192
+    }
+  ],
+  "animation": {
+    "av370_ashmoth_flight": {
+      "frames": [
+        "av370_ashmoth_raised",
+        "av370_ashmoth_spread",
+        "av370_ashmoth_downstroke",
+        "av370_ashmoth_folded"
+      ],
+      "fps": 20,
+      "anchors": {
+        "av370_ashmoth_raised": [
+          0.5022222222222222,
+          0.5206611570247934
+        ],
+        "av370_ashmoth_spread": [
+          0.49636363636363634,
+          0.4613003095975232
+        ],
+        "av370_ashmoth_downstroke": [
+          0.4951219512195122,
+          0.42492917847025496
+        ],
+        "av370_ashmoth_folded": [
+          0.4972972972972973,
+          0.43478260869565216
+        ]
+      },
+      "renderScale": 0.012
+    }
+  },
+  "configuredCycleMS": 200,
+  "cycleMeaning": "Parent20fps/four-pose runtime setting; source does not demonstrate smooth loop or physical3D wingbeat.",
+  "bodyIconSharedSource": {
+    "bodyFrame": "av370_ashmoth_folded",
+    "iconFrame": "av370_ashmoth_folded",
+    "additionalAuthoredRegions": 0,
+    "additionalAliasFrames": 0
+  },
+  "generation": {
+    "producerV370Calls": 1,
+    "installerCalls": 0,
+    "automaticRegenerations": 0,
+    "imageReferenceInputs": [],
+    "prompt": "history/v370-ashmoth-flight/prompt.txt",
+    "exactArguments": "history/v370-ashmoth-flight/generation-args.json"
+  },
+  "historicalV369": {
+    "sourceSHA256": "db25f3789ef04f4a76696111bc49e06b11014707975b60c6a5c0051d91dfeb74",
+    "producerCalls": 1,
+    "status": "held source-only static candidates; alpha/pixel-style/native-size acceptance outstanding",
+    "registeredSourceRegions": 0,
+    "releaseAccepted": false,
+    "retainedOriginalAndRecords": true,
+    "usedAsGenerationImageReference": false
+  },
+  "historicalStagingFlagsChanged": false,
+  "sourcePNGReencodings": 0,
+  "pixelEdits": 0,
+  "alphaErasureOperations": 0,
+  "resamplingOperations": 0,
+  "existingManifestValueBytesPreserved": true,
+  "existingValueEntryCountAtInstall": 8909,
+  "existingRawValueInventorySHA256AtInstall": "4b4b9dbd1f6c853435f9e541210b64dd7c248c101ee19ae1d22d1059bc9b05b0",
+  "manifestSHA256BeforeInstall": "68f623397608be970c19415b8998f3416ff405dba31af1483897f1b7287848ba",
+  "manifestSHA256AfterInstall": "b81ac0c3b219b063781e5aa3ee4dbf741ab5060cabf6c369c48dfa69b7cea290",
+  "historyFiles": [
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/README.md",
+      "bytes": 5785,
+      "sha256": "c88c0493852a0e5a700ae0109df55ac6149d3ee056ef26609de11daabc1f4c5a"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/alpha-analysis.json",
+      "bytes": 14956,
+      "sha256": "c8572f21708717bc493fb2dc6342d0f6f2b149ca70840133a85dff8e4b6fa103"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/analyze-source.py",
+      "bytes": 3373,
+      "sha256": "ad8e055434fa7167ea2e1e892d76e94a8768b6e3cafb6764143501d9781758fd"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/diagnostics/body-anchor-comparison.png",
+      "bytes": 400851,
+      "sha256": "e6974481cf504507a3ab30c1606f280b5c4c8ed9ace0f5d6f7437584591474a0"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/diagnostics/downstroke-source-on-checker.png",
+      "bytes": 111667,
+      "sha256": "101961b81f21cd04e4b78f999255c02a3a09e957f6adda720a237a17aa5df3dc"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/diagnostics/folded-source-on-checker.png",
+      "bytes": 64351,
+      "sha256": "fb8dee5d717d7eac86509477e587cae6f17dd4cfaec79b28275eb11fefa530e2"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/diagnostics/raised-source-on-checker.png",
+      "bytes": 78238,
+      "sha256": "cd1dc34b14371b24fb3d2a214a5b7e0938b5185899aa7ac31d4d4147595acbd7"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/diagnostics/spread-source-on-checker.png",
+      "bytes": 155300,
+      "sha256": "34969a82cdd2be1032533fea73ce3f9327cb37e8d81225e03c0cccd0302b5a95"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/flight-poses.json",
+      "bytes": 9464,
+      "sha256": "db5f7e3154a0c585caf47fa3490b15a3ca6978175c147641cc96e13050c66d74"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/generation-args.json",
+      "bytes": 4310,
+      "sha256": "b944d06d3ed60d92e26e9dda3584b5ddefdf08eaff405e9582f68d7633166240"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/handoff-contract.json",
+      "bytes": 1943,
+      "sha256": "c834c9521be4208818c8c678d658601d162e46f6dc74a627968df4a6bb928879"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/manifest.sha256",
+      "bytes": 1471,
+      "sha256": "d485ecf9f243aebefe0330bca22fcd23cea86efd787f8ec9bcc905941a5ace61"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/originals/ashmoth-flight-four-poses-v1.png",
+      "bytes": 495665,
+      "sha256": "63ff12331193b3cff2410d6bdf006db64d59ce925c848209fbbeea1f69299215"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/plan.json",
+      "bytes": 1510,
+      "sha256": "e287d21607cd9787c32b96308e0230c5256927255ae6a3ec25aa526830c1c3ea"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/prompt.txt",
+      "bytes": 4244,
+      "sha256": "f214f00f635458de3bcd86d6d337af7b8a18b0a6256df00d9ade534386515af3"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/provenance.json",
+      "bytes": 2966,
+      "sha256": "2144756885521d600ba416c2370b5b41033110c61ab80052aeeb8f0f1238a007"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v370-ashmoth-flight/visual-review.json",
+      "bytes": 4849,
+      "sha256": "350d3181fb3afd65e550744f7ae2a53d0b86efbd0bd199f39dde602f7444272a"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/README.md",
+      "bytes": 5674,
+      "sha256": "64dbbbffd4765f322a0db8367b0549ee1a0956e4f64b55a71c628412e72be80a"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/alpha-analysis.json",
+      "bytes": 16111,
+      "sha256": "98f72aeaacbc4317ada269aab3eca3b92149358d09647f4a6af4b6f427977087"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/analyze-source.py",
+      "bytes": 3992,
+      "sha256": "8042b2712cad9cece6850e96ba2188805ac7230c50d29bf68cd14820607d98f7"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/generation-args.json",
+      "bytes": 3701,
+      "sha256": "982a91941a1cf8b761f05ba71b1021de25a6210b3757aebc339a623a9801f744"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/handoff-contract.json",
+      "bytes": 2101,
+      "sha256": "8873e31a1fa579d8fabdfd672a04170919bb616ff00b50ea17f5b8addbdd6c11"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/manifest.sha256",
+      "bytes": 1015,
+      "sha256": "62fdc4629d1794d3c174df0fb547c9b798b50df8d38b36b0c4bd67216cf12a5c"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/originals/ashmoth-four-states-v1.png",
+      "bytes": 1649966,
+      "sha256": "db25f3789ef04f4a76696111bc49e06b11014707975b60c6a5c0051d91dfeb74"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/prompt.txt",
+      "bytes": 3638,
+      "sha256": "df5a5b6591414aaba8dd2c6598a20ad52cf1220c0aab3b3105d48eefda90750d"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/provenance.json",
+      "bytes": 1159,
+      "sha256": "292ecb764af8e83f5b1f1024f26af0f0fee18eb822509664c5a25fc43658db47"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/review.html",
+      "bytes": 2782,
+      "sha256": "3384ef089088f5ec79c3be465ad3cbc4534b757e337ecc2c554b29d5136e44d7"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/source-audit.json",
+      "bytes": 3019,
+      "sha256": "9d1ba8371d02f3578bd196ae32684ee0af37a34a2e9c9008b75e1e4b8e7abbc6"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/state-regions.json",
+      "bytes": 3976,
+      "sha256": "c0bab7919c1f02f1955cc342d410dac5dd646146cf8d8bdf41b3518f1d7351b4"
+    },
+    {
+      "path": "tools/art/direction-v370/history/v369-ashmoth-art/visual-review.json",
+      "bytes": 3552,
+      "sha256": "381cf9fe5b31e52909b7725d51d80a52c287122fe1064ee714e31b95154fdb0a"
+    }
+  ],
+  "review": {
+    "registrarIsAssetCreator": false,
+    "directlyOpened": "/workspace/.ashveil-planned/v370-ashmoth-flight/originals/ashmoth-flight-four-poses-v1.png",
+    "method": "view_image(detail=original)",
+    "visible": "Four distinct head-up dorsal poses: raised V, lateral spread, backward/downstroke V and compact folded. Two antennae and charcoal thorax/segmented abdomen remain visible.",
+    "readBoundary": "Source PNG plus poses/provenance/visual/alpha metadata read. Producer alpha/RGBA claims are not recomputed; no actual-game/native-scale/loop observation by registrar."
+  },
+  "limitations": {
+    "alpha8CropOmissionsDeclared": 0,
+    "meaningfulAlpha16InsectsIsolatedDeclared": true,
+    "alphaZeroContractPassed": false,
+    "alpha1RemnantsPreserved": true,
+    "alpha1CanvasEdgePixelsDeclared": 61,
+    "alpha1CanvasEdgeMaxDeclared": 1,
+    "spreadAlpha16CellWidthFraction": 0.8484848484848485,
+    "downstrokeAlpha16CellWidthFraction": 0.6251993620414673,
+    "requested60PercentWidthPassed": false,
+    "identicalBodyPixelsProven": false,
+    "physicalWingHingeObserved": false,
+    "onlyManualVisibleThoraxCenters": true,
+    "nativeSizeVisibilityAccepted": false,
+    "sourcePoseOrDrawnInsectCountIsWorldPopulationDensityHealth": false
+  },
+  "validationExecution": "Parent owns --check/sprite validation/tests/build/game/Native; registrar only performs authorized source registration --write."
+}

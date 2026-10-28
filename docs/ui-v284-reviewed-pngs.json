@@ -1,0 +1,305 @@
+{
+  "version": "v284",
+  "scope": "The 15 listed final gameplay/title PNGs and two separately listed original-art contact sheets were opened with view_image. Final screenshots were independently inspected as raw RGB PNGs. Existing Native audit and common run/title-layout JSON were read. No new browser, GPU, product-code changes or test runs were performed for this review.",
+  "reviewed_count": 15,
+  "supplemental_original_art_count": 2,
+  "conclusion": "No blocking visual defect found in the 15 reviewed final screenshots.",
+  "observations": [
+    "The current posture is readable as 서기 -> 웅크림 -> 서기 with the actual Alt+C key hint. The selected crouch button and upper crouch status badge agree, and the actual crouched player body is visibly lower than the standing body.",
+    "Javelin hotbar counts visibly change 1 -> 0 -> 1 across held, thrown and recovered states. The thrown original art and recovered bag item remain distinct, while the empty hand uses 주먹 attack mode.",
+    "The original reaver1 corpse is visible in final Native images; its rust-red masked walk/attack contact sheet was also opened. Existing scene illumination keeps the living target dark and was not changed for this review.",
+    "At 1366x768 the left reaction/posture controls, right attack mode, ten hotbar slots and lower maneuver buttons fit without overlap or viewport clipping. Inventory remains readable and within the viewport.",
+    "Both common title layouts retain original art and a fully visible start button at scroll zero. Recorded start bottoms are 880.28125 at 1440x1080 and 714.28125 at 1366x768; both recorded center hit tests are true.",
+    "Some view_image previews omit portions of panels, but raw RGB pixels retain status, tools, needs, inventory and log. Those preview omissions are not classified as product defects.",
+    "This is a visual and artifact review. Zero-TU posture semantics, exact two-turn/one-turn movement, item UID identity and whole-world/save behavior are covered by the separate existing Native comparisons, not inferred solely from screenshots."
+  ],
+  "raw_png_check": {
+    "method": "For each non-title screenshot, count RGB pixels with max(channel) > 36 in fixed panel regions. Supporting evidence distinguishes preview omissions from original PNG pixels; it is not a semantic UI test.",
+    "regions": "status=(12,12,250,77); tools=(width-205,12,width-12,40); sidebars=(12,height//2-83,170,height//2+84); inventory=(420,70,1080,442); log=(width-452,height-316,width-12,height-150)",
+    "note": "Status includes the adjacent body silhouette. The inventory region may contain world pixels while the inventory is closed. Title/contact sheets have no panel-region counts."
+  },
+  "existing_title_layout_measurements": {
+    "1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "start": {
+        "left": 954,
+        "top": 835.28125,
+        "right": 1240,
+        "bottom": 880.28125,
+        "fullyInViewport": true,
+        "centerIsClickable": true
+      },
+      "scrolledElements": []
+    },
+    "1366": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "start": {
+        "left": 913,
+        "top": 669.28125,
+        "right": 1207,
+        "bottom": 714.28125,
+        "fullyInViewport": true,
+        "centerIsClickable": true
+      },
+      "scrolledElements": []
+    }
+  },
+  "images": [
+    {
+      "path": "test-results/crouching-browser-v284-first/1374-native-original-held-javelin-ui-and-observation-one.png",
+      "sha256": "78bfdf075a9b055bb0d29f94e23769ecb062e911f033adb5a9cc44f41ee2a531",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original javelin is equipped in the main hand and hotbar count is 1. The posture button shows the original 16px crouch icon, current 서기 posture and Alt+C. Reaction policy and posture are on the left; attack mode remains on the right.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 63996,
+        "log": 8194
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1375-native-actual-zero-tu-crouch-body-hud-status.png",
+      "sha256": "547e03640b1cb08c419f0866d8b20dd333191ff69a2d22490dc72b030d70ea29",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "HUD posture button shows 웅크림 with its pressed-state border and fill, the upper status badge also shows 웅크림, and the player body is visibly lower than the standing pose. The action log describes crouched movement and combat/noise modifiers.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 33803,
+        "log": 10053
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1376-native-entire192-restored-crouched-after-two-turn-walk.png",
+      "sha256": "f748bd9058cf1439acfc86468672e2a1db5de4ad7c56054bcd3087b3bd1d0b57",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "After the saved-state restoration image the lower player body, 웅크림 HUD button and upper status badge remain present. Javelin hotbar count stays 1. The original reaver1 silhouette remains dark under the actual scene lighting.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 29667,
+        "log": 9412
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1377-native-actual-remappable-key-standing-and-one-turn-walk.png",
+      "sha256": "842deff216f8468e7731caaf30281987aa306383f5ee199a979e427d7112800f",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Standing body height returns; HUD reads 서기 Alt+C and the upper crouch status badge is absent. Javelin remains at hotbar count 1. The log states that the player stood up.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 34414,
+        "log": 9890
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1378-native-original-thrown-javelin-zero-count-and-original-reaver1.png",
+      "sha256": "244e2d06e3bea5b63abd3ae5845e5541d2f5e5f10245188e9e416dbd8fa27342",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Javelin hotbar count is 0 and its icon is dimmed, attack mode reads 주먹, and the original thrown javelin is visible beside the original reaver1 corpse. Posture still reads 서기.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3266,
+        "inventory": 34477,
+        "log": 9178
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1379-native-same-original-javelin-recovered-actual-ui-observation-one.png",
+      "sha256": "80faf6874044ca33380cdc5cb223dc6d0f5d64893737ce0d0352f75cd0d3b3ba",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "The same depicted javelin is visible in the bag and the actual hotbar count returns to 1. Main-hand slot is empty and HUD reads 서기 Alt+C. Original reaver1 corpse remains visible; image appearance alone is not proof of item UID identity.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3271,
+        "inventory": 66614,
+        "log": 7879
+      }
+    },
+    {
+      "path": "test-results/crouching-browser-v284-first/1380-native-small-screen-posture-and-recovered-original-javelin.png",
+      "sha256": "37b9c925f45d71762f9aeb4450ae6035982729c3249b929df611d7f310e23e08",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "At 1366x768 the posture button, reaction button, attack group, all ten hotbar slots and both maneuver buttons stay readable and within the viewport. Inventory remains within the viewport and the recovered javelin hotbar count is 1.",
+      "raw_png_region_bright_pixels": {
+        "status": 2325,
+        "tools": 1152,
+        "sidebars": 3271,
+        "inventory": 66614,
+        "log": 10301
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1440/00-title.png",
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original title art and portrait remain clear. Seed, generation choices, character preview and complete start button are visible at scroll zero; extra background choices continue below the viewport.",
+      "raw_png_region_bright_pixels": {}
+    },
+    {
+      "path": "test-results/game-harness-v284-1440/01-world.png",
+      "sha256": "0c388e95e8ceefd0fd34270ef603023530f1528e868e885f07b4048402518028",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Default standing posture is readable as 서기 Alt+C beside reaction policy; attack mode stays on the right. Needs rows, log, hotbar and both maneuver buttons fit within the viewport.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 0,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1440/02-inventory.png",
+      "sha256": "bd40966f5041cafdc87205baa4a9cc757f260887ec9de329c4d1ec300baca30c",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory, equipment slots, bag grid, needs rows, log and complete HUD remain within the viewport. Posture reads 서기 Alt+C and the posture control does not overlap the attack mode or hotbar.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 66468,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1440/final.png",
+      "sha256": "7edde5be34b7420bff65479964fa486fcab16f5dde81d874751af93d614c9dde",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory, equipment slots, bag grid, needs rows, log and complete HUD remain within the viewport. Posture reads 서기 Alt+C and the posture control does not overlap the attack mode or hotbar.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 66468,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1366/00-title.png",
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original title art and portrait remain clear. Seed, generation choices, character preview and complete start button are visible at scroll zero; extra background choices continue below the viewport.",
+      "raw_png_region_bright_pixels": {}
+    },
+    {
+      "path": "test-results/game-harness-v284-1366/01-world.png",
+      "sha256": "a3e679c00c2710b311137fdcbb94258a1341a8766ba19864ba456061cd0b3195",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Default standing posture is readable as 서기 Alt+C beside reaction policy; attack mode stays on the right. Needs rows, log, hotbar and both maneuver buttons fit within the viewport. A legitimate empty-hotbar hover tooltip overlaps part of the log.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3363,
+        "inventory": 728,
+        "log": 9778
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1366/02-inventory.png",
+      "sha256": "b4548c248d56d9a9dce62c36621be86430b3763743862f9bc0812423ec53460c",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory, equipment slots, bag grid, needs rows, log and complete HUD remain within the viewport. Posture reads 서기 Alt+C and the posture control does not overlap the attack mode or hotbar.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3363,
+        "inventory": 66469,
+        "log": 7746
+      }
+    },
+    {
+      "path": "test-results/game-harness-v284-1366/final.png",
+      "sha256": "165b21fffffd6ec12546838e48ed252f6c0ad7176b926e19b73cffbea7074101",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory, equipment slots, bag grid, needs rows, log and complete HUD remain within the viewport. Posture reads 서기 Alt+C and the posture control does not overlap the attack mode or hotbar.",
+      "raw_png_region_bright_pixels": {
+        "status": 3017,
+        "tools": 1152,
+        "sidebars": 3365,
+        "inventory": 66469,
+        "log": 7746
+      }
+    }
+  ],
+  "supplemental_original_art": [
+    {
+      "path": "public/sprites/original/ashveil-reaver1-contact.png",
+      "sha256": "56dbd6048b25535562c70be66875585aa6e4818b02b3393b322e2e270d601089",
+      "width": 768,
+      "height": 1584,
+      "mode": "RGBA",
+      "opened_with_view_image": true,
+      "observation": "Opened original contact sheet: rust-red masked reaver walk/idle and attack poses have a coherent silhouette and matching cloth, hide and ash palette. Scene darkness in Native screenshots is assessed separately from original art.",
+      "raw_png_region_bright_pixels": {}
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-crouch-contact.png",
+      "sha256": "73bd1f259e695e4a4df18fa335c1d58231c62e5ecf983adef88c9063eed2235e",
+      "width": 192,
+      "height": 248,
+      "mode": "RGBA",
+      "opened_with_view_image": true,
+      "observation": "Opened original crouch icon contact sheet: teal hood, lowered torso and bent legs remain distinct against dark and pale backgrounds and at small pixel scales.",
+      "raw_png_region_bright_pixels": {}
+    }
+  ]
+}

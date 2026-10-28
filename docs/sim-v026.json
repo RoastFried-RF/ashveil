@@ -1,0 +1,3976 @@
+{
+  "runs": 30,
+  "maxDays": 3,
+  "workers": 4,
+  "seconds": 275.456576498,
+  "averageDays": 0.6564664351851854,
+  "causes": {
+    "치명상": 14,
+    "저체온": 6,
+    "과다 출혈": 7,
+    "생존(시간 종료)": 3
+  },
+  "rows": [
+    {
+      "seed": "sim-0",
+      "cause": "치명상",
+      "days": 0.0069097222222222225,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Boatman",
+      "final": {
+        "stats": {
+          "str": 11,
+          "agi": 11,
+          "per": 10,
+          "vit": 10,
+          "wil": 8
+        },
+        "age": {
+          "years": 49,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.ColdBlooded",
+          "Trait.Pious"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223398,
+            "count": 1,
+            "events": [
+              {
+                "at": 21798,
+                "untilTurn": 223398,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "61": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "65": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1779.3738629937068,
+          "water": 1781.8576388888723,
+          "vitamin": 59.98618055555604,
+          "fatigue": 21.088541666666455,
+          "bodyTemp": 37,
+          "wetness": 26.81937499999988,
+          "energy": 9.400000000000006,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.52499999999957,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.52499999999957
+          },
+          "thermal": {
+            "turns": 199,
+            "delta": -0.11306549156249997
+          }
+        },
+        "thermal": {
+          "insulation": 0.9293312500000007,
+          "low": 15.676671874999998,
+          "high": 25.535334374999998,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.81937499999988,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 12,
+          "y": 8
+        },
+        "equipment": [
+          {
+            "def": "Item.Pole",
+            "durability": 100
+          },
+          {
+            "def": "Item.OiledRaincoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.52499999999957
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-1",
+      "cause": "치명상",
+      "days": 0.01638888888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.FeverOrphan",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 10,
+          "per": 11,
+          "vit": 7,
+          "wil": 12
+        },
+        "age": {
+          "years": 28,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Neat",
+          "Trait.Pious"
+        ],
+        "aftermath": {},
+        "thoughts": [],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1751.412005262587,
+          "water": 1758.4635416666213,
+          "vitamin": 59.96722222222337,
+          "fatigue": 22.492187499999456,
+          "bodyTemp": 36.664685605,
+          "wetness": 25.645124999999886,
+          "energy": 71,
+          "stress": 10,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 93.25499999999958,
+            "head": 0,
+            "hands": 0,
+            "feet": 93.25499999999958
+          },
+          "thermal": {
+            "turns": 72,
+            "delta": -0.04485410187499997
+          }
+        },
+        "thermal": {
+          "insulation": 0.6868037500000007,
+          "low": 16.282990624999996,
+          "high": 25.656598125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 25.645124999999886,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 39,
+          "y": 22
+        },
+        "equipment": [
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-2",
+      "cause": "저체온",
+      "days": 2.5694444444444446,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Scavenger",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 12,
+          "per": 10,
+          "vit": 11,
+          "wil": 9
+        },
+        "age": {
+          "years": 30,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.ClumsyHands",
+          "Trait.Loner",
+          "Trait.LightSleeper"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.FirstHumanKill",
+            "untilTurn": 309732,
+            "count": 1,
+            "events": [
+              {
+                "at": 21732,
+                "untilTurn": 309732,
+                "mood": -10
+              }
+            ]
+          },
+          {
+            "def": "Thought.KilledHuman",
+            "untilTurn": 108132,
+            "count": 1,
+            "events": [
+              {
+                "at": 21732,
+                "untilTurn": 108132,
+                "mood": -4
+              }
+            ]
+          },
+          {
+            "def": "Thought.SawDeath",
+            "untilTurn": 97843,
+            "count": 2,
+            "events": [
+              {
+                "at": 91843,
+                "untilTurn": 97843
+              },
+              {
+                "at": 91843,
+                "untilTurn": 97843
+              }
+            ]
+          },
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 294000,
+            "count": 1,
+            "events": [
+              {
+                "at": 92400,
+                "untilTurn": 294000,
+                "mood": -12
+              }
+            ]
+          },
+          {
+            "def": "Thought.AteRaw",
+            "untilTurn": 100742,
+            "count": 2,
+            "events": [
+              {
+                "at": 93542,
+                "untilTurn": 100742,
+                "mood": -4
+              },
+              {
+                "at": 92400,
+                "untilTurn": 99600,
+                "mood": -4
+              }
+            ]
+          },
+          {
+            "def": "Thought.Breakdown",
+            "untilTurn": 123600,
+            "count": 1,
+            "events": [
+              {
+                "at": 94800,
+                "untilTurn": 123600
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 786.7568383833097,
+          "water": 846.7708333317129,
+          "vitamin": 99.85708333332371,
+          "fatigue": 100,
+          "bodyTemp": 27.69046843750002,
+          "wetness": 100,
+          "energy": 95,
+          "stress": 81.03999999999995,
+          "sleepDebt": 32.61333333331179,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.8475,
+          "low": 15.88125,
+          "high": 25.57625,
+          "air": -2.4,
+          "feels": -6.4,
+          "windChill": 1,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 11,
+          "y": 31
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 56,
+            "corrosion": 303.75,
+            "rust": 3
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 100,
+              "arms": 100,
+              "legs": 100
+            }
+          },
+          {
+            "def": "Item.Gloves",
+            "durability": 100,
+            "wetness": {
+              "hands": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-3",
+      "cause": "치명상",
+      "days": 0.004756944444444445,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.GuardArchivist",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 11,
+          "per": 12,
+          "vit": 8,
+          "wil": 10
+        },
+        "age": {
+          "years": 34,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Nearsighted",
+          "Trait.Gourmand"
+        ],
+        "aftermath": {},
+        "thoughts": [],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1785.870963541658,
+          "water": 1787.9340277777646,
+          "vitamin": 59.990486111111444,
+          "fatigue": 20.723958333333176,
+          "bodyTemp": 37,
+          "wetness": 0,
+          "energy": 70,
+          "stress": 10,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 137,
+            "delta": -0.11283250000000002
+          }
+        },
+        "thermal": {
+          "insulation": 0.25,
+          "low": 17.375,
+          "high": 25.875,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 28,
+          "y": 23
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 20,
+          "woundId": 103,
+          "label": "상처 압박",
+          "seenHostiles": [
+            58,
+            61,
+            68,
+            71,
+            74
+          ],
+          "woundCount": 20,
+          "snap": {
+            "turn": 21736,
+            "hp": -0.5833333333334707,
+            "wounds": 20,
+            "hostiles": [
+              58,
+              61,
+              68,
+              71,
+              74
+            ],
+            "bloodStage": 1,
+            "painStage": 5,
+            "regions": [
+              2,
+              2,
+              1,
+              1,
+              2,
+              2
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          }
+        },
+        "equipment": [
+          {
+            "def": "Item.LightCrossbow",
+            "durability": 100,
+            "edge": 100,
+            "bowMoisture": 0
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-4",
+      "cause": "과다 출혈",
+      "days": 0.006631944444444445,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.SmithApprentice",
+      "final": {
+        "stats": {
+          "str": 11,
+          "agi": 10,
+          "per": 10,
+          "vit": 9,
+          "wil": 10
+        },
+        "age": {
+          "years": 24,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Teetotaler",
+          "Trait.Paranoid",
+          "Trait.Reckless"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223362,
+            "count": 1,
+            "events": [
+              {
+                "at": 21762,
+                "untilTurn": 223362,
+                "mood": -6
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 1780.394859879559,
+          "water": 1783.3333333333144,
+          "vitamin": 59.986736111111576,
+          "fatigue": 20.999999999999776,
+          "bodyTemp": 37,
+          "wetness": 26.850999999999928,
+          "energy": 95,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.63999999999974,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.63999999999974
+          },
+          "thermal": {
+            "turns": 191,
+            "delta": -0.16625607093750003
+          }
+        },
+        "thermal": {
+          "insulation": 0.43913000000000046,
+          "low": 16.902175,
+          "high": 25.780435,
+          "air": 2.1,
+          "feels": 7.85,
+          "windChill": 2.25,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.850999999999928,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 19,
+          "woundId": 83,
+          "label": "상처 압박",
+          "seenHostiles": [],
+          "woundCount": 6,
+          "snap": {
+            "turn": 21768,
+            "hp": 69.27272727272728,
+            "wounds": 6,
+            "hostiles": [],
+            "bloodStage": 3,
+            "painStage": 1,
+            "regions": [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 1
+        },
+        "equipment": [
+          {
+            "def": "Item.IronHammer",
+            "durability": 99
+          },
+          {
+            "def": "Item.LeatherApron",
+            "durability": 100,
+            "wetness": {
+              "torso": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-5",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Hunter",
+      "final": {
+        "stats": {
+          "str": 8,
+          "agi": 13,
+          "per": 10,
+          "vit": 8,
+          "wil": 11
+        },
+        "age": {
+          "years": 33,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Neat",
+          "Trait.ColdResistant"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.Breakdown",
+            "untilTurn": 134400,
+            "count": 1,
+            "events": [
+              {
+                "at": 105600,
+                "untilTurn": 134400
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": -2538.5097585227213,
+          "water": 943.70659722002,
+          "vitamin": 98.01027777764386,
+          "fatigue": 84.19298958330079,
+          "bodyTemp": 36.413347550000005,
+          "wetness": 0.47500000000000003,
+          "energy": 105,
+          "stress": 62.2,
+          "sleepDebt": 21.87333333332156,
+          "skinWetness": {
+            "torso": 0.4,
+            "arms": 0.4,
+            "legs": 0.4,
+            "head": 0.5,
+            "hands": 0.5,
+            "feet": 0.3
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.8402000000000003,
+          "low": 10.8995,
+          "high": 22.5799,
+          "air": 0.3,
+          "feels": 3.3,
+          "windChill": 0,
+          "heat": 3,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.47500000000000003,
+          "activity": "sleep"
+        },
+        "pos": {
+          "x": 13,
+          "y": 36
+        },
+        "activity": {
+          "kind": "sleep",
+          "remaining": 8623,
+          "label": "수면",
+          "seenHostiles": [],
+          "woundCount": 3,
+          "snap": {
+            "turn": 107024,
+            "hp": 84,
+            "wounds": 3,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "sleep0": {
+            "fatigue": 87.21757291664004,
+            "hunger": 2,
+            "thirst": 0,
+            "wet": 0
+          },
+          "elapsed": 977
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife",
+            "durability": 64.9999999999999,
+            "edge": 70,
+            "corrosion": 600.75,
+            "rust": 3
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0.5,
+              "arms": 0.5,
+              "legs": 0.5
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 0.5
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "durability": 100,
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-6",
+      "cause": "치명상",
+      "days": 0.008020833333333333,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.SmithApprentice",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 9,
+          "per": 12,
+          "vit": 10,
+          "wil": 10
+        },
+        "age": {
+          "years": 26,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Sensitive",
+          "Trait.FleetFooted",
+          "Trait.Talkative"
+        ],
+        "aftermath": {},
+        "thoughts": [],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1775.610379606121,
+          "water": 1779.5138888888673,
+          "vitamin": 59.983958333333895,
+          "fatigue": 21.229166666666405,
+          "bodyTemp": 36.8093483465625,
+          "wetness": 26.66124999999994,
+          "energy": 45.599999999999994,
+          "stress": 10,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 96.94999999999978,
+            "head": 0,
+            "hands": 0,
+            "feet": 96.94999999999978
+          },
+          "thermal": {
+            "turns": 31,
+            "delta": -0.014190481249999994
+          }
+        },
+        "thermal": {
+          "insulation": 0.44033750000000044,
+          "low": 16.899156249999997,
+          "high": 25.77983125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.66124999999994,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 26,
+          "y": 17
+        },
+        "equipment": [
+          {
+            "def": "Item.IronHammer",
+            "durability": 98
+          },
+          {
+            "def": "Item.LeatherApron",
+            "durability": 100,
+            "wetness": {
+              "torso": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-7",
+      "cause": "치명상",
+      "days": 0.007013888888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Storyteller",
+      "final": {
+        "stats": {
+          "str": 8,
+          "agi": 10,
+          "per": 9,
+          "vit": 10,
+          "wil": 13
+        },
+        "age": {
+          "years": 57,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.Nervous",
+          "Trait.Optimist"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223398,
+            "count": 1,
+            "events": [
+              {
+                "at": 21798,
+                "untilTurn": 223398,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1777.5943070746505,
+          "water": 1781.2934027777621,
+          "vitamin": 59.98597222222271,
+          "fatigue": 21.122395833333126,
+          "bodyTemp": 36.829792308125,
+          "wetness": 26.782249999999912,
+          "energy": 81,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.38999999999967,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.38999999999967
+          },
+          "thermal": {
+            "turns": 2,
+            "delta": -0.0023602206250000002
+          }
+        },
+        "thermal": {
+          "insulation": 0.07956750000000057,
+          "low": 17.80108125,
+          "high": 25.96021625,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.782249999999912,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 4,
+          "y": 15
+        },
+        "equipment": []
+      }
+    },
+    {
+      "seed": "sim-8",
+      "cause": "저체온",
+      "days": 0.5416666666666666,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.GuardArchivist",
+      "final": {
+        "stats": {
+          "str": 11,
+          "agi": 13,
+          "per": 8,
+          "vit": 9,
+          "wil": 9
+        },
+        "age": {
+          "years": 29,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.HeatResistant",
+          "Trait.SmallEater"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 234600,
+            "count": 1,
+            "events": [
+              {
+                "at": 33000,
+                "untilTurn": 234600,
+                "mood": -12
+              }
+            ]
+          },
+          {
+            "def": "Thought.SawDeath",
+            "untilTurn": 42031,
+            "count": 2,
+            "events": [
+              {
+                "at": 36031,
+                "untilTurn": 42031
+              },
+              {
+                "at": 34431,
+                "untilTurn": 40431
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 451.5088279156484,
+          "water": 1045.8333333320952,
+          "vitamin": 58.9166666667046,
+          "fatigue": 100,
+          "bodyTemp": 27.860392338750003,
+          "wetness": 0,
+          "energy": 95,
+          "stress": 45.592,
+          "sleepDebt": 0.19999999999999954,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.25,
+          "low": 19.375,
+          "high": 28.875,
+          "air": -0.3,
+          "feels": 12.2,
+          "windChill": 2.5,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 9,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 35,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 2,
+          "snap": {
+            "turn": 37175,
+            "hp": 93,
+            "wounds": 2,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 25
+        },
+        "equipment": [
+          {
+            "def": "Item.LightCrossbow",
+            "durability": 100,
+            "edge": 100,
+            "bowMoisture": 0,
+            "elasticity": 99
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-9",
+      "cause": "과다 출혈",
+      "days": 0.0059375,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 12,
+          "per": 8,
+          "vit": 9,
+          "wil": 12
+        },
+        "age": {
+          "years": 21,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Talkative",
+          "Trait.Optimist",
+          "Trait.Bloodlust"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223365,
+            "count": 1,
+            "events": [
+              {
+                "at": 21765,
+                "untilTurn": 223365,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [
+              73,
+              90,
+              87
+            ],
+            "active": false,
+            "encounters": {
+              "73": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "87": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "90": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1782.1163194444407,
+          "water": 1783.9843749999875,
+          "vitamin": 59.988125000000416,
+          "fatigue": 20.96093749999983,
+          "bodyTemp": 37,
+          "wetness": 0,
+          "energy": 3.975,
+          "stress": 35,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 171,
+            "delta": -0.06710000000000008
+          }
+        },
+        "thermal": {
+          "insulation": 1.9,
+          "low": 13.25,
+          "high": 25.05,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 41,
+          "y": 29
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 89
+          },
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "durability": 100,
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 0
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-10",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "stats": {
+          "str": 8,
+          "agi": 9,
+          "per": 8,
+          "vit": 12,
+          "wil": 13
+        },
+        "age": {
+          "years": 21,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.NimbleHands",
+          "Trait.PainTolerant"
+        ],
+        "aftermath": {
+          "scars": [
+            {
+              "part": "Chest",
+              "severity": 4,
+              "cap": 1,
+              "burn": false,
+              "at": 75600,
+              "source": "그늘 사람의 베기"
+            }
+          ]
+        },
+        "thoughts": [
+          {
+            "def": "Thought.KilledFevered",
+            "untilTurn": 102328,
+            "count": 1,
+            "events": [
+              {
+                "at": 78328,
+                "untilTurn": 102328,
+                "mood": -6
+              }
+            ]
+          },
+          {
+            "def": "Thought.AteRaw",
+            "untilTurn": 90024,
+            "count": 2,
+            "events": [
+              {
+                "at": 82824,
+                "untilTurn": 90024,
+                "mood": -4
+              },
+              {
+                "at": 81454,
+                "untilTurn": 88654,
+                "mood": -4
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": -1188.8614829663234,
+          "water": 1010.1736111091673,
+          "vitamin": 98.251666666549,
+          "fatigue": 89.28104166663924,
+          "bodyTemp": 36.39120000000001,
+          "wetness": 0.1175,
+          "energy": 115,
+          "stress": 68.96000000000001,
+          "sleepDebt": 18.822499999991003,
+          "skinWetness": {
+            "torso": 0.04999999999999999,
+            "arms": 0.04999999999999999,
+            "legs": 0.04999999999999999,
+            "head": 0.5,
+            "hands": 0.5,
+            "feet": 0.5
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.8992025,
+          "low": 13.25199375,
+          "high": 25.05039875,
+          "air": 0.3,
+          "feels": 14.8,
+          "windChill": 0.4999999999999999,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.1175,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 44,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 0,
+          "snap": {
+            "turn": 107984,
+            "hp": 120,
+            "wounds": 0,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 16
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 86,
+            "corrosion": 400.75,
+            "rust": 3
+          },
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0.04999999999999999,
+              "arms": 0.04999999999999999
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "durability": 100,
+            "wetness": {
+              "head": 0.5
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "durability": 100,
+            "wetness": {
+              "torso": 0.5,
+              "arms": 0.5,
+              "legs": 0.5
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-11",
+      "cause": "치명상",
+      "days": 0.005138888888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Boatman",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 10,
+          "per": 10,
+          "vit": 9,
+          "wil": 11
+        },
+        "age": {
+          "years": 37,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Coward",
+          "Trait.Neat"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223347,
+            "count": 1,
+            "events": [
+              {
+                "at": 21747,
+                "untilTurn": 223347,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1784.035090028212,
+          "water": 1785.93749999999,
+          "vitamin": 59.98972222222258,
+          "fatigue": 20.843749999999858,
+          "bodyTemp": 37,
+          "wetness": 26.987124999999878,
+          "energy": 2.25,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.13499999999955,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.13499999999955
+          },
+          "thermal": {
+            "turns": 148,
+            "delta": -0.067578814375
+          }
+        },
+        "thermal": {
+          "insulation": 0.9282637500000007,
+          "low": 15.679340624999998,
+          "high": 25.535868125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.987124999999878,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 7,
+          "y": 6
+        },
+        "equipment": [
+          {
+            "def": "Item.Pole",
+            "durability": 95
+          },
+          {
+            "def": "Item.OiledRaincoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.13499999999955
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-12",
+      "cause": "치명상",
+      "days": 0.5452430555555555,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Storyteller",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 10,
+          "per": 10,
+          "vit": 9,
+          "wil": 12
+        },
+        "age": {
+          "years": 54,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.ColdBlooded",
+          "Trait.Optimist",
+          "Trait.Bloodlust"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 237600,
+            "count": 1,
+            "events": [
+              {
+                "at": 36000,
+                "untilTurn": 237600,
+                "mood": -12
+              }
+            ]
+          },
+          {
+            "def": "Thought.Maimed",
+            "untilTurn": 85298,
+            "count": 1,
+            "events": [
+              {
+                "at": 37298,
+                "untilTurn": 85298
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 838.7985186685654,
+          "water": 1036.7621527765225,
+          "vitamin": 63.90951388888968,
+          "fatigue": 100,
+          "bodyTemp": 31.114042675312565,
+          "wetness": 0,
+          "energy": 55,
+          "stress": 29.644,
+          "sleepDebt": 0.28583333333333316,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 103,
+            "delta": -0.07111249999999997
+          }
+        },
+        "thermal": {
+          "insulation": 0.25,
+          "low": 17.375,
+          "high": 25.875,
+          "air": -1.2,
+          "feels": -0.7000000000000002,
+          "windChill": 2.5,
+          "heat": 3,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 13,
+          "y": 40
+        },
+        "equipment": []
+      }
+    },
+    {
+      "seed": "sim-13",
+      "cause": "저체온",
+      "days": 0.6875,
+      "level": 2,
+      "map": "crypt1",
+      "background": "Bg.Deserter",
+      "final": {
+        "stats": {
+          "str": 12,
+          "agi": 11,
+          "per": 10,
+          "vit": 9,
+          "wil": 9
+        },
+        "age": {
+          "years": 24,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Loner",
+          "Trait.ColdBlooded",
+          "Trait.HeatResistant"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 237400,
+            "count": 1,
+            "events": [
+              {
+                "at": 35800,
+                "untilTurn": 237400,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Dark",
+            "overcome": 60,
+            "lastStressTurn": 41400,
+            "darkSince": 40600,
+            "active": true
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 524.0306929082342,
+          "water": 576.6059027767913,
+          "vitamin": 58.625000000048146,
+          "fatigue": 100,
+          "bodyTemp": 27.92382794390161,
+          "wetness": 0,
+          "energy": 90,
+          "stress": 100,
+          "sleepDebt": 3.7450000000001786,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.6999999999999997,
+          "low": 13.25,
+          "high": 27.65,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 8,
+          "y": 23
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear",
+            "durability": 42,
+            "edge": 44,
+            "edgeWear": 0
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 0
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "durability": 100,
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-14",
+      "cause": "저체온",
+      "days": 2.513888888888889,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 11,
+          "per": 10,
+          "vit": 10,
+          "wil": 11
+        },
+        "age": {
+          "years": 30,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.TenderHearted",
+          "Trait.Neat",
+          "Trait.Talkative"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.FirstHumanKill",
+            "untilTurn": 309757,
+            "count": 1,
+            "events": [
+              {
+                "at": 21757,
+                "untilTurn": 309757,
+                "mood": -15
+              }
+            ]
+          },
+          {
+            "def": "Thought.KilledHuman",
+            "untilTurn": 165195,
+            "count": 5,
+            "events": [
+              {
+                "at": 78795,
+                "untilTurn": 165195,
+                "mood": -6
+              },
+              {
+                "at": 56595,
+                "untilTurn": 142995,
+                "mood": -6
+              },
+              {
+                "at": 51795,
+                "untilTurn": 138195,
+                "mood": -6
+              },
+              {
+                "at": 43634,
+                "untilTurn": 130034,
+                "mood": -6
+              },
+              {
+                "at": 24222,
+                "untilTurn": 110622,
+                "mood": -6
+              }
+            ]
+          },
+          {
+            "def": "Thought.AteRaw",
+            "untilTurn": 96224,
+            "count": 2,
+            "events": [
+              {
+                "at": 89024,
+                "untilTurn": 96224,
+                "mood": -4
+              },
+              {
+                "at": 87823,
+                "untilTurn": 95023,
+                "mood": -4
+              }
+            ]
+          },
+          {
+            "def": "Thought.Vomited",
+            "untilTurn": 91424,
+            "count": 1,
+            "events": [
+              {
+                "at": 89024,
+                "untilTurn": 91424
+              }
+            ]
+          },
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 291800,
+            "count": 1,
+            "events": [
+              {
+                "at": 90200,
+                "untilTurn": 291800,
+                "mood": -12
+              }
+            ]
+          },
+          {
+            "def": "Thought.Breakdown",
+            "untilTurn": 120000,
+            "count": 1,
+            "events": [
+              {
+                "at": 91200,
+                "untilTurn": 120000
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 292.6241007710548,
+          "water": 899.4618055527638,
+          "vitamin": 99.65444444442119,
+          "fatigue": 100,
+          "bodyTemp": 27.988384486499964,
+          "wetness": 100,
+          "energy": 105,
+          "stress": 49.1040000000001,
+          "sleepDebt": 21.955833333321486,
+          "skinWetness": {
+            "torso": 100,
+            "arms": 100,
+            "legs": 100,
+            "head": 100,
+            "hands": 100,
+            "feet": 100
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 1.0979999999999999,
+          "low": 15.255,
+          "high": 25.451,
+          "air": -4.2,
+          "feels": 6.050000000000001,
+          "windChill": 1.75,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 3,
+          "innerWetness": 100,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 45,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 11,
+          "snap": {
+            "turn": 93985,
+            "hp": 87,
+            "wounds": 11,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 1,
+            "regions": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 15
+        },
+        "equipment": [
+          {
+            "def": "Item.PaddedJacket",
+            "quality": 2,
+            "durability": 100,
+            "wetness": {
+              "torso": 100,
+              "arms": 100
+            }
+          },
+          {
+            "def": "Item.RustyKnife",
+            "durability": 0,
+            "edge": 0,
+            "edgeWear": 0,
+            "corrosion": 843.5,
+            "rust": 3
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 100
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-15",
+      "cause": "치명상",
+      "days": 0.0038888888888888888,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.FeverOrphan",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 7,
+          "per": 11,
+          "vit": 9,
+          "wil": 13
+        },
+        "age": {
+          "years": 30,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.KeenEyed",
+          "Trait.SmallEater"
+        ],
+        "aftermath": {},
+        "thoughts": [],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1789.8345077449553,
+          "water": 1789.7569444444352,
+          "vitamin": 59.992222222222495,
+          "fatigue": 20.614583333333215,
+          "bodyTemp": 37,
+          "wetness": 27.108124999999927,
+          "energy": 72,
+          "stress": 10,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.57499999999973,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.57499999999973
+          },
+          "thermal": {
+            "turns": 112,
+            "delta": -0.0808615928125
+          }
+        },
+        "thermal": {
+          "insulation": 0.6774937500000004,
+          "low": 16.306265624999998,
+          "high": 25.661253124999998,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.108124999999927,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 21,
+          "y": 22
+        },
+        "equipment": [
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-16",
+      "cause": "과다 출혈",
+      "days": 0.0069791666666666665,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Scavenger",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 9,
+          "per": 12,
+          "vit": 6,
+          "wil": 13
+        },
+        "age": {
+          "years": 27,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Neat",
+          "Trait.Paranoid"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.Maimed",
+            "untilTurn": 69772,
+            "count": 1,
+            "events": [
+              {
+                "at": 21772,
+                "untilTurn": 69772
+              }
+            ]
+          },
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223392,
+            "count": 1,
+            "events": [
+              {
+                "at": 21792,
+                "untilTurn": 223392,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 1779.2996481119765,
+          "water": 1781.6406249999834,
+          "vitamin": 59.986041666667155,
+          "fatigue": 21.101562499999787,
+          "bodyTemp": 36.89701592625,
+          "wetness": 27.098499999999937,
+          "energy": 27,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.53999999999976,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.53999999999976
+          },
+          "thermal": {
+            "turns": 1,
+            "delta": -0.00035619499999999963
+          }
+        },
+        "thermal": {
+          "insulation": 2.1352200000000017,
+          "low": 12.661949999999996,
+          "high": 24.932389999999998,
+          "air": 2.1,
+          "feels": 9.1,
+          "windChill": 1,
+          "heat": 8,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.098499999999937,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 98
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "durability": 99,
+            "partDurability": {
+              "Chest": 100,
+              "Abdomen": 94,
+              "Pelvis": 100,
+              "LeftUpperArm": 97,
+              "LeftForearm": 100,
+              "LeftThigh": 100,
+              "RightUpperArm": 100,
+              "RightForearm": 100,
+              "RightThigh": 100
+            },
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.53999999999976
+            }
+          },
+          {
+            "def": "Item.Gloves",
+            "durability": 100,
+            "wetness": {
+              "hands": 0
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-17",
+      "cause": "과다 출혈",
+      "days": 0.015104166666666667,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.SmithApprentice",
+      "final": {
+        "stats": {
+          "str": 13,
+          "agi": 11,
+          "per": 8,
+          "vit": 10,
+          "wil": 8
+        },
+        "age": {
+          "years": 23,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.FleetFooted",
+          "Trait.NightOwl"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223631,
+            "count": 1,
+            "events": [
+              {
+                "at": 22031,
+                "untilTurn": 223631,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1753.7763441569025,
+          "water": 1760.9374999999613,
+          "vitamin": 59.969791666667724,
+          "fatigue": 22.34374999999952,
+          "bodyTemp": 36.63796066875,
+          "wetness": 25.843124999999866,
+          "energy": 9.4,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 93.97499999999951,
+            "head": 0,
+            "hands": 0,
+            "feet": 93.97499999999951
+          },
+          "thermal": {
+            "turns": 35,
+            "delta": 0.009556754687500009
+          }
+        },
+        "thermal": {
+          "insulation": 0.4455437500000009,
+          "low": 16.886140624999996,
+          "high": 25.777228125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 25.843124999999866,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 38,
+          "y": 31
+        },
+        "equipment": [
+          {
+            "def": "Item.IronHammer",
+            "durability": 100
+          },
+          {
+            "def": "Item.LeatherApron",
+            "durability": 100,
+            "wetness": {
+              "torso": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-18",
+      "cause": "저체온",
+      "days": 1.3888888888888888,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.EscapedSlave",
+      "final": {
+        "stats": {
+          "str": 11,
+          "agi": 12,
+          "per": 11,
+          "vit": 9,
+          "wil": 7
+        },
+        "age": {
+          "years": 17,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Vain",
+          "Trait.Bloodlust"
+        ],
+        "aftermath": {
+          "scars": [
+            {
+              "part": "LeftShin",
+              "severity": 2,
+              "source": "족쇄",
+              "cap": 1,
+              "burn": false,
+              "at": 21600
+            },
+            {
+              "part": "RightShin",
+              "severity": 2,
+              "source": "족쇄",
+              "cap": 1,
+              "burn": false,
+              "at": 21600
+            }
+          ]
+        },
+        "thoughts": [
+          {
+            "def": "Thought.SleptRough",
+            "untilTurn": 62439,
+            "count": 1,
+            "events": [
+              {
+                "at": 50439,
+                "untilTurn": 62439
+              }
+            ]
+          },
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 258200,
+            "count": 1,
+            "events": [
+              {
+                "at": 56600,
+                "untilTurn": 258200,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": -1520.0548815363845,
+          "water": 1051.423611108994,
+          "vitamin": 69.22222222211249,
+          "fatigue": 100,
+          "bodyTemp": 27.977422889125076,
+          "wetness": 0,
+          "energy": 85,
+          "stress": 96.90400000000005,
+          "sleepDebt": 16.85749999999279,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.85,
+          "low": 15.875,
+          "high": 25.575,
+          "air": -3.3,
+          "feels": 9.45,
+          "windChill": 2.25,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 8,
+          "y": 39
+        },
+        "activity": {
+          "kind": "rest",
+          "remaining": 20,
+          "label": "휴식",
+          "seenHostiles": [],
+          "woundCount": 2,
+          "snap": {
+            "turn": 61560,
+            "hp": 92,
+            "wounds": 2,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 3,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 40
+        },
+        "equipment": [
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-19",
+      "cause": "저체온",
+      "days": 2.298611111111111,
+      "level": 2,
+      "map": "surface",
+      "background": "Bg.Deserter",
+      "final": {
+        "stats": {
+          "str": 13,
+          "agi": 13,
+          "per": 6,
+          "vit": 9,
+          "wil": 10
+        },
+        "age": {
+          "years": 31,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.IronWill",
+          "Trait.Gourmand",
+          "Trait.HardBones"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.FirstHumanKill",
+            "untilTurn": 309724,
+            "count": 1,
+            "events": [
+              {
+                "at": 21724,
+                "untilTurn": 309724,
+                "mood": -10
+              }
+            ]
+          },
+          {
+            "def": "Thought.KilledHuman",
+            "untilTurn": 108231,
+            "count": 2,
+            "events": [
+              {
+                "at": 21831,
+                "untilTurn": 108231,
+                "mood": -4
+              },
+              {
+                "at": 21724,
+                "untilTurn": 108124,
+                "mood": -4
+              }
+            ]
+          },
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 286400,
+            "count": 1,
+            "events": [
+              {
+                "at": 84800,
+                "untilTurn": 286400,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Dark",
+            "overcome": 0,
+            "active": false
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": -2141.583045377888,
+          "water": -474.7309027795106,
+          "vitamin": 97.88791666652452,
+          "fatigue": 100,
+          "bodyTemp": 27.76703000000001,
+          "wetness": 0,
+          "energy": 85,
+          "stress": 100,
+          "sleepDebt": 29.712499999981098,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 2.6999999999999997,
+          "low": 11.25,
+          "high": 24.65,
+          "air": -1.5,
+          "feels": -3.25,
+          "windChill": 1.75,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 4,
+          "y": 34
+        },
+        "equipment": [
+          {
+            "def": "Item.RebarSpear",
+            "durability": 48,
+            "edge": 53,
+            "edgeWear": 0,
+            "corrosion": 241,
+            "rust": 3
+          },
+          {
+            "def": "Item.PaddedJacket",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 0
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "durability": 100,
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-20",
+      "cause": "치명상",
+      "days": 0.005,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Scavenger",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 9,
+          "per": 12,
+          "vit": 7,
+          "wil": 12
+        },
+        "age": {
+          "years": 24,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Paranoid",
+          "Trait.Nervous",
+          "Trait.Neat"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223343,
+            "count": 1,
+            "events": [
+              {
+                "at": 21743,
+                "untilTurn": 223343,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1784.7143533203107,
+          "water": 1786.5451388888782,
+          "vitamin": 59.99000000000035,
+          "fatigue": 20.807291666666522,
+          "bodyTemp": 37,
+          "wetness": 27.055874999999936,
+          "energy": 1.875,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.38499999999976,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.38499999999976
+          },
+          "thermal": {
+            "turns": 144,
+            "delta": -0.07245324875
+          }
+        },
+        "thermal": {
+          "insulation": 2.1363050000000015,
+          "low": 12.659237499999996,
+          "high": 24.9318475,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.055874999999936,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 15,
+          "y": 16
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 97
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "durability": 98.77777777777777,
+            "partDurability": {
+              "Chest": 92,
+              "Abdomen": 100,
+              "Pelvis": 100,
+              "LeftUpperArm": 100,
+              "LeftForearm": 97,
+              "LeftThigh": 100,
+              "RightUpperArm": 100,
+              "RightForearm": 100,
+              "RightThigh": 100
+            },
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.38499999999976
+            }
+          },
+          {
+            "def": "Item.Gloves",
+            "durability": 100,
+            "wetness": {
+              "hands": 0
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-21",
+      "cause": "치명상",
+      "days": 0.005138888888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Hunter",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 8,
+          "per": 10,
+          "vit": 11,
+          "wil": 12
+        },
+        "age": {
+          "years": 20,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.IronStomach",
+          "Trait.Loner"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223344,
+            "count": 1,
+            "events": [
+              {
+                "at": 21744,
+                "untilTurn": 223344,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "93": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1786.1518771723004,
+          "water": 1786.9357638888748,
+          "vitamin": 59.98972222222258,
+          "fatigue": 20.783854166666497,
+          "bodyTemp": 37,
+          "wetness": 8.336124999999972,
+          "energy": 55,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 28.494999999999877,
+            "head": 0,
+            "hands": 0,
+            "feet": 48.495000000000154
+          },
+          "thermal": {
+            "turns": 148,
+            "delta": -0.03765187487499999
+          }
+        },
+        "thermal": {
+          "insulation": 2.6335617500000006,
+          "low": 11.416095624999999,
+          "high": 24.683219125,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 8.336124999999972,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 38,
+          "y": 18
+        },
+        "equipment": [
+          {
+            "def": "Item.HuntingKnife",
+            "durability": 100,
+            "edge": 100
+          },
+          {
+            "def": "Item.LeatherCoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.494999999999877
+            }
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 48.495000000000154
+            }
+          },
+          {
+            "def": "Item.LeatherBelt",
+            "durability": 100,
+            "wetness": {}
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-22",
+      "cause": "과다 출혈",
+      "days": 0.007673611111111111,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Storyteller",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 11,
+          "per": 9,
+          "vit": 9,
+          "wil": 11
+        },
+        "age": {
+          "years": 24,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.HardBones",
+          "Trait.Gourmand"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223381,
+            "count": 1,
+            "events": [
+              {
+                "at": 21781,
+                "untilTurn": 223381,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 1777.4734429361895,
+          "water": 1780.251736111091,
+          "vitamin": 59.984652777778315,
+          "fatigue": 21.184895833333087,
+          "bodyTemp": 36.869346075,
+          "wetness": 26.859249999999776,
+          "energy": 100,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.66999999999918,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.66999999999918
+          },
+          "thermal": {
+            "turns": 21,
+            "delta": -0.009875761874999996
+          }
+        },
+        "thermal": {
+          "insulation": 0.07907750000000144,
+          "low": 17.802306249999997,
+          "high": 25.960461249999998,
+          "air": 2.1,
+          "feels": 13.1,
+          "windChill": 0,
+          "heat": 8,
+          "shelter": 3,
+          "evaporation": 0,
+          "innerWetness": 26.859249999999776,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 32,
+          "y": 5
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 7,
+          "woundId": 93,
+          "label": "상처 압박",
+          "seenHostiles": [],
+          "woundCount": 6,
+          "snap": {
+            "turn": 21774,
+            "hp": 69.63636363636374,
+            "wounds": 6,
+            "hostiles": [],
+            "bloodStage": 2,
+            "painStage": 2,
+            "regions": [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 13
+        },
+        "equipment": [
+          {
+            "def": "Item.RustyKnife",
+            "quality": 0,
+            "durability": 88.57142857142856,
+            "edge": 52,
+            "edgeWear": 0
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-23",
+      "cause": "과다 출혈",
+      "days": 0.005381944444444444,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.GuildMerchant",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 11,
+          "per": 12,
+          "vit": 7,
+          "wil": 11
+        },
+        "age": {
+          "years": 41,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.SmallEater",
+          "Trait.Sensitive"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223344,
+            "count": 1,
+            "events": [
+              {
+                "at": 21744,
+                "untilTurn": 223344,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 1787.4248724147142,
+          "water": 1786.5017361110956,
+          "vitamin": 59.98923611111149,
+          "fatigue": 20.80989583333315,
+          "bodyTemp": 37,
+          "wetness": 26.901874999999905,
+          "energy": 89,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.82499999999965,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.82499999999965
+          },
+          "thermal": {
+            "turns": 155,
+            "delta": -0.07314982224999998
+          }
+        },
+        "thermal": {
+          "insulation": 2.6145675000000006,
+          "low": 11.463581249999999,
+          "high": 24.69271625,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.901874999999905,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 3,
+          "y": 4
+        },
+        "activity": {
+          "kind": "press",
+          "remaining": 16,
+          "woundId": 86,
+          "label": "상처 압박",
+          "seenHostiles": [
+            64
+          ],
+          "woundCount": 8,
+          "snap": {
+            "turn": 21739,
+            "hp": 30.07142857142857,
+            "wounds": 8,
+            "hostiles": [
+              64
+            ],
+            "bloodStage": 1,
+            "painStage": 4,
+            "regions": [
+              1,
+              2,
+              1,
+              1,
+              1,
+              0
+            ],
+            "bleeding": true,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "elapsed": 4
+        },
+        "equipment": [
+          {
+            "def": "Item.PaddedJacket",
+            "quality": 2,
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.RustyKnife",
+            "durability": 100,
+            "edge": 60
+          },
+          {
+            "def": "Item.Boots",
+            "durability": 100,
+            "wetness": {
+              "feet": 97.82499999999965
+            }
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-24",
+      "cause": "치명상",
+      "days": 0.006458333333333333,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Boatman",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 12,
+          "per": 10,
+          "vit": 8,
+          "wil": 10
+        },
+        "age": {
+          "years": 29,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.LightSleeper",
+          "Trait.IronStomach",
+          "Trait.Pessimist"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223385,
+            "count": 1,
+            "events": [
+              {
+                "at": 21785,
+                "untilTurn": 223385,
+                "mood": -8.399999999999999
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "67": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "71": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1780.522950922309,
+          "water": 1782.9861111110959,
+          "vitamin": 59.987083333333786,
+          "fatigue": 21.020833333333137,
+          "bodyTemp": 37,
+          "wetness": 26.802874999999908,
+          "energy": 0.75,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.46499999999966,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.46499999999966
+          },
+          "thermal": {
+            "turns": 186,
+            "delta": -0.11187802687499997
+          }
+        },
+        "thermal": {
+          "insulation": 0.9294362500000006,
+          "low": 15.676409374999999,
+          "high": 25.535281875,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.802874999999908,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 40,
+          "y": 12
+        },
+        "equipment": [
+          {
+            "def": "Item.Pole",
+            "durability": 98
+          },
+          {
+            "def": "Item.OiledRaincoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 97.46499999999966
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-25",
+      "cause": "치명상",
+      "days": 0.007361111111111111,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Storyteller",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 10,
+          "per": 9,
+          "vit": 11,
+          "wil": 11
+        },
+        "age": {
+          "years": 57,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.Optimist",
+          "Trait.Pious"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223410,
+            "count": 1,
+            "events": [
+              {
+                "at": 21810,
+                "untilTurn": 223410,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "79": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "82": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1776.9151261827226,
+          "water": 1780.7291666666488,
+          "vitamin": 59.98527777777829,
+          "fatigue": 21.156249999999773,
+          "bodyTemp": 36.8138512971875,
+          "wetness": 26.717624999999913,
+          "energy": 73.40000000000002,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 97.15499999999969,
+            "head": 0,
+            "hands": 0,
+            "feet": 97.15499999999969
+          },
+          "thermal": {
+            "turns": 12,
+            "delta": 0.0009599709375000009
+          }
+        },
+        "thermal": {
+          "insulation": 0.07997875000000054,
+          "low": 17.800053124999998,
+          "high": 25.960010625,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 26.717624999999913,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 12,
+          "y": 28
+        },
+        "equipment": []
+      }
+    },
+    {
+      "seed": "sim-26",
+      "cause": "과다 출혈",
+      "days": 0.004861111111111111,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Excommunicate",
+      "final": {
+        "stats": {
+          "str": 9,
+          "agi": 7,
+          "per": 10,
+          "vit": 11,
+          "wil": 13
+        },
+        "age": {
+          "years": 38,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Pious",
+          "Trait.Reckless"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223336,
+            "count": 1,
+            "events": [
+              {
+                "at": 21736,
+                "untilTurn": 223336,
+                "mood": -6
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": 1785.091827354598,
+          "water": 1786.8923611111009,
+          "vitamin": 59.99027777777812,
+          "fatigue": 20.786458333333194,
+          "bodyTemp": 37,
+          "wetness": 8.33062499999998,
+          "energy": 7.5,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 28.474999999999916,
+            "head": 0,
+            "hands": 0,
+            "feet": 48.475000000000065
+          },
+          "thermal": {
+            "turns": 140,
+            "delta": -0.07071074437500001
+          }
+        },
+        "thermal": {
+          "insulation": 1.8501687500000001,
+          "low": 13.374578125,
+          "high": 25.074915625,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 8.33062499999998,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 25,
+          "y": 5
+        },
+        "equipment": [
+          {
+            "def": "Item.PipeClub",
+            "durability": 97
+          },
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          },
+          {
+            "def": "Item.Hood",
+            "durability": 100,
+            "wetness": {
+              "head": 0
+            }
+          },
+          {
+            "def": "Item.OilclothCloak",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 28.474999999999916
+            }
+          },
+          {
+            "def": "Item.BoneCharm"
+          },
+          {
+            "def": "Item.Lantern"
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-27",
+      "cause": "생존(시간 종료)",
+      "days": 3,
+      "level": 1,
+      "map": "surface",
+      "background": "Bg.Storyteller",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 8,
+          "per": 10,
+          "vit": 11,
+          "wil": 11
+        },
+        "age": {
+          "years": 42,
+          "nextBirthday": 2613600,
+          "masteryMult": 0.8
+        },
+        "traits": [
+          "Trait.Neat",
+          "Trait.ColdResistant",
+          "Trait.Reckless"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.Breakdown",
+            "untilTurn": 131021,
+            "count": 1,
+            "events": [
+              {
+                "at": 102221,
+                "untilTurn": 131021
+              }
+            ]
+          },
+          {
+            "def": "Thought.AteRaw",
+            "untilTurn": 109452,
+            "count": 2,
+            "events": [
+              {
+                "at": 102252,
+                "untilTurn": 109452,
+                "mood": -4
+              },
+              {
+                "at": 102251,
+                "untilTurn": 109451,
+                "mood": -4
+              }
+            ]
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": false
+        },
+        "needs": {
+          "kcal": -3295.816105089789,
+          "water": 960.8680555526774,
+          "vitamin": 99.60083333330647,
+          "fatigue": 96.8442421874918,
+          "bodyTemp": 36.65532549781256,
+          "wetness": 0.5075000000000057,
+          "energy": 105,
+          "stress": 95.20800000000001,
+          "sleepDebt": 44.82416666663402,
+          "skinWetness": {
+            "torso": 0.5,
+            "arms": 0.5,
+            "legs": 0.5,
+            "head": 0.5,
+            "hands": 0.5,
+            "feet": 0.8000000000002284
+          },
+          "thermal": {
+            "turns": 0,
+            "delta": 0
+          }
+        },
+        "thermal": {
+          "insulation": 0.249125,
+          "low": 17.3771875,
+          "high": 23.8754375,
+          "air": 0.3,
+          "feels": 12.8,
+          "windChill": 2.5,
+          "heat": 15,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0.5075000000000057,
+          "activity": "sleep"
+        },
+        "pos": {
+          "x": 6,
+          "y": 39
+        },
+        "activity": {
+          "kind": "sleep",
+          "remaining": 8817,
+          "label": "수면",
+          "seenHostiles": [],
+          "woundCount": 1,
+          "snap": {
+            "turn": 107218,
+            "hp": 104,
+            "wounds": 1,
+            "hostiles": [],
+            "bloodStage": 0,
+            "painStage": 0,
+            "regions": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "bleeding": false,
+            "fuelWarned": false,
+            "bagFull": false,
+            "spores": false,
+            "smells": [],
+            "coldStage": 0,
+            "heatStage": 0,
+            "frostbiteStage": 0
+          },
+          "sleep0": {
+            "fatigue": 99.26762760416321,
+            "hunger": 2,
+            "thirst": 0,
+            "wet": 6.895125000000009
+          },
+          "elapsed": 783
+        },
+        "equipment": []
+      }
+    },
+    {
+      "seed": "sim-28",
+      "cause": "치명상",
+      "days": 0.004027777777777778,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.Boatman",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 9,
+          "per": 10,
+          "vit": 11,
+          "wil": 10
+        },
+        "age": {
+          "years": 29,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.Teetotaler",
+          "Trait.SmallEater"
+        ],
+        "aftermath": {},
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223315,
+            "count": 1,
+            "events": [
+              {
+                "at": 21715,
+                "untilTurn": 223315,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.Shade",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "71": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "75": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              },
+              "85": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": true,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1789.579795145673,
+          "water": 1789.3229166666574,
+          "vitamin": 59.99194444444473,
+          "fatigue": 20.64062499999988,
+          "bodyTemp": 37,
+          "wetness": 27.021499999999936,
+          "energy": 35.89999999999998,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 98.25999999999976,
+            "head": 0,
+            "hands": 0,
+            "feet": 98.25999999999976
+          },
+          "thermal": {
+            "turns": 116,
+            "delta": -0.07012211718749997
+          }
+        },
+        "thermal": {
+          "insulation": 0.9280450000000005,
+          "low": 15.6798875,
+          "high": 25.5359775,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 27.021499999999936,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 22,
+          "y": 22
+        },
+        "equipment": [
+          {
+            "def": "Item.OiledRaincoat",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0,
+              "legs": 98.25999999999976
+            }
+          }
+        ]
+      }
+    },
+    {
+      "seed": "sim-29",
+      "cause": "치명상",
+      "days": 0.01607638888888889,
+      "level": 1,
+      "map": "crypt1",
+      "background": "Bg.EscapedSlave",
+      "final": {
+        "stats": {
+          "str": 10,
+          "agi": 8,
+          "per": 12,
+          "vit": 11,
+          "wil": 9
+        },
+        "age": {
+          "years": 28,
+          "nextBirthday": 2613600,
+          "masteryMult": 1
+        },
+        "traits": [
+          "Trait.ColdResistant",
+          "Trait.FleetFooted"
+        ],
+        "aftermath": {
+          "scars": [
+            {
+              "part": "LeftShin",
+              "severity": 2,
+              "source": "족쇄",
+              "cap": 1,
+              "burn": false,
+              "at": 21600
+            },
+            {
+              "part": "RightShin",
+              "severity": 2,
+              "source": "족쇄",
+              "cap": 1,
+              "burn": false,
+              "at": 21600
+            }
+          ]
+        },
+        "thoughts": [
+          {
+            "def": "Thought.NearDeath",
+            "untilTurn": 223662,
+            "count": 1,
+            "events": [
+              {
+                "at": 22062,
+                "untilTurn": 223662,
+                "mood": -12
+              }
+            ]
+          }
+        ],
+        "traumas": [
+          {
+            "def": "Trauma.Species",
+            "target": "Creature.SporeMan",
+            "overcome": 0,
+            "visible": [],
+            "seenTargets": [],
+            "active": false,
+            "encounters": {
+              "51": {
+                "broken": false,
+                "done": false,
+                "qualifies": true,
+                "distance": 1
+              }
+            }
+          }
+        ],
+        "psycheWatch": {
+          "lowHp": false,
+          "blood": false,
+          "afraid": false,
+          "severe": true
+        },
+        "needs": {
+          "kcal": 1754.1302517361091,
+          "water": 1758.8975694444014,
+          "vitamin": 59.96784722222335,
+          "fatigue": 22.46614583333281,
+          "bodyTemp": 36.779822499999995,
+          "wetness": 0,
+          "energy": 65,
+          "stress": 25,
+          "sleepDebt": 0,
+          "skinWetness": {
+            "torso": 0,
+            "arms": 0,
+            "legs": 0,
+            "head": 0,
+            "hands": 0,
+            "feet": 0
+          },
+          "thermal": {
+            "turns": 63,
+            "delta": -0.012420000000000004
+          }
+        },
+        "thermal": {
+          "insulation": 0.85,
+          "low": 12.875,
+          "high": 23.575,
+          "air": 6,
+          "feels": 6,
+          "windChill": 0,
+          "heat": 0,
+          "shelter": 0,
+          "evaporation": 0,
+          "innerWetness": 0,
+          "activity": "rest"
+        },
+        "pos": {
+          "x": 41,
+          "y": 17
+        },
+        "equipment": [
+          {
+            "def": "Item.RagShirt",
+            "durability": 100,
+            "wetness": {
+              "torso": 0,
+              "arms": 0
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

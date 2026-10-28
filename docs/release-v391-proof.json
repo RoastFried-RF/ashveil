@@ -1,0 +1,461 @@
+{
+  "preview": "0.391-dev",
+  "save": 219,
+  "coreGameVersion": "0.1.0",
+  "status": "Published and verified: full390files/6595tests; local90wholepairs; public45SHA/two11-step games/public10wholepairs/version passed",
+  "runtimeSnapshot": "/workspace/.ashveil-checkpoints/v391-attack-source-r2",
+  "scope": "Resolved attack source observation and existing original weapon/body throw preparation-release-recovery; no new original PNG or authored action frames",
+  "local": {
+    "focusedFiles": 7,
+    "focusedTests": 90,
+    "focusedLog": "test-results/autonomy-v391/focused-r2.txt",
+    "type": "type-final-r6.txt",
+    "lint": "lint-final-r4.txt",
+    "build": "build-r3.txt",
+    "nativeAcceptance": {
+      "status": "passed",
+      "scenes": 19,
+      "actualThrows": 20,
+      "wholeStatePairs": 58,
+      "errors": [],
+      "finiteInitial": true,
+      "postTitleWorldWrites": false,
+      "script": "tools/inspect-attack-owner-v391.ts",
+      "toolSHA256": "0975f1f4958751d809f764702e921cc33d47e2cb058a4f19866cc013a82669ff",
+      "runtimeSnapshot": "v391-attack-source-r2",
+      "source": "test-results/autonomy-v391/matrix-final-r4",
+      "receipt": "docs/diagnostics/attack-v391/native-matrix-r4-audit.json"
+    },
+    "directPNGOpened": [
+      "baseline-native-r1/actual-throw.png",
+      "fixed-native-r1/actual-throw.png",
+      "matrix-preflight-r3/slow-throw-0-preparation.png",
+      "matrix-final-r4/slow-throw-0-preparation.png",
+      "human-actions-r2/natural-attack.png",
+      "movement-r5/1366-768-0.5-after.png",
+      "equipment-r5/bow-action.png",
+      "equipment-r5/knife-thrust-action.png",
+      "melee-shot-r5/brittle-knife-action.png",
+      "melee-shot-r5/loaded-crossbow-action.png"
+    ],
+    "nativeRegressions": {
+      "wholePairs": {
+        "matrix-final-r4": 58,
+        "human-actions-r2": 13,
+        "hand-fx-r5": 6,
+        "hand-props-r5": 4,
+        "melee-shot-r5": 9
+      },
+      "total": 90,
+      "allErrors": [],
+      "movement": {
+        "finiteInitial": true,
+        "noPostLoadWorldWrites": true,
+        "input": "actual map click, seven diagonal/cardinal steps",
+        "runs": [
+          {
+            "width": 1440,
+            "height": 1080,
+            "speed": 1,
+            "steps": 7,
+            "frames": 58,
+            "movingSamples": 48,
+            "maxStep": 0.1333333333333364,
+            "maxLightError": 0,
+            "maxQueued": 0,
+            "destination": {
+              "x": 27,
+              "y": 14
+            },
+            "staticLightUnchanged": true
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "speed": 0.5,
+            "steps": 7,
+            "frames": 115,
+            "movingSamples": 104,
+            "maxStep": 0.06666666666666998,
+            "maxLightError": 0,
+            "maxQueued": 0,
+            "destination": {
+              "x": 27,
+              "y": 14
+            },
+            "staticLightUnchanged": true
+          },
+          {
+            "width": 1366,
+            "height": 768,
+            "speed": 2,
+            "steps": 7,
+            "frames": 31,
+            "movingSamples": 20,
+            "maxStep": 0.26666666666666927,
+            "maxLightError": 0,
+            "maxQueued": 0,
+            "destination": {
+              "x": 27,
+              "y": 14
+            },
+            "staticLightUnchanged": true
+          },
+          {
+            "width": 1440,
+            "height": 1080,
+            "speed": 0,
+            "steps": 7,
+            "frames": 7,
+            "movingSamples": 0,
+            "maxStep": 1,
+            "maxLightError": 0,
+            "maxQueued": 0,
+            "destination": {
+              "x": 27,
+              "y": 14
+            },
+            "staticLightUnchanged": true
+          }
+        ],
+        "errors": [],
+        "scope": "Focused movement/light/art diagnosis only; full regression/world/save compatibility remain deferred."
+      },
+      "equipmentEightCase": {
+        "actualNativeCases": 8,
+        "independentNodeWholePairs": 0,
+        "rows": [
+          {
+            "case": "knife-slash",
+            "originalUid": 66,
+            "originalDef": "Item.RustyKnife",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 8,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "knife-thrust",
+            "originalUid": 66,
+            "originalDef": "Item.RustyKnife",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 7,
+            "stages": [
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "axe",
+            "originalUid": 66,
+            "originalDef": "Item.Hatchet",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 11,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "greatsword",
+            "originalUid": 66,
+            "originalDef": "Item.Greatsword",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 11,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "spear",
+            "originalUid": 66,
+            "originalDef": "Item.RebarSpear",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 7,
+            "stages": [
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "hammer",
+            "originalUid": 66,
+            "originalDef": "Item.StoneHammer",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 10,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "bow",
+            "originalUid": 66,
+            "originalDef": "Item.Bow",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 8,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          },
+          {
+            "case": "crossbow",
+            "originalUid": 66,
+            "originalDef": "Item.LightCrossbow",
+            "allActiveSourceObservedExact": true,
+            "activeSamples": 8,
+            "stages": [
+              "prepare",
+              "strike",
+              "followThrough",
+              "recover"
+            ]
+          }
+        ],
+        "errors": []
+      },
+      "supplementaryMeleeShot": {
+        "source": "test-results/autonomy-v391/melee-shot-native.mts",
+        "scriptSHA256": "9655f640911d02e84cabc893ab6b2876efbc9abb53f883e42fa8afd509b55821",
+        "receipt": {
+          "finiteInitial": true,
+          "noPostTitleWorldWrites": true,
+          "wholePairs": 9,
+          "runs": [
+            {
+              "name": "brittle-knife",
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "actualObserved": 19,
+              "postStrikeBroken": true,
+              "postShotUnloaded": false
+            },
+            {
+              "name": "bow",
+              "uid": 66,
+              "def": "Item.Bow",
+              "actualObserved": 18,
+              "postStrikeBroken": false,
+              "postShotUnloaded": false
+            },
+            {
+              "name": "loaded-crossbow",
+              "uid": 66,
+              "def": "Item.LightCrossbow",
+              "actualObserved": 18,
+              "postStrikeBroken": false,
+              "postShotUnloaded": true
+            }
+          ],
+          "pairs": [
+            {
+              "label": "brittle-knife-loaded",
+              "hash": "3a5b7a96"
+            },
+            {
+              "label": "brittle-knife-acted",
+              "hash": "6316713b"
+            },
+            {
+              "label": "brittle-knife-continued",
+              "hash": "6316713b"
+            },
+            {
+              "label": "bow-loaded",
+              "hash": "08af6598"
+            },
+            {
+              "label": "bow-acted",
+              "hash": "a0e4ac21"
+            },
+            {
+              "label": "bow-continued",
+              "hash": "a0e4ac21"
+            },
+            {
+              "label": "loaded-crossbow-loaded",
+              "hash": "b44d800a"
+            },
+            {
+              "label": "loaded-crossbow-acted",
+              "hash": "fe0c0bab"
+            },
+            {
+              "label": "loaded-crossbow-continued",
+              "hash": "fe0c0bab"
+            }
+          ],
+          "errors": []
+        },
+        "scope": "Finite brittle knife actual bump attack and original bow/loaded crossbow actualFF, independent whole Node/Continue; no other states claimed"
+      }
+    }
+  },
+  "golden": {
+    "fullInitialFinalAndErrorsEqual": true,
+    "expectedFixturesChanged": false,
+    "vectors": [
+      {
+        "name": "surface",
+        "initialHash": "8f3f3650",
+        "hash": "89a915ef",
+        "commands": 80
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "a5475cc2",
+        "hash": "e058f17f",
+        "commands": 81
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "25a4254c",
+        "hash": "92313f7d",
+        "commands": 147
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "8deed312",
+        "hash": "e8af5e82",
+        "commands": 28
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "8deed312",
+        "hash": "a30d02ca",
+        "commands": 30
+      }
+    ],
+    "observerEnabledCompleteVectorsEqual": true,
+    "observerEnabledCapture": "golden-observed-r1.json"
+  },
+  "protectedSource": {
+    "src/core/": {
+      "total": 335,
+      "same": 333,
+      "changed": [
+        "src/core/action-observations.ts",
+        "src/core/combat.ts"
+      ]
+    },
+    "src/content/": {
+      "total": 320,
+      "same": 320,
+      "changed": []
+    },
+    "mods/": {
+      "total": 89,
+      "same": 89,
+      "changed": []
+    },
+    "public/sprites/": {
+      "total": 2038,
+      "same": 2038,
+      "changed": []
+    }
+  },
+  "actualBaseline": "docs/diagnostics/attack-v391/baseline-audit.json",
+  "CI": {
+    "id": 40351750737,
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40351750737",
+    "result": "success",
+    "testFiles": 390,
+    "tests": 6595,
+    "failures": 0,
+    "skipped": 0,
+    "testDurationSeconds": 747.1,
+    "lint": "0errors;1pre-existing unused mirror warning",
+    "sprites": {
+      "sheets": 389,
+      "frames": 8297,
+      "animations": 9,
+      "characters": 36,
+      "ui": 26,
+      "icons": 274,
+      "creatureCharacters": 29,
+      "renderReferences": 297,
+      "uniquePngFiles": 415
+    },
+    "typeBuildAndDeploy": "passed",
+    "jobs": [
+      {
+        "name": "build",
+        "conclusion": "success",
+        "completedAt": "2026-10-26T15:55:20Z"
+      },
+      {
+        "name": "deploy",
+        "conclusion": "success",
+        "completedAt": "2026-10-26T15:56:06Z"
+      }
+    ]
+  },
+  "public": {
+    "status": "passed",
+    "selectedFilesSHAExact": 45,
+    "freshGames": [
+      {
+        "width": 1440,
+        "height": 1080,
+        "steps": 11
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "steps": 11
+      }
+    ],
+    "finiteThrowScenes": 3,
+    "actualThrows": 4,
+    "wholeStatePairs": 10,
+    "observedVersion": "0.391-dev",
+    "directPNGOpened": [
+      "public-smoke-1440-r1/01-world.png",
+      "public-smoke-1366-r1/02-inventory.png",
+      "public-attacks-r1/slow-throw-0-preparation.png",
+      "public-title-r1/version-footer.png"
+    ],
+    "errors": []
+  },
+  "art": {
+    "newPNG": 0,
+    "newAuthoredFrames": 0,
+    "all2038PublicSpriteFilesUnchanged": true
+  },
+  "stateContracts": {
+    "newGameStateFields": 0,
+    "newFXFields": 0,
+    "saveSchemaUnchanged": true,
+    "rawCompleteWorldsLocalOnly": true,
+    "wholeComparisonNormalization": "Consumed render FX only"
+  },
+  "notClaimed": [
+    "Physical projectile flight or delayed ground landing",
+    "All modified/mutant humanoids or fine/compound limb losses",
+    "Pocket generic noncombat prop ownership",
+    "Every attack/ability/anatomy combination in actual browser",
+    "World30 or new1000 expedition rerun; balance unchanged",
+    "External human release evaluation and full v1.0/X1-X4 completion"
+  ],
+  "publicationSnapshot": "/workspace/.ashveil-checkpoints/v391-publication-r5",
+  "commit": "80ae614ca8c6797e8ff71b9c74951a322060c5db",
+  "committedSourceSHAExact": 8834,
+  "publicationReceipt": "docs/release-v391-publication.json",
+  "postPublicationMetadataOnly": true
+}

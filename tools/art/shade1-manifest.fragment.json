@@ -1,0 +1,280 @@
+{
+  "sheets": {
+    "shade1": "sprites/original/ashveil-shade1-walk.png",
+    "shade1_atk": "sprites/original/ashveil-shade1-attack.png"
+  },
+  "frames": {
+    "shade1_w_down0": [
+      "shade1",
+      0,
+      0,
+      24,
+      32
+    ],
+    "shade1_w_down1": [
+      "shade1",
+      24,
+      0,
+      24,
+      32
+    ],
+    "shade1_w_down2": [
+      "shade1",
+      48,
+      0,
+      24,
+      32
+    ],
+    "shade1_a_down0": [
+      "shade1_atk",
+      0,
+      0,
+      32,
+      40
+    ],
+    "shade1_a_down1": [
+      "shade1_atk",
+      32,
+      0,
+      32,
+      40
+    ],
+    "shade1_a_down2": [
+      "shade1_atk",
+      64,
+      0,
+      32,
+      40
+    ],
+    "shade1_a_down3": [
+      "shade1_atk",
+      96,
+      0,
+      32,
+      40
+    ],
+    "shade1_w_left0": [
+      "shade1",
+      0,
+      32,
+      24,
+      32
+    ],
+    "shade1_w_left1": [
+      "shade1",
+      24,
+      32,
+      24,
+      32
+    ],
+    "shade1_w_left2": [
+      "shade1",
+      48,
+      32,
+      24,
+      32
+    ],
+    "shade1_a_left0": [
+      "shade1_atk",
+      0,
+      40,
+      32,
+      40
+    ],
+    "shade1_a_left1": [
+      "shade1_atk",
+      32,
+      40,
+      32,
+      40
+    ],
+    "shade1_a_left2": [
+      "shade1_atk",
+      64,
+      40,
+      32,
+      40
+    ],
+    "shade1_a_left3": [
+      "shade1_atk",
+      96,
+      40,
+      32,
+      40
+    ],
+    "shade1_w_right0": [
+      "shade1",
+      0,
+      64,
+      24,
+      32
+    ],
+    "shade1_w_right1": [
+      "shade1",
+      24,
+      64,
+      24,
+      32
+    ],
+    "shade1_w_right2": [
+      "shade1",
+      48,
+      64,
+      24,
+      32
+    ],
+    "shade1_a_right0": [
+      "shade1_atk",
+      0,
+      80,
+      32,
+      40
+    ],
+    "shade1_a_right1": [
+      "shade1_atk",
+      32,
+      80,
+      32,
+      40
+    ],
+    "shade1_a_right2": [
+      "shade1_atk",
+      64,
+      80,
+      32,
+      40
+    ],
+    "shade1_a_right3": [
+      "shade1_atk",
+      96,
+      80,
+      32,
+      40
+    ],
+    "shade1_w_up0": [
+      "shade1",
+      0,
+      96,
+      24,
+      32
+    ],
+    "shade1_w_up1": [
+      "shade1",
+      24,
+      96,
+      24,
+      32
+    ],
+    "shade1_w_up2": [
+      "shade1",
+      48,
+      96,
+      24,
+      32
+    ],
+    "shade1_a_up0": [
+      "shade1_atk",
+      0,
+      120,
+      32,
+      40
+    ],
+    "shade1_a_up1": [
+      "shade1_atk",
+      32,
+      120,
+      32,
+      40
+    ],
+    "shade1_a_up2": [
+      "shade1_atk",
+      64,
+      120,
+      32,
+      40
+    ],
+    "shade1_a_up3": [
+      "shade1_atk",
+      96,
+      120,
+      32,
+      40
+    ]
+  },
+  "chars": {
+    "shade1": {
+      "walk": {
+        "down": [
+          "shade1_w_down0",
+          "shade1_w_down1",
+          "shade1_w_down2"
+        ],
+        "left": [
+          "shade1_w_left0",
+          "shade1_w_left1",
+          "shade1_w_left2"
+        ],
+        "right": [
+          "shade1_w_right0",
+          "shade1_w_right1",
+          "shade1_w_right2"
+        ],
+        "up": [
+          "shade1_w_up0",
+          "shade1_w_up1",
+          "shade1_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "shade1_w_down1"
+        ],
+        "left": [
+          "shade1_w_left1"
+        ],
+        "right": [
+          "shade1_w_right1"
+        ],
+        "up": [
+          "shade1_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "shade1_a_down0",
+          "shade1_a_down1",
+          "shade1_a_down2",
+          "shade1_a_down3"
+        ],
+        "left": [
+          "shade1_a_left0",
+          "shade1_a_left1",
+          "shade1_a_left2",
+          "shade1_a_left3"
+        ],
+        "right": [
+          "shade1_a_right0",
+          "shade1_a_right1",
+          "shade1_a_right2",
+          "shade1_a_right3"
+        ],
+        "up": [
+          "shade1_a_up0",
+          "shade1_a_up1",
+          "shade1_a_up2",
+          "shade1_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.96875
+      ],
+      "attackAnchor": [
+        0.5,
+        0.975
+      ],
+      "renderScale": 1,
+      "headOffset": 22
+    }
+  }
+}

@@ -1,0 +1,2030 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21",
+  "reviewer": "/root/character_art",
+  "status": "PASS for17reviewedoriginalPNGs and actual finite static-PNG installation/current-world removal evidence; not general modding-completion claim",
+  "scope": {
+    "directlyViewedPNGCount": 17,
+    "nativePNGCount": 9,
+    "common1440PNGCount": 4,
+    "common1366PNGCount": 4,
+    "onlyProjectFileWritten": "docs/ui-v293-reviewed-pngs.json",
+    "productCoreDefImagesEdits": false,
+    "browserGPUGameTestsBuildTypeOrHeavyChecksRerun": false,
+    "lightweightArtifactReadsOnly": "SHA/JSON/RGB/ZIPcontentCRC/PNGchunk/zlibinspection, no installedgame/moddecoder execution"
+  },
+  "evidenceBoundary": [
+    "All17originalPNGs opened directly with view_image. No sourceimage edit/resave/re-render. RawRGBregions compared only in memory.",
+    "UID/count/time/RNG/wholeworld/hash facts come from actualJSON/expectedJSON/CLIarchive artifacts and suppliedharnesssource; not inferred from pixels.",
+    "Actualbrowser/CLI packaging/install/restart/TitleContinue/input/removal/MapViewreadiness happened in suppliedRootrun; reviewer didnot rerun it.",
+    "Native is finiteclinical initialmodDB with originalbagSalt2/floorSalt1/defaultknife. It is not a normalnewgamegrant/crafted/loot-history claim.",
+    "Currentworld configuration review is unchangedwholeworld until acceptance. Acceptedremoval changes5content/configurationmetadata keys while physicalworld stayssame; no falseentireworldunchanged claim acrossapplication."
+  ],
+  "provenance": [
+    {
+      "path": "docs/art-v293-independent-review.json",
+      "bytes": 108882,
+      "sha256": "359672efd589d8482111b4d60be67420d5cb4652a3c2d7bafba6e50e23cceae8"
+    },
+    {
+      "path": "docs/mod-textures-v293-final-source-proof.json",
+      "bytes": 4061,
+      "sha256": "49a60862142e254d5b27f7d67d093eab129560d7d8ad52cf0e010ebe90383e2b"
+    },
+    {
+      "path": "docs/mod-textures-v293-native-audit.json",
+      "bytes": 2071,
+      "sha256": "8c75862d9d063c2b5c8b7c3cde5688f6c453573e6744c9c42d81d2a5b8d995a0"
+    },
+    {
+      "path": "docs/game-harness-v293-audit.json",
+      "bytes": 798,
+      "sha256": "1bb33545175f3b23d8806e774a8282fdf844cdb8bf350e758f63148c69150dc6"
+    },
+    {
+      "path": "tests/e2e/mod-textures.ts",
+      "bytes": 9460,
+      "sha256": "56c9a1a3c8a183046475a6e45d075604cab371b362f73ec07e364b67368f8bf3"
+    }
+  ],
+  "entries": [
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1432-native-invalid-compressed-png-rejected-before-install.png",
+      "bytes": 384769,
+      "sha256": "0ac4e66914d398f2c1fb2799dbbc27e8760e926cd7e4f8f4eae9180ab7e01c68",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "제작한 손상압축 PNG를 가져왔을 때 붉은 오류가 PNG픽셀을 읽을수없고 sourceimagecouldnotbedecoded라고 표시되는 실제 가져오기 화면을 직접 열었다. 설치검토 패널은 보이지 않는다.",
+        "CRC/IDAT성질과 설치전 거절은 저장ZIP의독립읽기+실제harness소스로확인했다. 정지화면만으로 임의악성/손상파일 전체검증을 주장하지 않는다. Title이 가져오기 하단으로 스크롤되어 상단타이틀은 viewport밖이다."
+      ],
+      "stateEvidence": {
+        "harness": {
+          "path": "tests/e2e/mod-textures.ts",
+          "bytes": 9460,
+          "sha256": "56c9a1a3c8a183046475a6e45d075604cab371b362f73ec07e364b67368f8bf3"
+        },
+        "archiveMetadata": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-cli-package.json",
+          "bytes": 1172,
+          "sha256": "58d56761b63a550766f7f160205fdb488827a3654e3073ac13fc71a9ee42cf69"
+        }
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1433-native-actual-cli-zip-one-png-and-exact-content-hash-review.png",
+      "bytes": 407584,
+      "sha256": "3889ba20e03e0bb59fe7c2c58358cc643c092be6fa0ce2e7b448d97831143394",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "실제ZIP검토 패널에서 소금봉지원본텍스처예제1.0.0/zip·5파일·2594바이트/16×16원본PNG1개포함/검증한core→sample-original-textures순서/기존·설치 해시와 이모드설치·취소 버튼을 직접 읽었다.",
+        "2594는 압축해제내용바이트이며 ZIP3392바이트와 구분했다. 해시는mod내용SHA24d03...이며 ZIP파일SHA70bc...나 전체월드loadHash7075...와 다른 값이다. 패널이 화면아래끝에 가까우나 핵심설치/취소버튼은 보인다."
+      ],
+      "stateEvidence": {
+        "harness": {
+          "path": "tests/e2e/mod-textures.ts",
+          "bytes": 9460,
+          "sha256": "56c9a1a3c8a183046475a6e45d075604cab371b362f73ec07e364b67368f8bf3"
+        },
+        "archiveMetadata": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-cli-package.json",
+          "bytes": 1172,
+          "sha256": "58d56761b63a550766f7f160205fdb488827a3654e3073ac13fc71a9ee42cf69"
+        }
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1434-native-png-package-persists-after-restart-and-stays-unselected.png",
+      "bytes": 381104,
+      "sha256": "75b10d3f4b68f115225149b42cec345670285b053f66d580c0847cc3716b95d0",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "재시작 뒤 가져오기 영역의 sample-original-textures·zip 설치행과 설치파일제거 버튼이 남아 있고 콘텐츠모드는0개선택으로 표시되는 화면을 직접 열었다.",
+        "실제isChecked(false)와reload지속성은harness소스의검증근거로기록한다. 설치가 기존각인/새게임에 자동활성화되었다고 해석하지 않는다. 제목과초기옵션 일부는 현재스크롤 위에 있다."
+      ],
+      "stateEvidence": {
+        "harness": {
+          "path": "tests/e2e/mod-textures.ts",
+          "bytes": 9460,
+          "sha256": "56c9a1a3c8a183046475a6e45d075604cab371b362f73ec07e364b67368f8bf3"
+        },
+        "archiveMetadata": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-cli-package.json",
+          "bytes": 1172,
+          "sha256": "58d56761b63a550766f7f160205fdb488827a3654e3073ac13fc71a9ee42cf69"
+        }
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1435-native-actual-mod-png-on-map-adjacent-original-salt.png",
+      "bytes": 867695,
+      "sha256": "46b06db90ae32ece9b8d847a68e1da2f22bf9185b572845432999224ec3dc442",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "유한초기 실제월드에서 후드 떠돌이 바로동쪽 바닥에 갈색봉지·밝은결정의 새모드소금아트가 보인다. 세계제목·생존HUD·초상/빠른슬롯·로그가 화면안이다.",
+        "바닥1개/UID51과배낭2개/UID49,추가기본칼UID50은 초기JSON으로확인한다. 임의새게임지급/제작/약탈이력은 아니다. 바닥아이콘의픽셀만으로수량·UID를추론하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-title198-mod-png-same-original-three-salt-units-actual.json",
+        "bytes": 269498,
+        "sha256": "382301a5966df5c9b327c3fcc6866e5b460c6d987d54c2dcf37ed6a543bbbc08"
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1436-native-actual-mod-png-inventory-original-three-salt-preserved.png",
+      "bytes": 753733,
+      "sha256": "c5defed000f8bb371c7e12e6a40327120ca322d544ef529a484a7be2c1d5ba98",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "실제동쪽이동·무료바닥회수 뒤 소지품창에서 모드주머니아이콘과 숫자3, 옆1×2의기본칼,빈칸57이 보인다. 소금은1×1영역이며 16px원본이선명한도트로표시된다.",
+        "실제100TU는동쪽1칸이동에서발생했다. 바닥UID51의1개가 배낭UID49의2개와합쳐져UID49count3이되므로 UID51을 별도보존했다고 하지않는다. 동일칼UID50과원래물리량은JSON근거다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-east-one-turn-and-free-original-floor-salt-pickup-actual.json",
+        "bytes": 271271,
+        "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1437-native-small-restored-same-original-mod-png.png",
+      "bytes": 578229,
+      "sha256": "ac081a743f1aadbd8646167bad3b6d9cd9a1718294d7458621f2827de1751367",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "저장198복원 뒤1366×768에서도 모드소금봉지·숫자3·기본칼과 소지품닫기·버리기영역이 화면안에 보인다.",
+        "모드소금아이콘영역은1436과원본RGB가같다. 소지품모달은주인공과월드일부를가리며 이화면으로모든모드/UI상태가동작한다고 확장하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/whole198-mod-png-restored-same-original-items-and-hash-actual.json",
+        "bytes": 271271,
+        "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1438-native-explicit-current-world-mod-image-removal-review.png",
+      "bytes": 510373,
+      "sha256": "239493b9842020d49f73334b0c139b17140dbf5e82783339b42f942012688425",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "실제설정의 현재세계콘텐츠변경검토창에서 기록/현재해시,제거할모드sample-original-textures,사라지거나종류가바뀐정의0개·새정의0개,업적연결비활성화설명·취소·이구성으로계속 버튼이 보인다.",
+        "1366×768에서 close와핵심검토/적용버튼은화면안이다. 설정상단과긴모드목록일부는스크롤위/내부경계에가려져있다. 검토만한시점전체world는직전모드복원과동일하고실제적용은다음단계다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-mod-removal-review-entire-world-unchanged-actual.json",
+        "bytes": 271271,
+        "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1439-native-base-salt-icon-restored-after-real-content-apply.png",
+      "bytes": 413615,
+      "sha256": "3da08b17dd2b0a2ba33bec959e0620b860c9fdf215fcff958ef677326b545f95",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "실제현재구성적용 뒤 같은소지품자리의갈색주머니가 기존밝은소금더미그림으로돌아왔고 숫자3·같은칼·빈칸57이 유지된다.",
+        "적용뒤렌더러준비대기/아이콘URL확인은제공harness소스근거다. JSON에서는물리세계가같으나mods/hash/contentChanges/achievementsDisabled는실제로바뀐다. 전체world가적용전후완전히같다고하지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-actual.json",
+        "bytes": 271333,
+        "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+      }
+    },
+    {
+      "path": "test-results/mod-textures-browser-v293-first/1440-native-base-original-salt-survives-whole198-restore.png",
+      "bytes": 413380,
+      "sha256": "1ee52958353d9ede915d718edd27a9ef81f99843ce4d2c01bfb2f6e2fabe20d4",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "Native actual ZIP/import/finite mod world/current-world removal flow",
+      "observations": [
+        "기본구성의전체198복원뒤 소지품을직접열었다. 도구미리보기에서는창/로그/위치패널이생략되어보였지만원본RGB의소지품/로그/위치패널은1439와정확히일치한다.",
+        "같은소금UID49×3/칼UID50과기본구성이저장후유지됨은전체JSON복원대조근거다. 실제이미지를수정하거나다시렌더링하지않았다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/mod-textures-browser-v293-first/whole198-base-image-restored-same-physical-items-actual.json",
+        "bytes": 271333,
+        "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1440/00-title.png",
+      "bytes": 973642,
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "실제새게임타이틀의원본수도원/등불장면·ASHVEIL표제·초상/이름·시드입력과시작버튼을직접열었다.",
+        "고원으로들어선다버튼은현재viewport안이고실제클릭성공/센터hit-test는run/layout근거다. 배경선택하단은viewport밖으로이어져한화면에모두보이지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/00-title-world.json",
+        "bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1440/01-world.png",
+      "bytes": 525428,
+      "sha256": "637937c9807584c7ccf832997cb26a2708ac5cc77f71c0cfdae94998d60611ca",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "일반새게임의후드떠돌이뒷모습·횃불·길/물·소나무/마른나무·닫힌목제상자가보인다. Native모드소금초기fixture와다른일반시작월드다.",
+        "어둠/미탐색영역이넓고나무일부는viewport/HUD아래가려진다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "748f9e776931e62e90e4358fe5c16ca8d20478e75f64190aa2bba9dfc43207de"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/01-world-world.json",
+        "bytes": 4676283,
+        "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1440/02-inventory.png",
+      "bytes": 604106,
+      "sha256": "1ec2c910227b060c33b178ebc4fe2ab4efdf288089e1066c3da04a61d6b0016c",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "배낭60빈칸과기존창/우비장비,닫기버튼이화면안이다. 남쪽을본떠돌이얼굴이보인다. 일반새게임배낭에Native소금3개나칼이추가지급된것은아니다.",
+        "모달이월드일부를가리며UID/장비상태·200TU는전체JSON으로확인했다. 설치가능한샘플모드가이공통새게임에자동선택됐다고하지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/02-inventory-world.json",
+        "bytes": 4683448,
+        "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1440/final.png",
+      "bytes": 602068,
+      "sha256": "d0dcf3d366d9ef1ef22ec72dbaf06e24c171b65806504482b516713c4b16765d",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "최종이미지를직접열고원본RGB패널을02-inventory와대조했다. 도구미리보기의소지품/로그생략과원본파일의패널존재를구분한다.",
+        "1440소지품/로그는정확히같고1366소지품모서리2픽셀차이최대RGB1·로그는정확히같다. 최종관찰의wholeworld불변은JSON근거다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/final-state.json",
+        "bytes": 16730,
+        "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1440/final-world.json",
+        "bytes": 4683448,
+        "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1366/00-title.png",
+      "bytes": 668804,
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "실제새게임타이틀의원본수도원/등불장면·ASHVEIL표제·초상/이름·시드입력과시작버튼을직접열었다.",
+        "고원으로들어선다버튼은현재viewport안이고실제클릭성공/센터hit-test는run/layout근거다. 배경선택하단은viewport밖으로이어져한화면에모두보이지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/00-title-world.json",
+        "bytes": 4,
+        "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1366/01-world.png",
+      "bytes": 372820,
+      "sha256": "851597d869d63205bc4c747a0a86af890e23c0dd7f90a3d6de517a07e62712bf",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "일반새게임의후드떠돌이뒷모습·횃불·길/물·소나무/마른나무·닫힌목제상자가보인다. Native모드소금초기fixture와다른일반시작월드다.",
+        "어둠/미탐색영역이넓고나무일부는viewport/HUD아래가려진다. 빈빠른슬롯tooltip이로그일부를덮지만화면안이다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "748f9e776931e62e90e4358fe5c16ca8d20478e75f64190aa2bba9dfc43207de"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/01-world-world.json",
+        "bytes": 4676283,
+        "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1366/02-inventory.png",
+      "bytes": 447409,
+      "sha256": "936c8be4f326d4e42833d004e3e02f5950a7e52419432730f1f032a5be547d50",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "배낭60빈칸과기존창/우비장비,닫기버튼이화면안이다. 남쪽을본떠돌이얼굴이보인다. 일반새게임배낭에Native소금3개나칼이추가지급된것은아니다.",
+        "모달이월드일부를가리며UID/장비상태·200TU는전체JSON으로확인했다. 설치가능한샘플모드가이공통새게임에자동선택됐다고하지않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/02-inventory-world.json",
+        "bytes": 4683448,
+        "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v293-final-1366/final.png",
+      "bytes": 446902,
+      "sha256": "cdee36530127aa1eed8d5d6fe5a0327263e8fb0ccfab7eba25134cde8a6de10e",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "ordinary Title Start common harness / core only",
+      "observations": [
+        "최종이미지를직접열고원본RGB패널을02-inventory와대조했다. 도구미리보기의소지품/로그생략과원본파일의패널존재를구분한다.",
+        "1440소지품/로그는정확히같고1366소지품모서리2픽셀차이최대RGB1·로그는정확히같다. 최종관찰의wholeworld불변은JSON근거다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/final-state.json",
+        "bytes": 16730,
+        "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+      },
+      "worldEvidence": {
+        "path": "test-results/game-harness-v293-final-1366/final-world.json",
+        "bytes": 4683448,
+        "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+      }
+    }
+  ],
+  "nativeEvidence": {
+    "audit": {
+      "path": "test-results/mod-textures-browser-v293-first/audit.json",
+      "bytes": 2071,
+      "sha256": "8c75862d9d063c2b5c8b7c3cde5688f6c453573e6744c9c42d81d2a5b8d995a0",
+      "record": {
+        "save": 198,
+        "screenshots": 9,
+        "roundtrips": 2,
+        "phases": 6,
+        "actualInputTU": 100,
+        "initialTime": 1440000,
+        "finalTime": 1440100,
+        "saltUid": 49,
+        "floorSaltUid": 51,
+        "knifeUid": 50,
+        "key": "mod:sample-original-textures/textures/salt-pouch.png",
+        "archive": {
+          "id": "sample-original-textures",
+          "version": "1.0.0",
+          "format": "zip",
+          "archive": "/workspace/ashveil/test-results/mod-textures-browser-v293-first/sample-original-textures.zip",
+          "bytes": 3392,
+          "sha256": "70bc77b7e3d27cebf54cfed684eba1a03570bc538b183e9b03fccaa21b0c71b1",
+          "loadedMods": [
+            "core",
+            "sample-original-textures"
+          ],
+          "patches": 327,
+          "warnings": [],
+          "files": [
+            {
+              "path": "sample-original-textures/LICENSE.txt",
+              "sha256": "59009a07c6ef5e4b94070839933756017771b5e854244f018fda5fd8942ff364"
+            },
+            {
+              "path": "sample-original-textures/README.md",
+              "sha256": "bb767240ef64bf12a5d7690e9af6b5784af12cd6b3d8c92301c46c5636d81500"
+            },
+            {
+              "path": "sample-original-textures/manifest.json",
+              "sha256": "b17806ac3f24795574013c52b90b50d88996480f8709d9da956028df9f9a6bd4"
+            },
+            {
+              "path": "sample-original-textures/patches/salt.json",
+              "sha256": "53219bfad37cddd7e420e895c7bd3f8a8f850dff1cf1982f5d1cfd33b420707c"
+            },
+            {
+              "path": "sample-original-textures/textures/salt-pouch.png",
+              "sha256": "5b4f99b793fc6d121c3802e1e5f37660618bb3fc8e9f7c4d2cd76a4807f9e13f"
+            }
+          ]
+        },
+        "errors": [],
+        "source": "Actual CLI ZIP/original16PNG: valid CRC but bad compressed pixels rejected by real browser decoder before install; valid explicit install/restart remains unselected. Finite actual clinical initial bag2+floor1 salt/defaultknife, not crafted/looted-history; no postload world/item/time/RNG injection. Actual TitleContinue/east1T/freepickup/whole198restore/smallviewport/real removal review+apply/remount+baseicon/whole198restore. Six independent Node whole comparisons; not general character/sheet/font/audio modding."
+      }
+    },
+    "firstNativePassLog": {
+      "path": "test-results/mod-textures-native-v293-first.log",
+      "bytes": 76,
+      "sha256": "518098693672e72a9671675ce05de077fb6b8b7e5138fadf1e7611a566fe5711",
+      "record": {
+        "screenshots": 9,
+        "roundtrips": 2,
+        "phases": 6,
+        "actualInputTU": 100,
+        "errors": []
+      }
+    },
+    "wholeActualExpectedChecks": [
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-expected.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-east-one-turn-and-free-original-floor-salt-pickup-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-east-one-turn-and-free-original-floor-salt-pickup-expected.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-mod-removal-review-entire-world-unchanged-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-mod-removal-review-entire-world-unchanged-expected.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-title198-mod-png-same-original-three-salt-units-actual.json",
+          "bytes": 269498,
+          "sha256": "382301a5966df5c9b327c3fcc6866e5b460c6d987d54c2dcf37ed6a543bbbc08"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-title198-mod-png-same-original-three-salt-units-expected.json",
+          "bytes": 269498,
+          "sha256": "382301a5966df5c9b327c3fcc6866e5b460c6d987d54c2dcf37ed6a543bbbc08"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-base-image-restored-same-physical-items-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-base-image-restored-same-physical-items-expected.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "actual": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-mod-png-restored-same-original-items-and-hash-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "expected": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-mod-png-restored-same-original-items-and-hash-expected.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "entireJSONEqual": true
+      }
+    ],
+    "wholeComparisonCount": 6,
+    "whole198Restores": [
+      {
+        "before": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-east-one-turn-and-free-original-floor-salt-pickup-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "restored": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-mod-png-restored-same-original-items-and-hash-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "saveVersion": 198,
+        "entireJSONEqual": true
+      },
+      {
+        "before": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "restored": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-base-image-restored-same-physical-items-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "saveVersion": 198,
+        "entireJSONEqual": true
+      }
+    ],
+    "removalReviewWholeEqualsModRestoredWorld": true,
+    "declaredInitial": {
+      "path": "test-results/mod-textures-browser-v293-first/finite198-initial-original-salt-bag2-floor1.json",
+      "bytes": 269498,
+      "sha256": "382301a5966df5c9b327c3fcc6866e5b460c6d987d54c2dcf37ed6a543bbbc08",
+      "exactlyEqualsActualTitleLoadedWorld": true
+    },
+    "observedWorldSummaries": [
+      {
+        "phase": "initial",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-title198-mod-png-same-original-three-salt-units-actual.json",
+          "bytes": 269498,
+          "sha256": "382301a5966df5c9b327c3fcc6866e5b460c6d987d54c2dcf37ed6a543bbbc08"
+        },
+        "timeTU": 1440000,
+        "position": {
+          "x": 20,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 2,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14400,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core",
+          "sample-original-textures"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          },
+          {
+            "id": "sample-original-textures",
+            "version": "1.0.0",
+            "hash": "sha256-24d03eba23349f2e9cabbb450bbb1f05605e57560c5670422e40292829041145"
+          }
+        ],
+        "loadHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      },
+      {
+        "phase": "pickup",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-east-one-turn-and-free-original-floor-salt-pickup-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "timeTU": 1440100,
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 3,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14401,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core",
+          "sample-original-textures"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          },
+          {
+            "id": "sample-original-textures",
+            "version": "1.0.0",
+            "hash": "sha256-24d03eba23349f2e9cabbb450bbb1f05605e57560c5670422e40292829041145"
+          }
+        ],
+        "loadHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      },
+      {
+        "phase": "modRestore",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-mod-png-restored-same-original-items-and-hash-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "timeTU": 1440100,
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 3,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14401,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core",
+          "sample-original-textures"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          },
+          {
+            "id": "sample-original-textures",
+            "version": "1.0.0",
+            "hash": "sha256-24d03eba23349f2e9cabbb450bbb1f05605e57560c5670422e40292829041145"
+          }
+        ],
+        "loadHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      },
+      {
+        "phase": "review",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-mod-removal-review-entire-world-unchanged-actual.json",
+          "bytes": 271271,
+          "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+        },
+        "timeTU": 1440100,
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 3,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14401,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core",
+          "sample-original-textures"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          },
+          {
+            "id": "sample-original-textures",
+            "version": "1.0.0",
+            "hash": "sha256-24d03eba23349f2e9cabbb450bbb1f05605e57560c5670422e40292829041145"
+          }
+        ],
+        "loadHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      },
+      {
+        "phase": "base",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "timeTU": 1440100,
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 3,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14401,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          }
+        ],
+        "loadHash": "sha256-bf5b58187e9ab793cdaeb0525c24db0446bc637f6043edf3df5f3f449d61eb24",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      },
+      {
+        "phase": "baseRestore",
+        "actualState": {
+          "path": "test-results/mod-textures-browser-v293-first/whole198-base-image-restored-same-physical-items-actual.json",
+          "bytes": 271333,
+          "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+        },
+        "timeTU": 1440100,
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "bag": [
+          {
+            "uid": 49,
+            "def": "Item.Salt",
+            "count": 3,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 50,
+            "def": "Item.RustyKnife",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14401,
+            "edge": 60,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "mods": [
+          "core"
+        ],
+        "contentMods": [
+          {
+            "id": "core",
+            "version": "0.1.0",
+            "hash": "sha256-e5f478f54700526cac5d76ad7f697f6416ac5c5f3d745409229e8e4ca146236d"
+          }
+        ],
+        "loadHash": "sha256-bf5b58187e9ab793cdaeb0525c24db0446bc637f6043edf3df5f3f449d61eb24",
+        "rngSHA256": "3afbb8a82c294df805522709d6c8245fa8a63b5b478175db6ecaf4424b0175cc"
+      }
+    ],
+    "time": {
+      "initialTU": 1440000,
+      "finalTU": 1440100,
+      "actualEastOneStepTU": 100,
+      "freePickupAdditionalTU": 0,
+      "nativeTotalInputTU": 100,
+      "observationRestoresContentReviewApplyAdditionalTimeTU": 0
+    },
+    "physicalItems": {
+      "initialSaltBag": {
+        "uid": 49,
+        "count": 2
+      },
+      "initialSaltFloor": {
+        "uid": 51,
+        "count": 1,
+        "coordinate": [
+          21,
+          20
+        ]
+      },
+      "afterPickup": {
+        "retainedStackUid": 49,
+        "count": 3,
+        "floorIsEmpty": true,
+        "floorUid51Disposition": "Merged into existingstackUID49; no claim thatabsorbedUID51 remainsaseparateitem."
+      },
+      "originalDefaultKnifeUid": 50,
+      "knifeEdge": 60,
+      "knifeDurability": 100,
+      "knifeGearAgedAt": "14400→14401 during actual1turn; configurationremoval doesnot alterit.",
+      "sameBagAndPhysicalWorldDuringRemovalApply": true
+    },
+    "hashes": {
+      "modContentHash": "sha256-24d03eba23349f2e9cabbb450bbb1f05605e57560c5670422e40292829041145",
+      "modActiveWorldLoadHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+      "coreOnlyWorldLoadHash": "sha256-bf5b58187e9ab793cdaeb0525c24db0446bc637f6043edf3df5f3f449d61eb24",
+      "archiveSHA256": "70bc77b7e3d27cebf54cfed684eba1a03570bc538b183e9b03fccaa21b0c71b1",
+      "saltPNG_SHA256": "5b4f99b793fc6d121c3802e1e5f37660618bb3fc8e9f7c4d2cd76a4807f9e13f",
+      "distinctMeanings": "PackageZIPfileSHA,modcontenthash and worldloadhash are separate values.1433 displaysmodcontenthash,not archivehash."
+    },
+    "acceptedRemoval": {
+      "before": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-mod-removal-review-entire-world-unchanged-actual.json",
+        "bytes": 271271,
+        "sha256": "a30dbaf3421ff72d3c6fc364435996075f8b7a701d209d6a0777a3076cf692c8"
+      },
+      "after": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-base-content-applied-same-physical-world-and-original-salt-actual.json",
+        "bytes": 271333,
+        "sha256": "d8bd714d87833bca0ac30eef115fcf0705aed41752abf2e5abaa1a4310348293"
+      },
+      "exactTopLevelKeysChanged": [
+        "achievementsDisabled",
+        "contentChanges",
+        "contentMods",
+        "loadHash",
+        "mods"
+      ],
+      "explicitPhysicalFieldsExactlyEqual": [
+        "creatures",
+        "map",
+        "maps",
+        "rng",
+        "time",
+        "nextId",
+        "visible",
+        "knowledge",
+        "log",
+        "contentItemShapes"
+      ],
+      "allRemainingTopLevelFieldsExactlyEqual": true,
+      "contentChangeRecord": [
+        {
+          "turn": 14401,
+          "from": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+          "to": "sha256-bf5b58187e9ab793cdaeb0525c24db0446bc637f6043edf3df5f3f449d61eb24"
+        }
+      ],
+      "achievementsDisabledBefore": null,
+      "achievementsDisabledAfter": true,
+      "currentModsBefore": [
+        "core",
+        "sample-original-textures"
+      ],
+      "currentModsAfter": [
+        "core"
+      ],
+      "renderEvidence": "Actualaccept+data-ready-map wait and baseURL/assertIcon(false) are in suppliedharness.1439/1440 showbaseicon; RootreportedMapViewremount is not independently countedfrompixels."
+    },
+    "installEvidence": {
+      "actualCLIMetadata": {
+        "path": "test-results/mod-textures-browser-v293-first/actual-cli-package.json",
+        "bytes": 1172,
+        "sha256": "58d56761b63a550766f7f160205fdb488827a3654e3073ac13fc71a9ee42cf69",
+        "record": {
+          "id": "sample-original-textures",
+          "version": "1.0.0",
+          "format": "zip",
+          "archive": "/workspace/ashveil/test-results/mod-textures-browser-v293-first/sample-original-textures.zip",
+          "bytes": 3392,
+          "sha256": "70bc77b7e3d27cebf54cfed684eba1a03570bc538b183e9b03fccaa21b0c71b1",
+          "loadedMods": [
+            "core",
+            "sample-original-textures"
+          ],
+          "patches": 327,
+          "warnings": [],
+          "files": [
+            {
+              "path": "sample-original-textures/LICENSE.txt",
+              "sha256": "59009a07c6ef5e4b94070839933756017771b5e854244f018fda5fd8942ff364"
+            },
+            {
+              "path": "sample-original-textures/README.md",
+              "sha256": "bb767240ef64bf12a5d7690e9af6b5784af12cd6b3d8c92301c46c5636d81500"
+            },
+            {
+              "path": "sample-original-textures/manifest.json",
+              "sha256": "b17806ac3f24795574013c52b90b50d88996480f8709d9da956028df9f9a6bd4"
+            },
+            {
+              "path": "sample-original-textures/patches/salt.json",
+              "sha256": "53219bfad37cddd7e420e895c7bd3f8a8f850dff1cf1982f5d1cfd33b420707c"
+            },
+            {
+              "path": "sample-original-textures/textures/salt-pouch.png",
+              "sha256": "5b4f99b793fc6d121c3802e1e5f37660618bb3fc8e9f7c4d2cd76a4807f9e13f"
+            }
+          ]
+        }
+      },
+      "archivesReadOnlyInspected": [
+        {
+          "file": {
+            "path": "test-results/mod-textures-browser-v293-first/sample-original-textures.zip",
+            "bytes": 3392,
+            "sha256": "70bc77b7e3d27cebf54cfed684eba1a03570bc538b183e9b03fccaa21b0c71b1"
+          },
+          "entries": [
+            {
+              "path": "sample-original-textures/LICENSE.txt",
+              "bytes": 972,
+              "sha256": "59009a07c6ef5e4b94070839933756017771b5e854244f018fda5fd8942ff364",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/README.md",
+              "bytes": 921,
+              "sha256": "bb767240ef64bf12a5d7690e9af6b5784af12cd6b3d8c92301c46c5636d81500",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/manifest.json",
+              "bytes": 314,
+              "sha256": "b17806ac3f24795574013c52b90b50d88996480f8709d9da956028df9f9a6bd4",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/patches/salt.json",
+              "bytes": 151,
+              "sha256": "53219bfad37cddd7e420e895c7bd3f8a8f850dff1cf1982f5d1cfd33b420707c",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/textures/salt-pouch.png",
+              "bytes": 236,
+              "sha256": "5b4f99b793fc6d121c3802e1e5f37660618bb3fc8e9f7c4d2cd76a4807f9e13f",
+              "ZIPEntryCRCReadValidated": true
+            }
+          ],
+          "entryCount": 5,
+          "uncompressedContentBytes": 2594,
+          "saltPNGChunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ],
+          "allPNGChunkCRCsValid": true,
+          "PNGPixelZlibRead": {
+            "success": true,
+            "bytes": 1040
+          },
+          "validPackage": true,
+          "browserDecoderReexecutedByReviewer": false
+        },
+        {
+          "file": {
+            "path": "test-results/mod-textures-browser-v293-first/invalid-compressed-pixels.zip",
+            "bytes": 3392,
+            "sha256": "5d9c8f5a2008fb99a929d849be7173bfb8e6ac09fc39fc87abec1a60dba8e0fc"
+          },
+          "entries": [
+            {
+              "path": "sample-original-textures/LICENSE.txt",
+              "bytes": 972,
+              "sha256": "59009a07c6ef5e4b94070839933756017771b5e854244f018fda5fd8942ff364",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/README.md",
+              "bytes": 921,
+              "sha256": "bb767240ef64bf12a5d7690e9af6b5784af12cd6b3d8c92301c46c5636d81500",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/manifest.json",
+              "bytes": 314,
+              "sha256": "b17806ac3f24795574013c52b90b50d88996480f8709d9da956028df9f9a6bd4",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/patches/salt.json",
+              "bytes": 151,
+              "sha256": "53219bfad37cddd7e420e895c7bd3f8a8f850dff1cf1982f5d1cfd33b420707c",
+              "ZIPEntryCRCReadValidated": true
+            },
+            {
+              "path": "sample-original-textures/textures/salt-pouch.png",
+              "bytes": 236,
+              "sha256": "5687c00011388fe9eb849b8ae9a4d99193f497d8e9c44fd33354e90838d7c7c4",
+              "ZIPEntryCRCReadValidated": true
+            }
+          ],
+          "entryCount": 5,
+          "uncompressedContentBytes": 2594,
+          "saltPNGChunks": [
+            "IHDR",
+            "IDAT",
+            "IEND"
+          ],
+          "allPNGChunkCRCsValid": true,
+          "PNGPixelZlibRead": {
+            "success": false,
+            "error": "Error -3 while decompressing data: incorrect header check"
+          },
+          "validPackage": false,
+          "browserDecoderReexecutedByReviewer": false
+        }
+      ],
+      "validZIPFilesHashMatchCLIMetadata": true,
+      "validPNGEqualsAuthoredSample": true,
+      "invalidPNGHasValidChunkCRCsButInvalidCompressedPixels": true,
+      "browserPixelDecodeRejectionEvidence": "1432 errorplus suppliedharness asserts PNG픽셀 and noimport-reviewbefore install. Reviewer inspectedinvalidarchiveCRC/zlibonly,notbrowserdecoder.",
+      "validInstallReviewEvidence": "1433 + sourcechecksone16×16PNG/exactmodcontenthash then explicitinstallclick.",
+      "reloadStillUnselectedEvidence": "1434 + suppliedsourceisChecked(false)before/afterreload. This isnot an automaticactivationclaim.",
+      "PNGSourceRuntimeEvidence": "SuppliedassertIcon checks imagecomplete/naturalWidth>0 and sourceexactdataURL ofauthoredPNG whileactive; baseashveil-salt.pngURL after acceptedremoval."
+    }
+  },
+  "commonHarnessEvidence": {
+    "runs": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "run": {
+          "path": "test-results/game-harness-v293-final-1440/run.json",
+          "bytes": 418,
+          "sha256": "cca28c1cfffba75a45c7a7af821bb23257f88ff6f7d25f7d75ed5c11cb972fa5",
+          "record": {
+            "scenario": "smoke",
+            "url": "http://localhost:4317/?debug",
+            "viewport": {
+              "width": 1440,
+              "height": 1080
+            },
+            "executablePath": "/workspace/.ashveil-tools/chromium",
+            "startedAt": "2026-10-21T03:12:39.311Z",
+            "completedSteps": 11,
+            "artifacts": [
+              "00-title",
+              "01-world",
+              "02-inventory",
+              "final"
+            ],
+            "errors": [],
+            "status": "passed",
+            "finishedAt": "2026-10-21T03:12:53.877Z"
+          }
+        },
+        "errors": {
+          "path": "test-results/game-harness-v293-final-1440/errors.json",
+          "bytes": 2,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "record": []
+        },
+        "actions": {
+          "path": "test-results/game-harness-v293-final-1440/actions.json",
+          "bytes": 1101,
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33",
+          "record": {
+            "name": "smoke",
+            "description": "실제 타이틀에서 고정 시드로 시작하고 한 턴 대기·남쪽 회전 뒤 소지품 UI를 기록한다.",
+            "steps": [
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=seed]",
+                "state": "visible"
+              },
+              {
+                "action": "fill",
+                "selector": "[data-testid=seed]",
+                "value": "ashveil-harness-smoke"
+              },
+              {
+                "action": "snapshot",
+                "name": "00-title"
+              },
+              {
+                "action": "click",
+                "selector": "[data-testid=start]",
+                "button": "left"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=map] canvas",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "01-world"
+              },
+              {
+                "action": "press",
+                "key": "Period"
+              },
+              {
+                "action": "press",
+                "key": "Control+ArrowDown"
+              },
+              {
+                "action": "press",
+                "key": "i"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=bag]",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "02-inventory"
+              }
+            ]
+          }
+        },
+        "layout": {
+          "path": "test-results/game-harness-v293-final-1440/00-title-layout.json",
+          "bytes": 247,
+          "sha256": "2ed5f2bb08b7a99b2f35578f9c06f45e647e6514753b6ed5e1e3c32728e0c739",
+          "record": {
+            "viewport": {
+              "width": 1440,
+              "height": 1080
+            },
+            "start": {
+              "left": 954,
+              "top": 835.28125,
+              "right": 1240,
+              "bottom": 880.28125,
+              "fullyInViewport": true,
+              "centerIsClickable": true
+            },
+            "scrolledElements": []
+          }
+        },
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "titleWorldLoaded": false,
+        "gameStates": [
+          {
+            "phase": "01-world",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1440/01-world-world.json",
+              "bytes": 4676283,
+              "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1440/01-world-state.json",
+              "bytes": 16730,
+              "sha256": "748f9e776931e62e90e4358fe5c16ca8d20478e75f64190aa2bba9dfc43207de"
+            },
+            "timeTU": 2160000,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 0,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21600
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {},
+                "durability": 100,
+                "gearAgedAt": 21600
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          },
+          {
+            "phase": "02-inventory",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1440/02-inventory-world.json",
+              "bytes": 4683448,
+              "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1440/02-inventory-state.json",
+              "bytes": 16730,
+              "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          },
+          {
+            "phase": "final",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1440/final-world.json",
+              "bytes": 4683448,
+              "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1440/final-state.json",
+              "bytes": 16730,
+              "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "run": {
+          "path": "test-results/game-harness-v293-final-1366/run.json",
+          "bytes": 417,
+          "sha256": "ee0f33682c3efbb1bf6f35f9616f6d331f7e2ec55015e9d45945b43f5f068782",
+          "record": {
+            "scenario": "smoke",
+            "url": "http://localhost:4317/?debug",
+            "viewport": {
+              "width": 1366,
+              "height": 768
+            },
+            "executablePath": "/workspace/.ashveil-tools/chromium",
+            "startedAt": "2026-10-21T03:12:54.140Z",
+            "completedSteps": 11,
+            "artifacts": [
+              "00-title",
+              "01-world",
+              "02-inventory",
+              "final"
+            ],
+            "errors": [],
+            "status": "passed",
+            "finishedAt": "2026-10-21T03:13:06.790Z"
+          }
+        },
+        "errors": {
+          "path": "test-results/game-harness-v293-final-1366/errors.json",
+          "bytes": 2,
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "record": []
+        },
+        "actions": {
+          "path": "test-results/game-harness-v293-final-1366/actions.json",
+          "bytes": 1101,
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33",
+          "record": {
+            "name": "smoke",
+            "description": "실제 타이틀에서 고정 시드로 시작하고 한 턴 대기·남쪽 회전 뒤 소지품 UI를 기록한다.",
+            "steps": [
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=seed]",
+                "state": "visible"
+              },
+              {
+                "action": "fill",
+                "selector": "[data-testid=seed]",
+                "value": "ashveil-harness-smoke"
+              },
+              {
+                "action": "snapshot",
+                "name": "00-title"
+              },
+              {
+                "action": "click",
+                "selector": "[data-testid=start]",
+                "button": "left"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=map] canvas",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "01-world"
+              },
+              {
+                "action": "press",
+                "key": "Period"
+              },
+              {
+                "action": "press",
+                "key": "Control+ArrowDown"
+              },
+              {
+                "action": "press",
+                "key": "i"
+              },
+              {
+                "action": "waitFor",
+                "selector": "[data-testid=bag]",
+                "state": "visible"
+              },
+              {
+                "action": "snapshot",
+                "name": "02-inventory"
+              }
+            ]
+          }
+        },
+        "layout": {
+          "path": "test-results/game-harness-v293-final-1366/00-title-layout.json",
+          "bytes": 246,
+          "sha256": "072d30d7cbfabb1a12e69d5ea2317906b267db8cb6cb58b5da9e861ac80e3c65",
+          "record": {
+            "viewport": {
+              "width": 1366,
+              "height": 768
+            },
+            "start": {
+              "left": 913,
+              "top": 669.28125,
+              "right": 1207,
+              "bottom": 714.28125,
+              "fullyInViewport": true,
+              "centerIsClickable": true
+            },
+            "scrolledElements": []
+          }
+        },
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "titleWorldLoaded": false,
+        "gameStates": [
+          {
+            "phase": "01-world",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1366/01-world-world.json",
+              "bytes": 4676283,
+              "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1366/01-world-state.json",
+              "bytes": 16730,
+              "sha256": "748f9e776931e62e90e4358fe5c16ca8d20478e75f64190aa2bba9dfc43207de"
+            },
+            "timeTU": 2160000,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 0,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21600
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {},
+                "durability": 100,
+                "gearAgedAt": 21600
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          },
+          {
+            "phase": "02-inventory",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1366/02-inventory-world.json",
+              "bytes": 4683448,
+              "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1366/02-inventory-state.json",
+              "bytes": 16730,
+              "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          },
+          {
+            "phase": "final",
+            "world": {
+              "path": "test-results/game-harness-v293-final-1366/final-world.json",
+              "bytes": 4683448,
+              "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+            },
+            "state": {
+              "path": "test-results/game-harness-v293-final-1366/final-state.json",
+              "bytes": 16730,
+              "sha256": "f8882766cf9803beeb648e41437c03825398508148e5f53711e5e39e881e881b"
+            },
+            "timeTU": 2160200,
+            "position": {
+              "x": 9,
+              "y": 42
+            },
+            "facing": 4,
+            "bag": [],
+            "equipment": {
+              "main": {
+                "uid": 2,
+                "def": "Item.Pole",
+                "count": 1,
+                "durability": 100,
+                "gearAgedAt": 21602
+              },
+              "back": {
+                "uid": 3,
+                "def": "Item.OiledRaincoat",
+                "count": 1,
+                "wetness": {
+                  "torso": 0,
+                  "arms": 0,
+                  "legs": 0
+                },
+                "durability": 100,
+                "gearAgedAt": 21602
+              }
+            },
+            "contentHashEqualsBaseOnlyNative": true
+          }
+        ]
+      }
+    ],
+    "crossViewportWholeWorldChecks": [
+      {
+        "phase": "01-world",
+        "world1440": {
+          "path": "test-results/game-harness-v293-final-1440/01-world-world.json",
+          "bytes": 4676283,
+          "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+        },
+        "world1366": {
+          "path": "test-results/game-harness-v293-final-1366/01-world-world.json",
+          "bytes": 4676283,
+          "sha256": "84596feeea2b0abc021da66fa433f4e7a72320f25a72313c5712539026fa29f1"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "phase": "02-inventory",
+        "world1440": {
+          "path": "test-results/game-harness-v293-final-1440/02-inventory-world.json",
+          "bytes": 4683448,
+          "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+        },
+        "world1366": {
+          "path": "test-results/game-harness-v293-final-1366/02-inventory-world.json",
+          "bytes": 4683448,
+          "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+        },
+        "entireJSONEqual": true
+      },
+      {
+        "phase": "final",
+        "world1440": {
+          "path": "test-results/game-harness-v293-final-1440/final-world.json",
+          "bytes": 4683448,
+          "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+        },
+        "world1366": {
+          "path": "test-results/game-harness-v293-final-1366/final-world.json",
+          "bytes": 4683448,
+          "sha256": "37ad391b42e5b7db73b37ce1d3971f92c86689d09409bed6d280f9aaa2e83862"
+        },
+        "entireJSONEqual": true
+      }
+    ],
+    "audit": {
+      "path": "docs/game-harness-v293-audit.json",
+      "bytes": 798,
+      "sha256": "1bb33545175f3b23d8806e774a8282fdf844cdb8bf350e758f63148c69150dc6",
+      "record": {
+        "rows": [
+          {
+            "viewport": 1440,
+            "steps": 11,
+            "screenshots": 4,
+            "actualInputTU": 200,
+            "wholeWorldUnchangedByFinalObservation": true,
+            "contentHashMatchesFrozen293": true,
+            "startFullyInViewportWithoutScroll": true,
+            "startCenterClickable": true,
+            "startBottom": 880.28125
+          },
+          {
+            "viewport": 1366,
+            "steps": 11,
+            "screenshots": 4,
+            "actualInputTU": 200,
+            "wholeWorldUnchangedByFinalObservation": true,
+            "contentHashMatchesFrozen293": true,
+            "startFullyInViewportWithoutScroll": true,
+            "startCenterClickable": true,
+            "startBottom": 714.28125
+          }
+        ],
+        "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+        "ownPreviewWrapperUsed": true,
+        "source": "immutable v293-native"
+      }
+    }
+  },
+  "previewDisplayLimitations": {
+    "nativeOriginalRGBComparisons": [
+      {
+        "image": {
+          "path": "test-results/mod-textures-browser-v293-first/1440-native-base-original-salt-survives-whole198-restore.png",
+          "bytes": 413380,
+          "sha256": "1ee52958353d9ede915d718edd27a9ef81f99843ce4d2c01bfb2f6e2fabe20d4"
+        },
+        "reference": {
+          "path": "test-results/mod-textures-browser-v293-first/1439-native-base-salt-icon-restored-after-real-content-apply.png",
+          "bytes": 413615,
+          "sha256": "3da08b17dd2b0a2ba33bec959e0620b860c9fdf215fcff958ef677326b545f95"
+        },
+        "region": "whole inventory",
+        "rectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/mod-textures-browser-v293-first/1440-native-base-original-salt-survives-whole198-restore.png",
+          "bytes": 413380,
+          "sha256": "1ee52958353d9ede915d718edd27a9ef81f99843ce4d2c01bfb2f6e2fabe20d4"
+        },
+        "reference": {
+          "path": "test-results/mod-textures-browser-v293-first/1439-native-base-salt-icon-restored-after-real-content-apply.png",
+          "bytes": 413615,
+          "sha256": "3da08b17dd2b0a2ba33bec959e0620b860c9fdf215fcff958ef677326b545f95"
+        },
+        "region": "log",
+        "rectangleXYXY": [
+          914,
+          452,
+          1354,
+          618
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/mod-textures-browser-v293-first/1440-native-base-original-salt-survives-whole198-restore.png",
+          "bytes": 413380,
+          "sha256": "1ee52958353d9ede915d718edd27a9ef81f99843ce4d2c01bfb2f6e2fabe20d4"
+        },
+        "reference": {
+          "path": "test-results/mod-textures-browser-v293-first/1439-native-base-salt-icon-restored-after-real-content-apply.png",
+          "bytes": 413615,
+          "sha256": "3da08b17dd2b0a2ba33bec959e0620b860c9fdf215fcff958ef677326b545f95"
+        },
+        "region": "location panel",
+        "rectangleXYXY": [
+          12,
+          12,
+          246,
+          74
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/mod-textures-browser-v293-first/1437-native-small-restored-same-original-mod-png.png",
+          "bytes": 578229,
+          "sha256": "ac081a743f1aadbd8646167bad3b6d9cd9a1718294d7458621f2827de1751367"
+        },
+        "reference": {
+          "path": "test-results/mod-textures-browser-v293-first/1436-native-actual-mod-png-inventory-original-three-salt-preserved.png",
+          "bytes": 753733,
+          "sha256": "c5defed000f8bb371c7e12e6a40327120ca322d544ef529a484a7be2c1d5ba98"
+        },
+        "region": "same mod salt icon",
+        "rectangleXYXY": [
+          624,
+          154,
+          659,
+          189
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      },
+      {
+        "image": {
+          "path": "test-results/mod-textures-browser-v293-first/1439-native-base-salt-icon-restored-after-real-content-apply.png",
+          "bytes": 413615,
+          "sha256": "3da08b17dd2b0a2ba33bec959e0620b860c9fdf215fcff958ef677326b545f95"
+        },
+        "reference": {
+          "path": "test-results/mod-textures-browser-v293-first/1437-native-small-restored-same-original-mod-png.png",
+          "bytes": 578229,
+          "sha256": "ac081a743f1aadbd8646167bad3b6d9cd9a1718294d7458621f2827de1751367"
+        },
+        "region": "same knife icon",
+        "rectangleXYXY": [
+          662,
+          154,
+          697,
+          226
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": []
+      }
+    ],
+    "commonFinalOriginalRGBComparisons": [
+      {
+        "image": {
+          "path": "test-results/game-harness-v293-final-1440/final.png",
+          "bytes": 602068,
+          "sha256": "d0dcf3d366d9ef1ef22ec72dbaf06e24c171b65806504482b516713c4b16765d"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v293-final-1440/02-inventory.png",
+          "bytes": 604106,
+          "sha256": "1ec2c910227b060c33b178ebc4fe2ab4efdf288089e1066c3da04a61d6b0016c"
+        },
+        "region": "inventory",
+        "rectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1440
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v293-final-1440/final.png",
+          "bytes": 602068,
+          "sha256": "d0dcf3d366d9ef1ef22ec72dbaf06e24c171b65806504482b516713c4b16765d"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v293-final-1440/02-inventory.png",
+          "bytes": 604106,
+          "sha256": "1ec2c910227b060c33b178ebc4fe2ab4efdf288089e1066c3da04a61d6b0016c"
+        },
+        "region": "log",
+        "rectangleXYXY": [
+          988,
+          764,
+          1428,
+          930
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1440
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v293-final-1366/final.png",
+          "bytes": 446902,
+          "sha256": "cdee36530127aa1eed8d5d6fe5a0327263e8fb0ccfab7eba25134cde8a6de10e"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v293-final-1366/02-inventory.png",
+          "bytes": 447409,
+          "sha256": "936c8be4f326d4e42833d004e3e02f5950a7e52419432730f1f032a5be547d50"
+        },
+        "region": "inventory",
+        "rectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "entireRGBExactlyEqual": false,
+        "differentPixelCount": 2,
+        "maxChannelDelta": 1,
+        "firstDifferentPixelsXYMaxDelta": [
+          [
+            421,
+            442,
+            1
+          ],
+          [
+            422,
+            442,
+            1
+          ]
+        ],
+        "viewportWidth": 1366
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v293-final-1366/final.png",
+          "bytes": 446902,
+          "sha256": "cdee36530127aa1eed8d5d6fe5a0327263e8fb0ccfab7eba25134cde8a6de10e"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v293-final-1366/02-inventory.png",
+          "bytes": 447409,
+          "sha256": "936c8be4f326d4e42833d004e3e02f5950a7e52419432730f1f032a5be547d50"
+        },
+        "region": "log",
+        "rectangleXYXY": [
+          914,
+          452,
+          1354,
+          618
+        ],
+        "entireRGBExactlyEqual": true,
+        "differentPixelCount": 0,
+        "maxChannelDelta": 0,
+        "firstDifferentPixelsXYMaxDelta": [],
+        "viewportWidth": 1366
+      }
+    ],
+    "classification": "1440Native toolpreview omission is not missingproductpanel: inventory/log/locationpanel exactly match1439. Modsalt1436→1437icon and retainedknifeafterremoval exactlymatchregions. Genericfinal sourcepanels present; changes numericallyrecorded.",
+    "imagesEdited": false
+  },
+  "clippingAndScopeLimits": [
+    "NativeTitleimportscreens1432/1433/1434 are actuallyscrolledtoimport. TheirupperTitle/creationpartsareoffviewport.1433reviewborderreachesbottomnear1080,whileinstall/cancelremainvisible.",
+    "Native1438smallsettingsis scrolled: uppergeneralsettingsandpartofmodlistarenotallvisible. Close,reviewtext,cancel/acceptarewithin1366×768.",
+    "Native1436/1437/1439/1440inventoryfitsandshowsSalt3/knife/close; modalcoversplayer/world,so visibleworld extentdifferswithUIandrendererremount. NoUI-all-statesfitclaim.",
+    "CommonTitlelowerbackgroundchoicesextendbelowviewportevenwhenstartbuttonisfullyvisibleandhit-clickable.",
+    "Worlddarkness/trees/groundcanbeclippedbyviewport/HUD;1366initialhotbartooltipcoverspartoflog."
+  ],
+  "productSourceEvidence": {
+    "file": {
+      "path": "docs/mod-textures-v293-final-source-proof.json",
+      "bytes": 4061,
+      "sha256": "49a60862142e254d5b27f7d67d093eab129560d7d8ad52cf0e010ebe90383e2b"
+    },
+    "rootReportedFrozen": "v293-native",
+    "rootReportedProductBytesStable": true,
+    "workflowOnlyDifference": {
+      "file": ".github/workflows/pages.yml",
+      "change": "one additional mods/** push input path",
+      "nativeSha256": "8bdbddc40739e564a97d1c693489a9db86ce04948f3b28943df85089fb3b96d0",
+      "finalSha256": "bbf54265acd55380039d9b06344bf6f5d4fff81f16087d37520f28b01347f990"
+    },
+    "reviewerRehashedAllProductFiles": false,
+    "interpretation": "Rootsourceproofreportsproductsrc/dist/public/mods stable; afterNative only.github Pagesmods/**trigger changed. This screenreviewrecordsartifacthashandattribution,not a deploymentexecution."
+  },
+  "visualFindings": [],
+  "notVerified": [
+    "No browser/GPU/game/CLIpackage/install test rerun orCore/Defcode review bythis reviewer.",
+    "No character/sprite-sheet/terrain/font/audio/animated/otherdimensiontexturemodding completion claim; evidence is thisstatic16×16PNGItem.Salt sampleandonebrokenIDATcase.",
+    "No arbitrarymaliciousarchive/allPNGsecuritycoverageorallmodcombination/save-historycompatibilityclaim.",
+    "No automaticmodactivationornewgameSaltgrant: installedpackage remainsunselectedatTitle; finiteTitleContinuehasdeclaredactivecontent.",
+    "No untouchedallUIDclaim: floorSaltUID51isnormallyabsorbedintoUID49×3onfreepickup.",
+    "No wholeworldbyteidentityacrossacceptedcontentchange: hashes/mods/contentChanges/achievementsDisabledintentionallychange; physicalworld/RNG/timeexactness separatelyverified.",
+    "No productimageedit,regeneration,Git,push/deployorotherprojectfilewrite; onlythisJSONreportwritten."
+  ]
+}

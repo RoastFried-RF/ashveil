@@ -1,0 +1,415 @@
+{
+  "previousVersion": 71,
+  "currentVersion": 72,
+  "allWholeStatesReviewed": true,
+  "explanation": "생성 완료 때 원래 죽은 나무 일부만 같은 목재/충돌/엄폐의 살아 있는 소나무로 바꾸고 독립 world.botany 난수를 추가했다. 버전 외 나머지 전체 상태/오류는 같다. 기존 생성 난수/지형 기하/원래 물품/인물/시장/전체 행동 결과는 유지한다.",
+  "rows": [
+    {
+      "name": "surface",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newLivingPineTiles": [
+            "/map/tiles/0",
+            "/map/tiles/15",
+            "/map/tiles/18",
+            "/map/tiles/32",
+            "/map/tiles/38",
+            "/map/tiles/45",
+            "/map/tiles/48",
+            "/map/tiles/49",
+            "/map/tiles/52",
+            "/map/tiles/62",
+            "/map/tiles/108",
+            "/map/tiles/116",
+            "/map/tiles/256",
+            "/map/tiles/257",
+            "/map/tiles/703",
+            "/map/tiles/832",
+            "/map/tiles/1165",
+            "/map/tiles/1344",
+            "/map/tiles/1490",
+            "/map/tiles/1555",
+            "/map/tiles/1663",
+            "/map/tiles/1792",
+            "/map/tiles/1855",
+            "/map/tiles/1865",
+            "/map/tiles/2019",
+            "/map/tiles/2190",
+            "/map/tiles/2240",
+            "/map/tiles/2304",
+            "/map/tiles/2430",
+            "/map/tiles/2518",
+            "/map/tiles/2580",
+            "/map/tiles/2581",
+            "/map/tiles/2815",
+            "/map/tiles/2995",
+            "/map/tiles/3011",
+            "/map/tiles/3050",
+            "/map/tiles/3052",
+            "/map/tiles/3064"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newLivingPineTiles": [
+            "/maps/surface/tiles/0",
+            "/maps/surface/tiles/15",
+            "/maps/surface/tiles/18",
+            "/maps/surface/tiles/32",
+            "/maps/surface/tiles/38",
+            "/maps/surface/tiles/45",
+            "/maps/surface/tiles/48",
+            "/maps/surface/tiles/49",
+            "/maps/surface/tiles/52",
+            "/maps/surface/tiles/62",
+            "/maps/surface/tiles/108",
+            "/maps/surface/tiles/116",
+            "/maps/surface/tiles/256",
+            "/maps/surface/tiles/257",
+            "/maps/surface/tiles/703",
+            "/maps/surface/tiles/832",
+            "/maps/surface/tiles/1165",
+            "/maps/surface/tiles/1344",
+            "/maps/surface/tiles/1490",
+            "/maps/surface/tiles/1555",
+            "/maps/surface/tiles/1663",
+            "/maps/surface/tiles/1792",
+            "/maps/surface/tiles/1855",
+            "/maps/surface/tiles/1865",
+            "/maps/surface/tiles/2019",
+            "/maps/surface/tiles/2190",
+            "/maps/surface/tiles/2240",
+            "/maps/surface/tiles/2304",
+            "/maps/surface/tiles/2430",
+            "/maps/surface/tiles/2518",
+            "/maps/surface/tiles/2580",
+            "/maps/surface/tiles/2581",
+            "/maps/surface/tiles/2815",
+            "/maps/surface/tiles/2995",
+            "/maps/surface/tiles/3011",
+            "/maps/surface/tiles/3050",
+            "/maps/surface/tiles/3052",
+            "/maps/surface/tiles/3064"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newLivingPineTiles": [
+            "/map/tiles/12",
+            "/map/tiles/37",
+            "/map/tiles/74",
+            "/map/tiles/702",
+            "/map/tiles/895",
+            "/map/tiles/1344",
+            "/map/tiles/1450",
+            "/map/tiles/1565",
+            "/map/tiles/1599",
+            "/map/tiles/1749",
+            "/map/tiles/1758",
+            "/map/tiles/1855",
+            "/map/tiles/2397",
+            "/map/tiles/2461",
+            "/map/tiles/2497",
+            "/map/tiles/2616",
+            "/map/tiles/2942",
+            "/map/tiles/2979",
+            "/map/tiles/2996",
+            "/map/tiles/3060"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newLivingPineTiles": [
+            "/maps/surface/tiles/12",
+            "/maps/surface/tiles/37",
+            "/maps/surface/tiles/74",
+            "/maps/surface/tiles/702",
+            "/maps/surface/tiles/895",
+            "/maps/surface/tiles/1344",
+            "/maps/surface/tiles/1450",
+            "/maps/surface/tiles/1565",
+            "/maps/surface/tiles/1599",
+            "/maps/surface/tiles/1749",
+            "/maps/surface/tiles/1758",
+            "/maps/surface/tiles/1855",
+            "/maps/surface/tiles/2397",
+            "/maps/surface/tiles/2461",
+            "/maps/surface/tiles/2497",
+            "/maps/surface/tiles/2616",
+            "/maps/surface/tiles/2942",
+            "/maps/surface/tiles/2979",
+            "/maps/surface/tiles/2996",
+            "/maps/surface/tiles/3060"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newLivingPineTiles": [
+            "/map/tiles/1",
+            "/map/tiles/7",
+            "/map/tiles/43",
+            "/map/tiles/48",
+            "/map/tiles/52",
+            "/map/tiles/64",
+            "/map/tiles/69",
+            "/map/tiles/446",
+            "/map/tiles/448",
+            "/map/tiles/1324",
+            "/map/tiles/1814",
+            "/map/tiles/1815",
+            "/map/tiles/2046",
+            "/map/tiles/2088",
+            "/map/tiles/2176",
+            "/map/tiles/2303",
+            "/map/tiles/2331",
+            "/map/tiles/2367",
+            "/map/tiles/2514",
+            "/map/tiles/2625",
+            "/map/tiles/2815",
+            "/map/tiles/2950",
+            "/map/tiles/3015",
+            "/map/tiles/3047",
+            "/map/tiles/3054",
+            "/map/tiles/3069"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newLivingPineTiles": [
+            "/maps/surface/tiles/1",
+            "/maps/surface/tiles/7",
+            "/maps/surface/tiles/43",
+            "/maps/surface/tiles/48",
+            "/maps/surface/tiles/52",
+            "/maps/surface/tiles/64",
+            "/maps/surface/tiles/69",
+            "/maps/surface/tiles/446",
+            "/maps/surface/tiles/448",
+            "/maps/surface/tiles/1324",
+            "/maps/surface/tiles/1814",
+            "/maps/surface/tiles/1815",
+            "/maps/surface/tiles/2046",
+            "/maps/surface/tiles/2088",
+            "/maps/surface/tiles/2176",
+            "/maps/surface/tiles/2303",
+            "/maps/surface/tiles/2331",
+            "/maps/surface/tiles/2367",
+            "/maps/surface/tiles/2514",
+            "/maps/surface/tiles/2625",
+            "/maps/surface/tiles/2815",
+            "/maps/surface/tiles/2950",
+            "/maps/surface/tiles/3015",
+            "/maps/surface/tiles/3047",
+            "/maps/surface/tiles/3054",
+            "/maps/surface/tiles/3069"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "world-journey",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newLivingPineTiles": [
+            "/map/tiles/10",
+            "/map/tiles/21",
+            "/map/tiles/22",
+            "/map/tiles/26",
+            "/map/tiles/31",
+            "/map/tiles/78",
+            "/map/tiles/82",
+            "/map/tiles/111",
+            "/map/tiles/705",
+            "/map/tiles/896",
+            "/map/tiles/897",
+            "/map/tiles/1023",
+            "/map/tiles/1088",
+            "/map/tiles/1151",
+            "/map/tiles/1343",
+            "/map/tiles/1352",
+            "/map/tiles/1681",
+            "/map/tiles/1738",
+            "/map/tiles/1739",
+            "/map/tiles/2075",
+            "/map/tiles/2176",
+            "/map/tiles/2265",
+            "/map/tiles/2432",
+            "/map/tiles/2980",
+            "/map/tiles/3022",
+            "/map/tiles/3050",
+            "/map/tiles/3051",
+            "/map/tiles/3060",
+            "/map/tiles/3063"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newLivingPineTiles": [
+            "/overworld/scenes/Region.GreyCloister/map/tiles/10",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/21",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/22",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/26",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/31",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/78",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/82",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/111",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/705",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/896",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/897",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1023",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1088",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1151",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1343",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1352",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1681",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1738",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/1739",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/2075",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/2176",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/2265",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/2432",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/2980",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/3022",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/3050",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/3051",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/3060",
+            "/overworld/scenes/Region.GreyCloister/map/tiles/3063"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery",
+            "world.botany.24.76"
+          ],
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "world-climate-return",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newLivingPineTiles": [
+            "/map/tiles/10",
+            "/map/tiles/21",
+            "/map/tiles/22",
+            "/map/tiles/26",
+            "/map/tiles/31",
+            "/map/tiles/78",
+            "/map/tiles/82",
+            "/map/tiles/111",
+            "/map/tiles/705",
+            "/map/tiles/896",
+            "/map/tiles/897",
+            "/map/tiles/1023",
+            "/map/tiles/1088",
+            "/map/tiles/1151",
+            "/map/tiles/1343",
+            "/map/tiles/1352",
+            "/map/tiles/1681",
+            "/map/tiles/1738",
+            "/map/tiles/1739",
+            "/map/tiles/2075",
+            "/map/tiles/2176",
+            "/map/tiles/2265",
+            "/map/tiles/2432",
+            "/map/tiles/2980",
+            "/map/tiles/3022",
+            "/map/tiles/3050",
+            "/map/tiles/3051",
+            "/map/tiles/3060",
+            "/map/tiles/3063"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery"
+          ],
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newLivingPineTiles": [
+            "/map/tiles/10",
+            "/map/tiles/21",
+            "/map/tiles/22",
+            "/map/tiles/26",
+            "/map/tiles/31",
+            "/map/tiles/78",
+            "/map/tiles/82",
+            "/map/tiles/111",
+            "/map/tiles/705",
+            "/map/tiles/896",
+            "/map/tiles/897",
+            "/map/tiles/1023",
+            "/map/tiles/1088",
+            "/map/tiles/1151",
+            "/map/tiles/1343",
+            "/map/tiles/1352",
+            "/map/tiles/1681",
+            "/map/tiles/1738",
+            "/map/tiles/1739",
+            "/map/tiles/2075",
+            "/map/tiles/2176",
+            "/map/tiles/2265",
+            "/map/tiles/2432",
+            "/map/tiles/2980",
+            "/map/tiles/3022",
+            "/map/tiles/3050",
+            "/map/tiles/3051",
+            "/map/tiles/3060",
+            "/map/tiles/3063"
+          ],
+          "newIndependentRngStreams": [
+            "world.botany.monastery",
+            "world.botany.24.76",
+            "world.botany.24.75"
+          ],
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    }
+  ]
+}

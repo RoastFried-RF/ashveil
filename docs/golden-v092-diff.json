@@ -1,0 +1,48 @@
+{
+  "from": "v0.91",
+  "to": "v0.92",
+  "wholeStateAudit": [
+    {
+      "name": "surface",
+      "completeInitialAndFinalAudit": true,
+      "errorsExact": true,
+      "allowedChanges": [
+        "version55→56"
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "completeInitialAndFinalAudit": true,
+      "errorsExact": true,
+      "allowedChanges": [
+        "version55→56"
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "completeInitialAndFinalAudit": true,
+      "errorsExact": true,
+      "allowedChanges": [
+        "version55→56"
+      ]
+    },
+    {
+      "name": "world-journey",
+      "completeInitialAndFinalAudit": true,
+      "errorsExact": true,
+      "allowedChanges": [
+        "version55→56",
+        "one appended actual adjacent SaltrimRelay site and only its coast biome/four resources"
+      ]
+    },
+    {
+      "name": "world-climate-return",
+      "completeInitialAndFinalAudit": true,
+      "errorsExact": true,
+      "allowedChanges": [
+        "version55→56",
+        "one appended actual adjacent SaltrimRelay site and only its coast biome/four resources"
+      ]
+    }
+  ]
+}

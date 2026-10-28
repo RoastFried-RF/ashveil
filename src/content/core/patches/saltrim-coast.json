@@ -1,0 +1,62 @@
+[
+  {
+    "op": "add",
+    "target": "Item.Salt",
+    "path": "/saltGrams",
+    "value": 35
+  },
+  {
+    "op": "replace",
+    "target": "Recipe.SaltMeat",
+    "path": "/workTurns",
+    "value": 20
+  },
+  {
+    "op": "add",
+    "target": "Recipe.SaltMeat",
+    "path": "/passiveTurns",
+    "value": 57600
+  },
+  {
+    "op": "replace",
+    "target": "Recipe.SaltMeat",
+    "path": "/inputs",
+    "value": [
+      {
+        "item": "Item.RawMeat",
+        "count": 3
+      },
+      {
+        "item": "Item.Salt",
+        "count": 1
+      }
+    ]
+  },
+  {
+    "op": "replace",
+    "target": "Recipe.SaltMeat",
+    "path": "/output",
+    "value": {
+      "item": "Item.SaltedMeat",
+      "count": 3
+    }
+  },
+  {
+    "op": "add",
+    "target": "WorldSimulation.Hearth",
+    "path": "/items/Item.Salt",
+    "value": {
+      "commodity": "Salt",
+      "units": 1
+    }
+  },
+  {
+    "op": "add",
+    "target": "WorldSimulation.Hearth",
+    "path": "/items/Item.SaltedMeat",
+    "value": {
+      "commodity": "Food",
+      "units": 0.12
+    }
+  }
+]

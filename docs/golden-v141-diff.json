@@ -1,0 +1,4152 @@
+{
+  "from": "v140",
+  "to": "v141",
+  "allFiveInitialSameExceptVersion105": true,
+  "allFiveErrorsSame": true,
+  "review": "surface/world2 whole final same except105; dungeon43/freeze16 differences confined to SawBlood memory, actual wound observerIDs, NPC stress/history/breakdown and its body.npc RNG, two inserted visible logs. All other fields whole exact. No old thought or old log deleted.",
+  "raw": [
+    {
+      "name": "surface",
+      "initialSameExceptVersion": true,
+      "errorsSame": true,
+      "changes": []
+    },
+    {
+      "name": "dungeon-combat",
+      "initialSameExceptVersion": true,
+      "errorsSame": true,
+      "changes": [
+        [
+          "/creatures/0/thoughts",
+          [
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 45620,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21620,
+                  "untilTurn": 45620,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309666,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21666,
+                  "untilTurn": 309666,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108066,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21666,
+                  "untilTurn": 108066,
+                  "mood": -4
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "def": "Thought.KilledFevered",
+              "untilTurn": 45620,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21620,
+                  "untilTurn": 45620,
+                  "mood": -6
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309666,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21666,
+                  "untilTurn": 309666,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108066,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21666,
+                  "untilTurn": 108066,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24075,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21675,
+                  "untilTurn": 24075
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/0/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/2/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/3/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/4/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/6/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/7/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/8/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/body/wounds/9/bloodSeenBy",
+          null,
+          [
+            1,
+            47,
+            66
+          ]
+        ],
+        [
+          "/creatures/3/breakdown",
+          null,
+          {
+            "def": "Break.Irritable",
+            "kind": "irritable",
+            "until": 28819,
+            "remaining": 2,
+            "hp": -6.818181818181813
+          }
+        ],
+        [
+          "/creatures/3/needs/stress",
+          65,
+          81
+        ],
+        [
+          "/creatures/3/npcPsyche/history",
+          [
+            {
+              "at": 21609,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21613,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21614,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21615,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21616,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21617,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21618,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21619,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21620,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ],
+          [
+            {
+              "at": 21610,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21613,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21613,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21614,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21614,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21615,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21615,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21616,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21616,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21617,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21617,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21618,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21618,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21619,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21619,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21620,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ]
+        ],
+        [
+          "/creatures/3/history",
+          [],
+          [
+            {
+              "turn": 21619,
+              "kind": "breakdown",
+              "text": "정신붕괴: 짜증"
+            }
+          ]
+        ],
+        [
+          "/creatures/8/body/wounds/0/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/8/body/wounds/1/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/8/body/wounds/2/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/8/body/wounds/3/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/8/needs/stress",
+          45,
+          59
+        ],
+        [
+          "/creatures/8/npcPsyche/history",
+          [
+            {
+              "at": 21636,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21637,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21638,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21647,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21660,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ],
+          [
+            {
+              "at": 21632,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21636,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21636,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21637,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21637,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21638,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21638,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21641,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21644,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21647,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21647,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21660,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ]
+        ],
+        [
+          "/creatures/9/body/wounds/0/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/9/body/wounds/1/bloodSeenBy",
+          null,
+          [
+            1,
+            62,
+            78
+          ]
+        ],
+        [
+          "/creatures/9/body/wounds/2/bloodSeenBy",
+          null,
+          [
+            1,
+            62,
+            78
+          ]
+        ],
+        [
+          "/creatures/9/breakdown",
+          null,
+          {
+            "def": "Break.Irritable",
+            "kind": "irritable",
+            "until": 28874,
+            "remaining": 3,
+            "hp": 45
+          }
+        ],
+        [
+          "/creatures/9/needs/stress",
+          55,
+          73
+        ],
+        [
+          "/creatures/9/npcPsyche/history",
+          [
+            {
+              "at": 21641,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            },
+            {
+              "at": 21673,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21675,
+              "kind": "hurt",
+              "delta": 5
+            }
+          ],
+          [
+            {
+              "at": 21631,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21636,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21637,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21638,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21641,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21641,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21644,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21647,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            },
+            {
+              "at": 21673,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21673,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21675,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21675,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            }
+          ]
+        ],
+        [
+          "/creatures/9/history",
+          [],
+          [
+            {
+              "turn": 21674,
+              "kind": "breakdown",
+              "text": "정신붕괴: 짜증"
+            }
+          ]
+        ],
+        [
+          "/creatures/10/body/wounds/1/bloodSeenBy",
+          null,
+          [
+            1,
+            62,
+            66,
+            58,
+            78
+          ]
+        ],
+        [
+          "/creatures/10/body/wounds/2/bloodSeenBy",
+          null,
+          [
+            1,
+            58,
+            62,
+            66,
+            78
+          ]
+        ],
+        [
+          "/creatures/10/needs/stress",
+          70,
+          86
+        ],
+        [
+          "/creatures/10/npcPsyche/history",
+          [
+            {
+              "at": 21629,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21631,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21644,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            },
+            {
+              "at": 21670,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ],
+          [
+            {
+              "at": 21620,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21629,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21631,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21631,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21636,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21637,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21638,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21641,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21644,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21644,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21647,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            },
+            {
+              "at": 21670,
+              "kind": "nearDeath",
+              "delta": 15
+            }
+          ]
+        ],
+        [
+          "/creatures/13/needs/stress",
+          40,
+          50
+        ],
+        [
+          "/creatures/13/npcPsyche/history",
+          [
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            }
+          ],
+          [
+            {
+              "at": 21642,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21644,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21647,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21666,
+              "kind": "leaderDeath",
+              "delta": 30,
+              "source": 58
+            },
+            {
+              "at": 21673,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21675,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            }
+          ]
+        ],
+        [
+          "/log",
+          [
+            {
+              "turn": 21600,
+              "kind": "flavor",
+              "text": "잿빛 수도원 앞뜰. 해가 지고 있다. 장막 너머로 붉은 빛이 꺼져 간다."
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "당신은 아라, 탈영 경비병. 특성: 편집증, 소식가."
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "북쪽 무너진 수도원 아래 납골당. 그 바닥에 무엇이 있는지 아무도 돌아와 말해주지 않았다. (? 키: 조작법)"
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "회랑 — 축축한 냉기와 썩은 향 냄새."
+            },
+            {
+              "turn": 21600,
+              "kind": "good",
+              "text": "능력을 배웠다: 꿰뚫기"
+            },
+            {
+              "turn": 21600,
+              "kind": "good",
+              "text": "능력을 배웠다: 다리 걸기"
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "등불을 켰다. 주변이 밝아졌다. 멀리서도 보일 것이다."
+            },
+            {
+              "turn": 21602,
+              "kind": "info",
+              "text": "빈 방을 찾았다."
+            },
+            {
+              "turn": 21602,
+              "kind": "good",
+              "text": "오래된 유골에서 찾았다: 개척기 통조림"
+            },
+            {
+              "turn": 21606,
+              "kind": "info",
+              "text": "문을 열었다. 녹슨 경첩이 삐걱인다."
+            },
+            {
+              "turn": 21609,
+              "kind": "info",
+              "text": "서고를 찾았다."
+            },
+            {
+              "turn": 21609,
+              "kind": "combat",
+              "text": "기습! 당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (21) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 0) × 2 = 56",
+                "잠든 상대 +40",
+                "거리 유지 +10",
+                "최종 95% (5~95)",
+                "roll 8 < 95?",
+                "피해 12 × 날 1.00 × 근력 1.05 × 팔 1 × 114% = 14",
+                "기습 첫 타 ×1.5 → 21",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 80% roll 62"
+              ]
+            },
+            {
+              "turn": 21609,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21609,
+              "kind": "warn",
+              "text": "갓을 쓴 사람이 깨어났다. (공격받음)"
+            },
+            {
+              "turn": 21613,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21613,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 갓을 쓴 사람의 복부에 찔림 (12)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "측면 +10",
+                "거리 유지 +10",
+                "최종 84% (5~95)",
+                "roll 64 < 84?",
+                "피해 12 × 날 1.00 × 근력 1.05 × 팔 1 × 96% = 12",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 48% roll 87"
+              ]
+            },
+            {
+              "turn": 21613,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 갓을 쓴 사람의 오른 상완에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 35 < 54?",
+                "피해 12 × 날 0.99 × 근력 1.05 × 팔 1 × 92% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 7"
+              ]
+            },
+            {
+              "turn": 21614,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "갓을 쓴 사람이 넘어졌다."
+            },
+            {
+              "turn": 21615,
+              "kind": "warn",
+              "text": "포자 구름 속이다. 기침이 멎지 않고 숨이 가쁘다."
+            },
+            {
+              "turn": 21615,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (13) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "넘어진 상대 +20",
+                "긴 자루 인접 -10",
+                "최종 74% (5~95)",
+                "roll 64 < 74?",
+                "피해 12 × 날 0.99 × 근력 1.05 × 팔 1 × 106% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 54% roll 22"
+              ]
+            },
+            {
+              "turn": 21615,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21616,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 오른 정강이에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 28 < 54?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 94% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 6"
+              ]
+            },
+            {
+              "turn": 21616,
+              "kind": "combat",
+              "text": "갓을 쓴 사람이 넘어졌다."
+            },
+            {
+              "turn": 21616,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21617,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (13) — 흉부가 못 쓰게 됐다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "넘어진 상대 +20",
+                "긴 자루 인접 -10",
+                "최종 74% (5~95)",
+                "roll 46 < 74?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 111% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 54% roll 21"
+              ]
+            },
+            {
+              "turn": 21617,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 갓을 쓴 사람의 왼 상완에 찔림 (10) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 35 < 54?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 84% = 10",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 20% roll 16"
+              ]
+            },
+            {
+              "turn": 21618,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "갓을 쓴 사람의 포자 주먹 — 당신에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 -1 − 회피치 0) × 2 = 48",
+                "쥔 팔 상태 -2",
+                "통증 -10",
+                "실혈 -10",
+                "잠기운 -20",
+                "최종 6% (5~95)",
+                "roll 67 < 6?"
+              ]
+            },
+            {
+              "turn": 21619,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 오른 전완에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 36 < 54?",
+                "피해 12 × 날 0.97 × 근력 1.05 × 팔 1 × 92% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 2"
+              ]
+            },
+            {
+              "turn": 21619,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21620,
+              "kind": "warn",
+              "text": "포자 구름 속이다. 기침이 멎지 않고 숨이 가쁘다."
+            },
+            {
+              "turn": 21620,
+              "kind": "combat",
+              "text": "포자 인간이 쓰러졌다. (치명상)"
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 60 < 42?"
+              ]
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21626,
+              "kind": "info",
+              "text": "올라가는 계단이다. (< 올라가기)"
+            },
+            {
+              "turn": 21629,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21629,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 작은 사람의 왼 검지에 찔림 (14) — 왼 검지가 못 쓰게 됐다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 33 < 42?",
+                "피해 12 × 날 0.97 × 근력 1.05 × 팔 1 × 117% = 14",
+                "받아넘기기 23% · 기력 6 · roll 78 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "→ 왼 검지"
+              ]
+            },
+            {
+              "turn": 21630,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21630,
+              "kind": "combat",
+              "text": "작은 사람이 당신의 다리 걸기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 1 < 12?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 85% = 10",
+                "받아넘기기 23% · 기력 6 · roll 16 → 성공"
+              ]
+            },
+            {
+              "turn": 21631,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 오른 대퇴에 찔림 (12)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 23 < 32?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 104% = 12",
+                "부위 적중: 겉으로 보이는 위치",
+                "동맥 판정 24% roll 35"
+              ]
+            },
+            {
+              "turn": 21631,
+              "kind": "flavor",
+              "text": "남서쪽 어딘가에서 소리가 났다."
+            },
+            {
+              "turn": 21632,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 18 < 12?"
+              ]
+            },
+            {
+              "turn": 21633,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 94 < 32?"
+              ]
+            },
+            {
+              "turn": 21634,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21634,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "후면 +20",
+                "긴 자루 인접 -10",
+                "최종 42% (5~95)",
+                "roll 84 < 42?"
+              ]
+            },
+            {
+              "turn": 21635,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 54 < 12?"
+              ]
+            },
+            {
+              "turn": 21635,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21636,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21636,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 작은 사람의 오른발에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 26 < 32?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 87% = 10",
+                "부위 적중: 겉으로 보이는 위치"
+              ]
+            },
+            {
+              "turn": 21637,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 흉부에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 11) × 2 = 34",
+                "후면 +20",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 34% (5~95)",
+                "roll 9 < 34?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 85% = 10",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 36% roll 59"
+              ]
+            },
+            {
+              "turn": 21637,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21638,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 왼 정강이에 찔림 (13)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 11) × 2 = 34",
+                "후면 +20",
+                "거리 유지 +10",
+                "최종 64% (5~95)",
+                "roll 29 < 64?",
+                "피해 12 × 날 0.95 × 근력 1.05 × 팔 1 × 112% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "동맥 판정 26% roll 94"
+              ]
+            },
+            {
+              "turn": 21638,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21639,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21639,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "후면 +20",
+                "거리 유지 +10",
+                "최종 68% (5~95)",
+                "roll 85 < 68?"
+              ]
+            },
+            {
+              "turn": 21640,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "거리 유지 +10",
+                "최종 46% (5~95)",
+                "roll 75 < 46?"
+              ]
+            },
+            {
+              "turn": 21641,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 골반에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 40 < 42?",
+                "피해 12 × 날 0.95 × 근력 1.05 × 팔 1 × 82% = 9",
+                "받아넘기기 23% · 기력 6 · roll 58 → 실패",
+                "부위 적중: 겉으로 보이는 위치"
+              ]
+            },
+            {
+              "turn": 21642,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21642,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "거리 유지 +10",
+                "최종 46% (5~95)",
+                "roll 82 < 46?"
+              ]
+            },
+            {
+              "turn": 21643,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 43 < 42?"
+              ]
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 그늘 사람의 복부에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 3 < 41?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 83% = 9",
+                "받아넘기기 23% · 기력 6 · roll 59 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 30% roll 73"
+              ]
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "그늘 우두머리가 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "그늘 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21645,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 91 < 43?"
+              ]
+            },
+            {
+              "turn": 21647,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 그늘 우두머리의 복부에 찔림 (12) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "거리 유지 +10",
+                "최종 48% (5~95)",
+                "roll 20 < 48?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 103% = 12",
+                "받아넘기기 28% · 기력 6 · roll 57 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 48% roll 11"
+              ]
+            },
+            {
+              "turn": 21648,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21648,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 72 < 41?"
+              ]
+            },
+            {
+              "turn": 21649,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21649,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 59 < 43?"
+              ]
+            },
+            {
+              "turn": 21650,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 51 < 41?"
+              ]
+            },
+            {
+              "turn": 21651,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 91 < 43?"
+              ]
+            },
+            {
+              "turn": 21652,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21652,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 74 < 41?"
+              ]
+            },
+            {
+              "turn": 21653,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21653,
+              "kind": "combat",
+              "text": "그늘 우두머리가 당신의 찌르기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 20 < 43?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 87% = 10",
+                "받아넘기기 28% · 기력 6 · roll 27 → 성공"
+              ]
+            },
+            {
+              "turn": 21655,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21655,
+              "kind": "combat",
+              "text": "그늘 우두머리가 당신의 다리 걸기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -15",
+                "거리 유지 +10",
+                "최종 33% (5~95)",
+                "roll 25 < 33?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 87% = 10",
+                "받아넘기기 28% · 기력 6 · roll 0 → 성공"
+              ]
+            },
+            {
+              "turn": 21657,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21657,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 74 < 37?"
+              ]
+            },
+            {
+              "turn": 21658,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21658,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "측면 +10",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 51% (5~95)",
+                "roll 90 < 51?"
+              ]
+            },
+            {
+              "turn": 21659,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21659,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 65 < 37?"
+              ]
+            },
+            {
+              "turn": 21660,
+              "kind": "combat",
+              "text": "그늘 우두머리가 피를 너무 많이 흘려 쓰러졌다."
+            },
+            {
+              "turn": 21661,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21661,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 79 < 37?"
+              ]
+            },
+            {
+              "turn": 21663,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21663,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 41 < 37?"
+              ]
+            },
+            {
+              "turn": 21665,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 56 < 37?"
+              ]
+            },
+            {
+              "turn": 21666,
+              "kind": "combat",
+              "text": "그늘 우두머리가 쓰러졌다. (과다 출혈)"
+            },
+            {
+              "turn": 21666,
+              "kind": "info",
+              "text": "올라가는 계단이다. (< 올라가기)"
+            },
+            {
+              "turn": 21671,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21671,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 83 < 42?"
+              ]
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 그늘 사람의 흉부에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 14 < 42?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 81% = 9",
+                "받아넘기기 23% · 기력 6 · roll 25 → 실패",
+                "부위: 흉부 200 / 1000 (roll 106)",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 30% roll 51"
+              ]
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "그늘 사람이 넘어졌다."
+            },
+            {
+              "turn": 21674,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "넘어진 상대 +20",
+                "거리 유지 +10",
+                "최종 62% (5~95)",
+                "roll 68 < 62?"
+              ]
+            },
+            {
+              "turn": 21675,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 그늘 사람의 흉부에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 2 < 42?",
+                "피해 12 × 날 0.93 × 근력 1.05 × 팔 1 × 88% = 10",
+                "받아넘기기 23% · 기력 6 · roll 23 → 실패",
+                "부위: 흉부 200 / 1000 (roll 199)",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 36% roll 77"
+              ]
+            },
+            {
+              "turn": 21677,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21677,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 48 < 42?"
+              ]
+            }
+          ],
+          [
+            {
+              "turn": 21600,
+              "kind": "flavor",
+              "text": "잿빛 수도원 앞뜰. 해가 지고 있다. 장막 너머로 붉은 빛이 꺼져 간다."
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "당신은 아라, 탈영 경비병. 특성: 편집증, 소식가."
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "북쪽 무너진 수도원 아래 납골당. 그 바닥에 무엇이 있는지 아무도 돌아와 말해주지 않았다. (? 키: 조작법)"
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "회랑 — 축축한 냉기와 썩은 향 냄새."
+            },
+            {
+              "turn": 21600,
+              "kind": "good",
+              "text": "능력을 배웠다: 꿰뚫기"
+            },
+            {
+              "turn": 21600,
+              "kind": "good",
+              "text": "능력을 배웠다: 다리 걸기"
+            },
+            {
+              "turn": 21600,
+              "kind": "info",
+              "text": "등불을 켰다. 주변이 밝아졌다. 멀리서도 보일 것이다."
+            },
+            {
+              "turn": 21602,
+              "kind": "info",
+              "text": "빈 방을 찾았다."
+            },
+            {
+              "turn": 21602,
+              "kind": "good",
+              "text": "오래된 유골에서 찾았다: 개척기 통조림"
+            },
+            {
+              "turn": 21606,
+              "kind": "info",
+              "text": "문을 열었다. 녹슨 경첩이 삐걱인다."
+            },
+            {
+              "turn": 21609,
+              "kind": "info",
+              "text": "서고를 찾았다."
+            },
+            {
+              "turn": 21609,
+              "kind": "combat",
+              "text": "기습! 당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (21) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 0) × 2 = 56",
+                "잠든 상대 +40",
+                "거리 유지 +10",
+                "최종 95% (5~95)",
+                "roll 8 < 95?",
+                "피해 12 × 날 1.00 × 근력 1.05 × 팔 1 × 114% = 14",
+                "기습 첫 타 ×1.5 → 21",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 80% roll 62"
+              ]
+            },
+            {
+              "turn": 21609,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21609,
+              "kind": "warn",
+              "text": "갓을 쓴 사람이 깨어났다. (공격받음)"
+            },
+            {
+              "turn": 21613,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21613,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 갓을 쓴 사람의 복부에 찔림 (12)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "측면 +10",
+                "거리 유지 +10",
+                "최종 84% (5~95)",
+                "roll 64 < 84?",
+                "피해 12 × 날 1.00 × 근력 1.05 × 팔 1 × 96% = 12",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 48% roll 87"
+              ]
+            },
+            {
+              "turn": 21613,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 갓을 쓴 사람의 오른 상완에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 35 < 54?",
+                "피해 12 × 날 0.99 × 근력 1.05 × 팔 1 × 92% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 7"
+              ]
+            },
+            {
+              "turn": 21614,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21614,
+              "kind": "combat",
+              "text": "갓을 쓴 사람이 넘어졌다."
+            },
+            {
+              "turn": 21615,
+              "kind": "warn",
+              "text": "포자 구름 속이다. 기침이 멎지 않고 숨이 가쁘다."
+            },
+            {
+              "turn": 21615,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (13) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "넘어진 상대 +20",
+                "긴 자루 인접 -10",
+                "최종 74% (5~95)",
+                "roll 64 < 74?",
+                "피해 12 × 날 0.99 × 근력 1.05 × 팔 1 × 106% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 54% roll 22"
+              ]
+            },
+            {
+              "turn": 21615,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21616,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 오른 정강이에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 28 < 54?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 94% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 6"
+              ]
+            },
+            {
+              "turn": 21616,
+              "kind": "combat",
+              "text": "갓을 쓴 사람이 넘어졌다."
+            },
+            {
+              "turn": 21616,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21617,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 흉부에 찔림 (13) — 흉부가 못 쓰게 됐다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "넘어진 상대 +20",
+                "긴 자루 인접 -10",
+                "최종 74% (5~95)",
+                "roll 46 < 74?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 111% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "장기 관통 54% roll 21"
+              ]
+            },
+            {
+              "turn": 21617,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 갓을 쓴 사람의 왼 상완에 찔림 (10) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 35 < 54?",
+                "피해 12 × 날 0.98 × 근력 1.05 × 팔 1 × 84% = 10",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 20% roll 16"
+              ]
+            },
+            {
+              "turn": 21618,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21618,
+              "kind": "combat",
+              "text": "갓을 쓴 사람의 포자 주먹 — 당신에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 -1 − 회피치 0) × 2 = 48",
+                "쥔 팔 상태 -2",
+                "통증 -10",
+                "실혈 -10",
+                "잠기운 -20",
+                "최종 6% (5~95)",
+                "roll 67 < 6?"
+              ]
+            },
+            {
+              "turn": 21619,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 갓을 쓴 사람의 오른 전완에 찔림 (11) — 동맥이 끊겼다! 피가 뿜어져 나온다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 -4) × 2 = 64",
+                "긴 자루 인접 -10",
+                "최종 54% (5~95)",
+                "roll 36 < 54?",
+                "피해 12 × 날 0.97 × 근력 1.05 × 팔 1 × 92% = 11",
+                "부위 적중: 겉으로 보이는 위치",
+                "자연 방어: 실효 10 − 관통 18 ≤ 0, 통과",
+                "동맥 판정 22% roll 2"
+              ]
+            },
+            {
+              "turn": 21619,
+              "kind": "warn",
+              "text": "갓을 쓴 사람에게서 회색 포자 구름이 터졌다."
+            },
+            {
+              "turn": 21619,
+              "kind": "warn",
+              "text": "갓을 쓴 사람이 흔들린다. 짜증."
+            },
+            {
+              "turn": 21620,
+              "kind": "warn",
+              "text": "포자 구름 속이다. 기침이 멎지 않고 숨이 가쁘다."
+            },
+            {
+              "turn": 21620,
+              "kind": "combat",
+              "text": "포자 인간이 쓰러졌다. (치명상)"
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 60 < 42?"
+              ]
+            },
+            {
+              "turn": 21622,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21626,
+              "kind": "info",
+              "text": "올라가는 계단이다. (< 올라가기)"
+            },
+            {
+              "turn": 21629,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21629,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 작은 사람의 왼 검지에 찔림 (14) — 왼 검지가 못 쓰게 됐다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 33 < 42?",
+                "피해 12 × 날 0.97 × 근력 1.05 × 팔 1 × 117% = 14",
+                "받아넘기기 23% · 기력 6 · roll 78 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "→ 왼 검지"
+              ]
+            },
+            {
+              "turn": 21630,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21630,
+              "kind": "combat",
+              "text": "작은 사람이 당신의 다리 걸기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 1 < 12?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 85% = 10",
+                "받아넘기기 23% · 기력 6 · roll 16 → 성공"
+              ]
+            },
+            {
+              "turn": 21631,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 오른 대퇴에 찔림 (12)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 23 < 32?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 104% = 12",
+                "부위 적중: 겉으로 보이는 위치",
+                "동맥 판정 24% roll 35"
+              ]
+            },
+            {
+              "turn": 21631,
+              "kind": "flavor",
+              "text": "남서쪽 어딘가에서 소리가 났다."
+            },
+            {
+              "turn": 21632,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 18 < 12?"
+              ]
+            },
+            {
+              "turn": 21633,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 94 < 32?"
+              ]
+            },
+            {
+              "turn": 21634,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21634,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "후면 +20",
+                "긴 자루 인접 -10",
+                "최종 42% (5~95)",
+                "roll 84 < 42?"
+              ]
+            },
+            {
+              "turn": 21635,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 12% (5~95)",
+                "roll 54 < 12?"
+              ]
+            },
+            {
+              "turn": 21635,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21636,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21636,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 작은 사람의 오른발에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "측면 +10",
+                "긴 자루 인접 -10",
+                "최종 32% (5~95)",
+                "roll 26 < 32?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 87% = 10",
+                "부위 적중: 겉으로 보이는 위치"
+              ]
+            },
+            {
+              "turn": 21637,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 흉부에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 11) × 2 = 34",
+                "후면 +20",
+                "낮은 자리 -10",
+                "긴 자루 인접 -10",
+                "최종 34% (5~95)",
+                "roll 9 < 34?",
+                "피해 12 × 날 0.96 × 근력 1.05 × 팔 1 × 85% = 10",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 36% roll 59"
+              ]
+            },
+            {
+              "turn": 21637,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21638,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 왼 정강이에 찔림 (13)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 11) × 2 = 34",
+                "후면 +20",
+                "거리 유지 +10",
+                "최종 64% (5~95)",
+                "roll 29 < 64?",
+                "피해 12 × 날 0.95 × 근력 1.05 × 팔 1 × 112% = 13",
+                "부위 적중: 겉으로 보이는 위치",
+                "동맥 판정 26% roll 94"
+              ]
+            },
+            {
+              "turn": 21638,
+              "kind": "combat",
+              "text": "작은 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21639,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21639,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "후면 +20",
+                "거리 유지 +10",
+                "최종 68% (5~95)",
+                "roll 85 < 68?"
+              ]
+            },
+            {
+              "turn": 21640,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "거리 유지 +10",
+                "최종 46% (5~95)",
+                "roll 75 < 46?"
+              ]
+            },
+            {
+              "turn": 21641,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 작은 사람의 골반에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 40 < 42?",
+                "피해 12 × 날 0.95 × 근력 1.05 × 팔 1 × 82% = 9",
+                "받아넘기기 23% · 기력 6 · roll 58 → 실패",
+                "부위 적중: 겉으로 보이는 위치"
+              ]
+            },
+            {
+              "turn": 21642,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21642,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "거리 유지 +10",
+                "최종 46% (5~95)",
+                "roll 82 < 46?"
+              ]
+            },
+            {
+              "turn": 21643,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 작은 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 43 < 42?"
+              ]
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 → 그늘 사람의 복부에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 3 < 41?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 83% = 9",
+                "받아넘기기 23% · 기력 6 · roll 59 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 30% roll 73"
+              ]
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "그늘 우두머리가 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21644,
+              "kind": "combat",
+              "text": "그늘 사람이 겁에 질려 달아나기 시작한다."
+            },
+            {
+              "turn": 21645,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 91 < 43?"
+              ]
+            },
+            {
+              "turn": 21647,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 그늘 우두머리의 복부에 찔림 (12) — 깊숙이 박혔다",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "거리 유지 +10",
+                "최종 48% (5~95)",
+                "roll 20 < 48?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 103% = 12",
+                "받아넘기기 28% · 기력 6 · roll 57 → 실패",
+                "부위 적중: 겉으로 보이는 위치",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 48% roll 11"
+              ]
+            },
+            {
+              "turn": 21648,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21648,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 72 < 41?"
+              ]
+            },
+            {
+              "turn": 21649,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21649,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 59 < 43?"
+              ]
+            },
+            {
+              "turn": 21650,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 51 < 41?"
+              ]
+            },
+            {
+              "turn": 21651,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 우두머리에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 91 < 43?"
+              ]
+            },
+            {
+              "turn": 21652,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21652,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 41% (5~95)",
+                "roll 74 < 41?"
+              ]
+            },
+            {
+              "turn": 21653,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21653,
+              "kind": "combat",
+              "text": "그늘 우두머리가 당신의 찌르기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 43% (5~95)",
+                "roll 20 < 43?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 87% = 10",
+                "받아넘기기 28% · 기력 6 · roll 27 → 성공"
+              ]
+            },
+            {
+              "turn": 21655,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21655,
+              "kind": "combat",
+              "text": "그늘 우두머리가 당신의 다리 걸기를 받아넘겼다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 9) × 2 = 38",
+                "기력 -15",
+                "거리 유지 +10",
+                "최종 33% (5~95)",
+                "roll 25 < 33?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 87% = 10",
+                "받아넘기기 28% · 기력 6 · roll 0 → 성공"
+              ]
+            },
+            {
+              "turn": 21657,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21657,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 74 < 37?"
+              ]
+            },
+            {
+              "turn": 21658,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21658,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 10) × 2 = 36",
+                "측면 +10",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 51% (5~95)",
+                "roll 90 < 51?"
+              ]
+            },
+            {
+              "turn": 21659,
+              "kind": "warn",
+              "text": "기력이 바닥났다. 공격이 무디다."
+            },
+            {
+              "turn": 21659,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 65 < 37?"
+              ]
+            },
+            {
+              "turn": 21660,
+              "kind": "combat",
+              "text": "그늘 우두머리가 피를 너무 많이 흘려 쓰러졌다."
+            },
+            {
+              "turn": 21661,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21661,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 79 < 37?"
+              ]
+            },
+            {
+              "turn": 21663,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21663,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 41 < 37?"
+              ]
+            },
+            {
+              "turn": 21665,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "기력 -5",
+                "거리 유지 +10",
+                "최종 37% (5~95)",
+                "roll 56 < 37?"
+              ]
+            },
+            {
+              "turn": 21666,
+              "kind": "combat",
+              "text": "그늘 우두머리가 쓰러졌다. (과다 출혈)"
+            },
+            {
+              "turn": 21666,
+              "kind": "info",
+              "text": "올라가는 계단이다. (< 올라가기)"
+            },
+            {
+              "turn": 21671,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21671,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 83 < 42?"
+              ]
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "다리 걸기!"
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "당신의 다리 걸기 → 그늘 사람의 흉부에 찔림 (9)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 14 < 42?",
+                "피해 12 × 날 0.94 × 근력 1.05 × 팔 1 × 81% = 9",
+                "받아넘기기 23% · 기력 6 · roll 25 → 실패",
+                "부위: 흉부 200 / 1000 (roll 106)",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 30% roll 51"
+              ]
+            },
+            {
+              "turn": 21673,
+              "kind": "combat",
+              "text": "그늘 사람이 넘어졌다."
+            },
+            {
+              "turn": 21674,
+              "kind": "warn",
+              "text": "그늘 사람이 흔들린다. 짜증."
+            },
+            {
+              "turn": 21674,
+              "kind": "combat",
+              "text": "당신의 찌르기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "넘어진 상대 +20",
+                "거리 유지 +10",
+                "최종 62% (5~95)",
+                "roll 68 < 62?"
+              ]
+            },
+            {
+              "turn": 21675,
+              "kind": "combat",
+              "text": "당신의 찌르기 → 그늘 사람의 흉부에 찔림 (10)",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 2 < 42?",
+                "피해 12 × 날 0.93 × 근력 1.05 × 팔 1 × 88% = 10",
+                "받아넘기기 23% · 기력 6 · roll 23 → 실패",
+                "부위: 흉부 200 / 1000 (roll 199)",
+                "누더기 옷: 실효 3 − 관통 18 ≤ 0, 통과",
+                "장기 관통 36% roll 77"
+              ]
+            },
+            {
+              "turn": 21677,
+              "kind": "combat",
+              "text": "꿰뚫기!"
+            },
+            {
+              "turn": 21677,
+              "kind": "combat",
+              "text": "당신의 꿰뚫기 — 그늘 사람에게 빗나갔다.",
+              "detail": [
+                "50 + (공격치 3 − 회피치 12) × 2 = 32",
+                "거리 유지 +10",
+                "최종 42% (5~95)",
+                "roll 48 < 42?"
+              ]
+            }
+          ]
+        ],
+        [
+          "/rng/body.npc.58",
+          null,
+          [
+            1002645096,
+            585199129,
+            1252751363,
+            3011719489
+          ]
+        ],
+        [
+          "/rng/body.npc.62/0",
+          1391592936,
+          945651895
+        ],
+        [
+          "/rng/body.npc.62/1",
+          3504543038,
+          4010369559
+        ],
+        [
+          "/rng/body.npc.62/2",
+          4050150466,
+          3715957066
+        ],
+        [
+          "/rng/body.npc.62/3",
+          79139005,
+          79139008
+        ],
+        [
+          "/rng/body.npc.78",
+          null,
+          [
+            1549273905,
+            143872128,
+            2753266499,
+            2439961547
+          ]
+        ],
+        [
+          "/rng/body.npc.47/0",
+          1085456268,
+          3950775045
+        ],
+        [
+          "/rng/body.npc.47/1",
+          2217928828,
+          3499329835
+        ],
+        [
+          "/rng/body.npc.47/2",
+          2739277219,
+          238370802
+        ],
+        [
+          "/rng/body.npc.47/3",
+          3169529523,
+          3169529530
+        ]
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "initialSameExceptVersion": true,
+      "errorsSame": true,
+      "changes": [
+        [
+          "/creatures/0/thoughts",
+          [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50440,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21640,
+                  "untilTurn": 50440
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309726,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21726,
+                  "untilTurn": 309726,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108126,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21726,
+                  "untilTurn": 108126,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223330,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21730,
+                  "untilTurn": 223330,
+                  "mood": -12
+                }
+              ]
+            }
+          ],
+          [
+            {
+              "def": "Thought.WonderfulView",
+              "untilTurn": 50440,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21640,
+                  "untilTurn": 50440
+                }
+              ]
+            },
+            {
+              "def": "Thought.FirstHumanKill",
+              "untilTurn": 309726,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21726,
+                  "untilTurn": 309726,
+                  "mood": -10
+                }
+              ]
+            },
+            {
+              "def": "Thought.KilledHuman",
+              "untilTurn": 108126,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21726,
+                  "untilTurn": 108126,
+                  "mood": -4
+                }
+              ]
+            },
+            {
+              "def": "Thought.SawBlood",
+              "untilTurn": 24129,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21729,
+                  "untilTurn": 24129
+                }
+              ]
+            },
+            {
+              "def": "Thought.NearDeath",
+              "untilTurn": 223330,
+              "count": 1,
+              "events": [
+                {
+                  "at": 21730,
+                  "untilTurn": 223330,
+                  "mood": -12
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "/creatures/0/body/wounds/0/bloodSeenBy",
+          null,
+          [
+            1,
+            76,
+            50,
+            57,
+            53,
+            72
+          ]
+        ],
+        [
+          "/creatures/0/body/wounds/1/bloodSeenBy",
+          null,
+          [
+            1,
+            50,
+            76,
+            57,
+            53,
+            72
+          ]
+        ],
+        [
+          "/creatures/0/body/wounds/2/bloodSeenBy",
+          null,
+          [
+            1,
+            50,
+            76,
+            57,
+            53,
+            72
+          ]
+        ],
+        [
+          "/creatures/0/body/wounds/3/bloodSeenBy",
+          null,
+          [
+            1,
+            50,
+            53,
+            57,
+            72
+          ]
+        ],
+        [
+          "/creatures/0/body/wounds/4/bloodSeenBy",
+          null,
+          [
+            1,
+            50,
+            53,
+            57,
+            72
+          ]
+        ],
+        [
+          "/creatures/4/needs/stress",
+          25,
+          35
+        ],
+        [
+          "/creatures/4/npcPsyche/history",
+          [
+            {
+              "at": 21726,
+              "kind": "allyDeath",
+              "delta": 15,
+              "source": 76
+            }
+          ],
+          [
+            {
+              "at": 21720,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21724,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21725,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21726,
+              "kind": "allyDeath",
+              "delta": 15,
+              "source": 76
+            },
+            {
+              "at": 21727,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21729,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            }
+          ]
+        ],
+        [
+          "/creatures/5/needs/stress",
+          25,
+          31
+        ],
+        [
+          "/creatures/5/npcPsyche/history",
+          [
+            {
+              "at": 21726,
+              "kind": "allyDeath",
+              "delta": 15,
+              "source": 76
+            }
+          ],
+          [
+            {
+              "at": 21726,
+              "kind": "allyDeath",
+              "delta": 15,
+              "source": 76
+            },
+            {
+              "at": 21727,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21728,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21729,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            }
+          ]
+        ],
+        [
+          "/creatures/6/needs/stress",
+          10,
+          14
+        ],
+        [
+          "/creatures/6/npcPsyche",
+          null,
+          {
+            "history": [
+              {
+                "at": 21726,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21733,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        ],
+        [
+          "/creatures/10/needs/stress",
+          10,
+          12
+        ],
+        [
+          "/creatures/10/npcPsyche",
+          null,
+          {
+            "history": [
+              {
+                "at": 21743,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        ],
+        [
+          "/creatures/11/needs/stress",
+          34,
+          40
+        ],
+        [
+          "/creatures/11/npcPsyche/history",
+          [
+            {
+              "at": 21715,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21716,
+              "kind": "nearDeath",
+              "delta": 15
+            },
+            {
+              "at": 21716,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21717,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21718,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21719,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21720,
+              "kind": "thought",
+              "delta": -6,
+              "thought": "Thought.Breakdown"
+            },
+            {
+              "at": 21725,
+              "kind": "hurt",
+              "delta": 5
+            }
+          ],
+          [
+            {
+              "at": 21714,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21715,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21716,
+              "kind": "nearDeath",
+              "delta": 15
+            },
+            {
+              "at": 21716,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21717,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21718,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21719,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21720,
+              "kind": "thought",
+              "delta": -6,
+              "thought": "Thought.Breakdown"
+            },
+            {
+              "at": 21724,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            },
+            {
+              "at": 21725,
+              "kind": "hurt",
+              "delta": 5
+            },
+            {
+              "at": 21725,
+              "kind": "thought",
+              "delta": 2,
+              "thought": "Thought.SawBlood"
+            }
+          ]
+        ]
+      ]
+    },
+    {
+      "name": "world-journey",
+      "initialSameExceptVersion": true,
+      "errorsSame": true,
+      "changes": []
+    },
+    {
+      "name": "world-climate-return",
+      "initialSameExceptVersion": true,
+      "errorsSame": true,
+      "changes": []
+    }
+  ],
+  "wholeFieldAudit": [
+    {
+      "name": "surface",
+      "allOtherWholeFieldsSame": true,
+      "npcChanges": [],
+      "insertedLogs": []
+    },
+    {
+      "name": "dungeon-combat",
+      "allOtherWholeFieldsSame": true,
+      "npcChanges": [
+        {
+          "creature": 47,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21609,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21613,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21614,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21615,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21616,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21617,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21618,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21619,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21620,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21610,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21613,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21613,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21614,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21614,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21615,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21615,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21616,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21616,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21617,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21617,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21618,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21618,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21619,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21619,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21620,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          }
+        },
+        {
+          "creature": 47,
+          "field": "breakdown",
+          "before": null,
+          "after": {
+            "def": "Break.Irritable",
+            "kind": "irritable",
+            "until": 28819,
+            "remaining": 2,
+            "hp": -6.818181818181813
+          }
+        },
+        {
+          "creature": 47,
+          "field": "history",
+          "before": [],
+          "after": [
+            {
+              "turn": 21619,
+              "kind": "breakdown",
+              "text": "정신붕괴: 짜증"
+            }
+          ]
+        },
+        {
+          "creature": 47,
+          "field": "stress",
+          "before": 65,
+          "after": 81
+        },
+        {
+          "creature": 58,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21636,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21637,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21638,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21647,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21660,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21632,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21636,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21636,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21637,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21637,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21638,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21638,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21641,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21644,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21647,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21647,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21660,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          }
+        },
+        {
+          "creature": 58,
+          "field": "stress",
+          "before": 45,
+          "after": 59
+        },
+        {
+          "creature": 62,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21641,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              },
+              {
+                "at": 21673,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21675,
+                "kind": "hurt",
+                "delta": 5
+              }
+            ],
+            "nearDeath": false
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21631,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21636,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21637,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21638,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21641,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21641,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21644,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21647,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              },
+              {
+                "at": 21673,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21673,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21675,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21675,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 62,
+          "field": "breakdown",
+          "before": null,
+          "after": {
+            "def": "Break.Irritable",
+            "kind": "irritable",
+            "until": 28874,
+            "remaining": 3,
+            "hp": 45
+          }
+        },
+        {
+          "creature": 62,
+          "field": "history",
+          "before": [],
+          "after": [
+            {
+              "turn": 21674,
+              "kind": "breakdown",
+              "text": "정신붕괴: 짜증"
+            }
+          ]
+        },
+        {
+          "creature": 62,
+          "field": "stress",
+          "before": 55,
+          "after": 73
+        },
+        {
+          "creature": 66,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21629,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21631,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21644,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              },
+              {
+                "at": 21670,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21620,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21629,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21631,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21631,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21636,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21637,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21638,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21641,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21644,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21644,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21647,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              },
+              {
+                "at": 21670,
+                "kind": "nearDeath",
+                "delta": 15
+              }
+            ],
+            "nearDeath": true
+          }
+        },
+        {
+          "creature": 66,
+          "field": "stress",
+          "before": 70,
+          "after": 86
+        },
+        {
+          "creature": 78,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              }
+            ],
+            "nearDeath": false
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21642,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21644,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21647,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21666,
+                "kind": "leaderDeath",
+                "delta": 30,
+                "source": 58
+              },
+              {
+                "at": 21673,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21675,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 78,
+          "field": "stress",
+          "before": 40,
+          "after": 50
+        }
+      ],
+      "insertedLogs": [
+        {
+          "turn": 21619,
+          "kind": "warn",
+          "text": "갓을 쓴 사람이 흔들린다. 짜증."
+        },
+        {
+          "turn": 21674,
+          "kind": "warn",
+          "text": "그늘 사람이 흔들린다. 짜증."
+        }
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "allOtherWholeFieldsSame": true,
+      "npcChanges": [
+        {
+          "creature": 50,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21726,
+                "kind": "allyDeath",
+                "delta": 15,
+                "source": 76
+              }
+            ],
+            "nearDeath": false
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21720,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21724,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21725,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21726,
+                "kind": "allyDeath",
+                "delta": 15,
+                "source": 76
+              },
+              {
+                "at": 21727,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21729,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 50,
+          "field": "stress",
+          "before": 25,
+          "after": 35
+        },
+        {
+          "creature": 53,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21726,
+                "kind": "allyDeath",
+                "delta": 15,
+                "source": 76
+              }
+            ],
+            "nearDeath": false
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21726,
+                "kind": "allyDeath",
+                "delta": 15,
+                "source": 76
+              },
+              {
+                "at": 21727,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21728,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21729,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 53,
+          "field": "stress",
+          "before": 25,
+          "after": 31
+        },
+        {
+          "creature": 57,
+          "field": "npcPsyche",
+          "before": null,
+          "after": {
+            "history": [
+              {
+                "at": 21726,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21733,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 57,
+          "field": "stress",
+          "before": 10,
+          "after": 14
+        },
+        {
+          "creature": 72,
+          "field": "npcPsyche",
+          "before": null,
+          "after": {
+            "history": [
+              {
+                "at": 21743,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 72,
+          "field": "stress",
+          "before": 10,
+          "after": 12
+        },
+        {
+          "creature": 76,
+          "field": "npcPsyche",
+          "before": {
+            "history": [
+              {
+                "at": 21715,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21716,
+                "kind": "nearDeath",
+                "delta": 15
+              },
+              {
+                "at": 21716,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21717,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21718,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21719,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21720,
+                "kind": "thought",
+                "delta": -6,
+                "thought": "Thought.Breakdown"
+              },
+              {
+                "at": 21725,
+                "kind": "hurt",
+                "delta": 5
+              }
+            ],
+            "nearDeath": false
+          },
+          "after": {
+            "history": [
+              {
+                "at": 21714,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21715,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21716,
+                "kind": "nearDeath",
+                "delta": 15
+              },
+              {
+                "at": 21716,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21717,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21718,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21719,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21720,
+                "kind": "thought",
+                "delta": -6,
+                "thought": "Thought.Breakdown"
+              },
+              {
+                "at": 21724,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              },
+              {
+                "at": 21725,
+                "kind": "hurt",
+                "delta": 5
+              },
+              {
+                "at": 21725,
+                "kind": "thought",
+                "delta": 2,
+                "thought": "Thought.SawBlood"
+              }
+            ],
+            "nearDeath": false
+          }
+        },
+        {
+          "creature": 76,
+          "field": "stress",
+          "before": 34,
+          "after": 40
+        }
+      ],
+      "insertedLogs": []
+    },
+    {
+      "name": "world-journey",
+      "allOtherWholeFieldsSame": true,
+      "npcChanges": [],
+      "insertedLogs": []
+    },
+    {
+      "name": "world-climate-return",
+      "allOtherWholeFieldsSame": true,
+      "npcChanges": [],
+      "insertedLogs": []
+    }
+  ]
+}

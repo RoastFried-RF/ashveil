@@ -1,0 +1,47 @@
+{
+  "fromVersion": "v0.37",
+  "toVersion": "v0.38",
+  "commandsRewritten": false,
+  "saveVersion": {
+    "from": 5,
+    "to": 6
+  },
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "e75ca0a2",
+      "finalHash": "e3f61ec5",
+      "initialAndFinalDifferenceOnlySaveVersion": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "d8c5c7b8",
+      "finalHash": "0c9d01a8",
+      "initialAndFinalDifferenceOnlySaveVersion": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "296012d8",
+      "finalHash": "ecdcd93f",
+      "initialAndFinalDifferenceOnlySaveVersion": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "850bdda2",
+      "finalHash": "6e2a0c93",
+      "initialAndFinalDifferenceOnlySaveVersion": true,
+      "errorsUnchanged": true
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "850bdda2",
+      "finalHash": "4131d0d2",
+      "initialAndFinalDifferenceOnlySaveVersion": true,
+      "errorsUnchanged": true
+    }
+  ],
+  "note": "5벡터의 전체 초기/최종 상태에서 형식 번호 외 차이가 없음을 확인했다. 기존 명령과 오류를 그대로 보존했다. 현재 입력들은 새 지식 행동을 사용하지 않으며, 새 행동은 별도27개 회귀에서 검증한다. 책4종은 서가의 기존 공작 수첩 가중치2 중1을 나누어 각0.25로 배정했다. 전체 추첨 가중치와 쪽지/정제/기존 의료·생존서의 확률은 같다."
+}

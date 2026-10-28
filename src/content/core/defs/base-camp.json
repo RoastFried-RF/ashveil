@@ -1,0 +1,5 @@
+[
+ {"defType":"BaseCamp","id":"BaseCamp.Hearth","label":"실제 거점 점유와 동료 작업","storeTerrain":"Terrain.Stash","claimTurns":200,"radius":6,"maxBatches":20},
+ {"defType":"Item","id":"Item.StorageChest","label":"목제 보관함","description":"직접 만든 보관함. 비어 있는 땅에 설치하고 주변을 정비해 거점으로 쓸 수 있다.","sprite":"chest","category":"misc","weight":8,"value":12,"size":[3,2],"place":"Terrain.Stash","material":"Material.Wood"},
+ {"defType":"Recipe","id":"Recipe.StorageChest","label":"목제 보관함 만들기","category":"woodwork","primaryAttr":"str","basic":true,"workTurns":120,"inputs":[{"item":"Item.Wood","count":4},{"item":"Item.Cloth","count":1}],"output":{"item":"Item.StorageChest","count":1},"mastery":"survival"}
+]

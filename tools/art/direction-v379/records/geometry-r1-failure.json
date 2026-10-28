@@ -1,0 +1,18 @@
+{
+  "scope": "Initial targeted renderer geometry checker, no Core/world/browser",
+  "assertion": "maxReachError < 1e-8",
+  "observedBadCase": {
+    "direction": "down",
+    "part": "DriveLM",
+    "moving": [
+      -0.4,
+      -0.4
+    ],
+    "step": 3,
+    "contact": false,
+    "reachError": 0.22586110849685334,
+    "reason": "Unconstrained airborne interpolation entered the fully-folded two-link exclusion circle."
+  },
+  "preserved": "Initial failed command returned exit1; no source art modified. Successful r2/r3 are separate output directories.",
+  "correction": "Plan airborne curve around minimum-radius exclusion, retain unconstrained candidate/trajectory adjustment, keep stance anchor untouched and requested goal vs IK end distinct. Not a physical3D claim."
+}

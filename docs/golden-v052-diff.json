@@ -1,0 +1,54 @@
+{
+  "fromVersion": "v0.51",
+  "toVersion": "v0.52",
+  "commandsRewritten": false,
+  "saveVersion": 19,
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "f0ea6f99",
+      "initialHash": "20a13a1c",
+      "fromHash": "8ecf902c",
+      "hash": "27797d99",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "4e9aa36f",
+      "initialHash": "16c077bc",
+      "fromHash": "58e2ec0b",
+      "hash": "0129f3d0",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "945d5949",
+      "initialHash": "f4882d8c",
+      "fromHash": "435c18fd",
+      "hash": "790eded6",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "11d9410d",
+      "initialHash": "36d3f060",
+      "fromHash": "fe330452",
+      "hash": "391d6edf",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "11d9410d",
+      "initialHash": "36d3f060",
+      "fromHash": "560018b9",
+      "hash": "a0d0e456",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    }
+  ],
+  "note": "기존5입력의 전체 초기/최종 상태 차이는 버전18→19뿐이며 명령·오류는 보존한다. 주민의 생활 소음/실제 화덕 보온·수면 준비/각인과 장기 생활은 별도 검증한다."
+}

@@ -1,0 +1,5 @@
+[
+  { "defType": "Trait", "id": "Trait.Hemophobic", "label": "피 공포증", "description": "피를 보면 스트레스가 빨리 쌓인다.", "conflicts": ["Trait.Bloodlust"], "mods": { "stressMult": 1.6 } },
+  { "defType": "Item", "id": "Item.SawMachete", "parent": "Item.Machete", "label": "톱날 마체테", "description": "날을 톱니로 갈았다. 상처가 지저분하게 벌어진다.", "value": 34,
+    "attack": { "label": "톱질 베기", "damageType": "cut", "damage": 12, "armorPen": 0.12, "tu": 105, "stamina": 8, "skill": "blade", "bleedMult": 1.7, "noise": 5 } }
+]

@@ -1,0 +1,373 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ZeroVaultSealedDoor",
+    "parent": "Terrain.DoorClosed",
+    "label": "0호 금고 봉인 문",
+    "sealed": true
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ZeroVaultDoorOpen",
+    "parent": "Terrain.DoorOpen",
+    "label": "봉인을 푼 금고 문",
+    "closeAs": "Terrain.ZeroVaultDoorClosed"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ZeroVaultDoorClosed",
+    "parent": "Terrain.DoorClosed",
+    "label": "봉인이 풀린 금고 문",
+    "openAs": "Terrain.ZeroVaultDoorOpen"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ZeroVaultSeal",
+    "parent": "Terrain.Workbench",
+    "label": "0호 금고 봉인 기구",
+    "device": "FieldDevice.ZeroVaultSeal"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ZeroVaultWarden",
+    "parent": "Creature.SettlementGuard",
+    "label": "제3 초소 금고 문지기",
+    "faction": "guard",
+    "description": "지하 보관실을 지키는 경비다. 들키지 않은 일을 저절로 알지는 못한다."
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.ZeroVaultWarden",
+    "label": "제3 초소 지하 경비",
+    "creatures": [
+      "Creature.ZeroVaultWarden"
+    ],
+    "kind": "human",
+    "difficulty": 20,
+    "silhouette": "옛 경비복의 문지기",
+    "yields": [],
+    "facts": [
+      "제3 초소의 지하 금고는 경비대가 봉인해 두었다.",
+      "문지기도 음식·물·잠이 필요한 사람이다."
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CorporateCodePlate",
+    "parent": "Item.SeedVaultLedger",
+    "label": "공사 인가 코드 판",
+    "description": "공사 인가 문자열과 접점이 새겨진 원본 금속판이다.",
+    "value": 120,
+    "book": {
+      "pages": 2,
+      "mastery": "survival",
+      "amount": 1,
+      "literacyMin": 1,
+      "bestiary": [],
+      "note": "공사 인가 코드 판에는 칠번 처리구역의 설비를 제어할 인가 형식이 남아 있다. 실제 판은 접점을 가진 물리 열쇠이며 글을 기억하는 것만으로 장비를 인증할 수는 없다."
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ChimneyHalfManual",
+    "parent": "Item.SeedVaultLedger",
+    "label": "칠번 굴뚝 정비 매뉴얼 반쪽",
+    "description": "장막과 첨탑의 유지 절차가 남은 정비 매뉴얼 반쪽이다.",
+    "value": 45,
+    "book": {
+      "pages": 12,
+      "mastery": "survival",
+      "amount": 1,
+      "literacyMin": 1,
+      "bestiary": [],
+      "note": "차양 규정은 비상 냉각용 반사 입자를 분출하는 절차다. 중계기의 마지막 보정값은 차양 유지였고 탑은70년째 그 값을 지킨다. 수신 첨탑은 위쪽 안테나와 관로를 모두 고친 뒤 실제 공사 인가 코드 판으로 인증해야 한다."
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CalvisJournal",
+    "parent": "Item.SeedVaultLedger",
+    "label": "오렌 칼비스의 침후14년 일지",
+    "description": "제3 초소를 봉인한 사령관의 원본 일지다.",
+    "value": 45,
+    "book": {
+      "pages": 14,
+      "mastery": "survival",
+      "amount": 1,
+      "literacyMin": 1,
+      "bestiary": [],
+      "note": "침후14년 오렌 칼비스는 공사 인가 코드로 구조 요청을 보냈다. 돌아온 것은 ‘자산 동결 — 승인되지 않은 송신’이라는 자동 응답이었다. 중계기는 파손된 것이 아니라 계약 자산 동결 코드에 따라 보존 모드에 들어갔다. 칼비스는 이 사실을 숨기고 ‘공사는 돌아온다’는 규정을 만들었다. 이 기록을 읽었다고 다른 사람에게 전해진 것은 아니다."
+    }
+  },
+  {
+    "defType": "FieldDevice",
+    "id": "FieldDevice.ZeroVaultSeal",
+    "label": "0호 금고 봉인 기구",
+    "description": "기계식 봉인이 잠긴 철문과 이어져 있다. 지렛대로 잠금을 풀 수 있지만 경비대가 허락한 작업은 아니다.",
+    "operations": [
+      {
+        "id": "breach",
+        "label": "구동기로 봉인 잠금 해제",
+        "turns": 60,
+        "requires": [],
+        "materials": [
+          {
+            "item": "Item.SmallActuator",
+            "count": 1
+          }
+        ],
+        "tool": "hammer",
+        "noise": {
+          "radius": 6,
+          "intervalTurns": 4
+        },
+        "crime": {
+          "faction": "guard",
+          "delta": -15,
+          "reason": "0호 금고 봉인을 무단으로 건드림",
+          "provoke": true
+        },
+        "effect": {
+          "tiles": [
+            {
+              "pos": [
+                16,
+                10
+              ],
+              "from": "Terrain.ZeroVaultSealedDoor",
+              "to": "Terrain.ZeroVaultDoorOpen"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.PostThreeService",
+    "label": "제3 초소",
+    "mapId": "surface",
+    "kind": "surface",
+    "depth": 0,
+    "width": 64,
+    "height": 48,
+    "fill": "Terrain.Earth",
+    "ambient": 0,
+    "daylightMult": 1,
+    "start": [
+      32,
+      46
+    ],
+    "exits": [
+      [
+        32,
+        47
+      ]
+    ],
+    "scatter": [
+      {
+        "terrain": "Terrain.Rock",
+        "chance": 0.055
+      }
+    ],
+    "clear": [
+      {
+        "x": 30,
+        "y": 14,
+        "w": 5,
+        "h": 34,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 24,
+        "y": 13,
+        "w": 17,
+        "h": 12,
+        "terrain": "Terrain.Earth"
+      }
+    ],
+    "buildings": [
+      {
+        "x": 25,
+        "y": 14,
+        "w": 15,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          32,
+          22
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "제3 초소 경비 숙소",
+        "roof": true
+      }
+    ],
+    "objects": [
+      {
+        "pos": [
+          32,
+          30
+        ],
+        "terrain": "Terrain.StairsDown"
+      }
+    ],
+    "spawns": [],
+    "links": [
+      {
+        "pos": [
+          32,
+          30
+        ],
+        "to": "zero-vault",
+        "at": [
+          6,
+          15
+        ]
+      }
+    ],
+    "submaps": [
+      {
+        "mapId": "zero-vault",
+        "layout": "RegionLayout.ZeroVault"
+      }
+    ],
+    "legacyObjects": [
+      {
+        "key": "zero-vault-stairs",
+        "pos": [
+          32,
+          30
+        ],
+        "terrain": "Terrain.StairsDown",
+        "from": [
+          "Terrain.Path",
+          "Terrain.Earth",
+          "Terrain.KtFloor"
+        ]
+      }
+    ]
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.ZeroVault",
+    "label": "제3 초소 지하 0호 금고",
+    "mapId": "zero-vault",
+    "kind": "dungeon",
+    "depth": 1,
+    "width": 32,
+    "height": 24,
+    "fill": "Terrain.RuinWall",
+    "ambient": 0.02,
+    "start": [
+      6,
+      15
+    ],
+    "exits": [],
+    "scatter": [],
+    "clear": [
+      {
+        "x": 4,
+        "y": 4,
+        "w": 23,
+        "h": 14,
+        "terrain": "Terrain.KtFloor",
+        "roof": true
+      },
+      {
+        "x": 16,
+        "y": 4,
+        "w": 1,
+        "h": 14,
+        "terrain": "Terrain.RuinWall",
+        "roof": true
+      }
+    ],
+    "buildings": [],
+    "objects": [
+      {
+        "pos": [
+          6,
+          15
+        ],
+        "terrain": "Terrain.StairsUp"
+      },
+      {
+        "pos": [
+          16,
+          10
+        ],
+        "terrain": "Terrain.ZeroVaultSealedDoor"
+      },
+      {
+        "pos": [
+          14,
+          10
+        ],
+        "terrain": "Terrain.ZeroVaultSeal"
+      },
+      {
+        "pos": [
+          23,
+          8
+        ],
+        "terrain": "Terrain.ZeroVaultChest",
+        "items": [
+          {
+            "item": "Item.CorporateCodePlate",
+            "count": 1
+          },
+          {
+            "item": "Item.ChimneyHalfManual",
+            "count": 1
+          },
+          {
+            "item": "Item.CalvisJournal",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "spawns": [
+      {
+        "creature": "Creature.ZeroVaultWarden",
+        "pos": [
+          22,
+          11
+        ],
+        "home": [
+          22,
+          11
+        ],
+        "room": 0,
+        "settlementResident": true
+      }
+    ],
+    "links": [
+      {
+        "pos": [
+          6,
+          15
+        ],
+        "to": "surface",
+        "at": [
+          32,
+          30
+        ]
+      }
+    ],
+    "residentRest": true
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ZeroVaultChest",
+    "parent": "Terrain.Chest",
+    "label": "0호 금고 기록 보관함",
+    "lootCrime": {
+      "faction": "guard",
+      "delta": -15,
+      "reason": "0호 금고의 원본 기록을 가져감",
+      "provoke": true
+    }
+  }
+]

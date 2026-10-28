@@ -1,0 +1,581 @@
+{
+  "references": [
+    {
+      "source": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+      "copy": "references/ref0-cinder-bear-idle-v1.png",
+      "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957",
+      "directlyViewed": true,
+      "newArt": false
+    },
+    {
+      "source": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-left-v1.png",
+      "copy": "references/ref1-cinder-bear-walk-left-v1.png",
+      "sha256": "90e4e0eecdcee8d2361f708c9f70f26e3c01beebadd26344f6662c759f5064f7",
+      "directlyViewed": true,
+      "newArt": false
+    },
+    {
+      "source": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-right-v1.png",
+      "copy": "references/ref2-cinder-bear-walk-right-v1.png",
+      "sha256": "502639d8d652888b67a526b6ed83feddb2b498153516bde155f247f0205a56d0",
+      "directlyViewed": true,
+      "newArt": false
+    },
+    {
+      "source": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/originals/cinder-bear-walk-up-v1.png",
+      "copy": "references/ref3-cinder-bear-walk-up-v1.png",
+      "sha256": "ff5c9c5bd9b0d9ed371fbfc95170aa0e1a7761a774888709aacb1f97e59ba06f",
+      "directlyViewed": true,
+      "newArt": false
+    }
+  ],
+  "additionalSourcesDirectlyViewed": [
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+      "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+      "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+    }
+  ],
+  "readSources": [
+    {
+      "path": "/workspace/ashveil/docs/CANON.md",
+      "sha256AtPreparation": "0474646f76f273919671b24ad05432273e22eb3404731ad60509cead4ba6ed79"
+    },
+    {
+      "path": "/workspace/ashveil/docs/lore/bestiary.md",
+      "sha256AtPreparation": "e36613b4e10d4055123563cdcd4399038e7913239036012514e3547505ed0f5a"
+    },
+    {
+      "path": "/workspace/ashveil/.agents/skills/ashveil-character-motion/SKILL.md",
+      "sha256AtPreparation": "fa297281b7894040f9647e8997f179db45433ba57d2887d09cc15ef3e8417853"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/README.md",
+      "sha256AtPreparation": "acba9d809a9f802882f50bb84f55564a62e1e7d6f6aabc9872626d88d135b8cd"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/README.md",
+      "sha256AtPreparation": "574d202746e09787ac0876c29d434cb9ffc41c23faf923fcaca13544dbf44818"
+    }
+  ],
+  "priorStagingBaseline": [
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/analyze-originals.py",
+      "sha256": "9b36315335dca5038e018cad80ab48c448512aeef95b86e86657a18fc098690c"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/capture-staging.mjs",
+      "sha256": "90c93164b5911fe9b075c33ec192b3b9dda67e61ecb8a2d48d571256a2e9ace6"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/sprites.fragment.json",
+      "sha256": "e158fcf7becbd143c3b2ea0a13c2687d263557e86f49faee04fe72f7fc19fe26"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/registration-analysis.json",
+      "sha256": "123b6d6b6ada484baa8ea731c425b90f9a9ec70fb66a4f5774f47be0b3ad78b0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/provenance.json",
+      "sha256": "3e03b510a01c3ecfa3b8be140d5356325d562325b3868192caae6852ac8e7468"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/index.html",
+      "sha256": "bace1355b7f4e76abc88c64fe385057c510d575a7a39277127cc30f4f2d8d7bb"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/register-staging.py",
+      "sha256": "a16748a41912be64d2ae92bce8cbc8c7094475a813a38c4b58c4e75a7efd9dc1"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/README.md",
+      "sha256": "01797665ff9642c274f08e273a0d48fcc4be1f5d7d2812975fd04c2553dd5c53"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/record-provenance.py",
+      "sha256": "433bc604dd2cb7bbb6d3c000d6a82e204b53c0a557de460b889fec3b01e7fc06"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/foot-anchors.json",
+      "sha256": "aa98fde53e435e0ee578b8f9c6186e294ff1684eecd4dbd951a763979a0c254e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/source-analysis.json",
+      "sha256": "32328a50332ac3b6ca624cd6bdec1d3ff14fad64b1d9ad8743014bb39289620b"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/cinder-bear.partial.json",
+      "sha256": "e3d931f6704a8affaf26ca700e895f6ba06e52d2d2240ccf647f2eaf8d143a5a"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-fall-down-v2.json",
+      "sha256": "667b7082b66555f76eac3ec89ec2eb22cc7c2fa1914d44651bf80cd3a495678b"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-sleep-v1.json",
+      "sha256": "5c14e48135afe3f239c532d7e4a5c2238a804d0a51d1774ca9774b18a8a86c5e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-idle-v1.json",
+      "sha256": "a17e0c2eb2343e4abaebe8ce20136a6a954a5b9cf90cd3d7114d71aebffc4a0b"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-bite-v1.json",
+      "sha256": "1cfa1631f31ef3cc070b49740d4a43b7049b6bc5603e378aec2b9f041321e579"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-swipe-v1.json",
+      "sha256": "2d7fc8032d737f04164cb1ab59cd4458821803f56d2e7f450300ec4b6b7e229b"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-bite-v2.json",
+      "sha256": "d4f846d1a4753aede037af47261a8369fb9fe3cb72f84dd92c86bf41d9e3493f"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-v2.json",
+      "sha256": "2379634f8680786b7458de97142cda64be9091aea5fa96e43ff133e05b437b05"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-walk-v1.json",
+      "sha256": "810c980359bd1e47d5c7fca7abc4505702c4321ec6d0e4a5bcc26e94e47d9d2f"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-peck-v1.json",
+      "sha256": "262fe0218b2cc0cf665d65f414efe63d8ebc806b1056865c3685062db448f038"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-up-v1.json",
+      "sha256": "0c33d79e3022383d503158a41deed29faddb4cbc34d8549d4562fb51a8a4fc0a"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-v1.json",
+      "sha256": "35ff89600b2d3f5fc0c0cd860b2128c607c1fbfb1db5864fc654522147c6e7d4"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-bite-v3.json",
+      "sha256": "593c5cf89e53706c83d6f8c7ca37268558a992ff2dc050ffc7a925e6206f624d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-v3.json",
+      "sha256": "fed286a5f5ef690b7b5340dc163c981bbe4569b3dd1e5fc3b303c683cbf75a6e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-hurt-v1.json",
+      "sha256": "2e3373f5b396d4a9dcb2b55dbabd5ca224caa6a54fd05284417cb508ef0acd75"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-rise-v1.json",
+      "sha256": "9ba1416b2c7136fd546673f0261b415c4320244e5cda316430b149e0ac6f1031"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-right-v1.json",
+      "sha256": "93f6fdf03fee8eab6ecc96931567cc34531a4ba18b200401cbe307556b73136e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-v4.json",
+      "sha256": "66845c80f687466ed28892b9fba3c37e4ef20f8174ce62817aef7eb33051a9fe"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-down-v1.json",
+      "sha256": "b06dbf370e2f4210f4134378bd6ac541d0db4a19019dbea82b54abd52a5b7b1d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-fall-v1.json",
+      "sha256": "97a26d6ab7b7ea81276415b9ef40b0d7d1f5126b2ce481eb124ce228e08637eb"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-swipe-v2.json",
+      "sha256": "01dd2b31de2aeeefe90b838236f87ec32e598b9889bfed7457f4b4a6255aeaae"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/ash-crow-idle-v1.json",
+      "sha256": "84a3a19945b6dd7f06f5b59466c9531239ed78c66b45c4ddc385f4d82ce08e7e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/requests/cinder-bear-walk-left-v1.json",
+      "sha256": "108ca343c0af295976c85e5d031303a9e55793c692b3f7304545091a73dc0cb3"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-v1.png",
+      "sha256": "1f7be68fc99391c9c2929333791ac3c15bf4e5c6b43c7930d6098229ed752d91"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-left-v1.png",
+      "sha256": "61c85118258975b106c114926245c04781a52f60921a5da7fbe7b52a6aee5069"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-idle-v1.png",
+      "sha256": "ff4948b9a472f24c9f9bbe07b9d4e83e550199c285d48c74888bc9a6ec260401"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-v2.png",
+      "sha256": "0068d3e99783871e39cdbf140753faadf410f73fb005542b449eb0c04271aaaa"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-peck-v1.png",
+      "sha256": "5d476d2621fd02b02a01125839ec77d86db0c72bcec8a3fd27cf41f011a89cd2"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-v3.png",
+      "sha256": "7169d789eb6990f93bf9d4e133e90c783fd2691a1d770095b714efe7590705e8"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-fall-down-v2.png",
+      "sha256": "420ad488ee7fec301974112c68556ad8ce9d5c5d4e4c2ae493758704e7929b29"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-idle-v1.png",
+      "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v2.png",
+      "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-swipe-v1.png",
+      "sha256": "5f06b14be1a9e80a87cd42b0f0e9592d4b63ce48543cad74cec82ed5ae173733"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-sleep-v1.png",
+      "sha256": "39be84343945e0df163aa052ff6c83e56f22fcad7065335d3e0217ac826909c8"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-hurt-v1.png",
+      "sha256": "fb4bb3c4f07687fc39c1035540934ca27752aaa7c3f5724e86c89ada3aa65a82"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-down-v1.png",
+      "sha256": "26f80765695e59a4935ae2754a7c61e5ef3102cc8c823c1c92b7773b4f15a4f9"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-up-v1.png",
+      "sha256": "6d3e4dac30a77cf68b9581cf9be1d1f28e9699a6005f262c55cdce1960bfa94d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-walk-v1.png",
+      "sha256": "ac0dbaf03b76258d9dc39777d5e14a2feb86eb2414713393538fa6389dfe22f9"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-walk-right-v1.png",
+      "sha256": "c9506f901d7155d56c3639b71445201daec5e2537394d8006d02b22d421b92d6"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-rise-v1.png",
+      "sha256": "694a02babc0d5c215441aa15e5a0e4fe2cde05ac7ef00781fdb422edc4a3a781"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/ash-crow-fall-v1.png",
+      "sha256": "bfffb39caddf783a8f6f5c09583bd0ffa51f4900e0cdd8aef76ddbcf7c116474"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v3.png",
+      "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v1.png",
+      "sha256": "d57de1f6a6b8d6e336d219a2fe816f08f3d9ca9b617fd7a57abc9685d5d383e9"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/originals/cinder-bear-bite-v2.png",
+      "sha256": "060cc02a40825cc1293e979037b2a78ba02857327f00b748f65a254ce9917008"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame0-zoom3.png",
+      "sha256": "6e50efb38b6f1feb0318b7d5c5a0d28f05ffc4712c408cfc03c1bbdc3e5e83c6"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame2-zoom3.png",
+      "sha256": "2cfead856cc17ce701545e09ab62d54d073ba834bb854a8d0a5647aa48b42000"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame2-zoom3.png",
+      "sha256": "ff227d1c94bad43756fc9bd377924b7ce62f3533a66fa7ef504830cfd15a0b5b"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame0-zoom3.png",
+      "sha256": "79988f9257ae78a508dbc6e040acb34e8a7db6b1801624481056974c1cc09583"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame3-zoom6.png",
+      "sha256": "def78b01f95b7b56e5e2b703fdf1395a0a1ff4ce7fe32c71d9e61fe68d8c3978"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame3-zoom3.png",
+      "sha256": "5e1a0aa742911a3e7d3716e94a7622f921cf022b08cca268d3b564cf13c921f6"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame3-zoom6.png",
+      "sha256": "c126b5092b4437d43411130a42afaaf5af0d7df4d0b610e247af33fb94280079"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame3-zoom6.png",
+      "sha256": "366a8018e0f1d7037b8bd6b11f87ee5214861e1657697cd3ea549720733f32b7"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame0-zoom3.png",
+      "sha256": "5b7d44444988baf247d75484f1911e9f9595f196414aa530141e2c8b36622b64"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame3-zoom3.png",
+      "sha256": "d9adbeb778825531a09ec531e951f4bced376e0f2031ddaed7de04aa4ca664f4"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame2-zoom3.png",
+      "sha256": "a9f4af7bebd4f6a96bf95effd660c76bf82d9841be6e2ac8fc32924d6e508faf"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame0-zoom6.png",
+      "sha256": "f183e90ec786832b0ed3980762a4e38cd2a397019256bf4ea63c00db4ce60504"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame1-zoom3.png",
+      "sha256": "8e8fec948dfa000b8612ca9580eb2354b3ce45177c90f5442634e996d27566a0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame0-zoom6.png",
+      "sha256": "df81be90133b944c5ed0edbd9ef2bdb95eb8aad722431b175a04894f0a71164a"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame2-zoom6.png",
+      "sha256": "a6036f686119317d1d9031620fc60e491acdca2d71fdba95861702f832cbef37"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame0-zoom6.png",
+      "sha256": "e4ec6a15399ca059e7688074632a565e56af41a799d811ec45a0de046860b170"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame1-zoom3.png",
+      "sha256": "88734ed320a20e6c6b277b3607fa13f2bbe890eb2dcdc35b079a4d753d2fff73"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame3-zoom3.png",
+      "sha256": "409751cb84b194ff6c902bfc3afd633d2a09252a4c478e31ffb6dacc40b754ec"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame2-zoom6.png",
+      "sha256": "aee89334b06c8b29f40f6a5014621544e818eeb2af3c63a2f4f913f711f02ded"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame2-zoom6.png",
+      "sha256": "3fe5760fb5df80f7007267bd38690c6810b0219c64d1c9c7475d82fc4378f3a4"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/bear-frame1-zoom6.png",
+      "sha256": "decd0e17962658d98f3b20df8e76f748e5726262e21030bee9805035fca02bc0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame1-zoom3.png",
+      "sha256": "0b236c01c82d6de725b81ee2bd9a8e9c67a8cca105d2cb97809089d091a42adb"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/browser-observation.json",
+      "sha256": "a6135f29dc6c9ef5d2db163d05fdeb64bb81a82559253a3c340e6980605d84b2"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-frame1-zoom6.png",
+      "sha256": "524246ab67ef72e6cf13dae9661ab88d5895f9d430d0d67a77fb4e6a1ed34e07"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v334-fauna-art/diagnostics/crow-extra-frame1-zoom6.png",
+      "sha256": "21bd5b83077d9973e1460d730836b335e0d9bfe1c0e93befbd16810bad18527f"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/scope-contract.json",
+      "sha256": "18e4f93d0e220e53a01d9e36f39f30fcac6a5539ae3623a05bb238c9b4ff9ca7"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/analyze-originals.py",
+      "sha256": "9ccda8c3003a72ff98198872c27739a5d4585d4c6edc338ff09bb93e751b69ad"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/sprites.fragment.json",
+      "sha256": "928de2e132437e893e656698b790a27354e3f4dbdd64a2457968a6934d1c5063"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/registration-analysis.json",
+      "sha256": "ebe6b3f18033c1f0e77e9fcd1ebe7743ad33708ad9e524887347b365ca3ac5f1"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/file-manifest.json",
+      "sha256": "4af9ef9382de536a77d514e98ee2ee640a21542566c59c54663c7006c86f286d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/provenance.json",
+      "sha256": "8f60125f8e5934c39050c607235c7c2c2a3d1feaba089ffdb346cae095186372"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/author-staging.py",
+      "sha256": "78335304e0d5d4a72350dbf8588a8ed83a23083734c007aff1ede6df3b07dcd9"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/candidate-crops.json",
+      "sha256": "429e4ed17a13e866e1d28d48e8c2c4a2ac00a82c5a784e460b6243e716bf3cd1"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/generation-records.json",
+      "sha256": "aa43f198eb754cff445b59a2ed0b1e42506f34ccaeaa4933c376eff6f69f0afc"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/activation-contract.json",
+      "sha256": "2851d038e34465647ab9960ed118fb04b56c419bf687605e63a56264f2c0a4fb"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/README.md",
+      "sha256": "acba9d809a9f802882f50bb84f55564a62e1e7d6f6aabc9872626d88d135b8cd"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/cinder-bear.walk.partial.json",
+      "sha256": "ed74da96968a8c6f1b753cff17b134cbe778dafe5a73b38f286e1738dbe5e872"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/playback-contract.json",
+      "sha256": "9e56fbf87eda9225efe9e3e439e13ef60b5a48efdef70aefb00536ffa48e4dc0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/paw-review.json",
+      "sha256": "9bb28e67cdd8f90a5b307ff04273f65021a35bf17a0883a3d139ddf6977396ad"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/foot-anchors.json",
+      "sha256": "0b898509c33eb31a3b95330a0811a910bd2098f62d5a9cd575805a627e1d7a66"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/source-analysis.json",
+      "sha256": "b8116513bfcddeb48b76b20179ebacc77473f845a0ede54c7f52dd12e813f2be"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/render-diagnostic.py",
+      "sha256": "53d0cf7950eaa3ea93ea969df851b41d1a5c26a336e3146fff8eec713724f5b8"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/requests/cinder-bear-walk-up-v1.json",
+      "sha256": "7b0ff915fee8b3bf3c8918e6b0e458e55211961b51a89730d8a8a5e198a2d312"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/requests/cinder-bear-walk-right-v1.json",
+      "sha256": "9d36c4a3f4f504bae620e366d337c524ea0b9c1564ea18515b3ceb8cdf5076cb"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/requests/cinder-bear-walk-left-v1.json",
+      "sha256": "362e7043ab4b4a2fc27c2264e720cd78224fb187cc6ec124df25cf2056bc6d0a"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-left-v1.png",
+      "sha256": "90e4e0eecdcee8d2361f708c9f70f26e3c01beebadd26344f6662c759f5064f7"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-up-v1.png",
+      "sha256": "6f3bb845171a107736d2de60cc8da836921dcf29a81a29a885232c5c2912b124"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/originals/cinder-bear-walk-right-v1.png",
+      "sha256": "502639d8d652888b67a526b6ed83feddb2b498153516bde155f247f0205a56d0"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/diagnostics/proposed-grounded-crops-x1.png",
+      "sha256": "61f62e6c605d33ec692e92fa4fa586ab7046326817b428ae432d1c7cfc665f5f"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v342-cinder-bear-walk/diagnostics/proposed-grounded-crops-x4.png",
+      "sha256": "c81a809e3c3ceb790b27d2e288c635d1fad16f4e4b7fe5249101ceeaa8d0c9e5"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/analyze-originals.py",
+      "sha256": "f1fc856bd6f9f687f19438e3b54d2c57d88fc773fc1cf346f24dd290cddca607"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/sprites.fragment.json",
+      "sha256": "d371364f664e363c7878bc650d40f8a39272e3ad9b6a5fadacc61747da758781"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/registration-analysis.json",
+      "sha256": "a5c2f6b325ea807c97edfcf8ad2d6d36d4606269cdfab5da228896c0d0e5beba"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/file-manifest.json",
+      "sha256": "75f96ca510cbf860bf09a36ca044df5bc1290806b3da690f92b04c7e04d58a09"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/provenance.json",
+      "sha256": "3c8f265e341d950b88a6750bc8fcd310654858850a2f9f9d915291c9d91fe89e"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/author-staging.py",
+      "sha256": "0ee8285d17b163f962d96e32a53445edbd8b1897d988f5c27885ab48ff2bce41"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/generation-records.json",
+      "sha256": "8349849031b888a76785faa10756654d8c44ab97af3aa76daf50121a72254f4c"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/activation-contract.json",
+      "sha256": "43fc3d80484fc9c62cdc039d3db29df30513705ed7de1d71f1028ea9d2541c54"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/README.md",
+      "sha256": "574d202746e09787ac0876c29d434cb9ffc41c23faf923fcaca13544dbf44818"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/cinder-bear.walk-up.partial.json",
+      "sha256": "68cb80b4d6f96e5e9a8f98303138369d601848bc7930cff4566de38a8fbfaa02"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/playback-contract.json",
+      "sha256": "c776822813543c73b66085ad097a515f76dcfe492dab4e0aed94c5c9612a0254"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/paw-review.json",
+      "sha256": "f8278d1502c113d4745e5ecec232154a3e30e14fd875016085dc303045f30b34"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/foot-anchors.json",
+      "sha256": "8b5b690658420a59c5868bb127623fb994f83e5c19b4f366e79987261f390459"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/source-analysis.json",
+      "sha256": "b8bf1f66d4e03b2094760ac2170faf1458d9611da44c51a6829dc7864f586ddc"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/render-diagnostic.py",
+      "sha256": "81fd81e84440c19f9c094a30bb6d32a4b7626884ef3c6f3d0e3ad6bed074649d"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/requests/cinder-bear-walk-up-v1.json",
+      "sha256": "c70be085336360620b24bf1ba26c1ec6f4f034dcd27944ad16537e6a5cbe2be2"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/originals/cinder-bear-walk-up-v1.png",
+      "sha256": "ff5c9c5bd9b0d9ed371fbfc95170aa0e1a7761a774888709aacb1f97e59ba06f"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/diagnostics/four-direction-family-x1.png",
+      "sha256": "b5eb6198fe4031004233ae6c7fbfc5c9fa180c9e96db5c26c64a73a783237a68"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/diagnostics/paw-paths-source-diagnostic.png",
+      "sha256": "3a0c0240b17a5758fa02a5ecca90c2c5d15a2475d6a015c02709b84465c28cf2"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk/diagnostics/four-direction-family-x4.png",
+      "sha256": "e498d3fa8f8b443ac641102b29892337d7aa5f9bf469577146d3b4a7d708d04e"
+    }
+  ],
+  "priorStagingRoots": [
+    "/workspace/.ashveil-planned/v334-fauna-art",
+    "/workspace/.ashveil-planned/v342-cinder-bear-walk",
+    "/workspace/.ashveil-planned/v344-cinder-bear-rear-walk"
+  ],
+  "generationPolicy": "Exactly5motion requests, one PNG each, no automatic regeneration; semantic failures held inactive.",
+  "targetMotions": [
+    "hurt",
+    "fall",
+    "sleep",
+    "rise",
+    "work"
+  ],
+  "targetCandidateRegions": 80,
+  "active": false
+}

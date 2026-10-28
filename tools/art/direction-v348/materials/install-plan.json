@@ -1,0 +1,41 @@
+{
+  "status": "inactive staging; parent merge required",
+  "sourceCopy": {
+    "from": "originals/cinder-bear-harvest-icons-v1.png",
+    "to": "public/sprites/original/direction-v347/cinder-bear-harvest-icons-v1.png",
+    "sha256": "5c8ae3b0957fb9a0bda355433a37d70449037cf1b1b29d4497107e8042ded05c",
+    "copyOriginalBytes": true
+  },
+  "manifest": {
+    "from": "sprites.fragment.json",
+    "to": "src/client/sprites.json",
+    "merge": [
+      "sheets",
+      "sheetSizes",
+      "frames"
+    ],
+    "noOtherFrameChanges": true
+  },
+  "itemSpriteKeys": {
+    "Item.CinderBearHide": "av331_cinder_bear_hide",
+    "Item.BearFat": "av331_bear_fat",
+    "Item.BearClaw": "av331_bear_claw",
+    "Item.BearBile": "av331_bear_bile"
+  },
+  "preserveGameRules": [
+    "Use the existing actual item labels, sizes, material and stack rules. Item snapshot is read-only context, not an activation patch.",
+    "Do not infer new drops, infinite supplies or recipes from art; preserve parent-established finite carcass recovery and resource economy.",
+    "Register four explicit source rectangles. Do not mirror, recolor or export resampled icons as source art.",
+    "Copy prompt/provenance and reference SHA records alongside the integration using original source hash. Diagnostic screenshots must not be used as deployable sprite textures."
+  ],
+  "notPerformed": [
+    "main repository edits",
+    "build",
+    "test",
+    "game browser run",
+    "Full/World",
+    "commit",
+    "push"
+  ],
+  "definitionActivationAndRuntimeReviewOwner": "parent"
+}

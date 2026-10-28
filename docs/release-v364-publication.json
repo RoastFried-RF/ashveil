@@ -1,0 +1,710 @@
+{
+  "version": 364,
+  "commit": "f9d13e44682b0043f1f38990d37d3ee514349b4b",
+  "verifiedAtUTC": "2026-10-24T12:04:35.059682+00:00",
+  "url": "https://roastfried-rf.github.io/ashveil/",
+  "motion": "https://roastfried-rf.github.io/ashveil/artbook/motion/",
+  "rig": "https://roastfried-rf.github.io/ashveil/artbook/rig/",
+  "checkpoint": "/workspace/.ashveil-checkpoints/v364-sower-active-r3",
+  "pages": {
+    "conclusion": "success",
+    "headSha": "f9d13e44682b0043f1f38990d37d3ee514349b4b",
+    "jobs": [
+      {
+        "completedAt": "2026-10-24T12:03:43Z",
+        "conclusion": "success",
+        "databaseId": 120866928960,
+        "name": "build",
+        "startedAt": "2026-10-24T12:00:50Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm/action-setup@v4",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/setup-node@v4",
+            "number": 4,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm install --frozen-lockfile",
+            "number": 5,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm exec vitest run tests/sower-assault.test.ts tests/sower-content-v364.test.ts tests/sower-policy.test.ts tests/articulated-gait.test.ts tests/bear-v348.test.ts tests/asset-lifecycle.test.ts tests/atlas-plan.test.ts tests/sprite-assets.test.ts tests/character-motion.test.ts tests/equipment-motion.test.ts tests/companion-aid.test.ts tests/companion-clinical.test.ts tests/companion-procedures.test.ts tests/companion-aid-depot.test.ts tests/recipe-renames.test.ts tests/discovery-archive.test.ts tests/medical-presentation.test.ts tests/equipment-completion-v331.test.ts tests/wildlife-v333.test.ts tests/forage-v336.test.ts tests/crow-v338.test.ts tests/surveyor-v340.test.ts tests/climate.test.ts tests/map-memory.test.ts tests/plant-foods.test.ts tests/cultivation.test.ts tests/blackwood.test.ts tests/body.test.ts tests/machines.test.ts tests/bestiary.test.ts tests/animal-fear.test.ts tests/base-stock-coordination.test.ts tests/base-queue.test.ts tests/action-observations.test.ts tests/ranged.test.ts --maxWorkers=1",
+            "number": 6,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm validate-sprites",
+            "number": 7,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run pnpm build",
+            "number": 8,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/upload-pages-artifact@v3",
+            "number": 9,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/setup-node@v4",
+            "number": 16,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run pnpm/action-setup@v4",
+            "number": 17,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 18,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40092177556/job/120866928960"
+      },
+      {
+        "completedAt": "2026-10-24T12:04:06Z",
+        "conclusion": "success",
+        "databaseId": 120867534423,
+        "name": "deploy",
+        "startedAt": "2026-10-24T12:03:47Z",
+        "status": "completed",
+        "steps": [
+          {
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Run actions/configure-pages@v5",
+            "number": 2,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Publish playable preview",
+            "number": 3,
+            "status": "completed"
+          },
+          {
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 4,
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40092177556/job/120867534423"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40092177556"
+  },
+  "publicSamples": [
+    {
+      "path": "artbook/medical/index.html",
+      "sha256": "9e79351b4374fe775d4e3f883704a90790d600482cfe0f868ad4a88af0e0d54e",
+      "bytes": 7445,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/medical/catalog.json",
+      "sha256": "81747f3687b0fb86a72e9854d067ac93e76d7aa49416ad33096c15f400e9b2c0",
+      "bytes": 77190,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/medical/medical-motion.js",
+      "sha256": "a41259a97714849f5e333a75a87008b50f775b97462b0ad6dcb637f3ac4a5a26",
+      "bytes": 1341,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v331/withered-censer-clean.png",
+      "sha256": "90717378a1c100eca1dde36f095237c7c34eb8813db42489b61b2bd3ebb69334",
+      "bytes": 1064079,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "index.html",
+      "sha256": "66cb0b1542344945c76b693022c4f7164d1a3bfcd50808d7000a56c173cd6998",
+      "bytes": 1423,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/index.html",
+      "sha256": "9b7de9226e081a165175a77c644c0f094a310f04629c402378e80705491af3df",
+      "bytes": 12958,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/index.html",
+      "sha256": "a91453d348100d4a7105f5715327af9def3033f59949fcf770af2283983d0ea4",
+      "bytes": 17753,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/catalog.json",
+      "sha256": "2981e2d98190b0caf8b2ec9bf37234d7e108542b83b8b78bf599402a97dc8127",
+      "bytes": 2909427,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/motion/equipment-motion.js",
+      "sha256": "ebf4ba18799149788de37e9657367999dc8d2688f93404882946c5dfd8a0dad0",
+      "bytes": 7502,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/catalog.json",
+      "sha256": "f94a12e29f96345b228fc79cdd471083129b45cd0a881aafd159d37a7a9e9f8f",
+      "bytes": 4345583,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-locomotion-front-left.png",
+      "sha256": "c08c6fb9ec94a2c451afb62f7063b16613dfaa18a54b10c6792bfdff8d07df33",
+      "bytes": 1948296,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v322/wanderer-combat-right-back.png",
+      "sha256": "b24b9521a4cd2d69fc1dddefa93faf103b27a3446467cda98032326ecab0e462",
+      "bytes": 1828870,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "./assets/index-cuv18seA.js",
+      "sha256": "efd7c7f9dbb043340be9c7efb9409c41e5c03bba9cd7dd1d266a2248639b0d69",
+      "bytes": 5216957,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/work/ashhorn-stag-work-v1.png",
+      "sha256": "fd0971eb9f6526486ef09af2942bae0cbb1e91072ee2d176a7dc8f7eaab1b89c",
+      "bytes": 1184519,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/wallow/tuskhog-wallow-v2.png",
+      "sha256": "be600e39cea1826c572e04fe21e5f72cdc690ce809b10eca52a332365c50f6b4",
+      "bytes": 2089530,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v333/harvest-materials-v1.png",
+      "sha256": "390c15d82039e8f9046e7e51371a5da02afbf7a9c187e95edee7bdcfc286e458",
+      "bytes": 1250385,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v336/forage/shade-root-clumps-v2.png",
+      "sha256": "84b811fecccaed4c4ffb4fc0d25d788f3b1cb8e23142dc547d68403cb0dde2ca",
+      "bytes": 812919,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v336/forage/ashberry-bushes-v2.png",
+      "sha256": "c13ade5cde7ac824ade85a2e3b1b4b789fb96386674714994349c21f49cc1358",
+      "bytes": 1066123,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v334/ash-crow-walk-v1.png",
+      "sha256": "ac0dbaf03b76258d9dc39777d5e14a2feb86eb2414713393538fa6389dfe22f9",
+      "bytes": 1221663,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v337/ash-crow-work-v1.png",
+      "sha256": "080bf4ad38861a25a819a6dd3b7f35e4b6136f72d95abacb082cff13b1d4d0e5",
+      "bytes": 1122822,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v337/crow-feathers-v1.png",
+      "sha256": "33d6553477b793d960b30cb335cf9e602bd0a72f19ddbe03ade3664004e7cb94",
+      "bytes": 835815,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v338/ash-crow-flight-loop-v1.png",
+      "sha256": "c8d13cdb41ac468988a885db9bbf6aa932aa2ba9f634ad5d1124c86e623ce901",
+      "bytes": 1234479,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v335/surveyor-idle-v1.png",
+      "sha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4",
+      "bytes": 1080613,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v335/surveyor-walk-v1.png",
+      "sha256": "a84eacbf8abe4e46a0269b00d28b500a7c112184dd17ec85657a80b51f3729f2",
+      "bytes": 1284843,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v335/surveyor-work-v1.png",
+      "sha256": "826f1a1e7f4a39253a5a1e5cc1c6b6551c151b74426c73f40164be089cd8a28a",
+      "bytes": 1237664,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v339/surveyor-fall-v1.png",
+      "sha256": "b7929b705d9e2a8f925ebb6754c7b9d6ac00c40458f5627b5742afd051607545",
+      "bytes": 1040910,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v339/surveyor-rise-v1.png",
+      "sha256": "12fc3eb34b1faf04fd87a17467d7d23f970ee173abae82cd6b80a41bb2cbab62",
+      "bytes": 1215252,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v340/surveyor-material-icons-v1.png",
+      "sha256": "26dc36937beb2bb62c409ed1adef7d829baf137d8cb4c8ea36e938a9e13d5924",
+      "bytes": 804765,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v341/optical-goggles-v1.png",
+      "sha256": "7de91bd22f8ecceab44dff098fc0e5862aeed362b15c554d0ed92e4ffd0775cf",
+      "bytes": 737642,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v334/cinder-bear-bite-v3.png",
+      "sha256": "5f08a59b7f962806a03c56041807ffc74cf1953901802ca170e90b1b697f8d9d",
+      "bytes": 880783,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v334/cinder-bear-idle-v1.png",
+      "sha256": "244357cf2a00840f2140383c5ecfed725cbe01bc411ebea34e01bc033807a957",
+      "bytes": 2051167,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v334/cinder-bear-swipe-v2.png",
+      "sha256": "062ff8317117d636559d192a11ce95be23e11f44c874caf4fd8edbe89608461d",
+      "bytes": 791794,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v334/cinder-bear-walk-down-v1.png",
+      "sha256": "26f80765695e59a4935ae2754a7c61e5ef3102cc8c823c1c92b7773b4f15a4f9",
+      "bytes": 1664555,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v342/cinder-bear-walk-left-v1.png",
+      "sha256": "90e4e0eecdcee8d2361f708c9f70f26e3c01beebadd26344f6662c759f5064f7",
+      "bytes": 1431642,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v342/cinder-bear-walk-right-v1.png",
+      "sha256": "502639d8d652888b67a526b6ed83feddb2b498153516bde155f247f0205a56d0",
+      "bytes": 1527063,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v344/cinder-bear-walk-up-v1.png",
+      "sha256": "ff5c9c5bd9b0d9ed371fbfc95170aa0e1a7761a774888709aacb1f97e59ba06f",
+      "bytes": 1894156,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v346/cinder-bear-fall-v1.png",
+      "sha256": "674b1775f551ade1f6cb88ad9cf140b94e75e1c36c80311e454f45ab8ae6b95b",
+      "bytes": 1837468,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v346/cinder-bear-hurt-v1.png",
+      "sha256": "f60c947cd024fa19a6e28b801bb7e5283fd48ea95fc2cb8bb1be5e0de773a0b1",
+      "bytes": 2036487,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v346/cinder-bear-rise-v1.png",
+      "sha256": "3c8905c440e3c946b40994a3d9dc635a049d3824e8a469a6b4eaae48d10da886",
+      "bytes": 1828166,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v346/cinder-bear-sleep-v1.png",
+      "sha256": "800e26bfe2e01fb72dbb03cd377ca14100f22cc2057bb23d896ad08275fef5f6",
+      "bytes": 1641904,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v346/cinder-bear-work-v1.png",
+      "sha256": "95f01ee56d5046ca7158d24a5a4d12a356904bc434cfb9a2a557d2563fa1f4ea",
+      "bytes": 2033975,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v349/cinder-bear-left-states-v1.png",
+      "sha256": "b3b243d4c6ce29a0f3916c2e5d4624fbd5c7ef5a3c7db0682352c5ced3ade883",
+      "bytes": 1374150,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v347/cinder-bear-harvest-icons-v1.png",
+      "sha256": "5c8ae3b0957fb9a0bda355433a37d70449037cf1b1b29d4497107e8042ded05c",
+      "bytes": 1495714,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v350/bear-processing-notes-v1.png",
+      "sha256": "85766c419fe8776bf7f46c21cac6a212fbaa81da111dcb81a90f7ebee91810dc",
+      "bytes": 1129725,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/index.html",
+      "sha256": "5e5086af8e4c2cfa4be519c8e9ca96bb50e1fcab28ccea434b896f0ff91cdaca",
+      "bytes": 2888,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/provenance.json",
+      "sha256": "4ff49c23f57cbe94b4d781717b9b81ed9e1d98dbb6b32f03f2d6ce116818ee88",
+      "bytes": 4032,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/BitmapFont-D8csb_G3.js",
+      "sha256": "74b153635c9e923f3cf3bdff8cdb167af3893609bf0b04186a9581134affd714",
+      "bytes": 54,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/BitmapFont-GsupMTV8.js",
+      "sha256": "ea0ccaf9f205450ad35a579678ef81cc4745d5020c02a330c5052c66c7c8f87a",
+      "bytes": 33360,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/Cache-CqEGb25w.js",
+      "sha256": "e0a285ed58c4bfab0d5a3c94d342f819ca4370d78ea1aaf3fb577d06c7a7de3a",
+      "bytes": 1100,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/CanvasPool-D1bvdiBm.js",
+      "sha256": "0816d809389703f6a2db6ddff3d581a0cc98b6ca2019c36ac13444fb6bcf5862",
+      "bytes": 71051,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/CanvasRenderer-BdiP2IQ3.js",
+      "sha256": "83ce3cb1cef45650742d44d19abe8f75f4b769e818bc622aee6493461641da22",
+      "bytes": 62,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/CanvasRenderer-D75fwtPE.js",
+      "sha256": "507fda3f70eb3fca38cf79c4693e442d687d357c7c51956414fd4d9c3782aa5c",
+      "bytes": 27097,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/Filter-NVWKOq6j.js",
+      "sha256": "da02e04c857e7cfa71f69571af5dc25662193e0dc283dbe852ad1099a26ed44b",
+      "bytes": 41948,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/GCManagedHash-Z-Zwlj6V.js",
+      "sha256": "8846d2a3d1dee01d96fc87daf19a70f901ee19e3adcf494e9bbe895084ebb20f",
+      "bytes": 19335,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/GraphicsContext-DfS5RFEd.js",
+      "sha256": "ad316f976a65ca28d80c5898124591e5c16e2ea6cc0fca12e194b90035a2331b",
+      "bytes": 61680,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/RenderTargetSystem-BHhQCzsh.js",
+      "sha256": "af252469fdd938477cbd2821e56e680f29af9464df7f1c37d5099f690584dbcc",
+      "bytes": 58800,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/WebGLRenderer-BSpvlSb7.js",
+      "sha256": "0676f03191aa514e8d3c30e6f48f89ad85f4e4fa8295432141f10329b65062a1",
+      "bytes": 72834,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/WebGLRenderer-DpLhhs_I.js",
+      "sha256": "3c2409f3a4f28fe22d374f19748f9863f1df7fd26d175b24c8af343bed30840b",
+      "bytes": 60,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/WebGPURenderer-BFOZtWOo.js",
+      "sha256": "973f5a6c807d6d905c0e8e64250a445afcf2b9f7391b02c05b476d48ffb55c8c",
+      "bytes": 55178,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/WebGPURenderer-Dzh73Phl.js",
+      "sha256": "5f578a15915ea91160a1536dde69c788ed15626ff7adb2b4c5c7efc8991f4b76",
+      "bytes": 62,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/browserAll-DlzkqRdv.js",
+      "sha256": "4bf7ada79b402ce34f5ea674043f7d280ab612e8fbb38835bd6187113a72bc4e",
+      "bytes": 43509,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/canvasUtils-Cf-5db_0.js",
+      "sha256": "f82e6e6e9f95c2425d49d81431a6fb8a1566a29bfe987c681a6eca6aa6f98bac",
+      "bytes": 6011,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/getTexelRangeRects-DG7h_lfH.js",
+      "sha256": "42d8137a1f5d2dabaa56687fd8c3ac358879b0faadf377921a4db36a4f9da3a0",
+      "bytes": 11358,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/getTextureBatchBindGroup-B19vLRvC.js",
+      "sha256": "f74f9f4a56d29d2160602a1678140a985f9c1e12ab5b423e7d6d9b42cdbb136d",
+      "bytes": 344,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/index-7wWF1ykm.js",
+      "sha256": "a8dafc7dcf10ecdf9dec1dcda9ba37ba37a2845664792eb91e098d98b753562d",
+      "bytes": 132233,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/init-AqVDHDI2.js",
+      "sha256": "ab80382482c64e54b1f2cf6ae71020f9a965405bc1d06992b81cb2fca62ff18e",
+      "bytes": 15206,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/init-_ejyfgPr.js",
+      "sha256": "2368ca10bc40ae6236bf75009603f32b91f945040bcce2ea57eb008db529733b",
+      "bytes": 23781,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-back-rig-components-v1-BTUksNTy.png",
+      "sha256": "fefa2b5529c29c9b02123f87443d023f960838345e66db00937e50047c874778",
+      "bytes": 897581,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-back-work-chassis-v1-DyPc7VAv.png",
+      "sha256": "e5a6391a9bf596d5944addf949f08c45f23832641c7d7efdcfb5469ef50e9640",
+      "bytes": 1456377,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-front-rig-components-v1-CkIlNptX.png",
+      "sha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
+      "bytes": 942320,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-front-work-chassis-v1-gN1A0mLn.png",
+      "sha256": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3",
+      "bytes": 1484195,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-left-rig-components-v1-s-Yl0kVa.png",
+      "sha256": "3e87ac18cc6372a114db8237f076f49be804b12c1c3f195dc09bade4c8314653",
+      "bytes": 1087309,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-left-work-chassis-v1-DQAhZyMB.png",
+      "sha256": "fde768263c1ae70ad3892469d4185443e283590ad1d956ada21fa0ffb162a559",
+      "bytes": 1383485,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-right-rig-components-v1-DVIyHQN-.png",
+      "sha256": "d6526042a18fc7267057f9a98761a9ee30caf96072a3594580f7aa9d797cd936",
+      "bytes": 1067302,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/sower-right-work-chassis-v1-B56NYLzN.png",
+      "sha256": "fc18fe225414d5f75900eacfb5593a61c9363cd0df65cab3f9055fbecee3386e",
+      "bytes": 1417445,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "artbook/rig/assets/webworkerAll-CT5Hi9JR.js",
+      "sha256": "226fdd2ef981fda016f4266c68f68b04115bd9a3babda42dbc321d9edecbc4c7",
+      "bytes": 54,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-front-rig-components-v1.png",
+      "sha256": "01c034f0dc67699cabc91b55798013446ddbb4fb281fbbdbcb452faa4153dff2",
+      "bytes": 942320,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-left-rig-components-v1.png",
+      "sha256": "3e87ac18cc6372a114db8237f076f49be804b12c1c3f195dc09bade4c8314653",
+      "bytes": 1087309,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-right-rig-components-v1.png",
+      "sha256": "d6526042a18fc7267057f9a98761a9ee30caf96072a3594580f7aa9d797cd936",
+      "bytes": 1067302,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-back-rig-components-v1.png",
+      "sha256": "fefa2b5529c29c9b02123f87443d023f960838345e66db00937e50047c874778",
+      "bytes": 897581,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-front-work-chassis-v1.png",
+      "sha256": "f4d07f7bda2e9205b36fee765d81878d26fa3919e8236636ed6eb3eb4a46d5e3",
+      "bytes": 1484195,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-left-work-chassis-v1.png",
+      "sha256": "fde768263c1ae70ad3892469d4185443e283590ad1d956ada21fa0ffb162a559",
+      "bytes": 1383485,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-right-work-chassis-v1.png",
+      "sha256": "fc18fe225414d5f75900eacfb5593a61c9363cd0df65cab3f9055fbecee3386e",
+      "bytes": 1417445,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/sower-back-work-chassis-v1.png",
+      "sha256": "e5a6391a9bf596d5944addf949f08c45f23832641c7d7efdcfb5469ef50e9640",
+      "bytes": 1456377,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/fallback/sower-idle-v2.png",
+      "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97",
+      "bytes": 1547725,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/icons/sower-material-icons-v1.png",
+      "sha256": "ef5e939ad839f1a8329c4ac8a537cda2bbf7d9c6fff348c9fec421387bf8c17d",
+      "bytes": 662179,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/icons/sower-harvest-components-v1.png",
+      "sha256": "f72bd41f60e0abab16f84bced3e91cc8206f584582960841a2f17ddac50542a3",
+      "bytes": 931343,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/states/sower-hurt-v1.png",
+      "sha256": "f6a1f06fa6aa04c4697c282fd3a508686593b3f4a823f7b441e3e48c38838851",
+      "bytes": 1655430,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/states/sower-fall-v1.png",
+      "sha256": "48ab99b2c5539730b020911e1f33b367ee25b29980b89e83ffac7eacce703190",
+      "bytes": 1698903,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/states/sower-rise-v1.png",
+      "sha256": "6e5d0a4d4c7e4b702c217f0b98f1be30c27bd746f6e2006f8089468e5b140ece",
+      "bytes": 1765664,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/states/sower-attack-v1.png",
+      "sha256": "d752e1e3ebf82a3202930d090b9658864baf574abbfcc4f6bdf67e61b8f05397",
+      "bytes": 1716952,
+      "matchesFrozenBuild": true
+    },
+    {
+      "path": "sprites/original/direction-v364/states/sower-left-collapsed-v1.png",
+      "sha256": "3f5a479080c89252cb22c0fd69090c48e41cb3e7807a3437abc77dd3d2ca89e2",
+      "bytes": 787849,
+      "matchesFrozenBuild": true
+    }
+  ],
+  "scope": "Main HTML/entry JS, artbook/motion/medical catalogs/scripts, previous wildlife/machine samples, all16 Sower originals and every new four-facing rig viewer asset match immutable v364 r3 dist. The activated Sower was separately reviewed in finite actual-input scenes; publication integrity is not release or natural campaign approval. Full/World/1000 remain deferred.",
+  "ciFocusedChecks": {
+    "files": 35,
+    "tests": 397,
+    "status": "passed",
+    "FullWorld1000Run": false
+  },
+  "publicBrowser": {
+    "url": "https://roastfried-rf.github.io/ashveil/artbook/rig/",
+    "actualDOMRightWork": true,
+    "errors": [],
+    "sourceRegions": 30,
+    "sourcePNGs": 8,
+    "audit": "test-results/autonomy-v364/public-browser-r1/audit.json"
+  }
+}

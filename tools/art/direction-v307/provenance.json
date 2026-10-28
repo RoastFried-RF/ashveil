@@ -1,0 +1,17 @@
+{
+  "production": {
+    "source": "/workspace/generated_images/exec-87bf41cf-d894-45d3-8b1b-8ba4e4e69ec7.png",
+    "file": "public/sprites/original/direction-v307/forest-trees.png",
+    "sha256": "b33dd3a8cc3f964771e522db299f009000ff703bc02a880bd5ddb3ed404c8bf3",
+    "method": "OpenAI image generation, spacing revision through image generation; copied byte exactly without pixel editing"
+  },
+  "firstLayout": {
+    "source": "/workspace/generated_images/exec-fa9f078b-ef46-4952-93c8-18c46ddd26c8.png",
+    "reasonRejected": "Connected tree silhouettes crossed the half-canvas atlas boundaries."
+  },
+  "brief": "Four original dead-tree silhouettes: stout split, thin leaning, hollow low pollard, narrow forked. Ash/umber/chalk, upper-left light, transparent background, tree roots aligned by explicit atlas pivots. Preserve existing game rules and separate living species and legacy fallback share.",
+  "pixelInputs": "Only the generated first atlas was supplied to its spacing edit. No reference game artwork was used as image input.",
+  "atlasNote": "Frame bounds use visible alpha>16 and4px padding. Sub-visible alpha noise outside the drawing bounds is excluded by the texture rectangle; PNG bytes remain unchanged.",
+  "license": "CC0-1.0, to the extent of project contributors rights; see LICENSE.txt",
+  "integrationReview": "First preliminary browser run loaded the atlas but preserved original_dead_tree as a custom sprite. PNG review found the new resources were not used. Default resolved sprite priority was corrected and tested through loadDb."
+}

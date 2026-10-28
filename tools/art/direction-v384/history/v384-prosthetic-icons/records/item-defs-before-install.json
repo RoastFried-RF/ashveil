@@ -1,0 +1,174 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.PegLeg",
+    "label": "막대 의족",
+    "description": "결손 부위에 설치하는 막대 의족.",
+    "sprite": "complete_item_peg_leg",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      2
+    ],
+    "value": 20,
+    "prosthetic": "Prosthetic.PegLeg",
+    "repair": {
+      "material": "Item.Wood",
+      "unitsPer10": 0.25,
+      "turns": 100,
+      "attr": "per",
+      "tools": [
+        "blade"
+      ]
+    },
+    "_mod": "core"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ArticulatedLeg",
+    "label": "관절 의족",
+    "description": "결손 부위에 설치하는 관절 의족.",
+    "sprite": "complete_item_articulated_leg",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      2
+    ],
+    "value": 20,
+    "prosthetic": "Prosthetic.ArticulatedLeg",
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "_mod": "core"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.HookHand",
+    "label": "갈고리 손",
+    "description": "결손 부위에 설치하는 갈고리 손.",
+    "sprite": "complete_item_hook_hand",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      2
+    ],
+    "value": 20,
+    "prosthetic": "Prosthetic.HookHand",
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 150,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "_mod": "core"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.GlassEye",
+    "label": "유리 눈",
+    "description": "결손 부위에 설치하는 유리 눈.",
+    "sprite": "original_glass_eye",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      1
+    ],
+    "value": 20,
+    "prosthetic": "Prosthetic.GlassEye",
+    "repair": {
+      "material": "Item.GlassShard",
+      "unitsPer10": 0.25,
+      "turns": 100,
+      "attr": "per",
+      "tools": [
+        "blade"
+      ]
+    },
+    "_mod": "core"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PioneerArm",
+    "label": "개척 의수",
+    "description": "결손 부위에 설치하는 개척 의수.",
+    "sprite": "complete_item_pioneer_arm",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      2
+    ],
+    "value": 200,
+    "prosthetic": "Prosthetic.PioneerArm",
+    "relic": true,
+    "unknownLabel": "따뜻한 금속 팔",
+    "unknownDescription": "손목 같은 관절이 달린 금속 덩어리. 만지면 조금 따뜻하다.",
+    "_mod": "core",
+    "durabilityBase": 100,
+    "repair": {
+      "material": "Item.SmallActuator",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "per",
+      "tools": [
+        "hammer"
+      ],
+      "appraisalRequired": true,
+      "station": "artisan",
+      "relicRisk": {
+        "base": 60,
+        "min": 10,
+        "max": 60
+      }
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.GardenerLimb",
+    "label": "정원사 이식지",
+    "description": "결손 부위에 설치하는 정원사 이식지.",
+    "sprite": "complete_item_gardener_limb",
+    "category": "medical",
+    "weight": 1,
+    "size": [
+      1,
+      2
+    ],
+    "value": 200,
+    "prosthetic": "Prosthetic.GardenerLimb",
+    "relic": true,
+    "unknownLabel": "기이한 흰 가지",
+    "unknownDescription": "뼈와 나뭇가지 사이처럼 생겼다. 귀를 대면 속삭이는 듯하다.",
+    "_mod": "core",
+    "durabilityBase": 100,
+    "repair": {
+      "material": "Item.SmallActuator",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "per",
+      "tools": [
+        "hammer"
+      ],
+      "appraisalRequired": true,
+      "station": "artisan",
+      "relicRisk": {
+        "base": 60,
+        "min": 10,
+        "max": 60
+      }
+    }
+  }
+]

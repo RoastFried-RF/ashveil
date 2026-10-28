@@ -1,0 +1,374 @@
+{
+  "version": 307,
+  "save": 205,
+  "runtimeCheckpoint": "/workspace/.ashveil-checkpoints/v307-forest-native-final",
+  "manifestSha256": "59b742c4f04ef0501269fb17f71e935f6cf16aa89912dffe361a9de3598ddfe7",
+  "source": {
+    "src": {
+      "files": 700,
+      "rootExactCheckedSource": true
+    },
+    "public": {
+      "files": 1839,
+      "rootExactCheckedSource": true
+    },
+    "dist": {
+      "files": 2238,
+      "rootExactCheckedSource": true
+    },
+    "tests": {
+      "files": 1103,
+      "rootExactCheckedSource": true
+    },
+    "tools": {
+      "files": 313,
+      "rootExactCheckedSource": true
+    },
+    "mods": {
+      "files": 86,
+      "rootExactCheckedSource": true
+    },
+    ".agents": {
+      "files": 1,
+      "rootExactCheckedSource": true
+    },
+    ".github": {
+      "files": 1,
+      "rootExactCheckedSource": true
+    }
+  },
+  "full": {
+    "files": 341,
+    "tests": 6177,
+    "seconds": 852.4045090332031,
+    "workerLimit": 2,
+    "singleWholeRunPassed": true,
+    "checkpoint": "/workspace/.ashveil-checkpoints/v307-forest-final",
+    "jsonSha256": "723ae16aee25a38b7d3a34e6f0214cda9054e7a959404f3f727b661bcfd4c03c",
+    "postFullChanges": [
+      "Only tests/forest-art-fixture.ts added initial living Pine/Blackwood species to Native privacy and blind scenes. No runtime, Core, Def, unit-test, expected-vector or timeout changes. Final type/lint and both-resolution Native use this extended fixture."
+    ]
+  },
+  "native": [
+    {
+      "width": 1440,
+      "height": 1080,
+      "wholePairs": 15,
+      "restores": 2,
+      "screenshots": 12,
+      "declaredFixtures": 5,
+      "actions": 5,
+      "actionTU": 500,
+      "inputToWholeStateMs": [
+        652.8067279999996,
+        1305.2749120000008,
+        642.5201880000022,
+        703.1986359999937,
+        2253.065717000005
+      ],
+      "audit": "/workspace/ashveil/test-results/forest-v307-final-1440/audit.json",
+      "auditSha256": "08fd881eae98e118fff15b74ce169afc7a3b229f8ae12f8918047be194292648",
+      "errors": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "wholePairs": 15,
+      "restores": 2,
+      "screenshots": 12,
+      "declaredFixtures": 5,
+      "actions": 5,
+      "actionTU": 500,
+      "inputToWholeStateMs": [
+        566.363867,
+        1040.6173649999982,
+        536.9026639999975,
+        574.6238369999992,
+        1999.9632390000043
+      ],
+      "audit": "/workspace/ashveil/test-results/forest-v307-final-1366/audit.json",
+      "auditSha256": "b0fe6b4b35d864a7ad7a2086ce4c374b921bfe2e7492c3149c72dd8409f4dfc2",
+      "errors": []
+    }
+  ],
+  "common": {
+    "stepsPerResolution": 11,
+    "screenshots": 8,
+    "errors": []
+  },
+  "screenReview": {
+    "allOpenedIndividually": true,
+    "count": 32,
+    "images": [
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2101-day-default.png",
+        "sha256": "1db6bc7d5cee6a8b53646cff25d40415b6370b1d53fdd2510b630ff14dcc1bab",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2102-day-two-times.png",
+        "sha256": "5aee69d5b145fdb1abf315aefaa122366815e84ebce023103bf56fd9e8340db9",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2103-day-vision-fit.png",
+        "sha256": "1aec92ca011a4c2757b862ed69d6032f4f77baa27a7104bb4cfe2d95eef9ab7f",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2104-day-three-times.png",
+        "sha256": "e10bf3cbeb946e78940f9e1611a18f106d6e48550060d3d94db4128d078ee201",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2105-day-real-step.png",
+        "sha256": "9b48e65a623956384887357f759cba2babfe0fd1f75ec2dcd2dd1d3d6681c203",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2106-day-restored.png",
+        "sha256": "4aedcac96fe689c2c3820ec2bca422abd2a0a54e229ce930b96a37d6dd411bc1",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2107-dark-unlit.png",
+        "sha256": "6474f0249e9fd018aa73a8f79d2593af49c203729fc9a47cce50f9b575598ff6",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2108-dark-torch-bark.png",
+        "sha256": "f515bef064ca1850e43a157888644ca765de3a4227d59b774958ab7f79825a78",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2111-hidden-enemy-and-crate.png",
+        "sha256": "deb06be1284aafb94c47ec61282ef76746a48c42801cb184d865525d8e3c9cb5",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2112-blind-no-tree-leak.png",
+        "sha256": "fc8312cf389127a1f6ca8ea7973ca4d85f3aa73a4460ce83f570f097717506b0",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2109-actual-v306-forest.png",
+        "sha256": "5211e14fcf6b82a2c5f0e115b0bae897a1df1d3b34696a29e8156efc2487c8e0",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1440/2110-actual-v306-restored.png",
+        "sha256": "75e48da67012f3d5c226a00c5905c1604b94d55861a5bb16911ef8754af12772",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2101-day-default.png",
+        "sha256": "94cb04b95835aa589c58e64984a2bb138c3a5ff34074375f530436535ded484c",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2102-day-two-times.png",
+        "sha256": "3cfd35430e00f2071381c1532cf4c9f6732cb80e6a2e7a11bbeff7362e332e9c",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2103-day-vision-fit.png",
+        "sha256": "a1f3a8110eaa12ae2dc8db80ae6a22a6dfd32fd969e568d6f439776015f306c6",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2104-day-three-times.png",
+        "sha256": "ba5b8d70e4b7d0f06eef3df1e162f5ecff54ac8a0ab3b44156d8b3cf4a2ba5e1",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2105-day-real-step.png",
+        "sha256": "358a50d26fe24f79049083b465d245bbfa22c5d6448f570c02e9b89b0f7f6afd",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2106-day-restored.png",
+        "sha256": "7778f731214d8a896a4b9c43137f466b5827f6819956b6d49fac56d205c1362c",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2107-dark-unlit.png",
+        "sha256": "fea352150d94b7c69fe926f4ced58f158a2b6bdb89a3f60a7425987390002e93",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2108-dark-torch-bark.png",
+        "sha256": "f92499c0c986da1c1f2f0c4c1c6c9ad422e57e610c3745d4b6ce05375ad7a5e8",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2111-hidden-enemy-and-crate.png",
+        "sha256": "aede469535fbfeb1097da42e09f87f22def88422e4f55b65bf859c2006979bcd",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2112-blind-no-tree-leak.png",
+        "sha256": "3890b5e905c7e2c82463183c87a1672eff253969f99dc651e3be75f10d9499ae",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2109-actual-v306-forest.png",
+        "sha256": "2e77a461d3dda8fb3936ada62c59fc1bc833bb4b9a1f3876ec04d85f17fa299d",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/forest-v307-final-1366/2110-actual-v306-restored.png",
+        "sha256": "5bba5117c2f165afb179a9498b4f5f0074eea070dd38709284fdba0ff6abc56b",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1440/00-title.png",
+        "sha256": "b7985653dc63ea0beebd0157ef85eed60bc0d617357705130f92c3cedb82ec3e",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1440/01-world.png",
+        "sha256": "6992d45f243045c08e9c61cd26e5df34fa68cedf1f0b3b31fec1ef9624547bfb",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1440/02-inventory.png",
+        "sha256": "afbe9f6d510c7368c876c45c64378880d82a9da9b061eb4ebe5e4c64cd826698",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1440/final.png",
+        "sha256": "755f8426375a81d0a0a3529921fd1187ffb0679e0f3fe63f205dea1466141498",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1366/00-title.png",
+        "sha256": "e852ec45b4081f774baf75e896e5c9a9b58fc42cb173d11d3652a5c4ccf69527",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1366/01-world.png",
+        "sha256": "bfbf25624f915f6b2e5d1356259183bff66388a4389266f5e0745ba73fc8214f",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1366/02-inventory.png",
+        "sha256": "8b7c0c78db8816816882bf0cc9ba2e1228f689eabb855a76e45c48289f302d1d",
+        "openedIndividually": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v307-final-1366/final.png",
+        "sha256": "86d7c1d23d1389a8a38c7a195c5b5950258fa06f3b1f758b41add5db06e29359",
+        "openedIndividually": true
+      }
+    ],
+    "notes": [
+      "Four dead-tree silhouettes retain full branches when their base tile is visible; transparent branch gaps retain unknown fog.",
+      "Day, dark, actual equipped-torch input, manual zoom and whole-vision fit are legible at both resolutions.",
+      "Hidden scheduled-inactive enemy and crate/item are absent; initial blind scene shows no terrain or projected trees.",
+      "Actual306 regular-game browser state and save205 restores preserve complete independent Node state.",
+      "Living Pine and Blackwood exercise the dynamic opaque-prop path. Their old artwork and scale are intentionally retained in307; the mixed scene exposes an overly large coarse pine and a texture mismatch as next art targets.",
+      "Adjacent trees can overlap roots; Y order is preserved. This is not a claim that every resource has final polish.",
+      "Default auto camera and explicit zoom use their existing different framing policies; changing zoom creates no game turn."
+    ]
+  },
+  "canvas2D": {
+    "checks": 14,
+    "auditSha256": "95200fa9e9f6178f97565074145e6b2c48a9a33263e46fbaf691c4d5a4e41855"
+  },
+  "golden": {
+    "vectors": 5,
+    "initialFinalErrorsAndHashesExact306": true,
+    "expectedFixturesChanged": false,
+    "sha256": "823e311a4ed56a30253efccdd43d7163183affbd85d57269b171b674eefcf2bf"
+  },
+  "validations": [
+    {
+      "name": "type",
+      "passed": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lint",
+      "passed": true,
+      "sha256": "59b3be65c1332d2b923f59e7b3b24f57f789be802efd3cc2b0b2eb50227d028f"
+    },
+    {
+      "name": "sprites",
+      "passed": true,
+      "sha256": "48d0119ef9447078c25cc1989d7e18605ac9aea166d6b1d231ed41875f7d1db1"
+    },
+    {
+      "name": "defs",
+      "passed": true,
+      "sha256": "2d27fa9ef389beb4198bb7518e8bd13e6df523fd7924a239f8dedad0acaded33"
+    },
+    {
+      "name": "schema",
+      "passed": true,
+      "sha256": "073d36d2b5a030f2280d5a9600b772c70b1063c8cf70349c472ccdf105696f2c"
+    },
+    {
+      "name": "atlas",
+      "passed": true,
+      "sha256": "b4df79281d79239b3372c86774fb4641001ba624001ecacd1ab062ed0c12b150"
+    }
+  ],
+  "coreContentModsExact306": true,
+  "allPreviousAtlasFramesSheetsCharactersAnimationsAndUiEntriesExact306": true,
+  "world": {
+    "rerun": false,
+    "lastMeasuredVersion": 305,
+    "summary": "docs/sim-v305.json",
+    "reason": "Rendering only. Core/content/mod bytes and five full initial/final/error vectors exact306; no balance modification or new World measurement claimed."
+  },
+  "art": {
+    "production": {
+      "source": "/workspace/generated_images/exec-87bf41cf-d894-45d3-8b1b-8ba4e4e69ec7.png",
+      "file": "public/sprites/original/direction-v307/forest-trees.png",
+      "sha256": "b33dd3a8cc3f964771e522db299f009000ff703bc02a880bd5ddb3ed404c8bf3",
+      "method": "OpenAI image generation, spacing revision through image generation; copied byte exactly without pixel editing"
+    },
+    "firstLayout": {
+      "source": "/workspace/generated_images/exec-fa9f078b-ef46-4952-93c8-18c46ddd26c8.png",
+      "reasonRejected": "Connected tree silhouettes crossed the half-canvas atlas boundaries."
+    },
+    "brief": "Four original dead-tree silhouettes: stout split, thin leaning, hollow low pollard, narrow forked. Ash/umber/chalk, upper-left light, transparent background, tree roots aligned by explicit atlas pivots. Preserve existing game rules and separate living species and legacy fallback share.",
+    "pixelInputs": "Only the generated first atlas was supplied to its spacing edit. No reference game artwork was used as image input.",
+    "atlasNote": "Frame bounds use visible alpha>16 and4px padding. Sub-visible alpha noise outside the drawing bounds is excluded by the texture rectangle; PNG bytes remain unchanged.",
+    "license": "CC0-1.0, to the extent of project contributors rights; see LICENSE.txt",
+    "integrationReview": "First preliminary browser run loaded the atlas but preserved original_dead_tree as a custom sprite. PNG review found the new resources were not used. Default resolved sprite priority was corrected and tested through loadDb."
+  },
+  "zip": {
+    "version": 307,
+    "distFiles": 2238,
+    "bytes": 27469540,
+    "sha256": "60f3ccbb50ed1085ad7ac856307ae7f11da980c5483d8fad586201545441b536",
+    "allDistFilesExactCheckedBuild": true,
+    "additionalMetadata": [
+      "시작하기.txt",
+      "CREDITS.md",
+      "리소스-도감.html",
+      "미술-설명.md",
+      "illustrations-provenance.json",
+      "licenses/complete-LICENSE.txt",
+      "licenses/material-LICENSE.txt",
+      "licenses/oatmeal-LICENSE.txt",
+      "licenses/survival-LICENSE.txt",
+      "licenses/direction-v303-LICENSE.txt",
+      "조작-변경.md",
+      "시야-배율.md",
+      "저장-방식.md",
+      "수목-원화.md",
+      "forest-v307-CC0.txt"
+    ],
+    "localArtifactOnly": true
+  },
+  "limits": "Finite declared initial scenes through real Title Continue; actual inputs and independent Node whole-state expectations. Hidden enemy is scheduled inactive and blindness is initially declared, not natural acquisition. Existing306 browser save is also loaded with exact hash and no content review. Timing measures input through whole-state equality, not human feel or FPS. Full and local GPU checks are sequential. v1.0/X1-X4 and human gates remain.",
+  "preliminaryEvidence": [
+    "test-results/forest-v307-preliminary1440: PNG fetched but old art still active; excluded",
+    "test-results/forest-v307-preliminary-r2-1440: new art active but branches clipped; excluded",
+    "test-results/forest-v307-projected-preliminary1440 and forest-v307-boundary-preliminary1440: preliminary coverage, excluded from final counts",
+    "test-results/projected-fog-v307-final: first isolated browser test failed on tsx __name environment; corrected rerun separate"
+  ],
+  "publicationPolicy": "One large verified push, then normal public URL/bytes verification. No publication-record-only push."
+}

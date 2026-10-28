@@ -1,0 +1,2054 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21",
+  "reviewer": "/root/title_art",
+  "status": "PASS for18directly viewed FINAL/CURRENT PNGs,11supplied whole-state comparisons and3completed-action restores; finite brush clearing/planting scenario and common smoke",
+  "scope": {
+    "directlyViewedPNGCount": 18,
+    "entriesCount": 18,
+    "finalNativePNGCount": 10,
+    "currentCommon1440PNGCount": 4,
+    "currentCommon1366PNGCount": 4,
+    "nativeDirectory": "test-results/brush-clearing-browser-v296-final",
+    "commonDirectories": [
+      "test-results/game-harness-v296-current-1440",
+      "test-results/game-harness-v296-current-1366"
+    ],
+    "excludedEarlierDirectories": [
+      "test-results/brush-clearing-browser-v296-first",
+      "test-results/game-harness-v296-final-1440",
+      "test-results/game-harness-v296-final-1366"
+    ],
+    "onlyProjectFileWritten": "docs/ui-v296-reviewed-pngs.json",
+    "existingStaticArtReviewModified": false,
+    "productCoreDefImagesHarnessGitEdited": false,
+    "GPUbrowserGameFullTypeBuildOrProjectChecksRerun": false,
+    "method": "Read original screenshot files/source evidence/actual and expected JSON only; SHA and source RGB regions compared in memory. No image edit/resave/render."
+  },
+  "evidenceBoundary": [
+    "All18final original PNGs were directly opened with view_image. Earlier FIRST18 were read separately before wording correction and are not the final18 entries.",
+    "Whole actual/expected JSON identifies UID/time/RNG/items/terrain; exact state facts are not inferred from sprites or filenames.",
+    "One declared finite initial actualgenerated healthyplayer/weapon/seed scene is used for current200 path. It contains north unripe and east ready wild bushes, roof/lit dungeon, weather/story pauses, and original east ground items. It is not normal newGame equipment gifts/crafting/loot or past harvest history.",
+    "The legacy199 branch resets to that same current finite scene immediately after actual equip, changes only version header, then clears the other bush. It is not a historical user-save sample or a cumulative second clearing in the already-planted world.",
+    "Current actual path costs equip100+clear1000+plant100=1200TU; separate legacy path clear1000TU;2200TU is the sum of the two paths.",
+    "Actual browser input performs equip/F2/clear/seed place/restore. Independent Node expected actions are supplied by Root. Reviewer reran no game/browser code.",
+    "Crop shows growth0/water0/sunlight0. The scenario proves planting into cleared earth only, not growth completion, successful harvest or underground agricultural sufficiency.",
+    "Final Native/common executed in immutable /workspace/.ashveil-checkpoints/v296-input with app index-DcrWQzdS.js. FIRST used a different pre-wording runtime and remains separate. Source proof is Root's supplied byte comparison; reviewer did not repeat full source-tree hashing.",
+    "Completed-action200restores are verified. Mid-progress resume/cancel/interruption cases are not browser claims here; the new cancellation wording was visually checked without executing cancel."
+  ],
+  "provenance": [
+    {
+      "path": "docs/brush-clearing-v296-final-source-proof.json",
+      "bytes": 3195,
+      "sha256": "39c599322a9332493da537be28a07b10d4080ee4a32d16187d25be0fa1fa4523"
+    },
+    {
+      "path": "docs/game-harness-v296-audit.json",
+      "bytes": 1562,
+      "sha256": "5b74715c3b387019d2dd9891fa8b0add38c03d78fc6998abaa8b984f4635c083"
+    },
+    {
+      "path": "tests/e2e/brush-clearing.ts",
+      "bytes": 8803,
+      "sha256": "2639505ad95e5e0640657b331da9878a648f6c90b27aefea8779b3d4322bad59"
+    },
+    {
+      "path": "tests/brush-clearing-fixture.ts",
+      "bytes": 1119,
+      "sha256": "5a2ab1694dfcad277a827f5e2daf543ffa6e5f4c3f39169961cbabc588aeab9d"
+    },
+    {
+      "path": "tests/clinical-diseases-fixture.ts",
+      "bytes": 1798,
+      "sha256": "2694a53f7ae4e5f9c35dcb3f5e7f236a4aa5de87d8f0dc8858fe0134ea6ed109"
+    },
+    {
+      "path": "docs/art-v296-independent-review.json",
+      "bytes": 31939,
+      "sha256": "b203e555140eb9187e1d9e5efa8691690df6097e97c0e10a7308c5d3d4b7b71c"
+    }
+  ],
+  "entries": [
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1460-native-original-unripe-and-full-bushes-machete-not-yet-equipped.png",
+      "bytes": 536230,
+      "sha256": "861d8b334da81c92a143896535e21a8dfec6c181744fc4dffdda53ea02120a2f",
+      "id": "1460",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "최종 F2 화면에서 북쪽20,19·동쪽21,20 두 잿딸기 덤불과 비활성 베어 빈 땅 만들기 버튼, 손에 철판 마체테를 장착해야 한다는 이유를 읽었다. 열매 모으기도 가을에는 비활성이다.",
+        "새 문구 '중단하면 처음부터 다시 벤다'와 일반 제작·수리에 한정된 진행 보존 문구가 직접 보인다. 영구 제거/다시 자라지 않음/빈 흙에 다른 작물 안내가 있다. 이 정지 화면만으로 실제 중단 실행을 검증했다고 하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-title200-and-bag-only-tool-unavailable-actual.json",
+        "bytes": 267087,
+        "sha256": "b7a3eab3a81ba063425c4b5db87e942393bfd725dd3862f03f3cf077249c9541"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1461-native-original-sheet-machete-and-finite-seeds-in-real-bag.png",
+      "bytes": 401980,
+      "sha256": "b66320f0b6f1a403f6fb6ad02973a540cb90f80e9ed2d03dad662cf069598f3d",
+      "id": "1461",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "소지품 창에서 새32px 마체테가1×3칸에 있고 옆 종자 봉지는 숫자2다. 지갑1000·빈칸56·빈 장비 슬롯과 닫기를 확인했다.",
+        "마체테 UID43/종자 UID44는 JSON 근거다. 선언한 초기 유한 물품이며 정상 새게임 지급이나 제작/약탈 이력은 아니다. 뒤쪽 동쪽 새 관목이 보인다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-title200-and-bag-only-tool-unavailable-actual.json",
+        "bytes": 267087,
+        "sha256": "b7a3eab3a81ba063425c4b5db87e942393bfd725dd3862f03f3cf077249c9541"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1462-native-actual-original-machete-equipped-same-finite-seed-batch.png",
+      "bytes": 405576,
+      "sha256": "40e07e21acfd2c2ce8342c80f592cbee3dce7e8206673e7f4227bec81efc3db6",
+      "id": "1462",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "실제 장착 뒤 마체테가 주무기 슬롯으로 이동했고 배낭에는 종자2가 남는다. 빈칸59와 장착 로그를 확인했다.",
+        "도구 미리보기에서 제목·인벤토리 일부가 빠져 보였으나 원본 header는1461과, 주무기 아이콘 영역은1466과 RGB 전 픽셀 동일하다. 제품 PNG의 누락이나 재처리를 뜻하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-original-machete-equip-one-turn-actual.json",
+        "bytes": 267604,
+        "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1463-native-actual-ten-turn-permanent-clearing-quote-no-free-fruit-or-wood.png",
+      "bytes": 537184,
+      "sha256": "f4b79652c76c0cdc1870c664b6fe5b4342ac634b173c4103a881a1011b294b8a",
+      "id": "1463",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "최종 F2에서 두 대상의 베어 빈 땅 만들기(10턴) 버튼이 활성이다. 영구 제거·열매 재생 없음·취소 시 처음부터 다시 벤다는 안내를 읽었다.",
+        "견적/화면 열기는 장착 직후 전체 세계와 동일하다. 새 과일/목재 보상을 약속하거나 수확과 제거를 같은 행동으로 표시하지 않는다. 아래 일반 안내는 제작·수리 진행에만 한정됐다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-permanent-clearing-warning-and-quote-pure-actual.json",
+        "bytes": 267604,
+        "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1464-native-actual-cleared-earth-original-salt-and-wood-still-on-ground.png",
+      "bytes": 401556,
+      "sha256": "6e8627c0c3ea395525432fb1f888cf5fb7d2cccdf4464aabbeab4dd8d8851c44",
+      "id": "1464",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "북쪽 제거 뒤 새 플레이어와 동쪽의 남은 큰 가시관목, 덤불을 베어 빈 땅이 됐다는 실제 로그를 확인했다.",
+        "북쪽 Terrain.Earth 전환과 gatherAt 제거는 JSON 증거다. 지하 장면의 돌바닥 렌더링과 플레이어가 해당 위치 일부를 가리므로 갈색 흙 텍스처가 새로 보였다고 하지 않는다. 동쪽 소금·목재는 관목에 가려 두 물품을 각각 픽셀로 판정하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-ten-turn-cleared-north-original-floor-materials-preserved-actual.json",
+        "bytes": 267784,
+        "sha256": "4e20f1ec76bf52bfa901e6765ed2a2e362a911c5a61be81e71a1a993cdbd7c93"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1465-native-actual-original-seed-now-planted-in-same-cleared-earth.png",
+      "bytes": 543303,
+      "sha256": "5aa2c2c6e590637a77ff606c79500943f17e21c1a7cfa0319150a7513ba222f2",
+      "id": "1465",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "F2에 그늘 작물 밭20,19·성장0%·관수0ml·햇빛0%·12°C 및 실제 빛 부족 안내, 종자를 심었다는 로그가 보인다. 제거 대상은 동쪽21,20만 남는다.",
+        "같은 종자 UID44로 북쪽에 파종한 결과이며 성장 완료/수확 성공이 아니다. 열매 제거와 작물 심기의 상태를 구분한다. 제작법 목록은 아래로 스크롤되므로 전체가 한 장에 보이지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/actual-one-turn-same-seed-planted-in-cleared-earth-actual.json",
+        "bytes": 268269,
+        "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1466-native-small-whole200-restored-original-machete-and-remaining-seed.png",
+      "bytes": 353121,
+      "sha256": "06263df73365fbff3f8d4eb6030a011ca5d085f438777e035a5f77d94a7ee320",
+      "id": "1466",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "1366×768 복원 후 인벤토리에서 장착된 새 마체테와 남은 종자 봉지 한 칸을 확인했다. 지갑1000·빈칸59·닫기가 화면 안이다.",
+        "count1은 숫자 오버레이가 없어도 JSON에서 확인된다. 종자2→1 및 seedUid44 재사용은 상태 근거이며 물품 자체를 새로운 UID로 바꿨다고 주장하지 않는다. 배낭 창이 뒤 지도/작물 대부분을 가린다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/small-current200-original-machete-and-one-remaining-seed-actual.json",
+        "bytes": 268269,
+        "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1467-native-legacy199-header-same-original-bushes-before-real-clearing.png",
+      "bytes": 537184,
+      "sha256": "f4b79652c76c0cdc1870c664b6fe5b4342ac634b173c4103a881a1011b294b8a",
+      "id": "1467",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "199 헤더로 같은 현재 장착 직후 장면을 읽은 뒤 최종 F2에 두 기존 덤불과 각각10턴 제거 버튼이 남는다. 취소/제작수리 문구도 최종판이다.",
+        "원래 마체테와 종자2·바닥 물품이 그대로이고 소급 제거/재료 추가가 없다는 것은 전체 JSON으로 확인했다. 역사적 사용자199저장 파일의 출처를 확보한 검사가 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/legacy199-title-upgraded200-no-retroactive-clearing-or-materials-actual.json",
+        "bytes": 267604,
+        "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1468-native-legacy199-actual-cleared-east-other-original-bush-remains.png",
+      "bytes": 398019,
+      "sha256": "2de2ceb9aae4b81e590796e797a818b96eb896787337590bcce599ff6d424663",
+      "id": "1468",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "별도 legacy 분기에서 동쪽 관목이 제거돼 플레이어 오른쪽 바닥의 맨 위 물품 아이콘과 로그가 보인다.",
+        "소금45×3와 목재46×2 전체 목록은 JSON으로 정확히 보존됨을 확인했다. 하나의 top 아이콘으로 둘의 종류/UID/수량을 모두 읽었다고 하지 않는다. 북쪽 관목은 플레이어가 가릴 수 있어 존재는 JSON과1469의 남은 대상 제어로 확인한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/legacy199-actual-ten-turn-cleared-east-north-original-bush-preserved-actual.json",
+        "bytes": 267801,
+        "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+      }
+    },
+    {
+      "path": "test-results/brush-clearing-browser-v296-final/1469-native-small-legacy199-to200-restored-remaining-original-bush-control.png",
+      "bytes": 418575,
+      "sha256": "cff7bcecd6549b3ab99aed7da0e41e02b3339c570f02797048d549f21141a4bb",
+      "id": "1469",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "FINAL Native",
+      "observations": [
+        "1366×768 복원 뒤 F2에는 북쪽20,19의 잿딸기 덤불만 남은 제어가 보인다. 동쪽 제거 대상은 없다. 최종 취소 경고/제작수리 한정 문구와 닫기를 확인했다.",
+        "일반 제작 목록은 화면 아래에서 이어져 내부 스크롤이 필요하다. 남은 관목 제어가 보인다는 것과 모든 제작/수리 기능을 한 번에 확인했다는 주장을 구분한다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/brush-clearing-browser-v296-final/legacy199-whole200-restored-same-cleared-east-and-other-original-bush-actual.json",
+        "bytes": 267801,
+        "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1440/00-title.png",
+      "bytes": 973642,
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "name": "00-title.png",
+      "viewportWidth": 1440,
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1440/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "observations": [
+        "1440×1080 최종 타이틀의 독자적 키 아트·제목·시드·사건흐름·배경 선택·초상/능력치와 시작버튼을 직접 확인했다.",
+        "시작 버튼은 스크롤 없이 화면 안이며 layout JSON상 hit-test 가능하다. 아래 배경/후속 옵션은 화면 아래로 이어진다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1440/01-world.png",
+      "bytes": 522751,
+      "sha256": "b3a7cf55dc66ab1f6d7e6bfc3b6b12aee4027692fa637f1aa10799336c139181",
+      "name": "01-world.png",
+      "viewportWidth": 1440,
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1440/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "481f37845f26cc14654005277b5fb9f0fecc6d3f2665b7171c357577692a7339"
+      },
+      "observations": [
+        "정상 타이틀 새게임의 기존 새 회색 여행자·불빛·상자·원본 침엽수/마른나무·생존HUD·빠른슬롯을 확인했다.",
+        "하단 수목/지도는 화면과HUD에 일부 가려진다. 이 일반 smoke는 유한 마체테/종자 fixture와 별개다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1440/02-inventory.png",
+      "bytes": 601179,
+      "sha256": "8476194afb85a0122b9558229a1c006ac75bc5319b492004afc13d1fb8012b58",
+      "name": "02-inventory.png",
+      "viewportWidth": 1440,
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1440/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "7549a9fa1cd2c3ab30fa22a25177efab9de7907fd07ac569cdd1ef559f2c9b1c"
+      },
+      "observations": [
+        "대기·남쪽 회전 뒤 소지품 창의 기본 장대/등 장비·빈배낭60·지갑0·닫기를 확인했다. 두 해상도에서 창 자체는 화면 안이다.",
+        "고정 마체테 지급 장면이 아니며 기존 시작 장비가 UI에 별도로 보인다. 창이 세계 일부를 가린다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1440/final.png",
+      "bytes": 604375,
+      "sha256": "f19b45cc184dd7c49cc00b232b258eb6e396a6e09ebc309172942b507160fa02",
+      "name": "final.png",
+      "viewportWidth": 1440,
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1440/final-state.json",
+        "bytes": 16730,
+        "sha256": "7549a9fa1cd2c3ab30fa22a25177efab9de7907fd07ac569cdd1ef559f2c9b1c"
+      },
+      "observations": [
+        "최종 PNG를 직접 열고02-inventory와 대조했다. 전체 world JSON은 같아 관찰 자체로 상태가 변하지 않는다.",
+        "도구 미리보기의 인벤토리/로그 생략은 원본 RGB 두 영역이02-inventory와 전 픽셀 동일한 것으로 구분했다. 전체 프레임에는 호흡/불빛 차이가 있을 수 있다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1366/00-title.png",
+      "bytes": 668811,
+      "sha256": "41c34c6bebb567e39d1cd79bc5a4aaf2ab1eddd6238039c28993bba7b5ead88d",
+      "name": "00-title.png",
+      "viewportWidth": 1366,
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1366/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      },
+      "observations": [
+        "1366×768 최종 타이틀의 독자적 키 아트·제목·시드·사건흐름·배경 선택·초상/능력치와 시작버튼을 직접 확인했다.",
+        "시작 버튼은 스크롤 없이 화면 안이며 layout JSON상 hit-test 가능하다. 아래 배경/후속 옵션은 화면 아래로 이어진다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1366/01-world.png",
+      "bytes": 372517,
+      "sha256": "ff6bd69810529caed1938df61fa2698b5fd2274be5aa18dac0e801d5384ef540",
+      "name": "01-world.png",
+      "viewportWidth": 1366,
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1366/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "481f37845f26cc14654005277b5fb9f0fecc6d3f2665b7171c357577692a7339"
+      },
+      "observations": [
+        "정상 타이틀 새게임의 기존 새 회색 여행자·불빛·상자·원본 침엽수/마른나무·생존HUD·빠른슬롯을 확인했다.",
+        "최초 빈칸0 툴팁이 로그 일부를 가린다. 지도는 밤 시야/화면/HUD로 일부만 보인다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1366/02-inventory.png",
+      "bytes": 447202,
+      "sha256": "df004a09694783808d4d0112a31feea8de2a675e91c55b24ec3ce84f5628cc11",
+      "name": "02-inventory.png",
+      "viewportWidth": 1366,
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1366/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "7549a9fa1cd2c3ab30fa22a25177efab9de7907fd07ac569cdd1ef559f2c9b1c"
+      },
+      "observations": [
+        "대기·남쪽 회전 뒤 소지품 창의 기본 장대/등 장비·빈배낭60·지갑0·닫기를 확인했다. 두 해상도에서 창 자체는 화면 안이다.",
+        "고정 마체테 지급 장면이 아니며 기존 시작 장비가 UI에 별도로 보인다. 창이 세계 일부를 가린다."
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v296-current-1366/final.png",
+      "bytes": 446866,
+      "sha256": "9772f1ae8db7bf2b57685a4b7e3cb5b56c40747273998e864b4d7821611587e1",
+      "name": "final.png",
+      "viewportWidth": 1366,
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "category": "CURRENT common smoke",
+      "stateEvidence": {
+        "path": "test-results/game-harness-v296-current-1366/final-state.json",
+        "bytes": 16730,
+        "sha256": "7549a9fa1cd2c3ab30fa22a25177efab9de7907fd07ac569cdd1ef559f2c9b1c"
+      },
+      "observations": [
+        "최종 PNG를 직접 열고02-inventory와 대조했다. 전체 world JSON은 같아 관찰 자체로 상태가 변하지 않는다.",
+        "도구 미리보기의 인벤토리/로그 생략은 원본 RGB 두 영역이02-inventory와 전 픽셀 동일한 것으로 구분했다. 전체 프레임에는 호흡/불빛 차이가 있을 수 있다."
+      ]
+    }
+  ],
+  "wholeStateArtifactReview": {
+    "actualExpectedPairs": [
+      {
+        "phase": "actual-one-turn-same-seed-planted-in-cleared-earth",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-one-turn-same-seed-planted-in-cleared-earth-actual.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-one-turn-same-seed-planted-in-cleared-earth-expected.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441200,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 1,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14412,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.ShadePlot",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.ShadePlot",
+              "at": 14412
+            },
+            "cultivation": {
+              "ownerId": 1,
+              "terrain": "Terrain.ShadePlot",
+              "signature": "{\"terrain\":\"Terrain.ShadePlot\",\"rule\":{\"minLight\":0.035,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.ShadeRoot\",\"count\":2,\"turns\":12,\"regrowTurns\":28800,\"soilDependent\":true}}",
+              "seedUid": 44,
+              "growth": 0,
+              "waterUnits": 0,
+              "lastAt": 14412
+            }
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14412
+            }
+          },
+          "nextId": 48
+        }
+      },
+      {
+        "phase": "actual-original-machete-equip-one-turn",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-original-machete-equip-one-turn-actual.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-original-machete-equip-one-turn-expected.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1440100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14401,
+              "edge": 100
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "actual-permanent-clearing-warning-and-quote-pure",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-permanent-clearing-warning-and-quote-pure-actual.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-permanent-clearing-warning-and-quote-pure-expected.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1440100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14401,
+              "edge": 100
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "actual-ten-turn-cleared-north-original-floor-materials-preserved",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-ten-turn-cleared-north-original-floor-materials-preserved-actual.json",
+          "bytes": 267784,
+          "sha256": "4e20f1ec76bf52bfa901e6765ed2a2e362a911c5a61be81e71a1a993cdbd7c93"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-ten-turn-cleared-north-original-floor-materials-preserved-expected.json",
+          "bytes": 267784,
+          "sha256": "4e20f1ec76bf52bfa901e6765ed2a2e362a911c5a61be81e71a1a993cdbd7c93"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14411,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.Earth",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.Earth",
+              "at": 14411
+            }
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14411
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "actual-title200-and-bag-only-tool-unavailable",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-title200-and-bag-only-tool-unavailable-actual.json",
+          "bytes": 267087,
+          "sha256": "b7a3eab3a81ba063425c4b5db87e942393bfd725dd3862f03f3cf077249c9541"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/actual-title200-and-bag-only-tool-unavailable-expected.json",
+          "bytes": 267087,
+          "sha256": "b7a3eab3a81ba063425c4b5db87e942393bfd725dd3862f03f3cf077249c9541"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1440000,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14400,
+              "edge": 100,
+              "gx": 0,
+              "gy": 0
+            },
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {},
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14400
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14400
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "legacy199-actual-ten-turn-cleared-east-north-original-bush-preserved",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-actual-ten-turn-cleared-east-north-original-bush-preserved-actual.json",
+          "bytes": 267801,
+          "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-actual-ten-turn-cleared-east-north-original-bush-preserved-expected.json",
+          "bytes": 267801,
+          "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14411,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14411
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.Earth",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.Earth",
+              "at": 14411
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "legacy199-title-upgraded200-no-retroactive-clearing-or-materials",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-title-upgraded200-no-retroactive-clearing-or-materials-actual.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-title-upgraded200-no-retroactive-clearing-or-materials-expected.json",
+          "bytes": 267604,
+          "sha256": "fe04f50ae58736bb039e9d951f724c699435a8dc42cc220ef5f6506cde9b73c3"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1440100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14401,
+              "edge": 100
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14401
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "legacy199-whole200-restored-same-cleared-east-and-other-original-bush",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-whole200-restored-same-cleared-east-and-other-original-bush-actual.json",
+          "bytes": 267801,
+          "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/legacy199-whole200-restored-same-cleared-east-and-other-original-bush-expected.json",
+          "bytes": 267801,
+          "sha256": "6c4853f1650dc4d4180a4a9b163ea0722b516007e96ad543bf32671efcb41530"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14411,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.AshBerryBush",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14411
+            },
+            "gatherAt": 14500
+          },
+          "east21_20": {
+            "t": "Terrain.Earth",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.Earth",
+              "at": 14411
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "small-current200-original-machete-and-one-remaining-seed",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/small-current200-original-machete-and-one-remaining-seed-actual.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/small-current200-original-machete-and-one-remaining-seed-expected.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441200,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 1,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14412,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.ShadePlot",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.ShadePlot",
+              "at": 14412
+            },
+            "cultivation": {
+              "ownerId": 1,
+              "terrain": "Terrain.ShadePlot",
+              "signature": "{\"terrain\":\"Terrain.ShadePlot\",\"rule\":{\"minLight\":0.035,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.ShadeRoot\",\"count\":2,\"turns\":12,\"regrowTurns\":28800,\"soilDependent\":true}}",
+              "seedUid": 44,
+              "growth": 0,
+              "waterUnits": 0,
+              "lastAt": 14412
+            }
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14412
+            }
+          },
+          "nextId": 48
+        }
+      },
+      {
+        "phase": "whole200-restored-same-cleared-earth-and-original-ground-uids",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/whole200-restored-same-cleared-earth-and-original-ground-uids-actual.json",
+          "bytes": 267784,
+          "sha256": "4e20f1ec76bf52bfa901e6765ed2a2e362a911c5a61be81e71a1a993cdbd7c93"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/whole200-restored-same-cleared-earth-and-original-ground-uids-expected.json",
+          "bytes": 267784,
+          "sha256": "4e20f1ec76bf52bfa901e6765ed2a2e362a911c5a61be81e71a1a993cdbd7c93"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441100,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 2,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14411,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.Earth",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.Earth",
+              "at": 14411
+            }
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14411
+            }
+          },
+          "nextId": 47
+        }
+      },
+      {
+        "phase": "whole200-restored-same-seed-crop-and-original-floor-uids",
+        "actual": {
+          "path": "test-results/brush-clearing-browser-v296-final/whole200-restored-same-seed-crop-and-original-floor-uids-actual.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "expected": {
+          "path": "test-results/brush-clearing-browser-v296-final/whole200-restored-same-seed-crop-and-original-floor-uids-expected.json",
+          "bytes": 268269,
+          "sha256": "ba39b8befce21f11f079f03471e574f9c6d23601a25381e23dbcd6eff506c5be"
+        },
+        "wholeJSONObjectEqual": true,
+        "summary": {
+          "saveVersion": 200,
+          "timeTU": 1441200,
+          "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerStoredSprite": "hero",
+          "bag": [
+            {
+              "uid": 44,
+              "def": "Item.ShadeSeeds",
+              "count": 1,
+              "gx": 1,
+              "gy": 0
+            }
+          ],
+          "equip": {
+            "main": {
+              "uid": 43,
+              "def": "Item.Machete",
+              "count": 1,
+              "durability": 100,
+              "gearAgedAt": 14412,
+              "edge": 100,
+              "edgeWear": 80
+            }
+          },
+          "north20_19": {
+            "t": "Terrain.ShadePlot",
+            "v": 3,
+            "roof": true,
+            "blood": 0,
+            "items": [],
+            "deco": "moss_s8",
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.ShadePlot",
+              "at": 14412
+            },
+            "cultivation": {
+              "ownerId": 1,
+              "terrain": "Terrain.ShadePlot",
+              "signature": "{\"terrain\":\"Terrain.ShadePlot\",\"rule\":{\"minLight\":0.035,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.ShadeRoot\",\"count\":2,\"turns\":12,\"regrowTurns\":28800,\"soilDependent\":true}}",
+              "seedUid": 44,
+              "growth": 0,
+              "waterUnits": 0,
+              "lastAt": 14412
+            }
+          },
+          "east21_20": {
+            "t": "Terrain.AshBerryBush",
+            "v": 13,
+            "roof": true,
+            "blood": 0,
+            "items": [
+              {
+                "uid": 45,
+                "def": "Item.Salt",
+                "count": 3
+              },
+              {
+                "uid": 46,
+                "def": "Item.Wood",
+                "count": 2
+              }
+            ],
+            "seen": true,
+            "observed": {
+              "terrain": "Terrain.AshBerryBush",
+              "at": 14412
+            }
+          },
+          "nextId": 48
+        }
+      }
+    ],
+    "all11DeeplyEqual": true,
+    "originalInitial": {
+      "file": {
+        "path": "test-results/brush-clearing-browser-v296-final/current200-original-two-bushes-bag-machete-seeds-and-floor-materials-finite-initial.json",
+        "bytes": 267087,
+        "sha256": "b7a3eab3a81ba063425c4b5db87e942393bfd725dd3862f03f3cf077249c9541"
+      },
+      "summary": {
+        "saveVersion": 200,
+        "timeTU": 1440000,
+        "contentHash": "sha256-61225c8d2c1fe96b5e9e4e5961cf995a61520622ddca09faa35915fa8369381c",
+        "playerPos": {
+          "x": 20,
+          "y": 20
+        },
+        "playerStoredSprite": "hero",
+        "bag": [
+          {
+            "uid": 43,
+            "def": "Item.Machete",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 14400,
+            "edge": 100,
+            "gx": 0,
+            "gy": 0
+          },
+          {
+            "uid": 44,
+            "def": "Item.ShadeSeeds",
+            "count": 2,
+            "gx": 1,
+            "gy": 0
+          }
+        ],
+        "equip": {},
+        "north20_19": {
+          "t": "Terrain.AshBerryBush",
+          "v": 3,
+          "roof": true,
+          "blood": 0,
+          "items": [],
+          "deco": "moss_s8",
+          "seen": true,
+          "observed": {
+            "terrain": "Terrain.AshBerryBush",
+            "at": 14400
+          },
+          "gatherAt": 14500
+        },
+        "east21_20": {
+          "t": "Terrain.AshBerryBush",
+          "v": 13,
+          "roof": true,
+          "blood": 0,
+          "items": [
+            {
+              "uid": 45,
+              "def": "Item.Salt",
+              "count": 3
+            },
+            {
+              "uid": 46,
+              "def": "Item.Wood",
+              "count": 2
+            }
+          ],
+          "seen": true,
+          "observed": {
+            "terrain": "Terrain.AshBerryBush",
+            "at": 14400
+          }
+        },
+        "nextId": 47
+      }
+    },
+    "originalTitleLoadEqualsInitialWhole": true,
+    "legacyInput": {
+      "file": {
+        "path": "test-results/brush-clearing-browser-v296-final/legacy199-header-same-current-finite-two-bushes-after-equip-finite-initial.json",
+        "bytes": 267604,
+        "sha256": "cf642c8e2d504eb48d45840de1efc4aa29a31510930de31706536667b894be50"
+      },
+      "sameCurrentAfterEquipExceptVersion": true,
+      "inputVersion": 199,
+      "loadedVersion": 200
+    },
+    "restoreCrossPhase": [
+      {
+        "actionPhase": "actual-ten-turn-cleared-north-original-floor-materials-preserved",
+        "restorePhase": "whole200-restored-same-cleared-earth-and-original-ground-uids",
+        "wholeEqual": true
+      },
+      {
+        "actionPhase": "actual-one-turn-same-seed-planted-in-cleared-earth",
+        "restorePhase": "whole200-restored-same-seed-crop-and-original-floor-uids",
+        "wholeEqual": true
+      },
+      {
+        "actionPhase": "legacy199-actual-ten-turn-cleared-east-north-original-bush-preserved",
+        "restorePhase": "legacy199-whole200-restored-same-cleared-east-and-other-original-bush",
+        "wholeEqual": true
+      }
+    ],
+    "quoteAfterEquipWholeWorldUnchanged": true,
+    "smallInventoryObservationWholeWorldUnchanged": true,
+    "finalAudit": {
+      "save": 200,
+      "screenshots": 10,
+      "roundtrips": 3,
+      "phases": 11,
+      "actualInputTU": 2200,
+      "macheteUid": 43,
+      "seedsUid": 44,
+      "saltUid": 45,
+      "woodUid": 46,
+      "currentTimeTU": 1200,
+      "legacyTimeTU": 1000,
+      "originalFloor": [
+        {
+          "uid": 45,
+          "def": "Item.Salt",
+          "count": 3
+        },
+        {
+          "uid": 46,
+          "def": "Item.Wood",
+          "count": 2
+        }
+      ],
+      "originalGroundPos": {
+        "x": 21,
+        "y": 20
+      },
+      "finalGround": [
+        {
+          "uid": 45,
+          "def": "Item.Salt",
+          "count": 3
+        },
+        {
+          "uid": 46,
+          "def": "Item.Wood",
+          "count": 2
+        }
+      ],
+      "seedPlantedUid": 44,
+      "seedRemaining": 1,
+      "macheteEdgeAfter": 100,
+      "macheteEdgeWearAfter": 80,
+      "legacyMacheteEdge": 100,
+      "legacyMacheteEdgeWear": 80,
+      "errors": [],
+      "source": "Finite current actualgeneratedhealthyplayer/actualMachete+ShadeSeeds2/originalSalt3+Wood2 infullylitdungeon,2declaredwildbushes(onegatherAtfuture),weather/storiespaused. Originalfinitefixture isnotnormalnewgamegifts oracquisitionhistory. ActualTitleContinue/bagonlydisabled/I/equip1T/F2/clear10T/whole200restore/sameseedplant1T/whole200restore/small. Legacy199header on same currentfiniteafterequip scene, nothistoricaluser-save; actualclearotherbush10T/whole200restore/smallremainingbushcontrol. Eleven independent Node whole comparisons, no postloadworld/time/RNG/material injection. No newfruit/wood byclearing; originalflooritems preserved. Activepartialprogressrestore is coveredbyunit, not browserclaim."
+    },
+    "final11ActualStatesEqualEarlierFirst11States": true,
+    "interpretation": "UI wording changed and rerendered; whole simulation states remain the same in this deterministic scenario. This is not an assertion that entire Core296equals295."
+  },
+  "materialAndActionReview": {
+    "actualMachete": {
+      "uid": 43,
+      "def": "Item.Machete",
+      "count": 1,
+      "initial": "bag",
+      "afterEquip": "main",
+      "edgeAfterClearing": 100,
+      "edgeWearAfterClearing": 80
+    },
+    "originalSeeds": {
+      "uid": 44,
+      "def": "Item.ShadeSeeds",
+      "beforeCount": 2,
+      "afterCurrentPlantingCount": 1,
+      "legacyCountRemains": 2
+    },
+    "north": {
+      "position": [
+        20,
+        19
+      ],
+      "initialTerrain": "Terrain.AshBerryBush",
+      "initialGatherAt": 14500,
+      "afterCurrentClear": "Terrain.Earth",
+      "gatherAtRemoved": true,
+      "afterPlant": "Terrain.ShadePlot",
+      "seedUid": 44,
+      "growth": 0,
+      "waterUnits": 0,
+      "sunlightPercentVisible": 0,
+      "temperatureCVisible": 12,
+      "harvestOrGrowthCompleteClaim": false
+    },
+    "east": {
+      "position": [
+        21,
+        20
+      ],
+      "currentPathTerrainRemains": "Terrain.AshBerryBush",
+      "legacyAfterClear": "Terrain.Earth",
+      "legacyGatherAtAbsent": true,
+      "originalFloor": [
+        {
+          "uid": 45,
+          "def": "Item.Salt",
+          "count": 3
+        },
+        {
+          "uid": 46,
+          "def": "Item.Wood",
+          "count": 2
+        }
+      ],
+      "all11ActualPhasesWholeFloorObjectsExact": true
+    },
+    "cashInFixture": 1000,
+    "itemsAcquiredByClearingClaim": false,
+    "floorVisualLimit": "1464east contents are obscured by the remaining bush;1468cleared east reveals a top item icon. Full two-item UID/count preservation is JSON evidence, not all visually readable in one icon.",
+    "remainingNorthVisualLimit": "Player can cover north bush. Remaining north control in1469and actual JSON establish preservation; not every source pixel is unobstructed.",
+    "worldPhysicalPositionUnchanged": [
+      20,
+      20
+    ],
+    "timeCostTU": {
+      "equip": 100,
+      "currentNorthClear": 1000,
+      "currentPlant": 100,
+      "legacyEastClear": 1000,
+      "totalAcrossSeparatePaths": 2200
+    },
+    "groundReadinessBoundary": "Root reported an earlier preflight correctly blocked planting when floor items occupied north. Core rule was retained; declared scene split north planting from east original-item preservation. Final actual scenario does not bypass occupancy by injecting after load."
+  },
+  "finalWordingReview": {
+    "brushText": "중단하면 처음부터 다시 벤다.",
+    "generalCraftingTextScope": "제작·수리 진행",
+    "directlyVisibleInFinalScreens": [
+      "1460",
+      "1463",
+      "1467",
+      "1469"
+    ],
+    "actualCancelExecuted": false,
+    "beforeAfterBoundary": "FirstNative10/3/11/2200 passed then directreview found genericF2 craftprogress retention wording ambiguous for brushcancel. OnlytwoVue texts changed: brushcancel restarts, genericprogress scopedtocraft/repair. Core/Defs/actualtime unchanged. FinalNative andcommon rerun instead of claiming firstimagesusefinalruntime. FirstNode preflight planting was correctly blocked by grounditems; no rule change, initial northplant/eastoriginalflooritems split.",
+    "firstRuntimeReusedAsFinalClaim": false
+  },
+  "originalPngRegionChecks": [
+    {
+      "image": {
+        "path": "test-results/brush-clearing-browser-v296-final/1462-native-actual-original-machete-equipped-same-finite-seed-batch.png",
+        "bytes": 405576,
+        "sha256": "40e07e21acfd2c2ce8342c80f592cbee3dce7e8206673e7f4227bec81efc3db6"
+      },
+      "reference": {
+        "path": "test-results/brush-clearing-browser-v296-final/1461-native-original-sheet-machete-and-finite-seeds-in-real-bag.png",
+        "bytes": 401980,
+        "sha256": "b66320f0b6f1a403f6fb6ad02973a540cb90f80e9ed2d03dad662cf069598f3d"
+      },
+      "region": "inventory header in original source despite preview omission",
+      "rectangleXYXY": [
+        420,
+        70,
+        1080,
+        126
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/brush-clearing-browser-v296-final/1462-native-actual-original-machete-equipped-same-finite-seed-batch.png",
+        "bytes": 405576,
+        "sha256": "40e07e21acfd2c2ce8342c80f592cbee3dce7e8206673e7f4227bec81efc3db6"
+      },
+      "reference": {
+        "path": "test-results/brush-clearing-browser-v296-final/1466-native-small-whole200-restored-original-machete-and-remaining-seed.png",
+        "bytes": 353121,
+        "sha256": "06263df73365fbff3f8d4eb6030a011ca5d085f438777e035a5f77d94a7ee320"
+      },
+      "region": "same equipped original machete slot across restoration/viewport",
+      "rectangleXYXY": [
+        435,
+        211,
+        489,
+        264
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v296-current-1440/final.png",
+        "bytes": 604375,
+        "sha256": "f19b45cc184dd7c49cc00b232b258eb6e396a6e09ebc309172942b507160fa02"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v296-current-1440/02-inventory.png",
+        "bytes": 601179,
+        "sha256": "8476194afb85a0122b9558229a1c006ac75bc5319b492004afc13d1fb8012b58"
+      },
+      "region": "CURRENT 1440 inventory",
+      "rectangleXYXY": [
+        420,
+        70,
+        1080,
+        443
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v296-current-1440/final.png",
+        "bytes": 604375,
+        "sha256": "f19b45cc184dd7c49cc00b232b258eb6e396a6e09ebc309172942b507160fa02"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v296-current-1440/02-inventory.png",
+        "bytes": 601179,
+        "sha256": "8476194afb85a0122b9558229a1c006ac75bc5319b492004afc13d1fb8012b58"
+      },
+      "region": "CURRENT 1440 log",
+      "rectangleXYXY": [
+        988,
+        764,
+        1428,
+        930
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v296-current-1366/final.png",
+        "bytes": 446866,
+        "sha256": "9772f1ae8db7bf2b57685a4b7e3cb5b56c40747273998e864b4d7821611587e1"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v296-current-1366/02-inventory.png",
+        "bytes": 447202,
+        "sha256": "df004a09694783808d4d0112a31feea8de2a675e91c55b24ec3ce84f5628cc11"
+      },
+      "region": "CURRENT 1366 inventory",
+      "rectangleXYXY": [
+        420,
+        70,
+        1080,
+        443
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v296-current-1366/final.png",
+        "bytes": 446866,
+        "sha256": "9772f1ae8db7bf2b57685a4b7e3cb5b56c40747273998e864b4d7821611587e1"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v296-current-1366/02-inventory.png",
+        "bytes": 447202,
+        "sha256": "df004a09694783808d4d0112a31feea8de2a675e91c55b24ec3ce84f5628cc11"
+      },
+      "region": "CURRENT 1366 log",
+      "rectangleXYXY": [
+        914,
+        452,
+        1354,
+        618
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImageEditedOrResaved": false
+    }
+  ],
+  "genericHarness": {
+    "rows": [
+      {
+        "run": {
+          "path": "test-results/game-harness-v296-current-1440/run.json",
+          "bytes": 418,
+          "sha256": "ee4b9ae86ebcf44110c6145ce746459856c68d65a41430ae9b64f96147e1643d"
+        },
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "completedSteps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "errors": [],
+        "finalObservationWholeWorldUnchanged": true,
+        "wholeWorldAcrossViewportsEqual": {
+          "01-world-world.json": true,
+          "02-inventory-world.json": true,
+          "final-world.json": true
+        },
+        "titleLayout": {
+          "viewport": {
+            "width": 1440,
+            "height": 1080
+          },
+          "start": {
+            "left": 954,
+            "top": 835.28125,
+            "right": 1240,
+            "bottom": 880.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        }
+      },
+      {
+        "run": {
+          "path": "test-results/game-harness-v296-current-1366/run.json",
+          "bytes": 417,
+          "sha256": "337675994df323dee239186256cb1a7ec9527f7f4951c15bdf98774914cb6c16"
+        },
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "completedSteps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "errors": [],
+        "finalObservationWholeWorldUnchanged": true,
+        "wholeWorldAcrossViewportsEqual": {
+          "01-world-world.json": true,
+          "02-inventory-world.json": true,
+          "final-world.json": true
+        },
+        "titleLayout": {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "start": {
+            "left": 913,
+            "top": 669.28125,
+            "right": 1207,
+            "bottom": 714.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        }
+      }
+    ],
+    "allThreeWholeSnapshotsEqualAcrossViewports": true,
+    "currentRunsCompleted": true,
+    "currentRunsDistinctFromEarlierFinalNamedDirectories": true,
+    "suppliedAudit": {
+      "rows": [
+        {
+          "viewport": 1440,
+          "steps": 11,
+          "screenshots": 4,
+          "actualInputTU": 200,
+          "wholeWorldUnchangedByFinalObservation": true,
+          "contentHashMatches": true,
+          "startFullyInViewportWithoutScroll": true,
+          "startCenterClickable": true,
+          "startBottom": 880.28125
+        },
+        {
+          "viewport": 1366,
+          "steps": 11,
+          "screenshots": 4,
+          "actualInputTU": 200,
+          "wholeWorldUnchangedByFinalObservation": true,
+          "contentHashMatches": true,
+          "startFullyInViewportWithoutScroll": true,
+          "startCenterClickable": true,
+          "startBottom": 714.28125
+        }
+      ],
+      "allThreeWholeStatesIdenticalAcrossViewports": true,
+      "source": {
+        "src": {
+          "files": 675,
+          "allBytesIdentical": true
+        },
+        "dist": {
+          "files": 907,
+          "allBytesIdentical": true
+        },
+        "public": {
+          "files": 508,
+          "allBytesIdentical": true
+        },
+        "mods": {
+          "files": 86,
+          "allBytesIdentical": true
+        },
+        "tests": {
+          "files": 1051,
+          "allBytesIdentical": true
+        },
+        "tools": {
+          "files": 233,
+          "allBytesIdentical": true
+        },
+        ".agents": {
+          "files": 1,
+          "allBytesIdentical": true
+        },
+        ".github": {
+          "files": 1,
+          "allBytesIdentical": true
+        }
+      },
+      "execution": "Native and common executed in immutable /workspace/.ashveil-checkpoints/v296-input app index-DcrWQzdS.js, own strict4317 preview. All8source categories currentRoot equal frozeninput after execution; future finalfreeze must equal this input."
+    }
+  },
+  "executionSourceProof": {
+    "proof": {
+      "native": {
+        "phases": 11,
+        "wholeActualExpectedPairsEqual": true,
+        "screenshots": 10,
+        "saveRestores": 3,
+        "actualInputTU": 2200,
+        "errors": []
+      },
+      "execution": "Native and common executed in immutable /workspace/.ashveil-checkpoints/v296-input app index-DcrWQzdS.js, own strict4317 preview. All8source categories currentRoot equal frozeninput after execution; future finalfreeze must equal this input.",
+      "inputToCompletionSource": {
+        "src": {
+          "files": 675,
+          "allBytesIdentical": true
+        },
+        "dist": {
+          "files": 907,
+          "allBytesIdentical": true
+        },
+        "public": {
+          "files": 508,
+          "allBytesIdentical": true
+        },
+        "mods": {
+          "files": 86,
+          "allBytesIdentical": true
+        },
+        "tests": {
+          "files": 1051,
+          "allBytesIdentical": true
+        },
+        "tools": {
+          "files": 233,
+          "allBytesIdentical": true
+        },
+        ".agents": {
+          "files": 1,
+          "allBytesIdentical": true
+        },
+        ".github": {
+          "files": 1,
+          "allBytesIdentical": true
+        }
+      },
+      "legacy199To200HeaderOnlyWholeEquality": true,
+      "crop": {
+        "seedUid": 44,
+        "growth": 0,
+        "waterUnits": 0,
+        "sunlightFromUI": 0,
+        "onlyPlantingNotGrowthOrHarvestClaim": true
+      },
+      "originalGround": {
+        "position": {
+          "x": 21,
+          "y": 20
+        },
+        "before": [
+          {
+            "uid": 45,
+            "def": "Item.Salt",
+            "count": 3
+          },
+          {
+            "uid": 46,
+            "def": "Item.Wood",
+            "count": 2
+          }
+        ],
+        "after": [
+          {
+            "uid": 45,
+            "def": "Item.Salt",
+            "count": 3
+          },
+          {
+            "uid": 46,
+            "def": "Item.Wood",
+            "count": 2
+          }
+        ],
+        "allWholeItemsExact": true,
+        "noNewFruitWoodOrCashCreatedByClearing": true
+      },
+      "genericRows": [
+        {
+          "viewport": 1440,
+          "steps": 11,
+          "screenshots": 4,
+          "actualInputTU": 200,
+          "wholeWorldUnchangedByFinalObservation": true,
+          "contentHashMatches": true,
+          "startFullyInViewportWithoutScroll": true,
+          "startCenterClickable": true,
+          "startBottom": 880.28125
+        },
+        {
+          "viewport": 1366,
+          "steps": 11,
+          "screenshots": 4,
+          "actualInputTU": 200,
+          "wholeWorldUnchangedByFinalObservation": true,
+          "contentHashMatches": true,
+          "startFullyInViewportWithoutScroll": true,
+          "startCenterClickable": true,
+          "startBottom": 714.28125
+        }
+      ],
+      "genericAllThreeWholeStatesIdenticalAcrossViewports": true,
+      "rootDirectPngReview": "All10FINALNative and2FINALcommonTitle originals opened. First10Native and first2titles also reviewed separately; final source is current input. Independent FINAL18 review pending at audit creation.",
+      "earlierInputs": "FirstNative10/3/11/2200 passed then directreview found genericF2 craftprogress retention wording ambiguous for brushcancel. OnlytwoVue texts changed: brushcancel restarts, genericprogress scopedtocraft/repair. Core/Defs/actualtime unchanged. FinalNative andcommon rerun instead of claiming firstimagesusefinalruntime. FirstNode preflight planting was correctly blocked by grounditems; no rule change, initial northplant/eastoriginalflooritems split."
+    },
+    "runtimeCwd": "/workspace/.ashveil-checkpoints/v296-input",
+    "appEntry": "index-DcrWQzdS.js",
+    "rootReportedFinalFreeze": "/workspace/.ashveil-checkpoints/v296-final",
+    "rootReportedFinalFileCount": 4955,
+    "wholeSourceRehashedByReviewer": false,
+    "FullRuntimeSeparate": "Root reported final immutable Full6008 target running. This PNG review makes no Full completion claim."
+  },
+  "clippingAndScopeLimits": [
+    "Native F2 has a fixed visible title/close and long scrollable body. Required clearing controls/warnings are visible, but lower recipe lists extend below1440×1080 and more below1366×768.",
+    "1469shows remaining north control and cancellation warning in small viewport; full crafting/repair lists require scrolling.",
+    "1465crop panel is scrolled into view and covers the physical crop; source line explicitly states no actual light/water/growth. Do not infer mature vegetation from shared terrain art.",
+    "1464north earth designation is JSON/clear log evidence, while dungeon floor may keep stone appearance and player overlaps near-north visual. No new brown-dirt texture claim.",
+    "1466inventory is fully within1366×768 and preserves its close button, but covers map/plot/items. Actor/world extents differ with camera/viewport.",
+    "1462tool preview can omit inventory panels although source header/weapon slot are RGB-exact. Both CURRENT common final inventory/log rectangles are source-RGB-exact versus02-inventory.",
+    "Common Title starts are fully visible and hit-testable without scroll, while lower background/Title sections remain below viewport.",
+    "Common1366initial empty-slot tooltip covers log; night/vision/viewport/HUD clip parts of terrain and trees."
+  ],
+  "visualFindings": [],
+  "notVerified": [
+    "No additional GPU/browser/Native/project/Full/Type/build execution by reviewer.",
+    "No product/PNG/Core/Def/manifest/harness/Git edits; prior static art review unchanged.",
+    "No historical199user-save provenance or broad migration compatibility claim.",
+    "No completed crop growth, sunlight provision, watering, harvest, new fruit/wood rewards, gameplay ecology or all-season reproduction claim.",
+    "No actual cancellation/mid-progress interruption/partial-progress restoration browser coverage; these remain separate Root unit/runtime evidence.",
+    "No all-repository/Core296=295 equality, Full completion, publisher push or deployment claim.",
+    "Only docs/ui-v296-reviewed-pngs.json written."
+  ]
+}

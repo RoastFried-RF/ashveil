@@ -1,0 +1,1828 @@
+{
+  "version": 310,
+  "save": 205,
+  "runtimeCheckpoint": "/workspace/.ashveil-checkpoints/v310-visibility-final",
+  "manifestSha256": "4996af28a022d5e891c754a0c69e754aee810dbfbea1d1b5e3220d15a93fb869",
+  "source": {
+    "src": {
+      "files": 703,
+      "rootExactCheckedSource": true
+    },
+    "public": {
+      "files": 1840,
+      "rootExactCheckedSource": true
+    },
+    "dist": {
+      "files": 2239,
+      "rootExactCheckedSource": true
+    },
+    "tests": {
+      "files": 1112,
+      "rootExactCheckedSource": true
+    },
+    "tools": {
+      "files": 323,
+      "rootExactCheckedSource": true
+    },
+    "mods": {
+      "files": 86,
+      "rootExactCheckedSource": true
+    },
+    ".agents": {
+      "files": 1,
+      "rootExactCheckedSource": true
+    },
+    ".github": {
+      "files": 1,
+      "rootExactCheckedSource": true
+    }
+  },
+  "full": {
+    "files": 346,
+    "tests": 6210,
+    "allCasesValidated": true,
+    "singleWholeRunPassed": false,
+    "checkpoint": "/workspace/.ashveil-checkpoints/v310-visibility-final",
+    "originalFullAndRecheck": {
+      "files": 346,
+      "uniqueCasesValidated": 6210,
+      "allCasesValidated": true,
+      "singleWholeRunPassed": false,
+      "firstFull": {
+        "passed": 6209,
+        "failed": 1,
+        "seconds": 818.5866066894531,
+        "path": "/workspace/ashveil/test-results/visibility-v310-full.json",
+        "sha256": "1dbf892565d6b78eff485a48f40c199edff5d582eb10f7e2c75ceee28c85a344",
+        "workerLimit": 2
+      },
+      "unchangedFailedFileRecheck": {
+        "files": 1,
+        "tests": 11,
+        "passed": 11,
+        "seconds": 29.157830810546876,
+        "path": "/workspace/ashveil/test-results/visibility-v310-journey-recheck.json",
+        "sha256": "c5b17ab641c9e8e59082dc1741c51135ab0b7e28d266db338d39928d3c8343a4",
+        "workerLimit": 1,
+        "same5000msLimit": true
+      },
+      "runtimeSourceExpectedFixturesAndTimeoutsUnchanged": true,
+      "limits": "The original Full had one time-limit failure. All assertions are covered by its other files plus exactly the unchanged failed file recheck. Not one green full invocation; original result is preserved."
+    },
+    "postFullRuntimeOrTestChanges": []
+  },
+  "native": [
+    {
+      "width": 1440,
+      "height": 1080,
+      "wholePairs": 13,
+      "restores": 3,
+      "screenshots": 12,
+      "declaredFixtures": 2,
+      "inputEvents": 8,
+      "coreActions": 10,
+      "actionTU": 1000,
+      "audit": "/workspace/ashveil/test-results/visibility-v310-final-1440/audit.json",
+      "auditSha256": "35d8069449276951dc3eedb093b05d8032d922bb7b57741ff02a7f04284e3ca6",
+      "errors": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "wholePairs": 13,
+      "restores": 3,
+      "screenshots": 12,
+      "declaredFixtures": 2,
+      "inputEvents": 8,
+      "coreActions": 10,
+      "actionTU": 1000,
+      "audit": "/workspace/ashveil/test-results/visibility-v310-final-1366/audit.json",
+      "auditSha256": "5626e0625da3654cefd11aee60c8333c20d48b5fad8398334e38ae23f47a7c51",
+      "errors": []
+    }
+  ],
+  "common": {
+    "stepsPerResolution": 11,
+    "screenshots": 8,
+    "errors": []
+  },
+  "screenReview": {
+    "version": 310,
+    "allOpenedIndividually": true,
+    "images": [
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2301-visible-alive.png",
+        "sha256": "023689e140a1f206a639413ea0dd684c3a175d6eb2ca8f9f725bd2e9db3f6901",
+        "review": "살아 있는 적과 출혈 표시가 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2302-hidden-alive.png",
+        "sha256": "4dc84912cfae0fef6b76d5ddd11bf2092c58c43a2aa6f1824c05bfaec0724317",
+        "review": "벽 뒤 적과 상태 표시가 사라지고 사망 로그가 없다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2303-hidden-dead-no-ghost.png",
+        "sha256": "35907f556f57d704a7f1d9f5b561753e222230a9b4ded38021e290a793b2b05d",
+        "review": "실제 죽은 적의 시체·표시·사망 로그가 시야 밖에서 나타나지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2304-corpse-first-observed.png",
+        "sha256": "e6ed4c337eac052c658e5eb7a5df8a74b40fcf03d555cdd75af646a4dd7bcb19",
+        "review": "다시 보인 원래 시체와 혈흔이 표시되며 새 목격 로그는 없다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2305-remembered-tile-no-corpse.png",
+        "sha256": "b7a05ad8726a26544e5f56a7adffccd953d7f60f9f8a7210648d6893be10e004",
+        "review": "이미 관찰한 시체도 현재 시야 밖이면 표시하지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2306-hidden-restored.png",
+        "sha256": "19c3bdc42a0f921e1f5a9a3119b01f8dbf077327cd7ac5b977ed2d0059372dda",
+        "review": "숨은 시체 저장 복원 뒤 같은 화면과 로그를 유지한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2307-actual-hidden-tile-click.png",
+        "sha256": "1bbc6a79b37cf26eaec541bd94e24e88d6386bdbf39888dbcc0db2f793f2cd33",
+        "review": "실제 클릭으로 시체가 있는 칸에 이동하며 별도 루팅 창이 열리지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2308-corpse-visible-after-walk.png",
+        "sha256": "bf316de5f83f5d38ada02772ac3d32fa43791e957999f1b8bb3fbcdef924e5c5",
+        "review": "한 칸 이동 뒤 원래 시체가 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2309-visible-restored.png",
+        "sha256": "6bf7fb774c8d2e451f694efbfab2a34a0819b7a3f7b4e8894e0a224f56c1fcfb",
+        "review": "보이는 시체 저장 복원 뒤 표시가 유지된다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2310-visible-positive-initial.png",
+        "sha256": "24c2e73cc6255893195aaff67db6e4b20fc5c64ef5777659573822145c997862",
+        "review": "벽 없는 긍정 사례의 살아 있는 적이 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2311-visible-positive-death.png",
+        "sha256": "ec3900f202badd451ed0256fab1ea7bb5e3f592256a512dbbf4bba2685fef78c",
+        "review": "실제로 목격한 사망은 시체·사인 로그·정신력 변화를 표시한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1440/2312-visible-positive-restored.png",
+        "sha256": "f27142433441830cdbd1d7a5285d9f0f1178c16bb8de487a7eeab46156b83b3f",
+        "review": "실제 목격 사망의 시체와 로그를 복원한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2301-visible-alive.png",
+        "sha256": "3eb748012b8601a2111bf8c37e144af1096f1795d2351cd11b2d85485e8d7ecc",
+        "review": "살아 있는 적과 출혈 표시가 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2302-hidden-alive.png",
+        "sha256": "8a0cc5bf21a974902a0cab4967aba99c50efcfaa7a2e28fb01150ca12188d9f6",
+        "review": "벽 뒤 적과 상태 표시가 사라지고 사망 로그가 없다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2303-hidden-dead-no-ghost.png",
+        "sha256": "37559912ba04484b7a2f971ab651a2074839c2d9e0333ac0fb33f4bd4ef3d1d4",
+        "review": "실제 죽은 적의 시체·표시·사망 로그가 시야 밖에서 나타나지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2304-corpse-first-observed.png",
+        "sha256": "75cf4991ee46d8172d48dbcd88fb68a7d8c2d3e4e7b63880025eb64a1e4607da",
+        "review": "다시 보인 원래 시체와 혈흔이 표시되며 새 목격 로그는 없다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2305-remembered-tile-no-corpse.png",
+        "sha256": "c22552a9789ff2e4f99c41e954b3de2e0888d4e1f800a4fa6dd7706ff44ad6e9",
+        "review": "이미 관찰한 시체도 현재 시야 밖이면 표시하지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2306-hidden-restored.png",
+        "sha256": "2350078ee38496d9cc43185cde46d1a55a79be54f5302949d56e6d9a0c0061c1",
+        "review": "숨은 시체 저장 복원 뒤 같은 화면과 로그를 유지한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2307-actual-hidden-tile-click.png",
+        "sha256": "638011d278dff863c5fa77bbeb2f658c6784f281870a1d3eb1eac1703a55f73c",
+        "review": "실제 클릭으로 시체가 있는 칸에 이동하며 별도 루팅 창이 열리지 않는다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2308-corpse-visible-after-walk.png",
+        "sha256": "6b8d0fcd0139aee022776ac8dbeb7c35972de1de343f7eb56bc045bcafe6b178",
+        "review": "한 칸 이동 뒤 원래 시체가 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2309-visible-restored.png",
+        "sha256": "72d052e2af8d74172e57838ade991d105982377809ec0a232c6c2d8ebe9be24c",
+        "review": "보이는 시체 저장 복원 뒤 표시가 유지된다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2310-visible-positive-initial.png",
+        "sha256": "50f421770450d0ce6e83880cfa37922e22c031ff64f0e1e15420cccf4437d0a7",
+        "review": "벽 없는 긍정 사례의 살아 있는 적이 보인다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2311-visible-positive-death.png",
+        "sha256": "ad0020a8edc9e0b7865cb5e93eb2c5be913547ba52248d8a9d7f230a87056cda",
+        "review": "실제로 목격한 사망은 시체·사인 로그·정신력 변화를 표시한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/visibility-v310-final-1366/2312-visible-positive-restored.png",
+        "sha256": "218e8234cbe88debe1870feacad608ba83939a8957d864613881a5791a510b06",
+        "review": "실제 목격 사망의 시체와 로그를 복원한다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1440/00-title.png",
+        "sha256": "b7985653dc63ea0beebd0157ef85eed60bc0d617357705130f92c3cedb82ec3e",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1440/01-world.png",
+        "sha256": "9592e39a60f5c6e0da4fb80a0ec00c70b5897df94caf5fbeb4c1828c65ae171c",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1440/02-inventory.png",
+        "sha256": "0dd7660e0415c615e5f3a190b1abf5d2a83b128419b64b328f64da49d5c675c4",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1440/final.png",
+        "sha256": "581d4efcaec754e8f67967eaa3859a8e5f927e0641ff5833cd08b1a144877180",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1366/00-title.png",
+        "sha256": "e852ec45b4081f774baf75e896e5c9a9b58fc42cb173d11d3652a5c4ccf69527",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1366/01-world.png",
+        "sha256": "320a39a09abae56cfc7b89952524560b069d2f4b5e175fdffebe66d2fc868bb9",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1366/02-inventory.png",
+        "sha256": "6d5a9d9dc19dd87e4f86b941c7fd47789f4a757673ffa8789cd0f1cfd29008b9",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      },
+      {
+        "file": "/workspace/ashveil/test-results/smoke-v310-final-1366/final.png",
+        "sha256": "0016496f7776c90212f1ab1a0723579f7d691270477ff070a02d6deca55012c7",
+        "review": "타이틀/새 원정/소지품의 한국어 UI와 원화·맵·창 배치 확인. 작은 화면의 빠른 슬롯 도움말은 실제 hover 문맥이다.",
+        "opened": true
+      }
+    ],
+    "limits": "Final local32 actual PNG opened individually with view_image. Preliminary screenshots are excluded; frozen runtime unchanged. Finite initial vision scenes and normal smoke, not human30-minute evaluation."
+  },
+  "golden": {
+    "vectors": 5,
+    "initialFinalErrorsAndHashesExact309": true,
+    "expectedFixturesChanged": false,
+    "sha256": "823e311a4ed56a30253efccdd43d7163183affbd85d57269b171b674eefcf2bf"
+  },
+  "original309WholeAudit": {
+    "oldFile": "/workspace/ashveil/test-results/visibility-v310-investigation-r2/03-occluded-dead-actual.json",
+    "newFile": "/workspace/ashveil/test-results/visibility-v310-preliminary-r2-1366/actual-unseen-bleeding-death-actual.json",
+    "initialWorldExact309": true,
+    "entireWorldExactAfterRemovingOnlyThreeInformationLeaks": true,
+    "removedLog": [
+      {
+        "turn": 14402,
+        "kind": "combat",
+        "text": "정체 모를 존재가 쓰러졌다. (과다 출혈)"
+      }
+    ],
+    "removedThought": [
+      {
+        "def": "Thought.SawDeath",
+        "untilTurn": 20402,
+        "count": 1,
+        "events": [
+          {
+            "at": 14402,
+            "untilTurn": 20402
+          }
+        ]
+      }
+    ],
+    "removedUnseenSpeciesRecord": {
+      "Creature.Reaver": {
+        "seen": 0,
+        "fought": 0,
+        "killed": 0
+      }
+    },
+    "oldSha256": "85c440256340290b81888a2aeefcc29418124f6c1213b69fb82f05c79dcb7be8",
+    "newSha256": "ec8c4fc0f970712e93d0181823ed47fe78bd7f687018f599d4fbf444c29562d3",
+    "goldenExpectedFixturesChanged": false,
+    "originalAuditAttempt": "First comparison also found the newly suppressed empty species key; recorded before explicit three-path verification."
+  },
+  "world": {
+    "completedAnalysis": true,
+    "source": "/workspace/.ashveil-checkpoints/v310-visibility-final",
+    "runs": 30,
+    "seconds": 252.208694783,
+    "averageDays": {
+      "before": 0.3777708333333332,
+      "after": 0.3793912037037036,
+      "change": 0.0016203703703703831
+    },
+    "causes": {
+      "치명상": 11,
+      "저체온": 13,
+      "과다 출혈": 6
+    },
+    "allCausesPerSeedExact309": true,
+    "entireRowsExact": [
+      "sim-0",
+      "sim-1",
+      "sim-3",
+      "sim-4",
+      "sim-7",
+      "sim-9",
+      "sim-11",
+      "sim-12",
+      "sim-13",
+      "sim-14",
+      "sim-15",
+      "sim-17",
+      "sim-21",
+      "sim-22",
+      "sim-23",
+      "sim-24",
+      "sim-25",
+      "sim-26",
+      "sim-28",
+      "sim-29"
+    ],
+    "changedRows": [
+      {
+        "seed": "sim-2",
+        "diffs": [
+          {
+            "path": "/days",
+            "before": 1.1041666666666667,
+            "after": 1.1527777777777777
+          },
+          {
+            "path": "/final/activity",
+            "before": "<absent>",
+            "after": {
+              "kind": "rest",
+              "remaining": 46,
+              "label": "휴식",
+              "seenHostiles": [],
+              "woundCount": 8,
+              "snap": {
+                "turn": 54786,
+                "hp": 94,
+                "hungerStage": 1,
+                "thirstStage": 0,
+                "wounds": 8,
+                "hostiles": [],
+                "bloodStage": 0,
+                "painStage": 1,
+                "regions": [
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "bleeding": false,
+                "fuelWarned": false,
+                "bagFull": false,
+                "spores": false,
+                "smells": [],
+                "coldStage": 3,
+                "heatStage": 0,
+                "frostbiteStage": 0
+              },
+              "elapsed": 14
+            }
+          },
+          {
+            "path": "/final/equipment/0/wetness/legs",
+            "before": 29.46000000000001,
+            "after": 0
+          },
+          {
+            "path": "/final/needs/ash",
+            "before": 3.2,
+            "after": 3.8
+          },
+          {
+            "path": "/final/needs/bodyTemp",
+            "before": 27.939279124250234,
+            "after": 27.97270054925023
+          },
+          {
+            "path": "/final/needs/dietHistory/7/at",
+            "before": 47105,
+            "after": 47104
+          },
+          {
+            "path": "/final/needs/kcal",
+            "before": -570.92,
+            "after": -691.13
+          },
+          {
+            "path": "/final/needs/kcalRemainder",
+            "before": 0.6847303054170695,
+            "after": 0.7336810000466034
+          },
+          {
+            "path": "/final/needs/skinWetness/feet",
+            "before": 49.459999999999916,
+            "after": 0
+          },
+          {
+            "path": "/final/needs/skinWetness/legs",
+            "before": 29.46000000000001,
+            "after": 0
+          },
+          {
+            "path": "/final/needs/sleepDebt",
+            "before": 11.792499999997395,
+            "after": 12.960833333329665
+          },
+          {
+            "path": "/final/needs/stress",
+            "before": 89.976,
+            "after": 73.536
+          },
+          {
+            "path": "/final/needs/waterDeficit",
+            "before": 500,
+            "after": 313
+          },
+          {
+            "path": "/final/needs/waterExposure/ml",
+            "before": 100,
+            "after": 400
+          },
+          {
+            "path": "/final/needs/waterExposure/pathogenMl",
+            "before": 7000,
+            "after": 28000
+          },
+          {
+            "path": "/final/needs/waterRemainder",
+            "before": 0.24652777777778467,
+            "after": 0.9635416666666754
+          },
+          {
+            "path": "/final/needs/wetness",
+            "before": 8.601500000000001,
+            "after": 0
+          },
+          {
+            "path": "/final/pos/x",
+            "before": 31,
+            "after": 10
+          },
+          {
+            "path": "/final/pos/y",
+            "before": 37,
+            "after": 39
+          },
+          {
+            "path": "/final/thermal/activity",
+            "before": "walk",
+            "after": "rest"
+          },
+          {
+            "path": "/final/thermal/air",
+            "before": -5.6,
+            "after": -5.9
+          },
+          {
+            "path": "/final/thermal/feels",
+            "before": -7.6,
+            "after": 7.1
+          },
+          {
+            "path": "/final/thermal/heat",
+            "before": 0,
+            "after": 15
+          },
+          {
+            "path": "/final/thermal/high",
+            "before": 21.69061,
+            "after": 24.5875
+          },
+          {
+            "path": "/final/thermal/innerWetness",
+            "before": 8.601500000000001,
+            "after": 0
+          },
+          {
+            "path": "/final/thermal/insulation",
+            "before": 2.6187799999999997,
+            "after": 2.8249999999999997
+          },
+          {
+            "path": "/final/thermal/low",
+            "before": 6.453050000000001,
+            "after": 10.9375
+          },
+          {
+            "path": "/final/thoughts/4/count",
+            "before": 1,
+            "after": 2
+          },
+          {
+            "path": "/final/thoughts/4/def",
+            "before": "Thought.Breakdown",
+            "after": "Thought.AteRaw"
+          },
+          {
+            "path": "/final/thoughts/4/events",
+            "before": [
+              {
+                "at": 51600,
+                "untilTurn": 80400
+              }
+            ],
+            "after": [
+              {
+                "at": 52021,
+                "untilTurn": 59221,
+                "mood": -4
+              },
+              {
+                "at": 50946,
+                "untilTurn": 58146,
+                "mood": -4
+              }
+            ]
+          },
+          {
+            "path": "/final/thoughts/4/untilTurn",
+            "before": 80400,
+            "after": 59221
+          },
+          {
+            "path": "/final/thoughts/5/count",
+            "before": 2,
+            "after": 1
+          },
+          {
+            "path": "/final/thoughts/5/def",
+            "before": "Thought.AteRaw",
+            "after": "Thought.Breakdown"
+          },
+          {
+            "path": "/final/thoughts/5/events",
+            "before": [
+              {
+                "at": 52021,
+                "untilTurn": 59221,
+                "mood": -4
+              },
+              {
+                "at": 50946,
+                "untilTurn": 58146,
+                "mood": -4
+              }
+            ],
+            "after": [
+              {
+                "at": 53735,
+                "untilTurn": 82535
+              }
+            ]
+          },
+          {
+            "path": "/final/thoughts/5/untilTurn",
+            "before": 59221,
+            "after": 82535
+          }
+        ]
+      },
+      {
+        "seed": "sim-5",
+        "diffs": [
+          {
+            "path": "/final/activity/elapsed",
+            "before": 7,
+            "after": 5
+          },
+          {
+            "path": "/final/activity/remaining",
+            "before": 53,
+            "after": 55
+          },
+          {
+            "path": "/final/activity/snap/turn",
+            "before": 96393,
+            "after": 96395
+          },
+          {
+            "path": "/final/needs/bodyTemp",
+            "before": 27.92884129237514,
+            "after": 27.928371508375157
+          },
+          {
+            "path": "/final/needs/dietHistory/4/at",
+            "before": 79232,
+            "after": 79234
+          },
+          {
+            "path": "/final/needs/dietHistory/5/at",
+            "before": 79233,
+            "after": 79235
+          },
+          {
+            "path": "/final/needs/dietHistory/6/at",
+            "before": 79234,
+            "after": 79236
+          },
+          {
+            "path": "/final/needs/kcal",
+            "before": -7306.91,
+            "after": -7306.33
+          },
+          {
+            "path": "/final/needs/kcalRemainder",
+            "before": 0.1239980844119728,
+            "after": 0.7256026831789768
+          },
+          {
+            "path": "/final/needs/lastDietMeal/at",
+            "before": 79234,
+            "after": 79236
+          },
+          {
+            "path": "/final/needs/sleepDebt",
+            "before": 48.115833333297694,
+            "after": 48.109999999964366
+          },
+          {
+            "path": "/final/needs/waterDeficit",
+            "before": 949,
+            "after": 948
+          },
+          {
+            "path": "/final/needs/waterRemainder",
+            "before": 0.08506944444444176,
+            "after": 0.8420138888888837
+          },
+          {
+            "path": "/final/thoughts/0/events/0/at",
+            "before": 70800,
+            "after": 74400
+          },
+          {
+            "path": "/final/thoughts/0/events/0/untilTurn",
+            "before": 99600,
+            "after": 103200
+          },
+          {
+            "path": "/final/thoughts/0/untilTurn",
+            "before": 99600,
+            "after": 103200
+          }
+        ]
+      },
+      {
+        "seed": "sim-6",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 32.38,
+            "after": 29.580000000000002
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50445,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21645,
+                    "untilTurn": 50445
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 230800,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 29200,
+                    "untilTurn": 230800,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 35215,
+                "count": 3,
+                "events": [
+                  {
+                    "at": 29215,
+                    "untilTurn": 35215
+                  },
+                  {
+                    "at": 29215,
+                    "untilTurn": 35215
+                  },
+                  {
+                    "at": 29015,
+                    "untilTurn": 35015
+                  }
+                ]
+              },
+              {
+                "def": "Thought.AteRaw",
+                "untilTurn": 38898,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 31698,
+                    "untilTurn": 38898,
+                    "mood": -4
+                  },
+                  {
+                    "at": 30531,
+                    "untilTurn": 37731,
+                    "mood": -4
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50445,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21645,
+                    "untilTurn": 50445
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 230800,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 29200,
+                    "untilTurn": 230800,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.AteRaw",
+                "untilTurn": 38898,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 31698,
+                    "untilTurn": 38898,
+                    "mood": -4
+                  },
+                  {
+                    "at": 30531,
+                    "untilTurn": 37731,
+                    "mood": -4
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "seed": "sim-8",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 29.887999999999998,
+            "after": 29.055999999999997
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50436,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21636,
+                    "untilTurn": 50436
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 228400,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 26800,
+                    "untilTurn": 228400,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 35060,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 29060,
+                    "untilTurn": 35060
+                  },
+                  {
+                    "at": 26460,
+                    "untilTurn": 32460
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50436,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21636,
+                    "untilTurn": 50436
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 228400,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 26800,
+                    "untilTurn": 228400,
+                    "mood": -12
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "seed": "sim-10",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 41.88800000000001,
+            "after": 34.672000000000004
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50444,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21644,
+                    "untilTurn": 50444
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 39085,
+                "count": 3,
+                "events": [
+                  {
+                    "at": 33085,
+                    "untilTurn": 39085
+                  },
+                  {
+                    "at": 33085,
+                    "untilTurn": 39085
+                  },
+                  {
+                    "at": 32285,
+                    "untilTurn": 38285
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 236400,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 34800,
+                    "untilTurn": 236400,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.BlandFood",
+                "untilTurn": 40293,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 35493,
+                    "untilTurn": 40293,
+                    "mood": -2
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50444,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21644,
+                    "untilTurn": 50444
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 236400,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 34800,
+                    "untilTurn": 236400,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.BlandFood",
+                "untilTurn": 40293,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 35493,
+                    "untilTurn": 40293,
+                    "mood": -2
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "seed": "sim-16",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 94.52000000000001,
+            "after": 92.14399999999999
+          }
+        ]
+      },
+      {
+        "seed": "sim-18",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 45.04800000000001,
+            "after": 41.016000000000005
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50443,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21643,
+                    "untilTurn": 50443
+                  }
+                ]
+              },
+              {
+                "def": "Thought.KilledFevered",
+                "untilTurn": 45765,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21765,
+                    "untilTurn": 45765,
+                    "mood": -6
+                  }
+                ]
+              },
+              {
+                "def": "Thought.DangerousVictory",
+                "untilTurn": 79365,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21765,
+                    "untilTurn": 79365
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 35402,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 29402,
+                    "untilTurn": 35402
+                  },
+                  {
+                    "at": 28402,
+                    "untilTurn": 34402
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 231600,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 30000,
+                    "untilTurn": 231600,
+                    "mood": -12
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50443,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21643,
+                    "untilTurn": 50443
+                  }
+                ]
+              },
+              {
+                "def": "Thought.KilledFevered",
+                "untilTurn": 45765,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21765,
+                    "untilTurn": 45765,
+                    "mood": -6
+                  }
+                ]
+              },
+              {
+                "def": "Thought.DangerousVictory",
+                "untilTurn": 79365,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21765,
+                    "untilTurn": 79365
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 231600,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 30000,
+                    "untilTurn": 231600,
+                    "mood": -12
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "seed": "sim-19",
+        "diffs": [
+          {
+            "path": "/final/thoughts/2/def",
+            "before": "Thought.KilledHuman",
+            "after": "Thought.KilledFevered"
+          },
+          {
+            "path": "/final/thoughts/2/events/0/at",
+            "before": 21971,
+            "after": 21934
+          },
+          {
+            "path": "/final/thoughts/2/events/0/mood",
+            "before": -4,
+            "after": -6
+          },
+          {
+            "path": "/final/thoughts/2/events/0/untilTurn",
+            "before": 108371,
+            "after": 45934
+          },
+          {
+            "path": "/final/thoughts/2/events/1/at",
+            "before": 21726,
+            "after": 21786
+          },
+          {
+            "path": "/final/thoughts/2/events/1/mood",
+            "before": -4,
+            "after": -6
+          },
+          {
+            "path": "/final/thoughts/2/events/1/untilTurn",
+            "before": 108126,
+            "after": 45786
+          },
+          {
+            "path": "/final/thoughts/2/untilTurn",
+            "before": 108371,
+            "after": 45934
+          },
+          {
+            "path": "/final/thoughts/3/def",
+            "before": "Thought.AteRaw",
+            "after": "Thought.KilledHuman"
+          },
+          {
+            "path": "/final/thoughts/3/events/0/at",
+            "before": 43048,
+            "after": 21971
+          },
+          {
+            "path": "/final/thoughts/3/events/0/mood",
+            "before": -8,
+            "after": -4
+          },
+          {
+            "path": "/final/thoughts/3/events/0/untilTurn",
+            "before": 50248,
+            "after": 108371
+          },
+          {
+            "path": "/final/thoughts/3/events/1/at",
+            "before": 41968,
+            "after": 21726
+          },
+          {
+            "path": "/final/thoughts/3/events/1/mood",
+            "before": -8,
+            "after": -4
+          },
+          {
+            "path": "/final/thoughts/3/events/1/untilTurn",
+            "before": 49168,
+            "after": 108126
+          },
+          {
+            "path": "/final/thoughts/3/untilTurn",
+            "before": 50248,
+            "after": 108371
+          },
+          {
+            "path": "/final/thoughts/4/count",
+            "before": 1,
+            "after": 2
+          },
+          {
+            "path": "/final/thoughts/4/def",
+            "before": "Thought.NearDeath",
+            "after": "Thought.AteRaw"
+          },
+          {
+            "path": "/final/thoughts/4/events",
+            "before": [
+              {
+                "at": 44600,
+                "untilTurn": 246200,
+                "mood": -12
+              }
+            ],
+            "after": [
+              {
+                "at": 43048,
+                "untilTurn": 50248,
+                "mood": -8
+              },
+              {
+                "at": 41968,
+                "untilTurn": 49168,
+                "mood": -8
+              }
+            ]
+          },
+          {
+            "path": "/final/thoughts/4/untilTurn",
+            "before": 246200,
+            "after": 50248
+          },
+          {
+            "path": "/final/thoughts/5/count",
+            "before": 3,
+            "after": 1
+          },
+          {
+            "path": "/final/thoughts/5/def",
+            "before": "Thought.SawDeath",
+            "after": "Thought.NearDeath"
+          },
+          {
+            "path": "/final/thoughts/5/events",
+            "before": [
+              {
+                "at": 47307,
+                "untilTurn": 53307
+              },
+              {
+                "at": 45107,
+                "untilTurn": 51107
+              },
+              {
+                "at": 44907,
+                "untilTurn": 50907
+              }
+            ],
+            "after": [
+              {
+                "at": 44600,
+                "untilTurn": 246200,
+                "mood": -12
+              }
+            ]
+          },
+          {
+            "path": "/final/thoughts/5/untilTurn",
+            "before": 53307,
+            "after": 246200
+          }
+        ]
+      },
+      {
+        "seed": "sim-20",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 51.1464,
+            "after": 49.729600000000005
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50451,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21651,
+                    "untilTurn": 50451
+                  }
+                ]
+              },
+              {
+                "def": "Thought.FirstHumanKill",
+                "untilTurn": 309698,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21698,
+                    "untilTurn": 309698,
+                    "mood": -10
+                  }
+                ]
+              },
+              {
+                "def": "Thought.KilledHuman",
+                "untilTurn": 108098,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21698,
+                    "untilTurn": 108098,
+                    "mood": -4
+                  }
+                ]
+              },
+              {
+                "def": "Thought.AteRaw",
+                "untilTurn": 37307,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 30107,
+                    "untilTurn": 37307,
+                    "mood": -4
+                  },
+                  {
+                    "at": 28960,
+                    "untilTurn": 36160,
+                    "mood": -4
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 235000,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 33400,
+                    "untilTurn": 235000,
+                    "mood": -12
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 40003,
+                "count": 3,
+                "events": [
+                  {
+                    "at": 34003,
+                    "untilTurn": 40003
+                  },
+                  {
+                    "at": 32203,
+                    "untilTurn": 38203
+                  },
+                  {
+                    "at": 32203,
+                    "untilTurn": 38203
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50451,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21651,
+                    "untilTurn": 50451
+                  }
+                ]
+              },
+              {
+                "def": "Thought.FirstHumanKill",
+                "untilTurn": 309698,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21698,
+                    "untilTurn": 309698,
+                    "mood": -10
+                  }
+                ]
+              },
+              {
+                "def": "Thought.KilledHuman",
+                "untilTurn": 108098,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21698,
+                    "untilTurn": 108098,
+                    "mood": -4
+                  }
+                ]
+              },
+              {
+                "def": "Thought.AteRaw",
+                "untilTurn": 37307,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 30107,
+                    "untilTurn": 37307,
+                    "mood": -4
+                  },
+                  {
+                    "at": 28960,
+                    "untilTurn": 36160,
+                    "mood": -4
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 235000,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 33400,
+                    "untilTurn": 235000,
+                    "mood": -12
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "seed": "sim-27",
+        "diffs": [
+          {
+            "path": "/final/needs/stress",
+            "before": 32.128,
+            "after": 29.663999999999998
+          },
+          {
+            "path": "/final/thoughts",
+            "before": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50448,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21648,
+                    "untilTurn": 50448
+                  }
+                ]
+              },
+              {
+                "def": "Thought.SawDeath",
+                "untilTurn": 35424,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 29424,
+                    "untilTurn": 35424
+                  },
+                  {
+                    "at": 28424,
+                    "untilTurn": 34424
+                  }
+                ]
+              },
+              {
+                "def": "Thought.BlandFood",
+                "untilTurn": 34495,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 29695,
+                    "untilTurn": 34495,
+                    "mood": -2
+                  },
+                  {
+                    "at": 26412,
+                    "untilTurn": 31212,
+                    "mood": -2
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 231600,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 30000,
+                    "untilTurn": 231600,
+                    "mood": -6
+                  }
+                ]
+              }
+            ],
+            "after": [
+              {
+                "def": "Thought.WonderfulView",
+                "untilTurn": 50448,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 21648,
+                    "untilTurn": 50448
+                  }
+                ]
+              },
+              {
+                "def": "Thought.BlandFood",
+                "untilTurn": 34495,
+                "count": 2,
+                "events": [
+                  {
+                    "at": 29695,
+                    "untilTurn": 34495,
+                    "mood": -2
+                  },
+                  {
+                    "at": 26412,
+                    "untilTurn": 31212,
+                    "mood": -2
+                  }
+                ]
+              },
+              {
+                "def": "Thought.NearDeath",
+                "untilTurn": 231600,
+                "count": 1,
+                "events": [
+                  {
+                    "at": 30000,
+                    "untilTurn": 231600,
+                    "mood": -6
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "physicalRowsChangedAfterRemovingOnlyThoughtsAndStress": [
+      "sim-2",
+      "sim-5"
+    ],
+    "other28RowsExactAfterRemovingOnlyThoughtsAndStress": true,
+    "naturalCausalReplays": [
+      {
+        "seed": "sim-2",
+        "initialEntireWorldExact": true,
+        "firstWholeDifferenceDecision": 149,
+        "firstThoughtDifference": {
+          "decision": 480,
+          "time": 3059500,
+          "sameActionAndPosition": true,
+          "oldSawDeathCount": 2,
+          "newSawDeathCount": 0
+        },
+        "firstElapsedTimeDifferenceDecision": 974,
+        "firstBotActionDifference": {
+          "decision": 1024,
+          "actions": [
+            {
+              "type": "consume",
+              "uid": 181
+            },
+            {
+              "type": "rest",
+              "turns": 60
+            }
+          ]
+        },
+        "firstBreakdownDifference": {
+          "decision": 974,
+          "states": [
+            {
+              "def": "Break.Irritable",
+              "kind": "irritable",
+              "until": 51600,
+              "remaining": 3,
+              "hp": 91
+            },
+            null
+          ]
+        },
+        "finals": [
+          {
+            "version": "309",
+            "days": 1.1041666666666667,
+            "cause": "저체온",
+            "entireFinalSha256": "751a25048d2ff1f9ee7761f0b72859d5465302859f8f510725596771458a6bc7",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          },
+          {
+            "version": "310",
+            "days": 1.1527777777777777,
+            "cause": "저체온",
+            "entireFinalSha256": "0590c3a9cdda913ebb13de86a8b3bc7b3b795333a8d6e420b666fd7f441d2fef",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          }
+        ],
+        "rawAuditSha256": "c5ca9893ee3d4502eca5a913ee46d72ebbece26056e9a1371708f9fcfd9a896b"
+      },
+      {
+        "seed": "sim-5",
+        "initialEntireWorldExact": true,
+        "firstWholeDifferenceDecision": 224,
+        "firstThoughtDifference": {
+          "decision": 224,
+          "time": 2668300,
+          "sameActionAndPosition": true,
+          "oldSawDeathCount": 1,
+          "newSawDeathCount": 0
+        },
+        "firstElapsedTimeDifferenceDecision": 803,
+        "firstBotActionDifference": {
+          "decision": 829,
+          "actions": [
+            {
+              "type": "consume",
+              "uid": 21
+            },
+            {
+              "type": "rest",
+              "turns": 60
+            }
+          ]
+        },
+        "firstBreakdownDifference": {
+          "decision": 972,
+          "states": [
+            {
+              "def": "Break.Cry",
+              "kind": "cry",
+              "until": 70800,
+              "remaining": 3,
+              "hp": 79.16666666666609
+            },
+            null
+          ]
+        },
+        "finals": [
+          {
+            "version": "309",
+            "days": 2.7291666666666665,
+            "cause": "저체온",
+            "entireFinalSha256": "4bd50970230785aabacbca66c607a25ad4af21139d48f7c3feaf7c43fd29b2fa",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          },
+          {
+            "version": "310",
+            "days": 2.7291666666666665,
+            "cause": "저체온",
+            "entireFinalSha256": "1a8737475ee9875ef00b8cf1eece8b0293e62a31bf72bf1aebc1507a25594ee5",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          }
+        ],
+        "rawAuditSha256": "4a1a15bd3a222ed16f1ea617cf00bcd5d61d5327344b9b51115ba5a9e40674ce"
+      },
+      {
+        "seed": "sim-19",
+        "initialEntireWorldExact": true,
+        "firstWholeDifferenceDecision": 878,
+        "firstThoughtDifference": {
+          "decision": 878,
+          "time": 4434750,
+          "sameActionAndPosition": true,
+          "oldSawDeathCount": 1,
+          "newSawDeathCount": 0
+        },
+        "firstElapsedTimeDifferenceDecision": null,
+        "firstBotActionDifference": null,
+        "firstBreakdownDifference": null,
+        "finals": [
+          {
+            "version": "309",
+            "days": 0.9166666666666666,
+            "cause": "저체온",
+            "entireFinalSha256": "b81d40b0d06c3af814b0d41a2aa3c3e8898b01356974828dd64346da9bb71117",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          },
+          {
+            "version": "310",
+            "days": 0.9166666666666666,
+            "cause": "저체온",
+            "entireFinalSha256": "3e507ef39cf7dcc08fa90d0c4cc77088f22404d7ab23c9472799cabb6a2ab7b9",
+            "recordedNeedsThoughtsPositionDaysCauseLevelMapExact": true
+          }
+        ],
+        "rawAuditSha256": "95e70bdb1d6f911724db87b1065f586626fdd200195dd04352f15ba995142f4e"
+      }
+    ],
+    "raw": {
+      "before": {
+        "file": "/workspace/ashveil/docs/sim-v309.json",
+        "sha256": "bd0434fdbc82d3c932eb539441c2c4f8177d9328b9ecf81f5b4234ca04797ea9"
+      },
+      "after": {
+        "file": "/workspace/ashveil/test-results/sim-v310-final/summary.json",
+        "sha256": "832b8edfec8481591620aa375bfb8d69c8db97d3f42649f0f26568b260f69638"
+      },
+      "naturalTrace": {
+        "file": "/workspace/ashveil/test-results/visibility-v310-natural-trace/audit.json",
+        "sha256": "e27c3c6f51fcfb08cff71d2c1ccad58b1d5aae5a14c83a3809e16238dff44f6e"
+      }
+    },
+    "limits": "30 result rows are complete comparisons of the existing simulation report, not full-world state pairs. Natural309/310 replays for2/5/19 start from identical entire worlds, preserve the first differing entire states and all action/mind traces, and reproduce recorded final needs/thoughts/position/days/cause/level/map. First thought differences are removed unobserved SawDeath events; ensuing stress/rest/mental-break timing can change physical trajectories. No fixture/body/time/RNG overrides or balance constants changed. New expired thought records can remain when the removed addThought call no longer prunes them; active thought rules still ignore expired events. Cold13/30 remains above GDD40% all-run gate; no balance completion,1,000-run or human evaluation claimed."
+  },
+  "changedCoreFiles": [
+    "src/core/combat.ts"
+  ],
+  "contentModsAtlasAndOriginalAssetBytesExact309": true,
+  "validations": [
+    {
+      "name": "type",
+      "passed": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "lint",
+      "passed": true,
+      "sha256": "2bbce9085a194666b352d595ecb8eec8e987ad6b796b2e8c1a202429819c8d58"
+    },
+    {
+      "name": "defs",
+      "passed": true,
+      "sha256": "2d27fa9ef389beb4198bb7518e8bd13e6df523fd7924a239f8dedad0acaded33"
+    },
+    {
+      "name": "schema",
+      "passed": true,
+      "sha256": "073d36d2b5a030f2280d5a9600b772c70b1063c8cf70349c472ccdf105696f2c"
+    },
+    {
+      "name": "sprites",
+      "passed": true,
+      "sha256": "117198a7ad1fa50a06162a361d6dd98ce101a662e9d74f9ab38a4c1772adff19"
+    }
+  ],
+  "expedition1000": {
+    "completed": false,
+    "limits": "Scheduled separately after validated310. No1,000-run completion or human assessment claimed."
+  },
+  "zip": {
+    "path": "/workspace/ashveil/artifacts/ashveil-v0.310-web.zip",
+    "bytes": 28272914,
+    "distFiles": 2239,
+    "distBytes": 59561201,
+    "sha256": "b17e884218b80dbff3bf0ec74bfeb659286ea3050fcb91a699cb29a772e68b70",
+    "additionalMetadata": [
+      "시작하기.txt",
+      "CREDITS.md",
+      "리소스-도감.html",
+      "미술-설명.md",
+      "illustrations-provenance.json",
+      "licenses/complete-LICENSE.txt",
+      "licenses/material-LICENSE.txt",
+      "licenses/oatmeal-LICENSE.txt",
+      "licenses/survival-LICENSE.txt",
+      "licenses/direction-v303-LICENSE.txt",
+      "조작-변경.md",
+      "시야-배율.md",
+      "저장-방식.md",
+      "수목-원화.md",
+      "forest-v307-CC0.txt",
+      "생목-원화.md",
+      "living-v308.svg",
+      "living-v308-draw.mjs",
+      "living-v308-frames.json",
+      "living-v308-CC0.txt",
+      "원정-계산.md",
+      "시야-밖-사망.md"
+    ],
+    "allDistBytesIndependentlyChecked": true
+  },
+  "limits": "Finite declared initial scenes, actual keys/pointer and Title Continue, independent Node entire-state expectations. No postload state/time/body/RNG injection. Full had one original5000ms timeout, unchanged file recheck passes; this is not one green Full run. No new art applied; private ground drafts are unaccepted and outside310. v1.0/X1-X4 and human gates remain.",
+  "publicationPolicy": "Large verified implementation pushes only; public bytes/behavior checked after deployment."
+}

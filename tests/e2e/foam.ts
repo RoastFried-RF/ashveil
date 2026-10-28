@@ -1,0 +1,46 @@
+import {chromium,type Page} from 'playwright-core'
+import {spawn} from 'node:child_process'
+import {mkdirSync,writeFileSync} from 'node:fs'
+import assert from 'node:assert/strict'
+import {player,type World} from '../../src/core/ctx'
+import {SAVE_VERSION} from '../../src/core/game'
+import {foamCareBoundaryFixture,foamPendingCareFixture,foamCommitBoundaryFixture,foamOnsetBoundaryFixture,foamFatalBoundaryFixture} from '../foam-boundary-fixture'
+const out=process.argv[2]??'test-results/foam-browser';mkdirSync(out,{recursive:true})
+const server=spawn('npx',['vite','preview','--port','4317','--strictPort'],{stdio:'pipe',detached:true});await new Promise(r=>setTimeout(r,2500))
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']}),errors:string[]=[]
+type Hook={__ashveil:{world():World}}
+const read=(p:Page)=>p.evaluate(()=>JSON.parse(JSON.stringify((window as unknown as Hook).__ashveil.world().s)) as World['s'])
+const idle=(p:Page)=>p.waitForFunction(()=>{const{s}=(window as unknown as Hook).__ashveil.world();return !s.simulationPending&&!s.creatures.find(c=>c.id===s.playerId)!.activity},{},{timeout:300000})
+async function initial(w:World){const p=await browser.newPage({viewport:{width:1440,height:1000}});p.on('pageerror',e=>errors.push(e.message));p.on('console',e=>{if(e.type()==='error')errors.push(e.text())});await p.goto('http://localhost:4317/?debug');await p.click('[data-testid=start]');await p.waitForSelector('[data-testid=map] canvas');await p.evaluate(s=>((window as unknown as Hook).__ashveil.world().s = s),w.s);if(w.s.simulationPending){await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.getByTestId('continue').waitFor();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');await idle(p)}else{await p.keyboard.press('.');await idle(p)}return p}
+async function close(p:Page){for(let i=0;i<6&&await p.locator('[data-testid^="win-"]:visible').count();i++)await p.keyboard.press('Escape')}
+async function shot(p:Page,name:string){await p.waitForTimeout(800);await p.screenshot({path:`${out}/${name}.png`})}
+async function restore(p:Page,label:string){await close(p);const before=await read(p);assert.equal(before.version,SAVE_VERSION);await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');const after=await read(p);assert.deepEqual(after,before);writeFileSync(`${out}/${label}-before.json`,JSON.stringify(before));writeFileSync(`${out}/${label}-after.json`,JSON.stringify(after));return after}
+async function body(p:Page){await close(p);await p.keyboard.press('Shift+B');const view=p.getByTestId('win-body');await view.waitFor();return view}
+async function wait(p:Page){await close(p);await p.keyboard.press('.');await idle(p)}
+let page:Page|undefined
+try{
+ // Independent INITIAL real original bite, actual finite alcohol and knife, shortly before one-hour prevention closes.
+ const d=foamCareBoundaryFixture();page=await initial(d.w);let s=await read(page),p=player({db:d.w.db,s}),view=await body(page)
+ assert.equal(p.biteRisks![0].wound,d.wd.id);assert.equal(p.diseases,undefined)
+ let wound=view.getByTestId('wound-'+d.wd.id);await wound.scrollIntoViewIfNeeded();await shot(page,'418-native-original-actual-wolf-bite-and-physical-one-hour-care')
+ await wound.getByRole('button',{name:'술로 소독',exact:true}).click();await idle(page);s=await read(page);p=player({db:d.w.db,s})
+ assert.equal(p.bag.find(i=>i.uid===d.wash.uid)!.uses,4);assert.ok(p.biteRisks![0].washedAt);assert.equal(p.biteRisks![0].mitigated,undefined)
+ view=await body(page);wound=view.getByTestId('wound-'+d.wd.id);await wound.scrollIntoViewIfNeeded();await shot(page,'419-native-original-alcohol-washes-only-the-original-bite')
+ await wound.getByRole('button',{name:'소작',exact:true}).click();await idle(page);s=await read(page);p=player({db:d.w.db,s})
+ assert.equal(p.body.wounds.find(w=>w.id===d.wd.id)!.cauterized,true);assert.equal(p.biteRisks![0].mitigated,true);assert.ok(p.body.wounds.some(w=>w.source==='소작'));assert.equal(p.diseases,undefined)
+ view=await body(page);await view.getByTestId('wound-'+d.wd.id).scrollIntoViewIfNeeded();await shot(page,'420-native-real-cautery-burn-and-halved-original-saved-roll');await restore(page,'same-original-bite-after-actual-care');await page.close()
+ // Independent INITIAL actual bound cautery is pending after two steps; native continue performs only remaining work.
+ const pending=foamPendingCareFixture();page=await initial(pending.w);s=await read(page);p=player({db:pending.w.db,s})
+ assert.equal(p.body.wounds.find(w=>w.id===pending.wd.id)!.cauterized,true);assert.equal(p.biteRisks![0].mitigated,true);assert.equal(p.bag.find(i=>i.uid===pending.wash.uid)!.uses,4);assert.equal(s.nextId,pending.s.nextId+1)
+ view=await body(page);await view.getByTestId('wound-'+pending.wd.id).scrollIntoViewIfNeeded();await shot(page,'421-native-continue-finishes-only-original-pending-cautery');await restore(page,'original-pending-cautery-finished');await page.close()
+ // Independent INITIAL untreated real bite immediately before the original deadline. The hidden result has no disease label.
+ const un=foamCommitBoundaryFixture();page=await initial(un.w);await wait(page);s=await read(page);p=player({db:un.w.db,s});assert.equal(p.biteRisks,undefined);assert.equal(p.diseases![0].source!.wound,un.wd.id);assert.equal(p.diseases![0].source!.creature,un.wolf.id);view=await body(page);assert.equal(await view.getByTestId('body-diseases').count(),0);await shot(page,'422-native-original-untreated-bite-commits-without-revealing-latent-disease');await restore(page,'original-hidden-bite-incubation');await page.close()
+ // Independent INITIAL actual committed bite and healed original site, one turn before its original sampled onset.
+ const onset=foamOnsetBoundaryFixture();page=await initial(onset.w);s=await read(page);p=player({db:onset.w.db,s});assert.equal(p.diseases![0].incubatesUntil*100,s.time+100);view=await body(page);assert.equal(await view.getByTestId('body-diseases').count(),0);await view.getByTestId('body-bite-clues').scrollIntoViewIfNeeded();assert.match(await view.getByTestId('body-bite-clues').textContent()??'',/아문 물린 자리/);assert.doesNotMatch(await view.getByTestId('body-bite-clues').textContent()??'',/거품병/);await shot(page,'423-native-only-original-healed-bite-aching-before-hidden-onset');await restore(page,'one-turn-before-original-foam-onset')
+ await wait(page);s=await read(page);p=player({db:onset.w.db,s});assert.equal(s.time,p.diseases![0].incubatesUntil*100);assert.equal(p.diseases![0].onsetNotified,true);view=await body(page);await view.getByTestId('body-diseases').scrollIntoViewIfNeeded();assert.match(await view.getByTestId('body-diseases').textContent()??'',/거품병/);assert.equal(await view.getByTestId('body-bite-clues').count(),0);await shot(page,'424-native-real-sampled-onset-reveals-the-same-original-foam-disease')
+ await close(page);await page.keyboard.press('i');await page.getByTestId('win-inv').locator('[data-uid="'+onset.antibiotic.uid+'"]').dblclick();await idle(page);s=await read(page);p=player({db:onset.w.db,s});assert.equal(p.bag.some(i=>i.uid===onset.antibiotic.uid),false);assert.ok(p.diseases!.some(d=>d.def==='Disease.FoamSickness'&&d.immunity===0));view=await body(page);await view.getByTestId('body-diseases').scrollIntoViewIfNeeded();await shot(page,'425-native-one-original-antibiotic-cannot-cure-foam-or-create-immunity');await restore(page,'same-onset-after-original-antibiotic');await page.close()
+ // Independent INITIAL same actual disease one turn before exact seven-day fatal boundary; no claim of browser simulating the intervening forty days.
+ const fatal=foamFatalBoundaryFixture();page=await initial(fatal.w);s=await read(page);p=player({db:fatal.w.db,s});assert.equal(p.alive,true);assert.equal(s.time,(fatal.deadline-1)*100);view=await body(page);await view.getByTestId('body-diseases').scrollIntoViewIfNeeded();await shot(page,'426-native-original-body-alive-one-turn-before-seven-day-fatal-clock');await restore(page,'one-turn-before-original-foam-death')
+ await wait(page);s=await read(page);p=player({db:fatal.w.db,s});assert.equal(p.alive,false);assert.equal(p.id,fatal.p.id);assert.equal(p.deathCause,'거품병');assert.equal(s.time,fatal.deadline*100);assert.ok(p.hp>0);await page.getByTestId('report').waitFor();assert.match(await page.getByTestId('report').textContent()??'',/거품병/);await shot(page,'427-native-exact-original-seven-day-foam-death-and-real-life-report')
+ assert.deepEqual(errors,[]);console.log('OK: actual original wolf bite/alcohol and cautery/halved saved roll and original burn/pending real care continue/hidden incubation and healed-site clue/exact sampled onset/finite antibiotic cannot cure/exact seven-day original-body death/ten screenshots/six whole Save64 roundtrips/console0')
+}catch(error){if(page){await shot(page,'failure').catch(()=>{});const s=await read(page).catch(()=>undefined);if(s)writeFileSync(out+'/failure-state.json',JSON.stringify(s))}throw error}finally{await browser.close();if(server.pid)process.kill(-server.pid,'SIGTERM')}

@@ -1,0 +1,34 @@
+[
+  {
+    "op": "add",
+    "target": "Creature.BurrowRat",
+    "path": "/meatDrop",
+    "value": {
+      "item": "Item.RawRatMeat",
+      "count": 1
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.guild",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.RationPack",
+      "target": 1,
+      "dailyProduction": 0,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Disease.RatFever",
+    "path": "/symptom",
+    "value": "관절이 쑤시고 열이 올랐다."
+  },
+  {
+    "op": "add",
+    "target": "Item.CannedMeat",
+    "path": "/openFoodLabel",
+    "value": "통조림 따기"
+  }
+]

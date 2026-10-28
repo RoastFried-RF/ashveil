@@ -1,0 +1,578 @@
+{
+  "version": 304,
+  "dateKST": "2026-10-23",
+  "save": 204,
+  "api": "1.4.0",
+  "checkpoint": "/workspace/.ashveil-checkpoints/v304-controls-input4",
+  "fullInputManifestSha256": "67508848a975a40f7952fa29ef83ec9a689819b787f5d84ca7304048a04422a4",
+  "source": {
+    "src": {
+      "files": 691,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    "public": {
+      "files": 1838,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    "dist": {
+      "files": 2237,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    "tests": {
+      "files": 1088,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    "tools": {
+      "files": 307,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesExactFrozenNativeAndFull": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesExactFrozenNativeAndFull": true
+    }
+  },
+  "nativeCheckpoint": "/workspace/.ashveil-checkpoints/v304-controls-input3",
+  "lintScopeNote": "Archived docs/diagnostics originals excluded; initial old-scope failure log retained as lint-v304-complete.log. Maintained code final lint has zero errors and one pre-existing unused helper warning.",
+  "unchangedFrom303": {
+    "src/content": 283,
+    "mods": 86,
+    "public": 1838
+  },
+  "changedCore": [
+    "src/core/actions.ts",
+    "src/core/path.ts"
+  ],
+  "full": {
+    "files": 337,
+    "tests": 6127,
+    "verifiedUniqueCases": 6127,
+    "oneCompleteGreenRun": false,
+    "initialRun": {
+      "passedFiles": 335,
+      "passedTests": 6124,
+      "timeoutFailures": 3,
+      "seconds": 577.2395815269992,
+      "workers": 4,
+      "reportSha256": "950e31cc1dda58fc3edce57963de45b64c3fca13f45e96f7e9237ca64f0a55e6"
+    },
+    "recheck": {
+      "files": 2,
+      "tests": 17,
+      "passed": 17,
+      "seconds": 21.86,
+      "workers": 1,
+      "reportSha256": "d1ba6f09ee65ef59633213588e593a15e02c225569b6fc0d752a103691157628",
+      "unchangedCodeExpectationsAnd5000msLimit": true
+    },
+    "timeoutNames": [
+      "실제 각인 검토/승인 후보의 물품 rename 검토 전 원본을 보존하고 승인 후 ID/현재 헤더 외 전체 상태가 같다",
+      "실제 각인 검토/승인 후보의 물품 rename 승인 각인을 같은 구성으로 다시 불러와도 새 ID/원래 UID/전체 상태가 같다",
+      "주민 보온·수면 준비·일상 소음 차가운 의사는 실제 화덕으로 걸어 작업 대사/체온을 거친 뒤 돌아온다"
+    ],
+    "coverage": "335 complete passing files/6110 cases from the full run plus the two initially timing-out files/17 cases passing in a single-worker recheck. No assertion mismatch. This is aggregate coverage, not a single green full run."
+  },
+  "native": [
+    {
+      "width": 1440,
+      "height": 1080,
+      "wholePairs": 94,
+      "save204WholeRoundtrips": 1,
+      "declaredInitialTitleLoads": 8,
+      "actions": 56,
+      "actualActionTU": 5300,
+      "screenshots": 13,
+      "errors": [],
+      "auditPath": "test-results/controls-v304-verified-1440/audit.json",
+      "auditSha256": "7732ef09c3c66bf224df7a9994a250343ba6456c05fcfa8fb058cd433336776c",
+      "checks": [
+        "quiet-initial-0",
+        "window-char-focus-tab-escape-no-turn",
+        "window-inv-focus-tab-escape-no-turn",
+        "window-abil-focus-tab-escape-no-turn",
+        "window-body-focus-tab-escape-no-turn",
+        "window-journal-focus-tab-escape-no-turn",
+        "window-map-focus-tab-escape-no-turn",
+        "window-craft-focus-tab-escape-no-turn",
+        "window-society-focus-tab-escape-no-turn",
+        "native-close-button-held-enter-is-one-click",
+        "held-inventory-toggles-only-once",
+        "held-F3-toggles-only-once",
+        "raised-window-is-escape-top",
+        "escape-from-native-select",
+        "keyboard-context-menu-focus-and-escape",
+        "right-click-context-menu-escape-first",
+        "outside-menu-click-does-not-activate-hud",
+        "next-deliberate-hud-click-crouches",
+        "normal-turn-before-next-free-posture-action",
+        "next-deliberate-hud-click-stands",
+        "drag-escape-cancels-without-closing",
+        "invalid-floor-drop-does-not-pick-up",
+        "actual-valid-rotated-knife-drop",
+        "actual-ctrl-half-stack-drag",
+        "food-consent-traps-tab-and-escape-cancels-only-consent",
+        "actual-confirmed-food-merge",
+        "actual-context-menu-assign-hotbar",
+        "held-consumable-key-uses-once",
+        "default-direction-0",
+        "default-direction-4",
+        "default-direction-1",
+        "default-direction-5",
+        "default-direction-2",
+        "default-direction-6",
+        "default-direction-3",
+        "default-direction-7",
+        "left-direction-0",
+        "left-direction-4",
+        "left-direction-1",
+        "left-direction-5",
+        "left-direction-2",
+        "left-direction-6",
+        "left-direction-3",
+        "left-direction-7",
+        "right-direction-0",
+        "right-direction-4",
+        "right-direction-1",
+        "right-direction-5",
+        "right-direction-2",
+        "right-direction-6",
+        "right-direction-3",
+        "right-direction-7",
+        "four-rapid-taps-execute-four-moves",
+        "once-mode-first-held-wait",
+        "once-mode-release-repress",
+        "limited-first-press-and-rejected-repeats",
+        "limited-delay-accepts-one-repeat",
+        "system-first-wait",
+        "system-held-wait",
+        "opening-window-clears-old-shove-prefix",
+        "held-ctrl-direction-faces-only-once",
+        "ctrl-right-click-faces-with-one-turn",
+        "objects-initial-62",
+        "click-exact-east-container",
+        "click-exact-southeast-corpse",
+        "take-original-item-from-clicked-corpse",
+        "bump-exact-closed-door",
+        "prefix-closes-selected-door",
+        "combat-initial-68",
+        "shoot-cycle-and-cancel-no-turn",
+        "shoot-selected-second-target",
+        "throw-right-click-cancels-no-turn",
+        "throw-one-real-stone",
+        "hud-trip-aim-is-free",
+        "hud-trip-enter-confirms-on-map",
+        "keyboard-disarm-enter-confirms",
+        "quiet-initial-76",
+        "autowalk-inventory-completed-1",
+        "autowalk-inventory-remains-stopped",
+        "quiet-initial-79",
+        "autowalk-space-completed-2",
+        "autowalk-space-remains-stopped",
+        "quiet-initial-82",
+        "autowalk-tab-completed-2",
+        "autowalk-tab-remains-stopped",
+        "quiet-initial-85",
+        "autowalk-blur-completed-2",
+        "autowalk-blur-remains-stopped",
+        "danger-initial-88",
+        "critical-warning-and-held-repeats-do-not-move",
+        "critical-warning-requires-release-and-new-press",
+        "final-save204-whole-restored",
+        "window-drag-resize-no-world-change",
+        "small-menu-viewport-and-escape-no-turn"
+      ],
+      "limits": "Finite declared input scenes, independent Node whole states after real Title/keys/mouse. Autowalk move count is observed at cancellation and each completed move independently replayed, not fixed wall-clock timing. Blur notification intentionally dispatched as browser lifecycle signal. No postload world/time/RNG injection; healthy body/art scene is not injury or ordinary acquisition evidence."
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "wholePairs": 94,
+      "save204WholeRoundtrips": 1,
+      "declaredInitialTitleLoads": 8,
+      "actions": 56,
+      "actualActionTU": 5100,
+      "screenshots": 13,
+      "errors": [],
+      "auditPath": "test-results/controls-v304-verified-1366/audit.json",
+      "auditSha256": "5c38a0cdfb0ea320c5de74ebdcd915892bf35f2d93d6039b1b1f542cc614ec61",
+      "checks": [
+        "quiet-initial-0",
+        "window-char-focus-tab-escape-no-turn",
+        "window-inv-focus-tab-escape-no-turn",
+        "window-abil-focus-tab-escape-no-turn",
+        "window-body-focus-tab-escape-no-turn",
+        "window-journal-focus-tab-escape-no-turn",
+        "window-map-focus-tab-escape-no-turn",
+        "window-craft-focus-tab-escape-no-turn",
+        "window-society-focus-tab-escape-no-turn",
+        "native-close-button-held-enter-is-one-click",
+        "held-inventory-toggles-only-once",
+        "held-F3-toggles-only-once",
+        "raised-window-is-escape-top",
+        "escape-from-native-select",
+        "keyboard-context-menu-focus-and-escape",
+        "right-click-context-menu-escape-first",
+        "outside-menu-click-does-not-activate-hud",
+        "next-deliberate-hud-click-crouches",
+        "normal-turn-before-next-free-posture-action",
+        "next-deliberate-hud-click-stands",
+        "drag-escape-cancels-without-closing",
+        "invalid-floor-drop-does-not-pick-up",
+        "actual-valid-rotated-knife-drop",
+        "actual-ctrl-half-stack-drag",
+        "food-consent-traps-tab-and-escape-cancels-only-consent",
+        "actual-confirmed-food-merge",
+        "actual-context-menu-assign-hotbar",
+        "held-consumable-key-uses-once",
+        "default-direction-0",
+        "default-direction-4",
+        "default-direction-1",
+        "default-direction-5",
+        "default-direction-2",
+        "default-direction-6",
+        "default-direction-3",
+        "default-direction-7",
+        "left-direction-0",
+        "left-direction-4",
+        "left-direction-1",
+        "left-direction-5",
+        "left-direction-2",
+        "left-direction-6",
+        "left-direction-3",
+        "left-direction-7",
+        "right-direction-0",
+        "right-direction-4",
+        "right-direction-1",
+        "right-direction-5",
+        "right-direction-2",
+        "right-direction-6",
+        "right-direction-3",
+        "right-direction-7",
+        "four-rapid-taps-execute-four-moves",
+        "once-mode-first-held-wait",
+        "once-mode-release-repress",
+        "limited-first-press-and-rejected-repeats",
+        "limited-delay-accepts-one-repeat",
+        "system-first-wait",
+        "system-held-wait",
+        "opening-window-clears-old-shove-prefix",
+        "held-ctrl-direction-faces-only-once",
+        "ctrl-right-click-faces-with-one-turn",
+        "objects-initial-62",
+        "click-exact-east-container",
+        "click-exact-southeast-corpse",
+        "take-original-item-from-clicked-corpse",
+        "bump-exact-closed-door",
+        "prefix-closes-selected-door",
+        "combat-initial-68",
+        "shoot-cycle-and-cancel-no-turn",
+        "shoot-selected-second-target",
+        "throw-right-click-cancels-no-turn",
+        "throw-one-real-stone",
+        "hud-trip-aim-is-free",
+        "hud-trip-enter-confirms-on-map",
+        "keyboard-disarm-enter-confirms",
+        "quiet-initial-76",
+        "autowalk-inventory-completed-1",
+        "autowalk-inventory-remains-stopped",
+        "quiet-initial-79",
+        "autowalk-space-completed-1",
+        "autowalk-space-remains-stopped",
+        "quiet-initial-82",
+        "autowalk-tab-completed-1",
+        "autowalk-tab-remains-stopped",
+        "quiet-initial-85",
+        "autowalk-blur-completed-2",
+        "autowalk-blur-remains-stopped",
+        "danger-initial-88",
+        "critical-warning-and-held-repeats-do-not-move",
+        "critical-warning-requires-release-and-new-press",
+        "final-save204-whole-restored",
+        "window-drag-resize-no-world-change",
+        "small-menu-viewport-and-escape-no-turn"
+      ],
+      "limits": "Finite declared input scenes, independent Node whole states after real Title/keys/mouse. Autowalk move count is observed at cancellation and each completed move independently replayed, not fixed wall-clock timing. Blur notification intentionally dispatched as browser lifecycle signal. No postload world/time/RNG injection; healthy body/art scene is not injury or ordinary acquisition evidence."
+    }
+  ],
+  "common": {
+    "resolutions": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ]
+    ],
+    "screenshots": 8,
+    "realInputsPerResolution": 11,
+    "errors": []
+  },
+  "goldens": {
+    "vectors": 5,
+    "wholeInitialFinalAndErrorsExact303": true,
+    "sha256": "93dabd8d47963fef1f1692fdd7fdbb5140b87c278bbbd2450f9baa2026842606"
+  },
+  "world": {
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 541.9907116820001,
+    "wholeResultRowsEqual301": true,
+    "averageDaysEqual301": true,
+    "causesEqual301": true,
+    "summarySha256": "8b74cff30653f8d02e16977489f89722a51429fc33be23b785dd57b98105c86b",
+    "limits": "Result rows/average/causes equal; not a comparison of every WorldState or a long-term ecology claim."
+  },
+  "validations": [
+    {
+      "name": "controls-v304-verified-1440",
+      "code": 0,
+      "seconds": 191.7785566659877
+    },
+    {
+      "name": "controls-v304-verified-1366",
+      "code": 0,
+      "seconds": 153.05595917400206
+    },
+    {
+      "name": "preview-v304-final",
+      "code": 0,
+      "seconds": 28.71371333199204
+    },
+    {
+      "name": "typecheck-v304-final",
+      "code": 0,
+      "seconds": 22.625331619012286
+    },
+    {
+      "name": "lint-v304-final-pass",
+      "code": 0,
+      "seconds": 25.604183495001053
+    },
+    {
+      "name": "defs-v304-final",
+      "code": 0,
+      "seconds": 0.7999853310029721
+    },
+    {
+      "name": "sprites-v304-final",
+      "code": 0,
+      "seconds": 0.5687155430059647
+    },
+    {
+      "name": "schema-v304-final",
+      "code": 0,
+      "seconds": 6.172988346996135
+    },
+    {
+      "name": "goldens-v304-final",
+      "code": 0,
+      "seconds": 7.244653241999913
+    },
+    {
+      "name": "full-v304-final",
+      "code": 1,
+      "seconds": 577.2395815269992
+    },
+    {
+      "name": "full-v304-timeout-recheck",
+      "code": 0,
+      "seconds": 21.86,
+      "workers": 1,
+      "unchangedCodeExpectationsAndTimeout": true
+    }
+  ],
+  "validationLogs": [
+    {
+      "path": "test-results/typecheck-v304-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "test-results/lint-v304-final-pass.log",
+      "sha256": "9d5138c56c7065dc1258514fa0095b18aef0eb31915729184b80160ea15b7403"
+    },
+    {
+      "path": "test-results/defs-v304-final.log",
+      "sha256": "762f1e493b7ed097ce3feeff9407b5ac4658a96ff1b078366b158c88d83de153"
+    },
+    {
+      "path": "test-results/sprites-v304-final.log",
+      "sha256": "3057e5899f96a5df8cfdc8e9fdab430485c367d7e206370f3fa2aa2fb965a4fa"
+    },
+    {
+      "path": "test-results/schema-v304-final.log",
+      "sha256": "836e69306ebba99c9737b998724c9ee67184acf82bce4628d799c1319c64c216"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/previews/v304-controls-1440-1801-top-window-escape-preserves-inventory.png",
+      "sha256": "075030727e3e6265ab8c896fbc1d95e94fedf368e56ff63873bd03d58caf0378"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1802-rotated-item-stays-in-inventory.png",
+      "sha256": "6343c2bb49f64024cb3d2a7a614e334ae64f146953528e895dc6fa42ea552a07"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1803-food-merge-keyboard-confirmation.png",
+      "sha256": "09372ce181ed958338e1c0c3f3be393dcf0ac3a9a43b327ba56a6a02dea8e1bb"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1804-default-eight-directions.png",
+      "sha256": "9405e995c49507fd34518d7f58f4586bb0cc171a7fee3051f44b92911e1f98a6"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1804-left-eight-directions.png",
+      "sha256": "46313d0bc4e36388d57afb24af958cddbdd2e129c6e4f2361456d0cc044480a4"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1804-right-eight-directions.png",
+      "sha256": "a27a1858d9b570d03888189f7c6f04cf414eee2d5516428d887b5507101430d7"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1805-exact-clicked-corpse.png",
+      "sha256": "5a3d56f205f209fbb63f870bcfcd83bf69f6161e36be32927f310364e259ce1d"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1806-actual-aim-and-target-cycle.png",
+      "sha256": "da7ea83c8cd0460f0845f56418022c47624bfa9f92574cb58d03a5d4d8cf6807"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1807-combat-input-confirmation.png",
+      "sha256": "70cac565a160db598b304f840599726b518c36de64f6475f5298461b55b681a7"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1808-window-pauses-automatic-walking.png",
+      "sha256": "00d4993fba446bbc8dfa7d0d24c7cd00c2c31bad5a064874cb0cfd4ff78452bd"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1809-critical-warning-explicit-ack.png",
+      "sha256": "241276f5bb00d9cd488c413218c66df387608a3c49ec807ef9359ca5fc70e521"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1810-resized-window-close-remains-reachable.png",
+      "sha256": "06687bc87079c9f48b2d873a0bb62d209c45b8511d5c735f70657d2890d5776d"
+    },
+    {
+      "path": "docs/previews/v304-controls-1440-1811-context-menu-clamped-to-small-viewport.png",
+      "sha256": "39d718b56d8728ef8aa971f8a9285d931b043cdf5736641c1789eb512aef76df"
+    },
+    {
+      "path": "docs/previews/v304-1440-00-title.png",
+      "sha256": "eeaa53224935f4627210857d97b1d0fe98dd89398725c8207011fd7b3931f0ac"
+    },
+    {
+      "path": "docs/previews/v304-1440-01-world.png",
+      "sha256": "18cfe94e9e3870e15dbac6cb27812e6433ff7c3ff9e3e7fb12a9af0b77c3bd29"
+    },
+    {
+      "path": "docs/previews/v304-1440-02-inventory.png",
+      "sha256": "fd75b9145c4a391641dedd1f909d82905f2408d9054d8a65e8af8768fff17389"
+    },
+    {
+      "path": "docs/previews/v304-1440-final.png",
+      "sha256": "64a138ef1410a9cbb777f5b8af997818808fa6b8b70ece95689b90b75235469c"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1801-top-window-escape-preserves-inventory.png",
+      "sha256": "7ff85fe94b9996da611704f22a92feb721fd719ee777c7531e461ba126155b9f"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1802-rotated-item-stays-in-inventory.png",
+      "sha256": "f3dd7e1a044ea4183b918d36a7e730dba9544948f29f29aab13c5ed6310366db"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1803-food-merge-keyboard-confirmation.png",
+      "sha256": "d7ce13004f257615eace2abc08625a9af3530699d9c48dd0a28694da5744b258"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1804-default-eight-directions.png",
+      "sha256": "3f0ba3d8c1249a1879d41c7027cd9e94f1d8b9cea99348fee299a03b7c477c47"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1804-left-eight-directions.png",
+      "sha256": "b987153836086a3220688978778b9f57b9720e3bc9bedcad61abd2fa75084e07"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1804-right-eight-directions.png",
+      "sha256": "f7e79d02d2d8efd24c4fdd5c885f9e59f484caedbd29fe54ca562c653e4b50e4"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1805-exact-clicked-corpse.png",
+      "sha256": "75af575c9fc6b281e6306fa91c789591e1606ac52d9ab50b1192a8d1e7605c60"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1806-actual-aim-and-target-cycle.png",
+      "sha256": "cf0a67e5040c866e17ad59e8a2a84e50d7386f94149e2d10be8ee42411c43b1a"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1807-combat-input-confirmation.png",
+      "sha256": "1a563367ef7aef4ebea61efe9ac0eb73f2a3bc29fc16665be8a9d718a808c869"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1808-window-pauses-automatic-walking.png",
+      "sha256": "74af22b3a494416046e0eb20fd2ab05eee55876c264f05ed720ad0f1e9b22423"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1809-critical-warning-explicit-ack.png",
+      "sha256": "51281e9a4adc623cdfca137efc0706f42904cbb6e1ec3bc0052f11aa94544889"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1810-resized-window-close-remains-reachable.png",
+      "sha256": "d0d430c6590142613fafefa43051e2ed5cc949a61bbc88ba7bf0a281a01bcd72"
+    },
+    {
+      "path": "docs/previews/v304-controls-1366-1811-context-menu-clamped-to-small-viewport.png",
+      "sha256": "08f8707370ab400fa6b1f4c0d5729c344cfd679b6eaef0551777aa676c25592e"
+    },
+    {
+      "path": "docs/previews/v304-1366-00-title.png",
+      "sha256": "cafdd9d34032c1326325d0c7637c38767f7c1be7449684a802cdc08f0191ca9a"
+    },
+    {
+      "path": "docs/previews/v304-1366-01-world.png",
+      "sha256": "794b2edf406bb4cc2ff201384b18326219ce2c5303a5afaf791981d25ed140d3"
+    },
+    {
+      "path": "docs/previews/v304-1366-02-inventory.png",
+      "sha256": "9cdb5670f4c813739b8608fb8e35a16ee0e796ea974a26a6d2afb45ea3882950"
+    },
+    {
+      "path": "docs/previews/v304-1366-final.png",
+      "sha256": "b3bde37cbd88113c6342f6994a1085d9b448ae6ff61a386c6e40c4ad8d8b5f31"
+    }
+  ],
+  "zip": {
+    "version": 304,
+    "distFiles": 2237,
+    "allDistFilesExactFrozenNativeAndFull": true,
+    "bytes": 26595466,
+    "sha256": "fb7385b9a1029ed3e16cb9c69e591dfd068dfc0488500231561136eb4765f403",
+    "additionalMetadata": [
+      "시작하기.txt",
+      "CREDITS.md",
+      "리소스-도감.html",
+      "미술-설명.md",
+      "illustrations-provenance.json",
+      "licenses/complete-LICENSE.txt",
+      "licenses/material-LICENSE.txt",
+      "licenses/oatmeal-LICENSE.txt",
+      "licenses/survival-LICENSE.txt",
+      "licenses/direction-v303-LICENSE.txt",
+      "조작-변경.md"
+    ],
+    "website": "https://roastfried-rf.github.io/ashveil/",
+    "v304WebsiteCheckedAfterPush": false
+  },
+  "limits": "Finite declared input fixtures and independent whole states after real Title/keys/mouse. Blur is intentionally synthetic lifecycle signal, no postload world/time/RNG injection. Original art unchanged. Common input paths and eight windows inspected; not every possible content action, human 30-minute assessment, touch/gamepad/TTS, whole WorldState or all future expansions.",
+  "publicationPolicy": "One large normal main push after local checks. Actual Pages deployment is checked after push separately, without a small documentation-only push."
+}

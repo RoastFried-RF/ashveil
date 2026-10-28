@@ -1,0 +1,137 @@
+{
+  "preview": "0.389-dev",
+  "save": 219,
+  "commit": "b74807c29d6b03eb0cb425ecaa51f9bb4cf09fe2",
+  "implementationCommit": "2f63eacaee4683da5b8517c3ae0351a417971483",
+  "verifiedUTC": "2026-10-26T06:51:32.296847+00:00",
+  "verifiedKST": "2026-10-26T15:51:32.296847+09:00",
+  "snapshot": "/workspace/.ashveil-checkpoints/v389-face-publication-r7",
+  "allTrackedSourceSHA256Exact": 8811,
+  "CI": {
+    "run": 40278661651,
+    "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/40278661651",
+    "conclusion": "success",
+    "testFiles": 387,
+    "tests": 6571,
+    "failures": 0,
+    "skipped": 0,
+    "durationSeconds": 1190.3,
+    "lint": "0errors/1existing unused mirror warning",
+    "defs": "success",
+    "sprites": "success",
+    "typeBuild": "success",
+    "pages": "success",
+    "completedUTC": "2026-10-26T06:37:00Z"
+  },
+  "priorCI": {
+    "run": 40274548213,
+    "conclusion": "cancelled",
+    "reason": "Root cancelled before deployment after final remaining accessory review found profile goggles pinned to strap midpoint."
+  },
+  "public": {
+    "game": "https://roastfried-rf.github.io/ashveil/?v=389",
+    "workbench": "https://roastfried-rf.github.io/ashveil/artbook/human/?v=389",
+    "criticalAssets": 45,
+    "criticalAssetsExact": true,
+    "titleVersionActualDOM": "0.389-dev",
+    "smoke": [
+      {
+        "scenario": "smoke",
+        "url": "https://roastfried-rf.github.io/ashveil/?debug&revision=v389-b74807c",
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "executablePath": "/workspace/.ashveil-tools/chromium",
+        "startedAt": "2026-10-26T06:39:45.849Z",
+        "completedSteps": 11,
+        "artifacts": [
+          "00-title",
+          "01-world",
+          "02-inventory",
+          "final"
+        ],
+        "errors": [],
+        "status": "passed",
+        "finishedAt": "2026-10-26T06:40:09.679Z"
+      },
+      {
+        "scenario": "smoke",
+        "url": "https://roastfried-rf.github.io/ashveil/?debug&revision=v389-b74807c",
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "executablePath": "/workspace/.ashveil-tools/chromium",
+        "startedAt": "2026-10-26T06:40:50.650Z",
+        "completedSteps": 11,
+        "artifacts": [
+          "00-title",
+          "01-world",
+          "02-inventory",
+          "final"
+        ],
+        "errors": [],
+        "status": "passed",
+        "finishedAt": "2026-10-26T06:41:12.607Z"
+      }
+    ],
+    "diagnosticFaceStates": 72,
+    "diagnosticFaceErrors": [],
+    "scope": "Main game uses actual title/new game/keys. Workbench is synthetic/no Core, not an independent whole-world replay."
+  },
+  "local": {
+    "focusedFiles": 8,
+    "focusedTests": 78,
+    "uiWholePairs": 87,
+    "bodyWholePairsBeforeFaceOnlyRefinement": 132,
+    "correctedSoleWholePairs": 8,
+    "correctedFaceWholePairs": 16,
+    "actualWardrobeProstheticNaturalAttackSavePairs": 13,
+    "actualWardrobeFinalHash": "a18ad800",
+    "medicalResolutions": 2,
+    "medicalObservationWholeStateUnchanged": true,
+    "medicalToolTransforms": [
+      12,
+      17
+    ],
+    "medicalIndependentNodeActionReplay": false,
+    "independentFacePNGReview": 72,
+    "parentNPCFacePNGReview": 4,
+    "partialReportsAreNotAddedAsUniqueTotal": true
+  },
+  "unchangedCoreContentMods": {
+    "src/core": 335,
+    "src/content": 320,
+    "mods": 89
+  },
+  "art": {
+    "newSuccessfulImageGenerations": 4,
+    "newOriginalPNG": 4,
+    "garmentRegions": 80,
+    "roleHeadRegions": 20,
+    "reusedBodyRegions": 28,
+    "reusedSewnPanels": 8,
+    "existingProstheticObjects": 6,
+    "existingSingleViewSourceSheets": 2,
+    "newSourcePixelEdits": 0,
+    "newAuthoredActionFrames": 0,
+    "runtimeFrameKeys": 144,
+    "ordinaryHumanRegistrations": 10,
+    "apparelIDs": 25,
+    "garmentKinds": 20,
+    "headRoles": 5,
+    "inputValidationFailures": 1,
+    "limit": "Reused single-view prosthetics do not provide authored hidden opposite faces; limb geometry is2D cutout. Fine fingers/toes/facial loss and mutated humanoids remain open.",
+    "oldPublicOriginalPNGsUnchanged": 1199
+  },
+  "open": [
+    "Mutated humanoid bodies and micro anatomical loss",
+    "Bilateral severe-limb-loss postures need additional visual coverage",
+    "Prosthetic opposite authored faces",
+    "Existing v388 P3 UI conveniences",
+    "v1/X1-X4, long-term balancing and external people evaluation"
+  ],
+  "postPublicationMetadataOnlyPush": false,
+  "note": "Receipt and supplementary public/UI evidence remain in authoring for the next substantive batch; final published runtime/source is unchanged."
+}

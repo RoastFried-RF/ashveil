@@ -1,0 +1,771 @@
+{
+  "finiteInitial": true,
+  "postTitleWorldWrites": false,
+  "wholePairs": 90,
+  "runs": [
+    {
+      "name": "fire",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.0275,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wind",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.2275,
+        "rest": -0.2275,
+        "sleep": -0.28750000000000003,
+        "warm": -0.0675,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wet",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.15335000000000001,
+        "rest": -0.15335000000000001,
+        "sleep": -0.21335,
+        "warm": 0,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "bed",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "rest",
+      "tabSteps": 0,
+      "overflow": false
+    },
+    {
+      "name": "no-fire",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.3275,
+        "rest": -0.3275,
+        "sleep": -0.3875,
+        "warmError": "실제 불에서2칸 안으로 가야 한다",
+        "notice": "체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "moving",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 36.6,
+      "forecast": {
+        "current": 0.1,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "멈추면 체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "critical",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 31.5,
+      "forecast": {
+        "current": -0.1075,
+        "rest": -0.1075,
+        "sleep": -0.1675,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "observe",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "deep-water",
+      "width": 1440,
+      "height": 1080,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "observe",
+      "tabSteps": 0,
+      "overflow": false
+    },
+    {
+      "name": "fire",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.0275,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wind",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.2275,
+        "rest": -0.2275,
+        "sleep": -0.28750000000000003,
+        "warm": -0.0675,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wet",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.15335000000000001,
+        "rest": -0.15335000000000001,
+        "sleep": -0.21335,
+        "warm": 0,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "bed",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "rest",
+      "tabSteps": 0,
+      "overflow": false
+    },
+    {
+      "name": "no-fire",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.3275,
+        "rest": -0.3275,
+        "sleep": -0.3875,
+        "warmError": "실제 불에서2칸 안으로 가야 한다",
+        "notice": "체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "moving",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 36.6,
+      "forecast": {
+        "current": 0.1,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "멈추면 체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "critical",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 31.5,
+      "forecast": {
+        "current": -0.1075,
+        "rest": -0.1075,
+        "sleep": -0.1675,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "observe",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "deep-water",
+      "width": 1366,
+      "height": 768,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "observe",
+      "tabSteps": 0,
+      "overflow": false
+    },
+    {
+      "name": "fire",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.0275,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wind",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.2275,
+        "rest": -0.2275,
+        "sleep": -0.28750000000000003,
+        "warm": -0.0675,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "wet",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.15335000000000001,
+        "rest": -0.15335000000000001,
+        "sleep": -0.21335,
+        "warm": 0,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "warmByFire",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "bed",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "rest",
+      "tabSteps": 0,
+      "overflow": false
+    },
+    {
+      "name": "no-fire",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": -0.3275,
+        "rest": -0.3275,
+        "sleep": -0.3875,
+        "warmError": "실제 불에서2칸 안으로 가야 한다",
+        "notice": "체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "moving",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 36.6,
+      "forecast": {
+        "current": 0.1,
+        "rest": -0.0275,
+        "sleep": -0.08750000000000001,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "멈추면 체온 하락"
+      },
+      "action": "wait",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "critical",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 31.5,
+      "forecast": {
+        "current": -0.1075,
+        "rest": -0.1075,
+        "sleep": -0.1675,
+        "warm": 0.1,
+        "warmError": null,
+        "notice": "불 곁에서도 체온 하락"
+      },
+      "action": "observe",
+      "tabSteps": 3,
+      "overflow": false
+    },
+    {
+      "name": "deep-water",
+      "width": 390,
+      "height": 844,
+      "initialTemperature": 35.8,
+      "forecast": {
+        "current": 0.1,
+        "rest": 0.1,
+        "sleep": 0.1,
+        "warm": 0.1,
+        "warmError": null
+      },
+      "action": "observe",
+      "tabSteps": 0,
+      "overflow": false
+    }
+  ],
+  "pairs": [
+    {
+      "label": "fire-1440-loaded",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-1440-readonly-forecast",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-1440-actual-warm",
+      "hash": "597aae81"
+    },
+    {
+      "label": "fire-1440-continued",
+      "hash": "597aae81"
+    },
+    {
+      "label": "wind-1440-loaded",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-1440-readonly-forecast",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-1440-actual-warm",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wind-1440-continued",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wet-1440-loaded",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-1440-readonly-forecast",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-1440-actual-warm",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "wet-1440-continued",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "bed-1440-loaded",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-1440-readonly-forecast",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-1440-actual-rest",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "bed-1440-continued",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "no-fire-1440-loaded",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-1440-readonly-forecast",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-1440-actual-wait",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "no-fire-1440-continued",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "moving-1440-loaded",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-1440-readonly-forecast",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-1440-actual-wait",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "moving-1440-continued",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "critical-1440-loaded",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-1440-readonly-forecast",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-1440-continued",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "deep-water-1440-loaded",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-1440-readonly-forecast",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-1440-continued",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "fire-1366-loaded",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-1366-readonly-forecast",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-1366-actual-warm",
+      "hash": "597aae81"
+    },
+    {
+      "label": "fire-1366-continued",
+      "hash": "597aae81"
+    },
+    {
+      "label": "wind-1366-loaded",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-1366-readonly-forecast",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-1366-actual-warm",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wind-1366-continued",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wet-1366-loaded",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-1366-readonly-forecast",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-1366-actual-warm",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "wet-1366-continued",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "bed-1366-loaded",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-1366-readonly-forecast",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-1366-actual-rest",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "bed-1366-continued",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "no-fire-1366-loaded",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-1366-readonly-forecast",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-1366-actual-wait",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "no-fire-1366-continued",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "moving-1366-loaded",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-1366-readonly-forecast",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-1366-actual-wait",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "moving-1366-continued",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "critical-1366-loaded",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-1366-readonly-forecast",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-1366-continued",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "deep-water-1366-loaded",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-1366-readonly-forecast",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-1366-continued",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "fire-390-loaded",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-390-readonly-forecast",
+      "hash": "67be90b0"
+    },
+    {
+      "label": "fire-390-actual-warm",
+      "hash": "597aae81"
+    },
+    {
+      "label": "fire-390-continued",
+      "hash": "597aae81"
+    },
+    {
+      "label": "wind-390-loaded",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-390-readonly-forecast",
+      "hash": "d062f574"
+    },
+    {
+      "label": "wind-390-actual-warm",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wind-390-continued",
+      "hash": "f6985715"
+    },
+    {
+      "label": "wet-390-loaded",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-390-readonly-forecast",
+      "hash": "b2056a01"
+    },
+    {
+      "label": "wet-390-actual-warm",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "wet-390-continued",
+      "hash": "8ca2feb2"
+    },
+    {
+      "label": "bed-390-loaded",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-390-readonly-forecast",
+      "hash": "a08019d1"
+    },
+    {
+      "label": "bed-390-actual-rest",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "bed-390-continued",
+      "hash": "dad8c864"
+    },
+    {
+      "label": "no-fire-390-loaded",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-390-readonly-forecast",
+      "hash": "89a402b2"
+    },
+    {
+      "label": "no-fire-390-actual-wait",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "no-fire-390-continued",
+      "hash": "42298f3e"
+    },
+    {
+      "label": "moving-390-loaded",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-390-readonly-forecast",
+      "hash": "89c4c9f2"
+    },
+    {
+      "label": "moving-390-actual-wait",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "moving-390-continued",
+      "hash": "1e39eb48"
+    },
+    {
+      "label": "critical-390-loaded",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-390-readonly-forecast",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "critical-390-continued",
+      "hash": "b80fe947"
+    },
+    {
+      "label": "deep-water-390-loaded",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-390-readonly-forecast",
+      "hash": "e96ae3ac"
+    },
+    {
+      "label": "deep-water-390-continued",
+      "hash": "e96ae3ac"
+    }
+  ],
+  "errors": [],
+  "sourceAuditSHA256": "4f6d84c54d970b3cd4c6a4a84c4537211a989fee27fa22a8a88bf6b1196f450a",
+  "runtimeSnapshot": "v393-validation-r5"
+}

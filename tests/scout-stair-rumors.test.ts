@@ -1,0 +1,26 @@
+import {SAVE_VERSION} from '../src/core/game'
+import {describe,it,expect} from 'vitest'
+import {scoutStairNativeFixture} from './scout-stair-rumors-fixture'
+import {stairClaims} from '../src/core/stair-claims'
+import {hearScoutRooms} from '../src/core/scout-room-rumors'
+import {turnOf,type World} from '../src/core/ctx'
+import {deserialize,serialize,stateHash} from '../src/core/save'
+import {runUntilInput} from '../src/core/game'
+import {knownSurveyMaps} from '../src/core/map-commissions'
+import {makeWorld} from './helpers'
+describe('동료의 실제 계단 관찰과 당시 위치 주장',()=>{
+ it('실제 정상 귀환36턴 뒤에도 대화 전 계단 위치를 알게 되지 않는다',()=>{const d=scoutStairNativeFixture('returned');expect(d.proof.actualTurns).toBe(36);expect(stairClaims(d.w,d.s.map.id,d.s.map)).toEqual([]);expect(d.s.map.tiles[d.stair.y*d.s.map.w+d.stair.x]!.observed).toBeUndefined()})
+ it('실제 대화1턴에만 원래 계단의 당시 관찰/목격자를 종이 없이 전한다',()=>{const d=scoutStairNativeFixture('returned'),at=d.s.time,ink=d.ink.count;d.act({type:'talk',target:d.npc.id});expect(d.s.time-at).toBe(100);const r=d.s.knowledge.rumors!.find(r=>r.kind==='stairs')!;expect(r).toMatchObject({hop:0,source:d.npc.name+'의 직접 정찰',writtenAt:d.stair.seenAt,stair:{x:d.stair.x,y:d.stair.y,terrain:d.stair.terrain,label:d.stair.label}});expect(r.mapDocument).toBeUndefined();expect(d.paper.note).toBeUndefined();expect(d.ink.count).toBe(ink);expect(d.s.map.tiles[d.stair.y*d.s.map.w+d.stair.x]!.observed).toBeUndefined()})
+ it('공개가 직접 탐험이 되거나 현재 숨은 계단으로 판정되지 않는다',()=>{const d=scoutStairNativeFixture('heard'),before=stateHash(d.s);expect(stairClaims(d.w,d.s.map.id,d.s.map)[0]!.status).toBe('unverified');expect(stateHash(d.s)).toBe(before)})
+ it('옛 지도와 같은 자리의 다른 계단 주장은 둘 다 미확인 충돌로 남는다',()=>{const d=scoutStairNativeFixture('conflict'),claims=stairClaims(d.w,d.s.map.id,d.s.map);expect(claims).toHaveLength(2);expect(claims.every(c=>c.status==='unverified'&&c.conflict)).toBe(true)})
+ it('직접 관찰한 계단과 비교할 때만 구술 확인/옛 지도 불일치를 구분한다',()=>{const d=scoutStairNativeFixture('conflict'),tile=d.s.map.tiles[d.stair.y*d.s.map.w+d.stair.x]!;tile.observed={terrain:d.stair.terrain,at:turnOf(d.w)};const claims=stairClaims(d.w,d.s.map.id,d.s.map);expect(claims.find(c=>c.origin==='rumor')!.status).toBe('verified');expect(claims.find(c=>c.origin==='document')!.status).toBe('contradicted')})
+ it('현재 숨은 지형이 바뀌어도 과거 직접 관찰과의 비교를 덮어쓰지 않는다',()=>{const d=scoutStairNativeFixture('heard'),tile=d.s.map.tiles[d.stair.y*d.s.map.w+d.stair.x]!;tile.observed={terrain:d.stair.terrain,at:turnOf(d.w)};tile.t='Terrain.Earth';expect(stairClaims(d.w,d.s.map.id,d.s.map)[0]!.status).toBe('verified')})
+ it('같은 이름의 다른 자리 계단을 근거 없이 동일 계단이라고 충돌시키지 않는다',()=>{const d=scoutStairNativeFixture('heard'),r=structuredClone(d.s.knowledge.rumors!.find(r=>r.kind==='stairs')!);r.id+=':another';r.stair!.x++;d.s.knowledge.rumors!.push(r);expect(stairClaims(d.w,d.s.map.id,d.s.map).every(c=>!c.conflict)).toBe(true)})
+ for(const mode of ['future','foreign','outOfBounds']as const)it(`${mode} 계단 주장을 현재 지도에서 공개하지 않는다`,()=>{const d=scoutStairNativeFixture('heard'),r=d.s.knowledge.rumors!.find(r=>r.kind==='stairs')!;if(mode==='future')r.writtenAt=turnOf(d.w)+1;if(mode==='foreign'){d.s.overworld=makeWorld(d.s.seed,undefined,true).s.overworld;r.regionId='elsewhere'}if(mode==='outOfBounds')r.stair!.x=r.mapW!;expect(stairClaims(d.w,d.s.map.id,d.s.map)).toEqual([])})
+ it('들었던 기록은 대화 재탕으로 시각/난수/내용을 갱신하지 않는다',()=>{const d=scoutStairNativeFixture('heard'),before=stateHash(d.s);expect(hearScoutRooms(d.w,d.p,d.npc)).toBe(0);expect(stateHash(d.s)).toBe(before)})
+ it('미래 계단 관찰은 실제 방 기록이 있어도 별도로 전하지 않는다',()=>{const d=scoutStairNativeFixture('returned');for(const m of d.npc.fieldMaps??[])for(const stair of m.stairs)stair.seenAt=turnOf(d.w)+1;expect(hearScoutRooms(d.w,d.p,d.npc)).toBeGreaterThan(0);expect(d.s.knowledge.rumors!.some(r=>r.kind==='stairs')).toBe(false)})
+ it('미래 날짜의 잘못된 플레이어 관찰을 직접 확인의 증거로 쓰지 않는다',()=>{const d=scoutStairNativeFixture('heard');d.s.map.tiles[d.stair.y*d.s.map.w+d.stair.x]!.observed={terrain:d.stair.terrain,at:turnOf(d.w)+1};expect(stairClaims(d.w,d.s.map.id,d.s.map)[0]!.status).toBe('unverified')})
+ it('계단만 들은 명시적인 층도 의뢰를 알되 숨은 층을 생성하지 않는다',()=>{const d=scoutStairNativeFixture('heard'),w=makeWorld('known-stair-floor',undefined,true),r=structuredClone(d.s.knowledge.rumors!.find(r=>r.kind==='stairs')!);r.mapId='unvisited-stair-floor';r.mapDepth=4;r.regionId=w.s.overworld!.currentRegion;w.s.knowledge.rumors=[r];const before=stateHash(w.s);expect(knownSurveyMaps(w).some(m=>m.mapId===r.mapId&&m.depth===4)).toBe(true);expect(w.s.maps[r.mapId]).toBeUndefined();expect(stateHash(w.s)).toBe(before)})
+ it('미완료 저장 뒤 남은19턴과 계단/방 보고/관찰/난수 전체가 같다',()=>{const d=scoutStairNativeFixture('pending'),at=d.s.time,copy:World={db:d.w.db,s:deserialize(serialize(d.s))};runUntilInput(d.w);runUntilInput(copy);expect(d.s.time-at).toBe(1900);expect(JSON.parse(serialize(copy.s))).toEqual(JSON.parse(serialize(d.s)))})
+ it('124각인은 과거 동료 관찰을 구술 보고로 소급하지 않는다',()=>{const d=scoutStairNativeFixture('returned'),old=JSON.parse(serialize(d.s));old.version=124;const next=deserialize(JSON.stringify(old));expect(next.version).toBe(SAVE_VERSION);expect({...next,version:124}).toEqual(old);expect(next.knowledge.rumors!.some(r=>r.kind==='stairs')).toBe(false)})
+})

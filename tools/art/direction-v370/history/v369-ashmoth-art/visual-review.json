@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "actuallyOpenedImages": [
+    {
+      "path": "/workspace/.ashveil-planned/v369-ashmoth-art/originals/ashmoth-four-states-v1.png",
+      "method": "view_image",
+      "opened": true,
+      "scope": "Full original; all four quadrant groups viewed. No browser, game view, crop PNG or native-size animation was opened."
+    }
+  ],
+  "stateFindings": {
+    "loose": {
+      "readableStaticState": true,
+      "observed": "Sparse horizontal ash-gray winged insects with large clear spaces. Natural variation of paired wing angle and body heading is visible among the larger readable insects.",
+      "limits": [
+        "Not a complete per-insect anatomy audit; the smallest marks do not resolve appendages.",
+        "No looping flight or hovering transitions demonstrated."
+      ]
+    },
+    "dense": {
+      "readableStaticState": true,
+      "observed": "Dense oval colony with many overlapping ash-gray moth silhouettes and a central less-occupied area. No lamp/torch/flame or game tile is drawn.",
+      "limits": [
+        "Overlapping wing/body shapes cannot be converted reliably to a literal insect count.",
+        "Central opening and nearby background contain low-alpha remnants, so not a mathematically empty aperture.",
+        "Larger moths visually resemble detailed moth/butterfly silhouettes; small-scale species legibility remains for actual integration."
+      ]
+    },
+    "moving": {
+      "readableStaticState": true,
+      "observed": "Wide asymmetric horizontal swarm, with a compact group at the right and smaller/sparser marks toward the left. Different individuals have different wing openings.",
+      "limits": [
+        "This is one static directional distribution. It does not prove actual individual rightward flight or a coherent wingbeat phase sequence."
+      ]
+    },
+    "dispersing": {
+      "readableStaticState": true,
+      "observed": "Widely separated ash-gray insects around a more open middle; multiple outward body headings. No attack/explosion/blood is painted.",
+      "limits": [
+        "This is not a temporal correspondence to the other states; individuals are not tracked between panels."
+      ]
+    }
+  },
+  "globalFindings": {
+    "fourQuadrantsHaveDistinctRGBARegionHashes": true,
+    "actualLightPainted": false,
+    "gameTilesPainted": false,
+    "readableTextPainted": false,
+    "humanoidOrCombatScenePainted": false,
+    "giantCentralMothObserved": false,
+    "allIndividualInsectAppendagesExhaustivelyVerified": false,
+    "strictHardPixelGridConsistencyDemonstrated": false,
+    "nativeScaleReadabilityObserved": false,
+    "sourceCanvasMeaningfulAlpha8Clipped": false,
+    "strictZeroAlphaCanvasMargins": false,
+    "notes": [
+      "The image viewer displays substantial RGB gray fields, including behind alpha=0 pixels; this is not an opaque black/gray rectangle. Numeric RGBA analysis is recorded separately.",
+      "There are actual low-alpha background remnants: wide vertical gutter alpha max1, horizontal max2; canvas edge305 pixels at alpha1. No alpha cleanup was performed.",
+      "All source alpha values are<=253: insects are near-opaque, not fully alpha255.",
+      "Textured wing detail and anti-aliased edge alpha are present; strict hard-edged pixel-grid consistency and game-scale readability were not accepted."
+    ]
+  },
+  "acceptance": {
+    "staticMeaningfulStateCandidates": 4,
+    "releaseAcceptedStaticStates": 0,
+    "flightAnimationClips": 0,
+    "activationReady": false,
+    "strictAlphaContract": false,
+    "mainGameEnabled": false
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "created": "2026-10-21",
+  "license": "CC0-1.0",
+  "commercialUseAllowed": true,
+  "redistributionAndDerivativePackagesAllowed": true,
+  "attributionRequired": false,
+  "source": "tools/art/draw-survival-items.py",
+  "sourceSha256": "7367cfe8e7a3847abafa46a36f93814c0562a6365ce5e856f00c23fef5624cf6",
+  "referenceContract": "tools/art/survival-reference-contract.json",
+  "referenceContractSha256": "9e74d2315bad896578a1a1d664567d7171ac1627827008edc0a5ea7aec4bd271",
+  "method": "New integer polygons/lines/points for torn rag, rolled bandage, neutral wrapped torch, unlit kit and natural portable flint.",
+  "externalImageInputs": [],
+  "modelImageInputs": [],
+  "existingImagesCopiedEditedOrRecolored": false,
+  "existingGeometryReused": false,
+  "helperReuse": "Canvas and generic RGBA/PNG/SVG/16px IO helpers from this workflow's earlier own CC0 oat tool; color families reused/adjusted, all five geometry functions newly written.",
+  "helperOrigin": "ashveil-oat-art/tools/art/draw-oat-items.py",
+  "helperOriginSha256": "383332a50e46266e19995556036501b073103340fc2828db9338073e9e2d0b27",
+  "integrationApplied": false,
+  "nativeSize": [
+    32,
+    32
+  ],
+  "smallSize": [
+    16,
+    16
+  ],
+  "contactContainsGroundApproximation": [
+    12,
+    12
+  ],
+  "contactGroundSampleIsNotRuntimeCapture": true,
+  "paletteEntries": 20,
+  "alphaValues": [
+    0,
+    255
+  ],
+  "stateOrder": [
+    "cloth",
+    "bandage",
+    "torch",
+    "campfire_kit",
+    "stone"
+  ],
+  "proposedTargets": {
+    "Item.Cloth": "original_hearth_cloth",
+    "Item.Bandage": "original_hearth_bandage",
+    "Item.Torch": "original_hearth_torch",
+    "Item.CampfireKit": "original_hearth_campfire_kit",
+    "Item.Stone": "original_hearth_stone"
+  },
+  "opaqueBoundsInclusive": {
+    "cloth": [
+      3,
+      4,
+      27,
+      29
+    ],
+    "bandage": [
+      3,
+      6,
+      27,
+      29
+    ],
+    "torch": [
+      5,
+      2,
+      28,
+      29
+    ],
+    "campfire_kit": [
+      2,
+      5,
+      29,
+      29
+    ],
+    "stone": [
+      3,
+      4,
+      27,
+      29
+    ]
+  },
+  "opaquePixels": {
+    "cloth": 453,
+    "bandage": 390,
+    "torch": 257,
+    "campfire_kit": 450,
+    "stone": 474
+  },
+  "optionalArtBottomEdge": 30,
+  "optionalFootPoint": [
+    16,
+    30
+  ],
+  "optionalFootIsNotNewRuntimeAnchor": true,
+  "torchRepresentation": "Single state-neutral noun, no painted flame/ember/smoke/light halo. Existing item lit/fuel labels and inventory dot retain actual state. No lit/unlit sprite key transition added.",
+  "notEncoded": [
+    "stack amount",
+    "exact recipe ingredients/count",
+    "fuel remaining",
+    "current lit state",
+    "healing/cleanliness/contamination answer",
+    "yield/performance",
+    "ground shadow"
+  ],
+  "files": [
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-cloth.png",
+      "bytes": 362,
+      "sha256": "fc4d96c5cd0b2ac691e76e5ef6bd6ab206349d7f0c6737d9eddd81a556ba6999"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-cloth.svg",
+      "bytes": 12701,
+      "sha256": "1ae9ed680b70240b8e5524fbbb56a80e725826823e0b06d38b404580763cb87b"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-cloth-16.png",
+      "bytes": 204,
+      "sha256": "cf6054b5ef083cf1c457dba3f25b7d649103f2d7879253c40c8042ca11792194"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-bandage.png",
+      "bytes": 329,
+      "sha256": "5a0eae065e51118ccb0fd83ed3589c52be0dafc089c343d0852ed93e9a1a2865"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-bandage.svg",
+      "bytes": 11170,
+      "sha256": "57b65abc862cfffb3353099e5d15635d7d3377e309838d902e00e419a262e5c0"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-bandage-16.png",
+      "bytes": 182,
+      "sha256": "f4bbf40d199fc7d8ecd1ae486d46bfb3ff52a46f669a154730bb29cb0f41c5c6"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-torch.png",
+      "bytes": 290,
+      "sha256": "0ea5d97a3bde19d42291db1589558071dbeecf7251357babf51e87f745df8f65"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-torch.svg",
+      "bytes": 8482,
+      "sha256": "96d89be72760d23f124b904ffa1c59c138e2059ce96bcd3afa862c131012d76f"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-torch-16.png",
+      "bytes": 170,
+      "sha256": "c0bbd55a3692e5c83b5086f8fd2598d01fd77f73489fe394ed7ca6ea8f62e097"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-campfire-kit.png",
+      "bytes": 413,
+      "sha256": "95e91f5b246c291a8c88d5d0e6f92712caa801c084072b0565873b03ee22bdbe"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-campfire-kit.svg",
+      "bytes": 12204,
+      "sha256": "46d04d939196b91c32d7f9945def21f8f64bc0318e2aba1ec124af44516bde2d"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-campfire-kit-16.png",
+      "bytes": 224,
+      "sha256": "26334dfe8aea65ce93a858b07bedb28704b3b2a5a13bab7907d4d8d567f147b2"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-stone.png",
+      "bytes": 317,
+      "sha256": "aa6339deb11beb5c7cf1a5f64b1d44118f9c0372a9c5e6de00883e0754386784"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-stone.svg",
+      "bytes": 10017,
+      "sha256": "8faa87ace9dbde551317c9cb9f96165ceca97423d14cb2f91263ce00a47d0e76"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-hearth-stone-16.png",
+      "bytes": 179,
+      "sha256": "2d927f38e21bef5ba77dff09f2284e80372d14834e2ca9d003a34b2d8b084b68"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-survival-contact.png",
+      "bytes": 11799,
+      "sha256": "49d9a91e8b2143baf90b2ff907f90cf683233d8c8e703e8b86055cf9d9bf6d1b"
+    },
+    {
+      "file": "public/sprites/original/items/ashveil-survival-palette.json",
+      "bytes": 363,
+      "sha256": "ddd87c4d339f91307a2b2c74bd61d359424fcd3fa26bcd2528b6115910ff3d45"
+    },
+    {
+      "file": "tools/art/survival-manifest.fragment.json",
+      "bytes": 1005,
+      "sha256": "a6e3461a7bef0cff16634e219eb89e79fd1c612861a57dcbc571e34b94f2b661"
+    }
+  ]
+}

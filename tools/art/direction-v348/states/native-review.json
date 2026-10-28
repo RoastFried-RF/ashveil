@@ -1,0 +1,59 @@
+{
+  "scope": "Standalone body-ground source display; no game/Core/Native verification",
+  "originalReviewMethod": "All5raw tool-returned originals were directly inspected; preserved copies are byte-identical. Existing v334/v342/v3446source PNGs were opened directly before generation.",
+  "screenshotsDirectlyViewed": [
+    {
+      "path": "diagnostics/hurt-four-phase-x3.png",
+      "sha256": "19814eb2d50171d43d9fea31c9a4dfd62ec97b32d65e14d55d743bcdc92bf3b0"
+    },
+    {
+      "path": "diagnostics/fall-four-phase-x3.png",
+      "sha256": "76c24a2d11bd7ae9394f8cd5afd1530a5906b5f4829db1a6bf17f8e6c198023b"
+    },
+    {
+      "path": "diagnostics/sleep-four-phase-x3.png",
+      "sha256": "c7c9aa821dd74df9cebe9b2c73b0a194857fa00dd2bb3f7157d3403b3b1156ed"
+    },
+    {
+      "path": "diagnostics/rise-four-phase-x3.png",
+      "sha256": "efe9c4064c06e4a630ed01d37e8a5c3b79fbde2d240958876131221c1462b8f7"
+    },
+    {
+      "path": "diagnostics/work-four-phase-x3.png",
+      "sha256": "374a3943061fcae559b25205fa1589168dd5287cf303ce7e2cb03878cecfb89f"
+    },
+    {
+      "path": "diagnostics/family-native-phase0.png",
+      "sha256": "dc828329d1f1eb9a20eea7da03ae45c992e4ab015925977b1714ee4f54cfbf9a"
+    },
+    {
+      "path": "diagnostics/family-x3-phase3.png",
+      "sha256": "a3d64d7b336e49aebc728bcded68e8ed3b32541171be02732b812c1b17776a7c"
+    },
+    {
+      "path": "diagnostics/failed-source-rows.png",
+      "sha256": "e16dbbc00709b1e39138039dffb31e8dd9c07868b1dee176b0348fdf650ea47f"
+    },
+    {
+      "path": "diagnostics/failed-pixel-zooms.png",
+      "sha256": "ed42367a4b390f08a0519d0ab99c26fd560cd0a4c943e159be07dab8a83710e2"
+    }
+  ],
+  "otherCapturedFamilyPhases": "Remaining family phase snapshots are preserved but not marked individually opened; all80new poses were viewed in the5four-phase charts.",
+  "candidateRegionsReviewed": 80,
+  "proposedRegions": 72,
+  "wholeHeldDirectionalRegions": 8,
+  "findings": "See pose-review.json for visible support/occlusion and sleep flank-projection limits; failure-detail.json identifies exact rectangular crop contamination.",
+  "bodyGroundAnchor": "Approximate nominal source ground projection, not four actual independent contacts or hidden-foot reconstruction.",
+  "cycleProposalsMs": {
+    "hurt": 480,
+    "fall": 900,
+    "sleep": 5200,
+    "rise": 1200,
+    "work": 2000
+  },
+  "playbackTimingActuallyTested": false,
+  "actualBodyStateTransitionsTested": false,
+  "active": false,
+  "activationReady": false
+}

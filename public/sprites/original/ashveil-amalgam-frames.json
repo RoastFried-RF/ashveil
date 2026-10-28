@@ -1,0 +1,673 @@
+{
+  "format": "ashveil-atlas-fragment-v1",
+  "status": "prepared-not-installed",
+  "mode": "optional-directional-character",
+  "character": "amalgam",
+  "provenance": "Original directly authored living fused-patient geometry in tools/art/draw-amalgam.mjs; no input images.",
+  "sheets": {
+    "amalgam": "sprites/original/ashveil-amalgam-legacy.png",
+    "amalgam_walk": "sprites/original/ashveil-amalgam-walk.png",
+    "amalgam_atk": "sprites/original/ashveil-amalgam-attack.png"
+  },
+  "frames": {
+    "amalgam0": [
+      "amalgam",
+      0,
+      0,
+      96,
+      64
+    ],
+    "amalgam1": [
+      "amalgam",
+      96,
+      0,
+      96,
+      64
+    ],
+    "amalgam2": [
+      "amalgam",
+      192,
+      0,
+      96,
+      64
+    ],
+    "amalgam3": [
+      "amalgam",
+      288,
+      0,
+      96,
+      64
+    ],
+    "amalgam4": [
+      "amalgam",
+      384,
+      0,
+      96,
+      64
+    ],
+    "amalgam5": [
+      "amalgam",
+      480,
+      0,
+      96,
+      64
+    ],
+    "amalgam_w_down0": [
+      "amalgam_walk",
+      0,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_down1": [
+      "amalgam_walk",
+      80,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_down2": [
+      "amalgam_walk",
+      160,
+      0,
+      80,
+      64
+    ],
+    "amalgam_w_left0": [
+      "amalgam_walk",
+      0,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_left1": [
+      "amalgam_walk",
+      80,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_left2": [
+      "amalgam_walk",
+      160,
+      64,
+      80,
+      64
+    ],
+    "amalgam_w_right0": [
+      "amalgam_walk",
+      0,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_right1": [
+      "amalgam_walk",
+      80,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_right2": [
+      "amalgam_walk",
+      160,
+      128,
+      80,
+      64
+    ],
+    "amalgam_w_up0": [
+      "amalgam_walk",
+      0,
+      192,
+      80,
+      64
+    ],
+    "amalgam_w_up1": [
+      "amalgam_walk",
+      80,
+      192,
+      80,
+      64
+    ],
+    "amalgam_w_up2": [
+      "amalgam_walk",
+      160,
+      192,
+      80,
+      64
+    ],
+    "amalgam_a_down0": [
+      "amalgam_atk",
+      0,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down1": [
+      "amalgam_atk",
+      96,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down2": [
+      "amalgam_atk",
+      192,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_down3": [
+      "amalgam_atk",
+      288,
+      0,
+      96,
+      80
+    ],
+    "amalgam_a_left0": [
+      "amalgam_atk",
+      0,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left1": [
+      "amalgam_atk",
+      96,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left2": [
+      "amalgam_atk",
+      192,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_left3": [
+      "amalgam_atk",
+      288,
+      80,
+      96,
+      80
+    ],
+    "amalgam_a_right0": [
+      "amalgam_atk",
+      0,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right1": [
+      "amalgam_atk",
+      96,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right2": [
+      "amalgam_atk",
+      192,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_right3": [
+      "amalgam_atk",
+      288,
+      160,
+      96,
+      80
+    ],
+    "amalgam_a_up0": [
+      "amalgam_atk",
+      0,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up1": [
+      "amalgam_atk",
+      96,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up2": [
+      "amalgam_atk",
+      192,
+      240,
+      96,
+      80
+    ],
+    "amalgam_a_up3": [
+      "amalgam_atk",
+      288,
+      240,
+      96,
+      80
+    ]
+  },
+  "anims": {
+    "amalgam": {
+      "frames": [
+        "amalgam0",
+        "amalgam1",
+        "amalgam2",
+        "amalgam3",
+        "amalgam4",
+        "amalgam5"
+      ],
+      "fps": 6
+    }
+  },
+  "chars": {
+    "amalgam": {
+      "walk": {
+        "down": [
+          "amalgam_w_down0",
+          "amalgam_w_down1",
+          "amalgam_w_down2"
+        ],
+        "left": [
+          "amalgam_w_left0",
+          "amalgam_w_left1",
+          "amalgam_w_left2"
+        ],
+        "right": [
+          "amalgam_w_right0",
+          "amalgam_w_right1",
+          "amalgam_w_right2"
+        ],
+        "up": [
+          "amalgam_w_up0",
+          "amalgam_w_up1",
+          "amalgam_w_up2"
+        ]
+      },
+      "idle": {
+        "down": [
+          "amalgam_w_down1"
+        ],
+        "left": [
+          "amalgam_w_left1"
+        ],
+        "right": [
+          "amalgam_w_right1"
+        ],
+        "up": [
+          "amalgam_w_up1"
+        ]
+      },
+      "attack": {
+        "down": [
+          "amalgam_a_down0",
+          "amalgam_a_down1",
+          "amalgam_a_down2",
+          "amalgam_a_down3"
+        ],
+        "left": [
+          "amalgam_a_left0",
+          "amalgam_a_left1",
+          "amalgam_a_left2",
+          "amalgam_a_left3"
+        ],
+        "right": [
+          "amalgam_a_right0",
+          "amalgam_a_right1",
+          "amalgam_a_right2",
+          "amalgam_a_right3"
+        ],
+        "up": [
+          "amalgam_a_up0",
+          "amalgam_a_up1",
+          "amalgam_a_up2",
+          "amalgam_a_up3"
+        ]
+      },
+      "anchor": [
+        0.5,
+        0.984375
+      ],
+      "attackAnchor": [
+        0.5,
+        0.9875
+      ],
+      "renderScale": 1,
+      "headOffset": 52
+    }
+  },
+  "contract": {
+    "preservedExistingFrameCount": 6,
+    "newWalkFrameCount": 12,
+    "newAttackFrameCount": 16,
+    "totalNamedFrames": 34,
+    "originalMode": "anims.amalgam only; no chars.amalgam entry",
+    "idleInDirectionalRenderer": "Only idle[dir][0] is displayed, plus existing scale-based breathing; legacy six-frame loop is retained by name but is not played by this branch.",
+    "knownRendererDifferences": {
+      "shadowRadii": {
+        "existingAnimated": [
+          18,
+          4
+        ],
+        "currentCharacterBranch": [
+          6,
+          2
+        ]
+      },
+      "healthBarWidth": {
+        "existingAnimated": 24,
+        "currentCharacterBranch": 14
+      },
+      "headOffset": {
+        "existingAnimated": 44,
+        "proposedCharacter": 52
+      },
+      "scale": {
+        "existingAnimated": 0.75,
+        "proposedCharacter": 1
+      },
+      "integration": "Root should assess boss-size shadow and health bar when choosing this optional chars.amalgam entry. Art package makes no renderer changes."
+    }
+  },
+  "layout": {
+    "rowOrder": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ],
+    "walkCell": [
+      80,
+      64
+    ],
+    "walkSheet": [
+      240,
+      256
+    ],
+    "walkPoses": [
+      "drag-left",
+      "idle",
+      "drag-right"
+    ],
+    "attackCell": [
+      96,
+      80
+    ],
+    "attackSheet": [
+      384,
+      320
+    ],
+    "attackPoses": [
+      "ready",
+      "draw-back",
+      "sweep",
+      "reset"
+    ],
+    "attackBodyOffset": [
+      8,
+      16
+    ],
+    "floor": {
+      "walk": 63,
+      "attack": 79,
+      "attackMinusBodyOffset": 63
+    },
+    "measuredDirectionalBounds": [
+      {
+        "name": "amalgam_w_down0",
+        "minX": 5,
+        "minY": 11,
+        "maxX": 75,
+        "maxY": 62,
+        "width": 71,
+        "height": 52
+      },
+      {
+        "name": "amalgam_w_down1",
+        "minX": 4,
+        "minY": 11,
+        "maxX": 76,
+        "maxY": 62,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_w_down2",
+        "minX": 3,
+        "minY": 11,
+        "maxX": 77,
+        "maxY": 62,
+        "width": 75,
+        "height": 52
+      },
+      {
+        "name": "amalgam_w_left0",
+        "minX": 5,
+        "minY": 12,
+        "maxX": 75,
+        "maxY": 62,
+        "width": 71,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_left1",
+        "minX": 4,
+        "minY": 12,
+        "maxX": 76,
+        "maxY": 62,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_left2",
+        "minX": 3,
+        "minY": 12,
+        "maxX": 77,
+        "maxY": 62,
+        "width": 75,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_right0",
+        "minX": 5,
+        "minY": 12,
+        "maxX": 75,
+        "maxY": 62,
+        "width": 71,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_right1",
+        "minX": 4,
+        "minY": 12,
+        "maxX": 76,
+        "maxY": 62,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_right2",
+        "minX": 3,
+        "minY": 12,
+        "maxX": 77,
+        "maxY": 62,
+        "width": 75,
+        "height": 51
+      },
+      {
+        "name": "amalgam_w_up0",
+        "minX": 5,
+        "minY": 11,
+        "maxX": 75,
+        "maxY": 62,
+        "width": 71,
+        "height": 52
+      },
+      {
+        "name": "amalgam_w_up1",
+        "minX": 4,
+        "minY": 11,
+        "maxX": 76,
+        "maxY": 62,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_w_up2",
+        "minX": 3,
+        "minY": 11,
+        "maxX": 77,
+        "maxY": 62,
+        "width": 75,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_down0",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_down1",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_down2",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_down3",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_left0",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_left1",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 86,
+        "maxY": 78,
+        "width": 75,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_left2",
+        "minX": 1,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 84,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_left3",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_right0",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_right1",
+        "minX": 10,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 75,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_right2",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 95,
+        "maxY": 78,
+        "width": 84,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_right3",
+        "minX": 12,
+        "minY": 28,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 51
+      },
+      {
+        "name": "amalgam_a_up0",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_up1",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_up2",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      },
+      {
+        "name": "amalgam_a_up3",
+        "minX": 12,
+        "minY": 27,
+        "maxX": 84,
+        "maxY": 78,
+        "width": 73,
+        "height": 52
+      }
+    ],
+    "note": "Three heads, four arms, no legs in every base recipe. Names amalgam0..5 and anims.amalgam are preserved; new directional frames are explicitly additional. Core, body damage, noBack and multi-cell targeting do not change."
+  }
+}

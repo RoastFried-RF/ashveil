@@ -1,0 +1,108 @@
+[
+  {
+    "defType": "WaterSafety",
+    "id": "WaterSafety.Human",
+    "sources": {
+      "well": {
+        "pathogen": 10,
+        "ash": 5,
+        "source": "우물물"
+      },
+      "stream": {
+        "pathogen": 35,
+        "ash": 15,
+        "source": "개울물"
+      },
+      "pond": {
+        "pathogen": 70,
+        "ash": 20,
+        "source": "고인 물"
+      },
+      "rain": {
+        "pathogen": 5,
+        "ash": 40,
+        "source": "재비 빗물"
+      },
+      "snow": {
+        "pathogen": 5,
+        "ash": 25,
+        "source": "눈 녹인 물"
+      },
+      "clean": {
+        "pathogen": 0,
+        "ash": 5,
+        "source": "끓인 물"
+      }
+    },
+    "treatments": {
+      "boil": {
+        "turns": 200,
+        "pathogenMult": 0,
+        "ashMult": 1.1,
+        "fuel": "Item.Wood"
+      },
+      "cloth": {
+        "turns": 20,
+        "pathogenMult": 0.8,
+        "ashMult": 0.7,
+        "tool": "Item.ClothFilter"
+      },
+      "charcoal": {
+        "turns": 30,
+        "pathogenMult": 0.7,
+        "ashMult": 0.4,
+        "tool": "Item.CharcoalFilter"
+      },
+      "settle": {
+        "turns": 7200,
+        "pathogenMult": 1,
+        "ashMult": 0.6
+      },
+      "pill": {
+        "turns": 1,
+        "pathogenMult": 0,
+        "ashMult": 1,
+        "tool": "Item.WaterPill"
+      }
+    },
+    "exposureMl": 500,
+    "pathogenRisk": 0.003,
+    "ashDivisor": 20,
+    "ashDaily": 1,
+    "nauseaAt": 30,
+    "nauseaAbsorption": 0.9,
+    "kidneyAt": 60,
+    "kidneyDamage": 1,
+    "kidneys": [
+      "LeftKidney",
+      "RightKidney"
+    ],
+    "corpsePathogen": 30,
+    "rainAcidity": 3,
+    "snowCoolingPer100": 0.05,
+    "riskBands": [
+      {
+        "at": 0,
+        "label": "없음"
+      },
+      {
+        "at": 0.01,
+        "label": "낮음"
+      },
+      {
+        "at": 15,
+        "label": "보통"
+      },
+      {
+        "at": 30,
+        "label": "높음"
+      },
+      {
+        "at": 60,
+        "label": "매우 높음"
+      }
+    ],
+    "disease": "Disease.Dysentery",
+    "dysenteryAbsorption": 0.5
+  }
+]

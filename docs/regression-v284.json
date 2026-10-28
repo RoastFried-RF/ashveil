@@ -1,0 +1,97 @@
+{
+  "checkpoint": "v284-final",
+  "manifestSha256": "8306f9077902d75bc1ecc42d3043dd3ce447862bbec8874dfb1f3493c5a9bd5a",
+  "save": 192,
+  "definitions": 880,
+  "items": 205,
+  "recipes": 87,
+  "patches": 295,
+  "source": {
+    "src": {
+      "files": 648,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1005,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 44,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 248,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 318,
+    "passed": 5812,
+    "failed": 0,
+    "seconds": 649.0134284667969,
+    "workers": 2,
+    "ranIn": "v284 (ALL product/tests bytes exact v284-final)"
+  },
+  "world": {
+    "status": "passed",
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 432.311690572,
+    "averageDays": 0.4675023148148149,
+    "causes": {
+      "저체온": 20,
+      "치명상": 4,
+      "과다 출혈": 6
+    },
+    "wholeResultRowsIdenticalTo283": 30
+  },
+  "goldens": "ALL5 initial/final/errors vs283:4 metadata paths only (version191→192/Posture.Crouch/2contentHashes). Remaining WHOLE/time/RNG/UID/errors exact283. Archived283 vectors once.",
+  "native": {
+    "screenshots": 7,
+    "wholeRoundtrips": 2,
+    "wholeStatePhases": 13,
+    "actualInputTU": 600,
+    "errors": 0
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen284": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen284": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true
+  },
+  "all15PngIndependentlyViewed": true,
+  "originalFailures": "First targeted2files24:23passed/1failed. Noise fixture assumed multiplier1 on existing wet Earth0.8; only test destination changed to real CdFloor1.0, unchanged noise threshold/rounding/terrain/stance values. Real rejected-sleep posture deletion moved after all rejection checks and covered by whole-state invariant. Second related5files87 and golden/schema/key4files49 PASS. Nonexistent world-golden test path was ignored; actual4 count recorded.",
+  "art": "Original crouch icon5 and Reaver1 28poses8 outputs reproduced; Root reviewed contact and Native7+2titles, independent15 final PNG reviewed. No Shade/locked-door285/286 code included."
+}

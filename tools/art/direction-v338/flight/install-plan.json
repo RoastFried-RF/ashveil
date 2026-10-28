@@ -1,0 +1,24 @@
+{
+  "status": "inactive first-loop candidate; parent review of narrow source gutters and actual runtime required",
+  "originals": [
+    {
+      "source": "originals/ash-crow-flight-loop-v1.png",
+      "targetRelativeToPublic": "sprites/original/direction-v338/ash-crow-flight-loop-v1.png",
+      "sha256": "c8d13cdb41ac468988a885db9bbf6aa932aa2ba9f634ad5d1124c86e623ce901",
+      "size": [
+        1254,
+        1254
+      ],
+      "uniqueRegions": 16
+    }
+  ],
+  "registryFragment": "sprites.fragment.json",
+  "authoringClip": "flight-loop.fragment.json",
+  "sourceAnchorContract": "source-centres.json",
+  "proportionComparison": "proportion-comparison.json",
+  "runtimeContract": "runtime-contract.json",
+  "currentRuntimeCompatibleCharPatch": false,
+  "reason": "Current MotionName and pose selection lack flight; do not blindly merge authoring clip into a current CharDef. Parent owns path/height/roof/wing-capacity/energy/shadow and cue selection.",
+  "activationReady": false,
+  "active": false
+}

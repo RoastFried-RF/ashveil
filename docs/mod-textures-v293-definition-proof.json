@@ -1,0 +1,24 @@
+{
+  "baseline": "immutable v292-final",
+  "current": "immutable v293-final",
+  "definitions": 884,
+  "defaultDefinitionsAllExact": true,
+  "defaultLoadHashExact": true,
+  "activeOnlyChangesSaltSpriteAndSourceMod": true,
+  "changes": [
+    {
+      "path": "/Item.Salt/sprite",
+      "before": "original_salt",
+      "after": "mod:sample-original-textures/textures/salt-pouch.png"
+    },
+    {
+      "path": "/Item.Salt/_mod",
+      "before": "core",
+      "after": "sample-original-textures"
+    }
+  ],
+  "activeModHash": "sha256-7075f75a5110c6237753741ca453d99105d964b93ad3527eaa2ded6d998bd072",
+  "activeTextureCount": 1,
+  "noGameplayNumericDefinitionsChanged": true,
+  "firstAudit": "Initial stricter assertion expected onlysprite and failed on existing loader source-provenance _mod core→sample-original-textures. Rawfirstlog retained. Explicit secondaudit requires exactlythese2paths, no product/source rule change."
+}

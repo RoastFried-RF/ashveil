@@ -1,0 +1,229 @@
+{
+  "created": "2026-10-21",
+  "scope": "Read-only Root working-tree source snapshot for exactly five existing non-pill items; not a game simulation.",
+  "items": [
+    {
+      "id": "Item.Salt",
+      "source": "src/content/core/defs/crafting.json",
+      "definition": {
+        "defType": "Item",
+        "id": "Item.Salt",
+        "label": "소금",
+        "sprite": "pill_white",
+        "category": "misc",
+        "weight": 0,
+        "value": 2,
+        "size": [
+          1,
+          1
+        ],
+        "stackable": true,
+        "maxStack": 5
+      }
+    },
+    {
+      "id": "Item.GlassEye",
+      "source": "src/content/core/defs/prosthetics.json",
+      "definition": {
+        "defType": "Item",
+        "id": "Item.GlassEye",
+        "label": "유리 눈",
+        "description": "결손 부위에 설치하는 유리 눈.",
+        "sprite": "pill_blue",
+        "category": "medical",
+        "weight": 1,
+        "size": [
+          1,
+          1
+        ],
+        "value": 20,
+        "prosthetic": "Prosthetic.GlassEye",
+        "repair": {
+          "material": "Item.GlassShard",
+          "unitsPer10": 0.25,
+          "turns": 100,
+          "attr": "per",
+          "tools": [
+            "blade"
+          ]
+        }
+      }
+    },
+    {
+      "id": "Item.PowerCell",
+      "source": "src/content/core/defs/prosthetics.json",
+      "definition": {
+        "defType": "Item",
+        "id": "Item.PowerCell",
+        "label": "개척 전원셀",
+        "description": "개척 의수에30일 분량의 전력을 공급한다.",
+        "sprite": "pill_green",
+        "category": "tool",
+        "weight": 0.1,
+        "size": [
+          1,
+          1
+        ],
+        "value": 50,
+        "stackable": true,
+        "maxStack": 5
+      }
+    },
+    {
+      "id": "Item.HealthDraught",
+      "source": "src/content/core/defs/items-consumables.json",
+      "definition": {
+        "defType": "Item",
+        "id": "Item.HealthDraught",
+        "label": "쓴 약초탕",
+        "description": "수도원 약제실의 약초를 달인 물. 상처의 열을 내리고 체력을 조금 돌려준다.",
+        "sprite": "pill_green",
+        "category": "drug",
+        "weight": 0.3,
+        "size": [
+          1,
+          1
+        ],
+        "stackable": true,
+        "maxStack": 3,
+        "value": 20,
+        "drug": {
+          "effect": "draught",
+          "durationTurns": 30
+        }
+      }
+    },
+    {
+      "id": "Item.PurificationAmpoule",
+      "source": "src/content/core/defs/items-consumables.json",
+      "definition": {
+        "defType": "Item",
+        "id": "Item.PurificationAmpoule",
+        "label": "정화 앰플",
+        "description": "개척기 항생 약품. 사흘 동안 감염 진행을70%늦춘다. 이질에 걸릴 위험이 있다.",
+        "sprite": "pill_blue",
+        "category": "drug",
+        "weight": 0.1,
+        "size": [
+          1,
+          1
+        ],
+        "stackable": false,
+        "maxStack": 1,
+        "value": 100,
+        "drug": {
+          "effect": "purificationAmpoule",
+          "durationTurns": 86400,
+          "def": "Drug.PurificationAmpoule"
+        },
+        "relic": true,
+        "unknownLabel": "밀봉된 앰플",
+        "unknownDescription": "기호가 새겨진 개척기 앰플이다. 내용물의 용도는 모른다."
+      }
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/content/core/defs/crafting.json",
+      "sha256": "d9b195e70adc37176790dac989bc302a3733c27006be8a94b51452816688bec1"
+    },
+    {
+      "path": "src/content/core/defs/prosthetics.json",
+      "sha256": "b648c7d8a20c60d8059cb875e3c9c82fd45f7231ee44cdb2772675e47e7a7371"
+    },
+    {
+      "path": "src/content/core/defs/items-consumables.json",
+      "sha256": "e18f842b569670fa3f6006b96d9384e0b950c8c586457c9a1c32cc0d096e2195"
+    },
+    {
+      "path": "src/content/core/patches/saltrim-coast.json",
+      "sha256": "834aa61009149ac5b3f2e212d28ea03f49efa3d5cdddf84989ed2c0e9878375a"
+    },
+    {
+      "path": "src/core/prosthetics.ts",
+      "sha256": "1fd68bf5ff22cb3e0533e794c8e7e021a397fddacf076f24c08d1e805ecc6d82"
+    },
+    {
+      "path": "src/core/fluid-crafting.ts",
+      "sha256": "9e4e6cbbfb73f3a5bd8aff12bae657661d9cc9913a2af7f08ca48b11b4268584"
+    },
+    {
+      "path": "src/core/body.ts",
+      "sha256": "9c52aa63df7c06a00cf9d09d764607398b59a9860135df2ac5afef3d774c3c5d"
+    },
+    {
+      "path": "docs/design/02-body-and-health.md",
+      "sha256": "1bda5934f94106eaf77c642447838bf14e75dd28598d5c5950414ad4d9625a89"
+    },
+    {
+      "path": "docs/design/08-items-and-crafting.md",
+      "sha256": "82e5e907930da845d1c9584e7516d5829895e16c9dd753959c58c1b5a801c92f"
+    },
+    {
+      "path": "docs/lore/world-bible.md",
+      "sha256": "59df5652bfc698f362f0b40613fd457f063a0865a4316c7ad7a2a6c23d0850cd"
+    },
+    {
+      "path": "docs/lore/factions.md",
+      "sha256": "8cc9eb1ccf4852a732a9f83942b2d1144a6df9319d24cd45a18e855137436eb1"
+    }
+  ],
+  "excludes": [
+    "all six pill appearance definitions",
+    "Item.WaterPill"
+  ],
+  "applied": false,
+  "saltGramsPatch": [
+    {
+      "op": "add",
+      "target": "Item.Salt",
+      "path": "/saltGrams",
+      "value": 35
+    }
+  ],
+  "prostheticRules": [
+    {
+      "defType": "Prosthetic",
+      "structureHp": 8,
+      "installTurns": 60,
+      "removeTurns": 20,
+      "serviceTurns": 40,
+      "medicine": 1,
+      "grip": true,
+      "id": "Prosthetic.GlassEye",
+      "label": "유리 눈",
+      "item": "Item.GlassEye",
+      "targets": [
+        "LeftEye",
+        "RightEye"
+      ],
+      "efficiency": 0,
+      "firstImpression": 3
+    },
+    {
+      "defType": "Prosthetic",
+      "structureHp": 80,
+      "installTurns": 120,
+      "removeTurns": 20,
+      "serviceTurns": 40,
+      "medicine": 3,
+      "grip": true,
+      "id": "Prosthetic.PioneerArm",
+      "label": "개척 의수",
+      "item": "Item.PioneerArm",
+      "targets": [
+        "LeftForearm",
+        "LeftHand",
+        "RightForearm",
+        "RightHand"
+      ],
+      "efficiency": 0.85,
+      "tool": "needle",
+      "powerTurns": 864000,
+      "powerItem": "Item.PowerCell",
+      "coldThreshold": 0,
+      "coldMult": 0.8,
+      "appraisalRequired": true
+    }
+  ]
+}

@@ -1,0 +1,1684 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21",
+  "reviewer": "/root/title_art",
+  "status": "PASS for18directly reviewed PNGs and13supplied whole-state comparisons; finite actual player/trade scenario and common smoke only",
+  "scope": {
+    "directlyViewedPNGCount": 18,
+    "nativePNGCount": 10,
+    "common1440PNGCount": 4,
+    "common1366PNGCount": 4,
+    "nativeDirectory": "test-results/player-wanderer-browser-v295-first",
+    "onlyNewProjectFileWritten": "docs/ui-v295-reviewed-pngs.json",
+    "existingReportMetadataRefreshAllowed": "docs/art-v295-independent-review.json original-doc copy SHA/prefix only",
+    "productCoreDefImagesHarnessEdits": false,
+    "browserGPUGameFullTypeBuildOrHeavyChecksRerun": false,
+    "method": "Existing artifact/source reads, JSON deep equality, SHA and original RGB regions in memory; no image save/edit/render."
+  },
+  "evidenceBoundary": [
+    "All18original PNGs opened directly with view_image. Save UID/time/RNG/whole-state facts come from actual/expected JSON and supplied Root harness; they are not inferred from pixels.",
+    "The Native folder is named first and is the supplied successful295Native run. It is not the excluded294first nutrition-catchup scenario. No second295Native run is claimed.",
+    "Two distinct finite initial imprints are used. First is an authored roof/lit KtFloor observation area based on actual generated player/body/knife/target/worker/retiree with NPCs paused. Second is the separate actual generated294 village/shop fixture with declared day0/one-turn-before-day boundary and finite default bow/string/cash. This is not a walked journey between those worlds.",
+    "Root injected only each declared initial localStorage imprint before actual TitleContinue. Browser walk/bump/character/help/back/quote/confirm/restore use actual input; Node runs independent expected actions. Reviewer did not run any game/browser code.",
+    "Player saved sprite remains hero. Audit display keys come from supplied helper execution and are consistent with observed appearances; no displaySprite field was invented in saved state.",
+    "A still image after melee does not establish that every one of16attack frames was actually seen. HUD/Title portraits load normally; no failed-image fallback was artificially induced.",
+    "Native and common runs executed in stable Root /workspace/ashveil, not an immutable checkpoint cwd. Root froze v295-input immediately before launch and reports all8source category bytes equal again at completion; this audit reads and hashes that proof. The separate Full295run is outside this PNG review."
+  ],
+  "provenance": [
+    {
+      "path": "docs/player-wanderer-v295-final-source-proof.json",
+      "bytes": 3531,
+      "sha256": "7881ad93a935b8b9142f5055c665aaabd8da6f115bc5be8031c33265c0d0d308"
+    },
+    {
+      "path": "test-results/native-v295-stable-root-source.json",
+      "bytes": 761,
+      "sha256": "53ffb33d861a302eba9ea160ac03d1e6d8de1d8d4aa2564b3ce38966573e0f80"
+    },
+    {
+      "path": "docs/game-harness-v295-audit.json",
+      "bytes": 2156,
+      "sha256": "d9c4c227d31da03a7d0d1ce3e92625b1663cafacd89a5aefeb34a2c13e83ca1a"
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/audit.json",
+      "bytes": 1359,
+      "sha256": "a132bb26105df0406a3d68145c8212b42fae4ec6d75ab1587dad8d93bf67d78b"
+    },
+    {
+      "path": "tests/e2e/player-wanderer.ts",
+      "bytes": 8207,
+      "sha256": "1c349d3808bea1e8e2f85b125237e2bce94907aa52ae834f1880263d5aa045bd"
+    },
+    {
+      "path": "tests/player-wanderer-fixture.ts",
+      "bytes": 1569,
+      "sha256": "193f0a86332b38b5e9856ee331476e243d248000ff3da50c0c514226d26525f0"
+    },
+    {
+      "path": "tests/prisoner-fixture.ts",
+      "bytes": 1631,
+      "sha256": "cc5d15709798d07aecef93ccc0bb6c45e92949298698380df60a16a66a4437e4"
+    },
+    {
+      "path": "tests/seasonal-production-fixture.ts",
+      "bytes": 3763,
+      "sha256": "fa00dcef2335aec151c0afb52002fe58c7e824ce638e2a85ce57a1a13017d42f"
+    }
+  ],
+  "entries": [
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1450-native-original-player-with-stored-hero-worker-and-retired-wanderer.png",
+      "bytes": 405000,
+      "sha256": "bc1b1e0620c8b786caafb914917719116af2ac680578daaf55e48146190bbea1",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "1440×1080의 유한 방에서 새 잿빛 후드 플레이어가 중앙, 흰 생활복 worker가 북서쪽, 기존 청록 hero의 은퇴 인물이 남동쪽에 함께 보인다. 발이 지면에 놓이고 캐릭터들이 셀 바깥으로 잘리지 않는다.",
+        "저장값 hero와 표시 key 차이는 audit/JSON 근거이며 픽셀만으로 key를 추론하지 않는다. 기존 적은 오른쪽의 어두운 인간형이다. 세 NPC는 초기 nextAct1e12로 정지한 관찰 장면이다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/original-player-and-npcs-actual-title-continue-actual.json",
+        "bytes": 282142,
+        "sha256": "d1560b65f590d8da4965e16d363946de0dd7ecc1b8f881b3893d204454ea1e4f"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1451-native-actual-player-east-walk-new-original-sprite.png",
+      "bytes": 419488,
+      "sha256": "b2de3d3b27d5cce564d8436be2edd85e88fc04b5534f3328a3eefe933391c03c",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "실제 동쪽1칸 이동 뒤 새 후드의 오른쪽 옆모습이 적 왼쪽에 보인다. worker와 은퇴 hero의 서로 다른 외형도 남는다.",
+        "맵이 카메라를 따라 이동해 배경 화면 좌표가 달라진다. player(20,20)→(21,20)/100TU는 JSON 근거다. 도구 미리보기의 위치HUD 생략은 원본 RGB에서1450과 전 픽셀 동일함을 확인했다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-one-tile-east-walk-same-hero-selection-actual.json",
+        "bytes": 285313,
+        "sha256": "436e1301e7d01a23ee691d48ada800c1f2ced03dd0142e7a02570ecd08eb2316"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1452-native-after-actual-melee-new-player-and-original-target.png",
+      "bytes": 424625,
+      "sha256": "9a0c90e46ec62ca32979b2ff2b06b3afb34bb94da06580181554b73073944475",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "동쪽 bump 근접공격 뒤 동일 위치의 새 플레이어·원래 적과 베기/오른대퇴 베임(4) 로그, 떠 있는4와 경계 표식을 읽었다.",
+        "적 HP95→91과 원래 칼 UID66은 상태 JSON에서 확인한다. 이 캡처는 효과가 정리된 공격 후 정지 장면으로 공격16프레임 모두가 실제 표시됐다는 증거가 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-bump-melee-original-knife-and-original-target-actual.json",
+        "bytes": 286667,
+        "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1453-native-character-window-new-player-pixel-miniature.png",
+      "bytes": 501744,
+      "sha256": "4ae38605eef43784df658a539de87c48db7e7d58910b19d111d6824b245b3290",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "캐릭터 창의 항상 보이는 큰 픽셀 미니어처가 새 전면 후드 원본이다. 이름 타일/레벨1/능력치 다섯10/체력·기력·무기 정보와 닫기를 읽었다.",
+        "HUD 초상은 기존 일러스트가 남는다. 캐릭터 미니어처는 이미지 오류를 유발한 fallback 검사가 아니며, 창 열기 자체의 순수성은 whole JSON으로 확인했다. 창이 지도의 왼쪽 일부를 가린다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-character-window-is-pure-observation-actual.json",
+        "bytes": 286667,
+        "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1454-native-small-map-whole199-restored-original-player-and-npcs.png",
+      "bytes": 370471,
+      "sha256": "0bad1a9bd4998b50f1035654fc25a17bdef234d506b968b5ca92f706de2cacf0",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "1366×768의199복원 후 새 플레이어·같은 worker·기존 은퇴 hero가 함께 보이고 공격 로그와 작은HUD가 유지된다.",
+        "맵 상단/하단은 뷰포트와HUD로 잘린다. 크기 변경과 최종 관찰은 시간/RNG/전체 세계가 변하지 않은 JSON 근거와 연결한다. 과거 장비를 원본 그림에 고정했다는 뜻은 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/small-map-pure-observation-actual.json",
+        "bytes": 286667,
+        "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1455-native-trade-stock-before-resident-services.png",
+      "bytes": 489541,
+      "sha256": "7d1ffbaad0568cd26216a9269f31739e27ec1356c6230fc10915fcc8a6386809",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "주민과 세력 창 상단에서 대화·거래/세력·소식, 인물·도움·의뢰 보기, 가을×2.3 안내 다음에 상인 물품/내 물품이 먼저 나온다. 건빵20·단가10/금고300/소지금1000, 판매 측 활·시위를 확인했다.",
+        "구매0·판매0·지불0·거래확정 영역 뒤에 도움과 의뢰/거래로 돌아가기와 기존 서비스들이 이어진다. 품목 목록 내부 스크롤과 전체 창 스크롤이 있어 모든 서비스/품목이 동시에 보이지는 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-reordered-shop-opening-pure-observation-actual.json",
+        "bytes": 2666443,
+        "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1456-native-actual-help-and-contracts-jump.png",
+      "bytes": 495234,
+      "sha256": "a709567d855136476be9d9c5d2d1869249d958db1f97d3cb0e2e68415bddb6fa",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "실제 도움·의뢰 보기 클릭 후 창 내용이 도움과 의뢰 제목/거래로 돌아가기 위치로 스크롤됐다. 지도 준비·몸 씻기·글자 수업·숙박·은퇴·계약 목록을 확인했다.",
+        "이것은 서비스 실행이 아니라 같은 창 내부 이동이다. 거래 목록은 위쪽으로 빠졌고 하단 계약은 일부만 보인다. 이동/복귀가 세계·시간·RNG를 바꾸지 않은 근거는13쌍 상태대조에 있다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-help-jump-no-time-rng-or-world-change-actual.json",
+        "bytes": 2666443,
+        "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1457-native-small-original-finite-food-purchase-quote.png",
+      "bytes": 397682,
+      "sha256": "0d27d684a5846bc5c035f0e7bc70f700ecf496555fd8341578faf1c554107d75",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "1366×768에서 원래 건빵20의 선택 수량1, 구매10·판매0·지불10과 거래확정(1턴) 버튼을 화면 안에서 읽었다. 도움과 의뢰/거래로 돌아가기 영역도 아래에 남는다.",
+        "견적 합계로 스크롤하여 상단 인물/대화/계절 안내는 위쪽 범위 밖이다. 품목 목록은 목재 부근에서 내부 스크롤로 이어지고 서비스 하단은 화면 아래다. 전체 창이 한 화면에 다 들어온다고 주장하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-small-purchase-quote-no-world-change-actual.json",
+        "bytes": 2666443,
+        "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1458-native-small-actual-original-food-purchased.png",
+      "bytes": 355445,
+      "sha256": "25fad6c6ec68fdca7eacd29cbc7460d038461df2255a401b75da047effe6615a",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "실제 구매 뒤 건빵 재고19/새 단가9·상인 금고310, 판매 측 새 건빵, 구매0·지불0과 거래 로그가 보인다. 날짜는2일차00:00이다.",
+        "기존 견적10으로 거래가 성립한 후 하루 경계의 가격이9가 됐으므로 지불액을9라고 하지 않는다.100TU·플레이어990·새 Food UID85는 JSON으로 확인한다. 원래 세계의11일 여행이나 제작 이력은 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/actual-one-turn-purchase-original-stock-and-money-actual.json",
+        "bytes": 2721170,
+        "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+      }
+    },
+    {
+      "path": "test-results/player-wanderer-browser-v295-first/1459-native-small-whole199-restored-original-bow-string-and-purchased-food.png",
+      "bytes": 255972,
+      "sha256": "c16109642bcc2b752115863272f4e74bd91245c2e8940b8c517c4c1e465d3c08",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "actual player/trade Native v295 first successful run",
+      "observations": [
+        "199복원 뒤 소지품에서64px 사냥 활·32px 여분 활시위·새 건빵 한 칸, 지갑990·빈칸52를 확인했다. 장비 슬롯은 비어 있다.",
+        "원래 활83/시위84와 새 구매 건빵85의 UID/수량은 JSON 근거다. 상점 재고 UID를 새 건빵 UID로 그대로 옮겼다고 주장하지 않는다. 배낭 창은 화면 안이고 뒤 마을 대부분을 가린다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/player-wanderer-browser-v295-first/whole199-restored-same-original-stock-money-and-purchased-food-actual.json",
+        "bytes": 2721170,
+        "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1440/00-title.png",
+      "bytes": 973642,
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1440",
+      "observations": [
+        "1440×1080 타이틀의 키 아트·ASHVEIL·시드·사건흐름·배경 선택·초상/능력치·시작버튼을 직접 확인했다. 기존 초상 이미지가 정상 표시된다.",
+        "시작버튼은 스크롤 없이 보이며 hit-test 가능하다는 layout JSON과 연결했다. 아래 배경/후속 옵션은 뷰포트 아래로 이어진다. fallback 오류를 유발한 검사는 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1440/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1440/01-world.png",
+      "bytes": 526520,
+      "sha256": "922ef86352265c184e1732f4e2b64b524fa72eb732ed678bc5b824f9283e7f0c",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1440",
+      "observations": [
+        "정상 타이틀 새게임의 새 회색 여행자·불빛·상자·침엽수/마른나무와 HUD를 직접 확인했다.",
+        "기본 뱃사공 장대 빠른슬롯과 기존 초상이 유지된다. 하단 수목 일부는HUD/뷰포트에 가려진다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1440/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "47569c45c54b5d334a25a06272290a34309fcba696a5d3c6a9198fcc86dead89"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1440/02-inventory.png",
+      "bytes": 600825,
+      "sha256": "98282ae38e95a233fc4f79d3341b1d20af5b3c2bd3e8c13367c6127359fb51ce",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1440",
+      "observations": [
+        "대기·남쪽 회전 뒤 새 전면 여행자와 배낭 창을 직접 확인했다. 기존 장대/등 장비·빈배낭60·지갑0·닫기가 보인다.",
+        "원본시트에 고정 무기를 추가한 것이 아니라 실제 기존 장비가 UI 슬롯에 별도로 보인다. 소지품 창 전체는 화면 안이고 지도 일부를 덮는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1440/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "f8a4dd985d0a64eb843f1476a496f821aec6c97a21ce82c1bf88693bd625211c"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1440/final.png",
+      "bytes": 602471,
+      "sha256": "9c3454943043532e6c413b7c9b52db09df1f087a6027691d99605e570c763acb",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1440",
+      "observations": [
+        "최종 원본 PNG를 직접 열고 동일 소지품 상태와 대조했다. final whole JSON이02-inventory와 동일하여 관찰은 세계를 바꾸지 않았다.",
+        "도구 미리보기의 인벤토리/로그 생략은 원본 RGB 두 영역이02-inventory와 전 픽셀 동일한 것으로 구분했다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1440/final-state.json",
+        "bytes": 16730,
+        "sha256": "f8a4dd985d0a64eb843f1476a496f821aec6c97a21ce82c1bf88693bd625211c"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1366/00-title.png",
+      "bytes": 668811,
+      "sha256": "41c34c6bebb567e39d1cd79bc5a4aaf2ab1eddd6238039c28993bba7b5ead88d",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1366",
+      "observations": [
+        "1366×768 타이틀의 키 아트·ASHVEIL·시드·사건흐름·배경 선택·초상/능력치·시작버튼을 직접 확인했다. 기존 초상 이미지가 정상 표시된다.",
+        "시작버튼은 스크롤 없이 보이며 hit-test 가능하다는 layout JSON과 연결했다. 아래 배경/후속 옵션은 뷰포트 아래로 이어진다. fallback 오류를 유발한 검사는 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1366/00-title-state.json",
+        "bytes": 128,
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1366/01-world.png",
+      "bytes": 372158,
+      "sha256": "c782aa435fb6017b2676b550b07524c8b0e667d812300da900633339ae5248dc",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1366",
+      "observations": [
+        "정상 타이틀 새게임의 새 회색 여행자·불빛·상자·침엽수/마른나무와 HUD를 직접 확인했다.",
+        "기본 뱃사공 장대 빠른슬롯과 기존 초상이 유지된다. 빈칸0 빠른슬롯 툴팁이 로그 일부를 가린다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1366/01-world-state.json",
+        "bytes": 16730,
+        "sha256": "47569c45c54b5d334a25a06272290a34309fcba696a5d3c6a9198fcc86dead89"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1366/02-inventory.png",
+      "bytes": 446699,
+      "sha256": "b437110624812f1aa8538c8aabf445677372036a05461b6215a66a4427463bef",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1366",
+      "observations": [
+        "대기·남쪽 회전 뒤 새 전면 여행자와 배낭 창을 직접 확인했다. 기존 장대/등 장비·빈배낭60·지갑0·닫기가 보인다.",
+        "원본시트에 고정 무기를 추가한 것이 아니라 실제 기존 장비가 UI 슬롯에 별도로 보인다. 소지품 창 전체는 화면 안이고 지도 일부를 덮는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1366/02-inventory-state.json",
+        "bytes": 16730,
+        "sha256": "f8a4dd985d0a64eb843f1476a496f821aec6c97a21ce82c1bf88693bd625211c"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v295-final-1366/final.png",
+      "bytes": 445391,
+      "sha256": "46d779aa18663e906bd5f25120966d18f0e0814650a3d056135ea35fc7a6f5a8",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "mode": "RGB",
+      "directlyOpenedWithViewImage": true,
+      "category": "common smoke 1366",
+      "observations": [
+        "최종 원본 PNG를 직접 열고 동일 소지품 상태와 대조했다. final whole JSON이02-inventory와 동일하여 관찰은 세계를 바꾸지 않았다.",
+        "도구 미리보기의 로그 생략은 원본 RGB가02-inventory와 동일함을 확인했다. 인벤토리 테두리4픽셀/최대채널1 차이는 별도 수치로 기록했다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v295-final-1366/final-state.json",
+        "bytes": 16730,
+        "sha256": "f8a4dd985d0a64eb843f1476a496f821aec6c97a21ce82c1bf88693bd625211c"
+      }
+    }
+  ],
+  "wholeStateArtifactReview": {
+    "actualExpectedPairs": [
+      {
+        "phase": "actual-bump-melee-original-knife-and-original-target",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-bump-melee-original-knife-and-original-target-actual.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-bump-melee-original-knife-and-original-target-expected.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440200,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 21,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 91,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      },
+      {
+        "phase": "actual-character-window-is-pure-observation",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-character-window-is-pure-observation-actual.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-character-window-is-pure-observation-expected.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440200,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 21,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 91,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      },
+      {
+        "phase": "actual-help-jump-no-time-rng-or-world-change",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-help-jump-no-time-rng-or-world-change-actual.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-help-jump-no-time-rng-or-world-change-expected.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2879900,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 1000,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 300,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 20
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "actual-one-tile-east-walk-same-hero-selection",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-one-tile-east-walk-same-hero-selection-actual.json",
+          "bytes": 285313,
+          "sha256": "436e1301e7d01a23ee691d48ada800c1f2ced03dd0142e7a02570ecd08eb2316"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-one-tile-east-walk-same-hero-selection-expected.json",
+          "bytes": 285313,
+          "sha256": "436e1301e7d01a23ee691d48ada800c1f2ced03dd0142e7a02570ecd08eb2316"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440100,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 21,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 95,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      },
+      {
+        "phase": "actual-one-turn-purchase-original-stock-and-money",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-one-turn-purchase-original-stock-and-money-actual.json",
+          "bytes": 2721170,
+          "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-one-turn-purchase-original-stock-and-money-expected.json",
+          "bytes": 2721170,
+          "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2880000,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 990,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            },
+            {
+              "uid": 85,
+              "def": "Item.Hardtack",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 310,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 19
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "actual-reordered-shop-opening-pure-observation",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-reordered-shop-opening-pure-observation-actual.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-reordered-shop-opening-pure-observation-expected.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2879900,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 1000,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 300,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 20
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "actual-return-to-trade-no-world-change",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-return-to-trade-no-world-change-actual.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-return-to-trade-no-world-change-expected.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2879900,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 1000,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 300,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 20
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "actual-small-purchase-quote-no-world-change",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-small-purchase-quote-no-world-change-actual.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/actual-small-purchase-quote-no-world-change-expected.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2879900,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 1000,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 300,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 20
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "original-finite-village-shop-actual-title-continue",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/original-finite-village-shop-actual-title-continue-actual.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/original-finite-village-shop-actual-title-continue-expected.json",
+          "bytes": 2666443,
+          "sha256": "f36ac6b1cca510555bd2459145988f7c3b488f4b006e200f0a9256ab5e9fe59a"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2879900,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 1000,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 300,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 20
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "original-player-and-npcs-actual-title-continue",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/original-player-and-npcs-actual-title-continue-actual.json",
+          "bytes": 282142,
+          "sha256": "d1560b65f590d8da4965e16d363946de0dd7ecc1b8f881b3893d204454ea1e4f"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/original-player-and-npcs-actual-title-continue-expected.json",
+          "bytes": 282142,
+          "sha256": "d1560b65f590d8da4965e16d363946de0dd7ecc1b8f881b3893d204454ea1e4f"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440000,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 20,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 95,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      },
+      {
+        "phase": "small-map-pure-observation",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/small-map-pure-observation-actual.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/small-map-pure-observation-expected.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440200,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 21,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 91,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      },
+      {
+        "phase": "whole199-restored-same-original-stock-money-and-purchased-food",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/whole199-restored-same-original-stock-money-and-purchased-food-actual.json",
+          "bytes": 2721170,
+          "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/whole199-restored-same-original-stock-money-and-purchased-food-expected.json",
+          "bytes": 2721170,
+          "sha256": "38d4023a09da4e9a362da623071aafd02863a0d7e03864e6a01d7b08234da9f6"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 2880000,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 30,
+            "y": 19
+          },
+          "playerMoney": 990,
+          "bag": [
+            {
+              "uid": 83,
+              "def": "Item.Bow",
+              "count": 1
+            },
+            {
+              "uid": 84,
+              "def": "Item.BowString",
+              "count": 1
+            },
+            {
+              "uid": 85,
+              "def": "Item.Hardtack",
+              "count": 1
+            }
+          ],
+          "equip": {},
+          "targetId45HP": null,
+          "shopMoney": 310,
+          "shopHardtack": [
+            {
+              "uid": 1099511627776,
+              "def": "Item.Hardtack",
+              "count": 19
+            }
+          ],
+          "storedOriginalNPCSprites": []
+        }
+      },
+      {
+        "phase": "whole199-restored-same-player-choice-npcs-and-actual-melee",
+        "actual": {
+          "path": "test-results/player-wanderer-browser-v295-first/whole199-restored-same-player-choice-npcs-and-actual-melee-actual.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "expected": {
+          "path": "test-results/player-wanderer-browser-v295-first/whole199-restored-same-player-choice-npcs-and-actual-melee-expected.json",
+          "bytes": 286667,
+          "sha256": "f738a8c6a1b8c0f9682644b3ae9fe24be0f33fa5ba4765a3c4e897710bbd5d18"
+        },
+        "wholeJSONObjectDeeplyEqual": true,
+        "summary": {
+          "saveVersion": 199,
+          "timeTU": 1440200,
+          "loadHash": "sha256-d25ede69644b8c499ba5215ef19b6d9efae507a6d0b8274383daecf24adf58e5",
+          "playerId": 1,
+          "playerStoredSprite": "hero",
+          "playerPos": {
+            "x": 21,
+            "y": 20
+          },
+          "playerMoney": null,
+          "bag": [],
+          "equip": {
+            "main": {
+              "uid": 66,
+              "def": "Item.RustyKnife",
+              "count": 1
+            }
+          },
+          "targetId45HP": 91,
+          "shopMoney": null,
+          "shopHardtack": null,
+          "storedOriginalNPCSprites": [
+            {
+              "id": 67,
+              "def": "Creature.Settler",
+              "sprite": "hero"
+            },
+            {
+              "id": 76,
+              "def": "Creature.RetiredWanderer",
+              "sprite": "hero"
+            }
+          ]
+        }
+      }
+    ],
+    "all13DeeplyEqual": true,
+    "pureObservationAndRestorationGroups": {
+      "characterWindowAndMapRestore": {
+        "phases": [
+          "actual-bump-melee-original-knife-and-original-target",
+          "actual-character-window-is-pure-observation",
+          "whole199-restored-same-player-choice-npcs-and-actual-melee",
+          "small-map-pure-observation"
+        ],
+        "allWholeObjectsEqual": true
+      },
+      "shopHelpBackAndQuote": {
+        "phases": [
+          "original-finite-village-shop-actual-title-continue",
+          "actual-reordered-shop-opening-pure-observation",
+          "actual-help-jump-no-time-rng-or-world-change",
+          "actual-return-to-trade-no-world-change",
+          "actual-small-purchase-quote-no-world-change"
+        ],
+        "allWholeObjectsEqual": true
+      },
+      "purchasedWholeRestore": {
+        "phases": [
+          "actual-one-turn-purchase-original-stock-and-money",
+          "whole199-restored-same-original-stock-money-and-purchased-food"
+        ],
+        "allWholeObjectsEqual": true
+      }
+    },
+    "initialTitleLoadsEqualDeclaredImprints": true,
+    "audit": {
+      "save": 199,
+      "screenshots": 10,
+      "roundtrips": 2,
+      "phases": 13,
+      "actualInputTU": 300,
+      "playerStored": "hero",
+      "playerDisplay": "original_wanderer_hero",
+      "people": [
+        {
+          "id": 67,
+          "def": "Creature.Settler",
+          "storedSprite": "hero",
+          "displaySprite": "resident_worker"
+        },
+        {
+          "id": 76,
+          "def": "Creature.RetiredWanderer",
+          "storedSprite": "hero",
+          "displaySprite": "hero"
+        }
+      ],
+      "knifeUid": 66,
+      "targetId": 45,
+      "trade": {
+        "stockUid": 1099511627776,
+        "originalCount": 20,
+        "finalStockCount": 19,
+        "originalMoney": 1000,
+        "finalMoney": 990,
+        "quote": {
+          "error": null,
+          "buy": 10,
+          "sell": 0,
+          "balance": 10
+        },
+        "foodUid": 85
+      },
+      "errors": [],
+      "source": "Finite initial actual generated player/knife/target/worker/retiree; NPCs paused nextAct1e12, roof/lit floor for observation. Separate same294 actualgeneratedtown finite near-day-boundary stock fixture. ActualTitleContinue/east walk/bump melee/characterwindow/whole199restore/small/society/realhelpjump/back/quote/realone-turntrade/whole199restore/inventory. Node performs only independent expected actions; all browser actions through actual input; no post-load world/time/RNG/sprite injection. Still screenshot after melee does not prove every animated attack pose displayed."
+    },
+    "firstWorldActualTU": 200,
+    "secondWorldActualTU": 100,
+    "totalActualInputTU": 300,
+    "whole199Restorations": 2
+  },
+  "playerAndNPCReview": {
+    "playerId": 1,
+    "savedSpriteAtAll13Phases": "hero",
+    "displayFromSuppliedAudit": "original_wanderer_hero",
+    "worker": {
+      "id": 67,
+      "def": "Creature.Settler",
+      "savedSprite": "hero",
+      "displayFromSuppliedAudit": "resident_worker"
+    },
+    "retiredWanderer": {
+      "id": 76,
+      "def": "Creature.RetiredWanderer",
+      "savedSprite": "hero",
+      "displayFromSuppliedAudit": "hero"
+    },
+    "npcStoredChoicesRetained": true,
+    "originalKnifeUid": 66,
+    "originalKnifeDef": "Item.RustyKnife",
+    "originalTargetId": 45,
+    "targetHPBefore": 95,
+    "targetHPAfter": 91,
+    "firstActualEastMove": {
+      "from": [
+        20,
+        20
+      ],
+      "to": [
+        21,
+        20
+      ],
+      "timeTU": 100
+    },
+    "bumpMelee": {
+      "posRemains": [
+        21,
+        20
+      ],
+      "timeTU": 100,
+      "damage": 4
+    },
+    "characterWindowMiniature": "new original front idle0, always visible pixel miniature, not portrait-failure-only fallback",
+    "poseRuntimeCoverage": "Observed new map/player directions and after-melee still; full16animated attack poses not proved"
+  },
+  "finiteTradeReview": {
+    "originalStockUid": 1099511627776,
+    "originalStockDef": "Item.Hardtack",
+    "originalStockCount": 20,
+    "afterCount": 19,
+    "stockUidStillExists": true,
+    "originalPlayerMoney": 1000,
+    "afterPlayerMoney": 990,
+    "originalShopMoney": 300,
+    "afterShopMoney": 310,
+    "combinedCurrencyBeforeAndAfter": 1300,
+    "confirmedQuote": {
+      "buy": 10,
+      "sell": 0,
+      "balance": 10
+    },
+    "actualInputTU": 100,
+    "purchasedFood": {
+      "uid": 85,
+      "def": "Item.Hardtack",
+      "count": 1
+    },
+    "originalBow": {
+      "uid": 83,
+      "def": "Item.Bow",
+      "count": 1
+    },
+    "originalString": {
+      "uid": 84,
+      "def": "Item.BowString",
+      "count": 1
+    },
+    "displayedHardtackBuyPriceAtQuote": 10,
+    "displayedHardtackBuyPriceAfterBoundary": 9,
+    "priceInterpretation": "Actual charge is the10-unit quote;9is the updated post-day-boundary unit price, not the amount paid. Currency label is 표. Regional scarcity factors are not literal currency amounts.",
+    "helpBackQuoteWholeWorldTimeAndRngPure": true,
+    "shopOpeningWholeWorldPure": true,
+    "restoredWholeObjectEqualsAfterTrade": true,
+    "noOtherPurchaseOrCraftHistoryClaim": true
+  },
+  "genericHarness": {
+    "rows": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "run": {
+          "path": "test-results/game-harness-v295-final-1440/run.json",
+          "bytes": 418,
+          "sha256": "0e97702bc19ad2b2e88c81266eac1b4f63b1be6361014e9a8aa86648dbb265dd"
+        },
+        "completedSteps": 11,
+        "screenshots": 4,
+        "errors": [],
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "wholeWorldEqualAcrossViewports": {
+          "01-world-world.json": true,
+          "02-inventory-world.json": true,
+          "final-world.json": true
+        },
+        "titleLayout": {
+          "viewport": {
+            "width": 1440,
+            "height": 1080
+          },
+          "start": {
+            "left": 954,
+            "top": 835.28125,
+            "right": 1240,
+            "bottom": 880.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        }
+      },
+      {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "run": {
+          "path": "test-results/game-harness-v295-final-1366/run.json",
+          "bytes": 417,
+          "sha256": "d5101a00c1c88c45fe9faed7fbc715c84cc4017efc2d82f10665a043d610fd2d"
+        },
+        "completedSteps": 11,
+        "screenshots": 4,
+        "errors": [],
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "wholeWorldEqualAcrossViewports": {
+          "01-world-world.json": true,
+          "02-inventory-world.json": true,
+          "final-world.json": true
+        },
+        "titleLayout": {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "start": {
+            "left": 913,
+            "top": 669.28125,
+            "right": 1207,
+            "bottom": 714.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        }
+      }
+    ],
+    "allThreeWholeSnapshotsEqualAcrossViewports": true,
+    "runsWereReusedFrom294": false,
+    "execution": {
+      "ranIn": "/workspace/ashveil",
+      "frozenBeforeLaunch": "v295-input",
+      "sourceCategoriesEqualAtFreezeAndCompletion": {
+        "src": {
+          "files": 671,
+          "allBytesIdentical": true
+        },
+        "dist": {
+          "files": 898,
+          "allBytesIdentical": true
+        },
+        "public": {
+          "files": 499,
+          "allBytesIdentical": true
+        },
+        "mods": {
+          "files": 86,
+          "allBytesIdentical": true
+        },
+        "tests": {
+          "files": 1046,
+          "allBytesIdentical": true
+        },
+        "tools": {
+          "files": 227,
+          "allBytesIdentical": true
+        },
+        ".agents": {
+          "files": 1,
+          "allBytesIdentical": true
+        },
+        ".github": {
+          "files": 1,
+          "allBytesIdentical": true
+        }
+      },
+      "noSourceEditsWhileBrowserRunning": true
+    },
+    "sourceAttribution": "Root reported byte-level prelaunch/postcompletion comparison against v295-input. Reviewer did not repeat source-tree byte hashing."
+  },
+  "originalPngRegionChecks": [
+    {
+      "image": {
+        "path": "test-results/player-wanderer-browser-v295-first/1451-native-actual-player-east-walk-new-original-sprite.png",
+        "bytes": 419488,
+        "sha256": "b2de3d3b27d5cce564d8436be2edd85e88fc04b5534f3328a3eefe933391c03c"
+      },
+      "reference": {
+        "path": "test-results/player-wanderer-browser-v295-first/1450-native-original-player-with-stored-hero-worker-and-retired-wanderer.png",
+        "bytes": 405000,
+        "sha256": "bc1b1e0620c8b786caafb914917719116af2ac680578daaf55e48146190bbea1"
+      },
+      "region": "location HUD preview omission1451",
+      "rectangleXYXY": [
+        12,
+        12,
+        303,
+        74
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/player-wanderer-browser-v295-first/1456-native-actual-help-and-contracts-jump.png",
+        "bytes": 495234,
+        "sha256": "a709567d855136476be9d9c5d2d1869249d958db1f97d3cb0e2e68415bddb6fa"
+      },
+      "reference": {
+        "path": "test-results/player-wanderer-browser-v295-first/1455-native-trade-stock-before-resident-services.png",
+        "bytes": 489541,
+        "sha256": "7d1ffbaad0568cd26216a9269f31739e27ec1356c6230fc10915fcc8a6386809"
+      },
+      "region": "same shop location before any time action",
+      "rectangleXYXY": [
+        12,
+        12,
+        228,
+        74
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/player-wanderer-browser-v295-first/1458-native-small-actual-original-food-purchased.png",
+        "bytes": 355445,
+        "sha256": "25fad6c6ec68fdca7eacd29cbc7460d038461df2255a401b75da047effe6615a"
+      },
+      "reference": {
+        "path": "test-results/player-wanderer-browser-v295-first/1457-native-small-original-finite-food-purchase-quote.png",
+        "bytes": 397682,
+        "sha256": "0d27d684a5846bc5c035f0e7bc70f700ecf496555fd8341578faf1c554107d75"
+      },
+      "region": "log after actual purchase changes, not pixel identity claim",
+      "rectangleXYXY": [
+        914,
+        452,
+        1354,
+        618
+      ],
+      "entireRGBExactlyEqual": false,
+      "differentPixelCount": 24399,
+      "maxChannelDelta": 175,
+      "firstDifferentPixelsXYMaxDelta": [
+        [
+          920,
+          452,
+          5
+        ],
+        [
+          921,
+          452,
+          6
+        ],
+        [
+          922,
+          452,
+          6
+        ],
+        [
+          923,
+          452,
+          6
+        ],
+        [
+          924,
+          452,
+          6
+        ]
+      ],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v295-final-1440/final.png",
+        "bytes": 602471,
+        "sha256": "9c3454943043532e6c413b7c9b52db09df1f087a6027691d99605e570c763acb"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v295-final-1440/02-inventory.png",
+        "bytes": 600825,
+        "sha256": "98282ae38e95a233fc4f79d3341b1d20af5b3c2bd3e8c13367c6127359fb51ce"
+      },
+      "region": "common 1440 inventory",
+      "rectangleXYXY": [
+        420,
+        70,
+        1080,
+        443
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v295-final-1440/final.png",
+        "bytes": 602471,
+        "sha256": "9c3454943043532e6c413b7c9b52db09df1f087a6027691d99605e570c763acb"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v295-final-1440/02-inventory.png",
+        "bytes": 600825,
+        "sha256": "98282ae38e95a233fc4f79d3341b1d20af5b3c2bd3e8c13367c6127359fb51ce"
+      },
+      "region": "common 1440 log",
+      "rectangleXYXY": [
+        988,
+        764,
+        1428,
+        930
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v295-final-1366/final.png",
+        "bytes": 445391,
+        "sha256": "46d779aa18663e906bd5f25120966d18f0e0814650a3d056135ea35fc7a6f5a8"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v295-final-1366/02-inventory.png",
+        "bytes": 446699,
+        "sha256": "b437110624812f1aa8538c8aabf445677372036a05461b6215a66a4427463bef"
+      },
+      "region": "common 1366 inventory",
+      "rectangleXYXY": [
+        420,
+        70,
+        1080,
+        443
+      ],
+      "entireRGBExactlyEqual": false,
+      "differentPixelCount": 4,
+      "maxChannelDelta": 1,
+      "firstDifferentPixelsXYMaxDelta": [
+        [
+          420,
+          441,
+          1
+        ],
+        [
+          420,
+          442,
+          1
+        ],
+        [
+          421,
+          442,
+          1
+        ],
+        [
+          422,
+          442,
+          1
+        ]
+      ],
+      "sourceImagesEditedOrResaved": false
+    },
+    {
+      "image": {
+        "path": "test-results/game-harness-v295-final-1366/final.png",
+        "bytes": 445391,
+        "sha256": "46d779aa18663e906bd5f25120966d18f0e0814650a3d056135ea35fc7a6f5a8"
+      },
+      "reference": {
+        "path": "test-results/game-harness-v295-final-1366/02-inventory.png",
+        "bytes": 446699,
+        "sha256": "b437110624812f1aa8538c8aabf445677372036a05461b6215a66a4427463bef"
+      },
+      "region": "common 1366 log",
+      "rectangleXYXY": [
+        914,
+        452,
+        1354,
+        618
+      ],
+      "entireRGBExactlyEqual": true,
+      "differentPixelCount": 0,
+      "maxChannelDelta": 0,
+      "firstDifferentPixelsXYMaxDelta": [],
+      "sourceImagesEditedOrResaved": false
+    }
+  ],
+  "clippingAndScopeLimits": [
+    "Native1455trade lists and actual total are before resident services; long item rows have their own scroll and services extend below viewport.",
+    "Native1456help jump scrolls to existing help/contracts and return button. Trading/person details are above the current scroll range; it is not a new service action.",
+    "Native1457/1458small1366×768 show quote/confirm and first commodity rows after explicit scrollIntoView; person/policy upper details and lower contracts are outside capture. No all-services-fit-at-once claim.",
+    "Native1453character window fits1440×1080 and covers part of map;1459inventory fits1366×768 and obscures village. Map boundaries/camera/HUD limit visible terrain/actors.",
+    "Common Titles start without scrolling in both sizes with fully visible clickable start; lower background and later Title options extend below viewport.",
+    "Common1366initial hotbar tooltip covers part of log. Native1451location and common final panel omissions in tool preview are distinguished from source PNG using exact RGB checks.",
+    "Common1440final inventory/log are RGB-exact versus02-inventory. Common1366final log is exact; inventory border4pixels differ by maximum channel1. These are not missing source panels."
+  ],
+  "productSourceAndRegressionContext": {
+    "sourceProof": {
+      "path": "docs/player-wanderer-v295-final-source-proof.json",
+      "bytes": 3531,
+      "sha256": "7881ad93a935b8b9142f5055c665aaabd8da6f115bc5be8031c33265c0d0d308"
+    },
+    "stableRootExecutionProof": {
+      "ranIn": "/workspace/ashveil",
+      "frozenBeforeLaunch": "v295-input",
+      "sourceCategoriesEqualAtFreezeAndCompletion": {
+        "src": {
+          "files": 671,
+          "allBytesIdentical": true
+        },
+        "dist": {
+          "files": 898,
+          "allBytesIdentical": true
+        },
+        "public": {
+          "files": 499,
+          "allBytesIdentical": true
+        },
+        "mods": {
+          "files": 86,
+          "allBytesIdentical": true
+        },
+        "tests": {
+          "files": 1046,
+          "allBytesIdentical": true
+        },
+        "tools": {
+          "files": 227,
+          "allBytesIdentical": true
+        },
+        ".agents": {
+          "files": 1,
+          "allBytesIdentical": true
+        },
+        ".github": {
+          "files": 1,
+          "allBytesIdentical": true
+        }
+      },
+      "noSourceEditsWhileBrowserRunning": true
+    },
+    "coreContentAndModsReuseAsReportedByRoot": {
+      "from": 294,
+      "to": 295,
+      "allFiveWholeInitialFinalErrorsAndHashesIdentical": true,
+      "names": [
+        "surface",
+        "dungeon-combat",
+        "freeze-reentry",
+        "world-journey",
+        "world-climate-return"
+      ],
+      "coreFiles": 290,
+      "contentFiles": 271,
+      "modsFiles": 86,
+      "allCoreContentModsBytesIdentical": true,
+      "save": 199,
+      "archivedGoldens": false,
+      "updatedExpectedHashes": false,
+      "worldRerun": false,
+      "reason": "Pure client display and Vue layout changes. Actual whole goldens including hashes and default DB inputs identical294. World294 remains latest measured batch. Does not prove UI rendering; newNative and PNG review required."
+    },
+    "reviewerRepeatedStaticCoreOrFullChecks": false,
+    "rootReported294InitialFull": "5973tests/one missing spire winter expected multiplier; expected .2 and coalition/winter assertions corrected, related59passed. This contextual statement is not a test rerun by this reviewer.",
+    "rootReported295FullTarget": 5978,
+    "fullCompletionClaimByThisReview": false,
+    "294PublishedSeparately": false
+  },
+  "visualFindings": [],
+  "notVerified": [
+    "No additional GPU/browser/Native/game/Full/Type/build/project tests or product/source/PNG/harness edits by reviewer.",
+    "No arbitrary player alias/mod/skin/equipment overlay or all attack/crouch/hit/death animations coverage claim.",
+    "No old historical user-save provenance: both199restorations use these actual finite scenarios.",
+    "No all-day production/weather journey replay or unpaused NPC integration claim.",
+    "No whole-frame RGB equality promise for moving camera, breathing, torch animation or post-action text; comparisons specify regions and numeric differences.",
+    "No deployment/push/all-expansion-complete claim."
+  ]
+}

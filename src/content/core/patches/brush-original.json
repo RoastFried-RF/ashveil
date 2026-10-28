@@ -1,0 +1,31 @@
+[
+  {
+    "op": "replace",
+    "target": "Item.Machete",
+    "path": "/sprite",
+    "value": "original_sheet_machete"
+  },
+  {
+    "op": "replace",
+    "target": "Ab.Blade.DeepCut",
+    "path": "/icon",
+    "value": "original_sheet_machete"
+  },
+  {
+    "op": "replace",
+    "target": "Terrain.AshBerryBush",
+    "path": "/sprites",
+    "value": [
+      "original_ashberry_bush"
+    ]
+  },
+  {
+    "op": "replace",
+    "target": "Terrain.AshBerryBush",
+    "path": "/visual",
+    "value": {
+      "sprite": "original_ashberry_bush",
+      "scale": 0.7
+    }
+  }
+]

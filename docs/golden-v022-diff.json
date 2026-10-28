@@ -1,0 +1,211 @@
+[
+  {
+    "name": "surface",
+    "baselineHash": "1c4d0e6d",
+    "baselineMatchesPinned": true,
+    "oldCommandsHash": "a7f47ec4",
+    "errorDifferences": [
+      {
+        "index": 35,
+        "before": null,
+        "after": "버섯 무리에 막혔다"
+      },
+      {
+        "index": 63,
+        "before": null,
+        "after": "말라 죽은 나무에 막혔다"
+      },
+      {
+        "index": 75,
+        "before": null,
+        "after": "뒤질 만한 것이 없다"
+      },
+      {
+        "index": 76,
+        "before": null,
+        "after": "가져갈 것이 없다"
+      },
+      {
+        "index": 79,
+        "before": null,
+        "after": "수도원 석벽에 막혔다"
+      }
+    ],
+    "review": "초기 능력치6회 양도·합0 배경 보정·나이/특성 가중치로 world RNG 소비와 인물 상태가 달라졌다. NPC 장비/ID·이동/수색·교전/상처가 달라 기존 명령의 성공 여부가 유지되지 않는다. 기존 벡터를 보존하고 새 생성 규칙에 맞는 명령을 다시 고정하며 초기 상태 해시도 추가한다.",
+    "newCommands": 80,
+    "newInitialHash": "670dffcb",
+    "newHash": "b1a27f7a",
+    "oldFixture": "tests/fixtures/golden-v021.json"
+  },
+  {
+    "name": "dungeon-combat",
+    "baselineHash": "4d86483d",
+    "baselineMatchesPinned": true,
+    "oldCommandsHash": "87ee1482",
+    "errorDifferences": [
+      {
+        "index": 13,
+        "before": null,
+        "after": "닿지 않는다"
+      },
+      {
+        "index": 27,
+        "before": null,
+        "after": "대상을 골라야 한다"
+      },
+      {
+        "index": 28,
+        "before": null,
+        "after": "대상을 골라야 한다"
+      },
+      {
+        "index": 29,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 30,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 31,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 32,
+        "before": null,
+        "after": "대상을 골라야 한다"
+      },
+      {
+        "index": 33,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 35,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 36,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 38,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 46,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 47,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 48,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 74,
+        "before": null,
+        "after": "말라 죽은 나무에 막혔다"
+      }
+    ],
+    "review": "초기 능력치6회 양도·합0 배경 보정·나이/특성 가중치로 world RNG 소비와 인물 상태가 달라졌다. NPC 장비/ID·이동/수색·교전/상처가 달라 기존 명령의 성공 여부가 유지되지 않는다. 기존 벡터를 보존하고 새 생성 규칙에 맞는 명령을 다시 고정하며 초기 상태 해시도 추가한다.",
+    "newCommands": 81,
+    "newInitialHash": "1dd2ac7c",
+    "newHash": "c6263c79",
+    "oldFixture": "tests/fixtures/golden-v021.json"
+  },
+  {
+    "name": "freeze-reentry",
+    "baselineHash": "f40eaf47",
+    "baselineMatchesPinned": true,
+    "oldCommandsHash": "f8309ac2",
+    "errorDifferences": [
+      {
+        "index": 117,
+        "before": null,
+        "after": "대상을 골라야 한다"
+      },
+      {
+        "index": 118,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 119,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 120,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 121,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 122,
+        "before": null,
+        "after": "대상이 없다"
+      },
+      {
+        "index": 125,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 126,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 136,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 137,
+        "before": null,
+        "after": "상처를 골라야 한다"
+      },
+      {
+        "index": 138,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 139,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 140,
+        "before": null,
+        "after": "상처가 없다"
+      },
+      {
+        "index": 141,
+        "before": null,
+        "after": "상처가 없다"
+      }
+    ],
+    "review": "초기 능력치6회 양도·합0 배경 보정·나이/특성 가중치로 world RNG 소비와 인물 상태가 달라졌다. NPC 장비/ID·이동/수색·교전/상처가 달라 기존 명령의 성공 여부가 유지되지 않는다. 기존 벡터를 보존하고 새 생성 규칙에 맞는 명령을 다시 고정하며 초기 상태 해시도 추가한다.",
+    "newCommands": 147,
+    "newInitialHash": "ad8e7bc8",
+    "newHash": "aa18573e",
+    "oldFixture": "tests/fixtures/golden-v021.json"
+  }
+]

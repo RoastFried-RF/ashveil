@@ -1,0 +1,561 @@
+{
+  "version": 303,
+  "authoring": "new integer geometry, no image file inputs or filters",
+  "source": "tools/art/direction-v303/draw-props.py",
+  "baselineFrames": 1266,
+  "ownedFrameKeys": 152,
+  "ownedSheets": 19,
+  "actualGround": [
+    "complete_well",
+    "complete_campfire_cold",
+    "complete_bed_plain",
+    "complete_bed_insulated",
+    "complete_bed_scorched",
+    "complete_forge",
+    "complete_workbench",
+    "complete_barricade",
+    "complete_wall_crack",
+    "complete_wall_sealed",
+    "complete_sarcophagus_open",
+    "complete_crop_shade",
+    "complete_crop_cabbage",
+    "complete_crop_potato",
+    "complete_crop_turnip",
+    "complete_crop_whitecap",
+    "complete_loom",
+    "complete_tanning_vat",
+    "complete_artisan",
+    "complete_saltwork",
+    "complete_tower_sensor",
+    "complete_receiver_conduit",
+    "complete_spire_console",
+    "complete_zero_vault_seal",
+    "complete_leaking_conduit",
+    "complete_field_mat",
+    "complete_straw_bed",
+    "complete_good_bed",
+    "complete_beacon",
+    "complete_resident_depot",
+    "complete_altar_closed",
+    "complete_altar_open",
+    "complete_fire0",
+    "complete_fire1",
+    "complete_fire2",
+    "complete_rubble",
+    "complete_boat_frame"
+  ],
+  "contract": "every owned sheet key/frame key and frame x/y/w/h identical to baseline; alias crate_closed intentionally shares crate0",
+  "coverage": {
+    "kt_props": [
+      "pot0",
+      "pot1",
+      "pot2",
+      "statue",
+      "sarcophagus",
+      "broken_column",
+      "niche_statue",
+      "chain0",
+      "seat",
+      "books0",
+      "books1"
+    ],
+    "kt_brazier": [
+      "brazier0",
+      "brazier1",
+      "brazier2",
+      "brazier3",
+      "brazier4",
+      "brazier5",
+      "brazier6",
+      "brazier7"
+    ],
+    "objects": [
+      "chest0",
+      "chest_red0",
+      "crate0",
+      "torch_stand0",
+      "lantern_hang0",
+      "spikes0",
+      "chest1",
+      "chest_red1",
+      "crate1",
+      "torch_stand1",
+      "lantern_hang1",
+      "spikes1",
+      "chest2",
+      "chest_red2",
+      "crate2",
+      "torch_stand2",
+      "lantern_hang2",
+      "spikes2",
+      "door_closed",
+      "door_open",
+      "crate_closed"
+    ],
+    "dw_env": [
+      "tree",
+      "rock",
+      "mushrooms"
+    ],
+    "dw_tree_dead": [
+      "tree_dead"
+    ],
+    "cd_veina1": [
+      "cd_veina1_0",
+      "cd_veina1_1",
+      "cd_veina1_2",
+      "cd_veina1_3",
+      "cd_veina1_4",
+      "cd_veina1_5",
+      "cd_veina1_6",
+      "cd_veina1_7",
+      "cd_veina1_8",
+      "cd_veina1_9",
+      "cd_veina1_10",
+      "cd_veina1_11",
+      "cd_veina1_12",
+      "cd_veina1_13",
+      "cd_veina1_14",
+      "cd_veina1_15",
+      "cd_veina1_16",
+      "cd_veina1_17",
+      "cd_veina1_18",
+      "cd_veina1_19",
+      "cd_veina1_20",
+      "cd_veina1_21",
+      "cd_veina1_22",
+      "cd_veina1_23"
+    ],
+    "cd_littleeyes": [
+      "cd_littleeyes_0",
+      "cd_littleeyes_1",
+      "cd_littleeyes_2",
+      "cd_littleeyes_3",
+      "cd_littleeyes_4",
+      "cd_littleeyes_5",
+      "cd_littleeyes_6",
+      "cd_littleeyes_7",
+      "cd_littleeyes_8",
+      "cd_littleeyes_9",
+      "cd_littleeyes_10",
+      "cd_littleeyes_11",
+      "cd_littleeyes_12",
+      "cd_littleeyes_13",
+      "cd_littleeyes_14",
+      "cd_littleeyes_15",
+      "cd_littleeyes_16",
+      "cd_littleeyes_17",
+      "cd_littleeyes_18",
+      "cd_littleeyes_19",
+      "cd_littleeyes_20",
+      "cd_littleeyes_21",
+      "cd_littleeyes_22",
+      "cd_littleeyes_23",
+      "cd_littleeyes_24",
+      "cd_littleeyes_25",
+      "cd_littleeyes_26",
+      "cd_littleeyes_27",
+      "cd_littleeyes_28",
+      "cd_littleeyes_29",
+      "cd_littleeyes_30",
+      "cd_littleeyes_31",
+      "cd_littleeyes_32",
+      "cd_littleeyes_33",
+      "cd_littleeyes_34",
+      "cd_littleeyes_35"
+    ],
+    "cd_urn_1": [
+      "cd_urn_1"
+    ],
+    "cd_statue_b1": [
+      "cd_statue_b1"
+    ],
+    "original_forest_pine": [
+      "original_pine_tree"
+    ],
+    "original_forest_dead": [
+      "original_dead_tree"
+    ],
+    "original_storage_chest0": [
+      "original_storage_chest0"
+    ],
+    "original_storage_chest2": [
+      "original_storage_chest2"
+    ],
+    "original_ashberry_bush": [
+      "original_ashberry_bush"
+    ],
+    "original_pantry_full": [
+      "original_pantry_full"
+    ],
+    "original_pantry_low": [
+      "original_pantry_low"
+    ],
+    "original_pantry_empty": [
+      "original_pantry_empty"
+    ],
+    "original_hearth_oat_plot": [
+      "original_hearth_oat_plot"
+    ],
+    "complete_props_ground": [
+      "complete_well",
+      "complete_campfire_cold",
+      "complete_bed_plain",
+      "complete_bed_insulated",
+      "complete_bed_scorched",
+      "complete_forge",
+      "complete_workbench",
+      "complete_barricade",
+      "complete_wall_crack",
+      "complete_wall_sealed",
+      "complete_sarcophagus_open",
+      "complete_crop_shade",
+      "complete_crop_cabbage",
+      "complete_crop_potato",
+      "complete_crop_turnip",
+      "complete_crop_whitecap",
+      "complete_loom",
+      "complete_tanning_vat",
+      "complete_artisan",
+      "complete_saltwork",
+      "complete_tower_sensor",
+      "complete_receiver_conduit",
+      "complete_spire_console",
+      "complete_zero_vault_seal",
+      "complete_leaking_conduit",
+      "complete_field_mat",
+      "complete_straw_bed",
+      "complete_good_bed",
+      "complete_beacon",
+      "complete_resident_depot",
+      "complete_altar_closed",
+      "complete_altar_open",
+      "complete_fire0",
+      "complete_fire1",
+      "complete_fire2",
+      "complete_rubble",
+      "complete_boat_frame"
+    ]
+  },
+  "sheets": {
+    "kt_props": {
+      "size": [
+        368,
+        150
+      ],
+      "frames": 11,
+      "sha256": "e60d6eee2c84f24b0fddfd7a7bb379cc7f5890d687e4de89a871639475c9e166"
+    },
+    "kt_brazier": {
+      "size": [
+        248,
+        130
+      ],
+      "frames": 8,
+      "sha256": "6cb87fb301f259c99e1682bd0954604cbb4f479d836564447b1dd2e73004ed17"
+    },
+    "objects": {
+      "size": [
+        250,
+        66
+      ],
+      "frames": 21,
+      "sha256": "f9f3eee295e66424b1a5b841bd2cad6954304ef28136a732a7b62cbefd0415f1"
+    },
+    "dw_env": {
+      "size": [
+        212,
+        96
+      ],
+      "frames": 3,
+      "sha256": "f3558e56eb8b5d74e50fdae67682ca2b1dd4578144c99b72a5de92d111d596a3"
+    },
+    "dw_tree_dead": {
+      "size": [
+        80,
+        96
+      ],
+      "frames": 1,
+      "sha256": "5cb9059751f947b6cae21068f42532c0b4be0cbf3371f6d0b151c6237209f9ad"
+    },
+    "cd_veina1": {
+      "size": [
+        376,
+        34
+      ],
+      "frames": 24,
+      "sha256": "5294d3a974d11e482b38de46402ee696a7f77a6761cc4e1d8b24686970e80b23"
+    },
+    "cd_littleeyes": {
+      "size": [
+        574,
+        34
+      ],
+      "frames": 36,
+      "sha256": "d073306442452f347d20cd1354291513628952877e2996b58a86ab9dd1baec7e"
+    },
+    "cd_urn_1": {
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "sha256": "747a9a575ad54989a9785f769d496aa69471d8b76996330b5882eaf2fc591124"
+    },
+    "cd_statue_b1": {
+      "size": [
+        48,
+        48
+      ],
+      "frames": 1,
+      "sha256": "8f2f3715f569a09ef5f6008ad0aa3fb4750ee094bff28d8328f8cf50c7c52ad4"
+    },
+    "original_forest_pine": {
+      "size": [
+        80,
+        96
+      ],
+      "frames": 1,
+      "sha256": "59523eb0f682e9635e8f6e54a6d84a99c63c96530334d9a5d0e3e9804d7f8a06"
+    },
+    "original_forest_dead": {
+      "size": [
+        80,
+        96
+      ],
+      "frames": 1,
+      "sha256": "10203d1b90ba86e611f58f23968e24d0e00bde0780c8c7ac29b1a2148256e27e"
+    },
+    "original_storage_chest0": {
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "sha256": "80b0776f24d91f0243b3497df5f7bfc2ee6f39e4ee7a66f96cf14129f7bc28c1"
+    },
+    "original_storage_chest2": {
+      "size": [
+        16,
+        16
+      ],
+      "frames": 1,
+      "sha256": "e04a4342bd158f6e5067be753facaf1b7e75f980a4807fc1925a8e644a3f8a3e"
+    },
+    "original_ashberry_bush": {
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "sha256": "81e10a43632001b71fe74c8173b88ef6dce741de12ef4cda10248ae49a29cf57"
+    },
+    "original_pantry_full": {
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "sha256": "11f91fb6c8de8f0673ae2b7885413e34d151312c8710fa4e29db018b70b42d06"
+    },
+    "original_pantry_low": {
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "sha256": "54e66d0736bcac75a3616c24fa4ac097a681b33d74d44a0dec51addf649ff7c8"
+    },
+    "original_pantry_empty": {
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "sha256": "2762ef248906f67a588a8782d7d8f7b7b1bf57fe9ef26dbccc2050e928b3cc86"
+    },
+    "original_hearth_oat_plot": {
+      "size": [
+        32,
+        32
+      ],
+      "frames": 1,
+      "sha256": "adc13ea04eb7f6eba4dd9a272025543f0b54c588c5883b6b16739895e1fc8901"
+    },
+    "complete_props_ground": {
+      "size": [
+        250,
+        52
+      ],
+      "frames": 37,
+      "sha256": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    }
+  },
+  "descriptions": {
+    "pot0": "unglazed handled water ewer with side-lit shoulder",
+    "pot1": "squat fired-clay lidded jar with hand-thrown rings",
+    "pot2": "shattered clay storage jar, jagged mouth and fallen sherds",
+    "statue": "stooped stone reader, supported open book, worn nose and stepped plinth",
+    "sarcophagus": "thick iron-clamped stone coffin with worn recumbent effigy and shifted rim",
+    "broken_column": "split limestone column with broken capital, missing shaft chunk, flutes and rubble",
+    "niche_statue": "recessed stone votive in a built voussoir arch with readable block joints",
+    "seat": "heavy chipped stone armchair, sloping seat plane, thick arms and feet",
+    "books0": "stacked leather books, uneven paper signatures, buckled spine straps",
+    "books1": "open bound codex, gutter, broken corners and actual page lines",
+    "chain0": "alternating twisted iron oval links, worn upper edges and rust inside joins",
+    "brazier0": "ribbed iron fire bowl, three knees, moving flame and rising ember 0/8",
+    "brazier1": "ribbed iron fire bowl, three knees, moving flame and rising ember 1/8",
+    "brazier2": "ribbed iron fire bowl, three knees, moving flame and rising ember 2/8",
+    "brazier3": "ribbed iron fire bowl, three knees, moving flame and rising ember 3/8",
+    "brazier4": "ribbed iron fire bowl, three knees, moving flame and rising ember 4/8",
+    "brazier5": "ribbed iron fire bowl, three knees, moving flame and rising ember 5/8",
+    "brazier6": "ribbed iron fire bowl, three knees, moving flame and rising ember 6/8",
+    "brazier7": "ribbed iron fire bowl, three knees, moving flame and rising ember 7/8",
+    "chest0": "wood coffer, actual slats and iron straps; closed",
+    "chest_red0": "red coffer, actual slats and iron straps; closed",
+    "crate0": "crate coffer, actual slats and iron straps; closed",
+    "chest1": "wood coffer, actual slats and iron straps; partly raised",
+    "chest_red1": "red coffer, actual slats and iron straps; partly raised",
+    "crate1": "crate coffer, actual slats and iron straps; partly raised",
+    "chest2": "wood coffer, actual slats and iron straps; open interior",
+    "chest_red2": "red coffer, actual slats and iron straps; open interior",
+    "crate2": "crate coffer, actual slats and iron straps; open interior",
+    "crate_closed": "intentional compatibility alias of crate0, same physical crate",
+    "original_storage_chest0": "handbuilt storage trunk with iron corners and thick boards, state 0",
+    "original_storage_chest2": "handbuilt storage trunk with iron corners and thick boards, state 2",
+    "torch_stand0": "forged tripod torch, real wick and moving flame 0/3",
+    "lantern_hang0": "hanging iron lantern, cage ribs, smoky glass and moving internal wick 0/3",
+    "spikes0": "forged spike plate with moving tooth height 0/3",
+    "torch_stand1": "forged tripod torch, real wick and moving flame 1/3",
+    "lantern_hang1": "hanging iron lantern, cage ribs, smoky glass and moving internal wick 1/3",
+    "spikes1": "forged spike plate with moving tooth height 1/3",
+    "torch_stand2": "forged tripod torch, real wick and moving flame 2/3",
+    "lantern_hang2": "hanging iron lantern, cage ribs, smoky glass and moving internal wick 2/3",
+    "spikes2": "forged spike plate with moving tooth height 2/3",
+    "door_closed": "swollen plank door with skewed iron straps, jamb thickness and iron latch",
+    "door_open": "edge-on opened plank leaf, hinge straps and worn threshold",
+    "tree": "new sparse pollarded ash, integrated angular leaf masses, branching trunk and shallow root shadow",
+    "tree_dead": "new leafless broken ash, grey exposed fractures, dark branch undersides and roots",
+    "original_pine_tree": "asymmetric drooping pine bough tiers, sparse grey-green needles, exposed trunk and roots",
+    "original_dead_tree": "leaning forest snag, broken crown, offset weighted limbs, peeled wood and roots",
+    "rock": "sedimentary boulder with three light planes, stress fissure and grounded broken foot",
+    "mushrooms": "four irregular layered caps, underside gills, leaning ivory stems and matted patch shadow",
+    "original_ashberry_bush": "ashberry world shrub, sparse toothed leaves, forked woody shoots; no invented harvest count",
+    "original_hearth_oat_plot": "oat planting, several bent stems, narrow blades and drooping neutral grey glumes; no harvest count",
+    "original_pantry_full": "actual pantry supply shelf, iron-cornered worn boards; selected semantic stock level 2",
+    "original_pantry_low": "actual pantry supply shelf, iron-cornered worn boards; selected semantic stock level 1",
+    "original_pantry_empty": "actual pantry supply shelf, iron-cornered worn boards; selected semantic stock level 0",
+    "complete_well": "new physical well construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_campfire_cold": "new physical campfire_cold construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_bed_plain": "new physical bed_plain construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_bed_insulated": "new physical bed_insulated construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_bed_scorched": "new physical bed_scorched construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_forge": "new physical forge construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_workbench": "new physical workbench construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_barricade": "new physical barricade construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_wall_crack": "new physical wall_crack construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_wall_sealed": "new physical wall_sealed construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_sarcophagus_open": "new physical sarcophagus_open construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_crop_shade": "new physical crop_shade construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_crop_cabbage": "new physical crop_cabbage construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_crop_potato": "new physical crop_potato construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_crop_turnip": "new physical crop_turnip construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_crop_whitecap": "new physical crop_whitecap construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_loom": "new physical loom construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_tanning_vat": "new physical tanning_vat construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_artisan": "new physical artisan construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_saltwork": "new physical saltwork construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_tower_sensor": "new physical tower_sensor construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_receiver_conduit": "new physical receiver_conduit construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_spire_console": "new physical spire_console construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_zero_vault_seal": "new physical zero_vault_seal construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_leaking_conduit": "new physical leaking_conduit construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_field_mat": "new physical field_mat construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_straw_bed": "new physical straw_bed construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_good_bed": "new physical good_bed construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_beacon": "new physical beacon construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_resident_depot": "new physical resident_depot construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_altar_closed": "new physical altar_closed construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_altar_open": "new physical altar_open construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_fire0": "new physical fire0 construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_fire1": "new physical fire1 construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_fire2": "new physical fire2 construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_rubble": "new physical rubble construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "complete_boat_frame": "new physical boat_frame construction; direction v303 planes, muted materials, upper-left wear and contact shadow",
+    "cd_veina1_0": "raw floor sinew, torn connective edges and traveling physical swelling 0/24; no glow",
+    "cd_veina1_1": "raw floor sinew, torn connective edges and traveling physical swelling 1/24; no glow",
+    "cd_veina1_2": "raw floor sinew, torn connective edges and traveling physical swelling 2/24; no glow",
+    "cd_veina1_3": "raw floor sinew, torn connective edges and traveling physical swelling 3/24; no glow",
+    "cd_veina1_4": "raw floor sinew, torn connective edges and traveling physical swelling 4/24; no glow",
+    "cd_veina1_5": "raw floor sinew, torn connective edges and traveling physical swelling 5/24; no glow",
+    "cd_veina1_6": "raw floor sinew, torn connective edges and traveling physical swelling 6/24; no glow",
+    "cd_veina1_7": "raw floor sinew, torn connective edges and traveling physical swelling 7/24; no glow",
+    "cd_veina1_8": "raw floor sinew, torn connective edges and traveling physical swelling 8/24; no glow",
+    "cd_veina1_9": "raw floor sinew, torn connective edges and traveling physical swelling 9/24; no glow",
+    "cd_veina1_10": "raw floor sinew, torn connective edges and traveling physical swelling 10/24; no glow",
+    "cd_veina1_11": "raw floor sinew, torn connective edges and traveling physical swelling 11/24; no glow",
+    "cd_veina1_12": "raw floor sinew, torn connective edges and traveling physical swelling 12/24; no glow",
+    "cd_veina1_13": "raw floor sinew, torn connective edges and traveling physical swelling 13/24; no glow",
+    "cd_veina1_14": "raw floor sinew, torn connective edges and traveling physical swelling 14/24; no glow",
+    "cd_veina1_15": "raw floor sinew, torn connective edges and traveling physical swelling 15/24; no glow",
+    "cd_veina1_16": "raw floor sinew, torn connective edges and traveling physical swelling 16/24; no glow",
+    "cd_veina1_17": "raw floor sinew, torn connective edges and traveling physical swelling 17/24; no glow",
+    "cd_veina1_18": "raw floor sinew, torn connective edges and traveling physical swelling 18/24; no glow",
+    "cd_veina1_19": "raw floor sinew, torn connective edges and traveling physical swelling 19/24; no glow",
+    "cd_veina1_20": "raw floor sinew, torn connective edges and traveling physical swelling 20/24; no glow",
+    "cd_veina1_21": "raw floor sinew, torn connective edges and traveling physical swelling 21/24; no glow",
+    "cd_veina1_22": "raw floor sinew, torn connective edges and traveling physical swelling 22/24; no glow",
+    "cd_veina1_23": "raw floor sinew, torn connective edges and traveling physical swelling 23/24; no glow",
+    "cd_littleeyes_0": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 0/36",
+    "cd_littleeyes_1": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 1/36",
+    "cd_littleeyes_2": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 2/36",
+    "cd_littleeyes_3": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 3/36",
+    "cd_littleeyes_4": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 4/36",
+    "cd_littleeyes_5": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 5/36",
+    "cd_littleeyes_6": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 6/36",
+    "cd_littleeyes_7": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 7/36",
+    "cd_littleeyes_8": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 8/36",
+    "cd_littleeyes_9": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 9/36",
+    "cd_littleeyes_10": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 10/36",
+    "cd_littleeyes_11": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 11/36",
+    "cd_littleeyes_12": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 12/36",
+    "cd_littleeyes_13": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 13/36",
+    "cd_littleeyes_14": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 14/36",
+    "cd_littleeyes_15": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 15/36",
+    "cd_littleeyes_16": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 16/36",
+    "cd_littleeyes_17": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 17/36",
+    "cd_littleeyes_18": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 18/36",
+    "cd_littleeyes_19": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 19/36",
+    "cd_littleeyes_20": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 20/36",
+    "cd_littleeyes_21": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 21/36",
+    "cd_littleeyes_22": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 22/36",
+    "cd_littleeyes_23": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 23/36",
+    "cd_littleeyes_24": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 24/36",
+    "cd_littleeyes_25": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 25/36",
+    "cd_littleeyes_26": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 26/36",
+    "cd_littleeyes_27": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 27/36",
+    "cd_littleeyes_28": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 28/36",
+    "cd_littleeyes_29": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 29/36",
+    "cd_littleeyes_30": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 30/36",
+    "cd_littleeyes_31": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 31/36",
+    "cd_littleeyes_32": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 32/36",
+    "cd_littleeyes_33": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 33/36",
+    "cd_littleeyes_34": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 34/36",
+    "cd_littleeyes_35": "embedded wet organic eyes with staggered lids, dull reflections, tracking pupil and moving tissue 35/36",
+    "cd_urn_1": "broken-lipped ritual clay urn, embedded dull eye, fracture held by a corroded iron staple",
+    "cd_statue_b1": "kneeling damaged human stone idol, lowered head and physical diagonal iron restraining bands"
+  },
+  "animationUniqueFrames": {
+    "brazier": 8,
+    "cd_veina1_": 24,
+    "cd_littleeyes_": 36,
+    "complete_fire": 3
+  },
+  "referencesViewed": [
+    "stoneshard-0.jpg",
+    "darkwood-0.jpg",
+    "darkest-dungeon-0.jpg",
+    "fear-hunger-0.jpg"
+  ],
+  "restrictions": "no shared registry, renderer, Core, Def, browser, GPU, Full or git changes in this task"
+}

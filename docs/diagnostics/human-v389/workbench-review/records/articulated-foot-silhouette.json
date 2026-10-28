@@ -1,0 +1,72 @@
+{
+  "priority": "P2",
+  "evidence": [
+    "Prosthetic.ArticulatedLeg-LeftFoot.png",
+    "Prosthetic.ArticulatedLeg-RightFoot.png"
+  ],
+  "registeredFrame": "av389_articulated_foot_owned",
+  "registeredRect": [
+    "av384_prosthetic_leg_pioneer_v2",
+    156,
+    684,
+    360,
+    141
+  ],
+  "originalPNG": "/workspace/ashveil/public/sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png",
+  "originalSHA256": "64b83b162a71bbc6cc56331a057e7f79b70379d694a420eb1bfc5f81a8294b46",
+  "analyzedACrop": [
+    313.0,
+    43.0
+  ],
+  "analyzedBCrop": [
+    146.5,
+    108.5
+  ],
+  "fitMeaning": "These are the actual fit values read during review. They are a historical snapshot, not a claim that parent has not since corrected them.",
+  "method": "Read-only alpha pixel-center projection t=(pixel-a)dot(b-a)/|b-a|^2. Runtime maps a->ankle,b->sole. t>1 therefore lies past geometric sole in this upright Foot mapping.",
+  "metrics": [
+    {
+      "alphaThreshold": 16,
+      "projectionTMin": -0.18135103475204997,
+      "projectionTMax": 1.7587192502928544,
+      "maxPointCrop": [
+        2,
+        112
+      ],
+      "pixelsBeyondB": 11549,
+      "displaySpanWorld": 2.3101947969814147,
+      "imagePastSoleWorldPx": 1.7527892643961918,
+      "imagePastSoleAt4x": 7.011157057584767
+    },
+    {
+      "alphaThreshold": 128,
+      "projectionTMin": -0.17819601718078876,
+      "projectionTMax": 1.7555642327215932,
+      "maxPointCrop": [
+        3,
+        113
+      ],
+      "pixelsBeyondB": 11300,
+      "displaySpanWorld": 2.3101947969814147,
+      "imagePastSoleWorldPx": 1.7455005592186794,
+      "imagePastSoleAt4x": 6.982002236874718
+    },
+    {
+      "alphaThreshold": 200,
+      "projectionTMin": -0.17614994142912924,
+      "projectionTMax": 1.7524092151503319,
+      "maxPointCrop": [
+        4,
+        114
+      ],
+      "pixelsBeyondB": 11175,
+      "displaySpanWorld": 2.3101947969814147,
+      "imagePastSoleWorldPx": 1.7382118540411666,
+      "imagePastSoleAt4x": 6.9528474161646665
+    }
+  ],
+  "important": "FootProjection.error0 only measures source pin b target, not whole rendered silhouette contact. This is image geometry, not real3D balance.",
+  "proposal": "Review source sole/ankle meaning with the foot display axis and keep the visible support silhouette on the stationary ground. Do not just hide overshoot with PNG edits or claim unobserved3D surfaces.",
+  "sourcePixelsEdited": 0,
+  "correctedRenderReviewed": false
+}

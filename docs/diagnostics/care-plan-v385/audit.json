@@ -1,0 +1,103 @@
+{
+  "finiteInitial": true,
+  "afterTitle": "real keyboard/pointer only; debug read-only",
+  "animationSpeed": 1,
+  "runs": [
+    {
+      "width": 1440,
+      "height": 1080,
+      "patient": 1,
+      "doctor": 67,
+      "steps": 4,
+      "initialTU": 1440000,
+      "finalTU": 1443000,
+      "originalUIDs": {
+        "drug": 80,
+        "thread": 78,
+        "needle": 79,
+        "bandage": 81
+      }
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "patient": 1,
+      "doctor": 67,
+      "steps": 4,
+      "initialTU": 1440000,
+      "finalTU": 1443000,
+      "originalUIDs": {
+        "drug": 80,
+        "thread": 78,
+        "needle": 79,
+        "bandage": 81
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "phase": "care-1440-loaded",
+      "hash": "f9a5d65a"
+    },
+    {
+      "phase": "care-1440-review-readonly",
+      "hash": "f9a5d65a"
+    },
+    {
+      "phase": "care-1440-complete",
+      "hash": "9fffb851"
+    },
+    {
+      "phase": "care-1440-continued",
+      "hash": "9fffb851"
+    },
+    {
+      "phase": "care-1366-loaded",
+      "hash": "f9a5d65a"
+    },
+    {
+      "phase": "care-1366-review-readonly",
+      "hash": "f9a5d65a"
+    },
+    {
+      "phase": "care-1366-complete",
+      "hash": "9fffb851"
+    },
+    {
+      "phase": "care-1366-continued",
+      "hash": "9fffb851"
+    },
+    {
+      "phase": "prosthetics-readonly",
+      "hash": "1d76c1c2"
+    }
+  ],
+  "prosthetics": [
+    {
+      "uid": 82,
+      "def": "Item.PegLeg"
+    },
+    {
+      "uid": 83,
+      "def": "Item.ArticulatedLeg"
+    },
+    {
+      "uid": 84,
+      "def": "Item.HookHand"
+    },
+    {
+      "uid": 85,
+      "def": "Item.GlassEye"
+    },
+    {
+      "uid": 86,
+      "def": "Item.PioneerArm"
+    },
+    {
+      "uid": 87,
+      "def": "Item.GardenerLimb"
+    }
+  ],
+  "errors": [],
+  "scope": "Two actual four-step self-patient sequences, unchanged review state, real saved continuation and six inventory icon bindings. Unit checks separately cover ally care, cancellation and future UID loss. No Full/World/long-run test."
+}

@@ -1,0 +1,45 @@
+{
+  "fromVersion": "v0.42",
+  "toVersion": "v0.43",
+  "commandsRewritten": false,
+  "saveVersion": 10,
+  "hashPinsChanged": false,
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "b91005d1",
+      "finalHash": "31bd0634",
+      "fullInitialAndFinalIdentical": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "58502f07",
+      "finalHash": "238bbe83",
+      "fullInitialAndFinalIdentical": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "14c7aa11",
+      "finalHash": "fe2a2e35",
+      "fullInitialAndFinalIdentical": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "3ab3ed35",
+      "finalHash": "80ad545a",
+      "fullInitialAndFinalIdentical": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "3ab3ed35",
+      "finalHash": "c7512871",
+      "fullInitialAndFinalIdentical": true,
+      "errorsIdentical": true
+    }
+  ],
+  "note": "초기/최종 전체 상태·명령·오류·해시를 그대로 유지한다. 재보급은 기존 이동/거래 행동과 선택적 재시도 시각을 사용하므로 형식10을 유지한다. 기존5입력은 실제 재보급을 포함하지 않으므로 별도 NPC 스케줄러/시장·개인 재고/돈/거부/중간각인·브라우저로 검증한다."
+}

@@ -1,0 +1,98 @@
+{
+  "previousVersion": 74,
+  "currentVersion": 75,
+  "allWholeStatesReviewed": true,
+  "explanation": "길드의 실제 유한 배급 팩1과 이후 원래 재고UID/nextItemId만 달라진다. 다섯 재현은 굴쥐 고기 섭취를 포함하지 않으므로 실제 굴쥐 고기/노출은 별도 검사로 확인한다. 나머지 전체 초기/최종 상태와 오류가 같다.",
+  "rows": [
+    {
+      "name": "surface",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newFiniteRationStacks": 0,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "world-journey",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newFiniteRationStacks": 1,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newFiniteRationStacks": 1,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    },
+    {
+      "name": "world-climate-return",
+      "errorsExact": true,
+      "states": [
+        {
+          "state": "initial",
+          "newFiniteRationStacks": 1,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        },
+        {
+          "state": "state",
+          "newFiniteRationStacks": 1,
+          "allOriginalMarketItemsExactExceptShiftedUid": true,
+          "allOtherWholeFieldsExact": true
+        }
+      ]
+    }
+  ]
+}

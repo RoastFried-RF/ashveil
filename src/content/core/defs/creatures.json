@@ -1,0 +1,883 @@
+[
+  {
+    "defType": "Creature",
+    "id": "Creature.Human",
+    "abstract": true,
+    "label": "인간",
+    "sprite": "player",
+    "body": "Body.Humanoid",
+    "faction": "neutral",
+    "sizeClass": "medium",
+    "moveTU": 100,
+    "stats": {
+      "str": 10,
+      "agi": 10,
+      "per": 10,
+      "vit": 10,
+      "wil": 10
+    },
+    "skills": {},
+    "naturalAttack": {
+      "label": "주먹",
+      "damageType": "blunt",
+      "damage": 3,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 2,
+      "requiresCapacity": "manipulation",
+      "shove": 10
+    },
+    "ai": "raider",
+    "morale": 60,
+    "lightThreshold": 0.25,
+    "sightRange": 9,
+    "hunger": [
+      0.2,
+      0.6
+    ],
+    "char": "hero",
+    "bagSize": [
+      8,
+      4
+    ],
+    "weightKg": 70,
+    "smell": 0.5
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Drifter",
+    "parent": "Creature.Human",
+    "label": "떠돌이",
+    "sprite": "player",
+    "faction": "player",
+    "ai": "player",
+    "morale": 70,
+    "moveTU": 100,
+    "char": "hero"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Reaver",
+    "parent": "Creature.Human",
+    "label": "잿빛 약탈자",
+    "description": "잿빛 약탈단의 졸개. 수가 많을 땐 대담하지만 피를 보면 쉽게 무너진다.",
+    "sprite": [
+      "reaver0",
+      "reaver1",
+      "reaver2"
+    ],
+    "faction": "reavers",
+    "morale": 50,
+    "stats": {
+      "str": 11,
+      "agi": 11,
+      "per": 10,
+      "vit": 11,
+      "wil": 10
+    },
+    "skills": {
+      "blade": 900,
+      "axe": 600,
+      "blunt": 900,
+      "spear": 400,
+      "dodge": 400,
+      "shield": 300
+    },
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.Hatchet",
+            "Item.PipeClub"
+          ]
+        },
+        {
+          "items": [
+            "Item.PaddedJacket"
+          ],
+          "chance": 0.7
+        },
+        {
+          "items": [
+            "Item.ScrapMail"
+          ],
+          "chance": 1.0
+        },
+        {
+          "items": [
+            "Item.ScrapHelmet",
+            "Item.Hood"
+          ],
+          "chance": 0.4
+        },
+        {
+          "items": [
+            "Item.Boots"
+          ],
+          "chance": 0.5
+        },
+        {
+          "items": [
+            "Item.Cloth",
+            "Item.Jerky",
+            "Item.Moonshine",
+            "Item.Hardtack",
+            "Item.Bandage"
+          ],
+          "chance": 0.7
+        },
+        {
+          "items": [
+            "Item.PillYellow",
+            "Item.PillBlue",
+            "Item.PillWhite",
+            "Item.PillBlack",
+            "Item.PillGreen",
+            "Item.PillMagenta"
+          ],
+          "chance": 0.25
+        }
+      ]
+    },
+    "bestiary": [
+      "사람이다. 너와 똑같이 피 흘리고, 똑같이 겁먹는다.",
+      "피를 많이 흘리면 도망친다. 동료가 쓰러지면 사기가 꺾인다.",
+      "다리를 노리면 도망치지 못한다. 쫓을지 말지는 네 몫이다."
+    ],
+    "moveTU": 100,
+    "char": [
+      "reaver0",
+      "reaver1"
+    ],
+    "xp": 30,
+    "sleepChance": 0.25,
+    "ai": "guard",
+    "statRange": {
+      "str": [
+        10,
+        12
+      ],
+      "agi": [
+        10,
+        13
+      ],
+      "per": [
+        10,
+        10
+      ],
+      "vit": [
+        10,
+        12
+      ]
+    },
+    "evasion": 0,
+    "bagSize": [
+      8,
+      4
+    ],
+    "weaponAbilities": {
+      "axe": [
+        "Ab.Axe.Split"
+      ],
+      "blunt": [
+        "Ab.Blunt.Shove"
+      ]
+    },
+    "fearFamily": "Creature.Reaver"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.AshHound",
+    "label": "재늑대",
+    "description": "장막 이후 야생화된 개의 후손. 무리로 사냥한다.",
+    "sprite": "ash_hound",
+    "body": "Body.Quadruped",
+    "faction": "beasts",
+    "sizeClass": "small",
+    "moveTU": 100,
+    "hpMult": 0.9,
+    "stats": {
+      "str": 8,
+      "agi": 14,
+      "per": 13,
+      "vit": 10,
+      "wil": 6
+    },
+    "skills": {
+      "bite": 600,
+      "dodge": 900
+    },
+    "naturalAttack": {
+      "label": "물기",
+      "damageType": "bite",
+      "damage": 6,
+      "pen": 15,
+      "accuracy": 8,
+      "energy": 4,
+      "family": "bite",
+      "noise": 4,
+      "requiresCapacity": "manipulation"
+    },
+    "ai": "packHunter",
+    "morale": 45,
+    "lightThreshold": 0.05,
+    "sightRange": 12,
+    "scentSense": 1.0,
+    "hunger": [
+      0.5,
+      0.95
+    ],
+    "bestiary": [
+      "회색 털의 들개. 무리로 다닌다.",
+      "피 냄새를 맡고 바람을 타고 온다. 배가 부르면 덤비지 않는다.",
+      "다리가 약하다. 한 마리가 쓰러지면 나머지가 망설인다. 생고기를 던지면 먹느라 멈춘다."
+    ],
+    "insulation": 8,
+    "bagSize": [
+      2,
+      2
+    ],
+    "bloodMult": 0.96
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.AshHoundAlpha",
+    "parent": "Creature.AshHound",
+    "label": "재늑대 우두머리",
+    "sprite": "ash_hound_alpha",
+    "hpMult": 1.25,
+    "bloodMult": 1.248,
+    "stats": {
+      "str": 11,
+      "agi": 13,
+      "per": 13,
+      "vit": 12,
+      "wil": 10
+    },
+    "skills": {
+      "bite": 1600,
+      "dodge": 900
+    },
+    "morale": 70,
+    "naturalAttack": {
+      "label": "물어뜯기",
+      "damageType": "bite",
+      "damage": 9,
+      "pen": 20,
+      "accuracy": 8,
+      "energy": 5,
+      "family": "bite",
+      "noise": 5,
+      "requiresCapacity": "manipulation"
+    },
+    "moveTU": 100
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.BurrowRat",
+    "label": "굴쥐",
+    "description": "폐허에 사는 큰 쥐. 약하지만 물리면 상처가 곪는다.",
+    "sprite": "burrow_rat",
+    "body": "Body.Quadruped",
+    "faction": "vermin",
+    "sizeClass": "tiny",
+    "moveTU": 100,
+    "hpMult": 0.3,
+    "bloodMult": 0.024,
+    "stats": {
+      "str": 3,
+      "agi": 13,
+      "per": 10,
+      "vit": 6,
+      "wil": 3
+    },
+    "skills": {
+      "bite": 400,
+      "dodge": 400
+    },
+    "naturalAttack": {
+      "label": "갉기",
+      "damageType": "bite",
+      "damage": 2,
+      "pen": 5,
+      "accuracy": 8,
+      "energy": 2,
+      "family": "bite",
+      "noise": 1,
+      "requiresCapacity": "manipulation"
+    },
+    "ai": "skittish",
+    "morale": 25,
+    "lightThreshold": 0.03,
+    "sightRange": 8,
+    "scentSense": 0.6,
+    "hunger": [
+      0.4,
+      0.9
+    ],
+    "bestiary": [
+      "폐허의 쥐. 혼자서는 겁이 많다.",
+      "물린 상처는 곪기 쉽다. 소독을 잊지 말 것.",
+      "피를 흘리며 쓰러진 자에게는 대담해진다."
+    ],
+    "insulation": 6,
+    "bagSize": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ReaverChief",
+    "parent": "Creature.Reaver",
+    "label": "약탈단 두목",
+    "description": "야영지를 틀어쥔 두목. 쇠사슬 옷을 입고 손도끼를 쓴다.",
+    "char": "reaver0",
+    "xp": 60,
+    "morale": 70,
+    "sleepChance": 0,
+    "stats": {
+      "str": 13,
+      "agi": 11,
+      "per": 10,
+      "vit": 13,
+      "wil": 11
+    },
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.Hatchet"
+          ]
+        },
+        {
+          "items": [
+            "Item.ScrapMail"
+          ]
+        },
+        {
+          "items": [
+            "Item.ScrapHelmet"
+          ]
+        },
+        {
+          "items": [
+            "Item.Boots"
+          ]
+        },
+        {
+          "items": [
+            "Item.ScrapBuckler"
+          ]
+        },
+        {
+          "items": [
+            "Item.SealRing",
+            "Item.BoneCharm"
+          ]
+        },
+        {
+          "items": [
+            "Item.Bandage",
+            "Item.Moonshine"
+          ]
+        }
+      ]
+    },
+    "abilities": [
+      "Ab.Axe.Split",
+      "Ab.Axe.Ferocity",
+      "Ab.Survival.Breath"
+    ],
+    "leader": true,
+    "fearFamily": "Creature.Reaver"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ReaverArcher",
+    "parent": "Creature.Reaver",
+    "label": "약탈단 궁수",
+    "description": "망루를 지키는 약탈자. 다가오기 전에 화살을 날린다.",
+    "xp": 35,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.Bow"
+          ]
+        },
+        {
+          "items": [
+            "Item.Arrow"
+          ],
+          "count": [
+            8,
+            14
+          ]
+        },
+        {
+          "items": [
+            "Item.RustyKnife"
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt",
+            "Item.PaddedJacket"
+          ]
+        },
+        {
+          "items": [
+            "Item.Hood"
+          ],
+          "chance": 0.5
+        }
+      ]
+    },
+    "abilities": [
+      "Ab.Archery.Aimed"
+    ],
+    "fearFamily": "Creature.Reaver"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Shade",
+    "label": "그늘 사람",
+    "description": "장막 아래 지하로 내려간 사람들의 후손. 작고 빠르며 어둠 속에서도 본다.",
+    "char": [
+      "shade0",
+      "shade1",
+      "shade2",
+      "shade3"
+    ],
+    "body": "Body.Humanoid",
+    "faction": "shades",
+    "sizeClass": "small",
+    "moveTU": 100,
+    "hpMult": 0.7,
+    "bloodMult": 0.6,
+    "evasion": 0,
+    "stats": {
+      "str": 8,
+      "agi": 14,
+      "per": 12,
+      "vit": 8,
+      "wil": 8
+    },
+    "skills": {},
+    "naturalAttack": {
+      "label": "주먹",
+      "damageType": "blunt",
+      "damage": 3,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
+    },
+    "ai": "guard",
+    "morale": 40,
+    "lightThreshold": 0.02,
+    "sightRange": 9,
+    "sleepChance": 0.4,
+    "xp": 15,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.RustyKnife"
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt"
+          ]
+        },
+        {
+          "items": [
+            "Item.Cloth",
+            "Item.RawMeat",
+            "Item.PillBlack",
+            "Item.PillGreen",
+            "Item.BoneCharm",
+            "Item.SealRing"
+          ],
+          "chance": 0.5
+        }
+      ]
+    },
+    "bestiary": [
+      "작은 사람 같은 것. 무리 지어 다닌다.",
+      "겁이 많다. 동료가 쓰러지면 흩어진다.",
+      "등불을 싫어한다? 아니다, 등불은 너를 먼저 보여줄 뿐이다."
+    ],
+    "bagSize": [
+      4,
+      3
+    ],
+    "darkSight": [
+      5,
+      15
+    ],
+    "hearing": 2,
+    "weightKg": 40,
+    "abilities": [
+      "Ab.Shade.Lunge"
+    ],
+    "lightAverse": true,
+    "lightMorale": 25,
+    "packFlee": true,
+    "smell": 1,
+    "fearFamily": "Creature.Shade"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ShadeChief",
+    "parent": "Creature.Shade",
+    "label": "그늘 우두머리",
+    "char": "shade_chief",
+    "morale": 50,
+    "xp": 35,
+    "sleepChance": 0.1,
+    "stats": {
+      "str": 10,
+      "agi": 14,
+      "per": 12,
+      "vit": 10,
+      "wil": 10
+    },
+    "naturalAttack": {
+      "label": "주먹",
+      "damageType": "blunt",
+      "damage": 3,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
+    },
+    "sizeClass": "small",
+    "evasion": 0,
+    "abilities": [
+      "Ab.Shade.Lunge",
+      "Ab.Blade.DeepCut"
+    ],
+    "leader": true,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.RustyKnife",
+            "Item.HuntingKnife"
+          ]
+        },
+        {
+          "items": [
+            "Item.RagShirt"
+          ]
+        },
+        {
+          "items": [
+            "Item.Cloth",
+            "Item.SealRing",
+            "Item.BoneCharm"
+          ],
+          "chance": 0.6
+        }
+      ]
+    },
+    "fearFamily": "Creature.Shade"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Withered",
+    "label": "말라붙은 자",
+    "description": "회색열 말기 환자. 살이 말라 뼈에 붙었고 통증을 느끼지 못한다. 언데드가 아니라 아직 살아 있다.",
+    "char": "withered",
+    "body": "Body.Humanoid",
+    "faction": "withered",
+    "sizeClass": "medium",
+    "moveTU": 100,
+    "hpMult": 0.8,
+    "bloodMult": 0.5,
+    "evasion": 0,
+    "stats": {
+      "str": 9,
+      "agi": 9,
+      "per": 8,
+      "vit": 7,
+      "wil": 8
+    },
+    "skills": {},
+    "mods": {
+      "painMult": 0,
+      "bleedMult": 0.6,
+      "noPain": 1
+    },
+    "naturalAttack": {
+      "label": "할퀴기",
+      "damageType": "blunt",
+      "damage": 5,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
+    },
+    "ai": "guard",
+    "morale": 999,
+    "lightThreshold": 0.1,
+    "sightRange": 7,
+    "sleepChance": 0.6,
+    "xp": 25,
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.PillWhite",
+            "Item.PillYellow",
+            "Item.Cloth",
+            "Item.BoneCharm"
+          ],
+          "chance": 0.35
+        }
+      ]
+    },
+    "bestiary": [
+      "말라 비틀어진 사람. 쓰러져 있다가 일어난다.",
+      "아픔을 모른다. 쇼크로 쓰러지지 않는다. 피도 적게 흘린다.",
+      "다리를 부수면 기어서라도 온다. 머리를 노려라."
+    ],
+    "bagSize": [
+      2,
+      2
+    ],
+    "noMorale": true,
+    "weightKg": 35,
+    "naturalArmor": {
+      "blunt": 3
+    },
+    "abilities": [
+      "Ab.Grab"
+    ],
+    "thirsty": true,
+    "smell": 0.5,
+    "fixedBodyTemp": 34.5,
+    "contactDisease": {
+      "id": "Disease.GreyFever",
+      "chance": 0.01,
+      "grabbedMult": 3
+    },
+    "diseaseImmune": [
+      "Disease.GreyFever"
+    ]
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.WitheredPriest",
+    "parent": "Creature.Withered",
+    "label": "말라붙은 사제",
+    "char": "withered_priest",
+    "xp": 45,
+    "sleepChance": 0.2,
+    "stats": {
+      "str": 12,
+      "agi": 9,
+      "per": 10,
+      "vit": 10,
+      "wil": 8
+    },
+    "naturalAttack": {
+      "label": "향로 내려치기",
+      "damageType": "blunt",
+      "damage": 12,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation",
+      "stunD": 4
+    },
+    "hpMult": 1.0,
+    "weightKg": 55,
+    "fixedBodyTemp": 34.5,
+    "contactDisease": {
+      "id": "Disease.GreyFever",
+      "chance": 0.01,
+      "grabbedMult": 3
+    },
+    "diseaseImmune": [
+      "Disease.GreyFever"
+    ]
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.SporeMan",
+    "label": "포자 인간",
+    "description": "장막 포자에 잠식된 순례자. 맞으면 포자를 뿜는다.",
+    "char": [
+      "spore0",
+      "spore1"
+    ],
+    "body": "Body.Humanoid",
+    "faction": "withered",
+    "sizeClass": "medium",
+    "moveTU": 100,
+    "hpMult": 1.0,
+    "bloodMult": 0.8,
+    "evasion": 0,
+    "stats": {
+      "str": 12,
+      "agi": 8,
+      "per": 6,
+      "vit": 9,
+      "wil": 8
+    },
+    "skills": {},
+    "mods": {
+      "painMult": 0.3,
+      "bleedMult": 0.7,
+      "stumble": 10
+    },
+    "naturalAttack": {
+      "label": "포자 주먹",
+      "damageType": "blunt",
+      "damage": 6,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
+    },
+    "ai": "guard",
+    "morale": 999,
+    "lightThreshold": 0.1,
+    "sightRange": 6,
+    "sleepChance": 0.3,
+    "xp": 20,
+    "bestiary": [
+      "갓을 쓴 사람 모양의 버섯. 느리다.",
+      "때리면 포자 구름이 터진다. 포자를 마시면 기침이 나고 기력이 돌지 않는다.",
+      "창이나 활로 거리를 두면 포자를 피할 수 있다."
+    ],
+    "bagSize": [
+      3,
+      2
+    ],
+    "noMorale": true,
+    "hearing": -2,
+    "weightKg": 70,
+    "naturalArmor": {
+      "sharp": 10,
+      "blunt": 5
+    },
+    "sporeOnHit": {
+      "radius": 1,
+      "turns": 3,
+      "conc": 6
+    },
+    "smell": 0,
+    "diseaseImmune": [
+      "Disease.GreyFever"
+    ],
+    "damageTaken": {
+      "burn": 1.5
+    }
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Amalgam",
+    "label": "융합체",
+    "description": "수도원 지하에서 회색열을 고치려다 생긴 살덩이. 여러 사람이 하나로 엉겨 있다.",
+    "char": "amalgam",
+    "scale": 1,
+    "body": "Body.Amalgam",
+    "faction": "withered",
+    "sizeClass": "huge",
+    "moveTU": 100,
+    "hpBase": 400,
+    "evasion": 0,
+    "stats": {
+      "str": 18,
+      "agi": 6,
+      "per": 8,
+      "vit": 18,
+      "wil": 10
+    },
+    "skills": {},
+    "mods": {
+      "painMult": 0,
+      "noPain": 1
+    },
+    "naturalAttack": {
+      "label": "촉수 후려치기",
+      "damageType": "blunt",
+      "damage": 16,
+      "pen": 10,
+      "accuracy": 8,
+      "energy": 0,
+      "family": "unarmed",
+      "noise": 8
+    },
+    "ai": "boss",
+    "morale": 999,
+    "lightThreshold": 0.05,
+    "sightRange": 8,
+    "sleepChance": 1.0,
+    "xp": 250,
+    "bestiary": [
+      "방 하나를 채운 살덩이.",
+      "촉수는 두 칸 밖까지 닿는다. 핵이 어딘가에 있다.",
+      "촉수를 끊으면 공격이 약해지고, 밑동을 끊으면 따라오지 못한다."
+    ],
+    "bagSize": [
+      4,
+      4
+    ],
+    "bloodMult": 1.0,
+    "noMorale": true,
+    "weightKg": 400,
+    "naturalArmor": {
+      "sharp": 5,
+      "blunt": 15
+    },
+    "abilities": [
+      "Ab.Amalgam.Sweep",
+      "Ab.Amalgam.SporeBurst",
+      "Ab.Grab"
+    ],
+    "noBack": true,
+    "deathAllOf": [
+      [
+        "Head1",
+        "Head2",
+        "Head3"
+      ],
+      [
+        "Heart1",
+        "Heart2",
+        "Heart3"
+      ]
+    ],
+    "loadout": {
+      "slots": [
+        {
+          "items": [
+            "Item.SealRing"
+          ]
+        }
+      ]
+    },
+    "smell": 2,
+    "diseaseImmune": [
+      "Disease.GreyFever"
+    ]
+  }
+]

@@ -1,0 +1,582 @@
+[
+  {
+    "defType": "Trait",
+    "id": "Trait.ColdBlooded",
+    "label": "냉혈",
+    "description": "살인·처형·죽음 목격으로 기분이 내려가지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1.",
+    "mods": {
+      "killMood": 0,
+      "deathMood": 0,
+      "executeCooldown": -1
+    },
+    "conflicts": [
+      "Trait.TenderHearted"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.TenderHearted",
+    "label": "다정",
+    "description": "살인 기억 기분 ×1.5, 짐승 죽임 −3, 항복 수용 +6. 흥정 항 +5.",
+    "mods": {
+      "killMoodMult": 1.5,
+      "beastMood": -3,
+      "surrenderMood": 6,
+      "bargain": 5
+    },
+    "conflicts": [
+      "Trait.ColdBlooded",
+      "Trait.Bloodlust"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Bloodlust",
+    "label": "피 냄새에 취함",
+    "description": "출혈 중인 적이 3칸 안에 있으면 근접 피해 +10%, 기분 +3, 스트레스 −2/시간. 피 공포를 얻지 않는다.",
+    "mods": {
+      "bloodDamage": 1.1,
+      "bloodMood": 3,
+      "bloodStressRecovery": 2,
+      "bloodFearImmune": 1
+    },
+    "conflicts": [
+      "Trait.TenderHearted"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.PainTolerant",
+    "label": "통증 둔감",
+    "description": "통증 ×0.6.",
+    "mods": {
+      "painMult": 0.6
+    },
+    "conflicts": [
+      "Trait.Sensitive"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Sensitive",
+    "label": "예민",
+    "description": "통증 ×1.3, 지각 +1, 알약 감별 +10.",
+    "mods": {
+      "painMult": 1.3,
+      "stat_per": 1,
+      "identifyBonus": 10
+    },
+    "conflicts": [
+      "Trait.PainTolerant"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.LightSleeper",
+    "label": "얕은 잠",
+    "description": "각성 임계 −2, 수면 질 ×0.9.",
+    "mods": {
+      "wakeThreshold": -2,
+      "sleepQuality": 0.9
+    },
+    "conflicts": [
+      "Trait.DeepSleeper"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.DeepSleeper",
+    "label": "깊은 잠꾸러기",
+    "description": "각성 임계 +3, 수면 질 ×1.1.",
+    "mods": {
+      "wakeThreshold": 3,
+      "sleepQuality": 1.1
+    },
+    "conflicts": [
+      "Trait.LightSleeper"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.NightOwl",
+    "label": "야행성",
+    "description": "어둠 명중 감점 5 완화, 조준 사격·다리 쏘기 조명 감점 절반. 밤 +3, 낮 −2.",
+    "mods": {
+      "lightThreshold": 0.12,
+      "nightOwl": 1
+    },
+    "conflicts": [],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.IronStomach",
+    "label": "철위장",
+    "description": "식중독 확률 ×0.3. 날고기·상한 음식의 기분 감소가 없다.",
+    "mods": {
+      "foodPoisonMult": 0.3,
+      "rawMood": 0
+    },
+    "conflicts": [
+      "Trait.Gourmand"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Gourmand",
+    "label": "미식가",
+    "description": "맛 사고의 기분 ×2. Q35부터 훌륭한 식사로 친다.",
+    "mods": {
+      "tasteMoodMult": 2,
+      "fineMealQ": 35
+    },
+    "conflicts": [
+      "Trait.IronStomach"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Glutton",
+    "label": "대식가",
+    "description": "칼로리 소비 ×1.2, 폭식 붕괴 ×3, 숨 고르기 50kcal 추가 소모.",
+    "mods": {
+      "kcalMult": 1.2,
+      "breathKcal": 50
+    },
+    "conflicts": [
+      "Trait.SmallEater"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.SmallEater",
+    "label": "소식가",
+    "description": "칼로리 소비 ×0.85.",
+    "mods": {
+      "kcalMult": 0.85
+    },
+    "conflicts": [
+      "Trait.Glutton"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.ColdResistant",
+    "label": "추위 체질",
+    "description": "쾌적 하한 −3°C·상한 −2°C, 동상 노출 ×0.7. 저체온1단계의 숨 고르기 회복 감소 없음.",
+    "mods": {
+      "coldComfort": 3,
+      "heatComfort": -2,
+      "coldBreath": 1,
+      "frostbiteMult": 0.7
+    },
+    "conflicts": [
+      "Trait.HeatResistant"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.HeatResistant",
+    "label": "더위 체질",
+    "description": "쾌적 상한 +3°C·하한 +2°C.",
+    "mods": {
+      "coldComfort": -2,
+      "heatComfort": 3
+    },
+    "conflicts": [
+      "Trait.ColdResistant"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.IronWill",
+    "label": "강철 의지",
+    "description": "스트레스 누적 ×0.6, 붕괴 확률 ×0.7.",
+    "mods": {
+      "stressMult": 0.6,
+      "breakdownMult": 0.7
+    },
+    "conflicts": [
+      "Trait.Nervous"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Nervous",
+    "label": "신경과민",
+    "description": "스트레스 누적 ×1.4, 트라우마 확률 ×1.5.",
+    "mods": {
+      "stressMult": 1.4,
+      "traumaMult": 1.5
+    },
+    "conflicts": [
+      "Trait.IronWill",
+      "Trait.Reckless"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Optimist",
+    "label": "낙천",
+    "description": "기분 +6.",
+    "mods": {
+      "mood": 6
+    },
+    "conflicts": [
+      "Trait.Pessimist"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Pessimist",
+    "label": "비관",
+    "description": "기분 −6, 죽을 뻔한 기억 ×0.7, 단식 붕괴 ×2.",
+    "mods": {
+      "mood": -6,
+      "nearDeathMoodMult": 0.7
+    },
+    "conflicts": [
+      "Trait.Optimist"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Alcoholic",
+    "label": "알코올 의존",
+    "description": "술이 당기는 상태로 시작한다. 술 기분 ×1.5, 폭음 붕괴 ×4. 금단 중 공격형 능력 명중 −10·조준 사격 불가.",
+    "mods": {
+      "alcoholNeed": 1,
+      "alcoholMoodMult": 1.5
+    },
+    "conflicts": [
+      "Trait.Teetotaler"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Teetotaler",
+    "label": "금주가",
+    "description": "술을 마시면 기분 −6. 상처 소독은 무관하다.",
+    "mods": {
+      "alcoholMood": -6
+    },
+    "conflicts": [
+      "Trait.Alcoholic"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Loner",
+    "label": "외톨이",
+    "description": "혼자 있을 때 기분 +3.",
+    "mods": {
+      "aloneMood": 3
+    },
+    "conflicts": [
+      "Trait.Talkative"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Talkative",
+    "label": "수다쟁이",
+    "description": "잠행 중 10턴마다1% 확률로 혼잣말을 낸다.",
+    "mods": {
+      "sneakMutter": 0.01
+    },
+    "conflicts": [
+      "Trait.Loner"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Paranoid",
+    "label": "편집증",
+    "description": "수면 질 ×0.7.",
+    "mods": {
+      "sleepQuality": 0.7
+    },
+    "conflicts": [],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Neat",
+    "label": "깔끔쟁이",
+    "description": "날50% 미만이나 녹슨 장비를 착용하면 기분 −3. 처치 청결 +5, 강박 정리 붕괴 ×3.",
+    "mods": {
+      "neatGearMood": -3,
+      "treatCleanliness": 5
+    },
+    "conflicts": [],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.NimbleHands",
+    "label": "손재주",
+    "description": "처치·착탈·제작·정비 시간 ×0.9, 제작 Q+5.",
+    "mods": {
+      "manipulationTime": 0.9,
+      "craftQ": 5,
+      "sutureBonus": 5
+    },
+    "conflicts": [
+      "Trait.ClumsyHands"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.ClumsyHands",
+    "label": "무딘 손",
+    "description": "손 조작 상한0.9, 피격 무기 떨굼 확률 ×1.5.",
+    "mods": {
+      "manipulationCap": 0.9,
+      "weaponDropMult": 1.5
+    },
+    "conflicts": [
+      "Trait.NimbleHands"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.FleetFooted",
+    "label": "빠른 발",
+    "description": "비틀거림 −5%p(하한0), 회피+1.",
+    "mods": {
+      "stumble": -5,
+      "evasion": 1
+    },
+    "conflicts": [
+      "Trait.Plodder"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Plodder",
+    "label": "느림보",
+    "description": "위험한 이동의 비틀거림 +5%p, 회피−1, 기력 회복 ×1.1.",
+    "mods": {
+      "stumbleIfPositive": 5,
+      "evasion": -1,
+      "energyRegenMult": 1.1
+    },
+    "conflicts": [
+      "Trait.FleetFooted"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Robust",
+    "label": "튼튼한 체질",
+    "description": "면역 ×1.2.",
+    "mods": {
+      "immunityMult": 1.2
+    },
+    "conflicts": [
+      "Trait.Frail"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Frail",
+    "label": "허약",
+    "description": "면역 ×0.8, 밀치기에서 체중을0.9배로 친다.",
+    "mods": {
+      "immunityMult": 0.8,
+      "bodySizeMult": 0.9
+    },
+    "conflicts": [
+      "Trait.Robust",
+      "Trait.HardBones"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.KeenEyed",
+    "label": "매의 눈",
+    "description": "시야 +2, 원거리 명중 +5, 알약 감별 +5.",
+    "mods": {
+      "sightRange": 2,
+      "rangedHit": 5,
+      "identifyBonus": 5
+    },
+    "conflicts": [
+      "Trait.Nearsighted"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Nearsighted",
+    "label": "근시",
+    "description": "5칸 너머 시야 거리 ×0.6, 원거리 명중 −10. 독서는 그대로다.",
+    "mods": {
+      "farSightMult": 0.6,
+      "rangedHit": -10
+    },
+    "conflicts": [
+      "Trait.KeenEyed"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Coward",
+    "label": "겁쟁이",
+    "description": "사기−15, 도주 충동 붕괴 ×3, 받아넘기기·창벽 자세 +1턴, 공격형 능력 기력+2.",
+    "mods": {
+      "morale": -15,
+      "stanceTurns": 1,
+      "attackAbilityEnergy": 2
+    },
+    "conflicts": [
+      "Trait.Reckless"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Reckless",
+    "label": "무모",
+    "description": "사기+15, 위기 기억 ×0.5, 트라우마 확률 ×0.5, 도주 기억 −6.",
+    "mods": {
+      "morale": 15,
+      "traumaMult": 0.5,
+      "nearDeathMoodMult": 0.5,
+      "fledMood": -6
+    },
+    "conflicts": [
+      "Trait.Coward",
+      "Trait.Nervous"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Vain",
+    "label": "허영",
+    "description": "얼굴 흉터 기분−10, 좋음 이상 품질의 의복 착용 기분+3.",
+    "mods": {
+      "faceScarMood": -10,
+      "fineClothesMood": 3
+    },
+    "conflicts": [],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Pious",
+    "label": "신앙심",
+    "description": "10분 기도를 마치면 스트레스−10.",
+    "mods": {
+      "prayerRelief": 10
+    },
+    "conflicts": [],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.HardBones",
+    "label": "강골",
+    "description": "골절 판정 확률 ×0.7. 다리 찍기·뼈 부수기도 적용한다.",
+    "mods": {
+      "fractureTaken": 0.7
+    },
+    "conflicts": [
+      "Trait.Frail"
+    ],
+    "weight": 1
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.ThinBlood",
+    "label": "묽은 피",
+    "description": "상처에서 피가 1.5배 흐르고 잘 굳지 않는다.",
+    "mods": {
+      "bleedMult": 1.5
+    },
+    "weight": 0
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.FastHealer",
+    "label": "빠른 회복",
+    "description": "상처가 빨리 아물고 면역이 강하다.",
+    "conflicts": [
+      "Trait.Sickly"
+    ],
+    "mods": {
+      "healMult": 1.4,
+      "immunityMult": 1.3
+    },
+    "weight": 0
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Sickly",
+    "label": "병약",
+    "description": "감염에 약하다.",
+    "conflicts": [
+      "Trait.FastHealer"
+    ],
+    "mods": {
+      "immunityMult": 0.7
+    },
+    "weight": 0
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Light",
+    "label": "가벼운 발",
+    "description": "발소리가 작다.",
+    "mods": {
+      "noiseMult": 0.6
+    },
+    "weight": 0
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.HunterOf",
+    "label": "공포를 이긴 사냥꾼",
+    "description": "극복한 종족 상대 명중 +10, 사기 +10, 생고기 수율 +20%.",
+    "weight": 0
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.Forgetful",
+    "label": "건망",
+    "description": "누적 뇌진탕으로 얻는다. 앞으로 의료·생존 숙달 문턱×1.5. 이미 배운 단계는 보존한다.",
+    "weight": 0,
+    "mods": {
+      "masteryThresholdMult": 1.5
+    }
+  }
+]

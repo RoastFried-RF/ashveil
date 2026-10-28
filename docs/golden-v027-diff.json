@@ -1,0 +1,2878 @@
+{
+  "version": "v0.27",
+  "baseline": "v0.26",
+  "commandsChanged": false,
+  "review": [
+    "신규 저장3/영양 장부·0기준 B와 D·식품 영양·기력/면역/치유/기분을 정합했다.",
+    "기존 세 벡터의 명령·실패·TU·모든 난수 스트림·플레이어 HP/혈액을 보존한다.",
+    "영양 수치·상태 구조와 정량 소모가 바뀌므로 초기/최종 해시는 새 계약으로 고정한다. 구형v2각인의 변환/중복 방지는 별도 테스트한다."
+  ],
+  "vectors": [
+    {
+      "name": "surface",
+      "beforeHash": "9ff96ca0",
+      "afterHash": "5dfcf138",
+      "commands": 80,
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {
+        "creatures": 90,
+        "offCreatures": 60,
+        "version": 1
+      },
+      "stateChanges": [
+        {
+          "path": "$.creatures[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.kcal",
+          "before": 1793.416228977862,
+          "after": -8.54
+        },
+        {
+          "path": "$.creatures[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0.8611111111112049
+        },
+        {
+          "path": "$.creatures[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.vitamin",
+          "before": 59.99513888888906,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.water",
+          "before": 1793.923611111104,
+          "after": null
+        },
+        {
+          "path": "$.creatures[0].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[0].needs.waterRemainder",
+          "before": null,
+          "after": 0.03229166666666661
+        },
+        {
+          "path": "$.creatures[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.kcal",
+          "before": 1799.1848632812491,
+          "after": -0.51
+        },
+        {
+          "path": "$.creatures[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5625000000000027
+        },
+        {
+          "path": "$.creatures[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[1].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.waterRemainder",
+          "before": null,
+          "after": 0.6249999999999999
+        },
+        {
+          "path": "$.creatures[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.kcal",
+          "before": 1799.041015625001,
+          "after": -0.68
+        },
+        {
+          "path": "$.creatures[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0.7500000000000115
+        },
+        {
+          "path": "$.creatures[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[2].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.waterRemainder",
+          "before": null,
+          "after": 0.703125
+        },
+        {
+          "path": "$.creatures[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.kcal",
+          "before": 1799.0904947916665,
+          "after": -0.49
+        },
+        {
+          "path": "$.creatures[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0.10714285714286476
+        },
+        {
+          "path": "$.creatures[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[3].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.waterRemainder",
+          "before": null,
+          "after": 0.7812499999999999
+        },
+        {
+          "path": "$.creatures[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.kcal",
+          "before": 1799.0904947916665,
+          "after": -0.49
+        },
+        {
+          "path": "$.creatures[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0.10714285714286476
+        },
+        {
+          "path": "$.creatures[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[4].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.waterRemainder",
+          "before": null,
+          "after": 0.7812499999999999
+        },
+        {
+          "path": "$.creatures[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.kcal",
+          "before": 1799.0731336805552,
+          "after": -0.42
+        },
+        {
+          "path": "$.creatures[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5595238095238146
+        },
+        {
+          "path": "$.creatures[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[5].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.waterRemainder",
+          "before": null,
+          "after": 0.7291666666666667
+        },
+        {
+          "path": "$.creatures[6].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.kcal",
+          "before": 1799.0731336805552,
+          "after": -0.42
+        },
+        {
+          "path": "$.creatures[6].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5595238095238146
+        },
+        {
+          "path": "$.creatures[6].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[6].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.waterRemainder",
+          "before": null,
+          "after": 0.7291666666666667
+        },
+        {
+          "path": "$.creatures[7].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.kcal",
+          "before": 1799.0731336805552,
+          "after": -0.42
+        },
+        {
+          "path": "$.creatures[7].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5595238095238146
+        },
+        {
+          "path": "$.creatures[7].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[7].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.waterRemainder",
+          "before": null,
+          "after": 0.7291666666666666
+        },
+        {
+          "path": "$.creatures[8].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.kcal",
+          "before": 1799.0644531249995,
+          "after": -0.39
+        },
+        {
+          "path": "$.creatures[8].needs.kcalRemainder",
+          "before": null,
+          "after": 0.28571428571429003
+        },
+        {
+          "path": "$.creatures[8].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.vitamin",
+          "before": 59.99937500000002,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.water",
+          "before": 1799.218749999999,
+          "after": null
+        },
+        {
+          "path": "$.creatures[8].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.waterRemainder",
+          "before": null,
+          "after": 0.703125
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcal",
+          "before": 1794.0542534722224,
+          "after": -5.16
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0.041666666666753116
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterDeficit",
+          "before": null,
+          "after": 4
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterRemainder",
+          "before": null,
+          "after": 0.947916666666667
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcal",
+          "before": 1794.1226996527735,
+          "after": -6.53
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6458333333334085
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterRemainder",
+          "before": null,
+          "after": 0.7291666666666666
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcal",
+          "before": 1794.3220833333335,
+          "after": -4.82
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9861111111111844
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterDeficit",
+          "before": null,
+          "after": 4
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterRemainder",
+          "before": null,
+          "after": 0.7656249999999996
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcal",
+          "before": 1794.7001736111051,
+          "after": -6.32
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6388888888889248
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterRemainder",
+          "before": null,
+          "after": 0.8072916666666662
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcal",
+          "before": 1794.3997743055504,
+          "after": -4.44
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3402777777778372
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterDeficit",
+          "before": null,
+          "after": 4
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterRemainder",
+          "before": null,
+          "after": 0.6440972222222219
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcal",
+          "before": 1794.3549045138873,
+          "after": -7.72
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9166666666667993
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.water",
+          "before": 1794.704861111105,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterRemainder",
+          "before": null,
+          "after": 0.8072916666666664
+        },
+        {
+          "path": "$.version",
+          "before": 2,
+          "after": 3
+        }
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "beforeHash": "e8148c46",
+      "afterHash": "034740e3",
+      "commands": 81,
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {
+        "creatures": 160,
+        "offCreatures": 60,
+        "version": 1
+      },
+      "stateChanges": [
+        {
+          "path": "$.creatures[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.kcal",
+          "before": 1791.473068576389,
+          "after": -16.44
+        },
+        {
+          "path": "$.creatures[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6614583333335418
+        },
+        {
+          "path": "$.creatures[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.water",
+          "before": 1791.2760416666667,
+          "after": null
+        },
+        {
+          "path": "$.creatures[0].needs.waterDeficit",
+          "before": null,
+          "after": 12
+        },
+        {
+          "path": "$.creatures[0].needs.waterRemainder",
+          "before": null,
+          "after": 0.8906250000000002
+        },
+        {
+          "path": "$.creatures[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.kcal",
+          "before": 1792.5901692708353,
+          "after": -4.46
+        },
+        {
+          "path": "$.creatures[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0.8750000000000231
+        },
+        {
+          "path": "$.creatures[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[1].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.creatures[1].needs.waterRemainder",
+          "before": null,
+          "after": 0.41666666666666663
+        },
+        {
+          "path": "$.creatures[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.kcal",
+          "before": 1791.825954861117,
+          "after": -6.24
+        },
+        {
+          "path": "$.creatures[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0.4791666666667691
+        },
+        {
+          "path": "$.creatures[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[2].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[2].needs.waterRemainder",
+          "before": null,
+          "after": 0.22395833333333348
+        },
+        {
+          "path": "$.creatures[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.kcal",
+          "before": 1797.9405924479177,
+          "after": -2.07
+        },
+        {
+          "path": "$.creatures[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0.4581728703703867
+        },
+        {
+          "path": "$.creatures[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.vitamin",
+          "before": 59.99861111111116,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.water",
+          "before": 1798.2204861111093,
+          "after": null
+        },
+        {
+          "path": "$.creatures[3].needs.waterDeficit",
+          "before": null,
+          "after": 1
+        },
+        {
+          "path": "$.creatures[3].needs.waterRemainder",
+          "before": null,
+          "after": 0.71875
+        },
+        {
+          "path": "$.creatures[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.kcal",
+          "before": 1792.5901692708353,
+          "after": -4.46
+        },
+        {
+          "path": "$.creatures[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0.8750000000000231
+        },
+        {
+          "path": "$.creatures[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[4].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.creatures[4].needs.waterRemainder",
+          "before": null,
+          "after": 0.41666666666666663
+        },
+        {
+          "path": "$.creatures[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.kcal",
+          "before": 1791.9700520833303,
+          "after": -3.69
+        },
+        {
+          "path": "$.creatures[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9404761904762351
+        },
+        {
+          "path": "$.creatures[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[5].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[5].needs.waterRemainder",
+          "before": null,
+          "after": 0.3281250000000002
+        },
+        {
+          "path": "$.creatures[6].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.kcal",
+          "before": 1791.9700520833303,
+          "after": -3.69
+        },
+        {
+          "path": "$.creatures[6].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9404761904762324
+        },
+        {
+          "path": "$.creatures[6].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[6].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[6].needs.waterRemainder",
+          "before": null,
+          "after": 0.3281250000000002
+        },
+        {
+          "path": "$.creatures[7].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.kcal",
+          "before": 1791.9874131944416,
+          "after": -3.76
+        },
+        {
+          "path": "$.creatures[7].needs.kcalRemainder",
+          "before": null,
+          "after": 0.48809523809528077
+        },
+        {
+          "path": "$.creatures[7].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[7].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[7].needs.waterRemainder",
+          "before": null,
+          "after": 0.3802083333333335
+        },
+        {
+          "path": "$.creatures[8].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.kcal",
+          "before": 1793.3470052083344,
+          "after": -5.19
+        },
+        {
+          "path": "$.creatures[8].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9192451058201705
+        },
+        {
+          "path": "$.creatures[8].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.vitamin",
+          "before": 59.99541666666683,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.water",
+          "before": 1794.1406249999939,
+          "after": null
+        },
+        {
+          "path": "$.creatures[8].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[8].needs.waterRemainder",
+          "before": null,
+          "after": 0.7361111111111115
+        },
+        {
+          "path": "$.creatures[9].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.kcal",
+          "before": 1792.2732204861136,
+          "after": -6.03
+        },
+        {
+          "path": "$.creatures[9].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3962105820106405
+        },
+        {
+          "path": "$.creatures[9].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[9].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[9].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.water",
+          "before": 1793.098958333326,
+          "after": null
+        },
+        {
+          "path": "$.creatures[9].needs.waterDeficit",
+          "before": null,
+          "after": 8
+        },
+        {
+          "path": "$.creatures[9].needs.waterRemainder",
+          "before": null,
+          "after": 0.14236111111111088
+        },
+        {
+          "path": "$.creatures[10].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.kcal",
+          "before": 1792.212456597224,
+          "after": -6.24
+        },
+        {
+          "path": "$.creatures[10].needs.kcalRemainder",
+          "before": null,
+          "after": 0.37046050264557273
+        },
+        {
+          "path": "$.creatures[10].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[10].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[10].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.water",
+          "before": 1793.098958333326,
+          "after": null
+        },
+        {
+          "path": "$.creatures[10].needs.waterDeficit",
+          "before": null,
+          "after": 8
+        },
+        {
+          "path": "$.creatures[10].needs.waterRemainder",
+          "before": null,
+          "after": 0.0555555555555558
+        },
+        {
+          "path": "$.creatures[11].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.kcal",
+          "before": 1791.9440104166633,
+          "after": -3.6
+        },
+        {
+          "path": "$.creatures[11].needs.kcalRemainder",
+          "before": null,
+          "after": 0.11904761904765948
+        },
+        {
+          "path": "$.creatures[11].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[11].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[11].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[11].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[11].needs.waterRemainder",
+          "before": null,
+          "after": 0.24999999999999994
+        },
+        {
+          "path": "$.creatures[12].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.kcal",
+          "before": 1792.7628255208306,
+          "after": -2.55
+        },
+        {
+          "path": "$.creatures[12].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3571428571429198
+        },
+        {
+          "path": "$.creatures[12].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[12].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[12].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[12].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.creatures[12].needs.waterRemainder",
+          "before": null,
+          "after": 0.41666666666666663
+        },
+        {
+          "path": "$.creatures[13].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[13].needs.kcal",
+          "before": 1792.6113172743064,
+          "after": -4.48
+        },
+        {
+          "path": "$.creatures[13].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5119047619048462
+        },
+        {
+          "path": "$.creatures[13].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[13].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[13].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[13].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[13].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[13].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[13].needs.waterRemainder",
+          "before": null,
+          "after": 0.9531249999999994
+        },
+        {
+          "path": "$.creatures[14].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[14].needs.kcal",
+          "before": 1792.7628255208306,
+          "after": -2.55
+        },
+        {
+          "path": "$.creatures[14].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3571428571429198
+        },
+        {
+          "path": "$.creatures[14].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[14].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[14].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[14].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[14].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[14].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.creatures[14].needs.waterRemainder",
+          "before": null,
+          "after": 0.41666666666666663
+        },
+        {
+          "path": "$.creatures[15].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[15].needs.kcal",
+          "before": 1791.9613715277746,
+          "after": -3.66
+        },
+        {
+          "path": "$.creatures[15].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6666666666667105
+        },
+        {
+          "path": "$.creatures[15].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[15].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[15].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[15].needs.vitamin",
+          "before": 59.99458333333352,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[15].needs.water",
+          "before": 1793.2291666666588,
+          "after": null
+        },
+        {
+          "path": "$.creatures[15].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[15].needs.waterRemainder",
+          "before": null,
+          "after": 0.3020833333333337
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcal",
+          "before": 1800,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.vitamin",
+          "before": 60,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.water",
+          "before": 1800,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterDeficit",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterRemainder",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.version",
+          "before": 2,
+          "after": 3
+        }
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "beforeHash": "d35b8d95",
+      "afterHash": "06d28217",
+      "commands": 147,
+      "errorsUnchanged": true,
+      "timeUnchanged": true,
+      "rngUnchanged": true,
+      "playerHpBloodUnchanged": true,
+      "changedRootCounts": {
+        "creatures": 130,
+        "offCreatures": 60,
+        "version": 1
+      },
+      "stateChanges": [
+        {
+          "path": "$.creatures[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.kcal",
+          "before": 1784.9799479166613,
+          "after": -17.65
+        },
+        {
+          "path": "$.creatures[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5595211265434301
+        },
+        {
+          "path": "$.creatures[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[0].needs.vitamin",
+          "before": 59.98923611111149,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[0].needs.water",
+          "before": 1786.1979166666524,
+          "after": null
+        },
+        {
+          "path": "$.creatures[0].needs.waterDeficit",
+          "before": null,
+          "after": 14
+        },
+        {
+          "path": "$.creatures[0].needs.waterRemainder",
+          "before": null,
+          "after": 0.7743055555555558
+        },
+        {
+          "path": "$.creatures[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.kcal",
+          "before": 1791.4281684027742,
+          "after": -7.58
+        },
+        {
+          "path": "$.creatures[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0.15972222222231558
+        },
+        {
+          "path": "$.creatures[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[1].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[1].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[1].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[1].needs.waterRemainder",
+          "before": null,
+          "after": 0.5173611111111109
+        },
+        {
+          "path": "$.creatures[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.kcal",
+          "before": 1791.8486328124914,
+          "after": -5.15
+        },
+        {
+          "path": "$.creatures[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6250000000000266
+        },
+        {
+          "path": "$.creatures[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[2].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[2].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[2].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[2].needs.waterRemainder",
+          "before": null,
+          "after": 0.24999999999999986
+        },
+        {
+          "path": "$.creatures[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.kcal",
+          "before": 1791.0457899305602,
+          "after": -6.13
+        },
+        {
+          "path": "$.creatures[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0.020833333333403203
+        },
+        {
+          "path": "$.creatures[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[3].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[3].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[3].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[3].needs.waterRemainder",
+          "before": null,
+          "after": 0.6927083333333329
+        },
+        {
+          "path": "$.creatures[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.kcal",
+          "before": 1790.8001302083326,
+          "after": -5.59
+        },
+        {
+          "path": "$.creatures[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3253968253968953
+        },
+        {
+          "path": "$.creatures[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[4].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[4].needs.water",
+          "before": 1792.057291666658,
+          "after": null
+        },
+        {
+          "path": "$.creatures[4].needs.waterDeficit",
+          "before": null,
+          "after": 8
+        },
+        {
+          "path": "$.creatures[4].needs.waterRemainder",
+          "before": null,
+          "after": 0.4027777777777775
+        },
+        {
+          "path": "$.creatures[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.kcal",
+          "before": 1791.0004340277774,
+          "after": -5.27
+        },
+        {
+          "path": "$.creatures[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0.08333333333341386
+        },
+        {
+          "path": "$.creatures[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[5].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[5].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[5].needs.waterDeficit",
+          "before": null,
+          "after": 8
+        },
+        {
+          "path": "$.creatures[5].needs.waterRemainder",
+          "before": null,
+          "after": 0.09895833333333304
+        },
+        {
+          "path": "$.creatures[6].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.kcal",
+          "before": 1790.9917534722217,
+          "after": -5.23
+        },
+        {
+          "path": "$.creatures[6].needs.kcalRemainder",
+          "before": null,
+          "after": 0.8095238095238892
+        },
+        {
+          "path": "$.creatures[6].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[6].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[6].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[6].needs.waterDeficit",
+          "before": null,
+          "after": 8
+        },
+        {
+          "path": "$.creatures[6].needs.waterRemainder",
+          "before": null,
+          "after": 0.07291666666666652
+        },
+        {
+          "path": "$.creatures[7].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.kcal",
+          "before": 1790.7400173611077,
+          "after": -4.28
+        },
+        {
+          "path": "$.creatures[7].needs.kcalRemainder",
+          "before": null,
+          "after": 0.8690476190476719
+        },
+        {
+          "path": "$.creatures[7].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[7].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[7].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[7].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[7].needs.waterRemainder",
+          "before": null,
+          "after": 0.3177083333333335
+        },
+        {
+          "path": "$.creatures[8].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.kcal",
+          "before": 1790.7226562499964,
+          "after": -4.22
+        },
+        {
+          "path": "$.creatures[8].needs.kcalRemainder",
+          "before": null,
+          "after": 0.32142857142862447
+        },
+        {
+          "path": "$.creatures[8].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[8].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[8].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[8].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[8].needs.waterRemainder",
+          "before": null,
+          "after": 0.26562500000000044
+        },
+        {
+          "path": "$.creatures[9].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.kcal",
+          "before": 1791.0948567708297,
+          "after": -3.61
+        },
+        {
+          "path": "$.creatures[9].needs.kcalRemainder",
+          "before": null,
+          "after": 0.2103174603175182
+        },
+        {
+          "path": "$.creatures[9].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[9].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[9].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[9].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[9].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[9].needs.waterRemainder",
+          "before": null,
+          "after": 0.7795138888888884
+        },
+        {
+          "path": "$.creatures[10].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.kcal",
+          "before": 1790.9657118055547,
+          "after": -5.13
+        },
+        {
+          "path": "$.creatures[10].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9880952380953145
+        },
+        {
+          "path": "$.creatures[10].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[10].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[10].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[10].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[10].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[10].needs.waterRemainder",
+          "before": null,
+          "after": 0.9947916666666664
+        },
+        {
+          "path": "$.creatures[11].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.kcal",
+          "before": 1793.6493055555557,
+          "after": -4.57
+        },
+        {
+          "path": "$.creatures[11].needs.kcalRemainder",
+          "before": null,
+          "after": 0.9838658440807357
+        },
+        {
+          "path": "$.creatures[11].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[11].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[11].needs.vitamin",
+          "before": 59.99576388888904,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[11].needs.water",
+          "before": 1794.487847222217,
+          "after": null
+        },
+        {
+          "path": "$.creatures[11].needs.waterDeficit",
+          "before": null,
+          "after": 6
+        },
+        {
+          "path": "$.creatures[11].needs.waterRemainder",
+          "before": null,
+          "after": 0.2499999999999994
+        },
+        {
+          "path": "$.creatures[12].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.kcal",
+          "before": 1790.731336805552,
+          "after": -4.26
+        },
+        {
+          "path": "$.creatures[12].needs.kcalRemainder",
+          "before": null,
+          "after": 0.6865079365079874
+        },
+        {
+          "path": "$.creatures[12].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[12].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.creatures[12].needs.vitamin",
+          "before": 59.99375000000022,
+          "after": 100
+        },
+        {
+          "path": "$.creatures[12].needs.water",
+          "before": 1792.187499999991,
+          "after": null
+        },
+        {
+          "path": "$.creatures[12].needs.waterDeficit",
+          "before": null,
+          "after": 7
+        },
+        {
+          "path": "$.creatures[12].needs.waterRemainder",
+          "before": null,
+          "after": 0.3003472222222226
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcal",
+          "before": 1794.089062499997,
+          "after": -5.17
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.kcalRemainder",
+          "before": null,
+          "after": 0.36111111111119776
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[0].needs.waterRemainder",
+          "before": null,
+          "after": 0.15625
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcal",
+          "before": 1793.5261718750005,
+          "after": -4.96
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.kcalRemainder",
+          "before": null,
+          "after": 0.5277777777778656
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[1].needs.waterRemainder",
+          "before": null,
+          "after": 0.078125
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcal",
+          "before": 1794.0979166666652,
+          "after": -5.29
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.kcalRemainder",
+          "before": null,
+          "after": 0.16666666666674246
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[2].needs.waterRemainder",
+          "before": null,
+          "after": 0.2864583333333335
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcal",
+          "before": 1794.2340277777748,
+          "after": -5.16
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.kcalRemainder",
+          "before": null,
+          "after": 0.3194444444444873
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[3].needs.waterRemainder",
+          "before": null,
+          "after": 0.3125000000000004
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcal",
+          "before": 1794.1873263888863,
+          "after": -5.02
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.kcalRemainder",
+          "before": null,
+          "after": 0.7777777777778434
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[4].needs.waterRemainder",
+          "before": null,
+          "after": 0.18229166666666674
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.hygiene",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcal",
+          "before": 1793.3746961805557,
+          "after": -5.72
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.kcalRemainder",
+          "before": null,
+          "after": 0.1527777777778887
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.nutritionDay",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.protein",
+          "before": null,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.scurvy",
+          "before": null,
+          "after": 0
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.vitamin",
+          "before": 59.99548611111127,
+          "after": 100
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.water",
+          "before": 1794.3576388888823,
+          "after": null
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterDeficit",
+          "before": null,
+          "after": 5
+        },
+        {
+          "path": "$.offCreatures.surface[5].needs.waterRemainder",
+          "before": null,
+          "after": 0.3125000000000004
+        },
+        {
+          "path": "$.version",
+          "before": 2,
+          "after": 3
+        }
+      ]
+    }
+  ]
+}

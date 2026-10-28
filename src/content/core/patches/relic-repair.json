@@ -1,0 +1,56 @@
+[
+  {
+    "op": "add",
+    "target": "Item.PioneerArm",
+    "path": "/durabilityBase",
+    "value": 100
+  },
+  {
+    "op": "add",
+    "target": "Item.PioneerArm",
+    "path": "/repair",
+    "value": {
+      "material": "Item.SmallActuator",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "per",
+      "tools": [
+        "hammer"
+      ],
+      "appraisalRequired": true,
+      "station": "artisan",
+      "relicRisk": {
+        "base": 60,
+        "min": 10,
+        "max": 60
+      }
+    }
+  },
+  {
+    "op": "add",
+    "target": "Item.GardenerLimb",
+    "path": "/durabilityBase",
+    "value": 100
+  },
+  {
+    "op": "add",
+    "target": "Item.GardenerLimb",
+    "path": "/repair",
+    "value": {
+      "material": "Item.SmallActuator",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "per",
+      "tools": [
+        "hammer"
+      ],
+      "appraisalRequired": true,
+      "station": "artisan",
+      "relicRisk": {
+        "base": 60,
+        "min": 10,
+        "max": 60
+      }
+    }
+  }
+]

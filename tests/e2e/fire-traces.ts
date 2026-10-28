@@ -1,0 +1,26 @@
+import { chromium } from 'playwright-core'
+import { spawn } from 'node:child_process'
+import { mkdirSync, writeFileSync } from 'node:fs'
+import assert from 'node:assert/strict'
+import { startClaimBase } from '../../src/core/base-camp'
+import type { World } from '../../src/core/ctx'
+import { perform } from '../../src/core/actions'
+import { SAVE_VERSION } from '../../src/core/game'
+import { addToBag, makeItem } from '../../src/core/items'
+import { baseFixture, finishBase } from '../base-camp-fixture'
+const out=process.argv[2]??'test-results/fire-traces-browser';mkdirSync(out,{recursive:true})
+const server=spawn('npx',['vite','preview','--port','4317','--strictPort'],{stdio:'pipe',detached:true});await new Promise((r)=>setTimeout(r,2500))
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']});const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors:string[]=[];page.on('pageerror',(e)=>errors.push(e.message));page.on('console',(e)=>{if(e.type()==='error')errors.push(e.text())})
+type Hook={__ashveil:{world():World}}
+const idle=()=>page.waitForFunction(()=>{const{s}=(window as unknown as Hook).__ashveil.world();return !s.simulationPending&&!s.creatures.find((c)=>c.id===s.playerId)!.activity})
+async function wait(){await page.keyboard.press('Numpad5');await idle()}
+async function restore(name:string){const before=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));assert.equal(JSON.parse(before).version,SAVE_VERSION);await page.getByRole('button',{name:'타이틀',exact:true}).click();await page.reload();await page.click('[data-testid=continue]');await page.waitForSelector('[data-testid=map] canvas');const after=await page.evaluate(()=>JSON.stringify((window as unknown as Hook).__ashveil.world().s));writeFileSync(`${out}/${name}-before.json`,before);writeFileSync(`${out}/${name}-after.json`,after);assert.deepEqual(JSON.parse(after),JSON.parse(before))}
+try{
+ const{w,p,target,store}=baseFixture();startClaimBase(w,p,store);finishBase(w,p);for(const l of w.s.map.lights)l.off=true;w.s.weather='clear';w.s.weatherUntil=1e12;w.s.wind={x:1,y:0}
+ const kit=makeItem(w,'Item.CampfireKit');addToBag(w,p,kit);assert.equal(perform(w,p,{type:'place',uid:kit.uid,dir:6}).ok,true);const fuel=makeItem(w,'Item.Wood');addToBag(w,p,fuel);const pos={x:19,y:20},observerPos={x:33,y:20},home={x:38,y:20};target.pos={...observerPos};target.home={...home};target.nextAct=w.s.time;target.ai.mode='patrol';target.ai.task=undefined;target.ai.target=undefined;target.ai.route=[{...observerPos}];target.ai.routeIdx=0;target.ai.waitUntil=w.s.time/100+5000;w.s.creatures=[p,target];for(let x=30;x<=40;x++)for(let y=19;y<=21;y++)Object.assign(w.s.map.tiles[y*w.s.map.w+x],{t:'Terrain.Earth',roof:true,items:[],blood:0})
+ const read=()=>page.evaluate((id)=>{const{s}=(window as unknown as Hook).__ashveil.world();return JSON.parse(JSON.stringify({time:s.time,p:s.creatures.find((c)=>c.id===s.playerId)!,observer:s.creatures.find((c)=>c.id===id)!,search:s.storyteller.search,ids:s.creatures.map((c)=>c.id),next:s.nextId,log:s.log.slice(-10)})) as {time:number;p:typeof p;observer:typeof target;search:typeof s.storyteller.search;ids:number[];next:number;log:typeof s.log}},target.id)
+ await page.goto('http://localhost:4317/?debug');await page.click('[data-testid=start]');await page.waitForSelector('[data-testid=map] canvas');await page.evaluate((s)=>((window as unknown as Hook).__ashveil.world().s = s),w.s);await page.keyboard.press('F2');const fire=page.locator(`[data-fire-uid="${kit.uid}"]`);await fire.getByLabel(`모닥불 ${kit.uid} 땔감`,{exact:true}).selectOption(String(fuel.uid));let s=await read();const next=s.next,ids=s.ids;assert.equal(s.observer.ai.task,undefined);assert.equal(s.search,undefined);await page.screenshot({path:`${out}/217-new-cold-pit-no-patrol-trace.png`});await fire.locator('[data-fire-action=fuel]').click();await idle();s=await read();assert.ok(s.observer.ai.task?.kind==='alarm'||s.search);assert.ok(s.log.some((l)=>l.text.includes('찾은 모양')));await page.screenshot({path:`${out}/218-actual-ignition-noticed-at-new-position.png`});await page.keyboard.press('Escape')
+ for(let i=0;!s.search&&i<20;i++){await wait();s=await read()}
+ assert.ok(s.search);assert.deepEqual(s.search!.pos,pos);assert.notDeepEqual(s.search!.pos,w.s.map.waypoints!.homeFire);assert.ok(s.search!.at>s.time/100);assert.ok(s.observer.pos.x>observerPos.x);assert.ok(Math.max(Math.abs(s.observer.pos.x-home.x),Math.abs(s.observer.pos.y-home.y))<=1);assert.deepEqual(s.ids,ids);assert.equal(s.next,next);assert.equal(s.p.bag.some((i)=>i.uid===fuel.uid),false);await page.screenshot({path:`${out}/219-same-patrol-walked-home-reported-real-new-fire.png`});await restore('new-fire-report');assert.deepEqual(errors,[]);console.log('OK: cold new pit/no trace/real manual ignition/actual patrol notices new position/physically returns home/same people/no reinforcements/full save39')
+}catch(error){await page.screenshot({path:`${out}/failure.png`}).catch(()=>{});writeFileSync(`${out}/failure.txt`,await page.textContent('body')??'');console.error(errors);throw error}
+finally{await browser.close();if(server.pid)process.kill(-server.pid)}

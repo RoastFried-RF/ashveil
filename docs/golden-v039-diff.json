@@ -1,0 +1,135 @@
+{
+  "fromVersion": "v0.38",
+  "toVersion": "v0.39",
+  "commandsRewritten": false,
+  "saveVersion": {
+    "from": 6,
+    "to": 7
+  },
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "841e1d5f",
+      "finalHash": "6d5496c8",
+      "errorsUnchanged": true,
+      "audits": [
+        {
+          "kind": "initial",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        },
+        {
+          "kind": "state",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        }
+      ]
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "5604501b",
+      "finalHash": "a18df84d",
+      "errorsUnchanged": true,
+      "audits": [
+        {
+          "kind": "initial",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        },
+        {
+          "kind": "state",
+          "visibilityLogsChanged": 44,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        }
+      ]
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "e65b8995",
+      "finalHash": "ddf7dcf3",
+      "errorsUnchanged": true,
+      "audits": [
+        {
+          "kind": "initial",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        },
+        {
+          "kind": "state",
+          "visibilityLogsChanged": 13,
+          "sourceLabels": [
+            {
+              "kind": "woundSource",
+              "uid": 84,
+              "before": "그늘 사람의 베기",
+              "after": "작은 사람의 베기"
+            },
+            {
+              "kind": "woundSource",
+              "uid": 91,
+              "before": "그늘 사람의 베기",
+              "after": "작은 사람의 베기"
+            },
+            {
+              "kind": "woundHistory",
+              "before": "그늘 사람에게 왼 정강이 베임",
+              "after": "작은 사람에게 왼 정강이 베임"
+            },
+            {
+              "kind": "woundHistory",
+              "before": "그늘 사람에게 흉부 베임",
+              "after": "작은 사람에게 흉부 베임"
+            }
+          ],
+          "physicalStateAndExistingRngUnchanged": true
+        }
+      ]
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "fce590a7",
+      "finalHash": "2a8c88c6",
+      "errorsUnchanged": true,
+      "audits": [
+        {
+          "kind": "initial",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        },
+        {
+          "kind": "state",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        }
+      ]
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "fce590a7",
+      "finalHash": "e935b5d5",
+      "errorsUnchanged": true,
+      "audits": [
+        {
+          "kind": "initial",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        },
+        {
+          "kind": "state",
+          "visibilityLogsChanged": 0,
+          "sourceLabels": [],
+          "physicalStateAndExistingRngUnchanged": true
+        }
+      ]
+    }
+  ],
+  "note": "고정5입력의 전체 초기·최종 상태를 비교했다. 형식 번호/도감 관찰·지식/지식에 따른 로그와 상처 원인 표기만 바뀐다. 기존 교전·처치 수, 로그 시각·종류·개수, 기존 RNG·NPC·HP·상처·혈액·대사·턴·생성ID·시장·기후는 같다. 새 해부·문헌은 별도25개 기능 검증과 화면으로 확인한다. 새 개체의 재늑대2400/우두머리3120/굴쥐60ml 보정은 네발 개체가 없는 이5입력에서 사용되지 않는다."
+}

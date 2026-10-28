@@ -1,0 +1,27 @@
+[
+  {
+    "defType": "Trait",
+    "id": "Trait.ResonantHearing",
+    "label": "울림 듣는 자",
+    "description": "다른 이가 놓치는 기계의 높은 정비음을 듣는다. 깨어 있고 귀가 들릴 때15칸 안의 작동 중인 정원사 기계를 소리의 전파 범위에서 감지한다. 기계의 정확한 위치·종류는 알 수 없다. 가동 중인 탑이 있는 지역에서는 두통으로 기분−3. 순례회 초기 평판+20.",
+    "weight": 0.15,
+    "resonance": { "faction": "gardeners", "radius": 15, "towerRadius": 0 },
+    "initialReputation": { "pilgrims": 20 }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.MachineResonance",
+    "label": "가느다란 기계 정비음",
+    "mood": 0,
+    "durationTurns": 0,
+    "condition": { "any": [[{ "metric": "machineResonance", "min": 1 }]] }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.TowerResonance",
+    "label": "탑의 고음으로 인한 두통",
+    "mood": -3,
+    "durationTurns": 0,
+    "condition": { "any": [[{ "metric": "towerResonance", "min": 1 }]] }
+  }
+]

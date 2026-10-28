@@ -1,0 +1,81 @@
+[
+  {
+    "name": "surface",
+    "baselineHash": "82015fb9",
+    "baselineMatchesPinned": true,
+    "newHash": "7396cbfa",
+    "errorsUnchanged": true,
+    "changes": 1,
+    "differences": [
+      {
+        "path": ".creatures[0].psycheWatch.severe",
+        "added": false
+      }
+    ],
+    "review": "중상 감시 필드만 추가. 명령·오류·최종 시간/HP/난수 상태 유지."
+  },
+  {
+    "name": "dungeon-combat",
+    "baselineHash": "390e43c4",
+    "baselineMatchesPinned": true,
+    "newHash": "b3fcbb9b",
+    "errorsUnchanged": true,
+    "changes": 1,
+    "differences": [
+      {
+        "path": ".creatures[0].psycheWatch.severe",
+        "added": false
+      }
+    ],
+    "review": "중상 감시 필드만 추가. 명령·오류·최종 시간/HP/난수 상태 유지."
+  },
+  {
+    "name": "freeze-reentry",
+    "baselineHash": "0c681dcd",
+    "baselineMatchesPinned": true,
+    "newHash": "6ccbcfbc",
+    "errorsUnchanged": true,
+    "changes": 8,
+    "differences": [
+      {
+        "path": ".creatures[0].activity.elapsed",
+        "before": 17,
+        "after": 25
+      },
+      {
+        "path": ".creatures[0].activity.remaining",
+        "before": 103,
+        "after": 95
+      },
+      {
+        "path": ".creatures[0].nearDeath",
+        "added": true
+      },
+      {
+        "path": ".creatures[0].psycheWatch.severe",
+        "added": false
+      },
+      {
+        "path": ".creatures[0].thoughts",
+        "beforeLength": 0,
+        "afterLength": 1
+      },
+      {
+        "path": ".log[52].text",
+        "before": "피를 너무 많이 흘려 정신을 잃었다.",
+        "after": "의식을 잃었다…"
+      },
+      {
+        "path": ".log[52].turn",
+        "before": 21860,
+        "after": 21868
+      },
+      {
+        "path": ".visible",
+        "beforeLength": 13,
+        "afterLength": 5
+      }
+    ],
+    "review": "실혈40%에서 NearDeath 사고와 획득 판정 추가. 기존 혈액30% 급성 스트레스15를 제거하고 NearDeath에서만15 가산한다. body 난수 소비 시점이 바뀌어 기절 로그 시점·중단 활동 진행·사망 직전 시야가 달라졌다. 최종 시간/HP/needs/RNG는 동일. 원본 상태는 test-results/golden-v019-fixed-baseline.json 및 golden-v020-current.json."
+  }
+]

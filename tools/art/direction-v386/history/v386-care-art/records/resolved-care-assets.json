@@ -1,0 +1,1404 @@
+{
+  "loader": "loadDb([],root) final resolved definitions, no World/game",
+  "items": [
+    {
+      "defType": "Item",
+      "id": "Item.FieldMat",
+      "label": "풀·가지 깔개",
+      "sprite": "complete_item_field_mat",
+      "weight": 1,
+      "value": 12,
+      "size": [
+        2,
+        2
+      ],
+      "place": "Terrain.FieldMat",
+      "category": "tool",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_field_mat",
+        "frame": [
+          "av320_equipment",
+          484,
+          4,
+          48,
+          48
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Bedroll",
+      "label": "침낭",
+      "sprite": "complete_item_bedroll",
+      "weight": 1,
+      "value": 12,
+      "size": [
+        2,
+        3
+      ],
+      "place": "Terrain.Bedroll",
+      "category": "tool",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_bedroll",
+        "frame": [
+          "av320_equipment",
+          564,
+          4,
+          48,
+          72
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.StrawBed",
+      "label": "짚 침대",
+      "sprite": "complete_item_straw_bed",
+      "weight": 1,
+      "value": 12,
+      "size": [
+        2,
+        3
+      ],
+      "place": "Terrain.StrawBed",
+      "category": "tool",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_straw_bed",
+        "frame": [
+          "av320_equipment",
+          644,
+          4,
+          48,
+          72
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Bed",
+      "label": "나무 침대",
+      "sprite": "complete_item_bed",
+      "weight": 1,
+      "value": 12,
+      "size": [
+        2,
+        3
+      ],
+      "place": "Terrain.Bed",
+      "category": "tool",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_bed",
+        "frame": [
+          "av320_equipment",
+          724,
+          4,
+          48,
+          72
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.GoodBed",
+      "label": "좋은 침대",
+      "sprite": "complete_item_good_bed",
+      "weight": 1,
+      "value": 12,
+      "size": [
+        2,
+        3
+      ],
+      "place": "Terrain.GoodBed",
+      "category": "tool",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_good_bed",
+        "frame": [
+          "av320_equipment",
+          4,
+          92,
+          48,
+          72
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.MedicalBag",
+      "label": "의료 가방",
+      "description": "끓여 말린 붕대와 처치 도구. 다섯 번 쓰면 소모품이 바닥난다.",
+      "sprite": "complete_item_medical_bag",
+      "category": "medical",
+      "weight": 0.8,
+      "size": [
+        2,
+        2
+      ],
+      "value": 40,
+      "stackable": false,
+      "uses": 5,
+      "medical": {
+        "kind": "bandage",
+        "tool": 15
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_medical_bag",
+        "frame": [
+          "direction_v303_items",
+          320,
+          32,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.TetanusSerum",
+      "label": "봉인된 개척 혈청",
+      "description": "0호 금고의 유한한 주입형 혈청. 턱굳음병을 치료하지만 원래 상처나 다른 질병은 치료하지 않는다.",
+      "sprite": "complete_item_tetanus_serum",
+      "category": "drug",
+      "relic": true,
+      "unknownLabel": "봉인된 개척기 주입기",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": false,
+      "value": 500,
+      "drug": {
+        "effect": "tetanusSerum",
+        "durationTurns": 1,
+        "def": "Drug.TetanusSerum"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_tetanus_serum",
+        "frame": [
+          "direction_v303_items",
+          352,
+          32,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Thread",
+      "label": "실 꾸러미",
+      "sprite": "original_hearth_thread",
+      "category": "misc",
+      "weight": 0,
+      "value": 2,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "description": "바늘과 함께 상처를 봉합할 수 있다. 씻지 않은 상처를 꿰매면 감염 위험이 커진다.",
+      "medical": {
+        "kind": "suture",
+        "tool": 0
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "original_hearth_thread",
+        "frame": [
+          "direction_v303_items",
+          128,
+          64,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Needle",
+      "label": "바늘",
+      "sprite": "complete_item_needle",
+      "category": "tool",
+      "weight": 0,
+      "value": 4,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": false,
+      "maxStack": 1,
+      "toolTags": [
+        "needle"
+      ],
+      "material": "Material.Iron",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_needle",
+        "frame": [
+          "av320_equipment",
+          84,
+          92,
+          24,
+          24
+        ],
+        "sheet": "sprites/original/direction-v320/equipment.png",
+        "sourceSHA": "47d68f8df66ecba0eafd1dc1334b68d0b93f3f0a3f9df09b0505dce9f505a80e"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Cloth",
+      "label": "천 조각",
+      "description": "임시 붕대. 출혈은 막지만 깨끗하지 않다.",
+      "sprite": "original_hearth_cloth",
+      "category": "medical",
+      "weight": 0.05,
+      "stackable": true,
+      "value": 1,
+      "medical": {
+        "kind": "bandage",
+        "tool": -10,
+        "dirty": true
+      },
+      "size": [
+        1,
+        1
+      ],
+      "maxStack": 5,
+      "_mod": "core",
+      "rawMaterial": {
+        "material": "Material.Linen",
+        "grams": 500
+      },
+      "inventoryFrame": {
+        "key": "original_hearth_cloth",
+        "frame": [
+          "direction_v303_items",
+          96,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Bandage",
+      "label": "붕대",
+      "description": "끓여 말린 깨끗한 붕대.",
+      "sprite": "original_hearth_bandage",
+      "category": "medical",
+      "weight": 0.05,
+      "stackable": true,
+      "value": 4,
+      "medical": {
+        "kind": "bandage",
+        "tool": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "maxStack": 5,
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "original_hearth_bandage",
+        "frame": [
+          "direction_v303_items",
+          128,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Tourniquet",
+      "label": "지혈대",
+      "description": "팔다리의 동맥 출혈을 멈춘다. 두 시간 넘게 두면 그 아래가 죽는다.",
+      "sprite": "complete_item_tourniquet",
+      "category": "medical",
+      "weight": 0.1,
+      "value": 15,
+      "medical": {
+        "kind": "tourniquet",
+        "tool": 0
+      },
+      "size": [
+        1,
+        1
+      ],
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_tourniquet",
+        "frame": [
+          "direction_v303_items",
+          160,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Splint",
+      "label": "부목",
+      "description": "골절 부위를 고정한다. 통증이 줄고 악화를 막는다.",
+      "sprite": "complete_item_splint",
+      "category": "medical",
+      "weight": 0.4,
+      "stackable": false,
+      "value": 5,
+      "medical": {
+        "kind": "splint",
+        "tool": 0
+      },
+      "size": [
+        1,
+        2
+      ],
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_splint",
+        "frame": [
+          "direction_v303_items",
+          192,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Moonshine",
+      "label": "밀주",
+      "description": "마시면 통증이 무뎌지지만 피가 더 흐른다. 상처에 부으면 소독이 된다.",
+      "sprite": "complete_item_moonshine",
+      "category": "drink",
+      "weight": 0.5,
+      "value": 12,
+      "uses": 5,
+      "drink": {
+        "water": 50,
+        "alcohol": 1,
+        "kcal": 100
+      },
+      "medical": {
+        "kind": "disinfect",
+        "washMult": 0.4
+      },
+      "size": [
+        1,
+        2
+      ],
+      "drug": {
+        "effect": "alcohol",
+        "durationTurns": 2400,
+        "def": "Drug.Alcohol"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_moonshine",
+        "frame": [
+          "direction_v303_items",
+          224,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.Painkiller",
+      "label": "백색 정제",
+      "description": "개척기 진통제. 8시간 동안 통증을50줄인다. 내성과 의존 위험이 있다.",
+      "sprite": "complete_item_painkiller",
+      "category": "drug",
+      "weight": 0.05,
+      "stackable": true,
+      "value": 25,
+      "drug": {
+        "effect": "painkiller",
+        "durationTurns": 9600,
+        "def": "Drug.WhiteTablet"
+      },
+      "size": [
+        1,
+        1
+      ],
+      "maxStack": 5,
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_painkiller",
+        "frame": [
+          "direction_v303_items",
+          256,
+          160,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.HealthDraught",
+      "label": "쓴 약초탕",
+      "description": "수도원 약제실의 약초를 달인 물. 상처의 열을 내리고 체력을 조금 돌려준다.",
+      "sprite": "original_health_draught",
+      "category": "drug",
+      "weight": 0.3,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 3,
+      "value": 20,
+      "drug": {
+        "effect": "draught",
+        "durationTurns": 30
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "original_health_draught",
+        "frame": [
+          "direction_v303_items",
+          128,
+          192,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.WillowTea",
+      "label": "흰버들 껍질 차",
+      "description": "네 시간 동안 통증을10줄인다. 열이 있을 때 체온 회복 목표를0.5°C낮춘다. 빈속이면 메스꺼울 수 있다.",
+      "sprite": "complete_item_willow_tea",
+      "category": "drug",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 8,
+      "drug": {
+        "effect": "willowTea",
+        "durationTurns": 4800,
+        "def": "Drug.WillowTea"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_willow_tea",
+        "frame": [
+          "direction_v303_items",
+          448,
+          192,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.PoppyTincture",
+      "label": "잠꽃 팅크",
+      "description": "여섯 시간 동안 통증을35줄이고 잠을 돕지만 의식과 호흡이 둔해진다. 내성과 의존 위험이 있다.",
+      "sprite": "complete_item_poppy_tincture",
+      "category": "drug",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 16,
+      "drug": {
+        "effect": "poppyTincture",
+        "durationTurns": 7200,
+        "def": "Drug.PoppyTincture"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_poppy_tincture",
+        "frame": [
+          "direction_v303_items",
+          480,
+          192,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.AshLeaf",
+      "label": "쓴재잎",
+      "description": "씹으면 피로를30줄이고 네 시간 동안 반응속도가4오른다. 이후 피로40이 몰려온다.",
+      "sprite": "complete_item_ash_leaf",
+      "category": "drug",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 6,
+      "drug": {
+        "effect": "ashLeaf",
+        "durationTurns": 4800,
+        "def": "Drug.AshLeaf"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_ash_leaf",
+        "frame": [
+          "direction_v303_items",
+          0,
+          224,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.PurificationAmpoule",
+      "label": "정화 앰플",
+      "description": "개척기 항생 약품. 사흘 동안 감염 진행을70%늦춘다. 이질에 걸릴 위험이 있다.",
+      "sprite": "original_purification_ampoule",
+      "category": "drug",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": false,
+      "maxStack": 1,
+      "value": 100,
+      "drug": {
+        "effect": "purificationAmpoule",
+        "durationTurns": 86400,
+        "def": "Drug.PurificationAmpoule"
+      },
+      "relic": true,
+      "unknownLabel": "밀봉된 앰플",
+      "unknownDescription": "기호가 새겨진 개척기 앰플이다. 내용물의 용도는 모른다.",
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "original_purification_ampoule",
+        "frame": [
+          "direction_v303_items",
+          32,
+          224,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.BitterMoss",
+      "label": "쓴이끼 습포",
+      "description": "상처에 바르면 하루 동안 그 상처의 감염 진행을40%늦춘다. 피부 자극으로 통증2를 더한다.",
+      "sprite": "complete_item_bitter_moss",
+      "category": "drug",
+      "weight": 0.1,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 5,
+      "drug": {
+        "effect": "bitterMoss",
+        "durationTurns": 28800,
+        "def": "Drug.BitterMoss"
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "complete_item_bitter_moss",
+        "frame": [
+          "direction_v303_items",
+          64,
+          224,
+          32,
+          32
+        ],
+        "sheet": "sprites/original/direction-v303/items/items-atlas.png",
+        "sourceSHA": "6f814b505a177879a4b6805715738948701d654d6696d08adfe0f8b5561efe2b"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.PegLeg",
+      "label": "막대 의족",
+      "description": "결손 부위에 설치하는 막대 의족.",
+      "sprite": "av384_peg_leg",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        2
+      ],
+      "value": 20,
+      "prosthetic": "Prosthetic.PegLeg",
+      "repair": {
+        "material": "Item.Wood",
+        "unitsPer10": 0.25,
+        "turns": 100,
+        "attr": "per",
+        "tools": [
+          "blade"
+        ]
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "av384_peg_leg",
+        "frame": [
+          "av384_prosthetic_objects_v1",
+          144,
+          21,
+          291,
+          511
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-objects-v1.png",
+        "sourceSHA": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.ArticulatedLeg",
+      "label": "관절 의족",
+      "description": "결손 부위에 설치하는 관절 의족.",
+      "sprite": "av384_articulated_leg",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        2
+      ],
+      "value": 20,
+      "prosthetic": "Prosthetic.ArticulatedLeg",
+      "repair": {
+        "material": "Item.IronScrap",
+        "unitsPer10": 0.25,
+        "turns": 200,
+        "attr": "str",
+        "tools": [
+          "hammer"
+        ]
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "av384_articulated_leg",
+        "frame": [
+          "av384_prosthetic_leg_pioneer_v2",
+          152,
+          80,
+          425,
+          749
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png",
+        "sourceSHA": "64b83b162a71bbc6cc56331a057e7f79b70379d694a420eb1bfc5f81a8294b46"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.HookHand",
+      "label": "갈고리 손",
+      "description": "결손 부위에 설치하는 갈고리 손.",
+      "sprite": "av384_hook_hand",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        2
+      ],
+      "value": 20,
+      "prosthetic": "Prosthetic.HookHand",
+      "repair": {
+        "material": "Item.IronScrap",
+        "unitsPer10": 0.25,
+        "turns": 150,
+        "attr": "str",
+        "tools": [
+          "hammer"
+        ]
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "av384_hook_hand",
+        "frame": [
+          "av384_prosthetic_objects_v1",
+          1169,
+          25,
+          262,
+          505
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-objects-v1.png",
+        "sourceSHA": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.GlassEye",
+      "label": "유리 눈",
+      "description": "결손 부위에 설치하는 유리 눈.",
+      "sprite": "av384_glass_eye",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        1
+      ],
+      "value": 20,
+      "prosthetic": "Prosthetic.GlassEye",
+      "repair": {
+        "material": "Item.GlassShard",
+        "unitsPer10": 0.25,
+        "turns": 100,
+        "attr": "per",
+        "tools": [
+          "blade"
+        ]
+      },
+      "_mod": "core",
+      "inventoryFrame": {
+        "key": "av384_glass_eye",
+        "frame": [
+          "av384_prosthetic_objects_v1",
+          127,
+          622,
+          294,
+          293
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-objects-v1.png",
+        "sourceSHA": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.PioneerArm",
+      "label": "개척 의수",
+      "description": "결손 부위에 설치하는 개척 의수.",
+      "sprite": "av384_pioneer_arm",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        2
+      ],
+      "value": 200,
+      "prosthetic": "Prosthetic.PioneerArm",
+      "relic": true,
+      "unknownLabel": "따뜻한 금속 팔",
+      "unknownDescription": "손목 같은 관절이 달린 금속 덩어리. 만지면 조금 따뜻하다.",
+      "_mod": "core",
+      "durabilityBase": 100,
+      "repair": {
+        "material": "Item.SmallActuator",
+        "unitsPer10": 0.25,
+        "turns": 200,
+        "attr": "per",
+        "tools": [
+          "hammer"
+        ],
+        "appraisalRequired": true,
+        "station": "artisan",
+        "relicRisk": {
+          "base": 60,
+          "min": 10,
+          "max": 60
+        }
+      },
+      "inventoryFrame": {
+        "key": "av384_pioneer_arm",
+        "frame": [
+          "av384_prosthetic_leg_pioneer_v2",
+          1073,
+          105,
+          596,
+          707
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-leg-pioneer-v2.png",
+        "sourceSHA": "64b83b162a71bbc6cc56331a057e7f79b70379d694a420eb1bfc5f81a8294b46"
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.GardenerLimb",
+      "label": "정원사 이식지",
+      "description": "결손 부위에 설치하는 정원사 이식지.",
+      "sprite": "av384_gardener_limb",
+      "category": "medical",
+      "weight": 1,
+      "size": [
+        1,
+        2
+      ],
+      "value": 200,
+      "prosthetic": "Prosthetic.GardenerLimb",
+      "relic": true,
+      "unknownLabel": "기이한 흰 가지",
+      "unknownDescription": "뼈와 나뭇가지 사이처럼 생겼다. 귀를 대면 속삭이는 듯하다.",
+      "_mod": "core",
+      "durabilityBase": 100,
+      "repair": {
+        "material": "Item.SmallActuator",
+        "unitsPer10": 0.25,
+        "turns": 200,
+        "attr": "per",
+        "tools": [
+          "hammer"
+        ],
+        "appraisalRequired": true,
+        "station": "artisan",
+        "relicRisk": {
+          "base": 60,
+          "min": 10,
+          "max": 60
+        }
+      },
+      "inventoryFrame": {
+        "key": "av384_gardener_limb",
+        "frame": [
+          "av384_prosthetic_objects_v1",
+          1137,
+          540,
+          309,
+          454
+        ],
+        "sheet": "sprites/original/direction-v384/prosthetic-objects-v1.png",
+        "sourceSHA": "2f3ec151ad95be18ca46dfc7e2794b1d8b1239b192c98fa5f35f7d3a96685332"
+      }
+    }
+  ],
+  "terrain": [
+    {
+      "defType": "Terrain",
+      "label": "풀·가지 깔개",
+      "sprites": [],
+      "passable": true,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.FieldMat",
+      "bedding": {
+        "quality": 0.65,
+        "insulation": 0,
+        "portable": true
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "침낭",
+      "sprites": [],
+      "passable": true,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Bedroll",
+      "bedding": {
+        "quality": 0.8,
+        "insulation": 6,
+        "portable": true
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "짚 침대",
+      "sprites": [],
+      "passable": true,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.StrawBed",
+      "bedding": {
+        "quality": 0.9,
+        "insulation": 0,
+        "portable": false
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "나무 침대",
+      "sprites": [],
+      "passable": true,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Bed",
+      "bedding": {
+        "quality": 1,
+        "insulation": 0,
+        "portable": false
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "좋은 침대",
+      "sprites": [],
+      "passable": true,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.GoodBed",
+      "bedding": {
+        "quality": 1.1,
+        "insulation": 0,
+        "portable": false
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "작업대",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Workbench",
+      "cover": 15,
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "칠번 굴뚝 온도 센서 정비대",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Workbench",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "cover": 15,
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      },
+      "id": "Terrain.TowerSensor",
+      "device": "FieldDevice.TowerSensor"
+    },
+    {
+      "defType": "Terrain",
+      "label": "수신 첨탑 관로 정비대",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Workbench",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "cover": 15,
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      },
+      "id": "Terrain.ReceiverConduit",
+      "device": "FieldDevice.ReceiverConduit"
+    },
+    {
+      "defType": "Terrain",
+      "label": "공용 가열 소금솥",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Workbench",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "cover": 15,
+      "station": {
+        "id": "saltwork",
+        "bonus": 0
+      },
+      "id": "Terrain.SaltPan",
+      "description": "실제 바닷물1L와 장작을 넣어 끓여 소금35g을 얻는다. 물은 증발하고 재는 소금에 남는다."
+    },
+    {
+      "defType": "Terrain",
+      "label": "수신 첨탑 제어대",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Workbench",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "cover": 15,
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      },
+      "id": "Terrain.SpireConsole",
+      "device": "FieldDevice.SpireConsole"
+    },
+    {
+      "defType": "Terrain",
+      "label": "대장간",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Forge",
+      "cover": 15,
+      "station": {
+        "id": "forge",
+        "bonus": 5
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "베틀",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Loom",
+      "cover": 15,
+      "station": {
+        "id": "loom",
+        "bonus": 0
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "무두질 통",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.TanningVat",
+      "cover": 15,
+      "station": {
+        "id": "tanning",
+        "bonus": 0
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "장인 작업대",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Earth",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "id": "Terrain.Artisan",
+      "cover": 15,
+      "station": {
+        "id": "artisan",
+        "bonus": 10
+      }
+    },
+    {
+      "defType": "Terrain",
+      "label": "0호 금고 봉인 기구",
+      "sprites": [
+        "crate0"
+      ],
+      "passable": false,
+      "opaque": false,
+      "moveMult": 1,
+      "_mod": "core",
+      "parent": "Terrain.Workbench",
+      "floor": "earth",
+      "noiseMult": 0.8,
+      "soil": true,
+      "cover": 15,
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      },
+      "id": "Terrain.ZeroVaultSeal",
+      "device": "FieldDevice.ZeroVaultSeal"
+    }
+  ],
+  "terrainDisplayProps": [
+    {
+      "key": "complete_field_mat",
+      "frame": [
+        "complete_props_ground",
+        198,
+        18,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_bed_insulated",
+      "frame": [
+        "complete_props_ground",
+        54,
+        0,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_straw_bed",
+      "frame": [
+        "complete_props_ground",
+        216,
+        18,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_bed_plain",
+      "frame": [
+        "complete_props_ground",
+        36,
+        0,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_good_bed",
+      "frame": [
+        "complete_props_ground",
+        234,
+        18,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_bed_scorched",
+      "frame": [
+        "complete_props_ground",
+        72,
+        0,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    },
+    {
+      "key": "complete_workbench",
+      "frame": [
+        "complete_props_ground",
+        108,
+        0,
+        16,
+        16
+      ],
+      "sheet": "sprites/original/direction-v303/props/complete_props_ground.png",
+      "sourceSHA": "dbce60fae1aa4b9bb8b98ed493e313f0857ab594303c0da8cf757ca2757253e2"
+    }
+  ],
+  "stationIds": [
+    {
+      "terrain": "Terrain.Workbench",
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.TowerSensor",
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.ReceiverConduit",
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.SaltPan",
+      "station": {
+        "id": "saltwork",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.SpireConsole",
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.Forge",
+      "station": {
+        "id": "forge",
+        "bonus": 5
+      }
+    },
+    {
+      "terrain": "Terrain.Loom",
+      "station": {
+        "id": "loom",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.TanningVat",
+      "station": {
+        "id": "tanning",
+        "bonus": 0
+      }
+    },
+    {
+      "terrain": "Terrain.Artisan",
+      "station": {
+        "id": "artisan",
+        "bonus": 10
+      }
+    },
+    {
+      "terrain": "Terrain.ZeroVaultSeal",
+      "station": {
+        "id": "workbench",
+        "bonus": 0
+      }
+    }
+  ],
+  "sourceRegistrySHA": "4e6c2b6bd25e34b1f90934923c73a3077a4db821616cc8e7c2ecab38ad373efa"
+}

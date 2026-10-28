@@ -1,0 +1,134 @@
+{
+  "version": 370,
+  "saveVersion": 215,
+  "releaseApproved": false,
+  "mainGameSwarmActivated": true,
+  "newMapsOnly": true,
+  "initialPopulation": {
+    "colonies": 2,
+    "originalMembersEach": 1000,
+    "noteCopies": 1,
+    "alreadyVisitedMapsBackfilled": false
+  },
+  "art": {
+    "newOriginalPNGs": 2,
+    "newUniqueRegions": 6,
+    "flightPoseRegions": 4,
+    "authoredFlightDirections": 1,
+    "itemIconRegions": 2,
+    "runtimeRotation": true,
+    "maximumRepresentativeSpritesPerColony": 48,
+    "rawSpecimen": "explicit reuse of folded pose",
+    "note": "explicit reuse of generic manual",
+    "newCharacterEntries": 0,
+    "heldV369Used": false,
+    "sourceReceipts": [
+      "tools/art/direction-v370/installation.json",
+      "tools/art/direction-v371/installation.json"
+    ],
+    "parentNativeAcceptance": "Limited game/preview use of four dorsal flight poses and two harvest icons; single authored direction, variable wing-body outlines and low-alpha remnants remain documented. Installer pending labels are historical; this record supplies parent review."
+  },
+  "checks": {
+    "relatedInitial": {
+      "files": 6,
+      "tests": 80,
+      "log": "test-results/autonomy-v370/related-r1.txt"
+    },
+    "finalSwarm": {
+      "files": 1,
+      "tests": 12,
+      "log": "test-results/autonomy-v370/swarm-final-r5.txt"
+    },
+    "uniqueTotal": {
+      "files": 7,
+      "tests": 88
+    },
+    "typecheck": "pass: types-freeze.txt",
+    "lint": "pass: lint-publish.txt and lint-last.txt; lint-migration-final.txt",
+    "schema": {
+      "files": 174,
+      "errors": 0,
+      "log": "test-results/autonomy-v370/schema-last.txt"
+    },
+    "defs": {
+      "patches": 629,
+      "Swarm": 1,
+      "Creature": 39,
+      "Body": 12,
+      "Item": 238,
+      "Recipe": 101,
+      "BestiaryEntry": 18
+    },
+    "sprites": {
+      "sheets": 373,
+      "frames": 8105,
+      "animations": 9,
+      "characters": 34,
+      "icons": 261,
+      "uniquePngFiles": 399
+    },
+    "sourceReproduction": "both --check installers pass; byte-identical source PNGs and unchanged prior registry entries",
+    "build": "pass: build-r2-freeze.txt",
+    "FullWorld1000Run": false,
+    "legacyMigration": {
+      "files": 1,
+      "tests": 5,
+      "log": "test-results/autonomy-v370/sower-migration-final.txt",
+      "correction": "CI found hardcoded214 expectation in prior213 migration. Assert current SAVE_VERSION while retaining whole state hash equality and no invented attack/history checks."
+    }
+  },
+  "native": {
+    "mainGame": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v370-ashmoth-r2",
+      "audit": "docs/diagnostics/swarm-v370/game-audit.json",
+      "runs": 2,
+      "wholeJSONAndHashPairs": 13,
+      "errors": [],
+      "inputs": "Title Continue, Period, F2 tabs and actual capture/study/craft/coating buttons, T, Alt+C, ArrowRight, Title Continue",
+      "noPostLoadWorldWrites": true,
+      "eachTrackedIndividualShowsFourSourcePoses": true,
+      "initialFixture": "one original1000-member colony and real cloth/knife/lit lantern, a distant3-radius existing campfire; finite fixture loaded before actual inputs"
+    },
+    "publicArtPreview": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v370-ashmoth-r1",
+      "audit": "docs/diagnostics/swarm-v370/preview-audit.json",
+      "observations": 79,
+      "errors": [],
+      "individualFourPoses": true,
+      "actualPauseDensityAndSpeedControls": true,
+      "allPreviewBuildFilesUnchangedInR2": true,
+      "identicalPreviewBuildFiles": 25,
+      "scope": "isolated shared presentation class, not real world quantities/actions"
+    },
+    "parentOpenedScreenshots": [
+      "actual-colony-1366.png",
+      "actual-coating-1366.png",
+      "actual-roasted-food-1440.png",
+      "public-flight.png"
+    ],
+    "browserAndPreviewFinallyClosed": true
+  },
+  "publication": {
+    "checkpoint": "/workspace/.ashveil-checkpoints/v370-ashmoth-r4",
+    "runtimeMustMatchReviewedR2": true,
+    "publicByteVerification": "record follows successful Pages deployment; not claimed before publication",
+    "priorAttempt": {
+      "commit": "0fff0d02803361a976e1efcac2b51aab183b0cec",
+      "run": 40169498643,
+      "conclusion": "failure",
+      "focusedChecks": {
+        "files": 36,
+        "passed": 408,
+        "failed": 1
+      },
+      "deploymentOccurred": false,
+      "reason": "Only prior213 save migration expected214; actual current version215. No game/runtime bytes changed by corrective test."
+    }
+  },
+  "remaining": [
+    "Conduit crawler and Culler actual bodies/behavior/resources",
+    "Worn clothing, severed/prosthetic bodies and damaged gait",
+    "Long ecology, remaining X1–X4/world/history/language integrations",
+    "Deferred full regression, save audit, simulation and human/device release evaluation"
+  ]
+}

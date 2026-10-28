@@ -1,0 +1,1131 @@
+{
+  "created": "2026-10-21",
+  "reviewer": "character_art independent follow-up visual/static review",
+  "status": "12 existing Native PNGs reviewed; art-specific readability issue not found in visible scenes",
+  "reviewBoundary": {
+    "immutableProduct": "/workspace/.ashveil-checkpoints/v299-input",
+    "capturedResults": "/workspace/ashveil/test-results/oat-cultivation-browser-v299-first",
+    "outputOnly": "/workspace/ashveil/docs/ui-v299-oat-art-review.json",
+    "directlyOpenedPNGCount": 12,
+    "newCaptureOrGameRun": false,
+    "productOrPNGChanges": false,
+    "testsGPUTypeFullWorldExecuted": false,
+    "scope": "원본 아트3종의 실제 화면/정적 보존·배치 검토. 경제·장기농업·전 기능 검증 승인 아님.",
+    "progressChronology": "요청 당시 실행 중이었으나 검토 중 Root가 첫Native 완료를 알렸고 실제audit와12PNG/23쌍을 읽었다. 초기6장만 보고 전체완료로 올리지 않았다."
+  },
+  "visualSummary": {
+    "seedTooltip": "원본 주머니/알곡 구분,1×1 배치, tooltip wrapping/화면내표시 양호.",
+    "maturePlot": "1494의.5기본배율 성숙밭은 타일 안에서 뿌리/가는줄기/처진밝은이삭이 읽히며 겹침/잘림 문제 없음.",
+    "smallerPlots": "1495수확후·1499옛기한전·1500수확후의 작은 그림도 작물 군집으로 보임.",
+    "newUnwateredAndEarlyGrowth": "1490–1493/1492의 밭 픽셀은 F2모달에 가려져 직접 가독성 확인 못함. 상태문장과JSON만 확인.",
+    "smallViewport": "1366×768 두장1492/1498의 재배요약/소지품/tooltip은 화면안에 있으며 작은화면의 unobstructed성숙밭은 자료에 없음.",
+    "RGBPreviewLimit": "1495/1500의 미리보기HUD생략은 원본RGB가1489동일영역과0픽셀차이임을확인. 원본은편집안함."
+  },
+  "screenshots": [
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "bytes": 745949,
+      "sha256": "c4e264f3e27d9ac5640598e4a4108bf742b5c4278f9690259ad43ba47b53ed42",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "원래 귀리2·씨앗3 소지품 / 실제 재배 요구 tooltip",
+      "observed": [
+        "둥근 회록색 귀리 씨앗 주머니와 밝은 알곡/이삭의 서로 다른 아이콘이1×1 슬롯 안에 보인다.",
+        "씨앗×3 tooltip과 아래 귀리 밭 배치·햇빛15~100%·0~35°C·한 회차 물1000ml 문장이 우측/하단 잘림 없이 읽힌다.",
+        "숫자3/2는 제품이 그린 더미 수이며 그림 자체의 낱알 수가 아니다."
+      ],
+      "occlusions": [
+        "모달은 정상적으로 뒤 월드를 가린다. 이 장면은 밭 자체의 새 원본을 보여 주는 장면이 아니다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1490-native-actual-new-oat-plot-needs-real-water-not-a-free-timer.png",
+      "bytes": 777904,
+      "sha256": "2ff0b651eba2f2102ff7a55ee74eeba80c9f2b3aeb073ffc32458134f7bf7343",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "실제 새 밭과 물 없음 / 제작·정비",
+      "observed": [
+        "귀리 밭21,20 · 성장0% · 관수0ml, 물이 필요하다는 문장과1000ml 물 주기1턴 버튼이 보인다.",
+        "제작 창은 화면 하단8px 여백 안에 있고 아래 recipe 목록은 자체 스크롤 영역의 일부만 보인다."
+      ],
+      "occlusions": [
+        "새 밭 위치가 제작 모달 아래에 가려져 있어 새/무수분 밭의 도트 형태를 이 PNG로 직접 확인할 수 없다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1491-native-real-thousand-ml-spent-original-bottle-and-first-sunlit-growth.png",
+      "bytes": 789719,
+      "sha256": "68c8e9ecff21fc03200fdfbb2b2f03cc23445c6dcc6c323960aceafdf9aeb79a",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "원래 물병1000ml 소모 뒤 첫 유효 성장",
+      "observed": [
+        "제작 창은 관수999.99ml와 현재 환경에서 자란다는 설명을 표시한다.",
+        "로그에 원래 물 용기에서1000ml를 실제 밭에 주었다는 문장이 보인다."
+      ],
+      "occlusions": [
+        "밭 자체는 모달 아래에 가려져 있다. 성장1이라는 정확한 값은 JSON 근거이며 픽셀로 추론하지 않는다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1492-native-small-restored-original-oat-plot-and-finite-water.png",
+      "bytes": 622415,
+      "sha256": "23c11175c933e446ce82d08fa325c88ea3139ddc011fe2b5f6e53a5c11b627c4",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "1366×768 복원 뒤 같은 물/성장 요약",
+      "observed": [
+        "작은 화면에서 제작 창의 재배 요약·999.99ml·현재 환경 상태가 상단에 온전히 보인다.",
+        "패널은 오른쪽/아래 화면 경계 밖으로 나가지 않고 목록은 내부에서 이어진다."
+      ],
+      "occlusions": [
+        "작은 화면에서 밭 원본 자체는 제작 모달 아래에 가려진다. 작은 화면의 성숙밭 도트 가독성까지 검토했다고 주장하지 않는다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1493-native-declared-last-three-valid-growth-turns-and-original-irrigation-dose.png",
+      "bytes": 787962,
+      "sha256": "9da61cfcfcb022b9b4e0d866a6a254dcf3cedeafa40768208735053d54a99e35",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "성장 마지막3턴을 남긴 유한 초기 장면",
+      "observed": [
+        "제작 창은 성장99%·관수0.02ml와 관수에서 옮은 오염이 수확물에 남는다는 노란 문장을 표시한다.",
+        "밝은 모닥불/초기 요약과 실제 남은 물600ml 문장이 읽힌다."
+      ],
+      "occlusions": [
+        "성장 중 밭 자체는 제작 모달에 가려진다. 이 장면의143997성장은 선언한 초기 조건이며143997과거 턴을 플레이한 증거가 아니다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1494-native-real-three-final-growth-turns-original-mature-oat-plant.png",
+      "bytes": 904850,
+      "sha256": "14d5a654320fc9a9edd476d98ef4765e09ef6056fa61e83f91f34fd1b7e7447d",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "실제 마지막3성장턴 뒤 성숙 귀리밭, 창 닫힘",
+      "observed": [
+        "주인공 바로 오른쪽에 여러 가는 줄기·처진 밝은 곡립·흙 밑부분을 가진 원본 작물이 분명히 보인다.",
+        "밭 원본은 자기 타일 안에 모여 있고 주인공/옆 타일·바로 왼쪽의 모닥불과 식별을 방해하는 겹침을 발견하지 않았다.",
+        "원래 버섯 placeholder나 큰 나무처럼 읽히지 않는다. .5기본배율의 성숙 모양은 이 장면에서 충분히 읽힌다."
+      ],
+      "occlusions": [
+        "이 장면은 가까운 불빛 아래 낮 시간의 단일 밭이다. 야간·여러 인접 밭·작은 화면의 동일 성숙 장면은 없다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1495-native-five-real-oats-original-water-dose-and-two-clean-grains-kept-separate.png",
+      "bytes": 755834,
+      "sha256": "3b8078c75f0f3c2e585a5e3e45e2b956255b258b3446c3d4eb9363eabaaef0ef",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "수확5묶음/원래 맑은 귀리2와 별도 더미",
+      "observed": [
+        "원래 귀리×2와 수확 귀리×5가 같은 알곡 아이콘으로 다른 슬롯에 보이고 씨앗 주머니는 별도 형태다.",
+        "수확 귀리 tooltip의 재 노출0.04·옮은 오염20ml·병원체60이 읽히며 우측·하단이 잘리지 않는다.",
+        "창 아래 오른쪽의 수확 후 작은 작물 군집이 보인다. 작은 크기에서도 밝은 이삭과 흙 밑부분이 남는다."
+      ],
+      "occlusions": [
+        "정확한UID·농도·더미 보존은 JSON 근거다. 아이콘 색은 오염/안전을 구분하는 상태 그림이 아니다.",
+        "도구 미리보기의 상단HUD 생략은 원본RGB 비교로 별도 확인했다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1496-native-original-one-grain-raw-mixture-retains-real-crop-pathogens.png",
+      "bytes": 777548,
+      "sha256": "e701a458129fcf9fd447bc7a8591625407f512ea5aeb76393ee1ffd2f8b84c5f",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "원래 그릇/귀리/물의 덜 익은 혼합물",
+      "observed": [
+        "제작 창에 덜 익은 귀리죽 그릇1/400턴과 남은399턴 실제 대기 버튼이 보인다.",
+        "관수0ml가 된 밭 요약과 물380ml 요약이 잘리지 않고 읽힌다."
+      ],
+      "occlusions": [
+        "혼합물의 병원체/재와 같은 그릇UID는 이 PNG만으로 확인하지 않는다. 밭 자체도 모달에 가려진다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1497-native-four-hundred-real-hot-turns-keep-grain-ash-and-original-bowl.png",
+      "bytes": 775663,
+      "sha256": "77777c30b0342cd0a0db4a39790e68896b6ff466440fe1275ddef3012c85a5db",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "실제400가열턴 뒤 익은 귀리죽",
+      "observed": [
+        "제작 창이 귀리죽 그릇·익음과 음식 회수 버튼을 표시하고 로그는 익었다고 알린다.",
+        "귀리밭 관수0ml/성장0%가 요약에 남아 있어 조리와 작물 상태가 다른 영역으로 읽힌다."
+      ],
+      "occlusions": [
+        "실제400턴·재 보존·병원체 처리는 기존JSON과audit 근거다. 이미지 자체는 시간/물성 판정의 독립 측정기가 아니다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1498-native-small-restored-same-empty-bowl-four-harvest-grains-two-clean-grains.png",
+      "bytes": 535969,
+      "sha256": "cefa190793e5bd7a332c0a0100af21069d49ea683aeef0a761618d90095b0287",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "1366×768 복원 뒤 빈 그릇·수확 귀리4·바닥 맑은 귀리2",
+      "observed": [
+        "작은 화면 소지품 안의 귀리 씨앗 주머니·수확 귀리×4와 발밑 귀리×2의 알곡 그림이 모두 슬롯 안에 보인다.",
+        "빈 그릇 tooltip과 소지품/발밑 목록·모두 줍기 버튼은 화면 경계 안에 보인다.",
+        "기존 그릇 아이콘은 귀리의 새 이삭 아이콘과 다른 형태다."
+      ],
+      "occlusions": [
+        "같은 원래 그릇UID와 수확/맑은 더미의 정확한 보존은 JSON에서 확인하는 정보다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1499-native-legacy202-original-near-deadline-oat-plot-no-invented-past-water.png",
+      "bytes": 857442,
+      "sha256": "b9fdd5c6bafd665b49d9e17c95e4848cc666c27a9d9b2079a29080b061f07658",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "옛202 header 유한 timed plot, 기한1턴 전",
+      "observed": [
+        "창 없이 주인공 오른쪽에 작은 귀리 군집이 보이며 줄기·밝은 이삭·흙 바닥이 남는다.",
+        "옛 그림을 버섯으로 남기지 않고 같은 원본을 작은 크기로 쓰는 모습이다."
+      ],
+      "occlusions": [
+        "물/과거 관수가 새로 생기지 않았다는 사실과 gatherAt는 픽셀로 판정할 수 없다. 같은 현재 fixture의202header 경로이며 실제 역사 사용자 저장 파일 증거가 아니다."
+      ]
+    },
+    {
+      "file": "test-results/oat-cultivation-browser-v299-first/1500-native-legacy202-to203-original-timed-crop-five-new-two-original-grains.png",
+      "bytes": 729501,
+      "sha256": "5b9f387b2434058fcee30382a1b47c8f349af833b70a5f8923330664f0f2b3ee",
+      "dimensions": [
+        1440,
+        1080
+      ],
+      "directlyOpenedWithViewImage": true,
+      "scene": "옛 timed plot 실제 기한/수확 후 귀리5+원래2",
+      "observed": [
+        "소지품에서 귀리×5와×2가 별도 슬롯에 보이고 tooltip은 재/병원체 문구가 없는 원래 조리 재료 설명이다.",
+        "모달 아래의 작은 귀리밭도 이삭 군집으로 보인다."
+      ],
+      "occlusions": [
+        "도구 미리보기 상단HUD 생략은 원본RGB가1489와 완전히 같음을 확인해 실제 누락으로 판정하지 않았다.",
+        "그림만으로 옛 밭의 무소급·기한 동작·정확한 수량/UID를 증명하지 않는다."
+      ]
+    }
+  ],
+  "nativeAudit": {
+    "file": "test-results/oat-cultivation-browser-v299-first/audit.json",
+    "sha256": "41e0c4ec383c9bc1282e50626f0a317b24594940eebc2705fb900f71e52c6966",
+    "observedCompleteAudit": true,
+    "reportedScreenshots": 12,
+    "reportedRoundtrips": 6,
+    "reportedPhases": 23,
+    "reportedActualInputTU": 43200,
+    "reportedErrors": [],
+    "declaredSceneRows": [
+      {
+        "phase": "seed",
+        "polluted": false,
+        "initialTime": 1440000,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": false,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "seed",
+        "legacyNearDeadlineDeclared": false
+      },
+      {
+        "phase": "nearRipe",
+        "polluted": true,
+        "initialTime": 1440200,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": true,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "nearRipe",
+        "cooking": {
+          "bowlUid": 53,
+          "bottleUid": 54,
+          "kitUid": 51,
+          "woodUid": 52,
+          "fireUid": 51,
+          "pos": {
+            "x": 19,
+            "y": 20
+          }
+        },
+        "legacyNearDeadlineDeclared": false,
+        "extraInitialCookingMaterials": "OriginalnewKit1/Wood1/Bowl1quality3dur81/freshwater600ml; actualKernelplace/fireworkfinish in finiteinitialscene, no worldclock advance or pastnormalplay claim. Originalcrop1000ml separate and already spent.",
+        "harvestedUid": 55,
+        "harvestedCount": 5,
+        "remainingHarvested": 4,
+        "cleanSetAside": 2,
+        "originalBowlUid": 53,
+        "actualHotTurns": 400,
+        "rawExposureMetadataMl": 240,
+        "rawPathogen": 5,
+        "actualNutritiveMealWaterMl": 220
+      },
+      {
+        "phase": "seed",
+        "polluted": false,
+        "initialTime": 1440000,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": false,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "legacy202",
+        "legacyNearDeadlineDeclared": true
+      }
+    ],
+    "sourceLimits": "Threefiniteinitialscenes loadedviarealTitleContinue. Actualkey/mouseplant/water3growthwaits/harvest12T/grainsetaside/prepare1T/399remaininghotT/take1T/eat1T/legacydeadline1T/harvest12T; independentNodeWHOLEaftereachphase. DeclarednearRipeinitialgrowthtotal-3, not143997pastvalidturns or5calendar-dayplay. Actualcrop1000ml+separateinitialcooking600ml;20mlpergrainisexistingexposuremetadata, noextra nutritionalwater beyond220ml. Legacy202header samecurrentfinite oldtimedplot, not historicaluserfile. No postloadworld/time/RNG/material injection, noNPCproduction/fullfamine/ecologycompletion.",
+    "independentReadback": {
+      "parsedWholePairs": 23,
+      "all23ParsedEqual": true,
+      "byteEqualPairCount": 20,
+      "byteHashDifferencesWithEqualParsedJSON": "3쌍은객체키직렬화순서차이로파일SHA가달라도파싱한세계가같다. 모두바이트일치라고기록하지않음.",
+      "roundtripPairs": 6,
+      "sceneTimeDeltas": [
+        {
+          "scene": "seed",
+          "initialTime": 1440000,
+          "finalTime": 1440200,
+          "actualInputTU": 200
+        },
+        {
+          "scene": "nearRipe",
+          "initialTime": 1440200,
+          "finalTime": 1481900,
+          "actualInputTU": 41700
+        },
+        {
+          "scene": "legacy202",
+          "initialTime": 1440000,
+          "finalTime": 1441300,
+          "actualInputTU": 1300
+        }
+      ],
+      "sceneTimeDeltaTotal": 43200,
+      "method": "기존 산출물만 읽어 비교. Node oracle/게임/테스트 재실행 없음."
+    },
+    "wholePairs": [
+      {
+        "phase": "declared-near-ripe-oats-title-initial",
+        "actual": "test-results/oat-cultivation-browser-v299-first/declared-near-ripe-oats-title-initial-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/declared-near-ripe-oats-title-initial-expected.json",
+        "actualSHA256": "7b48cf31e9c9dc6a523943f777110dcb9fff884100739ac7c8ae0cb4e82e728b",
+        "expectedSHA256": "7b48cf31e9c9dc6a523943f777110dcb9fff884100739ac7c8ae0cb4e82e728b",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440200,
+        "version": 203
+      },
+      {
+        "phase": "legacy202-original-timed-oat-plot-title-initial",
+        "actual": "test-results/oat-cultivation-browser-v299-first/legacy202-original-timed-oat-plot-title-initial-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/legacy202-original-timed-oat-plot-title-initial-expected.json",
+        "actualSHA256": "d394e1983682a6591e00c574cb2d4fd8c19ab4bf0181a1ee3e706676991fed7c",
+        "expectedSHA256": "d394e1983682a6591e00c574cb2d4fd8c19ab4bf0181a1ee3e706676991fed7c",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440000,
+        "version": 203
+      },
+      {
+        "phase": "legacy202-real-one-turn-original-deadline",
+        "actual": "test-results/oat-cultivation-browser-v299-first/legacy202-real-one-turn-original-deadline-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/legacy202-real-one-turn-original-deadline-expected.json",
+        "actualSHA256": "a9db1275326cb45903c908b49a478d0b601d2498890f9f7ecc5bde536a3570f8",
+        "expectedSHA256": "a9db1275326cb45903c908b49a478d0b601d2498890f9f7ecc5bde536a3570f8",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440100,
+        "version": 203
+      },
+      {
+        "phase": "legacy202-real-twelve-turn-original-five-grain-yield",
+        "actual": "test-results/oat-cultivation-browser-v299-first/legacy202-real-twelve-turn-original-five-grain-yield-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/legacy202-real-twelve-turn-original-five-grain-yield-expected.json",
+        "actualSHA256": "0636ef3f0c7f14cb4f7b3228a040e92f72b5824846c6a6b6c2550ccfbcde096a",
+        "expectedSHA256": "0636ef3f0c7f14cb4f7b3228a040e92f72b5824846c6a6b6c2550ccfbcde096a",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441300,
+        "version": 203
+      },
+      {
+        "phase": "legacy202-whole203-restored-original-timer-and-seven-total-grains",
+        "actual": "test-results/oat-cultivation-browser-v299-first/legacy202-whole203-restored-original-timer-and-seven-total-grains-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/legacy202-whole203-restored-original-timer-and-seven-total-grains-expected.json",
+        "actualSHA256": "0636ef3f0c7f14cb4f7b3228a040e92f72b5824846c6a6b6c2550ccfbcde096a",
+        "expectedSHA256": "0636ef3f0c7f14cb4f7b3228a040e92f72b5824846c6a6b6c2550ccfbcde096a",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441300,
+        "version": 203
+      },
+      {
+        "phase": "original-oat-seed-title-initial",
+        "actual": "test-results/oat-cultivation-browser-v299-first/original-oat-seed-title-initial-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/original-oat-seed-title-initial-expected.json",
+        "actualSHA256": "dec8623416dfc45b7c34e93e482d460f43632f4a7306ec829f733b4a82dd1889",
+        "expectedSHA256": "dec8623416dfc45b7c34e93e482d460f43632f4a7306ec829f733b4a82dd1889",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440000,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-growth-turn-1",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-1-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-1-expected.json",
+        "actualSHA256": "1f962409dae5909d470cd2355c085df45ecd63ca080c088dfc1ba42a6053bea1",
+        "expectedSHA256": "1f962409dae5909d470cd2355c085df45ecd63ca080c088dfc1ba42a6053bea1",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440300,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-growth-turn-2",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-2-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-2-expected.json",
+        "actualSHA256": "4f8591b23d44933de8bb49e512c4eb104443bffce40d0f322dd0b5731dcb55aa",
+        "expectedSHA256": "4f8591b23d44933de8bb49e512c4eb104443bffce40d0f322dd0b5731dcb55aa",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440400,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-growth-turn-3",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-3-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-growth-turn-3-expected.json",
+        "actualSHA256": "cfe8bee772fa56ce085772bc57c6f127579b7b6131f39dc817e31c94665c912b",
+        "expectedSHA256": "cfe8bee772fa56ce085772bc57c6f127579b7b6131f39dc817e31c94665c912b",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440500,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-one-turn-meal-original-empty-bowl-and-four-grains",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-meal-original-empty-bowl-and-four-grains-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-meal-original-empty-bowl-and-four-grains-expected.json",
+        "actualSHA256": "56e3bcf13ee723dc24ff6164d7c524e99aa6d880af3563922809813e339d16b2",
+        "expectedSHA256": "faafdc8a3e6aab498613995b64e6138fbc08736d9ccfb5ddcb1742c15eaac1c8",
+        "parsedWholeEqual": true,
+        "byteEqual": false,
+        "actualTime": 1481900,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-one-turn-one-harvested-grain-and-original-bowl-water",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-one-harvested-grain-and-original-bowl-water-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-one-harvested-grain-and-original-bowl-water-expected.json",
+        "actualSHA256": "09f6ae70eeee03f803fe5bb494d655459f4ff087d7e246d1b1b92e538f29d9e3",
+        "expectedSHA256": "09f6ae70eeee03f803fe5bb494d655459f4ff087d7e246d1b1b92e538f29d9e3",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441800,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-one-turn-take-original-boiled-bowl",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-take-original-boiled-bowl-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-one-turn-take-original-boiled-bowl-expected.json",
+        "actualSHA256": "fb271181a4129a6e331d0cfda93baa9e23572b4f307b54e02efff7bf36b2bbe7",
+        "expectedSHA256": "ae7787f548ee5b5bc97f80ebb2af5b29eb9f60a22f18b041fb736117adfdbaab",
+        "parsedWholeEqual": true,
+        "byteEqual": false,
+        "actualTime": 1481800,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-remaining-three-hundred-ninety-nine-hot-turns",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-remaining-three-hundred-ninety-nine-hot-turns-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-remaining-three-hundred-ninety-nine-hot-turns-expected.json",
+        "actualSHA256": "9200cf63512e68fb06ea077907b9ca4be642c1db7b9dbef2cf8f57472588ef10",
+        "expectedSHA256": "9200cf63512e68fb06ea077907b9ca4be642c1db7b9dbef2cf8f57472588ef10",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1481700,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-set-aside-original-two-clean-grains",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-set-aside-original-two-clean-grains-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-set-aside-original-two-clean-grains-expected.json",
+        "actualSHA256": "c264e1ac261e9307a6dbcdd8404243cbc85a22f9263c7202093a40b44e911b5d",
+        "expectedSHA256": "c264e1ac261e9307a6dbcdd8404243cbc85a22f9263c7202093a40b44e911b5d",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441700,
+        "version": 203
+      },
+      {
+        "phase": "ripe-real-twelve-turn-five-grain-harvest",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-real-twelve-turn-five-grain-harvest-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-real-twelve-turn-five-grain-harvest-expected.json",
+        "actualSHA256": "8cd0e3b7df31ed1bdfcc258fc88265f60ae348fdfd07d32ec9f3b23e11a56137",
+        "expectedSHA256": "8cd0e3b7df31ed1bdfcc258fc88265f60ae348fdfd07d32ec9f3b23e11a56137",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441700,
+        "version": 203
+      },
+      {
+        "phase": "ripe-whole203-restored-fed-body-empty-bowl-four-dirty-two-clean",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-fed-body-empty-bowl-four-dirty-two-clean-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-fed-body-empty-bowl-four-dirty-two-clean-expected.json",
+        "actualSHA256": "56e3bcf13ee723dc24ff6164d7c524e99aa6d880af3563922809813e339d16b2",
+        "expectedSHA256": "faafdc8a3e6aab498613995b64e6138fbc08736d9ccfb5ddcb1742c15eaac1c8",
+        "parsedWholeEqual": true,
+        "byteEqual": false,
+        "actualTime": 1481900,
+        "version": 203
+      },
+      {
+        "phase": "ripe-whole203-restored-five-contaminated-and-two-clean-grains",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-five-contaminated-and-two-clean-grains-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-five-contaminated-and-two-clean-grains-expected.json",
+        "actualSHA256": "8cd0e3b7df31ed1bdfcc258fc88265f60ae348fdfd07d32ec9f3b23e11a56137",
+        "expectedSHA256": "8cd0e3b7df31ed1bdfcc258fc88265f60ae348fdfd07d32ec9f3b23e11a56137",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441700,
+        "version": 203
+      },
+      {
+        "phase": "ripe-whole203-restored-original-actually-boiled-harvest-meal",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-original-actually-boiled-harvest-meal-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-original-actually-boiled-harvest-meal-expected.json",
+        "actualSHA256": "9200cf63512e68fb06ea077907b9ca4be642c1db7b9dbef2cf8f57472588ef10",
+        "expectedSHA256": "9200cf63512e68fb06ea077907b9ca4be642c1db7b9dbef2cf8f57472588ef10",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1481700,
+        "version": 203
+      },
+      {
+        "phase": "ripe-whole203-restored-original-raw-grain-and-water-in-same-bowl",
+        "actual": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-original-raw-grain-and-water-in-same-bowl-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/ripe-whole203-restored-original-raw-grain-and-water-in-same-bowl-expected.json",
+        "actualSHA256": "09f6ae70eeee03f803fe5bb494d655459f4ff087d7e246d1b1b92e538f29d9e3",
+        "expectedSHA256": "09f6ae70eeee03f803fe5bb494d655459f4ff087d7e246d1b1b92e538f29d9e3",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1441800,
+        "version": 203
+      },
+      {
+        "phase": "seed-real-one-turn-original-thousand-ml-first-growth",
+        "actual": "test-results/oat-cultivation-browser-v299-first/seed-real-one-turn-original-thousand-ml-first-growth-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/seed-real-one-turn-original-thousand-ml-first-growth-expected.json",
+        "actualSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "expectedSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440200,
+        "version": 203
+      },
+      {
+        "phase": "seed-real-one-turn-plant-original-source-no-retrospective-growth",
+        "actual": "test-results/oat-cultivation-browser-v299-first/seed-real-one-turn-plant-original-source-no-retrospective-growth-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/seed-real-one-turn-plant-original-source-no-retrospective-growth-expected.json",
+        "actualSHA256": "4e132476f99acbb64daeea6023bccb292067b38fe8ace3d10662fde552c26123",
+        "expectedSHA256": "4e132476f99acbb64daeea6023bccb292067b38fe8ace3d10662fde552c26123",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440100,
+        "version": 203
+      },
+      {
+        "phase": "seed-small-same-finite-water-and-growth",
+        "actual": "test-results/oat-cultivation-browser-v299-first/seed-small-same-finite-water-and-growth-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/seed-small-same-finite-water-and-growth-expected.json",
+        "actualSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "expectedSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440200,
+        "version": 203
+      },
+      {
+        "phase": "seed-whole203-restored-original-seed-water-and-growth",
+        "actual": "test-results/oat-cultivation-browser-v299-first/seed-whole203-restored-original-seed-water-and-growth-actual.json",
+        "expected": "test-results/oat-cultivation-browser-v299-first/seed-whole203-restored-original-seed-water-and-growth-expected.json",
+        "actualSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "expectedSHA256": "3e2876364514092fe67fa17ebedb67517584349c16965981c45ac3f2c57c325f",
+        "parsedWholeEqual": true,
+        "byteEqual": true,
+        "actualTime": 1440200,
+        "version": 203
+      }
+    ]
+  },
+  "staticArtAndBuild": {
+    "baseline": "/workspace/.ashveil-checkpoints/v298-final",
+    "manifest": {
+      "file": "src/client/sprites.json",
+      "sha256": "fc8edcfdd5142b9d84597c8f2965496cc014334f654f340b42a8ad283ebc0e56",
+      "sections": {
+        "sheets": {
+          "oldCount": 112,
+          "newCount": 115,
+          "removed": [],
+          "changed": [],
+          "added": [
+            "original_hearth_oats",
+            "original_hearth_oat_seed",
+            "original_hearth_oat_plot"
+          ]
+        },
+        "frames": {
+          "oldCount": 797,
+          "newCount": 800,
+          "removed": [],
+          "changed": [],
+          "added": [
+            "original_hearth_oats",
+            "original_hearth_oat_seed",
+            "original_hearth_oat_plot"
+          ]
+        },
+        "anims": {
+          "oldCount": 7,
+          "newCount": 7,
+          "removed": [],
+          "changed": [],
+          "added": []
+        },
+        "chars": {
+          "oldCount": 20,
+          "newCount": 20,
+          "removed": [],
+          "changed": [],
+          "added": []
+        },
+        "ui": {
+          "oldCount": 26,
+          "newCount": 26,
+          "removed": [],
+          "changed": [],
+          "added": []
+        }
+      },
+      "allOldEntriesPreserved": true
+    },
+    "originalAndBuiltAssets": [
+      {
+        "key": "original_hearth_oats",
+        "sheet": "sprites/original/items/ashveil-hearth-oats.png",
+        "frame": [
+          "original_hearth_oats",
+          0,
+          0,
+          32,
+          32
+        ],
+        "pngSHA256": "52c4ec4858ad24ea977e77c0edd220c407df695ad284660929595c09b7153427",
+        "exactOriginalPNGCopy": true,
+        "SVGExactOriginalCopy": true,
+        "builtPNG": "dist/sprites/original/items/ashveil-hearth-oats.png",
+        "builtPNGSHA256": "52c4ec4858ad24ea977e77c0edd220c407df695ad284660929595c09b7153427",
+        "builtEqualsSource": true
+      },
+      {
+        "key": "original_hearth_oat_seed",
+        "sheet": "sprites/original/items/ashveil-hearth-oat-seed.png",
+        "frame": [
+          "original_hearth_oat_seed",
+          0,
+          0,
+          32,
+          32
+        ],
+        "pngSHA256": "3215ddbcb815008ca845ca78144558a17cbffab8dedb25c6bb32582ef1cee517",
+        "exactOriginalPNGCopy": true,
+        "SVGExactOriginalCopy": true,
+        "builtPNG": "dist/sprites/original/items/ashveil-hearth-oat-seed.png",
+        "builtPNGSHA256": "3215ddbcb815008ca845ca78144558a17cbffab8dedb25c6bb32582ef1cee517",
+        "builtEqualsSource": true
+      },
+      {
+        "key": "original_hearth_oat_plot",
+        "sheet": "sprites/original/terrain/ashveil-hearth-oat-plot.png",
+        "frame": [
+          "original_hearth_oat_plot",
+          0,
+          0,
+          32,
+          32
+        ],
+        "pngSHA256": "0b2f588b02ba211e6b4851a4cdef1a0f07959282819ca44d91fc53bd56e6c816",
+        "exactOriginalPNGCopy": true,
+        "SVGExactOriginalCopy": true,
+        "builtPNG": "dist/sprites/original/terrain/ashveil-hearth-oat-plot.png",
+        "builtPNGSHA256": "0b2f588b02ba211e6b4851a4cdef1a0f07959282819ca44d91fc53bd56e6c816",
+        "builtEqualsSource": true
+      }
+    ],
+    "sampledOldAssetPreservation": [
+      {
+        "file": "public/tiles/ash_cap.png",
+        "sha256": "12e4e38b4c06982d3ec1086d7669ddd2e7a17d8772f161fb9f7a2ef46351fc4e",
+        "unchangedFrom298": true
+      },
+      {
+        "file": "public/sprites/original/items/ashveil-hearth-egg.png",
+        "sha256": "2759efc1d2f8b3ce5de594f664d2f5adab5f27c25cd33d1670c52e64aaab7686",
+        "unchangedFrom298": true
+      },
+      {
+        "file": "public/sprites/original/items/ashveil-cracked-hearth-egg.png",
+        "sha256": "639c5670fc439993540b80691a5407b8746084befbc69dae24eccc32b9628d0e",
+        "unchangedFrom298": true
+      }
+    ],
+    "notClaimed": "모든public파일보존의전체바이트감사나빌드재실행은범위아님. 위3신규원본과명시기존파일만바이트대조.",
+    "itemBindingPatch": [
+      {
+        "op": "replace",
+        "target": "Item.Oats",
+        "path": "/sprite",
+        "value": "original_hearth_oats"
+      },
+      {
+        "op": "replace",
+        "target": "Item.OatSeed",
+        "path": "/sprite",
+        "value": "original_hearth_oat_seed"
+      }
+    ],
+    "terrainBindingPatch": [
+      {
+        "op": "add",
+        "target": "Terrain.OatPlot",
+        "path": "/cultivation",
+        "value": {
+          "minLight": 0.15,
+          "minTemp": 0,
+          "maxTemp": 35,
+          "waterMl": 1000,
+          "maxSalinity": 2,
+          "rainMlPerHour": 120
+        }
+      },
+      {
+        "op": "add",
+        "target": "Terrain.OatPlot",
+        "path": "/description",
+        "value": "실제 귀리 종자에서 자란 밭. 새로 심으면 실제 햇빛15% 이상·0~35°C와 관수가 필요하다. 유효 성장5일 뒤5묶음을 수확하며 원래 관수 오염은 곡물에 남는다. 기존 옛 밭의 수확 시각은 유지한다."
+      },
+      {
+        "op": "replace",
+        "target": "Item.OatSeed",
+        "path": "/description",
+        "value": "비어 있는 흙에 심는 실제 귀리 씨앗 한 개. 새 밭은 햇빛15% 이상·0~35°C·성장 주기당 실제 물1000ml가 필요하다. 비·증발과 토양 수분 이동도 적용된다."
+      },
+      {
+        "op": "replace",
+        "target": "Terrain.OatPlot",
+        "path": "/sprites",
+        "value": [
+          "original_hearth_oat_plot"
+        ]
+      },
+      {
+        "op": "replace",
+        "target": "Terrain.OatPlot",
+        "path": "/visual",
+        "value": {
+          "sprite": "original_hearth_oat_plot",
+          "scale": 0.5
+        }
+      }
+    ],
+    "rendererReadback": {
+      "source": "src/client/render/MapRenderer.ts:438",
+      "sourceSHA256": "74b01d974cbaed88c46718f2def0cafd5cc20069a525a3c87d09e762e3215721",
+      "nativeFrame": [
+        32,
+        32
+      ],
+      "nativeOpaqueBoundsInclusive": [
+        2,
+        2,
+        28,
+        29
+      ],
+      "tileWorldSize": [
+        16,
+        16
+      ],
+      "anchor": [
+        0.5,
+        0.96
+      ],
+      "positionFromTile": [
+        8,
+        16
+      ],
+      "matureScale": 0.5,
+      "growingScale": 0.3,
+      "growingCondition": "cultivation ? growth < regrowTurns : gatherAt > turnOf(w)",
+      "tintAbsentInIntegratedOatVisual": true,
+      "matureFullFrameWorldSize": [
+        16,
+        16
+      ],
+      "matureOpaqueWorldSize": [
+        13.5,
+        14
+      ],
+      "growingFullFrameWorldSize": [
+        9.6,
+        9.6
+      ],
+      "growingOpaqueWorldSize": [
+        8.1,
+        8.4
+      ],
+      "opaqueBottomAboveTileBottomMatureWorld": 0.36,
+      "nearestTextureDefault": true,
+      "importantDistinction": "이수치는소스·원본에서계산한계약값이며PNG에서역으로실측하거나원본아트권고.65를실제적용했다고주장하지않는다."
+    },
+    "distIndexSHA256": "240dc958af91e25fee9b73328e75de953491bf127ff54892782a58c00ffe02cf"
+  },
+  "originalRGBReadback": [
+    {
+      "reference": "test-results/oat-cultivation-browser-v299-first/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "file": "test-results/oat-cultivation-browser-v299-first/1495-native-five-real-oats-original-water-dose-and-two-clean-grains-kept-separate.png",
+      "regionXYXYExclusive": [
+        12,
+        12,
+        263,
+        75
+      ],
+      "differentRGBPixels": 0,
+      "purpose": "도구 미리보기에서 생략된 것처럼 보이는 공통HUD/초상의 원본RGB 존재 대조. 이미지 파일 편집 없음."
+    },
+    {
+      "reference": "test-results/oat-cultivation-browser-v299-first/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "file": "test-results/oat-cultivation-browser-v299-first/1495-native-five-real-oats-original-water-dose-and-two-clean-grains-kept-separate.png",
+      "regionXYXYExclusive": [
+        307,
+        945,
+        366,
+        1021
+      ],
+      "differentRGBPixels": 0,
+      "purpose": "도구 미리보기에서 생략된 것처럼 보이는 공통HUD/초상의 원본RGB 존재 대조. 이미지 파일 편집 없음."
+    },
+    {
+      "reference": "test-results/oat-cultivation-browser-v299-first/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "file": "test-results/oat-cultivation-browser-v299-first/1500-native-legacy202-to203-original-timed-crop-five-new-two-original-grains.png",
+      "regionXYXYExclusive": [
+        12,
+        12,
+        263,
+        75
+      ],
+      "differentRGBPixels": 0,
+      "purpose": "도구 미리보기에서 생략된 것처럼 보이는 공통HUD/초상의 원본RGB 존재 대조. 이미지 파일 편집 없음."
+    },
+    {
+      "reference": "test-results/oat-cultivation-browser-v299-first/1489-native-original-oat-grain-two-seeds-three-and-actual-crop-requirements.png",
+      "file": "test-results/oat-cultivation-browser-v299-first/1500-native-legacy202-to203-original-timed-crop-five-new-two-original-grains.png",
+      "regionXYXYExclusive": [
+        307,
+        945,
+        366,
+        1021
+      ],
+      "differentRGBPixels": 0,
+      "purpose": "도구 미리보기에서 생략된 것처럼 보이는 공통HUD/초상의 원본RGB 존재 대조. 이미지 파일 편집 없음."
+    }
+  ],
+  "JSONOnlyStateEvidence": [
+    {
+      "phase": "original-oat-seed-title-initial",
+      "time": 1440000,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.Earth",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.Earth",
+          "at": 14400
+        }
+      }
+    },
+    {
+      "phase": "seed-real-one-turn-plant-original-source-no-retrospective-growth",
+      "time": 1440100,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14401
+        },
+        "cultivation": {
+          "ownerId": 1,
+          "terrain": "Terrain.OatPlot",
+          "signature": "{\"terrain\":\"Terrain.OatPlot\",\"rule\":{\"minLight\":0.15,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.Oats\",\"count\":5,\"turns\":12,\"regrowTurns\":144000,\"soilDependent\":true}}",
+          "seedUid": 47,
+          "growth": 0,
+          "waterUnits": 0,
+          "lastAt": 14401
+        }
+      }
+    },
+    {
+      "phase": "seed-real-one-turn-original-thousand-ml-first-growth",
+      "time": 1440200,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14402
+        },
+        "cultivation": {
+          "ownerId": 1,
+          "terrain": "Terrain.OatPlot",
+          "signature": "{\"terrain\":\"Terrain.OatPlot\",\"rule\":{\"minLight\":0.15,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.Oats\",\"count\":5,\"turns\":12,\"regrowTurns\":144000,\"soilDependent\":true}}",
+          "seedUid": 47,
+          "growth": 1,
+          "waterUnits": 143998880,
+          "lastAt": 14402
+        }
+      }
+    },
+    {
+      "phase": "declared-near-ripe-oats-title-initial",
+      "time": 1440200,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14402
+        },
+        "cultivation": {
+          "ownerId": 1,
+          "terrain": "Terrain.OatPlot",
+          "signature": "{\"terrain\":\"Terrain.OatPlot\",\"rule\":{\"minLight\":0.15,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.Oats\",\"count\":5,\"turns\":12,\"regrowTurns\":144000,\"soilDependent\":true}}",
+          "seedUid": 47,
+          "growth": 143997,
+          "waterUnits": 3360,
+          "lastAt": 14402,
+          "irrigation": {
+            "ml": 100,
+            "pathogenMl": 6000,
+            "ash": 0.2
+          }
+        }
+      }
+    },
+    {
+      "phase": "ripe-real-growth-turn-3",
+      "time": 1440500,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14405
+        },
+        "cultivation": {
+          "ownerId": 1,
+          "terrain": "Terrain.OatPlot",
+          "signature": "{\"terrain\":\"Terrain.OatPlot\",\"rule\":{\"minLight\":0.15,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.Oats\",\"count\":5,\"turns\":12,\"regrowTurns\":144000,\"soilDependent\":true}}",
+          "seedUid": 47,
+          "growth": 144000,
+          "waterUnits": 0,
+          "lastAt": 14405,
+          "irrigation": {
+            "ml": 100,
+            "pathogenMl": 6000,
+            "ash": 0.2
+          }
+        }
+      }
+    },
+    {
+      "phase": "ripe-real-twelve-turn-five-grain-harvest",
+      "time": 1441700,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14417
+        },
+        "cultivation": {
+          "ownerId": 1,
+          "terrain": "Terrain.OatPlot",
+          "signature": "{\"terrain\":\"Terrain.OatPlot\",\"rule\":{\"minLight\":0.15,\"minTemp\":0,\"maxTemp\":35,\"waterMl\":1000,\"maxSalinity\":2,\"rainMlPerHour\":120},\"gather\":{\"item\":\"Item.Oats\",\"count\":5,\"turns\":12,\"regrowTurns\":144000,\"soilDependent\":true}}",
+          "seedUid": 47,
+          "growth": 0,
+          "waterUnits": 0,
+          "lastAt": 14417
+        }
+      }
+    },
+    {
+      "phase": "legacy202-original-timed-oat-plot-title-initial",
+      "time": 1440000,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14400
+        },
+        "gatherAt": 14401
+      }
+    },
+    {
+      "phase": "legacy202-real-one-turn-original-deadline",
+      "time": 1440100,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14401
+        },
+        "gatherAt": 14401
+      }
+    },
+    {
+      "phase": "legacy202-real-twelve-turn-original-five-grain-yield",
+      "time": 1441300,
+      "version": 203,
+      "cropTile21x20": {
+        "t": "Terrain.OatPlot",
+        "v": 0,
+        "roof": false,
+        "blood": 0,
+        "items": [],
+        "seen": true,
+        "observed": {
+          "terrain": "Terrain.OatPlot",
+          "at": 14413
+        },
+        "gatherAt": 158412
+      }
+    }
+  ],
+  "limits": [
+    "유한 초기fixture세장면과 실제TitleContinue입력의 증거이며 정상 새게임 기본지급/5일간전체성장플레이를 주장하지 않는다.",
+    "nearRipe의growth143997은 선언한 초기조건, 실제 입력은 마지막3유효성장턴이다.",
+    "legacy202은 현재 유한fixtureheader를202로 만든 호환 경로이고 역사 사용자각인 파일이 아니다.",
+    "정확UID·재/병원체·물·성장·세계보존은 JSON/audit 근거다. 픽셀만으로 판정하지 않았다.",
+    "RGB원본과게임제품은편집하지않았고열람보고서JSON만작성했다.",
+    "밤/지붕/빽빽한인접작물/무등불장면·1366성숙밭·다른기기의가독성은검토하지않았다.",
+    "전체Full/World/모든UI·경제생태·주민자율생산의완료를이원본화면검토로대체하지않는다."
+  ],
+  "findings": [
+    {
+      "severity": "none",
+      "finding": "직접 보이는 새 원본/성숙·작은 밭의 배치·가독성에서 수정이 필요한 문제를 발견하지 않음. 제품수정제안없음."
+    },
+    {
+      "severity": "review-limitation",
+      "finding": "F2가 가린 무수분/초기성장밭의 픽셀 가독성은 자료로직접확인불가. 상태텍스트와JSON은확인됨."
+    }
+  ]
+}

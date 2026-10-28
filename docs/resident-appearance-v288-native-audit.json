@@ -1,0 +1,95 @@
+{
+  "screenshots": 6,
+  "roundtrips": 2,
+  "save": 195,
+  "initialTime": 1440000,
+  "finalTime": 1440400,
+  "people": [
+    {
+      "id": 73,
+      "def": "Creature.Settler",
+      "storedSprite": "hero",
+      "displaySprite": "resident_worker"
+    },
+    {
+      "id": 82,
+      "def": "Creature.SettlementDoctor",
+      "storedSprite": "hero",
+      "displaySprite": "resident_healer"
+    },
+    {
+      "id": 91,
+      "def": "Creature.RetiredWanderer",
+      "storedSprite": "hero",
+      "displaySprite": "hero"
+    },
+    {
+      "id": 94,
+      "def": "Creature.SettlementGuard",
+      "storedSprite": "hero",
+      "displaySprite": "resident_guard"
+    },
+    {
+      "id": 104,
+      "def": "Creature.SettlementTrader",
+      "storedSprite": "hero",
+      "displaySprite": "resident_trader"
+    }
+  ],
+  "pills": [
+    {
+      "uid": 67,
+      "def": "Item.PillWhite"
+    },
+    {
+      "uid": 68,
+      "def": "Item.PillYellow"
+    },
+    {
+      "uid": 69,
+      "def": "Item.PillBlue"
+    },
+    {
+      "uid": 70,
+      "def": "Item.PillBlack"
+    },
+    {
+      "uid": 71,
+      "def": "Item.PillGreen"
+    },
+    {
+      "uid": 72,
+      "def": "Item.PillMagenta"
+    }
+  ],
+  "partUid": 113,
+  "creationFx": [],
+  "rendered": [
+    {
+      "phase": "actual-title-loaded-same195-hero-choices-current-resident-and-healer-display",
+      "fx": []
+    },
+    {
+      "phase": "actual-three-turn-quarter-taste-same-original-tablet-batch",
+      "fx": []
+    },
+    {
+      "phase": "entire195-restored-same-people-hero-choices-tablet-uids-and-fractions",
+      "fx": []
+    },
+    {
+      "phase": "actual-one-turn-consume-original-three-quarter-tablet-only",
+      "fx": []
+    },
+    {
+      "phase": "entire195-restored-same-six-tablets-original-person-bodies-and-choices",
+      "fx": []
+    },
+    {
+      "phase": "actual-small-screen-whole195-unchanged",
+      "fx": []
+    }
+  ],
+  "errors": [],
+  "source": "Finite195 fixture original actual player hero, Settler/Doctor/RetiredWanderer/Guard/Trader all stored sprite hero and original generated bodies/loadouts (mettrue,nextAct1e12 for art observation); Original flagstone macro floor through real renderer with unchanged CdFloor boundary; current one-step Def display maps worker/healer/hero/guard/trader without mutating chosen sprite. Six original actual pill batches, White2 explicitly50%unspoiledVitamin for real quarter fraction input, other five original generated ages/truth unchanged. Real TitleContinue/i/rightmenuquarter3T/whole195restore/originalremainderconsume1T/whole195restore/1366resize. No post-load world/time/RNG/sprite injection. Whole independent Node states at every phase; only normal rendererFX consumption. Initial fixture is not normal new-game gifts."
+}

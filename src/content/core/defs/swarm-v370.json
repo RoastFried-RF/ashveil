@@ -1,0 +1,211 @@
+[
+  {
+    "defType": "Swarm",
+    "id": "Swarm.Ashmoth",
+    "label": "재나방 떼",
+    "sprite": "av370_ashmoth_flight",
+    "members": 1000,
+    "moveTU": 40,
+    "attractionRadiusMult": 2,
+    "coverRadius": 1,
+    "sightMult": 0.5,
+    "activeDaylightMax": 0.35,
+    "disperseTurns": [
+      3,
+      5
+    ],
+    "ashPerTurn": 0.002,
+    "coughEvery": 10,
+    "snuffChance": 5,
+    "snuffItems": [
+      "Item.Torch"
+    ],
+    "burnKinds": [
+      "campfire",
+      "wildfire",
+      "beddingFire"
+    ],
+    "burnMembersPerTurn": 50,
+    "captureMembers": 50,
+    "captureTool": "Item.Cloth",
+    "bodyItem": "Item.AshmothBody",
+    "studyTU": 100,
+    "facts": [
+      "공격하지 않는 환경 군체. 밤이나 어두운 실내에서 실제 불빛으로 모인다.",
+      "빽빽한 군체는 시야를 절반으로 줄이고 가루를 흡입하게 한다. 흩어지거나 개체가 줄면 방해와 흡입도 줄어든다.",
+      "노출된 휴대 횃불은 밀집한 떼가 덮을 때 매 턴 최대5%로 꺼진다. 불을 끄면3~5턴 뒤 흩어지며 다른 실제 불을 미끼로 쓸 수 있다.",
+      "원래 개체 수는 채집과 화염으로 줄어든다. 나방 표본은 면포로 채집하고 날로 살펴볼 수 있다."
+    ],
+    "minCoughDose": 0.0005
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshmothBody",
+    "label": "채집한 재나방",
+    "description": "원래 군체에서 면포로 잡은0.2g 표본. 날이 있으면 한 마리를 살펴 구조를 기록하거나 열 마리를 갈아 날개 가루를 얻는다.",
+    "sprite": "av370_ashmoth_folded",
+    "category": "food",
+    "weight": 0.0002,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 1000,
+    "value": 0,
+    "food": {
+      "kcal": 0.4,
+      "vitamin": 0,
+      "raw": true,
+      "scent": 0,
+      "protein": 0.03,
+      "water": 0.1,
+      "poison": 2,
+      "freshHours": 24,
+      "plainThought": "Thought.AteMoths"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MothWingDust",
+    "label": "재나방 날개 가루",
+    "description": "채집한 나방 열 마리에서 모은 회색 안료1g. 몸통 찌꺼기는 가공 중 버린다. 피부와 겉옷에 바르면1시간 동안 빛을 끄고 웅크리거나 잠행할 때 시각 탐지 거리가20% 줄어든다. 젖으면 씻긴다.",
+    "sprite": "av371_moth_wing_dust",
+    "category": "misc",
+    "weight": 0.001,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 100,
+    "value": 1,
+    "camouflageCoating": {
+      "durationTurns": 1200,
+      "sightMult": 0.8,
+      "washAt": 50,
+      "tint": 11841695
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.AteMoths",
+    "label": "벌레를 먹음",
+    "mood": -2,
+    "durationTurns": 1200,
+    "stackLimit": 1
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Ashmoth",
+    "label": "재나방 떼",
+    "creatures": [
+      "Swarm.Ashmoth"
+    ],
+    "kind": "swarm",
+    "difficulty": 10,
+    "silhouette": "회색 날개의 떼",
+    "yields": [],
+    "facts": [
+      "공격하지 않는 환경 군체. 밤이나 어두운 실내에서 실제 불빛으로 모인다.",
+      "날개가 덮치면 시야가 절반으로 줄고 가루를 흡입한다. 면포 여과는 기존 여과 시간을 소비한다.",
+      "노출된 횃불은 매 턴5%로 꺼진다. 불을 끄면3~5턴 뒤 흩어지며 다른 실제 불을 미끼로 쓸 수 있다.",
+      "원래 개체 수는 채집과 화염으로 줄어든다. 나방 표본은 면포로 채집하고 날로 살펴볼 수 있다."
+    ]
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.MothWingDust",
+    "label": "재나방 날개 가루 모으기",
+    "category": "survival",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 20,
+    "inputs": [
+      {
+        "item": "Item.AshmothBody",
+        "count": 10
+      }
+    ],
+    "output": {
+      "item": "Item.MothWingDust",
+      "count": 1
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RoastedMoths",
+    "label": "구운 재나방 한 줌",
+    "description": "실제 재나방50마리를 익힌10g 한 줌. 원래 표본을 모아 가공하며 새 군체를 만들지 않는다.",
+    "sprite": "av371_roasted_moths",
+    "category": "food",
+    "weight": 0.01,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "value": 0,
+    "food": {
+      "kcal": 20,
+      "vitamin": 0,
+      "cooked": true,
+      "scent": 0,
+      "protein": 1.5,
+      "water": 5,
+      "freshHours": 48,
+      "plainThought": "Thought.AteMoths"
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.RoastedMoths",
+    "label": "재나방 한 줌 굽기",
+    "category": "cooking",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 40,
+    "stations": [
+      "campfire"
+    ],
+    "inputs": [
+      {
+        "item": "Item.AshmothBody",
+        "count": 50
+      }
+    ],
+    "output": {
+      "item": "Item.RoastedMoths",
+      "count": 1
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MothNightNotes",
+    "label": "야행 규칙 쪽지",
+    "description": "탑 정비 선반에 남은 낡은 쪽지 묶음. 광원과 회색 날개 떼에 관한 실제 현장 기록이다. 겉그림은 기존 일반 수첩을 공유한다.",
+    "book": {
+      "pages": 4,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 1,
+      "note": "밤의 불빛은 나방을 부른다. 노출된 횃불을 끄면 잠시 뒤 흩어진다. 작은 모닥불을 미끼로 두고 길을 비킬 수 있다. 천 조각으로 잡은 실제 표본은 날개 가루로 가공해 회색 위장에 쓴다.",
+      "bestiary": [
+        "BestiaryEntry.Ashmoth"
+      ],
+      "unlocks": []
+    },
+    "sprite": "complete_item_craft_manual",
+    "category": "misc",
+    "weight": 0.03,
+    "value": 3,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "readable": true
+  }
+]

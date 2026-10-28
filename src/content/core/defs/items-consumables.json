@@ -1,0 +1,862 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.Cloth",
+    "label": "천 조각",
+    "description": "임시 붕대. 출혈은 막지만 깨끗하지 않다.",
+    "sprite": "cloth",
+    "category": "medical",
+    "weight": 0.05,
+    "stackable": true,
+    "value": 1,
+    "medical": {
+      "kind": "bandage",
+      "tool": -10,
+      "dirty": true
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Bandage",
+    "label": "붕대",
+    "description": "끓여 말린 깨끗한 붕대.",
+    "sprite": "bandage",
+    "category": "medical",
+    "weight": 0.05,
+    "stackable": true,
+    "value": 4,
+    "medical": {
+      "kind": "bandage",
+      "tool": 0
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Tourniquet",
+    "label": "지혈대",
+    "description": "팔다리의 동맥 출혈을 멈춘다. 두 시간 넘게 두면 그 아래가 죽는다.",
+    "sprite": "tourniquet",
+    "category": "medical",
+    "weight": 0.1,
+    "value": 15,
+    "medical": {
+      "kind": "tourniquet",
+      "tool": 0
+    },
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Splint",
+    "label": "부목",
+    "description": "골절 부위를 고정한다. 통증이 줄고 악화를 막는다.",
+    "sprite": "splint",
+    "category": "medical",
+    "weight": 0.4,
+    "stackable": false,
+    "value": 5,
+    "medical": {
+      "kind": "splint",
+      "tool": 0
+    },
+    "size": [
+      1,
+      2
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Moonshine",
+    "label": "밀주",
+    "description": "마시면 통증이 무뎌지지만 피가 더 흐른다. 상처에 부으면 소독이 된다.",
+    "sprite": "moonshine",
+    "category": "drink",
+    "weight": 0.5,
+    "value": 12,
+    "uses": 5,
+    "drink": {
+      "water": 50,
+      "alcohol": 1,
+      "kcal": 100
+    },
+    "medical": {
+      "kind": "disinfect",
+      "washMult": 0.4
+    },
+    "size": [
+      1,
+      2
+    ],
+    "drug": {
+      "effect": "alcohol",
+      "durationTurns": 2400,
+      "def": "Drug.Alcohol"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Painkiller",
+    "label": "백색 정제",
+    "description": "개척기 진통제. 8시간 동안 통증을50줄인다. 내성과 의존 위험이 있다.",
+    "sprite": "painkiller",
+    "category": "drug",
+    "weight": 0.05,
+    "stackable": true,
+    "value": 25,
+    "drug": {
+      "effect": "painkiller",
+      "durationTurns": 9600,
+      "def": "Drug.WhiteTablet"
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Pill",
+    "abstract": true,
+    "label": "알약",
+    "sprite": "pill_white",
+    "category": "drug",
+    "weight": 0.02,
+    "stackable": true,
+    "value": 15,
+    "unidentified": "pill",
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillYellow",
+    "parent": "Item.Pill",
+    "label": "노란 알약",
+    "sprite": "pill_yellow",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillBlue",
+    "parent": "Item.Pill",
+    "label": "푸른 알약",
+    "sprite": "pill_blue",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillWhite",
+    "parent": "Item.Pill",
+    "label": "흰 알약",
+    "sprite": "pill_white",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillBlack",
+    "parent": "Item.Pill",
+    "label": "검은 알약",
+    "sprite": "pill_black",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillGreen",
+    "parent": "Item.Pill",
+    "label": "초록 알약",
+    "sprite": "pill_green",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillMagenta",
+    "parent": "Item.Pill",
+    "label": "자홍 알약",
+    "sprite": "pill_magenta",
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.WaterBottle",
+    "label": "물병 (깨끗한 물)",
+    "sprite": "water_bottle",
+    "category": "drink",
+    "weight": 0.6,
+    "value": 8,
+    "uses": 5,
+    "drink": {
+      "water": 200
+    },
+    "size": [
+      1,
+      2
+    ],
+    "description": " 1,000ml 들이, 한 번에 200ml."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.DirtyWaterBottle",
+    "label": "물병 (흐린 물)",
+    "description": "웅덩이에서 떠온 물. 이질에 걸릴 수 있다. 1,000ml 들이, 한 번에 200ml.",
+    "sprite": "water_bottle",
+    "category": "drink",
+    "weight": 0.6,
+    "value": 2,
+    "uses": 5,
+    "drink": {
+      "water": 200,
+      "dirty": true
+    },
+    "size": [
+      1,
+      2
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Jerky",
+    "label": "육포",
+    "description": "짜고 질기다. 비타민은 없다. 냄새가 난다.",
+    "sprite": "jerky",
+    "category": "food",
+    "weight": 0.2,
+    "stackable": true,
+    "value": 10,
+    "food": {
+      "kcal": 140,
+      "vitamin": 0,
+      "scent": 1,
+      "protein": 22,
+      "water": 5,
+      "freshHours": 2880,
+      "cooked": true
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.DriedApple",
+    "label": "말린 사과",
+    "description": "장막 아래에선 귀한 과일. 괴혈병을 막는다.",
+    "sprite": "dried_apple",
+    "category": "food",
+    "weight": 0.1,
+    "stackable": true,
+    "value": 12,
+    "food": {
+      "kcal": 70,
+      "vitamin": 5,
+      "protein": 0,
+      "water": 5,
+      "freshHours": 4320,
+      "cooked": true
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Hardtack",
+    "label": "건빵",
+    "sprite": "hardtack",
+    "category": "food",
+    "weight": 0.2,
+    "stackable": true,
+    "value": 6,
+    "food": {
+      "kcal": 350,
+      "vitamin": 0,
+      "water": 5,
+      "protein": 10,
+      "thirst": 100,
+      "dryTurns": 2,
+      "freshHours": 4320,
+      "cooked": true
+    },
+    "size": [
+      1,
+      1
+    ],
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CannedMeat",
+    "label": "개척기 통조림",
+    "description": "70년 묵었지만 멀쩡하다. 칼이 없으면 따는 데 오래 걸린다.",
+    "sprite": "canned_meat",
+    "category": "food",
+    "weight": 0.5,
+    "stackable": false,
+    "value": 30,
+    "food": {
+      "kcal": 450,
+      "vitamin": 2,
+      "needsTool": "blade",
+      "protein": 25,
+      "water": 150,
+      "cooked": true
+    },
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RawMeat",
+    "label": "생고기",
+    "description": "날로 먹으면 탈이 날 수 있다. 피 냄새가 짐승을 부른다.",
+    "sprite": "raw_meat",
+    "category": "food",
+    "weight": 0.5,
+    "stackable": false,
+    "value": 5,
+    "food": {
+      "kcal": 300,
+      "vitamin": 1,
+      "raw": true,
+      "scent": 6,
+      "protein": 50,
+      "water": 120,
+      "poison": 15,
+      "freshHours": 48
+    },
+    "size": [
+      1,
+      1
+    ],
+    "cooking": {
+      "result": "Item.RoastedMeat",
+      "turns": 200
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Lantern",
+    "label": "기름 등불",
+    "description": "어둠을 밝히지만 멀리서도 보인다. 보조 손에 들거나(반경 5) 허리띠에 걸어야(반경 4) 빛이 난다. 칼날을 달궈 상처를 지질 수 있다.",
+    "sprite": "lantern",
+    "category": "tool",
+    "weight": 0.8,
+    "value": 30,
+    "light": {
+      "radius": 5,
+      "fuelTurns": 4800
+    },
+    "size": [
+      1,
+      2
+    ],
+    "slot": "off"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.HealthDraught",
+    "label": "쓴 약초탕",
+    "description": "수도원 약제실의 약초를 달인 물. 상처의 열을 내리고 체력을 조금 돌려준다.",
+    "sprite": "pill_green",
+    "category": "drug",
+    "weight": 0.3,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 3,
+    "value": 20,
+    "drug": {
+      "effect": "draught",
+      "durationTurns": 30
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LampOil",
+    "label": "등잔 기름",
+    "description": "등불에 부으면 두 시간을 더 밝힐 수 있다.",
+    "sprite": "moonshine",
+    "category": "tool",
+    "weight": 0.3,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 3,
+    "value": 12,
+    "refuel": 2400
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Bones",
+    "label": "뼈 무더기",
+    "description": "살이 다 썩어 나간 뼈. 쓸모는 없다.",
+    "sprite": "bones",
+    "category": "misc",
+    "weight": 1,
+    "size": [
+      2,
+      1
+    ],
+    "value": 0
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Note",
+    "label": "쪽지",
+    "description": "누렇게 바랜 종이에 수도사의 글씨가 남아 있다. 쓴 날 이후의 일은 모른다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0.01,
+    "size": [
+      1,
+      1
+    ],
+    "value": 1,
+    "readable": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshCap",
+    "label": "잿빛 갓버섯",
+    "description": "숲 버섯 무리에서 딴 버섯. 날로 먹어도 되지만 가끔 탈이 난다. 뒤진 버섯 무리는 이틀이면 다시 자란다.",
+    "sprite": "ash_cap",
+    "category": "food",
+    "weight": 0.05,
+    "stackable": true,
+    "maxStack": 5,
+    "value": 2,
+    "food": {
+      "kcal": 120,
+      "vitamin": 3,
+      "water": 30,
+      "raw": true,
+      "poison": 5,
+      "protein": 3,
+      "freshHours": 72
+    },
+    "size": [
+      1,
+      1
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RoastedMeat",
+    "label": "구운 고기",
+    "sprite": "raw_meat",
+    "category": "food",
+    "weight": 0,
+    "size": [
+      1,
+      1
+    ],
+    "food": {
+      "kcal": 330,
+      "water": 60,
+      "vitamin": 0.5,
+      "protein": 50,
+      "freshHours": 72,
+      "cooked": true
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Torch",
+    "label": "횃불",
+    "description": "손에 들면 조금 따뜻하다. 불붙은 끝으로 공격할 수 있다.",
+    "sprite": "lantern",
+    "category": "weapon",
+    "weight": 0,
+    "size": [
+      1,
+      3
+    ],
+    "slot": "main",
+    "attacks": [
+      {
+        "id": "burn",
+        "label": "불붙은 끝으로 지지기",
+        "family": "unarmed",
+        "damageType": "burn",
+        "damage": 6,
+        "pen": 0,
+        "energy": 4,
+        "accuracy": 0,
+        "requiresLit": true
+      },
+      {
+        "id": "blunt",
+        "label": "횃불 자루로 치기",
+        "family": "unarmed",
+        "damageType": "blunt",
+        "damage": 3,
+        "pen": 0,
+        "energy": 3,
+        "accuracy": 0
+      }
+    ],
+    "light": {
+      "radius": 4,
+      "fuelTurns": 3600,
+      "warmth": 1
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MedicalGuide",
+    "label": "고원 약초 안내서",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      2,
+      2
+    ],
+    "readable": true,
+    "book": {
+      "pages": 40,
+      "mastery": "medicine",
+      "amount": 5
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.FieldManual",
+    "label": "야전 처치 수첩",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      2,
+      2
+    ],
+    "readable": true,
+    "book": {
+      "pages": 40,
+      "mastery": "medicine",
+      "amount": 8
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.WardRecords",
+    "label": "순례회 병동 기록",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      2,
+      2
+    ],
+    "readable": true,
+    "book": {
+      "pages": 40,
+      "mastery": "medicine",
+      "amount": 8
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SurvivalGuide",
+    "label": "고원 생존 수첩",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      2,
+      2
+    ],
+    "readable": true,
+    "book": {
+      "pages": 30,
+      "mastery": "survival",
+      "amount": 5
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.WillowTea",
+    "label": "흰버들 껍질 차",
+    "description": "네 시간 동안 통증을10줄인다. 열이 있을 때 체온 회복 목표를0.5°C낮춘다. 빈속이면 메스꺼울 수 있다.",
+    "sprite": "moonshine",
+    "category": "drug",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 8,
+    "drug": {
+      "effect": "willowTea",
+      "durationTurns": 4800,
+      "def": "Drug.WillowTea"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PoppyTincture",
+    "label": "잠꽃 팅크",
+    "description": "여섯 시간 동안 통증을35줄이고 잠을 돕지만 의식과 호흡이 둔해진다. 내성과 의존 위험이 있다.",
+    "sprite": "moonshine",
+    "category": "drug",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 16,
+    "drug": {
+      "effect": "poppyTincture",
+      "durationTurns": 7200,
+      "def": "Drug.PoppyTincture"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshLeaf",
+    "label": "쓴재잎",
+    "description": "씹으면 피로를30줄이고 네 시간 동안 반응속도가4오른다. 이후 피로40이 몰려온다.",
+    "sprite": "ash_cap",
+    "category": "drug",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "drug": {
+      "effect": "ashLeaf",
+      "durationTurns": 4800,
+      "def": "Drug.AshLeaf"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PurificationAmpoule",
+    "label": "정화 앰플",
+    "description": "개척기 항생 약품. 사흘 동안 감염 진행을70%늦춘다. 이질에 걸릴 위험이 있다.",
+    "sprite": "pill_blue",
+    "category": "drug",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 100,
+    "drug": {
+      "effect": "purificationAmpoule",
+      "durationTurns": 86400,
+      "def": "Drug.PurificationAmpoule"
+    },
+    "relic": true,
+    "unknownLabel": "밀봉된 앰플",
+    "unknownDescription": "기호가 새겨진 개척기 앰플이다. 내용물의 용도는 모른다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BitterMoss",
+    "label": "쓴이끼 습포",
+    "description": "상처에 바르면 하루 동안 그 상처의 감염 진행을40%늦춘다. 피부 자극으로 통증2를 더한다.",
+    "sprite": "ash_cap",
+    "category": "drug",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 5,
+    "drug": {
+      "effect": "bitterMoss",
+      "durationTurns": 28800,
+      "def": "Drug.BitterMoss"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AlphabetPrimer",
+    "label": "글자 익히기",
+    "description": "그림과 획을 따라 배우는 독학서. 글을 몰라도 읽을 수 있으며 온전히30시간 공부하면 글자를 읽기 시작한다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0.3,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "value": 24,
+    "readable": true,
+    "book": {
+      "pages": 1800,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 0,
+      "literacyTo": 1,
+      "selfStudy": true
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PioneerDictionary",
+    "label": "개척 사전",
+    "description": "사라진 시대의 공용어를 풀이한800쪽 사전. 읽음 단계에서 완독하면 고문서를 읽는 학자가 된다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 1,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "value": 80,
+    "readable": true,
+    "book": {
+      "pages": 800,
+      "mastery": "survival",
+      "amount": 0,
+      "literacyMin": 2,
+      "literacyTo": 3
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PioneerPharmacopoeia",
+    "label": "개척 약전",
+    "description": "옛 공용어로 쓰인 정제 외형과 효능의 대조표. 이 세계에서 발견한 알약의 정체를 알려 준다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0.5,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "value": 60,
+    "readable": true,
+    "book": {
+      "pages": 120,
+      "mastery": "medicine",
+      "amount": 5,
+      "literacyMin": 3,
+      "identify": [
+        "Pill.Analgesic",
+        "Pill.Antibiotic",
+        "Pill.Stimulant",
+        "Pill.Sedative",
+        "Pill.Toxin",
+        "Pill.Vitamin"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PillPrimer",
+    "label": "길드 의약 수첩",
+    "description": "진통제와 항생제의 외형을 그림과 짧은 글로 기록한 현대 수첩. 더듬어 읽으면 잘못 알아들을 수 있다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "value": 30,
+    "readable": true,
+    "book": {
+      "pages": 40,
+      "mastery": "medicine",
+      "amount": 5,
+      "literacyMin": 1,
+      "identify": [
+        "Pill.Analgesic",
+        "Pill.Antibiotic"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.HighlandBestiary",
+    "label": "고원 생물지",
+    "description": "고원을 떠돈 이들이 남긴 생물의 습성과 몸 구조 기록. 관련 종의 문헌 지식을 익힌다.",
+    "sprite": "note",
+    "category": "misc",
+    "weight": 0.6,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "value": 48,
+    "readable": true,
+    "book": {
+      "pages": 120,
+      "mastery": "survival",
+      "amount": 5,
+      "literacyMin": 2,
+      "bestiary": [
+        "BestiaryEntry.Hound",
+        "BestiaryEntry.Rat",
+        "BestiaryEntry.Human",
+        "BestiaryEntry.Shade",
+        "BestiaryEntry.Withered",
+        "BestiaryEntry.Spore",
+        "BestiaryEntry.Amalgam"
+      ]
+    }
+  }
+]

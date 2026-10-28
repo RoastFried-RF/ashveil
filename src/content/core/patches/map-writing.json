@@ -1,0 +1,86 @@
+[
+  {
+    "op": "replace",
+    "target": "Item.Note",
+    "path": "/description",
+    "value": "당시의 글이 남은 종이. 내용이 없는 쪽지는 지도 작성에 쓸 수 있다."
+  },
+  {
+    "op": "add",
+    "target": "Cartography.Hearth",
+    "path": "/writing",
+    "value": {
+      "paper": "Item.Note",
+      "ink": "Item.Ink",
+      "turns": 60,
+      "minLiteracy": 1,
+      "baseReliability": 40,
+      "perMastery": 10,
+      "baseError": 3,
+      "errorEvery": 2,
+      "minManipulation": 0.2
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.coalition",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Note",
+      "target": 6,
+      "dailyProduction": 1,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.coalition",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Ink",
+      "target": 8,
+      "dailyProduction": 1,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.guild",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Note",
+      "target": 6,
+      "dailyProduction": 1,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.guild",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Ink",
+      "target": 8,
+      "dailyProduction": 1,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "add",
+    "target": "WorldSimulation.Hearth",
+    "path": "/items/Item.Note",
+    "value": {
+      "commodity": "Fuel",
+      "units": 0.01
+    }
+  },
+  {
+    "op": "add",
+    "target": "WorldSimulation.Hearth",
+    "path": "/items/Item.Ink",
+    "value": {
+      "commodity": "Fuel",
+      "units": 0.01
+    }
+  }
+]

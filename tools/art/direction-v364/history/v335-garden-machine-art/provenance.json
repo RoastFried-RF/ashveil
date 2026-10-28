@@ -1,0 +1,559 @@
+{
+  "format": 1,
+  "date": "2026-10-24",
+  "activationReady": false,
+  "generator": "image_gen.imagegen",
+  "modelVersion": null,
+  "modelVersionNote": "Tool did not expose version.",
+  "externalGamePixelsUsed": false,
+  "originalPngEditing": false,
+  "structureContract": "structure-contract.json",
+  "candidates": {
+    "sower-idle-v1": {
+      "request": "requests/sower-idle-v1.json",
+      "requestSha256": "4798373ae51e53353d1c9c7d6544881057593677a8539644d7cd2718e41c0314",
+      "exactArguments": {
+        "prompt": "Create a brand-new ORIGINAL production sprite atlas for ASHVEIL, a cold ash-covered post-disaster world of worn industrial relics. Original game art only, no existing game raster, no tracing. Extremely detailed crisp pixel clusters, hard readable silhouette, scratched dark gunmetal, dulled aged bronze joints, desaturated olive-grey housing, bolts, sealed panels, ash caught in seams. Natural diffuse light, no glossy sci-fi neon, magic, flames, rust fog, smoke, motion blur or photorealistic smooth shading. A coherent engineered machine, never biological insect skin or an animal in armor.\n\nATLAS CONTRACT: EXACTLY 4 rows x 4 columns, 16 separated complete whole machines on true transparent RGBA. One row one direction: row1 FRONT toward bottom/viewer; row2 LEFT front points left; row3 RIGHT front points right; row4 BACK front points away to top, show rear panel. Same elevated three-quarter game camera, body/head scale, component count and identity throughout. NO scenery, terrain, floor, contact shadows, grid, text, labels, logos, checkerboard or background colors. Very wide TRANSPARENT gutters: machines are MINIATURE figures occupying only the central 50-55 percent of each cell. In a 1024 square atlas each silhouette should be no more than 145px wide or 170px tall inside a 256px cell. Full antenna/feet/tools must fit inside their own clear rectangle; never let neighboring rectangular frame bounds overlap. Do not crop or merge parts to fit.\n\nThis is IDLE only: four real different subtle poses per direction, left-to-right neutral resting, small sensor/servo adjustment, mild weight/compliance shift while feet remain planted, return/settle. Draw actual head/mast/servo geometry changes, not identical sprites with different light/color. All supporting feet remain grounded and local ground anchor stays steady; no walking, firing or active task effects in this atlas.\n\nSPECIES: SOWER, a 1.2 tonne 3-metre-high QUADRUPED agricultural machine, structurally different from a repair drone. Exactly FOUR long thick hydraulic DRIVE LEGS at the four corners of a tall heavy rectangular belly chassis, each with clear upper/lower segments, exposed piston and broad flat plant foot; show all four feet/limbs wherever perspective permits, never 3, 6 or spider legs. TWO distinct large sealed RESERVOIRS sit on top: one ribbed tall seed hopper with broad cap, one shorter round sealed fungus reservoir with different service bands. These are storage tanks, not humanoid heads, guns or rockets. A short forward/downward soil-optics sensor mast marks the front. Under the belly is ONE short downward planting spout, CLOSED in idle. TWO small folded maintenance/calibration manipulators are tucked close beneath the front chassis and must not be mistaken for additional ground-support legs; neither reaches the ground or becomes a scythe/gun. Core/power cell/cooling loop are INTERNAL: show closed bolted service hatches and passive external cooling fins/hoses, no exposed glowing heart or reactor. No weapons, scythes, muzzle/barrels, seed stream, fungus cloud or seedlings in idle. Preserve four-legged colossal weight, stable machine volumes and exactly two separate tanks in all 16 frames, with correct front/left/right/back views. Small mast lowering/raising and suspension compression make the 4 distinct idle poses, not changing tank count or leg count.",
+        "transparent_background": true
+      },
+      "inputImages": [],
+      "original": "originals/sower-idle-v1.png",
+      "originalSha256": "4f2f97c1188a9a2ea416722a9a5b70153c7bc291ba387601acb7dfc7b7178c7e",
+      "toolOutputPath": "/workspace/generated_images/exec-fbd9be09-01fe-4a81-b642-3ece88fbd859.png",
+      "toolOutputSha256": "4f2f97c1188a9a2ea416722a9a5b70153c7bc291ba387601acb7dfc7b7178c7e",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "superseded-held",
+      "reason": "four-leg/two-tank identity matched, but left3 foot touches outer source canvas edge; original retained, replaced with wider-gutter v2",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "surveyor-idle-v1": {
+      "request": "requests/surveyor-idle-v1.json",
+      "requestSha256": "60eb713f36e7210d03873c0d2d06863d4dc5bf3982abbe5558f8356eeb48feb4",
+      "exactArguments": {
+        "prompt": "Create a brand-new ORIGINAL production sprite atlas for ASHVEIL, a cold ash-covered post-disaster world of worn industrial relics. Original game art only, no existing game raster, no tracing. Extremely detailed crisp pixel clusters, hard readable silhouette, scratched dark gunmetal, dulled aged bronze joints, desaturated olive-grey housing, bolts, sealed panels, ash caught in seams. Natural diffuse light, no glossy sci-fi neon, magic, flames, rust fog, smoke, motion blur or photorealistic smooth shading. A coherent engineered machine, never biological insect skin or an animal in armor.\n\nATLAS CONTRACT: EXACTLY 4 rows x 4 columns, 16 separated complete whole machines on true transparent RGBA. One row one direction: row1 FRONT toward bottom/viewer; row2 LEFT front points left; row3 RIGHT front points right; row4 BACK front points away to top, show rear panel. Same elevated three-quarter game camera, body/head scale, component count and identity throughout. NO scenery, terrain, floor, contact shadows, grid, text, labels, logos, checkerboard or background colors. Very wide TRANSPARENT gutters: machines are MINIATURE figures occupying only the central 50-55 percent of each cell. In a 1024 square atlas each silhouette should be no more than 145px wide or 170px tall inside a 256px cell. Full antenna/feet/tools must fit inside their own clear rectangle; never let neighboring rectangular frame bounds overlap. Do not crop or merge parts to fit.\n\nThis is IDLE only: four real different subtle poses per direction, left-to-right neutral resting, small sensor/servo adjustment, mild weight/compliance shift while feet remain planted, return/settle. Draw actual head/mast/servo geometry changes, not identical sprites with different light/color. All supporting feet remain grounded and local ground anchor stays steady; no walking, firing or active task effects in this atlas.\n\nSPECIES: SURVEYOR, a slender 90kg 2.2-metre-high THREE-LEGGED survey tripod. Exactly THREE mechanically articulated DRIVE LEGS arranged as a triangle: one anterior centered support and two rear side supports. There is NO fourth leg. Choose elevated camera and foot spacing so all THREE separate feet can be counted in front/back and side views without impossible leg branches. Tall slim body, compact pivoting optical head with ONE large clear dark survey LENS marking the FRONT, subtle nested glass rings but no emitted light. A SINGLE distinct long thin WHIP ANTENNA projects from roof on its own visible mounting socket, separate from lens/head; it must be present, long, unbroken and inside crop in all 16 frames. Rear view shows the back of lens housing and antenna socket, not another front-facing eye. Two TINY folded lens-calibration brackets/manipulator tools hug the housing, never touch ground and are not arms holding weapons or extra tripod legs. Passive sealed cooling plate/vents and closed service hatch cover the INTERNAL core/power/cooling loop. No exposed glowing core. Entire machine is NON-COMBAT: no gun, claw weapons, scythes, projectile barrel, flash beam, radio-wave FX or attack posture. Idle four poses show actual small optical head tilt/pan within the row's facing, tiny antenna flex and tripod joint settling, while the same 3 feet stay planted. No copy/pasted stills or arbitrary extra foot.",
+        "transparent_background": true
+      },
+      "inputImages": [],
+      "original": "originals/surveyor-idle-v1.png",
+      "originalSha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4",
+      "toolOutputPath": "/workspace/generated_images/exec-ad17aab1-2198-4435-b522-b20b51b9391d.png",
+      "toolOutputSha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "three drive legs and separately mounted thin antenna; four views and four distinct idle poses reviewed",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "culler-idle-v1": {
+      "request": "requests/culler-idle-v1.json",
+      "requestSha256": "3a036f4d113cd7f07bc26f5de85847969425435826da3b68dc1c1a251d55c936",
+      "exactArguments": {
+        "prompt": "Create a brand-new ORIGINAL production sprite atlas for ASHVEIL, a cold ash-covered post-disaster world of worn industrial relics. Original game art only, no existing game raster, no tracing. Extremely detailed crisp pixel clusters, hard readable silhouette, scratched dark gunmetal, dulled aged bronze joints, desaturated olive-grey housing, bolts, sealed panels, ash caught in seams. Natural diffuse light, no glossy sci-fi neon, magic, flames, rust fog, smoke, motion blur or photorealistic smooth shading. A coherent engineered machine, never biological insect skin or an animal in armor.\n\nATLAS CONTRACT: EXACTLY 4 rows x 4 columns, 16 separated complete whole machines on true transparent RGBA. One row one direction: row1 FRONT toward bottom/viewer; row2 LEFT front points left; row3 RIGHT front points right; row4 BACK front points away to top, show rear panel. Same elevated three-quarter game camera, body/head scale, component count and identity throughout. NO scenery, terrain, floor, contact shadows, grid, text, labels, logos, checkerboard or background colors. Very wide TRANSPARENT gutters: machines are MINIATURE figures occupying only the central 50-55 percent of each cell. In a 1024 square atlas each silhouette should be no more than 145px wide or 170px tall inside a 256px cell. Full antenna/feet/tools must fit inside their own clear rectangle; never let neighboring rectangular frame bounds overlap. Do not crop or merge parts to fit.\n\nThis is IDLE only: four real different subtle poses per direction, left-to-right neutral resting, small sensor/servo adjustment, mild weight/compliance shift while feet remain planted, return/settle. Draw actual head/mast/servo geometry changes, not identical sprites with different light/color. All supporting feet remain grounded and local ground anchor stays steady; no walking, firing or active task effects in this atlas.\n\nSPECIES: CULLER, a low long 650kg industrial eradication HEXAPOD, 3m long and 1.8m high, menacing engineered plated machine. Exactly SIX jointed DRIVE LEGS: THREE left and THREE right along the low elongated chassis, six distinct small ground-contact feet. Use elevated perspective and separated foot positions so near legs and far foot tips are readable, with no missing or extra legs. These six legs are all for locomotion. In addition there are exactly TWO separate FRONT SCYTHE TOOL ARMS, mounted above/front of the six legs on their own servo shoulders: clearly curved sharpened alloy sickle blades at the ends, carried FOLDED/LOW READY in idle and NOT used as support legs. This is 6 walking legs + 2 tool arms, never an 8-legged spider or 4-legged repair drone with swords. Front has a compact dark multi-sensor cluster, and a CLOSED rectangular net-spool housing (not a gun barrel). Side has ONE sealed squat purification-fluid reservoir with plain corrosion-proof straps (no green glow/drips). Rear dorsal closed service hatch and passive cooling louvres cover INTERNAL core/power/cooling loop; no exposed glowing heart. Broad scratched armor and old industrial actuators, no biological insect abdomen, mouth, wings or stinger. No firing net, acid spray, smoke, slashing trail or impact in idle. Four distinct subtle ready poses: blade servo angles/shoulder compliance shift slightly and sensors incline then settle, without swinging an attack or changing the 6-leg/2-arm count. Every row preserves correct facing and physical architecture.",
+        "transparent_background": true
+      },
+      "inputImages": [],
+      "original": "originals/culler-idle-v1.png",
+      "originalSha256": "0755ca686e0982256f8c664224e94429a0ef8c20175a6f35f771f8ca1dc9db99",
+      "toolOutputPath": "/workspace/generated_images/exec-884867eb-d0cf-494a-9284-449d85ac2487.png",
+      "toolOutputSha256": "0755ca686e0982256f8c664224e94429a0ef8c20175a6f35f771f8ca1dc9db99",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "magnified source shows four support legs plus two scythes rather than six support legs plus two tools",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "sower-idle-v2": {
+      "request": "requests/sower-idle-v2.json",
+      "requestSha256": "2d0919bef84e822fc34858e412905b475c5ea6001e559c22d1c7cec8e948e730",
+      "exactArguments": {
+        "prompt": "Re-layout the attached ORIGINAL ASHVEIL SOWER idle atlas without clipping. Preserve its four hydraulic DRIVE LEGS, two different seed/fungus tanks, closed downward planting spout, folded small calibration manipulators, short soil-optics head and sealed industrial chassis, material detail, identity and four idle phases. The last left-facing pose currently has a foot at the canvas edge. Repair the spacing by making EVERY complete machine only SIXTY PERCENT of its current size relative to the atlas, centered with HUGE clear transparent margins. Exactly FOUR ROWS x FOUR COLUMNS on transparent RGBA: FRONT, LEFT, RIGHT, BACK rows in that order, four distinct subtle idle poses in each direction. MINIATURE figures, not filling cells. At 1024x1024 each whole machine fits inside a central 150x160px rectangle in its 256px cell, at least 45px clear around all feet/tanks/sensors. No contact shadow/background/grid/labels/text/checkerboard. The original frame silhouettes must not touch neighboring rectangular crops or outer edge. All FOUR support feet remain planted, no extra legs. Keep TWO storage tanks and internal core hidden under closed hatches, no weapons or spraying. Do not erase a foot or shrink a specific component to hide clipping; draw every machine fully inside its own rectangle.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v1.png",
+          "sha256": "4f2f97c1188a9a2ea416722a9a5b70153c7bc291ba387601acb7dfc7b7178c7e"
+        }
+      ],
+      "original": "originals/sower-idle-v2.png",
+      "originalSha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97",
+      "toolOutputPath": "/workspace/generated_images/exec-079dc14c-47a0-4d41-90f7-0a99eeb8c34a.png",
+      "toolOutputSha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-partial-model",
+      "reason": "four hydraulic drive legs, two separate sealed reservoirs, folded small manipulators and closed downward planting spout; fully inside source",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "culler-idle-v2": {
+      "request": "requests/culler-idle-v2.json",
+      "requestSha256": "e3c81c8ac6cae747c7079f25f69fe69367dc5c404c7c2970429fded1a702dc49",
+      "exactArguments": {
+        "prompt": "Correct the ANATOMY of the attached ORIGINAL ASHVEIL CULLER. It wrongly has only FOUR ground-support legs plus two scythes. The intended machine is a true SIX-LEGGED industrial HEXAPOD, PLUS TWO separate front scythe tool arms. ADD THE MISSING MIDDLE PAIR OF DRIVE LEGS on independent middle hip joints. There must be EIGHT appendages total: SIX locomotive legs ending in six small FLAT PLANT FOOT PADS (three left, three right) AND TWO non-support curved SCYTHE ARMS on front servo shoulders, whose blade tips never count as feet.\n\nKeep the same low long plated industrial chassis, dark gunmetal/bronze/olive ageing, compact front sensor face, closed rectangular net-spool case, single side purification-fluid tank, passive rear cooling louvres and closed internal core hatch. No exposed glowing reactor or organic insect anatomy, no weapon held by humanoid hands. Longer chassis/spacing is allowed to fit three distinct hip pairs. All SIX feet must be countable in every sprite: in elevated SIDE views draw three near legs with separated feet along body front/middle/rear and expose the three far foot pads slightly offset beyond them; in FRONT/BACK views use perspective to separate three foot pads down each side of chassis, not collapse them to two. None of the six drive legs ends in a scythe blade.\n\nTransparent RGBA sprite atlas, exactly FOUR ROWS x FOUR COLUMNS. Rows FRONT toward bottom, LEFT front left, RIGHT front right, BACK front away to top, four distinct subtle idle sensor/blade-servo adjustments per row. All supporting feet grounded, no walking/slashing/firing effects. Keep scale/camera/component count stable. VERY LARGE transparent gutters: miniature robots only central 50 percent of each cell, no neighbor rectangular crop overlap, no outer-edge clipping. No floor/shadow/grid/text/labels/checkerboard. Detailed crisp pixel-art clusters and complete body in every cell. Main priority: SIX separate ground-contact foot pads plus TWO separate curved scythe arms, not the current four-leg anatomy.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v1.png",
+          "sha256": "0755ca686e0982256f8c664224e94429a0ef8c20175a6f35f771f8ca1dc9db99"
+        }
+      ],
+      "original": "originals/culler-idle-v2.png",
+      "originalSha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662",
+      "toolOutputPath": "/workspace/generated_images/exec-4e6d9f87-5cd5-4ed5-9756-4f13280909c5.png",
+      "toolOutputSha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-partial-model",
+      "reason": "six drive pads countable in rear view, two separate scythe arms; natural front/profile occlusion recorded. Raw back/front rows reversed, back3 reflected to restore tank side",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "surveyor-walk-v1": {
+      "request": "requests/surveyor-walk-v1.json",
+      "requestSha256": "fce4a396123328de623a5847e38b7293a4133fc141465cc04880bba087a014d3",
+      "exactArguments": {
+        "prompt": "Create a NEW WALK atlas of the attached ORIGINAL ASHVEIL SURVEYOR, preserving exact model/materials/head size: slender THREE-LEGGED survey tripod, one dark optical front lens, ONE long separate thin whip antenna on roof, tiny folded calibration brackets and sealed metal chassis. Exactly THREE articulated DRIVE LEGS and THREE flat feet in every pose, no fourth leg, no extra limb/foot hidden as an arm, no weapons and no glowing core. All antenna and legs fully inside crop.\n\nExactly FOUR ROWS x FOUR COLUMNS of separated full machines on transparent RGBA. Rows FRONT toward bottom/viewer, LEFT front to left, RIGHT front to right, BACK front away to top (rear optics housing, face hidden). Same elevated three-quarter game camera. Keep exact three-leg tripod architecture visible in all views: anterior center leg and two rear side legs. Very generous true transparent gutters; miniature figures occupy only central half of each cell, no overlap/clipping/floor/shadow/grid/labels/text/checkerboard.\n\nFOUR real distinct keyposes of a deliberate natural TRIPOD WALK loop, left to right: 1 all THREE feet planted in a broad triangle, body loads toward next support; 2 ONLY anterior center leg lifts bent and swings forward while the TWO rear feet support and body leans into their balance; 3 anterior foot plants and ONLY LEFT REAR leg lifts/swings forward while other TWO feet support; 4 left rear foot plants and ONLY RIGHT REAR leg lifts/swings, then it will plant into frame1. Keep body/head facing same direction, modest mast movement, stable mass. Each frame must show correct one-of-three foot articulation and at least two support contacts. Do NOT copy a quadruped/biped gait or repeat same leg lift in all phases. No hopping/hovering, no attack or scanning beams.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png",
+          "sha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4"
+        }
+      ],
+      "original": "originals/surveyor-walk-v1.png",
+      "originalSha256": "a84eacbf8abe4e46a0269b00d28b500a7c112184dd17ec85657a80b51f3729f2",
+      "toolOutputPath": "/workspace/generated_images/exec-9cf59a36-2079-4c8d-a43a-2460c32b77de.png",
+      "toolOutputSha256": "a84eacbf8abe4e46a0269b00d28b500a7c112184dd17ec85657a80b51f3729f2",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "three-leg sequence: anterior foot lift, one rear foot lift, opposite rear foot lift, two supporting feet; no quadruped substitution",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "surveyor-work-v1": {
+      "request": "requests/surveyor-work-v1.json",
+      "requestSha256": "cc110559de2d784320092cdf39171eca2f1a1b49da07e0463a9d412bb17dc7ec",
+      "exactArguments": {
+        "prompt": "Create a NEW OBSERVE/REPORT WORK atlas of the attached ORIGINAL ASHVEIL SURVEYOR. Preserve same slender THREE-LEGGED tripod body, one front dark survey lens, ONE separate long thin whip ANTENNA on its own roof socket, tiny folded calibration tools, closed internal core/power hatch, worn gunmetal/bronze/olive crisp pixel art. Exactly THREE feet, no added weapon/gun/scythe. Three feet firmly grounded throughout, antenna present and fully inside every crop.\n\nExactly FOUR ROWS x FOUR COLUMNS on transparent RGBA, complete separate whole machines. Row1 FRONT toward bottom, row2 LEFT, row3 RIGHT, row4 BACK (rear of lens housing, no second front eye). Same elevated three-quarter camera/head/body scale. Robots occupy only central half of each cell with large empty transparent gutters, no neighboring crop overlap or clipping. No floor, contact shadow, scenery, grid, labels/text/checkerboard.\n\nFour truly different OBSERVATION AND SIGNAL-REPORT poses left to right: 1 acquire: optical head lowers/tilts to inspect ahead, antenna neutral; 2 track: head pivots a small amount within facing direction and sensor cradle adjusts, three feet planted; 3 report: head steadies on target, the existing single whip antenna straightens/extends slightly from its own telescoping base, a tiny mechanical collar shifts to show active mast posture; 4 complete/settle: antenna relaxes back and optical head returns toward neutral. Actual mechanical geometry must change, not merely colored flashing duplicate sprites. This is NON-ATTACKING work: no beam, radio-wave circles, flash light burst, tracer/projectile, slash, shock or permanent emitted glow. The renderer will add any real signal/flash FX only when game rules authorize it. Rear row head still looks away and antenna remains distinct from sensor.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png",
+          "sha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4"
+        }
+      ],
+      "original": "originals/surveyor-work-v1.png",
+      "originalSha256": "826f1a1e7f4a39253a5a1e5cc1c6b6551c151b74426c73f40164be089cd8a28a",
+      "toolOutputPath": "/workspace/generated_images/exec-015b4239-18b2-4eac-af29-d8e18c868219.png",
+      "toolOutputSha256": "826f1a1e7f4a39253a5a1e5cc1c6b6551c151b74426c73f40164be089cd8a28a",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "optical tracking and existing antenna mechanical posture, no attack or painted flash/report FX",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "sower-walk-v1": {
+      "request": "requests/sower-walk-v1.json",
+      "requestSha256": "19b594415687eb277acaca97f3b03ef036efb6b3635f9600d18b1d2f60a549d4",
+      "exactArguments": {
+        "prompt": "Use the attached ORIGINAL ASHVEIL SOWER to draw new original poses of the SAME industrial machine. Preserve its four thick hydraulic drive legs and broad support feet, TWO distinct sealed top tanks (tall ribbed seed hopper and shorter round fungus reservoir), short forward soil-optics head, TWO small folded calibration manipulators, ONE downward belly planting spout, closed internal core/power/cooling service panels. No extra legs/tanks, no weapons/scythes/guns or glowing reactor, no animal body. Detailed crisp muted gunmetal/bronze/olive pixel-art clusters, same head/body scale/camera.\n\nExactly 4 rows x 4 columns on true transparent RGBA. Rows FRONT toward bottom, LEFT front left, RIGHT front right, BACK away toward top (rear cooling vent, no front face). Whole machines are MINIATURE, only central HALF of each cell with very wide transparent gutters. Do not fill cell or clip feet/tanks, no neighbor rectangular crop overlaps. No ground/shadow/scenery/grid/text/labels/checkerboard.\n\nMOTION: slow HEAVY FOUR-LEGGED WALK with FOUR genuinely distinct support phases. Column1 CONTACT A: near forefoot reaches ahead and plants, far foreleg behind, opposite hind foot forward. Column2 PASS A: near forefoot now supports under shoulder and far foreleg lifts/sweeps forward, hind legs pass beneath hips. Column3 CONTACT B: FAR forefoot ahead planted, NEAR foreleg reaches BACK beneath ribs (not forward again), opposite hind foot exchanges too. Column4 PASS B: far forefoot supports under shoulder and NEAR forefoot LIFTS visibly off ground, hind legs pass opposite. Front/back rows clearly alternate viewer-left and viewer-right paw support; side rows must show the near leg behind while far leg leads in column3. Keep broad heavy stable chassis and tanks, minimal body bob, at least two/three support contacts, never airborne or biped. Show piston/joint angles and foot positions changing, not four recolored idle machines. Planting nozzle stays closed and manipulators tucked, no work/spraying effects.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-walk-v1.png",
+      "originalSha256": "e54152557c4b758a690fa397da00d30395806673ea351c4e05946cc340ba70d4",
+      "toolOutputPath": "/workspace/generated_images/exec-9836c3b3-803d-48dc-90b4-ce3245b1fb9c.png",
+      "toolOutputSha256": "e54152557c4b758a690fa397da00d30395806673ea351c4e05946cc340ba70d4",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "opposite fore/hind support loop not established; full-sheet source also reverses front/back rows/tank sides",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "sower-work-v1": {
+      "request": "requests/sower-work-v1.json",
+      "requestSha256": "b53cda954ac6457b93d4b0df980c34a09e72bd013ade2883dab7cd29933576ff",
+      "exactArguments": {
+        "prompt": "Use the attached ORIGINAL ASHVEIL SOWER to draw new original poses of the SAME industrial machine. Preserve its four thick hydraulic drive legs and broad support feet, TWO distinct sealed top tanks (tall ribbed seed hopper and shorter round fungus reservoir), short forward soil-optics head, TWO small folded calibration manipulators, ONE downward belly planting spout, closed internal core/power/cooling service panels. No extra legs/tanks, no weapons/scythes/guns or glowing reactor, no animal body. Detailed crisp muted gunmetal/bronze/olive pixel-art clusters, same head/body scale/camera.\n\nExactly 4 rows x 4 columns on true transparent RGBA. Rows FRONT toward bottom, LEFT front left, RIGHT front right, BACK away toward top (rear cooling vent, no front face). Whole machines are MINIATURE, only central HALF of each cell with very wide transparent gutters. Do not fill cell or clip feet/tanks, no neighbor rectangular crop overlaps. No ground/shadow/scenery/grid/text/labels/checkerboard.\n\nMOTION: actual SOIL CHECK / PLANTING MECHANISM WORK, four distinct keyposes: 1 short soil-optics head tips down, small calibration manipulators unfold slightly beside belly; 2 central DOWNWARD belly planting spout extends lower and its little closed shutters begin opening, four support feet remain planted; 3 spout is fully lowered with shutters visibly open toward virtual ground and manipulators brace beside it; 4 spout retracts/closes and folded manipulators/soil head settle to idle. This is an agricultural seed delivery mechanism, never a firing cannon or magical sprayer. Do not draw detached seed capsules, fungus clouds, plants or ground objects: actual game inventory and effect layers will control finite capsule emission, so this source contains only machine posture/mechanism. Tanks remain sealed and full-looking general volumes without visible fixed count labels. Same four legs, two separate tanks and body mass every frame. Rear row shows the underside spout/mechanism from behind with sensor face still hidden. Four actual new tool-extension/shutter poses, not merely light changes.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-work-v1.png",
+      "originalSha256": "5ece45e15d2d32aa3e77f8aed9c6a2c27bc23abb2581573b5f25da8fb96334cd",
+      "toolOutputPath": "/workspace/generated_images/exec-349b5064-5c23-4795-af48-b3fe3e2d94a4.png",
+      "toolOutputSha256": "5ece45e15d2d32aa3e77f8aed9c6a2c27bc23abb2581573b5f25da8fb96334cd",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-partial-model",
+      "reason": "downward spout extends/opens/closes, no painted finite capsule emission; raw front/back rows reversed and reflected in metadata to preserve tank side",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "culler-walk-v1": {
+      "request": "requests/culler-walk-v1.json",
+      "requestSha256": "f66e55ae6d06c96755a4bb299f193be46b68905068e3bc3378e00d6c2fde46ff",
+      "exactArguments": {
+        "prompt": "Use the attached corrected ORIGINAL ASHVEIL CULLER to draw NEW poses of the SAME low long industrial hexapod. Preserve exactly SIX drive legs (three on each side, each with a flat ground foot), PLUS exactly TWO separate curved front SCYTHE ARMS on tool shoulders. Scythe blades are not support legs. Keep independent front/middle/rear hip pair positions, same elongated plated chassis, compact FRONT optical sensor face, ONE side purification tank, closed net-spool casing, rear closed service hatch/cooling vents. INTERNAL core/power/cooling loop stay covered. No extra/missing limbs, organic skin, weapons held by human hands, glowing reactor, acid/mesh/smoke/lightning FX. Detailed crisp ash-worn gunmetal/bronze/olive pixel-art.\n\nExactly FOUR ROWS x FOUR COLUMNS of separate complete machines on true transparent RGBA. IMPORTANT requested row1 is FRONT: show FRONT sensor face and two scythes nearest viewer, facing bottom; row2 LEFT front left; row3 RIGHT front right; row4 BACK facing away toward top: REAR COOLING VENT nearest viewer, not front sensor face. The input had rear/front rows swapped, so assign based on real front SENSOR vs rear VENT, not input row position. One direction per row, same elevated three-quarter camera/body scale. Very large clear gutters: miniature figures occupy only central HALF of cell. Entire blades/feet inside individual rectangles, no overlap/clipping/floor/shadow/scenery/grid/text/labels/checkerboard. Maintain tank on same anatomical side in every pose, do not mirror a random frame's machinery.\n\nMOTION: true SIX-LEG alternating TRIPOD WALK. Six locomotive feet belong to two groups: tripod A is LEFT FRONT + LEFT REAR + RIGHT MIDDLE; tripod B is RIGHT FRONT + RIGHT REAR + LEFT MIDDLE. Column1 A CONTACT: A feet planted forward/support, B feet swept behind; column2 B PASS: A three feet support, B three feet visibly lift/bend and swing forward; column3 B CONTACT: B three feet plant forward/support and A swept behind; column4 A PASS: B three feet support, A three feet lift/bend to swing forward. Distinct changed front/middle/rear piston and foot positions, support group swaps between columns1 and3. No quadruped/biped gait, no seventh foot, do not count a scythe tip as a walking foot. Preserve enough separation in elevated view to see all three near legs and far-foot indications; natural occlusion is allowed but leg origins remain six. Two scythe arms stay folded in the same guarded carriage, no cutting animation. Heavy low chassis steady, no hovering or rocking onto scythe blades.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-walk-v1.png",
+      "originalSha256": "8dfcb7fba4dc02d09c2c4229601b1659e7b561e117fa119b717f7febee302e20",
+      "toolOutputPath": "/workspace/generated_images/exec-5a7a1269-3b75-43bd-9cb8-12d653470fb3.png",
+      "toolOutputSha256": "8dfcb7fba4dc02d09c2c4229601b1659e7b561e117fa119b717f7febee302e20",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "six-leg structure retained but alternating tripod support not established; source also has some canvas-edge alpha16 pixels",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "culler-work-v1": {
+      "request": "requests/culler-work-v1.json",
+      "requestSha256": "7d6a2b03d478b2d6af3e21754289057262ce99f0a67f0b1d98caa3ecc8f532b8",
+      "exactArguments": {
+        "prompt": "Use the attached corrected ORIGINAL ASHVEIL CULLER to draw NEW poses of the SAME low long industrial hexapod. Preserve exactly SIX drive legs (three on each side, each with a flat ground foot), PLUS exactly TWO separate curved front SCYTHE ARMS on tool shoulders. Scythe blades are not support legs. Keep independent front/middle/rear hip pair positions, same elongated plated chassis, compact FRONT optical sensor face, ONE side purification tank, closed net-spool casing, rear closed service hatch/cooling vents. INTERNAL core/power/cooling loop stay covered. No extra/missing limbs, organic skin, weapons held by human hands, glowing reactor, acid/mesh/smoke/lightning FX. Detailed crisp ash-worn gunmetal/bronze/olive pixel-art.\n\nExactly FOUR ROWS x FOUR COLUMNS of separate complete machines on true transparent RGBA. IMPORTANT requested row1 is FRONT: show FRONT sensor face and two scythes nearest viewer, facing bottom; row2 LEFT front left; row3 RIGHT front right; row4 BACK facing away toward top: REAR COOLING VENT nearest viewer, not front sensor face. The input had rear/front rows swapped, so assign based on real front SENSOR vs rear VENT, not input row position. One direction per row, same elevated three-quarter camera/body scale. Very large clear gutters: miniature figures occupy only central HALF of cell. Entire blades/feet inside individual rectangles, no overlap/clipping/floor/shadow/scenery/grid/text/labels/checkerboard. Maintain tank on same anatomical side in every pose, do not mirror a random frame's machinery.\n\nMOTION: a real natural SCYTHE TOOL CUT, four different keyposes with SIX SUPPORT FEET planted. Animate the machine's ANATOMICAL RIGHT front scythe arm, while its left scythe stays guarded and visible. In front-facing row the right scythe is on VIEWER-LEFT; in back-facing row on VIEWER-RIGHT; in right-facing profile it is the NEAR tool; in left-facing profile it is the FAR tool. Column1 WINDUP: right tool shoulder rotates and curved blade lifts back beside chassis; column2 CONTACT: that scythe extends forward/sideways in a forceful low cutting sweep; column3 FOLLOW THROUGH: same blade swings inward/down across the front and elbow folds; column4 RECOVER: blade returns to guarded carriage. Keep six drive feet on ground as weight support; blades never replace feet. Show real servo/blade travel rather than a slash trail, floating sword or identical pose. No target, gore, net, acid spray, projectile or drawn impact FX. Do not add spare scythe blades. This is a single right-arm cut clip; do not switch to left-arm attack halfway through the row. Keep full blade inside crop in every phase.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-work-v1.png",
+      "originalSha256": "bf1d593c95a5cf20109f096222eab5d1aa26f728c1a1765d8a2285277302b03c",
+      "toolOutputPath": "/workspace/generated_images/exec-95968a08-3cc5-4ac4-b320-f43bd7b3ec1b.png",
+      "toolOutputSha256": "bf1d593c95a5cf20109f096222eab5d1aa26f728c1a1765d8a2285277302b03c",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "blade motion exists but active anatomical arm changes/is uncertain across directions and phases; not registered as a consistent right ToolHead cut",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "sower-walk-down-v2": {
+      "request": "requests/sower-walk-down-v2.json",
+      "requestSha256": "37e7604e018d18e12cf20d902452345eb24d6677e1556dc7314d7585926b09a6",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW WALK keyposes of the attached ORIGINAL ASHVEIL SOWER in EXACTLY TWO ROWS by TWO COLUMNS, on true transparent RGBA. All four machines face ONE SAME DIRECTION, described below, with identical elevated game camera/model/body scale. Keep this precise machine identity: TWO sealed top seed/fungus tanks, FOUR hydraulic DRIVE LEGS with four broad plant foot pads, short soil-optics head at FRONT, closed downward planting spout, tiny folded calibration manipulators, closed internal core hatches, gunmetal/bronze/olive pixel art. Do not mistake folded manipulators for extra legs. No extra/missing foot, gun, scythe, effects, floor, shadow, labels, text or grid. Huge transparent margin, complete machine inside central half of each cell, no crop overlaps or clipping. This is a slow heavy FOUR-LEGGED WALK with real opposite foot phases, not four subtly shifted idle machines. Reading order TOP-LEFT contact A; TOP-RIGHT pass A; BOTTOM-LEFT opposite contact B; BOTTOM-RIGHT pass B. At least two/three support feet, tank/chassis stable, limbs articulate visibly.\n\nFRONT only: show FRONT soil-optics face toward bottom/viewer, never rear cooling vent. TOP-LEFT viewer-LEFT FRONT foot reaches down/forward and plants, viewer-RIGHT FRONT foot is farther back under chassis; opposite rear foot comes forward. TOP-RIGHT left front foot moves under shoulder, RIGHT FRONT foot visibly lifts with bent actuator and underside/sole exposed. BOTTOM-LEFT MUST REVERSE SUPPORT: viewer-RIGHT FRONT foot extended down/forward planted, LEFT FRONT foot tucked back/higher; rear feet exchange too. BOTTOM-RIGHT right front foot under shoulder and LEFT FRONT foot visibly lifts/bends with sole visible. Do not repeat viewer-left extended foot in bottom-left. Keep the same tall tank on the same anatomical side in all four poses.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-walk-down-v2.png",
+      "originalSha256": "ad90871c85eb3ca9aff695b4b0cc40cec69269e2b72ab119ad4352f974a3b064",
+      "toolOutputPath": "/workspace/generated_images/exec-6c544f64-53cb-4180-95de-181150a6dab0.png",
+      "toolOutputSha256": "ad90871c85eb3ca9aff695b4b0cc40cec69269e2b72ab119ad4352f974a3b064",
+      "originalBytesPreserved": true,
+      "size": [
+        1223,
+        1286
+      ],
+      "mode": "RGBA",
+      "status": "accepted-partial-model",
+      "reason": "four new front contact A/pass/opposite contact B/pass poses with opposite forefeet; cross-motion size reviewed in staging, model incomplete",
+      "layout": "2x2 single direction"
+    },
+    "sower-walk-up-v2": {
+      "request": "requests/sower-walk-up-v2.json",
+      "requestSha256": "2ab27b419786c272fe90da0bcbe59b0d3eb418129dca3d832871b3dcd6ac4e8c",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW WALK keyposes of the attached ORIGINAL ASHVEIL SOWER in EXACTLY TWO ROWS by TWO COLUMNS, on true transparent RGBA. All four machines face ONE SAME DIRECTION, described below, with identical elevated game camera/model/body scale. Keep this precise machine identity: TWO sealed top seed/fungus tanks, FOUR hydraulic DRIVE LEGS with four broad plant foot pads, short soil-optics head at FRONT, closed downward planting spout, tiny folded calibration manipulators, closed internal core hatches, gunmetal/bronze/olive pixel art. Do not mistake folded manipulators for extra legs. No extra/missing foot, gun, scythe, effects, floor, shadow, labels, text or grid. Huge transparent margin, complete machine inside central half of each cell, no crop overlaps or clipping. This is a slow heavy FOUR-LEGGED WALK with real opposite foot phases, not four subtly shifted idle machines. Reading order TOP-LEFT contact A; TOP-RIGHT pass A; BOTTOM-LEFT opposite contact B; BOTTOM-RIGHT pass B. At least two/three support feet, tank/chassis stable, limbs articulate visibly.\n\nBACK only: REAR cooling vent toward viewer, FRONT optics face hidden toward top; do not show a second front eye. TOP-LEFT viewer-RIGHT REAR foot reaches down/back and plants, LEFT REAR foot farther up under hip, opposite forefoot forward. TOP-RIGHT right rear foot passes UNDER hip and LEFT REAR foot visibly lifts with sole exposed. BOTTOM-LEFT MUST REVERSE SUPPORT: viewer-LEFT REAR foot down/back planted, RIGHT REAR foot higher under hip; forefeet exchange too. BOTTOM-RIGHT left rear foot under hip, RIGHT REAR foot visibly lifts with sole exposed. The two passing frames must lift opposite feet, never the same sole twice. Keep tanks on same anatomical sides.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-walk-up-v2.png",
+      "originalSha256": "195f4e69aa07bd2c73abea016dc60e158308e35392fc2a60323e55107a693ee4",
+      "toolOutputPath": "/workspace/generated_images/exec-227343a1-1d49-4ed9-a0f8-f1f43fb2c0a2.png",
+      "toolOutputSha256": "195f4e69aa07bd2c73abea016dc60e158308e35392fc2a60323e55107a693ee4",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-partial-model",
+      "reason": "rear contact A/B and opposite lifted rear soles established; model incomplete",
+      "layout": "2x2 single direction"
+    },
+    "sower-walk-left-v2": {
+      "request": "requests/sower-walk-left-v2.json",
+      "requestSha256": "4558716f14158f2b5b86b1b979117b17a663c2b95540e7ae86d8c66b09a736a7",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW WALK keyposes of the attached ORIGINAL ASHVEIL SOWER in EXACTLY TWO ROWS by TWO COLUMNS, on true transparent RGBA. All four machines face ONE SAME DIRECTION, described below, with identical elevated game camera/model/body scale. Keep this precise machine identity: TWO sealed top seed/fungus tanks, FOUR hydraulic DRIVE LEGS with four broad plant foot pads, short soil-optics head at FRONT, closed downward planting spout, tiny folded calibration manipulators, closed internal core hatches, gunmetal/bronze/olive pixel art. Do not mistake folded manipulators for extra legs. No extra/missing foot, gun, scythe, effects, floor, shadow, labels, text or grid. Huge transparent margin, complete machine inside central half of each cell, no crop overlaps or clipping. This is a slow heavy FOUR-LEGGED WALK with real opposite foot phases, not four subtly shifted idle machines. Reading order TOP-LEFT contact A; TOP-RIGHT pass A; BOTTOM-LEFT opposite contact B; BOTTOM-RIGHT pass B. At least two/three support feet, tank/chassis stable, limbs articulate visibly.\n\nLEFT facing only, FRONT soil sensor at LEFT and rear vent at RIGHT. TOP-LEFT NEAR FRONT leg reaches LEFT ahead and plants; FAR FRONT leg behind, near hind leg behind/far hind ahead. TOP-RIGHT near front foot moves under shoulder, FAR FRONT foot lifts/sweeps forward. BOTTOM-LEFT MUST REVERSE: NEAR FRONT leg reaches BACK toward RIGHT under chassis while FAR FRONT leg reaches LEFT ahead planted; near hind forward/far hind back. BOTTOM-RIGHT far front foot planted under shoulder and NEAR FRONT foot lifted/bent, clearly off ground. Do not stretch the same near front piston forward in both contact A/B. Show two forelegs and two hind legs with distinct attachment/feet wherever not naturally occluded.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-walk-left-v2.png",
+      "originalSha256": "88c2617ffe2433b6702397d3312b61dd9f3e88f827e9b0ea58327c387b2c290e",
+      "toolOutputPath": "/workspace/generated_images/exec-f7a69804-bf62-46a1-b308-da8c13bb5a22.png",
+      "toolOutputSha256": "88c2617ffe2433b6702397d3312b61dd9f3e88f827e9b0ea58327c387b2c290e",
+      "originalBytesPreserved": true,
+      "size": [
+        1378,
+        1142
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "directional 2x2 still repeats contact support and does not establish opposite fore/hind phases",
+      "layout": "2x2 single direction"
+    },
+    "sower-walk-right-v2": {
+      "request": "requests/sower-walk-right-v2.json",
+      "requestSha256": "af6e4bb0fc1872e212a379c7ba795b4f0e892170ac7bce00cbfa63bc31ca495e",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW WALK keyposes of the attached ORIGINAL ASHVEIL SOWER in EXACTLY TWO ROWS by TWO COLUMNS, on true transparent RGBA. All four machines face ONE SAME DIRECTION, described below, with identical elevated game camera/model/body scale. Keep this precise machine identity: TWO sealed top seed/fungus tanks, FOUR hydraulic DRIVE LEGS with four broad plant foot pads, short soil-optics head at FRONT, closed downward planting spout, tiny folded calibration manipulators, closed internal core hatches, gunmetal/bronze/olive pixel art. Do not mistake folded manipulators for extra legs. No extra/missing foot, gun, scythe, effects, floor, shadow, labels, text or grid. Huge transparent margin, complete machine inside central half of each cell, no crop overlaps or clipping. This is a slow heavy FOUR-LEGGED WALK with real opposite foot phases, not four subtly shifted idle machines. Reading order TOP-LEFT contact A; TOP-RIGHT pass A; BOTTOM-LEFT opposite contact B; BOTTOM-RIGHT pass B. At least two/three support feet, tank/chassis stable, limbs articulate visibly.\n\nRIGHT facing only, FRONT soil sensor at RIGHT and rear vent at LEFT. TOP-LEFT NEAR FRONT leg reaches RIGHT ahead and plants; FAR FRONT leg behind, near hind leg behind/far hind ahead. TOP-RIGHT near front foot moves under shoulder, FAR FRONT foot lifts/sweeps forward. BOTTOM-LEFT MUST REVERSE: NEAR FRONT leg reaches BACK toward LEFT under chassis while FAR FRONT leg reaches RIGHT ahead planted; near hind forward/far hind back. BOTTOM-RIGHT far front foot planted under shoulder and NEAR FRONT foot lifted/bent, clearly off ground. Do not stretch same near fore piston forward in A and B. Four real differently articulated feet remain attached.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/sower-idle-v2.png",
+          "sha256": "738f9fa2e7e71956a00106e33ed213449d49bbea938976cb4b7ea3876339aa97"
+        }
+      ],
+      "original": "originals/sower-walk-right-v2.png",
+      "originalSha256": "1dd83026518644bfaaa02e352c6af2ee2616f697fdf1f9e1d4ca8352a05d7078",
+      "toolOutputPath": "/workspace/generated_images/exec-07954ca7-7944-41b9-b47f-69d63c6dce79.png",
+      "toolOutputSha256": "1dd83026518644bfaaa02e352c6af2ee2616f697fdf1f9e1d4ca8352a05d7078",
+      "originalBytesPreserved": true,
+      "size": [
+        1433,
+        1098
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "directional 2x2 passing poses again lift the same far forefoot; full opposite phase remains unconfirmed",
+      "layout": "2x2 single direction"
+    },
+    "culler-walk-down-v2": {
+      "request": "requests/culler-walk-down-v2.json",
+      "requestSha256": "c9aa9a1820a50010ee975893a7bb18441966847d71baa27df5d24268f36d126c",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW correct HEXAPOD WALK keyposes of the attached ORIGINAL ASHVEIL CULLER in EXACTLY TWO ROWS by TWO COLUMNS, four whole machines on transparent RGBA, all facing ONE SAME DIRECTION described below. Keep the same low long plated chassis, SIX separate DRIVE LEGS with six flat foot pads (three each side), PLUS TWO guarded curved front SCYTHE TOOL ARMS that are NOT feet. Preserve head FRONT sensor face, closed REAR cooling vent, single side purification tank, closed internal core hatches and detailed worn gunmetal/bronze/olive pixel art. Never reduce it to four drive legs plus two blades. No blade movement attack, extra feet, effects, organic skin, exposed glowing core, floor, shadow, labels/text/grid. Huge transparent gutters, whole machine only central half of cell, no neighbor rectangular crop overlap or clipping. Reading order TOP-LEFT contact A, TOP-RIGHT pass B, BOTTOM-LEFT opposite contact B, BOTTOM-RIGHT pass A. Body/antenna/tank scale stays fixed, foot/piston positions genuinely change; no duplicate still poses.\n\nFRONT view only: FRONT sensor face and two guarded scythes nearest viewer, nose to BOTTOM; rear vent hidden. Six drive feet spaced in three pairs at FRONT/MIDDLE/REAR depths. Define tripod A = viewer-LEFT FRONT + viewer-LEFT REAR + viewer-RIGHT MIDDLE. Tripod B = viewer-RIGHT FRONT + viewer-RIGHT REAR + viewer-LEFT MIDDLE. TOP-LEFT A tripod feet reach forward and bear weight, B feet behind. TOP-RIGHT ONLY B three feet visibly lift/bend forward, their undersides visible, while A THREE feet support. BOTTOM-LEFT B feet plant ahead while A swept behind, the opposite support to top-left. BOTTOM-RIGHT ONLY A THREE feet lift/bend forward while B three feet support. All six feet must be countable, do not use a scythe tip or underbody nozzle as a sixth foot. Tank stays on same anatomical side.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-walk-down-v2.png",
+      "originalSha256": "d5c965421c94d1aa7ffa10024a4a45fd51bcb42b4922a304a82ba5adbbc1c6fb",
+      "toolOutputPath": "/workspace/generated_images/exec-bf6b5b2d-f558-4a7e-b840-e7d48c4863bf.png",
+      "toolOutputSha256": "d5c965421c94d1aa7ffa10024a4a45fd51bcb42b4922a304a82ba5adbbc1c6fb",
+      "originalBytesPreserved": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "opposite visible foot motion exists, but all three members of alternating support tripods are not established; not counted as a verified hexapod gait",
+      "layout": "2x2 single direction"
+    },
+    "culler-walk-up-v2": {
+      "request": "requests/culler-walk-up-v2.json",
+      "requestSha256": "66b7f215b7d5525c8a5f5719747dcd5e22591f55ce57e3476687ff97148d64a7",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW correct HEXAPOD WALK keyposes of the attached ORIGINAL ASHVEIL CULLER in EXACTLY TWO ROWS by TWO COLUMNS, four whole machines on transparent RGBA, all facing ONE SAME DIRECTION described below. Keep the same low long plated chassis, SIX separate DRIVE LEGS with six flat foot pads (three each side), PLUS TWO guarded curved front SCYTHE TOOL ARMS that are NOT feet. Preserve head FRONT sensor face, closed REAR cooling vent, single side purification tank, closed internal core hatches and detailed worn gunmetal/bronze/olive pixel art. Never reduce it to four drive legs plus two blades. No blade movement attack, extra feet, effects, organic skin, exposed glowing core, floor, shadow, labels/text/grid. Huge transparent gutters, whole machine only central half of cell, no neighbor rectangular crop overlap or clipping. Reading order TOP-LEFT contact A, TOP-RIGHT pass B, BOTTOM-LEFT opposite contact B, BOTTOM-RIGHT pass A. Body/antenna/tank scale stays fixed, foot/piston positions genuinely change; no duplicate still poses.\n\nBACK view only: REAR cooling vent nearest viewer, FRONT sensors away to TOP/hidden; guarded scythe arms are on far front, not at rear. Six feet spaced in three pairs. Tripod A = viewer-LEFT FRONT + viewer-LEFT REAR + viewer-RIGHT MIDDLE; B = viewer-RIGHT FRONT + viewer-RIGHT REAR + viewer-LEFT MIDDLE. TOP-LEFT A tripod contacts forward/support while B is behind. TOP-RIGHT ONLY B THREE feet lift/swing, with A three supporting. BOTTOM-LEFT B tripod contacts ahead/support while A behind, opposite support to top-left. BOTTOM-RIGHT ONLY A THREE feet lift/swing, B supports. Preserve six pads and two far scythes. Do not duplicate the same lifted three feet in both passing frames or rotate rear view to expose face.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-walk-up-v2.png",
+      "originalSha256": "c0196b24d94285bca8321a665dd22f4beef6c458093a7fd06bab0d773c4aea53",
+      "toolOutputPath": "/workspace/generated_images/exec-70463bcd-e685-461b-be0e-9be1ed2a7e8f.png",
+      "toolOutputSha256": "c0196b24d94285bca8321a665dd22f4beef6c458093a7fd06bab0d773c4aea53",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "passing mainly lifts one near foot instead of the specified complete opposite three-foot support group",
+      "layout": "2x2 single direction"
+    },
+    "culler-walk-left-v2": {
+      "request": "requests/culler-walk-left-v2.json",
+      "requestSha256": "59770a69799128e7fef069dab0e16051b1839f33f106e2319a31214acbc4003c",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW correct HEXAPOD WALK keyposes of the attached ORIGINAL ASHVEIL CULLER in EXACTLY TWO ROWS by TWO COLUMNS, four whole machines on transparent RGBA, all facing ONE SAME DIRECTION described below. Keep the same low long plated chassis, SIX separate DRIVE LEGS with six flat foot pads (three each side), PLUS TWO guarded curved front SCYTHE TOOL ARMS that are NOT feet. Preserve head FRONT sensor face, closed REAR cooling vent, single side purification tank, closed internal core hatches and detailed worn gunmetal/bronze/olive pixel art. Never reduce it to four drive legs plus two blades. No blade movement attack, extra feet, effects, organic skin, exposed glowing core, floor, shadow, labels/text/grid. Huge transparent gutters, whole machine only central half of cell, no neighbor rectangular crop overlap or clipping. Reading order TOP-LEFT contact A, TOP-RIGHT pass B, BOTTOM-LEFT opposite contact B, BOTTOM-RIGHT pass A. Body/antenna/tank scale stays fixed, foot/piston positions genuinely change; no duplicate still poses.\n\nLEFT facing elevated profile only, FRONT sensor face at LEFT and rear vent at RIGHT. All THREE near drive legs and THREE offset far feet must be readable along front/middle/rear body; two separate guarded scythes at front are not feet. Define A tripod = NEAR FRONT + NEAR REAR + FAR MIDDLE; B tripod = FAR FRONT + FAR REAR + NEAR MIDDLE. TOP-LEFT A feet plant forward/support and B behind. TOP-RIGHT ONLY B three feet lift/bend/swing forward while A three support. BOTTOM-LEFT B feet plant forward/support, A swept behind, visibly opposite leg phase to top-left. BOTTOM-RIGHT ONLY A three feet lift/swing, B supports. Pistons/feet genuinely exchange front/back positions, never four poses with same near front leg forward.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-walk-left-v2.png",
+      "originalSha256": "2df224f09a8e6c656871c32f90058c70f96cfaf2487f4c41b8446e91934072f8",
+      "toolOutputPath": "/workspace/generated_images/exec-6a8b17a9-5171-41a1-ae42-5ac230de7ff0.png",
+      "toolOutputSha256": "2df224f09a8e6c656871c32f90058c70f96cfaf2487f4c41b8446e91934072f8",
+      "originalBytesPreserved": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "directional 2x2 does not establish full three-leg tripod alternation; one or two feet move while support repeats",
+      "layout": "2x2 single direction"
+    },
+    "culler-walk-right-v2": {
+      "request": "requests/culler-walk-right-v2.json",
+      "requestSha256": "398704f2d0286b24044145e8e0db580e3ecb6a300569daf132bb2d2d29708331",
+      "exactArguments": {
+        "prompt": "Draw FOUR NEW correct HEXAPOD WALK keyposes of the attached ORIGINAL ASHVEIL CULLER in EXACTLY TWO ROWS by TWO COLUMNS, four whole machines on transparent RGBA, all facing ONE SAME DIRECTION described below. Keep the same low long plated chassis, SIX separate DRIVE LEGS with six flat foot pads (three each side), PLUS TWO guarded curved front SCYTHE TOOL ARMS that are NOT feet. Preserve head FRONT sensor face, closed REAR cooling vent, single side purification tank, closed internal core hatches and detailed worn gunmetal/bronze/olive pixel art. Never reduce it to four drive legs plus two blades. No blade movement attack, extra feet, effects, organic skin, exposed glowing core, floor, shadow, labels/text/grid. Huge transparent gutters, whole machine only central half of cell, no neighbor rectangular crop overlap or clipping. Reading order TOP-LEFT contact A, TOP-RIGHT pass B, BOTTOM-LEFT opposite contact B, BOTTOM-RIGHT pass A. Body/antenna/tank scale stays fixed, foot/piston positions genuinely change; no duplicate still poses.\n\nRIGHT facing elevated profile only, FRONT sensor face RIGHT and rear vent LEFT. All THREE near drive legs and THREE offset far feet readable at front/middle/rear; two guarded scythes are not feet. A tripod = NEAR FRONT + NEAR REAR + FAR MIDDLE; B tripod = FAR FRONT + FAR REAR + NEAR MIDDLE. TOP-LEFT A feet forward/support, B behind. TOP-RIGHT ONLY B three feet lift/bend/swing while A THREE support. BOTTOM-LEFT B feet forward/support and A swept behind, opposite support to top-left. BOTTOM-RIGHT ONLY A THREE feet lift/swing while B THREE support. Keep stable body/chassis and tank side, no arm-slashing motion or seventh pad.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+          "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662"
+        }
+      ],
+      "original": "originals/culler-walk-right-v2.png",
+      "originalSha256": "c6d346cf45586c132003db1c638ecf5cc11e541ccf6bb615076a70a36c2c1bb4",
+      "toolOutputPath": "/workspace/generated_images/exec-5d6461d7-bad2-4862-8567-50ec9450f74d.png",
+      "toolOutputSha256": "c6d346cf45586c132003db1c638ecf5cc11e541ccf6bb615076a70a36c2c1bb4",
+      "originalBytesPreserved": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGBA",
+      "status": "held",
+      "reason": "rear pair lifts rather than the specified front/rear/middle opposite tripod; phase remains unverified",
+      "layout": "2x2 single direction"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+import{chromium,type Page}from'playwright-core'
+import{spawn}from'node:child_process'
+import{mkdirSync,writeFileSync}from'node:fs'
+import assert from'node:assert/strict'
+import{loadDb}from'../../tools/loadContent'
+import{newGame,runUntilInput,SAVE_VERSION}from'../../src/core/game'
+import{serialize}from'../../src/core/save'
+import type{World}from'../../src/core/ctx'
+const out=process.argv[2]??'test-results/mod-load-order-browser-v251';mkdirSync(out,{recursive:true})
+const server=spawn('npx',['vite','preview','--port','4317','--strictPort'],{stdio:'pipe',detached:true});await new Promise(r=>setTimeout(r,2500))
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']}),consoleErrors:string[]=[]
+type Hook={__ashveil:{world():World|null}}
+let page:Page|undefined,screenshots=0,wholeRoundtrips=0
+const read=(p:Page)=>p.evaluate(()=>JSON.parse(JSON.stringify((window as unknown as Hook).__ashveil.world()!.s))as World['s'])
+async function shot(p:Page,name:string){await p.evaluate(()=>new Promise<void>(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>r()))));await p.screenshot({path:`${out}/${name}.png`,animations:'disabled'});screenshots++}
+async function check(p:Page,w:World,label:string){const actual=await read(p),expected=JSON.parse(serialize(w.s));assert.deepEqual(actual,expected);writeFileSync(`${out}/${label}-whole.json`,JSON.stringify({actual,expected}));return actual}
+async function title(p:Page){await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.getByTestId('continue').waitFor()}
+async function restore(p:Page,w:World,label:string){await title(p);await p.reload();await p.getByTestId('continue').click();await p.waitForSelector('[data-testid=map] canvas');await check(p,w,label);wholeRoundtrips++}
+async function settings(p:Page){await p.keyboard.press('F3');await p.getByTestId('content-identity-settings').locator(':scope > summary').click()}
+try{
+ const first=['sample-selector','sample-patrol'],second=['sample-patrol','sample-selector'],seed='actual-user-mod-priority';const loaded=loadDb(first);assert.deepEqual(loaded.report.errors,[]);const w:World={db:loaded.db,s:newGame(loaded.db,{seed,overworld:true,mods:loaded.db.loadedMods})};runUntilInput(w);assert.equal(w.s.fx.length,0)
+ page=await browser.newPage({viewport:{width:1440,height:1050}});page.on('pageerror',e=>consoleErrors.push(e.message));page.on('console',e=>{if(e.type()==='error')consoleErrors.push(e.text())});await page.goto('http://localhost:4317/?debug');await page.getByTestId('seed').fill(seed)
+ // 실제 선택 순서patrol→selector를 화면의 위로 버튼으로selector→patrol로 바꾼다.
+ const labels=page.locator('label');await labels.filter({hasText:'순찰 데이터 예제'}).getByRole('checkbox').check();await labels.filter({has:page.getByText('선택자 패치 예제',{exact:true})}).getByRole('checkbox').check();await page.getByTestId('new-mod-up-sample-selector').click();assert.match(await page.getByTestId('new-mod-order').innerText(),/1\. 선택자 패치 예제[\s\S]*2\. 순찰 데이터 예제/);assert.match(await page.getByTestId('title-load-hash').innerText(),new RegExp(w.db.loadHash));await page.getByTestId('new-mod-order').scrollIntoViewIfNeeded();await shot(page,'1251-native-actual-new-game-up-control-changes-user-mod-priority-and-browser-hash-matches-node')
+ await page.getByTestId('start').click();await page.waitForSelector('[data-testid=map] canvas');await check(page,w,'actual-new-game-uses-selected-user-priority-whole-state');await restore(page,w,'actual-user-priority180-whole-restore')
+ await title(page);await page.getByTestId('imprint-mods-open').click();assert.match(await page.getByTestId('imprint-mod-order').innerText(),/1\. 선택자 패치 예제[\s\S]*2\. 순찰 데이터 예제/);await page.getByTestId('imprint-mod-up-sample-patrol').click();await page.getByTestId('imprint-mods-review').click();const review=page.getByTestId('content-change-review');await review.waitFor();assert.match(await page.getByTestId('imprint-final-mod-order').innerText(),/sample-patrol → sample-selector/);assert.match(await review.innerText(),/정의 0개 · 새 정의 0개/);assert.equal(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world()!.s.loadHash),w.s.loadHash);await review.scrollIntoViewIfNeeded();await shot(page,'1252-native-actual-existing-imprint-order-change-review-shows-final-dependency-resolved-order-before-changing-world')
+ await page.getByTestId('content-change-accept').click();await page.waitForSelector('[data-testid=map] canvas');const from=w.s.loadHash!;w.db=loadDb(second).db;w.s.loadHash=w.db.loadHash;w.s.mods=[...w.db.loadedMods];w.s.contentDefinitions=w.db.definitionManifest();w.s.contentItemShapes=w.db.itemShapeManifest();w.s.contentChanges=[{turn:Math.floor(w.s.time/100),from,to:w.db.loadHash}];w.s.achievementsDisabled=true;await check(page,w,'actual-approved-order-change-keeps-all-original-physical-state-time-rng-and-uids');await settings(page);assert.match(await page.getByTestId('settings-final-mod-order').innerText(),/core → sample-patrol → sample-selector/);assert.match(await page.getByTestId('content-identity-settings').innerText(),/구성이 같다/);await shot(page,'1253-native-approved-order-and-current-content-hash-in-settings-with-no-world-regeneration-or-time-cost');await page.keyboard.press('Escape');await restore(page,w,'actual-reordered-imprint180-whole-restore')
+ assert.equal(screenshots,3);assert.equal(wholeRoundtrips,2);assert.deepEqual(consoleErrors,[]);writeFileSync(`${out}/audit.json`,JSON.stringify({screenshots,wholeRoundtrips,save:SAVE_VERSION,first,second,hash:w.db.loadHash,consoleErrors},null,2));console.log(JSON.stringify({screenshots,wholeRoundtrips,save:SAVE_VERSION,consoleErrors}))
+}catch(error){if(page){writeFileSync(`${out}/failure-body.txt`,await page.locator('body').innerText());await page.screenshot({path:`${out}/failure.png`}).catch(()=>{})}throw error}
+finally{await page?.close();await browser.close();if(server.pid)try{process.kill(-server.pid,'SIGTERM')}catch{/* stopped */}}

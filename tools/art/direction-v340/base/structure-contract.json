@@ -1,0 +1,1080 @@
+{
+  "format": 1,
+  "activationReady": false,
+  "bodySource": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/core-fragment/defs/bodies-v331.json",
+  "bodySha256": "3a2db60725648bbb01f86e2a2d2ff6cab5c29c142ccff8f892e1d6a9bd98c889",
+  "creatureSource": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/core-fragment/defs/creatures-v331.json",
+  "creatureSha256": "63941a42bbeb26fd17568464fbd18b4eb40dc89793626ac9d4d823ad58e1faf5",
+  "models": {
+    "Sower": {
+      "body": {
+        "defType": "Body",
+        "id": "Body.Sower",
+        "label": "파종기의 네 다리",
+        "bloodMl": 0,
+        "kind": "mechanical",
+        "parts": [
+          {
+            "id": "Chassis",
+            "label": "섀시",
+            "hp": 140,
+            "coverage": 460,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "organMiss": 40
+          },
+          {
+            "id": "Core",
+            "label": "코어",
+            "hp": 53,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "vital": true,
+            "weight": 2,
+            "capacities": {
+              "consciousness": 1
+            }
+          },
+          {
+            "id": "PowerCell",
+            "label": "전원셀",
+            "hp": 70,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "bloodPumping": 1
+            }
+          },
+          {
+            "id": "CoolingLoop",
+            "label": "냉각 루프",
+            "hp": 53,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "breathing": 1
+            }
+          },
+          {
+            "id": "SensorMast",
+            "label": "센서 마스트",
+            "hp": 42,
+            "coverage": 100,
+            "region": "head",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "sight": 1,
+              "hearing": 1
+            }
+          },
+          {
+            "id": "ManipulatorL",
+            "label": "왼쪽 매니퓰레이터",
+            "hp": 42,
+            "coverage": 70,
+            "region": "larm",
+            "height": "mid",
+            "groups": [],
+            "side": "l",
+            "capacities": {
+              "manipulation": 0.4
+            }
+          },
+          {
+            "id": "ManipulatorR",
+            "label": "오른쪽 매니퓰레이터",
+            "hp": 42,
+            "coverage": 70,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "side": "r",
+            "capacities": {
+              "manipulation": 0.6
+            }
+          },
+          {
+            "id": "ToolHead",
+            "label": "공구 헤드",
+            "hp": 35,
+            "coverage": 40,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "tool": 1
+            }
+          },
+          {
+            "id": "DriveLeg1",
+            "label": "구동 다리 1",
+            "region": "lleg",
+            "hp": 88,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg2",
+            "label": "구동 다리 2",
+            "region": "rleg",
+            "hp": 88,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg3",
+            "label": "구동 다리 3",
+            "region": "lleg",
+            "hp": 88,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg4",
+            "label": "구동 다리 4",
+            "region": "rleg",
+            "hp": 88,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          }
+        ],
+        "mechanical": {
+          "core": "Core",
+          "powerCell": "PowerCell",
+          "coolingLoop": "CoolingLoop",
+          "chassis": "Chassis",
+          "toolHead": "ToolHead",
+          "coolantMl": 3200,
+          "leakPerSeverity": 0.8,
+          "cooling": 4,
+          "ambientThreshold": 20,
+          "ambientDivisor": 10,
+          "protectiveHeat": 70,
+          "shutdownHeat": 90,
+          "shutdownChance": 0.2,
+          "shutdownTurns": [
+            2,
+            4
+          ],
+          "coreDamage": 2,
+          "shortChance": 0.01,
+          "moveHeat": 1,
+          "attackHeat": 5,
+          "weldHeat": 8,
+          "actionPower": 0.15,
+          "idlePower": 0.0001,
+          "retreatPower": 30,
+          "patch": {
+            "item": "Item.MachinePatch",
+            "turns": 10
+          },
+          "coolant": {
+            "item": "Item.HydraulicFluid",
+            "ml": 200,
+            "turns": 5
+          },
+          "repair": {
+            "item": "Item.LargeActuator",
+            "severity": 30,
+            "turns": 45,
+            "tool": "hammer"
+          },
+          "cell": {
+            "item": "Item.MediumPowerCell",
+            "power": 50,
+            "turns": 15
+          },
+          "salvage": [
+            {
+              "item": "Item.LargeActuator",
+              "count": 2,
+              "chance": 1
+            },
+            {
+              "item": "Item.SowerReservoir",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.SettlementFungusCapsule",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.MediumPowerCell",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.IronScrap",
+              "count": 4,
+              "chance": 1
+            }
+          ],
+          "errorLoop": {
+            "damage": 0.25,
+            "checkTurns": 20,
+            "chance": 0.15,
+            "turns": 20
+          }
+        }
+      },
+      "creature": {
+        "defType": "Creature",
+        "id": "Creature.Sower",
+        "label": "파종기",
+        "body": "Body.Sower",
+        "char": "av331_sower",
+        "sprite": "av331_sower",
+        "faction": "gardeners",
+        "sizeClass": "huge",
+        "moveTU": 100,
+        "stats": {
+          "str": 20,
+          "agi": 5,
+          "per": 10,
+          "vit": 20,
+          "wil": 10
+        },
+        "skills": {},
+        "ai": "guard",
+        "morale": 100,
+        "lightThreshold": 0,
+        "sightRange": 8,
+        "hearing": 0,
+        "smell": 0,
+        "bagSize": [
+          5,
+          4
+        ],
+        "meatDrop": {
+          "item": "Item.RawMeat",
+          "count": 0
+        },
+        "noMorale": true,
+        "weightKg": 1200,
+        "hpBase": 360,
+        "naturalArmor": {
+          "sharp": 35,
+          "blunt": 20,
+          "heat": 20
+        },
+        "naturalAttack": {
+          "label": "경로 밀어내기",
+          "damageType": "blunt",
+          "damage": 10,
+          "pen": 8,
+          "energy": 0,
+          "family": "unarmed",
+          "accuracy": 8,
+          "noise": 5,
+          "requiresCapacity": "tool",
+          "shove": 25,
+          "stunD": 3
+        },
+        "loadout": {
+          "slots": [
+            {
+              "items": [
+                "Item.SowerSeedCapsule"
+              ],
+              "count": [
+                8,
+                8
+              ]
+            }
+          ]
+        },
+        "xp": 95,
+        "bestiary": [
+          "네 다리의 큰 기계가 같은 경로에 씨앗을 뿌린다.",
+          "길을 비켜주면 공격하지 않는다. 씨앗 적재량은 유한하다.",
+          "몸통에는 종자와 정착균을 나눠 담은 탱크가 있다."
+        ]
+      },
+      "driveLegIds": [
+        "DriveLeg1",
+        "DriveLeg2",
+        "DriveLeg3",
+        "DriveLeg4"
+      ],
+      "internalParts": [
+        "Core",
+        "PowerCell",
+        "CoolingLoop"
+      ],
+      "antennaParts": [],
+      "activationReady": false
+    },
+    "Surveyor": {
+      "body": {
+        "defType": "Body",
+        "id": "Body.Surveyor",
+        "label": "측량기의 세 다리",
+        "bloodMl": 0,
+        "kind": "mechanical",
+        "parts": [
+          {
+            "id": "Chassis",
+            "label": "섀시",
+            "hp": 46,
+            "coverage": 450,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "organMiss": 40
+          },
+          {
+            "id": "Core",
+            "label": "코어",
+            "hp": 17,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "vital": true,
+            "weight": 2,
+            "capacities": {
+              "consciousness": 1
+            }
+          },
+          {
+            "id": "PowerCell",
+            "label": "전원셀",
+            "hp": 23,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "bloodPumping": 1
+            }
+          },
+          {
+            "id": "CoolingLoop",
+            "label": "냉각 루프",
+            "hp": 17,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "breathing": 1
+            }
+          },
+          {
+            "id": "SensorMast",
+            "label": "센서 마스트",
+            "hp": 14,
+            "coverage": 100,
+            "region": "head",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "sight": 1,
+              "hearing": 1
+            }
+          },
+          {
+            "id": "ManipulatorL",
+            "label": "왼쪽 매니퓰레이터",
+            "hp": 14,
+            "coverage": 70,
+            "region": "larm",
+            "height": "mid",
+            "groups": [],
+            "side": "l",
+            "capacities": {
+              "manipulation": 0.4
+            }
+          },
+          {
+            "id": "ManipulatorR",
+            "label": "오른쪽 매니퓰레이터",
+            "hp": 14,
+            "coverage": 70,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "side": "r",
+            "capacities": {
+              "manipulation": 0.6
+            }
+          },
+          {
+            "id": "ToolHead",
+            "label": "공구 헤드",
+            "hp": 12,
+            "coverage": 40,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "tool": 1
+            }
+          },
+          {
+            "id": "DriveLeg1",
+            "label": "구동 다리 1",
+            "region": "lleg",
+            "hp": 29,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg2",
+            "label": "구동 다리 2",
+            "region": "rleg",
+            "hp": 29,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg3",
+            "label": "구동 다리 3",
+            "region": "lleg",
+            "hp": 29,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "Antenna",
+            "label": "안테나",
+            "region": "head",
+            "hp": 8,
+            "coverage": 75,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "signal": 1
+            },
+            "detach": true
+          }
+        ],
+        "mechanical": {
+          "core": "Core",
+          "powerCell": "PowerCell",
+          "coolingLoop": "CoolingLoop",
+          "chassis": "Chassis",
+          "toolHead": "ToolHead",
+          "coolantMl": 800,
+          "leakPerSeverity": 0.8,
+          "cooling": 4,
+          "ambientThreshold": 20,
+          "ambientDivisor": 10,
+          "protectiveHeat": 70,
+          "shutdownHeat": 90,
+          "shutdownChance": 0.2,
+          "shutdownTurns": [
+            2,
+            4
+          ],
+          "coreDamage": 2,
+          "shortChance": 0.01,
+          "moveHeat": 1,
+          "attackHeat": 3,
+          "weldHeat": 8,
+          "actionPower": 0.1,
+          "idlePower": 0.0001,
+          "retreatPower": 30,
+          "patch": {
+            "item": "Item.MachinePatch",
+            "turns": 10
+          },
+          "coolant": {
+            "item": "Item.HydraulicFluid",
+            "ml": 200,
+            "turns": 5
+          },
+          "repair": {
+            "item": "Item.SmallActuator",
+            "severity": 10,
+            "turns": 30,
+            "tool": "hammer"
+          },
+          "cell": {
+            "item": "Item.LowPowerCell",
+            "power": 25,
+            "turns": 10
+          },
+          "salvage": [
+            {
+              "item": "Item.SurveyLens",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.AntennaWire",
+              "count": 2,
+              "chance": 1
+            },
+            {
+              "item": "Item.LightLegFrame",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.ThermalSensor",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.LowPowerCell",
+              "count": 1,
+              "chance": 0.5
+            }
+          ],
+          "errorLoop": {
+            "damage": 0.25,
+            "checkTurns": 20,
+            "chance": 0.15,
+            "turns": 20
+          }
+        }
+      },
+      "creature": {
+        "defType": "Creature",
+        "id": "Creature.Surveyor",
+        "label": "측량기",
+        "body": "Body.Surveyor",
+        "char": "av331_surveyor",
+        "sprite": "av331_surveyor",
+        "faction": "gardeners",
+        "sizeClass": "large",
+        "moveTU": 100,
+        "stats": {
+          "str": 5,
+          "agi": 14,
+          "per": 20,
+          "vit": 10,
+          "wil": 10
+        },
+        "skills": {},
+        "ai": "guard",
+        "morale": 100,
+        "lightThreshold": 0,
+        "sightRange": 25,
+        "hearing": 2,
+        "smell": 0,
+        "bagSize": [
+          4,
+          3
+        ],
+        "meatDrop": {
+          "item": "Item.RawMeat",
+          "count": 0
+        },
+        "noMorale": true,
+        "weightKg": 90,
+        "hpBase": 80,
+        "naturalArmor": {
+          "sharp": 15,
+          "blunt": 5,
+          "heat": 10
+        },
+        "xp": 45,
+        "bestiary": [
+          "세 다리 위 렌즈가 먼 곳의 열을 읽는다.",
+          "직접 공격하지 않고 침입자를 관찰하여 안테나로 보고한다.",
+          "안테나를 먼저 파괴하면 신호가 끊어진다. 접근하면 섬광으로 눈을 가린다."
+        ]
+      },
+      "driveLegIds": [
+        "DriveLeg1",
+        "DriveLeg2",
+        "DriveLeg3"
+      ],
+      "internalParts": [
+        "Core",
+        "PowerCell",
+        "CoolingLoop"
+      ],
+      "antennaParts": [
+        {
+          "id": "Antenna",
+          "label": "안테나",
+          "region": "head",
+          "hp": 8,
+          "coverage": 75,
+          "height": "mid",
+          "groups": [],
+          "vessel": 0,
+          "pain": 0,
+          "capacities": {
+            "signal": 1
+          },
+          "detach": true
+        }
+      ],
+      "activationReady": false
+    },
+    "Culler": {
+      "body": {
+        "defType": "Body",
+        "id": "Body.Culler",
+        "label": "구제기의 여섯 다리",
+        "bloodMl": 0,
+        "kind": "mechanical",
+        "parts": [
+          {
+            "id": "Chassis",
+            "label": "섀시",
+            "hp": 120,
+            "coverage": 330,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "organMiss": 40
+          },
+          {
+            "id": "Core",
+            "label": "코어",
+            "hp": 45,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "vital": true,
+            "weight": 2,
+            "capacities": {
+              "consciousness": 1
+            }
+          },
+          {
+            "id": "PowerCell",
+            "label": "전원셀",
+            "hp": 60,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "bloodPumping": 1
+            }
+          },
+          {
+            "id": "CoolingLoop",
+            "label": "냉각 루프",
+            "hp": 45,
+            "coverage": 0,
+            "region": "torso",
+            "height": "mid",
+            "groups": [],
+            "parent": "Chassis",
+            "internal": true,
+            "weight": 3,
+            "capacities": {
+              "breathing": 1
+            }
+          },
+          {
+            "id": "SensorMast",
+            "label": "센서 마스트",
+            "hp": 36,
+            "coverage": 100,
+            "region": "head",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "sight": 1,
+              "hearing": 1
+            }
+          },
+          {
+            "id": "ManipulatorL",
+            "label": "왼쪽 매니퓰레이터",
+            "hp": 36,
+            "coverage": 70,
+            "region": "larm",
+            "height": "mid",
+            "groups": [],
+            "side": "l",
+            "capacities": {
+              "manipulation": 0.4
+            }
+          },
+          {
+            "id": "ManipulatorR",
+            "label": "오른쪽 매니퓰레이터",
+            "hp": 36,
+            "coverage": 70,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "side": "r",
+            "capacities": {
+              "manipulation": 0.6
+            }
+          },
+          {
+            "id": "ToolHead",
+            "label": "공구 헤드",
+            "hp": 30,
+            "coverage": 40,
+            "region": "rarm",
+            "height": "mid",
+            "groups": [],
+            "capacities": {
+              "tool": 1
+            }
+          },
+          {
+            "id": "DriveLeg1",
+            "label": "구동 다리 1",
+            "region": "lleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg2",
+            "label": "구동 다리 2",
+            "region": "rleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg3",
+            "label": "구동 다리 3",
+            "region": "lleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg4",
+            "label": "구동 다리 4",
+            "region": "rleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg5",
+            "label": "구동 다리 5",
+            "region": "lleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          },
+          {
+            "id": "DriveLeg6",
+            "label": "구동 다리 6",
+            "region": "rleg",
+            "hp": 75,
+            "coverage": 65,
+            "height": "mid",
+            "groups": [],
+            "vessel": 0,
+            "pain": 0,
+            "capacities": {
+              "moving": 1
+            },
+            "qleg": true
+          }
+        ],
+        "mechanical": {
+          "core": "Core",
+          "powerCell": "PowerCell",
+          "coolingLoop": "CoolingLoop",
+          "chassis": "Chassis",
+          "toolHead": "ToolHead",
+          "coolantMl": 2400,
+          "leakPerSeverity": 0.8,
+          "cooling": 4,
+          "ambientThreshold": 20,
+          "ambientDivisor": 10,
+          "protectiveHeat": 70,
+          "shutdownHeat": 90,
+          "shutdownChance": 0.2,
+          "shutdownTurns": [
+            2,
+            4
+          ],
+          "coreDamage": 2,
+          "shortChance": 0.01,
+          "moveHeat": 1,
+          "attackHeat": 24,
+          "weldHeat": 28,
+          "actionPower": 0.2,
+          "idlePower": 0.0001,
+          "retreatPower": 30,
+          "patch": {
+            "item": "Item.MachinePatch",
+            "turns": 10
+          },
+          "coolant": {
+            "item": "Item.HydraulicFluid",
+            "ml": 200,
+            "turns": 5
+          },
+          "repair": {
+            "item": "Item.LargeActuator",
+            "severity": 25,
+            "turns": 45,
+            "tool": "hammer"
+          },
+          "cell": {
+            "item": "Item.GardenerHeart",
+            "power": 100,
+            "turns": 20
+          },
+          "salvage": [
+            {
+              "item": "Item.ScytheBlade",
+              "count": 2,
+              "chance": 1
+            },
+            {
+              "item": "Item.GardenerHeart",
+              "count": 1,
+              "chance": 1
+            },
+            {
+              "item": "Item.HeavyArmorPlate",
+              "count": 2,
+              "chance": 1
+            },
+            {
+              "item": "Item.CaptureFiber",
+              "count": 3,
+              "chance": 1
+            },
+            {
+              "item": "Item.PurificationTank",
+              "count": 1,
+              "chance": 1
+            }
+          ],
+          "errorLoop": {
+            "damage": 0.25,
+            "checkTurns": 20,
+            "chance": 0.15,
+            "turns": 20
+          }
+        }
+      },
+      "creature": {
+        "defType": "Creature",
+        "id": "Creature.Culler",
+        "label": "구제기",
+        "body": "Body.Culler",
+        "char": "av331_culler",
+        "sprite": "av331_culler",
+        "faction": "gardeners",
+        "sizeClass": "huge",
+        "moveTU": 100,
+        "stats": {
+          "str": 20,
+          "agi": 14,
+          "per": 18,
+          "vit": 20,
+          "wil": 20
+        },
+        "skills": {},
+        "ai": "guard",
+        "morale": 100,
+        "lightThreshold": 0,
+        "sightRange": 18,
+        "hearing": 3,
+        "smell": 0,
+        "bagSize": [
+          4,
+          3
+        ],
+        "meatDrop": {
+          "item": "Item.RawMeat",
+          "count": 0
+        },
+        "noMorale": true,
+        "weightKg": 650,
+        "hpBase": 320,
+        "naturalArmor": {
+          "sharp": 45,
+          "blunt": 25,
+          "heat": 25
+        },
+        "naturalAttack": {
+          "label": "낫팔 베기",
+          "damageType": "cut",
+          "damage": 28,
+          "pen": 55,
+          "energy": 0,
+          "family": "unarmed",
+          "accuracy": 8,
+          "noise": 5,
+          "requiresCapacity": "tool",
+          "id": "scythe",
+          "armorDamage": 12
+        },
+        "naturalAttacks": [
+          {
+            "label": "낫팔 베기",
+            "damageType": "cut",
+            "damage": 28,
+            "pen": 55,
+            "energy": 0,
+            "family": "unarmed",
+            "accuracy": 8,
+            "noise": 5,
+            "requiresCapacity": "tool",
+            "id": "scythe",
+            "armorDamage": 12
+          }
+        ],
+        "abilities": [
+          "Ab.Grab"
+        ],
+        "xp": 220,
+        "bestiary": [
+          "풀숲을 가르는 여섯 다리의 낮은 전투 기계다.",
+          "정원 경계3에서 출동하며 연속 공격 뒤에는 냉각이 필요하다.",
+          "보호구역 밖으로 무한히 쫓지 않는다. 손상이 크면 원래 둥지로 돌아간다."
+        ]
+      },
+      "driveLegIds": [
+        "DriveLeg1",
+        "DriveLeg2",
+        "DriveLeg3",
+        "DriveLeg4",
+        "DriveLeg5",
+        "DriveLeg6"
+      ],
+      "internalParts": [
+        "Core",
+        "PowerCell",
+        "CoolingLoop"
+      ],
+      "antennaParts": [],
+      "activationReady": false
+    }
+  },
+  "existingOwnArtViewed": [
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v322/drone-locomotion-front-left.png",
+      "sha256": "4e9804a32bd9c7c9394221dbee7325b597665b952513ccd21753fd5f3fd13fcd",
+      "toolImageInput": false
+    },
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v322/drone-active-front-left.png",
+      "sha256": "13d3c8755a5fd28b1e78ad09f08699f76f3e4e1e7b8a6069248836cfaa1c34d7",
+      "toolImageInput": false
+    }
+  ]
+}

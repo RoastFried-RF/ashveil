@@ -1,0 +1,13 @@
+[
+  {
+    "defType":"SupplyContract", "id":"SupplyContract.Hearth", "label":"장부 조달 계약",
+    "description":"실제 시장 부족분과 유한한 예치 보수로 운용하는 조달 계약. 기본 보수·기한·상태 기준은 조정 가능한 잠정값이다.",
+    "refreshDays":3, "deadlineDays":3, "baseReward":20, "threatReward":0.8, "wealthMult":1,
+    "freshness":60, "durability":30, "reputation":1,
+    "requests":[
+      {"key":"bandages","label":"붕대 보충","item":"Item.Bandage","count":4,"threat":0},
+      {"key":"food","label":"건빵 보충","item":"Item.Hardtack","count":5,"threat":0},
+      {"key":"fuel","label":"땔감 보충","item":"Item.Wood","count":4,"threat":0}
+    ]
+  }
+]

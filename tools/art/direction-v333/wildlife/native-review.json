@@ -1,0 +1,109 @@
+{
+  "scope": "Assistant visual inspection of preserved original sheets and staging native alpha-composited diagnostic; not main-game, physical locomotion or release acceptance",
+  "originalPNGOpened": [
+    {
+      "path": "originals/ashhorn-stag-idle-v1.png",
+      "sha256": "7c075d8223121da2a9f867e187d985cd5610d70fcdf4e832ff9850b2ab309404"
+    },
+    {
+      "path": "originals/ashhorn-stag-walk-v1.png",
+      "sha256": "41e32510c726291f3f513caa81ac23a393941361d945dafd6ad38611364e3f8a"
+    },
+    {
+      "path": "originals/ashhorn-stag-attack-v1.png",
+      "sha256": "f16b6dbf35f2617596e93e87294104ab55fdf41c2af13813858ecfa61f92fcd4"
+    },
+    {
+      "path": "originals/ashhorn-stag-hurt-fall-v1.png",
+      "sha256": "2352d9dec90254f11ab09d95b58c61b07a6e1b82d9b7d1d55ca502afe03d21a5"
+    },
+    {
+      "path": "originals/ashhorn-stag-sleep-rise-v1.png",
+      "sha256": "3fac4b9345ed062b3d886221ce82821c65e8c56e8d8bfcac2478a263f2824cc4"
+    },
+    {
+      "path": "originals/ashhorn-stag-fall-v2.png",
+      "sha256": "b286cf7e5fa8e09b56ede8a7ec620ab707be28fe3b21e4f0a8026856eba09194"
+    },
+    {
+      "path": "originals/tuskhog-idle-v1.png",
+      "sha256": "a335ec320f60fd0b27d81b36dcafa1617b10880d841cee2b3f6e4dc589d246db"
+    },
+    {
+      "path": "originals/tuskhog-walk-v1.png",
+      "sha256": "e4042163c29dfbfa387381c24b37c1a70ed97222b2eb3cb2c2b1d96b6e0bd3e3"
+    },
+    {
+      "path": "originals/tuskhog-attack-v1.png",
+      "sha256": "ef4bfc7fad6054a96210dfadf212a8409be478876c87041af0a43b1f14c82887"
+    },
+    {
+      "path": "originals/tuskhog-hurt-fall-v1.png",
+      "sha256": "d5585a833edd4d4b86960a744561cbf2fbaa7b5e5afeb09fc7567d28e3370613"
+    },
+    {
+      "path": "originals/tuskhog-sleep-rise-v1.png",
+      "sha256": "5f6aacedafcc4f4de3be5d15ff6495705af113cbd0dcef8f2f49a095b06f1770"
+    },
+    {
+      "path": "originals/tuskhog-fall-v2.png",
+      "sha256": "5df2c0edb624956f27df377ee135b6e4f214a9077327604b602d26e1b87a7004"
+    },
+    {
+      "path": "originals/tuskhog-hurt-v2.png",
+      "sha256": "d71bd8b34e492ccb675957ef120b1302c7f94dd2de482c796b536d4b02f7f793"
+    }
+  ],
+  "diagnosticScreenshotsOpened": [
+    {
+      "path": "screenshots/phase-0.png",
+      "sha256": "53c8b2a6686a975a87c9ad9d92e732cf82c914c1c94c4d9a0d90563f37a899fd"
+    },
+    {
+      "path": "screenshots/phase-1.png",
+      "sha256": "87ceff1c9665f6f6742b97c347adf1ee0ec64ae6c80d0e2d988037b2779f1b22"
+    },
+    {
+      "path": "screenshots/phase-2.png",
+      "sha256": "03e7dcdf100220af4f34e8a594a7cbd2d2379b239e81d38abc2cb3b2e1577f61"
+    },
+    {
+      "path": "screenshots/phase-3.png",
+      "sha256": "7a74ff0c90bdf997da65c3560942f23b65c38f664f6fe4e715a34790caba69b2"
+    }
+  ],
+  "manifestSha256": "bda268d3ddf459172783c5f4ef5ca09d6b45d72266631c332d8d6c6cbe147261",
+  "registrationProofSha256BeforeReview": "fe4b152349ce47f75739785c12cbc7506adcc793f8ea76307026a074c17a5277",
+  "browser": {
+    "scope": "staging diagnostic only; no main game loaded",
+    "errors": [],
+    "observations": {
+      "title": "ASHVEIL v333 사족 원화 검토",
+      "canvasCount": 56,
+      "mainGameLoaded": false,
+      "url": "http://127.0.0.1:6347/"
+    },
+    "screenshots": [
+      "phase-0.png",
+      "phase-1.png",
+      "phase-2.png",
+      "phase-3.png"
+    ]
+  },
+  "findings": [
+    "Four semantic directions retained in proposed idle/walk/attack/hurt/fall/sleep/rise clips.",
+    "Walk alternates fore/hind support across four actual poses; actual tile-distance playback still pending.",
+    "Stag antlers and pig tusks remain attached and no invented held human weapons are registered.",
+    "Native alpha composition does not render hidden transparent RGB as an opaque brown background or bright red border.",
+    "Both earlier rolling fall clips and the touching original pig hurt frames remain withheld in rejected/regions.json.",
+    "Selected crop opacity continuity audit is clear; all proposed poses fit within preserved source bytes."
+  ],
+  "limitations": [
+    "Independent portraits",
+    "Additional crouch/block/use motions",
+    "Actual core policy and in-game integration from v331 contract",
+    "Only four poses per clip; no claim of v322 twelve-pose cadence density.",
+    "No gameplay AI, shadow/occlusion integration, diagonal movement or animation-speed acceptance was run."
+  ],
+  "activationReady": false
+}

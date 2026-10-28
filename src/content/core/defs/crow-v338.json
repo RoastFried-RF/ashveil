@@ -1,0 +1,403 @@
+[
+  {
+    "defType": "Body",
+    "id": "Body.AshCrow",
+    "label": "재까마귀의 날개와 작은 신체",
+    "bloodMl": 40,
+    "parts": [
+      {
+        "id": "Head",
+        "label": "머리",
+        "region": "head",
+        "hp": 4,
+        "coverage": 120,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "consciousness": 1,
+          "hearing": 1
+        },
+        "vital": true,
+        "bone": 2
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼눈",
+        "region": "head",
+        "hp": 2,
+        "coverage": 20,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "l"
+      },
+      {
+        "id": "RightEye",
+        "label": "오른눈",
+        "region": "head",
+        "hp": 2,
+        "coverage": 20,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "sight": 1
+        },
+        "side": "r"
+      },
+      {
+        "id": "Beak",
+        "label": "부리",
+        "region": "head",
+        "hp": 3,
+        "coverage": 40,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "peck": 1,
+          "eating": 1,
+          "tool": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Breast",
+        "label": "가슴",
+        "region": "torso",
+        "hp": 8,
+        "coverage": 440,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "organMiss": 40,
+        "bone": 2
+      },
+      {
+        "id": "Heart",
+        "label": "심장",
+        "region": "torso",
+        "hp": 3,
+        "coverage": 0,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "bloodPumping": 1
+        },
+        "parent": "Breast",
+        "internal": true,
+        "weight": 1,
+        "vital": true
+      },
+      {
+        "id": "AirSacs",
+        "label": "기도와 기낭",
+        "region": "torso",
+        "hp": 3,
+        "coverage": 0,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "breathing": 1,
+          "airway": 1
+        },
+        "parent": "Breast",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "LeftWing",
+        "label": "왼날개",
+        "region": "larm",
+        "hp": 5,
+        "coverage": 120,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "flight": 1
+        },
+        "side": "l",
+        "bone": 2,
+        "detach": true
+      },
+      {
+        "id": "RightWing",
+        "label": "오른날개",
+        "region": "rarm",
+        "hp": 5,
+        "coverage": 120,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "flight": 1
+        },
+        "side": "r",
+        "bone": 2,
+        "detach": true
+      },
+      {
+        "id": "LeftLeg",
+        "label": "왼다리",
+        "region": "lleg",
+        "hp": 3,
+        "coverage": 60,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "moving": 1
+        },
+        "side": "l",
+        "bone": 2,
+        "detach": true
+      },
+      {
+        "id": "RightLeg",
+        "label": "오른다리",
+        "region": "rleg",
+        "hp": 3,
+        "coverage": 60,
+        "height": "mid",
+        "groups": [],
+        "vessel": 0.8,
+        "pain": 0.8,
+        "capacities": {
+          "moving": 1
+        },
+        "side": "r",
+        "bone": 2,
+        "detach": true
+      }
+    ],
+    "kind": "bird"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.AshCrow",
+    "label": "재까마귀",
+    "body": "Body.AshCrow",
+    "char": "av331_ash_crow",
+    "sprite": "av331_ash_crow",
+    "faction": "foragers",
+    "sizeClass": "tiny",
+    "moveTU": 100,
+    "stats": {
+      "str": 2,
+      "agi": 16,
+      "per": 18,
+      "vit": 4,
+      "wil": 3
+    },
+    "skills": {},
+    "ai": "skittish",
+    "morale": 15,
+    "lightThreshold": 0.1,
+    "sightRange": 15,
+    "hearing": 2,
+    "smell": 0,
+    "bagSize": [
+      4,
+      3
+    ],
+    "meatDrop": {
+      "item": "Item.RawMeat",
+      "count": 0
+    },
+    "weightKg": 0.5,
+    "hpBase": 12,
+    "metabolicScale": 0.08,
+    "insulation": 3,
+    "naturalAttack": {
+      "label": "쓰러진 대상의 눈 쪼기",
+      "damageType": "stab",
+      "damage": 2,
+      "pen": 1,
+      "energy": 1,
+      "family": "unarmed",
+      "accuracy": 8,
+      "noise": 1,
+      "requiresCapacity": "peck",
+      "partCapacityWeights": {
+        "sight": 20
+      },
+      "prey": {
+        "unconscious": true,
+        "capacity": "sight",
+        "faceCover": true
+      },
+      "contam": 20
+    },
+    "xp": 2,
+    "bestiary": [
+      "작은 검은 새가 부상자와 사체 위를 맴돈다.",
+      "건강한 사람은 공격하지 않는다. 떼의 움직임은 근처 사체의 신호다.",
+      "의식을 잃은 얼굴의 눈을 쫀다. 야외에서는 얼굴을 가려야 한다."
+    ],
+    "description": "두 날개로 낮게 날며 부상자와 동물 사체를 좇는 작은 검은 새. 건강한 사람은 피해 달아나고 의식 없는 대상의 드러난 눈만 쪼려 한다.",
+    "wildlife": {
+      "kind": "scavengerBird",
+      "foodIds": [
+        "Item.AshBerry",
+        "Item.CarrionMorsel",
+        "Item.RoastedMorsel"
+      ],
+      "browseCount": 1,
+      "drinkMl": 20,
+      "threatRadius": 8,
+      "forageRadius": 12,
+      "homeRadius": 9,
+      "eatBelow": 100,
+      "drinkAbove": 80,
+      "wanderChance": 0.12,
+      "sleepAt": 80,
+      "scavenging": {
+        "followRadius": 15,
+        "memoryTurns": 40,
+        "circleRadius": 2,
+        "fleeRadius": 5,
+        "split": {
+          "source": "Item.RawMeat",
+          "piece": "Item.CarrionMorsel",
+          "pieces": 20
+        }
+      }
+    },
+    "flight": {
+      "height": 2,
+      "takeoffEnergy": 3,
+      "moveEnergy": 2,
+      "maxTurns": 24,
+      "minCapacity": 0.75,
+      "fallDamage": 3,
+      "noise": 4
+    },
+    "traits": [
+      "Trait.CarrionGut"
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.AshCrow",
+    "label": "재까마귀",
+    "creatures": [
+      "Creature.AshCrow"
+    ],
+    "kind": "animal",
+    "difficulty": 5,
+    "silhouette": "재까마귀의 실루엣",
+    "yields": [
+      {
+        "item": "Item.CrowFeathers",
+        "count": 3
+      },
+      {
+        "item": "Item.CarrionMorsel",
+        "count": 2
+      }
+    ],
+    "facts": [
+      "몸은 너무 작아 고기보다 깃털을 얻는 데 의미가 있다.",
+      "길드의 전서 까마귀는 다리에 붉은 실을 묶는다."
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrowFeathers",
+    "label": "재까마귀 깃털 꾸러미",
+    "sprite": "av331_crow_feathers",
+    "category": "misc",
+    "weight": 0.005,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 3,
+    "description": "원래 새의 날개와 꼬리에서 골라낸 작은 깃털 꾸러미. 실제 화살 깃으로 쓴다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CarrionMorsel",
+    "label": "뜯긴 고기 조각",
+    "description": "원래 고기 한 덩이의20분의1인25g 조각. 원래 신선도와 오염을 보존한다.",
+    "sprite": "complete_item_raw_meat",
+    "category": "food",
+    "weight": 0.025,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "value": 0,
+    "food": {
+      "kcal": 15,
+      "vitamin": 0.05,
+      "raw": true,
+      "scent": 6,
+      "protein": 2.5,
+      "water": 6,
+      "poison": 15,
+      "freshHours": 48
+    },
+    "cooking": {
+      "result": "Item.RoastedMorsel",
+      "turns": 40
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RoastedMorsel",
+    "label": "구운 고기 조각",
+    "description": "원래 고기 한 덩이의20분의1인25g 조각. 원래 신선도와 오염을 보존한다.",
+    "sprite": "complete_item_roasted_meat",
+    "category": "food",
+    "weight": 0,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "value": 0,
+    "food": {
+      "kcal": 16.5,
+      "water": 3,
+      "vitamin": 0.025,
+      "protein": 2.5,
+      "freshHours": 72,
+      "cooked": true
+    }
+  },
+  {
+    "defType": "Trait",
+    "id": "Trait.CarrionGut",
+    "label": "부패살에 적응한 위장",
+    "description": "작은 청소동물의 일반 식중독 위험 ×0.05. 음식의 실제 병원체·독성 재·갈증은 그대로 남는다.",
+    "mods": {
+      "foodPoisonMult": 0.05,
+      "rawMood": 0
+    },
+    "conflicts": [],
+    "weight": 0
+  }
+]

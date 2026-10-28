@@ -1,0 +1,95 @@
+{
+  "format": 1,
+  "date": "2026-10-24",
+  "activationReady": false,
+  "generator": "image_gen.imagegen",
+  "modelVersion": null,
+  "modelVersionNote": "Tool did not expose version.",
+  "externalGamePixelsUsed": false,
+  "originalPngEditing": false,
+  "structureContract": "structure-contract.json",
+  "candidates": {
+    "surveyor-idle-v1": {
+      "request": "requests/surveyor-idle-v1.json",
+      "requestSha256": "60eb713f36e7210d03873c0d2d06863d4dc5bf3982abbe5558f8356eeb48feb4",
+      "exactArguments": {
+        "prompt": "Create a brand-new ORIGINAL production sprite atlas for ASHVEIL, a cold ash-covered post-disaster world of worn industrial relics. Original game art only, no existing game raster, no tracing. Extremely detailed crisp pixel clusters, hard readable silhouette, scratched dark gunmetal, dulled aged bronze joints, desaturated olive-grey housing, bolts, sealed panels, ash caught in seams. Natural diffuse light, no glossy sci-fi neon, magic, flames, rust fog, smoke, motion blur or photorealistic smooth shading. A coherent engineered machine, never biological insect skin or an animal in armor.\n\nATLAS CONTRACT: EXACTLY 4 rows x 4 columns, 16 separated complete whole machines on true transparent RGBA. One row one direction: row1 FRONT toward bottom/viewer; row2 LEFT front points left; row3 RIGHT front points right; row4 BACK front points away to top, show rear panel. Same elevated three-quarter game camera, body/head scale, component count and identity throughout. NO scenery, terrain, floor, contact shadows, grid, text, labels, logos, checkerboard or background colors. Very wide TRANSPARENT gutters: machines are MINIATURE figures occupying only the central 50-55 percent of each cell. In a 1024 square atlas each silhouette should be no more than 145px wide or 170px tall inside a 256px cell. Full antenna/feet/tools must fit inside their own clear rectangle; never let neighboring rectangular frame bounds overlap. Do not crop or merge parts to fit.\n\nThis is IDLE only: four real different subtle poses per direction, left-to-right neutral resting, small sensor/servo adjustment, mild weight/compliance shift while feet remain planted, return/settle. Draw actual head/mast/servo geometry changes, not identical sprites with different light/color. All supporting feet remain grounded and local ground anchor stays steady; no walking, firing or active task effects in this atlas.\n\nSPECIES: SURVEYOR, a slender 90kg 2.2-metre-high THREE-LEGGED survey tripod. Exactly THREE mechanically articulated DRIVE LEGS arranged as a triangle: one anterior centered support and two rear side supports. There is NO fourth leg. Choose elevated camera and foot spacing so all THREE separate feet can be counted in front/back and side views without impossible leg branches. Tall slim body, compact pivoting optical head with ONE large clear dark survey LENS marking the FRONT, subtle nested glass rings but no emitted light. A SINGLE distinct long thin WHIP ANTENNA projects from roof on its own visible mounting socket, separate from lens/head; it must be present, long, unbroken and inside crop in all 16 frames. Rear view shows the back of lens housing and antenna socket, not another front-facing eye. Two TINY folded lens-calibration brackets/manipulator tools hug the housing, never touch ground and are not arms holding weapons or extra tripod legs. Passive sealed cooling plate/vents and closed service hatch cover the INTERNAL core/power/cooling loop. No exposed glowing core. Entire machine is NON-COMBAT: no gun, claw weapons, scythes, projectile barrel, flash beam, radio-wave FX or attack posture. Idle four poses show actual small optical head tilt/pan within the row's facing, tiny antenna flex and tripod joint settling, while the same 3 feet stay planted. No copy/pasted stills or arbitrary extra foot.",
+        "transparent_background": true
+      },
+      "inputImages": [],
+      "original": "originals/surveyor-idle-v1.png",
+      "originalSha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4",
+      "toolOutputPath": "/workspace/generated_images/exec-ad17aab1-2198-4435-b522-b20b51b9391d.png",
+      "toolOutputSha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "three drive legs and separately mounted thin antenna; four views and four distinct idle poses reviewed",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "surveyor-walk-v1": {
+      "request": "requests/surveyor-walk-v1.json",
+      "requestSha256": "fce4a396123328de623a5847e38b7293a4133fc141465cc04880bba087a014d3",
+      "exactArguments": {
+        "prompt": "Create a NEW WALK atlas of the attached ORIGINAL ASHVEIL SURVEYOR, preserving exact model/materials/head size: slender THREE-LEGGED survey tripod, one dark optical front lens, ONE long separate thin whip antenna on roof, tiny folded calibration brackets and sealed metal chassis. Exactly THREE articulated DRIVE LEGS and THREE flat feet in every pose, no fourth leg, no extra limb/foot hidden as an arm, no weapons and no glowing core. All antenna and legs fully inside crop.\n\nExactly FOUR ROWS x FOUR COLUMNS of separated full machines on transparent RGBA. Rows FRONT toward bottom/viewer, LEFT front to left, RIGHT front to right, BACK front away to top (rear optics housing, face hidden). Same elevated three-quarter game camera. Keep exact three-leg tripod architecture visible in all views: anterior center leg and two rear side legs. Very generous true transparent gutters; miniature figures occupy only central half of each cell, no overlap/clipping/floor/shadow/grid/labels/text/checkerboard.\n\nFOUR real distinct keyposes of a deliberate natural TRIPOD WALK loop, left to right: 1 all THREE feet planted in a broad triangle, body loads toward next support; 2 ONLY anterior center leg lifts bent and swings forward while the TWO rear feet support and body leans into their balance; 3 anterior foot plants and ONLY LEFT REAR leg lifts/swings forward while other TWO feet support; 4 left rear foot plants and ONLY RIGHT REAR leg lifts/swings, then it will plant into frame1. Keep body/head facing same direction, modest mast movement, stable mass. Each frame must show correct one-of-three foot articulation and at least two support contacts. Do NOT copy a quadruped/biped gait or repeat same leg lift in all phases. No hopping/hovering, no attack or scanning beams.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png",
+          "sha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4"
+        }
+      ],
+      "original": "originals/surveyor-walk-v1.png",
+      "originalSha256": "a84eacbf8abe4e46a0269b00d28b500a7c112184dd17ec85657a80b51f3729f2",
+      "toolOutputPath": "/workspace/generated_images/exec-9cf59a36-2079-4c8d-a43a-2460c32b77de.png",
+      "toolOutputSha256": "a84eacbf8abe4e46a0269b00d28b500a7c112184dd17ec85657a80b51f3729f2",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "three-leg sequence: anterior foot lift, one rear foot lift, opposite rear foot lift, two supporting feet; no quadruped substitution",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    },
+    "surveyor-work-v1": {
+      "request": "requests/surveyor-work-v1.json",
+      "requestSha256": "cc110559de2d784320092cdf39171eca2f1a1b49da07e0463a9d412bb17dc7ec",
+      "exactArguments": {
+        "prompt": "Create a NEW OBSERVE/REPORT WORK atlas of the attached ORIGINAL ASHVEIL SURVEYOR. Preserve same slender THREE-LEGGED tripod body, one front dark survey lens, ONE separate long thin whip ANTENNA on its own roof socket, tiny folded calibration tools, closed internal core/power hatch, worn gunmetal/bronze/olive crisp pixel art. Exactly THREE feet, no added weapon/gun/scythe. Three feet firmly grounded throughout, antenna present and fully inside every crop.\n\nExactly FOUR ROWS x FOUR COLUMNS on transparent RGBA, complete separate whole machines. Row1 FRONT toward bottom, row2 LEFT, row3 RIGHT, row4 BACK (rear of lens housing, no second front eye). Same elevated three-quarter camera/head/body scale. Robots occupy only central half of each cell with large empty transparent gutters, no neighboring crop overlap or clipping. No floor, contact shadow, scenery, grid, labels/text/checkerboard.\n\nFour truly different OBSERVATION AND SIGNAL-REPORT poses left to right: 1 acquire: optical head lowers/tilts to inspect ahead, antenna neutral; 2 track: head pivots a small amount within facing direction and sensor cradle adjusts, three feet planted; 3 report: head steadies on target, the existing single whip antenna straightens/extends slightly from its own telescoping base, a tiny mechanical collar shifts to show active mast posture; 4 complete/settle: antenna relaxes back and optical head returns toward neutral. Actual mechanical geometry must change, not merely colored flashing duplicate sprites. This is NON-ATTACKING work: no beam, radio-wave circles, flash light burst, tracer/projectile, slash, shock or permanent emitted glow. The renderer will add any real signal/flash FX only when game rules authorize it. Rear row head still looks away and antenna remains distinct from sensor.",
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png"
+        ]
+      },
+      "inputImages": [
+        {
+          "path": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/surveyor-idle-v1.png",
+          "sha256": "226bbfda694ea4bdea0ac58c1fcd199d321ced9f9d1221b3ff7a47de9efa74d4"
+        }
+      ],
+      "original": "originals/surveyor-work-v1.png",
+      "originalSha256": "826f1a1e7f4a39253a5a1e5cc1c6b6551c151b74426c73f40164be089cd8a28a",
+      "toolOutputPath": "/workspace/generated_images/exec-015b4239-18b2-4eac-af29-d8e18c868219.png",
+      "toolOutputSha256": "826f1a1e7f4a39253a5a1e5cc1c6b6551c151b74426c73f40164be089cd8a28a",
+      "originalBytesPreserved": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "status": "accepted-art-only",
+      "reason": "optical tracking and existing antenna mechanical posture, no attack or painted flash/report FX",
+      "layout": "4x4 one direction per row; actual row mapping in source-analysis.json"
+    }
+  }
+}

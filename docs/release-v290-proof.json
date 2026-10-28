@@ -1,0 +1,224 @@
+{
+  "checkpoint": "v290-final",
+  "manifestSha256": "8af599b7cf95ffdb15fb41ed278a5fce10306352c9df03a60424ba98888a8496",
+  "save": 197,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 314,
+  "schemaFiles": 162,
+  "source": {
+    "src": {
+      "files": 663,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1028,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 196,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 458,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "nativeToFinalSource": {
+    "src": {
+      "files": 663,
+      "allBytesIdentical": true
+    },
+    "dist": {
+      "files": 857,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 458,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1028,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 196,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 324,
+    "passed": 5907,
+    "failed": 0,
+    "seconds": 697.5264584960937,
+    "workers": 2,
+    "ranIn": "immutable v290-final"
+  },
+  "world": {
+    "status": "passed",
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 431.786342476,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo287": 30,
+    "scope": "ALL30 complete RESULT rows, averageDays and causes; not entire WorldState"
+  },
+  "goldens": {
+    "baseline": 289,
+    "current": 290,
+    "scope": "ALL5 WHOLE initial/final/errors. Exactly version196→197 and2contenthash paths. ALL remaining bodies/items/UID/time/worldterritories/observations/terrain/roads/sites/markets/ALL RNG/errors exact289. These vectors do not encounter burning storage; real storage fire separately covered by actual input and dedicated whole-state tests.",
+    "rows": [
+      {
+        "name": "surface",
+        "initialHash": "4aaf5ec6",
+        "hash": "194aefaa",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          },
+          "state": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          }
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "67c08ecb",
+        "hash": "c2a709b8",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          },
+          "state": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          }
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "2680a5e3",
+        "hash": "bb2a22a8",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          },
+          "state": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          }
+        }
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "3a89c8f9",
+        "hash": "50cb1962",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          },
+          "state": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          }
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "3a89c8f9",
+        "hash": "3db59336",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          },
+          "state": {
+            "versionAndTwoContentHashPaths": 3,
+            "allRemainingWholeStateExact289": true
+          }
+        }
+      }
+    ]
+  },
+  "native": {
+    "screenshots": 10,
+    "wholeRoundtrips": 6,
+    "wholeStatePhases": 20,
+    "actualInputTU": 90700,
+    "mainTU": 90500,
+    "salvageTU": 200,
+    "separateFiniteInitialNodePreparationTU": 30400,
+    "errors": 0,
+    "frozen": "v290-art-native"
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen290": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen290": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+    "ownPreviewWrapperUsed": true,
+    "source": "immutable v290-art-native"
+  },
+  "all18PngIndependentlyViewed": true,
+  "art": "Original pine/dead2+storage closed/open/item3.5PNG/SVGpairs/29exactcopies/11+12deterministicreproduction. ALL289manifest entries/public439files unchanged. Only Stash/StorageChest bindings; shared Chest/Guard/BoatHold/ZeroVault/Altar/CoracleKit/Blackwood/stump preserved. Player occludes closed chest1410/1417; actual separated1411/1418/1419 prove closed/open/item64.",
+  "validation": "Related5files58(new15storagefire, existingfire/wooddoor/CLI and10goldens), VueType/build/lint0errors/1preexistingunusedmirrorwarning/Schema162/Defs884/206Items/88Recipes/314patches passed.",
+  "originalFailures": "First two unit runs each had2wrongfixtureassertions: normal woundUID allocation/mergedwoundcount, newlystarted0elapsedpartialfuelabsence, consciousness-before-storemissing. Dedicated material fixtures move actor away; actual body/pendingrest tests retained. Initial Sack uses actual contents+nestedUID. FirstNative usedn(society) incorrectly forSE; changed actual input toNumpad3. Temporary GameScreen change was reverted; no product keyfix claimed. Second8/5/17/90600 passed. Final added freeopen/southstep/spareitem resulting10/6/20/90700; all raw outputs retained.",
+  "limits": "Finite initial placed closed preloaded chest/4contents/nestedCloth/groundWood and two tree-art tiles; no claim past crafting/placement/growth occurred. Salvage initial produced by separate actual304T Node preparation; browser actual500ml1T/freeopen/south1. Existing absorbed crop contamination unrelated. No whole building/roof/globalfire/crime/offscreenfire or ALL expansion completion claim.",
+  "excluded": "Rootfuture291 soil water and Save198 are NOT included."
+}

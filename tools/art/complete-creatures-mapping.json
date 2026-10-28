@@ -1,0 +1,2385 @@
+{
+  "scope": "33 resolved nonabstract Creature definitions from the pre-v302 catalog; original 20 chars retained. Four missing animal keys and two role-specific chars authored separately. No Core/Def/renderer/shared manifest edited by this generator.",
+  "baseline": {
+    "path": "tools/art/complete-catalog-v302-before.json",
+    "sha256": "b080805d0ff4352d80f3cc382aca955a8b6aabcccd3906085eb541caeed61c79"
+  },
+  "counts": {
+    "resolvedCreatures": 33,
+    "existingCharsReviewed": 20,
+    "existingUniqueFramesReviewed": 536,
+    "newAnimalChars": 4,
+    "newRoleChars": 2,
+    "newUniquePoses": 168,
+    "newRegisteredFramesIncludingStaticAliases": 174
+  },
+  "integration": {
+    "fragment": "tools/art/complete-creatures.fragment.json",
+    "patchProposal": "tools/art/complete-creatures.patches.json",
+    "appliedByGenerator": false,
+    "runtime": "loadAtlas loads every registered sheet; MapRenderer.makeView selects chars[creatureSprite(w,c)] before animation/static/icon fallbacks. Same-key frames are also supplied for preload/static consumers.",
+    "preloadedGround": [
+      "murk_leech"
+    ],
+    "newGameSelection": "createCreature picks char when present, otherwise sprite; its logic is unchanged.",
+    "prototypeOrSpawnPolicy": "No spawn, placement, AI, body, equipment, combat, or save rule changed. Kept excluded species are still drawn.",
+    "marineCreatureDefs": "No separate marine animal Creature exists in the 33-definition baseline. Coastal residents are humans with the existing worker/trader/healer/guard appearance aliases.",
+    "otherLegacyAnimalConsumers": "Repository source and resolved catalog searches found only the four authored animal sprite keys. No unrelated animal icon is used to stand in for these creatures.",
+    "legacyHumanSpriteFields": "player and reaver2 remain in inherited sprite fields but are not selected for new creatures when char is present. Existing raw hero/reaver0/reaver1 are the preserved save selections covered here; unknown historical save values are not asserted."
+  },
+  "creatures": [
+    {
+      "id": "Creature.Shade",
+      "label": "그늘 사람",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedDisplayKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade0",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade0-attack.png",
+            "sprites/original/ashveil-shade0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade1",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade1-attack.png",
+            "sprites/original/ashveil-shade1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade2",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade2-attack.png",
+            "sprites/original/ashveil-shade2-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade3",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade3-attack.png",
+            "sprites/original/ashveil-shade3-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.ShadeGroveResident",
+      "label": "숲의 그늘 주민",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedDisplayKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade0",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade0-attack.png",
+            "sprites/original/ashveil-shade0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade1",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade1-attack.png",
+            "sprites/original/ashveil-shade1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade2",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade2-attack.png",
+            "sprites/original/ashveil-shade2-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade3",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade3-attack.png",
+            "sprites/original/ashveil-shade3-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Existing own-original shade0/1/2/3 body variants remain shared across grove roles. No unique role costume is promised; no cross-species icon reuse."
+      ]
+    },
+    {
+      "id": "Creature.ShadeGroveGuard",
+      "label": "종자 금고 경비",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedDisplayKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade0",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade0-attack.png",
+            "sprites/original/ashveil-shade0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade1",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade1-attack.png",
+            "sprites/original/ashveil-shade1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade2",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade2-attack.png",
+            "sprites/original/ashveil-shade2-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade3",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade3-attack.png",
+            "sprites/original/ashveil-shade3-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Existing own-original shade0/1/2/3 body variants remain shared across grove roles. No unique role costume is promised; no cross-species icon reuse."
+      ]
+    },
+    {
+      "id": "Creature.ShadeGroveMerchant",
+      "label": "숲의 교환상",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedDisplayKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade0",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade0-attack.png",
+            "sprites/original/ashveil-shade0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade1",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade1-attack.png",
+            "sprites/original/ashveil-shade1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade2",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade2-attack.png",
+            "sprites/original/ashveil-shade2-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade3",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade3-attack.png",
+            "sprites/original/ashveil-shade3-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Existing own-original shade0/1/2/3 body variants remain shared across grove roles. No unique role costume is promised; no cross-species icon reuse."
+      ]
+    },
+    {
+      "id": "Creature.ShadeGroveHealer",
+      "label": "숲의 간병인",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedDisplayKeys": [
+        "shade0",
+        "shade1",
+        "shade2",
+        "shade3"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade0",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade0-attack.png",
+            "sprites/original/ashveil-shade0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade1",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade1-attack.png",
+            "sprites/original/ashveil-shade1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade2",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade2-attack.png",
+            "sprites/original/ashveil-shade2-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "shade3",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade3-attack.png",
+            "sprites/original/ashveil-shade3-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Existing own-original shade0/1/2/3 body variants remain shared across grove roles. No unique role costume is promised; no cross-species icon reuse."
+      ]
+    },
+    {
+      "id": "Creature.Settler",
+      "label": "정착민",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_worker"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_worker"
+      ],
+      "proposedAliases": {
+        "hero": "resident_worker"
+      },
+      "bindings": [
+        {
+          "key": "resident_worker",
+          "sourcePaths": [
+            "sprites/original/ashveil-resident-attack.png",
+            "sprites/original/ashveil-resident-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SettlementDoctor",
+      "label": "의사",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_healer"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_healer"
+      ],
+      "proposedAliases": {
+        "hero": "resident_healer"
+      },
+      "bindings": [
+        {
+          "key": "resident_healer",
+          "sourcePaths": [
+            "sprites/original/ashveil-healer-attack.png",
+            "sprites/original/ashveil-healer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.Drifter",
+      "label": "떠돌이",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "original_wanderer_hero"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "original_wanderer_hero",
+          "sourcePaths": [
+            "sprites/original/ashveil-player-wanderer-attack.png",
+            "sprites/original/ashveil-player-wanderer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "The active-player hero override is renderer-only. A non-player stored hero still uses the existing original hero char."
+      ]
+    },
+    {
+      "id": "Creature.Reaver",
+      "label": "잿빛 약탈자",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "reaver0",
+        "reaver1"
+      ],
+      "baselineSprite": [
+        "reaver0",
+        "reaver1",
+        "reaver2"
+      ],
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "reaver0",
+        "reaver1"
+      ],
+      "proposedDisplayKeys": [
+        "reaver0",
+        "reaver1"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "reaver0",
+          "sourcePaths": [
+            "sprites/original/ashveil-reaver-attack.png",
+            "sprites/original/ashveil-reaver-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "reaver1",
+          "sourcePaths": [
+            "sprites/original/ashveil-reaver1-attack.png",
+            "sprites/original/ashveil-reaver1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.AshHound",
+      "label": "재늑대",
+      "body": "Body.Quadruped",
+      "baselineChar": null,
+      "baselineSprite": "ash_hound",
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "ash_hound"
+      ],
+      "proposedDisplayKeys": [
+        "ash_hound"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "ash_hound",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/ash_hound-attack.png",
+            "sprites/original/complete/creatures/ash_hound-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Baseline has no char and no registered creature frame. New same-key character supplies the renderer path without changing creature selection or save values."
+      ]
+    },
+    {
+      "id": "Creature.AshHoundAlpha",
+      "label": "재늑대 우두머리",
+      "body": "Body.Quadruped",
+      "baselineChar": null,
+      "baselineSprite": "ash_hound_alpha",
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "ash_hound_alpha"
+      ],
+      "proposedDisplayKeys": [
+        "ash_hound_alpha"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "ash_hound_alpha",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/ash_hound_alpha-attack.png",
+            "sprites/original/complete/creatures/ash_hound_alpha-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Baseline has no char and no registered creature frame. New same-key character supplies the renderer path without changing creature selection or save values."
+      ]
+    },
+    {
+      "id": "Creature.BurrowRat",
+      "label": "굴쥐",
+      "body": "Body.Quadruped",
+      "baselineChar": null,
+      "baselineSprite": "burrow_rat",
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "burrow_rat"
+      ],
+      "proposedDisplayKeys": [
+        "burrow_rat"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "burrow_rat",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/burrow_rat-attack.png",
+            "sprites/original/complete/creatures/burrow_rat-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Baseline has no char and no registered creature frame. New same-key character supplies the renderer path without changing creature selection or save values."
+      ]
+    },
+    {
+      "id": "Creature.ReaverChief",
+      "label": "약탈단 두목",
+      "body": "Body.Humanoid",
+      "baselineChar": "reaver0",
+      "baselineSprite": [
+        "reaver0",
+        "reaver1",
+        "reaver2"
+      ],
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "reaver0"
+      ],
+      "proposedDisplayKeys": [
+        "complete_reaver_chief"
+      ],
+      "proposedAliases": {
+        "reaver0": "complete_reaver_chief"
+      },
+      "bindings": [
+        {
+          "key": "complete_reaver_chief",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/complete_reaver_chief-attack.png",
+            "sprites/original/complete/creatures/complete_reaver_chief-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "New role character requires the proposed display-only characterAliases patch. Saved char selection is unchanged."
+      ]
+    },
+    {
+      "id": "Creature.ReaverArcher",
+      "label": "약탈단 궁수",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "reaver0",
+        "reaver1"
+      ],
+      "baselineSprite": [
+        "reaver0",
+        "reaver1",
+        "reaver2"
+      ],
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "reaver0",
+        "reaver1"
+      ],
+      "proposedDisplayKeys": [
+        "complete_reaver_archer"
+      ],
+      "proposedAliases": {
+        "reaver0": "complete_reaver_archer",
+        "reaver1": "complete_reaver_archer"
+      },
+      "bindings": [
+        {
+          "key": "complete_reaver_archer",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/complete_reaver_archer-attack.png",
+            "sprites/original/complete/creatures/complete_reaver_archer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "New role character requires the proposed display-only characterAliases patch. Saved char selection is unchanged."
+      ]
+    },
+    {
+      "id": "Creature.ShadeChief",
+      "label": "그늘 우두머리",
+      "body": "Body.Humanoid",
+      "baselineChar": "shade_chief",
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "shade_chief"
+      ],
+      "proposedDisplayKeys": [
+        "shade_chief"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "shade_chief",
+          "sourcePaths": [
+            "sprites/original/ashveil-shade-chief-attack.png",
+            "sprites/original/ashveil-shade-chief-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.Withered",
+      "label": "말라붙은 자",
+      "body": "Body.Humanoid",
+      "baselineChar": "withered",
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "withered"
+      ],
+      "proposedDisplayKeys": [
+        "withered"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "withered",
+          "sourcePaths": [
+            "sprites/original/ashveil-withered-attack.png",
+            "sprites/original/ashveil-withered-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.WitheredPriest",
+      "label": "말라붙은 사제",
+      "body": "Body.Humanoid",
+      "baselineChar": "withered_priest",
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "withered_priest"
+      ],
+      "proposedDisplayKeys": [
+        "withered_priest"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "withered_priest",
+          "sourcePaths": [
+            "sprites/original/ashveil-withered-priest-attack.png",
+            "sprites/original/ashveil-withered-priest-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SporeMan",
+      "label": "포자 인간",
+      "body": "Body.Humanoid",
+      "baselineChar": [
+        "spore0",
+        "spore1"
+      ],
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "spore0",
+        "spore1"
+      ],
+      "proposedDisplayKeys": [
+        "spore0",
+        "spore1"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "spore0",
+          "sourcePaths": [
+            "sprites/original/ashveil-spore0-attack.png",
+            "sprites/original/ashveil-spore0-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "spore1",
+          "sourcePaths": [
+            "sprites/original/ashveil-spore1-attack.png",
+            "sprites/original/ashveil-spore1-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.Amalgam",
+      "label": "융합체",
+      "body": "Body.Amalgam",
+      "baselineChar": "amalgam",
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "amalgam"
+      ],
+      "proposedDisplayKeys": [
+        "amalgam"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "amalgam",
+          "sourcePaths": [
+            "sprites/original/ashveil-amalgam-attack.png",
+            "sprites/original/ashveil-amalgam-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.Signalist",
+      "label": "신호회 정비공",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_worker"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_worker"
+      ],
+      "proposedAliases": {
+        "hero": "resident_worker"
+      },
+      "bindings": [
+        {
+          "key": "resident_worker",
+          "sourcePaths": [
+            "sprites/original/ashveil-resident-attack.png",
+            "sprites/original/ashveil-resident-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SettlementTrader",
+      "label": "상인",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_trader"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_trader"
+      ],
+      "proposedAliases": {
+        "hero": "resident_trader"
+      },
+      "bindings": [
+        {
+          "key": "resident_trader",
+          "sourcePaths": [
+            "sprites/original/ashveil-trader-attack.png",
+            "sprites/original/ashveil-trader-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SignalistMerchant",
+      "label": "신호회 부품 교환원",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_trader"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_trader"
+      ],
+      "proposedAliases": {
+        "hero": "resident_trader"
+      },
+      "bindings": [
+        {
+          "key": "resident_trader",
+          "sourcePaths": [
+            "sprites/original/ashveil-trader-attack.png",
+            "sprites/original/ashveil-trader-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SignalistHealer",
+      "label": "신호회 간병인",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_healer"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_healer"
+      ],
+      "proposedAliases": {
+        "hero": "resident_healer"
+      },
+      "bindings": [
+        {
+          "key": "resident_healer",
+          "sourcePaths": [
+            "sprites/original/ashveil-healer-attack.png",
+            "sprites/original/ashveil-healer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SettlementGuard",
+      "label": "정착지 경비",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_guard"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_guard"
+      ],
+      "proposedAliases": {
+        "hero": "resident_guard"
+      },
+      "bindings": [
+        {
+          "key": "resident_guard",
+          "sourcePaths": [
+            "sprites/original/ashveil-guard-attack.png",
+            "sprites/original/ashveil-guard-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.SignalistGuard",
+      "label": "신호회 파수꾼",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_guard"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_guard"
+      ],
+      "proposedAliases": {
+        "hero": "resident_guard"
+      },
+      "bindings": [
+        {
+          "key": "resident_guard",
+          "sourcePaths": [
+            "sprites/original/ashveil-guard-attack.png",
+            "sprites/original/ashveil-guard-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.TenderDrone",
+      "label": "수리 드론",
+      "body": "Body.TenderDrone",
+      "baselineChar": "tender_drone",
+      "baselineSprite": null,
+      "baselineAliases": {},
+      "baselineDormant": "tender_drone_inert",
+      "currentSaveSelectionKeys": [
+        "tender_drone"
+      ],
+      "proposedDisplayKeys": [
+        "tender_drone"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "tender_drone",
+          "sourcePaths": [
+            "sprites/original/ashveil-drone-attack.png",
+            "sprites/original/ashveil-drone-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        },
+        {
+          "key": "tender_drone_inert",
+          "sourcePaths": [
+            "sprites/original/ashveil-drone-inert.png"
+          ],
+          "uniqueFrames": 4,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "attack": {}
+          },
+          "newArt": false,
+          "dormant": true
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Existing inert four-direction sheet intentionally has no attack cycle."
+      ]
+    },
+    {
+      "id": "Creature.MurkLeech",
+      "label": "늪거머리",
+      "body": "Body.Worm",
+      "baselineChar": null,
+      "baselineSprite": "murk_leech",
+      "baselineAliases": {},
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "murk_leech"
+      ],
+      "proposedDisplayKeys": [
+        "murk_leech"
+      ],
+      "proposedAliases": {},
+      "bindings": [
+        {
+          "key": "murk_leech",
+          "sourcePaths": [
+            "sprites/original/complete/creatures/murk_leech-attack.png",
+            "sprites/original/complete/creatures/murk_leech-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": true,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Baseline has no char and no registered creature frame. New same-key character supplies the renderer path without changing creature selection or save values.",
+        "GROUND preloads murk_leech. Same-key registered static frame prevents the legacy tiles/murk_leech.png request. Attack poses depict attachment reach, not a new naturalAttack rule."
+      ]
+    },
+    {
+      "id": "Creature.RetiredWanderer",
+      "label": "정착한 옛 떠돌이",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "hero"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "hero"
+      ],
+      "proposedAliases": {
+        "hero": "hero"
+      },
+      "bindings": [
+        {
+          "key": "hero",
+          "sourcePaths": [
+            "sprites/original/ashveil-wanderer-attack.png",
+            "sprites/original/ashveil-wanderer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": [
+        "Explicit hero->hero alias preserves the existing original retired appearance; the active-player override does not apply."
+      ]
+    },
+    {
+      "id": "Creature.LanternResident",
+      "label": "해안 염부",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_worker"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_worker"
+      ],
+      "proposedAliases": {
+        "hero": "resident_worker"
+      },
+      "bindings": [
+        {
+          "key": "resident_worker",
+          "sourcePaths": [
+            "sprites/original/ashveil-resident-attack.png",
+            "sprites/original/ashveil-resident-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.LanternMerchant",
+      "label": "형제단 소금 장부지기",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_trader"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_trader"
+      ],
+      "proposedAliases": {
+        "hero": "resident_trader"
+      },
+      "bindings": [
+        {
+          "key": "resident_trader",
+          "sourcePaths": [
+            "sprites/original/ashveil-trader-attack.png",
+            "sprites/original/ashveil-trader-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.LanternHealer",
+      "label": "형제단 간병인",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_healer"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_healer"
+      ],
+      "proposedAliases": {
+        "hero": "resident_healer"
+      },
+      "bindings": [
+        {
+          "key": "resident_healer",
+          "sourcePaths": [
+            "sprites/original/ashveil-healer-attack.png",
+            "sprites/original/ashveil-healer-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.LanternGuard",
+      "label": "해안 등대 파수꾼",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_guard"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_guard"
+      ],
+      "proposedAliases": {
+        "hero": "resident_guard"
+      },
+      "bindings": [
+        {
+          "key": "resident_guard",
+          "sourcePaths": [
+            "sprites/original/ashveil-guard-attack.png",
+            "sprites/original/ashveil-guard-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    },
+    {
+      "id": "Creature.ZeroVaultWarden",
+      "label": "제3 초소 금고 문지기",
+      "body": "Body.Humanoid",
+      "baselineChar": "hero",
+      "baselineSprite": "player",
+      "baselineAliases": {
+        "hero": "resident_guard"
+      },
+      "baselineDormant": null,
+      "currentSaveSelectionKeys": [
+        "hero"
+      ],
+      "proposedDisplayKeys": [
+        "resident_guard"
+      ],
+      "proposedAliases": {
+        "hero": "resident_guard"
+      },
+      "bindings": [
+        {
+          "key": "resident_guard",
+          "sourcePaths": [
+            "sprites/original/ashveil-guard-attack.png",
+            "sprites/original/ashveil-guard-walk.png"
+          ],
+          "uniqueFrames": 28,
+          "poseCounts": {
+            "idle": {
+              "down": 1,
+              "left": 1,
+              "right": 1,
+              "up": 1
+            },
+            "walk": {
+              "down": 3,
+              "left": 3,
+              "right": 3,
+              "up": 3
+            },
+            "attack": {
+              "down": 4,
+              "left": 4,
+              "right": 4,
+              "up": 4
+            }
+          },
+          "newArt": false,
+          "dormant": false
+        }
+      ],
+      "unsupportedAfterFragmentAndProposedPatches": [],
+      "notes": []
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "fromVersion": "v0.41",
+  "toVersion": "v0.42",
+  "commandsRewritten": false,
+  "saveVersion": {
+    "from": 9,
+    "to": 10
+  },
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "b91005d1",
+      "finalHash": "31bd0634",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "58502f07",
+      "finalHash": "238bbe83",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "14c7aa11",
+      "finalHash": "fe2a2e35",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "3ab3ed35",
+      "finalHash": "80ad545a",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "3ab3ed35",
+      "finalHash": "c7512871",
+      "errorsUnchanged": true,
+      "fullInitialAndFinalUnchangedExceptVersion": true
+    }
+  ],
+  "note": "기존5입력/오류를 유지하고 초기/최종 전체 상태를 비교했다. 저장 형식9→10 외에 몸/시간/로그/난수/ID/물품/경제/지식이 모두 같다. 이 입력은 투약과 이번 수정의 수면 중단을 충분히 포함하지 않는다. 별도 clinic/약물 테스트와 전용 브라우저로 실제 투약/시각/수분/내성/부작용/외용·전신/비용·자원/중단·저장·즉시 기상을 검증한다."
+}

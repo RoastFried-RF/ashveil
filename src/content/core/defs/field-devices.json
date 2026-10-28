@@ -1,0 +1,464 @@
+[
+  {
+    "defType": "Faction",
+    "id": "Faction.signalists",
+    "label": "신호회",
+    "key": "signalists",
+    "territorial": false,
+    "playerStart": 0,
+    "relations": {
+      "coalition": 10,
+      "guild": 20,
+      "reavers": -50,
+      "pilgrims": -80,
+      "guard": -20,
+      "shadefolk": 0
+    },
+    "trader": "Stock.signalists",
+    "resident": "Creature.Signalist",
+    "merchant": "Creature.SignalistMerchant",
+    "healer": "Creature.SignalistHealer",
+    "guard": "Creature.SignalistGuard"
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.Signalist",
+    "parent": "Creature.Settler",
+    "label": "신호회 정비공",
+    "faction": "signalists",
+    "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.SignalistMerchant",
+    "parent": "Creature.SettlementTrader",
+    "label": "신호회 부품 교환원",
+    "faction": "signalists",
+    "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.SignalistHealer",
+    "parent": "Creature.SettlementDoctor",
+    "label": "신호회 간병인",
+    "faction": "signalists",
+    "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.SignalistGuard",
+    "parent": "Creature.SettlementGuard",
+    "label": "신호회 파수꾼",
+    "faction": "signalists",
+    "description": "첫불 폐허의 통신 기술자 후손이다. 실제 도구와 부품으로 남은 수신 설비를 돌본다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SignalMaintenanceManual",
+    "parent": "Item.SeedVaultLedger",
+    "label": "칠번 처리구역 수신 설비 지침",
+    "description": "센서의 재를 닦고 관로의 회로를 복구하는 절차가 그려져 있다. 고장과 차양 규정의 진실은 실제 점검으로 확인해야 한다.",
+    "value": 30,
+    "book": {
+      "pages": 12,
+      "mastery": "survival",
+      "amount": 1,
+      "literacyMin": 1,
+      "bestiary": [
+        "BestiaryEntry.TenderDrone"
+      ],
+      "note": "신호회의 기술자들은 칠번 굴뚝의 온도 센서와 수신 관로를 따로 점검한다. 센서 청소에는 천과 재가 섞이지 않은 물이, 수신 관로 복구에는 구동기·전원셀과 망치가 필요하다. 회로를 고쳐도 인가 코드 없이 송신할 수 없다."
+    }
+  },
+  {
+    "defType": "TraderStock",
+    "id": "Stock.signalists",
+    "label": "신호회가 보관한 실제 부품",
+    "money": 260,
+    "bargaining": 16,
+    "entries": [
+      {
+        "item": "Item.SignalMaintenanceManual",
+        "target": 1,
+        "dailyProduction": 0,
+        "dailyConsumption": 0
+      },
+      {
+        "item": "Item.SmallActuator",
+        "target": 2,
+        "dailyProduction": 0,
+        "dailyConsumption": 0
+      },
+      {
+        "item": "Item.LowPowerCell",
+        "target": 2,
+        "dailyProduction": 0,
+        "dailyConsumption": 0
+      },
+      {
+        "item": "Item.IronHammer",
+        "target": 1,
+        "dailyProduction": 0,
+        "dailyConsumption": 0
+      },
+      {
+        "item": "Item.Cloth",
+        "target": 12,
+        "dailyProduction": 2,
+        "dailyConsumption": 1
+      },
+      {
+        "item": "Item.WaterBottle",
+        "target": 10,
+        "dailyProduction": 2,
+        "dailyConsumption": 2
+      },
+      {
+        "item": "Item.Hardtack",
+        "target": 8,
+        "dailyProduction": 2,
+        "dailyConsumption": 2
+      },
+      {
+        "item": "Item.Bandage",
+        "target": 8,
+        "dailyProduction": 2,
+        "dailyConsumption": 1
+      }
+    ]
+  },
+  {
+    "defType": "RegionSite",
+    "id": "Region.FirstlightSignalists",
+    "label": "첫불 폐허 신호회 구역",
+    "description": "남부 해안의 옛 수도 폐허 한 구역에 통신 기술자 후손들이 작업실을 세웠다. 다른 폐허 구역은 더 멀리 이어진다.",
+    "cell": [
+      62,
+      88
+    ],
+    "kind": "settlement",
+    "faction": "signalists",
+    "extension": {
+      "biome": "Biome.Coast",
+      "population": 80,
+      "footAccess": true,
+      "coast": true,
+      "generation": 3
+    },
+    "layout": "RegionLayout.SignalistEnclave"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.TowerSensor",
+    "parent": "Terrain.Workbench",
+    "label": "칠번 굴뚝 온도 센서 정비대",
+    "device": "FieldDevice.TowerSensor"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.ReceiverConduit",
+    "parent": "Terrain.Workbench",
+    "label": "수신 첨탑 관로 정비대",
+    "device": "FieldDevice.ReceiverConduit"
+  },
+  {
+    "defType": "FieldDevice",
+    "id": "FieldDevice.TowerSensor",
+    "label": "칠번 굴뚝 온도 센서",
+    "description": "센서 덮개에 재가 두껍게 쌓였다. 지침과 실제 세척 준비물이 필요하다.",
+    "operations": [
+      {
+        "id": "clean",
+        "label": "재를 닦고 측정값 보정",
+        "turns": 30,
+        "requires": [],
+        "materials": [
+          {
+            "item": "Item.Cloth",
+            "count": 1
+          }
+        ],
+        "waterMl": 200,
+        "books": [
+          "Item.SignalMaintenanceManual"
+        ],
+        "effect": {
+          "towerOutput": {
+            "tower": "Region.ChimneySeven",
+            "value": 60
+          },
+          "note": {
+            "key": "chimney-seven-sensor",
+            "title": "칠번 굴뚝 센서의 실제 점검",
+            "text": "재가 쌓인 센서는 기온 상승을 잘못 읽었다. 청소와 보정 뒤 분출 명령이80에서60으로 낮아졌다. 기록에는 차양 규정과 마지막 보정값의 유지가 남아 있다. 장막은 비상 냉각용 반사 입자이며 탑은70년째 마지막 명령을 지킨다."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "defType": "FieldDevice",
+    "id": "FieldDevice.ReceiverConduit",
+    "label": "수신 첨탑 관로",
+    "description": "첨탑으로 이어지는 바닥 회로의 구동기와 전원셀이 끊겼다. 이 회로 복구만으로 하늘과 통신할 수는 없다.",
+    "operations": [
+      {
+        "id": "restore",
+        "label": "관로 수신 회로 복구",
+        "turns": 60,
+        "requires": [],
+        "materials": [
+          {
+            "item": "Item.SmallActuator",
+            "count": 1
+          },
+          {
+            "item": "Item.LowPowerCell",
+            "count": 1
+          }
+        ],
+        "tool": "hammer",
+        "books": [
+          "Item.SignalMaintenanceManual"
+        ],
+        "effect": {
+          "note": {
+            "key": "receiver-conduit-restored",
+            "title": "첨탑 관로의 회로 복구",
+            "text": "원래 수신 관로에 실제 구동기와 전원셀을 장착했다. 첨탑의 위쪽 안테나 점검과 공사 인가 코드가 더 필요하다. 남은 별은 아직 수신하지만 송신하지 않는다는 오래된 점검 표시가 있다."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.SignalistEnclave",
+    "label": "첫불 폐허 신호회 구역",
+    "mapId": "surface",
+    "kind": "surface",
+    "depth": 0,
+    "width": 64,
+    "height": 48,
+    "fill": "Terrain.Earth",
+    "ambient": 0,
+    "daylightMult": 1,
+    "start": [
+      32,
+      46
+    ],
+    "exits": [
+      [
+        32,
+        47
+      ]
+    ],
+    "scatter": [
+      {
+        "terrain": "Terrain.Rock",
+        "chance": 0.055
+      }
+    ],
+    "clear": [
+      {
+        "x": 30,
+        "y": 14,
+        "w": 5,
+        "h": 34,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 24,
+        "y": 13,
+        "w": 17,
+        "h": 12,
+        "terrain": "Terrain.Earth"
+      }
+    ],
+    "buildings": [
+      {
+        "x": 25,
+        "y": 14,
+        "w": 15,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          32,
+          22
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "신호회 작업실",
+        "roof": true
+      }
+    ],
+    "objects": [
+      {
+        "pos": [
+          32,
+          16
+        ],
+        "terrain": "Terrain.Workbench"
+      }
+    ],
+    "spawns": [],
+    "links": []
+  },
+  {
+    "defType": "RegionLayout",
+    "id": "RegionLayout.ChimneyService",
+    "label": "칠번 굴뚝 지상 정비층",
+    "mapId": "surface",
+    "kind": "surface",
+    "depth": 0,
+    "width": 64,
+    "height": 48,
+    "fill": "Terrain.Earth",
+    "ambient": 0.06,
+    "daylightMult": 1,
+    "start": [
+      32,
+      46
+    ],
+    "exits": [
+      [
+        32,
+        47
+      ]
+    ],
+    "scatter": [
+      {
+        "terrain": "Terrain.Rock",
+        "chance": 0.055
+      }
+    ],
+    "clear": [
+      {
+        "x": 30,
+        "y": 14,
+        "w": 5,
+        "h": 34,
+        "terrain": "Terrain.Path"
+      },
+      {
+        "x": 24,
+        "y": 13,
+        "w": 17,
+        "h": 12,
+        "terrain": "Terrain.Earth"
+      }
+    ],
+    "buildings": [
+      {
+        "x": 25,
+        "y": 14,
+        "w": 15,
+        "h": 9,
+        "wall": "Terrain.RuinWall",
+        "floor": "Terrain.KtFloor",
+        "door": [
+          32,
+          22
+        ],
+        "doorTerrain": "Terrain.DoorClosed",
+        "name": "칠번 굴뚝 지상 정비실",
+        "roof": true
+      }
+    ],
+    "objects": [
+      {
+        "pos": [
+          30,
+          16
+        ],
+        "terrain": "Terrain.TowerSensor"
+      },
+      {
+        "pos": [
+          34,
+          16
+        ],
+        "terrain": "Terrain.ReceiverConduit"
+      },
+      {
+        "pos": [
+          32,
+          18
+        ],
+        "terrain": "Terrain.Campfire"
+      }
+    ],
+    "spawns": [],
+    "links": [],
+    "lights": [
+      {
+        "pos": [
+          32,
+          18
+        ],
+        "radius": 6,
+        "kind": "campfire"
+      }
+    ],
+    "legacyObjects": [
+      {
+        "key": "sensor",
+        "pos": [
+          30,
+          16
+        ],
+        "terrain": "Terrain.TowerSensor",
+        "from": [
+          "Terrain.KtFloor",
+          "Terrain.Earth",
+          "Terrain.Path"
+        ]
+      },
+      {
+        "key": "receiver",
+        "pos": [
+          34,
+          16
+        ],
+        "terrain": "Terrain.ReceiverConduit",
+        "from": [
+          "Terrain.KtFloor",
+          "Terrain.Earth",
+          "Terrain.Path"
+        ]
+      },
+      {
+        "key": "hearth",
+        "pos": [
+          32,
+          18
+        ],
+        "terrain": "Terrain.Campfire",
+        "from": [
+          "Terrain.KtFloor",
+          "Terrain.Earth",
+          "Terrain.Path"
+        ]
+      }
+    ]
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.Signalists",
+    "label": "신호회 사람들",
+    "creatures": [
+      "Creature.Signalist",
+      "Creature.SignalistMerchant",
+      "Creature.SignalistHealer",
+      "Creature.SignalistGuard"
+    ],
+    "kind": "human",
+    "difficulty": 20,
+    "silhouette": "통신 장비를 손보는 폐허의 사람",
+    "yields": [],
+    "facts": [
+      "신호회는 첫불 폐허에 남은 통신 기술자들의 후손이다.",
+      "장막 순례회와 달리 하늘에 다시 신호를 보내려 한다."
+    ]
+  }
+]

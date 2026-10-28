@@ -1,0 +1,1120 @@
+{
+  "format": "ashveil-independent-art-review-v1",
+  "reviewDate": "2026-10-21T01:28:22.557896+00:00",
+  "reviewer": "character_art",
+  "status": "passed independent static seven-icon review; actual rendered game/input review is recorded separately",
+  "snapshot": {
+    "root": "/workspace/ashveil",
+    "baseline": "/workspace/.ashveil-checkpoints/v288-final",
+    "manifest": {
+      "path": "src/client/sprites.json",
+      "sha256": "bb9bf270ed45f49e704a9258b26e799a9a9c4735f547467205c5f23efe686c24",
+      "bytes": 108303
+    },
+    "baselineManifest": {
+      "path": "/workspace/.ashveil-checkpoints/v288-final/src/client/sprites.json",
+      "sha256": "9aa181ee948f907e370e7f83302a49abfa65a650ca51d152d5de409d03bd2ff5",
+      "bytes": 107047
+    },
+    "itemSpritePatch": {
+      "path": "src/content/core/patches/nonpill-original-icons.json",
+      "sha256": "37f957157b7671e9fc4933807fee226207efab3b5d7fd57672bcc283aeb32637",
+      "bytes": 618
+    }
+  },
+  "scope": {
+    "sourcePacks": 2,
+    "runtimeIcons": 7,
+    "newSheets": 7,
+    "newFrames": 7,
+    "characterChanges": 0,
+    "PNGSVGPairs": 7,
+    "preview16Checks": 7,
+    "bucket64Checks": 1,
+    "directlyOpenedArtPNGs": 17,
+    "projectEdits": "Only docs/art-v289-independent-review.json written in this static review.",
+    "browserGPUHeavyProjectTestsOrGitRun": false
+  },
+  "findings": [],
+  "manifestDifferences": {
+    "frames": {
+      "added": [
+        "original_glass_eye",
+        "original_health_draught",
+        "original_power_cell",
+        "original_purification_ampoule",
+        "original_salt",
+        "water_bottle",
+        "water_bucket"
+      ],
+      "changed": [],
+      "removed": []
+    },
+    "ui": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "anims": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "chars": {
+      "added": [],
+      "changed": [],
+      "removed": []
+    },
+    "sheets": {
+      "added": [
+        "original_glass_eye",
+        "original_health_draught",
+        "original_power_cell",
+        "original_purification_ampoule",
+        "original_salt",
+        "original_water_bottle",
+        "original_water_bucket"
+      ],
+      "changed": [],
+      "removed": []
+    }
+  },
+  "sourceFragments": [
+    {
+      "source": {
+        "path": "/workspace/ashveil-water-vessels-art/water-vessels-manifest.fragment.json",
+        "sha256": "220d89801fa234e0322510339e2af8208ea1d915796d43f35edc1aa53d7e9cc9",
+        "bytes": 377
+      },
+      "counts": {
+        "sheets": 2,
+        "frames": 2
+      },
+      "allActualManifestValuesEqual": true
+    },
+    {
+      "source": {
+        "path": "/workspace/ashveil-nonpill-icons-art/tools/art/nonpill-manifest.fragment.json",
+        "sha256": "76651928a36a09084a50a6160c95e63511e64c733d29a70e04e25834344919c3",
+        "bytes": 957
+      },
+      "counts": {
+        "sheets": 5,
+        "frames": 5
+      },
+      "allActualManifestValuesEqual": true
+    }
+  ],
+  "exactCopyChecks": {
+    "count": 48,
+    "allEqual": true,
+    "files": [
+      {
+        "source": "/workspace/ashveil-water-vessels-art/SOURCE.md",
+        "root": "tools/art/water-vessels/SOURCE.md",
+        "sha256": "a944264f96881e4bde580ccdcb67a07d9ef9073a82866bb12fe3a3476ec9f3f6",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/draw-water-vessels.py",
+        "root": "tools/art/water-vessels/draw-water-vessels.py",
+        "sha256": "5821e769d5236e804d763b1c31a081cd8a233803b959bcda4a771b8d858aad2d",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/verification.json",
+        "root": "tools/art/water-vessels/verification.json",
+        "sha256": "3c1d262ee649bbc33061a1b5a94c51613833720df7f1355d2fd26f4b26fc838e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-contact.png",
+        "root": "tools/art/water-vessels/water-vessels-contact.png",
+        "sha256": "8a6999669dcdc5662a74fc6fb01e7fb1cdb1e2260af42fe316dffaba12d18ea0",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-integrity.json",
+        "root": "tools/art/water-vessels/water-vessels-integrity.json",
+        "sha256": "77a504a6990ca8c9ce570d5eae19992b231dea297847cc6d0a9296dbb4a36610",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-manifest.fragment.json",
+        "root": "tools/art/water-vessels/water-vessels-manifest.fragment.json",
+        "sha256": "220d89801fa234e0322510339e2af8208ea1d915796d43f35edc1aa53d7e9cc9",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-palette.json",
+        "root": "tools/art/water-vessels/water-vessels-palette.json",
+        "sha256": "57808a714fc7c5386b6384316b86367e67e99744361e62ee0d312d9e90126b57",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-usage-survey.json",
+        "root": "tools/art/water-vessels/water-vessels-usage-survey.json",
+        "sha256": "2c423edff8787ef4c9d43f5c9977c6bac293ff1f91ec92678b180554e33de8d6",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle-16.png",
+        "root": "tools/art/water-vessels/water_bottle-16.png",
+        "sha256": "7961360649c1d1a86cb0db624d7c3348a1d926f75598b50deb11e69357d79054",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle.png",
+        "root": "tools/art/water-vessels/water_bottle.png",
+        "sha256": "52ac5ade93e6dd69fa7d3552173957f84bd565e6062cb6211bd5aee1e4e56f52",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle.svg",
+        "root": "tools/art/water-vessels/water_bottle.svg",
+        "sha256": "e78eee330f2627179776157259e5b822eff2e7d4f7bb484eeec84ace08ec2814",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket-16.png",
+        "root": "tools/art/water-vessels/water_bucket-16.png",
+        "sha256": "295a220546f292c53827af3a93804e6eb773b6a50c53ae2985e85daf4523825a",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket-64.png",
+        "root": "tools/art/water-vessels/water_bucket-64.png",
+        "sha256": "36f234b6922eddf05d8c1e8a351ef3193d7b483a42b18498359554ec4e52f940",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket.png",
+        "root": "tools/art/water-vessels/water_bucket.png",
+        "sha256": "23ff3a93f8d598b55439b18cd80b2b9f3957c5647350b03df84784a40faf25e1",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket.svg",
+        "root": "tools/art/water-vessels/water_bucket.svg",
+        "sha256": "fbf7f6b57f18ddc2f2b00a2e854decb094e07871e781c9025b27b111f705c999",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/docs/art-nonpill-icons-verification.json",
+        "root": "docs/art-nonpill-icons-verification.json",
+        "sha256": "5407235d9cbe08c7713d8393e3e3080a840fe234d03ad660b05a2e68f4a19aea",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-glass-eye-16.png",
+        "root": "public/sprites/original/items/ashveil-glass-eye-16.png",
+        "sha256": "4d5c1c208fb628acbbe14c773e2776fb860b1239c946d641a0dc1cec6e900c9e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-glass-eye.png",
+        "root": "public/sprites/original/items/ashveil-glass-eye.png",
+        "sha256": "e9267143e5015109193c77f5ee35c6fb540b019af406adeb2cdb4dd56770d435",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-glass-eye.svg",
+        "root": "public/sprites/original/items/ashveil-glass-eye.svg",
+        "sha256": "fb951d7b69fb68cc87a3f9df397f88183044ee4bd6c0230885520f21af515def",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-health-draught-16.png",
+        "root": "public/sprites/original/items/ashveil-health-draught-16.png",
+        "sha256": "cb3f2b58af9e3b2876dec83e9a3c00ed4a1205007bf241dedec1e64bc2de3f94",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-health-draught.png",
+        "root": "public/sprites/original/items/ashveil-health-draught.png",
+        "sha256": "d76d1bf1dd0af6726a8532d8434cfabca8ba6eb8e5eba73102b38af2f8061703",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-health-draught.svg",
+        "root": "public/sprites/original/items/ashveil-health-draught.svg",
+        "sha256": "ac40adbc4f5c864c64b60aed5961d2916728d6f0bee2ccb40edb97fcc4e124ee",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-nonpill-contact.png",
+        "root": "public/sprites/original/items/ashveil-nonpill-contact.png",
+        "sha256": "c30f8bba9ad957afb7d5c53a5bac5ec6236f2fbdd28da1d40911d036e04e9c93",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-nonpill-palette.json",
+        "root": "public/sprites/original/items/ashveil-nonpill-palette.json",
+        "sha256": "e9457b8e90003db0d08e3c7f432185d4a9a35da2881b2ac80b9f1b7646cf5b3a",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-nonpill-source.json",
+        "root": "public/sprites/original/items/ashveil-nonpill-source.json",
+        "sha256": "549ca9430fc1b971a68423d5df88e235ce2043628f16a558539181babaa51b59",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-power-cell-16.png",
+        "root": "public/sprites/original/items/ashveil-power-cell-16.png",
+        "sha256": "e86360253d206cb306c83958bde56440dda6103411776a93c0d9bc4af73b3466",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-power-cell.png",
+        "root": "public/sprites/original/items/ashveil-power-cell.png",
+        "sha256": "d0b700df4e409f6e86de64acb5f75d5e77b7b49256d1478e2965fd216e3a5f91",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-power-cell.svg",
+        "root": "public/sprites/original/items/ashveil-power-cell.svg",
+        "sha256": "57fddb74eab3840c7dfa2ce0c2530d0be8e4e2489b5e83e025f1171203d36d5e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-purification-ampoule-16.png",
+        "root": "public/sprites/original/items/ashveil-purification-ampoule-16.png",
+        "sha256": "35af231399f623bd4e01b4ee049a6ce12283c6bf778f664fa6481265e4981c7e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-purification-ampoule.png",
+        "root": "public/sprites/original/items/ashveil-purification-ampoule.png",
+        "sha256": "fb033b650d289cf56d0c51972bbbcabb5387614d2f362e7ef8040248cf475f6e",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-purification-ampoule.svg",
+        "root": "public/sprites/original/items/ashveil-purification-ampoule.svg",
+        "sha256": "00e064dea0a5c899dc05e803350f8fd00eb850c4371e705c58843e144bbf64db",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-salt-16.png",
+        "root": "public/sprites/original/items/ashveil-salt-16.png",
+        "sha256": "22afedcf1ebe7fa4a92e413f9356b0164797052bd42bc4de5840bf145799b8ea",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-salt.png",
+        "root": "public/sprites/original/items/ashveil-salt.png",
+        "sha256": "d9d021b7c02de1c4cb1fff235059500485ba0a3c33db7f2a806dc21bcee4e1ef",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-salt.svg",
+        "root": "public/sprites/original/items/ashveil-salt.svg",
+        "sha256": "0b00152cd8f84c14377a7b0ec2b6b08893d4540e5221e227d5e9fe82f6548636",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/tools/art/check-nonpill-icons.py",
+        "root": "tools/art/check-nonpill-icons.py",
+        "sha256": "0ef81624c899bd0c4c356b86ff2631c2259204b4657d7162153401df3d78b5aa",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/tools/art/draw-nonpill-icons.py",
+        "root": "tools/art/draw-nonpill-icons.py",
+        "sha256": "27c1a2731a07003a9e1c81d799abe44459473bbb362e2c69ff98014cfe1ebd58",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/tools/art/nonpill-manifest.fragment.json",
+        "root": "tools/art/nonpill-manifest.fragment.json",
+        "sha256": "76651928a36a09084a50a6160c95e63511e64c733d29a70e04e25834344919c3",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-nonpill-icons-art/tools/art/nonpill-usage-survey.json",
+        "root": "tools/art/nonpill-usage-survey.json",
+        "sha256": "2ac565def5be1d78969d2a0fcdb1a1523bc0ab844b77f1754739a18a63a587d4",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-contact.png",
+        "root": "public/sprites/original/items/water-vessels-contact.png",
+        "sha256": "8a6999669dcdc5662a74fc6fb01e7fb1cdb1e2260af42fe316dffaba12d18ea0",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-integrity.json",
+        "root": "public/sprites/original/items/water-vessels-integrity.json",
+        "sha256": "77a504a6990ca8c9ce570d5eae19992b231dea297847cc6d0a9296dbb4a36610",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water-vessels-palette.json",
+        "root": "public/sprites/original/items/water-vessels-palette.json",
+        "sha256": "57808a714fc7c5386b6384316b86367e67e99744361e62ee0d312d9e90126b57",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle-16.png",
+        "root": "public/sprites/original/items/water_bottle-16.png",
+        "sha256": "7961360649c1d1a86cb0db624d7c3348a1d926f75598b50deb11e69357d79054",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle.png",
+        "root": "public/sprites/original/items/water_bottle.png",
+        "sha256": "52ac5ade93e6dd69fa7d3552173957f84bd565e6062cb6211bd5aee1e4e56f52",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bottle.svg",
+        "root": "public/sprites/original/items/water_bottle.svg",
+        "sha256": "e78eee330f2627179776157259e5b822eff2e7d4f7bb484eeec84ace08ec2814",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket-16.png",
+        "root": "public/sprites/original/items/water_bucket-16.png",
+        "sha256": "295a220546f292c53827af3a93804e6eb773b6a50c53ae2985e85daf4523825a",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket-64.png",
+        "root": "public/sprites/original/items/water_bucket-64.png",
+        "sha256": "36f234b6922eddf05d8c1e8a351ef3193d7b483a42b18498359554ec4e52f940",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket.png",
+        "root": "public/sprites/original/items/water_bucket.png",
+        "sha256": "23ff3a93f8d598b55439b18cd80b2b9f3957c5647350b03df84784a40faf25e1",
+        "equal": true
+      },
+      {
+        "source": "/workspace/ashveil-water-vessels-art/water_bucket.svg",
+        "root": "public/sprites/original/items/water_bucket.svg",
+        "sha256": "fbf7f6b57f18ddc2f2b00a2e854decb094e07871e781c9025b27b111f705c999",
+        "equal": true
+      }
+    ],
+    "sourceDocumentationAppendix": [
+      {
+        "source": {
+          "path": "/workspace/ashveil-nonpill-icons-art/docs/art-nonpill-icons-original.md",
+          "sha256": "a1e55722f4b61aa32657827b51254de35bb391177eae98a81753cdb5040f304a",
+          "bytes": 10431
+        },
+        "root": {
+          "path": "docs/art-nonpill-icons-original.md",
+          "sha256": "96ea24a5372dd498aab20e1b4b16e9144be916d43c397cf2a709d8ec9ccec9bd",
+          "bytes": 10711
+        },
+        "sourcePrefixPreserved": true,
+        "addedAppendix": "\n## v0.289 적용\n\nRoot가 contact를 직접 확인하고 새5키를 등록했다. 실제5Item.sprite만 별도patch로 연결하며 기존pill6/WaterPill과 원래물품상태·UID를 유지한다.20출력 재현을 통과했고 실제UI·전체검증은 별도로 진행한다.\n"
+      }
+    ]
+  },
+  "independentPixelChecks": [
+    {
+      "frame": "water_bottle",
+      "sheet": "original_water_bottle",
+      "png": {
+        "path": "public/sprites/original/items/water_bottle.png",
+        "sha256": "52ac5ade93e6dd69fa7d3552173957f84bd565e6062cb6211bd5aee1e4e56f52",
+        "bytes": 286
+      },
+      "svg": {
+        "path": "public/sprites/original/items/water_bottle.svg",
+        "sha256": "e78eee330f2627179776157259e5b822eff2e7d4f7bb484eeec84ace08ec2814",
+        "bytes": 10639
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        6,
+        2,
+        26,
+        30
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 424,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 18,
+      "preview16": {
+        "path": "public/sprites/original/items/water_bottle-16.png",
+        "sha256": "7961360649c1d1a86cb0db624d7c3348a1d926f75598b50deb11e69357d79054",
+        "bytes": 170,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    },
+    {
+      "frame": "water_bucket",
+      "sheet": "original_water_bucket",
+      "png": {
+        "path": "public/sprites/original/items/water_bucket.png",
+        "sha256": "23ff3a93f8d598b55439b18cd80b2b9f3957c5647350b03df84784a40faf25e1",
+        "bytes": 344
+      },
+      "svg": {
+        "path": "public/sprites/original/items/water_bucket.svg",
+        "sha256": "fbf7f6b57f18ddc2f2b00a2e854decb094e07871e781c9025b27b111f705c999",
+        "bytes": 13188
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        4,
+        2,
+        27,
+        30
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 461,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 18,
+      "preview16": {
+        "path": "public/sprites/original/items/water_bucket-16.png",
+        "sha256": "295a220546f292c53827af3a93804e6eb773b6a50c53ae2985e85daf4523825a",
+        "bytes": 200,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      },
+      "preview64": {
+        "path": "public/sprites/original/items/water_bucket-64.png",
+        "sha256": "36f234b6922eddf05d8c1e8a351ef3193d7b483a42b18498359554ec4e52f940",
+        "bytes": 439,
+        "size": [
+          64,
+          64
+        ],
+        "nearest2xUpscaleExact": true
+      }
+    },
+    {
+      "frame": "original_salt",
+      "sheet": "original_salt",
+      "png": {
+        "path": "public/sprites/original/items/ashveil-salt.png",
+        "sha256": "d9d021b7c02de1c4cb1fff235059500485ba0a3c33db7f2a806dc21bcee4e1ef",
+        "bytes": 272
+      },
+      "svg": {
+        "path": "public/sprites/original/items/ashveil-salt.svg",
+        "sha256": "0b00152cd8f84c14377a7b0ec2b6b08893d4540e5221e227d5e9fe82f6548636",
+        "bytes": 6347
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        3,
+        12,
+        29,
+        30
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 260,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "preview16": {
+        "path": "public/sprites/original/items/ashveil-salt-16.png",
+        "sha256": "22afedcf1ebe7fa4a92e413f9356b0164797052bd42bc4de5840bf145799b8ea",
+        "bytes": 153,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    },
+    {
+      "frame": "original_glass_eye",
+      "sheet": "original_glass_eye",
+      "png": {
+        "path": "public/sprites/original/items/ashveil-glass-eye.png",
+        "sha256": "e9267143e5015109193c77f5ee35c6fb540b019af406adeb2cdb4dd56770d435",
+        "bytes": 264
+      },
+      "svg": {
+        "path": "public/sprites/original/items/ashveil-glass-eye.svg",
+        "sha256": "fb951d7b69fb68cc87a3f9df397f88183044ee4bd6c0230885520f21af515def",
+        "bytes": 8137
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        5,
+        7,
+        27,
+        26
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 354,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "preview16": {
+        "path": "public/sprites/original/items/ashveil-glass-eye-16.png",
+        "sha256": "4d5c1c208fb628acbbe14c773e2776fb860b1239c946d641a0dc1cec6e900c9e",
+        "bytes": 170,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    },
+    {
+      "frame": "original_power_cell",
+      "sheet": "original_power_cell",
+      "png": {
+        "path": "public/sprites/original/items/ashveil-power-cell.png",
+        "sha256": "d0b700df4e409f6e86de64acb5f75d5e77b7b49256d1478e2965fd216e3a5f91",
+        "bytes": 248
+      },
+      "svg": {
+        "path": "public/sprites/original/items/ashveil-power-cell.svg",
+        "sha256": "57fddb74eab3840c7dfa2ce0c2530d0be8e4e2489b5e83e025f1171203d36d5e",
+        "bytes": 9602
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        5,
+        5,
+        26,
+        29
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 438,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "preview16": {
+        "path": "public/sprites/original/items/ashveil-power-cell-16.png",
+        "sha256": "e86360253d206cb306c83958bde56440dda6103411776a93c0d9bc4af73b3466",
+        "bytes": 152,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    },
+    {
+      "frame": "original_health_draught",
+      "sheet": "original_health_draught",
+      "png": {
+        "path": "public/sprites/original/items/ashveil-health-draught.png",
+        "sha256": "d76d1bf1dd0af6726a8532d8434cfabca8ba6eb8e5eba73102b38af2f8061703",
+        "bytes": 271
+      },
+      "svg": {
+        "path": "public/sprites/original/items/ashveil-health-draught.svg",
+        "sha256": "ac40adbc4f5c864c64b60aed5961d2916728d6f0bee2ccb40edb97fcc4e124ee",
+        "bytes": 7714
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        5,
+        5,
+        26,
+        29
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 384,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "preview16": {
+        "path": "public/sprites/original/items/ashveil-health-draught-16.png",
+        "sha256": "cb3f2b58af9e3b2876dec83e9a3c00ed4a1205007bf241dedec1e64bc2de3f94",
+        "bytes": 164,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    },
+    {
+      "frame": "original_purification_ampoule",
+      "sheet": "original_purification_ampoule",
+      "png": {
+        "path": "public/sprites/original/items/ashveil-purification-ampoule.png",
+        "sha256": "fb033b650d289cf56d0c51972bbbcabb5387614d2f362e7ef8040248cf475f6e",
+        "bytes": 245
+      },
+      "svg": {
+        "path": "public/sprites/original/items/ashveil-purification-ampoule.svg",
+        "sha256": "00e064dea0a5c899dc05e803350f8fd00eb850c4371e705c58843e144bbf64db",
+        "bytes": 7855
+      },
+      "size": [
+        32,
+        32
+      ],
+      "CRCValid": true,
+      "colorType": 6,
+      "alphaValues": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        9,
+        3,
+        22,
+        30
+      ],
+      "transparentMargin": true,
+      "opaquePixels": 253,
+      "svgEveryRGBAPixelEqual": true,
+      "paletteOnly": true,
+      "paletteColors": 19,
+      "preview16": {
+        "path": "public/sprites/original/items/ashveil-purification-ampoule-16.png",
+        "sha256": "35af231399f623bd4e01b4ee049a6ce12283c6bf778f664fa6481265e4981c7e",
+        "bytes": 151,
+        "size": [
+          16,
+          16
+        ],
+        "nearestCenterSampleExact": true
+      }
+    }
+  ],
+  "readOnlyReproductionChecks": [
+    {
+      "command": "python3 draw-water-vessels.py --check",
+      "cwd": "/workspace/ashveil-water-vessels-art",
+      "result": "PASS",
+      "deterministicFiles": 12
+    },
+    {
+      "command": "python3 tools/art/draw-nonpill-icons.py --check",
+      "cwd": "/workspace/ashveil-nonpill-icons-art",
+      "result": "PASS",
+      "deterministicFiles": 20
+    }
+  ],
+  "baselinePreservation": {
+    "allExistingManifestValuesPreserved": true,
+    "allExistingCharsAnimsUIUnchanged": true,
+    "allOldPublicFilesByteIdentical": true,
+    "oldPublicFiles": 411,
+    "oldPublicFileListAndSHA256Digest": "6352dde7a7efb773428dbe13ad29622c3327140b628d3e36cbbf32df06b7ab06",
+    "selectedBaselineSheets": 83,
+    "excludedPillsAndWaterPill": [
+      {
+        "item": "Item.PillWhite",
+        "sprite": "pill_white",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.PillYellow",
+        "sprite": "pill_yellow",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.PillBlue",
+        "sprite": "pill_blue",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.PillBlack",
+        "sprite": "pill_black",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.PillGreen",
+        "sprite": "pill_green",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.PillMagenta",
+        "sprite": "pill_magenta",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      },
+      {
+        "item": "Item.WaterPill",
+        "sprite": "pill_white",
+        "rawDefinitionEqualV288": true,
+        "notTargetedByNewIconPatch": true,
+        "existingFrameEqualV288": true,
+        "allExistingPatchOperationsEqualV288": true
+      }
+    ]
+  },
+  "itemBindings": {
+    "exactNewPatchOperations": [
+      {
+        "op": "replace",
+        "target": "Item.Salt",
+        "path": "/sprite",
+        "value": "original_salt"
+      },
+      {
+        "op": "replace",
+        "target": "Item.GlassEye",
+        "path": "/sprite",
+        "value": "original_glass_eye"
+      },
+      {
+        "op": "replace",
+        "target": "Item.PowerCell",
+        "path": "/sprite",
+        "value": "original_power_cell"
+      },
+      {
+        "op": "replace",
+        "target": "Item.HealthDraught",
+        "path": "/sprite",
+        "value": "original_health_draught"
+      },
+      {
+        "op": "replace",
+        "target": "Item.PurificationAmpoule",
+        "path": "/sprite",
+        "value": "original_purification_ampoule"
+      }
+    ],
+    "fiveNonpillItems": [
+      {
+        "item": "Item.Salt",
+        "definition": {
+          "path": "src/content/core/defs/crafting.json",
+          "sha256": "d9b195e70adc37176790dac989bc302a3733c27006be8a94b51452816688bec1",
+          "bytes": 30536
+        },
+        "rawDefinitionEqualV288": true,
+        "oldSharedSprite": "pill_white",
+        "newDisplaySpriteByExactPatch": "original_salt",
+        "size": [
+          1,
+          1
+        ],
+        "onlyPatchedField": "/sprite"
+      },
+      {
+        "item": "Item.GlassEye",
+        "definition": {
+          "path": "src/content/core/defs/prosthetics.json",
+          "sha256": "b648c7d8a20c60d8059cb875e3c9c82fd45f7231ee44cdb2772675e47e7a7371",
+          "bytes": 7042
+        },
+        "rawDefinitionEqualV288": true,
+        "oldSharedSprite": "pill_blue",
+        "newDisplaySpriteByExactPatch": "original_glass_eye",
+        "size": [
+          1,
+          1
+        ],
+        "onlyPatchedField": "/sprite"
+      },
+      {
+        "item": "Item.PowerCell",
+        "definition": {
+          "path": "src/content/core/defs/prosthetics.json",
+          "sha256": "b648c7d8a20c60d8059cb875e3c9c82fd45f7231ee44cdb2772675e47e7a7371",
+          "bytes": 7042
+        },
+        "rawDefinitionEqualV288": true,
+        "oldSharedSprite": "pill_green",
+        "newDisplaySpriteByExactPatch": "original_power_cell",
+        "size": [
+          1,
+          1
+        ],
+        "onlyPatchedField": "/sprite"
+      },
+      {
+        "item": "Item.HealthDraught",
+        "definition": {
+          "path": "src/content/core/defs/items-consumables.json",
+          "sha256": "e18f842b569670fa3f6006b96d9384e0b950c8c586457c9a1c32cc0d096e2195",
+          "bytes": 18212
+        },
+        "rawDefinitionEqualV288": true,
+        "oldSharedSprite": "pill_green",
+        "newDisplaySpriteByExactPatch": "original_health_draught",
+        "size": [
+          1,
+          1
+        ],
+        "onlyPatchedField": "/sprite"
+      },
+      {
+        "item": "Item.PurificationAmpoule",
+        "definition": {
+          "path": "src/content/core/defs/items-consumables.json",
+          "sha256": "e18f842b569670fa3f6006b96d9384e0b950c8c586457c9a1c32cc0d096e2195",
+          "bytes": 18212
+        },
+        "rawDefinitionEqualV288": true,
+        "oldSharedSprite": "pill_blue",
+        "newDisplaySpriteByExactPatch": "original_purification_ampoule",
+        "size": [
+          1,
+          1
+        ],
+        "onlyPatchedField": "/sprite"
+      }
+    ],
+    "waterFrameSharedConsumers": [
+      {
+        "item": "Item.CharcoalFilter",
+        "sprite": "water_bottle",
+        "source": "src/content/core/defs/water-items.json",
+        "rawDefinitionEqualV288": true
+      },
+      {
+        "item": "Item.DirtyWaterBottle",
+        "sprite": "water_bottle",
+        "source": "src/content/core/defs/items-consumables.json",
+        "rawDefinitionEqualV288": true
+      },
+      {
+        "item": "Item.PineTeaBottle",
+        "sprite": "water_bottle",
+        "source": "src/content/core/defs/pine-tea.json",
+        "rawDefinitionEqualV288": true
+      },
+      {
+        "item": "Item.WaterBottle",
+        "sprite": "water_bottle",
+        "source": "src/content/core/defs/items-consumables.json",
+        "rawDefinitionEqualV288": true
+      },
+      {
+        "item": "Item.WaterBucket",
+        "sprite": "water_bucket",
+        "source": "src/content/core/defs/water-vessels.json",
+        "rawDefinitionEqualV288": true
+      }
+    ],
+    "sharedBottleScope": "Replacing water_bottle display affects clean bottle, dirty bottle, PineTeaBottle and CharcoalFilter. CharcoalFilter remains a filter, not a newly invented water vessel. No new split sprite/Item is created.",
+    "vesselGridPreserved": {
+      "bottle": [
+        1,
+        2
+      ],
+      "bucket": [
+        2,
+        2
+      ]
+    },
+    "frameRegistration": "Water item sprite names already existed via legacy tile fallback. New32x32 manifest frames preserve those names and old tile PNG files. Nonpill five receive exact sprite-only Item patches; original pill6 frames stay unchanged."
+  },
+  "directlyViewedArtPNGs": [
+    {
+      "path": "/workspace/ashveil-water-vessels-art/water-vessels-contact.png",
+      "sha256": "8a6999669dcdc5662a74fc6fb01e7fb1cdb1e2260af42fe316dffaba12d18ea0",
+      "bytes": 8270,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "/workspace/ashveil-nonpill-icons-art/public/sprites/original/items/ashveil-nonpill-contact.png",
+      "sha256": "c30f8bba9ad957afb7d5c53a5bac5ec6236f2fbdd28da1d40911d036e04e9c93",
+      "bytes": 10894,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/water_bottle.png",
+      "sha256": "52ac5ade93e6dd69fa7d3552173957f84bd565e6062cb6211bd5aee1e4e56f52",
+      "bytes": 286,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/water_bucket.png",
+      "sha256": "23ff3a93f8d598b55439b18cd80b2b9f3957c5647350b03df84784a40faf25e1",
+      "bytes": 344,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-salt.png",
+      "sha256": "d9d021b7c02de1c4cb1fff235059500485ba0a3c33db7f2a806dc21bcee4e1ef",
+      "bytes": 272,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-glass-eye.png",
+      "sha256": "e9267143e5015109193c77f5ee35c6fb540b019af406adeb2cdb4dd56770d435",
+      "bytes": 264,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-power-cell.png",
+      "sha256": "d0b700df4e409f6e86de64acb5f75d5e77b7b49256d1478e2965fd216e3a5f91",
+      "bytes": 248,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-health-draught.png",
+      "sha256": "d76d1bf1dd0af6726a8532d8434cfabca8ba6eb8e5eba73102b38af2f8061703",
+      "bytes": 271,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-purification-ampoule.png",
+      "sha256": "fb033b650d289cf56d0c51972bbbcabb5387614d2f362e7ef8040248cf475f6e",
+      "bytes": 245,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/water_bottle-16.png",
+      "sha256": "7961360649c1d1a86cb0db624d7c3348a1d926f75598b50deb11e69357d79054",
+      "bytes": 170,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/water_bucket-16.png",
+      "sha256": "295a220546f292c53827af3a93804e6eb773b6a50c53ae2985e85daf4523825a",
+      "bytes": 200,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-salt-16.png",
+      "sha256": "22afedcf1ebe7fa4a92e413f9356b0164797052bd42bc4de5840bf145799b8ea",
+      "bytes": 153,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-glass-eye-16.png",
+      "sha256": "4d5c1c208fb628acbbe14c773e2776fb860b1239c946d641a0dc1cec6e900c9e",
+      "bytes": 170,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-power-cell-16.png",
+      "sha256": "e86360253d206cb306c83958bde56440dda6103411776a93c0d9bc4af73b3466",
+      "bytes": 152,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-health-draught-16.png",
+      "sha256": "cb3f2b58af9e3b2876dec83e9a3c00ed4a1205007bf241dedec1e64bc2de3f94",
+      "bytes": 164,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/ashveil-purification-ampoule-16.png",
+      "sha256": "35af231399f623bd4e01b4ee049a6ce12283c6bf778f664fa6481265e4981c7e",
+      "bytes": 151,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    },
+    {
+      "path": "public/sprites/original/items/water_bucket-64.png",
+      "sha256": "36f234b6922eddf05d8c1e8a351ef3193d7b483a42b18498359554ec4e52f940",
+      "bytes": 439,
+      "openedWith": "tools.view_image",
+      "directlyViewed": true
+    }
+  ],
+  "visualObservations": [
+    "Closed opaque desaturated bottle with stopper/neck wrapping; no visible liquid level/content/purity label.",
+    "Wood-stave bucket with fibre handle/binding, no metal hoop/rivet; dark interior is occlusion, not a fixed full/empty state.",
+    "Salt reads as irregular mineral crystals; no container or quantity/gram count is encoded.",
+    "Glass eye has artificial glass/iris/pupil shape; no flesh, blood, glow or vision-restoration symbol.",
+    "Power cell has worn case/two contacts and no charge meter/lightning/effect text.",
+    "Herbal draught is a round opaque vessel; ampoule is a slim glass form. Both differ from tablet/capsule art and avoid effect-answer marks.",
+    "Native16px examples and bucket64px were directly opened. Static source/contact review does not prove real in-game icon rendering."
+  ],
+  "notVerified": [
+    "Core world/water/drug/prosthetic/knowledge behavior or numerical balance.",
+    "Actual in-game rendering, inventory input or UI clipping; separate final PNG review follows.",
+    "All UI tint/accessibility/lighting combinations or deployment."
+  ]
+}

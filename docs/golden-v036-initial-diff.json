@@ -1,0 +1,59 @@
+{
+  "from": "v0.35",
+  "to": "v0.36",
+  "audits": [
+    {
+      "name": "surface",
+      "initialHash": "39f04094",
+      "finalHash": "7c99a8ff",
+      "errorsUnchanged": true,
+      "playerTimeBodyNpcRouteAndExistingRngUnchanged": true,
+      "initialNextIdDelta": 0,
+      "finalNextIdDelta": 0
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "3341d6be",
+      "finalHash": "28c3c9ce",
+      "errorsUnchanged": true,
+      "playerTimeBodyNpcRouteAndExistingRngUnchanged": true,
+      "initialNextIdDelta": 0,
+      "finalNextIdDelta": 0
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "94422ff2",
+      "finalHash": "0d90b90d",
+      "errorsUnchanged": true,
+      "playerTimeBodyNpcRouteAndExistingRngUnchanged": true,
+      "initialNextIdDelta": 0,
+      "finalNextIdDelta": 0
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "c5c44108",
+      "finalHash": "887c5033",
+      "errorsUnchanged": true,
+      "playerTimeBodyNpcRouteAndExistingRngUnchanged": true,
+      "initialNextIdDelta": 221,
+      "finalNextIdDelta": 221
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "c5c44108",
+      "finalHash": "c08e4680",
+      "errorsUnchanged": true,
+      "playerTimeBodyNpcRouteAndExistingRngUnchanged": true,
+      "initialNextIdDelta": 221,
+      "finalNextIdDelta": 221
+    }
+  ],
+  "worldChanges": [
+    "전역28정착지 저장고/시장 초기화",
+    "고정 정착지4개 인구 기본값",
+    "실제 물품 생성으로 nextId 증가",
+    "시간 경과한 상점 식량 정산에 필요한28지역 날씨 프로필 추가"
+  ],
+  "commandsRewritten": false,
+  "expectedHashesPinnedForTwoWorldVectors": true
+}

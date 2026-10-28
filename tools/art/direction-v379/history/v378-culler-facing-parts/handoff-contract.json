@@ -1,0 +1,135 @@
+{
+  "format": 1,
+  "scope": "LEFT/RIGHT/BACK source-only6-component candidates per sheet; not runtime registration",
+  "sourcePNGs": {
+    "LEFT": {
+      "path": "originals/culler-left-parts-v1.png",
+      "sha256": "85f4e077937684d7236ba4faca526f07bd6b261ac65fa36c7eb1097be15cbf8a",
+      "size": [
+        1536,
+        1024
+      ],
+      "exactRequest": "requests/culler-left-parts-v1.json",
+      "exactPrompt": "requests/culler-left-parts-v1.prompt.txt",
+      "promptSha256": "b0b90c421f76e1d1f78f5bb09fc93e357b2b5558fa5ae407292e3d8ea663d9a5"
+    },
+    "RIGHT": {
+      "path": "originals/culler-right-parts-v1.png",
+      "sha256": "d2eec22ac3c089daf809a9f7388740f2dc4d784f321b5f1f6c3fb4fa5a13553a",
+      "size": [
+        1536,
+        1024
+      ],
+      "exactRequest": "requests/culler-right-parts-v1.json",
+      "exactPrompt": "requests/culler-right-parts-v1.prompt.txt",
+      "promptSha256": "adeb1f1abd04ba0fe53902be4fcb5b744f255d9b2e77e0247ccbec9cba682661"
+    },
+    "BACK": {
+      "path": "originals/culler-back-parts-v1.png",
+      "sha256": "cd9cd7084159d8c1da0d59b0e8e4216357e725106f25f52cd76a8186f001cfd9",
+      "size": [
+        1536,
+        1024
+      ],
+      "exactRequest": "requests/culler-back-parts-v1.json",
+      "exactPrompt": "requests/culler-back-parts-v1.prompt.txt",
+      "promptSha256": "dd7d7332e0060d1d3f342caafe5e49bda45af22a4fa5ee90f087f58a680b8503"
+    }
+  },
+  "actualImagegenCalls": 3,
+  "perDirectionCalls": {
+    "LEFT": 1,
+    "RIGHT": 1,
+    "BACK": 1
+  },
+  "actualAutomaticRegeneration": 0,
+  "newSourcePNGs": 3,
+  "newUniqueSourceRegions": 18,
+  "sourceAnimationFrames": 0,
+  "additionalReferencePNGs": 2,
+  "onlyConsistencyInputs": [
+    {
+      "source": "/workspace/.ashveil-planned/v335-garden-machine-art/originals/culler-idle-v2.png",
+      "stagedCopy": "references/culler-idle-v2.png",
+      "sha256": "51670a65d139794b3284da16556fbcc11f19434a57b81d5587cbebfed59b7662",
+      "directlyViewedAgain": true,
+      "ownOriginalOnly": true
+    },
+    {
+      "source": "/workspace/.ashveil-planned/v373-culler-parts/originals/culler-front-parts-v1.png",
+      "stagedCopy": "references/culler-front-parts-v1.png",
+      "sha256": "6f30979dc5c4db6496c135718e84fa70eef52ebfc936af126a1b121471c6542a",
+      "directlyViewedAgain": true,
+      "ownOriginalOnly": true
+    }
+  ],
+  "sourceCropAlpha": "parts-review.json",
+  "sourceGraphicPinsAndNullPhysicalJoints": "joint-registration.json",
+  "heldFrameProposalOnly": "sprites.fragment.json",
+  "visualReview": "visual-review.json",
+  "candidateAndHeldBoundary": {
+    "chassisThreeViews": "camera/tank/sensor-or-vent identity source candidates; no actual6-leg attachment tested",
+    "leftRightLinks": "visible endcap/source-axis geometric side-link candidates; physical orientation and exact limb owner not established",
+    "feetAllThree": "held for actual toe/heel direction and true ankle/sole plane review",
+    "backAppendagesAllFive": "held for true rear/inside surface verification; graphic cap coordinates remain observed but actual requested-direction joint role not proven",
+    "allThreeBlades": "continuous geometric candidates only; true concave inner cutting edge unproven",
+    "wholeDirectionalSixPartSetsAccepted": false
+  },
+  "registrationGuidance": [
+    "Use the exact source crops; no original PNG rasterization, masking, alpha removal, resampling, recolor or reflection performed.",
+    "All frame keys are held_av378_; no chars, anims or active registry entry is created.",
+    "A visible opaque graphic cap is a2D registration candidate, not a measured physical3D pin axis.",
+    "All6 physical hip and2physical shoulder observations are null; BACK far-side tool shoulder locations remain unobserved.",
+    "Foot chords use observed alpha16 lower-contour samples; their slope is not a verified ground plane.",
+    "Only two large scythe-upper endcaps are treated as geometric points; intermediate plates/fasteners do not prove another joint or a piston stroke.",
+    "Do not repair tank ownership by blindly flipping whole source; no display flip has been applied here.",
+    "If parent later instances one link across6legs/two tools, these remain6source regions per direction, not a new fullbody gait or attack frame bank."
+  ],
+  "observedAlpha": {
+    "majorComponentsPerPNG": 6,
+    "mainSourcePixelsLostAcross18Crops": 0,
+    "foreignMajorComponentPixelsAcross18Crops": 0,
+    "alpha16CropBorderPixelsAcross18Crops": 0,
+    "mainCanvasClipping": 0,
+    "graphicMetalPins": 24,
+    "minimumPinNeighborhoodRadius12Alpha": 249,
+    "maximumPinNeighborhoodRadius12Alpha": 253,
+    "oneBackAlpha16Residual": {
+      "source": [
+        858,
+        651
+      ],
+      "rgba": [
+        70,
+        57,
+        43,
+        17
+      ],
+      "insideScytheUpperCrop": true,
+      "preserved": true
+    }
+  },
+  "failedOrHeldGenerationConditions": [
+    "All18 main regions exceed55percent of their512cell in at least one dimension; some hulls cross nominal cell boundaries. Actual crops retain separated complete main sources.",
+    "Strict alpha1-clean gutters not achieved: small original residues and canvas-edge alpha1 retained; per-source counts/borders remain in metadata.",
+    "All directional foot toe/heel and actual BACK appendage surfaces not established.",
+    "True sharp concave blade edge not established; no physical3D reconstruction."
+  ],
+  "unchangedOldFilesVerified": 106,
+  "oldFilesChanged": [],
+  "privateStaticPreviewSessions": 2,
+  "allPrivateBrowsersClosed": true,
+  "httpServersStarted": 0,
+  "sourcePixelEdits": 0,
+  "actualMainRegistration": false,
+  "newCharEntries": 0,
+  "newAnimEntries": 0,
+  "authoringPublisherCoreExistingStagesSharedBuildGameTestsCommitPushChanged": false,
+  "active": false,
+  "releaseAccepted": false,
+  "sixLegGaitAccepted": false,
+  "scytheAttackAccepted": false,
+  "acidSprayAccepted": false,
+  "captureNetAccepted": false,
+  "physical3DSkeletonAccepted": false
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.UnheatedOatmealBowl",
+    "label": "덜 익은 귀리죽 그릇",
+    "description": "귀리와 물을 담은 원래 그릇. 실제로 끓기 전에는 넣은 물의 병원체가 남는다.",
+    "sprite": "pot0",
+    "category": "food",
+    "weight": 0,
+    "value": 6,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "uses": 1,
+    "food": {
+      "kcal": 272.7272727272727,
+      "protein": 10,
+      "vitamin": 0,
+      "water": 220,
+      "freshHours": 12,
+      "raw": true,
+      "poison": 0,
+      "servings": 1,
+      "emptyVessel": "Item.Bowl"
+    },
+    "cooking": {
+      "result": "Item.OatmealBowl",
+      "turns": 400
+    }
+  }
+]

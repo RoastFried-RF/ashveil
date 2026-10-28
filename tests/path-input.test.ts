@@ -1,0 +1,9 @@
+import {describe,it,expect} from 'vitest'
+import {controlsFixture} from './controls-fixture'
+import {findPath,player,tileAt,serialize} from '../src/core'
+describe('클릭 이동의 동일 비용 경로',()=>{
+ it('빈 바닥의 동서남북은 돌아서지 않고 곧장 걷는다',()=>{for(const delta of [{x:13,y:0},{x:-13,y:0},{x:0,y:13},{x:0,y:-13}]){const{w}=controlsFixture(),from=player(w).pos,to={x:from.x+delta.x,y:from.y+delta.y},before=serialize(w.s),path=findPath(w,from,to,{preferStraight:true})!;expect(path).toHaveLength(13);path.forEach((p,i)=>expect(p).toEqual({x:from.x+Math.sign(delta.x)*(i+1),y:from.y+Math.sign(delta.y)*(i+1)}));expect(serialize(w.s)).toBe(before)}})
+ it('대각선과 비정형 목적지에서도 같은 입력이 같은 경로를 돌려준다',()=>{const{w}=controlsFixture(),from=player(w).pos;for(const delta of [{x:9,y:9},{x:-7,y:7},{x:12,y:5}]){const to={x:from.x+delta.x,y:from.y+delta.y},path=findPath(w,from,to,{preferStraight:true})!;expect(path).toHaveLength(Math.max(Math.abs(delta.x),Math.abs(delta.y)));expect(path.at(-1)).toEqual(to);expect(findPath(w,from,to,{preferStraight:true})).toEqual(path)}})
+ it('벽과 막힌 대각선은 직선 선호로 통과하지 않는다',()=>{const{w}=controlsFixture(),from=player(w).pos;for(const p of [{x:21,y:18},{x:21,y:19},{x:21,y:20},{x:21,y:21},{x:21,y:22},{x:20,y:19}])tileAt(w,p).t='Terrain.KtWall';const path=findPath(w,from,{x:24,y:20},{preferStraight:true})!;expect(path.length).toBeGreaterThan(4);let prev=from;for(const next of path){expect(w.db.terrain(tileAt(w,next).t).passable).toBe(true);if(next.x!==prev.x&&next.y!==prev.y)expect(w.db.terrain(tileAt(w,{x:next.x,y:prev.y}).t).passable||w.db.terrain(tileAt(w,{x:prev.x,y:next.y}).t).passable).toBe(true);prev=next}})
+ it('기본 NPC/기존 호출의 경로 우선순위는 선택 사항 없이 유지한다',()=>{const{w}=controlsFixture(),from=player(w).pos,to={x:33,y:20};expect(findPath(w,from,to)).toEqual(findPath(w,from,to,{preferStraight:false}));expect(findPath(w,from,to)![0]).toEqual({x:21,y:19})})
+})

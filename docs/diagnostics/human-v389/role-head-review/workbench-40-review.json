@@ -1,0 +1,2469 @@
+{
+  "format": 1,
+  "createdAtUTC": "2026-10-26T05:00:54.121585+00:00",
+  "reviewer": "character_art original-resource author, independent mounted-fit read-only observation; not independent authorship/rights certification",
+  "scope": "40 role-head base/traveler static idle canvas PNGs at1x/2x/4x from immutable v389-human-fit-r1",
+  "verdict": "No P1/P2 head/neck/size/direction/hood-face defect observed in these40 static scenes. Bounded static fit acceptance only.",
+  "releaseApproved": false,
+  "runtimeEdited": false,
+  "sourcePNGEdited": false,
+  "newImageGenerationCalls": 0,
+  "browserOrGPUOrGameRunByReviewer": false,
+  "fullWorldTypeRunByReviewer": false,
+  "oldV3101000Restarted": false,
+  "viewedPNGCount": 40,
+  "files": [
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-down-base.png",
+      "sha256": "009408a535c5a2c8dace9cd21f8db83b07eb4e05a52d2168af8770fbf4453869",
+      "bytes": 18196,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990465065746368,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "down",
+      "outfit": "base",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 묶은 머리와 갈색 머리 윤곽이 이어진다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-down-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_down",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-down-traveler.png",
+      "sha256": "4160812134908658d5056ec4449aa0f469667690a71992e482d021df4f4ff256",
+      "bytes": 20754,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990465825763542,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "down",
+      "outfit": "traveler",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-down-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_down",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_down",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_worker_down",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-left-base.png",
+      "sha256": "a646728e43b6e4125474e018186f5ab65796ac031c0001b85d45daa6da40150d",
+      "bytes": 16212,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990466597780987,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "left",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 묶은 머리와 갈색 머리 윤곽이 이어진다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-left-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_left",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-left-traveler.png",
+      "sha256": "ae3e77f0ad3fef30cc2b16153c639e4776418d271eba8a13246d4c40adce95a8",
+      "bytes": 17493,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990467353798071,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "left",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-left-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_left",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_left",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_worker_left",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-right-base.png",
+      "sha256": "6f1558edc1cc1c88b7c3dcc57dc9aea3ff45b589382607b98e0fa017ec6eb460",
+      "bytes": 15560,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990468229818049,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "right",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 묶은 머리와 갈색 머리 윤곽이 이어진다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-right-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_right",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-right-traveler.png",
+      "sha256": "0930bcc70cf3dfd08ebe1a8b41c4f1a032d87a79a17cdfddcd13637b46d462a7",
+      "bytes": 16873,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990469049836934,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "right",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-right-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_right",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_right",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_worker_right",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-up-base.png",
+      "sha256": "56bd8dbef5a06555b8467756eac7789f8f34939d8f28e2159198f905448a368d",
+      "bytes": 17868,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990469833854990,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "up",
+      "outfit": "base",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 묶은 머리와 갈색 머리 윤곽이 이어진다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다.",
+        "원본 단계에서 목 중앙은 braid 뒤의 추정점이지만 현재 표시에서 목이 끊어져 보이지 않는다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-up-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_up",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-worker-up-traveler.png",
+      "sha256": "ee776f9bc866bd582f17e0598adc3c92d301e98c47e1e42774290d46a08d2968",
+      "bytes": 19500,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990470565871849,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "worker",
+      "direction": "up",
+      "outfit": "traveler",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "후드가 뒤 머리와 귀를 덮고 앞 얼굴은 나타나지 않는다. 목/후드 뒤 연결에 눈에 띄는 틈을 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-worker-up-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_worker_up",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_up",
+            "clip": false,
+            "z": 72
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-down-base.png",
+      "sha256": "f74629d229383d7d043de6703793d3af4174662f9fc16e3a223d76a3d172a8dd",
+      "bytes": 18222,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990471505893498,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "down",
+      "outfit": "base",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 회색 머리와 수염으로 나이 든 인물의 차이가 읽힌다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-down-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_down",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-down-traveler.png",
+      "sha256": "713fb9c2cd81cf100251ce025fd76a3264794a06ca76ad5880a63d7284f9d79f",
+      "bytes": 20793,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990472201909527,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "down",
+      "outfit": "traveler",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-down-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_down",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_down",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_healer_down",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-left-base.png",
+      "sha256": "d8387a686e535d0b8d6370de42302687cabbc8dd25345115b323b17d241b21a3",
+      "bytes": 16223,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990473017928320,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "left",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 회색 머리와 수염으로 나이 든 인물의 차이가 읽힌다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-left-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_left",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-left-traveler.png",
+      "sha256": "f899db56ae02dd99f494577bdbf58f7b79215a87b8a197108340674b19d8257b",
+      "bytes": 17502,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990473841947298,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "left",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-left-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_left",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_left",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_healer_left",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-right-base.png",
+      "sha256": "ec9af8db078d7491be240c1fc8955b4ee933c83a85a67bd173bb777cbe7498dd",
+      "bytes": 15542,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990474673966459,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "right",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 회색 머리와 수염으로 나이 든 인물의 차이가 읽힌다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-right-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_right",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-right-traveler.png",
+      "sha256": "7ea554070fedbebf57e33fed81a2ee5e9586605924273edf2d5465bdb7ab1f2e",
+      "bytes": 16779,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990475485985160,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "right",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-right-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_right",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_right",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_healer_right",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-up-base.png",
+      "sha256": "6453fcd327ab84685b68db3080374cdbeb9e2b8c31db99aba2ce6e49250a9b77",
+      "bytes": 17977,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990476378001931,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "up",
+      "outfit": "base",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 회색 머리와 수염으로 나이 든 인물의 차이가 읽힌다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-up-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_up",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-healer-up-traveler.png",
+      "sha256": "47e57f7d44a2f92e5a52575094b56fec6c84b8594f7c3649b38decf2822317af",
+      "bytes": 19400,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990477138016226,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "healer",
+      "direction": "up",
+      "outfit": "traveler",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "후드가 뒤 머리와 귀를 덮고 앞 얼굴은 나타나지 않는다. 목/후드 뒤 연결에 눈에 띄는 틈을 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-healer-up-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_healer_up",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_up",
+            "clip": false,
+            "z": 72
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-down-base.png",
+      "sha256": "baecb81d43a6a435e5746c405a76af372ab423f839f410640288fb733e304407",
+      "bytes": 18366,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990478158039100,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "down",
+      "outfit": "base",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 벗겨진 정수리와 짧은 수염이 다른 역할과 구분된다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-down-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_down",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-down-traveler.png",
+      "sha256": "7e876eb315baa948cd9e228bddfdecc6a1f5ca3cfa59af05d0f112aeffe07ddf",
+      "bytes": 20871,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990478902055784,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "down",
+      "outfit": "traveler",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-down-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_down",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_down",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_trader_down",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-left-base.png",
+      "sha256": "d8ed9568e04982dcab1d43438aba37c50674350809d2550f2d9bc40309930151",
+      "bytes": 16097,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990479754074890,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "left",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 벗겨진 정수리와 짧은 수염이 다른 역할과 구분된다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-left-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_left",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-left-traveler.png",
+      "sha256": "2e3665741e093f14c09a95387895debb27de007156340fe98661a2797fe466dd",
+      "bytes": 17565,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990480558092920,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "left",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-left-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_left",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_left",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_trader_left",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-right-base.png",
+      "sha256": "aba6f0e6cff0d6b192cdc5090ab3069748455ad75caba0d7e6e946cefc126952",
+      "bytes": 15624,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990481362110949,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "right",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 벗겨진 정수리와 짧은 수염이 다른 역할과 구분된다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-right-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_right",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-right-traveler.png",
+      "sha256": "9db5bc7155d381250e1e9253a8502d756c6e548a7d9cdb4c2c8b38da258949c1",
+      "bytes": 16929,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990482126128083,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "right",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-right-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_right",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_right",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_trader_right",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-up-base.png",
+      "sha256": "6d41e7d0c7b6c92c882f2c3e3b44af421dfcd11e558e28faf5b6b7a64222f15f",
+      "bytes": 17951,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990482934146202,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "up",
+      "outfit": "base",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 벗겨진 정수리와 짧은 수염이 다른 역할과 구분된다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-up-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_up",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-trader-up-traveler.png",
+      "sha256": "68bcc94c18e4f2d6e555a0f928404658a88d1e0a387b5dcc0a0989e6ebf27a79",
+      "bytes": 19518,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990483650162258,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "trader",
+      "direction": "up",
+      "outfit": "traveler",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "후드가 뒤 머리와 귀를 덮고 앞 얼굴은 나타나지 않는다. 목/후드 뒤 연결에 눈에 띄는 틈을 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-trader-up-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_trader_up",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_up",
+            "clip": false,
+            "z": 72
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-down-base.png",
+      "sha256": "80f5941eece3133a08005e85e2f3532f3be8ca422d8fd8825a3713e27acb1ee5",
+      "bytes": 18135,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990484606183692,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "down",
+      "outfit": "base",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 깎은 머리와 단단한 얼굴 윤곽이 보인다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-down-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_down",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-down-traveler.png",
+      "sha256": "91fec20fa8b809e4e520471398509577c75e351680ab56df54ba8777a8e2355e",
+      "bytes": 20756,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990485410201718,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "down",
+      "outfit": "traveler",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-down-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_down",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_down",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_guard_down",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-left-base.png",
+      "sha256": "784d50328c6d34395e3964014492e5e854a0c4e6f37c7e99248c1201f1fc6c1f",
+      "bytes": 15928,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990486222219924,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "left",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 깎은 머리와 단단한 얼굴 윤곽이 보인다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-left-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_left",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-left-traveler.png",
+      "sha256": "3aaecd396495e9dd698c28ee3113394cff0bcad4d1a99c840106aa0722bea792",
+      "bytes": 17460,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990486998237322,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "left",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-left-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_left",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_left",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_guard_left",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-right-base.png",
+      "sha256": "b504e1b178c2e76c55a4e86f2ee445ae73830b13e1850e622cedf4f92b3e5d7e",
+      "bytes": 15314,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990487830255976,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "right",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 깎은 머리와 단단한 얼굴 윤곽이 보인다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-right-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_right",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-right-traveler.png",
+      "sha256": "62450cc8d8d6dedd3a1873e749544dfec6404e3bf23b012f5439ec2b485de075",
+      "bytes": 16745,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990488598273195,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "right",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-right-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_right",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_right",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_guard_right",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-up-base.png",
+      "sha256": "06df01dc2097d28b2d15285120f2da425264fae6a46a550b4e08ab02577c62c4",
+      "bytes": 17607,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990489434291938,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "up",
+      "outfit": "base",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 짧게 깎은 머리와 단단한 얼굴 윤곽이 보인다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-up-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_up",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-guard-up-traveler.png",
+      "sha256": "4ec2e6dd52bda3eb0cf409f5e1cf1cfcd7b9246628e7ac9b5e485c3b846b07a9",
+      "bytes": 19400,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990490190308888,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "guard",
+      "direction": "up",
+      "outfit": "traveler",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "후드가 뒤 머리와 귀를 덮고 앞 얼굴은 나타나지 않는다. 목/후드 뒤 연결에 눈에 띄는 틈을 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-guard-up-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_guard_up",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_up",
+            "clip": false,
+            "z": 72
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-down-base.png",
+      "sha256": "46bac9b86084381570cbe1461f311f8553cd42181cc365a0e895427c72bc4253",
+      "bytes": 18350,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990491166330770,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "down",
+      "outfit": "base",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 거친 짧은 머리가 보인다. 작은 흉터의 정확한 픽셀 식별까지 승인하지 않는다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-down-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_down",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-down-traveler.png",
+      "sha256": "b38c6ca898304eb743c24a70ad2016eff2d5b0f7137f77381ed2a38215614ea1",
+      "bytes": 20884,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990491950348348,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "down",
+      "outfit": "traveler",
+      "observations": [
+        "양 눈의 정면이며 머리와 목이 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-down-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_down",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_down",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_reaver_down",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-left-base.png",
+      "sha256": "9280b0eec30fb350a5b36bd647bbc4be1d7d88f4bc6897f814b88f2f443835a6",
+      "bytes": 16159,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990492758366468,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "left",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 거친 짧은 머리가 보인다. 작은 흉터의 정확한 픽셀 식별까지 승인하지 않는다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-left-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_left",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-left-traveler.png",
+      "sha256": "f38d01da08f81155de4384e90f62a8f48c1d3fcebfbb84663c1966a46bd0b32f",
+      "bytes": 17480,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990493466382345,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "left",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 왼쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-left-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_left",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_left",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_reaver_left",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-right-base.png",
+      "sha256": "54af625993ef754f4c9e810f53f6660fc6d1dc261afc0ec6467979e59b94c754",
+      "bytes": 15625,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990494322401540,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "right",
+      "outfit": "base",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 거친 짧은 머리가 보인다. 작은 흉터의 정확한 픽셀 식별까지 승인하지 않는다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-right-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_right",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-right-traveler.png",
+      "sha256": "31cfbf7c039f71774c01bd911dae4c626c72028bb666bb5c190be24b3f0996c7",
+      "bytes": 16846,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990495050417866,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "right",
+      "outfit": "traveler",
+      "observations": [
+        "코와 턱이 화면 오른쪽을 향하고 목이 몸통 위로 이어진다.",
+        "후드 안의 중앙 얼굴과 코가 방향에 맞게 남는다. 머리카락·귀가 후드 위에 중복되거나 얼굴이 다른 방향으로 겹치는 현상은 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-right-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_right",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_right",
+            "clip": false,
+            "z": 72
+          },
+          {
+            "owner": "Skull",
+            "role": "face-occlusion",
+            "source": "av389_head_reaver_right",
+            "clip": true,
+            "z": 74
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-up-base.png",
+      "sha256": "aeb5f3854719bb03ce0ffe88182a5509255a02286f68d9418caf78cfb1e28c46",
+      "bytes": 18061,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990495826435268,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "up",
+      "outfit": "base",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "기본 머리의 크기가 몸과 이어져 보이며 떠 있는 머리나 이중 머리를 발견하지 못했다. 기본형에서 거친 짧은 머리가 보인다. 작은 흉터의 정확한 픽셀 식별까지 승인하지 않는다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-up-base",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [],
+        "lining": "",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_up",
+            "clip": false,
+            "z": 70
+          }
+        ]
+      }
+    },
+    {
+      "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/head-reaver-up-traveler.png",
+      "sha256": "f00ae0bfeafeee051aeca7dbdf619c76bd226e0afa12df2dcc506127312d9bbf",
+      "bytes": 19533,
+      "size": [
+        864,
+        301
+      ],
+      "mode": "RGB",
+      "mtimeNs": 1792990496594452491,
+      "actuallyViewedWith": "view_image(detail=original)",
+      "role": "reaver",
+      "direction": "up",
+      "outfit": "traveler",
+      "observations": [
+        "뒤통수와 목 뒤이며 앞 눈·코·입이 보이지 않는다.",
+        "후드가 뒤 머리와 귀를 덮고 앞 얼굴은 나타나지 않는다. 목/후드 뒤 연결에 눈에 띄는 틈을 발견하지 못했다.",
+        "1×·2×·4×가 함께 표시된다. 잘림·과대 두상·목 분리의 명확한 P1/P2를 이 정적 장면에서 발견하지 못했다."
+      ],
+      "observedP1": [],
+      "observedP2": [],
+      "auditEvidence": {
+        "label": "head-reaver-up-traveler",
+        "phase": 0.170625,
+        "moving": false,
+        "playing": false,
+        "mode": "idle",
+        "root": [
+          0,
+          0
+        ],
+        "scales": [
+          1,
+          2,
+          4
+        ],
+        "syntheticUIDs": true,
+        "selected": [
+          "Item.Hood",
+          "Item.LeatherCoat",
+          "Item.Gloves",
+          "Item.Boots",
+          "Item.LeatherBelt"
+        ],
+        "lining": "Item.RagShirt",
+        "headNodes": [
+          {
+            "owner": "Skull",
+            "role": "flesh",
+            "source": "av389_head_reaver_up",
+            "clip": false,
+            "z": 70
+          },
+          {
+            "owner": "Skull",
+            "uid": 100013,
+            "role": "clothing",
+            "source": "av389_worn_hood_shell_up",
+            "clip": false,
+            "z": 72
+          }
+        ]
+      }
+    }
+  ],
+  "issues": {
+    "P1": [],
+    "P2": []
+  },
+  "limits": [
+    "Native1x does not resolve every wrinkle/scar/hair strand, so role identity details are assessed mainly from the supplied2x/4x comparisons.",
+    "A hood intentionally reduces visible role hair/ears; similar hooded silhouettes alone are not a wrong-alias finding.",
+    "Faint original low-alpha ghosts were retained; these grid backgrounds show no obvious rectangular background block, but all lighting/background combinations were not reviewed.",
+    "The source crown/neck points remain2D graphic candidates, not measured3D skull/joint data."
+  ],
+  "notAcceptedByThisReview": [
+    "Actual gameplay/NPC4view screenshots are not included yet.",
+    "Non-idle action/grip/walk/turn/fall/sleep transition fit.",
+    "All25garments, helmets, masks, goggles, rings/accessories beyond the selected traveler hood outfit.",
+    "Missing-body/prosthetic combinations, functionality/efficiency/defense/temperature rules.",
+    "Whole-world equivalence, realUID ownership/time/RNG, or physical3D contact."
+  ],
+  "audit": {
+    "path": "/workspace/ashveil/test-results/autonomy-v389/workbench-r4/audit.json",
+    "sha256": "d0aaff1b2ffcb05455a8acbd8a0e25025cd1a20a62e49c32997823ad61bcd943",
+    "allRows": 146,
+    "headRowsChecked": 40,
+    "errors": [],
+    "diagnosticOnly": true,
+    "wholeStateEvidence": false,
+    "worldEvidenceClaimed": false
+  },
+  "staticBindingProof": {
+    "baseline": "/workspace/.ashveil-checkpoints/v389-human-fit-r1",
+    "roleDirections": 20,
+    "aBFaceScaleCropDifferences": [],
+    "sameRegisteredRawSource": [
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/public/sprites/original/direction-v389/role-heads-four-facings-v1.png",
+        "sha256": "2d6f88f7119b623423660b39826e4c1ff05a914f053703507e81853675deecfe",
+        "exactExpectedRawSHA": true
+      }
+    ],
+    "registrationArchitecture": "human-art.json preserved; human-art.ts merges separate human-heads.json with generated body and fit metadata. Empty heads in generated human-art.json alone is not missing registration.",
+    "evidence": [
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/src/client/render/human-art.ts",
+        "sha256": "6bab4e11272646bc83b56e75319e6a37beb0465048689e744294fea522415195"
+      },
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/src/client/render/human-heads.json",
+        "sha256": "2b66b21a107b77c38ca09a92774e4aea54d9157446c4da3c2e8729f211ee4b0c"
+      },
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/src/client/render/human-view.ts",
+        "sha256": "44fe4742c9295c7e82649f6918e4f9fd378e3d3b3351b5dba0896f7de2660b5f"
+      },
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/src/client/render/human-fit.json",
+        "sha256": "3249846912e766b409dafbc445eba5c98d93b21c39f2ac2f402dd0c4b11289d8"
+      },
+      {
+        "path": "/workspace/.ashveil-checkpoints/v389-human-fit-r1/src/client/sprites.json",
+        "sha256": "20b6437b66f308455df8a471b3a86863c8ed42520a4d6a10041e392b183f70af"
+      },
+      {
+        "path": "/workspace/.ashveil-planned/v389-human-role-heads/head-contract-runtime.json",
+        "sha256": "3b3373543f0bc29efb8c550aee1773679c2a80f7cc32b4fa0b4454428243b252"
+      }
+    ]
+  }
+}

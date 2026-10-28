@@ -1,0 +1,534 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.Weapon",
+    "abstract": true,
+    "label": "무기",
+    "sprite": "knife",
+    "category": "weapon",
+    "weight": 1,
+    "value": 10,
+    "size": [
+      1,
+      2
+    ],
+    "slot": "main"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RustyKnife",
+    "parent": "Item.Weapon",
+    "label": "녹슨 칼",
+    "description": "날이 무뎌 베기보다 찢는다. 상처가 더럽다.",
+    "sprite": "rusty_knife",
+    "weight": 0.3,
+    "value": 4,
+    "size": [
+      1,
+      2
+    ],
+    "attacks": [
+      {
+        "id": "slash",
+        "label": "베기",
+        "damageType": "cut",
+        "damage": 6,
+        "pen": 8,
+        "accuracy": 10,
+        "energy": 4,
+        "family": "blade",
+        "noise": 6,
+        "bleedMult": 1.2,
+        "shortBlade": true
+      },
+      {
+        "id": "stab",
+        "label": "찌르기",
+        "damageType": "stab",
+        "damage": 7,
+        "pen": 8,
+        "accuracy": 10,
+        "energy": 4,
+        "family": "blade",
+        "noise": 6,
+        "bleedMult": 1.2,
+        "shortBlade": true
+      }
+    ],
+    "weapon": {
+      "block": 5,
+      "parry": 0
+    },
+    "edgeStart": 60,
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.HuntingKnife",
+    "parent": "Item.Weapon",
+    "label": "사냥칼",
+    "description": "찌르기에 좋다. 통조림도 딸 수 있다.",
+    "sprite": "knife",
+    "weight": 0.35,
+    "value": 18,
+    "size": [
+      1,
+      2
+    ],
+    "attacks": [
+      {
+        "id": "stab",
+        "label": "찌르기",
+        "damageType": "stab",
+        "damage": 8,
+        "pen": 10,
+        "accuracy": 12,
+        "energy": 4,
+        "family": "blade",
+        "noise": 6,
+        "bleedMult": 1.2,
+        "shortBlade": true
+      },
+      {
+        "id": "slash",
+        "label": "베기",
+        "damageType": "cut",
+        "damage": 7,
+        "pen": 10,
+        "accuracy": 12,
+        "energy": 4,
+        "family": "blade",
+        "noise": 6,
+        "bleedMult": 1.2,
+        "shortBlade": true
+      }
+    ],
+    "weapon": {
+      "block": 5,
+      "parry": 5
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 3,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "blade",
+        "ref": "Material.Scrap",
+        "volumeCm3": 50,
+        "accepts": [
+          "Metal",
+          "Stone",
+          "Bone"
+        ],
+        "primary": true
+      },
+      {
+        "id": "haft",
+        "ref": "Material.Wood",
+        "volumeCm3": 70,
+        "accepts": [
+          "Wood",
+          "Bone"
+        ]
+      }
+    ],
+    "durabilityBase": 60,
+    "massFixedG": 50,
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Machete",
+    "parent": "Item.Weapon",
+    "label": "철판 마체테",
+    "description": "개척기 농기구를 갈아 만든 칼.",
+    "sprite": "machete",
+    "weight": 0.9,
+    "value": 30,
+    "size": [
+      1,
+      3
+    ],
+    "attacks": [
+      {
+        "id": "slash",
+        "label": "내려베기",
+        "damageType": "cut",
+        "damage": 11,
+        "pen": 10,
+        "accuracy": 8,
+        "energy": 6,
+        "family": "blade",
+        "noise": 6,
+        "bleedMult": 1.0
+      }
+    ],
+    "weapon": {
+      "block": 10,
+      "parry": 10
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Steel"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Hatchet",
+    "parent": "Item.Weapon",
+    "label": "손도끼",
+    "description": "갑옷째 쪼갠다. 뼈를 부수기도 한다.",
+    "sprite": "hatchet",
+    "weight": 1.1,
+    "value": 26,
+    "size": [
+      2,
+      2
+    ],
+    "attacks": [
+      {
+        "id": "slash",
+        "label": "찍기",
+        "damageType": "cut",
+        "damage": 14,
+        "pen": 15,
+        "accuracy": 4,
+        "energy": 8,
+        "family": "axe",
+        "noise": 6,
+        "bleedMult": 1.1,
+        "shieldDamage": 2
+      }
+    ],
+    "weapon": {
+      "block": 5,
+      "parry": -5
+    },
+    "toolTags": [
+      "blade"
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "head",
+        "ref": "Material.Scrap",
+        "volumeCm3": 70,
+        "accepts": [
+          "Metal",
+          "Stone"
+        ],
+        "primary": true
+      },
+      {
+        "id": "haft",
+        "ref": "Material.Wood",
+        "volumeCm3": 350,
+        "accepts": [
+          "Wood",
+          "Bone"
+        ]
+      }
+    ],
+    "durabilityBase": 80,
+    "massFixedG": 350,
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PipeClub",
+    "parent": "Item.Weapon",
+    "label": "파이프 곤봉",
+    "description": "출혈은 적지만 뼈가 부러진다. 판금에도 통한다.",
+    "sprite": "pipe_club",
+    "weight": 1.4,
+    "value": 12,
+    "size": [
+      1,
+      3
+    ],
+    "attacks": [
+      {
+        "id": "blunt",
+        "label": "후려치기",
+        "damageType": "blunt",
+        "damage": 12,
+        "pen": 10,
+        "accuracy": 4,
+        "energy": 9,
+        "family": "blunt",
+        "noise": 6,
+        "stunD": 4
+      }
+    ],
+    "weapon": {
+      "block": 6,
+      "parry": -10
+    },
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 3,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Scrap",
+        "volumeCm3": 180,
+        "accepts": [
+          "Metal",
+          "Wood",
+          "Bone"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 100,
+    "massFixedG": 0,
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.RebarSpear",
+    "parent": "Item.Weapon",
+    "label": "철근 창",
+    "description": "두 칸 떨어진 적을 찌른다. 양손 무기.",
+    "sprite": "rebar_spear",
+    "weight": 2.2,
+    "value": 22,
+    "twoHanded": true,
+    "size": [
+      1,
+      4
+    ],
+    "attacks": [
+      {
+        "id": "stab",
+        "label": "찌르기",
+        "damageType": "stab",
+        "damage": 12,
+        "pen": 18,
+        "accuracy": 6,
+        "energy": 7,
+        "family": "spear",
+        "noise": 6,
+        "bleedMult": 0.9,
+        "reach": 2
+      }
+    ],
+    "weapon": {
+      "block": 8,
+      "parry": 5
+    },
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Bow",
+    "parent": "Item.Weapon",
+    "label": "사냥 활",
+    "description": "화살은 귀하다. 젖으면 시위가 늘어진다. 양손 무기.",
+    "sprite": "bow",
+    "weight": 1.0,
+    "value": 40,
+    "twoHanded": true,
+    "ranged": {
+      "range": 14,
+      "effective": 6,
+      "ammo": "Item.Arrow"
+    },
+    "size": [
+      2,
+      3
+    ],
+    "attacks": [
+      {
+        "id": "stab",
+        "label": "사격",
+        "damageType": "stab",
+        "damage": 10,
+        "pen": 20,
+        "accuracy": 10,
+        "energy": 6,
+        "family": "archery",
+        "noise": 3,
+        "bleedMult": 1.0
+      }
+    ],
+    "salvage": {
+      "material": "Item.Wood",
+      "count": 3,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Wood",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Arrow",
+    "label": "화살",
+    "sprite": "arrow",
+    "category": "ammo",
+    "weight": 0.05,
+    "stackable": true,
+    "value": 3,
+    "size": [
+      1,
+      2
+    ],
+    "maxStack": 20
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ScrapBuckler",
+    "label": "고철 방패",
+    "description": "정면과 방패 쪽 옆구리만 막는다. 막을 때마다 기력을 쓴다.",
+    "sprite": "buckler",
+    "category": "shield",
+    "weight": 2.0,
+    "value": 20,
+    "shield": {
+      "block": 20,
+      "absorb": 10,
+      "shove": 10
+    },
+    "size": [
+      2,
+      2
+    ],
+    "slot": "off",
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 6,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    }
+  }
+]

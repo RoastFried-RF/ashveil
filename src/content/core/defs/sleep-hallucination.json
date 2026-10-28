@@ -1,0 +1,20 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.Hallucination",
+    "label": "환각",
+    "description": "수면 부채가 쌓여 실제로 없는 소리도 듣는다. 다른 사람에게는 들리지 않는다.",
+    "mood": -6,
+    "durationTurns": 0,
+    "stack": 1,
+    "decay": "constant",
+    "replaceGroup": "sleepHallucination",
+    "hallucination": {
+      "debtHours": 24,
+      "checkTurns": 200,
+      "chance": 0.05,
+      "range": 3,
+      "lifetimeTurns": 6
+    }
+  }
+]

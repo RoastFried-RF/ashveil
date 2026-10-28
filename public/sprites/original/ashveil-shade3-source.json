@@ -1,0 +1,92 @@
+{
+  "created": "2026-10-20",
+  "method": "original manually authored integer-coordinate human sprite poses",
+  "source": "tools/art/draw-shade3.py",
+  "inputs": [],
+  "sourceSha256": "d4c0ef4b90dd43b85640108d8e52d7411d242779faca5cafc91b4ab58c604fec",
+  "externalImageInputs": false,
+  "modifiedExistingImages": false,
+  "legacyContract": {
+    "walkCell": [
+      24,
+      32
+    ],
+    "walkCount": 12,
+    "idleColumn": 1,
+    "legacyAttackExists": false,
+    "previousAnchor": [
+      0.5,
+      0.92
+    ],
+    "legacySheet": "mon1",
+    "legacyX": [
+      0,
+      24,
+      48
+    ],
+    "legacyY": [
+      128,
+      160,
+      192,
+      224
+    ]
+  },
+  "newContent": {
+    "walkCount": 12,
+    "attackCount": 16,
+    "attackCell": [
+      32,
+      40
+    ],
+    "bodyOffsetInAttack": [
+      4,
+      8
+    ],
+    "walkGroundY": 31,
+    "attackGroundY": 39
+  },
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "status": "prepared art and merge fragment, not registered in the game",
+  "files": [
+    {
+      "file": "public/sprites/original/ashveil-shade3-walk.png",
+      "bytes": 1247,
+      "sha256": "037b2fa4bca3b27e07cd743dede5b1b4db7c9ae581d4455c7dcfdc48d8683b94"
+    },
+    {
+      "file": "public/sprites/original/ashveil-shade3-attack.png",
+      "bytes": 1618,
+      "sha256": "ce54a8b6922068f17483bf9e2d5938a7eaf25b9e62aced7c1c0710716bb8cdce"
+    },
+    {
+      "file": "public/sprites/original/ashveil-shade3-walk.svg",
+      "bytes": 93087,
+      "sha256": "b6d6128b769aab0163fa7a50299c40af4b1919783b86dd387e28f270c1419f1a"
+    },
+    {
+      "file": "public/sprites/original/ashveil-shade3-attack.svg",
+      "bytes": 137765,
+      "sha256": "d96f248158d4d897bdc355f538b2d9ca1b733cec2274e6fd748e4b7c13181a36"
+    },
+    {
+      "file": "public/sprites/original/ashveil-shade3-contact.png",
+      "bytes": 13837,
+      "sha256": "ed87ca15b221a296e7395524d82daf6bdd7e2e425af139afb7da997bcd9fed51"
+    },
+    {
+      "file": "public/sprites/original/ashveil-shade3-palette.json",
+      "bytes": 381,
+      "sha256": "a9326554f9d37fdc4ca0db6c1e4ffd8cb797cebe769eb057ac03daed04491e50"
+    },
+    {
+      "file": "tools/art/shade3-manifest.fragment.json",
+      "bytes": 4113,
+      "sha256": "a10deb2bf0971a551c631e821c84adccc9bd110d98dd0a0df7de6ee62186f8cf"
+    }
+  ]
+}

@@ -1,0 +1,1411 @@
+[
+  {
+    "defType": "Body",
+    "id": "Body.ConduitCrawler",
+    "label": "관로 지네의 8체절·16다리",
+    "kind": "invertebrate",
+    "bloodMl": 2000,
+    "parts": [
+      {
+        "id": "Head",
+        "label": "머리",
+        "region": "head",
+        "hp": 35,
+        "coverage": 100,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "detach": true,
+        "vital": true,
+        "bone": 6
+      },
+      {
+        "id": "HeadGanglion",
+        "label": "머리 신경절",
+        "region": "head",
+        "hp": 12,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "internal": true,
+        "weight": 4,
+        "capacities": {
+          "consciousness": 1
+        },
+        "vital": true
+      },
+      {
+        "id": "LeftEye",
+        "label": "왼겹눈",
+        "region": "head",
+        "hp": 8,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "side": "l",
+        "capacities": {
+          "sight": 1
+        }
+      },
+      {
+        "id": "LeftAntenna",
+        "label": "왼감각더듬이",
+        "region": "head",
+        "hp": 8,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "detach": true,
+        "capacities": {
+          "hearing": 1
+        }
+      },
+      {
+        "id": "LeftVenomGland",
+        "label": "왼독샘",
+        "region": "head",
+        "hp": 8,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "RightEye",
+        "label": "오른겹눈",
+        "region": "head",
+        "hp": 8,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "side": "r",
+        "capacities": {
+          "sight": 1
+        }
+      },
+      {
+        "id": "RightAntenna",
+        "label": "오른감각더듬이",
+        "region": "head",
+        "hp": 8,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "detach": true,
+        "capacities": {
+          "hearing": 1
+        }
+      },
+      {
+        "id": "RightVenomGland",
+        "label": "오른독샘",
+        "region": "head",
+        "hp": 8,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Mandibles",
+        "label": "독턱",
+        "region": "head",
+        "hp": 18,
+        "coverage": 40,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "capacities": {
+          "bite": 1,
+          "eating": 1
+        },
+        "bone": 6
+      },
+      {
+        "id": "Segment1",
+        "label": "1번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Head",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment1Ganglion",
+        "label": "1번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment1Spiracles",
+        "label": "1번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment1Vessel",
+        "label": "1번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment1LeftLeg",
+        "label": "1번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment1RightLeg",
+        "label": "1번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment2",
+        "label": "2번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment1",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment2Ganglion",
+        "label": "2번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment2Spiracles",
+        "label": "2번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment2Vessel",
+        "label": "2번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment2LeftLeg",
+        "label": "2번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment2RightLeg",
+        "label": "2번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment3",
+        "label": "3번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment2",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment3Ganglion",
+        "label": "3번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment3Spiracles",
+        "label": "3번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment3Vessel",
+        "label": "3번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment3LeftLeg",
+        "label": "3번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment3RightLeg",
+        "label": "3번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment4",
+        "label": "4번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment3",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment4Ganglion",
+        "label": "4번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment4Spiracles",
+        "label": "4번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment4Vessel",
+        "label": "4번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment4LeftLeg",
+        "label": "4번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment4RightLeg",
+        "label": "4번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment5",
+        "label": "5번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment4",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment5Ganglion",
+        "label": "5번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment5Spiracles",
+        "label": "5번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment5Vessel",
+        "label": "5번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment5LeftLeg",
+        "label": "5번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment5RightLeg",
+        "label": "5번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment6",
+        "label": "6번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment5",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment6Ganglion",
+        "label": "6번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment6Spiracles",
+        "label": "6번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment6Vessel",
+        "label": "6번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment6LeftLeg",
+        "label": "6번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment6RightLeg",
+        "label": "6번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment7",
+        "label": "7번째 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment6",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "Segment7Ganglion",
+        "label": "7번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "Segment7Spiracles",
+        "label": "7번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "Segment7Vessel",
+        "label": "7번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment7LeftLeg",
+        "label": "7번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment7RightLeg",
+        "label": "7번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "TailSegment8",
+        "label": "8번째 꼬리 체절",
+        "region": "torso",
+        "hp": 38,
+        "coverage": 70,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "Segment7",
+        "detach": true,
+        "bone": 5
+      },
+      {
+        "id": "TailSegment8Ganglion",
+        "label": "8번째 신경절",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "TailSegment8",
+        "internal": true,
+        "weight": 2
+      },
+      {
+        "id": "TailSegment8Spiracles",
+        "label": "8번째 숨구멍",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "TailSegment8",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "breathing": 1
+        }
+      },
+      {
+        "id": "TailSegment8Vessel",
+        "label": "8번째 등쪽 혈관",
+        "region": "torso",
+        "hp": 9,
+        "coverage": 0,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.5,
+        "pain": 0.2,
+        "parent": "TailSegment8",
+        "internal": true,
+        "weight": 1,
+        "capacities": {
+          "bloodPumping": 1
+        }
+      },
+      {
+        "id": "Segment8LeftLeg",
+        "label": "8번째 왼다리",
+        "region": "lleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "TailSegment8",
+        "detach": true,
+        "side": "l",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      },
+      {
+        "id": "Segment8RightLeg",
+        "label": "8번째 오른다리",
+        "region": "rleg",
+        "hp": 12,
+        "coverage": 15,
+        "height": "low",
+        "groups": [],
+        "vessel": 0.25,
+        "pain": 0.2,
+        "parent": "TailSegment8",
+        "detach": true,
+        "side": "r",
+        "capacities": {
+          "moving": 1
+        },
+        "bone": 3
+      }
+    ]
+  },
+  {
+    "defType": "Creature",
+    "id": "Creature.ConduitCrawler",
+    "label": "관로 지네",
+    "body": "Body.ConduitCrawler",
+    "char": "av375_conduit_crawler",
+    "sprite": "av375_conduit_crawler",
+    "faction": "beasts",
+    "sizeClass": "large",
+    "moveTU": 60,
+    "stats": {
+      "str": 14,
+      "agi": 12,
+      "per": 14,
+      "vit": 14,
+      "wil": 12
+    },
+    "skills": {
+      "unarmed": 3
+    },
+    "ai": "packHunter",
+    "morale": 100,
+    "lightThreshold": 0,
+    "sightRange": 12,
+    "vision": {
+      "maxRange": 14,
+      "perceptionStep": 3,
+      "perceptionBonus": 1,
+      "darkPenalty": 0
+    },
+    "hearing": 5,
+    "smell": 0,
+    "bagSize": [
+      2,
+      2
+    ],
+    "weightKg": 40,
+    "hpBase": 600,
+    "metabolicScale": 0.7,
+    "insulation": 3,
+    "temperatureLimits": {
+      "min": -5,
+      "max": 45,
+      "dormantBelow": 2
+    },
+    "naturalAttack": {
+      "id": "venomBite",
+      "label": "독턱 물기",
+      "damageType": "stab",
+      "damage": 16,
+      "pen": 15,
+      "energy": 6,
+      "family": "unarmed",
+      "accuracy": 11,
+      "noise": 4,
+      "requiresCapacity": "bite"
+    },
+    "naturalAttacks": [
+      {
+        "id": "venomBite",
+        "label": "독턱 물기",
+        "damageType": "stab",
+        "damage": 16,
+        "pen": 15,
+        "energy": 6,
+        "family": "unarmed",
+        "accuracy": 11,
+        "noise": 4,
+        "requiresCapacity": "bite"
+      }
+    ],
+    "abilities": [
+      "Ab.CrawlerCoil"
+    ],
+    "xp": 45,
+    "meatDrop": {
+      "item": "Item.CrawlerRawMeat",
+      "count": 0
+    },
+    "mods": {
+      "painMult": 0.2
+    },
+    "naturalArmor": {
+      "sharp": 4,
+      "blunt": 1,
+      "heat": 0
+    },
+    "crawler": {
+      "segments": [
+        {
+          "body": "Segment1",
+          "ganglion": "Segment1Ganglion",
+          "legs": [
+            "Segment1LeftLeg",
+            "Segment1RightLeg"
+          ]
+        },
+        {
+          "body": "Segment2",
+          "ganglion": "Segment2Ganglion",
+          "legs": [
+            "Segment2LeftLeg",
+            "Segment2RightLeg"
+          ]
+        },
+        {
+          "body": "Segment3",
+          "ganglion": "Segment3Ganglion",
+          "legs": [
+            "Segment3LeftLeg",
+            "Segment3RightLeg"
+          ]
+        },
+        {
+          "body": "Segment4",
+          "ganglion": "Segment4Ganglion",
+          "legs": [
+            "Segment4LeftLeg",
+            "Segment4RightLeg"
+          ]
+        },
+        {
+          "body": "Segment5",
+          "ganglion": "Segment5Ganglion",
+          "legs": [
+            "Segment5LeftLeg",
+            "Segment5RightLeg"
+          ]
+        },
+        {
+          "body": "Segment6",
+          "ganglion": "Segment6Ganglion",
+          "legs": [
+            "Segment6LeftLeg",
+            "Segment6RightLeg"
+          ]
+        },
+        {
+          "body": "Segment7",
+          "ganglion": "Segment7Ganglion",
+          "legs": [
+            "Segment7LeftLeg",
+            "Segment7RightLeg"
+          ]
+        },
+        {
+          "body": "TailSegment8",
+          "ganglion": "TailSegment8Ganglion",
+          "legs": [
+            "Segment8LeftLeg",
+            "Segment8RightLeg"
+          ]
+        }
+      ],
+      "head": "Head",
+      "glands": [
+        "LeftVenomGland",
+        "RightVenomGland"
+      ],
+      "venomItem": "Item.CrawlerVenomSac",
+      "dosesPerGland": 3,
+      "venomAttack": "venomBite",
+      "coilAbility": "Ab.CrawlerCoil",
+      "prey": [
+        "Creature.BurrowRat"
+      ],
+      "smokeKinds": [
+        "campfire",
+        "wildfire",
+        "beddingFire"
+      ],
+      "smokeRadius": 6,
+      "ceiling": {
+        "dropRadius": 1,
+        "inspectRadius": 3,
+        "awarenessTurns": 60,
+        "ambushHit": 20,
+        "reclimbTurns": 30
+      },
+      "harvest": {
+        "plateItem": "Item.CrawlerPlate",
+        "legItem": "Item.CrawlerLegSegment",
+        "meatItem": "Item.CrawlerRawMeat",
+        "meatCount": 80
+      },
+      "foodIds": [
+        "Item.RawMeat",
+        "Item.CarrionMorsel"
+      ],
+      "huntBelowKcal": 500,
+      "eatBelowKcal": 700,
+      "drinkAboveMl": 1000,
+      "drinkMl": 100
+    },
+    "bestiary": [
+      "어둠 속 관로의 천장과 바닥에서 단독으로 먹이를 기다린다.",
+      "천장을 확인하면 위쪽 낙하를 미리 경계할 수 있다.",
+      "남은 체절의 다리와 독샘은 각각 손상되고 소모된다."
+    ],
+    "description": "단단한 회갈색 외골격과 여덟 체절, 열여섯 보행 다리를 가진 대형 절지동물. 머리 신경절이 중추이며 뒤쪽 체절을 잃어도 앞부분의 다리는 움직인다."
+  },
+  {
+    "defType": "Ability",
+    "id": "Ab.CrawlerCoil",
+    "parent": "Ab.Grab",
+    "label": "몸으로 휘감기",
+    "description": "온전한 체절과 다리로 곁의 대상을 휘감는다. 이동할 때 힘과 민첩으로 벗어날 수 있다.",
+    "requiresCapacity": "moving",
+    "cooldown": 6,
+    "icon": "av375_crawler_middle_plate"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerVenomSac",
+    "label": "지네 신경독샘",
+    "sprite": "av376_crawler_venom_sac",
+    "category": "misc",
+    "weight": 0.03,
+    "size": [
+      1,
+      1
+    ],
+    "value": 3,
+    "stackable": false,
+    "uses": 3,
+    "neurotoxin": {
+      "turns": [
+        30,
+        120
+      ]
+    },
+    "description": "원래 지네의 한 독샘. 물기에 쓰고 남은 회수만 화살에 바를 수 있다. 주머니 그림은 별도 유리병을 뜻하지 않는다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerPlate",
+    "label": "지네 외골격 판",
+    "sprite": "av376_crawler_plate",
+    "category": "misc",
+    "weight": 0.12,
+    "size": [
+      1,
+      1
+    ],
+    "value": 3,
+    "stackable": true,
+    "maxStack": 8,
+    "description": "실제 체절에서 분리한 가볍고 단단한 외골격. 흉갑 재료이며 강한 열에는 약하다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerLegSegment",
+    "label": "지네 다리 마디",
+    "sprite": "av376_crawler_leg_segment",
+    "category": "misc",
+    "weight": 0.04,
+    "size": [
+      1,
+      1
+    ],
+    "value": 3,
+    "stackable": true,
+    "maxStack": 16,
+    "description": "원래 보행 다리에서 분리한 한 마디. 하나로 화살대 하나를 만든다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerRawMeat",
+    "label": "날 지네 고기",
+    "sprite": "av376_crawler_raw_meat",
+    "category": "food",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "value": 1,
+    "stackable": true,
+    "maxStack": 10,
+    "food": {
+      "kcal": 95,
+      "protein": 12,
+      "water": 45,
+      "freshHours": 18,
+      "raw": true,
+      "poison": 20,
+      "plainThought": "Thought.AteCrawler"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerRoastedMeat",
+    "label": "구운 지네 고기",
+    "sprite": "av376_crawler_roasted_meat",
+    "category": "food",
+    "weight": 0.1,
+    "size": [
+      1,
+      1
+    ],
+    "value": 2,
+    "stackable": true,
+    "maxStack": 10,
+    "food": {
+      "kcal": 95,
+      "protein": 12,
+      "water": 45,
+      "freshHours": 36,
+      "raw": false,
+      "poison": 0,
+      "plainThought": "Thought.AteCrawler",
+      "cooked": true
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerCuirass",
+    "label": "지네 외골격 흉갑",
+    "sprite": "av376_crawler_cuirass",
+    "category": "apparel",
+    "weight": 1.2,
+    "size": [
+      2,
+      3
+    ],
+    "value": 35,
+    "slot": "chest",
+    "apparel": {
+      "groups": [
+        "chest",
+        "abdomen"
+      ],
+      "insulation": 0.4,
+      "armor": {
+        "sharp": 9,
+        "blunt": 3,
+        "heat": 0
+      },
+      "durability": 70,
+      "noise": 2,
+      "layer": 2
+    },
+    "description": "외골격 판 여덟 장을 천으로 묶은 경량 흉갑. 아이콘은 착용 몸 원화와 구분한다."
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.AteCrawler",
+    "label": "지네 고기를 먹었다",
+    "mood": -3,
+    "stackLimit": 1,
+    "durationTurns": 7200
+  },
+  {
+    "defType": "BestiaryEntry",
+    "id": "BestiaryEntry.ConduitCrawler",
+    "label": "관로 지네",
+    "creatures": [
+      "Creature.ConduitCrawler"
+    ],
+    "kind": "animal",
+    "difficulty": 15,
+    "silhouette": "관로 지네의 실루엣",
+    "yields": [
+      {
+        "item": "Item.CrawlerPlate",
+        "count": 8
+      },
+      {
+        "item": "Item.CrawlerLegSegment",
+        "count": 16
+      },
+      {
+        "item": "Item.CrawlerRawMeat",
+        "count": 80
+      }
+    ],
+    "facts": [
+      "발소리를 좇고 천장에 매달린다. 실제 천장을 살피면 낙하를 경계한다.",
+      "각 체절의 신경절과 다리는 따로 기능한다. 머리 신경절은 중추다.",
+      "독샘 두 개는 각각 원래 세 회분뿐이며, 실제 물기와 손상으로 줄어든 잔량만 해부로 얻는다.",
+      "관로 정비 일지: 큰 절지류의 진동과 천장 낙하를 경고한다."
+    ]
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerMaintenanceNotes",
+    "label": "관로 정비 일지",
+    "sprite": "complete_item_craft_manual",
+    "category": "misc",
+    "weight": 0.04,
+    "size": [
+      1,
+      1
+    ],
+    "value": 3,
+    "readable": true,
+    "book": {
+      "pages": 5,
+      "mastery": "survival",
+      "amount": 0,
+      "unlocks": [],
+      "literacyMin": 1,
+      "bestiary": [
+        "BestiaryEntry.ConduitCrawler"
+      ]
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.RoastedCrawlerMeat",
+    "label": "지네 고기 굽기",
+    "category": "cooking",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 50,
+    "stations": [
+      "campfire"
+    ],
+    "inputs": [
+      {
+        "item": "Item.CrawlerRawMeat",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.CrawlerRoastedMeat",
+      "count": 1
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CrawlerCuirass",
+    "label": "지네 외골격 흉갑 엮기",
+    "category": "textile",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 240,
+    "inputs": [
+      {
+        "item": "Item.CrawlerPlate",
+        "count": 8
+      },
+      {
+        "item": "Item.Cloth",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.CrawlerCuirass",
+      "count": 1
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.CrawlerArrowShaft",
+    "label": "지네 마디로 화살 만들기",
+    "category": "woodwork",
+    "primaryAttr": "agi",
+    "basic": true,
+    "workTurns": 35,
+    "inputs": [
+      {
+        "item": "Item.CrawlerLegSegment",
+        "count": 1
+      },
+      {
+        "item": "Item.CrowFeathers",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.Arrow",
+      "count": 1
+    }
+  }
+]

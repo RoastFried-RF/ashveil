@@ -1,0 +1,19 @@
+{
+  "character": "av331_ash_crow",
+  "creature": "Creature.AshCrow",
+  "body": "Body.AshCrow",
+  "active": false,
+  "proposedMotion": "work",
+  "recommendedDurationMs": 1800,
+  "supportedSlowCycleRangeMs": [1500, 2000],
+  "phaseOrder": ["relaxed-ready", "head-lower", "ground-beak-contact", "swallow-recover"],
+  "footAnchor": "Source footprint/visible and occluded feet support projection; never automatic lowest opaque pixel. Beak and rear tail can project below feet.",
+  "runtimeGate": "Play only after actual successful grounded consumption from the original finite food/corpse source; selecting a target, looking for food, a failed attempt or merely elapsed visual time does not qualify.",
+  "gameTime": "1800ms is presentation only. Do not advance TU, create kcal, split carcasses, gather new materials, reroll habitat supply or bypass food/body capacity from the renderer.",
+  "direction": "Retain actual feeding direction for the cue. Do not rotate the rear pose to invent a visible beak. Moving/attacking/hurt/fall/sleep interrupts or replaces work appropriately.",
+  "combatSeparation": "Existing attack clip remains the actual hostile eye-peck action. Unconscious-target restrictions, damage and face cover are core rules; do not animate ordinary feeding as successful eye attack.",
+  "artLimit": "Grounded folded-wing work only. No flight, circling, courier equipment or new species prepared in this bundle.",
+  "feathers": "Item.CrowFeathers uses existing av331_crow_feathers sprite. The icon depicts a small bundle only; original finite harvest/butchery rules determine count, not depicted feather count.",
+  "integrationPrecondition": "Merge the existing v334 av331_ash_crow character definition before applying character-work.patch.json. The patch adds only work and its16 transforms; it does not replace the112 existing crops.",
+  "releaseAcceptancePending": "Actual core feeding, interruptions, visibility, lighting, scale and occlusion must be reviewed after parent integration. Staging canvas is not game acceptance."
+}

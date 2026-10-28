@@ -1,0 +1,13 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><link rel="icon" href="data:,"><title>ASHVEIL v374 격리 지네 부품 조립</title>
+<style>body{background:#161a1b;color:#e7e3d7;font:14px system-ui;margin:16px}h1{font-size:20px}button,select,input{margin:5px;padding:7px;background:#353a37;color:#fff;border:1px solid #76796a}button:focus{outline:2px solid #e8cf87}canvas{display:block;width:min(1200px,100%);height:auto;background:#262c2c;image-rendering:pixelated;border:1px solid #565c55}p{max-width:1200px;line-height:1.5}table{border-collapse:collapse;font:12px monospace}td,th{padding:3px 9px;border-bottom:1px solid #41463c}#status{font:13px monospace;white-space:pre-wrap}pre{font:11px monospace;max-height:260px;overflow:auto}</style>
+<h1>관로 지네 — 6원문 부품의 격리 2D 조립 시제품</h1>
+<p>중간판 7 + terminal 꼬리 8번째, 체절별 좌우 다리 16개를 표시합니다. 원문 6부품 공유이며 완성 보행 원화·물리 3D 몸·Core 생물은 아닙니다. 연결점은 2D 표면/가정입니다. 독·천장·낙하·휘감기 미구현.</p>
+<div id="controls"><button id="go">이동 시작</button><button id="stop">정지 · 회복 마무리</button><button id="east">직선 →</button><button id="diagonal">대각 ↗</button><button id="left90">급좌회전 90°</button><button id="right90">급우회전 90°</button><button id="reverse">반대 방향</button>
+<label>속도<select id="speed"><option value="0">0배 · 전체 동결</option><option value="0.5">0.5배</option><option value="1" selected>1배</option><option value="2">2배</option></select></label>
+<label>머리<select id="mouth"><option value="closed">닫힌 턱</option><option value="open">열린 턱</option></select></label>
+<label><input id="debug" type="checkbox" checked>소유/접점 표식</label><label><input id="mirror" type="checkbox" checked>좌측 표시 반전 · 공유 원문</label><label>확대<input id="zoom" type="range" min="2" max="6" step=".5" value="4"></label></div>
+<p>화살표/WASD를 누르면 해당 방향으로 움직이고 놓으면 정지합니다. 90°명령은 순간 이동 없이 제한된 거리당 곡률로 따릅니다. 0배는 회복까지 동결하며 정지 버튼은 양수 속도에서 진행 중인 회복만 마무리합니다. 좌측 반전과 회전은 그림의 한 면/조명도 함께 뒤집고 돌리는 표시 가정입니다.</p>
+<canvas id="scene" width="1200" height="620" aria-label="격리 지네 부품 조립 화면"></canvas><p id="status">원문 읽는 중</p>
+<table id="ownership"><thead><tr><th>Leg ID</th><th>Owner</th><th>상태</th><th>epoch</th><th>reach error</th><th>contact drift</th></tr></thead><tbody></tbody></table>
+<details><summary>읽기 전용 실제 DOM 관찰 JSON</summary><pre id="audit-json"></pre></details>
+<script type="module" src="workbench.js"></script></html>

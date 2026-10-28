@@ -1,0 +1,118 @@
+{
+  "created": "2026-10-21",
+  "method": "original authored pixel geometry of a six-legged mechanical maintenance drone",
+  "source": "tools/art/draw-drone.py",
+  "inputs": [],
+  "sourceSha256": "db0015d46c06f56facc837b1c531597d48ffcc6e692a1ba3f85f2d71ed49228b",
+  "externalImageInputs": false,
+  "modifiedExistingImages": false,
+  "coreContract": {
+    "creature": "Creature.TenderDrone",
+    "body": "Body.TenderDrone",
+    "legCount": 6,
+    "sprite": "tender_drone",
+    "dormantChar": "tender_drone_inert",
+    "attacks": [
+      "cut",
+      "weld"
+    ]
+  },
+  "legacyContract": {
+    "frameKeys": [
+      "tender_drone",
+      "tender_drone_inert"
+    ],
+    "frameSize": [
+      32,
+      32
+    ],
+    "sharedSingleFrameForAllDirections": true,
+    "legacyAttackExists": false,
+    "anchor": [
+      0.5,
+      0.8
+    ],
+    "implicitScale": 0.72
+  },
+  "newContent": {
+    "walkCount": 12,
+    "attackCount": 16,
+    "inertCount": 4,
+    "legacyFrameAliases": 2,
+    "walkCell": [
+      32,
+      32
+    ],
+    "attackCell": [
+      40,
+      40
+    ],
+    "inertCell": [
+      32,
+      32
+    ],
+    "bodyOffsetInAttack": [
+      4,
+      8
+    ],
+    "walkGroundY": 31,
+    "attackGroundY": 39,
+    "renderScale": 0.75,
+    "headOffsetWorldPx": 17
+  },
+  "attackVisualNote": "Common tool-arm deployment; no permanent welding flame because renderer does not select a sheet by cut/weld attack ID.",
+  "directions": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "status": "prepared original art and merge fragment, not registered in the game",
+  "files": [
+    {
+      "file": "public/sprites/original/ashveil-drone-walk.png",
+      "bytes": 1650,
+      "sha256": "21e1af11d8344f89883ebccb618820bed3da63d725cddba6863b6d2a77c87732"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-attack.png",
+      "bytes": 1955,
+      "sha256": "0516c4ff9a169ccfb345a4b065bcb2fbcf6c6e5a89edaffd3044a3523faaa2b4"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-inert.png",
+      "bytes": 704,
+      "sha256": "1ea607683c2af5afef6a46c91f8e272dc9f97f0c5b232bf467eb2a6bd2d0f48c"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-walk.svg",
+      "bytes": 150799,
+      "sha256": "4bc8be5e99649b8809b7b50f402afcf6a609e50c3f7bd98b6033e5f61d08cb0e"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-attack.svg",
+      "bytes": 203852,
+      "sha256": "71532a5b179a437c0e7770fa745c8bb9ea4a959eab2c935803117a20f2d77bac"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-inert.svg",
+      "bytes": 35742,
+      "sha256": "f30745c8881796c3332c8fe65658c47c36e2a47276c9e3d9512b7a08d0822a66"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-contact.png",
+      "bytes": 19327,
+      "sha256": "49fd260085d67acddb85ef28ad13c2c3c3f507d7e6336131f1f8da9235ef4513"
+    },
+    {
+      "file": "public/sprites/original/ashveil-drone-palette.json",
+      "bytes": 291,
+      "sha256": "462e37475941f151f908be0d56579a02fa8b5ed0609d4ae67cb7be59f5d41049"
+    },
+    {
+      "file": "tools/art/drone-manifest.fragment.json",
+      "bytes": 6002,
+      "sha256": "d9463235e6c915c73d95d0280d97fef7eccc4f4ba20ae4e29eedcf79d980e5e1"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "kind": "read-only-public-DOM-observation",
+  "stage": "initial",
+  "newImageGenCalls": 0,
+  "mutatedStateThroughAPI": false,
+  "controls": "Actual locator.click/selectOption/uncheck only; audit-json/read and canvas screenshot",
+  "sourceSha256": "d79e58402ddfe288399997088a83bd85ee08d171e83b7dcfc342fdaf49d29d2f",
+  "ownershipRows": 16,
+  "metrics": {
+    "sampleCount": 195,
+    "ownershipViolations": [],
+    "maxReachFromRenderedHook": 2.929642751054232e-14,
+    "maxReportedReach": 3.66205343881779e-15,
+    "maxRenderedStanceVsAnchor": 2.929642751054232e-14,
+    "maxSameEpochAnchorMutation": 0,
+    "maxSameEpochRenderedDrift": 5.728578676879116e-14,
+    "maxUpperProximalMismatch": 3.1776437161565096e-14,
+    "maxKneeSourceJoinMismatch": 5.728578676879116e-14,
+    "maxHookSourceMismatch": 2.929642751054232e-14,
+    "maxLinkLengthMismatch": 3.730349362740526e-14,
+    "minStance": 8,
+    "maxSwing": 8,
+    "ownedBodies": 8,
+    "ownedLegs": 16,
+    "sourceOriginals": 1,
+    "sourceRegions": 6,
+    "newAuthoredArt": 0
+  },
+  "freeze": {
+    "distanceDelta": 2.665599999999813,
+    "simulationTimeDelta": 0.1665999999999883,
+    "rootDelta": 2.6656000000000764,
+    "maxHookDelta": 13.104026098236025
+  },
+  "stopObservation": {
+    "settledStance": 16,
+    "settledSwing": 0,
+    "rootDistanceAfterStop": 0.26720000000000255,
+    "sceneOwnerRetainedOnRestart": true,
+    "distanceContinuedOnRestart": true,
+    "finalSettledStance": 16
+  },
+  "steps": [
+    {
+      "tag": "initial-rest",
+      "wallMs": 1467,
+      "distance": 0,
+      "time": 0.9055000000000003,
+      "running": false,
+      "speed": 1,
+      "stance": 16
+    },
+    {
+      "tag": "straight-1x",
+      "wallMs": 4284,
+      "distance": 41.332799999999885,
+      "time": 3.705500000000008,
+      "running": true,
+      "speed": 1,
+      "stance": 13
+    },
+    {
+      "tag": "straight-half",
+      "wallMs": 6122,
+      "distance": 56.79839999999984,
+      "time": 4.672100000000017,
+      "running": true,
+      "speed": 0.5,
+      "stance": 12
+    },
+    {
+      "tag": "diagonal-half",
+      "wallMs": 8886,
+      "distance": 79.19680000000015,
+      "time": 6.072000000000037,
+      "running": true,
+      "speed": 0.5,
+      "stance": 12
+    },
+    {
+      "tag": "left90-1x",
+      "wallMs": 12132,
+      "distance": 129.32799999999992,
+      "time": 9.205200000000042,
+      "running": true,
+      "speed": 1,
+      "stance": 14
+    },
+    {
+      "tag": "stop-settle",
+      "wallMs": 13391,
+      "distance": 132.79520000000008,
+      "time": 10.505200000000032,
+      "running": false,
+      "speed": 1,
+      "stance": 16
+    },
+    {
+      "tag": "restart-1x",
+      "wallMs": 15166,
+      "distance": 158.66080000000045,
+      "time": 12.305100000000051,
+      "running": true,
+      "speed": 1,
+      "stance": 12
+    },
+    {
+      "tag": "move-2x",
+      "wallMs": 17155,
+      "distance": 222.3936000000014,
+      "time": 16.28840000000016,
+      "running": true,
+      "speed": 2,
+      "stance": 11
+    },
+    {
+      "tag": "right90-2x",
+      "wallMs": 20535,
+      "distance": 327.98719999999946,
+      "time": 22.888000000000282,
+      "running": true,
+      "speed": 2,
+      "stance": 11
+    },
+    {
+      "tag": "freeze-0x",
+      "wallMs": 21629,
+      "distance": 333.85279999999943,
+      "time": 23.25460000000028,
+      "running": true,
+      "speed": 0,
+      "stance": 13
+    },
+    {
+      "tag": "open-head-frozen",
+      "wallMs": 22000,
+      "distance": 333.85279999999943,
+      "time": 23.25460000000028,
+      "running": true,
+      "speed": 0,
+      "stance": 13
+    },
+    {
+      "tag": "resume-after-zero",
+      "wallMs": 23338,
+      "distance": 352.2527999999994,
+      "time": 24.40460000000028,
+      "running": true,
+      "speed": 1,
+      "stance": 13
+    },
+    {
+      "tag": "final-stop-settle",
+      "wallMs": 24378,
+      "distance": 354.11839999999927,
+      "time": 25.504500000000224,
+      "running": false,
+      "speed": 1,
+      "stance": 16
+    },
+    {
+      "tag": "unreflected-single-surface",
+      "wallMs": 24791,
+      "distance": 354.11839999999927,
+      "time": 25.904500000000223,
+      "running": false,
+      "speed": 1,
+      "stance": 16
+    }
+  ],
+  "shots": [
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/01-rest.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/02-straight.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/03-diagonal.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/04-left-turn.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/05-stopped.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/06-fast-turn.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/07-frozen.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/08-open-head.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/09-unreflected.png",
+    "/workspace/.ashveil-planned/v374-crawler-runtime/observations/initial/10-clean.png"
+  ],
+  "browserErrors": [],
+  "limits": [
+    "2D display-only fixedlinks/path/curvaturelimit;notphysical3D",
+    "head command90deg is immediate but trajectorycurvaturelimits actualturn;notgameinputintegration",
+    "mapwalls/occupancy/wholebodyworldscale notimplemented",
+    "sourcecaps/socketdepth and lowerfootcontactproxy assumptions",
+    "rotated/reflectedonepaintedsurface,notnewviews",
+    "noCorepoison/ceiling/drop/curl/damage"
+  ]
+}

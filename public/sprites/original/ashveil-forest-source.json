@@ -1,0 +1,116 @@
+{
+  "created": "2026-10-21",
+  "method": "original authored integer-coordinate polygons, tapered branch strokes and needle clusters",
+  "source": "tools/art/draw-forest.py",
+  "sourceSha256": "cabf3a090809e94130c37a3f3c27c6ddd43f5f720e5408a0d92d44cb918b583c",
+  "externalImageInputs": [],
+  "modifiedExistingImages": false,
+  "selectedKinds": 2,
+  "nativeFrame": [
+    80,
+    96
+  ],
+  "anchor": [
+    0.5,
+    0.96
+  ],
+  "nativeAnchorPixel": [
+    40,
+    92.16
+  ],
+  "opaqueBounds": {
+    "pine_tree": [
+      6,
+      6,
+      72,
+      91
+    ],
+    "dead_tree": [
+      6,
+      4,
+      74,
+      91
+    ]
+  },
+  "nativeObjectHeights": {
+    "pine_tree": 86,
+    "dead_tree": 88
+  },
+  "groundLastOpaqueRow": 91,
+  "groundBoundary": 92,
+  "anchorToGroundBoundaryNativeGap": 0.16,
+  "currentStaticDeadScale": 0.42,
+  "currentDynamicPineScale": 1,
+  "reviewScale": 0.42,
+  "reviewRounding": "round dimensions, nearest source centre at ((x+.5)/.42,(y+.5)/.42); illustrative pixel sampling, not a GPU screenshot",
+  "fixedGroundShadow": false,
+  "stateMarkers": [],
+  "variantContract": "One native frame per kind, geometry supports current horizontal mirror. No new animation or resource/harvest state frames.",
+  "paletteColors": 15,
+  "alphaValues": [
+    0,
+    255
+  ],
+  "integrationApplied": false,
+  "integrationScope": "new keys only; preserve old tree,tree_dead,stump,dw_env and dw_tree_dead. Root must scope PineTree and dead-tree selection so Blackwood/shared item icons are unaffected.",
+  "notEncoded": [
+    "resource quantity",
+    "needle availability",
+    "gatherAt",
+    "burn state",
+    "light source",
+    "ground shadow"
+  ],
+  "files": [
+    {
+      "file": "public/sprites/original/ashveil-pine-tree.png",
+      "bytes": 973,
+      "sha256": "f43c5bc9c52c69b751a05b4f6022565795ae4c2094bb84af8e1aa70d45b97075"
+    },
+    {
+      "file": "public/sprites/original/ashveil-pine-tree.svg",
+      "bytes": 39176,
+      "sha256": "0ad9cf2398e253b69050554fe9902635fc4d76050a0c3e5b177c06fb61987f47"
+    },
+    {
+      "file": "public/sprites/original/ashveil-pine-tree-map-review.png",
+      "bytes": 408,
+      "sha256": "6c7253ae2e9be84a8b57df7b0ec819739f5bb5ebdcb8ea70355513b64590f3bc"
+    },
+    {
+      "file": "public/sprites/original/ashveil-dead-tree.png",
+      "bytes": 948,
+      "sha256": "8e29343544d00ba38ef52cd47ea838c277b9f1466bca446d65b8141ee4c86551"
+    },
+    {
+      "file": "public/sprites/original/ashveil-dead-tree.svg",
+      "bytes": 59795,
+      "sha256": "cece0f4a84113453b3642fa1f54f9c107735eb78b449fe58fcdabf0e10faf4b4"
+    },
+    {
+      "file": "public/sprites/original/ashveil-dead-tree-map-review.png",
+      "bytes": 403,
+      "sha256": "a6398ab844248e3da4bd04e1c6feb507303f63dff992534231edce974c0cba99"
+    },
+    {
+      "file": "public/sprites/original/ashveil-forest-contact.png",
+      "bytes": 11321,
+      "sha256": "9fb74002da5c3293a20e11db4f11e2b147626fc73375e2f496258f368fc28da2"
+    },
+    {
+      "file": "public/sprites/original/ashveil-forest-palette.json",
+      "bytes": 273,
+      "sha256": "fc979a6dd12d20134fd7c46f70b2564e6c15f68f10867318546a8b2279853ec8"
+    },
+    {
+      "file": "tools/art/forest-manifest.fragment.json",
+      "bytes": 383,
+      "sha256": "bc983e7d0fb79718ea59ff6d5eef7a97ce7f0bbfe0451eadd79bd01cabb0bf4b"
+    },
+    {
+      "file": "tools/art/forest-usage-survey.json",
+      "bytes": 8792,
+      "sha256": "ec10665b11f0db7a514578097224571be9248f8b00ca33459c405ca3192970d5"
+    }
+  ]
+}

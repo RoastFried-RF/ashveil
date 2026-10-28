@@ -1,0 +1,33 @@
+[
+  {
+    "op": "add",
+    "target": "ResidentCultivation.Hearth",
+    "path": "/preparation",
+    "value": {
+      "factions": [
+        "shadefolk"
+      ],
+      "recipe": "Recipe.WhitecapCulture",
+      "reserveMoney": 20,
+      "maxUnitPrice": 20,
+      "retryTurns": 1200
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.shadefolk",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Wood",
+      "target": 3,
+      "dailyProduction": 0,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "replace",
+    "target": "ResidentCultivation.Hearth",
+    "path": "/minKcal",
+    "value": 250
+  }
+]

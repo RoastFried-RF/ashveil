@@ -1,0 +1,36 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.GardenerSound",
+    "label": "정원사 기계의 소리",
+    "mood": -4,
+    "durationTurns": 0,
+    "heardSound": {
+      "faction": "gardeners",
+      "bodyKind": "mechanical",
+      "recentTurns": 20,
+      "traitMoodKey": "gardenerMood"
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.CompanionDied",
+    "label": "동료가 죽었다",
+    "mood": -20,
+    "durationTurns": 288000,
+    "stack": 3,
+    "stackMult": 0.5,
+    "decay": "step",
+    "steps": [
+      {
+        "afterTurns": 0,
+        "mult": 1
+      },
+      {
+        "afterTurns": 144000,
+        "mult": 0.5
+      }
+    ],
+    "lifeEvent": "companionDeath"
+  }
+]

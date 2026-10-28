@@ -1,0 +1,643 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.RagShirt",
+    "label": "누더기 옷",
+    "sprite": "rag_shirt",
+    "category": "apparel",
+    "weight": 0.3,
+    "value": 2,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "chest",
+        "abdomen",
+        "upperArm"
+      ],
+      "insulation": 1,
+      "armor": {
+        "sharp": 3,
+        "blunt": 2,
+        "heat": 1
+      },
+      "durability": 20,
+      "noise": 2,
+      "wetLoss": 70,
+      "waterproofPct": 0,
+      "windproof": 0.1
+    },
+    "slot": "chest",
+    "size": [
+      2,
+      2
+    ],
+    "equipTurns": [
+      2,
+      1
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Linen",
+        "volumeCm3": 700,
+        "accepts": [
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 50.0,
+    "massFixedG": 0
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PaddedJacket",
+    "label": "누빔 재킷",
+    "description": "솜을 누빈 천. 타격을 흡수하고 따뜻하다. 젖으면 무거워진다.",
+    "sprite": "padded_jacket",
+    "category": "apparel",
+    "weight": 1.5,
+    "value": 20,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "neck",
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm",
+        "forearm"
+      ],
+      "insulation": 4,
+      "armor": {
+        "sharp": 20,
+        "blunt": 25,
+        "heat": 4
+      },
+      "durability": 40,
+      "noise": 2,
+      "wetLoss": 60,
+      "waterproofPct": 0,
+      "windproof": 0.3
+    },
+    "slot": "chest",
+    "size": [
+      2,
+      3
+    ],
+    "equipTurns": [
+      3,
+      2
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 10,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LeatherCoat",
+    "label": "가죽 코트",
+    "description": "거칠게 무두질한 가죽. 베기에 강하다.",
+    "sprite": "leather_coat",
+    "category": "apparel",
+    "weight": 2.5,
+    "value": 35,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm",
+        "forearm",
+        "thigh"
+      ],
+      "insulation": 3,
+      "armor": {
+        "sharp": 18,
+        "blunt": 12,
+        "heat": 3
+      },
+      "noise": 3,
+      "durability": 60,
+      "wetLoss": 70,
+      "waterproofPct": 20,
+      "windproof": 0.6
+    },
+    "slot": "chest",
+    "size": [
+      2,
+      3
+    ],
+    "equipTurns": [
+      3,
+      2
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Leather",
+        "volumeCm3": 1800,
+        "accepts": [
+          "Leather",
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 50.0,
+    "massFixedG": 0
+  },
+  {
+    "defType": "Item",
+    "id": "Item.OilclothCloak",
+    "label": "방수포 망토",
+    "description": "재비의 90%를 막아 아래 옷이 젖는 속도를 늦춘다. 머리·손·발은 덮지 않는다.",
+    "sprite": "oilcloth_cloak",
+    "category": "apparel",
+    "weight": 0.8,
+    "value": 25,
+    "apparel": {
+      "layer": 2,
+      "groups": [
+        "chest",
+        "abdomen",
+        "upperArm",
+        "thigh"
+      ],
+      "insulation": 1,
+      "armor": {
+        "sharp": 4,
+        "blunt": 2,
+        "heat": 2
+      },
+      "waterproof": true,
+      "durability": 25,
+      "noise": 2,
+      "wetLoss": 0,
+      "waterproofPct": 90,
+      "windproof": 0.8
+    },
+    "slot": "back",
+    "size": [
+      2,
+      2
+    ],
+    "equipTurns": [
+      1,
+      1
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ScrapMail",
+    "label": "고철 사슬옷",
+    "description": "철사와 와셔를 엮었다. 베기·찌르기에 강하지만 시끄럽고, 내피 없이 입으면 추위가 스며든다.",
+    "sprite": "scrap_mail",
+    "category": "apparel",
+    "weight": 8,
+    "value": 70,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "neck",
+        "chest",
+        "abdomen",
+        "pelvis",
+        "upperArm"
+      ],
+      "insulation": 0,
+      "armor": {
+        "sharp": 45,
+        "blunt": 15,
+        "heat": 2
+      },
+      "noise": 5,
+      "durability": 90,
+      "wetLoss": 0,
+      "waterproofPct": 0,
+      "windproof": 0
+    },
+    "slot": "chest",
+    "size": [
+      2,
+      3
+    ],
+    "equipTurns": [
+      6,
+      3
+    ],
+    "bulk": 2,
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 10,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Scrap",
+        "volumeCm3": 390,
+        "accepts": [
+          "Metal"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 90.0,
+    "massFixedG": 0,
+    "material": "Material.Scrap"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Hood",
+    "label": "두건",
+    "sprite": "hood",
+    "category": "apparel",
+    "weight": 0.2,
+    "value": 4,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "skull",
+        "ear",
+        "neck"
+      ],
+      "insulation": 2,
+      "armor": {
+        "sharp": 3,
+        "blunt": 3,
+        "heat": 2
+      },
+      "durability": 15,
+      "wetLoss": 50,
+      "waterproofPct": 0,
+      "windproof": 0
+    },
+    "slot": "head",
+    "size": [
+      2,
+      1
+    ],
+    "equipTurns": [
+      1,
+      1
+    ],
+    "salvage": {
+      "material": "Item.Cloth",
+      "count": 4,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Cloth",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ScrapHelmet",
+    "label": "고철 투구",
+    "description": "냄비를 두드려 폈다. 머리를 지키지만 소리가 울린다.",
+    "sprite": "scrap_helmet",
+    "category": "apparel",
+    "weight": 1.6,
+    "value": 30,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "skull",
+        "ear"
+      ],
+      "insulation": 0,
+      "armor": {
+        "sharp": 35,
+        "blunt": 20,
+        "heat": 1
+      },
+      "durability": 70,
+      "wetLoss": 0,
+      "waterproofPct": 0,
+      "windproof": 0
+    },
+    "slot": "head",
+    "size": [
+      2,
+      2
+    ],
+    "equipTurns": [
+      2,
+      1
+    ],
+    "salvage": {
+      "material": "Item.IronScrap",
+      "count": 4,
+      "turns": 100,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    },
+    "repair": {
+      "material": "Item.IronScrap",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "str",
+      "tools": [
+        "hammer"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Boots",
+    "label": "가죽 장화",
+    "sprite": "boots",
+    "category": "apparel",
+    "weight": 1.0,
+    "value": 15,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "foot",
+        "toe",
+        "shin"
+      ],
+      "insulation": 2,
+      "armor": {
+        "sharp": 15,
+        "blunt": 10,
+        "heat": 3
+      },
+      "durability": 40,
+      "noise": 3,
+      "wetLoss": 70,
+      "waterproofPct": 40,
+      "windproof": 0
+    },
+    "slot": "feet",
+    "size": [
+      2,
+      2
+    ],
+    "equipTurns": [
+      3,
+      2
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 2,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Gloves",
+    "label": "작업 장갑",
+    "description": "손가락을 지키고, 상처를 만질 때 덜 더럽힌다.",
+    "sprite": "gloves",
+    "category": "apparel",
+    "weight": 0.2,
+    "value": 8,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "hand",
+        "finger"
+      ],
+      "insulation": 1,
+      "armor": {
+        "sharp": 8,
+        "blunt": 5,
+        "heat": 3
+      },
+      "durability": 20,
+      "wetLoss": 70,
+      "waterproofPct": 0,
+      "windproof": 0
+    },
+    "slot": "hands",
+    "size": [
+      1,
+      2
+    ],
+    "equipTurns": [
+      1,
+      1
+    ],
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 1,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    },
+    "stuffSlots": [
+      {
+        "id": "body",
+        "ref": "Material.Leather",
+        "volumeCm3": 140,
+        "accepts": [
+          "Leather",
+          "Fabric"
+        ],
+        "primary": true
+      }
+    ],
+    "durabilityBase": 16.666666666666668,
+    "massFixedG": 0
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LeatherBelt",
+    "label": "가죽 허리띠",
+    "description": "주머니가 달린 허리띠. 몸통을 조금 더 단단히 감싼다.",
+    "sprite": "leather_coat",
+    "category": "apparel",
+    "weight": 0.3,
+    "size": [
+      2,
+      1
+    ],
+    "slot": "belt",
+    "value": 10,
+    "apparel": {
+      "layer": 1,
+      "groups": [
+        "pelvis"
+      ],
+      "insulation": 0,
+      "armor": {},
+      "durability": 30
+    },
+    "salvage": {
+      "material": "Item.Leather",
+      "count": 1,
+      "turns": 100,
+      "attr": "agi",
+      "tools": [
+        "blade"
+      ]
+    },
+    "repair": {
+      "material": "Item.Leather",
+      "unitsPer10": 0.25,
+      "turns": 200,
+      "attr": "agi",
+      "tools": [
+        "needle"
+      ]
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BoneCharm",
+    "label": "뼈 부적",
+    "description": "순례회가 쓰던 부적. 마음이 조금 단단해진다.",
+    "sprite": "bones",
+    "category": "misc",
+    "weight": 0.05,
+    "size": [
+      1,
+      1
+    ],
+    "slot": "neck",
+    "value": 25,
+    "mods": {
+      "maxHp": 10,
+      "stressResist": 1
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SealRing",
+    "label": "녹슨 인장 반지",
+    "description": "개척기 회사 인장이 새겨진 반지. 손에 익으면 칼끝이 정확해진다.",
+    "sprite": "knife",
+    "category": "misc",
+    "weight": 0.02,
+    "size": [
+      1,
+      1
+    ],
+    "slot": "ring",
+    "value": 30,
+    "mods": {
+      "hitBonus": 3
+    }
+  }
+]

@@ -1,0 +1,282 @@
+{
+  "version": "v283",
+  "scope": "Only the 15 listed final PNGs were opened with view_image and independently inspected as raw RGB PNGs. Existing title-layout and run JSON were read. No browser, GPU, product-code changes or test runs were performed for this review.",
+  "reviewed_count": 15,
+  "conclusion": "No blocking visual defect found in these images.",
+  "observations": [
+    "The original greatsword, axe, shield and two maneuver action icons remain distinct at their actual UI scale. Both Korean maneuver labels and their remappable Shift+P / Shift+O key hints are readable.",
+    "The actual disarm targeting screen displays 40% and energy cost 12, with target brackets and confirmation/cancel instructions.",
+    "After greatsword equipment the axe and shield are visible in the bag. The recovered revolver shows the actual ! 1/6 loaded-and-jammed badge. The PNG review corroborates visible state; item identity and rule outcomes are verified by the separate existing whole-world checks.",
+    "At 1366x768 both maneuver buttons stay on one HUD navigation row with all ten quick slots, and the inventory remains within the viewport.",
+    "The reaver is dark under the actual fixture lighting, while the final corpse original art is visible. This review does not change or classify the existing light/visibility rules as an art defect.",
+    "Both common title layouts show the original art and complete start button at scroll zero. The recorded start button bottoms are 880.28125 at 1440x1080 and 714.28125 at 1366x768, with center hit tests true.",
+    "Some view_image previews appeared partially black, but the original RGB PNG regions contain the status, tools, sidebars, inventory and log pixels. These preview artifacts are not classified as product defects."
+  ],
+  "raw_png_check": {
+    "method": "For each non-title PNG, count RGB pixels with max(channel) > 36 in fixed panel regions. These counts distinguish image-preview omissions from the original PNG pixels; they are supporting evidence rather than semantic UI tests.",
+    "regions": "status=(12,12,190,73); tools=(width-205,12,width-12,40); sidebars=(12,height//2-83,170,height//2+84); inventory=(420,70,1080,442); log=(width-452,height-316,width-12,height-150)",
+    "note": "The inventory region may contain world/aim pixels when the inventory is closed; title images have no panel-region counts."
+  },
+  "existing_title_layout_measurements": {
+    "1440": {
+      "viewport": {
+        "width": 1440,
+        "height": 1080
+      },
+      "start": {
+        "left": 954,
+        "top": 835.28125,
+        "right": 1240,
+        "bottom": 880.28125,
+        "fullyInViewport": true,
+        "centerIsClickable": true
+      },
+      "scrolledElements": []
+    },
+    "1366": {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "start": {
+        "left": 913,
+        "top": 669.28125,
+        "right": 1207,
+        "bottom": 714.28125,
+        "fullyInViewport": true,
+        "centerIsClickable": true
+      },
+      "scrolledElements": []
+    }
+  },
+  "images": [
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1367-native-original-greatsword-art-and-remappable-maneuver-buttons.png",
+      "sha256": "971d36b41c84ba792d43c55571b3fdf0b6308cad076a1911273ba722aabbb7e8",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original greatsword silhouette and blade edge are clear in the bag; equipped axe and shield remain visible. Both maneuver icons, Korean labels and Shift+P / Shift+O hints fit the HUD navigation row.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 76711,
+        "log": 8194
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1368-native-actual-one-turn-trip-no-created-wound-or-weapon.png",
+      "sha256": "082c432506e49d048d156dc0a2a1e96f128abf4e15fcad89e3f9745e87489b4a",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Trip result shows the 넘어짐 label and successful action log; maneuver buttons remain readable. The target is dark under the actual scene lighting.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 34506,
+        "log": 9813
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1369-native-actual-disarm-aim-chance-and-cost.png",
+      "sha256": "446bdc9ee07dacbb73ea254d0df18bd5d61fe7e18c45aa64ded8588ffde9d316",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Disarm targeting header clearly displays 40% and 기력 12; yellow target brackets and the click / Tab / Enter / Esc instructions are readable.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 35312,
+        "log": 9813
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1370-native-original-loaded-jammed-gun-disarmed-to-floor.png",
+      "sha256": "d3c3bc513751266d00dbdca21252cc40f3360fb12905f81ea40df8313adedc0b",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Successful disarm log remains readable and the small original dropped gun is visible on the target tile. This PNG alone does not prove the gun identity or loaded state; the existing whole-world comparison covers those facts.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 34134,
+        "log": 10036
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1371-native-original-greatsword-held-actual-axe-and-shield-in-bag.png",
+      "sha256": "59c99843fb38d45a9775bfc0f2e1f89bf60a44c1da25a8090829fa81cbacb1ed",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Greatsword occupies the main-hand slot, the off-hand slot is empty, and the original axe and shield are visible in the bag. HUD attack mode reads 대도 베기.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3295,
+        "inventory": 73441,
+        "log": 8925
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1372-native-same-disarmed-gun-recovered-loaded-jammed-state-preserved.png",
+      "sha256": "af15dcc0040bb5ab670a1f78cc65dd45a3772db8cdaee72f57c99f3b64b42704",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Recovered revolver in the bag has a readable ! 1/6 badge. Greatsword remains equipped; original axe and shield remain in the bag. The new original reaver corpse is visible beside the player.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3271,
+        "inventory": 78580,
+        "log": 8646
+      }
+    },
+    {
+      "path": "test-results/combat-maneuvers-browser-v283/1373-native-small-screen-greatsword-and-both-maneuver-buttons.png",
+      "sha256": "00fe93533e04106e6c00232ca5090cad08e50fe9ce194e31fdc9a4d084048e4e",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "At 1366x768 the inventory, recovered ! 1/6 gun badge, ten hotbar slots and both maneuver buttons fit inside the viewport. Both buttons remain on one navigation row; the log is readable below the inventory.",
+      "raw_png_region_bright_pixels": {
+        "status": 1596,
+        "tools": 1152,
+        "sidebars": 3271,
+        "inventory": 78580,
+        "log": 10329
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1440/00-title.png",
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original title art, portrait, generation controls and the complete start button are visible at scroll zero. Additional background choices continue below the viewport.",
+      "raw_png_region_bright_pixels": {}
+    },
+    {
+      "path": "test-results/game-harness-v283-1440/01-world.png",
+      "sha256": "dec1106be890a9e94bd22c0118e076047c42c5cfcfd204f814883b8bf18ebabe",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Status, body silhouette, seven needs rows, log, hotbar and both maneuver buttons fit the viewport. No firearm badge appears for the non-firearm starting loadout.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 0,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1440/02-inventory.png",
+      "sha256": "1745e1fa189a21fa8effe1de887046049937999e30ed4508301d9f71c7d9b6ba",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory frame, equipment slots, bag grid, needs rows, log and complete HUD fit the viewport. The original portrait and both maneuver icons remain visible.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 66468,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1440/final.png",
+      "sha256": "0174adc03d4e7b02a5eae43c86e7e84b995d7cbed75df70220232f34f8fc928e",
+      "width": 1440,
+      "height": 1080,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory frame, equipment slots, bag grid, needs rows, log and complete HUD fit the viewport. The original portrait and both maneuver icons remain visible.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3323,
+        "inventory": 66468,
+        "log": 8774
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1366/00-title.png",
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Original title art, portrait, generation controls and the complete start button are visible at scroll zero. Additional background choices continue below the viewport.",
+      "raw_png_region_bright_pixels": {}
+    },
+    {
+      "path": "test-results/game-harness-v283-1366/01-world.png",
+      "sha256": "daff4e78dfa5296c37871bb53d573dafd5e1123a0aaadd3e0d90b54f33012ca4",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Status, body silhouette, seven needs rows, log, hotbar and both maneuver buttons fit the viewport. No firearm badge appears for the non-firearm starting loadout. A legitimate empty-hotbar hover tooltip overlaps part of the log.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3364,
+        "inventory": 728,
+        "log": 9778
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1366/02-inventory.png",
+      "sha256": "881dd25dde5a45475d37ed80588b068ddc7e6fa8ff33cf94e1c1abf1c0b10734",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory frame, equipment slots, bag grid, needs rows, log and complete HUD fit the viewport. The original portrait and both maneuver icons remain visible.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3365,
+        "inventory": 66469,
+        "log": 7746
+      }
+    },
+    {
+      "path": "test-results/game-harness-v283-1366/final.png",
+      "sha256": "1136be64dbfd14d3f6bca93ed21c078a63f0c370776b1d7e25a30aff4497c082",
+      "width": 1366,
+      "height": 768,
+      "mode": "RGB",
+      "opened_with_view_image": true,
+      "observation": "Inventory frame, equipment slots, bag grid, needs rows, log and complete HUD fit the viewport. The original portrait and both maneuver icons remain visible.",
+      "raw_png_region_bright_pixels": {
+        "status": 1694,
+        "tools": 1152,
+        "sidebars": 3364,
+        "inventory": 66469,
+        "log": 7746
+      }
+    }
+  ]
+}

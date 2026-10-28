@@ -1,0 +1,68 @@
+{
+  "fromVersion": "v0.44",
+  "toVersion": "v0.45",
+  "commandsRewritten": false,
+  "saveVersion": 12,
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "8e0a1214",
+      "initialHash": "d837eedf",
+      "fromHash": "02bf6941",
+      "hash": "3c86bd8e",
+      "physicalStateIdentical": true,
+      "errorsIdentical": true,
+      "handStateAdded": []
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "d0442674",
+      "initialHash": "1703cb5d",
+      "fromHash": "4e721f28",
+      "hash": "e257c799",
+      "physicalStateIdentical": true,
+      "errorsIdentical": true,
+      "handStateAdded": []
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "0796e314",
+      "initialHash": "91099b03",
+      "fromHash": "235df68e",
+      "hash": "681cebf7",
+      "physicalStateIdentical": true,
+      "errorsIdentical": true,
+      "handStateAdded": [
+        {
+          "state": "state",
+          "actor": 1,
+          "hands": {
+            "kind": "dirty",
+            "at": 21754
+          }
+        }
+      ]
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "62176a88",
+      "initialHash": "bc94e5e7",
+      "fromHash": "21378c87",
+      "hash": "a79a7958",
+      "physicalStateIdentical": true,
+      "errorsIdentical": true,
+      "handStateAdded": []
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "62176a88",
+      "initialHash": "bc94e5e7",
+      "fromHash": "bb19486e",
+      "hash": "5f79127b",
+      "physicalStateIdentical": true,
+      "errorsIdentical": true,
+      "handStateAdded": []
+    }
+  ],
+  "note": "기존5입력의 차이는 버전11→12와 freeze-reentry의 실제 작업으로 생긴 손 오염뿐이다. 몸·물·시간·난수·명령·오류를 보존했다. 새 처치 품질/오염·부분 잔량은 별도 단위/브라우저로 검증한다."
+}

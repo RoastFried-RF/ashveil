@@ -1,0 +1,137 @@
+[
+  {
+    "defType": "Thought",
+    "id": "Thought.Dizzy",
+    "label": "혈액 손실로 어지럽다",
+    "mood": -4,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "bloodLoss",
+            "min": 0.15
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Festering",
+    "label": "상처가 곪는다",
+    "mood": -6,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "knownInfection",
+            "min": 40
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Fever",
+    "label": "열이 난다",
+    "mood": -5,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "woundInfection",
+            "min": 60
+          }
+        ],
+        [
+          {
+            "metric": "fever",
+            "min": 0,
+            "minExclusive": true
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.TourniquetNumb",
+    "label": "지혈대 아래가 저리다",
+    "mood": -4,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "tourniquetHours",
+            "min": 2,
+            "minExclusive": true
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.Frostbite",
+    "label": "손발의 동상",
+    "mood": -5,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "frostbiteGrade",
+            "min": 1
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.FireRest",
+    "label": "불 옆의 온기",
+    "mood": 3,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "restFireDistance",
+            "max": 2,
+            "maxInclusive": true
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.AshRain",
+    "label": "재비를 맞는다",
+    "mood": -2,
+    "durationTurns": 0,
+    "condition": {
+      "any": [
+        [
+          {
+            "metric": "ashExposure",
+            "min": 1
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "defType": "Thought",
+    "id": "Thought.DrugHaze",
+    "label": "약 기운의 안개",
+    "mood": 3,
+    "durationTurns": 0
+  }
+]

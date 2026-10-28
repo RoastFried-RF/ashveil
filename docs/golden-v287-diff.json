@@ -1,0 +1,371 @@
+{
+  "baseline": 286,
+  "current": 287,
+  "scope": "ALL5 WHOLE initial/final/error vectors; only three metadata paths and actual original pill batch age plus its new isolated RNG differ. No remaining physical/time/old RNG/UID difference. This is not a claim that arbitrary future pill use has unchanged effects.",
+  "rows": [
+    {
+      "name": "surface",
+      "initialHash": "093397a1",
+      "hash": "0508eb37",
+      "allErrorsExact286": true,
+      "phases": {
+        "initial": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/6/bag/0/pillAge",
+              "uid": 65,
+              "def": "Item.PillBlue",
+              "count": 1,
+              "age": {
+                "potency": 72,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            1725435420,
+            2018334897,
+            2397808812,
+            4242648032
+          ],
+          "allRemainingWholeStateExact286": true
+        },
+        "state": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/offCreatures/surface/5/bag/0/pillAge",
+              "uid": 65,
+              "def": "Item.PillBlue",
+              "count": 1,
+              "age": {
+                "potency": 72,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/4/bag/0/pillAge",
+              "uid": 81,
+              "def": "Item.PillBlack",
+              "count": 1,
+              "age": {
+                "potency": 93,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            105630331,
+            2120249650,
+            2147109672,
+            4242648034
+          ],
+          "allRemainingWholeStateExact286": true
+        }
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "initialHash": "0ecfc0a8",
+      "hash": "0fda52e1",
+      "allErrorsExact286": true,
+      "phases": {
+        "initial": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/6/bag/2/pillAge",
+              "uid": 44,
+              "def": "Item.PillBlue",
+              "count": 1,
+              "age": {
+                "potency": 96,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            4189081997,
+            572566753,
+            1560253063,
+            2716963025
+          ],
+          "allRemainingWholeStateExact286": true
+        },
+        "state": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/offCreatures/surface/5/bag/2/pillAge",
+              "uid": 44,
+              "def": "Item.PillBlue",
+              "count": 1,
+              "age": {
+                "potency": 96,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/9/bag/0/pillAge",
+              "uid": 65,
+              "def": "Item.PillGreen",
+              "count": 1,
+              "age": {
+                "potency": 87,
+                "spoiled": true
+              }
+            },
+            {
+              "path": "/creatures/10/bag/0/pillAge",
+              "uid": 69,
+              "def": "Item.PillGreen",
+              "count": 1,
+              "age": {
+                "potency": 71,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/11/bag/0/pillAge",
+              "uid": 73,
+              "def": "Item.PillGreen",
+              "count": 1,
+              "age": {
+                "potency": 55,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/15/bag/0/pillAge",
+              "uid": 89,
+              "def": "Item.PillGreen",
+              "count": 1,
+              "age": {
+                "potency": 93,
+                "spoiled": true
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            3840063090,
+            1579308978,
+            1462080548,
+            2716963033
+          ],
+          "allRemainingWholeStateExact286": true
+        }
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "initialHash": "94f18d46",
+      "hash": "0b0f6bc5",
+      "allErrorsExact286": true,
+      "phases": {
+        "initial": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [],
+          "newIndependentItemsAgingRng": null,
+          "allRemainingWholeStateExact286": true
+        },
+        "state": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/5/bag/0/pillAge",
+              "uid": 56,
+              "def": "Item.PillBlack",
+              "count": 1,
+              "age": {
+                "potency": 87,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/9/bag/0/pillAge",
+              "uid": 71,
+              "def": "Item.PillBlack",
+              "count": 1,
+              "age": {
+                "potency": 62,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/10/bag/0/pillAge",
+              "uid": 75,
+              "def": "Item.PillGreen",
+              "count": 1,
+              "age": {
+                "potency": 54,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/11/bag/0/pillAge",
+              "uid": 79,
+              "def": "Item.PillBlack",
+              "count": 1,
+              "age": {
+                "potency": 84,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            3453327636,
+            730878798,
+            989090625,
+            3949891658
+          ],
+          "allRemainingWholeStateExact286": true
+        }
+      }
+    },
+    {
+      "name": "world-journey",
+      "initialHash": "d9fd80ab",
+      "hash": "74b490da",
+      "allErrorsExact286": true,
+      "phases": {
+        "initial": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/4/bag/0/pillAge",
+              "uid": 32,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 50,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/6/bag/2/pillAge",
+              "uid": 46,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 91,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            1327788376,
+            1623283543,
+            3030201730,
+            2890742532
+          ],
+          "allRemainingWholeStateExact286": true
+        },
+        "state": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/overworld/scenes/Region.GreyCloister/creatures/3/bag/0/pillAge",
+              "uid": 32,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 50,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/overworld/scenes/Region.GreyCloister/creatures/5/bag/2/pillAge",
+              "uid": 46,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 91,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            1327788376,
+            1623283543,
+            3030201730,
+            2890742532
+          ],
+          "allRemainingWholeStateExact286": true
+        }
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "initialHash": "d9fd80ab",
+      "hash": "e01cd5dc",
+      "allErrorsExact286": true,
+      "phases": {
+        "initial": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/4/bag/0/pillAge",
+              "uid": 32,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 50,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/6/bag/2/pillAge",
+              "uid": 46,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 91,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            1327788376,
+            1623283543,
+            3030201730,
+            2890742532
+          ],
+          "allRemainingWholeStateExact286": true
+        },
+        "state": {
+          "exactlyThreeMetadataPaths": true,
+          "originalPillBatchesWithNewAge": [
+            {
+              "path": "/creatures/4/bag/0/pillAge",
+              "uid": 32,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 50,
+                "spoiled": false
+              }
+            },
+            {
+              "path": "/creatures/6/bag/2/pillAge",
+              "uid": 46,
+              "def": "Item.PillMagenta",
+              "count": 1,
+              "age": {
+                "potency": 91,
+                "spoiled": false
+              }
+            }
+          ],
+          "newIndependentItemsAgingRng": [
+            1327788376,
+            1623283543,
+            3030201730,
+            2890742532
+          ],
+          "allRemainingWholeStateExact286": true
+        }
+      }
+    }
+  ]
+}

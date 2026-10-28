@@ -1,0 +1,80 @@
+{
+  "generatorTool": "image_gen.imagegen",
+  "method": "원본 생성 뒤 같은 원본의 투명 경계 정리 요청. 두 출력 PNG 모두 도구 출력 바이트로 보존. Python은 읽기 분석/검증과 원문 JSON 기록에만 사용.",
+  "attempts": [
+    {
+      "originalOutputPath": "/workspace/generated_images/exec-f0182574-bf32-4c52-acbd-fe35a1ab38a9.png",
+      "stagedPath": "public/sprites/original/direction-v331/withered-censer.png",
+      "sha256": "aa37eaf3f1fde2971a6abcf8ad58ba7160746fdc8af25e062ce4d26c895d15a1",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "promptFile": "censer-prompt.txt",
+      "exactPrompt": "Create one original ASHVEIL inventory and held weapon asset: a single old, extinguished metal hanging censer, shown vertically in a front/three-quarter view. It is a mundane worn medieval hospital monastery implement used as a chain flail, with a clearly graspable small dark iron ring/short handle at the very top, a readable length of linked chain hanging straight down, and one compact heavy perforated iron incense cage/weight at the bottom. A few dull brass repairs and soot in the vents, physically plausible assembly, empty and unlit. ONE complete object only, generous empty transparent margin on all sides, no cropping. The chain must visibly connect the top handle to the lower weight. Center the object. No smoke, fire, glow, magic, skull motifs, human, hand, ground, shadow, scenery, lettering, border, label, grid, second view, or additional item.\n\nMatch the general visual grammar I inspected in Ashveil's own original direction-v319 weapons.png and direction-v320 equipment.png: readable compact game inventory silhouette, deliberate crisp pixel clusters, thin nearly black worn outline, muted iron gray and brown, tiny desaturated brass details, restrained top-left highlights and three or four solid shading tones. It should read as a worn practical object, not shiny fantasy loot or smooth digital painting. Visually simple enough to remain identifiable when shown around 28 world pixels tall, while preserving a detailed original asset. Do not copy or reproduce any other game's image. Transparent RGBA PNG background. Full original image, with only this ONE vertical censer.\n",
+      "transparentBackground": true,
+      "sourcePngPixelsModified": false,
+      "alphaBounds": [
+        33,
+        66,
+        914,
+        1512
+      ],
+      "alpha8Bounds": [
+        339,
+        69,
+        686,
+        1430
+      ],
+      "alphaMax": 254,
+      "outsideSilhouetteNote": "생성 원본에 alpha1–7의 매우 희미한 바깥 픽셀이 남는다. 보존 PNG에서 제거하지 않았고, 표시용 프레임 사각형만 주물체 주변으로 지정했다.",
+      "visuallyInspected": true,
+      "status": "preserved-first-attempt",
+      "styleReferenceFiles": [
+        "/workspace/ashveil/public/sprites/original/direction-v319/weapons.png",
+        "/workspace/ashveil/public/sprites/original/direction-v320/equipment.png"
+      ],
+      "referenceImagesPassedToGenerator": []
+    },
+    {
+      "originalOutputPath": "/workspace/generated_images/exec-5eeeec95-4ea5-4b56-b42e-2657369064a6.png",
+      "stagedPath": "public/sprites/original/direction-v331/withered-censer-clean.png",
+      "sha256": "90717378a1c100eca1dde36f095237c7c34eb8813db42489b61b2bd3ebb69334",
+      "dimensions": [
+        1024,
+        1536
+      ],
+      "mode": "RGBA",
+      "promptFile": "censer-clean-alpha-prompt.txt",
+      "exactPrompt": "Edit this original Ashveil censer image. Keep exactly the one same vertical metal censer, top ring, connected chain and lower perforated iron cage, same shape and wear details. Remove EVERY bit of the blurry black/brown aura, vignette, soft outline glow, ambient occlusion outside the object, and backdrop. The background outside the object's crisp silhouette, inside the top ring and between the chain links must be pure transparent alpha zero. Make the solid iron/brass object fully opaque with crisp pixel art edges and a limited muted gray/brown/brass palette. No fuzzy translucency anywhere. Preserve generous transparent margin. No added object, text, scenery or shadow. This is a transparent isolated game item, not an illustration on a dark background. Return transparent RGBA PNG.\n",
+      "transparentBackground": true,
+      "sourcePngPixelsModified": false,
+      "alphaBounds": [
+        43,
+        55,
+        980,
+        1512
+      ],
+      "alpha8Bounds": [
+        331,
+        59,
+        693,
+        1442
+      ],
+      "alphaMax": 254,
+      "outsideSilhouetteNote": "생성 원본에 alpha1–7의 매우 희미한 바깥 픽셀이 남는다. 보존 PNG에서 제거하지 않았고, 표시용 프레임 사각형만 주물체 주변으로 지정했다.",
+      "visuallyInspected": true,
+      "status": "chosen-original",
+      "styleReferenceFiles": [
+        "/workspace/ashveil/public/sprites/original/direction-v319/weapons.png",
+        "/workspace/ashveil/public/sprites/original/direction-v320/equipment.png"
+      ],
+      "referenceImagesPassedToGenerator": [
+        "/workspace/.ashveil-planned/v331-equipment/public/sprites/original/direction-v331/withered-censer.png"
+      ]
+    }
+  ],
+  "selected": "withered-censer-clean.png",
+  "renderReview": "원본 PNG 의미·수직 사슬 연결은 직접 확인. 실제 게임 크기·손잡이·전투 장면 미검증."
+}

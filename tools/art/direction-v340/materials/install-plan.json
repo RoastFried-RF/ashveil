@@ -1,0 +1,24 @@
+{
+  "status": "art-and-registration-ready-for-parent-integration",
+  "active": false,
+  "artReadyForParentIntegration": true,
+  "originals": [
+    {
+      "source": "originals/surveyor-material-icons-v1.png",
+      "targetRelativeToPublic": "sprites/original/direction-v340/surveyor-material-icons-v1.png",
+      "sha256": "26dc36937beb2bb62c409ed1adef7d829baf137d8cb4c8ea36e938a9e13d5924",
+      "size": [
+        1254,
+        1254
+      ],
+      "uniqueRegions": 4
+    }
+  ],
+  "registryFragment": "sprites.fragment.json",
+  "itemMapping": "items.fragment.json",
+  "plannedItemSnapshot": "planned-item-defs.snapshot.json",
+  "originalSalvageSnapshot": "surveyor-salvage.snapshot.json",
+  "definitionPatchRequired": false,
+  "integrationNote": "The four planned Item Defs already use the exact av331 sprite keys. Merge only sheet/size/frames; do not re-register snapshots or duplicate Def IDs, and do not change original salvage/material/size/value rules.",
+  "mainGameAcceptancePending": true
+}

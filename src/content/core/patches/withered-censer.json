@@ -1,0 +1,41 @@
+[
+  {
+    "op": "replace",
+    "target": "Creature.WitheredPriest",
+    "path": "/naturalAttack",
+    "value": {
+      "label": "맨손 후려치기",
+      "damageType": "blunt",
+      "damage": 5,
+      "pen": 0,
+      "accuracy": 6,
+      "energy": 3,
+      "family": "unarmed",
+      "noise": 6,
+      "requiresCapacity": "manipulation"
+    }
+  },
+  {
+    "op": "add",
+    "target": "Creature.WitheredPriest",
+    "path": "/loadout",
+    "value": {
+      "slots": [
+        {
+          "items": [
+            "Item.WitheredCenser"
+          ]
+        },
+        {
+          "items": [
+            "Item.PillWhite",
+            "Item.PillYellow",
+            "Item.Cloth",
+            "Item.BoneCharm"
+          ],
+          "chance": 0.35
+        }
+      ]
+    }
+  }
+]

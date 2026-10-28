@@ -1,0 +1,28 @@
+import {describe,it,expect} from 'vitest'
+import {mapFraudFixture,mapFraudNativeFixture} from './map-fraud-fixture'
+import {mapFraudRules,addFalseMapFacilities} from '../src/core/map-fraud'
+import {mapLandmarkClaims} from '../src/core/map-landmarks'
+import {npcFieldMap} from '../src/core/npc-map-memory'
+import {mapDrawingQuote} from '../src/core/map-writing'
+import {npcMapPurchaseQuote} from '../src/core/npc-cartography'
+import {stateHash,serialize,deserialize} from '../src/core/save'
+import {runUntilInput} from '../src/core/game'
+import {type World} from '../src/core/ctx'
+import {npcCartographyNativeFixture} from './npc-cartography-fixture'
+import {loadMods} from '../src/core/defs'
+import {readPackages} from '../tools/loadContent'
+describe('실제 약탈단 작성자의 의도적 거짓 물 시설',()=>{
+ it('기본 설정의30%/1~2개/신뢰20을 실제 완료 시점에만 적용한다',()=>{const d=mapFraudFixture(),before=stateHash(d.s);expect(mapFraudRules(d.w,d.npc)).toMatchObject({chance:.3,facilityCount:[1,2],reliability:20});expect(mapDrawingQuote(d.w,d.npc,d.paper.uid,d.ink.uid).error).not.toBeNull();expect(stateHash(d.s)).toBe(before);expect(Object.keys(d.s.rng).some(k=>k.startsWith('items.mapFraud.'))).toBe(false);d.act({type:'wait'});expect(d.npc.mapDrawingJob!.draft.reliability).toBe(20);expect(Object.keys(d.s.rng).some(k=>k.startsWith('items.mapFraud.'))).toBe(false)})
+ it('기본 시드의 실제60턴은 물이 없는 자기 시야 안 두 곳을 물 시설이라고 적는다',()=>{const d=mapFraudNativeFixture('drawn'),doc=d.paper.note!.mapDocument!;expect(d.proof.actualElapsedTU).toBe(6000);expect(doc.reliability).toBe(20);expect(doc.landmarks).toHaveLength(2);for(const l of doc.landmarks!){const t=d.s.map.tiles[l.y*d.s.map.w+l.x]!,terrain=d.w.db.terrain(t.t);expect(terrain.water||terrain.waterSource).toBeFalsy();expect(['우물','샘']).toContain(l.label)}expect(d.ink.count).toBe(2);expect(npcFieldMap(d.w,d.npc)!.landmarks).toBeUndefined();expect(d.s.knowledge.rumors).toEqual([])})
+ it('없는 시설 표식은 실제 물·우물·아이템·지형을 만들지 않는다',()=>{const d=mapFraudNativeFixture('initial'),tiles=structuredClone(d.s.map.tiles.map(t=>({t:t.t,items:t.items,placed:t.placed}))),next=d.s.nextId;d.finish();expect(d.s.map.tiles.map(t=>({t:t.t,items:t.items,placed:t.placed}))).toEqual(tiles);expect(d.s.nextId).toBe(next)})
+ it('원본/문서/UI용 주장에는 가짜 정답 표시를 넣지 않는다',()=>{const d=mapFraudNativeFixture('drawn'),doc=d.paper.note!.mapDocument!;expect(doc).not.toHaveProperty('fraud');expect(doc).not.toHaveProperty('fake');expect(doc).not.toHaveProperty('truePositions');expect(JSON.stringify(doc)).not.toContain('거짓');expect(JSON.stringify(doc)).not.toContain('가짜')})
+ it('동일한 기본 확률로 실제 만든 여러 시드에는 거짓 시설 없는 문서도 있다',()=>{let honest=0,falseFacilities=0;for(let i=0;i<10;i++){const d=mapFraudNativeFixture('drawn','map-fraud-proof-'+i);if(d.paper.note!.mapDocument!.landmarks?.length)falseFacilities++;else honest++}expect(honest).toBeGreaterThan(0);expect(falseFacilities).toBeGreaterThan(0)})
+ it('정상 작성자의 원본과 플레이어 자기 지도는 이 거짓말 난수를 쓰지 않는다',()=>{const d=npcCartographyNativeFixture('drawn');expect(d.paper.note!.mapDocument!.reliability).toBe(40);expect(Object.keys(d.s.rng).some(k=>k.startsWith('items.mapFraud.'))).toBe(false);expect(mapFraudRules(d.w,d.p)).toBeUndefined()})
+ it('원본을 사도 내용을 배우지 않고 실제 독서 뒤 자기 과거 관찰과만 불일치 표시한다',()=>{const d=mapFraudNativeFixture('purchased');expect(d.s.knowledge.rumors).toEqual([]);d.act({type:'read',uid:d.paper.uid});expect(d.s.knowledge.rumors).toHaveLength(1);expect(mapLandmarkClaims(d.w,d.s.map.id,d.s.map).every(c=>c.status==='contradicted')).toBe(true)})
+ it('자기 관찰 없는 곳은 실제 숨은 바닥이 물이 아님을 알아도 미확인 주장으로 둔다',()=>{const d=mapFraudNativeFixture('read');for(const l of d.paper.note!.mapDocument!.landmarks!)delete d.s.map.tiles[l.y*d.s.map.w+l.x]!.observed;const before=stateHash(d.s);expect(mapLandmarkClaims(d.w,d.s.map.id,d.s.map).every(c=>c.status==='unverified')).toBe(true);expect(stateHash(d.s)).toBe(before)})
+ it('거짓 특징을 포함한 실제 원본 가격/현금 교환도 동일한 유한 거래다',()=>{const d=mapFraudNativeFixture('drawn'),q=npcMapPurchaseQuote(d.w,d.p,d.npc,d.paper.uid),at=d.s.time;expect(q.price).toBeGreaterThanOrEqual(20);d.act({type:'buyNpcMap',target:d.npc.id,uid:d.paper.uid,expectedPrice:q.price});expect(d.s.time-at).toBe(100);expect(d.p.money).toBe(100-q.price);expect(d.npc.money).toBe(7+q.price);expect(d.p.bag.find(i=>i.uid===d.paper.uid)).toBe(d.paper)})
+ it('지하 지도에는 지상 거짓 물 시설/추가 사기 난수를 넣지 않는다',()=>{const d=mapFraudNativeFixture('drawn'),doc=structuredClone(d.paper.note!.mapDocument!);doc.kind='dungeon';delete doc.landmarks;const random=structuredClone(d.s.rng);addFalseMapFacilities(d.w,d.npc,99999,doc);expect(doc.landmarks).toBeUndefined();expect(d.s.rng).toEqual(random)})
+ it('최대128개 기록의 문서를 실제 거짓말 추첨이 되는 기본 시드에서도 넘기지 않는다',()=>{const source=mapFraudNativeFixture('drawn'),doc=structuredClone(source.paper.note!.mapDocument!),d=mapFraudFixture();doc.landmarks=Array.from({length:128},()=>({x:0,y:0,kind:'water',label:'기록된 물'}));addFalseMapFacilities(d.w,d.npc,d.paper.uid,doc);expect(doc.landmarks.length).toBe(128)})
+ it('미완료 저장 후 거짓말 추첨/원본/돈/관찰/난수 전체가 원래와 같다',()=>{const d=mapFraudNativeFixture('pending'),copy:World={db:d.w.db,s:deserialize(serialize(d.s))};runUntilInput(d.w);runUntilInput(copy);expect(JSON.parse(serialize(copy.s))).toEqual(JSON.parse(serialize(d.s)));expect(d.paper.note!.mapDocument!.landmarks).toHaveLength(2);expect(d.ink.count).toBe(2)})
+ it('잘못된 세력/확률/시설 수/시설 이름의 모드는 거절한다',()=>{for(const[path,value]of [['/fraud/chance',2],['/fraud/factions',['missing']],['/fraud/facilityCount',[2,1]],['/fraud/labels',[]]]as const){const id='bad-fraud',loaded=loadMods([...readPackages(),{manifest:{id,name:id,version:'1'},defs:[],patches:[{op:'replace',target:'Cartography.Hearth',path,value}]}],[id]);expect(loaded.report.errors.length).toBeGreaterThan(0)}})
+})

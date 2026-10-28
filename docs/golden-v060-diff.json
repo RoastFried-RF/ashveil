@@ -1,0 +1,54 @@
+{
+  "fromVersion": "v0.59",
+  "toVersion": "v0.60",
+  "commandsRewritten": false,
+  "saveVersion": 26,
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "9086be01",
+      "initialHash": "dc1afad2",
+      "fromHash": "a264d30c",
+      "hash": "7817fb83",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "9bf73313",
+      "initialHash": "2e49f636",
+      "fromHash": "6056eb47",
+      "hash": "33d94452",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "76e03721",
+      "initialHash": "d67ce50e",
+      "fromHash": "214150d9",
+      "hash": "a031a584",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "c76f7aa5",
+      "initialHash": "0ca496d2",
+      "fromHash": "b776fe6a",
+      "hash": "5d8abfed",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "c76f7aa5",
+      "initialHash": "0ca496d2",
+      "fromHash": "56495919",
+      "hash": "2af234f8",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    }
+  ],
+  "note": "기존5입력의 전체 초기/최종 상태 차이는 버전25→26뿐이며 명령·오류를 보존한다. 동료/물품/실제 이동과 장비 공간은 별도 검증한다."
+}

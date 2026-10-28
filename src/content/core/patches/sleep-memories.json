@@ -1,0 +1,32 @@
+[
+  {
+    "op": "add",
+    "target": "Thought.SleptWell",
+    "path": "/sleepEvent",
+    "value": "quality"
+  },
+  {
+    "op": "add",
+    "target": "Thought.SleptWell",
+    "path": "/minSleepQuality",
+    "value": 0.9
+  },
+  {
+    "op": "add",
+    "target": "Thought.SleptRough",
+    "path": "/sleepEvent",
+    "value": "wet"
+  },
+  {
+    "op": "add",
+    "target": "Thought.SleptRough",
+    "path": "/minSleepWetness",
+    "value": 50
+  },
+  {
+    "op": "replace",
+    "target": "Thought.SleptRough",
+    "path": "/label",
+    "value": "젖은 채 노숙"
+  }
+]

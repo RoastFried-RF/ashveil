@@ -1,0 +1,99 @@
+{
+  "checkpoint": "v281-final",
+  "manifestSha256": "5bf66a69ff01ada03586c37f6810c80e44530a1026ada5855d9b1e85d2f65695",
+  "save": 189,
+  "items": 203,
+  "definitions": 873,
+  "recipes": 85,
+  "patches": 295,
+  "wholeGoldens": "ALL5 initial/final/errors audited against280:16 metadata paths; world2 exactly5 finite guard stacks and reviewed later market UID/counter+5; all remaining WHOLE/RNG exact280",
+  "native": {
+    "screenshots": 7,
+    "wholeRoundtrips": 3,
+    "wholeStatePhases": 13,
+    "actualInputTU": 8000,
+    "errors": 0,
+    "allViewed": true,
+    "independentAll15PngReview": true
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen281": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatchesFrozen281": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "wholeWorldIdenticalAcrossBothViewportsAtEveryGameSnapshot": true,
+    "all8ScreenshotsViewed": true,
+    "independentAll15PngReview": true,
+    "errors": 0
+  },
+  "full": {
+    "status": "passed",
+    "files": 315,
+    "passed": 5738,
+    "failed": 0,
+    "seconds": 647.0734406738281,
+    "workers": 2
+  },
+  "world": {
+    "status": "passed",
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 437.54714919099996,
+    "averageDays": 0.4675023148148149,
+    "causes": {
+      "저체온": 20,
+      "치명상": 4,
+      "과다 출혈": 6
+    },
+    "wholeResultRowsIdenticalTo280": 30
+  },
+  "source": {
+    "src": {
+      "files": 642,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 993,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 38,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 210,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 81,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "originalNativeFailure": "test assumed100TU combat equip; actual200TU. Initial trial RNG arrays also cloned. Original first log/fixture/PNGs preserved; second passed on byte-identical production. Corrected Native source is exact second run."
+}

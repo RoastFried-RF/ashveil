@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "typecheck",
+      "lane": "light",
+      "kind": "typecheck",
+      "effect": "read-only",
+      "cwd": "/workspace/ashveil",
+      "argv": [
+        "node",
+        "node_modules/vue-tsc/bin/vue-tsc.js",
+        "--noEmit"
+      ]
+    },
+    {
+      "id": "lint",
+      "lane": "light",
+      "kind": "lint",
+      "effect": "read-only",
+      "cwd": "/workspace/ashveil",
+      "argv": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "."
+      ]
+    },
+    {
+      "id": "build",
+      "lane": "heavy",
+      "kind": "build",
+      "effect": "source-write",
+      "deps": [
+        "typecheck",
+        "lint"
+      ],
+      "cwd": "/workspace/ashveil",
+      "argv": [
+        "node",
+        "node_modules/vite/bin/vite.js",
+        "build"
+      ]
+    },
+    {
+      "id": "smoke",
+      "lane": "heavy",
+      "kind": "native",
+      "effect": "output-only",
+      "deps": [
+        "build"
+      ],
+      "cwd": "/workspace/ashveil",
+      "argv": [
+        "node",
+        "--import",
+        "tsx",
+        "tools/game-harness-preview.ts",
+        "{task_out}/smoke"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1438 @@
+{
+  "version": 1,
+  "bundle": "v0.401 gameplay English display",
+  "sourceCommit": "e26be9e61a691bee169c219c2657cf56164b2bd4",
+  "baseCommit": "e793da08c3fa9d612c55f4d7374252fcae41b704",
+  "saveVersion": 219,
+  "recordedAtKST": "2026-10-28 16:54 KST",
+  "environment": {
+    "version": 1,
+    "root": "/home/runner/work/ashveil/ashveil",
+    "ready": true,
+    "checks": {
+      "node24": {
+        "ok": true,
+        "version": "v24.21.0"
+      },
+      "pnpm9159": {
+        "ok": true,
+        "version": "9.15.9"
+      },
+      "lockfile": {
+        "ok": true,
+        "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+      },
+      "dependencies": {
+        "ok": true,
+        "missing": []
+      },
+      "chromium": {
+        "ok": true,
+        "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+        "version": "Chromium 141.0.7390.37"
+      },
+      "checkout": {
+        "ok": true,
+        "head": "e26be9e61a691bee169c219c2657cf56164b2bd4"
+      }
+    },
+    "cgroup": {},
+    "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+  },
+  "frozenInstall": {
+    "workflow": "cloud-development.yml",
+    "run": 40650060875,
+    "step": "Frozen dependencies",
+    "conclusion": "success",
+    "lockSHA256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+  },
+  "validation": {
+    "run": 40650060875,
+    "job": 122687792934,
+    "artifact": 12800706059,
+    "artifactSHA256": "3f00f696d6d576076ee4d4b6914868de71662c9284252a77b83ab3fda8de497c",
+    "allTasks": {
+      "environment": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:27:32.130263+00:00",
+        "endedAt": "2026-10-28T07:27:32.621958+00:00"
+      },
+      "typecheck": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:27:32.653098+00:00",
+        "endedAt": "2026-10-28T07:28:02.246289+00:00"
+      },
+      "lint": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:27:32.653220+00:00",
+        "endedAt": "2026-10-28T07:28:04.699735+00:00"
+      },
+      "preview-helper": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:28:04.701620+00:00",
+        "endedAt": "2026-10-28T07:28:05.003978+00:00"
+      },
+      "defs": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:28:05.054321+00:00",
+        "endedAt": "2026-10-28T07:28:05.965350+00:00"
+      },
+      "sprites": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:28:05.054118+00:00",
+        "endedAt": "2026-10-28T07:28:07.976928+00:00"
+      },
+      "locale-focused": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "light",
+        "startedAt": "2026-10-28T07:28:06.010275+00:00",
+        "endedAt": "2026-10-28T07:28:09.836556+00:00"
+      },
+      "full": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:28:09.838062+00:00",
+        "endedAt": "2026-10-28T07:44:04.617819+00:00"
+      },
+      "build": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:44:04.623560+00:00",
+        "endedAt": "2026-10-28T07:44:11.895586+00:00"
+      },
+      "smoke": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:44:11.897120+00:00",
+        "endedAt": "2026-10-28T07:44:53.404491+00:00"
+      },
+      "locale": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:44:53.405774+00:00",
+        "endedAt": "2026-10-28T07:45:46.414758+00:00"
+      },
+      "locale-gameplay": {
+        "status": "passed",
+        "exitCode": 0,
+        "lane": "heavy",
+        "startedAt": "2026-10-28T07:45:46.416086+00:00",
+        "endedAt": "2026-10-28T07:48:32.419634+00:00"
+      }
+    },
+    "full": {
+      "files": 410,
+      "passed": 6759,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 954.28,
+      "workers": 2
+    },
+    "focused": {
+      "files": 3,
+      "passed": 25,
+      "casesAlsoCoveredByFull": true
+    },
+    "sharedLanes": {
+      "maxLight": 2,
+      "maxHeavy": 1,
+      "heavyLightOverlapEvents": 0
+    },
+    "smoke": {
+      "viewports": [
+        [
+          1440,
+          1080
+        ],
+        [
+          1366,
+          768
+        ]
+      ],
+      "stepsPerViewport": 11,
+      "pngs": 8
+    },
+    "native": {
+      "locale": {
+        "wholeStatePairs": 12,
+        "errors": [],
+        "viewports": [
+          [
+            390,
+            844
+          ],
+          [
+            1366,
+            768
+          ]
+        ],
+        "rows": [
+          {
+            "label": "created-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          },
+          {
+            "label": "settings-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 453,
+                  "y": 70,
+                  "right": 913,
+                  "bottom": 760,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "settings-ko",
+            "width": 1366,
+            "height": 768,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 453,
+                  "y": 70,
+                  "right": 913,
+                  "bottom": 760,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "keys-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 453,
+                  "y": 70,
+                  "right": 913,
+                  "bottom": 760,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "wait-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "48666c53",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          },
+          {
+            "label": "continued-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "48666c53",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          },
+          {
+            "label": "created-en",
+            "width": 390,
+            "height": 844,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          },
+          {
+            "label": "settings-en",
+            "width": 390,
+            "height": 844,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 836,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "settings-ko",
+            "width": 390,
+            "height": 844,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 836,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "keys-en",
+            "width": 390,
+            "height": 844,
+            "hash": "81afa4d9",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 836,
+                  "reachable": true
+                }
+              ]
+            }
+          },
+          {
+            "label": "wait-en",
+            "width": 390,
+            "height": 844,
+            "hash": "48666c53",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          },
+          {
+            "label": "continued-en",
+            "width": 390,
+            "height": 844,
+            "hash": "48666c53",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": []
+            }
+          }
+        ],
+        "postTitleWorldWrites": false,
+        "normalization": "Renderer-consumed FX only",
+        "fixture": "Fresh actual creation, no injected game world"
+      },
+      "locale-gameplay": {
+        "wholeStatePairs": 33,
+        "errors": [],
+        "viewports": [
+          [
+            390,
+            844
+          ],
+          [
+            1366,
+            768
+          ],
+          [
+            1440,
+            1080
+          ]
+        ],
+        "rows": [
+          {
+            "label": "created-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "character-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 16,
+                  "y": 80,
+                  "right": 446,
+                  "bottom": 618.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "locked-formula-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "learned-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "window-focus-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "character-ko",
+            "width": 1440,
+            "height": 1080,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 16,
+                  "y": 80,
+                  "right": 446,
+                  "bottom": 586.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "abilities-ko",
+            "width": 1440,
+            "height": 1080,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 502.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "help-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "wait-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "2f83d1e6",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "crouch-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "continued-en",
+            "width": 1440,
+            "height": 1080,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 295,
+                "right": 1145,
+                "bottom": 1068
+              }
+            }
+          },
+          {
+            "label": "created-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "character-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 16,
+                  "y": 80,
+                  "right": 446,
+                  "bottom": 618.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "locked-formula-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "learned-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "window-focus-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 523,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "character-ko",
+            "width": 1366,
+            "height": 768,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 16,
+                  "y": 80,
+                  "right": 446,
+                  "bottom": 586.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "abilities-ko",
+            "width": 1366,
+            "height": 768,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 120,
+                  "y": 70,
+                  "right": 720,
+                  "bottom": 502.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "help-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "wait-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "2f83d1e6",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "crouch-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "continued-en",
+            "width": 1366,
+            "height": 768,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 258,
+                "right": 1108,
+                "bottom": 756
+              }
+            }
+          },
+          {
+            "label": "created-en",
+            "width": 390,
+            "height": 844,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "character-en",
+            "width": 390,
+            "height": 844,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 80,
+                  "right": 382,
+                  "bottom": 646.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "locked-formula-en",
+            "width": 390,
+            "height": 844,
+            "hash": "d4ff414c",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 810,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "learned-en",
+            "width": 390,
+            "height": 844,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 810,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "window-focus-en",
+            "width": 390,
+            "height": 844,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 810,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "character-ko",
+            "width": 390,
+            "height": 844,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 80,
+                  "right": 382,
+                  "bottom": 578.5,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "abilities-ko",
+            "width": 390,
+            "height": 844,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "ko",
+              "dialogs": [
+                {
+                  "x": 8,
+                  "y": 70,
+                  "right": 382,
+                  "bottom": 810,
+                  "reachable": true
+                }
+              ],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "help-en",
+            "width": 390,
+            "height": 844,
+            "hash": "57a53c17",
+            "time": 2160000,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "wait-en",
+            "width": 390,
+            "height": 844,
+            "hash": "2f83d1e6",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "crouch-en",
+            "width": 390,
+            "height": 844,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          },
+          {
+            "label": "continued-en",
+            "width": 390,
+            "height": 844,
+            "hash": "7a7e379b",
+            "time": 2160100,
+            "layout": {
+              "overflow": false,
+              "lang": "en",
+              "dialogs": [],
+              "hud": {
+                "x": 6,
+                "right": 384,
+                "bottom": 832
+              }
+            }
+          }
+        ],
+        "postTitleWorldWrites": false,
+        "normalization": "Renderer-consumed FX only",
+        "fixture": "Fresh actual creation, no injected game world"
+      }
+    },
+    "pngReview": {
+      "reviewedIndividually": 55,
+      "files": [
+        {
+          "path": "tasks/locale/locale/1366-continued-en.png",
+          "sha256": "2db8a631ca2bc23c06df1725117a889e29bc3c54e60a3ecd61246f956b74d993"
+        },
+        {
+          "path": "tasks/locale/locale/1366-created-en.png",
+          "sha256": "19d67218508cd73d8afde59bc68a85739b2f4c768f374acde85c0510a296cd9c"
+        },
+        {
+          "path": "tasks/locale/locale/1366-keys-en.png",
+          "sha256": "f39078d77a567f9a14c068413598dd1db6c88a2b9530c98a4df99a14524b07a6"
+        },
+        {
+          "path": "tasks/locale/locale/1366-settings-en.png",
+          "sha256": "ca410f9609655a1ad908f4086d5c5cd10d575c4004b5c640600f7bcf1c34ddaa"
+        },
+        {
+          "path": "tasks/locale/locale/1366-settings-ko.png",
+          "sha256": "3de8ca718a1b98886f6a0352f98e48d5b8f1f9dfc18fed2df0d52fddbc03d848"
+        },
+        {
+          "path": "tasks/locale/locale/1366-title-en.png",
+          "sha256": "bfb7a6c25507ff4ebd6ea229e96e3d82cfb920114a3a0549bad5f5b577c9c83b"
+        },
+        {
+          "path": "tasks/locale/locale/1366-wait-en.png",
+          "sha256": "659de9ca9aa9ba4ff0373cd242a7a25e9e8eca54f7f2d6771055989fe5134895"
+        },
+        {
+          "path": "tasks/locale/locale/390-continued-en.png",
+          "sha256": "e45816455507fa3a167eb8544a65d394794335bcd988d088148ba8a4dc234c09"
+        },
+        {
+          "path": "tasks/locale/locale/390-created-en.png",
+          "sha256": "ef6d67044707bc7bdefd6524c4835a327b4909a5ffdc99636b714b0f1d1415f4"
+        },
+        {
+          "path": "tasks/locale/locale/390-keys-en.png",
+          "sha256": "826527d71ce848f2be3950f76eff436384b710ed88448b1ea065d9471f576304"
+        },
+        {
+          "path": "tasks/locale/locale/390-settings-en.png",
+          "sha256": "5d3dcae954f7e8854ee2925e345c32415eb3cd7f9bea1eedd7c156fc8a2281c2"
+        },
+        {
+          "path": "tasks/locale/locale/390-settings-ko.png",
+          "sha256": "fdf9baf555e2a0e03b432af0528bbb52197a0038952a124155b1bac80b50f304"
+        },
+        {
+          "path": "tasks/locale/locale/390-title-en.png",
+          "sha256": "19cf005840689fc10a3deb17de1847ee384b500e46d5c30bf169ef5c665b7b5d"
+        },
+        {
+          "path": "tasks/locale/locale/390-wait-en.png",
+          "sha256": "d27cae971dadb9c9e9c13cbe66af4561063b7e7ef68687d74b784f6c20f617e3"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-abilities-ko.png",
+          "sha256": "9cc54eb82fbaa77744e49b5a8fb7bfcf811710e02aee8c12fd201e7b08109576"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-character-en.png",
+          "sha256": "c2f36fd9c16a5cecf1125e4cc5f1a8f13567c7c6d74694f6d4807f32de01f349"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-character-ko.png",
+          "sha256": "49dd7245c3c067c6dd5b24990f8fada5bfdf8a2c3e0de650541dc3b93f6ab884"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-continued-en.png",
+          "sha256": "c90b31f8dbf40deb645f6c0b5a8f971ba5badf486b62f301a6a3c38292cb33de"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-created-en.png",
+          "sha256": "d541e30a7d7e51fa43d474ae6bf9913c3d9ad332effde801d3844afa828822ee"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-crouch-en.png",
+          "sha256": "4cded005ace601b5483afd120be07c3895db09471a517002c694f290a1d27256"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-help-en.png",
+          "sha256": "cee688d8e11b518183506b68e3a0fc69c099ad94a6f3b6cbc9beacf01da40210"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-learned-en.png",
+          "sha256": "c15294d6498936fe1f51418a0f579e6e87ffa73360afbd37176ed6946873f900"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-locked-formula-en.png",
+          "sha256": "6e121077b2963d59097dc98462dda20c9ebeac8f398fde648292cda1e8a7d7f9"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-wait-en.png",
+          "sha256": "80173a84a8b363de08421bed59c92c51e44a8f63c89322bd8af4e9bf0eef207c"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1366-window-focus-en.png",
+          "sha256": "b65844771fb236ca24599346b3a8ea3c03d8c272785c1ba9388abde7bfb2d438"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-abilities-ko.png",
+          "sha256": "927d8111e4d0ecc03ec00f31187e2f61e19b25bdc2d25f96b9189bdfdb139aed"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-character-en.png",
+          "sha256": "c9a3526297348001df7db0d33b0528e201f9ec13a098228aa813c9f9e65fee4b"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-character-ko.png",
+          "sha256": "39568c7d84ed49ff8b9727bb0556395122732fcf02c4b417a75111719c2d0108"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-continued-en.png",
+          "sha256": "8a9565e64a59f75f28e0c65b2a812de4d71a371f6734e3dcf840598b3d2fd9b0"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-created-en.png",
+          "sha256": "f0e0d7f06fa1c3cae2627322472ef8930a50bd264d059642930fa2c28cfa522c"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-crouch-en.png",
+          "sha256": "89c6284351075cd4e436f4d1c399716eb629a645d4af611fba929bbd540d5f7a"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-help-en.png",
+          "sha256": "6162f8dc5922599bd2419cc3cc3f00f93aa78320a888c31ee734f80cc65aff38"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-learned-en.png",
+          "sha256": "32f1899ada3eb25b103b08ba6d5d887f1f60fc71aea080bf75ce365bb2ba810f"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-locked-formula-en.png",
+          "sha256": "acbfcf209e0f9d546d87244554bab283d876a356b9a3cc5aa9e29b50bf4bc29b"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-wait-en.png",
+          "sha256": "2dec874fd53df5be3396f82bbc4447c52408e820f71639b521bd8a492ae1fce3"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/1440-window-focus-en.png",
+          "sha256": "4903de79a31663c2c339d5f359b655b98d2a12014a660994cef42d4c56cb7483"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-abilities-ko.png",
+          "sha256": "f978dbdbd4b239340ef97e84dd03ff3ad53b98c3cb715f0dba602eae4d44b5b4"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-character-en.png",
+          "sha256": "f8039a1a64354c7155c3eaad2d007c3c3b243b1cfbf6849e53d7ea437b14b606"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-character-ko.png",
+          "sha256": "11e2c8f6f9e0dc0c45b88a3c42d91227291b023af81fd1775166699c1d485e66"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-continued-en.png",
+          "sha256": "4d80ebf5577e7c4e7b17bb18d9ced73f430f30db00665938f0f1284c061b27d2"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-created-en.png",
+          "sha256": "a932189c4a940d8c8bb45858a747501ea77b8c6cd419762eb1f1e6fcbd023b1c"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-crouch-en.png",
+          "sha256": "02208456b2327c66726e6f55a6a8053f842bdf113905d7db659b87bf7a379eca"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-help-en.png",
+          "sha256": "720ccf336a4d7151c2009aaab38a6a0433a92198674b51dd94c5e0ebce099f4c"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-learned-en.png",
+          "sha256": "93be53e18150afccb2b8a14906724f59c4782d9c852370ea0b5aa1065f0e9ea0"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-locked-formula-en.png",
+          "sha256": "21f77f6f4c7b96eceb334f46e3bc1abb459649deeb8f458515f8c41277c79987"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-wait-en.png",
+          "sha256": "b692f3280c325b699167c82e1d62c6018f1a24d9f5fb7e0a22ac16f85ce03715"
+        },
+        {
+          "path": "tasks/locale-gameplay/locale-gameplay/390-window-focus-en.png",
+          "sha256": "51207b8033387f5341911a0cba27495a4991f0ec4f58f3aa9512f412f58fe560"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/00-title.png",
+          "sha256": "5b94b0fa7f1f63fab387a7fc677725a1127099035370ead35fbabd875388853f"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/01-world.png",
+          "sha256": "d7252d097218a9661cb3e5f1c3fc23874c099753e71dc729a0c99ba7e26b2785"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/02-inventory.png",
+          "sha256": "a431b1d93dc73d354040209201deeb85ecbd73ab16d594caf1a3cc938879b9d0"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/final.png",
+          "sha256": "4b2162fd748353264dff806caed01324d7c68b5ef991e293848c89b8b5490fe9"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/00-title.png",
+          "sha256": "80cba7d218fd5e324498049d75741c35e7171bbdf246877a8106a3f7e1f7dc98"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/01-world.png",
+          "sha256": "19a4b85a015c12f3a3170725163b7cf8abb3e60ea427a5806f4d2cd6561a1b93"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/02-inventory.png",
+          "sha256": "a1dacce1f3da5428e69789224da7ed7714b59b05260844e7b3b8db1cd8b644ed"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/final.png",
+          "sha256": "982ca58ac2795917f24079ebc16cba81faac97182774e76ba7941b6caeb1cfd8"
+        }
+      ],
+      "findings": [
+        "No new blocked controls or clipped windows in reviewed scenes.",
+        "Minor follow-up: the Character Age row repeats Age in English.",
+        "Settings save-mode card and other game windows/logs remain Korean; full translation is not claimed.",
+        "Mobile continued scenes show a normal Blood hover tooltip; moving the pointer clears it."
+      ]
+    }
+  },
+  "reviewedTranslationScope": {
+    "uiMessages": 661,
+    "contentDefs": 83,
+    "contentFields": "label and description; exact ID + final source guard",
+    "patchedTraitDescriptionsReviewed": 8,
+    "notCompletionPercentage": true
+  },
+  "sourceSHA256": {
+    ".github/workflows/cloud-development.yml": "3cc7b807db5d932f527f14564619539564bdcbe392267db5c5a33b8f8c35f2bf",
+    "src/client/GameScreen.vue": "759e29d8123b4c114d06d16a8284560bfca89e9f02fa9b48d5a7f90092dfceeb",
+    "src/client/build-version.ts": "a798b12b91af8218c6b42155c146351967b0a2b77ada8e061505918f3fe31a20",
+    "src/client/info.ts": "3c1b149abfa1b0533bdd84bdda5c83b60e67031c9771ec6e5c39854aba1571ee",
+    "src/client/locale.ts": "1c2c5ca3b37973b70841a90adf61862a359347fe67ca8394cacc7c2ca8d2d706",
+    "src/client/locales/en.json": "883a5efe106519f42f402479ec09ad583f1ea73f3e9e97dda7d98c9294e680d4",
+    "src/client/ui/AbilityWindow.vue": "d4d1a8ebea3ed399f536f7aed49c70ae69c11c8729aa7c057a88f33adc80362b",
+    "src/client/ui/CharacterWindow.vue": "5d27fe22a701ee9fc939d1b9ceb1e34a4d6f5a714273e1b7170fdf999c86dd1e",
+    "src/client/ui/Hud.vue": "512b0e8f3472a831d2844b8b2f1ce54d9d996c846a32ed4fae99b1cc8131ff21",
+    "src/client/ui/SideBars.vue": "0c713443aa0a7bda6352e8d4bfebb09ad8677d8955142bde54eb04d1e11f7d0b",
+    "tools/cloud-harness/README.md": "dba3a551110b74055c9d0017bd986e78321129766f524941889e961d8d9f4226",
+    "tools/cloud-harness/plan.py": "f7526c1ac208b4809c8978e66fce3d4ad717a7d544041aded779da38721ae2e4",
+    "tools/cloud-harness/verify-environment.py": "011fd25dba496a98dfe9447c67c9c69d15f966228519a0d1499a2600de474a59",
+    "tools/inspect-locale-v400.ts": "07f4e13fe975cda4ab551bd1be41bf2033771289438abc337110ad06be1524d4",
+    "tools/localization/README.md": "46e3f6f324c0e2ed59b551d921ebd57f35fb52066ecec789e01aa37709cf705f",
+    "src/client/locales/content.ts": "5633d28691b38399ebd62ad1b45eb52b4742e5a45362505b2fa8355b42e2e4b1",
+    "src/client/locales/en-content.json": "64b08e351bd76aea4bd9b2ad3458a38940d81e751a98cc228febb1148ce38036",
+    "src/client/locales/learning.ts": "89c8ba1216a3cf96c16d8014bd7239ff2909da81786ed0c08c12c59dcfb7adfc",
+    "tests/locale-gameplay.test.ts": "c0a5a0757512d9b5b0b5122b54a44abebad08e04cb5b02327089c726a9305ea0",
+    "tools/inspect-locale-v401.ts": "ec3679170aba8bbe49486a79c63171f994c7b9f1a611acd2ad23b895c6eada11",
+    "docs/localization-v401.md": "1b957d1e8de70787a40cda8bad6973c0dc9b5bd4c98fdaf033f63b73877bc077"
+  },
+  "protectedSources": {
+    "src/core": {
+      "changedFiles": []
+    },
+    "src/content": {
+      "changedFiles": []
+    },
+    "mods": {
+      "changedFiles": []
+    },
+    "public": {
+      "changedFiles": []
+    },
+    "pnpm-lock.yaml": {
+      "changedFiles": []
+    }
+  },
+  "failuresAndRetries": [
+    {
+      "run": 40649177265,
+      "commit": "f7855c82d0cf5ac820163cca36938b52291a3589",
+      "result": "failed",
+      "stage": "typecheck",
+      "cause": "Survival temperature variable shadowed translation function; maneuver quote could contain undefined."
+    },
+    {
+      "run": 40649312705,
+      "commit": "ca0d809eec76d8f0a125d676a18b39cd30a089da",
+      "result": "cancelled while pending",
+      "executedGameChecks": false
+    },
+    {
+      "run": 40649444480,
+      "commit": "b877015a55dcaa594907701e5d88114e1f8f647f",
+      "result": "failed",
+      "stage": "typecheck",
+      "cause": "Remaining optional maneuver estimates; new template-shadow warning."
+    },
+    {
+      "run": 40649639335,
+      "commit": "c29fe41bf96ce35f286029a90589537ecbee2654",
+      "result": "failed",
+      "stage": "focused tests",
+      "passed": 24,
+      "failed": 1,
+      "cause": "ColdBlooded description was patched after raw definition; eight final trait descriptions reviewed, guard/test retained."
+    },
+    {
+      "run": 40650060875,
+      "commit": "e26be9e61a691bee169c219c2657cf56164b2bd4",
+      "result": "success"
+    }
+  ],
+  "publication": {
+    "status": "Not separately published. Included in the later v402 gameplay-language bundle after its own validation.",
+    "mainStillAtReceipt": "e793da08c3fa9d612c55f4d7374252fcae41b704"
+  },
+  "remaining": [
+    "Status/weather/warnings follow in v402.",
+    "Other windows, item detail, dynamic logs, lore and report text remain incomplete.",
+    "All v1/X1–X4 implementation and final World/1000-expedition/human gates remain.",
+    "No new World/expedition/balance run is claimed for this display-only bundle."
+  ]
+}

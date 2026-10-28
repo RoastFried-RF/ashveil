@@ -1,0 +1,201 @@
+{
+  "generatorTool": "image_gen.imagegen",
+  "generationCalls": 1,
+  "outputPngCount": 1,
+  "regenerationCalls": 0,
+  "transparentBackgroundRequested": true,
+  "toolOriginal": "/workspace/generated_images/exec-31b782b6-96f7-434c-8509-7b07c440d050.png",
+  "preserved": "/workspace/.ashveil-planned/v350-bear-processing-notes/originals/bear-processing-notes-v1.png",
+  "sha256": "85766c419fe8776bf7f46c21cac6a212fbaa81da111dcb81a90f7ebee91810dc",
+  "sourceSha256": "85766c419fe8776bf7f46c21cac6a212fbaa81da111dcb81a90f7ebee91810dc",
+  "originalPngBytesModified": false,
+  "size": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "exactPromptFile": "requests/bear-processing-notes-v1.prompt.txt",
+  "exactPrompt": "Create ONE ORIGINAL pixel-art inventory icon for ASHVEIL, a grounded melancholy dark-fantasy survival game in an ash-covered forest. Exactly ONE complete standalone object: an old hunter's BEAR PROCESSING NOTES, a small thin bundle of aged parchment sheets held together by a dark leather thong. Original artwork, no copied or traced commercial-game pixels.\n\nUse the existing ASHVEIL handmade material language: crisp deliberate pixel clusters, restrained charcoal-brown broken edge, dull aged ivory and grey-brown parchment, dark worn leather, subtle warm-grey upper-left lighting. Compact strong silhouette and a few broad readable shapes must work at only 32 by 32 inventory pixels. This is a fragile field-note bundle found at an abandoned hunting camp, not a thick published hardback, luxurious grimoire, modern clipboard or magical scroll.\n\nShow the entire thin parchment bundle in a modest three-quarter top/front view, near-square portrait silhouette with a small visible stack of about five uneven thin sheets at the lower and right edges. Weathered slightly curled corners, frayed matte paper edges and a few quiet ash smudges. The exposed front sheet is unobstructed enough to read its subject visually. On this sheet place a small dark-ink sketch of ONE THICK CURVED BEAR CLAW with a broad hooked root and tip, and below it a smaller broad folded shaggy BEAR HIDE sketch. These are simple hand-drawn INK MARKS ON THE PAGE, not separate real claws or fur objects. The claw's C-shaped curve should be the strongest central ink mark. Add just a few short lines of illegible uneven handwritten marks around the sketch, with NO legible words, numbers, titles, printed typography or symbols. Keep the sketches and writing sparse, dark and chunky enough to survive reduction instead of filling the page with noise. No bear face, portrait, paw-print logo or anatomical gore.\n\nA single narrow dark charcoal-brown leather thong loosely binds the bundle along its LEFT edge and crosses a small lower corner, visibly worn and plainly knotted. It must remain attached to the notes, with no detached straps or extra props; do not cover the main claw sketch. Small dull brown leather contact shadows only within the object. No metal fittings, gems, wax seal, colored ribbon or glowing runes.\n\nCenter ONE complete icon on a TRUE TRANSPARENT RGBA alpha0 background, generous clean transparent padding on all sides, no item touching the canvas edge. The object occupies about60 percent of the canvas. No atlas grid, second icon, loose extra sheet, hand, person, animal, background, floor, surrounding cast shadow, halo, vignette, border or frame. No smooth vector shapes, polished 3D render, cartoon sticker treatment or glossy highlights. Exactly one transparent PNG.",
+  "promptUtf8Sha256": "6bc00ef716d2caa01de52bffc3214607e20db4afb133b2ac773abab6600221a1",
+  "generationInputImages": [],
+  "inspectedStyleReferences": [
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v303/items/complete_item_craft_manual.png",
+      "stagingCopy": "references/craft-manual-v303.png",
+      "sha256": "f7660d6be2109dad434794caa04cc28e6d0dffe19600467dd52e630049b1f4b8",
+      "use": "directly viewed own ASHVEIL material/style and subject reference; not passed as generator image input; no pixels copied"
+    },
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v303/items/complete_item_material_manual.png",
+      "stagingCopy": "references/material-manual-v303.png",
+      "sha256": "a7a954fe533d71b40c4bb49000a2864d17cadd4986b9eaf3f38827b498e5ad0d",
+      "use": "directly viewed own ASHVEIL material/style and subject reference; not passed as generator image input; no pixels copied"
+    },
+    {
+      "path": "/workspace/.ashveil-planned/v347-cinder-bear-harvest-icons/originals/cinder-bear-harvest-icons-v1.png",
+      "stagingCopy": "references/cinder-bear-harvest-icons-v347.png",
+      "sha256": "5c8ae3b0957fb9a0bda355433a37d70449037cf1b1b29d4497107e8042ded05c",
+      "use": "directly viewed own ASHVEIL material/style and subject reference; not passed as generator image input; no pixels copied"
+    }
+  ],
+  "manualReview": {
+    "status": "accepted original icon candidate for parent integration review",
+    "originalViewedDirectly": true,
+    "diagnosticsViewedDirectly": [
+      "diagnostics/notes-native32.png",
+      "diagnostics/alpha-comparison.png",
+      "diagnostics/own-original-comparison.png"
+    ],
+    "native32": "Readable pale worn parchment-note silhouette, left dark leather binding, and dominant C-shaped ink claw. Smaller lower hide sketch survives as an irregular ink patch; its exact fur/hide identity depends on enlarged inspection and item context at32px. Tiny handwriting intentionally remains unreadable.",
+    "originalMeaning": "One thin uneven parchment bundle, slight page thickness and worn curling edges, restrained ash stains, left worn dark leather thong/knot, a broad hooked claw sketch and smaller folded shaggy hide sketch drawn in ink on the top sheet. No separate actual claw or hide prop.",
+    "alphaComposite": "Bright, black and checker browser display shows transparent background without a visible rectangle/halo. Original alpha0 hidden RGB and fine edge alpha remain untouched.",
+    "comparison": "Distinct pale exposed illustrated parchment from the existing dark closed craft/material manuals; ink claw/hide subjects match the inspected original bear materials. Existing manuals are32px own originals, while this icon is one high-resolution original displayed with current pixelated CSS.",
+    "limits": [
+      "At16px the icon mainly reads as a tied illustrated note bundle. Do not claim both material drawings are anatomically readable at16px.",
+      "At32px the smaller hide sketch is contextual and does not preserve enlarged fur detail.",
+      "Original occupies about68%width/72%height rather than the prompt estimate of60%; it remains fully inside generous transparent margins and its explicit frame includes all main object alpha.",
+      "One source-fragment original region; no new32px cropped PNG or alternate recolor was authored.",
+      "Staging-only visual display. Active Item creation, one-copy world placement, recipe knowledge learning, runtime behavior and release approval belong to parent implementation."
+    ],
+    "approvals": {
+      "originalSubjectAndTransparency": true,
+      "native32NoteIdentity": true,
+      "runtimeIntegration": false,
+      "actualAcquisitionAndKnowledge": false,
+      "releaseCompletion": false
+    }
+  },
+  "readOnlyAlphaAnalysis": {
+    "min": 0,
+    "max": 255,
+    "zeroPixels": 996365,
+    "nonzeroPixels": 576151,
+    "components": [
+      {
+        "threshold": 1,
+        "largest": [
+          {
+            "pixels": 569508,
+            "bounds": [
+              217,
+              213,
+              1066,
+              1111
+            ]
+          },
+          {
+            "pixels": 1025,
+            "bounds": [
+              610,
+              1158,
+              662,
+              1211
+            ]
+          },
+          {
+            "pixels": 488,
+            "bounds": [
+              819,
+              1222,
+              866,
+              1242
+            ]
+          },
+          {
+            "pixels": 317,
+            "bounds": [
+              369,
+              1133,
+              392,
+              1156
+            ]
+          }
+        ]
+      },
+      {
+        "threshold": 16,
+        "largest": [
+          {
+            "pixels": 556571,
+            "bounds": [
+              220,
+              218,
+              1065,
+              1106
+            ]
+          }
+        ]
+      },
+      {
+        "threshold": 128,
+        "largest": [
+          {
+            "pixels": 553956,
+            "bounds": [
+              221,
+              219,
+              1064,
+              1105
+            ]
+          }
+        ]
+      },
+      {
+        "threshold": 248,
+        "largest": [
+          {
+            "pixels": 547133,
+            "bounds": [
+              223,
+              222,
+              1063,
+              1102
+            ]
+          },
+          {
+            "pixels": 45,
+            "bounds": [
+              829,
+              1103,
+              874,
+              1104
+            ]
+          },
+          {
+            "pixels": 29,
+            "bounds": [
+              299,
+              642,
+              300,
+              671
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "crop": {
+    "key": "av350_bear_processing_notes",
+    "rect": [
+      214,
+      210,
+      855,
+      904
+    ],
+    "coordinateConvention": "x,y,width,height; right/bottom exclusive",
+    "method": "manual selected rectangle with3px padding around the dominant source alpha>0 component; detached low-alpha distant flecks excluded by frame only; original PNG untouched",
+    "dominantObjectBounds": [
+      217,
+      213,
+      849,
+      898
+    ],
+    "originalRegions": 1,
+    "flips": 0,
+    "recolors": 0,
+    "croppedPngOutputs": 0
+  },
+  "toolOutputHint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-31b782b6-96f7-434c-8509-7b07c440d050.png by default.",
+  "diagnosticScreenshotsAreReleaseAssets": false,
+  "forbiddenProcessingApplied": false
+}

@@ -1,0 +1,225 @@
+{
+  "baseline": "test-results/goldens-v304-final.json",
+  "candidate": "test-results/vision-v305-golden-candidate2.json",
+  "rules": "Only content hashes, current visible array and actual map tile seen/observed fields are globally allowed. Exactly the recorded discovery log, two5XP display timings and WonderfulView event timings are individually inspected/allowed. Every remaining state field must deeply equal; commands/errors are unchanged. This is fixed-input equivalence outside the intentional visibility effects, not general bot behavior equivalence.",
+  "rows": [
+    {
+      "name": "surface",
+      "commands": 80,
+      "errorsExact": true,
+      "phases": {
+        "initial": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        },
+        "state": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": [
+            {
+              "discoveryLogOld": [
+                {
+                  "turn": 21647,
+                  "kind": "info",
+                  "text": "수도원 입구를 찾았다."
+                },
+                {
+                  "turn": 21665,
+                  "kind": "info",
+                  "text": "서고를 찾았다."
+                }
+              ],
+              "discoveryLogNew": [
+                {
+                  "turn": 21643,
+                  "kind": "info",
+                  "text": "수도원 입구를 찾았다."
+                },
+                {
+                  "turn": 21663,
+                  "kind": "info",
+                  "text": "서고를 찾았다."
+                }
+              ]
+            },
+            {
+              "discoveryXpFxOld": [
+                {
+                  "k": "xp",
+                  "id": 1,
+                  "v": 5,
+                  "turn": 21647
+                },
+                {
+                  "k": "xp",
+                  "id": 1,
+                  "v": 5,
+                  "turn": 21665
+                }
+              ],
+              "discoveryXpFxNew": [
+                {
+                  "k": "xp",
+                  "id": 1,
+                  "v": 5,
+                  "turn": 21643
+                },
+                {
+                  "k": "xp",
+                  "id": 1,
+                  "v": 5,
+                  "turn": 21663
+                }
+              ]
+            },
+            {
+              "creature": 1,
+              "discoveryThoughtOld": [
+                {
+                  "def": "Thought.WonderfulView",
+                  "untilTurn": 50447,
+                  "count": 1,
+                  "events": [
+                    {
+                      "at": 21647,
+                      "untilTurn": 50447
+                    }
+                  ]
+                }
+              ],
+              "discoveryThoughtNew": [
+                {
+                  "def": "Thought.WonderfulView",
+                  "untilTurn": 50443,
+                  "count": 1,
+                  "events": [
+                    {
+                      "at": 21643,
+                      "untilTurn": 50443
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "commands": 81,
+      "errorsExact": true,
+      "phases": {
+        "initial": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        },
+        "state": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        }
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "commands": 147,
+      "errorsExact": true,
+      "phases": {
+        "initial": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        },
+        "state": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": [
+            {
+              "discoveryLogOld": [
+                {
+                  "turn": 21603,
+                  "kind": "info",
+                  "text": "서고를 찾았다."
+                },
+                {
+                  "turn": 21640,
+                  "kind": "info",
+                  "text": "수도원 입구를 찾았다."
+                }
+              ],
+              "discoveryLogNew": [
+                {
+                  "turn": 21602,
+                  "kind": "info",
+                  "text": "서고를 찾았다."
+                },
+                {
+                  "turn": 21640,
+                  "kind": "info",
+                  "text": "수도원 입구를 찾았다."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "world-journey",
+      "commands": 28,
+      "errorsExact": true,
+      "phases": {
+        "initial": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        },
+        "state": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        }
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "commands": 30,
+      "errorsExact": true,
+      "phases": {
+        "initial": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        },
+        "state": {
+          "exactAfterExplicitVisionAllowances": true,
+          "timeExact": true,
+          "nextIdExact": true,
+          "allRngExact": true,
+          "details": []
+        }
+      }
+    }
+  ]
+}

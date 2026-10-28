@@ -1,0 +1,108 @@
+{
+  "references": [
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v333/harvest-materials-v1.png",
+      "sha256": "390c15d82039e8f9046e7e51371a5da02afbf7a9c187e95edee7bdcfc286e458",
+      "use": "directly viewed style/material reference; not supplied as generation input; no pixels copied"
+    },
+    {
+      "path": "/workspace/ashveil/public/sprites/original/direction-v340/surveyor-material-icons-v1.png",
+      "sha256": "26dc36937beb2bb62c409ed1adef7d829baf137d8cb4c8ea36e938a9e13d5924",
+      "use": "directly viewed style/material reference; not supplied as generation input; no pixels copied"
+    }
+  ],
+  "definitionSource": "/workspace/ashveil/tools/content-plans/expanded-creatures-v331/core-fragment/defs/harvest-v331.json",
+  "definitionSha256": "877061e8111c82aa2a3745f7697f7e16a2859518aeb1a583feecf8f9bb0f2af2",
+  "definitionStatus": "readonly content-plan definitions; parent controls activation, art task does not assert active drop paths",
+  "items": [
+    {
+      "defType": "Item",
+      "id": "Item.CinderBearHide",
+      "label": "잿곰 생가죽",
+      "sprite": "av331_cinder_bear_hide",
+      "category": "misc",
+      "weight": 0.2,
+      "size": [
+        2,
+        2
+      ],
+      "stackable": false,
+      "maxStack": 1,
+      "value": 24,
+      "material": "Material.CinderBearHide",
+      "rawMaterial": {
+        "material": "Material.CinderBearHide",
+        "grams": 1000
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.BearFat",
+      "label": "잿곰 지방 덩이",
+      "sprite": "av331_bear_fat",
+      "category": "food",
+      "weight": 0.5,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 6,
+      "food": {
+        "kcal": 800,
+        "protein": 0,
+        "raw": true,
+        "poison": 15,
+        "freshHours": 36
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.BearClaw",
+      "label": "잿곰 발톱",
+      "sprite": "av331_bear_claw",
+      "category": "misc",
+      "weight": 0.2,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 5,
+      "value": 18,
+      "material": "Material.Bone",
+      "rawMaterial": {
+        "material": "Material.Bone",
+        "grams": 100
+      }
+    },
+    {
+      "defType": "Item",
+      "id": "Item.BearBile",
+      "label": "밀봉한 잿곰 담즙",
+      "sprite": "av331_bear_bile",
+      "category": "misc",
+      "weight": 0.2,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": false,
+      "maxStack": 1,
+      "value": 30
+    }
+  ],
+  "toolCallsBudget": 1,
+  "retryBudget": 0,
+  "plannedGrid": {
+    "columns": 2,
+    "rows": 2,
+    "order": [
+      "av331_cinder_bear_hide",
+      "av331_bear_fat",
+      "av331_bear_claw",
+      "av331_bear_bile"
+    ]
+  }
+}

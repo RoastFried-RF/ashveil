@@ -1,0 +1,2328 @@
+{
+  "format": "ashveil-independent-rendered-png-review-v1",
+  "reviewDate": "2026-10-21T02:06:35.854656+00:00",
+  "reviewer": "character_art",
+  "status": "passed direct review of18 final PNGs with explicit player-occlusion/fixture/input/preview limits",
+  "scope": {
+    "directlyViewedPNGCount": 18,
+    "nativeFinalPNGCount": 10,
+    "common1440PNGCount": 4,
+    "common1366PNGCount": 4,
+    "onlyProjectFileWritten": "docs/ui-v290-reviewed-pngs.json",
+    "productImageEdits": false,
+    "browserGPUHeavyProjectChecksOrGitRun": false
+  },
+  "provenance": [
+    {
+      "path": "test-results/storage-fire-browser-v290-final/audit.json",
+      "sha256": "55f5e46f39c14328911af8ec469a237086012a20ab1e074c51392b53173ce78f"
+    },
+    {
+      "path": "docs/storage-fire-v290-native-audit.json",
+      "sha256": "55f5e46f39c14328911af8ec469a237086012a20ab1e074c51392b53173ce78f"
+    },
+    {
+      "path": "docs/storage-fire-v290-final-source-proof.json",
+      "sha256": "eabe4327a8f6cf592b4073fda0ac027ee7f3f4bf0217a84c70c8daebe55fa6b9"
+    },
+    {
+      "path": "docs/game-harness-v290-audit.json",
+      "sha256": "b21be228b6240b750509187ee419c05d8a0076b9f0a74e3e275ffde33663c133"
+    },
+    {
+      "path": "docs/art-v290-independent-review.json",
+      "sha256": "30895e5f78962acef49747637339b7f873b57f0f440089f3264b65b0861412e2"
+    }
+  ],
+  "evidenceBoundary": {
+    "pixels": "Visible wood-lid forms, forest silhouettes, icons, text, fire presence/absence, panel bounds and occlusion only.",
+    "JSON": "UID, exact liquid quantity/quality, material state, time, searched/opened and wholeWorld equality are actual JSON facts, never inferred from pixels.",
+    "auditInput": "Real default.02 policy/F2 ignition100T/SE2/rest200x4/recovery and separate500ml1T/freeOpen/south1 are supplied audit evidence; reviewer did not replay input or verify probability empirically.",
+    "finiteFixtures": "Already placed closed chest and original contents/ground wood/own1000ml are declared finite initial state. Separate salvage initial is Node-prepared304T and declares spare portable chest afterward; no browser duplicate preparation, past placement or crafting is claimed."
+  },
+  "entries": [
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1410-native-original-unlit-wood-chest-and-pine-dead-tree-art.png",
+      "sha256": "e3275d4d1c368a413aa21e4dddb79ef239ae177d62184c8460e4ebff48103475",
+      "bytes": 613302,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "실제 초기 월드를 직접 열었다. 큰 소나무·잎 없는 마른나무·후드 플레이어와 기존 HUD가 보인다.",
+        "닫힌 상자는 바로 남쪽의 플레이어 몸체에 가려 이 픽셀에서 식별할 수 없다. 파일명이나 저장 JSON의 상자 존재를 상자 그림을 봤다는 주장으로 바꾸지 않는다.",
+        "상단 위치/시간·설정/타이틀, 좌측 지표·하단 초상/핫바·로그가 화면 안에 있다. 화면 경계의 일부 수목과 플레이어 주변 지형은 가려지거나 시야 밖이다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/depletion-actual-title-loaded-same-original197-actual.json",
+        "sha256": "16c76ee460cb93e2487111149cca814c2faf0b43fe390d0615954aeb12265498",
+        "timeTU": 1440000,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "player-occluded",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1411-native-default002-spark-original-wood-chest-burns-with-original-forest.png",
+      "sha256": "20cf5f0fa0a3d8dadccfe2b8137b76ff89ae5e3be4ca3c724327c6d30190fc19",
+      "bytes": 661280,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "플레이어가 비킨 뒤 불빛 아래 닫힌 목제 상자의 본체/닫힌 뚜껑을 실제 화면에서 확인했다. 두 불꽃과 점화 로그, 회녹 소나무와 회갈색 마른 가지가 보인다.",
+        "닫힌 상자 확인은 이 스틸 근거다. 기본 불씨 확률0.02·재료잔량538/600·UID와 실제 경과시간은 audit/JSON 근거다. 플레이어 하부는 HUD가 가린다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual200turn-default-spark-original-chest-burning-actual.json",
+        "sha256": "87c4ce9f79bb26ec0c2c34a72b49aae91082d752ffcce509e68c0e1065ce6aaf",
+        "timeTU": 1470200,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "closed visible",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1412-native-real600turn-chest-depletion-original-items-remain-on-original-stone-floor.png",
+      "sha256": "757a5f5bef7c86c47984a8c480352544d0a03e71580aea68859e0745cc3b84e0",
+      "bytes": 645663,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "추가 대기 뒤 상자가 있던 위치에 작은 석판 바탕과 바닥 물품을 대표하는 아이콘 묶음이 보이고 상자 본체/그 자리 불꽃은 보이지 않는다. 옆 모닥불과 원본 수목은 남아 보인다.",
+        "모든 원래 물품5개/중첩천을 픽셀로 따로 세거나 UID 보존을 추론하지 않는다. 실제 Terrain.KtFloor 복구·원래5UID 바닥 보존·중첩77은 actual JSON으로 확인했다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-2-actual.json",
+        "sha256": "9f697451d9743f98bbe21608610f0f6c8f5d7b9efaed1dadfe13eeb1bc1b85e9",
+        "timeTU": 1530200,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "state only from JSON/partly covered",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1413-native-actual-original-bottle-recovered-other-uids-still-on-ground.png",
+      "sha256": "946e192df6a5c6d06c8570cfb5092bedfefffa86a115859f4b3a3db86132ff35",
+      "bytes": 733244,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "소지품을 연 뒤 가방에 두 병과 목재가 보이고 발밑 영역에는 목재·알약×2·다른 목재×2·자루의 네 아이콘이 보인다. 회수 로그에 선택한 물병을 주웠다는 문구가 읽힌다.",
+        "선택 회수가 UID73의 원래300ml 물병이고 바닥 목재78/75가 합쳐지지 않았다는 사실, 자루 속 천77은 픽셀 대신 JSON 근거다. 창은 화면 안에 있고 플레이어/수목 일부를 덮는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual-select-only-original300ml-bottle-pickup-no-wood-stack-merge-actual.json",
+        "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68",
+        "timeTU": 1530500,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "state only from JSON/partly covered",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1414-native-small-screen-same-original-bottle-and-remaining-ground-items.png",
+      "sha256": "42dbb1aa03f877300601653376d3b9d6eaa4175b91d6504b6c870b3b40767622",
+      "bytes": 579471,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "1366×768에서 소지품 창 전체·발밑4개 아이콘·닫기/모두 줍기 버튼·하단 초상/핫바/메뉴가 화면 안에 보인다.",
+        "창은 오른쪽 로그 일부와 뒤 월드를 덮고 화면 가장자리 수목은 부분적으로 잘린다. 이 작은 화면에 모든 수목/로그 전체가 동시에 보인다고 기록하지 않는다. World와 원래 물병/남은 바닥 상태 불변은 JSON 비교다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual-small-screen-whole197-unchanged-after-recovery-actual.json",
+        "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68",
+        "timeTU": 1530500,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "state only from JSON/partly covered",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1415-native-original-partial-chest-fire-and-real500ml-salvage-quote.png",
+      "sha256": "be7b7acdee0f2a7c0f80f270a368143b1700cb84df3a11237431d5a21bad2562",
+      "bytes": 560356,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "제작·정비 창에 주변 화재/야영지 보관함(7,42)과 물500ml로 불 끄기(1턴) 버튼이 읽힌다. 물 끓이기 영역에는 개인 물병1000ml가 표시된다.",
+        "이 장면은 실제 Node304턴 준비로 만들어 둔 별도 유한 초기 화재 상태를 실제 Title Continue로 읽은 화면이다. 브라우저가 그304턴을 다시 수행했다거나 상자를 제작했다고 주장하지 않는다.",
+        "제작 창의 닫기/진화 버튼은 화면 안에 있다. 아래 제작법 목록 일부는 창 아래로 이어지며 현재 스크롤 위치에 전체 목록이 동시 노출되지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/salvage-actual-title-loaded-same-original197-actual.json",
+        "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5",
+        "timeTU": 1470400,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "state only from JSON/partly covered",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1416-native-real500ml-salvages-same-chest-partial-fuel-and-original-contents.png",
+      "sha256": "5e897734a950dc12f3fbfdca807a814c9158aa662518f5c89f2052033fd9bf2a",
+      "bytes": 557962,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "실제500ml 진화 뒤 제작 UI의 화재 진화 단락은 사라지고 개인 물병500ml 표시와 불을 껐다는 로그가 보인다.",
+        "도구 preview에서 상단 패널 일부가 검게 생략되어 보였지만 원본RGB의 제목/거점정비/모닥불 세 영역은1415와 바이트 동일하다. 실제 패널 누락이나 이미지 편집으로 처리하지 않았다.",
+        "같은 상자72·원래 내용물·남은 재료536/600·젖음/개인물소비는 JSON 근거다. 화면만으로 연소가 원래 재료로 복구됐다고 추정하지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual-one-turn-own500ml-salvages-original-chest-and-actual-contents-actual.json",
+        "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d",
+        "timeTU": 1470500,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "state only from JSON/partly covered",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1417-native-whole197-restored-same-salvaged-original-wood-chest.png",
+      "sha256": "8febf67eaaa5290c01a344f779c2d9fff642ed7acecf355d3df725ecfd2f934c",
+      "bytes": 666875,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "복원 후 월드에서 상자 자리의 불꽃은 없고 옆 모닥불과 원본 수목, 앞쪽 플레이어가 보인다.",
+        "닫힌 상자는 남쪽의 플레이어가 가려 이 스틸로 식별하지 못한다. 같은 Stash/재료/내용물/물의 복원은 actual JSON으로 확인했으며 원본 닫힘 그림 확인으로 계산하지 않는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-salvaged-chest-partial-material-and-water-actual.json",
+        "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d",
+        "timeTU": 1470500,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "player-occluded",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1418-native-actual-open-salvaged-original-chest-player-steps-aside.png",
+      "sha256": "cffea67b428b4db1fd8895c4d59e7e55f2a3ed6c987ad78d9dbea8dd6b29a264",
+      "bytes": 638298,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "실제로 상자를 열고 플레이어가 남쪽으로 한 칸 비킨 화면에서 올라간 뚜껑과 어두운 입구/아래 몸체의 열린 목제 상자를 직접 확인했다.",
+        "실제 searched/cont.opened와 자유 열기0TU·후속 남쪽 이동100TU·원래 내용물 무재추첨은 JSON으로 구분했다. 플레이어 아래쪽은 HUD가 일부 덮는다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/actual-one-south-step-reveals-open-original-chest-actual.json",
+        "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780",
+        "timeTU": 1470600,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "open visible",
+        "portable64Icon": "not this image purpose"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/storage-fire-browser-v290-final/1419-native-original-portable-chest64-and-restored-open-chest.png",
+      "sha256": "613d32076c44831c39fbd19136a361e47d0656fc8b1de18a5d148bf379647ed5",
+      "bytes": 712090,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final Native finite Title Continue fixture; depletion and separately Node-prepared salvage branches",
+      "observations": [
+        "소지품 창의3×2 점유 영역에서 별도 목제 보관함 휴대 아이콘이64px 표시로 보인다. 뒤 월드의 열린 작은 상자와 큰 별도 휴대 그림이 구분된다.",
+        "실제 가방의 휴대 상자80은 별도 유한 초기 지급 항목이다. 이 화면에서 새로 제작/회수한 것으로 주장하지 않는다. 열린 월드 상자72와 혼동하지 않는다.",
+        "소지품 창/닫기·하단HUD는 화면 안에 있으며 뒤 수목/로그 일부를 덮는다. 전체197복원과 양쪽 원래 물품 보존은 JSON 근거다."
+      ],
+      "relatedActualWorld": {
+        "path": "test-results/storage-fire-browser-v290-final/whole197-restored-original-open-chest-and-spare-portable-chest-actual.json",
+        "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780",
+        "timeTU": 1470600,
+        "version": 197
+      },
+      "imageCoverage": {
+        "worldChest": "open visible",
+        "portable64Icon": "visible"
+      },
+      "notVerifiedByPixelsAlone": [
+        "UID, exact quantity/material state or fullWorld equality",
+        "Probability/formula and all fire/weather conditions",
+        "Reviewer replay of browser input"
+      ]
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1440/00-title.png",
+      "sha256": "652c3f39cc4ab1d9729f9ef681b7112043a6a3fa78d8b906fa4baa964b8cd62f",
+      "bytes": 973642,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "ASHVEIL/수도원 계곡 원본과 시드ashveil-harness-smoke, 배경 선택·떠돌이 초상/능력 미리보기·시작 버튼을 직접 확인했다.",
+        "시작 버튼 전체는 화면 안에 있고, 일부 아래쪽 배경 선택지는 화면 경계 아래로 이어진다. 모든 선택지의 무스크롤 동시 노출을 주장하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/00-title-state.json",
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c",
+        "mode": "title"
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "layoutEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/00-title-layout.json",
+        "sha256": "2ed5f2bb08b7a99b2f35578f9c06f45e647e6514753b6ed5e1e3c32728e0c739"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1440/01-world.png",
+      "sha256": "cfc37e3058af64dd476fe08aa63b0be9be02b532dfbf325c10e4f9ea14921346",
+      "bytes": 525824,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "정상 새 게임의 수도원 앞뜰에서 기존 후드 플레이어 등·불빛/길/물·새 소나무/마른나무와 작은 닫힌 목제 보관함이 보인다. Native의 유한 화재 장면과 다른 실제 시작 흐름이다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/01-world-state.json",
+        "sha256": "1fc31ae78b4f1d1c469a7fbcfc2506e456fdf5ce7d831a55a39e57bfd5351cd8",
+        "mode": "game",
+        "timeTU": 2160000
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/01-world-world.json",
+        "sha256": "3e7c54e87d9b182d12a36fd02a62c39595ea525ac5c9dc546d0132d9f4399075"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1440/02-inventory.png",
+      "sha256": "cbcf24acccb38131b3c9db4a82de333ace1e38ee9686b5372cc92864008931c0",
+      "bytes": 603979,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "소지품 창 전체·빈 배낭60칸·장대/겉옷과 남향 플레이어 얼굴/청록 후드가 보이고 하단 초상/핫바/메뉴가 화면 안에 있다. 새 원본 수목과 작은 닫힌 상자는 월드에 계속 보인다.",
+        "이 정상 새 게임은 빈 가방이며 Native의1000ml/300ml/휴대 상자를 기본 지급한 화면이 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/02-inventory-state.json",
+        "sha256": "e5658153cec9c44622b649949df3551bf71c0d8f7f172c393603a5e78182a73b",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/02-inventory-world.json",
+        "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1440/final.png",
+      "sha256": "02f5ff3c0138572e1f2a76781c99cd948e24a16b575a42059a76bec409a6bf80",
+      "bytes": 604481,
+      "width": 1440,
+      "height": 1080,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "소지품 창 전체·빈 배낭60칸·장대/겉옷과 남향 플레이어 얼굴/청록 후드가 보이고 하단 초상/핫바/메뉴가 화면 안에 있다. 새 원본 수목과 작은 닫힌 상자는 월드에 계속 보인다.",
+        "이 정상 새 게임은 빈 가방이며 Native의1000ml/300ml/휴대 상자를 기본 지급한 화면이 아니다.",
+        "preview의 소지품/로그 생략은 원본RGB와02-inventory 비교로 구분했다. 실제 원본 패널 내용과 exact/미세차이 수치는 별도 비교 기록에 남겼다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/final-state.json",
+        "sha256": "e5658153cec9c44622b649949df3551bf71c0d8f7f172c393603a5e78182a73b",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1440/final-world.json",
+        "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1366/00-title.png",
+      "sha256": "641da93c3a6feefff8a20505d0dabcb0fb7c4bdcc3b4e364f38631504d78cd9a",
+      "bytes": 668804,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "ASHVEIL/수도원 계곡 원본과 시드ashveil-harness-smoke, 배경 선택·떠돌이 초상/능력 미리보기·시작 버튼을 직접 확인했다.",
+        "시작 버튼 전체는 화면 안에 있고, 일부 아래쪽 배경 선택지는 화면 경계 아래로 이어진다. 모든 선택지의 무스크롤 동시 노출을 주장하지 않는다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/00-title-state.json",
+        "sha256": "d7dd82c68f6aa75c3c9b9441e9a7b0dea985c15cd043957770bce5ea3489ff2c",
+        "mode": "title"
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "layoutEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/00-title-layout.json",
+        "sha256": "072d30d7cbfabb1a12e69d5ea2317906b267db8cb6cb58b5da9e861ac80e3c65"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1366/01-world.png",
+      "sha256": "95e752c10a27c50e93fdf23b97dbc522d623f76ccdc20d863104162495be6cd5",
+      "bytes": 372168,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "정상 새 게임의 수도원 앞뜰에서 기존 후드 플레이어 등·불빛/길/물·새 소나무/마른나무와 작은 닫힌 목제 보관함이 보인다. Native의 유한 화재 장면과 다른 실제 시작 흐름이다.",
+        "빈 칸0 핫바 안내 툴팁이 오른쪽 로그 위에 있으나 화면 안에 있다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/01-world-state.json",
+        "sha256": "1fc31ae78b4f1d1c469a7fbcfc2506e456fdf5ce7d831a55a39e57bfd5351cd8",
+        "mode": "game",
+        "timeTU": 2160000
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/01-world-world.json",
+        "sha256": "3e7c54e87d9b182d12a36fd02a62c39595ea525ac5c9dc546d0132d9f4399075"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1366/02-inventory.png",
+      "sha256": "cbc59166eab282b353b0f032509013b6e0ca94b55c936ff464ed647c617fbe41",
+      "bytes": 445273,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "소지품 창 전체·빈 배낭60칸·장대/겉옷과 남향 플레이어 얼굴/청록 후드가 보이고 하단 초상/핫바/메뉴가 화면 안에 있다. 새 원본 수목과 작은 닫힌 상자는 월드에 계속 보인다.",
+        "이 정상 새 게임은 빈 가방이며 Native의1000ml/300ml/휴대 상자를 기본 지급한 화면이 아니다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/02-inventory-state.json",
+        "sha256": "e5658153cec9c44622b649949df3551bf71c0d8f7f172c393603a5e78182a73b",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/02-inventory-world.json",
+        "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+      }
+    },
+    {
+      "path": "test-results/game-harness-v290-final-1366/final.png",
+      "sha256": "83b416c9ef9e298fdccbdacbba5f87ca9ce78c8c4962f991da7898e9f43b28d5",
+      "bytes": 447136,
+      "width": 1366,
+      "height": 768,
+      "directlyViewed": true,
+      "openedWith": "tools.view_image",
+      "flow": "Final common harness actual Title Start fixed seed; separate from Native fixture",
+      "observations": [
+        "소지품 창 전체·빈 배낭60칸·장대/겉옷과 남향 플레이어 얼굴/청록 후드가 보이고 하단 초상/핫바/메뉴가 화면 안에 있다. 새 원본 수목과 작은 닫힌 상자는 월드에 계속 보인다.",
+        "이 정상 새 게임은 빈 가방이며 Native의1000ml/300ml/휴대 상자를 기본 지급한 화면이 아니다.",
+        "preview의 소지품/로그 생략은 원본RGB와02-inventory 비교로 구분했다. 실제 원본 패널 내용과 exact/미세차이 수치는 별도 비교 기록에 남겼다."
+      ],
+      "stateEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/final-state.json",
+        "sha256": "e5658153cec9c44622b649949df3551bf71c0d8f7f172c393603a5e78182a73b",
+        "mode": "game",
+        "timeTU": 2160200
+      },
+      "notVerifiedByPixelsAlone": [
+        "Actual button click replay or exact time costs",
+        "Storage-fire progression/extinguish branch in common smoke",
+        "All UI/lighting/occlusion combinations"
+      ],
+      "actualWorldEvidence": {
+        "path": "test-results/game-harness-v290-final-1366/final-world.json",
+        "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+      }
+    }
+  ],
+  "nativeEvidence": {
+    "audit": {
+      "save": 197,
+      "screenshots": 10,
+      "roundtrips": 6,
+      "phases": 20,
+      "actualInputTU": 90700,
+      "rows": [
+        {
+          "salvage": false,
+          "initialTime": 1440000,
+          "finalTime": 1530500,
+          "actualInputTU": 90500,
+          "initialCorePreparationTU": 0,
+          "chestUid": 72,
+          "sourceKitUid": 69,
+          "expectedItemUids": [
+            78,
+            73,
+            74,
+            75,
+            76
+          ],
+          "nestedUid": 77,
+          "finalTerrain": "Terrain.KtFloor",
+          "finalWaterMl": 300,
+          "ownBagWaterMl": 1000
+        },
+        {
+          "salvage": true,
+          "initialTime": 1470400,
+          "finalTime": 1470600,
+          "actualInputTU": 200,
+          "initialCorePreparationTU": 30400,
+          "chestUid": 72,
+          "sourceKitUid": 69,
+          "expectedItemUids": [
+            78,
+            73,
+            74,
+            75,
+            76
+          ],
+          "nestedUid": 77,
+          "finalTerrain": "Terrain.Stash",
+          "finalWaterMl": 300,
+          "ownBagWaterMl": 500
+        }
+      ],
+      "errors": [],
+      "source": "Finite actual placed closed preloaded chest/original4contents+nestedCloth andseparate groundWood; actual initial unlit kit/originalWood3/own1000ml bottle; two explicit initial tree-art tiles. Main uses original default0.02 policy, realF2 ignition100T/SE2/rest200×4/NW2+N/recoveronlyoriginalwaterUID FREE/smallviewport. Second finite burning initial is produced via real Node public100T+SE2/rest200/NW2 (304T), then browser does real500ml1T salvage/free search/one south step; a finite spare portable chest is declared after initial Node preparation. No claim browser performed second preparation, past placement or crafting.20 independent entire Node state comparisons/6whole197restores; no post-load world/time/RNG/material/item injection. Only normal rendererFX consumption."
+    },
+    "wholeActualExpectedChecks": [
+      {
+        "phase": "actual-free-search-opens-salvaged-chest-original-contents-no-reroll",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-free-search-opens-salvaged-chest-original-contents-no-reroll-actual.json",
+          "sha256": "641e7a0d0825be48410178518a5651f384f99154a9ac90c0a2fd87740c2c715a"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-free-search-opens-salvaged-chest-original-contents-no-reroll-expected.json",
+          "sha256": "a2816281572e373ec717e9aa9571c51a8eb28a00d040dfeb5aba7cf49f19148c"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470500,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": true,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": 15304,
+        "containerOpened": true,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "actual-one-south-step-reveals-open-original-chest",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-one-south-step-reveals-open-original-chest-actual.json",
+          "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-one-south-step-reveals-open-original-chest-expected.json",
+          "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470600,
+        "playerPosition": {
+          "x": 7,
+          "y": 44
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": true,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": 15304,
+        "containerOpened": true,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "actual-one-turn-own500ml-salvages-original-chest-and-actual-contents",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-one-turn-own500ml-salvages-original-chest-and-actual-contents-actual.json",
+          "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-one-turn-own500ml-salvages-original-chest-and-actual-contents-expected.json",
+          "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470500,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": 15304,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "actual-select-only-original300ml-bottle-pickup-no-wood-stack-merge",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-select-only-original300ml-bottle-pickup-no-wood-stack-merge-actual.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-select-only-original300ml-bottle-pickup-no-wood-stack-merge-expected.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530500,
+        "playerPosition": {
+          "x": 7,
+          "y": 42
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71,
+          73
+        ]
+      },
+      {
+        "phase": "actual-small-screen-whole197-unchanged-after-recovery",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-small-screen-whole197-unchanged-after-recovery-actual.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-small-screen-whole197-unchanged-after-recovery-expected.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530500,
+        "playerPosition": {
+          "x": 7,
+          "y": 42
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71,
+          73
+        ]
+      },
+      {
+        "phase": "actual-three-steps-to-original-spilled-items",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-three-steps-to-original-spilled-items-actual.json",
+          "sha256": "877f5fa6a1853e9db8dcba8d856e054710603ff7d6013306bf11713adda2c445"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-three-steps-to-original-spilled-items-expected.json",
+          "sha256": "877f5fa6a1853e9db8dcba8d856e054710603ff7d6013306bf11713adda2c445"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530500,
+        "playerPosition": {
+          "x": 7,
+          "y": 42
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          73,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual-two-steps-away-from-heat",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-two-steps-away-from-heat-actual.json",
+          "sha256": "881c64e8971f9d77eeac709d95dab10bc5d94533c8eb3f8172f2f81ee6ec2bbd"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual-two-steps-away-from-heat-expected.json",
+          "sha256": "881c64e8971f9d77eeac709d95dab10bc5d94533c8eb3f8172f2f81ee6ec2bbd"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1450200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual100turn-original-wood-campfire-ignition",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual100turn-original-wood-campfire-ignition-actual.json",
+          "sha256": "0e12f0021b95b9df26544b2902728b36c0ced7b0706010b61e5bc64217960edf"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual100turn-original-wood-campfire-ignition-expected.json",
+          "sha256": "0e12f0021b95b9df26544b2902728b36c0ced7b0706010b61e5bc64217960edf"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1450000,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual200turn-default-spark-original-chest-burning",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-default-spark-original-chest-burning-actual.json",
+          "sha256": "87c4ce9f79bb26ec0c2c34a72b49aae91082d752ffcce509e68c0e1065ce6aaf"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-default-spark-original-chest-burning-expected.json",
+          "sha256": "87c4ce9f79bb26ec0c2c34a72b49aae91082d752ffcce509e68c0e1065ce6aaf"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 14702,
+          "remaining": 538,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 538,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual200turn-material-depletion-part-0",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-0-actual.json",
+          "sha256": "f1724ca1a169351de7f4a095396f55789dffc2c25a29b95d3cbad3e7925ba183"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-0-expected.json",
+          "sha256": "f1724ca1a169351de7f4a095396f55789dffc2c25a29b95d3cbad3e7925ba183"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1490200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 14902,
+          "remaining": 338,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 338,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual200turn-material-depletion-part-1",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-1-actual.json",
+          "sha256": "4821562caa6b8cb887546dcc73f4d9ec1dd970b92d71a9ba6ff7f2aaa36d8a95"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-1-expected.json",
+          "sha256": "4821562caa6b8cb887546dcc73f4d9ec1dd970b92d71a9ba6ff7f2aaa36d8a95"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1510200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 15102,
+          "remaining": 138,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 138,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "actual200turn-material-depletion-part-2",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-2-actual.json",
+          "sha256": "9f697451d9743f98bbe21608610f0f6c8f5d7b9efaed1dadfe13eeb1bc1b85e9"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/actual200turn-material-depletion-part-2-expected.json",
+          "sha256": "9f697451d9743f98bbe21608610f0f6c8f5d7b9efaed1dadfe13eeb1bc1b85e9"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          73,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "depletion-actual-title-loaded-same-original197",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/depletion-actual-title-loaded-same-original197-actual.json",
+          "sha256": "16c76ee460cb93e2487111149cca814c2faf0b43fe390d0615954aeb12265498"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/depletion-actual-title-loaded-same-original197-expected.json",
+          "sha256": "16c76ee460cb93e2487111149cca814c2faf0b43fe390d0615954aeb12265498"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1440000,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "salvage-actual-title-loaded-same-original197",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/salvage-actual-title-loaded-same-original197-actual.json",
+          "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/salvage-actual-title-loaded-same-original197-expected.json",
+          "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470400,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 14704,
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "whole197-restored-original-open-chest-and-spare-portable-chest",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-original-open-chest-and-spare-portable-chest-actual.json",
+          "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-original-open-chest-and-spare-portable-chest-expected.json",
+          "sha256": "3fc09762591a436a0bab29e9fe9cbff10738f50d7bd41657145c6fd6c47e6780"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470600,
+        "playerPosition": {
+          "x": 7,
+          "y": 44
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": true,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": 15304,
+        "containerOpened": true,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "whole197-restored-original-recovered-bottle-and-unmerged-ground-stacks",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-original-recovered-bottle-and-unmerged-ground-stacks-actual.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-original-recovered-bottle-and-unmerged-ground-stacks-expected.json",
+          "sha256": "c6fa526e110c233e723569735bcf80bfa589f2da54e7241d4b715010c5044c68"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530500,
+        "playerPosition": {
+          "x": 7,
+          "y": 42
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71,
+          73
+        ]
+      },
+      {
+        "phase": "whole197-restored-same-original-floor-five-items-and-closed-sack-inside",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-original-floor-five-items-and-closed-sack-inside-actual.json",
+          "sha256": "9f697451d9743f98bbe21608610f0f6c8f5d7b9efaed1dadfe13eeb1bc1b85e9"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-original-floor-five-items-and-closed-sack-inside-expected.json",
+          "sha256": "9f697451d9743f98bbe21608610f0f6c8f5d7b9efaed1dadfe13eeb1bc1b85e9"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1530200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.KtFloor",
+        "searched": false,
+        "placed": null,
+        "terrainFire": null,
+        "combustionRemaining": null,
+        "fireWetUntil": null,
+        "containerOpened": null,
+        "groundUIDs": [
+          78,
+          73,
+          74,
+          75,
+          76
+        ],
+        "containerUIDs": [],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "whole197-restored-same-partly-burned-original-chest-before-salvage",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-partly-burned-original-chest-before-salvage-actual.json",
+          "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-partly-burned-original-chest-before-salvage-expected.json",
+          "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470400,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 14704,
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      },
+      {
+        "phase": "whole197-restored-same-partly-burning-chest-and-all-original-uids",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-partly-burning-chest-and-all-original-uids-actual.json",
+          "sha256": "87c4ce9f79bb26ec0c2c34a72b49aae91082d752ffcce509e68c0e1065ce6aaf"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-partly-burning-chest-and-all-original-uids-expected.json",
+          "sha256": "87c4ce9f79bb26ec0c2c34a72b49aae91082d752ffcce509e68c0e1065ce6aaf"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470200,
+        "playerPosition": {
+          "x": 9,
+          "y": 45
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": {
+          "id": 79,
+          "sourceUid": 69,
+          "family": "wood-stash",
+          "startedAt": 14640,
+          "lastAt": 14702,
+          "remaining": 538,
+          "total": 600,
+          "placedUid": 72
+        },
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 538,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": null,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71
+        ]
+      },
+      {
+        "phase": "whole197-restored-same-salvaged-chest-partial-material-and-water",
+        "actual": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-salvaged-chest-partial-material-and-water-actual.json",
+          "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d"
+        },
+        "expected": {
+          "path": "test-results/storage-fire-browser-v290-final/whole197-restored-same-salvaged-chest-partial-material-and-water-expected.json",
+          "sha256": "55247f41e34687b90432b8184aa47f5c91d4334c6c9ecf2e9897890264dbb74d"
+        },
+        "wholeJSONEqual": true,
+        "timeTU": 1470500,
+        "playerPosition": {
+          "x": 7,
+          "y": 43
+        },
+        "chestTileTerrain": "Terrain.Stash",
+        "searched": false,
+        "placed": {
+          "base": "Terrain.KtFloor",
+          "item": {
+            "uid": 72,
+            "def": "Item.StorageChest",
+            "count": 1
+          },
+          "owner": 1
+        },
+        "terrainFire": null,
+        "combustionRemaining": {
+          "family": "wood-stash",
+          "remaining": 536,
+          "total": 600,
+          "placedUid": 72
+        },
+        "fireWetUntil": 15304,
+        "containerOpened": false,
+        "groundUIDs": [
+          78
+        ],
+        "containerUIDs": [
+          73,
+          74,
+          75,
+          76
+        ],
+        "bagUIDs": [
+          70,
+          71,
+          80
+        ]
+      }
+    ],
+    "wholeActualExpectedCount": 20,
+    "whole197Restores": [
+      {
+        "before": "actual200turn-default-spark-original-chest-burning",
+        "restored": "whole197-restored-same-partly-burning-chest-and-all-original-uids",
+        "wholeJSONEqual": true,
+        "timeTU": 1470200
+      },
+      {
+        "before": "actual200turn-material-depletion-part-2",
+        "restored": "whole197-restored-same-original-floor-five-items-and-closed-sack-inside",
+        "wholeJSONEqual": true,
+        "timeTU": 1530200
+      },
+      {
+        "before": "actual-select-only-original300ml-bottle-pickup-no-wood-stack-merge",
+        "restored": "whole197-restored-original-recovered-bottle-and-unmerged-ground-stacks",
+        "wholeJSONEqual": true,
+        "timeTU": 1530500
+      },
+      {
+        "before": "salvage-actual-title-loaded-same-original197",
+        "restored": "whole197-restored-same-partly-burned-original-chest-before-salvage",
+        "wholeJSONEqual": true,
+        "timeTU": 1470400
+      },
+      {
+        "before": "actual-one-turn-own500ml-salvages-original-chest-and-actual-contents",
+        "restored": "whole197-restored-same-salvaged-chest-partial-material-and-water",
+        "wholeJSONEqual": true,
+        "timeTU": 1470500
+      },
+      {
+        "before": "actual-one-south-step-reveals-open-original-chest",
+        "restored": "whole197-restored-original-open-chest-and-spare-portable-chest",
+        "wholeJSONEqual": true,
+        "timeTU": 1470600
+      }
+    ],
+    "smallViewportWholeWorldUnchangedAfterRecovery": true,
+    "initialFixtures": {
+      "depletion": {
+        "path": "test-results/storage-fire-browser-v290-final/depletion-initial-finite197-original-chest-and-actual-contents.json",
+        "sha256": "16c76ee460cb93e2487111149cca814c2faf0b43fe390d0615954aeb12265498"
+      },
+      "salvage": {
+        "path": "test-results/storage-fire-browser-v290-final/salvage-initial-finite197-original-chest-and-actual-contents.json",
+        "sha256": "8b49c2036ec68590379391da38e577a40223e4e18a46202c2e4173e6aef7a5d5"
+      },
+      "depletionInitialActualEqualsDeclaredFixture": true,
+      "salvageInitialActualEqualsDeclaredFixture": true,
+      "originalChestCoordinate": [
+        7,
+        42
+      ],
+      "originalChestUID": 72,
+      "sourceCampfireKitUID": 69,
+      "depletionInitialTime": 1440000,
+      "salvageInitialTime": 1470400,
+      "nodeSalvagePreparationTU": 30400,
+      "nodePreparationIncludedInBrowserInputTotal": false,
+      "sparePortableChestUID": 80,
+      "sparePortableDeclaration": "Finite initial bag entry after Node preparation, not browser crafting/recovery"
+    },
+    "browserTimeEvidence": {
+      "depletionInitial": 1440000,
+      "afterReal100TurnIgnition": 1450000,
+      "afterTwoStepsAway": 1450200,
+      "afterFirstRest200": 1470200,
+      "afterNextThreeRest200": 1530200,
+      "afterThreeApproachStepsAndFreeSelectedRecovery": 1530500,
+      "depletionInputTU": 90500,
+      "salvageInitial": 1470400,
+      "after500mlOneTurn": 1470500,
+      "afterFreeSearch": 1470500,
+      "afterOneSouthStep": 1470600,
+      "salvageInputTU": 200,
+      "combinedBrowserInputTU": 90700
+    },
+    "depletionAndRecovery": {
+      "originalContents": [
+        {
+          "uid": 73,
+          "def": "Item.DirtyWaterBottle",
+          "count": 1,
+          "uses": 1.5,
+          "water": {
+            "pathogen": 70,
+            "ash": 20,
+            "salinity": 35,
+            "source": "초기 보관한300ml"
+          },
+          "gx": 0,
+          "gy": 0
+        },
+        {
+          "uid": 74,
+          "def": "Item.PillWhite",
+          "count": 2,
+          "pillAge": {
+            "potency": 73,
+            "spoiled": true
+          },
+          "gx": 1,
+          "gy": 0
+        },
+        {
+          "uid": 75,
+          "def": "Item.Wood",
+          "count": 2,
+          "gx": 2,
+          "gy": 0
+        },
+        {
+          "uid": 76,
+          "def": "Item.Sack",
+          "count": 1,
+          "contents": [
+            {
+              "uid": 77,
+              "def": "Item.Cloth",
+              "count": 2,
+              "gx": 0,
+              "gy": 0
+            }
+          ],
+          "gx": 3,
+          "gy": 0
+        }
+      ],
+      "separateOriginalGroundWood": [
+        {
+          "uid": 78,
+          "def": "Item.Wood",
+          "count": 1
+        }
+      ],
+      "afterDepletionGroundItems": [
+        {
+          "uid": 78,
+          "def": "Item.Wood",
+          "count": 1
+        },
+        {
+          "uid": 73,
+          "def": "Item.DirtyWaterBottle",
+          "count": 1,
+          "uses": 1.5,
+          "water": {
+            "pathogen": 70,
+            "ash": 20,
+            "salinity": 35,
+            "source": "초기 보관한300ml"
+          }
+        },
+        {
+          "uid": 74,
+          "def": "Item.PillWhite",
+          "count": 2,
+          "pillAge": {
+            "potency": 73,
+            "spoiled": true
+          }
+        },
+        {
+          "uid": 75,
+          "def": "Item.Wood",
+          "count": 2
+        },
+        {
+          "uid": 76,
+          "def": "Item.Sack",
+          "count": 1,
+          "contents": [
+            {
+              "uid": 77,
+              "def": "Item.Cloth",
+              "count": 2,
+              "gx": 0,
+              "gy": 0
+            }
+          ]
+        }
+      ],
+      "terrainAfterDepletion": "Terrain.KtFloor",
+      "placedAndContainerAndTerrainFireRemoved": true,
+      "allOriginalPhysicalItemStatePreservedOnSpillExceptTopLevelGridCoordinates": true,
+      "separateGroundAndContainerWoodStacksRemainUID78Count1AndUID75Count2": true,
+      "nestedSackUID76ClothUID77Count2Preserved": true,
+      "afterSelectedBottleRecoveryGroundItems": [
+        {
+          "uid": 78,
+          "def": "Item.Wood",
+          "count": 1
+        },
+        {
+          "uid": 74,
+          "def": "Item.PillWhite",
+          "count": 2,
+          "pillAge": {
+            "potency": 73,
+            "spoiled": true
+          }
+        },
+        {
+          "uid": 75,
+          "def": "Item.Wood",
+          "count": 2
+        },
+        {
+          "uid": 76,
+          "def": "Item.Sack",
+          "count": 1,
+          "contents": [
+            {
+              "uid": 77,
+              "def": "Item.Cloth",
+              "count": 2,
+              "gx": 0,
+              "gy": 0
+            }
+          ]
+        }
+      ],
+      "selectedRecoveredBottle": {
+        "uid": 73,
+        "def": "Item.DirtyWaterBottle",
+        "count": 1,
+        "uses": 1.5,
+        "water": {
+          "pathogen": 70,
+          "ash": 20,
+          "salinity": 35,
+          "source": "초기 보관한300ml"
+        },
+        "gx": 0,
+        "gy": 0
+      },
+      "selectedRecoveryTimeTU": 0,
+      "originalDirty300mlStatePreserved": true,
+      "ownCleanBottleUID71StillUses5": true
+    },
+    "salvageAndOpening": {
+      "chestUID": 72,
+      "terrain": "Terrain.Stash",
+      "activeFireRemoved": true,
+      "remainingMaterialBefore": {
+        "family": "wood-stash",
+        "remaining": 536,
+        "total": 600,
+        "placedUid": 72
+      },
+      "remainingMaterialAfter": {
+        "family": "wood-stash",
+        "remaining": 536,
+        "total": 600,
+        "placedUid": 72
+      },
+      "partial536Of600NotResetTo600": true,
+      "fireWetUntil": 15304,
+      "ownBottleUID71UsesBefore": 5,
+      "ownBottleUID71UsesAfter": 2.5,
+      "ownBottleMlAuditBefore": 1000,
+      "ownBottleMlAuditAfter": 500,
+      "originalStoredDirtyBottleUID73Uses": 1.5,
+      "originalStoredDirtyBottleMlAudit": 300,
+      "allFourOriginalContentsAndNestedStateValueEqualInitial": true,
+      "closedUntilActualFreeSearch": true,
+      "afterActualFreeSearch": {
+        "searched": true,
+        "containerOpened": true,
+        "timeTUCost": 0,
+        "originalContentsValueEqual": true
+      },
+      "afterActualSouthStep": {
+        "position": {
+          "x": 7,
+          "y": 44
+        },
+        "timeTUCost": 100
+      },
+      "noPixelUIDInference": true
+    }
+  },
+  "commonHarnessEvidence": {
+    "runs": [
+      {
+        "viewport": {
+          "width": 1440,
+          "height": 1080
+        },
+        "run": {
+          "path": "test-results/game-harness-v290-final-1440/run.json",
+          "sha256": "e134822b6ef9fdaabcff603cf966f6a7b20bf9f0d2ab24c1a1cd7a53d0cc7e22"
+        },
+        "actions": {
+          "path": "test-results/game-harness-v290-final-1440/actions.json",
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33"
+        },
+        "errors": {
+          "path": "test-results/game-harness-v290-final-1440/errors.json",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "statusFromSuppliedRun": "passed",
+        "errorsArray": [],
+        "steps": 11,
+        "actualInputTU": 200,
+        "titleWorldLoaded": false,
+        "startingBag": [],
+        "startingEquipment": {
+          "main": {
+            "uid": 2,
+            "def": "Item.Pole",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 21600
+          },
+          "back": {
+            "uid": 3,
+            "def": "Item.OiledRaincoat",
+            "count": 1,
+            "wetness": {},
+            "durability": 100,
+            "gearAgedAt": 21600
+          }
+        },
+        "timeTU": {
+          "initial": 2160000,
+          "inventory": 2160200,
+          "final": 2160200
+        },
+        "facing": {
+          "initial": 0,
+          "inventory": 4
+        },
+        "finalObservationWholeWorldUnchanged": true,
+        "startLayout": {
+          "viewport": {
+            "width": 1440,
+            "height": 1080
+          },
+          "start": {
+            "left": 954,
+            "top": 835.28125,
+            "right": 1240,
+            "bottom": 880.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        },
+        "clickEvidence": "Supplied completed actions click start/reach game; layout reports center clickable/no scroll. Reviewer did not drive browser.",
+        "inputSequence": [
+          {
+            "action": "fill",
+            "selector": "[data-testid=seed]",
+            "value": "ashveil-harness-smoke"
+          },
+          {
+            "action": "click",
+            "selector": "[data-testid=start]",
+            "button": "left"
+          },
+          {
+            "action": "press",
+            "key": "Period"
+          },
+          {
+            "action": "press",
+            "key": "Control+ArrowDown"
+          },
+          {
+            "action": "press",
+            "key": "i"
+          }
+        ]
+      },
+      {
+        "viewport": {
+          "width": 1366,
+          "height": 768
+        },
+        "run": {
+          "path": "test-results/game-harness-v290-final-1366/run.json",
+          "sha256": "ae8eeda6bf4e7dc5d2c787bc9850f64f1070d123714afb39687aa0d97213079d"
+        },
+        "actions": {
+          "path": "test-results/game-harness-v290-final-1366/actions.json",
+          "sha256": "dedbcb6af87971df0eb275d516b653996f9a204e2742fa18f87c04f8f003cf33"
+        },
+        "errors": {
+          "path": "test-results/game-harness-v290-final-1366/errors.json",
+          "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+        },
+        "statusFromSuppliedRun": "passed",
+        "errorsArray": [],
+        "steps": 11,
+        "actualInputTU": 200,
+        "titleWorldLoaded": false,
+        "startingBag": [],
+        "startingEquipment": {
+          "main": {
+            "uid": 2,
+            "def": "Item.Pole",
+            "count": 1,
+            "durability": 100,
+            "gearAgedAt": 21600
+          },
+          "back": {
+            "uid": 3,
+            "def": "Item.OiledRaincoat",
+            "count": 1,
+            "wetness": {},
+            "durability": 100,
+            "gearAgedAt": 21600
+          }
+        },
+        "timeTU": {
+          "initial": 2160000,
+          "inventory": 2160200,
+          "final": 2160200
+        },
+        "facing": {
+          "initial": 0,
+          "inventory": 4
+        },
+        "finalObservationWholeWorldUnchanged": true,
+        "startLayout": {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "start": {
+            "left": 913,
+            "top": 669.28125,
+            "right": 1207,
+            "bottom": 714.28125,
+            "fullyInViewport": true,
+            "centerIsClickable": true
+          },
+          "scrolledElements": []
+        },
+        "clickEvidence": "Supplied completed actions click start/reach game; layout reports center clickable/no scroll. Reviewer did not drive browser.",
+        "inputSequence": [
+          {
+            "action": "fill",
+            "selector": "[data-testid=seed]",
+            "value": "ashveil-harness-smoke"
+          },
+          {
+            "action": "click",
+            "selector": "[data-testid=start]",
+            "button": "left"
+          },
+          {
+            "action": "press",
+            "key": "Period"
+          },
+          {
+            "action": "press",
+            "key": "Control+ArrowDown"
+          },
+          {
+            "action": "press",
+            "key": "i"
+          }
+        ]
+      }
+    ],
+    "crossViewportWholeWorldChecks": [
+      {
+        "phase": "01-world",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v290-final-1440/01-world-world.json",
+          "sha256": "3e7c54e87d9b182d12a36fd02a62c39595ea525ac5c9dc546d0132d9f4399075"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v290-final-1366/01-world-world.json",
+          "sha256": "3e7c54e87d9b182d12a36fd02a62c39595ea525ac5c9dc546d0132d9f4399075"
+        }
+      },
+      {
+        "phase": "02-inventory",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v290-final-1440/02-inventory-world.json",
+          "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v290-final-1366/02-inventory-world.json",
+          "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+        }
+      },
+      {
+        "phase": "final",
+        "wholeJSONEqual": true,
+        "viewport1440": {
+          "path": "test-results/game-harness-v290-final-1440/final-world.json",
+          "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+        },
+        "viewport1366": {
+          "path": "test-results/game-harness-v290-final-1366/final-world.json",
+          "sha256": "48c10e28891ae722f37fe268c37cdc2e2d548dcffc6fc14b42426b08c21de856"
+        }
+      }
+    ]
+  },
+  "visualFindings": [],
+  "previewDisplayLimitations": {
+    "native1416": {
+      "image": {
+        "path": "test-results/storage-fire-browser-v290-final/1416-native-real500ml-salvages-same-chest-partial-fuel-and-original-contents.png",
+        "sha256": "5e897734a950dc12f3fbfdca807a814c9158aa662518f5c89f2052033fd9bf2a"
+      },
+      "reference": {
+        "path": "test-results/storage-fire-browser-v290-final/1415-native-original-partial-chest-fire-and-real500ml-salvage-quote.png",
+        "sha256": "be7b7acdee0f2a7c0f80f270a368143b1700cb84df3a11237431d5a21bad2562"
+      },
+      "directOriginalRGBChecks": [
+        {
+          "region": "fixedTitle",
+          "rectangleXYXY": [
+            180,
+            80,
+            780,
+            127
+          ],
+          "originalRGBEqual1415To1416": true
+        },
+        {
+          "region": "baseService",
+          "rectangleXYXY": [
+            195,
+            140,
+            765,
+            245
+          ],
+          "originalRGBEqual1415To1416": true
+        },
+        {
+          "region": "campfire",
+          "rectangleXYXY": [
+            195,
+            258,
+            765,
+            360
+          ],
+          "originalRGBEqual1415To1416": true
+        }
+      ],
+      "representativeRGB": {
+        "(250, 100)": [
+          44,
+          53,
+          44
+        ],
+        "(500, 100)": [
+          29,
+          42,
+          40
+        ],
+        "(200, 150)": [
+          26,
+          39,
+          41
+        ],
+        "(500, 200)": [
+          22,
+          33,
+          35
+        ],
+        "(500, 300)": [
+          20,
+          31,
+          34
+        ]
+      },
+      "classification": "Tool preview omitted unchanged top sections; original RGB contains them and equals1415 there. Changed lower UI reflow after extinguish is real and recorded separately."
+    },
+    "genericFinals": [
+      {
+        "image": {
+          "path": "test-results/game-harness-v290-final-1440/final.png",
+          "sha256": "02f5ff3c0138572e1f2a76781c99cd948e24a16b575a42059a76bec409a6bf80"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v290-final-1440/02-inventory.png",
+          "sha256": "cbcf24acccb38131b3c9db4a82de333ace1e38ee9686b5372cc92864008931c0"
+        },
+        "inventoryRectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "inventoryExactlyEqual": true,
+        "differentPixelCount": 0,
+        "firstDifferentPixelsXYMaxChannelDelta": [],
+        "maxChannelDelta": 0,
+        "logRectangleXYXY": [
+          988,
+          764,
+          1428,
+          930
+        ],
+        "logExactlyEqual": true,
+        "representativeFinalPanelRGB": {
+          "(750, 100)": [
+            30,
+            43,
+            41
+          ],
+          "(750, 250)": [
+            17,
+            20,
+            18
+          ],
+          "(1000, 400)": [
+            16,
+            24,
+            26
+          ]
+        },
+        "classification": "Read-only raw-image comparison; panels are present in source, no image edit. Differences reported numerically, not forced to exact-match."
+      },
+      {
+        "image": {
+          "path": "test-results/game-harness-v290-final-1366/final.png",
+          "sha256": "83b416c9ef9e298fdccbdacbba5f87ca9ce78c8c4962f991da7898e9f43b28d5"
+        },
+        "reference": {
+          "path": "test-results/game-harness-v290-final-1366/02-inventory.png",
+          "sha256": "cbc59166eab282b353b0f032509013b6e0ca94b55c936ff464ed647c617fbe41"
+        },
+        "inventoryRectangleXYXY": [
+          420,
+          70,
+          1080,
+          443
+        ],
+        "inventoryExactlyEqual": false,
+        "differentPixelCount": 4,
+        "firstDifferentPixelsXYMaxChannelDelta": [
+          [
+            420,
+            441,
+            1
+          ],
+          [
+            420,
+            442,
+            1
+          ],
+          [
+            421,
+            442,
+            1
+          ],
+          [
+            422,
+            442,
+            1
+          ]
+        ],
+        "maxChannelDelta": 1,
+        "logRectangleXYXY": [
+          914,
+          452,
+          1354,
+          618
+        ],
+        "logExactlyEqual": true,
+        "representativeFinalPanelRGB": {
+          "(750, 100)": [
+            30,
+            43,
+            41
+          ],
+          "(750, 250)": [
+            17,
+            20,
+            18
+          ],
+          "(1000, 400)": [
+            16,
+            24,
+            26
+          ]
+        },
+        "classification": "Read-only raw-image comparison; panels are present in source, no image edit. Differences reported numerically, not forced to exact-match."
+      }
+    ]
+  },
+  "occlusionAndClipping": [
+    {
+      "images": [
+        1410,
+        1417
+      ],
+      "observation": "Player directly south covers the closed chest; do not count as visually reviewed closed sprite."
+    },
+    {
+      "images": [
+        1411
+      ],
+      "observation": "Closed original visible after player moved; lower player partly hidden byHUD."
+    },
+    {
+      "images": [
+        1418,
+        1419
+      ],
+      "observation": "Open lid visible after actual free search and south step; portable icon separately visible in1419."
+    },
+    {
+      "images": [
+        1414
+      ],
+      "observation": "Small inventory+ground window fits; covers part oflog/world. Edge trees clipped byviewport, not atlas/source loss."
+    },
+    {
+      "images": [
+        1415,
+        1416
+      ],
+      "observation": "Crafting window/header/required action visible; long recipe list continues below current content area. Not all recipes simultaneously visible."
+    },
+    {
+      "images": [
+        "common titles"
+      ],
+      "observation": "Start button fully visible/hittesttrue/no scroll; lower background choices extend belowviewport."
+    }
+  ],
+  "notVerified": [
+    "Reviewer did not replay fire/search/pickup/resize/browser input.",
+    "Closed chest visual in1410/1417 (occluded), all camera/object overlap conditions or every tree fully on screen.",
+    "All weather/material/fire spread/long-run probability, all quantities/qualities or all bags/containers.",
+    "Any claim Node304T preparation or spare-chest crafting happened through browser; both are explicit initial fixtures.",
+    "All accessibility palettes, tooltips/menu sizes, deployment or full regression outcome."
+  ]
+}

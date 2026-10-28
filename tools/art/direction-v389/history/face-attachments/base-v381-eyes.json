@@ -1,0 +1,166 @@
+{
+  "format": 1,
+  "source": "/workspace/.ashveil-planned/v381-human-body-parts/originals/wanderer-components-four-facings-v1.png",
+  "sourceSHA256": "f05cfe92abe4e81218d5f415310a008a0335379729ad5b6af2c641c45938e25e",
+  "sourceBytes": 1984261,
+  "coordinateConvention": "crop rawglobal[x,y,w,h] end-exclusive; directions[dir].eyes exclusively crop-local[x,y]",
+  "anatomicalMapping": "CURRENT parent runtime: downscreenright=LeftEye/downscreenleft=RightEye, LEFTnearLeftEye, RIGHTnearRightEye; differs from initial role-eyes raw profile labels.",
+  "directions": {
+    "down": {
+      "frame": "av381_down_Head",
+      "crop": [
+        57,
+        70,
+        129,
+        163
+      ],
+      "eyes": {
+        "left": [
+          80,
+          89
+        ],
+        "right": [
+          53,
+          89
+        ]
+      }
+    },
+    "left": {
+      "frame": "av381_right_Head",
+      "crop": [
+        55,
+        539,
+        147,
+        160
+      ],
+      "eyes": {
+        "left": [
+          42,
+          86
+        ]
+      }
+    },
+    "right": {
+      "frame": "av381_left_Head",
+      "crop": [
+        50,
+        308,
+        139,
+        157
+      ],
+      "eyes": {
+        "right": [
+          98,
+          81
+        ]
+      }
+    },
+    "up": {
+      "frame": "av381_up_Head",
+      "crop": [
+        55,
+        786,
+        131,
+        151
+      ],
+      "eyes": {}
+    }
+  },
+  "observations": [
+    {
+      "direction": "down",
+      "eye": "LeftEye",
+      "frame": "av381_down_Head",
+      "sourceGlobal": [
+        137,
+        159
+      ],
+      "cropLocal": [
+        80,
+        89
+      ],
+      "sourceRGBA": [
+        21,
+        11,
+        8,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "nearSideOnly": false,
+      "actual3DEyeSocket": null
+    },
+    {
+      "direction": "down",
+      "eye": "RightEye",
+      "frame": "av381_down_Head",
+      "sourceGlobal": [
+        110,
+        159
+      ],
+      "cropLocal": [
+        53,
+        89
+      ],
+      "sourceRGBA": [
+        23,
+        16,
+        14,
+        252
+      ],
+      "manualUncertaintySourcePx": 4,
+      "nearSideOnly": false,
+      "actual3DEyeSocket": null
+    },
+    {
+      "direction": "left",
+      "eye": "LeftEye",
+      "frame": "av381_right_Head",
+      "sourceGlobal": [
+        97,
+        625
+      ],
+      "cropLocal": [
+        42,
+        86
+      ],
+      "sourceRGBA": [
+        16,
+        13,
+        11,
+        252
+      ],
+      "manualUncertaintySourcePx": 4,
+      "nearSideOnly": true,
+      "actual3DEyeSocket": null
+    },
+    {
+      "direction": "right",
+      "eye": "RightEye",
+      "frame": "av381_left_Head",
+      "sourceGlobal": [
+        148,
+        389
+      ],
+      "cropLocal": [
+        98,
+        81
+      ],
+      "sourceRGBA": [
+        30,
+        20,
+        22,
+        253
+      ],
+      "manualUncertaintySourcePx": 4,
+      "nearSideOnly": true,
+      "actual3DEyeSocket": null
+    }
+  ],
+  "eyePoints": 4,
+  "historicalV384Proposal": "New direct pupil selections refine old graphic midpoint. Do not automatically reuse its old coordinates or requested-row names.",
+  "frameSourceMapping": "Actual head frames from immutable human-art.json+sprites.json: leftuses av381_right_Head (rawthirdrow), rightuses av381_left_Head(rawsecondrow).",
+  "sourceRasterEdits": 0,
+  "newGenerationCalls": 0,
+  "active": false,
+  "runtimeFitAccepted": false
+}

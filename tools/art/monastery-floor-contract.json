@@ -1,0 +1,89 @@
+{
+  "basis": "Read-only source contract from /workspace/ashveil at preparation time; no production import at generation/check time.",
+  "terrain": "Terrain.KtFloor",
+  "selectedBecause": "General monastery flagstone used by depth1/2 rooms, surfaced monastery and renderer fallback. Usage is source-based, not a measured saved-world frequency ranking.",
+  "nativeTile": [
+    16,
+    16
+  ],
+  "sheet": [
+    256,
+    256
+  ],
+  "macroVariantCount": 4,
+  "macroCell": [
+    128,
+    128
+  ],
+  "samplesPerMacro": [
+    8,
+    8
+  ],
+  "totalAddressableNativeSamples": 256,
+  "existingFrameKeys": [
+    "kt_floor_q0",
+    "kt_floor_q1",
+    "kt_floor_q2",
+    "kt_floor_q3"
+  ],
+  "rendererSelection": "q=hash(x>>3,y>>3)%4; sub(kt_floor_q{q},(x&7)*16,(y&7)*16,16,16)",
+  "edgeContract": "Every ordered pair of4 macro variants matches left/right and top/bottom opaque edge pixels.",
+  "notCovered": {
+    "terrain": "Terrain.CdFloor",
+    "nativeTile": [
+      16,
+      16
+    ],
+    "frameCount": 20,
+    "frames": "cd_floor0..19",
+    "selection": "h%20",
+    "reason": "Special contaminated deepest-floor material; not changed by this general stone artwork."
+  },
+  "sourceReferences": {
+    "CANON.md": "D13:16x16, worn damp stone from the outset",
+    "12-ui-ux.md": "section8 graphics: wear in material, light not baked into tile",
+    "14-locations-and-dungeons.md": "section3:monastery and section3.3 depth1/2/3 material distinction",
+    "lore/world-bible.md": "section1.4:old stone relief house, ash-stained Grey Cloister"
+  },
+  "gameFilesRead": [
+    "src/client/sprites.json",
+    "src/client/render/MapRenderer.ts",
+    "src/client/render/atlas.ts",
+    "src/content/core/defs/terrain.json",
+    "src/core/mapgen.ts"
+  ],
+  "hashFirst4Rows6Blocks": [
+    [
+      0,
+      0,
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      1,
+      2,
+      1,
+      3,
+      1,
+      0
+    ],
+    [
+      2,
+      1,
+      2,
+      3,
+      0,
+      3
+    ],
+    [
+      0,
+      1,
+      2,
+      0,
+      0,
+      3
+    ]
+  ]
+}

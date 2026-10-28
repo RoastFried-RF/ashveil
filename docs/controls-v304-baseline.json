@@ -1,0 +1,57 @@
+{
+  "sourceVersion": 303,
+  "sourceCheckpoint": "/workspace/.ashveil-checkpoints/v303-publication-ready",
+  "method": "Actual title continue of declared finite healthy inventory fixture; trusted Playwright key/mouse input. No postload world mutation. Expected behavior observations are diagnostic, not green whole-state assertions.",
+  "confirmedDefects": [
+    {
+      "name": "01-held-inventory-key",
+      "observed": {
+        "inventoryVisible": false,
+        "expectedVisible": true
+      }
+    },
+    {
+      "name": "02-window-focused-arrow",
+      "observed": {
+        "before": 1440000,
+        "after": 1440100,
+        "expectedDelta": 0
+      }
+    },
+    {
+      "name": "03-raised-window-escape",
+      "observed": {
+        "characterVisible": true,
+        "inventoryVisible": false,
+        "expected": "close raised character, preserve inventory"
+      }
+    },
+    {
+      "name": "04-select-escape",
+      "observed": {
+        "craftVisible": true,
+        "expectedVisible": false
+      }
+    },
+    {
+      "name": "05-menu-escape",
+      "observed": {
+        "inventoryVisible": false,
+        "expectedVisible": true
+      }
+    },
+    {
+      "name": "06-drag-escape",
+      "observed": {
+        "inventoryVisible": false,
+        "expectedVisible": true
+      }
+    }
+  ],
+  "errors": [],
+  "excludedRow": {
+    "name": "07-window-during-travel",
+    "reason": "The destination had already been reached when the window opened; this does not reproduce an automatic-walking cancellation defect."
+  },
+  "rawAuditSha256": "bc2e60668483747f70f3cbd555c3c15b77e8e298d404fff579c7a08e6148d7c0"
+}

@@ -1,0 +1,64 @@
+{
+  "uniqueFiles": 338,
+  "uniqueTests": 6145,
+  "singleWholeRunPassed": false,
+  "initial": {
+    "files": 338,
+    "passedFiles": 334,
+    "fullyPassedFileTests": 6072,
+    "passedIndividualTests": 6096,
+    "failedIndividualTests": 48,
+    "seconds": 885.7559821777344,
+    "workerLimit": 2,
+    "failedFiles": [
+      "captive-witnesses.test.ts",
+      "definition-validation-cli.test.ts",
+      "prisoner-witnesses.test.ts",
+      "throwing.test.ts"
+    ]
+  },
+  "recheck": {
+    "files": 4,
+    "tests": 73,
+    "passed": 73,
+    "seconds": 28.492863037109377,
+    "workerLimit": 1,
+    "changedFiles": [
+      "tests/prisoner-witnesses-fixture.ts",
+      "tests/definition-validation-cli.test.ts",
+      "tests/throwing.test.ts"
+    ],
+    "changes": "One declared privacy wall for the two witness files, actual+4 patch counts, dark visibility negative case adapted and a positive six-tile throwing case added. No runtime/Def/test timeout changes after first whole run."
+  },
+  "runtime": {
+    "src": {
+      "files": 692,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    "dist": {
+      "files": 2237,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    "public": {
+      "files": 1838,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    "tools": {
+      "files": 308,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesExactNativeFullAndRecheck": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesExactNativeFullAndRecheck": true
+    }
+  },
+  "limits": "Aggregate of334 fully passing files from the initial whole run plus4 fully passing files from the final recheck.48 initial assertion/setup failures retained; not a single green whole run. Every test depending on the changed shared witness fixture is rechecked."
+}

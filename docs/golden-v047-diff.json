@@ -1,0 +1,54 @@
+{
+  "fromVersion": "v0.46",
+  "toVersion": "v0.47",
+  "commandsRewritten": false,
+  "saveVersion": 14,
+  "audits": [
+    {
+      "name": "surface",
+      "fromInitialHash": "3b767222",
+      "initialHash": "0cd2d64d",
+      "fromHash": "1048724b",
+      "hash": "416ffb70",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "dungeon-combat",
+      "fromInitialHash": "04d7303a",
+      "initialHash": "3fb5593b",
+      "fromHash": "6a98e74e",
+      "hash": "cbee524f",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "freeze-reentry",
+      "fromInitialHash": "ac34953e",
+      "initialHash": "3efbab05",
+      "fromHash": "c2dba7d0",
+      "hash": "8565d9c1",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-journey",
+      "fromInitialHash": "38cf73e2",
+      "initialHash": "d5863b39",
+      "fromHash": "339efd9d",
+      "hash": "198c39a6",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    },
+    {
+      "name": "world-climate-return",
+      "fromInitialHash": "38cf73e2",
+      "initialHash": "d5863b39",
+      "fromHash": "bcf79a30",
+      "hash": "9a05ec4d",
+      "onlyVersionChanged": true,
+      "errorsIdentical": true
+    }
+  ],
+  "note": "기존5입력의 초기/최종 상태 차이는 버전13→14뿐이며 명령·오류는 보존한다. 주민 실제 이동/수면/귀환·침대 소유/저장은 별도 단위와 브라우저로 확인한다."
+}

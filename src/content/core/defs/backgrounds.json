@@ -1,0 +1,478 @@
+[
+  {
+    "defType": "Background",
+    "id": "Bg.Deserter",
+    "label": "탈영 경비병",
+    "description": "잔존 경비대에서 도망쳤다. 싸울 줄은 알지만 쫓기는 신세다.",
+    "stats": {
+      "str": 1,
+      "per": -1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.RebarSpear",
+      "Item.PaddedJacket",
+      "Item.Boots",
+      "Item.LeatherBelt",
+      "Item.Bandage",
+      "Item.Cloth",
+      "Item.Hardtack",
+      "Item.WaterBottle",
+      "Item.Lantern"
+    ],
+    "startAbilities": [
+      "Ab.Spear.Reach"
+    ],
+    "mods": {
+      "energy_spear": -2
+    },
+    "literacy": 2,
+    "statMode": "delta",
+    "ageRange": [
+      22,
+      35
+    ],
+    "traitWeights": {
+      "Trait.IronWill": 3,
+      "Trait.ColdBlooded": 3,
+      "Trait.TenderHearted": 0.4
+    }
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Scavenger",
+    "label": "고물 발굴꾼",
+    "description": "폐허를 뒤져 먹고살았다. 어디에 뭐가 숨어 있는지 안다.",
+    "stats": {
+      "per": 1,
+      "vit": -1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.PipeClub",
+      "Item.HuntingKnife",
+      "Item.LeatherCoat",
+      "Item.Gloves",
+      "Item.Lantern",
+      "Item.Cloth",
+      "Item.Cloth",
+      "Item.Jerky",
+      "Item.WaterBottle"
+    ],
+    "startAbilities": [
+      "Ab.Blunt.HeadBash"
+    ],
+    "mods": {
+      "splitBonus": 5,
+      "relicAppraisal": 8
+    },
+    "literacy": 1,
+    "statMode": "delta",
+    "ageRange": [
+      18,
+      40
+    ],
+    "traitWeights": {
+      "Trait.NimbleHands": 3,
+      "Trait.Paranoid": 3
+    }
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Hunter",
+    "label": "촌락 사냥꾼",
+    "description": "고원 촌락에서 짐승을 쫓았다. 활과 칼을 다룬다.",
+    "stats": {
+      "per": 1,
+      "wil": -1
+    },
+    "literate": false,
+    "startItems": [
+      "Item.Bow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.HuntingKnife",
+      "Item.LeatherCoat",
+      "Item.Boots",
+      "Item.Cloth",
+      "Item.Jerky",
+      "Item.Jerky",
+      "Item.WaterBottle",
+      "Item.Lantern",
+      "Item.LeatherBelt",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow",
+      "Item.Arrow"
+    ],
+    "startAbilities": [
+      "Ab.Archery.Calm"
+    ],
+    "mastery": {
+      "survival": 1
+    },
+    "literacy": 0,
+    "statMode": "delta",
+    "ageRange": [
+      18,
+      45
+    ],
+    "traitWeights": {
+      "Trait.KeenEyed": 3,
+      "Trait.Loner": 3,
+      "Trait.ColdResistant": 3
+    }
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Herbalist",
+    "label": "떠돌이 약초꾼",
+    "description": "약초와 상처를 다뤘다. 싸움은 서툴다.",
+    "stats": {
+      "per": 1,
+      "str": -1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.RustyKnife",
+      "Item.RagShirt",
+      "Item.OilclothCloak",
+      "Item.Bandage",
+      "Item.Bandage",
+      "Item.Tourniquet",
+      "Item.Splint",
+      "Item.Moonshine",
+      "Item.DriedApple",
+      "Item.WaterBottle",
+      "Item.Lantern",
+      "Item.HealthDraught"
+    ],
+    "startAbilities": [
+      "Ab.Survival.Breath"
+    ],
+    "mastery": {
+      "medicine": 1
+    },
+    "literacy": 1,
+    "statMode": "delta",
+    "ageRange": [
+      25,
+      60
+    ],
+    "traitWeights": {
+      "Trait.Sensitive": 3,
+      "Trait.IronStomach": 3
+    }
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.Excommunicate",
+    "label": "파문된 순례자",
+    "description": "장막 순례회에서 쫓겨났다. 고통을 견디는 법을 배웠다.",
+    "stats": {
+      "wil": 1,
+      "str": -1
+    },
+    "literate": true,
+    "startItems": [
+      "Item.PipeClub",
+      "Item.RagShirt",
+      "Item.Hood",
+      "Item.OilclothCloak",
+      "Item.BoneCharm",
+      "Item.Cloth",
+      "Item.Cloth",
+      "Item.Hardtack",
+      "Item.WaterBottle",
+      "Item.Lantern"
+    ],
+    "traitWeights": {
+      "Trait.Pious": 3,
+      "Trait.Pessimist": 3,
+      "Trait.ColdBlooded": 0.4
+    },
+    "startAbilities": [
+      "Ab.Survival.FirstAid"
+    ],
+    "mastery": {
+      "medicine": 1
+    },
+    "literacy": 1,
+    "statMode": "delta",
+    "ageRange": [
+      20,
+      50
+    ]
+  },
+  {
+    "defType": "Background",
+    "id": "Bg.GuildMerchant",
+    "label": "몰락한 길드 상인",
+    "description": "장부와 저울로 먹고살다 모든 것을 잃었다. 몸으로 익힌 기술은 없지만 배우는 데는 빠르다.",
+    "stats": {
+      "wil": 1,
+      "vit": -1
+    },
+    "literate": true,
+    "bonusAbilityPoints": 1,
+    "startItems": [
+      "Item.PaddedJacket",
+      "Item.RustyKnife",
+      "Item.OldLedger",
+      "Item.Boots",
+      "Item.Lantern",
+      "Item.Bandage",
+      "Item.Jerky",
+      "Item.WaterBottle"
+    ],
+    "startAbilities": [],
+    "literacy": 3,
+    "statMode": "delta",
+    "ageRange": [
+      30,
+      55
+    ],
+    "traitWeights": {
+      "Trait.Talkative": 3,
+      "Trait.Vain": 3,
+      "Trait.Alcoholic": 3,
+      "Trait.Robust": 0.4
+    },
+    "startQuality": {
+      "Item.PaddedJacket": 2
+    },
+    "mods": {
+      "bargain": 15
+    },
+    "startingMap": "Item.OldLedger",
+    "startMoney": 20
+  },
+  {
+    "id": "Bg.EscapedSlave",
+    "label": "약탈단 탈주 노예",
+    "description": "족쇄를 끊고 달아났다. 다리에 흉터가 남았고 가진 것은 누더기뿐이다.",
+    "stats": {
+      "agi": 1,
+      "wil": -1
+    },
+    "literacy": 0,
+    "ageRange": [
+      16,
+      35
+    ],
+    "startItems": [
+      "Item.RagShirt"
+    ],
+    "startAbilities": [
+      "Ab.Survival.Breath"
+    ],
+    "mods": {
+      "firstImpression": -5
+    },
+    "traitWeights": {
+      "Trait.Nervous": 3,
+      "Trait.Coward": 3,
+      "Trait.Robust": 3
+    },
+    "startScars": [
+      {
+        "part": "LeftShin",
+        "severity": 2,
+        "source": "족쇄"
+      },
+      {
+        "part": "RightShin",
+        "severity": 2,
+        "source": "족쇄"
+      }
+    ],
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": false
+  },
+  {
+    "id": "Bg.FeverOrphan",
+    "label": "회색열 고아",
+    "description": "열병이 가족을 앗아갔다. 살아남은 몸에는 회색열 면역이 남았다.",
+    "stats": {
+      "wil": 1,
+      "vit": -1
+    },
+    "literacy": 1,
+    "ageRange": [
+      16,
+      30
+    ],
+    "startItems": [
+      "Item.RagShirt",
+      "Item.Cloth",
+      "Item.Cloth",
+      "Item.Cloth"
+    ],
+    "startAbilities": [],
+    "mastery": {
+      "survival": 1
+    },
+    "immuneDiseases": [
+      "Disease.GreyFever"
+    ],
+    "traitWeights": {
+      "Trait.Pessimist": 3,
+      "Trait.Loner": 3,
+      "Trait.Frail": 0.4
+    },
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": true
+  },
+  {
+    "id": "Bg.SmithApprentice",
+    "label": "대장간 도제",
+    "description": "풀무와 망치를 다뤘다. 대장 제작법을 알고 금속 제작과 수리에 익숙하다.",
+    "stats": {
+      "str": 2,
+      "agi": -1,
+      "per": -1
+    },
+    "literacy": 1,
+    "ageRange": [
+      16,
+      28
+    ],
+    "startItems": [
+      "Item.IronHammer",
+      "Item.LeatherApron"
+    ],
+    "startAbilities": [
+      "Ab.Blunt.BoneBreaker"
+    ],
+    "mods": {
+      "smithQ": 10
+    },
+    "recipeCategories": [
+      "smithing"
+    ],
+    "traitWeights": {
+      "Trait.HeatResistant": 3,
+      "Trait.ClumsyHands": 0.4
+    },
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": true
+  },
+  {
+    "id": "Bg.GuardArchivist",
+    "label": "경비대 기록관",
+    "description": "경비대의 기록과 지도를 베꼈다. 낡은 지도와 손당김 석궁을 챙겼다.",
+    "stats": {
+      "per": 1,
+      "str": -1
+    },
+    "literacy": 3,
+    "ageRange": [
+      25,
+      50
+    ],
+    "startItems": [
+      "Item.LightCrossbow",
+      "Item.Bolt",
+      "Item.Bolt",
+      "Item.Bolt",
+      "Item.Bolt",
+      "Item.Bolt",
+      "Item.Bolt",
+      "Item.OldMap"
+    ],
+    "startAbilities": [],
+    "mods": {
+      "bargain": 10,
+      "mapReliability": 10
+    },
+    "startingMap": "Item.OldMap",
+    "traitWeights": {
+      "Trait.Nearsighted": 3,
+      "Trait.Paranoid": 3
+    },
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": true
+  },
+  {
+    "id": "Bg.Storyteller",
+    "label": "떠돌이 이야기꾼",
+    "description": "길 위에서 류트와 이야기로 끼니를 이었다. 납골당에 얽힌 소문 셋을 안다.",
+    "stats": {
+      "wil": 1,
+      "str": -1
+    },
+    "literacy": 2,
+    "ageRange": [
+      20,
+      60
+    ],
+    "startItems": [
+      "Item.Lute"
+    ],
+    "startAbilities": [],
+    "bonusAbilityPoints": 1,
+    "mods": {
+      "bargain": 10
+    },
+    "startingRumors": 3,
+    "traitWeights": {
+      "Trait.Talkative": 3,
+      "Trait.Optimist": 3
+    },
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": true
+  },
+  {
+    "id": "Bg.Boatman",
+    "label": "강변 뱃사공",
+    "description": "강바닥을 짚는 장대와 기름 먹인 우비가 재산이다. 물과 진흙에서 잘 미끄러지지 않는다.",
+    "stats": {
+      "vit": 1,
+      "per": -1
+    },
+    "literacy": 0,
+    "ageRange": [
+      20,
+      50
+    ],
+    "startItems": [
+      "Item.Pole",
+      "Item.OiledRaincoat"
+    ],
+    "startAbilities": [
+      "Ab.Spear.Pierce"
+    ],
+    "mastery": {
+      "survival": 1
+    },
+    "mods": {
+      "waterStumble": -10,
+      "waterFearImmune": 1
+    },
+    "traitWeights": {
+      "Trait.ColdResistant": 3
+    },
+    "defType": "Background",
+    "statMode": "delta",
+    "literate": false
+  }
+]

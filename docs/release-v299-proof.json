@@ -1,0 +1,883 @@
+{
+  "checkpoint": "v299-final",
+  "manifestSha256": "a66346d067c0b9e25f3e9d469f3560ab176cbe8edc6969ef26e54d4dfeed41ff",
+  "save": 203,
+  "definitions": 884,
+  "items": 206,
+  "recipes": 88,
+  "patches": 344,
+  "samplePatches": 349,
+  "schemaFiles": 162,
+  "api": "1.4.0",
+  "source": {
+    "src": {
+      "files": 681,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1066,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 256,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 544,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "nativeAndFullInputToFinal": {
+    "src": {
+      "files": 681,
+      "allBytesIdentical": true
+    },
+    "dist": {
+      "files": 943,
+      "allBytesIdentical": true
+    },
+    "public": {
+      "files": 544,
+      "allBytesIdentical": true
+    },
+    "mods": {
+      "files": 86,
+      "allBytesIdentical": true
+    },
+    "tests": {
+      "files": 1066,
+      "allBytesIdentical": true
+    },
+    "tools": {
+      "files": 256,
+      "allBytesIdentical": true
+    },
+    ".agents": {
+      "files": 1,
+      "allBytesIdentical": true
+    },
+    ".github": {
+      "files": 1,
+      "allBytesIdentical": true
+    }
+  },
+  "full": {
+    "status": "passed",
+    "files": 332,
+    "passed": 6073,
+    "failed": 0,
+    "seconds": 699.9625620117188,
+    "workers": 2,
+    "ranIn": "immutable v299-input, all8 source categories byte-exact final"
+  },
+  "checks": {
+    "typecheckExitCode": 0,
+    "buildExitCode": 0,
+    "lintExitCode": 0,
+    "defValidationExitCode": 0,
+    "schemaValidationExitCode": 0,
+    "spriteValidationExitCode": 0,
+    "schemaFiles": 162,
+    "save": 203,
+    "definitions": 884,
+    "items": 206,
+    "recipes": 88,
+    "patches": 344,
+    "samplePatches": 349,
+    "api": "1.4.0",
+    "related": {
+      "files": 6,
+      "passed": 124,
+      "failed": 0
+    },
+    "fullPending": false,
+    "worldPending": false,
+    "app": "index-CU7c7wuV.js",
+    "scope": "BuildFIRST passed includes completed Native. Two unused test imports removed after build; no src/dist/public/mods/tools changes. Final lint0errors1preexistingmirrorwarning. No browser/Full/World concurrency.",
+    "earlierFailures": "First Type failed canStack3args in newtest; corrected to actual2arg API, proper contaminated-v-clean object comparison then related124 and TypeSECOND/BuildFIRST passed. First audit wrapper replaced internal actual text in filename and expected Terrain.Soil instead of actual Terrain.Earth; fixed wrapper suffix/actual initial terrain, all23pairs verified. Product and captures unchanged."
+  },
+  "world": {
+    "status": "passed",
+    "measuredVersion": 299,
+    "overworld": true,
+    "runs": 30,
+    "maxDays": 3,
+    "workers": 4,
+    "seconds": 435.089573558,
+    "averageDays": 0.4886215277777779,
+    "causes": {
+      "저체온": 21,
+      "치명상": 2,
+      "과다 출혈": 7
+    },
+    "wholeResultRowsIdenticalTo297": 30,
+    "comparison": "All30 complete RESULT rows/averageDays/causes; not entire WorldState, full famine, ecology or five-day crop survival. Internal298 has no separate World run/public release."
+  },
+  "goldens": {
+    "baseline": 298,
+    "current": 299,
+    "scope": "ALL5whole initial/final/errors: ONLY202→203 and contentmod core/load hashes from five OatPlot cultivation/description/visual patches plus two Oats/OatSeed sprite patches. Every other WHOLEWorldState field equals298 in these five vectors; no new physical Oat cultivation is planted in these vectors; no additional crop fields or random draws occur here. Separate finite actual-input/unit proof covers real plant/water/growth/contaminated harvest/cooking plus public food notices and default Eggs. Does not prove five calendar-day survival, full agriculture, famine/migration/animalproduction.",
+    "rows": [
+      {
+        "name": "surface",
+        "initialHash": "7930c40e",
+        "hash": "0b15edbe",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          },
+          "state": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          }
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "initialHash": "51970cc3",
+        "hash": "065cd6e2",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          },
+          "state": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          }
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "initialHash": "8335d61f",
+        "hash": "21e0622e",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          },
+          "state": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          }
+        }
+      },
+      {
+        "name": "world-journey",
+        "initialHash": "2ac2458d",
+        "hash": "65fbccce",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          },
+          "state": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          }
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "initialHash": "2ac2458d",
+        "hash": "54c3420e",
+        "errorsExact": true,
+        "phases": {
+          "initial": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          },
+          "state": {
+            "version202To203": true,
+            "changedLoadHash": "sha256-fd282894ee5875406101a74eff2e3f197c11fa9ecbb31a30c2e162dffea8b270",
+            "changedContentHashes": [
+              {
+                "id": "core",
+                "oldHash": "sha256-61158fd36d9eae1f27769f7599f134d0c1bca6f2db91f3fd4c2cd172541e5551",
+                "newHash": "sha256-b4345241b44dc87dad3316d129dc20719072c3ea71c236fef2d1cf41d3ebe825"
+              }
+            ],
+            "allRemainingWholeStateExact298": true
+          }
+        }
+      }
+    ]
+  },
+  "nativeOat": {
+    "save": 203,
+    "screenshots": 12,
+    "roundtrips": 6,
+    "phases": 23,
+    "actualInputTU": 43200,
+    "rows": [
+      {
+        "phase": "seed",
+        "polluted": false,
+        "initialTime": 1440000,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": false,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "seed",
+        "legacyNearDeadlineDeclared": false
+      },
+      {
+        "phase": "nearRipe",
+        "polluted": true,
+        "initialTime": 1440200,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": true,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "nearRipe",
+        "cooking": {
+          "bowlUid": 53,
+          "bottleUid": 54,
+          "kitUid": 51,
+          "woodUid": 52,
+          "fireUid": 51,
+          "pos": {
+            "x": 19,
+            "y": 20
+          }
+        },
+        "legacyNearDeadlineDeclared": false,
+        "extraInitialCookingMaterials": "OriginalnewKit1/Wood1/Bowl1quality3dur81/freshwater600ml; actualKernelplace/fireworkfinish in finiteinitialscene, no worldclock advance or pastnormalplay claim. Originalcrop1000ml separate and already spent.",
+        "harvestedUid": 55,
+        "harvestedCount": 5,
+        "remainingHarvested": 4,
+        "cleanSetAside": 2,
+        "originalBowlUid": 53,
+        "actualHotTurns": 400,
+        "rawExposureMetadataMl": 240,
+        "rawPathogen": 5,
+        "actualNutritiveMealWaterMl": 220
+      },
+      {
+        "phase": "seed",
+        "polluted": false,
+        "initialTime": 1440000,
+        "declaredSeedCount": 3,
+        "originalSeedUid": 47,
+        "originalWaterUid": 48,
+        "declaredWaterMl": 1000,
+        "declaredCleanGrain": {
+          "uid": 49,
+          "count": 2
+        },
+        "nearRipeIsDeclaredInitialState": false,
+        "source": "FiniteactualnewGame(nooverworld)/originalplayer, declarednoon/healthybody/pausedstory/clear7x7soil/sun/initialOatSeed3+water1000ml+cleanOats2. NearRipe growthtotal-3/finitewater explicitlydeclared, not past5days replay. No postloadworld/time/RNG/material injection in Native.",
+        "mode": "legacy202",
+        "legacyNearDeadlineDeclared": true
+      }
+    ],
+    "errors": [],
+    "source": "Threefiniteinitialscenes loadedviarealTitleContinue. Actualkey/mouseplant/water3growthwaits/harvest12T/grainsetaside/prepare1T/399remaininghotT/take1T/eat1T/legacydeadline1T/harvest12T; independentNodeWHOLEaftereachphase. DeclarednearRipeinitialgrowthtotal-3, not143997pastvalidturns or5calendar-dayplay. Actualcrop1000ml+separateinitialcooking600ml;20mlpergrainisexistingexposuremetadata, noextra nutritionalwater beyond220ml. Legacy202header samecurrentfinite oldtimedplot, not historicaluserfile. No postloadworld/time/RNG/material injection, noNPCproduction/fullfamine/ecologycompletion."
+  },
+  "nativeFoodAndEgg": {
+    "save": 203,
+    "screenshots": 11,
+    "roundtrips": 5,
+    "phases": 18,
+    "actualInputTU": 500,
+    "rows": [
+      {
+        "shortage": true,
+        "declaredClock": 2879900,
+        "originalGeneratedFood": 2400,
+        "originalGeneratedReserve": 2396.192,
+        "originalHardtack": {
+          "uid": 1099511627776,
+          "count": 20
+        },
+        "originalProduction": 160,
+        "declaredReserve": 1.25,
+        "declaredProduction": 0,
+        "declaredRationFoodAtMarket": 0.42,
+        "originalUncountedEggs": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "actualResidentCredit": 0.56,
+        "actualConsumptionCarry": 0,
+        "source": "Actualgeneratedtown/depot/shop/Hardtack UID. Shortage initialscene explicitly declares commonFood1.25, originalHardtack3, noothercountedrationFood and production0; other uncounted foods such as originalEggs6 remain. Not historicalcropfailure or acquisition. Actual initialresidentconsumption retained. Finite near-midnightday0/pausedNPCs/healthyplayer/light and actualdepotneighbor; no postloadworld/time/RNG/material injection. Playerinitialcash1000 declared; originalgeneratedEgg6 kept, no Foodconversion or eggproduction added.",
+        "declaredPlayerMoney": 1000,
+        "originalEgg": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "speakerId": 69,
+        "mode": "trade",
+        "actualPrice": 21,
+        "marketRemaining": 3,
+        "bought": {
+          "uid": 111,
+          "def": "Item.Egg",
+          "count": 3,
+          "freshness": 99.46428571428571,
+          "foodAgedAt": 28800,
+          "gx": 0,
+          "gy": 0
+        },
+        "cashTotal": 1300
+      },
+      {
+        "shortage": true,
+        "declaredClock": 2879900,
+        "originalGeneratedFood": 2400,
+        "originalGeneratedReserve": 2396.192,
+        "originalHardtack": {
+          "uid": 1099511627776,
+          "count": 20
+        },
+        "originalProduction": 160,
+        "declaredReserve": 1.25,
+        "declaredProduction": 0,
+        "declaredRationFoodAtMarket": 0.42,
+        "originalUncountedEggs": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "actualResidentCredit": 0.56,
+        "actualConsumptionCarry": 0,
+        "source": "Actualgeneratedtown/depot/shop/Hardtack UID. Shortage initialscene explicitly declares commonFood1.25, originalHardtack3, noothercountedrationFood and production0; other uncounted foods such as originalEggs6 remain. Not historicalcropfailure or acquisition. Actual initialresidentconsumption retained. Finite near-midnightday0/pausedNPCs/healthyplayer/light and actualdepotneighbor; no postloadworld/time/RNG/material injection. Playerinitialcash1000 declared; originalgeneratedEgg6 kept, no Foodconversion or eggproduction added.",
+        "declaredPlayerMoney": 1000,
+        "originalEgg": {
+          "uid": 1099511627784,
+          "count": 6
+        },
+        "speakerId": 69,
+        "mode": "legacy201",
+        "originalEggsRemaining": 6,
+        "versionOnlyMigration": true
+      },
+      {
+        "mode": "actual-default-egg-impact",
+        "seed": "actual-default-egg-impact-0",
+        "originalUid": 39,
+        "originalCount": 3,
+        "remainingCount": 2,
+        "defaultDropChance": 0.3,
+        "actualMealTU": 100,
+        "source": "FiniteinitialthreeEggs explicitly created by original egg fixture, quality2/durability81, noon/healthybody/pausedstory/light. Actualtitleload/drop/pickup/eat/redrop; originaldefault30percent realRNG, no forcedchance/afterloadstate injection. Not acquisition in normalplay or animalproduction."
+      }
+    ],
+    "errors": [],
+    "source": "Actualtitlefiniteinitialscenes, key/mouseinputs and independentNodeWHOLEworldpairs after rendererFXconsumption. Legacy201header currentfinite scene, not historicaluserfile. OriginalmarketEgg6 buy3/remaining3 and finitecash; realdayonlypublicnotice, actualtalkonlyknowledge; originalEggdefault30percent/UID/count/nutrition/redrop/restores. No postloadworld/time/RNG/material injection, no longdistancearrival/famine/migration/production claim."
+  },
+  "nativeOatSourceProof": {
+    "status": "PASS",
+    "checkpoint": "immutable v299-input",
+    "app": "index-CU7c7wuV.js",
+    "save": 203,
+    "native": {
+      "screenshots": 12,
+      "roundtrips": 6,
+      "phases": 23,
+      "actualInputTU": 43200,
+      "errors": []
+    },
+    "all23WholeActualExpectedPairsEqual": true,
+    "all6WholeSaveRestoresEqual": true,
+    "legacy202To203VersionOnlyWholeEquality": true,
+    "inputToCompletionSource": {
+      "src": {
+        "files": 681,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 943,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 544,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1066,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 256,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "finiteSources": {
+      "seedUid": 47,
+      "seedCountBefore": 3,
+      "seedCountAfter": 2,
+      "irrigationBottleUid": 48,
+      "initialIrrigationMl": 1000,
+      "originalCleanGrainUid": 49,
+      "originalCleanGrainCount": 2,
+      "originalFireUid": 51,
+      "originalWoodUid": 52,
+      "originalBowlUid": 53,
+      "originalCookingBottleUid": 54,
+      "originalCookingWaterMl": 600,
+      "harvestGrainUid": 55,
+      "harvestCount": 5,
+      "harvestRemaining": 4,
+      "cookingWaterRemainingMl": 380
+    },
+    "cultivation": {
+      "totalRequiredValidGrowthTurns": 144000,
+      "firstPlantActualTU": 100,
+      "firstWaterActualTU": 100,
+      "firstValidGrowthTurns": 1,
+      "firstWaterUnits": 143998880,
+      "nearRipeDeclaredInitialGrowth": 143997,
+      "nearRipeDeclaredInitialWaterUnits": 3360,
+      "actualFinalGrowthTurns": 3,
+      "harvestActualTU": 1200,
+      "harvestDosePerGrain": {
+        "exposureWaterMl": 20,
+        "pathogenConcentration": 60,
+        "ashDose": 0.04
+      },
+      "cleanGrainsPreservedSeparate": true
+    },
+    "cooking": {
+      "oneHarvestGrainConsumed": true,
+      "rawProgress": 1,
+      "actualRemainingHotTurns": 399,
+      "totalActualHotTurns": 400,
+      "originalBowlUidQualityDurabilityPreserved": true,
+      "rawExposureMetadataMl": 240,
+      "rawPathogen": 5,
+      "nutritiveMealWaterMl": 220,
+      "cookingFreshWaterConsumedMl": 220,
+      "boiledPathogenRemoved": true,
+      "ashDoseRemains": 0.04,
+      "actualMealKcalBeforeNormalMetabolism": 300,
+      "originalCleanGrainOnFloor": 2
+    },
+    "limits": "Threefiniteinitialscenes loadedviarealTitleContinue. Actualkey/mouseplant/water3growthwaits/harvest12T/grainsetaside/prepare1T/399remaininghotT/take1T/eat1T/legacydeadline1T/harvest12T; independentNodeWHOLEaftereachphase. DeclarednearRipeinitialgrowthtotal-3, not143997pastvalidturns or5calendar-dayplay. Actualcrop1000ml+separateinitialcooking600ml;20mlpergrainisexistingexposuremetadata, noextra nutritionalwater beyond220ml. Legacy202header samecurrentfinite oldtimedplot, not historicaluserfile. No postloadworld/time/RNG/material injection, noNPCproduction/fullfamine/ecologycompletion.",
+    "rootDirectlyViewedNativePNGs": [
+      1489,
+      1490,
+      1494,
+      1495,
+      1497
+    ],
+    "independentVisualReview": "Separate original-art agent review; see ui-v299-oat-art-review.json. First run succeeded; no postload edits, forced success, or screenshot retouching."
+  },
+  "nativeFoodSourceProof": {
+    "native": {
+      "all18ActualWholeStatesExact298Except202To203AndContentHashes": true,
+      "phases": 18,
+      "wholeActualExpectedPairsEqual": true,
+      "screenshots": 11,
+      "saveRestores": 5,
+      "actualInputTU": 500,
+      "errors": []
+    },
+    "execution": "Native and generic ran in immutable /workspace/.ashveil-checkpoints/v299-input app index-CU7c7wuV.js on own strict4317 preview; all8Root source categories exact at completion. Finalfreeze must equal this input. Whole202/legacy201 scenario filenames retain historical labels; actual saved output is203. Raw legacy201 header upgrades through202 to203 without retrospective metadata.",
+    "inputToCompletionSource": {
+      "src": {
+        "files": 681,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 943,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 544,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1066,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 256,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "legacy201To203HeaderOnlyWholeEquality": true,
+    "quoteWholeStatePure": true,
+    "roundtripsAllWholeEqual": true,
+    "finiteMarketEggs": {
+      "originalUid": 1099511627784,
+      "initialCount": 6,
+      "boughtUid": 111,
+      "boughtCount": 3,
+      "marketRemaining": 3,
+      "cashTotal": 1300,
+      "paid": 21,
+      "legacyEggsRemain6": true,
+      "scope": "Originalgeneratedfinite shop eggs are NOT in Food ration conversion, no eggproduction/refill. Trade splits genuine stack into newUID as existing exchange rules, count6 conserved. Normal aging occurs; entireEggobjectunchanged not claimed."
+    },
+    "publicFoodNews": {
+      "source": "양치기 골의 배급 공고",
+      "firstActualCompletedDay": 0,
+      "writtenAt": 28800,
+      "notice": {
+        "day": 0,
+        "unmet": true
+      },
+      "knowledgeBeforeTalk": 0,
+      "knowledgeAfterActualTalk1T": 1,
+      "onlyClaims": [
+        "place",
+        "what",
+        "when"
+      ],
+      "pendingArrivalFuture": true,
+      "noHistoricalRetrospective": true,
+      "scope": "Finiteinitial shortage reserve1.25/originalHardtack3/nootherCOUNTEDFood/production0 and original residentcredit.56. ActualoneTurndailyrequested179/supplied1.67/unmet177.33. OriginalEgg6 retained or bought3, not counted ration. Qualitative dated report, not current remote truth/famine end/health/patient counts. No longdistancejourney executed."
+    },
+    "defaultEggs": {
+      "seed": "actual-default-egg-impact-0",
+      "originalUid": 39,
+      "initialCount": 3,
+      "afterMealCount": 2,
+      "sameOriginalCrackedContents": true,
+      "defaultChance": 0.3,
+      "noForcedChance": true,
+      "noNewUidOnDropOrPickup": true,
+      "redropRngIdentical": true,
+      "scope": "Explicit finiteinitial original3Eggs/quality2/durability81/noon/healthybody/storypaused/light, actualdefault30percent drop/pickup/one80kcal1vit45ml meal/redrop. Not normalacquisition or animalproduction. ExistingmealallocatesoneUID, turns100TU. Current environment freezesfood;6h is existing15C base freshness description, not six actualhours aged here."
+    },
+    "genericRows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "genericAllThreeWholeStatesIdenticalAcrossViewports": true,
+    "rootDirectPngReview": "Root directly opened299final1480/1485 andcommon1366title/1440world; independentall19records separate. Root also directlyopened5Oat images1489/1490/1494/1495/1497. No screenshotediting orrecapture.",
+    "earlierInputs": "FIRST11/5restores/18pairs/500TU/errors0 passed; direct first1485 revealed shot mousemovehid tooltip. Only Native test keepHover option changed; src/dist/public/mods/tools all input↔scope byteidentical, tests differ ONLYe2e/public-food-supply.ts. FIRST excluded from FINAL19. PreflightstaleoriginalEggobjectcount6 fixed to lookup actual replaced marketitems, no productchange. Firstunit49/50: knownrumors undefined.length, fixed expectationtoemptylist; final50/50 and related115."
+  },
+  "harness": {
+    "rows": [
+      {
+        "viewport": 1440,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 880.28125
+      },
+      {
+        "viewport": 1366,
+        "steps": 11,
+        "screenshots": 4,
+        "actualInputTU": 200,
+        "wholeWorldUnchangedByFinalObservation": true,
+        "contentHashMatches": true,
+        "startFullyInViewportWithoutScroll": true,
+        "startCenterClickable": true,
+        "startBottom": 714.28125
+      }
+    ],
+    "allThreeWholeStatesIdenticalAcrossViewports": true,
+    "source": {
+      "src": {
+        "files": 681,
+        "allBytesIdentical": true
+      },
+      "dist": {
+        "files": 943,
+        "allBytesIdentical": true
+      },
+      "public": {
+        "files": 544,
+        "allBytesIdentical": true
+      },
+      "mods": {
+        "files": 86,
+        "allBytesIdentical": true
+      },
+      "tests": {
+        "files": 1066,
+        "allBytesIdentical": true
+      },
+      "tools": {
+        "files": 256,
+        "allBytesIdentical": true
+      },
+      ".agents": {
+        "files": 1,
+        "allBytesIdentical": true
+      },
+      ".github": {
+        "files": 1,
+        "allBytesIdentical": true
+      }
+    },
+    "execution": "Native and generic ran in immutable /workspace/.ashveil-checkpoints/v299-input app index-CU7c7wuV.js on own strict4317 preview; all8Root source categories exact at completion. Finalfreeze must equal this input. Whole202/legacy201 scenario filenames retain historical labels; actual saved output is203. Raw legacy201 header upgrades through202 to203 without retrospective metadata."
+  },
+  "screenshots": {
+    "directIndependentReview": 31,
+    "finalOat": 12,
+    "finalFoodAndEgg": 11,
+    "finalGeneric": 8,
+    "oatReviewSha256": "52cf0948b08676a2afb5d0fbf955fe18c8fe7500d1437540cde5b2ef5526e23e",
+    "foodCommonReviewSha256": "6b47b0502c553866a35e603fbc353a132c4562e46523083f0a7f6939eaea9ee6"
+  },
+  "assets": {
+    "valid": true,
+    "errors": [],
+    "counts": {
+      "sheets": 115,
+      "frames": 800,
+      "animations": 7,
+      "characters": 20,
+      "ui": 26,
+      "icons": 84,
+      "creatureCharacters": 18,
+      "uniquePngFiles": 179
+    },
+    "warnings": [
+      "icon leather_coat: tiles/leather_coat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon oilcloth_cloak: tiles/oilcloth_cloak.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon bones: tiles/bones.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon cloth: tiles/cloth.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon raw_meat: tiles/raw_meat.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon knife: tiles/knife.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon dried_apple: tiles/dried_apple.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다",
+      "icon food_cheese: tiles/food_cheese.png · 완전히 같은 IEND 한 개가 덧붙은 원본을 보존했다"
+    ],
+    "source": "Captured actual assets-v299.log; same completed validate-sprites run, not a repeated measurement."
+  },
+  "originalArt": {
+    "newDistinctImages": 5,
+    "eggReviewSha256": "6d5cd749247800691d612a0ebed2f34099eb505206f6cd01246c9a7ec2236b95",
+    "oatReviewSha256": "bde240549095a71123f79d0839c327bee5a4ed5dadae9bfd432de16d1d294c69",
+    "description": "Original whole/crackedEgg, Oats/OatSeed and rootedOatPlot, authoredintegergeometry/PNG-SVG/16px/contact/source/license/reproduction. Staticindependent13PNG; existing520public→529→544/additive2+3sheets/frames; CREDITSappend and separateCC0licenses preserved. No quantities, safety or readiness guaranteed by art."
+  },
+  "freeze": {
+    "input": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v299-input",
+      "files": 5117,
+      "copied": 75,
+      "linkedFromImmutablePrevious": 5042,
+      "duplicateBytesAvoided": 145551186,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v299-input-manifest.json"
+    },
+    "final": {
+      "checkpoint": "/workspace/.ashveil-checkpoints/v299-final",
+      "files": 5124,
+      "copied": 9,
+      "linkedFromImmutablePrevious": 5115,
+      "duplicateBytesAvoided": 149860246,
+      "noWorkingSourceHardlinks": true,
+      "manifest": "/workspace/.ashveil-checkpoints/v299-final-manifest.json"
+    }
+  },
+  "routingPerformance": {
+    "status": "PASS",
+    "baseline": "immutablev298-final uncached",
+    "current": "mutablev298-repair scopedbatchcache",
+    "scope": "Same actual generated journey-integration finite worlds at declared3/73dayclock, worldSimulationTick+rumorNetworkTick. ALLWorldState fields includingallrumors/pending/seen/sent/RNG/ledger/economy/people/time/UID equal, only computation reuse differs. Not fullnormalplay longtermproof. Walltimes are these2isolatedcontrolledruns, notgeneralbenchmark.",
+    "rows": [
+      {
+        "day": 3,
+        "beforeMs": 6.775169000000005,
+        "afterMs": 5.357691000000159,
+        "wholeStateEqual": true,
+        "pending": 0,
+        "towns": 0
+      },
+      {
+        "day": 73,
+        "beforeMs": 5586.352499,
+        "afterMs": 988.3983580000004,
+        "wholeStateEqual": true,
+        "pending": 87,
+        "towns": 33
+      }
+    ],
+    "changedFiles": [
+      {
+        "path": "src/core/rumor-network.ts",
+        "baselineSha256": "b7770143a597c4b2c3b2fc59456a1196b0c5678de7cb00a030999d1f37f6fedb",
+        "currentSha256": "841d3c3b535c7eabd7357396e676f1c1325fa700157d931b52f3686b7f3c398b"
+      },
+      {
+        "path": "src/core/public-food-supply.ts",
+        "baselineSha256": "5465355adb084ca39995e6fe9c5c421da70ae84ced246e5161dafc68a2173585",
+        "currentSha256": "46f555c654e98e85ae6c5b624772b59c162c818332a0e03845474950146e4b24"
+      },
+      {
+        "path": "src/core/world-simulation.ts",
+        "baselineSha256": "34f0a6dc2950b47da2492e9ae7892a6872c44976bf3b2075d3ef83318ad868d4",
+        "currentSha256": "ac133a397e7f7c37adec28ad434b19f403de0c3b075695ba4169bb260f59178f"
+      }
+    ],
+    "oldLimitsPreserved": true,
+    "previousFull": {
+      "files": 331,
+      "passed": 6041,
+      "failed": 15,
+      "seconds": 479.0063840332031,
+      "allFailures": "5secondtimeouts incl4climate/11journey; NOT productassertionpass"
+    },
+    "diagnosisOriginalTwoWorkers": {
+      "passed": 21,
+      "failed": 15,
+      "seconds": 103.05943994140625
+    },
+    "fixedOriginalFiveSecondLimits": {
+      "files": 2,
+      "passed": 36,
+      "failed": 0,
+      "seconds": 23.81850732421875,
+      "workers": 2,
+      "maxSingleTestMs": 2708.5
+    }
+  },
+  "gameplay": "Actual prior-day shortage/recovery publication with source/date and qualitative what/place/when only; noautomaticplayerknowledge before realconversation. Callsynchronous per-source roadconnection reuse preserves routing/RNG/wholeState. New OatSeed uses actual sun/temp/finitewater and inherited144000qualifiedgrowthturns/5yield/12harvestturns. Existing cultivated nonfoodgrains retain original irrigation contamination instead of silently dropping it. Actual400hotturns remove pathogens but retain ash in original bowl. ProposedDef defaults, no CANON pending decisions resolved.201→202→203 versiononly, no retrospectivenews/water/growth.",
+  "validationLimits": "23Oat+18Food/Egg wholepairs,11whole203restores,43700NativeTU; generic2viewports each200TU/11steps/4PNG. ThreefiniteOat andthreefiniteFood/Egginitialscenes use realtitleContinue, actualkey/mouse and independentNode wholecomparison. Nearripe143997growth isdeclaredinitial, onlylast3growthturnsactuallyrun; not5calendar-dayplay. ExtraoriginalKit/Wood/Bowl/fresh600ml declaredinitialactualkernelsetup, notnormalacquisition. Grain20mlisexistingexposuremetadata, notadditionalnutritivewater. Legacy202/201headers samecurrentfinitescenes, not historicaluserfiles. FullWorldState equality with297 notclaimed by30RESULTrows. Fullfamine/migration/NPCgraincooking/fullagriculture/ecology/70yearhistory/allX1–X4/1000runs/humanplay evaluations remainoutsidecompletedbatch.",
+  "batchPublicationPolicy": "Userrequestedlargercompletedbatches. Internal298fullpassed but noWorld/main/ZIP; reviewbranchc6a766b remainsintermediateonly. This299combines298foodnews/performance/Egg2 plus physicalOatcultivation/contaminatedgrain/Oat3art. No repeatedsmallpushes.",
+  "earlierFailures": "First Type failed canStack3args in newtest; corrected to actual2arg API, proper contaminated-v-clean object comparison then related124 and TypeSECOND/BuildFIRST passed. First audit wrapper replaced internal actual text in filename and expected Terrain.Soil instead of actual Terrain.Earth; fixed wrapper suffix/actual initial terrain, all23pairs verified. Product and captures unchanged. Internal298firstFull6041/6056 with15old5secondclimate/journeytimeouts reproduced, actual repeatedroutingfixed without timeoutrelaxation. Controlled3/73day wholeStateexactbeforeafter; existing36shorttests andinternal298Full6056passed. First298Native screenshot helper hidtooltip; testonlykeepHovercorrected, actual299rerun usescorrectedversion."
+}

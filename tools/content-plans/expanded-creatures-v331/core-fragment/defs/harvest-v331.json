@@ -1,0 +1,641 @@
+[
+  {
+    "defType": "Material",
+    "id": "Material.Copper",
+    "parent": "Material.Iron",
+    "label": "구리",
+    "density": 8.9,
+    "sharpness": 20,
+    "hardness": 30,
+    "toughness": 45,
+    "corrosionResist": 70,
+    "valuePerKg": 12,
+    "recoveryItem": "Item.AntennaWire"
+  },
+  {
+    "defType": "Material",
+    "id": "Material.CinderBearHide",
+    "parent": "Material.AshWolfHide",
+    "label": "잿곰 가죽",
+    "insulation": 8,
+    "toughness": 75,
+    "valuePerKg": 22,
+    "recoveryItem": "Item.CinderBearHide"
+  },
+  {
+    "defType": "Material",
+    "id": "Material.TuskhogHide",
+    "parent": "Material.AshWolfHide",
+    "label": "엄니돼지 가죽",
+    "insulation": 3,
+    "hardness": 30,
+    "toughness": 75,
+    "valuePerKg": 12,
+    "recoveryItem": "Item.TuskhogHide"
+  },
+  {
+    "defType": "Material",
+    "id": "Material.CrawlerCarapace",
+    "parent": "Material.Bone",
+    "label": "관로 지네 외골격",
+    "density": 1.4,
+    "hardness": 60,
+    "toughness": 45,
+    "flammability": 2,
+    "valuePerKg": 16,
+    "recoveryItem": "Item.CrawlerCarapace"
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornAntler",
+    "label": "재뿔사슴 뿔",
+    "sprite": "av331_ashhorn_antler",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 500
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornHide",
+    "label": "재뿔사슴 생가죽",
+    "sprite": "av331_ashhorn_hide",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 10,
+    "material": "Material.RawHide",
+    "rawMaterial": {
+      "material": "Material.RawHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshhornSinew",
+    "label": "재뿔사슴 힘줄",
+    "sprite": "av331_ashhorn_sinew",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 8
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BoneMarrow",
+    "label": "골수",
+    "sprite": "av331_bone_marrow",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 5,
+    "food": {
+      "kcal": 450,
+      "protein": 8,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 24
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CinderBearHide",
+    "label": "잿곰 생가죽",
+    "sprite": "av331_cinder_bear_hide",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 24,
+    "material": "Material.CinderBearHide",
+    "rawMaterial": {
+      "material": "Material.CinderBearHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearFat",
+    "label": "잿곰 지방 덩이",
+    "sprite": "av331_bear_fat",
+    "category": "food",
+    "weight": 0.5,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "food": {
+      "kcal": 800,
+      "protein": 0,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 36
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearClaw",
+    "label": "잿곰 발톱",
+    "sprite": "av331_bear_claw",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 100
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.BearBile",
+    "label": "밀봉한 잿곰 담즙",
+    "sprite": "av331_bear_bile",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 30
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrowFeathers",
+    "label": "재까마귀 깃털",
+    "sprite": "av331_crow_feathers",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 3
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogHide",
+    "label": "엄니돼지 생가죽",
+    "sprite": "av331_tuskhog_hide",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 14,
+    "material": "Material.TuskhogHide",
+    "rawMaterial": {
+      "material": "Material.TuskhogHide",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogTusk",
+    "label": "엄니돼지 엄니",
+    "sprite": "av331_tuskhog_tusk",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 15,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 300
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.TuskhogLard",
+    "label": "엄니돼지 비계",
+    "sprite": "av331_tuskhog_lard",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "food": {
+      "kcal": 800,
+      "protein": 0,
+      "raw": true,
+      "poison": 15,
+      "freshHours": 36
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerVenomGland",
+    "label": "봉인한 관로 지네 독샘",
+    "sprite": "av331_crawler_venom_gland",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 35,
+    "description": "관로 지네의 독샘 한 쌍을 봉인한 작은 단지. 진한 액체가 안에서 느리게 흔들린다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerCarapace",
+    "label": "관로 지네 외골격 판",
+    "sprite": "av331_crawler_carapace",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 16,
+    "material": "Material.CrawlerCarapace",
+    "rawMaterial": {
+      "material": "Material.CrawlerCarapace",
+      "grams": 1000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerLegSegments",
+    "label": "관로 지네 다리 마디",
+    "sprite": "av331_crawler_leg_segments",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 4,
+    "material": "Material.Bone",
+    "rawMaterial": {
+      "material": "Material.Bone",
+      "grams": 100
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CrawlerMeat",
+    "label": "관로 지네 살",
+    "sprite": "av331_crawler_meat",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 3,
+    "food": {
+      "kcal": 220,
+      "protein": 35,
+      "raw": true,
+      "poison": 20,
+      "freshHours": 24
+    },
+    "cooking": {
+      "result": "Item.RoastedMeat",
+      "turns": 200
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshmothDust",
+    "label": "재나방 날개 가루",
+    "sprite": "av331_ashmoth_dust",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshmothBodies",
+    "label": "재나방 몸통",
+    "sprite": "av331_ashmoth_bodies",
+    "category": "food",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 1,
+    "food": {
+      "kcal": 45,
+      "protein": 7,
+      "raw": true,
+      "poison": 10,
+      "freshHours": 12
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SowerSeedCapsule",
+    "label": "파종기 저조도 종자 캡슐",
+    "sprite": "av331_sower_seed_capsule",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 18,
+    "parent": "Item.ShadeSeeds",
+    "place": "Terrain.ShadePlot",
+    "description": "원래 파종기 적재함의 유한한 종자 캡슐. 한 개로 그늘 작물 밭 하나를 심는다."
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LargeActuator",
+    "label": "대형 액추에이터",
+    "sprite": "av331_large_actuator",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 65,
+    "material": "Material.Alloy",
+    "rawMaterial": {
+      "material": "Material.Alloy",
+      "grams": 2000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SowerReservoir",
+    "label": "파종기 빈 저장 탱크",
+    "sprite": "av331_sower_reservoir",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 35
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SettlementFungusCapsule",
+    "label": "밀봉된 정착균 캡슐",
+    "sprite": "av331_settlement_fungus_capsule",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 60,
+    "relic": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.MediumPowerCell",
+    "label": "중출력 동력핵",
+    "sprite": "av331_medium_power_cell",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 90,
+    "relic": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.SurveyLens",
+    "label": "측량 렌즈",
+    "sprite": "av331_survey_lens",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 120,
+    "relic": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AntennaWire",
+    "label": "안테나 선재",
+    "sprite": "av331_antenna_wire",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 15,
+    "material": "Material.Copper",
+    "rawMaterial": {
+      "material": "Material.Copper",
+      "grams": 300
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.LightLegFrame",
+    "label": "경량 다리 프레임",
+    "sprite": "av331_light_leg_frame",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      2
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 35,
+    "material": "Material.Alloy",
+    "rawMaterial": {
+      "material": "Material.Alloy",
+      "grams": 800
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ThermalSensor",
+    "label": "열 감지 부품",
+    "sprite": "av331_thermal_sensor",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 70,
+    "relic": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.ScytheBlade",
+    "label": "구제기 낫팔 날",
+    "sprite": "av331_scythe_blade",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      3
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 160,
+    "material": "Material.Alloy",
+    "rawMaterial": {
+      "material": "Material.Alloy",
+      "grams": 2000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.GardenerHeart",
+    "label": "정원사 심장",
+    "sprite": "av331_gardener_heart",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 250,
+    "relic": true
+  },
+  {
+    "defType": "Item",
+    "id": "Item.HeavyArmorPlate",
+    "label": "정원사 중장갑판",
+    "sprite": "av331_heavy_armor_plate",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 90,
+    "material": "Material.Alloy",
+    "rawMaterial": {
+      "material": "Material.Alloy",
+      "grams": 3000
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CaptureFiber",
+    "label": "포획망 섬유",
+    "sprite": "av331_capture_fiber",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 22
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PurificationTank",
+    "label": "밀봉된 정화액 탱크",
+    "sprite": "av331_purification_tank",
+    "category": "misc",
+    "weight": 0.2,
+    "size": [
+      2,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 65
+  }
+]

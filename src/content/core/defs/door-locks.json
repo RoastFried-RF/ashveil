@@ -1,0 +1,43 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.RustedDoorClosed",
+    "parent": "Terrain.DoorClosed",
+    "label": "녹슨 잠금 문",
+    "description": "낡은 목재와 녹슨 잠금쇠. 도구로 잠금쇠를 벌린 뒤 따로 열 수 있다.",
+    "openAs": "Terrain.RustedDoorOpen",
+    "lock": {
+      "turns": 30,
+      "wear": 5,
+      "noise": 8,
+      "tools": [
+        "blade",
+        "hammer"
+      ],
+      "picking": {
+        "turns": 10,
+        "wear": 2,
+        "noise": 2,
+        "toolTag": "lockpick",
+        "base": 50,
+        "min": 5,
+        "max": 95,
+        "agility": 3,
+        "quality": 5
+      }
+    },
+    "sprites": [
+      "rusted_door_closed"
+    ]
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.RustedDoorOpen",
+    "parent": "Terrain.DoorOpen",
+    "label": "열린 녹슨 문",
+    "closeAs": "Terrain.RustedDoorClosed",
+    "sprites": [
+      "rusted_door_open"
+    ]
+  }
+]

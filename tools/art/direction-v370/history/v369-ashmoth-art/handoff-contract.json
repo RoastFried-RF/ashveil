@@ -1,0 +1,41 @@
+{
+  "format": 1,
+  "subject": "Ashmoth Swarm",
+  "status": "held source-only static candidates; alpha/pixel-style/native-size acceptance outstanding",
+  "sourcePNGCount": 1,
+  "staticSourceRegions": 4,
+  "uniqueAuthoredFlightCycleFrames": 0,
+  "runtimeRegisteredFrames": 0,
+  "activationReady": false,
+  "releaseAccepted": false,
+  "existingStagingMutated": false,
+  "mainAuthoringMutated": false,
+  "CoreBuildNativeTestPushPerformed": false,
+  "semanticContract": {
+    "environmentalHazardOnly": true,
+    "attackAnimationProvided": false,
+    "drawnMothMarksAreOnlyPopulationSampling": true,
+    "mothMarkCountEqualsHealthDensity": false,
+    "mothMarkCountEqualsActorCount": false,
+    "oneSwarmActorPossibleButNotImplementedHere": true,
+    "physicalLightObjectMustComeFromGame": true,
+    "currentlyRealLitSourceMustDriveAttraction": true,
+    "statesAreAStaticSourceSetNotCoherentFlightFrames": true
+  },
+  "knownFailures": [
+    "Generated sheet did not preserve strictly alpha0 transparent cross-gutters/canvas margins. Low alpha1/2 marks remain.",
+    "Source contains low-alpha remnants between/in some moth groups. No alpha cleanup is permitted or performed.",
+    "Strict hard pixel-grid consistency and tiny game-scale motion have not been accepted."
+  ],
+  "minimumNextStep": [
+    "Parent can inspect original alpha rendering against a real dark/light game backdrop before deciding whether these four source regions have reuse value.",
+    "If strict clean alpha/hard pixel clusters remain required, a separately authorized original-art replacement is needed; do not threshold/erase/resample this PNG and call it untouched original.",
+    "Implement bloodless density/light/nonattack rules before activation; draft civilian AI and bloodMl=1 are not a runtime solution."
+  ],
+  "forbiddenShortcuts": [
+    "Do not treat four states as four or twelve flight-cycle frames.",
+    "Do not count connected components as actual moth population/HP.",
+    "Do not paint or bind a baked lamp/glow to these regions.",
+    "Do not claim source PNG review is Core/Native/release acceptance."
+  ]
+}

@@ -1,0 +1,34 @@
+import {chromium,type Page} from 'playwright-core'
+import {spawn} from 'node:child_process'
+import {mkdirSync,writeFileSync} from 'node:fs'
+import assert from 'node:assert/strict'
+import {player,type World} from '../../src/core/ctx'
+import {SAVE_VERSION} from '../../src/core/game'
+import {dietThresholdFixture,dietExpiryFixture} from '../diet-boundary-fixture'
+import {dietStatus} from '../../src/core/diet-state'
+const out=process.argv[2]??'test-results/diet-browser';mkdirSync(out,{recursive:true})
+const server=spawn('npx',['vite','preview','--port','4317','--strictPort'],{stdio:'pipe',detached:true});await new Promise(r=>setTimeout(r,2500))
+const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/workspace/.ashveil-tools/chromium',args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']}),errors:string[]=[]
+type Hook={__ashveil:{world():World}}
+const read=(p:Page)=>p.evaluate(()=>JSON.parse(JSON.stringify((window as unknown as Hook).__ashveil.world().s)) as World['s'])
+const idle=(p:Page)=>p.waitForFunction(()=>{const{s}=(window as unknown as Hook).__ashveil.world();return !s.simulationPending&&!s.creatures.find(c=>c.id===s.playerId)!.activity},{},{timeout:300000})
+async function initial(w:World){const p=await browser.newPage({viewport:{width:1440,height:1000}});p.on('pageerror',e=>errors.push(e.message));p.on('console',e=>{if(e.type()==='error')errors.push(e.text())});await p.goto('http://localhost:4317/?debug');await p.click('[data-testid=start]');await p.waitForSelector('[data-testid=map] canvas');await p.evaluate(s=>((window as unknown as Hook).__ashveil.world().s = s),w.s);if(w.s.simulationPending){await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.getByTestId('continue').waitFor();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');await idle(p)}else{await p.keyboard.press('.');await idle(p)}return p}
+async function close(p:Page){for(let i=0;i<6&&await p.locator('[data-testid^="win-"]:visible').count();i++)await p.keyboard.press('Escape')}
+async function shot(p:Page,name:string){await p.waitForTimeout(800);await p.screenshot({path:`${out}/${name}.png`})}
+async function restore(p:Page,label:string){await close(p);const before=await read(p);assert.equal(before.version,SAVE_VERSION);await p.getByRole('button',{name:'타이틀',exact:true}).click();await p.reload();await p.click('[data-testid=continue]');await p.waitForSelector('[data-testid=map] canvas');const after=await read(p);assert.deepEqual(after,before);writeFileSync(`${out}/${label}-before.json`,JSON.stringify(before));writeFileSync(`${out}/${label}-after.json`,JSON.stringify(after));return after}
+async function journal(p:Page){await close(p);await p.keyboard.press('Shift+J');await p.getByTestId('win-journal').waitFor();await p.getByRole('button',{name:'생존',exact:true}).click();const view=p.getByTestId('nutrition-detail');await view.scrollIntoViewIfNeeded();return view}
+async function eat(p:Page,uid:number){await close(p);await p.keyboard.press('i');await p.getByTestId('win-inv').locator('[data-uid="'+uid+'"]').dblclick();await idle(p)}
+async function wait(p:Page){await close(p);await p.keyboard.press('.');await idle(p)}
+let page:Page|undefined
+try{
+ // Independent INITIAL five real original meals have been consumed; one more physical jerky crosses45%.
+ const d=dietThresholdFixture();page=await initial(d.w);let s=await read(page),p=player({db:d.w.db,s}),view=await journal(page)
+ assert.equal(dietStatus({db:d.w.db,s},p).active,false);assert.equal(dietStatus({db:d.w.db,s},p).kcal,910);assert.match(await view.textContent()??'',/43.1%/);await shot(page,'428-native-original-five-meals-before-real-protein-diet-threshold')
+ await eat(page,d.jerky.uid);s=await read(page);p=player({db:d.w.db,s});assert.equal(dietStatus({db:d.w.db,s},p).active,true);assert.equal(p.needs.lastMealKcal,98);assert.equal(p.needs.lastDietMeal!.uid,d.jerky.uid);assert.equal(p.bag.some(i=>i.uid===d.jerky.uid),false);assert.equal(p.diseases,undefined);view=await journal(page);assert.match(await view.textContent()??'',/45.7%.*흡수 ×0.7/);await shot(page,'429-native-one-original-jerky-crosses-diet-threshold-and-absorbs-only98kcal');await restore(page,'actual-high-protein-diet-after-original-jerky')
+ await eat(page,d.bread.uid);s=await read(page);p=player({db:d.w.db,s});assert.equal(dietStatus({db:d.w.db,s},p).active,false);assert.equal(dietStatus({db:d.w.db,s},p).kcal,1400);assert.ok(Math.abs(p.needs.lastMealKcal!-350)<1e-6);assert.equal(p.needs.lastDietMeal!.uid,d.bread.uid);assert.equal(p.bag.some(i=>i.uid===d.bread.uid),false);view=await journal(page);assert.match(await view.textContent()??'',/37.1%.*식사 비중 안정/);await shot(page,'430-native-original-grain-meal-restores-balanced-diet-without-erasing-history');await restore(page,'same-diet-after-original-grain-meal');await page.close()
+ // Independent INITIAL two actual meals, one turn apart, immediately before the grain reaches its exact72-hour window boundary.
+ const expiry=dietExpiryFixture();page=await initial(expiry.w);s=await read(page);p=player({db:expiry.w.db,s});assert.equal(s.time,(expiry.grainExpires-1)*100);assert.equal(dietStatus({db:expiry.w.db,s},p).active,false);view=await journal(page);assert.match(await view.textContent()??'',/식사 비중 안정/);await shot(page,'431-native-one-turn-before-original-grain-leaves-actual72-hour-diet-window')
+ await wait(page);s=await read(page);p=player({db:expiry.w.db,s});assert.equal(s.time,expiry.grainExpires*100);assert.equal(dietStatus({db:expiry.w.db,s},p).active,true);assert.equal(dietStatus({db:expiry.w.db,s},p).kcal,140);view=await journal(page);assert.match(await view.textContent()??'',/62.9%.*흡수 ×0.7/);await shot(page,'432-native-original-grain-expires-and-the-same-later-meat-causes-real-diarrhea');await restore(page,'only-original-meat-remains-within-real-window')
+ await wait(page);s=await read(page);p=player({db:expiry.w.db,s});assert.equal(s.time,expiry.meatExpires*100);assert.equal(dietStatus({db:expiry.w.db,s},p).active,false);assert.equal(p.needs.dietHistory,undefined);view=await journal(page);assert.doesNotMatch(await view.textContent()??'',/살코기 굶주림/);await shot(page,'433-native-last-original-meal-expires-without-inventing-earlier-food-or-infection');await restore(page,'all-original-recorded-meals-expired')
+ assert.deepEqual(errors,[]);console.log('OK: actual original five meal history/original physical jerky crosses45% and absorbs98kcal/original grain balances same diet/exact original72-hour boundaries/physical diarrhea and no invented infection/six screenshots/four whole Save65 roundtrips/console0')
+}catch(error){if(page){await shot(page,'failure').catch(()=>{});const s=await read(page).catch(()=>undefined);if(s)writeFileSync(out+'/failure-state.json',JSON.stringify(s))}throw error}finally{await browser.close();if(server.pid)process.kill(-server.pid,'SIGTERM')}

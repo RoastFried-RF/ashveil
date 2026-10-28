@@ -1,0 +1,162 @@
+[
+  {
+    "op": "replace",
+    "target": "Thought.Cold",
+    "path": "/mood",
+    "value": -6
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Cold",
+    "path": "/label",
+    "value": "춥다"
+  },
+  {
+    "op": "add",
+    "target": "Thought.Cold",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "bodyTemp",
+            "min": 35,
+            "max": 36
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Freezing",
+    "path": "/mood",
+    "value": -12
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Freezing",
+    "path": "/label",
+    "value": "몹시 춥다"
+  },
+  {
+    "op": "add",
+    "target": "Thought.Freezing",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "bodyTemp",
+            "max": 35
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Wet",
+    "path": "/mood",
+    "value": -4
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Wet",
+    "path": "/label",
+    "value": "젖었다"
+  },
+  {
+    "op": "add",
+    "target": "Thought.Wet",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "innerWetness",
+            "min": 50
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Pain",
+    "path": "/mood",
+    "value": -2
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Pain",
+    "path": "/label",
+    "value": "경미한 통증"
+  },
+  {
+    "op": "add",
+    "target": "Thought.Pain",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "painStage",
+            "min": 1,
+            "max": 2
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Thought.SeverePain",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "painStage",
+            "min": 4,
+            "max": 5
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Thought.Exhausted",
+    "path": "/mood",
+    "value": -14
+  },
+  {
+    "op": "add",
+    "target": "Thought.Exhausted",
+    "path": "/condition",
+    "value": {
+      "any": [
+        [
+          {
+            "metric": "rest",
+            "max": 10
+          }
+        ],
+        [
+          {
+            "metric": "sleepDebt",
+            "min": 0,
+            "minExclusive": true
+          }
+        ]
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Thought.Exhausted",
+    "path": "/replaceGroup",
+    "value": "fatigue"
+  }
+]

@@ -1,0 +1,149 @@
+{
+  "version": 375,
+  "character": "av375_conduit_crawler",
+  "source": {
+    "path": "tools/art/direction-v374/history/v372-crawler-parts/originals/crawler-parts-v1.png",
+    "sha256": "d79e58402ddfe288399997088a83bd85ee08d171e83b7dcfc342fdaf49d29d2f",
+    "publicPath": "public/sprites/original/direction-v375/crawler-parts-v372.png",
+    "width": 1536,
+    "height": 1024
+  },
+  "sourcePngsReused": 1,
+  "newSourcePngs": 0,
+  "imageGenerationCalls": 0,
+  "uniqueSourceRegions": 6,
+  "bodyInstances": 8,
+  "walkingLegInstances": 16,
+  "drawInstances": 41,
+  "authoredDirections": 1,
+  "authoredFullBodyWalkFrames": 0,
+  "crops": {
+    "head_closed": [
+      66,
+      86,
+      411,
+      368
+    ],
+    "head_open": [
+      570,
+      79,
+      412,
+      379
+    ],
+    "middle_plate": [
+      1103,
+      127,
+      329,
+      304
+    ],
+    "tail_plate": [
+      145,
+      601,
+      249,
+      309
+    ],
+    "upper_leg": [
+      701,
+      577,
+      139,
+      337
+    ],
+    "lower_hook": [
+      1213,
+      569,
+      156,
+      333
+    ]
+  },
+  "spec": {
+    "art": {
+      "headClosed": {
+        "frame": "av375_crawler_head_closed",
+        "pivot": {
+          "x": 207,
+          "y": 341
+        }
+      },
+      "headOpen": {
+        "frame": "av375_crawler_head_open",
+        "pivot": {
+          "x": 201,
+          "y": 356
+        }
+      },
+      "middle": {
+        "frame": "av375_crawler_middle_plate",
+        "pivot": {
+          "x": 165,
+          "y": 157
+        },
+        "left": {
+          "x": 31,
+          "y": 157
+        },
+        "right": {
+          "x": 299,
+          "y": 157
+        }
+      },
+      "tail": {
+        "frame": "av375_crawler_tail_plate",
+        "pivot": {
+          "x": 128,
+          "y": 116
+        },
+        "left": {
+          "x": 26,
+          "y": 116
+        },
+        "right": {
+          "x": 230,
+          "y": 116
+        }
+      },
+      "upper": {
+        "frame": "av375_crawler_upper_leg",
+        "proximal": {
+          "x": 72,
+          "y": 47
+        },
+        "distal": {
+          "x": 76,
+          "y": 289
+        }
+      },
+      "lower": {
+        "frame": "av375_crawler_lower_hook",
+        "proximal": {
+          "x": 54,
+          "y": 49
+        },
+        "distal": {
+          "x": 53,
+          "y": 285
+        }
+      }
+    },
+    "layout": {
+      "bodyScale": 0.0225,
+      "headScale": 0.0225,
+      "pitch": 5.04,
+      "firstOffset": 2.8575,
+      "tailOffset": 4.455,
+      "upper": 3.825,
+      "lower": 3.7125,
+      "outreach": 5.31,
+      "stride": 6.3,
+      "swingTravel": 1.62,
+      "settleSeconds": 0.3,
+      "ceilingLift": 5
+    }
+  },
+  "limits": [
+    "Single dorsal view reused by rotation and reflection; painted highlights rotate with parts.",
+    "Observed 2D socket/cap centers, inferred neck/overlap and hooktip contact proxy.",
+    "Game view follows supplied interpolated position; map/FOV mask clips body.",
+    "No new underside, ceiling, drop, curl or death source artwork.",
+    "Core/finite fixture/Native/release checks are parent integration, not this installation record."
+  ]
+}

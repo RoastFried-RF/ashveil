@@ -1,0 +1,97 @@
+{
+  "active": false,
+  "activationReady": false,
+  "registrationApproved": false,
+  "releaseApproved": false,
+  "actualCalls": 1,
+  "automaticRegenerations": 0,
+  "newOriginalPngs": 1,
+  "rawPartRegions": 6,
+  "sourceComponentCandidates": 6,
+  "completedBodies8Segments": 0,
+  "completed16LegGaits": 0,
+  "poisonCeilingDropCurlCompleted": false,
+  "sourceViewed": "Original image_gen result and original-byte PNG displayed in browser RGBA compositing; no alpha/pixel editing.",
+  "actuallyOpenedDiagnostics": [
+    "diagnostics/rgba-atlas-on-dark.png",
+    "diagnostics/parts-on-light.png",
+    "diagnostics/parts-markers.png",
+    "diagnostics/joint-details.png"
+  ],
+  "camera": "All6 dorsal/top-down parts,headfrontUP,bodycranialUP/rearDOWN,tailtapersDOWN;legupperproximalUPandlowerproximalUP. No mixed profile/directions observed.",
+  "headIdentity": "Same visual eye-bearing shield/species,twoantennae,neckedge and closed/open pairedjaw family. Separate original textures;eye span154.01vs151.01sourcepx differs1.99%,not exactpixelclone. Jawtipspan13vs91sourcepx;closedisnearclosedwitharesidualgap,nothermeticclosure.",
+  "partAssessments": {
+    "headClosed": "Complete2antennae+onehead+nearclosedpairedmandibles,nowalkinglegs/torso.",
+    "headOpen": "Complete2antennae+sameheadfamily+visiblyopenpairedmandibles,noexternalvenom/effect. Jawbasehinges estimated underoverlap,not visiblepinproof.",
+    "middlePlate": "One complete connected segmentshieldwithmedianbilateralseam and2side biologicalsocketregions,norepeatedbodychainorattachedleg.",
+    "tailPlate": "One connected terminal sourcewithtaperedpointandsmalltipcap;notanextra9thsegment. Noattachedlegs/head/antennae.",
+    "upperLeg": "One rigid-looking elongated chitinupperlink,2visible round organicsurfacecondyles;nomachinepiston/rod/boltsobserved. Circularcapsare2Dartanatomy,nometalpinmechanics proof.",
+    "lowerLegHook": "Onefixed-bendlower/tarsalhooksourcewithobservedproximalcondyleandoneintegratedterminalclaw. Twoarmoredshaftregionsandcreasearebakedappearance,not independentlyauthored extra joints or moving toes."
+  },
+  "jointReview": "Manual marker overlays lie in observed surfacecap/socketregions. Upper2capaxis [4,242]length242.03. Lowerprox observed;distalanklecreasecandidate[1320,813]inferred\u00b18px. Hooktip[1266,854]observed,butstancefoot/wallgripcontactisnotapproved.",
+  "material": "Ash/rustgrey chitinwithbrown organiccollarsandboneedge stipple. Roundjointcapslookstylized;noactual3Dmaterialor loadmechanics approval.",
+  "alphaReview": {
+    "broadBrownPreviewBackground": "Generated preview shows brown RGB outside subjects, but sampled RGBA pixels there have alpha0; actualdark/light RGBAcomposites do not show broadfog. InvisibleRGBisnotnewresourcefailure.",
+    "alphaRemovalOrMasking": false,
+    "allSixMainComponentsAtAlpha1And16Retained": true,
+    "allGlobalAlpha16PixelsInsideCrops": true,
+    "foreignPrincipalComponentsAt1And16": 0,
+    "cropAlpha16BorderPixels": 0,
+    "cropAlpha1BorderPixelCounts": {
+      "headClosed": 8,
+      "headOpen": 1,
+      "middlePlate": 0,
+      "tailPlate": 1,
+      "upperLeg": 0,
+      "lowerLegHook": 0
+    },
+    "cropNonzeroBorderMaxAlpha": 1,
+    "outsideSelectedCropsAlpha1Pixels": 1180,
+    "outsideSelectedCropsMaxAlpha": 1,
+    "note": "Not perfectly alpha0gutters:isolatedalpha1speckles retained in raw PNG. No editing/removal to fake stricttransparency. No principal-bodyloss or visible structuralclipping."
+  },
+  "layoutRequest": {
+    "requestedMaxCellWidthAndHeight": 0.55,
+    "actualFractionsAtAlpha1": {
+      "headClosed": [
+        0.771484375,
+        0.6875
+      ],
+      "headOpen": [
+        0.7734375,
+        0.708984375
+      ],
+      "middlePlate": [
+        0.611328125,
+        0.5625
+      ],
+      "tailPlate": [
+        0.455078125,
+        0.572265625
+      ],
+      "upperLeg": [
+        0.240234375,
+        0.626953125
+      ],
+      "lowerLegHook": [
+        0.2734375,
+        0.619140625
+      ]
+    },
+    "allPartsMeet55percent": false,
+    "note": "3x2sixobjects separated and whole,but55%cell-size/wide transparent margins not fullymet. Record without furthergeneration."
+  },
+  "hiddenOrUnapproved": [
+    "actual3Daxes/insertiondepth behindplates",
+    "body/leg/headrelative worldscale and overlappingchainpitch",
+    "trueleft/rightsurfaceownership underrotation",
+    "farfaces/ventralfeet/ceilinggrip sourceart",
+    "stanceworldanchors/metachronallegcycle",
+    "Core8segmentdamage/survivingprefix",
+    "poison/secretion/sourceUID",
+    "actualgame/Native/rendererregistration"
+  ],
+  "futureRuntimeAssumptionOnly": "One chosen head+7middle instances+tail asSegment8;upper16/lower16instances for16legs,not16authored sources or41animationframes. Not implemented/assembled here.",
+  "failureCandidatesDiscarded": 0,
+  "extraGenerationAfterFirst": 0
+}

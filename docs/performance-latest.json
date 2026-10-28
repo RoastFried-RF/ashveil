@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-17",
+  "cpu": {
+    "runtime": "v24.19.0",
+    "logicalCpus": 5,
+    "scenarios": 12,
+    "starts": {
+      "count": 12,
+      "medianMs": 3.423,
+      "p95Ms": 11.932,
+      "maxMs": 11.932
+    },
+    "dungeonGeneration": {
+      "count": 12,
+      "medianMs": 1.642,
+      "p95Ms": 5.776,
+      "maxMs": 5.776
+    },
+    "botDecisionAndAction": {
+      "count": 2559,
+      "medianMs": 1.873,
+      "p95Ms": 105.513,
+      "maxMs": 1402.27
+    },
+    "serialization": {
+      "count": 12,
+      "medianMs": 3.374,
+      "p95Ms": 3.753,
+      "maxMs": 3.753
+    },
+    "maxSaveBytes": 415249,
+    "rejectedActions": 5,
+    "deaths": 3
+  },
+  "browserIdleBeforeFinalCoreChanges": {
+    "renderer": "Chromium SwiftShader (software GPU)",
+    "viewport": [
+      1440,
+      900
+    ],
+    "bootIncludingSettleMs": 4534,
+    "samples": 115,
+    "frameMedianMs": 100,
+    "frameP95Ms": 133.3000000000011
+  },
+  "browserStaticCacheExperimentReverted": {
+    "renderer": "Chromium SwiftShader (software GPU)",
+    "viewport": [
+      1440,
+      900
+    ],
+    "bootIncludingSettleMs": 4335,
+    "samples": 115,
+    "frameMedianMs": 100,
+    "frameP95Ms": 133.39999999999964
+  },
+  "browserWithFourSimWorkers": {
+    "renderer": "Chromium SwiftShader (software GPU)",
+    "viewport": [
+      1440,
+      900
+    ],
+    "bootIncludingSettleMs": 5826,
+    "samples": 115,
+    "frameMedianMs": 233.39999999999964,
+    "frameP95Ms": 300.10000000000036
+  }
+}

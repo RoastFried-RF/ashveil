@@ -1,0 +1,26 @@
+{
+  "id": "tuskhog-wallow-v1",
+  "source": "/workspace/generated_images/exec-01529a5b-448c-4cfb-a11b-185b2820e78d.png",
+  "preserved": "/workspace/.ashveil-planned/v333-wildlife-art/wallow-extension/originals/tuskhog-wallow-v1.png",
+  "sha256": "88fba5649beeab9accc4ef6fb2a077e36c0ca7c0d03da150412aa9963222d10a",
+  "size": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "promptFile": "prompts/tuskhog-wallow-v1.txt",
+  "prompt": "Create a new ORIGINAL ASHVEIL sprite animation atlas of the EXACT SAME Tuskhog in the attached OWN idle identity atlas. This is our project's own art, not any commercial game's pixels. Preserve the115kg low broad wild boar: short powerful neck, wedge-shaped pig head with flat snout, TWO modest ivory tusks on the lower jaw, high bristle shoulder ridge, cracked dried grey-brown mud pattern on the body, short tail, exactly FOUR short muscular pig legs with split hooves. Fine restrained textured pixel clusters, earthy colors, same elevated RPG camera, same identity and mass. No new creature, antlers, wolf muzzle, extra limbs or changing tusks.\n\nSTRICT ATLAS LAYOUT: WIDE LANDSCAPE canvas, exactly FOUR ROWS and exactly SIX COLUMNS = TWENTY-FOUR distinct complete animal figures. One sequential six-pose action per row. All bodies, feet, tusks, ears and tail fit fully inside separate equal cells. Draw animals SMALL, each complete animal at most60% cell width and65% cell height, with generous true ALPHA-ZERO transparent gutters. Figures must NEVER touch each other or any canvas edge. No grid, text, labels, shadows or props.\n\nACTION: one deliberate heavy boar WALLOW body-rubbing action, then STAND BACK UP. The animal's hooves and body-ground contact keep the same physical center, no locomotion. This is NOT grazing, chewing, charging, sleeping or a dead corpse. Intended full action2.4seconds. Existing cracked mud on the boar's BODY stays its identity. DO NOT paint any ground, mud floor, mud puddle, water, dirt cloud, splash, trail, rock or external resource into the atlas; draw the ANIMAL ONLY against full transparency.\n\nSIX DISTINCT ANATOMICAL POSES IN EVERY ROW:\nColumn1 LOWER: flex all four real knees slightly, lower chest/shoulder, head stays attached to short neck, alert living eyes.\nColumn2 TUCK: lower one shoulder and flank to invisible ground, fold forelegs and hindlegs naturally underneath, body weight visibly heavy.\nColumn3 ROLL: deliberately roll onto ONE FLANK, belly tilts partly upward, four short legs fold toward belly, no leg stretching or human sitting. A far leg may be occluded, but NEVER add a fifth limb. Tusks stay attached and clear of ground.\nColumn4 RUB/RETURN: rub shoulder and side, then rock body back from that intentional roll toward the sternum, legs still folded. Slight visible weight/skin shift, not a duplicate of column3.\nColumn5 PUSH UP: place forehooves and push chest up, unfold rear legs, preserve short strong neck and full barrel mass. No jump or instant pop.\nColumn6 STAND: return to the exact same four-hoof planted idle body/heading as the attached reference. Clear recovery after rubbing, same proportions and tusks.\n\nONE NOMINAL FACING PER ROW: Row1 FRONT, row2 LEFT, row3 RIGHT, row4 BACK.\nRow1 columns1/2/5/6 keep snout toward BOTTOM/viewer. Columns3/4 may show an intentional three-quarter FLANK ROLL, but recover to true FRONT in column6; do not accidentally leave the boar facing left or right.\nRow2 nose points LEFT throughout lowering/rubbing/recovery; rump right. The body rolls about its long axis without turning into a right-facing pig. Column6 is LEFT standing.\nRow3 nose points RIGHT throughout; rump left. Intentional body roll only. Column6 is RIGHT standing.\nRow4 columns1/2/5/6 show true BACK with rump/tail nearest bottom and head toward TOP; no face/snouts/tusks in the final back standing pose. Columns3/4 may deliberately reveal flank/partial belly during a roll, but column6 MUST restore the original BACK view.\n\nMake every intermediate pose different, readable, natural and joint-consistent. Keep muzzle/tusks/neck attached, four cloven-hoof legs, no severed parts, blood, bone protrusions, invented equipment or biped pose. Body contact should meet the same invisible ground plane even while folded/rolled. Preserve fine detail and generous empty separation in all24.\n",
+  "referencedOwnImages": [
+    {
+      "path": "/workspace/.ashveil-planned/v333-wildlife-art/originals/tuskhog-idle-v1.png",
+      "sha256": "a335ec320f60fd0b27d81b36dcafa1617b10880d841cee2b3f6e4dc589d246db"
+    }
+  ],
+  "transparentBackground": true,
+  "sourceOutputBytesUnchanged": true,
+  "visualStatus": "rejected after original source inspection and alpha-layout attempt",
+  "proposedRegions": 0,
+  "rejectedRegions": 24,
+  "rejectionReason": "Not enough transparent spacing in side rows; detached tail-tip alpha splits a nominal cell. Return from flank is also insufficiently distinct before rising. Preserve all source bytes; replace with spacious six-step v2.",
+  "initialAlphaFailure": "row1 projected columns contained7bands instead of6, including isolated x533..534 tail-tip band"
+}

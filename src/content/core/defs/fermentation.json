@@ -1,0 +1,147 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.Cabbage",
+    "label": "양배추",
+    "description": "발효 절임에 쓸 수 있는 신선한 잎채소.",
+    "sprite": "ash_cap",
+    "category": "food",
+    "weight": 0,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 3,
+    "value": 3,
+    "food": {
+      "kcal": 40,
+      "protein": 2,
+      "vitamin": 8,
+      "water": 160,
+      "raw": true,
+      "poison": 0,
+      "freshHours": 144
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CeramicJar",
+    "label": "빈 도기 항아리",
+    "description": "채소 다섯 회분을 소금과 함께 절이는 재사용 용기.",
+    "sprite": "pot0",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      1,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 8
+  },
+  {
+    "defType": "Item",
+    "id": "Item.PickledCabbageJar",
+    "label": "양배추 절임 항아리",
+    "description": "같은 도기 항아리에서 이 주 동안 발효했다. 다섯 회분을 먹은 뒤에도 원래 항아리가 남는다.",
+    "sprite": "pot1",
+    "category": "food",
+    "weight": 0,
+    "size": [
+      1,
+      2
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 23,
+    "uses": 5,
+    "food": {
+      "kcal": 40,
+      "protein": 2,
+      "vitamin": 8,
+      "water": 160,
+      "freshHours": 2880,
+      "raw": false,
+      "cooked": false,
+      "servings": 5,
+      "emptyVessel": "Item.CeramicJar"
+    }
+  },
+  {
+    "defType": "Item",
+    "id": "Item.CabbageSeed",
+    "label": "양배추 씨앗",
+    "description": "흙에 심으면 새 잎채소가 자란다.",
+    "sprite": "ash_cap",
+    "category": "misc",
+    "weight": 0,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 5,
+    "value": 6,
+    "place": "Terrain.CabbagePlot"
+  },
+  {
+    "defType": "Terrain",
+    "id": "Terrain.CabbagePlot",
+    "parent": "Terrain.Floor",
+    "label": "양배추 밭",
+    "description": "심은 씨앗에서 잎채소가 자란다. 재생산 속도는 현재 콘텐츠 기본값이다.",
+    "sprites": [
+      "mushrooms"
+    ],
+    "passable": true,
+    "opaque": false,
+    "gather": {
+      "item": "Item.Cabbage",
+      "count": 5,
+      "turns": 12,
+      "regrowTurns": 144000,
+      "soilDependent": true
+    },
+    "visual": {
+      "sprite": "mushrooms",
+      "scale": 0.3,
+      "tint": 8965272
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.FermentCabbage",
+    "label": "양배추 발효 절임 준비",
+    "category": "cooking",
+    "primaryAttr": "per",
+    "mastery": "survival",
+    "basic": true,
+    "workTurns": 20,
+    "passiveTurns": 403200,
+    "preservation": {
+      "method": "ferment",
+      "fastWind": 1,
+      "fastRate": 1,
+      "vessel": "Item.CeramicJar"
+    },
+    "inputs": [
+      {
+        "item": "Item.Cabbage",
+        "count": 5
+      },
+      {
+        "item": "Item.Salt",
+        "count": 1
+      },
+      {
+        "item": "Item.CeramicJar",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.PickledCabbageJar",
+      "count": 1
+    }
+  }
+]

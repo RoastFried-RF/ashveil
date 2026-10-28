@@ -1,0 +1,96 @@
+{
+  "created": "2026-10-21",
+  "scope": "read-only source context captured before future Root integration; not an economic or gameplay change",
+  "sourceFiles": [
+    {
+      "path": "src/content/core/defs/eggs.json",
+      "sha256": "556c5bc949abf9c6ffd83e928a3b63b933325376cca721e0f4a323e6bdd7c1e0"
+    },
+    {
+      "path": "src/client/ui/ItemIcon.vue",
+      "sha256": "f9abb6a4b7a49708b3aadb8c01f66026b3fc56c4d93aab6046596c0905429982"
+    }
+  ],
+  "rawItemDefinitions": [
+    {
+      "defType": "Item",
+      "sprite": "ash_cap",
+      "category": "food",
+      "weight": 0,
+      "value": 5,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 3,
+      "id": "Item.Egg",
+      "label": "달걀",
+      "description": "한 개에80kcal를 담은 날달걀. 단단한 바닥에 버리면 더미의 껍데기가 깨질 수 있다.",
+      "food": {
+        "kcal": 80,
+        "protein": 6,
+        "vitamin": 1,
+        "water": 45,
+        "freshHours": 336,
+        "raw": true,
+        "poison": 0
+      },
+      "fragile": {
+        "dropChance": 0.3,
+        "result": "Item.CrackedEgg",
+        "waterMult": 0,
+        "beddingMult": 0,
+        "noise": 2
+      }
+    },
+    {
+      "defType": "Item",
+      "sprite": "ash_cap",
+      "category": "food",
+      "weight": 0,
+      "value": 2,
+      "size": [
+        1,
+        1
+      ],
+      "stackable": true,
+      "maxStack": 3,
+      "id": "Item.CrackedEgg",
+      "label": "깨진 달걀",
+      "description": "껍데기가 깨진 달걀 내용물. 한 개의 영양은 같지만6시간 만에 상하므로 빨리 먹어야 한다.",
+      "food": {
+        "kcal": 80,
+        "protein": 6,
+        "vitamin": 1,
+        "water": 45,
+        "freshHours": 6,
+        "raw": true,
+        "poison": 0
+      }
+    }
+  ],
+  "proposedPublicKeys": {
+    "Item.Egg": "original_hearth_egg",
+    "Item.CrackedEgg": "original_cracked_hearth_egg"
+  },
+  "nativeSize": [
+    32,
+    32
+  ],
+  "smallPreviewSize": [
+    16,
+    16
+  ],
+  "view": "front, slightly above; shadowed under-edge and visible cracked cavity",
+  "visualOnly": true,
+  "integrationApplied": false,
+  "uiContract": "ItemIcon sizes the frame to its requested square using max(frame.w,frame.h), centers it and clips the frame; this fragment supplies complete32px squares. No new UI scale/anchor behavior is provided.",
+  "semanticLimits": [
+    "No exact stack count drawn",
+    "No freshness/safety guarantee",
+    "No nutrition or fragility rule encoded",
+    "No food generation or economic state added"
+  ],
+  "genericHelperReuse": "Own previously authored CC0 Canvas/PNG/SVG/nearest helper code; no earlier image geometry, pixels or food shape reused"
+}

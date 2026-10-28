@@ -1,0 +1,5 @@
+[
+ {"defType":"Body","id":"SampleMigration.Body.RenamedQuadruped","parent":"Body.Quadruped"},
+ {"defType":"Creature","id":"SampleMigration.Creature.BodyRat","parent":"Creature.BurrowRat","label":"몸 이행 예제 굴쥐","body":"SampleMigration.Body.RenamedQuadruped"},
+ {"defType":"BestiaryEntry","id":"SampleMigration.Bestiary.BodyRat","parent":"BestiaryEntry.Rat","label":"몸 이행 예제 굴쥐","creatures":["SampleMigration.Creature.BodyRat"]}
+]

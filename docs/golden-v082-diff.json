@@ -1,0 +1,119 @@
+{
+  "from": "v0.81 save45",
+  "to": "v0.82 save46",
+  "reason": "Two appended reachable forest villages, their two host cells, 200 population and twelve finite original market stacks, optional two local weather records. All existing state, roads, RNG, sites, markets, actors and command/error results remain exact.",
+  "scenarios": [
+    {
+      "name": "surface",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "0cc608d7",
+      "afterInitialHash": "d491c36c",
+      "beforeHash": "08534460",
+      "afterHash": "860fe877",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "dungeon-combat",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "2787d5ad",
+      "afterInitialHash": "58313ec4",
+      "beforeHash": "52119305",
+      "afterHash": "e8c992a4",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "freeze-reentry",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "e2ea34a7",
+      "afterInitialHash": "290b1c18",
+      "beforeHash": "848bad4b",
+      "afterHash": "b38c0912",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true
+        }
+      }
+    },
+    {
+      "name": "world-journey",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "f140f7e1",
+      "afterInitialHash": "560eb30c",
+      "beforeHash": "a05dda15",
+      "afterHash": "48e4d4e4",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSites": [
+            "Region.ShadeHollow",
+            "Region.ShadeBasin"
+          ],
+          "newPopulation": 200,
+          "newOriginalMarketStacks": 12,
+          "onlyTwoHostCellsChange": true,
+          "onlyNewWeatherCellsMayAppear": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSites": [
+            "Region.ShadeHollow",
+            "Region.ShadeBasin"
+          ],
+          "newPopulation": 200,
+          "newOriginalMarketStacks": 12,
+          "onlyTwoHostCellsChange": true,
+          "onlyNewWeatherCellsMayAppear": true
+        }
+      }
+    },
+    {
+      "name": "world-climate-return",
+      "commandsAndErrorsUnchanged": true,
+      "beforeInitialHash": "f140f7e1",
+      "afterInitialHash": "560eb30c",
+      "beforeHash": "31f5f901",
+      "afterHash": "58c0e309",
+      "stages": {
+        "initial": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSites": [
+            "Region.ShadeHollow",
+            "Region.ShadeBasin"
+          ],
+          "newPopulation": 200,
+          "newOriginalMarketStacks": 12,
+          "onlyTwoHostCellsChange": true,
+          "onlyNewWeatherCellsMayAppear": true
+        },
+        "state": {
+          "allExistingStateOtherwiseExact": true,
+          "appendedSites": [
+            "Region.ShadeHollow",
+            "Region.ShadeBasin"
+          ],
+          "newPopulation": 200,
+          "newOriginalMarketStacks": 12,
+          "onlyTwoHostCellsChange": true,
+          "onlyNewWeatherCellsMayAppear": true
+        }
+      }
+    }
+  ]
+}
