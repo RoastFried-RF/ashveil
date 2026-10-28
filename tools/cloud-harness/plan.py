@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""Create an explicit plan for this checkout, without relying on /workspace/ashveil."""
+import argparse
+import json
+from pathlib import Path
+import sys
+
+
+def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring"):
+    root = str(Path(root).resolve())
+    tasks = []
+
+    def add(ident, lane, kind, effect, argv, deps=()):
+        tasks.append(dict(id=ident, lane=lane, kind=kind, effect=effect, cwd=root, argv=argv, deps=list(deps)))
+
+    argv = [sys.executable, "tools/cloud-harness/environment.py", "--root", root, "--pnpm", pnpm]
+    if chromium:
+        argv += ["--chromium", chromium]
+    add("environment", "light", "audit", "read-only", argv)
+    add("typecheck", "light", "typecheck", "read-only", ["node", "node_modules/vue-tsc/bin/vue-tsc.js", "--noEmit"], ["environment"])
+    add("lint", "light", "lint", "read-only", ["node", "node_modules/eslint/bin/eslint.js", "."], ["environment"])
+    if profile == "release":
+        add("defs", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-defs.ts"], ["typecheck", "lint"])
+        add("sprites", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-sprites.ts"], ["typecheck", "lint"])
+        add("full", "heavy", "full", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"], ["defs", "sprites"])
+        build_deps = ["full"]
+    else:
+        build_deps = ["typecheck", "lint"]
+    add("build", "heavy", "build", "source-write", ["node", "node_modules/vite/bin/vite.js", "build"], build_deps)
+    add("smoke", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"], ["build"])
+    return {"version": 1, "tasks": tasks}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[2])
+    parser.add_argument("--pnpm", default="pnpm")
+    parser.add_argument("--chromium")
+    parser.add_argument("--profile", choices=["authoring", "release"], default="authoring")
+    parser.add_argument("--out", type=Path, required=True, help="New JSON file; never overwrites evidence")
+    args = parser.parse_args()
+    if not args.root.is_dir():
+        parser.error("Checkout does not exist")
+    result = make_plan(args.root, args.pnpm, args.chromium, args.profile)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    with args.out.open("x", encoding="utf-8") as output:
+        output.write(json.dumps(result, indent=2) + "\n")
+    print(args.out)
+
+
+if __name__ == "__main__":
+    main()

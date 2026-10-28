@@ -13,6 +13,25 @@ python3 tools/cloud-harness/verify.py --regressions --out test-results/cloud-run
 
 The lint example uses the existing `pnpm lint` rule contract. Warnings remain in the log; the scheduler does not silently promote them to errors or redefine the repository's lint threshold. The restored v399 baseline has one unused-helper warning in a historical art generator whose source hash is recorded with its provenance.
 
+## Fresh checkouts and hosted verification
+
+`environment.py` checks Node 24, pnpm **9.15.9**, the v9 lockfile SHA, required installed tool entry points, the installed Chromium executable, actual HEAD and cgroup limits. It installs nothing, does not inspect secrets, and returns 1 when any prerequisite is missing. Tool presence is not proof of a successful frozen install or game checks.
+
+The historical examples above use `/workspace/ashveil`. For a new location, generate explicit paths instead:
+
+```sh
+python3 tools/cloud-harness/plan.py --root "$PWD" --profile release \
+  --chromium /absolute/path/to/installed/chromium --out test-results/NEW_PLAN.json
+python3 tools/cloud-harness/run.py test-results/NEW_PLAN.json --out test-results/cloud-runs/NEW_RUN --check
+python3 tools/cloud-harness/run.py test-results/NEW_PLAN.json --out test-results/cloud-runs/NEW_RUN
+```
+
+Use `--pnpm /absolute/path/to/pnpm` when the default command is another version. `--profile authoring` keeps the type/lint → build → smoke example; `release` adds Def/sprite checks and Full with two workers before building. An environment failure blocks every game task. A plan never overwrites an existing file. Set `CHROMIUM_PATH` for the actual game harness to the same installed executable supplied to the plan; the preflight argument alone does not change a child process's environment.
+
+`.github/workflows/cloud-development.yml` provisions an independent, fresh GitHub-hosted runner on `cloud/ashveil-*` pushes or explicit dispatch. It installs the frozen dependencies and Chromium with the repository's pinned Playwright CLI, then uses this same shared queue. It retains logs and the two-screen smoke PNGs. This is a separate Actions verification environment, **not** a claim that a Codex environment has been registered or published. Main's existing Pages workflow remains the publication path; move only a verified exact commit to main. World/expedition/balance gates remain separate and are not implied by this profile.
+
+Run `python3 tools/cloud-harness/verify-environment.py` for missing-tool, exact-version, partial-install, portable-path, lane and non-overwrite regression checks without installing packages.
+
 Each task has an explicit `id`, `lane` (`light` or `heavy`), `kind`, `effect`, `cwd`, `argv` and optional `deps`. Effects are `read-only`, `output-only` (write only assigned output), or `source-write`. Kinds include `audit`, `lint`, `typecheck`, `focused-test`, `command`, `build`, `full`, `world`, `expedition`, `gpu`, `native`, `freeze`, `source-mutation`. Build/source-write, Full, World, expedition, GPU and Native must use heavy. The plan is a contract: declare command kind/effect honestly and keep file ownership separate between editors.
 
 The constant `/workspace/.ashveil-tools/cloud-harness/locks/` directory is shared by every instance, including a future copy of the runner in another directory: at most two light tasks may execute together, and one heavy task excludes all other heavy and light tasks. Dependency failures block downstream tasks; unrelated tasks continue. These are cooperative locks: pre-existing jobs or direct commands outside this runner are not automatically covered. Coordinate those before using the queue. Source edits and image generation may continue outside this execution queue with disjoint ownership; pause writers while freezing a checkpoint. Browserless `node tools/game-harness.mjs --check` and `--list` may use light; real inputs and the preview adapter must use heavy.
