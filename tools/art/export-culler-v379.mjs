@@ -1,8 +1,0 @@
-/** Shared public presentation export; parent invokes alongside the frozen game build. */
-import {spawnSync} from 'node:child_process'
-import {readFileSync,writeFileSync,readdirSync} from 'node:fs'
-import {createHash} from 'node:crypto'
-const r=spawnSync(process.execPath,['node_modules/vite/bin/vite.js','build','--config','tools/art/culler-preview-v379/vite.config.ts'],{stdio:'inherit'});if(r.status!==0)process.exit(r.status??1)
-const hash=path=>createHash('sha256').update(readFileSync(path)).digest('hex'),installation=JSON.parse(readFileSync('tools/art/direction-v379/installation.json','utf8')),assets=readdirSync('public/artbook/culler/assets')
-for(const original of installation.originals){if(hash(original.publicPath)!==original.sha256)throw Error('Culler original changed: '+original.publicPath);if(!assets.some(p=>p.endsWith('.png')&&hash('public/artbook/culler/assets/'+p)===original.sha256))throw Error('Public original missing: '+original.publicPath)}
-writeFileSync('public/artbook/culler/provenance.json',JSON.stringify({version:379,originals:installation.originals,sourcePNGs:4,newOriginals:0,sourceRegions:24,nominalDisplayInstances:23,facingTransitionExtraInstances:23,authoredPartDirections:4,authoredFullBodyGaits:0,view:{path:'src/client/render/culler-view.ts',sha256:hash('src/client/render/culler-view.ts')},motion:{path:'src/client/render/culler-motion.ts',sha256:hash('src/client/render/culler-motion.ts')},scope:'Identical actual-game six-drive/two-scythe renderer; independent presentation DOM only, not Core/action/resource validation.',limits:installation.layouts,physical3DVerified:false,backAppendageRearFacesVerified:false,footToeHeelVerified:false,concaveBladeSharpEdgeVerified:false},null,2)+'\n')

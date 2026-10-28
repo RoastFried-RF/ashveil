@@ -1,6 +1,0 @@
-[
-  {"defType":"Prisoner","id":"Prisoner.Hearth","label":"항복 이후 선택","rope":"Item.Rope","bindTurns":2,"releaseTurns":1,"interrogateTurns":20,"executeTurns":3,"releaseReputation":3,"executeReputation":-5,"mercyTurns":1200,"exaggerationChance":0.3,"exaggerationMult":1.3,"rumorLow":0.7,"rumorHigh":1.3},
-  {"defType":"Item","id":"Item.Rope","label":"밧줄","description":"질긴 천 끈을 엮었다. 항복한 사람을 포박할 수 있다. 풀거나 죽으면 같은 밧줄이 남는다.","sprite":"cloth","category":"misc","weight":0.3,"value":6,"size":[1,2],"stackable":true,"maxStack":5,"material":"Material.Linen"},
-  {"defType":"Recipe","id":"Recipe.Rope","label":"천 끈으로 밧줄 엮기","category":"textile","primaryAttr":"per","basic":true,"workTurns":20,"inputs":[{"item":"Item.Cloth","count":2}],"output":{"item":"Item.Rope","count":1},"mastery":"survival"},
-  {"defType":"Thought","id":"Thought.Execution","label":"처형했다","mood":-8,"durationTurns":201600,"stack":3,"stackMult":0.5,"decay":"linear"}
-]
