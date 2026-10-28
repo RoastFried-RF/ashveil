@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {t} from './locale'
+import {t,defText} from './locale'
 import { computed, onMounted, ref, watch } from 'vue'
 import { openDefinitionInspector } from './definition-inspector-ui'
 import ModOrderControl from './ModOrderControl.vue'
@@ -130,7 +130,7 @@ async function cont(token?:string) {
       <section v-if="savedCheckpoints.length" class="df df-celtic mb-4 space-y-2 text-xs" data-testid="title-checkpoints">
         <h2 class="font-title text-base text-amber-100">{{ t("남겨 둔 저장 지점") }}</h2>
         <p>{{ t("원정에서 직접 저장한 표석·탐구 기록을 불러온다. 현재 자동 기록은 복원 확인 후 덮어쓴다.") }}</p>
-        <div class="space-y-2"><div v-for="mode in savedCheckpoints" :key="mode.id" class="flex flex-wrap items-center gap-2"><button class="dbtn" :data-testid="`title-checkpoint-${mode.id}`" :disabled="loading||starting" @click="beginCheckpointLoad(mode.id)">{{ t(mode.label) }} {{ t("저장 지점 불러오기") }}</button><span class="text-ash-400">{{ mode.summary }}</span></div></div>
+        <div class="space-y-2"><div v-for="mode in savedCheckpoints" :key="mode.id" class="flex flex-wrap items-center gap-2"><button class="dbtn" :data-testid="`title-checkpoint-${mode.id}`" :disabled="loading||starting" @click="beginCheckpointLoad(mode.id)">{{ defText(mode) }} {{ t("저장 지점 불러오기") }}</button><span class="text-ash-400">{{ mode.summary.kind==='record'?t('{0} · 시드 {1} · {2}턴',mode.summary.name,mode.summary.seed,mode.summary.turn):t(mode.summary.text) }}</span></div></div>
       </section>
       <section class="df df-celtic title-creation">
         <header class="title-section-heading">
@@ -154,8 +154,8 @@ async function cont(token?:string) {
             </label>
             <label class="block">
               <span class="title-field-label">{{ t("저장 방식") }}</span>
-              <select v-model="saveMode" data-testid="save-mode" class="w-full p-2 text-xs"><option v-for="mode in saveModes" :key="mode.id" :value="mode.id">{{ t(mode.label) }}{{ t(mode.achievements?' · 기본':' · 업적 없음') }}</option></select>
-              <p class="title-field-note" data-testid="save-mode-description">{{ t(selectedSaveMode?.description??'') }} {{ t("원정 중에는 방식을 바꿀 수 없다.") }}</p>
+              <select v-model="saveMode" data-testid="save-mode" class="w-full p-2 text-xs"><option v-for="mode in saveModes" :key="mode.id" :value="mode.id">{{ defText(mode) }}{{ t(mode.achievements?' · 기본':' · 업적 없음') }}</option></select>
+              <p class="title-field-note" data-testid="save-mode-description">{{ selectedSaveMode?defText(selectedSaveMode,'description'):'' }} {{ t("원정 중에는 방식을 바꿀 수 없다.") }}</p>
             </label>
             <div>
               <span class="title-field-label">{{ t("지나온 삶") }}</span>

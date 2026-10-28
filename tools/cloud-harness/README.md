@@ -59,3 +59,5 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 `--status-locale` adds the v402 declared low-HP fixture and actual fatal-warning acknowledgment/language/movement/save inputs in three viewports. Korean warning identity remains independent of display language. Its focused locale/thermal suites precede Full, and Native remains heavy and sequential.
 
 `--item-locale`는 공개 물품 이름/검색·실제 메뉴/버리기·탐구 저장/계속하기를 세 화면에서 검사한다. v403 묶음은 이전 상태 표시를 다시 작성하지 않으므로 공통 스모크/타이틀 언어와 이 Native를 실행한다. `--gameplay-locale`/`--status-locale`은 독립 옵션으로 유지한다. 대상 검사와 기존 소지품/빠른 슬롯 경계는 Full 전에 실행하고 Native는 heavy 단독이다.
+
+`--checkpoint-locale`는 탐구/표석의 실제 저장·복원 검토/취소/모드 선택·타이틀 복원을 heavy 단독으로 실행한다. 관련 저장/콘텐츠 계약 검사는 Full을 선행 차단한다. 원시 초기/실제/기대 세계는 아티팩트에서 제외한다.

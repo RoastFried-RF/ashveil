@@ -176,8 +176,8 @@ export const checkpointError=ref('')
 export const pendingCheckpoint=shallowRef<{mode:string;label:string;seed:string;turn:number;name:string;raw:string|null;mods:string[]}|null>(null)
 export async function checkpointSummaries(modes:readonly {id:string;label:string}[]){
  const rows=await Promise.all(modes.map(async mode=>{
-  try{const raw=await checkpointStorage(mode.id).read();if(!raw)return null;const s=deserialize(raw);return{...mode,summary:`${s.creatures.find(c=>c.id===s.playerId)?.name??'떠돌이'} · ${s.seed} · ${Math.floor(s.time/100)}턴`}}
-  catch{return{...mode,summary:'기록을 읽지 못했다. 불러오기에서 오류를 확인해야 한다'}}
+  try{const raw=await checkpointStorage(mode.id).read();if(!raw)return null;const s=deserialize(raw);return{...mode,summary:{kind:'record' as const,name:s.creatures.find(c=>c.id===s.playerId)?.name??'떠돌이',seed:s.seed,turn:Math.floor(s.time/100)}}}
+  catch{return{...mode,summary:{kind:'error' as const,text:'기록을 읽지 못했다. 불러오기에서 오류를 확인해야 한다'}}}
  }))
  return rows.filter(row=>row!==null)
 }
