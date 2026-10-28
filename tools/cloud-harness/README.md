@@ -59,3 +59,5 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 `--status-locale` adds the v402 declared low-HP fixture and actual fatal-warning acknowledgment/language/movement/save inputs in three viewports. Korean warning identity remains independent of display language. Its focused locale/thermal suites precede Full, and Native remains heavy and sequential.
 
 `--item-locale`는 공개 물품 이름/검색·실제 메뉴/버리기·탐구 저장/계속하기를 세 화면에서 검사한다. v403 묶음은 이전 상태 표시를 다시 작성하지 않으므로 공통 스모크/타이틀 언어와 이 Native를 실행한다. `--gameplay-locale`/`--status-locale`은 독립 옵션으로 유지한다. 대상 검사와 기존 소지품/빠른 슬롯 경계는 Full 전에 실행하고 Native는 heavy 단독이다.
+
+`cloud/ashveil-native-*` 브랜치의 자동 프로필은 기존 `authoring`이다. 실제 앱 원문이 같은 Full 통과 커밋을 이미 확보한 뒤 Native/도구만 재검할 때 사용한다. Full을 새로 통과한 실행으로 합산하지 않는다. 일반 `cloud/ashveil-*`와 main Pages의 Full 계약은 유지한다.
