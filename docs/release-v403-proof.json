@@ -1,0 +1,491 @@
+{
+  "version": "0.403-dev",
+  "saveVersion": 219,
+  "status": "implementation and automatic verification passed; main/Pages publication pending",
+  "checkedAtKST": "2026-10-28 19:11 KST",
+  "runtimeCommit": "e19cf850fc7731ac6e71ff4b7044474f5ba3d09f",
+  "fullCommit": "408f1b13f66778cced684e767f4eb35549d01a9b",
+  "fullAndFinalAppIdentity": {
+    "src": "08392ec1d7316d01b52e04795d2752796bf8ff65",
+    "tests": "0dc221ae99400d973fdf1325a7f35baf94bde028"
+  },
+  "validation": [
+    {
+      "commit": "408f1b13f66778cced684e767f4eb35549d01a9b",
+      "run": 40661562025,
+      "job": 122725575806,
+      "workflowResult": "failed",
+      "artifact": {
+        "id": 12804844279,
+        "sha256": "1bc4473824e1d0167a3bd6c918c5a3f8ab1835687e2addec1aa729f1b7b6b8ea",
+        "rawWorldFilesExcluded": true
+      },
+      "environment": {
+        "version": 1,
+        "root": "/home/runner/work/ashveil/ashveil",
+        "ready": true,
+        "checks": {
+          "node24": {
+            "ok": true,
+            "version": "v24.21.0"
+          },
+          "pnpm9159": {
+            "ok": true,
+            "version": "9.15.9"
+          },
+          "lockfile": {
+            "ok": true,
+            "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+          },
+          "dependencies": {
+            "ok": true,
+            "missing": []
+          },
+          "chromium": {
+            "ok": true,
+            "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+            "version": "Chromium 141.0.7390.37"
+          },
+          "checkout": {
+            "ok": true,
+            "head": "408f1b13f66778cced684e767f4eb35549d01a9b"
+          }
+        },
+        "cgroup": {},
+        "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+      },
+      "tasks": {
+        "environment": "passed",
+        "typecheck": "passed",
+        "lint": "passed",
+        "defs": "passed",
+        "sprites": "passed",
+        "locale-focused": "passed",
+        "full": "passed",
+        "preview-helper": "passed",
+        "build": "passed",
+        "smoke": "passed",
+        "locale": "passed",
+        "locale-items": "failed"
+      },
+      "lanes": {
+        "max": {
+          "light": 2,
+          "heavy": 1
+        },
+        "lightHeavyOverlap": 0
+      },
+      "full": {
+        "files": 412,
+        "passed": 6765,
+        "failed": 0,
+        "skipped": 0,
+        "seconds": 944.61,
+        "workers": 2
+      }
+    },
+    {
+      "commit": "e19cf850fc7731ac6e71ff4b7044474f5ba3d09f",
+      "run": 40666614031,
+      "job": 122742607171,
+      "workflowResult": "passed",
+      "artifact": {
+        "id": 12807056353,
+        "sha256": "42040b2e69ad5b86476760fe56074c322bebbff1b989245a227a984443cc5cb1",
+        "rawWorldFilesExcluded": true
+      },
+      "environment": {
+        "version": 1,
+        "root": "/home/runner/work/ashveil/ashveil",
+        "ready": true,
+        "checks": {
+          "node24": {
+            "ok": true,
+            "version": "v24.21.0"
+          },
+          "pnpm9159": {
+            "ok": true,
+            "version": "9.15.9"
+          },
+          "lockfile": {
+            "ok": true,
+            "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+          },
+          "dependencies": {
+            "ok": true,
+            "missing": []
+          },
+          "chromium": {
+            "ok": true,
+            "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+            "version": "Chromium 141.0.7390.37"
+          },
+          "checkout": {
+            "ok": true,
+            "head": "e19cf850fc7731ac6e71ff4b7044474f5ba3d09f"
+          }
+        },
+        "cgroup": {},
+        "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+      },
+      "tasks": {
+        "environment": "passed",
+        "typecheck": "passed",
+        "lint": "passed",
+        "preview-helper": "passed",
+        "locale-focused": "passed",
+        "build": "passed",
+        "smoke": "passed",
+        "locale": "passed",
+        "locale-items": "passed"
+      },
+      "lanes": {
+        "max": {
+          "light": 2,
+          "heavy": 1
+        },
+        "lightHeavyOverlap": 0
+      },
+      "profile": "authoring; no new Full claim",
+      "focused": {
+        "files": 6,
+        "passed": 37,
+        "failed": 0
+      }
+    }
+  ],
+  "native": {
+    "wholeStatePairs": 57,
+    "itemPairs": 45,
+    "commonLocalePairs": 12,
+    "totalTurnUnitsAcrossFiveWorlds": 500,
+    "itemViewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "errors": [],
+    "auditSHA256": {
+      "tasks/preview-helper/helper/audit.json": "157d33b964115ebd523485b331429aed74f789c824523610b5a2f30b5f1dd72c",
+      "tasks/locale-items/locale-items/audit.json": "b4c395c14f2a02e12b8bde674e42c5f4d9867114eb402266fce7c2738e50e698",
+      "tasks/locale/locale/audit.json": "c738745c9dd771ba95cc9b4ecbd72ca375d53012567f5f693e7be91851027be5"
+    },
+    "fixture": "Fresh Study initial finite bag/quickbar and intentionally wrong public pill belief; no acquisition/appraisal/hidden knowledge discovery claimed. No post-title World/time/RNG writes.",
+    "comparison": "Independent Node full serialized state; only renderer-consumed FX normalized; original IDs, items, resources and RNG retained.",
+    "visualReview": {
+      "reviewedEveryImageDirectly": true,
+      "count": 55,
+      "images": [
+        {
+          "path": "tasks/locale/locale/1366-continued-en.png",
+          "sha256": "92e4501e9f1c0a01de9562386e2201e58d94c6e3d87062da909774d33fb8df47"
+        },
+        {
+          "path": "tasks/locale/locale/1366-created-en.png",
+          "sha256": "6698bceea68fbc6fbc30c086edfdb68b4f741067b7b97150c4d708ee35bd40d0"
+        },
+        {
+          "path": "tasks/locale/locale/1366-keys-en.png",
+          "sha256": "43a8929045dbd80817f63a0f732e15494e081cdc1c14f14761a1d328f8520f9a"
+        },
+        {
+          "path": "tasks/locale/locale/1366-settings-en.png",
+          "sha256": "e4ce22adb72c07695db65372eb25215c998d6110d71a04110ebecc26c6a6167b"
+        },
+        {
+          "path": "tasks/locale/locale/1366-settings-ko.png",
+          "sha256": "dcbb5f018ac9141893cdfb1680b1674774a39786bd672a63140fd8a009638a27"
+        },
+        {
+          "path": "tasks/locale/locale/1366-title-en.png",
+          "sha256": "bfb7a6c25507ff4ebd6ea229e96e3d82cfb920114a3a0549bad5f5b577c9c83b"
+        },
+        {
+          "path": "tasks/locale/locale/1366-wait-en.png",
+          "sha256": "80b95e0d246471a3de55471ad47d17270a0e4e8e502ce52fc9bb91bae997d0be"
+        },
+        {
+          "path": "tasks/locale/locale/390-continued-en.png",
+          "sha256": "77aa5cdad85c6aa0ea2d554ec561228c73d970f14f0546da49dfdc6ee164c7e0"
+        },
+        {
+          "path": "tasks/locale/locale/390-created-en.png",
+          "sha256": "5f26e905912b9b0b2005909584a8674ab20bb67f0676e7b21c4b509f4ea8e171"
+        },
+        {
+          "path": "tasks/locale/locale/390-keys-en.png",
+          "sha256": "802b0ad1d9c6bbe676ceb29651362c8fa1c289c065b5d661292bbba8cebd2f43"
+        },
+        {
+          "path": "tasks/locale/locale/390-settings-en.png",
+          "sha256": "80d5dea6dd9510136bb171f89d1030670395d674e5ac30771e1c6c01b881947f"
+        },
+        {
+          "path": "tasks/locale/locale/390-settings-ko.png",
+          "sha256": "0168a538de6c877bc5f4916c0e3653bb7386dfeedf11cf4a4dc684ae353b4219"
+        },
+        {
+          "path": "tasks/locale/locale/390-title-en.png",
+          "sha256": "19cf005840689fc10a3deb17de1847ee384b500e46d5c30bf169ef5c665b7b5d"
+        },
+        {
+          "path": "tasks/locale/locale/390-wait-en.png",
+          "sha256": "dbd36d6692df6dce58f112540c89042f2081926cfe8db3fef416fec1becb2044"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-checkpoint-confirm.png",
+          "sha256": "28d43d6dc07ba814ce645183acef0f04250b90209cbb52f8f6e4c65dadb6966c"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-checkpoint-saved.png",
+          "sha256": "aaee6528f0f8e6266ed9994ca8f374fdb2bdb39c475d82602b84cdc52bfd771b"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-continued-en.png",
+          "sha256": "096da617d378689ebbfb229a65c0727aa85529a61217ef0fe4cedf118b7c579a"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-empty-reference-tooltip.png",
+          "sha256": "660bcb1e216cdf925610d602ff2bc74e84aed44ec582e16e20fde726c605dcb8"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-hidden-name-search.png",
+          "sha256": "31d474084b66ea145c78b1ed4e42669c63eda7bc9d8cc4598ba1a11ad3458add"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-inventory-en.png",
+          "sha256": "ac63ac8c02f34eec186516be6e73db19200b1714253e20fc543bf853b8dd00b2"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-inventory-ko.png",
+          "sha256": "c3a4c302d7ab8cdf6bd9197762ec80eba776a77713153fedd661fc9c06df4a53"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-nfkc-search.png",
+          "sha256": "7e1106b091e3d44985bb1fc752bb902f901fed17174ca5b46b472dd647781e41"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-pill-menu.png",
+          "sha256": "b8927ea0ad3a3d7852b702327bc24479b9bdd1c665fa43590b1315cb53963af4"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-relic-dropped.png",
+          "sha256": "4efe6d3249c05cd435344551439731d63374fb9f049b345f391555750b4be55b"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1366-relic-keyboard-menu.png",
+          "sha256": "d7abacefa90c7937647aad24a91e54e614cb2cc33fc590b15891cb370bd1c074"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-checkpoint-confirm.png",
+          "sha256": "2b56ac86bb4dd6179112d06b8130cdf9feca02d195ea43770bc0813e040ce6a7"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-checkpoint-saved.png",
+          "sha256": "a745fbabad868805d6f41e80211ec8d2661b9fb2a3ca3eb91aa515069e6e2163"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-continued-en.png",
+          "sha256": "a2735a10cdd07d6e8b0a160d8fbbc2de92c484dc3cc6eaa542c1f1e6a3bf58a0"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-empty-reference-tooltip.png",
+          "sha256": "7e6aa833cff2e8ad5ab56b94f31d2fc857df706d311080693d48c763a8429959"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-hidden-name-search.png",
+          "sha256": "2ec3252b5432f91d8095533697685db0182bb26408bf894d4b375a5b200edadf"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-inventory-en.png",
+          "sha256": "c9d9001ae30c6231cc89731bd69713c04377652c57d477d9e88e4171979ef7c1"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-inventory-ko.png",
+          "sha256": "be8bbc13bfb7b67b672d9fdcbe7430076207650f5a025f255b72003bfcebc1d8"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-nfkc-search.png",
+          "sha256": "47b5a94c5f6f08c5338cffaba41ddf33519e2a52f370b0b70cefd6e28286098b"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-pill-menu.png",
+          "sha256": "a0c8ca169c55b2b86ec8eba324b2148df21b000a84e67b3a0177893a0f50e72b"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-relic-dropped.png",
+          "sha256": "71ba27ad7d0e3e3ef997a3e1e8501014282eca182bc5eec00a4b109928d9adc9"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/1440-relic-keyboard-menu.png",
+          "sha256": "059bfa2bfb4100388ad91d2794dfedd649fc745aa59433689d8a42668974d5fc"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-checkpoint-confirm.png",
+          "sha256": "cc0855a1e6f59d1e2adbaafb76049c0b6cae250cf8af469cd9e1e38c60c44187"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-checkpoint-saved.png",
+          "sha256": "c43e8b3b30dbfb3b3d8fe1daf2b8f8b6f1008f4ed11ee46097caecc75566495a"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-continued-en.png",
+          "sha256": "842b3bee37f7360cef352e6295fdcb7a6d3baf88758d54c1d234ad65e217fbd3"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-empty-reference-tooltip.png",
+          "sha256": "3c0a1c3282fa54fc285e1ab4f1786a64e085df5f96964b859710ee42164cc3ea"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-hidden-name-search.png",
+          "sha256": "21f73f5b1fa8dbd374a8fbaf4cd2d09560c7fb09417553f3a44e07dcc18e96b3"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-inventory-en.png",
+          "sha256": "b3264dcc198bac25e0b71b257bf1e974e1a82a7e8a66f6940c4551283cf6f3b3"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-inventory-ko.png",
+          "sha256": "83631b80ce62ff9f06ed04e831205911bdc778617ae3f73422f6734ca5b05a96"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-nfkc-search.png",
+          "sha256": "ae2450187617706ba93ce90bcaa5af916ebccf01c8ddf7d1e111ab51342baea9"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-pill-menu.png",
+          "sha256": "5f9db7f9631a76a93c2b6bff375733d96591a41e4afc4b7c2bb65506464033f0"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-relic-dropped.png",
+          "sha256": "6cee1cebc50086b2f962cdbcec4a8c66cb90d9d84aa7e6dbe79a07e24385e22b"
+        },
+        {
+          "path": "tasks/locale-items/locale-items/390-relic-keyboard-menu.png",
+          "sha256": "8c6136e87ddbdfb413bb99bf61d5943d239bc7aadcb634b789b97f16127c0425"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/00-title.png",
+          "sha256": "0c50e0c12cac328aa091b6843758d243abb3de05e6134f47fdaefb05e87e1b5e"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/01-world.png",
+          "sha256": "3e589e0aee770dd706f72eea3657234e53f19ff6461e38ce106f3404210d518a"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/02-inventory.png",
+          "sha256": "cd2846292b5425b7ba523b56d90d857c9646ba127d71149571609aed54b13b1f"
+        },
+        {
+          "path": "tasks/smoke/smoke-1366/final.png",
+          "sha256": "9645c3ed68fa06dff90f260e4239e49f275d7b8050c1a86d3c02b6f04c7c4842"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/00-title.png",
+          "sha256": "80cba7d218fd5e324498049d75741c35e7171bbdf246877a8106a3f7e1f7dc98"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/01-world.png",
+          "sha256": "5cf11ca3139479e17653da979cd15de4f41e7f3af63c6fb85a140abc63429e1c"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/02-inventory.png",
+          "sha256": "fc931725d0084fced23bb6a691c00da553948ea81685a80193a0b9e51d6628e9"
+        },
+        {
+          "path": "tasks/smoke/smoke-1440/final.png",
+          "sha256": "3b58dc2a0a637f1b61d35ab94d9e68f6690285ab154efd074df6400b91964220"
+        }
+      ],
+      "findings": [
+        "No newly clipped windows or blocked controls after actual pointer dismissal in tested scenes.",
+        "Pill menu displays public suspected Painkiller, not hidden Toxin mapping; unappraised relic menu and empty quickbar retain Warm metal arm.",
+        "Inventory NFKC/source-language searches, keyboard menu, original UID drop, manual save and continue work at three viewports.",
+        "Save-mode descriptions and save prompts/status readable in English.",
+        "Item detail paragraphs, expedition guide, place names and logs still contain Korean; mobile captures include normal hover tooltips."
+      ]
+    }
+  },
+  "sourceSHA256": {
+    ".github/workflows/cloud-development.yml": "dbf0ab6c733a8a7e4c096dda3a0879e823e18e587e31e23df4627d59e84fc82d",
+    "src/client/CheckpointControls.vue": "4f4c7a1b4e64318c593e6f9936433435e909138113af14098552a8a82ddba808",
+    "src/client/build-version.ts": "b9438bb97eb94da1cdcb87d24d3bcd70af1c93d875bf4c9b6fc410bc8d27f2b3",
+    "src/client/info.ts": "0075f313f145d3fb2ad0130dec895e25c5e0e23c270b4572623569b7f6a6215a",
+    "src/client/inventory-filter.ts": "3cb10816cd24ecc6fdf10878982818e31450ff54e0dbe21ee58d1e9b3b0dcc74",
+    "src/client/locales/content.ts": "16704d913f340b24e88b52cb47db3ee3662170d40bc4b7f4e9bde10bbf6b27a0",
+    "src/client/locales/en-content.json": "11b547cedcd753f93a04a7592ac4b3da5e731fcee9d04fe7ed3e42fd4975060b",
+    "src/client/locales/en.json": "b27c7f1e2fa2b8d638746c7f9d7ec339110a548e588e9b8be9b5d6c1ebf794e0",
+    "src/client/locales/item.ts": "a838fe7d0dcf2556b074c761a839db5d27d1fc02391484978c46e1e57525e078",
+    "src/client/ui.ts": "d1a4dfb0836baaae88fe901009cb9dd1798482b60c98043a34a03b76bd0f8206",
+    "src/client/ui/Hud.vue": "1427a09bf4565e527706203cfd601877d6fdead5758d6a13d250e08479c6137c",
+    "src/client/ui/InventoryWindow.vue": "ffab0ef209445435cd050e9c8c8b25599d223cd01bb6f395d41b5831aa271b9e",
+    "src/client/ui/ItemBadges.vue": "181dfc56cd41f885daf456c3c457692dd039d1130fe5b1d7cef2545c8f89d63e",
+    "tests/locale-gameplay.test.ts": "06a26ddcff4e3f19010e73dd8184346aa996437eccc0846e1ac4f9b3bb0ff02f",
+    "tests/locale-items.test.ts": "c314da5ec9be3d594a8bb4211a7a88e1ebcd0acd8fdb11e49451f70706673a4e",
+    "tools/cloud-harness/README.md": "ac91b891722ce536b1ef1b2207cc862137d177b458edbd3b4b5a17496ba3d92b",
+    "tools/cloud-harness/plan.py": "120a73706f18a14efcec442810d2d7d7c6c48e2a2dc25ba7f75bf978eb945260",
+    "tools/cloud-harness/verify-environment.py": "961c397c0ea8c9137dd6865d325011ab236c503f902102a1c91137c6bce43279",
+    "tools/inspect-items-v403.ts": "0b8dc687691475ff25f8560f5761cd1369d14b3d042a1e5aa9e76503149f6bec"
+  },
+  "protectedSources": {
+    "src/core": {
+      "changedFiles": []
+    },
+    "src/content": {
+      "changedFiles": []
+    },
+    "mods": {
+      "changedFiles": []
+    },
+    "public": {
+      "changedFiles": []
+    },
+    "pnpm-lock.yaml": {
+      "changedFiles": []
+    }
+  },
+  "failuresAndRetries": [
+    {
+      "run": 40661060085,
+      "reason": "Focused assertion omitted original MedicalBag remaining 5 uses; assertion corrected to existing semantics.",
+      "appChanged": false
+    },
+    {
+      "run": 40661562025,
+      "reason": "Full passed, first native i pressed before map ready; tool now awaits actual map ready.",
+      "appChanged": false
+    },
+    {
+      "run": 40664883079,
+      "reason": "390px hint covered by normal hover tooltip; actual pointer moved to Settings before click. No forced click.",
+      "appChanged": false
+    },
+    {
+      "run": 40666614031,
+      "result": "all authoring tasks passed; same app/tests as Full"
+    }
+  ],
+  "reviewedTranslationScope": {
+    "uiMessages": 978,
+    "contentDefs": 387,
+    "notCompletionPercentage": true
+  },
+  "publication": {
+    "status": "pending"
+  },
+  "remaining": [
+    "Checkpoint restore modal, other windows, item detail, dynamic logs, lore, reports and mod policy English remain incomplete.",
+    "v1/X1–X4 code and final scenario audits continue.",
+    "No new World/expedition/balance or human evaluation run claimed.",
+    "Current final 30-world/1000-expedition and genuine human release gates remain."
+  ]
+}
