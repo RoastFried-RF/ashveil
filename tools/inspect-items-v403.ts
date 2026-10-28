@@ -73,10 +73,10 @@ try {
   assert.equal(await page.getByTestId('hotbar-count-0').innerText(),'0')
   await page.keyboard.press('Escape');await page.getByTestId('hotbar-0').hover();await page.getByTestId('tooltip').waitFor()
   assert.match(await page.getByTestId('tooltip').innerText(),/^Warm metal arm/);assert.doesNotMatch(await page.getByTestId('tooltip').innerText(),/Pioneer prosthetic arm/)
-  await compare('empty-reference-tooltip');await page.getByRole('button',{name:'Settings (F3)',exact:true}).hover()
+  await compare('empty-reference-tooltip');await page.getByTestId('hotbar-0').click();assert.equal(await page.getByTestId('hint').innerText(),'Warm metal arm: none remaining');await compare('empty-reference-hint',false);await page.getByTestId('hint').click();await page.getByRole('button',{name:'Settings (F3)',exact:true}).hover()
   await page.keyboard.press('F3');await page.getByTestId('checkpoint-save').click();await page.getByTestId('checkpoint-save-confirm').waitFor();await compare('checkpoint-confirm')
   await page.getByTestId('checkpoint-save-accept').click();await page.getByTestId('checkpoint-save-status').waitFor();assert.match(await page.getByTestId('checkpoint-save-status').innerText(),/^Checkpoint saved\./);await compare('checkpoint-saved')
-  await page.keyboard.press('Escape');await page.keyboard.press('Space');assert.equal(playerAct(w,{type:'wait'}),null);await compare('waited',false)
+  await page.keyboard.press('Escape');await page.keyboard.press('Period');assert.equal(playerAct(w,{type:'wait'}),null);await compare('waited',false)
   await page.getByRole('button',{name:'Title',exact:true}).click();await page.getByTestId('title-language').waitFor();await page.reload();await page.getByTestId('continue').click();await compare('continued-en')
   await context.close()
  }

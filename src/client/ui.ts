@@ -7,6 +7,8 @@ import {
 } from '../core'
 import { act, world } from './store'
 import {quickbarItem} from './quickbar-items'
+import {t} from './locale'
+import {displayItemDefLabel} from './locales/item'
 
 export type WinKey = 'char' | 'inv' | 'abil' | 'body' | 'journal' | 'map' | 'craft' | 'society'
 export const wins = reactive<Record<WinKey, boolean>>({ char: false, inv: false, abil: false, body: false, journal: false, map: false, craft: false, society: false })
@@ -217,7 +219,7 @@ export function useHotbar(i: number) {
   if (ref.kind === 'ability') return useAbility(ref.id)
   // 배낭/착용한 허리 주머니의 실제 소모품 (13 §7)
   const it = quickbarItem(w,player(w),ref)
-  if (!it) { hint.value = `${w.db.item(ref.def).label}: 남은 것이 없다`; return }
+  if (!it) { hint.value = t('{0}: 남은 것이 없다',displayItemDefLabel(w.db.item(ref.def))); return }
   useItem(w, it)
 }
 
