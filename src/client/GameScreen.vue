@@ -418,7 +418,7 @@ onBeforeUnmount(() => {
       </div>
 
       <div v-if="activity" class="game-activity game-notice pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 text-xs">{{ t('{0} 중…',activity) }} <span class="text-ash-300">{{ t("위험을 감지하면 멈춘다") }}</span></div>
-      <div v-if="targeting" class="game-targeting game-notice pointer-events-none absolute left-1/2 top-11 -translate-x-1/2 text-xs">{{ t('{0}: 대상 선택',targeting.label) }} <span v-if="maneuverPreview && !maneuverPreview.error">{{ t('· {0}% · 기력 {1}',maneuverPreview.chance,maneuverPreview.cost) }}</span><span class="text-ash-300">{{ t("· 클릭 / Tab / Enter / Esc") }}</span></div>
+      <div v-if="targeting" class="game-targeting game-notice pointer-events-none absolute left-1/2 top-11 -translate-x-1/2 text-xs">{{ t('{0}: 대상 선택',targeting.label) }} <span v-if="maneuverPreview && !maneuverPreview.error">{{ t('· {0}% · 기력 {1}',maneuverPreview.chance ?? '—',maneuverPreview.cost ?? '—') }}</span><span class="text-ash-300">{{ t("· 클릭 / Tab / Enter / Esc") }}</span></div>
     </div>
 
     <div ref="hudDock" class="pointer-events-none absolute bottom-3 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">

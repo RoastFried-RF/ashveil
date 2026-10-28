@@ -44,7 +44,7 @@ const bars = computed<BarSpec[]>(() => {
       <span class="needs-value" :style="b.level ? { color: color(b) } : undefined">{{ t(b.value) }}</span>
       <div class="needs-meter" aria-hidden="true">
         <div class="needs-fill" :style="{ width: Math.max(0, Math.min(1, b.frac)) * 100 + '%', background: color(b) }" />
-        <div v-for="(t, i) in b.ticks" :key="i" class="needs-tick" :style="{ left: t * 100 + '%' }" />
+        <div v-for="(tick, i) in b.ticks" :key="i" class="needs-tick" :style="{ left: tick * 100 + '%' }" />
         <div v-if="b.center" class="needs-center" :style="{ left: ((37 - 30) / 14) * 100 + '%' }" />
         <div v-if="b.mark !== undefined" class="needs-limit" :style="{ left: Math.min(1, b.mark) * 100 + '%', background: paletteColor('danger') }" />
       </div>
