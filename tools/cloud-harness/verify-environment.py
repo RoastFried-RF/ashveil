@@ -65,6 +65,8 @@ class FreshEnvironment(unittest.TestCase):
         self.assertEqual(tasks["build"]["deps"], ["full"])
         self.assertEqual(tasks["smoke"]["deps"], ["build"])
         self.assertTrue(all(tasks[name]["deps"] == ["environment"] for name in ("typecheck", "lint")))
+        locale = plan.make_plan(root, profile="release", locale=True)["tasks"][-1]
+        self.assertEqual((locale["id"], locale["lane"], locale["kind"], locale["deps"]), ("locale", "heavy", "native", ["smoke"]))
 
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {t} from './locale'
 // 우하단 전투·사건 기록. ▸ 를 누르면 판정 단계(명중 공식)가 펼쳐진다.
 import { computed, nextTick, ref, watch } from 'vue'
 import { fmtClock } from '../core'
@@ -33,11 +34,11 @@ function toggle(k: number) {
 <template>
   <div class="log-panel df df-olive pointer-events-auto w-[min(440px,94vw)] bg-black/30" :class="{'is-mobile-expanded': mobileExpanded}">
     <div class="log-toolbar mb-2 flex min-h-5 justify-end gap-3 border-b border-ash-700 pb-1 text-[10px] text-ash-300">
-      <button class="mobile-log-toggle" data-testid="mobile-log-toggle" :aria-expanded="mobileExpanded" aria-controls="game-log-content" @click="mobileExpanded = !mobileExpanded">{{ mobileExpanded ? '기록 접기' : '기록 보기' }}</button>
-      <button v-if="preferences.speechEnabled" data-testid="read-log" class="hover:text-amber-200" @click="speakText(entries.slice(-10).map(e=>e.text+(e.detail&&(open.has(e.key)||logLevel==='detail')?'\n'+e.detail.join('\n'):'')).join('\n'))">기록 읽기</button>
-      <button v-if="preferences.speechEnabled" data-testid="stop-speech" class="hover:text-amber-200" @click="stopSpeech">읽기 멈춤</button>
-      <button v-for="[k, l] in [['brief', '간략'], ['standard', '표준'], ['detail', '상세']]" :key="k" :aria-pressed="logLevel === k" :class="logLevel === k ? 'text-amber-200' : 'hover:text-amber-200'" @click="logLevel = k as typeof logLevel">{{ l }}</button>
-      <button class="log-grow hover:text-amber-200" @click="big = !big">{{ big ? '▾ 줄이기' : '▴ 늘리기' }}</button>
+      <button class="mobile-log-toggle" data-testid="mobile-log-toggle" :aria-expanded="mobileExpanded" aria-controls="game-log-content" @click="mobileExpanded = !mobileExpanded">{{ t(mobileExpanded ? '기록 접기' : '기록 보기') }}</button>
+      <button v-if="preferences.speechEnabled" data-testid="read-log" class="hover:text-amber-200" @click="speakText(entries.slice(-10).map(e=>e.text+(e.detail&&(open.has(e.key)||logLevel==='detail')?'\n'+e.detail.join('\n'):'')).join('\n'))">{{ t("기록 읽기") }}</button>
+      <button v-if="preferences.speechEnabled" data-testid="stop-speech" class="hover:text-amber-200" @click="stopSpeech">{{ t("읽기 멈춤") }}</button>
+      <button v-for="[k, l] in [['brief', '간략'], ['standard', '표준'], ['detail', '상세']]" :key="k" :aria-pressed="logLevel === k" :class="logLevel === k ? 'text-amber-200' : 'hover:text-amber-200'" @click="logLevel = k as typeof logLevel">{{ t(l) }}</button>
+      <button class="log-grow hover:text-amber-200" @click="big = !big">{{ t(big ? '▾ 줄이기' : '▴ 늘리기') }}</button>
     </div>
     <p v-if="entries.length" class="log-latest" data-testid="log-latest" :style="{fontSize: preferences.logFontSize + 'px'}" :class="KIND_CLASS[entries[entries.length - 1].kind]">{{ entries[entries.length - 1].text }}</p>
     <div id="game-log-content" ref="box" class="log-body overflow-y-auto pr-1" :style="{ fontSize: preferences.logFontSize + 'px', lineHeight: 1.5 }" :class="big ? 'max-h-[46vh]' : 'max-h-[118px]'" data-testid="log">

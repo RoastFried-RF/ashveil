@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 
 
-def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring"):
+def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=False):
     root = str(Path(root).resolve())
     tasks = []
 
@@ -28,6 +28,8 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring"):
         build_deps = ["typecheck", "lint"]
     add("build", "heavy", "build", "source-write", ["node", "node_modules/vite/bin/vite.js", "build"], build_deps)
     add("smoke", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"], ["build"])
+    if locale:
+        add("locale", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-locale-v400.ts", "{task_out}/locale"], ["smoke"])
     return {"version": 1, "tasks": tasks}
 
 
@@ -37,11 +39,12 @@ def main():
     parser.add_argument("--pnpm", default="pnpm")
     parser.add_argument("--chromium")
     parser.add_argument("--profile", choices=["authoring", "release"], default="authoring")
+    parser.add_argument("--locale", action="store_true", help="Include real locale inputs after the common smoke")
     parser.add_argument("--out", type=Path, required=True, help="New JSON file; never overwrites evidence")
     args = parser.parse_args()
     if not args.root.is_dir():
         parser.error("Checkout does not exist")
-    result = make_plan(args.root, args.pnpm, args.chromium, args.profile)
+    result = make_plan(args.root, args.pnpm, args.chromium, args.profile, args.locale)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x", encoding="utf-8") as output:
         output.write(json.dumps(result, indent=2) + "\n")

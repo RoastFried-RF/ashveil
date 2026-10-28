@@ -49,3 +49,5 @@ On normal completion, failure or SIGINT/SIGTERM the runner terminates only proce
 `--regressions` checks the narrow browserless-light exception and uses two real marker runners at different filesystem locations to confirm they share the constant lock namespace.
 
 Run self-verification while the heavy queue is free. Its 30-second subprocess deadline includes waiting for cooperative locks, so an unrelated long game check can yield a timeout rather than an assertion failure. All selfcheck-owned runner processes are cancelled and their logs retained on a failed assertion or timeout; never terminate someone else's game check to make the selfcheck finish.
+
+`plan.py --locale` adds the real two-viewport language/settings/save-load scenario after the common smoke. It uses a heavy Native slot and compares the complete observed world with an independently created Node world. It does not assert that all game content has been translated.

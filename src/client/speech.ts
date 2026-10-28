@@ -15,11 +15,13 @@ export function speakText(text:string):boolean{
  if(!preferences.speechEnabled){speechStatus.value='설정에서 읽기 지원을 켜야 한다';return false}
  if(!speechSupported()){speechStatus.value='이 브라우저에서는 음성 읽기를 지원하지 않는다';return false}
  const chunks=spokenChunks(text);if(!chunks.length){speechStatus.value='읽을 문구가 없다';return false}
- const synth=window.speechSynthesis,voice=synth.getVoices().find(v=>v.lang.toLowerCase().startsWith('ko'))
+ // Untranslated Korean remains Korean speech even in the English preview.
+ const lang=/[\uac00-\ud7af]/.test(text)||preferences.language==='ko'?'ko-KR':'en-US'
+ const synth=window.speechSynthesis,voice=synth.getVoices().find(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2)))
  const current=++generation;let failed=false
  synth.cancel();speechStatus.value='화면의 문구를 읽는 중'
  for(let i=0;i<chunks.length;i++){
-  const utterance=new SpeechSynthesisUtterance(chunks[i]);utterance.lang='ko-KR';utterance.rate=preferences.speechRate;if(voice)utterance.voice=voice
+  const utterance=new SpeechSynthesisUtterance(chunks[i]);utterance.lang=lang;utterance.rate=preferences.speechRate;if(voice)utterance.voice=voice
   utterance.onerror=()=>{if(current===generation){failed=true;speechStatus.value='음성 읽기를 마치지 못했다'}}
   if(i===chunks.length-1)utterance.onend=()=>{if(current===generation&&!failed)speechStatus.value='읽기를 마쳤다'}
   synth.speak(utterance)
@@ -36,3 +38,4 @@ export function visibleReadingText(root:ParentNode=document):string{
 }
 export function readVisibleText(){return speakText(visibleReadingText())}
 watch(()=>preferences.speechEnabled,enabled=>{if(!enabled)stopSpeech()})
+watch(()=>preferences.language,()=>stopSpeech())

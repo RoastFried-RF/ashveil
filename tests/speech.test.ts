@@ -5,9 +5,11 @@ import {speakText,speechStatus,speechSupported,stopSpeech,spokenChunks,visibleRe
 class Utterance {lang='';rate=1;voice:unknown;onend?:()=>void;onerror?:()=>void;constructor(public text:string){}}
 let spoken:Utterance[],cancel:ReturnType<typeof vi.fn>
 beforeEach(async()=>{spoken=[];cancel=vi.fn();vi.stubGlobal('window',{speechSynthesis:{cancel,getVoices:()=>[{lang:'en-US'},{lang:'ko-KR'}],speak:(u:Utterance)=>spoken.push(u)}});vi.stubGlobal('SpeechSynthesisUtterance',Utterance);preferences.speechEnabled=true;preferences.speechRate=1;await nextTick()})
-afterEach(async()=>{preferences.speechEnabled=false;await nextTick();vi.unstubAllGlobals()})
+afterEach(async()=>{preferences.speechEnabled=false;preferences.language='ko';await nextTick();vi.unstubAllGlobals()})
 describe('명시적으로 요청한 화면 문구의 음성 API 연결',()=>{
  it('한국어 음성/현재 속도로 요청한 문구만 보낸다',()=>{preferences.speechRate=1.4;expect(speakText('표시된 기록.')).toBe(true);expect(spoken).toHaveLength(1);expect(spoken[0]).toMatchObject({text:'표시된 기록.',lang:'ko-KR',rate:1.4,voice:{lang:'ko-KR'}})})
+ it('영어 표시에는 영어 음성을 쓰고 번역되지 않은 한국어 기록은 보존한다',async()=>{preferences.language='en';await nextTick();speakText('Read the visible log.');expect(spoken.at(-1)).toMatchObject({text:'Read the visible log.',lang:'en-US',voice:{lang:'en-US'}});speakText('기존 한국어 기록');expect(spoken.at(-1)).toMatchObject({text:'기존 한국어 기록',lang:'ko-KR',voice:{lang:'ko-KR'}})})
+ it('언어를 바꾸면 이전 언어의 진행 중 읽기를 취소한다',async()=>{speakText('기존 한국어 기록');const old=spoken[0],n=cancel.mock.calls.length;preferences.language='en';await nextTick();expect(cancel.mock.calls.length).toBe(n+1);old.onend?.();expect(speechStatus.value).toBe('읽기를 멈췄다')})
  it('설정이 꺼져 있으면 새 음성 요청을 만들지 않는다',()=>{preferences.speechEnabled=false;expect(speakText('표시된 기록')).toBe(false);expect(spoken).toEqual([])})
  it('미지원 브라우저에서 예외 대신 실제 지원 상태를 알려 준다',()=>{vi.stubGlobal('window',{});expect(speechSupported()).toBe(false);expect(speakText('표시된 기록')).toBe(false);expect(speechStatus.value).toContain('지원하지 않는다');expect(()=>stopSpeech()).not.toThrow()})
  it('새 요청 전에 이전 음성 큐를 취소하고 현재 마지막 조각만 완료 표시한다',()=>{speakText('첫 요청');const old=spoken[0];speakText('새 요청');expect(cancel).toHaveBeenCalledTimes(2);old.onend?.();expect(speechStatus.value).toContain('읽는 중');spoken[1].onend?.();expect(speechStatus.value).toBe('읽기를 마쳤다')})

@@ -38,7 +38,7 @@ jobs:
           python3 tools/cloud-harness/verify.py --out test-results/cloud-selfcheck
           python3 tools/cloud-harness/verify.py --regressions --out test-results/cloud-regressions
       - name: Build explicit release plan
-        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile release --out test-results/cloud-plan.json
+        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile release --locale --out test-results/cloud-plan.json
       - name: Validate and run the shared queue
         run: |
           python3 tools/cloud-harness/run.py test-results/cloud-plan.json --out test-results/cloud-release --check
@@ -48,6 +48,11 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cloud-verification-${{ github.sha }}
-          path: test-results/
+          path: |
+            test-results/
+            !test-results/**/*-world.json
+            !test-results/**/*-actual.json
+            !test-results/**/*-expected.json
+            !test-results/**/declared-initial.json
           if-no-files-found: warn
           retention-days: 14

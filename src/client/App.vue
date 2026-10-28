@@ -49,6 +49,7 @@ function settingsKey(e: KeyboardEvent) {
 }
 watchEffect(() => {
   const root = document.documentElement
+  root.lang = preferences.language
   root.dataset.palette = preferences.palette
   root.dataset.instant = String(preferences.animationSpeed === 0)
   root.dataset.noPulse = String(!preferences.warningPulse)
