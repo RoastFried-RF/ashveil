@@ -23,7 +23,7 @@ try {
     const w:World={db,s:newGame(db,{seed:'ashveil-status-v402',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,overworld:true,legacyResidents:[]})};runUntilInput(w)
     // Controlled initial condition only. No wound history or prior low-HP play is claimed.
     const p=player(w);p.hp=10
-    const raw=serialize(w.s);writeFileSync(join(out,width+'-declared-initial.json'),raw)
+    const raw=serialize(w.s);writeFileSync(join(out,width+'-initial-world.json'),raw)
     const keys=['ArrowUp','PageUp','ArrowRight','PageDown','ArrowDown','End','ArrowLeft','Home']
     const dir=DIRS.findIndex((d,i)=>{if(i%2)return false;const pos={x:p.pos.x+d.x,y:p.pos.y+d.y};return terrainAt(w,pos).passable&&!w.s.creatures.some(c=>c.alive&&c.pos.x===pos.x&&c.pos.y===pos.y)})
     assert.ok(dir>=0);assert.ok([0,2,4,6].includes(dir),'Use a cardinal key binding in this fixture')
