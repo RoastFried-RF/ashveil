@@ -22,7 +22,7 @@ const bars = computed<BarSpec[]>(() => {
   const thr = 80 + (pl.stats.wil - 10) * 2
   const loss = bloodLoss(pl)
   const m = mood(w, pl)
-  const t = n.bodyTemp, heatShift = thirstBand(w, pl).heatShift
+  const temperature = n.bodyTemp, heatShift = thirstBand(w, pl).heatShift
   const lvl = (v: number, a: number, b: number): 0 | 1 | 2 => (v >= b ? 2 : v >= a ? 1 : 0)
   const hunger = hungerStage(w, pl), thirst = thirstStage(w, pl), d = nutritionDef(w)
   return [
@@ -31,7 +31,7 @@ const bars = computed<BarSpec[]>(() => {
     { key: 'fatigue', label: '피로', value: `${n.fatigue.toFixed(0)}%`, frac: n.fatigue / 100, level: lvl(n.fatigue, 60, 90), ticks: [0.6, 0.75, 0.9], tip: [t('피로 {0}',n.fatigue.toFixed(0)), t('60 피곤 · 75 지침 · 90 탈진')] },
     { key: 'pain', label: '통증', value: pain.toFixed(0), frac: Math.min(1, pain / 150), level: pain >= 70 ? 2 : pain >= 30 ? 1 : 0, ticks: [15, 30, 50, 70, 90].map((x) => x / 150), mark: thr / 150, tip: [t('통증 {0}',pain.toFixed(0)), t('경미 15 · 중간 30 · 심각 50 · 극심 70 · 극한 90'), t('통증 기절 임계 {0}',thr)] },
     { key: 'mind', label: '정신력', value: `${m.toFixed(0)}/100`, frac: Math.max(0, Math.min(1, m / 100)), level: m < 15 ? 2 : m < 30 ? 1 : 0, ticks: [0.15, 0.3], tip: [t('기분 {0}',m.toFixed(0)), t('15 미만 붕괴 위험')] },
-    { key: 'temp', label: '체온', value: `${t.toFixed(1)}°C`, frac: Math.max(0, Math.min(1, (t - 30) / 14)), level: t < 32 || t > 41 - heatShift ? 2 : t < 35 || t > 39.5 - heatShift ? 1 : 0, center: true, ticks: [32, 35, 37, 39.5 - heatShift, 41 - heatShift].map((x) => (x - 30) / 14), tip: temperatureTip(w, pl) },
+    { key: 'temp', label: '체온', value: `${temperature.toFixed(1)}°C`, frac: Math.max(0, Math.min(1, (temperature - 30) / 14)), level: temperature < 32 || temperature > 41 - heatShift ? 2 : temperature < 35 || temperature > 39.5 - heatShift ? 1 : 0, center: true, ticks: [32, 35, 37, 39.5 - heatShift, 41 - heatShift].map((x) => (x - 30) / 14), tip: temperatureTip(w, pl) },
     { key: 'blood', label: '혈액', value: `${Math.round((1 - loss) * 100)}%`, frac: 1 - loss, level: loss >= 0.3 ? 2 : loss >= 0.15 ? 1 : 0, ticks: [0.85, 0.7, 0.6, 0.5], tip: [t('혈액 {0} / {1} ml (손실 {2}%)',Math.round(pl.body.blood),pl.body.bloodMax,Math.round(loss*100)), t('15% 어지러움 · 30% 쇼크 위험 · 40% 기절 · 50% 사망')] },
   ]
 })
