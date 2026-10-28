@@ -39,7 +39,7 @@ describe('public localized item names',()=>{
   it('searches English and original names with the same category and normalization rules',()=>{
     const w=makeWorld('localized-item-search'),bag=makeItem(w,'Item.MedicalBag')
     preferences.language='en';const label=displayItemLabel(w,bag),before=serialize(w.s)
-    expect(label).toBe('Medical bag')
+    expect(label).toBe('Medical bag [5 uses]')
     for(const q of ['medicalbag','Ｍｅｄｉｃａｌ　ｂａｇ','의료가방'])expect(inventoryMatches(w,bag,'medical',q,label),q).toBe(true)
     expect(inventoryMatches(w,bag,'food','medical',label)).toBe(false)
     expect(serialize(w.s)).toBe(before)
