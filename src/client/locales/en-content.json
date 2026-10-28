@@ -125,8 +125,8 @@
       "text": "Cold-blooded"
     },
     "description": {
-      "source": "살인·처형·죽음 목격으로 기분이 내려가지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1.",
-      "text": "Killing, executions and witnessing death do not lower mood. Vital Stab and Head Bash cooldowns −1."
+      "source": "살인·처형·죽음 목격으로 기분이 내려가지 않는다. 급소 찌르기·머리 강타 재사용 대기 −1. 첫 인상 −5.",
+      "text": "Killing, execution and witnessed death do not lower mood. Vital Thrust and Head Bash cooldown −1. First impression −5."
     }
   },
   "Trait.TenderHearted": {
@@ -195,8 +195,8 @@
       "text": "Night owl"
     },
     "description": {
-      "source": "어둠 명중 감점 5 완화, 조준 사격·다리 쏘기 조명 감점 절반. 밤 +3, 낮 −2.",
-      "text": "Darkness hit penalty reduced by 5. Aimed Shot and Leg Shot take half the light penalty. Mood +3 at night, −2 by day."
+      "source": "어둠 명중 감점5 완화, 조준 사격·다리 쏘기 조명 감점 절반. 밤+3, 낮−2, 실제 칠흑 속 기분+2.",
+      "text": "Darkness accuracy penalty reduced by 5; Aimed Shot and Leg Shot suffer half the lighting penalty. Mood +3 at night, −2 by day, and +2 in actual pitch darkness."
     }
   },
   "Trait.IronStomach": {
@@ -235,8 +235,8 @@
       "text": "Small eater"
     },
     "description": {
-      "source": "칼로리 소비 ×0.85.",
-      "text": "Calorie use ×0.85."
+      "source": "칼로리 소비 ×0.85. 칼로리 균형 +1,500을 넘으면 과식한다.",
+      "text": "Calorie consumption ×0.85. Overeats when calorie balance exceeds +1,500."
     }
   },
   "Trait.ColdResistant": {
@@ -325,8 +325,8 @@
       "text": "Loner"
     },
     "description": {
-      "source": "혼자 있을 때 기분 +3.",
-      "text": "Mood +3 while alone."
+      "source": "보이는3칸 안에 사람이 없으면 기분 +3. 대화의 기분 보너스는 없다.",
+      "text": "Mood +3 if no people are visible within 3 tiles. Conversation gives no mood bonus."
     }
   },
   "Trait.Talkative": {
@@ -335,8 +335,8 @@
       "text": "Talkative"
     },
     "description": {
-      "source": "잠행 중 10턴마다1% 확률로 혼잣말을 낸다.",
-      "text": "While sneaking, a 1% chance of talking to yourself every 10 turns."
+      "source": "대화 기분+6, 외로움×2. 잠행 중10턴마다1% 확률로 혼잣말을 낸다.",
+      "text": "Conversation mood +6; loneliness ×2. While sneaking, a 1% chance to mutter every 10 turns."
     }
   },
   "Trait.Paranoid": {
@@ -355,8 +355,8 @@
       "text": "Neat"
     },
     "description": {
-      "source": "날50% 미만이나 녹슨 장비를 착용하면 기분 −3. 처치 청결 +5, 강박 정리 붕괴 ×3.",
-      "text": "Wearing rusty equipment or a blade below 50% sharpness lowers mood by 3. Treatment cleanliness +5; compulsive tidying breakdowns ×3."
+      "source": "날60% 미만이나 녹슨 장비를 착용하면 기분 −3. 처치 청결 +5, 강박 정리 붕괴 ×3.",
+      "text": "Mood −3 when wearing equipment with an edge below 60% or rust. Treatment cleanliness +5; obsessive tidying breakdowns ×3."
     }
   },
   "Trait.NimbleHands": {
@@ -445,8 +445,8 @@
       "text": "Cowardly"
     },
     "description": {
-      "source": "사기−15, 도주 충동 붕괴 ×3, 받아넘기기·창벽 자세 +1턴, 공격형 능력 기력+2.",
-      "text": "Morale −15; panic-flight breakdowns ×3; Parry and Spear Wall stances last 1 extra turn; offensive abilities cost 2 extra energy."
+      "source": "사기−15, 도주 충동 붕괴×3, 받아넘기기·창벽 자세+1턴, 공격형 능력 기력+2. 도주 기억의 기분 감점 없음.",
+      "text": "Morale −15; panic-flight breakdowns ×3; Parry and Spear Wall stances last 1 extra turn; offensive abilities cost 2 extra energy. Fleeing memories give no mood penalty."
     }
   },
   "Trait.Reckless": {
@@ -475,8 +475,8 @@
       "text": "Pious"
     },
     "description": {
-      "source": "10분 기도를 마치면 스트레스−10.",
-      "text": "Completing 10 minutes of prayer reduces stress by 10."
+      "source": "10분 기도를 마치면 스트레스−10. 재비에 노출된 기도는 기분+5를12시간 남긴다. 직접 들은 야생 정원사 기계음은 천사의 노래처럼 기분+4.",
+      "text": "Completing 10 minutes of prayer reduces stress by 10. Prayer exposed to ash rain gives mood +5 for 12 hours. Feral Gardener machinery heard directly sounds like angel song and gives mood +4."
     }
   },
   "Trait.HardBones": {
