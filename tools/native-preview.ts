@@ -5,7 +5,7 @@ import {stripVTControlCharacters} from 'node:util'
 
 export async function startNativePreview(port=4317,root=process.cwd()){
  if(!Number.isSafeInteger(port)||port<1024||port>65535)throw Error('잘못된 preview 포트')
- const child=spawn(process.execPath,[resolve(root,'node_modules/vite/bin/vite.js'),'preview','--port',String(port),'--strictPort'],{cwd:root,stdio:'pipe',detached:true})
+ const child=spawn(process.execPath,[resolve(root,'node_modules/vite/bin/vite.js'),'preview','--port',String(port),'--strictPort'],{cwd:root,stdio:'pipe',detached:process.platform!=='win32',windowsHide:true})
  const stop=()=>{if(child.pid)try{if(process.platform==='win32')child.kill('SIGTERM');else process.kill(-child.pid,'SIGTERM')}catch{/* 이미 종료됨 */}}
  try{
   await new Promise<void>((done,fail)=>{

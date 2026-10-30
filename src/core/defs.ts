@@ -2068,6 +2068,16 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if(d.lyingExposure){if(!db.all<BodyDef>('Body').some(b=>b.parts.some(p=>p.id===d.lyingExposure!.part)))report.errors.push(d.id+': 눕기 노출의 부위가 없음');range(d.id,'lyingExposure.turns',d.lyingExposure.turns,1,Infinity,true);range(d.id,'lyingExposure.chance',d.lyingExposure.chance,0,1)}
     if(d.woundExposure){const q=d.woundExposure;if(!Array.isArray(q.wounds)||!q.wounds.length||!Array.isArray(q.terrain))report.errors.push(d.id+': 상처 노출 목록 오류');else{for(const id of q.wounds)need(d.id,id,'Wound');for(const id of q.terrain)need(d.id,id,'Terrain')}range(d.id,'woundExposure.contamination',q.contamination,0,100);range(d.id,'woundExposure.severityFraction',q.severityFraction,0,1);range(d.id,'woundExposure.addedContamination',q.addedContamination,0,100);range(d.id,'woundExposure.checkTurns',q.checkTurns,1,Infinity,true);range(d.id,'woundExposure.chance',q.chance,0,1)}
     range(d.id, 'sporeChance', d.sporeChance, 0, 1)
+    if(d.foodTraining!==undefined){
+      const q=d.foodTraining
+      if(!isObj(q)||!isObj(q.research))report.errors.push(d.id+': foodTraining 구조 오류')
+      else{
+        need(d.id,q.item,'Item');const item=db.tryGet<ItemDef>(q.item)
+        if(!item?.food||item.openFood)report.errors.push(d.id+': foodTraining은 실제로 먹을 수 있는 한 회분 음식이어야 함')
+        if(!Number.isSafeInteger(q.servings)||q.servings<1||q.servings>365||!Number.isSafeInteger(q.intervalTurns)||q.intervalTurns<1||!Number.isSafeInteger(q.courseTurns)||q.courseTurns<(q.servings-1)*q.intervalTurns+1||!Number.isSafeInteger(q.maxGapTurns)||q.maxGapTurns<q.intervalTurns||q.maxGapTurns>q.courseTurns||!Number.isFinite(q.riskMultiplier)||q.riskMultiplier<=0||q.riskMultiplier>1||!Number.isFinite(q.lungAsh)||q.lungAsh<0||q.lungAsh>1000)report.errors.push(d.id+': foodTraining 실제 기간/섭취 간격/위험 배율/폐 부담 범위 오류')
+        if(!db.all<KnowledgeDef>('Knowledge').some(k=>k.research?.some(t=>t.id===q.research.thread&&t.steps.some(s=>s.id===q.research.step))))report.errors.push(d.id+': foodTraining 개인 근거 단계 참조 오류')
+      }
+    }
   }
   for(const c of db.all<CreatureDef>('Creature')){if(c.biteDisease!==undefined&&(!isObj(c.biteDisease)||!('id' in c.biteDisease)||!('chance' in c.biteDisease)))report.errors.push(c.id+': biteDisease 구조 오류');range(c.id,'biteDisease.chance',c.biteDisease?.chance,0,1)
    const q=c.biteDisease

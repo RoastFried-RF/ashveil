@@ -1,0 +1,182 @@
+{
+  "checkedAtKST": "2026-10-30T20:22:03.496617+09:00",
+  "status": "Local v406 item supplies/details validated. Not a publication, complete English localization or v1 acceptance.",
+  "previewVersion": "0.404-dev",
+  "saveVersion": 219,
+  "sourceCommitBase": "5065382a2525f3f97df7234f65021df29e8256ac",
+  "branch": "codex/windows-v1-harness",
+  "testedWorkingTree": true,
+  "sourceSHA256": {
+    "src/client/info.ts": "91a4f42cbedc5279fa72f14e5e1c6441f0cd4da43dd8d747e7a733727462fdd7",
+    "src/client/locales/content.ts": "5586fd9561778539bb9cdb065ed1acc40ed20867c6426b0bbabde54f54ec5dc6",
+    "src/client/locales/en-item-content.json": "2cd0c907aeb5359e6ba92302363708d7b2bbe541217b01307b17a905cb36f52c",
+    "src/client/locales/en-item-extra.json": "92d4a5b21e9df06536c029c0f2ee04a4423383c32fb5634052afecdd7343ad57",
+    "src/client/locales/item.ts": "f43ae6aa39acc1ac182f4e504b0cad859e175e94fe4199555c3db0cd97446505",
+    "src/client/locales/message.ts": "c99cb868e969097b34609ba7041f3268676c8a6695851e1b4d98968ad551713e",
+    "src/client/locales/water.ts": "c2742a543d60451eee5ac22fd0b543288c7209f1bf9c03055b7a956e6759826e",
+    "src/core/water-state.ts": "15f30975e9ea738bd21fe6eeffafeb7817b060c6246b7f09a2f62d9d62c6e469",
+    "tests/locale-item-complete.test.ts": "2739517e0e48b76f820cb5adc34fc51f6440b299938b2f3606f45c2e78d33807",
+    "tools/cloud-harness/plan.py": "6aba8b86d31d81d85b8f1f6abca01bca9ac986b30e13f7e7b75dd1397bdc9797",
+    "tools/cloud-harness/verify-environment.py": "53259f5a3852812a3c6b795f7284ecfc3bb049bcd3863555cd6b1afc4c11e997",
+    "tools/inspect-item-supplies-v406.ts": "98de15d6b1f4c3a7fedfe5eb96b86a8425a477177d0511089c631e5319abb091"
+  },
+  "sourceManifest": {
+    "localFile": ".local-tools/source-v406-before.json",
+    "files": 4244,
+    "sha256": "1671f921ab90660e3b98fc8aca2c67a10d536a4b1bb6fafd4565f9363469094d",
+    "unchangedAfterValidation": true,
+    "scope": "src/tests/tools, repository skill, CLAUDE and runtime configuration; unchanged baseline Git files otherwise"
+  },
+  "localBoundaries": {
+    "constructibleCoreItems": 256,
+    "reviewedItemDescriptionsAdded": 166,
+    "reviewedItemDescriptionsTotal": 174,
+    "koreanBeforeAfterCases": 259,
+    "koreanDifferences": 0,
+    "readOnlyItemAndWorldAndRNG": true,
+    "newUIMessagesOverrideExistingKeys": false,
+    "duplicateDiseaseLabels": "7 existing guarded labels are repeated identically in the item dictionary",
+    "coreChange": "Extract existing public water observation; no simulation rule, RNG, Def, save or balance change. Empty part-durability map no longer displays Infinity."
+  },
+  "finalRun": {
+    "path": "test-results/windows/20261030-200554-517-73cccaaa",
+    "status": "passed",
+    "tasks": 15,
+    "taskResults": {
+      "environment": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "locale-focused": "passed",
+      "schema": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "preview-helper": "passed",
+      "full": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "locale-items": "passed",
+      "locale-item-details": "passed",
+      "locale-item-supplies": "passed"
+    },
+    "full": {
+      "files": 415,
+      "tests": 6777,
+      "durationSeconds": 643.4
+    },
+    "focused": {
+      "files": 11,
+      "tests": 84,
+      "durationSeconds": 4.91
+    },
+    "schema": {
+      "files": 178,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "existingWarning": "tools/art/draw-amalgam.mjs unused mirror"
+    },
+    "native": [
+      {
+        "task": "locale",
+        "wholeStatePairs": 12,
+        "pngGenerated": 14,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale/locale/audit.json"
+      },
+      {
+        "task": "locale-items",
+        "wholeStatePairs": 45,
+        "pngGenerated": 33,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-items/locale-items/audit.json"
+      },
+      {
+        "task": "locale-item-details",
+        "wholeStatePairs": 30,
+        "pngGenerated": 30,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-details/locale-item-details/audit.json"
+      },
+      {
+        "task": "locale-item-supplies",
+        "wholeStatePairs": 60,
+        "pngGenerated": 60,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/audit.json"
+      }
+    ],
+    "wholeStatePairs": 147,
+    "nativePNGGenerated": 137,
+    "smoke": {
+      "viewports": [
+        [
+          1440,
+          1080
+        ],
+        [
+          1366,
+          768
+        ]
+      ],
+      "stepsEach": 11,
+      "pngGenerated": 8
+    },
+    "finalPNGIndividuallyReviewed": [
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/smoke/smoke-1440/00-title.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/smoke/smoke-1366/01-world.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale/locale/390-title-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-items/locale-items/390-pill-menu.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-details/locale-item-details/390-coat-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/provisions-1440-last-serving-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/provisions-1366-book-progress-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/provisions-390-suspected-pill-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/provisions-390-continued-details-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/equipment-1440-jammed-gun-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/equipment-1366-bedding-en.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/equipment-390-gun-reloaded.png",
+      "test-results/windows/20261030-200554-517-73cccaaa/tasks/locale-item-supplies/locale-item-supplies/equipment-390-continued-details-en.png"
+    ],
+    "finalPNGIndividuallyReviewedCount": 13,
+    "visualReviewLimit": "The gun-reloaded screenshot shows the inventory with a bedding tooltip after layout changes. Three loaded rounds and original UIDs are verified in its actual/expected whole-state JSON, not visually read from that PNG. Other format rows use focused/Core coverage; not every item/row has its own Native screenshot."
+  },
+  "harnessPlanSelfCheck": {
+    "tests": 10,
+    "passed": 10,
+    "command": ".local-tools/python/Scripts/python.exe tools/cloud-harness/verify-environment.py"
+  },
+  "earlierAttempts": [
+    {
+      "path": "test-results/windows/20261030-195805-486-d7b68a2d",
+      "result": "Inspector type failures: Action import and complete BeddingLice fixture fields; corrected."
+    },
+    {
+      "path": "test-results/windows/20261030-195841-105-e6fd9a71",
+      "result": "Action import not yet corrected; same remaining type failure. No Full/build."
+    },
+    {
+      "path": "test-results/windows/20261030-195906-297-012f4893",
+      "result": "Type/lint/focused/build/smoke passed, provisions 33 whole pairs passed, equipment fixture rejected by real save validation because loadedAmmo omitted. No Full."
+    },
+    {
+      "path": "test-results/windows/native-supplies-retry-1",
+      "result": "Same built app; provisions 33 pairs plus first equipment 5 pairs passed. Tool expected false where Core correctly deletes unjammed flag; whole state already matched. Corrected inspector assertion."
+    },
+    {
+      "path": "test-results/windows/native-equipment-retry-2",
+      "result": "Equipment-only 27 whole pairs/27 PNG and zero browser errors passed on same prior build. Later final run rebuilt the empty part-durability display guard too."
+    }
+  ],
+  "declaredFixturePolicy": "Finite initial Study diagnostic scenes; not natural acquisition or a month of play. Actual UI after Title; no world/RNG/time writes. Independent Node actions for expected complete state; original UIDs/resources/knowledge/save restored.",
+  "notRunOrNotClaimed": [
+    "World30/maximum3days on this source",
+    "1000 expeditions",
+    "all PNG individually visually reviewed",
+    "all UI/log/literature/report English",
+    "human 30-minute/death-report/replay acceptance",
+    "main/Pages publication",
+    "v1.0.0 or X1-X4 completion"
+  ]
+}

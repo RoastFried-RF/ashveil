@@ -1,0 +1,259 @@
+{
+  "checkedAtKST": "2026-10-30T19:27:02.260620+09:00",
+  "status": "Local Windows harness and bounded item details validated. Not a public release or v1 completion.",
+  "previewVersion": "0.404-dev",
+  "localWork": "v405 common and equipment item details",
+  "saveVersion": 219,
+  "repository": "RoastFried-RF/ashveil",
+  "sourceCommitBase": "7c11ce496eceffc4f6df9b02f8d5a61fbd7a4310",
+  "branch": "codex/windows-v1-harness",
+  "testedWorkingTree": true,
+  "sourceSHA256": {
+    ".gitattributes": "1a5a1c2772980548988c0c400fa24f23f89f0b4797cf76c12e20e75236160b14",
+    ".gitignore": "0b2b9e5efa349e8f2555e9e2bac8cc14278355fbccac52093717b75bc2885aad",
+    "eslint.config.js": "51a282472a956651d9c4851a86d9618b7b9e92ee3d676b0821f414679292731a",
+    "src/client/info.ts": "e098260ff7f2c689a2059017579f6d89702e77e7aea38d8ee7b8bf3865fdd483",
+    "src/client/locale.ts": "a4bfebfe3172d67b66234ab1cd5b01d8efb67f5dc80c4b31d2cd7d1737b239ab",
+    "src/client/locales/content.ts": "9c7d579e8dcb1cf50a0d6fbc0d856c257f65d67b2f7ca42e1a2b28a7ebf2f4cb",
+    "src/client/locales/en-item-content.json": "dea78cd1f0bb0a67be629a3eee143a7c3c690e3b1f7b1014265fc0326e49b424",
+    "src/client/locales/en-item-details.json": "65145733affa83749b0e752b6f80c198825506ab9dd592f7c0e5599b60d1e74f",
+    "src/client/locales/message.ts": "97379dd16e9631eb2682c2dfe3b0e169d7582a51c7c1200972fc5df874998aad",
+    "tests/locale-item-details.test.ts": "39d7d43bec628f6c359a6dfba68c15a1ecca3b99c62a80e8912aa1ebf2a11e7b",
+    "tests/localization-catalog.test.ts": "42658ec4441196ca08b2a9208728a365915e9353db48191ffeaf298fbb2dece5",
+    "tests/mod-package-zip.test.ts": "adfc0076d978a994cfc7caef396d540f1d299b77e3482cdced7c647e6ce0d041",
+    "tests/mod-package.test.ts": "00e45a3e6a9ac769b78153723c7a3377e5222d21288a7ba9a993b329fc8c81bb",
+    "tests/node-content-loader.test.ts": "4f3b343978d49cba81a3abc54b980736d65ad6fcfa49eec53946126ea5021096",
+    "tools/cloud-harness/README.md": "12d66d151cfa68290541707269a33ff8ae61cd5a16e0afeab7fcb69c002771c1",
+    "tools/cloud-harness/browser-version.ps1": "ee87fc3153c47de1a3d4c54d46c8970543c95e3434fd0bd53480337243052b4d",
+    "tools/cloud-harness/environment.py": "9f3a378d65cab1f2a621d1b27dbd728e433a4633e23397ab7cc42d803632e1ac",
+    "tools/cloud-harness/plan.py": "52d101eb982d559a6fc9ed8268b8762d29a31613a5d5062629f41ffe6c14cbf0",
+    "tools/cloud-harness/run.py": "5168f74d7d63873f3b9ac5650045d2f232f12a3ce5e479695ed8feebe5e804c1",
+    "tools/cloud-harness/verify-environment.py": "2c526c2ff17487ab1b8005334f1fe3b7af228361e898ec21e13bb63fc9bf282e",
+    "tools/cloud-harness/verify-windows.py": "5a17c0fc615669e92b223820ccb831c38c6ec9cc3e95e192dc73d0af65eea113",
+    "tools/cloud-harness/windows.py": "7f1af6b2a62a5d44f5d69d3d2d7c249c69a76db296850a330bcc76e062370b9a",
+    "tools/inspect-item-details-v405.ts": "9079d2f64ef1206385d3d7864c10a87695e3bcd26b311d7857de76389adcc619",
+    "tools/loadContent.ts": "af5b60e422f8b3b00a574e1d12b005e153442e54216403508a8338cd8ac0bffe",
+    "tools/native-preview.ts": "382e368acbb9b1bdf7c4345dc286c0cb509a39b9c897446b15f6a20e0e2df939",
+    "tools/package-mod.ts": "a616d4ef2d2a42d54d9b626fbb01f58247722c0add42688e6c9a4424d3ee8633",
+    "tools/windows/ashveil.ps1": "c0a2d2428f2c6b4af1f6c3d3a34bf668f1fd339728424f2ea2ca635944959900"
+  },
+  "sourceUnchangedAfterValidation": true,
+  "coreContentArtModsGitDiff": false,
+  "runtime": {
+    "os": "Windows 11 Pro 10.0.26300",
+    "cpu": "i7-13700KF, 16 cores/24 threads",
+    "node": "24.19.0",
+    "pnpm": "9.15.9",
+    "python": "3.12.3",
+    "jsonschema": "4.26.0",
+    "browser": "Google Chrome 156.0.8078.79",
+    "gnuTar": "1.35 (existing Git for Windows)"
+  },
+  "localInstallation": {
+    "frozenLockfile": true,
+    "globalNodePnpmChanged": false,
+    "processEnvironmentRestorationObserved": true,
+    "freshCloneModFilesRestoredToExactGitBytes": 88
+  },
+  "selfVerification": {
+    "windowsContracts": 4,
+    "environmentAndPlanContracts": 9,
+    "posixSelfChecksRunHere": false
+  },
+  "finalRun": {
+    "directory": "test-results/windows/20261030-191159-779-5e7dc326",
+    "planSha256": "c3c70344c36da0679bd75cae51729349ec06375c7201be8a747578ec41b99367",
+    "startedAt": "2026-10-30T10:12:00.154661+00:00",
+    "endedAt": "2026-10-30T10:26:04.881252+00:00",
+    "tasks": {
+      "environment": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "typecheck": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "lint": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "preview-helper": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "locale-focused": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "defs": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "sprites": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "schema": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "full": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "build": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "smoke": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "locale": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "locale-items": {
+        "status": "passed",
+        "exitCode": 0
+      },
+      "locale-item-details": {
+        "status": "passed",
+        "exitCode": 0
+      }
+    },
+    "fullFiles": 414,
+    "fullTests": 6771,
+    "schemaFiles": 178,
+    "schemaErrors": 0,
+    "lintErrors": 0,
+    "lintWarnings": 1
+  },
+  "native": {
+    "locale": {
+      "wholeStatePairs": 12,
+      "pngGenerated": 14,
+      "errors": [],
+      "audit": "test-results/windows/20261030-191159-779-5e7dc326/tasks/locale/locale/audit.json"
+    },
+    "locale-items": {
+      "wholeStatePairs": 45,
+      "pngGenerated": 33,
+      "errors": [],
+      "audit": "test-results/windows/20261030-191159-779-5e7dc326/tasks/locale-items/locale-items/audit.json"
+    },
+    "locale-item-details": {
+      "wholeStatePairs": 30,
+      "pngGenerated": 30,
+      "errors": [],
+      "audit": "test-results/windows/20261030-191159-779-5e7dc326/tasks/locale-item-details/locale-item-details/audit.json"
+    }
+  },
+  "visualReview": {
+    "scope": "Twelve selected title/inventory/detail screens across all three viewports, including two final-run mobile/continued screens. Not every generated PNG individually reviewed.",
+    "screens": [
+      {
+        "path": "test-results/windows/20261030-184832-988-42b70d79/tasks/smoke/smoke-1366/00-title.png",
+        "sha256": "ddf1551bdf60f420fae77d1ab4fa3014afce5f6aee7031ae091fa209c6e4760a"
+      },
+      {
+        "path": "test-results/windows/20261030-184832-988-42b70d79/tasks/smoke/smoke-1440/02-inventory.png",
+        "sha256": "c6b4dbb5bccc9bfe7ec84df55c6f210380ba3b406700eb505f86d339a33c4be3"
+      },
+      {
+        "path": "test-results/windows/20261030-184955-398-b0af6ca4/tasks/locale-item-details/locale-item-details/1440-knife-en.png",
+        "sha256": "37b137caf274decb28ee40cff9df02f412f3b6fe1494b604e6bc188996355ca9"
+      },
+      {
+        "path": "test-results/windows/20261030-184955-398-b0af6ca4/tasks/locale-item-details/locale-item-details/1440-coat-en.png",
+        "sha256": "715bb749c4ea9aef450663a3c27dc5eea21bdc69fd21e78994bd427cb85ebdc4"
+      },
+      {
+        "path": "test-results/windows/20261030-184955-398-b0af6ca4/tasks/locale-item-details/locale-item-details/1440-unknown-relic-en.png",
+        "sha256": "f7dd6dc753b52eb19e6dbf8c15b0064f2cfbf680bd9e04c9c2d85ed9d1d08240"
+      },
+      {
+        "path": "test-results/windows/20261030-184955-398-b0af6ca4/tasks/locale-item-details/locale-item-details/1440-known-relic-en.png",
+        "sha256": "c117a1fa50872634c0ba9a0b208e166f524c337fcbae384bd4f3358542495ef9"
+      },
+      {
+        "path": "test-results/windows/native-details-retry-1/tasks/details/details/1366-coat-en.png",
+        "sha256": "48510ffe78b0f2b7ba0a8e801b516ee0906c8dccd8f906df2f369bb3551e1033"
+      },
+      {
+        "path": "test-results/windows/native-details-retry-1/tasks/details/details/390-knife-en.png",
+        "sha256": "c1404ccd3e565af7c6fe565e750d1db4edb0ce74f900e4432ac7c7b2c38bbcd0"
+      },
+      {
+        "path": "test-results/windows/native-details-retry-1/tasks/details/details/390-coat-en.png",
+        "sha256": "a113c39267f0ac755f040b280bc3071205a39e6200b2e013d5237798254d1c0b"
+      },
+      {
+        "path": "test-results/windows/native-details-retry-1/tasks/details/details/390-unknown-relic-en.png",
+        "sha256": "0b4a858d83c7ca9b3758d19542015b289b9a36249e40ad9ac266bc6730083678"
+      },
+      {
+        "path": "test-results/windows/20261030-191159-779-5e7dc326/tasks/locale-item-details/locale-item-details/390-coat-en.png",
+        "sha256": "571a89b30dc3c5ff2484078ca200d6bd28951ccfed4bd6aad5d5fd9a85bc2eea"
+      },
+      {
+        "path": "test-results/windows/20261030-191159-779-5e7dc326/tasks/locale-item-details/locale-item-details/390-continued-unknown-en.png",
+        "sha256": "9feece71258d2e8c2dbc8efb31241e2b5a1be7d9a368c7590ba0a73fa9fdb0d7"
+      }
+    ]
+  },
+  "retainedEarlierAttempts": [
+    {
+      "directory": "test-results/windows/20261030-183411-310-d97bb2be",
+      "result": "Full deliberately stopped after native-path mod-loader failures; partial run, not a completed Full."
+    },
+    {
+      "directory": "test-results/windows/20261030-184759-164-81ef319c",
+      "result": "Type errors; downstream checks blocked."
+    },
+    {
+      "directory": "test-results/windows/20261030-184832-988-42b70d79",
+      "result": "Detail Native found untranslated Energy in equipment comparison."
+    },
+    {
+      "directory": "test-results/windows/20261030-184955-398-b0af6ca4",
+      "result": "Two desktop viewports passed; mobile tool pointer assumption failed, not gameplay mutation."
+    },
+    {
+      "directory": "test-results/windows/native-details-retry-1",
+      "result": "Tool corrected; 30 whole-state pairs and 30 PNG, no console errors."
+    },
+    {
+      "directory": "test-results/windows/20261030-185533-532-0f143096",
+      "result": "Completed Full: 408/414 files, 6755/6771 tests passed; 16 failures in six Windows packaging/fixture suites. Not added to final passing count."
+    }
+  ],
+  "targetedRetries": {
+    "loaderAndAffectedRules": 162,
+    "packagingFirst": {
+      "passed": 55,
+      "failed": 1,
+      "total": 56
+    },
+    "afterExactGitModBytes": {
+      "files": 5,
+      "passed": 54
+    },
+    "fixedTarFixture": {
+      "bytes": 1186,
+      "sha256": "969362a709c48665d1ecd8826e5af9c8642f031bf6afbd8f4c3571825ae343f3",
+      "fixtureUnchanged": true
+    },
+    "separateSelfCheckContentionFailure": "A repeated selfcheck was mistakenly started during heavy Full and timed out waiting for its shared lock; rerun with queue free passed. No unrelated work was stopped."
+  },
+  "scopeLimits": [
+    "Food/water/drug/book/firearm and other untranslated item rows remain.",
+    "Other windows, dynamic logs, literature and reports remain.",
+    "X1-X4 implementation and acceptance gaps remain in goal-code-audit-v1.md.",
+    "World30 and expedition1000 were not run in this PC bundle.",
+    "Human play and external tester release gates remain.",
+    "No push, main merge, Pages deployment or v1.0.0 tag is claimed.",
+    "Raw world/actual/expected diagnostics remain ignored local artifacts."
+  ]
+}

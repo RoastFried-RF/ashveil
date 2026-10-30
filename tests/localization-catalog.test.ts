@@ -57,7 +57,7 @@ describe('read-only localization source catalog', () => {
       expect(() => writeInventory(root,out)).toThrow('Output already exists')
       expect(readFileSync(join(out,'catalog.json'),'utf8')).toBe(previous)
       expect(() => writeInventory(root,join(root,'src','wrong-output'))).toThrow('--out must be')
-      symlinkSync(join(root,'src'),join(root,'test-results','escape'))
+      symlinkSync(join(root,'src'),join(root,'test-results','escape'),process.platform==='win32'?'junction':'dir')
       expect(() => writeInventory(root,join(root,'test-results','escape','new'))).toThrow('escapes test-results')
     } finally {rmSync(root,{recursive:true,force:true})}
   })
@@ -69,7 +69,7 @@ describe('read-only localization source catalog', () => {
       expect(() => collectRepository(root)).toThrow('not valid UTF-8')
       rmSync(join(root, 'src'), {recursive:true})
       mkdirSync(join(root, 'actual-src'))
-      symlinkSync(join(root, 'actual-src'), join(root, 'src'))
+      symlinkSync(join(root, 'actual-src'), join(root, 'src'),process.platform==='win32'?'junction':'dir')
       expect(() => collectRepository(root)).toThrow('Source symlink requires explicit review: src')
     } finally {rmSync(root, {recursive:true, force:true})}
   })

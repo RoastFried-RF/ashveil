@@ -6,7 +6,6 @@ import argparse
 import concurrent.futures
 import contextlib
 import datetime as dt
-import fcntl
 import hashlib
 import json
 import os
@@ -18,9 +17,15 @@ import sys
 import threading
 import time
 
+if os.name == "nt":
+    from windows import acquire_windows, WindowsProcess
+else:
+    import fcntl
+
 ROOT = Path(__file__).resolve().parent
 # Keep one lock namespace even if a reviewed copy later lives in the repository.
-LOCKS = Path("/workspace/.ashveil-tools/cloud-harness/locks")
+LOCKS = (Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local")) / "ASHVEIL/harness/locks"
+         if os.name == "nt" else Path("/workspace/.ashveil-tools/cloud-harness/locks"))
 HEAVY_KINDS = {"build", "full", "world", "expedition", "gpu", "native", "freeze", "source-mutation"}
 KINDS = HEAVY_KINDS | {"command", "typecheck", "lint", "audit", "focused-test"}
 EFFECTS = {"read-only", "output-only", "source-write"}
@@ -40,7 +45,7 @@ def sha(path):
 
 def write_json(path, value):
     temp = path.with_name(path.name + ".tmp")
-    temp.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+    temp.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temp.replace(path)
 
 
@@ -55,26 +60,26 @@ def immutable_root(cwd):
 
 
 def command_is_heavy(argv):
-    low = [s.lower() for s in argv]
+    low = [s.lower().replace("\\", "/") for s in argv]
     # This exact adapter returns before launching Chromium for these two flags.
     # The preview adapter and real game-harness inputs remain heavy.
-    if len(low) > 2 and Path(low[0]).name in {"node", "nodejs"} and (low[1] == "tools/game-harness.mjs" or low[1].endswith("/tools/game-harness.mjs")) and any(flag in low[2:] for flag in ("--check", "--list")):
+    if len(low) > 2 and Path(low[0]).stem in {"node", "nodejs"} and (low[1].replace("\\", "/") == "tools/game-harness.mjs" or low[1].replace("\\", "/").endswith("/tools/game-harness.mjs")) and any(flag in low[2:] for flag in ("--check", "--list")):
         return False
     joined = " ".join(low)
     return any(x in joined for x in ("expedition-batch", "sim-batch", "game-harness", "inspect-", "tests/e2e/", "freeze-checkpoint")) or (
         any("vite" in x for x in low) and "build" in low
-    ) or (Path(low[0]).name in {"pnpm", "npm", "yarn"} and any(x in low for x in ("build", "test", "sim", "sim:batch", "sim:expedition", "game:preview-check")))
+    ) or (Path(low[0]).stem in {"pnpm", "npm", "yarn"} and any(x in low for x in ("build", "test", "sim", "sim:batch", "sim:expedition", "game:preview-check")))
 
 
 def command_can_mutate_source(argv):
-    low = [s.lower() for s in argv]
+    low = [s.lower().replace("\\", "/") for s in argv]
     if "freeze-checkpoint" in " ".join(low):
         return True
     if any("vite" in s for s in low) and "build" in low:
         return True
-    if Path(low[0]).name in {"pnpm", "npm", "yarn"} and any(x in low for x in ("build", "install", "add", "remove", "update", "game:freeze", "golden:update")):
+    if Path(low[0]).stem in {"pnpm", "npm", "yarn"} and any(x in low for x in ("build", "install", "add", "remove", "update", "game:freeze", "golden:update")):
         return True
-    return Path(low[0]).name in {"rm", "mv", "cp", "install", "touch", "chmod", "chown", "tee", "sed", "perl", "git", "apply_patch"}
+    return Path(low[0]).stem in {"rm", "mv", "cp", "install", "touch", "chmod", "chown", "tee", "sed", "perl", "git", "apply_patch"}
 
 
 def load_plan(path, out):
@@ -156,7 +161,7 @@ def snapshot_state(task):
         return None
     path, root = Path(task["snapshotManifest"]), Path(task["snapshotRoot"])
     original_hash = sha(path)
-    manifest = json.loads(path.read_text())
+    manifest = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(manifest, dict) or not manifest:
         raise ValueError("Immutable manifest must contain tracked file SHA-256 entries")
     for relative, digest in manifest.items():
@@ -174,6 +179,10 @@ def snapshot_state(task):
 def acquire(lane, stop):
     """One global reader/writer gate + two shared light slots, across runners."""
     LOCKS.mkdir(parents=True, exist_ok=True)
+    if os.name == "nt":
+        with acquire_windows(LOCKS, lane, stop):
+            yield
+        return
     held = []
     try:
         gate = os.open(LOCKS / "heavy-gate.lock", os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
@@ -208,6 +217,9 @@ def acquire(lane, stop):
 
 def stop_group(process):
     """Only the process group created by this Popen(start_new_session=True)."""
+    if os.name == "nt":
+        process.stop_tree()
+        return
     def send(sig):
         try:
             os.killpg(process.pid, sig)
@@ -248,7 +260,8 @@ def execute(task, stop):
             write_json(out / "task.json", result)
             print(json.dumps({"task": task["id"], "lane": task["lane"], "status": "running"}), flush=True)
             with (out / "stdout.log").open("wb") as stdout, (out / "stderr.log").open("wb") as stderr:
-                process = subprocess.Popen(task["argv"], cwd=task["cwd"], stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, shell=False, start_new_session=True, close_fds=True)
+                options = dict(cwd=task["cwd"], stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, shell=False, close_fds=True)
+                process = WindowsProcess(task["argv"], **options) if os.name == "nt" else subprocess.Popen(task["argv"], start_new_session=True, **options)
                 result.update(pid=process.pid, processGroup=process.pid)
                 write_json(out / "task.json", result)
                 next_progress = time.monotonic() + 30

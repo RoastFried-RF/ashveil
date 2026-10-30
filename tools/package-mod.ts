@@ -28,14 +28,14 @@ export function packageMod(id:string,options:{root?:string;out?:string;scriptHos
   if(stat.isDirectory()){if(!['defs','patches','migrations','textures',...([1,2].includes(metadata.scripts?.stage)?['scripts']:[])].includes(rel.split(sep)[0]!))throw Error('지원하지 않는 콘텐츠 폴더다: '+rel);walk(file)}
   else if(stat.isFile()){
    if(!supportedModFile(rel.split(sep).join('/'),metadata))throw Error('현재 콘텐츠 패키지에서 지원하지 않는 파일이다: '+rel)
-   files.push(join(folder,rel))
+   files.push([folder,...rel.split(sep)].join('/'))
   }else throw Error('일반 파일이 아니다: '+rel)
  }}
  walk(source)
  const total=files.reduce((n,p)=>n+lstatSync(join(mods,p)).size,0);if(total>MOD_PACKAGE_BYTES||files.length>MOD_PACKAGE_FILES)throw Error('콘텐츠 패키지는 8MiB/512파일 이하여야 한다')
  const contents=files.map(path=>({path,bytes:readFileSync(join(mods,path))})),fileHashes=contents.map(({path,bytes})=>({path,sha256:createHash('sha256').update(bytes).digest('hex')}))
  if(typeof metadata.name!=='string'||!metadata.name.trim()||typeof metadata.version!=='string'||!metadata.version.trim()||['dependencies','optionalDependencies','loadAfter','loadBefore','incompatibleWith'].some(k=>metadata[k]!==undefined&&(!Array.isArray(metadata[k])||metadata[k].some((v:unknown)=>k==='dependencies'||k==='optionalDependencies'?!validModDependency(v):typeof v!=='string'||!v))))throw Error('manifest의 이름/버전/의존 목록을 확인해야 한다')
- const packages=readPackages(root).filter(pkg=>pkg.manifest.id!==id),target=packagesFromFiles(Object.fromEntries(contents.map(({path,bytes})=>['mods/'+path.split(sep).join('/'),encodeModFile(path.split(sep).slice(1).join('/'),bytes)])));packages.push(...target)
+ const packages=readPackages(root).filter(pkg=>pkg.manifest.id!==id),target=packagesFromFiles(Object.fromEntries(contents.map(({path,bytes})=>['mods/'+path,encodeModFile(path.split('/').slice(1).join('/'),bytes)])));packages.push(...target)
  const{db,report}=loadMods(packages,requiredModClosure(packages,[id]));if(report.errors.length)throw Error('모드 로더 검증 실패:\n'+report.errors.join('\n'))
  if(db.scriptSources.length){if(!options.scriptHost)throw Error('스크립트 패키지에는 격리 실행기 검사가 필요하다');const errors=configureScriptHost(db,options.scriptHost);if(errors.length)throw Error('스크립트 검사 실패:\n'+errors.join('\n'))}
  const manifest=target[0].manifest,version=String(manifest.version).replace(/[^0-9A-Za-z.+_-]/g,'_'),format=options.format??(options.out?.endsWith('.zip')?'zip':'tar.gz'),out=resolve(options.out??join(root,'test-results/mod-packages',id+'-'+version+'.'+format))
@@ -45,13 +45,13 @@ export function packageMod(id:string,options:{root?:string;out?:string;scriptHos
  let archive:Buffer
  if(format==='zip'){archive=zipContent(contents.map(({path,bytes})=>({path:path.split(sep).join('/'),bytes})));if(archive.length>MOD_PACKAGE_BYTES)throw Error('ZIP 배포 파일은 8MiB 이하여야 한다')}
  else{
- const packed=spawnSync('tar',['--format=ustar','--mtime=@0','--owner=0','--group=0','--numeric-owner','--mode=0644','-cf','-','-C',mods,'--',...files],{maxBuffer:16*1024*1024,env:{...process.env,LC_ALL:'C'}})
+ const packed=spawnSync('tar',['--format=ustar','--mtime=@0','--owner=0','--group=0','--numeric-owner','--mode=0644','-cf','-','-C',mods.replaceAll('\\','/'),'--',...files],{maxBuffer:16*1024*1024,env:{...process.env,LC_ALL:'C'}})
  if(packed.error||packed.status!==0)throw Error('배포 파일을 만들지 못했다: '+(packed.error?.message??packed.stderr.toString()))
  const listed=spawnSync('tar',['--quoting-style=literal','-tf','-'],{input:packed.stdout,maxBuffer:1024*1024,env:{...process.env,LC_ALL:'C'}}),kinds=spawnSync('tar',['--quoting-style=literal','-tvf','-'],{input:packed.stdout,maxBuffer:1024*1024,env:{...process.env,LC_ALL:'C'}})
  if(listed.error||listed.status!==0||listed.stdout.toString('utf8')!==files.map(path=>path.split(sep).join('/')).join('\n')+'\n'||kinds.error||kinds.status!==0||kinds.stdout.toString('utf8').trimEnd().split('\n').some(line=>!line.startsWith('-')))throw Error('검증한 일반 파일 목록과 실제 tar 배포 기록이 다르다')
  const extracted=spawnSync('tar',['-xOf','-','--',...files],{input:packed.stdout,maxBuffer:16*1024*1024,env:{...process.env,LC_ALL:'C'}})
  if(extracted.error||extracted.status!==0||!extracted.stdout.equals(Buffer.concat(contents.map(file=>file.bytes))))throw Error('검증한 원문과 실제 tar 배포 내용이 다르다')
- archive=gzipSync(packed.stdout,{level:9})
+ archive=gzipSync(packed.stdout,{level:9});archive[9]=3 // Canonical gzip OS byte: preserve the established Unix archive hash on Windows too.
  }
  if(fileHashes.some(f=>createHash('sha256').update(readFileSync(join(mods,f.path))).digest('hex')!==f.sha256))throw Error('검사 중 원본 파일이 바뀌었다. 다시 배포 파일을 만들어야 한다')
  const temp=out+'.tmp-'+process.pid

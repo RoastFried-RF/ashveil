@@ -2,6 +2,10 @@
 
 Python standard-library runner for trusted internal task plans. It uses argv arrays with `shell=False`, inherits the current environment without changing it, and never reads or records credentials/environment values. The runner is versioned here so it can be recovered with the repository. No additional package installation is required.
 
+Windows uses the same plans/queue with OS byte locks under `%LOCALAPPDATA%/ASHVEIL/harness/locks` and suspended-child Job Objects for owned tree cleanup. See [Windows setup and checks](../../docs/windows-development.md). `python tools/cloud-harness/verify-windows.py -v` exercises the actual Windows contracts; the POSIX-only `verify.py` remains separate. `--pnpm` also accepts an installed `.cjs`/`.js` entry, executed with Node without a shell. Windows Chrome/Edge metadata is read without opening a GUI; actual browser input remains a separate heavy check.
+
+`--schema` adds independent JSON Schema validation before release Full; install the existing `tools/requirements-schema.txt` in the Python environment first. The Windows wrapper includes it in release. `--item-details-locale` adds guarded item-detail checks before Full and three-viewport real hover/keyboard/drop/save-continuation after smoke. It preserves the separate existing locale profiles and does not claim full-game translation.
+
 ```sh
 python3 tools/cloud-harness/run.py tools/cloud-harness/example.authoring.json --out test-results/cloud-runs/UNIQUE_NAME --check
 python3 tools/cloud-harness/run.py PLAN.json --out NEW_OUTPUT_DIRECTORY

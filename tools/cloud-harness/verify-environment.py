@@ -71,7 +71,7 @@ class FreshEnvironment(unittest.TestCase):
                 self.assertFalse(check["ok"])
 
     def test_release_plan_keeps_exact_root_and_lane_contract(self):
-        root = "/tmp/ASHVEIL checkout with spaces"
+        root = str(Path("/tmp/ASHVEIL checkout with spaces").resolve())
         result = plan.make_plan(root, profile="release", chromium="/tmp/installed chromium")
         tasks = {task["id"]: task for task in result["tasks"]}
         self.assertEqual(len(tasks), 9)
@@ -111,6 +111,43 @@ class FreshEnvironment(unittest.TestCase):
         self.assertIn("tests/checkpoint-start.test.ts",tasks["locale-focused"]["argv"])
         self.assertIn("locale-focused",tasks["full"]["deps"])
         self.assertEqual(tasks["locale-focused"]["argv"][2],"run")
+
+    def test_item_details_and_schema_gate_full_without_changing_other_profiles(self):
+        tasks={t["id"]:t for t in plan.make_plan("/tmp/checkout",profile="release",item_details_locale=True,schema=True)["tasks"]}
+        self.assertIn("tests/locale-item-details.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("tests/node-content-loader.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("schema",tasks["full"]["deps"])
+        self.assertIn("locale-focused",tasks["full"]["deps"])
+        self.assertEqual(tasks["locale-item-details"]["deps"],["smoke"])
+        self.assertEqual(tasks["locale-item-details"]["lane"],"heavy")
+        combined=plan.make_plan("/tmp/checkout",checkpoint_locale=True,item_details_locale=True)["tasks"][-1]
+        self.assertEqual(combined["deps"],["locale-checkpoints"])
+
+    def test_item_supplies_gate_full_and_follow_existing_native_details(self):
+        tasks={t["id"]:t for t in plan.make_plan("/tmp/checkout",profile="release",item_supplies_locale=True)["tasks"]}
+        self.assertIn("tests/locale-item-complete.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("tests/water.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("locale-focused",tasks["full"]["deps"])
+        self.assertEqual(tasks["locale-item-supplies"]["deps"],["smoke"])
+        self.assertEqual(tasks["locale-item-supplies"]["lane"],"heavy")
+        combined=plan.make_plan("/tmp/checkout",item_details_locale=True,item_supplies_locale=True)["tasks"][-1]
+        self.assertEqual(combined["deps"],["locale-item-details"])
+
+    def test_food_exposure_and_balance_are_focused_and_heavy_sequential(self):
+        tasks={t["id"]:t for t in plan.make_plan("/tmp/checkout",profile="release",ash_cake=True,balance=True)["tasks"]}
+        self.assertIn("tests/food-training.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("tests/save-json-key-validation.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("locale-focused",tasks["full"]["deps"])
+        self.assertEqual(tasks["ash-cake"]["deps"],["smoke"])
+        self.assertEqual(tasks["sim30"]["deps"],["ash-cake"])
+        self.assertEqual(tasks["world30"]["deps"],["sim30"])
+        self.assertNotIn("--world",tasks["sim30"]["argv"])
+        self.assertIn("--world",tasks["world30"]["argv"])
+        self.assertTrue(all(tasks[n]["lane"]=="heavy" for n in ["ash-cake","sim30","world30"]))
+        course={t["id"]:t for t in plan.make_plan("/tmp/checkout",ash_cake=True,ash_cake_course=True,balance=True)["tasks"]}
+        self.assertEqual(course["ash-cake-course"]["deps"],["ash-cake"])
+        self.assertEqual(course["sim30"]["deps"],["ash-cake-course"])
+        self.assertEqual(course["ash-cake-course"]["lane"],"heavy")
 
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:

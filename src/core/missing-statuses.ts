@@ -45,6 +45,7 @@ export function missingStatusPlan(s:GameState,db:DefDatabase){
   historical.set(c,new Set(['immuneDiseases','diseaseExposure','npcCareHistory','history']))
   if(c.npcPsyche)historical.set(c.npcPsyche,new Set(['history']))
   if(c.body.scars)historical.set(c.body.scars,new Set(Object.keys(c.body.scars)))
+  if(c.body.foodTraining)historical.set(c.body.foodTraining,new Set(Object.keys(c.body.foodTraining)))
   for(const d of c.diseases??[])historical.set(d,new Set(['source']))
  }
  const seen=new WeakSet<object>(),visit=(v:unknown,path:string)=>{

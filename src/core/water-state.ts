@@ -42,15 +42,32 @@ export function calorieAbsorption(w: World, c: Creature): number {
   const d = waterSafetyDef(w)
   return dietStatus(w,c).absorption*((c.needs.ash ?? 0) >= d.nauseaAt ? d.nauseaAbsorption : 1) * (hasEffect(c, 'dysentery', turnOf(w)) ? d.dysenteryAbsorption : 1)
 }
-export function waterLines(w: World, c: Creature, it: ItemInst): string[] {
-  if (!w.db.item(it.def).drink || w.db.item(it.def).drink?.alcohol) return []
-  if ((it.uses ?? 1) <= 0) return [w.db.item(it.def).waterVessel&&it.def!=='Item.WaterBottle'&&it.def!=='Item.DirtyWaterBottle'?'빈 물 용기':'빈 병']
+export type WaterObservation = {kind:'empty';label:'빈 물 용기'|'빈 병'} | {
+  kind:'filled';source:string
+  quality:{kind:'bands';pathogen:string;ash:string}|{kind:'clarity';cloudy:boolean}
+  remainingMl:number;sipMl:number;frozen:boolean;settlesHours?:number
+  salt?:{gramsPerLiter:number;remainingGrams:number;drinkable:boolean}
+}
+
+/** Only the viewer's existing public observations; never includes hidden contamination values. */
+export function observeWater(w:World,c:Creature,it:ItemInst):WaterObservation|undefined {
+  const def=w.db.item(it.def)
+  if(!def.drink||def.drink.alcohol)return undefined
+  if((it.uses??1)<=0)return{kind:'empty',label:def.waterVessel&&it.def!=='Item.WaterBottle'&&it.def!=='Item.DirtyWaterBottle'?'빈 물 용기':'빈 병'}
   const q = waterQuality(w, it), stage = (value: number) => [...waterSafetyDef(w).riskBands].reverse().find((b) => value >= b.at)?.label ?? '없음'
-  const lines = [masteryStage(w, c, 'survival') >= 1 ? `${q.source ?? '물'} — 병원체 ${stage(q.pathogen)} / 재 ${stage(q.ash)}` : `${q.source ?? '물'} — ${q.pathogen > 0 || q.ash > 0 ? '탁함' : '맑음'}`]
-  lines.push(`남은 물 ${drinkVolume(w, it)}ml · 한 번에 최대 ${w.db.item(it.def).drink!.water}ml`)
-  if (waterSalinity(q) > 0) lines.push(`염도 ${Number(waterSalinity(q).toFixed(3))}g/L · 남은 소금 ${Number((waterSalinity(q) * drinkVolume(w, it) / 1000).toFixed(3))}g${drinkableSalinity(w, q) ? '' : ' · 음수 부적합: 마시면 수분 손실'}`)
-  if (waterSalinity(q) > 0) lines.push('끓임·천/숯 여과·침전·정수정은 소금을 없애지 못한다')
-  if (it.waterFrozen) lines.unshift('눈/얼음 — 불에서 녹여야 한다')
-  if (it.waterSettlesAt) lines.push(`침전까지 약${Math.max(0, (it.waterSettlesAt - turnOf(w)) / 1200).toFixed(1)}시간`)
+  return{kind:'filled',source:q.source??'물',quality:masteryStage(w,c,'survival')>=1?{kind:'bands',pathogen:stage(q.pathogen),ash:stage(q.ash)}:{kind:'clarity',cloudy:q.pathogen>0||q.ash>0},remainingMl:drinkVolume(w,it),sipMl:def.drink.water,frozen:!!it.waterFrozen,
+    ...(waterSalinity(q)>0?{salt:{gramsPerLiter:Number(waterSalinity(q).toFixed(3)),remainingGrams:Number((waterSalinity(q)*drinkVolume(w,it)/1000).toFixed(3)),drinkable:drinkableSalinity(w,q)}}:{}),
+    ...(it.waterSettlesAt?{settlesHours:Math.max(0,(it.waterSettlesAt-turnOf(w))/1200)}:{})}
+}
+
+export function waterLines(w: World, c: Creature, it: ItemInst): string[] {
+  const view=observeWater(w,c,it)
+  if(!view)return[]
+  if(view.kind==='empty')return[view.label]
+  const lines=[view.quality.kind==='bands'?`${view.source} — 병원체 ${view.quality.pathogen} / 재 ${view.quality.ash}`:`${view.source} — ${view.quality.cloudy?'탁함':'맑음'}`]
+  lines.push(`남은 물 ${view.remainingMl}ml · 한 번에 최대 ${view.sipMl}ml`)
+  if(view.salt)lines.push(`염도 ${view.salt.gramsPerLiter}g/L · 남은 소금 ${view.salt.remainingGrams}g${view.salt.drinkable?'':' · 음수 부적합: 마시면 수분 손실'}`,'끓임·천/숯 여과·침전·정수정은 소금을 없애지 못한다')
+  if(view.frozen)lines.unshift('눈/얼음 — 불에서 녹여야 한다')
+  if(view.settlesHours!==undefined)lines.push(`침전까지 약${view.settlesHours.toFixed(1)}시간`)
   return lines
 }

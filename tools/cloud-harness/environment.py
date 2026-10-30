@@ -24,7 +24,7 @@ def inspect(root, pnpm="pnpm", chromium=None):
     checks = {}
     node_exit, node = version(["node", "--version"])
     checks["node24"] = {"ok": node_exit == 0 and bool(re.fullmatch(r"v24\.\d+\.\d+", node)), "version": node}
-    pnpm_exit, pnpm_version = version([pnpm, "--version"])
+    pnpm_exit, pnpm_version = version((["node", pnpm] if Path(pnpm).suffix in {".cjs", ".js"} else [pnpm]) + ["--version"])
     checks["pnpm9159"] = {"ok": pnpm_exit == 0 and pnpm_version == "9.15.9", "version": pnpm_version}
     lock = root / "pnpm-lock.yaml"
     lock_bytes = lock.read_bytes() if lock.is_file() else b""
@@ -36,8 +36,12 @@ def inspect(root, pnpm="pnpm", chromium=None):
     browser = chromium or shutil.which("chromium") or shutil.which("chromium-browser")
     if not browser and Path("/workspace/.ashveil-tools/chromium").is_file():
         browser = "/workspace/.ashveil-tools/chromium"
-    browser_exit, browser_version = version([browser, "--version"]) if browser else (None, "")
-    checks["chromium"] = {"ok": browser_exit == 0 and bool(re.match(r"(?:Chromium|Google Chrome|Chrome for Testing) \d+\.", browser_version)), "path": str(browser) if browser else None, "version": browser_version}
+    # Windows GUI executables don't reliably implement a console --version and
+    # may open a user's browser. Read their PE product metadata without launch.
+    browser_argv = (["powershell.exe", "-NoProfile", "-NonInteractive", "-File", str(Path(__file__).with_name("browser-version.ps1")), browser]
+                    if sys.platform == "win32" and browser and Path(browser).suffix.lower() == ".exe" else [browser, "--version"])
+    browser_exit, browser_version = version(browser_argv) if browser else (None, "")
+    checks["chromium"] = {"ok": browser_exit == 0 and bool(re.match(r"(?:Chromium|Google Chrome|Chrome for Testing|Microsoft Edge) \d+\.", browser_version)), "path": str(browser) if browser else None, "version": browser_version}
     head_exit, head = version(["git", "-C", str(root), "rev-parse", "HEAD"])
     checks["checkout"] = {"ok": head_exit == 0 and bool(re.fullmatch(r"[0-9a-f]{40}", head)), "head": head}
     limits = {}

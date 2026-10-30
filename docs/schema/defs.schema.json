@@ -31665,6 +31665,126 @@
               "defType"
             ],
             "properties": {
+              "foodTraining": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "servings": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "intervalTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "courseTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxGapTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "riskMultiplier": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "lungAsh": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "research": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "thread": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "step": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "$inherit": {
+                                "const": false
+                              }
+                            }
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "fatalAfterTurns": {
                 "anyOf": [
                   {
@@ -32344,6 +32464,57 @@
               "id"
             ],
             "properties": {
+              "foodTraining": {
+                "type": "object",
+                "properties": {
+                  "item": {
+                    "type": "string"
+                  },
+                  "servings": {
+                    "type": "number"
+                  },
+                  "intervalTurns": {
+                    "type": "number"
+                  },
+                  "courseTurns": {
+                    "type": "number"
+                  },
+                  "maxGapTurns": {
+                    "type": "number"
+                  },
+                  "riskMultiplier": {
+                    "type": "number"
+                  },
+                  "lungAsh": {
+                    "type": "number"
+                  },
+                  "research": {
+                    "type": "object",
+                    "properties": {
+                      "thread": {
+                        "type": "string"
+                      },
+                      "step": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "thread",
+                      "step"
+                    ]
+                  }
+                },
+                "required": [
+                  "item",
+                  "servings",
+                  "intervalTurns",
+                  "courseTurns",
+                  "maxGapTurns",
+                  "riskMultiplier",
+                  "lungAsh",
+                  "research"
+                ]
+              },
               "fatalAfterTurns": {
                 "type": "number"
               },

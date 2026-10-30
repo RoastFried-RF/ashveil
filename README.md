@@ -1,5 +1,7 @@
 # ASHVEIL (애쉬베일)
 
+이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 개발/검증 하네스](docs/windows-development.md) · [장비 상세](docs/localization-v405.md) · [기본 물품 상세](docs/localization-v406.md) · [실제 재떡과 몸별 장기 노출](docs/ash-cake-v407.md). 최종13단계·Full418파일6,806검사와 Native84전체 상태 쌍/오류0을 통과했다. 대표9PNG와 고정 소스4,259파일의 SHA 일치를 확인했다. 검증 입력 교정 전의 같은 게임 규칙에서 Native219쌍·기본/월드 각30판을 완료했고, 수정본으로 원래 각인152개를 그대로 왕복했다. [v407 영수증](docs/pc-harness-v407-proof.json). 아래 공개 버전과 별도로 추적한다.
+
 현재 작업: [v404 저장 지점·콘텐츠 복원 검토의 영어 표시](docs/localization-v404.md) · [검증·게시 근거](docs/release-v404-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
 
 현재 공개 개발 미리보기는 **v0.404-dev · 저장219**이다. 선택형 영어 표시 기반에 HUD/캐릭터/능력·공개 물품 이름/검색·저장 지점과 모드/시드 검토를 연결했다. 최종72전체 상태 쌍·67PNG 검토와 Pages 전체 회귀/배포·공개 진입 일치는 [검증 기록](docs/release-v404-proof.json)을 따른다. 물품 상세/다른 창·동적 로그/문헌/보고서의 영어와 전체 v1/X1–X4·출시/사람 평가 게이트는 남아 있다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
@@ -49,6 +51,8 @@ v0.321의 실제 게임 렌더러에서 원화 비교용 유한 초기 장면을
 ## 실행
 
 검증 환경은 Node.js24와 pnpm9다.
+
+Windows에서는 [로컬 하네스](docs/windows-development.md)의 `./tools/windows/ashveil.ps1 setup`으로 기존 Node24/브라우저와 로컬 pnpm/Python 환경을 연결하고 `release`로 공통 검증 큐를 실행한다.
 
 ```bash
 pnpm install --frozen-lockfile

@@ -1,0 +1,14 @@
+[
+  {
+    "op": "add",
+    "target": "Disease.GreyFever",
+    "path": "/foodTraining",
+    "value": {"item": "Item.AshCake", "servings": 30, "intervalTurns": 28800, "courseTurns": 864000, "maxGapTurns": 57600, "riskMultiplier": 0.7, "lungAsh": 10, "research": {"thread": "ash-fever", "step": "rat-specimen"}}
+  },
+  {
+    "op": "add",
+    "target": "Stock.pilgrims",
+    "path": "/initialAdditions",
+    "value": [{"id": "ash-cake-v407", "items": [{"item": "Item.PilgrimAsh", "count": 30}, {"item": "Item.AshCake", "count": 1}]}]
+  }
+]

@@ -7,10 +7,11 @@ import {isModTexturePath,encodeModFile} from '../src/core/mod-textures'
 function walk(dir: string, out: Record<string, unknown>) {
   for (const f of readdirSync(dir)) {
     const p = join(dir, f)
+    const key = p.replaceAll('\\', '/')
     if (statSync(p).isDirectory()) walk(p, out)
-    else if (f.endsWith('.json')) out[p] = readFileSync(p, 'utf8')
-    else if(f.endsWith('.js')&&p.split('/').includes('scripts'))out[p]=readFileSync(p,'utf8')
-    else if(p.includes('/textures/')&&isModTexturePath('textures/'+p.split('/textures/').at(-1)!))out[p]=encodeModFile('textures/'+p.split('/textures/').at(-1)!,readFileSync(p))
+    else if (f.endsWith('.json')) out[key] = readFileSync(p, 'utf8')
+    else if(f.endsWith('.js')&&key.split('/').includes('scripts'))out[key]=readFileSync(p,'utf8')
+    else if(key.includes('/textures/')&&isModTexturePath('textures/'+key.split('/textures/').at(-1)!))out[key]=encodeModFile('textures/'+key.split('/textures/').at(-1)!,readFileSync(p))
   }
 }
 

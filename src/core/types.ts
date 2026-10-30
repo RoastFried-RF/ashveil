@@ -1130,6 +1130,7 @@ export interface SkillDef extends DefBase {
 
 export interface PopulationRates { beta: number; gamma: number; mu: number }
 export interface DiseaseDef extends DefBase {
+  foodTraining?:{item:string;servings:number;intervalTurns:number;courseTurns:number;maxGapTurns:number;riskMultiplier:number;lungAsh:number;research:{thread:string;step:string}}
   fatalAfterTurns?:number
   latentScarPain?:number
   gradualFever?:boolean
@@ -2118,6 +2119,8 @@ export interface Wound {
 }
 
 export interface BodyState {
+  /** Actual dietary exposure of this body, independent of books or inherited knowledge. */
+  foodTraining?:Record<string,{firstAt:number;lastAt:number;servings:number;ashPhase:number;lungAsh:number;lastItemUid:number}>
   brainRecovery?:{part:string;wound:number;at:number;lowestHp:number}[]
   inhaledAsh?:number
   machine?: MachineState

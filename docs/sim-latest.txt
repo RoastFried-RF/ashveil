@@ -1,3 +1,15 @@
+v407 Windows simulations — 2026-10-30 KST
+Two distinct sim-0..29/max3day cohorts. No paired-baseline or balance-quality claim.
+Source before decoded-input followup: 8f7e484cda37b002a3b7b9abba9dd026fc5ba8e6fc71d53cd0f9c3e47cdb0748
+Final source: 4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad; only deserialize input validation plus tests/harness changed after LF normalization. All120 original bot states and32 controlled-course states reloaded/serialized exactly with the final parser.
+sim30: {"overworld": false, "runs": 30, "averageDays": 1.4225416666666666, "causes": {"치명상": 13, "생존(시간 종료)": 14, "과다 출혈": 3}, "escapes": 0}
+world30: {"overworld": true, "runs": 30, "averageDays": 0.9630601851851852, "causes": {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}, "escapes": 0}
+60 original initial/final Worlds per cohort retained locally. Completed normal Core actions, no action-cap-as-survival fallback.
+Separate controlled finite-stock course:31.51423611111111 actual game days,30 cooked/consumed servings,30 daily whole saves,1742 care/work actions,alive/resistance/dietary lung burden10. Not natural acquisition or human play.
+Proof docs/pc-harness-v407-proof.json; compact balance docs/diagnostics/v407/balance-summary.json.
+Not1000 expeditions, minimum-hardware certification or human acceptance.
+
+Previous recorded cohort (history):
 v0.399-dev paired overworld simulation — 2026-10-27 UTC
 Baseline immutablev398-specimens-r4; candidate immutablev399-cloister-r1.
 Same sim-0..29/max3days/--world--states,30runs per build.

@@ -1,0 +1,691 @@
+{
+  "checkedAtKST": "2026-10-30T23:34:27.078986+09:00",
+  "status": "Local v407 finite dietary exposure and decoded-save validation accepted within the stated scope. Main/Pages publication recorded separately. Not v1/X1-X4, full English, natural long-term supply or human acceptance.",
+  "previewVersion": "0.407-dev",
+  "saveVersion": 220,
+  "sourceCommitBase": "d13f0d1084bc4ae2f795b649b2b57118c92857e6",
+  "testedCodeCommit": "777c1e666007af58c13f5d8b868162a0283907d5",
+  "branch": "codex/v407-save-guard",
+  "testedSourceRoot": ".local-tools/v407-save-guard",
+  "sourceSHA256": {
+    "docs/schema/defs.schema.json": "00829e45b23b31ff22cd6dce1bf7ee28d048d11e5164f2000fab06ec9fdc0adc",
+    "src/client/build-version.ts": "6f9c6866e4fffd9d23e83a34baa2bb51271a0d1d2999e7735443f063a63d5036",
+    "src/client/info.ts": "83e5bc28b8d93e8a8a3f614b749021cd1241f8c276632f55a7e5d1c49ea0a01e",
+    "src/client/locales/en-food-training.json": "0e8505e65ddd86bcc6937374efb40e92bb509aa43c53bf16c147d868e7e808d7",
+    "src/client/locales/en-item-content.json": "c6c8c0c24309acd687b2fcd5d725eb0bc68ddf77ae423fadb54ad14ea4b5d1d6",
+    "src/client/locales/food-training.ts": "639cc76384ae3224b469148459a0f435d506cbf0e75f49b3eb98fec314c49dcd",
+    "src/client/locales/message.ts": "9ec162dff746c63d46e13f53edca1f4abfb4acb03189cedf0d032566bd5a477e",
+    "src/client/ui/AirPanel.vue": "22c2b15fd6a15b7fab13ec86396f5a0778662c43245a9e225974b046b7fda4f8",
+    "src/content/core/defs/ash-cake.json": "f1702122d6c61e193bdb7ef77ae855627db23650e4afa2434831486d4c0d2ffc",
+    "src/content/core/patches/ash-cake.json": "b1be35864a81b1afc99af6bf49dac929ab43591b9a516e00b66fcf7aa0b5f7a8",
+    "src/core/actions.ts": "0327d517145a2a38e1d8f87eea663d91900355a57d0e642e8d26dc19bdb5d880",
+    "src/core/air-state.ts": "9b81efb2fdf7b6b8acc45e5b1b7be004e2223c75874ee798d48fcd868fdefd25",
+    "src/core/bite-disease.ts": "47c9c099ae66c960829f39d233ec918af26a870af79dbb837f53f557488078f1",
+    "src/core/conditions.ts": "287a63f0f2ac20d08dfc81bd7d8c8d416b5c43aa1ab713917bb39b5ea0400882",
+    "src/core/defs.ts": "4cda6223e1de5fe395c2f341c4969873aa27ed64dd55d8c70c7620c140b388c6",
+    "src/core/food-training-save.ts": "1d76a372fdaef20c8a2010bdb29230716d7c3c6df574185b6971c26c1d4f9205",
+    "src/core/food-training.ts": "da4467e41f709e0272e3a5f063b6b0a4b1c073eb84ae3efbcada25d17e3b1e27",
+    "src/core/game.ts": "034a93b101383e7b7d043182cc5c97050e8902c463e19d908c6c0c9487291ce8",
+    "src/core/index.ts": "d3e2196f3cf4762a7c995f086556f1c354ca96ebe60d7c9e3e35d43a5e3e5a1b",
+    "src/core/missing-statuses.ts": "30c825c6388fbf955f9ae420d55d348bd854d310f7118a68a7576b1547ccc69f",
+    "src/core/save.ts": "eb13185412632a441ab800ce476e7dec9975dc42917fdfe4b150fe3b2eb2c750",
+    "src/core/status-renames.ts": "103b5552b0ac460440f6cffccf67d211807d98296351fb9fff4bc4f425a94c42",
+    "src/core/types.ts": "4873a14fc4c95eee3012b4b5bc8ff542927d7b4463ee3edec6b427d0be0dba78",
+    "tests/ash-cake-fixture.ts": "8654f60fcf558bf90d40ad7275b3f8fa63452076feffc8678fcc89a367f204ed",
+    "tests/fixtures/golden-v406.json": "6d69526de5b811c122e05e8920fd7f3d48710bd8575d03e78f85cbafb67447ba",
+    "tests/fixtures/golden.json": "c8aeabb5cbac4f75cb78ee292dfc97b2443dbed0ed79bb0ffe7bfe60ef115114",
+    "tests/fixtures/world-golden-v406.json": "1d2b87b9278818c1f317d239600d20cdc3713c0a9c50bb1aff4ce5bf7344ac92",
+    "tests/fixtures/world-golden.json": "bf00f756071a5112e9356cdda90fa64c9e334e5e6d47329104f048021bc214a1",
+    "tests/food-training-defs.test.ts": "c1985ade4c36f5550d9f2419bd7b6c2021767a7decebbe460ee1d66bf56688ee",
+    "tests/food-training.test.ts": "42971e08f3fe38c013539ac0f406ec1f4ae90c2423576c835e0a0f25f21ce25a",
+    "tests/missing-statuses.test.ts": "4bf4e1a2b21e2bdf094943cdf00eb23aede8556f4107fa51cb3654d453ab8285",
+    "tests/save-json-key-validation.test.ts": "e747c1e2c9f49ad66fc4111ee521e1a073231e2224f7e5dd988e37ff1e5eedfe",
+    "tests/status-renames.test.ts": "ec90f7f5f0a7681bb930d7280ed429a6a9b0b52951ca2c93c31103c03895ef96",
+    "tools/cloud-harness/plan.py": "89f8d1c85827ec18d45bb46e1cff23d6d4090336a87e4e3d937824a11ec144dd",
+    "tools/cloud-harness/verify-environment.py": "d2a8a22aaf8bbc05f69400de32658998fb86277c020243518dad842753fc0875",
+    "tools/inspect-ash-cake-v407.ts": "9676717ef8af6c607ba3cf7f2bbfe6d6252c1ffe500c0ab56f019eb327849e50",
+    "tools/sim-ash-cake-course-v407.ts": "aed12f9279abca9b660d5eedeb8033cc5c8bf9c5dc6174025d834b218feaa701"
+  },
+  "sourceManifest": {
+    "localFile": ".local-tools/source-v407-decoded-before.json",
+    "files": 4259,
+    "sha256": "4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad",
+    "unchangedAfterValidation": true,
+    "scope": "src/tests/tools, repository skill/runtime configuration and generated Def schema; final tested LF checkout"
+  },
+  "finalRun": {
+    "path": ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4",
+    "planSha256": "c90b79f69c216bf427a09816a08e1155358a17ef6104faf69e6a41ae768e3f4d",
+    "status": "passed",
+    "tasks": 13,
+    "taskResults": {
+      "environment": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "schema": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "locale-focused": "passed",
+      "full": "passed",
+      "preview-helper": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "ash-cake": "passed"
+    },
+    "full": {
+      "files": 418,
+      "tests": 6806,
+      "durationSeconds": 735.17
+    },
+    "focused": {
+      "files": 11,
+      "tests": 129,
+      "durationSeconds": 24.85
+    },
+    "schema": {
+      "files": 179,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "existingWarning": "tools/art/draw-amalgam.mjs unused mirror"
+    },
+    "native": [
+      {
+        "task": "locale",
+        "wholeStatePairs": 12,
+        "pngGenerated": 14,
+        "browserErrors": 0,
+        "audit": ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/locale/locale/audit.json",
+        "auditSha256": "ac42f7942b5f7642f402e67d0bef033a209c56f6f61b3e7c5a53435125ff19e4"
+      },
+      {
+        "task": "ash-cake",
+        "wholeStatePairs": 72,
+        "pngGenerated": 72,
+        "browserErrors": 0,
+        "audit": ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/audit.json",
+        "auditSha256": "f78c5ccbd5c13e0badea9298a972a57402fa47ac079e499250543b53f8f8b583"
+      }
+    ],
+    "nativeWholeStatePairs": 84,
+    "nativePNGGenerated": 86,
+    "smokePNGGenerated": 8,
+    "pngActuallyReviewed": [
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/smoke/smoke-1440/00-title.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/smoke/smoke-1366/01-world.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/locale/locale/390-title-en.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/supply-390-unknown-food-en.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/craft-1366-steamed-food-en.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/mature-390-formed-resistance-en.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/mature-390-restored-lungs.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/mature-1440-formed-resistance-en.png",
+      ".local-tools/v407-save-guard/test-results/windows/20261030-230013-591-b0857ab4/tasks/ash-cake/ash-cake/mature-1440-restored-lungs.png"
+    ],
+    "pngActuallyReviewedCount": 9
+  },
+  "preDecodedValidationRun": {
+    "path": "test-results/windows/20261030-220747-251-7e1869b2",
+    "planSha256": "fa8b759403874a5d40c79447d618b64b01c7ee64c9fe6669d6055aff04e7bbe5",
+    "status": "passed",
+    "tasks": 18,
+    "taskResults": {
+      "environment": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "preview-helper": "passed",
+      "schema": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "locale-focused": "passed",
+      "full": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "locale-items": "passed",
+      "locale-item-details": "passed",
+      "locale-item-supplies": "passed",
+      "ash-cake": "passed",
+      "sim30": "passed",
+      "world30": "passed"
+    },
+    "full": {
+      "files": 417,
+      "tests": 6799,
+      "durationSeconds": 681.1
+    },
+    "focused": {
+      "files": 17,
+      "tests": 175,
+      "durationSeconds": 20.15
+    },
+    "schema": {
+      "files": 179,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "existingWarning": "tools/art/draw-amalgam.mjs unused mirror"
+    },
+    "native": [
+      {
+        "task": "locale",
+        "wholeStatePairs": 12,
+        "pngGenerated": 14,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale/locale/audit.json",
+        "auditSha256": "ac42f7942b5f7642f402e67d0bef033a209c56f6f61b3e7c5a53435125ff19e4"
+      },
+      {
+        "task": "locale-items",
+        "wholeStatePairs": 45,
+        "pngGenerated": 33,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-items/locale-items/audit.json",
+        "auditSha256": "d594cec91347053e3a59c623de2c10be917d37af4a5b2e20a76ff66ba0e018d4"
+      },
+      {
+        "task": "locale-item-details",
+        "wholeStatePairs": 30,
+        "pngGenerated": 30,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-details/locale-item-details/audit.json",
+        "auditSha256": "b28f36068e7d17bdc9661ace6cd04844b42177c9f476b7844dffc7c4a3297dfc"
+      },
+      {
+        "task": "locale-item-supplies",
+        "wholeStatePairs": 60,
+        "pngGenerated": 60,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-supplies/locale-item-supplies/audit.json",
+        "auditSha256": "60a859e84488f04d6e72dd6ef31210a31b4e4a95faca1d56a014dddcafa6f0f9"
+      },
+      {
+        "task": "ash-cake",
+        "wholeStatePairs": 72,
+        "pngGenerated": 72,
+        "browserErrors": 0,
+        "audit": "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/audit.json",
+        "auditSha256": "f78c5ccbd5c13e0badea9298a972a57402fa47ac079e499250543b53f8f8b583"
+      }
+    ],
+    "nativeWholeStatePairs": 219,
+    "nativePNGGenerated": 209,
+    "smokePNGGenerated": 8,
+    "pngActuallyReviewed": [
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/smoke/smoke-1440/00-title.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/smoke/smoke-1366/00-title.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/smoke/smoke-1440/01-world.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/smoke/smoke-1366/02-inventory.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale/locale/1366-title-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale/locale/390-continued-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-details/locale-item-details/1440-unknown-relic-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-details/locale-item-details/390-knife-keyboard-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-supplies/locale-item-supplies/provisions-1366-last-serving-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/locale-item-supplies/locale-item-supplies/provisions-1366-known-pill-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-390-formed-resistance-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-1366-formed-resistance-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-390-restored-lungs.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-1440-restored-lungs.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/supply-390-unknown-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/supply-1366-unknown-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/craft-390-steamed-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/craft-1440-steamed-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/supply-1440-unknown-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/craft-1366-steamed-food-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-1440-formed-resistance-en.png",
+      "test-results/windows/20261030-220747-251-7e1869b2/tasks/ash-cake/ash-cake/mature-1366-restored-lungs.png"
+    ],
+    "pngActuallyReviewedCount": 22,
+    "sourceManifest": ".local-tools/source-v407-final-before.json",
+    "sourceManifestSha256": "8f7e484cda37b002a3b7b9abba9dd026fc5ba8e6fc71d53cd0f9c3e47cdb0748",
+    "scope": "Prior fixed source passed its checks; subsequent inspection identified raw JSON token guards. Do not treat this as final decoded-input acceptance or add repeated Native pairs as unique cases."
+  },
+  "decodedValidationFollowup": {
+    "sourceDifferenceAudit": "test-results/windows/v407-source-guard-diff-audit.json",
+    "sourceDifferenceSha256": "a4bda670af6adcd8d7b681163c41340993178989d55e1150bffada370b3868a5",
+    "sourceDifference": {
+      "beforeManifestSha256": "8f7e484cda37b002a3b7b9abba9dd026fc5ba8e6fc71d53cd0f9c3e47cdb0748",
+      "afterManifestSha256": "4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad",
+      "oldFiles": 4258,
+      "newFiles": 4259,
+      "exactByteEquality": 463,
+      "onlyCRLFtoLFFiles": 3791,
+      "changedAfterLineEndingNormalization": [
+        "src/core/save.ts",
+        "tests/food-training.test.ts",
+        "tools/cloud-harness/plan.py",
+        "tools/cloud-harness/verify-environment.py"
+      ],
+      "added": [
+        "tests/save-json-key-validation.test.ts"
+      ],
+      "runtimeChangeIsExactlyFiveDeserializeValidationReplacements": true,
+      "allOtherRuntimeCodeUnchangedAfterLineEndings": true,
+      "originalModsByteEqualFiles": 89,
+      "guardCheckout": "codex/v407-save-guard",
+      "note": "No simulation/Def/resource/RNG/serialization change. A fresh LF checkout and decoded-input validation plus focused tests/harness; original cohorts stay on their unchanged captured source."
+    },
+    "redGreenAudit": "test-results/windows/save-guard-compare-v407-1/tasks/compare/audit.json",
+    "redGreenSha256": "293e0f7ac292d38d978467b934c28d0e318605357240c32b921af4fabbb302a5",
+    "redGreen": {
+      "sourceSHA256": {
+        "../src/core/save.ts": "3b3fd4ae7f844edeec7f3d90454375759d0f21fca2887c61550b6e94a9411acd",
+        "./v407-save-guard/src/core/save.ts": "eb13185412632a441ab800ce476e7dec9975dc42917fdfe4b150fe3b2eb2c750"
+      },
+      "rows": [
+        {
+          "dormant": false,
+          "validDecodedKeyRoundtrip": true,
+          "canonicalInvalidRejectedByBoth": true,
+          "oldEscapedInvalidAccepted": true,
+          "newEscapedInvalidRejected": true
+        },
+        {
+          "dormant": true,
+          "validDecodedKeyRoundtrip": true,
+          "canonicalInvalidRejectedByBoth": true,
+          "oldEscapedInvalidAccepted": true,
+          "newEscapedInvalidRejected": true
+        }
+      ]
+    },
+    "canonicalStateReloadAudit": "test-results/windows/reload-v407-states-1/tasks/reload/audit.json",
+    "canonicalStateReloadSha256": "3f2cc677f99fbaab240084e6b04572b265648cd9ab5e9c5312f1648d12909b6c",
+    "canonicalStatesReloaded": 152,
+    "wholeRoundtripDifferences": 0,
+    "scope": "Food history always checked from parsed bodies. Existing care-plan/crawler/culler guards use decoded JSON names and string values. No simulation, resource, RNG, Def, save-format or serializer change. Final source revalidates all 120 bot states and 32 controlled-course states."
+  },
+  "controlledCourse": {
+    "declaredControlledCohort": true,
+    "naturalAcquisition": false,
+    "elapsedDays": 31.51423611111111,
+    "servings": 30,
+    "saveRoundTrips": 30,
+    "actions": 1742,
+    "alive": true,
+    "formedResistance": true,
+    "audit": "test-results/windows/ash-cake-course30-r7/tasks/course/course/audit.json",
+    "auditSha256": "7d2d8699e8c02eb02b8bb9d798191aa3a581edc7b3aa6741e6e6fb04d184f4a5",
+    "finalDietaryLungAsh": 10,
+    "originalBowlUid": 54,
+    "manualStateInjectionAfterInitialCapture": false,
+    "declaredWaterMl": 120000,
+    "sourceEpoch": "pre-decoded-validation simulation; all32 original states reload identically with final code"
+  },
+  "balance": {
+    "sim30": {
+      "overworld": false,
+      "runs": 30,
+      "maxDays": 3,
+      "seedStart": 0,
+      "averageDays": 1.4225416666666666,
+      "causes": {
+        "치명상": 13,
+        "생존(시간 종료)": 14,
+        "과다 출혈": 3
+      },
+      "escapes": 0,
+      "seconds": 1595.541,
+      "initialFinalWorldFiles": 60,
+      "results": "test-results/windows/20261030-220747-251-7e1869b2/tasks/sim30/results.json",
+      "sha256": "e20f85df6bccec0950197091bd6a255342c3b986d874da669e679480a2ce0ef5"
+    },
+    "world30": {
+      "overworld": true,
+      "runs": 30,
+      "maxDays": 3,
+      "seedStart": 0,
+      "averageDays": 0.9630601851851852,
+      "causes": {
+        "치명상": 14,
+        "과다 출혈": 6,
+        "생존(시간 종료)": 7,
+        "저체온": 3
+      },
+      "escapes": 0,
+      "seconds": 871.803,
+      "initialFinalWorldFiles": 60,
+      "results": "test-results/windows/20261030-220747-251-7e1869b2/tasks/world30/results.json",
+      "sha256": "8436b83acc63dc5310e4334c893dcfbebf48bd2dc4ed6d2495e362b50f590ce8"
+    }
+  },
+  "balanceScope": "The two 30-seed/3-day cohorts use the unchanged pre-followup simulation. Runtime followup is exactly deserialize input validation; all other runtime source is identical after LF checkout normalization. The final parser reloaded all120 original initial/final states with whole equality. No paired-baseline distribution or balance-quality certification.",
+  "goldenAudit": {
+    "baselineCommit": "d13f0d1084bc4ae2f795b649b2b57118c92857e6",
+    "localDiffAudit": "test-results/windows/golden-v407-diff-audit.json",
+    "sha256": "fafc5fee0fb5d8685cc79815b5f2301e8882bdb7025faca16a4375457eb204f9",
+    "vectors": [
+      {
+        "name": "surface",
+        "errorsUnchanged": true,
+        "initial": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        },
+        "state": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        }
+      },
+      {
+        "name": "dungeon-combat",
+        "errorsUnchanged": true,
+        "initial": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        },
+        "state": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        }
+      },
+      {
+        "name": "freeze-reentry",
+        "errorsUnchanged": true,
+        "initial": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        },
+        "state": {
+          "differences": 9,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/version"
+          ]
+        }
+      },
+      {
+        "name": "world-journey",
+        "errorsUnchanged": true,
+        "initial": {
+          "differences": 18,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "overworld": 9,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/overworld/markets/Region.ShadeBasin/items/8/uid",
+            "/overworld/markets/Region.ShadeBasin/items/9/uid",
+            "/overworld/markets/Region.ShadeGrove/items/8/uid",
+            "/overworld/markets/Region.ShadeGrove/items/9/uid",
+            "/overworld/markets/Region.ShadeHollow/items/8/uid",
+            "/overworld/markets/Region.ShadeHollow/items/9/uid",
+            "/overworld/markets/Region.Stillhouse/adoptedStockAdditions",
+            "/overworld/markets/Region.Stillhouse/items/length",
+            "/overworld/simulation/nextItemId",
+            "/version"
+          ]
+        },
+        "state": {
+          "differences": 18,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "overworld": 9,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/overworld/markets/Region.ShadeBasin/items/8/uid",
+            "/overworld/markets/Region.ShadeBasin/items/9/uid",
+            "/overworld/markets/Region.ShadeGrove/items/8/uid",
+            "/overworld/markets/Region.ShadeGrove/items/9/uid",
+            "/overworld/markets/Region.ShadeHollow/items/8/uid",
+            "/overworld/markets/Region.ShadeHollow/items/9/uid",
+            "/overworld/markets/Region.Stillhouse/adoptedStockAdditions",
+            "/overworld/markets/Region.Stillhouse/items/length",
+            "/overworld/simulation/nextItemId",
+            "/version"
+          ]
+        }
+      },
+      {
+        "name": "world-climate-return",
+        "errorsUnchanged": true,
+        "initial": {
+          "differences": 18,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "overworld": 9,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/overworld/markets/Region.ShadeBasin/items/8/uid",
+            "/overworld/markets/Region.ShadeBasin/items/9/uid",
+            "/overworld/markets/Region.ShadeGrove/items/8/uid",
+            "/overworld/markets/Region.ShadeGrove/items/9/uid",
+            "/overworld/markets/Region.ShadeHollow/items/8/uid",
+            "/overworld/markets/Region.ShadeHollow/items/9/uid",
+            "/overworld/markets/Region.Stillhouse/adoptedStockAdditions",
+            "/overworld/markets/Region.Stillhouse/items/length",
+            "/overworld/simulation/nextItemId",
+            "/version"
+          ]
+        },
+        "state": {
+          "differences": 18,
+          "roots": {
+            "contentDefinitions": 3,
+            "contentItemShapes": 2,
+            "contentMods": 1,
+            "contentRecipeContracts": 1,
+            "loadHash": 1,
+            "overworld": 9,
+            "version": 1
+          },
+          "paths": [
+            "/contentDefinitions/Item.AshCake",
+            "/contentDefinitions/Item.PilgrimAsh",
+            "/contentDefinitions/Recipe.AshCake",
+            "/contentItemShapes/Item.AshCake",
+            "/contentItemShapes/Item.PilgrimAsh",
+            "/contentMods/0/hash",
+            "/contentRecipeContracts/Recipe.AshCake",
+            "/loadHash",
+            "/overworld/markets/Region.ShadeBasin/items/8/uid",
+            "/overworld/markets/Region.ShadeBasin/items/9/uid",
+            "/overworld/markets/Region.ShadeGrove/items/8/uid",
+            "/overworld/markets/Region.ShadeGrove/items/9/uid",
+            "/overworld/markets/Region.ShadeHollow/items/8/uid",
+            "/overworld/markets/Region.ShadeHollow/items/9/uid",
+            "/overworld/markets/Region.Stillhouse/adoptedStockAdditions",
+            "/overworld/markets/Region.Stillhouse/items/length",
+            "/overworld/simulation/nextItemId",
+            "/version"
+          ]
+        }
+      }
+    ],
+    "commandsAndErrorsUnchanged": true,
+    "oldFixturesPreserved": [
+      "tests/fixtures/golden-v406.json",
+      "tests/fixtures/world-golden-v406.json"
+    ],
+    "expectedHashUpdate": "Only current initial/final hashes after whole-state audit. Changed metadata and explicit finite market stock/consequent global UIDs; all other physical fields and RNG exact."
+  },
+  "schemaAudit": {
+    "baselineGeneratedNormalizedEqualsOld": true,
+    "oldCRLFSequences": 68601,
+    "addedNormalizedBytes": 5537,
+    "schemaSha256": "00829e45b23b31ff22cd6dce1bf7ee28d048d11e5164f2000fab06ec9fdc0adc"
+  },
+  "preservedFailures": {
+    "initialAuthoring": "test-results/windows/20261030-205254-742-de0e07be",
+    "secondAuthoring": "test-results/windows/20261030-205626-315-ad62c6b3",
+    "description": "Wrong shared sprite, then declared achievementsDisabled mismatch corrected. Controlled pilots retain actual hyperthermia deaths and ordinary care-controller failures. r6 correctly reset the course after >48h; r7 bounds actual sleep without changing game rules.",
+    "cohorts": [
+      "test-results/windows/ash-cake-course-pilot-1",
+      "test-results/windows/ash-cake-course-pilot-2",
+      "test-results/windows/ash-cake-course30-r1",
+      "test-results/windows/ash-cake-course30-r2",
+      "test-results/windows/ash-cake-course30-r3",
+      "test-results/windows/ash-cake-course30-r4",
+      "test-results/windows/ash-cake-course30-r5",
+      "test-results/windows/ash-cake-course30-r6"
+    ],
+    "cancelledUnexecutedGuardCandidate": ".local-tools/v407-save-guard/test-results/windows/20261030-224643-487-992994cd/cancelled-by-owner.json"
+  },
+  "remaining": [
+    "Renewable ash gathering/pilgrim workshop production and natural long-term supply",
+    "Other T1-T11 access paths, endings and reports",
+    "X1-X4 remaining implementation and complete English UI/logs/content",
+    "1000 expeditions, final release performance/minimum-hardware and actual human gates",
+    "Main/Pages publication until separately verified"
+  ],
+  "harnessVerification": {
+    "tests": 11,
+    "status": "passed",
+    "log": ".local-tools/verify-environment-v407-final.log",
+    "sha256": "03c17c72b899f7f056fa24914c9900b954d3e4b052be9fdbad4d822cff605a0a"
+  },
+  "preCohortSourceUnchangedCheck": {
+    "log": "test-results/windows/v407-pre-guard-source-check.jsonl",
+    "sha256": "82f5e9c802437ec2bdc5ad2d98afaf1cbc764e9140417ab19a0de6a562df1fb9",
+    "differences": 0,
+    "files": 4258
+  }
+}

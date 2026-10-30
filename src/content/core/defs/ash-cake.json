@@ -1,0 +1,44 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.PilgrimAsh",
+    "label": "기슭 재 꾸러미",
+    "description": "순례회가 탑 기슭에서 거둔 재 한 회분. 곡물과 물로 의식 음식을 찐다. 그대로 먹는 음식은 아니다.",
+    "sprite": "original_hearth_charcoal",
+    "category": "misc",
+    "weight": 0.01,
+    "value": 2,
+    "size": [1, 1],
+    "stackable": true,
+    "maxStack": 5
+  },
+  {
+    "defType": "Item",
+    "id": "Item.AshCake",
+    "label": "재떡 그릇",
+    "description": "곡물과 기슭 재를 물로 찐 순례회의 의식 음식. 한 회분을 먹으면 같은 그릇이 남는다. 반복 섭취의 의미는 개인이 확인한 문헌과 관찰로 따로 판단한다.",
+    "sprite": "pot1",
+    "category": "food",
+    "weight": 0,
+    "value": 10,
+    "size": [1, 1],
+    "stackable": false,
+    "maxStack": 1,
+    "uses": 1,
+    "food": {"kcal": 300, "protein": 10, "vitamin": 0, "water": 220, "freshHours": 72, "cooked": true, "servings": 1, "emptyVessel": "Item.Bowl"}
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.AshCake",
+    "label": "재떡 찌기",
+    "category": "cooking",
+    "primaryAttr": "per",
+    "mastery": "survival",
+    "basic": true,
+    "stations": ["campfire"],
+    "workTurns": 400,
+    "inputs": [{"item": "Item.Oats", "count": 1}, {"item": "Item.PilgrimAsh", "count": 1}, {"item": "Item.Bowl", "count": 1}],
+    "output": {"item": "Item.AshCake", "count": 1},
+    "boiledMeal": {"waterMl": 220, "vessel": "Item.Bowl"}
+  }
+]

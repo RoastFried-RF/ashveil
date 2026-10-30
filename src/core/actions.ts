@@ -1,4 +1,5 @@
 import {cullerCooling} from './culler-state'
+import {recordFoodTraining} from './food-training'
 import {cullerSpray,cullerNet,cullerWater,cullerIgnite,ringMaintenanceBell,escapeCullerNet,sprayPurifier} from './culler'
 import {crawlerClimb,crawlerDrop,crawlerDescend,crawlerFeed,crawlerEat,crawlerDrink,crawlerCeilingMove,inspectCeiling} from './crawlers'
 import {coatArrow} from './neurotoxin'
@@ -1847,6 +1848,7 @@ function consumeForCore(w:World,provider:Creature,c:Creature,uid:number):ActResu
     const poisoned = foodPoison(w, c, it,provider)
     if (!poisoned && c.needs.kcal > 0) addThought(w, c, 'Thought.Fed')
     recordResidentMeal(w, c, it)
+    recordFoodTraining(w,c,it)
     consumeFoodServing(w,provider,it)
     if (isPl(c)) {
       log(w, 'info', `${def.label}을(를) 먹었다.`)

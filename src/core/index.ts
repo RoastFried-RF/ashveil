@@ -210,7 +210,7 @@ export * from './boat-flood'
 
 export {activeDiseases,diseaseLines} from './disease-state'
 
-export {airRules,airLines,inhaledAsh,ashLungCap,ashLungStage,dustMask} from './air-state'
+export {airRules,airLines,inhaledAsh,lungAshBurden,ashLungCap,ashLungStage,dustMask} from './air-state'
 export {maskRefillQuote} from './air'
 
 export * from './bite-disease'
@@ -348,6 +348,7 @@ export * from './resonance'
 
 export * from './expedition-endings'
 export * from './research'
+export * from './food-training'
 
 export * from './companion-aid'
 

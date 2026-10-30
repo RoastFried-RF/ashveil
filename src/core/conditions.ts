@@ -1,4 +1,5 @@
 import {diseaseRecoveryLoss} from './permanent-loss'
+import {foodTrainingRisk} from './food-training'
 import {infectionSystemic} from './infection-state'
 import {biteRiskTick} from './bite-disease'
 import type {RngStream} from './rng'
@@ -39,7 +40,7 @@ export function exposeDisease(w: World, c: Creature, id: string, chance: number,
   if(w.db.body(c.body.def).kind==='mechanical')return false
   if (c.immuneDiseases?.includes(id) || w.db.creature(c.def).diseaseImmune?.includes(id) || c.diseases?.some((d) => d.def === id)) return false
   const def = w.db.get<DiseaseDef>(id), r = rng(w, stream)
-  if (!r.chance(chance)) return false
+  if (!r.chance(chance*foodTrainingRisk(w,c,def))) return false
   ;(c.diseases ??= []).push({ def: id, incubatesUntil: turnOf(w) + r.int(def.incubationDays[0] * TURNS_PER_DAY, def.incubationDays[1] * TURNS_PER_DAY), progress: 0, immunity: 0, ...(source?{source:{...source}}:{}) })
   return true
 }

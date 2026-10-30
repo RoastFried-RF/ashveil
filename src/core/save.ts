@@ -1,4 +1,5 @@
 import {validateCullerSave} from './culler-save'
+import {validateFoodTrainingSave} from './food-training-save'
 import {validateCompanionCarePlans} from './companion-care-plan-save'
 import {validateCrawlerSave} from './crawler-save'
 import {validRecordedItemShape} from './missing-items'
@@ -13,7 +14,9 @@ export function serialize(s: GameState): string {
 }
 
 export function deserialize(json: string): GameState {
-  const s = JSON.parse(json) as GameState
+  // JSON spelling may escape names and string values. Validate decoded tokens.
+  const tokens=new Set<string>()
+  const s=JSON.parse(json,(key:string,value:unknown)=>{tokens.add(key);if(typeof value==='string')tokens.add(value);return value}) as GameState
   if (s.version === 2) {
     const all = [...s.creatures, ...Object.values(s.offCreatures ?? {}).flat()]
     for (const c of all) migrateNutrition(c, Math.floor(s.time / (28800 * 100)))
@@ -420,6 +423,8 @@ export function deserialize(json: string): GameState {
   if(s.version===217)s.version=218
   // v219 adds explicit delayed care; prior sequences acquire no waiting time or new consent.
   if(s.version===218)s.version=219
+  // v220 records actual dietary exposure; old bodies gain no food, history or resistance.
+  if(s.version===219)s.version=220
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -432,12 +437,13 @@ export function deserialize(json: string): GameState {
   if(s.achievementsDisabled!==undefined&&typeof s.achievementsDisabled!=='boolean')throw new Error('각인의 업적 상태 형식이 올바르지 않다')
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
+  validateFoodTrainingSave(s)
   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
-  if(json.includes('"carePlan"')||json.includes('"companionCarePlan"'))validateCompanionCarePlans(actors)
+  if(tokens.has('carePlan')||tokens.has('companionCarePlan'))validateCompanionCarePlans(actors)
   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
   const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)
-  if(json.includes('"crawlerState"')||json.includes('"paralysis"')||json.includes('"toxin"')||json.includes('"loadedAmmoToxin"'))validateCrawlerSave(s)
-  if(json.includes('"cullerState"')||json.includes('"netted"')||json.includes('"bellSignals"'))validateCullerSave(s)
+  if(tokens.has('crawlerState')||tokens.has('paralysis')||tokens.has('toxin')||tokens.has('loadedAmmoToxin'))validateCrawlerSave(s)
+  if(tokens.has('cullerState')||tokens.has('netted')||tokens.has('bellSignals'))validateCullerSave(s)
   const swarmMaps=[s.map,...Object.values(s.maps??{}),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[scene.map,...Object.values(scene.maps??{})])]
   for(const map of swarmMaps){if(map.swarms===undefined)continue
     if(!Array.isArray(map.swarms)||map.swarms.length>128)throw Error('군체 목록 형식이 올바르지 않다')

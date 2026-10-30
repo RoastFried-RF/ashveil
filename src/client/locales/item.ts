@@ -1,5 +1,5 @@
 /** Matches the core's public item name, using only the viewer's existing beliefs. */
-import {itemDef,itemLabel,pillBelief,type ItemDef,type ItemInst,type World} from '../../core'
+import {itemDef,itemLabel,pillBelief,rawStock,type ItemDef,type ItemInst,type World} from '../../core'
 import {preferences} from '../preferences'
 import {defText,t} from '../locale'
 
@@ -14,6 +14,7 @@ export function displayItemLabel(w:World,it:ItemInst):string {
   let label=def.relic&&(it.appraisal??0)<2
     ? def.unknownLabel?defText(def,'unknownLabel'):t('미확인 유물')
     :defText(def)
+  if(def.rawFragment){const stock=rawStock(w,it);if(stock&&def.label===stock.material.label+' 조각')label=t('{0} 조각',defText(stock.material))}
   if(def.drink&&!def.drink.alcohol&&(it.uses??1)>0&&(it.water?.salinity??def.drink.quality?.salinity??0)>0)label+=t(' (소금물)')
   if(def.unidentified){
     const belief=pillBelief(w,it.def)

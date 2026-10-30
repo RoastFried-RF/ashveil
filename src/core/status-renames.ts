@@ -18,6 +18,7 @@ function mutate(s:GameState,aliases:ReadonlyMap<string,string>,errors:string[]=[
   if(c.immuneDiseases)c.immuneDiseases=c.immuneDiseases.map(x=>rename(x,'Disease'))
   if(c.diseaseExposure?.cold)c.diseaseExposure.cold=c.diseaseExposure.cold.map(x=>rename(x,'Disease'))
   if(c.diseaseExposure?.lying)c.diseaseExposure.lying=Object.fromEntries(Object.entries(c.diseaseExposure.lying).map(([id,turns])=>[rename(id,'Disease'),turns]))
+  if(c.body.foodTraining)c.body.foodTraining=Object.fromEntries(Object.entries(c.body.foodTraining).map(([id,record])=>[rename(id,'Disease'),record]))
  }
  return records
 }
@@ -40,6 +41,7 @@ export function statusRenamePlan(s:GameState,db:DefDatabase){
  }
  // 사전 키 충돌로 노출 시간을 잃지 않도록 원래 키들까지 따로 검사한다.
  for(const c of stateActors(s)){const keys=Object.keys(c.diseaseExposure?.lying??{}).map(x=>aliases.get(x)??x);if(new Set(keys).size!==keys.length)errors.push('개체 '+c.id+': 상태 ID 이행 후 노출 시계 키가 충돌한다')}
+ for(const c of stateActors(s)){const keys=Object.keys(c.body.foodTraining??{}).map(x=>aliases.get(x)??x);if(new Set(keys).size!==keys.length)errors.push('개체 '+c.id+': 상태 ID 이행 후 식이 노출의 같은 몸 기록이 충돌한다')}
  const seen=new WeakSet<object>(),visit=(v:unknown,path:string)=>{
   if(typeof v==='string'){if(aliases.has(v))errors.push(path+': 지원하지 않는 원래 상태 ID 참조의 이행이 필요하다');return}
   if(!v||typeof v!=='object'||seen.has(v))return;seen.add(v)
