@@ -1,0 +1,236 @@
+{
+  "checkedAtKST": "2026-10-31T00:22:29.507400+09:00",
+  "status": "v0.407-dev development preview published and public Title/start/real wait visually verified. v1.0.0 and remaining X1-X4/English/human gates stay open.",
+  "previewVersion": "0.407-dev",
+  "saveVersion": 220,
+  "publication": {
+    "localCommit": "950bbba21e3cfc3e73c22c5712ee527af8de8d55",
+    "remoteCommit": "3f1589aff145c1a3b96c656586eddb53ecfe3a03",
+    "tree": "e2ca378fc6cf2015c23a7dfe3ac81131008d7e92",
+    "previousHead": "7c11ce496eceffc4f6df9b02f8d5a61fbd7a4310",
+    "repository": "RoastFried-RF/ashveil",
+    "mainRefUpdated": true,
+    "method": "GitHub connector blob/tree/commit and expected-head non-force main update; published tree exactly equals the reviewed local Git tree. Local Git history retained.",
+    "codeURL": "https://github.com/RoastFried-RF/ashveil/commit/3f1589aff145c1a3b96c656586eddb53ecfe3a03"
+  },
+  "localEvidence": "docs/pc-harness-v407-proof.json",
+  "localEvidenceSHA256": "e3ae600a6d824e02894168b2dd699ecd380fddcfca68d8c0f7af47ab866a50e7",
+  "sourceManifestSHA256": "4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad",
+  "CI": {
+    "summary": {
+      "files": 418,
+      "tests": 6806,
+      "durationSeconds": 1358.39,
+      "jobId": 124123554174,
+      "workflowRunId": 41073532303,
+      "sourceCommit": "3f1589aff145c1a3b96c656586eddb53ecfe3a03"
+    },
+    "run": {
+      "id": 41073532303,
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "3f1589aff145c1a3b96c656586eddb53ecfe3a03",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41073532303",
+      "created_at": "2026-10-30T14:39:23Z",
+      "updated_at": "2026-10-30T15:04:41Z"
+    },
+    "jobs": [
+      {
+        "id": 124123554174,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-30T14:39:26Z",
+        "completed_at": "2026-10-30T15:04:08Z",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41073532303/job/124123554174",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run pnpm lint",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run pnpm validate-defs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run pnpm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run pnpm validate-sprites",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run pnpm build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run actions/upload-pages-artifact@v3",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          }
+        ]
+      },
+      {
+        "id": 124136656406,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-30T15:04:15Z",
+        "completed_at": "2026-10-30T15:04:41Z",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41073532303/job/124136656406",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/configure-pages@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Publish playable preview",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          }
+        ]
+      }
+    ],
+    "normalizedLocalLog": "test-results/windows/v407-ci-build.log",
+    "normalizedLocalLogSHA256": "1acfd4c466bd7234dd1044da959ebf4e150346aa5db92abc3092e2237d8dc216"
+  },
+  "public": {
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v407=3f1589aff145c1a3b96c656586eddb53ecfe3a03",
+    "sourceCommit": "3f1589aff145c1a3b96c656586eddb53ecfe3a03",
+    "httpStatus": 200,
+    "previewVersion": "0.407-dev",
+    "publicContentHash": "sha256-1752ffb366526200a7c04c34cecb56ffce383ac430481fab9efab8741b39fa24",
+    "expectedContentHash": "sha256-1752ffb366526200a7c04c34cecb56ffce383ac430481fab9efab8741b39fa24",
+    "realTitleStartAndWait": true,
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "471ed4143cb788946641cff1b77f64ae717aeb569d326bc522f1add10a79ad91",
+    "localIndexSha256": "b9ddaf312b6aec6e529e24aee6fa7074951a6d3c59dca3902cab4351f70e35d7",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-D8YXZd64.js"
+    ],
+    "audit": "test-results/windows/v407-public-2/tasks/public/public/audit.json",
+    "auditSHA256": "92a198de8ff87448b33a2aee7a4722ef82f136af876516101c7092ffa05c3d19",
+    "matchesCIBuildEntryScript": true,
+    "CIBuildEntryScripts": [
+      "index-D8YXZd64.js"
+    ],
+    "pngActuallyReviewed": [
+      {
+        "path": "test-results/windows/v407-public-2/tasks/public/public/public-title.png",
+        "sha256": "42c1be7e2fd62c0a5bc919542ddae51c1214d57bda51c078195d7a81a4b9ce8f"
+      },
+      {
+        "path": "test-results/windows/v407-public-2/tasks/public/public/public-world.png",
+        "sha256": "b0f1b2cc1ee70132733aa13a4b767867271d27668126bdb534f1602ba8838ded"
+      }
+    ],
+    "pngActuallyReviewedCount": 2,
+    "scope": "Real public Title/start/one-turn wait and visible read-only observation. Live content hash matches final Native data. Local build HTML differs across build environments; public entry script matches the successful CI artifact log. No independent public persistence certification or human play claim."
+  },
+  "PCCheckout": {
+    "files": 4259,
+    "onlyCRLFtoLFFilesNormalized": 3791,
+    "sourceManifestSha256": "4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad",
+    "wholeSourceMatchesTestedCheckout": true,
+    "gitClean": true,
+    "indexTree": "e2ca378fc6cf2015c23a7dfe3ac81131008d7e92",
+    "scope": "Fast-forwarded to reviewed source; changed only CRLF to LF in the audited paths. Refreshed the index without staged content changes; source and reviewed Git tree remain exact."
+  },
+  "preservedPublicProbeFailure": {
+    "path": "test-results/windows/v407-public-1",
+    "scope": "Version/content loaded, then a premature wait input timed out. Probe omitted map readiness and existing software-rendering flags. Second probe uses actual map ready signal and succeeds; no product code change."
+  },
+  "remaining": [
+    "Natural renewable ash supply/pilgrim workshops",
+    "Other X1-X4 implementation and T1-T11/endings/reports",
+    "Complete English UI/logs/literature",
+    "Final1000 expeditions, performance/minimum-hardware and actual human release gates"
+  ]
+}

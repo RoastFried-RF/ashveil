@@ -1,10 +1,10 @@
 # ASHVEIL (애쉬베일)
 
-이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 개발/검증 하네스](docs/windows-development.md) · [장비 상세](docs/localization-v405.md) · [기본 물품 상세](docs/localization-v406.md) · [실제 재떡과 몸별 장기 노출](docs/ash-cake-v407.md). 최종13단계·Full418파일6,806검사와 Native84전체 상태 쌍/오류0을 통과했다. 대표9PNG와 고정 소스4,259파일의 SHA 일치를 확인했다. 검증 입력 교정 전의 같은 게임 규칙에서 Native219쌍·기본/월드 각30판을 완료했고, 수정본으로 원래 각인152개를 그대로 왕복했다. [v407 영수증](docs/pc-harness-v407-proof.json). 아래 공개 버전과 별도로 추적한다.
+이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 개발/검증 하네스](docs/windows-development.md) · [장비 상세](docs/localization-v405.md) · [기본 물품 상세](docs/localization-v406.md) · [실제 재떡과 몸별 장기 노출](docs/ash-cake-v407.md). 최종13단계·Full418파일6,806검사와 Native84전체 상태 쌍/오류0을 통과했다. 대표9PNG와 고정 소스4,259파일의 SHA 일치를 확인했다. 검증 입력 교정 전의 같은 게임 규칙에서 Native219쌍·기본/월드 각30판을 완료했고, 수정본으로 원래 각인152개를 그대로 왕복했다. [v407 영수증](docs/pc-harness-v407-proof.json). 이 소스로 공개 개발 미리보기를 갱신했다.
 
-현재 작업: [v404 저장 지점·콘텐츠 복원 검토의 영어 표시](docs/localization-v404.md) · [검증·게시 근거](docs/release-v404-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
+현재 작업: [v407 실제 재떡·몸별 장기 노출](docs/ash-cake-v407.md) · [검증·게시 근거](docs/release-v407-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
 
-현재 공개 개발 미리보기는 **v0.404-dev · 저장219**이다. 선택형 영어 표시 기반에 HUD/캐릭터/능력·공개 물품 이름/검색·저장 지점과 모드/시드 검토를 연결했다. 최종72전체 상태 쌍·67PNG 검토와 Pages 전체 회귀/배포·공개 진입 일치는 [검증 기록](docs/release-v404-proof.json)을 따른다. 물품 상세/다른 창·동적 로그/문헌/보고서의 영어와 전체 v1/X1–X4·출시/사람 평가 게이트는 남아 있다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 공개 개발 미리보기는 **v0.407-dev · 저장220**이다. 기본 물품 상세의 영어 표시, 유한 재떡 제작/섭취·같은 몸의 실제 기간/위험·폐 부담과 저장 입력 검증을 연결했다. GitHub 전체6,806검사·Pages 배포와 공개 시작/대기 입력·콘텐츠 일치는 [게시 기록](docs/release-v407-proof.json)을 따른다. 자연 장기 공급과 나머지 창·동적 로그/문헌의 영어, X1–X4·최종 출시/사람 게이트는 남아 있다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 
