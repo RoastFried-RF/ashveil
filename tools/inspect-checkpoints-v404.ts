@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict'
 import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
 import {join} from 'node:path'
+import {isDeepStrictEqual} from 'node:util'
 import {chromium,type Page} from 'playwright-core'
 import {startNativePreview} from './native-preview'
 import {loadDb} from './loadContent'
@@ -23,11 +24,11 @@ try{
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())})
   let w:World={db,s:newGame(db,{seed:'ashveil-checkpoints-v404',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,overworld:true,saveMode:'SaveMode.Study',legacyResidents:[]})};runUntilInput(w)
-  async function compare(label:string,capture=true){
-   await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
+  async function compare(label:string,capture=true,onTitle=false){
+   if(!onTitle)await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
    await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending&&s.fx.length===0})
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
-   assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s)),label)
+   assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)
    rows.push({label,width,height,time:actual.time,hash:stateHash(actual)})
    if(capture)await page.screenshot({path:join(out,width+'-'+label+'.png')})
@@ -42,10 +43,10 @@ try{
    assert.match(await page.getByTestId('checkpoint-dialog').getAttribute('aria-label')??'',/^Restore checkpoint$/)
    assert.doesNotMatch(await page.getByTestId('content-change-review').innerText(),/[가-힣]/)
    if(fromTitle){
-    assert.equal(await page.evaluate(()=>(window as unknown as Hook).__ashveil.world()),null)
-    assert.ok(imprintBefore);assert.equal(await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1')),imprintBefore)
-    titleReviews.push({label:label+'-review',width,height,world:null,imprintHash:stateHash(deserialize(imprintBefore))})
-    await page.screenshot({path:join(out,width+'-'+label+'-review.png')})
+    // Returning to Title suspends the existing World; it does not clear store.world.
+    await compare(label+'-review',true,true)
+    assert.ok(imprintBefore);assert.ok(await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1'))===imprintBefore,'Title review changed the existing imprint')
+    titleReviews.push({label:label+'-review',width,height,suspendedWorldHash:stateHash(w.s),imprintHash:stateHash(deserialize(imprintBefore))})
    }else await compare(label+'-review')
    await page.getByTestId('content-change-accept').click();await page.getByTestId('checkpoint-dialog').waitFor({state:'detached'});w={db:w.db,s:deserialize(raw)}
    await compare(label+'-restored')
