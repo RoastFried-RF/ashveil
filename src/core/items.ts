@@ -71,6 +71,7 @@ export function canStack(a: ItemInst, b: ItemInst): boolean {
   if(a.contents||b.contents)return false
   if(a.missingItem||b.missingItem||a.def===MISSING_ITEM||b.def===MISSING_ITEM)return false
   if(JSON.stringify(a.cropHarvest)!==JSON.stringify(b.cropHarvest))return false
+  if(JSON.stringify(a.workshopMade)!==JSON.stringify(b.workshopMade))return false
   if(a.contaminantAsh!==b.contaminantAsh||a.foodSaltGrams!==b.foodSaltGrams||a.foodHeatedAt!==b.foodHeatedAt)return false
   if (a.pillRemaining !== undefined || b.pillRemaining !== undefined) return false
   if (!!a.waterFrozen !== !!b.waterFrozen) return false

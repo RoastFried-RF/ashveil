@@ -1,4 +1,5 @@
 import {markDormantCultivation,settleDormantCultivation} from './cultivation-dormant'
+import {settleAshDeposits,refreshAshExposure}from'./ash-deposits'
 import {recordOrderedDeparture} from './social-replies'
 import {worldSurveyError} from './world-observations'
 import {plantPines} from './pines'
@@ -79,6 +80,7 @@ function wilderness(w: World, name: string, site?: WorldSite,scriptPreview=false
   return { map, start: { x: 32, y: 46 }, spawns }
 }
 function saveScene(w: World,party:Creature[]=[]): RegionScene {
+  settleAshDeposits(w);refreshAshExposure(w)
   packCaravans(w,party)
   packWorldRaids(w,party)
   const s = w.s, p = player(w)
@@ -158,7 +160,8 @@ export function enterRegion(w: World, populate: (w: World, gen: GenResult) => Cr
   }
   initializeFieldDevices(w)
   applySettlementChanges(w)
-  initializeSettlement(w)
+  initializeSettlement(w,!stored)
+  settleAshDeposits(w);refreshAshExposure(w)
   settlementVisit(w, site.id)
   kinshipEntry(w,site.id)
   const layout=w.s.map.layout&&w.db.get<RegionLayoutDef>(w.s.map.layout)

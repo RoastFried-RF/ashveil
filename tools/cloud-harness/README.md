@@ -1,5 +1,7 @@
 # ASHVEIL cloud harness
 
+`--ash-supply` adds v408 harvesting/material trade/fire/food and original resident workshop Native checks in three viewports, then a separate heavy finite-stock demand cohort. `--balance` follows these with the existing default/world 30-seed runs. See [scope and declared fixture boundaries](../../docs/ash-supply-v408.md).
+
 Python standard-library runner for trusted internal task plans. It uses argv arrays with `shell=False`, inherits the current environment without changing it, and never reads or records credentials/environment values. The runner is versioned here so it can be recovered with the repository. No additional package installation is required.
 
 Windows uses the same plans/queue with OS byte locks under `%LOCALAPPDATA%/ASHVEIL/harness/locks` and suspended-child Job Objects for owned tree cleanup. See [Windows setup and checks](../../docs/windows-development.md). `python tools/cloud-harness/verify-windows.py -v` exercises the actual Windows contracts; the POSIX-only `verify.py` remains separate. `--pnpm` also accepts an installed `.cjs`/`.js` entry, executed with Node without a shell. Windows Chrome/Edge metadata is read without opening a GUI; actual browser input remains a separate heavy check.

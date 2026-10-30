@@ -13,6 +13,7 @@ import {addToBag,removeOne} from './items'
 import {diagonalBlocked} from './path'
 import {residentFoodKcal,residentProvisionDef} from './resident-provisions'
 import {residentCultivationShop,residentShopApproach} from './resident-produce'
+import {residentWorkshopRecipe}from'./resident-workshop-state'
 import {unheatedMealQuote} from './unheated-meal'
 import {isWaterVessel} from './water-vessels'
 import {suitableDrink} from './water-state'
@@ -21,12 +22,14 @@ import type {Action} from './actions'
 import type {Creature,ItemInst,RecipeDef} from './types'
 
 export const residentCookingRules=(w:World)=>residentProvisionDef(w)?.cooking
-function available(w:World,c:Creature){
+export function residentCookingAvailable(w:World,c:Creature){
  const d=residentCookingRules(w)
  return !!d&&c.id!==w.s.playerId&&w.s.map.kind==='surface'&&w.s.creatures.includes(c)&&(!c.mapId||c.mapId===w.s.map.id)&&!!c.residentSite&&c.residentSite===w.s.overworld?.currentRegion&&!!c.home&&inBounds(w,c.home)&&inBounds(w,c.pos)&&!c.body.machine&&w.db.body(c.body.def).kind==='humanoid'&&d.roles.includes(w.db.creature(c.def).ai)&&c.alive&&!c.activity&&!c.workJob&&!c.asleep&&!c.unconscious&&!c.captivity&&!c.companion&&!c.rescue&&!c.breakdown&&!c.roadRaid&&!c.caravan&&!c.abduction&&!activeEscort(w,c)&&!c.ai.task&&!c.ai.route?.length&&!c.ai.target&&!['hunt','flee','surrender','patrol','return'].includes(c.ai.mode)&&capacity(w,c,'consciousness')>=.5&&capacity(w,c,'manipulation')>=.2&&capacity(w,c,'moving')>=.2&&capacity(w,c,'sight')>=.2&&totalBleed(w,c)<=0&&c.needs.fatigue<80&&c.needs.waterDeficit<500&&c.needs.bodyTemp>=35&&c.needs.bodyTemp<=39&&!hostileAware(w,c)
 }
-function recipe(w:World,c:Creature){
+const available=residentCookingAvailable
+function recipe(w:World,c:Creature,production=false){
  const d=residentCookingRules(w)
+ if(production){const r=residentWorkshopRecipe(w,c);return r&&bindInputs(c,r.inputs.filter(i=>i.item!==r.boiledMeal!.vessel))?r:undefined}
  if(!d||c.needs.kcal>=d.prepareBelowKcal||residentFoodKcal(w,c)>0)return
  return d.recipes.map(id=>w.db.get<RecipeDef>(id)).find(r=>!!bindInputs(c,r.inputs.filter(i=>i.item!==r.boiledMeal!.vessel))&&(!r.minAttr||Object.entries(r.minAttr).every(([k,v])=>c.stats[k as keyof Creature['stats']]>=v)))
 }
@@ -42,7 +45,7 @@ function missingSupply(w:World,c:Creature,r:RecipeDef){
  if(!c.bag.some(i=>i.def===fire.fuel&&i.count>0)&&(!ownedFire(w,c)||fireTurnsLeft(w,ownedFire(w,c)!.light.pos)<r.workTurns+1))return fire.fuel
 }
 function supplyGoal(w:World,c:Creature){
- const rule=residentCookingRules(w),r=recipe(w,c)
+ const rule=residentCookingRules(w),r=recipe(w,c)??recipe(w,c,true)
  if(!rule||!available(w,c)||!r||(c.residentCookingSupplyAfter??0)>turnOf(w))return
  const missing=missingSupply(w,c,r);if(!missing)return
  const goal=residentCultivationShop(w,c)
@@ -54,7 +57,7 @@ function approach(w:World,c:Creature,pos:Pos,action:Action):Decision{
  if(cheb(c.pos,pos)<=1&&!diagonalBlocked(w,c.pos,pos.x-c.pos.x,pos.y-c.pos.y)&&canSee(w,c,pos)&&hasLos(w,c.pos,pos))return{action}
  return{goal:pos}
 }
-export function residentCookingDecision(w:World,c:Creature):Decision|null{
+export function residentCookingDecision(w:World,c:Creature,production=false):Decision|null{
  if(!available(w,c))return null
  // 자기가 올린 음식 위치는 기억한다. 현재 진행은 실제 보이는 곁에서만 확인한다.
  const batch=w.s.map.cooking?.find(b=>b.crafter===c.id)
@@ -64,7 +67,7 @@ export function residentCookingDecision(w:World,c:Creature):Decision|null{
   if(status.ready||!status.hot||status.reason)return{action:{type:'takeCooking',uid:batch.item.uid}}
   return{action:{type:'wait'}}
  }
- const r=recipe(w,c);if(!r)return null
+ const r=recipe(w,c,production);if(!r)return null
  const rule=residentCookingRules(w)!,spec=r.boiledMeal!,fire=ownedFire(w,c)
  const missing=missingSupply(w,c,r)
  if(missing){
@@ -98,7 +101,7 @@ export function residentCookingDecision(w:World,c:Creature):Decision|null{
   const wood=c.bag.find(i=>i.def===campfireDef(w).fuel&&i.count>0)
   return wood&&!fireWorkQuote(w,c,fire.light.pos,wood.uid).error?{action:{type:'fireWork',pos:fire.light.pos,uid:wood.uid}}:null
  }
- return unheatedMealQuote(w,c,r.id).error?null:{action:{type:'prepareUnheatedMeal',id:r.id}}
+ return spec.unheated?(unheatedMealQuote(w,c,r.id).error?null:{action:{type:'prepareUnheatedMeal',id:r.id}}):{action:{type:'craft',id:r.id}}
 }
 export function residentCookingSupplyQuote(w:World,c:Creature,trader:Creature){
  const goal=supplyGoal(w,c),out={error:null as string|null,checked:false,goal,item:undefined as ItemInst|undefined,price:0,balance:0}

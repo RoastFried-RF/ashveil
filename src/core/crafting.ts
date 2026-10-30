@@ -99,10 +99,10 @@ function consumeInputs(c: Creature, inputs: WorkJob['inputs'],debits?:ScriptItem
   }
   c.bag = c.bag.filter((it) => it.count > 0)
 }
-function receive(w: World, c: Creature, id: string, count: number, quality?: number, uses?: number, foodQ?: number, freshness?: number, foodState?: Pick<ItemInst, 'foodThawed' | 'foodWet' | 'foodLeftover' | 'foodBurnt'>, water?: WaterQuality,stuff?:Stuff,contaminantAsh?:number,originalVessel?:ItemInst,foodWater?:ItemInst['foodWater'],cropHarvest?:ItemInst['cropHarvest'],cartridge?:{case:ItemInst;wetness:number}) {
+function receive(w: World, c: Creature, id: string, count: number, quality?: number, uses?: number, foodQ?: number, freshness?: number, foodState?: Pick<ItemInst, 'foodThawed' | 'foodWet' | 'foodLeftover' | 'foodBurnt'>, water?: WaterQuality,stuff?:Stuff,contaminantAsh?:number,originalVessel?:ItemInst,foodWater?:ItemInst['foodWater'],cropHarvest?:ItemInst['cropHarvest'],cartridge?:{case:ItemInst;wetness:number},workshopMade?:ItemInst['workshopMade']) {
   const it = originalVessel?structuredClone(originalVessel):cartridge?structuredClone(cartridge.case):makeItem(w, id, count)
   if(cartridge){if(cartridge.case.count>1)it.uid=w.s.nextId++;it.def=id;it.count=count;it.powderWetness=cartridge.wetness;it.gearAgedAt=turnOf(w);delete it.gx;delete it.gy;delete it.rot}
-  if(originalVessel){it.foodVesselDef=it.def;it.def=id;it.count=count;delete it.gx;delete it.gy;delete it.rot;it.uses=w.db.item(id).food?.servings;it.foodSealed=true;delete it.contaminantAsh;delete it.foodWater;delete it.cropHarvest}
+  if(originalVessel){it.foodVesselDef=it.def;it.def=id;it.count=count;delete it.gx;delete it.gy;delete it.rot;it.uses=w.db.item(id).food?.servings;it.foodSealed=true;delete it.contaminantAsh;delete it.foodWater;delete it.cropHarvest;delete it.workshopMade}
   if(stuff)it.stuff=structuredClone(stuff)
   if(cropHarvest)it.cropHarvest=structuredClone(cropHarvest)
   if(foodWater)it.foodWater=structuredClone(foodWater)
@@ -112,6 +112,7 @@ function receive(w: World, c: Creature, id: string, count: number, quality?: num
   if (foodQ !== undefined && itemDef(w, it).food) it.foodQ = foodQ
   if (freshness !== undefined && itemDef(w, it).food) { it.freshness = freshness;if(foodState){it.foodThawed=foodState.foodThawed;it.foodWet=foodState.foodWet;it.foodLeftover=foodState.foodLeftover;it.foodBurnt=foodState.foodBurnt} }
   if (uses !== undefined && itemDef(w, it).drink) it.uses = uses
+  if(workshopMade)it.workshopMade=workshopMade
   const left = addToBag(w, c, it)
   if (left) tileAt(w, c.pos).items.push({ ...it, uid:c.bag.some(x=>x.uid===it.uid)?w.s.nextId++:it.uid, count: left, gx: undefined, gy: undefined, rot: undefined })
   return it
@@ -265,8 +266,9 @@ function workStepCore(w: World, c: Creature,debits?:ScriptItemDebit[]): boolean 
       batches.push({ id: w.s.nextId++, recipe: r.id, readyAt: turnOf(w) + r.passiveTurns, pos: { ...c.pos }, quality, crafter: c.id, freshness,...(processing?{processing,foodQ:q}:{}), ...foodState,...(contaminantAsh?{contaminantAsh}:{}),...(foodWater?{foodWater}:{}),...(job.materialPlan?{stuff:structuredClone(job.materialPlan.stuff)}:{}) })
       log(w,'info',r.label+' 재료를 준비했다. '+(r.preservation?'실제 불과 바람·날씨가 맞는 동안 가공한다. 제작 창에서 진행과 중단 이유를 확인할 수 있다.':(r.passiveTurns/1200).toFixed(1)+'시간 뒤 작업장 곁에서 회수할 수 있다.'))
     } else {
-      const out = receive(w, c, r.output.item, r.output.count, quality, liquid, q, freshness, foodState, liquidQuality,job.materialPlan?.stuff,contaminantAsh,meal?.vessel,foodWater,undefined,cartridge)
+      const out = receive(w, c, r.output.item, r.output.count, quality, liquid, q, freshness, foodState, liquidQuality,job.materialPlan?.stuff,contaminantAsh,meal?.vessel,foodWater,undefined,cartridge,job.residentWorkshop?.recipe===r.id?{worker:c.id,site:job.residentWorkshop.site,recipe:r.id,def:r.output.item,at:turnOf(w)}:undefined)
       if(meal){out.foodHeatedAt=turnOf(w);out.foodSaltGrams=meal.salt;delete out.foodSealed;out.foodAgedAt=turnOf(w)}
+      if(job.residentWorkshop?.recipe===r.id)delete c.residentWorkshopOrder
       if (r.mastery) practice(w, c, r.mastery, `craft:${out.uid}`)
       if(r.interaction)completeInteraction(w,c,r.interaction,r.label+' 실제 완료')
       runScriptHooks(w,'onItemCrafted',{ownerId:c.id,recipe:r.id,item:out.def,uid:out.uid,count:r.output.count})
@@ -304,7 +306,7 @@ function workStepCore(w: World, c: Creature,debits?:ScriptItemDebit[]): boolean 
 export function nearbyGather(w: World, c: Creature) {
   const out: { x: number; y: number }[] = []
   for (let y = c.pos.y - 1; y <= c.pos.y + 1; y++) for (let x = c.pos.x - 1; x <= c.pos.x + 1; x++) {
-    if (x >= 0 && y >= 0 && x < w.s.map.w && y < w.s.map.h && terrainAt(w, { x, y }).gather && !cultivationHarvestError(w,{x,y}) && !gatherFireError(w,{x,y}) && !gatherSeasonError(w,terrainAt(w,{x,y})) && (!terrainAt(w,{x,y}).gather!.soilDependent||towerSoilFertility(w)>0) && (tileAt(w, { x, y }).gatherAt ?? 0) <= turnOf(w) && hasLos(w, c.pos, { x, y })&&!diagonalBlocked(w,c.pos,x-c.pos.x,y-c.pos.y)) out.push({ x, y })
+    if (x >= 0 && y >= 0 && x < w.s.map.w && y < w.s.map.h && terrainAt(w, { x, y }).gather && gatherStockCount(w,{x,y})>0 && !cultivationHarvestError(w,{x,y}) && !gatherFireError(w,{x,y}) && !gatherSeasonError(w,terrainAt(w,{x,y})) && (!terrainAt(w,{x,y}).gather!.soilDependent||towerSoilFertility(w)>0) && (tileAt(w, { x, y }).gatherAt ?? 0) <= turnOf(w) && hasLos(w, c.pos, { x, y })&&!diagonalBlocked(w,c.pos,x-c.pos.x,y-c.pos.y)) out.push({ x, y })
   }
   return out
 }
@@ -312,7 +314,7 @@ export function startGather(w: World, c: Creature, p: { x: number; y: number }, 
   if (cheb(p, c.pos) > 1 || !nearbyGather(w, c).some((o) => o.x === p.x && o.y === p.y)) return '지금 채집할 수 없는 곳이다'
   const def = terrainAt(w, p).gather!
   if (!Number.isFinite(factor) || factor > 4) return '몸 상태 때문에 작업할 수 없다'
-  c.activity = { kind: 'gather', target: p, woundCount:c.body.wounds.length, remaining: Math.max(1, Math.ceil(def.turns * factor)), gatherRule:def.seasons?.length?gatherSignature(w,p):undefined,label: `${w.db.item(def.item).label} 채집` }
+  c.activity = { kind: 'gather', target: p, woundCount:c.body.wounds.length, remaining: Math.max(1, Math.ceil(def.turns * factor)), gatherRule:def.seasons?.length||def.ashDeposit?gatherSignature(w,p):undefined,label: `${w.db.item(def.item).label} 채집` }
   return null
 }
 export function finishGather(w: World, c: Creature) {
@@ -322,7 +324,7 @@ export function finishGather(w: World, c: Creature) {
   if (!def || cultivationHarvestError(w,p) || gatherFireError(w,p) || gatherSeasonError(w,terrainAt(w,p)) || (tileAt(w, p).gatherAt ?? 0) > turnOf(w)) return
   const fertility=def.soilDependent?towerSoilFertility(w):1
   if(fertility<=0)return
-  const count=gatherStockCount(w,p);if(count<1)return
+  const count=Math.min(def.count,gatherStockCount(w,p));if(count<1)return
   if(c.activity?.animalForage){finishAnimalBrowse(w,c,p,fertility);return}
   dirtyHands(w, c)
   // 직접 먹지 않는 실제 재배 곡물도 관수에서 옮은 오염을 조리 재료까지 보존한다.

@@ -7,6 +7,9 @@
   "items": {
     "anyOf": [
       {
+        "$ref": "#/$defs/AshDepositDef"
+      },
+      {
         "$ref": "#/$defs/SwarmDef"
       },
       {
@@ -315,6 +318,469 @@
     ]
   },
   "$defs": {
+    "AshDepositDef": {
+      "type": "object",
+      "allOf": [
+        {
+          "if": {
+            "anyOf": [
+              {
+                "required": [
+                  "parent"
+                ]
+              },
+              {
+                "required": [
+                  "abstract"
+                ],
+                "properties": {
+                  "abstract": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "id",
+              "defType"
+            ],
+            "properties": {
+              "defType": {
+                "const": "AshDeposit"
+              },
+              "label": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "terrain": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ground": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "initial": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "capacity": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "unitsPerDayAt100": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "placements": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "site": {
+                              "type": "string"
+                            },
+                            "map": {
+                              "type": "string"
+                            },
+                            "pos": {
+                              "type": "array",
+                              "prefixItems": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "number"
+                                }
+                              ],
+                              "minItems": 2,
+                              "maxItems": 2
+                            }
+                          },
+                          "required": [
+                            "site",
+                            "map",
+                            "pos"
+                          ]
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "site": {
+                                  "type": "string"
+                                },
+                                "map": {
+                                  "type": "string"
+                                },
+                                "pos": {
+                                  "type": "array",
+                                  "prefixItems": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "number"
+                                    }
+                                  ],
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "required": [
+                                "site",
+                                "map",
+                                "pos"
+                              ]
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "site": {
+                                  "type": "string"
+                                },
+                                "map": {
+                                  "type": "string"
+                                },
+                                "pos": {
+                                  "type": "array",
+                                  "prefixItems": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "number"
+                                    }
+                                  ],
+                                  "minItems": 2,
+                                  "maxItems": 2
+                                }
+                              },
+                              "required": [
+                                "site",
+                                "map",
+                                "pos"
+                              ]
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "site": {
+                                      "type": "string"
+                                    },
+                                    "map": {
+                                      "type": "string"
+                                    },
+                                    "pos": {
+                                      "type": "array",
+                                      "prefixItems": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ],
+                                      "minItems": 2,
+                                      "maxItems": 2
+                                    }
+                                  },
+                                  "required": [
+                                    "site",
+                                    "map",
+                                    "pos"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "required": [
+              "defType",
+              "label",
+              "source",
+              "terrain",
+              "ground",
+              "initial",
+              "capacity",
+              "unitsPerDayAt100",
+              "placements",
+              "id"
+            ],
+            "properties": {
+              "defType": {
+                "const": "AshDeposit"
+              },
+              "label": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "terrain": {
+                "type": "string"
+              },
+              "ground": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "initial": {
+                "type": "number"
+              },
+              "capacity": {
+                "type": "number"
+              },
+              "unitsPerDayAt100": {
+                "type": "number"
+              },
+              "placements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "site": {
+                      "type": "string"
+                    },
+                    "map": {
+                      "type": "string"
+                    },
+                    "pos": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "minItems": 2,
+                      "maxItems": 2
+                    }
+                  },
+                  "required": [
+                    "site",
+                    "map",
+                    "pos"
+                  ]
+                }
+              },
+              "id": {
+                "type": "string"
+              },
+              "parent": {
+                "type": "string"
+              },
+              "abstract": {
+                "type": "boolean"
+              },
+              "override": {
+                "type": "boolean"
+              },
+              "description": {
+                "type": "string"
+              },
+              "_mod": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    },
     "SwarmDef": {
       "type": "object",
       "allOf": [
@@ -25288,6 +25754,16 @@
                           }
                         ]
                       },
+                      "ashDeposit": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
                       "$inherit": {
                         "const": false
                       }
@@ -25936,6 +26412,9 @@
                   },
                   "soilDependent": {
                     "type": "boolean"
+                  },
+                  "ashDeposit": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -53503,6 +53982,81 @@
                   }
                 ]
               },
+              "workshop": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "faction": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "recipe": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "gather": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "targetStock": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reserveKcal": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "retryTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "id": {
                 "type": "string"
               },
@@ -53625,6 +54179,37 @@
                   "reserveWaterMl",
                   "reserveMoney",
                   "maxUnitPrice",
+                  "retryTurns"
+                ]
+              },
+              "workshop": {
+                "type": "object",
+                "properties": {
+                  "faction": {
+                    "type": "string"
+                  },
+                  "recipe": {
+                    "type": "string"
+                  },
+                  "gather": {
+                    "type": "string"
+                  },
+                  "targetStock": {
+                    "type": "number"
+                  },
+                  "reserveKcal": {
+                    "type": "number"
+                  },
+                  "retryTurns": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "faction",
+                  "recipe",
+                  "gather",
+                  "targetStock",
+                  "reserveKcal",
                   "retryTurns"
                 ]
               },

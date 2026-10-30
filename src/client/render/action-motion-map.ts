@@ -190,6 +190,7 @@ export const actionMotions={
  "rescueWater":"use",
  "residentCookingCheck":"interact",
  "residentCookingSupply":"interact",
+ "residentWorkshop":"interact",
  "residentCropSupply":"interact",
  "residentFuel":"interact",
  "residentPlotCheck":"interact",

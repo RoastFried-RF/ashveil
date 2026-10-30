@@ -3,6 +3,7 @@ import {calendar} from './climate-state'
 import {resetCultivation} from './cultivation'
 import {terrainAt,tileAt,turnOf,type World} from './ctx'
 import {gatherSignature} from './gather-state'
+import {ashDepositCount,takeAshDeposit}from'./ash-deposits'
 import type {Pos} from './geom'
 
 function seasonWindow(w:World,p:Pos){const def=terrainAt(w,p);if(!def.gather?.seasons?.length)return;const c=calendar(w);return c.year+':'+c.season.id}
@@ -12,9 +13,10 @@ function matchingStock(w:World,p:Pos){
  if(stock.regrowAt!==undefined&&stock.regrowAt<=turnOf(w))return
  return stock
 }
-export function gatherStockCount(w:World,p:Pos){return matchingStock(w,p)?.remaining??terrainAt(w,p).gather?.count??0}
+export function gatherStockCount(w:World,p:Pos){return terrainAt(w,p).gather?.ashDeposit?ashDepositCount(w,p):matchingStock(w,p)?.remaining??terrainAt(w,p).gather?.count??0}
 /** Caller has completed the real gather work and validated season/fire/growth. */
 export function takeGatherStock(w:World,p:Pos,count:number,regrowTurns:number){
+ if(terrainAt(w,p).gather?.ashDeposit)return takeAshDeposit(w,p,count)
  const tile=tileAt(w,p),available=gatherStockCount(w,p),taken=Math.max(0,Math.min(available,Math.floor(count))),left=available-taken
  if(!taken)return 0
  if(tile.cultivation){

@@ -1,4 +1,5 @@
 import {initializeNpcIdentity} from './npc-identity'
+import {initializeAshDeposits}from'./ash-deposits'
 import { initializeResidentPersonality } from './companion-bonds'
 import {registerResidentSource} from './population-sources'
 import { initializeLegacyResidents } from './legacy-residents'
@@ -20,7 +21,8 @@ import { initializeResidentRest } from './resident-rest'
 import { initializeResidentProvisions } from './resident-provisions'
 import { initializeResidentWater } from './resident-water'
 import { initializeResidentPurification } from './resident-purification'
-export function initializeSettlement(w: World) {
+export function initializeSettlement(w: World,freshAsh=false) {
+  initializeAshDeposits(w,freshAsh)
   const m = w.s.overworld, site = m?.sites.find((s) => s.id === m.currentRegion)
   if (!site || site.kind !== 'settlement' || !site.faction) return
   const layout=w.db.tryGet<RegionSiteDef>(site.id)?.layout

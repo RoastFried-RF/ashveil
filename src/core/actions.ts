@@ -72,6 +72,9 @@ import {worsenFractures} from './fracture-strain'
 import {exposeDisease} from './conditions'
 import {diseaseStream} from './disease-state'
 import {gatherSignature,gatherSeasonError,gatherFireError} from './gather-state'
+import {settleAshDeposits,refreshAshExposure}from'./ash-deposits'
+import {performResidentWorkshop}from'./resident-workshop'
+import {residentWorkshopCraftMarker}from'./resident-workshop-state'
 import {warmMealGain} from './boiled-meal'
 import {startBrew,brewStep,cancelBrew} from './brewing'
 import {startNeedles,needlesStep} from './pines'
@@ -241,6 +244,7 @@ export type Action =
   | { type:'residentCropSupply';target:number }
   | { type:'residentProduce';target:number }
   | { type:'residentCookingSupply';target:number }
+  | { type:'residentWorkshop';operation:'plan'|'supply'|'offer'|'defer'|'cancel'|'provision' }
   | { type:'residentCookingCheck' }
   | { type:'giveResidentSeed';target:number;uid:number }
   | { type: 'residentPlotCheck' }
@@ -640,10 +644,11 @@ function lootRemove(w: World, uid: number): ItemInst | undefined {
 }
 
 export function perform(w: World, c: Creature, a: Action): ActResult {
+  settleAshDeposits(w)
   const observation=beginActionObservation(w,c,a)
   let success=false
   try{const result=performAction(w,c,a);success=result.ok;return result}
-  finally{finishActionObservation(observation,success)}
+  finally{refreshAshExposure(w);finishActionObservation(observation,success)}
 }
 
 function performAction(w: World, c: Creature, a: Action): ActResult {
@@ -722,6 +727,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'residentCropSupply':{const target=creatureById(w,a.target);const error=target?obtainResidentCropSupply(w,c,target):'재배 재료를 구할 실제 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'residentProduce':{const target=creatureById(w,a.target);const error=target?offerResidentProduce(w,c,target):'수확물을 옮길 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'residentCookingSupply':{const target=creatureById(w,a.target);const error=target?obtainResidentCookingSupply(w,c,target):'조리 물품을 구할 상인이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
+    case 'residentWorkshop':{const error=performResidentWorkshop(w,c,a.operation);return error?FAIL(error):{ok:true,tu:100}}
     case 'residentCookingCheck':{const error=checkResidentCookingFire(w,c);return error?FAIL(error):{ok:true,tu:100}}
     case 'giveResidentSeed':{const target=creatureById(w,a.target);const error=target?giveResidentSeed(w,c,target,a.uid):'종자를 받을 주민이 곁에 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'residentPlotCheck':{const error=forgetResidentPlot(w,c);return error?FAIL(error):{ok:true,tu:100}}
@@ -1322,6 +1328,7 @@ function performAction(w: World, c: Creature, a: Action): ActResult {
     case 'companionMap':{if(c.id!==w.s.playerId)return FAIL('동료에게 부탁하는 행동이다');const target=creatureById(w,a.target),error=target?commandCompanionMap(w,target,a.operation,a.paperUid,a.inkUid):'곁에 동료가 없다';return error?FAIL(error):{ok:true,tu:100}}
     case 'craft': {
       const err = startCraft(w, c, a.id, multiTurnFactor(w, c),a.materials)
+      if(!err){const marker=residentWorkshopCraftMarker(w,c,a.id);if(marker)c.workJob!.residentWorkshop=marker}
       return err ? FAIL(err) : FREE
     }
     case 'repair': case 'salvage': {
@@ -1933,6 +1940,10 @@ function finishUnequip(w:World,c:Creature,slot:Slot,uid:number|undefined,dropAft
 }
 
 export function activityStep(w: World, c: Creature): boolean {
+  settleAshDeposits(w)
+  try{return activityStepAction(w,c)}finally{refreshAshExposure(w)}
+}
+function activityStepAction(w: World, c: Creature): boolean {
   if(c.activity?.kind==='survey')return surveyStep(w,c)
   if(c.activity?.animalForage&&interruptAnimalBrowse(w,c)){c.activity=undefined;return true}
   const act = c.activity

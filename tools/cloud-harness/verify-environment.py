@@ -149,6 +149,15 @@ class FreshEnvironment(unittest.TestCase):
         self.assertEqual(course["sim30"]["deps"],["ash-cake-course"])
         self.assertEqual(course["ash-cake-course"]["lane"],"heavy")
 
+    def test_ash_supply_covers_original_materials_native_and_finite_demand(self):
+        tasks={t['id']:t for t in plan.make_plan('/tmp/checkout',profile='release',ash_supply=True,balance=True)['tasks']}
+        self.assertIn('tests/ash-deposits.test.ts',tasks['locale-focused']['argv'])
+        self.assertIn('tests/ash-workshop.test.ts',tasks['locale-focused']['argv'])
+        self.assertEqual(tasks['ash-supply']['deps'],['smoke'])
+        self.assertEqual(tasks['ash-supply-course']['deps'],['ash-supply'])
+        self.assertEqual(tasks['sim30']['deps'],['ash-supply-course'])
+        self.assertTrue(all(tasks[n]['lane']=='heavy' for n in ['ash-supply','ash-supply-course','sim30','world30']))
+
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:
             output = Path(folder) / "plan.json"

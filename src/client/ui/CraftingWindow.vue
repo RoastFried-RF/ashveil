@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import {ashDepositCount}from'../../core/ash-deposits'
 import { activeBeddingLice,beddingWashQuote,beddingScorch,beddingFireMaterial,beddingFireQuote,unheatedMealQuote,allItems, batchStatus, beddingAt, furnitureQuote, cheb, craftError, craftMaterialQuote, materialCandidates, materialMixPenalty, rawStock, craftingQuality, craftTurns, gearCareError, primaryMaterial, itemDef, itemLabel, maintenanceError, multiTurnFactor, nearbyBedding, nearbyGather, player, repairPreview, salvagePreview, terrainAt, tileAt, workshop, type GearCare, type RecipeDef, type World, type MaterialSelection, type MaterialDef } from '../../core'
 import { simulating, version, world } from '../store'
 import { craftSection as tab, doAct, hideTip, showTip, wins } from '../ui'
@@ -60,7 +61,7 @@ const d = computed(() => {
       care: (Object.keys(CARE) as GearCare[]).filter((k) => k === 'oil' ? primaryMaterial(w, it)?.category === 'Metal' : k === 'sharpen' ? it.edge !== undefined && !itemDef(w, it).ranged : !!itemDef(w, it).ranged&&!itemDef(w,it).ranged!.firearm).map((k) => ({ k, label: CARE[k], error: gearCareError(w, pl, it.uid, k) })),
     })),
     bedding: nearbyBedding(w, pl).map((p) => ({ p, label: terrainAt(w, p).label, wetness:beddingAt(w,p).wetness, scorch:beddingScorch(tileAt(w,p)),lice:activeBeddingLice(w,p),wash:beddingWashQuote(w,pl,p),burning:!!tileAt(w,p).beddingFire,material:beddingFireMaterial(w,p),putOut:beddingFireQuote(w,pl,p),portable: terrainAt(w, p).bedding?.portable && !!tileAt(w, p).placed, fixed: !terrainAt(w,p).bedding?.portable, pack: furnitureQuote(w,pl,p) })),
-    gather: nearbyGather(w, pl).map((p) => ({ p, def: terrainAt(w, p), product: w.db.item(terrainAt(w, p).gather!.item).label })),
+    gather: nearbyGather(w, pl).map((p) => ({ p, def: terrainAt(w, p), product: w.db.item(terrainAt(w, p).gather!.item).label,ash:terrainAt(w,p).gather!.ashDeposit?ashDepositCount(w,p):undefined })),
     batches: (w.s.map.batches ?? []).filter((b) => cheb(pl.pos, b.pos) <= 1).map((b) => ({ ...b, label: w.db.get<RecipeDef>(b.recipe).label, ...batchStatus(w,b) })),
   }
 })
@@ -118,7 +119,7 @@ function tip(e: MouseEvent, uid: number) {
         <button v-else-if="b.fixed" class="dbtn ml-1" :disabled="simulating || !!b.pack.error" :title="b.pack.error ?? '배낭에 포장한 침구를 실제로 운반한 뒤 다시 설치한다.'" :data-testid="`pack-furniture-${b.p.x}-${b.p.y}`" @click="doAct({type:'packFurniture',pos:b.p})">침구 포장<span v-if="!b.pack.error"> ({{ b.pack.turns }}턴)</span></button>
       </div>
       <div v-if="d.gather.length" class="mb-2 flex flex-wrap gap-1">
-        <button v-for="g in d.gather" :key="`${g.p.x},${g.p.y}`" class="dbtn !text-xs" :disabled="simulating" @click="doAct({ type: 'gather', pos: g.p })">{{ g.product }} 채집 ({{ g.def.gather!.turns }}턴)</button>
+        <button v-for="g in d.gather" :key="`${g.p.x},${g.p.y}`" :data-testid="`gather-${g.p.x}-${g.p.y}`" class="dbtn !text-xs !whitespace-normal max-w-full text-left" :disabled="simulating" @click="doAct({ type: 'gather', pos: g.p })">{{ g.product }} 채집 ({{ g.def.gather!.turns }}턴)<span v-if="g.ash!==undefined"> · 남은 재 {{ g.ash }}회분 / 한 회분씩</span></button>
       </div>
       <div v-for="b in d.batches" :key="b.id" :data-preservation-id="b.processing?b.id:undefined" class="mb-1 text-xs text-ash-300">
         {{ b.label }} · {{ b.remaining ? b.remaining<20?'거의 완료':`${(b.remaining / 1200).toFixed(1)}시간 남음` : '완료' }}

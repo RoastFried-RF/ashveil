@@ -1,0 +1,28 @@
+[
+  {
+    "defType": "Terrain",
+    "id": "Terrain.PilgrimAshDrift",
+    "parent": "Terrain.Earth",
+    "label": "분출 재 채집처",
+    "description": "탑에서 날아온 재를 거두는 노천 바닥. 남은 재를 한 회분씩 모을 수 있다. 덮거나 탑이 멎으면 새 재가 쌓이지 않는다.",
+    "sprites": ["original_hearth_charcoal"],
+    "visual": {"sprite": "original_hearth_charcoal", "scale": 0.5, "tint": 10854553},
+    "gather": {"item": "Item.PilgrimAsh", "count": 1, "turns": 200, "regrowTurns": 0, "ashDeposit": "AshDeposit.Pilgrim"}
+  },
+  {
+    "defType": "AshDeposit",
+    "id": "AshDeposit.Pilgrim",
+    "label": "칠번 굴뚝의 기슭 재",
+    "source": "Region.ChimneySeven",
+    "terrain": "Terrain.PilgrimAshDrift",
+    "ground": ["Terrain.Earth"],
+    "initial": 4,
+    "capacity": 12,
+    "unitsPerDayAt100": 6,
+    "placements": [
+      {"site": "Region.Stillhouse", "map": "surface", "pos": [30, 24]},
+      {"site": "Region.Stillhouse", "map": "surface", "pos": [34, 24]},
+      {"site": "Region.ChimneySeven", "map": "surface", "pos": [29, 24]}
+    ]
+  }
+]

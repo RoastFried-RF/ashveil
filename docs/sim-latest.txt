@@ -1,19 +1,84 @@
-v407 Windows simulations — 2026-10-30 KST
+v408 Windows simulations — 2026-10-31 KST
 Two distinct sim-0..29/max3day cohorts. No paired-baseline or balance-quality claim.
-Source before decoded-input followup: 8f7e484cda37b002a3b7b9abba9dd026fc5ba8e6fc71d53cd0f9c3e47cdb0748
-Final source: 4ac28a33059723343385a5aa5e660ebaf06188d59682644406364278ea4f5cad; only deserialize input validation plus tests/harness changed after LF normalization. All120 original bot states and32 controlled-course states reloaded/serialized exactly with the final parser.
-sim30: {"overworld": false, "runs": 30, "averageDays": 1.4225416666666666, "causes": {"치명상": 13, "생존(시간 종료)": 14, "과다 출혈": 3}, "escapes": 0}
-world30: {"overworld": true, "runs": 30, "averageDays": 0.9630601851851852, "causes": {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}, "escapes": 0}
+Tested code: 39606a7e47461fb7aa7cf7a7448a63309d0376a9
+Source-before/source-after: 22c6b59e13dba21755eb1a7406831334e7203a3a5aefff5fd740ad991cc148ea; 9,171 recorded files unchanged during all21 checks.
+sim30: {"overworld": false, "runs": 30, "averageDays": 1.4225416666666666, "causes": {"치명상": 13, "생존(시간 종료)": 14, "과다 출혈": 3}, "escapes": 0, "seconds": 1944.939}
+world30: {"overworld": true, "runs": 30, "averageDays": 0.9630601851851852, "causes": {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}, "escapes": 0, "seconds": 1021.068}
 60 original initial/final Worlds per cohort retained locally. Completed normal Core actions, no action-cap-as-survival fallback.
-Separate controlled finite-stock course:31.51423611111111 actual game days,30 cooked/consumed servings,30 daily whole saves,1742 care/work actions,alive/resistance/dietary lung burden10. Not natural acquisition or human play.
-Proof docs/pc-harness-v407-proof.json; compact balance docs/diagnostics/v407/balance-summary.json.
-Not1000 expeditions, minimum-hardware certification or human acceptance.
 
-Previous recorded cohort (history):
-v0.399-dev paired overworld simulation — 2026-10-27 UTC
-Baseline immutablev398-specimens-r4; candidate immutablev399-cloister-r1.
-Same sim-0..29/max3days/--world--states,30runs per build.
-Average days0.9630601851851852; fatal injury14/bleeding6/hypothermia3/survive3days7.
-All30 summary rows/metrics exact.60 whole initial/final worlds equal except two content hashes and two new item type/shape descriptors. ALL physical fields/RNG/original UIDs exact, no UID remapping. Both builds'60 states(120 total) deserialize/serialize and original complete state hashes exact.
-These30 runs retained crypt1/crypt2/surface, no third-floor boss. New boss original loadout/read/dissection separately verified by4focused tests and Native30whole pairs with a declared isolated initial corpse. This is not a natural boss victory.
-Public summary/SHA diagnostics/v399/world-summary.json; detailed scope cloister-evidence-v399.md. Full raw Worlds ignored/local. No1000-expedition/minimum-hardware/external-human certification.
+── sim30 ──
+sim-0: 치명상 · 0.05일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-1: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.FeverOrphan · 사건 -
+sim-2: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Scavenger · 사건 -
+sim-3: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.GuardArchivist · 사건 -
+sim-4: 과다 출혈 · 0.00일 · Lv1 · surface · Bg.SmithApprentice · 사건 -
+sim-5: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Hunter · 사건 -
+sim-6: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.SmithApprentice · 사건 -
+sim-7: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-8: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuardArchivist · 사건 -
+sim-9: 생존(시간 종료) · 3.00일 · Lv3 · surface · Bg.Excommunicate · 사건 -
+sim-10: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Excommunicate · 사건 ReaverPatrol,ReaverSearch
+sim-11: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-12: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Storyteller · 사건 -
+sim-13: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Deserter · 사건 -
+sim-14: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-15: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.FeverOrphan · 사건 -
+sim-16: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Scavenger · 사건 -
+sim-17: 과다 출혈 · 0.02일 · Lv1 · crypt1 · Bg.SmithApprentice · 사건 -
+sim-18: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.EscapedSlave · 사건 ReaverPatrol
+sim-19: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Deserter · 사건 -
+sim-20: 치명상 · 0.52일 · Lv1 · surface · Bg.Scavenger · 사건 ReaverPatrol
+sim-21: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Hunter · 사건 -
+sim-22: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-23: 생존(시간 종료) · 3.00일 · Lv2 · crypt1 · Bg.GuildMerchant · 사건 -
+sim-24: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-25: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-26: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Excommunicate · 사건 -
+sim-27: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Storyteller · 사건 ReaverPatrol,ReaverSearch
+sim-28: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-29: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.EscapedSlave · 사건 -
+
+── 집계 ──
+생존(시간 종료): 14 (47%)
+치명상: 13 (43%)
+과다 출혈: 3 (10%)
+평균 생존 1.42일 · 탈출 0/30 · 1944.9s
+
+── world30 ──
+sim-0: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-1: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.FeverOrphan · 사건 -
+sim-2: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Scavenger · 사건 -
+sim-3: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.GuardArchivist · 사건 -
+sim-4: 과다 출혈 · 0.00일 · Lv1 · surface · Bg.SmithApprentice · 사건 -
+sim-5: 과다 출혈 · 0.53일 · Lv1 · surface · Bg.Hunter · 사건 ReaverPatrol
+sim-6: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.SmithApprentice · 사건 -
+sim-7: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-8: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.GuardArchivist · 사건 -
+sim-9: 저체온 · 2.53일 · Lv2 · surface · Bg.Excommunicate · 사건 ReaverPatrol
+sim-10: 과다 출혈 · 0.05일 · Lv1 · surface · Bg.Excommunicate · 사건 -
+sim-11: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-12: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Storyteller · 사건 -
+sim-13: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Deserter · 사건 -
+sim-14: 생존(시간 종료) · 3.00일 · Lv3 · surface · Bg.GuildMerchant · 사건 -
+sim-15: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.FeverOrphan · 사건 -
+sim-16: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Scavenger · 사건 -
+sim-17: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.SmithApprentice · 사건 -
+sim-18: 저체온 · 2.51일 · Lv1 · surface · Bg.EscapedSlave · 사건 -
+sim-19: 저체온 · 2.14일 · Lv2 · surface · Bg.Deserter · 사건 ReaverPatrol
+sim-20: 생존(시간 종료) · 3.00일 · Lv2 · surface · Bg.Scavenger · 사건 -
+sim-21: 치명상 · 0.02일 · Lv2 · crypt1 · Bg.Hunter · 사건 -
+sim-22: 치명상 · 0.00일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-23: 치명상 · 0.02일 · Lv1 · surface · Bg.GuildMerchant · 사건 -
+sim-24: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-25: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Storyteller · 사건 -
+sim-26: 과다 출혈 · 0.01일 · Lv1 · surface · Bg.Excommunicate · 사건 -
+sim-27: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.Storyteller · 사건 -
+sim-28: 과다 출혈 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
+sim-29: 치명상 · 0.01일 · Lv1 · surface · Bg.EscapedSlave · 사건 -
+
+── 집계 ──
+치명상: 14 (47%)
+생존(시간 종료): 7 (23%)
+과다 출혈: 6 (20%)
+저체온: 3 (10%)
+평균 생존 0.96일 · 탈출 0/30 · 1021.1s

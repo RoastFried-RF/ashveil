@@ -12,5 +12,5 @@ export function consumeFoodServing(w:World,owner:Creature,it:ItemInst){
  const left=foodServings(w,it)-1
  if(left>0){it.uses=left;delete it.foodSealed;it.foodLeftover=true;return}
  it.def=it.foodVesselDef??f.emptyVessel!
- for(const key of['cropHarvest','foodWater','foodBurnt','foodHeatedAt','foodSaltGrams','uses','foodVesselDef','freshness','foodAgedAt','foodFrozen','foodThawed','foodWet','foodLeftover','foodSealed','foodQ','contaminantAsh','cookProgress']as const)delete it[key]
+ for(const key of['workshopMade','cropHarvest','foodWater','foodBurnt','foodHeatedAt','foodSaltGrams','uses','foodVesselDef','freshness','foodAgedAt','foodFrozen','foodThawed','foodWet','foodLeftover','foodSealed','foodQ','contaminantAsh','cookProgress']as const)delete it[key]
 }

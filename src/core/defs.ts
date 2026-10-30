@@ -1,4 +1,5 @@
 import {CAPACITIES} from './types'
+import type{AshDepositDef}from'./types'
 import{GAME_VERSION,DEF_SCHEMA_VERSION}from'./content-version'
 import {resolveDefinitionRenames}from'./definition-renames'
 import {contentLoadHash,freezeDefinition} from './load-hash'
@@ -397,6 +398,7 @@ const REQUIRED: Record<string, string[]> = {
   ResidentPurification: ['label','fireTerrain','fuelTarget','dailyFuelUnits','retryTurns'],
   ResidentWater: ['label','terrain','radius','thirstAt','handWash','retryTurns'],
   ResidentProvision: ['label','terrain','radius','food','minimumKcal','targetKcal','requestBelowKcal','dailyFoodUnits','retryTurns'],
+  AshDeposit:['label','source','terrain','ground','initial','capacity','unitsPerDayAt100','placements'],
   NpcRest: ['label','terrain','radius','sleepAt','debtAt','wakeAt','retryTurns'],
   HandHygiene: ['label','waterMl','washTurns','cleanTurns','washedBonus','dirtyPenalty','dirtyContam'],
   Bestiary: ['observeTurns','encounterCount','encounterGap','fightClearTurns','rangeWidth','perRange','keenRange','dissectTurns','dissectBase','dissectMastery','dissectPer','dissectMin','dissectMax','autoDissectAfter','failedYield','toolBonus','tabooThought','tabooLoss'],
@@ -1458,7 +1460,29 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       }
     }
   }
+  for(const d of db.all<AshDepositDef>('AshDeposit')){
+    const source=db.tryGet<RegionSiteDef>(d.source),terrain=db.tryGet<TerrainDef>(d.terrain)
+    if(!source?.tower||terrain?.gather?.ashDeposit!==d.id||terrain.gather.count!==1)report.errors.push(d.id+': 실제 탑/한 회분 채집 지형 참조 오류')
+    if(!Array.isArray(d.ground)||!d.ground.length||d.ground.length>16||new Set(d.ground).size!==d.ground.length)report.errors.push(d.id+': 비어 있는 원래 바닥 목록 오류')
+    else for(const id of d.ground){need(d.id,id,'Terrain');const t=db.tryGet<TerrainDef>(id);if(!t?.passable||t.wall||t.door||t.container||t.water||t.stairs||t.station||t.gather||t.bedding||t.residentWell||t.residentDepot||id===d.terrain)report.errors.push(d.id+': 실제 빈 바닥만 채집처로 도입할 수 있다')}
+    if(!Number.isSafeInteger(d.initial)||d.initial<0||!Number.isSafeInteger(d.capacity)||d.capacity<1||d.capacity>1000||d.initial>d.capacity||!Number.isSafeInteger(d.unitsPerDayAt100)||d.unitsPerDayAt100<1||d.unitsPerDayAt100>1000)report.errors.push(d.id+': 초기 재/저장량/분출률 범위 오류')
+    if(!Array.isArray(d.placements)||!d.placements.length||d.placements.length>64)report.errors.push(d.id+': 실제 채집처 배치 목록 오류')
+    else{const seen=new Set<string>();for(const p of d.placements){
+      const site=p&&db.tryGet<RegionSiteDef>(p.site),layout=site?.layout?db.tryGet<RegionLayoutDef>(site.layout):undefined
+      const key=JSON.stringify(p)
+      if(!p||!site||p.map!==(layout?.mapId??'surface')||!Array.isArray(p.pos)||p.pos.length!==2||p.pos.some((n,i)=>!Number.isSafeInteger(n)||n<1||n>=(i?layout?.height??48:layout?.width??64)-1)||seen.has(key))report.errors.push(d.id+': 실제 지역 지도/채집처 좌표 오류')
+      seen.add(key)
+    }}
+  }
+  for(const t of db.all<TerrainDef>('Terrain'))if(t.gather?.ashDeposit&&db.tryGet<AshDepositDef>(t.gather.ashDeposit)?.terrain!==t.id)report.errors.push(t.id+': 분출 재 채집처 참조 오류')
   for (const d of db.all<ResidentProvisionDef>('ResidentProvision')) {
+    if(d.workshop!==undefined){const q=d.workshop;if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': workshop 객체 필요');else{
+      need(d.id,q.recipe,'Recipe');need(d.id,q.gather,'AshDeposit')
+      const r=db.tryGet<RecipeDef>(q.recipe),g=db.tryGet<AshDepositDef>(q.gather),terrain=g&&db.tryGet<TerrainDef>(g.terrain)
+      if(!d.cooking||!r?.basic||!r.boiledMeal||r.boiledMeal.unheated||r.passiveTurns||r.output.count!==1||!db.tryGet<ItemDef>(r.output.item)?.food||!r.inputs.some(i=>i.item===terrain?.gather?.item)||!r.inputs.some(i=>i.item===r.boiledMeal?.vessel))report.errors.push(d.id+': workshop 실제 채집 재료/그릇 조리법 필요')
+      if(!db.all<FactionDef>('Faction').some(f=>f.key===q.faction))report.errors.push(d.id+': workshop 실제 세력 필요')
+      for(const[key,lo,hi]of[['targetStock',1,20],['reserveKcal',1,10000],['retryTurns',1,28800]]as const)if(!Number.isSafeInteger(q[key])||q[key]<lo||q[key]>hi)report.errors.push(d.id+': workshop.'+key+' 오류')
+    }}
     if(d.cooking!==undefined){const q=d.cooking;if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': cooking 객체 필요');else{
       if(!Array.isArray(q.recipes)||!q.recipes.length||new Set(q.recipes).size!==q.recipes.length)report.errors.push(d.id+': cooking.recipes 오류')
       else for(const id of q.recipes){need(d.id,id,'Recipe');const r=db.tryGet<RecipeDef>(id);if(!r?.basic||!r.boiledMeal?.unheated||r.output.count!==1||r.inputs.filter(i=>i.item!==r.boiledMeal?.vessel).length===0||r.workTurns>7200)report.errors.push(d.id+': cooking 실제 기본 그릇 조리법 필요')}
@@ -2212,7 +2236,7 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
       need(t.id, t.gather.item, 'Item')
       range(t.id, 'gather.turns', t.gather.turns, 1, Infinity, true)
       range(t.id, 'gather.count', t.gather.count, 1, Infinity, true)
-      range(t.id, 'gather.regrowTurns', t.gather.regrowTurns, 1, Infinity, true)
+      range(t.id, 'gather.regrowTurns', t.gather.regrowTurns, t.gather.ashDeposit?0:1, Infinity, true)
       if(t.gather.soilDependent!==undefined&&typeof t.gather.soilDependent!=='boolean')report.errors.push(`${t.id}: gather.soilDependent 오류`)
     }
   }

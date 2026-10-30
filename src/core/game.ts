@@ -19,6 +19,7 @@ import {sourceDefinitionsAvailable,sourceLivingCount} from './population-sources
 import {cultivationTick} from './cultivation'
 import {observeNpcWorld} from './world-scouting'
 import {terrainFireTick} from './terrain-fire'
+import {settleAshDeposits,refreshAshExposure}from'./ash-deposits'
 import {observeBleeding} from './blood-observation'
 import {rememberLifeEvent} from './life-memories'
 import {npcPsycheTick,resolveNpcStress} from './npc-psyche'
@@ -102,7 +103,7 @@ import { installLegacyResidents } from './legacy-residents'
 import { hasEffect } from './traits'
 import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
 
-export const SAVE_VERSION = 220
+export const SAVE_VERSION = 221
 export { START_TURN } from './ctx'
 
 export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
@@ -203,6 +204,7 @@ export function newGame(db: DefDatabase, opts: NewGameOptions): GameState {
 
 /** 지도 전환: 현재 지도·생물은 정지 보관, 대상 지도를 (없으면 생성해) 불러온다 */
 export function changeMap(w: World, toId: string) {
+  settleAshDeposits(w);refreshAshExposure(w)
   const s = w.s
   const pl = player(w)
   const fromId = s.map.id
@@ -317,6 +319,7 @@ function discoverRoom(w: World, pl: Creature) {
 
 /** 턴 경계마다 1회: 모든 생물의 신체·생존, 날씨, 사건 */
 function globalTurnTick(w: World) {
+  settleAshDeposits(w)
   const turn = turnOf(w)
   const m = w.s.map
   scriptDayTick(w)
@@ -352,6 +355,7 @@ function globalTurnTick(w: World) {
   if (turn % 200 === 0) campingTick(w)
   beddingFireTick(w)
   terrainFireTick(w)
+  refreshAshExposure(w)
   const sources = (w.s.sources ??= initialSources())
   if ((!w.s.overworld || w.s.overworld.currentRegion === 'Region.GreyCloister') && !sources.some((s) => s.id === 'reaverCamp')) sources.push(initialSources()[0])
   const all = [...w.s.creatures, ...Object.values(w.s.offCreatures).flat(),...convoyStoredPeople(w)]
@@ -733,6 +737,7 @@ function bossAlive(w: World, defId: string): boolean {
 
 /** 06:00 경계마다: 공급원 회복 → 유예가 끝난 정리된 방마다 15% 재점거 */
 export function settleReentry(w: World, map: MapState, residents: Creature[], leftAt: number) {
+  settleAshDeposits(w)
   const s = w.s
   const sources = (s.sources ??= initialSources())
   const r = rng(w, w.s.overworld ? `world.settle.${w.s.overworld.currentRegion}.${map.id}` : 'story')
@@ -840,6 +845,7 @@ export function settleReentry(w: World, map: MapState, residents: Creature[], le
     })
   }
   if (came) log(w, 'flavor', w.db.event('Event.Reoccupy').hint ?? '')
+  refreshAshExposure(w)
   // 5) 잠듦 재배정 (14 §7.1): 방 유형 + 종 + 시간대, 깊은 잠 50%
   for (const c of residents) {
     if (!c.alive || c.room === undefined || c.ai.mode === 'hunt' || c.ai.route) continue

@@ -1,8 +1,9 @@
 import {validateCullerSave} from './culler-save'
 import {validateFoodTrainingSave} from './food-training-save'
+import {validateAshDeposits} from './ash-deposits'
 import {validateCompanionCarePlans} from './companion-care-plan-save'
 import {validateCrawlerSave} from './crawler-save'
-import {validRecordedItemShape} from './missing-items'
+import {stateItemEntries,validRecordedItemShape} from './missing-items'
 import {storedItemStateError} from './storage-state'
 // 각인(Imprint) 세이브: 단일 슬롯 직렬화. 저장소(localStorage/파일)는 클라이언트가 결정.
 
@@ -425,6 +426,8 @@ export function deserialize(json: string): GameState {
   if(s.version===218)s.version=219
   // v220 records actual dietary exposure; old bodies gain no food, history or resistance.
   if(s.version===219)s.version=220
+  // v221 retains finite ash catchments; older visited ground receives no past deposits.
+  if(s.version===220)s.version=221
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -438,6 +441,7 @@ export function deserialize(json: string): GameState {
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
   validateFoodTrainingSave(s)
+  if(tokens.has('ashDeposits'))validateAshDeposits(s)
   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
   if(tokens.has('carePlan')||tokens.has('companionCarePlan'))validateCompanionCarePlans(actors)
   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
@@ -451,6 +455,8 @@ export function deserialize(json: string): GameState {
     for(const c of map.swarms){if(!c||!integer(c.uid)||c.uid<1||ids.has(c.uid)||typeof c.def!=='string'||!c.def||typeof c.rule!=='string'||c.rule.length>16384||!position(c.pos)||!position(c.origin)||c.pos.x>=map.w||c.pos.y>=map.h||c.origin.x>=map.w||c.origin.y>=map.h||![c.members,c.initialMembers,c.captured,c.burned,c.cohesion,c.nextMoveAt,c.lastTick].every(integer)||c.initialMembers<1||c.initialMembers>100000||c.members+c.captured+c.burned!==c.initialMembers||c.cohesion>100||c.lostLightAt!==undefined&&!integer(c.lostLightAt)||c.disperseAt!==undefined&&(!integer(c.disperseAt)||c.lostLightAt===undefined||c.disperseAt<c.lostLightAt))throw Error('군체의 원래 개체/수량/시계 형식이 올바르지 않다');ids.add(c.uid)}
   }
   for(const c of actors){
+    const order=c.residentWorkshopOrder,job=c.workJob?.residentWorkshop,text=(v:unknown)=>typeof v==='string'&&v.length>0&&v.length<=16384
+    if(c.residentWorkshopAfter!==undefined&&!integer(c.residentWorkshopAfter)||order!==undefined&&(!order||typeof order!=='object'||Array.isArray(order)||!text(order.site)||!text(order.recipe)||!text(order.rule)||!integer(order.at)||order.at>Math.floor(s.time/100))||job!==undefined&&(!job||typeof job!=='object'||Array.isArray(job)||!text(job.site)||!text(job.recipe)||c.workJob?.kind!=='craft'||job.recipe!==c.workJob.recipe))throw Error('주민 작업장의 원래 지시/재시도/제작 기록 형식이 올바르지 않다')
     const coat=c.camouflage
     if(coat&&(!integer(coat.sourceUid)||coat.sourceUid<1||typeof coat.sourceDef!=='string'||!integer(coat.appliedAt)||!integer(coat.until)||coat.until<=coat.appliedAt||!Number.isFinite(coat.sightMult)||coat.sightMult<.1||coat.sightMult>1||!Number.isFinite(coat.washAt)||coat.washAt<1||coat.washAt>100||!integer(coat.tint)||coat.tint>0xffffff))throw Error('원래 위장 가루/시간/규칙 기록 형식이 올바르지 않다')
 
@@ -463,6 +469,7 @@ export function deserialize(json: string): GameState {
     if(call!==undefined&&(!call||typeof call!=='object'||!integer(call.source)||call.source<1||!integer(call.at)||!integer(call.expiresAt)||call.expiresAt<call.at||!position(call.pos)))throw Error('측량기의 원래 호출 기록 형식이 올바르지 않다')
   }
   const storageError=storedItemStateError(s);if(storageError)throw new Error(storageError)
+  if(tokens.has('workshopMade'))for(const {item}of stateItemEntries(s)){const p=item.workshopMade;if(p!==undefined&&(!p||typeof p!=='object'||!integer(p.worker)||p.worker<1||typeof p.site!=='string'||!p.site||p.site.length>256||typeof p.recipe!=='string'||!p.recipe||p.recipe.length>256||typeof p.def!=='string'||!p.def||p.def.length>256||!integer(p.at)||p.at>Math.floor(s.time/100)))throw Error('같은 실제 완성품의 제작자/지역/제작 시각 기록 형식이 올바르지 않다')}
   return s
 }
 

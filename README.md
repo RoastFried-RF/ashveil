@@ -1,8 +1,8 @@
 # ASHVEIL (애쉬베일)
 
-이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 개발/검증 하네스](docs/windows-development.md) · [장비 상세](docs/localization-v405.md) · [기본 물품 상세](docs/localization-v406.md) · [실제 재떡과 몸별 장기 노출](docs/ash-cake-v407.md). 최종13단계·Full418파일6,806검사와 Native84전체 상태 쌍/오류0을 통과했다. 대표9PNG와 고정 소스4,259파일의 SHA 일치를 확인했다. 검증 입력 교정 전의 같은 게임 규칙에서 Native219쌍·기본/월드 각30판을 완료했고, 수정본으로 원래 각인152개를 그대로 왕복했다. [v407 영수증](docs/pc-harness-v407-proof.json). 이 소스로 공개 개발 미리보기를 갱신했다.
+이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 하네스](docs/windows-development.md) · [몸별 장기 노출](docs/ash-cake-v407.md) · [탑의 실제 재와 순례회 작업장](docs/ash-supply-v408.md). 로컬 v0.408-dev/저장221은 최종21단계·Full420파일6,848검사, 세 화면 Native216전체 상태 쌍/오류0과 기본/월드 각30판을 통과했다. 대표13PNG, 검사 전후9,171파일 SHA 일치와 각인 자료486개 왕복을 확인했다. [v408 로컬 영수증](docs/pc-harness-v408-proof.json). main/Pages 게시·공개 확인은 별도로 기록한다.
 
-현재 작업: [v407 실제 재떡·몸별 장기 노출](docs/ash-cake-v407.md) · [검증·게시 근거](docs/release-v407-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
+현재 작업: [v408 실제 재 채집·주민 생산](docs/ash-supply-v408.md) · [선행 v407 공개 근거](docs/release-v407-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
 
 현재 공개 개발 미리보기는 **v0.407-dev · 저장220**이다. 기본 물품 상세의 영어 표시, 유한 재떡 제작/섭취·같은 몸의 실제 기간/위험·폐 부담과 저장 입력 검증을 연결했다. GitHub 전체6,806검사·Pages 배포와 공개 시작/대기 입력·콘텐츠 일치는 [게시 기록](docs/release-v407-proof.json)을 따른다. 자연 장기 공급과 나머지 창·동적 로그/문헌의 영어, X1–X4·최종 출시/사람 게이트는 남아 있다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 

@@ -1,0 +1,543 @@
+{
+  "checkedAtKST": "2026-10-31T03:51:36.673787+09:00",
+  "status": "Local v408 finite tower ash, original pilgrim workshop and actual supply accepted within the stated scope. Publication is recorded separately. Not v1/X1-X4, complete English, natural sustainable grain/fuel production or human acceptance.",
+  "previewVersion": "0.408-dev",
+  "saveVersion": 221,
+  "sourceCommitBase": "96b0e12aeea804d68efa0740b3632661e8256c5a",
+  "testedCodeCommit": "39606a7e47461fb7aa7cf7a7448a63309d0376a9",
+  "testedTree": "bd612dc1274bf684ceb41425f8b88a9a1edb3ec3",
+  "branch": "codex/v408-ash-supply",
+  "sourceSHA256": {
+    "docs/ash-supply-v408.md": "77f48364d38ac2d7efd6d20319079e45bf2f823eb0ae83b20515bb2ffbc2d467",
+    "docs/schema/defs.schema.json": "a03e37aef7d9e9ab95e0bb1541d371b7fb0474b5c9276fb4cfbb52f4c7ac034c",
+    "docs/windows-development.md": "010d9dc900891b068224b6428fcb92bc0dfbe97a26620eff95ca0873fa0cde3b",
+    "src/client/HoverInfo.vue": "8b623ca357de1032d4878d105f52f40f43000a518115406dbf889338412ba0f9",
+    "src/client/build-version.ts": "5f30207b22b945d55448849c2993a64b2b26f05a7b5e8cb3f6c78f14c08fb795",
+    "src/client/render/MapRenderer.ts": "a9b91ce1328919a96a1e18b78fdf0805515f65c0620c1b22e6bd089eac1c5c1d",
+    "src/client/render/action-motion-map.ts": "d51944f97d9dbbc97f971291a021774513f0407cd8f152dbf28338227d44525c",
+    "src/client/ui/CraftingWindow.vue": "a63d79049966f67d60656b76952bf2eba70d5498299a64ddfc04580402af7924",
+    "src/content/core/defs/ash-deposits.json": "12e2b3416b74aeee26b073e84dd7d9a3ff38eca8cbe657bf9a816be7fc63e93e",
+    "src/content/core/patches/ash-workshop.json": "b46892ded79270abe2d24543c83c0bb2e12583ea9bfdd01f12847b956cea73d4",
+    "src/core/actions.ts": "9311da13cd7d8f00641197d44257b1f811129d6f4d5195f2a6ab554f787ec07b",
+    "src/core/ai.ts": "ddfe449cccda7edd8a16daa9f97a16f159c894aecae0fbaa57e5c1d8e9fdcf57",
+    "src/core/ash-deposits.ts": "b459f14f3b4e0aad71f7fddfe99819e3097a1173d0d34277beab146051269a3e",
+    "src/core/crafting.ts": "03677cd23b2032f588c7a7c1c83af99c640ccf11120ad743035f204e2f068c84",
+    "src/core/defs.ts": "4831ca0ce325626765a85af8ad9d38ee9bdbeeb9420ad83a31994c7a9a2f2577",
+    "src/core/food-vessels.ts": "dc364177588068ce927217c3753a2e891e71732e5821cbc20c5616e2939da45f",
+    "src/core/game.ts": "31d2dbca3157049283dfb9a8c5d21279a0bd374d3b3167ed20b9f2e0b3f7ae1e",
+    "src/core/gather-stock.ts": "368a41bedb0afdc3515e8ad83eba10dee3be6d1dd80b1fdd348d8934e95be70e",
+    "src/core/index.ts": "819ba0a66e43bfaf1f7c0cd5d0cb76c80f3e140a7d249ae84256a6ab987b943c",
+    "src/core/items.ts": "aabe6e211beb2249d6eaff2133f77db4a570a96b8b6b80073fa453d7baa62f9a",
+    "src/core/journey.ts": "77122260e65d2e9f65d69be02da6f4cc0935745b4dbce4d3528e34085e1cb3f5",
+    "src/core/resident-cooking.ts": "f5e11aaaea829b1cdc658468b86d7a709a584faa04e26671c2d2de9707183555",
+    "src/core/resident-workshop-state.ts": "46b7cfa2ac20aeca8316c41bd0dd9e970ca26427e2bb9da1ed78f5a30d9136f8",
+    "src/core/resident-workshop.ts": "dba4a15cc181d41b119e21c72d5b21a72abd5df0d6823a6b727c075e74037366",
+    "src/core/save.ts": "522f6c5db07bd83dfc3fbf912b9156aa7572ffcecf3d4a976a9b01fed5505373",
+    "src/core/settlements.ts": "869adfa399eef5e755b8c0fc2efe083742b624e99a847b41f014c38c7fddc84b",
+    "src/core/types.ts": "74b4ec9997ad50c2545c4de093199c4dfb932ce3c4d1f0732364e82ca5625e25",
+    "tests/ash-deposits.test.ts": "471455146f228d2b8499bf4b426c464c82b60678d8266b6efd16364b7cad6939",
+    "tests/ash-workshop-fixture.ts": "e36ac1d9a6ec6838864bae71093a4b903dc41e881d20a42341fb982a338a2ca8",
+    "tests/ash-workshop.test.ts": "e00958c0d8e43daa44cd7fd62bf38aaaf9cd4b4aac959840416da0bac5a4b17f",
+    "tests/fixtures/golden-v407.json": "c8aeabb5cbac4f75cb78ee292dfc97b2443dbed0ed79bb0ffe7bfe60ef115114",
+    "tests/fixtures/golden.json": "9dc5279213ea2e6905f1dd998a5a5f6c973f8a649ec56bc935ede6ec60eb5904",
+    "tests/fixtures/world-golden-v407.json": "bf00f756071a5112e9356cdda90fa64c9e334e5e6d47329104f048021bc214a1",
+    "tests/fixtures/world-golden.json": "859a17dc5e5c30a93b88dfe70a1561b924e4490f6201ec7b9b42c06ee7e61aca",
+    "tools/audit-golden-states.py": "1c7803bcb3368ba07c0740192ad92a78635c8851a62700fb19423c447516ee4f",
+    "tools/cloud-harness/README.md": "380a02394bcb605bc5f333cc5bce8f31de8062247190e9509cc999771cdd97aa",
+    "tools/cloud-harness/plan.py": "1d931b4303c0f6136ed1cd2e832d91e28fdbfd6e74300a24039a979073f69944",
+    "tools/cloud-harness/verify-environment.py": "787787c0868970b2ba80de9a8612dd3ad11df83bfcb1b312b8d27f66481b91d2",
+    "tools/inspect-ash-supply-v408.ts": "b2d597f0ec4de54aec906a91801c4e49a43e226452ee88834a987c6465034603",
+    "tools/sim-ash-supply-v408.ts": "f0938659fb57884b8c917b17b0c7cd3d544569d59d6c7b0b8e0200816fb743b1",
+    "tools/validate-defs.ts": "ef3bdc2344b07e8da333602b15e201ca6f0d0c8a0b5cac4d4ef78a76a05aa5c5"
+  },
+  "sourceManifest": {
+    "localFile": "test-results/windows/v408-final-1/tasks/source-before/source.json",
+    "files": 9171,
+    "sha256": "22c6b59e13dba21755eb1a7406831334e7203a3a5aefff5fd740ad991cc148ea",
+    "unchangedAfterValidation": true,
+    "scope": "src/tests/tools/public/mods/docs/.agents/.github and recorded root configuration/readme. 9,171 tracked files; the sole unrecorded tracked file CREDITS.md was unchanged. Source-before/source-after guard, not a freeze-checkpoint."
+  },
+  "finalRun": {
+    "path": "test-results/windows/v408-final-1",
+    "planSha256": "b579bbee6ccd16709e6fe9ec8173bb605ae0edadef23bffb5069efc427640407",
+    "status": "passed",
+    "tasks": 21,
+    "taskResults": {
+      "environment": "passed",
+      "source-before": "passed",
+      "lint": "passed",
+      "typecheck": "passed",
+      "preview-helper": "passed",
+      "sprites": "passed",
+      "schema": "passed",
+      "defs": "passed",
+      "locale-focused": "passed",
+      "golden-capture": "passed",
+      "golden-reviewed": "passed",
+      "full": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "ash-cake": "passed",
+      "ash-supply": "passed",
+      "ash-supply-course": "passed",
+      "sim30": "passed",
+      "world30": "passed",
+      "source-after": "passed"
+    },
+    "full": {
+      "files": 420,
+      "tests": 6848,
+      "durationSeconds": 1016.08
+    },
+    "focused": {
+      "files": 14,
+      "tests": 203,
+      "durationSeconds": 44.12
+    },
+    "schema": {
+      "files": 180,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 1,
+      "existingWarning": "tools/art/draw-amalgam.mjs unused mirror"
+    },
+    "native": [
+      {
+        "task": "locale",
+        "wholeStatePairs": 12,
+        "browserErrors": 0,
+        "pngGenerated": 14,
+        "audit": "test-results/windows/v408-final-1/tasks/locale/locale/audit.json",
+        "auditSha256": "5330944d8a99a2ca535b30bfe38646b3e9ef5805bd0cb58c54fff71e55f47dd1"
+      },
+      {
+        "task": "ash-cake",
+        "wholeStatePairs": 72,
+        "browserErrors": 0,
+        "pngGenerated": 72,
+        "audit": "test-results/windows/v408-final-1/tasks/ash-cake/ash-cake/audit.json",
+        "auditSha256": "aceeee2770c1f63bca853296991e385a1c5cbf6d623cd1b3808369b37fbed256"
+      },
+      {
+        "task": "ash-supply",
+        "wholeStatePairs": 132,
+        "browserErrors": 0,
+        "pngGenerated": 132,
+        "audit": "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/audit.json",
+        "auditSha256": "c9bb38c4c1c39e799c47c5c10d40371e92ef5c01bfdbe11ffcf0a513237dcb27"
+      }
+    ],
+    "nativeWholeStatePairs": 216,
+    "nativePNGGenerated": 218,
+    "smokePNGGenerated": 8,
+    "pngActuallyReviewed": [
+      "test-results/windows/v408-final-1/tasks/smoke/smoke-1440/00-title.png",
+      "test-results/windows/v408-final-1/tasks/smoke/smoke-1366/01-world.png",
+      "test-results/windows/v408-final-1/tasks/ash-cake/ash-cake/mature-390-formed-resistance-en.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-1440-finite-drift-reviewed.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-finite-drift-reviewed.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-real-item-menu.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1366-worker-same-bowl-sale-reviewed.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-390-working-original-craft-continued.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-actual-gathered-food-eaten.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1440-actual-worker-product-bought.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1440-same-worker-product-and-cash-continued.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-1366-gathered-ash-steamed.png",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-390-same-worker-product-and-cash-continued.png"
+    ],
+    "pngActuallyReviewedCount": 13,
+    "pngReviewedSHA256": {
+      "test-results/windows/v408-final-1/tasks/smoke/smoke-1440/00-title.png": "9f94eaa4478355808b35ff388bc750137ffd26d1f25dade782e4ad6c5e5bc6df",
+      "test-results/windows/v408-final-1/tasks/smoke/smoke-1366/01-world.png": "96e17d0de2802e91946cfb7d45c4ac2184c36f0e9dcba9936066d00a7af5070a",
+      "test-results/windows/v408-final-1/tasks/ash-cake/ash-cake/mature-390-formed-resistance-en.png": "5c0e7465a9820e8b3b9a59117da55b148b23418b492d08a54a302089e855d01d",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-1440-finite-drift-reviewed.png": "170c4402bce615c4db8a732338ec082b91344da07ba90112e613a27a80b9f5ed",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-finite-drift-reviewed.png": "26e1d8abb8996e164c3e606467377731cc4ae67d7cbfe5d913ef09d9539d370a",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-real-item-menu.png": "cfe4663ae3d919017b95e52e0537b404292750aff7e1ab7256397a4bfe33c22e",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1366-worker-same-bowl-sale-reviewed.png": "c813e1606aa901c91748219ffdb6b4a3ece0e2423ce1a05aeee057fbdf9012ad",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-390-working-original-craft-continued.png": "359e2f1970a9033cbcd21e0c88240dbfc780825b01b7db193ca4edbfcdbbb14f",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-390-actual-gathered-food-eaten.png": "54398cc0335abbbbe0431dd2cb80eda001395e0a9118188c6f1e70ca7e30f734",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1440-actual-worker-product-bought.png": "1741ea8985b09beb51b697d546a60ddc47d78e29b9ff0a84490ee3910a300467",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-1440-same-worker-product-and-cash-continued.png": "d1618e2c96aabada51d0558462ceacac4f86a0ebbfddde299cf3b15923114a76",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/harvest-1366-gathered-ash-steamed.png": "4f31ddb0447d03057548b2caba46800c17ab46a42f145da01bf993bb5ded12e2",
+      "test-results/windows/v408-final-1/tasks/ash-supply/ash-supply/workshop-390-same-worker-product-and-cash-continued.png": "b64496c3b60f44fb02031bb03d37b648b3cb240318e9dd1bad952324956d009d"
+    }
+  },
+  "finiteDemandCourse": {
+    "audit": "test-results/windows/v408-final-1/tasks/ash-supply-course/course/audit.json",
+    "sha256": "baba519bb8f19424b7e023b9244b08029ae61f01a425fff55c7ff8209fa2e905",
+    "products": 8,
+    "elapsedTurns": 32865,
+    "days": 1.1411458333333333,
+    "initialGrain": 8,
+    "originalBowls": [
+      1099511628423,
+      1099511628424,
+      1099511628425,
+      1099511628426
+    ],
+    "returnedBowls": [
+      1099511628423,
+      1099511628424,
+      1099511628425,
+      1099511628426,
+      1099511628423,
+      1099511628424,
+      1099511628425,
+      1099511628426
+    ],
+    "ash": {
+      "taken": 9,
+      "held": 1,
+      "pools": {
+        "24,68/surface/30,24": {
+          "map": "surface",
+          "cell": {
+            "x": 24,
+            "y": 68
+          },
+          "pos": {
+            "x": 30,
+            "y": 24
+          },
+          "terrain": "Terrain.PilgrimAshDrift",
+          "at": 54466,
+          "initial": 4,
+          "deposited": 5,
+          "taken": 8,
+          "lost": 0,
+          "stock": 1,
+          "remainder": 1375680000,
+          "exposed": true,
+          "rate": 6,
+          "capacity": 12
+        },
+        "24,68/surface/34,24": {
+          "map": "surface",
+          "cell": {
+            "x": 24,
+            "y": 68
+          },
+          "pos": {
+            "x": 34,
+            "y": 24
+          },
+          "terrain": "Terrain.PilgrimAshDrift",
+          "at": 54466,
+          "initial": 4,
+          "deposited": 5,
+          "taken": 1,
+          "lost": 0,
+          "stock": 8,
+          "remainder": 1375680000,
+          "exposed": true,
+          "rate": 6,
+          "capacity": 12
+        }
+      }
+    },
+    "actions": {
+      "move": 20,
+      "blockedMove": 6,
+      "wait": 6,
+      "rentBed": 1,
+      "trade": 18,
+      "rest": 174,
+      "consume": 13,
+      "sleep": 6,
+      "warmByFire": 1
+    },
+    "wholeSaveRoundtrips": 9,
+    "limits": "Controlled finite observer arrival/cash/healthy original worker/scheduling and instrumented customer demand. Original generated drift/stock. Normal actions only after capture, actual water/clothing/movement/trade/food and NPC labour. No natural initial travel, future sustainable grain/fuel production, long-term survival or human-play claim."
+  },
+  "goldenReview": {
+    "reviewedDiff": "test-results/windows/v408-final-1/tasks/golden-reviewed/reviewed.json",
+    "sha256": "8b75057802704dca6dc0b16846629f476622ff0e0b70be1fdeb5fda7377c0c45",
+    "reportOnly": false,
+    "reviewedShape": "ash-supply-v408",
+    "beforeSha256": "bc629278014cd8380c19ecbb7b9a423b6d36322bf8dd4d0d6dd798918596653b",
+    "afterSha256": "bd391770827048177009c9294935a97139d51d8947f53dd3b710be667385f7dc",
+    "vectors": [
+      {
+        "name": "surface",
+        "commands": 80,
+        "errorsUnchanged": true,
+        "initialFieldDifferences": 5,
+        "finalFieldDifferences": 5
+      },
+      {
+        "name": "dungeon-combat",
+        "commands": 81,
+        "errorsUnchanged": true,
+        "initialFieldDifferences": 5,
+        "finalFieldDifferences": 5
+      },
+      {
+        "name": "freeze-reentry",
+        "commands": 147,
+        "errorsUnchanged": true,
+        "initialFieldDifferences": 5,
+        "finalFieldDifferences": 5
+      },
+      {
+        "name": "world-journey",
+        "commands": 28,
+        "errorsUnchanged": true,
+        "initialFieldDifferences": 25,
+        "finalFieldDifferences": 25
+      },
+      {
+        "name": "world-climate-return",
+        "commands": 30,
+        "errorsUnchanged": true,
+        "initialFieldDifferences": 25,
+        "finalFieldDifferences": 25
+      }
+    ],
+    "commandsAndErrorsUnchanged": true,
+    "expectedChange": "Only version/content metadata, new AshDeposit/Terrain definitions, one-time finite workshop initial stock and consequent global item UIDs. Entire expected worlds reconstructed; all other physics and RNG equal.",
+    "oldFixturesPreserved": [
+      "tests/fixtures/golden-v407.json",
+      "tests/fixtures/world-golden-v407.json"
+    ]
+  },
+  "saveCorpus": {
+    "audit": "test-results/windows/v408-proof-1/tasks/roundtrip/audit.json",
+    "sha256": "7d42b74176bc82906b14651eb14ea0c4416cbb84347744a538bda0b7e5e6c742",
+    "canonicalArtifacts": 486,
+    "groups": [
+      {
+        "group": "current-sim30",
+        "artifacts": 60,
+        "old": false
+      },
+      {
+        "group": "current-world30",
+        "artifacts": 60,
+        "old": false
+      },
+      {
+        "group": "current-course",
+        "artifacts": 10,
+        "old": false
+      },
+      {
+        "group": "current-native-ash-cake/ash-cake",
+        "artifacts": 72,
+        "old": false
+      },
+      {
+        "group": "current-native-ash-supply/ash-supply",
+        "artifacts": 132,
+        "old": false
+      },
+      {
+        "group": "legacy-sim30",
+        "artifacts": 60,
+        "old": true
+      },
+      {
+        "group": "legacy-world30",
+        "artifacts": 60,
+        "old": true
+      },
+      {
+        "group": "legacy-course",
+        "artifacts": 32,
+        "old": true
+      }
+    ],
+    "wholeRoundtripDifferences": 0,
+    "pairedDefault": {
+      "artifacts": 60,
+      "seeds": 30,
+      "phases": [
+        "initial",
+        "final"
+      ],
+      "allowedFields": [
+        "version",
+        "loadHash",
+        "contentMods/0/hash",
+        "contentDefinitions/AshDeposit.Pilgrim",
+        "contentDefinitions/Terrain.PilgrimAshDrift"
+      ],
+      "allOtherPhysicalFieldsAndRngUnchanged": true
+    },
+    "legacyChange": "Only version220 to221. No retroactive ash/workshop/stock/body/time/RNG history.",
+    "scope": "Artifact paths counted; repeated viewport states are not claimed to be unique worlds. Current Native artifacts were already independently compared to full Node worlds. Paired default states are a physical regression audit, not a timing/performance or balance-quality claim."
+  },
+  "balance": [
+    {
+      "task": "sim30",
+      "overworld": false,
+      "runs": 30,
+      "maxDays": 3,
+      "seeds": "sim-0..29",
+      "averageDays": 1.4225416666666666,
+      "causes": {
+        "치명상": 13,
+        "생존(시간 종료)": 14,
+        "과다 출혈": 3
+      },
+      "escapes": 0,
+      "seconds": 1944.939,
+      "results": "test-results/windows/v408-final-1/tasks/sim30/results.json",
+      "sha256": "f5fdfb31a1d19cba520fcf14fa341b3054622d4abb430e58d25e33da4c937ea7",
+      "originalInitialFinalWorlds": 60
+    },
+    {
+      "task": "world30",
+      "overworld": true,
+      "runs": 30,
+      "maxDays": 3,
+      "seeds": "sim-0..29",
+      "averageDays": 0.9630601851851852,
+      "causes": {
+        "치명상": 14,
+        "과다 출혈": 6,
+        "생존(시간 종료)": 7,
+        "저체온": 3
+      },
+      "escapes": 0,
+      "seconds": 1021.068,
+      "results": "test-results/windows/v408-final-1/tasks/world30/results.json",
+      "sha256": "e2387cdacdd6214cab5cba4db07f30d486fdda949f5b6a065d06cedc573215e5",
+      "originalInitialFinalWorlds": 60
+    }
+  ],
+  "balanceLimits": "Two distinct default/world cohorts, same final source. No paired-baseline performance or balance-quality claim. Actual normal actions; action-cap exhaustion is a failure, never survival.",
+  "preservedEarlierRuns": [
+    {
+      "path": "test-results/windows/v408-audit-1",
+      "status": "failed",
+      "failedTasks": [
+        "types"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-audit-2",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-audit-3",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-clothing-1",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-course-4",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-golden-diff-1",
+      "status": "passed",
+      "failedTasks": []
+    },
+    {
+      "path": "test-results/windows/v408-native-pilot-1",
+      "status": "failed",
+      "failedTasks": [
+        "types"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-native-pilot-2",
+      "status": "failed",
+      "failedTasks": [
+        "native"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-proof-1",
+      "status": "running",
+      "failedTasks": []
+    },
+    {
+      "path": "test-results/windows/v408-resource-1",
+      "status": "failed",
+      "failedTasks": [
+        "ash"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-reviewed-1",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-supply-pilot-3",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-supply-pilot-4",
+      "status": "failed",
+      "failedTasks": [
+        "course"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-work-care-1",
+      "status": "passed",
+      "failedTasks": []
+    },
+    {
+      "path": "test-results/windows/v408-workshop-1",
+      "status": "failed",
+      "failedTasks": [
+        "types",
+        "focus"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-workshop-2",
+      "status": "failed",
+      "failedTasks": [
+        "defs",
+        "focus"
+      ]
+    },
+    {
+      "path": "test-results/windows/v408-workshop-3",
+      "status": "passed",
+      "failedTasks": []
+    }
+  ],
+  "preservedFailureNotes": [
+    "Initial one-turn ash remainder omitted by a test; expected fractional carry was corrected.",
+    "Zero-regrowth ash validation and actual action-motion mapping added. Long original-workshop test required a specific 90s timeout; physics unchanged.",
+    "Native gather-tab and face-action assumptions corrected; real pointer/keyboard inputs retained.",
+    "Customer path replanned around a moving original merchant/doorway; no teleports.",
+    "Actual bottle count selected from physical stacks rather than assuming one stack per bottle.",
+    "Finite demand pilots retained seven-product exhaustion/cold/fatigue/food failures. Actual owned clothing, ordinary personal food supply and own-bed preparation filled idle windows; no body/grain/ash/cash gifts after capture.",
+    "Only the observer and original worker were scheduled in declared fixtures. Other unscheduled original residents and any resulting deaths are not community survival evidence."
+  ],
+  "remaining": [
+    "Natural initial travel and sustainable long-term grain/fuel supply; current eight initial grain units are finite.",
+    "Full T1-T11 access, complete T2 disclosure, all endings and reports.",
+    "X1-X4 remaining implementation and complete English UI/logs/content.",
+    "1000 expeditions, final release performance/minimum hardware and actual human gates.",
+    "Main/Pages publication until separately verified."
+  ]
+}

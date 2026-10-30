@@ -9,6 +9,8 @@ import {residentCropSupplyDecision} from './resident-crop-supplies'
 import {residentProduceDecision} from './resident-produce'
 import {residentCultivationDecision} from './resident-cultivation'
 import {residentCookingDecision} from './resident-cooking'
+import {residentWorkshopDecision}from'./resident-workshop'
+import {residentWorkshopRestClothing}from'./resident-workshop-state'
 import {npcCareAction} from './npc-care'
 import {scriptAITargetScores} from './script-ai'
 import {activeEscort,contractEscortGoal} from './escort-contracts'
@@ -103,7 +105,7 @@ function stepToward(w: World, c: Creature, dest: Pos): Action | null {
 function freeStep(w: World, c: Creature, p: Pos, d: Pos): boolean {
   return inBounds(w, p) && terrainAt(w, p).passable && !creatureAt(w, p) && !diagonalBlocked(w, c.pos, d.x, d.y)&&!knownFireDanger(w,c).has(p.y*w.s.map.w+p.x)
 }
-function residentCultivationAction(w:World,c:Creature):Action|null{const d=residentProduceDecision(w,c)??residentCultivationDecision(w,c)??residentCropSupplyDecision(w,c);return d?.action??(d?.goal?stepToward(w,c,d.goal)??{type:'wait'}:null)}
+function residentCultivationAction(w:World,c:Creature):Action|null{const d=residentWorkshopDecision(w,c)??residentProduceDecision(w,c)??residentCultivationDecision(w,c)??residentCropSupplyDecision(w,c);return d?.action??(d?.goal?stepToward(w,c,d.goal)??{type:'wait'}:null)}
 function residentRestAction(w: World, c: Creature): Action | null {
   const bed = residentRestGoal(w, c)
   if (!bed) {
@@ -167,6 +169,7 @@ function residentBeddingAction(w:World,c:Creature):Action|null{
   delayResidentBedding(w,c);return null
 }
 function residentWarmAction(w: World, c: Creature): Action | null {
+  const clothes=residentWorkshopRestClothing(w,c);if(clothes)return clothes
   const fire = residentWarmthGoal(w,c), d = residentWarmthDef(w)
   if (!fire) {
     if(c.residentWarming && d && c.needs.bodyTemp>=d.target){c.residentWarming=undefined;c.residentReturning=true}
@@ -481,6 +484,7 @@ function decideAction(w: World, c: Creature): Action {
       if (step) return step
       if (supply.kind === 'shop') delayClinicSupply(w, c)
     }
+    const production=residentWorkshopDecision(w,c);if(production?.action)return production.action;if(production?.goal)return stepToward(w,c,production.goal)??{type:'wait'}
     const escort=contractEscortGoal(w,c);if(escort!==undefined)return escort?stepToward(w,c,escort)??{type:'wait'}:{type:'wait'}
     return npcNoteAction(w,c)??npcCartographyAction(w,c)??npcWorldCartographyAction(w,c)??{ type: 'wait' }
   }

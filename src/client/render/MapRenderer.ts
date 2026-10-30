@@ -1,4 +1,5 @@
 import {HumanView} from './human-view'
+import {ashDepositCount}from'../../core/ash-deposits'
 import {humanArtFor} from './human-art'
 import {humanOwners} from './human-spec'
 import {humanSurfaceState} from './human-state'
@@ -657,7 +658,7 @@ export class MapRenderer {
         g.label = 'dyn'
         this.objs.addChild(g)
       }
-      if (s) { s.zIndex = py + T - 0.5; s.label = 'dyn'; this.objs.addChild(s);if(terr.opaque)this.dynamicFogProps.push({index:i,sprite:s}) }
+      if (s) { if(terr.gather?.ashDeposit&&(vis.has(i)?ashDepositCount(w,{x,y})===0:tile.observed?.gatherAvailable===false))s.alpha=.25;s.zIndex = py + T - 0.5; s.label = 'dyn'; this.objs.addChild(s);if(terr.opaque)this.dynamicFogProps.push({index:i,sprite:s}) }
       if (tile.items.length && vis.has(i)) {
         const it = tile.items[tile.items.length - 1]
         const ic = new Sprite(icon(w.db.item(it.def).sprite))

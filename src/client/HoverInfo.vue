@@ -12,6 +12,7 @@ import { machineStatus } from '../core/machines'
 import {cultivationStatus} from '../core/cultivation'
 import {flightHeight} from '../core/flight'
 import {coveringSwarms} from '../core/swarm-state'
+import {ashDepositCount}from'../core/ash-deposits'
 
 const props = defineProps<{ pos: Pos | null; detail: boolean }>()
 const AI: Record<string, string> = { idle: '가만히 있다', wander: '어슬렁거린다', hunt: '당신을 노린다', investigate: '무언가를 찾는다', flee: '달아난다', eat: '먹고 있다', surrender: '항복했다', guard: '자리를 지킨다', return: '제자리로 돌아간다',patrol:'경계를 순회한다' }
@@ -35,6 +36,7 @@ const d = computed(() => {
   if (visible&&terr.stairs) lines.push(`${w.s.map.links.find((l) => l.pos.x === p.x && l.pos.y === p.y)?.label ?? ''} — 위에 서서 > 또는 <`)
   if (tile.room !== undefined && w.s.map.rooms[tile.room]?.discovered) lines.push(`(${w.s.map.rooms[tile.room].name})`)
   if (visible) {
+    if(terr.gather?.ashDeposit)lines.push(`실제 남은 재 ${ashDepositCount(w,p)}회분 · 곁에서 F2로 한 회분씩 채집`)
     const bed = innBedAt(w, p)
     if (residentBedAt(w, p)) lines.push('주민 개인 침대 · 손님은 여관 침대를 빌려야 한다')
     if (bed) lines.push(bed.lease?.tenant === w.s.playerId && bed.lease.until > turnOf(w) ? `빌린 침대 · ${fmtClock(bed.lease.until)}까지 · Z 수면` : '여관 침대 · 주인 곁에서 N으로 대여')

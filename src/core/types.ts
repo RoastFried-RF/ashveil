@@ -572,7 +572,7 @@ export interface TerrainDef extends DefBase {
   defType: 'Terrain'
   station?: { id: string; bonus: number }
   bedding?: { quality: number; insulation: number; portable?: boolean }
-  gather?: { item: string; count: number; turns: number; regrowTurns: number; seasons?:string[]; soilDependent?:boolean }
+  gather?: { item: string; count: number; turns: number; regrowTurns: number; seasons?:string[]; soilDependent?:boolean;ashDeposit?:string }
   label: string
   sprites: string[]
   /** 계단 */
@@ -707,6 +707,19 @@ export interface ResidentProvisionDef extends DefBase {
   dailyFoodUnits: number
   retryTurns: number
   cooking?: { recipes:string[]; roles:CreatureDef['ai'][]; homeRadius:number; prepareBelowKcal:number; reserveWaterMl:number; reserveMoney:number; maxUnitPrice:number; retryTurns:number }
+  workshop?:{faction:string;recipe:string;gather:string;targetStock:number;reserveKcal:number;retryTurns:number}
+}
+/** A fixed catchment receives only its original tower's actual emitted ash. */
+export interface AshDepositDef extends DefBase {
+  defType:'AshDeposit';label:string;source:string;terrain:string
+  ground:string[]
+  initial:number;capacity:number;unitsPerDayAt100:number
+  placements:{site:string;map:string;pos:[number,number]}[]
+}
+export interface AshDepositState {
+  map:string;cell:Pos;pos:Pos;terrain:string;at:number
+  initial:number;deposited:number;taken:number;lost:number;stock:number;remainder:number
+  exposed:boolean;rate:number;capacity:number
 }
 export interface ResidentWaterDef extends DefBase {
   defType: 'ResidentWater'
@@ -1202,6 +1215,7 @@ export interface RecipeDef extends DefBase {
 }
 
 export interface WorkJob {
+  residentWorkshop?:{site:string;recipe:string}
   baseOrder?:number
   kind: 'craft' | 'repair' | 'salvage'
   recipe?: string
@@ -1962,6 +1976,7 @@ export interface BestiaryRecord {
   fights?: { id: number; map: string; lastTurn: number }[]
 }
 export type AnyDef =
+  | AshDepositDef
   | SwarmDef
   | SaveModeDef
   | PostureDef
@@ -2027,6 +2042,7 @@ export interface ItemInst {
   foodBurnt?: boolean
   foodWater?:{quality:WaterQuality;ml:number}
   cropHarvest?:{owner:number;seedUid:number;def:string;terrain:string;map:string;region:string;at:number}
+  workshopMade?:{worker:number;site:string;recipe:string;def:string;at:number}
   foodQ?: number
   brokenRelic?: boolean
   appraisal?: 0 | 1 | 2
@@ -2382,6 +2398,8 @@ export interface Creature {
   residentSupplyAfter?: number
   residentCookingSupplyAfter?: number
   residentCookingFire?: {map:string;region:string;pos:Pos;uid:number}
+  residentWorkshopOrder?:{site:string;recipe:string;rule:string;at:number}
+  residentWorkshopAfter?:number
   welcomedActors?:number[]
   expulsion?:{site:string;faction:string;by:number;at:number;leftAt?:number}
   residentPlot?:{pos:Pos;seedUid:number;terrain:string;map:string;region:string}
@@ -2772,7 +2790,7 @@ export interface WorldCell {
   resources: { wood: number; herbs: number; ore: number; game: number; scrap: number }
 }
 export interface WorldObservation {at:number;source:'initial'|'arrival'|'survey';cell:Pick<WorldCell,'altitude'|'temperature'|'veil'|'biome'|'sea'|'road'|'oldRoad'|'river'|'lake'|'territory'>}
-export interface WorldTower { id: string; cell: Pos; output: number; radius: number; history?: { turn: number; output: number }[]; shutdown?:TowerShutdown }
+export interface WorldTower { ashDeposits?:Record<string,AshDepositState>;id: string; cell: Pos; output: number; radius: number; history?: { turn: number; output: number }[]; shutdown?:TowerShutdown }
 export interface TowerShutdown {turn:number;seasonTurns:number;startOutput:number;radius:number;veilTarget:number;sunBonus:number;soilDelayTurns:number;soilCollapseTurns:number;neighborBoosts:{id:string;amount:number}[]}
 export interface WorldSite { id: string; label: string; description: string; cell: Pos; kind: RegionSiteDef['kind']; faction?: string; population?: number; facilities?: boolean }
 export interface RegionScene {
