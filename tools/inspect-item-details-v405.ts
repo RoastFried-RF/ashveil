@@ -1,6 +1,7 @@
 /** Finite declared stock, real tooltip/menu/meal/save inputs and independent whole-state checks. */
 import assert from 'node:assert/strict'
-import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
+import {existsSync,mkdirSync,readFileSync,writeFileSync} from 'node:fs'
+import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 import {isDeepStrictEqual} from 'node:util'
 import {chromium,type Page} from 'playwright-core'
@@ -15,9 +16,13 @@ const out=process.argv[2];assert.ok(out&&!existsSync(out));mkdirSync(out,{recurs
 const viewports=[[1440,1080],[1366,768],[390,844]],viewport=process.argv[3]
 assert.ok(!viewport||viewports.some(v=>v.join('x')===viewport),'Expected a supported WIDTHxHEIGHT')
 const server=await startNativePreview(),browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']})
+const sha256=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex')
 type Hook={__ashveil:{world():World}}
 const rows:unknown[]=[],errors:string[]=[];let active:Page|undefined
 try{
+ const html=readFileSync('dist/index.html'),entry=html.toString().match(/<script[^>]+src="([^"]+)"/)?.[1];if(typeof entry!=='string'||!entry.startsWith('./assets/'))throw Error('The owned Native entry must be a relative asset')
+ const styles=[...html.toString().matchAll(/<link[^>]+href="([^"]+\.css)"/g)].map(m=>({path:m[1],sha256:sha256(readFileSync(join('dist',m[1])))}))
+ writeFileSync(join(out,'build-entry.json'),JSON.stringify({entry,htmlSHA256:sha256(html),entrySHA256:sha256(readFileSync(join('dist',entry))),styles,scope:'Exact files of the owned Native preview; not all assets.'},null,2))
  const {db,report}=loadDb();assert.deepEqual(report.errors,[])
  for(const [width,height]of viewports.filter(v=>!viewport||v.join('x')===viewport)){
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
@@ -36,8 +41,10 @@ try{
    await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
    assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
-   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)
-   rows.push({label,width,height,time:actual.time,hash:stateHash(actual)})
+   const layout=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,headers:[...document.querySelectorAll<HTMLElement>('.window-shell')].flatMap(el=>{const h=el.querySelector<HTMLElement>('.window-heading');if(!h)return[];const r=el.getBoundingClientRect(),b=h.getBoundingClientRect();return[{scrollTop:el.scrollTop,top:b.top,bottom:b.bottom,reachable:b.top>=r.top-1&&b.bottom<=Math.min(r.bottom,innerHeight)+1&&b.left>=0&&b.right<=innerWidth+1}]})}))
+   assert.equal(layout.overflow,false)
+   assert.ok(layout.headers.every(h=>h.reachable),label+' title/close header clipped: '+JSON.stringify(layout.headers))
+   rows.push({label,width,height,time:actual.time,hash:stateHash(actual),headers:layout.headers})
    if(capture)await page.screenshot({path:join(out,width+'-'+label+'.png')})
   }
   const item=(uid:number)=>page.getByTestId('win-inv').locator(`[data-inventory-item="${uid}"]`)

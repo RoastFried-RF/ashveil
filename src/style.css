@@ -137,7 +137,7 @@ kbd {
 [data-testid="sidebars"] > div { gap: 7px; }
 [data-testid="sidebars"] span { font-size: 10px; }
 
-.window-shell { display: flex; flex-direction: column; max-height: calc(100dvh - 28px); max-width: calc(100vw - 16px); overflow: hidden; }
+.window-shell { display: flex; flex-direction: column; max-height: calc(100dvh - 28px); max-width: calc(100vw - 16px); overflow: clip; }
 .window-shell.df { padding: 0; }
 .window-heading { display: flex; align-items: center; justify-content: space-between; min-height: 43px; gap: 16px; padding: 8px 12px 8px 16px; border-bottom: 1px solid #6b6050; background: linear-gradient(90deg, #39322a, #242123 60%); cursor: move; user-select: none; }
 .window-heading::before { width: 3px; height: 18px; background: #b69c6b; content: ""; }

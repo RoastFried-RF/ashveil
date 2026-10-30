@@ -26,7 +26,7 @@ export function displayItemLabel(w:World,it:ItemInst):string {
   if(it.toxin)label+=t(' (마비독)')
   if(it.fletchingDamaged)label+=t(' (깃 손상)')
   if(it.count>1)label+=` ×${it.count}`
-  if(it.uses!==undefined)label+=t(' [{0}회]',it.uses)
+  if(it.uses!==undefined)label+=it.uses===1?t(' [1회]'):t(' [{0}회]',it.uses)
   if(def.light&&it.lit)label+=t(' (켜짐)')
   return label
 }

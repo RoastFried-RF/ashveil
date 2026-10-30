@@ -61,6 +61,7 @@ describe('public translated item details',()=>{
   preferences.language='en'
   for(const item of items){const tip=itemTip(w,item);expect([tip.title,...tip.lines].join('\n'),item.def).not.toMatch(/[가-힣]/)}
   expect(itemTip(w,items[2]).title).toBe('Medical bag [5 uses]')
+  expect(itemTip(w,items[3]).title).toBe('Bowl of oatmeal [1 use]')
   preferences.language='ko'
   expect(itemTip(w,items[2]).lines).toContain('남은 양 5')
   expect(serialize(w.s)).toBe(before);expect(JSON.stringify(items)).toBe(original)
