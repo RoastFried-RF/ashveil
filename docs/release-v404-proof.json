@@ -1,0 +1,910 @@
+{
+  "version": "0.404-dev",
+  "saveVersion": 219,
+  "status": "implementation, automatic checks and individual visual review passed; publication pending",
+  "checkedAtKST": "2026-10-30",
+  "runtimeCommit": "9dff65d98276c5591e765f79f554423189742b89",
+  "fullCommit": "e6bfef830fd0d4103d02c01b39a658e1ddcd2bb2",
+  "identity": {
+    "src": {
+      "full": "f995bbbc2c5a80c4363fdc6983b2980a7b50f893",
+      "native": "f995bbbc2c5a80c4363fdc6983b2980a7b50f893"
+    },
+    "tests": {
+      "full": "7e314f324c5da8adfd66655463bb2533403aa82d",
+      "native": "7e314f324c5da8adfd66655463bb2533403aa82d"
+    },
+    "src/core": {
+      "full": "465861abceb93efc23c8ce150adac62f297eacb0",
+      "native": "465861abceb93efc23c8ce150adac62f297eacb0"
+    },
+    "src/content": {
+      "full": "7d1d33aa392e67afed1543a728b14c71748ffef2",
+      "native": "7d1d33aa392e67afed1543a728b14c71748ffef2"
+    },
+    "public": {
+      "full": "0a115036e62e379fd1dff3e154b0c0aa1bef641b",
+      "native": "0a115036e62e379fd1dff3e154b0c0aa1bef641b"
+    },
+    "mods": {
+      "full": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb",
+      "native": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb"
+    },
+    "pnpm-lock.yaml": {
+      "full": "671852bb47b36476fe0ede3d4f01bf4cc198abc6",
+      "native": "671852bb47b36476fe0ede3d4f01bf4cc198abc6"
+    }
+  },
+  "sourceSHA256": {
+    ".github/workflows/cloud-development.yml": "a12ffb08e33e0ba66e0270e7310fda25c4e083b80de1d1b9d5f5dcce30b75fdc",
+    ".github/workflows/native-phase.yml": "07a355a545e940b89744282c86fe9e3a215abbad4059a5702707331caabcd97e",
+    ".github/workflows/native-recovery.yml": "b9affdc2edc954256223f529706509955b832994fa5cebbe98e748c9df101879",
+    "src/client/CheckpointDialog.vue": "bcca8d65fae5f119fb0c6f8f6fde0714de3f55c5c2a4e691be0ab4456b6b9eaa",
+    "src/client/ContentChangeReview.vue": "38a14f862f935e2e250d6a793aa122b9bbf19fa7669d444b1d13197e2e810e41",
+    "src/client/LiveContentReload.vue": "175bf0e4cd1fb11f6fa090eff026fb6d7144f149b742a6be99ed6f7fa7154fcb",
+    "src/client/ModImportControl.vue": "25e8ebdef57b4aefac2f45322ae4a70afaacea0df5db8c02851a9cbbb9862f29",
+    "src/client/ModOrderControl.vue": "1987133e51d2cdf2d44bddf3b964046ad7eab53e12d77c876b184cb4afc0f01b",
+    "src/client/SeedShareControl.vue": "30840eadf5b4016cce93c3207ae87d0eb4f7259eae1be35692c250ade2da1490",
+    "src/client/TitleScreen.vue": "f699558b71444dc9103b8e9db662a47657af034eb780bac5408a291a1fdf75f6",
+    "src/client/build-version.ts": "a54e6cc867969aaa6fbed58e1277bb65090ac1494e1527ffb924becfbdca61ec",
+    "src/client/locales/en.json": "b59864e8a4fafad4d2d81de820e3bdbf0ed50f25c9d028e5b936a7270dd61f8f",
+    "src/client/store.ts": "b0770a6a0821079e86da5d9a237e76dd4f7f6650df0d5dd4535ebc98effd17f1",
+    "tests/checkpoint-start.test.ts": "31e473ad85175bff4c0090ae7a846d599915242ace748a16dcc0e3595560969e",
+    "tools/cloud-harness/README.md": "c0a020a085bb2987580dd3cd12e4656d405ab37a5fcb0dd6c70e9b376a819536",
+    "tools/cloud-harness/native-phase.py": "9bb93b0164ef8a6a75a6709045c8e16127820e32bb28c0af0fffe355c85eeb97",
+    "tools/cloud-harness/plan.py": "4b2e12beff7ad082491ee1c4fe4b708912cac3049f4b558d0749c26be1c605ad",
+    "tools/cloud-harness/run.py": "456b2cafe9b926e0bd52a4f089c656f8280c2d69a2547a4ca5e83fc3df48031b",
+    "tools/cloud-harness/verify-environment.py": "022e7aa6ff7dda573f5cbb93d47106a157b2ba3d4d9dd58d0a82dd57f77f032a",
+    "tools/inspect-checkpoints-v404.ts": "d5f6fc0e8047c39d2c7092ae81571635ea64609ad5bfd860949bcb943720da9d",
+    "tools/inspect-locale-v400.ts": "ddabe950c1f64a58caf36e77e1a6d67ffac08a4d60f31e0241d3a549fc019195"
+  },
+  "reviewedTranslationScope": {
+    "uiMessages": 1074,
+    "contentDefs": 387,
+    "notCompletionPercentage": true
+  },
+  "fullValidation": {
+    "commit": "e6bfef830fd0d4103d02c01b39a658e1ddcd2bb2",
+    "run": 40674115800,
+    "job": 122768030684,
+    "workflowResult": "failed at Native tool, Full passed",
+    "artifact": {
+      "id": 12811356986,
+      "sha256": "c6672228a5e729c9e6f05af4e1c3c878845dd81f78a2159ec394fb40b1dae594",
+      "rawWorldFilesExcluded": true
+    },
+    "environment": {
+      "version": 1,
+      "root": "/home/runner/work/ashveil/ashveil",
+      "ready": true,
+      "checks": {
+        "node24": {
+          "ok": true,
+          "version": "v24.21.0"
+        },
+        "pnpm9159": {
+          "ok": true,
+          "version": "9.15.9"
+        },
+        "lockfile": {
+          "ok": true,
+          "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+        },
+        "dependencies": {
+          "ok": true,
+          "missing": []
+        },
+        "chromium": {
+          "ok": true,
+          "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+          "version": "Chromium 141.0.7390.37"
+        },
+        "checkout": {
+          "ok": true,
+          "head": "e6bfef830fd0d4103d02c01b39a658e1ddcd2bb2"
+        }
+      },
+      "cgroup": {},
+      "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+    },
+    "tasks": {
+      "environment": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "locale-focused": "passed",
+      "full": "passed",
+      "preview-helper": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "locale-checkpoints": "failed"
+    },
+    "lanes": {
+      "max": {
+        "light": 2,
+        "heavy": 1
+      },
+      "lightHeavyOverlap": 0
+    },
+    "full": {
+      "files": 412,
+      "passed": 6765,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 1205.47,
+      "workers": 2
+    },
+    "focused": {
+      "files": 7,
+      "passed": 77,
+      "failed": 0
+    }
+  },
+  "nativeValidation": {
+    "run": 41003647092,
+    "workflowResult": "success",
+    "profile": "authoring recovery; does not claim a new Full",
+    "sequentialJobs": [
+      {
+        "id": 123893511004,
+        "name": "build / verify",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-30T04:34:29Z",
+        "endedAt": "2026-10-30T04:36:42Z"
+      },
+      {
+        "id": 123894173210,
+        "name": "common / verify",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-30T04:36:45Z",
+        "endedAt": "2026-10-30T04:40:13Z"
+      },
+      {
+        "id": 123895186401,
+        "name": "desktop1440 / verify",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-30T04:40:16Z",
+        "endedAt": "2026-10-30T04:45:11Z"
+      },
+      {
+        "id": 123896603483,
+        "name": "desktop1366 / verify",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-30T04:45:14Z",
+        "endedAt": "2026-10-30T04:48:09Z"
+      },
+      {
+        "id": 123897468503,
+        "name": "mobile390 / verify",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-10-30T04:48:12Z",
+        "endedAt": "2026-10-30T04:50:42Z"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12955256101,
+        "name": "native-diagnostics-1440x1080-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "929d7f5d4e9f01b87ee7fb94dd3455761f12e32e240392956286f5a325ff98b7",
+        "size": 10851795,
+        "expired": false
+      },
+      {
+        "id": 12955200540,
+        "name": "native-diagnostics-common-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "5ef12daa4eef6bf7c4b989bce42f29d7de97cfcfd5714fe9e04c8fdca5c9f307",
+        "size": 11275003,
+        "expired": false
+      },
+      {
+        "id": 12955172619,
+        "name": "native-diagnostics-390x844-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "b6621b0872393810607cae751f4d634cd79d1ae93662f2ea9fb5c83927b84150",
+        "size": 3080754,
+        "expired": false
+      },
+      {
+        "id": 12954900555,
+        "name": "native-build-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "3b4e50fb3adae45c0ba348c835257855dd6f40da0f56255a598d02b8af3ee70c",
+        "size": 443255865,
+        "expired": false
+      },
+      {
+        "id": 12954761006,
+        "name": "native-diagnostics-build-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "abbd1157f50b022ebeea33e81899829fe4f8da0545553122bfc211e7f3ee7a44",
+        "size": 90215,
+        "expired": false
+      },
+      {
+        "id": 12954424537,
+        "name": "native-diagnostics-1366x768-9dff65d98276c5591e765f79f554423189742b89",
+        "sha256": "e72a5925180f2e9b7dad1597fa72d49ddb584a32e31f60d19acc8e14212d38e7",
+        "size": 6449296,
+        "expired": false
+      }
+    ],
+    "phases": [
+      {
+        "phase": "build",
+        "job": 123893511004,
+        "environment": {
+          "version": 1,
+          "root": "/home/runner/work/ashveil/ashveil",
+          "ready": true,
+          "checks": {
+            "node24": {
+              "ok": true,
+              "version": "v24.22.1"
+            },
+            "pnpm9159": {
+              "ok": true,
+              "version": "9.15.9"
+            },
+            "lockfile": {
+              "ok": true,
+              "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+            },
+            "dependencies": {
+              "ok": true,
+              "missing": []
+            },
+            "chromium": {
+              "ok": true,
+              "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+              "version": "Chromium 141.0.7390.37"
+            },
+            "checkout": {
+              "ok": true,
+              "head": "9dff65d98276c5591e765f79f554423189742b89"
+            }
+          },
+          "cgroup": {},
+          "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+        },
+        "tasks": {
+          "environment": "passed",
+          "typecheck": "passed",
+          "lint": "passed",
+          "preview-helper": "passed",
+          "locale-focused": "passed",
+          "build": "passed"
+        },
+        "planSHA256": "a5e6b553919d15dc19c1003366e3cdffadb80b8962348c742c4a72647693e784",
+        "lanes": {
+          "max": {
+            "light": 2,
+            "heavy": 1
+          },
+          "lightHeavyOverlap": 0
+        }
+      },
+      {
+        "phase": "common",
+        "job": 123894173210,
+        "environment": {
+          "version": 1,
+          "root": "/home/runner/work/ashveil/ashveil",
+          "ready": true,
+          "checks": {
+            "node24": {
+              "ok": true,
+              "version": "v24.22.1"
+            },
+            "pnpm9159": {
+              "ok": true,
+              "version": "9.15.9"
+            },
+            "lockfile": {
+              "ok": true,
+              "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+            },
+            "dependencies": {
+              "ok": true,
+              "missing": []
+            },
+            "chromium": {
+              "ok": true,
+              "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+              "version": "Chromium 141.0.7390.37"
+            },
+            "checkout": {
+              "ok": true,
+              "head": "9dff65d98276c5591e765f79f554423189742b89"
+            }
+          },
+          "cgroup": {},
+          "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+        },
+        "tasks": {
+          "environment": "passed",
+          "smoke": "passed",
+          "locale": "passed"
+        },
+        "planSHA256": "52a6fa46e4f3a52bb069126f056656f3f36f248ac942727a6b13c468b92fae84",
+        "lanes": {
+          "max": {
+            "light": 1,
+            "heavy": 1
+          },
+          "lightHeavyOverlap": 0
+        }
+      },
+      {
+        "phase": "1440x1080",
+        "job": 123895186401,
+        "environment": {
+          "version": 1,
+          "root": "/home/runner/work/ashveil/ashveil",
+          "ready": true,
+          "checks": {
+            "node24": {
+              "ok": true,
+              "version": "v24.22.1"
+            },
+            "pnpm9159": {
+              "ok": true,
+              "version": "9.15.9"
+            },
+            "lockfile": {
+              "ok": true,
+              "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+            },
+            "dependencies": {
+              "ok": true,
+              "missing": []
+            },
+            "chromium": {
+              "ok": true,
+              "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+              "version": "Chromium 141.0.7390.37"
+            },
+            "checkout": {
+              "ok": true,
+              "head": "9dff65d98276c5591e765f79f554423189742b89"
+            }
+          },
+          "cgroup": {},
+          "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+        },
+        "tasks": {
+          "environment": "passed",
+          "locale-checkpoints": "passed"
+        },
+        "planSHA256": "edc486533534ae366b5e82780d7893ed62792b7e9fd8d90b1382fd1228e6bac4",
+        "lanes": {
+          "max": {
+            "light": 1,
+            "heavy": 1
+          },
+          "lightHeavyOverlap": 0
+        }
+      },
+      {
+        "phase": "1366x768",
+        "job": 123896603483,
+        "environment": {
+          "version": 1,
+          "root": "/home/runner/work/ashveil/ashveil",
+          "ready": true,
+          "checks": {
+            "node24": {
+              "ok": true,
+              "version": "v24.22.1"
+            },
+            "pnpm9159": {
+              "ok": true,
+              "version": "9.15.9"
+            },
+            "lockfile": {
+              "ok": true,
+              "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+            },
+            "dependencies": {
+              "ok": true,
+              "missing": []
+            },
+            "chromium": {
+              "ok": true,
+              "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+              "version": "Chromium 141.0.7390.37"
+            },
+            "checkout": {
+              "ok": true,
+              "head": "9dff65d98276c5591e765f79f554423189742b89"
+            }
+          },
+          "cgroup": {},
+          "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+        },
+        "tasks": {
+          "environment": "passed",
+          "locale-checkpoints": "passed"
+        },
+        "planSHA256": "e8e587de0dc572c78c60182763e7283d1aa040d504278b6052d972aacec52c10",
+        "lanes": {
+          "max": {
+            "light": 1,
+            "heavy": 1
+          },
+          "lightHeavyOverlap": 0
+        }
+      },
+      {
+        "phase": "390x844",
+        "job": 123897468503,
+        "environment": {
+          "version": 1,
+          "root": "/home/runner/work/ashveil/ashveil",
+          "ready": true,
+          "checks": {
+            "node24": {
+              "ok": true,
+              "version": "v24.22.1"
+            },
+            "pnpm9159": {
+              "ok": true,
+              "version": "9.15.9"
+            },
+            "lockfile": {
+              "ok": true,
+              "sha256": "34897cbe9aeb44d4fe1b48c0afa9b7223c71b2dd9806a197b41ac7cf03b378d8"
+            },
+            "dependencies": {
+              "ok": true,
+              "missing": []
+            },
+            "chromium": {
+              "ok": true,
+              "path": "/home/runner/.cache/ms-playwright/chromium-1194/chrome-linux/chrome",
+              "version": "Chromium 141.0.7390.37"
+            },
+            "checkout": {
+              "ok": true,
+              "head": "9dff65d98276c5591e765f79f554423189742b89"
+            }
+          },
+          "cgroup": {},
+          "scope": "Tool presence/version only. Frozen install, compilation, Full/World, real inputs and publication require separate evidence."
+        },
+        "tasks": {
+          "environment": "passed",
+          "locale-checkpoints": "passed"
+        },
+        "planSHA256": "62e205d71d3751deffc740977ef5eb6ee87867b579273252ae33c6a7cd61cd71",
+        "lanes": {
+          "max": {
+            "light": 1,
+            "heavy": 1
+          },
+          "lightHeavyOverlap": 0
+        }
+      }
+    ],
+    "lanes": {
+      "max": {
+        "light": 2,
+        "heavy": 1
+      },
+      "lightHeavyOverlap": 0
+    }
+  },
+  "native": {
+    "wholeStatePairs": 72,
+    "checkpointPairs": 60,
+    "commonLocalePairs": 12,
+    "titleReadonlyReviews": [
+      {
+        "label": "title-study-review",
+        "width": 1440,
+        "height": 1080,
+        "suspendedWorldHash": "23c1c741",
+        "imprintSHA256": "4a8db55e1f590eef19aa6195d869fbf34089a3d19f712f9d3c815d6b4fdd6a92"
+      },
+      {
+        "label": "title-study-review",
+        "width": 1366,
+        "height": 768,
+        "suspendedWorldHash": "23c1c741",
+        "imprintSHA256": "4a8db55e1f590eef19aa6195d869fbf34089a3d19f712f9d3c815d6b4fdd6a92"
+      },
+      {
+        "label": "title-study-review",
+        "width": 390,
+        "height": 844,
+        "suspendedWorldHash": "23c1c741",
+        "imprintSHA256": "4a8db55e1f590eef19aa6195d869fbf34089a3d19f712f9d3c815d6b4fdd6a92"
+      }
+    ],
+    "turnUnitsActuallyExecuted": 1100,
+    "viewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "errors": [],
+    "auditSHA256": {
+      "build/phase/tasks/preview-helper/helper/audit.json": "de2335a82815af11f1f2e366176df9dbf638b8a08534d31bcffb74f0c778fd68",
+      "common/phase/tasks/locale/locale/audit.json": "c738745c9dd771ba95cc9b4ecbd72ca375d53012567f5f693e7be91851027be5",
+      "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/audit.json": "0882c83fe5581775f647275e868aa713e4be64f1ad9c39d7d2475b51e407231a",
+      "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/audit.json": "85b451e19aba21e16f2c13458f57c3727a1155a6fbcb02b86d3e4ccc3de866cc",
+      "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/audit.json": "53cad2f064e75128ee659fe52b114b6fd69a62b5167a5d16a67f6b8834e6ddeb"
+    },
+    "fixture": "Fresh actual Study creation, real ZIP import/review/install/unselected/remove and seed share review/apply. Waymark alone uses declared finite initial campfire fixture. No natural campfire acquisition, death, conclusions or month claimed.",
+    "comparison": "Independent Node complete serialized state, strict deep comparison; only renderer-consumed FX normalized. Title retains suspended World; actual IndexedDB current record and localStorage mirror compared byte-for-byte read-only. No post-load World/time/RNG injection.",
+    "visualReview": {
+      "reviewedEveryImageDirectly": true,
+      "count": 67,
+      "images": [
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-changed-selection-review.png",
+          "sha256": "8faa8bcf7544fe834215f94ff74c3547c56abcf542fc85e4b7de3bc11cae46d9"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-live-review-readonly.png",
+          "sha256": "50fc6f2d664485aa2bdedaae96332c228b3f2058b821aa4e85f37695bc491947"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-mod-package-review.png",
+          "sha256": "22a4bd184aa66d5f81ce6c9fe4aba2208a7b89ec35acf54a96b1666879d373fb"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-mod-removal-review.png",
+          "sha256": "1094d265c308491ac8bf398addcf33b9c5a2ff1a4047f978062253a75af219aa"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-new-study.png",
+          "sha256": "9cd5629738ccab38e80d1db7e95a8181152eb45cc4e7219b1c8db6578ca10e9b"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-seed-share-review.png",
+          "sha256": "0bab410cfaffe58e4e8934d848884f96401de3ae332438568ff16e655cdc99e0"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-study-restored.png",
+          "sha256": "c465cb2f7505fd78d235b68e3ff1094542fe9713bcebcb79bc4af71802aff825"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-study-review.png",
+          "sha256": "67d25e602861fcd85c672cb6b19b73864df048a183cc9be763c7c47b47cf0da0"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-study-saved.png",
+          "sha256": "25a0bc84c1cfd36c1da99d1ee27ff3e4990af01d436c26a81765ad56a8b922dd"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-title-study-restored.png",
+          "sha256": "c140762a45a869678c83827a3d73eb24be0788955dc08e786162a6a92dc43a3e"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-title-study-review.png",
+          "sha256": "d13a10f4bf5ef8042cae359aced631df45809b2b0475526fdeafc27fc20d2229"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-waymark-away.png",
+          "sha256": "49a4ff1870bacbd127adbbe898d79d5842afab43a1d1f5c788981f6dfccc689f"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-waymark-restored.png",
+          "sha256": "51dc3933d3e28ced13779f1fcf409320701bed3573d4b6980e41651f64195d8d"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-waymark-review.png",
+          "sha256": "0a2ecef80f16391c96ab1b622c7e2c7c33c0dd64dbf728de5a69abb2ab7a3f36"
+        },
+        {
+          "path": "1366x768/phase/tasks/locale-checkpoints/locale-checkpoints/1366-waymark-saved.png",
+          "sha256": "278dadb08f11a30574927d31ad535e65d74bd7662f98c1f94165dcdac92c9e08"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-changed-selection-review.png",
+          "sha256": "23d73f5dd539f79d0635185a4b98dfd1aacbd3abb6634ba1229f623c5f56a1be"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-live-review-readonly.png",
+          "sha256": "79a5a7a2ee047c729ca8f307eaf238f92a10a90bad7532b54e1adbc5ba4a7667"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-mod-package-review.png",
+          "sha256": "eeab670603336e2deb4e513ccdef7f77ba51c52eda983aba3f2de9619ada660a"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-mod-removal-review.png",
+          "sha256": "4e52fd947f6bc002c993f2fc8630b60a8e7b2fffe47fc6ce36c5c0abaf7c12d5"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-new-study.png",
+          "sha256": "ea85470c618e75fef73c5c9059ec3a4f9c01506d7b101bd274400bf9edd0bef5"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-seed-share-review.png",
+          "sha256": "2f4416851adb816a9fb4fc3d35617bc2a916e9a674cdf6e26276a5194c28d9ff"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-study-restored.png",
+          "sha256": "63fbb8a7a714284f4408ba1ca98f1a211b9406c103f02e86bba470a4a7a37d54"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-study-review.png",
+          "sha256": "ae713ea6a179bcda3bf50012092b5a9ec93741dd20948e5daba38abf408db5d7"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-study-saved.png",
+          "sha256": "a785df0430dd726c433169035a355e41ac0e89c68a6d7d411a3fb2c6cd74630b"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-title-study-restored.png",
+          "sha256": "c2bb04b4cd20ed685f4cd1cbe4ea1fec7eb2686e7dfcc21a45e7211fa5899c11"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-title-study-review.png",
+          "sha256": "adfa2ac94305bcd85cf48bc370d2e10f6a9872030b4fb36955ff7591fca6d93b"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-waymark-away.png",
+          "sha256": "7bb1d2f0ccdc7b8b9b2944eb55ccdd0bbb6b8a0f3fdb562d6fc456a4c690752e"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-waymark-restored.png",
+          "sha256": "14f7b0a5d13cddccad23f2f6dadc5446962a656fdbcbdee4040000d9c66dff11"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-waymark-review.png",
+          "sha256": "fa3c270a6c45203ec84582762b98571e7f820c948e33602643b33bbcaba128f7"
+        },
+        {
+          "path": "1440x1080/phase/tasks/locale-checkpoints/locale-checkpoints/1440-waymark-saved.png",
+          "sha256": "d13faeb293db09906e7f3be28d21049c21044f62940a533c0d4aa4d9062c6803"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-changed-selection-review.png",
+          "sha256": "96498519b7213f5e31a965e16fe1a9bf3635f837b40d3c22ae7d2bc294583cec"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-live-review-readonly.png",
+          "sha256": "2d33aea88189f7655374271c915cde5ef01c9775601968cccbb2cfc099d55ff2"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-mod-package-review.png",
+          "sha256": "39c67d400155d2c95a205944a87f70cc60d4a1fbce0847afb843a3a5e3425732"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-mod-removal-review.png",
+          "sha256": "3225954cd9f7f99769e6a7d92938bbdc5207a950fa2da107c857236ddbfa700c"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-new-study.png",
+          "sha256": "208aff6aca966c1a30ec2b056046f64a1a7943f842a521b283eb8951d87f459f"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-seed-share-review.png",
+          "sha256": "fc077b17e986e739ad2703cc20741431c772208d1b529642841075bd3a9df205"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-study-restored.png",
+          "sha256": "804df3d4e4970cbca81d9907019d613f453f1e89a9e4911f585f4b3affeb3ed4"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-study-review.png",
+          "sha256": "0195024dee12cde3b1ca76ed250ed0b1146b6bcebfa4faa3c0069244b956a48c"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-study-saved.png",
+          "sha256": "e974cbcec585349c4824483612f4c6763c312e59d60e92c7a79d0603a28350d7"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-title-study-restored.png",
+          "sha256": "5940b556cfcd3110a3fed1091f20aab985d6df6873b0106a042d4f689ad0a717"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-title-study-review.png",
+          "sha256": "7fc05d6320dc2e74c97bc8ddc65d8d02bdfefc72f0c7709d253575c5c3f4b793"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-waymark-away.png",
+          "sha256": "ecc6be5349d5a3120d7c3f402df14d3c45a90cbd6869e1de1b30bdd07418a344"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-waymark-restored.png",
+          "sha256": "4033e3fac4645b1a9b1d48f652f8dd4aeea5208cbb29272988f69b0603e84895"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-waymark-review.png",
+          "sha256": "07b9cea10c63d5cff5abd947fd1874e6f159f45ecdff1eea6cb9b88d0ec23607"
+        },
+        {
+          "path": "390x844/phase/tasks/locale-checkpoints/locale-checkpoints/390-waymark-saved.png",
+          "sha256": "6d5ed71d3e8ed35f1427d7a7f96425fb4db0eb08c4d4f0689acce802f1a047a5"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-continued-en.png",
+          "sha256": "4b1913a875ad651953cc1d49ce18ae3f117bdf608d5a7213eaa67581a6b78f4a"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-created-en.png",
+          "sha256": "455245ce7d54cf35b5a4c937d18385b83e41bd892fc677ec261db386fc466c6c"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-keys-en.png",
+          "sha256": "d658fe738d02825f34e578005859f757d03448d0cddb7751b62064712017f9c7"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-settings-en.png",
+          "sha256": "3b39af58ee50f82ab8725158fa3f2868c5563a5db3233d030f4c65d8d7c48ae0"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-settings-ko.png",
+          "sha256": "fc77b898e6de1d4db95ef3f06bfc91dec147261dae590b3ce2c983e46f76c98a"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-title-en.png",
+          "sha256": "bfb7a6c25507ff4ebd6ea229e96e3d82cfb920114a3a0549bad5f5b577c9c83b"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/1366-wait-en.png",
+          "sha256": "02c620ab088ad318556e7e10be06c826c18296c92311ac549bc248c8b9f7c7b0"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-continued-en.png",
+          "sha256": "9e2cff384601cd84e0bdaa2107278ad30f1d5be35f338ed13c84b4275f55e692"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-created-en.png",
+          "sha256": "95f87afc45abf587d226a22fbfc4e0e9729a5062762ae2bc758606f8d0e9b04f"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-keys-en.png",
+          "sha256": "4d89c63a68490fa0c21199b8fa9dad293d98b0d30195a856a1e8ba7d7d084916"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-settings-en.png",
+          "sha256": "091c9ce98b04c95bb8de0f6c05ed210c30202bbb022cef9a5819359de75eef57"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-settings-ko.png",
+          "sha256": "5d724d55fe4dd98b969ab44139cafad34c8abddd3919820a030cf704a2d570e4"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-title-en.png",
+          "sha256": "19cf005840689fc10a3deb17de1847ee384b500e46d5c30bf169ef5c665b7b5d"
+        },
+        {
+          "path": "common/phase/tasks/locale/locale/390-wait-en.png",
+          "sha256": "d84c3507aab54656468213d160c6166879c491ab6b4fcca2a5ff8b6ef391a3e7"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1366/00-title.png",
+          "sha256": "0c50e0c12cac328aa091b6843758d243abb3de05e6134f47fdaefb05e87e1b5e"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1366/01-world.png",
+          "sha256": "33787e7d3a1442fb1f5f55563ffbb22685aa4c72a759fc0dfd656c422b397fb6"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1366/02-inventory.png",
+          "sha256": "b3e2302d102a6fe6a7f54d2fdd9536f153a259d30768be211b08d1dfe147dd0d"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1366/final.png",
+          "sha256": "4fec0788859b3fc2cf50c41d5e0eeb251be867c03e40a3f30fecdb4a1fe9381d"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1440/00-title.png",
+          "sha256": "80cba7d218fd5e324498049d75741c35e7171bbdf246877a8106a3f7e1f7dc98"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1440/01-world.png",
+          "sha256": "8ab891d0afc7f528a8eb26af917e3766ff77eb103a61e4180800056746230e64"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1440/02-inventory.png",
+          "sha256": "a861b876f46bb7475950cd1991e06bb5743eeb6f07f7320c9e32326a65dba911"
+        },
+        {
+          "path": "common/phase/tasks/smoke/smoke-1440/final.png",
+          "sha256": "61a44a2e3ba988a817ecee3a0d89897e9a636db38152efe580f9bef158278719"
+        }
+      ],
+      "findings": [
+        "English restore/review controls, normal scroll, imported original mod name, literal person/seed/hash and safe cancellation/selection revocation reviewed at all three viewports.",
+        "Actual Study restore, Title restore/reload continuation and Waymark unavailable/restored controls are readable and usable in tested scenes.",
+        "Two presentation frames after renderer readiness remove the previously premature blank first-map capture.",
+        "Source-language place names/logs/guide and foreign mod names remain. Entire-game English and v1/X1–X4 acceptance are incomplete."
+      ]
+    }
+  },
+  "matchingBuiltEntry": {
+    "sourceCommit": "4eff59414b2c8b1e4970241238a88ec6f1935665",
+    "sameAppAndTestsAsNative": true,
+    "artifact": 12952969147,
+    "artifactSHA256": "b4bc8a52d20d1d5381c28a35db25ca0b4d0e85d6db52a2d185a74441485938ab",
+    "entry": "./assets/index-CxJcWe9M.js",
+    "htmlSHA256": "2924737bcd359025c5cb7008876ee035a0347a9a904368df6e849057a87ec680",
+    "entrySHA256": "9a7eb939bc7e1a24b5a124f123319d29ab3358e1a674917e659e29aabf0bb7fb",
+    "contains404": true,
+    "files": 2716
+  },
+  "protectedSources": {
+    "src/core": {
+      "changedFiles": []
+    },
+    "src/content": {
+      "changedFiles": []
+    },
+    "mods": {
+      "changedFiles": []
+    },
+    "public": {
+      "changedFiles": []
+    },
+    "pnpm-lock.yaml": {
+      "changedFiles": []
+    }
+  },
+  "failuresAndRetries": [
+    {
+      "run": 40673415309,
+      "reason": "Optional recorded content field failed typecheck; fallback empty string preserves previous display. Full/Native blocked."
+    },
+    {
+      "run": 40674115800,
+      "reason": "Full passed; Native incorrectly awaited a map on Title after 11 whole pairs. Failure PNG directly reviewed."
+    },
+    {
+      "run": 40678269436,
+      "jobs": [
+        122782130421,
+        122785848800,
+        123697475803
+      ],
+      "reason": "All three attempts received runner shutdown; diagnostics skipped. No Native pass claim."
+    },
+    {
+      "scope": "fresh local environment",
+      "reason": "Frozen install/type/lint/focused/build passed; browser launch socket() operation not permitted. No Native pass claim; permissions unchanged."
+    },
+    {
+      "run": 41000421369,
+      "reason": "Build passed; build and diagnostic artifacts shared a name, causing 409 conflict; corrected distinct names."
+    },
+    {
+      "run": 41000865232,
+      "reason": "Build/common passed. Viewport child -9 and runner shutdown. Tool incorrectly asserted Title clears World. Memory cause not measured."
+    },
+    {
+      "run": 41002232607,
+      "artifact": 12953249989,
+      "sha256": "1953190b32171ab0faf6b3f3f3f9cea671d7d0b31d36b96134cdc96cb87d8fc1",
+      "reason": "12 whole pairs then tool parsed IndexedDB mirror pointer as World; actual storage read-only comparison fixed. Failure PNG and all22 common PNG directly reviewed. Premature first-map capture corrected with presentation-only waits."
+    },
+    {
+      "run": 41003647092,
+      "result": "all five sequential jobs passed on unchanged app/tests; 72 whole comparisons, 67 individually reviewed PNGs"
+    }
+  ],
+  "publication": {
+    "status": "pending"
+  },
+  "remaining": [
+    "Item details, other windows, dynamic logs, lore, bestiary, reports and mod error policy English remain.",
+    "v1/X1–X4 actual-code audits and implementation continue.",
+    "No new World/expedition/balance or human run claimed. Current final30-world/1000-expedition and genuine human gates remain."
+  ]
+}
