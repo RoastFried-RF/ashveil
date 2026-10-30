@@ -61,7 +61,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: native-${{ inputs.phase }}-${{ github.sha }}
+          name: native-diagnostics-${{ inputs.phase }}-${{ github.sha }}
           path: |
             test-results/
             !test-results/**/*-world.json
