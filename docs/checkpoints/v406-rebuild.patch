@@ -1,0 +1,511 @@
+diff --git a/src/client/build-version.ts b/src/client/build-version.ts
+index 3aac240f..45dde4a7 100644
+--- a/src/client/build-version.ts
++++ b/src/client/build-version.ts
+@@ -1,2 +1,2 @@
+ /** Preview release label. Core save/content contracts have their own versions. */
+-export const PREVIEW_VERSION='0.405-dev'
++export const PREVIEW_VERSION='0.406-dev'
+diff --git a/src/core/actions.ts b/src/core/actions.ts
+index 27a1c4a9..6619222b 100644
+--- a/src/core/actions.ts
++++ b/src/core/actions.ts
+@@ -1,3 +1,4 @@
++import {recordFoodExposure} from './food-exposure'
+ import {cullerCooling} from './culler-state'
+ import {cullerSpray,cullerNet,cullerWater,cullerIgnite,ringMaintenanceBell,escapeCullerNet,sprayPurifier} from './culler'
+ import {crawlerClimb,crawlerDrop,crawlerDescend,crawlerFeed,crawlerEat,crawlerDrink,crawlerCeilingMove,inspectCeiling} from './crawlers'
+@@ -1847,6 +1848,7 @@ function consumeForCore(w:World,provider:Creature,c:Creature,uid:number):ActResu
+     const poisoned = foodPoison(w, c, it,provider)
+     if (!poisoned && c.needs.kcal > 0) addThought(w, c, 'Thought.Fed')
+     recordResidentMeal(w, c, it)
++    recordFoodExposure(w,c,it,!poisoned)
+     consumeFoodServing(w,provider,it)
+     if (isPl(c)) {
+       log(w, 'info', `${def.label}을(를) 먹었다.`)
+diff --git a/src/core/air-state.ts b/src/core/air-state.ts
+index ef04aade..57a313fc 100644
+--- a/src/core/air-state.ts
++++ b/src/core/air-state.ts
+@@ -1,10 +1,12 @@
+ // 들이마신 재와 실제 착용 여과포만 읽는다. 섭취한 재/신장 손상과 섞지 않는다.
+ import type {World} from './ctx'
+ import type {Creature,WaterSafetyDef} from './types'
++import {foodExposureLungDose} from './food-exposure-state'
+ export const airRules=(w:World)=>w.db.tryGet<WaterSafetyDef>('WaterSafety.Human')?.inhalation
+ export const inhaledAsh=(c:Creature)=>Number.isFinite(c.body.inhaledAsh)&&c.body.inhaledAsh!>0?c.body.inhaledAsh!:0
+-export function ashLungStage(w:World,c:Creature){return airRules(w)?.caps.filter(row=>inhaledAsh(c)>=row.dose).length??0}
+-export function ashLungCap(w:World,c:Creature){return w.db.body(c.body.def).kind==='mechanical'?1.2:airRules(w)?.caps.filter(row=>inhaledAsh(c)>=row.dose).at(-1)?.cap??1.2}
++export const lungAshBurden=(c:Creature)=>inhaledAsh(c)+foodExposureLungDose(c)
++export function ashLungStage(w:World,c:Creature){return airRules(w)?.caps.filter(row=>lungAshBurden(c)>=row.dose).length??0}
++export function ashLungCap(w:World,c:Creature){return w.db.body(c.body.def).kind==='mechanical'?1.2:airRules(w)?.caps.filter(row=>lungAshBurden(c)>=row.dose).at(-1)?.cap??1.2}
+ export function dustMask(w:World,c:Creature){
+  return Object.values(c.equip).flatMap(it=>{
+   if(!it||it.count!==1||(it.uses??0)<=0||(it.durability??100)<=0||Object.values(it.partDurability??{}).some(n=>n<=0)||c.activity?.kind==='respirator'&&c.activity.uid===it.uid)return[]
+@@ -16,6 +18,7 @@ export function dustMask(w:World,c:Creature){
+ export function airLines(w:World,c:Creature){
+  const d=airRules(w);if(!d||w.db.body(c.body.def).kind==='mechanical')return[]
+  const out=['흡입한 재 '+inhaledAsh(c).toFixed(2)+' · 음식/물로 섭취한 재와 별개다.'],stage=ashLungStage(w,c)
++ if(foodExposureLungDose(c)>0)out.push('음식성 재폐 부담 '+foodExposureLungDose(c).toFixed(2)+' · 흡입한 먼지나 신장의 재 장부와 별개다.')
+  if(stage)out.push(d.label+' '+stage+'단계 · 호흡 상한 '+(ashLungCap(w,c)*100).toFixed(0)+'% · 기침으로 위치가 드러날 수 있다. 손상은 씻거나 일반 약으로 회복되지 않는다.')
+  return out
+ }
+diff --git a/src/core/conditions.ts b/src/core/conditions.ts
+index d2a82a5d..96ae56a2 100644
+--- a/src/core/conditions.ts
++++ b/src/core/conditions.ts
+@@ -1,3 +1,4 @@
++import {foodExposureDiseaseMultiplier} from './food-exposure-state'
+ import {diseaseRecoveryLoss} from './permanent-loss'
+ import {infectionSystemic} from './infection-state'
+ import {biteRiskTick} from './bite-disease'
+@@ -39,7 +40,7 @@ export function exposeDisease(w: World, c: Creature, id: string, chance: number,
+   if(w.db.body(c.body.def).kind==='mechanical')return false
+   if (c.immuneDiseases?.includes(id) || w.db.creature(c.def).diseaseImmune?.includes(id) || c.diseases?.some((d) => d.def === id)) return false
+   const def = w.db.get<DiseaseDef>(id), r = rng(w, stream)
+-  if (!r.chance(chance)) return false
++  if (!r.chance(chance*foodExposureDiseaseMultiplier(w,c,id))) return false
+   ;(c.diseases ??= []).push({ def: id, incubatesUntil: turnOf(w) + r.int(def.incubationDays[0] * TURNS_PER_DAY, def.incubationDays[1] * TURNS_PER_DAY), progress: 0, immunity: 0, ...(source?{source:{...source}}:{}) })
+   return true
+ }
+diff --git a/src/core/defs.ts b/src/core/defs.ts
+index 3c7480ea..248829ef 100644
+--- a/src/core/defs.ts
++++ b/src/core/defs.ts
+@@ -1697,6 +1697,24 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
+     if (!d.riskBands?.length || d.riskBands.some((b, i) => b.at < 0 || !b.label || (i > 0 && b.at <= d.riskBands[i - 1].at))) report.errors.push(`${d.id}: riskBands 구간 오류`)
+   }
+   for (const d of db.all<FoodSafetyDef>('FoodSafety')) {
++    if(d.exposureTraining!==undefined){
++      if(!Array.isArray(d.exposureTraining)||d.exposureTraining.length>64)report.errors.push(d.id+': exposureTraining 배열 오류')
++      else{
++        const seen=new Set<string>()
++        for(const r of d.exposureTraining){
++          if(!isObj(r)){report.errors.push(d.id+': exposureTraining 구조 오류');continue}
++          need(d.id,r.food,'Item');need(d.id,r.disease,'Disease');if(r.knowledgeBook)need(d.id,r.knowledgeBook,'Item')
++          if(!db.tryGet<ItemDef>(r.food)?.food)report.errors.push(d.id+': exposureTraining 음식 필요')
++          if(r.knowledgeBook&&!db.tryGet<ItemDef>(r.knowledgeBook)?.book)report.errors.push(d.id+': exposureTraining 문헌 필요')
++          for(const key of ['servings','durationDays'] as const)range(d.id,'exposureTraining.'+key,r[key],1,366,true)
++          for(const key of ['minIntervalTurns','maxGapTurns'] as const)range(d.id,'exposureTraining.'+key,r[key],1,28800*366,true)
++          range(d.id,'exposureTraining.lungDose',r.lungDose,0,100);range(d.id,'exposureTraining.riskMult',r.riskMult,Number.MIN_VALUE,1)
++          if(r.maxGapTurns<r.minIntervalTurns)report.errors.push(d.id+': exposureTraining 간격 오류')
++          const key=JSON.stringify([r.food,r.disease]);if(seen.has(key))report.errors.push(d.id+': exposureTraining 중복 음식/질병');seen.add(key)
++        }
++      }
++    }
++
+     if(d.cooking!==undefined){
+       const c=d.cooking
+       if(!isObj(c))report.errors.push(d.id+': cooking 구조 오류')
+diff --git a/src/core/game.ts b/src/core/game.ts
+index 5060def6..722976d9 100644
+--- a/src/core/game.ts
++++ b/src/core/game.ts
+@@ -102,7 +102,7 @@ import { installLegacyResidents } from './legacy-residents'
+ import { hasEffect } from './traits'
+ import type { Activity, Creature, GameState, MapState, PillEffectDef, PopSource } from './types'
+ 
+-export const SAVE_VERSION = 219
++export const SAVE_VERSION = 220
+ export { START_TURN } from './ctx'
+ 
+ export interface NewGameOptions { saveMode?:string;scriptPreview?:boolean;seed: string; background?: string; mods?: string[]; characterRoll?: 0 | 1; storyteller?:string; overworld?: boolean;legacyResidents?:readonly import('./types').LegacyResident[] }
+diff --git a/src/core/index.ts b/src/core/index.ts
+index 9ec44745..36471aac 100644
+--- a/src/core/index.ts
++++ b/src/core/index.ts
+@@ -355,3 +355,5 @@ export * from './swarms'
+ export * from './swarm-state'
+ 
+ export * from './camouflage'
++
++export * from './food-exposure-state'
+diff --git a/src/core/item-renames.ts b/src/core/item-renames.ts
+index e46dda6f..69aa6b3f 100644
+--- a/src/core/item-renames.ts
++++ b/src/core/item-renames.ts
+@@ -1,8 +1,10 @@
++import {stateActors} from './missing-statuses'
+ import type{DefDatabase}from'./defs'
+ import type{GameState}from'./types'
+ import{stateItemEntries,validRecordedItemShape,validMissingItemRecord,restoreMissingItem,missingItemReferences}from'./missing-items'
+ const historical=new Set(['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
+ function mutate(s:GameState,aliases:ReadonlyMap<string,string>){
++ for(const c of stateActors(s))for(const x of c.foodExposureTraining??[]){x.rule.food=aliases.get(x.rule.food)??x.rule.food;if(x.rule.knowledgeBook)x.rule.knowledgeBook=aliases.get(x.rule.knowledgeBook)??x.rule.knowledgeBook}
+  for(const{item}of stateItemEntries(s)){const target=aliases.get(item.missingItem?.def??item.def);if(!target)continue;if(item.missingItem)restoreMissingItem(item,target);else item.def=target}
+  const seen=new WeakSet<object>(),walk=(value:unknown,root=false)=>{if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);for(const[key,entry]of Object.entries(value)){if(root&&historical.has(key)||['missingItem','note','cropHarvest'].includes(key))continue;if(key==='def'&&typeof entry==='string'&&aliases.has(entry))(value as Record<string,unknown>)[key]=aliases.get(entry)!;else walk(entry)}}
+  walk(s,true)
+diff --git a/src/core/nutrition.ts b/src/core/nutrition.ts
+index 2cba1471..48316676 100644
+--- a/src/core/nutrition.ts
++++ b/src/core/nutrition.ts
+@@ -1,3 +1,5 @@
++import {foodExposureTick} from './food-exposure'
++import {foodExposureLines} from './food-exposure-state'
+ import {observeSevereHunger,severeHunger} from './permanent-loss'
+ import {rememberLifeEvent} from './life-memories'
+ import {infectionSystemic} from './infection-state'
+@@ -46,6 +48,7 @@ export function nourish(w: World, c: Creature, kcal: number, protein = 0, vitami
+ }
+ export function metabolismTick(w: World, c: Creature, thermal: ThermalState, sleeping: boolean) {
+   const severelyHungryBefore=severeHunger(w,c)
++  foodExposureTick(w,c)
+   expireDiet(w,c)
+   poisoningTick(w, c)
+   if (w.s.hygieneEnabled === false) c.needs.hygiene = 70
+@@ -82,6 +85,7 @@ export function nutritionLines(w: World, c: Creature): string[] {
+   const diet=dietStatus(w,c)
+   return [
+     ...scurvyLines(w,c),
++    ...foodExposureLines(w,c),
+     ...(diet.kcal>0?['최근'+diet.windowDays+'일 식사 중 단백질 열량 '+(diet.fraction*100).toFixed(1)+'% · '+(diet.active?'살코기 굶주림/설사 · 열량 흡수 ×'+diet.absorption:'식사 비중 안정')]:[]),
+     `칼로리 균형 ${n.kcal.toFixed(0)} kcal · ${hungerBand(w, c).label} / 수분 결손 ${n.waterDeficit.toFixed(0)} ml · ${thirstBand(w, c).label}`,
+     `현재 소모: 열량 ${rate.kcalHour.toFixed(1)} kcal/시간 · 수분 ${rate.waterHour.toFixed(1)} ml/시간`,
+diff --git a/src/core/save.ts b/src/core/save.ts
+index e643b7f2..5e9f3a0a 100644
+--- a/src/core/save.ts
++++ b/src/core/save.ts
+@@ -420,6 +420,8 @@ export function deserialize(json: string): GameState {
+   if(s.version===217)s.version=218
+   // v219 adds explicit delayed care; prior sequences acquire no waiting time or new consent.
+   if(s.version===218)s.version=219
++  // v220 records only future actual food courses; no past doses, resistance or injury.
++  if(s.version===219)s.version=220
+   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
+   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
+   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
+diff --git a/src/core/status-renames.ts b/src/core/status-renames.ts
+index 8e815e6a..47a6e384 100644
+--- a/src/core/status-renames.ts
++++ b/src/core/status-renames.ts
+@@ -14,6 +14,7 @@ function mutate(s:GameState,aliases:ReadonlyMap<string,string>,errors:string[]=[
+   for(const x of c.biteRisks??[])x.def=rename(x.def,'Disease')
+   for(const x of c.thoughts)x.def=rename(x.def,'Thought')
+   c.traits=c.traits.map(x=>rename(x,'Trait'))
++  for(const x of c.foodExposureTraining??[])x.rule.disease=rename(x.rule.disease,'Disease')
+   if(c.biteCarrier)c.biteCarrier=rename(c.biteCarrier,'Disease')
+   if(c.immuneDiseases)c.immuneDiseases=c.immuneDiseases.map(x=>rename(x,'Disease'))
+   if(c.diseaseExposure?.cold)c.diseaseExposure.cold=c.diseaseExposure.cold.map(x=>rename(x,'Disease'))
+diff --git a/src/core/types.ts b/src/core/types.ts
+index 82f46387..2031761e 100644
+--- a/src/core/types.ts
++++ b/src/core/types.ts
+@@ -855,6 +855,7 @@ export interface WaterSafetyDef extends DefBase {
+ 
+ export interface FoodSafetyDef extends DefBase {
+   defType: 'FoodSafety'
++  exposureTraining?: FoodExposureRule[]
+   cooking?:{temperature:number;neglectTurns:number;burnChance:number;masteryReduction:number;burnKcal:number;burnMood:number;thought:string;capacity:number}
+   temperature: { max: number; mult: number }[]
+   sealedMult: number
+@@ -884,6 +885,25 @@ export interface FoodSafetyDef extends DefBase {
+   liceSleepMult: number
+ }
+ 
++/** Snapshot of the actual food course; later content edits do not erase lung injury. */
++export interface FoodExposureRule {
++  food:string
++  disease:string
++  servings:number
++  durationDays:number
++  minIntervalTurns:number
++  maxGapTurns:number
++  lungDose:number
++  riskMult:number
++  knowledgeBook?:string
++}
++export interface FoodExposureRecord {
++  rule:FoodExposureRule
++  doseCount:number
++  course?:{receipts:{uid:number;at:number}[]}
++  completedAt?:number
++}
++
+ export interface NutritionBand {
+   deficit: number
+   label: string
+@@ -2329,6 +2349,7 @@ export interface MedicalReport {
+ }
+ 
+ export interface Creature {
++  foodExposureTraining?:FoodExposureRecord[]
+   cullerState?:CullerState
+   crawlerState?:CrawlerState
+   paralysis?:LocalParalysis[]
+diff --git a/docs/ashcake-v406.md b/docs/ashcake-v406.md
+new file mode 100644
+index 00000000..c4e760ce
+--- /dev/null
++++ b/docs/ashcake-v406.md
+@@ -0,0 +1,11 @@
++# v406 작업 초안 — 실제 재떡 섭취 장부
++
++2026-10-30 KST. 이전 미저장 v406 작업은 복구됐다고 가정하지 않는다. 보존된 v405 초안 d428882에서 T2 정본과 현재 규칙을 다시 읽고 재작성 중이다. 아직 타입/린트/Def/Schema/대상/전체/World/실제 입력/화면/게시 검증 전이며 수락 근거가 아니다.
++
++정본 world-bible T2의 “재떡 한 달 → 회색열 위험−30%/재폐+10”을 실제 음식·유한 재료/그릇/물/모닥불·같은 몸의 섭취 기록에 연결한다. 재료60회분은 새 칠번 굴뚝 선반에만 놓으며 구형 지도는 채우지 않는다. 새 순례회 시장의 음식 한 회분은 초기 재고이며 생산을 주장하지 않는다. 기존 아이콘을 명시적으로 재사용하고 새 원화 완료로 세지 않는다.
++
++구체 수치는 미지정 부분의 구현 기본안이다:30회분, qualifying 식사 최소24시간/최대48시간 간격과 첫 식사부터30일 경과. 몰아먹기/토한 음식은 연속 과정에 쌓지 않고 실제 음식성 폐 부담에는 쌓는다. 간격이 끊기면 과정만 초기화하며 폐 손상은 보존한다. 완료 위험 배율0.7은 완전 면역·현재 감염의 치료·다른 질병 보호가 아니다. 같은 위험 보호는 가장 강한 한 배율만 적용한다.
++
++음식성 폐 부담을 흡입 재/신장 재와 별도 장부로 저장하고 재폐 단계 계산에서만 합친다. 규칙 snapshot/원래 식사 UID/시각은 같은 몸에 남는다. 실제 완독한 온전한 병리 기록이 있을 때만 수치를 해석하는 문장을 보여주고 책을 읽었다는 이유로 과거 섭취·저항을 만들지 않는다. 저장220은219에 헤더만 이행하고 새 기록을 추정하지 않는다.
++
++진행 중: 타입/Def 참조·식사/지연/구형 저장·이름 이행/삭제 경계·질병 RNG/다른 병·골든 원문 차이·원래 재료/그릇 조리·실제30일 경과와30월드/3일 밸런스·Native 초기 fixture와 자연 실행의 구분·영어 표시·개별PNG 검토가 남는다. Schema 생성도 아직 미반영이다. 이 작은 T2 연결은 전체 X3나 X1–X4 수락이 아니다.
+diff --git a/src/content/core/defs/ashcake-v406.json b/src/content/core/defs/ashcake-v406.json
+new file mode 100644
+index 00000000..eb961da3
+--- /dev/null
++++ b/src/content/core/defs/ashcake-v406.json
+@@ -0,0 +1,80 @@
++[
++  {
++    "defType": "Item",
++    "id": "Item.TowerAsh",
++    "label": "탑기슭 재",
++    "description": "굴뚝탑 기슭에서 가려 담은 한 회분의 재. 순례회의 의식 음식에 쓰는 재료다.",
++    "sprite": "av371_moth_wing_dust",
++    "category": "misc",
++    "weight": 0.001,
++    "size": [
++      1,
++      1
++    ],
++    "stackable": true,
++    "maxStack": 20,
++    "value": 1
++  },
++  {
++    "defType": "Item",
++    "id": "Item.Ashcake",
++    "label": "재떡",
++    "description": "귀리와 탑기슭 재를 섞어 찐 순례회의 의식 음식. 먹고 나면 원래 그릇이 남는다.",
++    "sprite": "hardtack",
++    "category": "food",
++    "weight": 0,
++    "size": [
++      1,
++      1
++    ],
++    "stackable": false,
++    "maxStack": 1,
++    "value": 8,
++    "uses": 1,
++    "food": {
++      "kcal": 300,
++      "protein": 10,
++      "vitamin": 0,
++      "water": 80,
++      "freshHours": 48,
++      "cooked": true,
++      "servings": 1,
++      "emptyVessel": "Item.Bowl"
++    }
++  },
++  {
++    "defType": "Recipe",
++    "id": "Recipe.Ashcake",
++    "label": "재떡 찌기",
++    "category": "cooking",
++    "primaryAttr": "per",
++    "mastery": "survival",
++    "basic": true,
++    "stations": [
++      "campfire"
++    ],
++    "workTurns": 400,
++    "inputs": [
++      {
++        "item": "Item.Oats",
++        "count": 1
++      },
++      {
++        "item": "Item.TowerAsh",
++        "count": 1
++      },
++      {
++        "item": "Item.Bowl",
++        "count": 1
++      }
++    ],
++    "output": {
++      "item": "Item.Ashcake",
++      "count": 1
++    },
++    "boiledMeal": {
++      "waterMl": 80,
++      "vessel": "Item.Bowl"
++    }
++  }
++]
+diff --git a/src/content/core/patches/ashcake-v406.json b/src/content/core/patches/ashcake-v406.json
+new file mode 100644
+index 00000000..65f2804d
+--- /dev/null
++++ b/src/content/core/patches/ashcake-v406.json
+@@ -0,0 +1,76 @@
++[
++  {
++    "op": "add",
++    "target": "FoodSafety.Human",
++    "path": "/exposureTraining",
++    "value": [
++      {
++        "food": "Item.Ashcake",
++        "disease": "Disease.GreyFever",
++        "servings": 30,
++        "durationDays": 30,
++        "minIntervalTurns": 28800,
++        "maxGapTurns": 57600,
++        "lungDose": 10,
++        "riskMult": 0.7,
++        "knowledgeBook": "Item.SettlementMycologyRecords"
++      }
++    ]
++  },
++  {
++    "op": "add",
++    "target": "RegionLayout.ChimneyService",
++    "path": "/clear/-",
++    "value": {
++      "x": 28,
++      "y": 24,
++      "w": 1,
++      "h": 1,
++      "terrain": "Terrain.Earth",
++      "roof": false
++    }
++  },
++  {
++    "op": "add",
++    "target": "RegionLayout.ChimneyService",
++    "path": "/objects/-",
++    "value": {
++      "pos": [
++        28,
++        24
++      ],
++      "terrain": "Terrain.Shelf",
++      "items": [
++        {
++          "item": "Item.TowerAsh",
++          "count": 20
++        },
++        {
++          "item": "Item.TowerAsh",
++          "count": 20
++        },
++        {
++          "item": "Item.TowerAsh",
++          "count": 20
++        }
++      ]
++    }
++  },
++  {
++    "op": "add",
++    "target": "Stock.pilgrims",
++    "path": "/entries/-",
++    "value": {
++      "item": "Item.Ashcake",
++      "target": 1,
++      "dailyProduction": 0,
++      "dailyConsumption": 0
++    }
++  },
++  {
++    "op": "replace",
++    "target": "Item.SettlementMycologyRecords",
++    "path": "/book/note",
++    "value": "기록은 토양 개량용 정착균이 탑의 분출 재에 실려 퍼졌고, 재폐와 영양 결핍으로 약해진 폐에 적응했다고 적었다. 굴쥐는 포자를 묻히고 벼룩은 상처로 옮긴다고 한다. 순례회의 재떡은 미량 반복 노출로 저항을 얻는 대신 재폐를 쌓는다는 관찰도 있다. 문헌의 설명을 읽었으며 자신의 감염이나 눈앞의 모든 굴쥐가 보균자라는 뜻은 아니다. 부록은 적어도 하루 간격으로 서른 회분을 먹고 첫 식사부터 서른 날을 지낸 몸에서 회색열 노출 위험이 약30% 낮았다고 적었다. 두 날을 넘겨 거르면 연속 관찰을 다시 시작한다. 서른 회분의 음식성 재폐 부담은10이며 몰아 먹거나 토해도 폐 부담은 없어지지 않는다. 완전 면역이나 감염의 치료는 아니다."
++  }
++]
+diff --git a/src/core/food-exposure-state.ts b/src/core/food-exposure-state.ts
+new file mode 100644
+index 00000000..73cf77e5
+--- /dev/null
++++ b/src/core/food-exposure-state.ts
+@@ -0,0 +1,44 @@
++import {turnOf,TURNS_PER_DAY,type World} from './ctx'
++import type {Creature,FoodExposureRecord,FoodExposureRule,FoodSafetyDef} from './types'
++
++export function validFoodExposureRule(rule:FoodExposureRule):boolean {
++ if(!rule||typeof rule!=='object')return false
++ return typeof rule.food==='string'&&!!rule.food&&typeof rule.disease==='string'&&!!rule.disease
++  &&[rule.servings,rule.durationDays].every(n=>Number.isSafeInteger(n)&&n>=1&&n<=366)
++  &&Number.isSafeInteger(rule.minIntervalTurns)&&rule.minIntervalTurns>=1
++  &&Number.isSafeInteger(rule.maxGapTurns)&&rule.maxGapTurns>=rule.minIntervalTurns
++  &&Number.isFinite(rule.lungDose)&&rule.lungDose>=0&&rule.lungDose<=100
++  &&Number.isFinite(rule.riskMult)&&rule.riskMult>0&&rule.riskMult<=1
++  &&(rule.knowledgeBook===undefined||typeof rule.knowledgeBook==='string')
++}
++export const foodExposureSignature=(r:FoodExposureRule)=>JSON.stringify([r.food,r.disease,r.servings,r.durationDays,r.minIntervalTurns,r.maxGapTurns,r.lungDose,r.riskMult,r.knowledgeBook??null])
++export function foodExposureRules(w:World):FoodExposureRule[]{
++ const rules=w.db.tryGet<FoodSafetyDef>('FoodSafety.Human')?.exposureTraining
++ return Array.isArray(rules)?rules.filter(validFoodExposureRule):[]
++}
++export function foodExposureRecords(c:Creature):FoodExposureRecord[]{
++ return Array.isArray(c.foodExposureTraining)?c.foodExposureTraining.filter(r=>r&&validFoodExposureRule(r.rule)&&Number.isSafeInteger(r.doseCount)&&r.doseCount>=0):[]
++}
++function validCourse(r:FoodExposureRecord){
++ const rows=r.course?.receipts
++ return Array.isArray(rows)&&rows.length<=r.rule.servings&&rows.length<=r.doseCount&&rows.every((row,i)=>row&&Number.isSafeInteger(row.uid)&&row.uid>0&&Number.isSafeInteger(row.at)&&row.at>=0&&(!i||row.at-rows[i-1].at>=r.rule.minIntervalTurns&&row.at-rows[i-1].at<=r.rule.maxGapTurns))
++}
++export function foodExposureCompletion(r:FoodExposureRecord,at:number):boolean {
++ if(!validCourse(r))return false
++ const rows=r.course!.receipts
++ return rows.length===r.rule.servings&&at>=rows[0].at+r.rule.durationDays*TURNS_PER_DAY&&at>=rows.at(-1)!.at&&at<=rows.at(-1)!.at+r.rule.maxGapTurns
++}
++export const foodExposureCompleted=(r:FoodExposureRecord,now:number)=>Number.isSafeInteger(r.completedAt)&&r.completedAt!>=0&&r.completedAt!<=now&&foodExposureCompletion(r,r.completedAt!)
++/** Food-associated pulmonary injury is separate from both inhaled dust and renal ash. */
++export const foodExposureLungDose=(c:Creature)=>foodExposureRecords(c).reduce((sum,r)=>sum+r.doseCount*r.rule.lungDose/r.rule.servings,0)
++export function foodExposureDiseaseMultiplier(w:World,c:Creature,disease:string){
++ return foodExposureRecords(c).reduce((mult,r)=>r.rule.disease===disease&&foodExposureCompleted(r,turnOf(w))?Math.min(mult,r.rule.riskMult):mult,1)
++}
++export function foodExposureLines(w:World,c:Creature):string[]{
++ return foodExposureRecords(c).flatMap(r=>{
++  const book=r.rule.knowledgeBook
++  if(!book||!c.booksRead?.includes(book)||!(c.literacyBooks??c.booksRead).includes(book)||c.misreadBooks?.includes(book)||!w.db.has(r.rule.food)||!w.db.has(r.rule.disease))return[]
++  const servings=validCourse(r)?r.course!.receipts.length:0
++  return[w.db.item(r.rule.food).label+' · 실제 섭취 '+r.doseCount+'회 · 간격을 지킨 식사 '+servings+'/'+r.rule.servings+'회 · 음식성 재폐 부담 '+(r.doseCount*r.rule.lungDose/r.rule.servings).toFixed(2),foodExposureCompleted(r,turnOf(w))?w.db.get(r.rule.disease).label+' 노출 위험 ×'+r.rule.riskMult+' · 완전 면역이나 현재 감염의 치료는 아니다.':r.rule.durationDays+'일 경과와 식사 간격이 필요하다. 몰아 먹거나 간격을 놓쳐도 폐 부담은 사라지지 않는다.']
++ })
++}
+diff --git a/src/core/food-exposure.ts b/src/core/food-exposure.ts
+new file mode 100644
+index 00000000..6835d874
+--- /dev/null
++++ b/src/core/food-exposure.ts
+@@ -0,0 +1,36 @@
++import {log,turnOf,type World} from './ctx'
++import type {Creature,ItemInst} from './types'
++import {ashLungStage} from './air-state'
++import {foodExposureCompleted,foodExposureCompletion,foodExposureRecords,foodExposureRules,foodExposureSignature} from './food-exposure-state'
++
++export function foodExposureTick(w:World,c:Creature){
++ const now=turnOf(w)
++ for(const r of foodExposureRecords(c)){
++  if(foodExposureCompleted(r,now))continue
++  if(foodExposureCompletion(r,now)){
++   r.completedAt=now
++   if(c.faction==='player')log(w,'info','간격을 지킨 식사를 '+r.rule.durationDays+'일 동안 이어 왔다.')
++  }else if(r.course?.receipts?.length&&now>r.course.receipts.at(-1)!.at+r.rule.maxGapTurns)delete r.course
++ }
++}
++/** Called only after actual food consumption succeeds, before its original vessel returns. */
++export function recordFoodExposure(w:World,c:Creature,it:ItemInst,retained:boolean){
++ if(!c.alive||w.db.body(c.body.def).kind==='mechanical'||c.foodExposureTraining!==undefined&&!Array.isArray(c.foodExposureTraining))return
++ const rules=foodExposureRules(w).filter(r=>r.food===it.def)
++ if(!rules.length)return
++ foodExposureTick(w,c)
++ const now=turnOf(w),before=ashLungStage(w,c)
++ for(const rule of rules){
++  let r=foodExposureRecords(c).find(row=>foodExposureSignature(row.rule)===foodExposureSignature(rule))
++  if(!r){r={rule:{...rule},doseCount:0};(c.foodExposureTraining??=[]).push(r)}
++  if(r.doseCount>=Number.MAX_SAFE_INTEGER)continue
++  r.doseCount++
++  if(!retained||foodExposureCompleted(r,now))continue
++  const last=r.course?.receipts?.at(-1)
++  if(last&&now-last.at<rule.minIntervalTurns)continue
++  if(!last||now-last.at>rule.maxGapTurns)r.course={receipts:[]}
++  r.course!.receipts.push({uid:it.uid,at:now})
++  if(r.course!.receipts.length>rule.servings)r.course!.receipts.shift()
++ }
++ if(c.faction==='player'&&ashLungStage(w,c)>before)log(w,'warning','음식에 섞인 재가 폐에 부담을 남겼다.')
++}

@@ -1,0 +1,25 @@
+{
+  "status": "unvalidated source checkpoint, not applied to this remote base tree",
+  "base": "d4288824e06374b6167beffa784a3eab19a54ff0",
+  "patchSHA256": "3e100985e796041ec4aefd47d53c1dbfb7ab2dce2e6475a50bcdd2eabe11f009",
+  "files": {
+    "src/client/build-version.ts": "1b9def8c81c9d001a98d9e72b2af30a64f43ad79185613c2e125c7cea7005780",
+    "src/core/actions.ts": "88b402f743e7afcb1cabb60cc7ca85e95745e5d68ec6f8a722f02b2c1a7c08f5",
+    "src/core/air-state.ts": "a76880db0ad983b7da8e9b0014007a92dc7864aa92ac7c10ec92ac6f59bc1787",
+    "src/core/conditions.ts": "2165feeeb1cfc7b6312d323bec7652b8e9c2b86318c4afff8b65a634ea0d57b1",
+    "src/core/defs.ts": "f560824ef4abf4c7b3abd5b789dd37cd69e47bebe5af346e8312300888d0b607",
+    "src/core/game.ts": "034a93b101383e7b7d043182cc5c97050e8902c463e19d908c6c0c9487291ce8",
+    "src/core/index.ts": "12c0510112cfe64ef0a9ff6a9716ddc0a0a02f04b7d2b51cc346bedadcfd74ae",
+    "src/core/item-renames.ts": "613d8c176534a7e11697c78ea28db9fc3b7b1f7d7bd791608bcce3ad57a76f46",
+    "src/core/nutrition.ts": "b5dc0138c79f4b6dd3c69e107153a68b9bfd72aa6333f99c78eacf6a015e0582",
+    "src/core/save.ts": "ed3ae85921b222b3932b5f4f56f11cea76f43e2aeb30f484cf7a829cc4532f5f",
+    "src/core/status-renames.ts": "4aa50c4526b4e37ba80640ac46c5b310d772aa4c38a6882eab31143cd9ba1948",
+    "src/core/types.ts": "8cc018cb958866c637c30df6f6e39a177c27fe44ed59f4e7182901ea0b2612da",
+    "docs/ashcake-v406.md": "249b4afb7a02340013394180cab5ffd3415a8c3b412c22ee44f953f1fb20d43d",
+    "src/content/core/defs/ashcake-v406.json": "d680f7da57f5657bd65f7c7e528ae25beceb8ebcbd2595f547227e33bfba2909",
+    "src/content/core/patches/ashcake-v406.json": "b4193612b1b2522999ac2cf5febaa89f704690c35fad0f73f6049961b113aacb",
+    "src/core/food-exposure-state.ts": "6ce18ee67273f4422c9904403cc8a646add049a27fb6324343a70e972c1d3fc2",
+    "src/core/food-exposure.ts": "77ea6acf6caa1343544608bf16e4da7948d34e7b6bc7692bad8ea2fce84be862"
+  },
+  "recovery": "git apply docs/checkpoints/v406-rebuild.patch on exact base; compare every file SHA before continuing. Schema/tests/native/proof still pending. No previous v406 recovery assumed."
+}
