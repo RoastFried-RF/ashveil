@@ -33,6 +33,7 @@ try{
   async function compare(label:string,capture=true){
    await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
    await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending&&s.fx.length===0})
+   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
    assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)

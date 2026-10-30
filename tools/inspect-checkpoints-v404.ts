@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {isDeepStrictEqual} from 'node:util'
+import {createHash} from 'node:crypto'
 import {chromium,type Page} from 'playwright-core'
 import {startNativePreview} from './native-preview'
 import {loadDb} from './loadContent'
@@ -11,12 +12,14 @@ import {importedFiles,zipFixture} from '../tests/mod-archive-fixture'
 import {newGame,playerAct,runUntilInput} from '../src/core/game'
 import {serialize,deserialize,stateHash} from '../src/core/save'
 import {player,type World} from '../src/core/ctx'
+import type {ImprintRecord} from '../src/client/imprint'
 
 const out=process.argv[2];assert.ok(out&&!existsSync(out));mkdirSync(out,{recursive:true})
 const viewports=[[1440,1080],[1366,768],[390,844]]
 const viewport=process.argv[3];assert.ok(!viewport||viewports.some(v=>v.join('x')===viewport),'Expected a supported WIDTHxHEIGHT')
 const server=await startNativePreview(),browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']})
 type Hook={__ashveil:{world():World}}
+type StoredImprint={mirror:string|null;record:ImprintRecord|null}
 const rows:unknown[]=[],fixtures:unknown[]=[],titleReviews:unknown[]=[],errors:string[]=[];let active:Page|undefined
 try{
  const {db,report}=loadDb();assert.deepEqual(report.errors,[])
@@ -24,9 +27,19 @@ try{
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())})
   let w:World={db,s:newGame(db,{seed:'ashveil-checkpoints-v404',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,overworld:true,saveMode:'SaveMode.Study',legacyResidents:[]})};runUntilInput(w)
+  async function storedImprint():Promise<StoredImprint>{
+   return page.evaluate(async()=>{
+    const disk=await new Promise<IDBDatabase>((resolve,reject)=>{const request=indexedDB.open('ashveil');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);request.onupgradeneeded=()=>{request.transaction?.abort();reject(Error('Expected the existing imprint database'))}})
+    try{
+     const record=await new Promise<ImprintRecord|null>((resolve,reject)=>{const tx=disk.transaction('imprint','readonly'),request=tx.objectStore('imprint').get('current');tx.oncomplete=()=>resolve(request.result??null);tx.onabort=()=>reject(tx.error);tx.onerror=()=>{}})
+     return{mirror:localStorage.getItem('ashveil.imprint.v1'),record}
+    }finally{disk.close()}
+   })
+  }
   async function compare(label:string,capture=true,onTitle=false){
    if(!onTitle)await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
    await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending&&s.fx.length===0})
+   await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
    assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)
@@ -38,15 +51,15 @@ try{
    const raw=serialize(w.s);await page.getByTestId('checkpoint-save-accept').click();await page.getByTestId('checkpoint-save-status').waitFor();assert.match(await page.getByTestId('checkpoint-save-status').innerText(),/^Checkpoint saved\./)
    await compare(label+'-saved');await page.keyboard.press('Escape');return raw
   }
-  async function restore(raw:string,label:string,fromTitle=false,imprintBefore:string|null=null){
+  async function restore(raw:string,label:string,fromTitle=false,imprintBefore:StoredImprint|null=null){
    await page.getByTestId('content-change-accept').waitFor()
    assert.match(await page.getByTestId('checkpoint-dialog').getAttribute('aria-label')??'',/^Restore checkpoint$/)
    assert.doesNotMatch(await page.getByTestId('content-change-review').innerText(),/[가-힣]/)
    if(fromTitle){
     // Returning to Title suspends the existing World; it does not clear store.world.
     await compare(label+'-review',true,true)
-    assert.ok(imprintBefore);assert.ok(await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1'))===imprintBefore,'Title review changed the existing imprint')
-    titleReviews.push({label:label+'-review',width,height,suspendedWorldHash:stateHash(w.s),imprintHash:stateHash(deserialize(imprintBefore))})
+    assert.ok(imprintBefore?.record?.raw);assert.ok(isDeepStrictEqual(await storedImprint(),imprintBefore),'Title review changed the existing IndexedDB record or local mirror')
+    titleReviews.push({label:label+'-review',width,height,suspendedWorldHash:stateHash(w.s),imprintSHA256:createHash('sha256').update(imprintBefore.record.raw).digest('hex')})
    }else await compare(label+'-review')
    await page.getByTestId('content-change-accept').click();await page.getByTestId('checkpoint-dialog').waitFor({state:'detached'});w={db:w.db,s:deserialize(raw)}
    await compare(label+'-restored')
@@ -69,7 +82,7 @@ try{
   await page.getByTestId('checkpoint-load').click();await restore(saved,'study')
   assert.equal(player(w).name,originalName);await page.keyboard.press('Escape');await page.getByRole('button',{name:'Title',exact:true}).click();await page.getByTestId('title-checkpoint-SaveMode.Study').waitFor()
   assert.match(await page.getByTestId('title-checkpoints').innerText(),/seed ashveil-checkpoints-v404 · turn /)
-  const titleImprint=await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1'));await page.getByTestId('title-checkpoint-SaveMode.Study').click();await restore(saved,'title-study',true,titleImprint)
+  const titleImprint=await storedImprint();await page.getByTestId('title-checkpoint-SaveMode.Study').click();await restore(saved,'title-study',true,titleImprint)
   await page.reload();await page.getByTestId('continue').click();await compare('continued-study',false)
   // Explicit finite Waymark scene with its original lit campfire. No past travel is claimed.
   await page.getByRole('button',{name:'Title',exact:true}).click();const f=checkpointFixture('SaveMode.Waymark');w=f.w;fixtures.push({width,mode:'SaveMode.Waymark',initialHP:player(w).hp,initialCampfire:true,lethal:false})
