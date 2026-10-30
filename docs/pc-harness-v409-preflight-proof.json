@@ -1,0 +1,950 @@
+{
+  "status": "Preflight only; final frozen-source Full/30-seed balance/Native/publication gates remain pending.",
+  "matchedCodeCommit": "b7510ae0df4549401dd9b885478fc2db79914884",
+  "preflightRun": "test-results/windows/v409-preflight-1",
+  "preflightPlanSha256": "28de004824537ef6f718123fd712aab94d1c98fcbf4e3c3aa1208c1fc63326b6",
+  "preflightTasks": 10,
+  "focused": {
+    "run": "test-results/windows/v409-course-6",
+    "files": 5,
+    "tests": 151
+  },
+  "schema": {
+    "files": 180,
+    "errors": 0
+  },
+  "goldens": {
+    "reviewedShape": "pilgrim-fields-v409",
+    "reviewSha256": "c2dacf5a3b470523c0aa63909dbf3103e4b36d320334459f7e32a6f3bca53d52",
+    "vectors": 5,
+    "checks": 10,
+    "exactPreviousArchives": [
+      "tests/fixtures/golden-v408.json",
+      "tests/fixtures/world-golden-v408.json"
+    ]
+  },
+  "native": [
+    {
+      "task": "fields-native",
+      "wholeStatePairs": 60,
+      "errors": 0,
+      "widths": [
+        390,
+        1366,
+        1440
+      ],
+      "auditSha256": "f1fd20e80f2fd7a70c1ea1d857babdd8bf384367699266571dafbac348ad0ab1"
+    },
+    {
+      "task": "crop-locale",
+      "wholeStatePairs": 27,
+      "errors": 0,
+      "widths": [
+        390,
+        1366,
+        1440
+      ],
+      "auditSha256": "0f029314a5f59d5e636375bdf38923a31cd57bf8072da3cb4f6250b62b7fae87"
+    }
+  ],
+  "reviewedImages": [
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\crop-locale\\native\\crop-locale-390-english-rules-read-only.png",
+      "sha256": "ccbe593d2b0a7947a4ff409478dc0a0963482fe376949786435309c54ba7e21f"
+    },
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\crop-locale\\native\\crop-locale-1366-english-clear-review-read-only.png",
+      "sha256": "4d3895afb0365f9621f96c212b86ae0e7ef9b743e76aa0808acede1e55e3b3c0"
+    },
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\fields-native\\native\\near-ripe-390-actual-new-crop-product-and-cash-continued.png",
+      "sha256": "ddfd20ee0a4eb7317b557446e52e22349fdcfaea088e14955253d3999e53cd7f"
+    },
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\fields-native\\native\\seed-1440-same-owned-plot-water-continued.png",
+      "sha256": "38d2e6229cadb3f87584b038aa6f85ffc2f4662d7840e9c30a22f14a743dd566"
+    },
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\fields-native\\native\\near-ripe-1366-new-crop-original-craft-continued.png",
+      "sha256": "51e3d597dcbe87f69f8ee8b5fabeca5120d2c9fe08f6b33f45b7a7d616c2e342"
+    },
+    {
+      "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v409-grain\\test-results\\windows\\v409-preflight-1\\tasks\\crop-locale\\native\\crop-locale-1440-english-rules-read-only.png",
+      "sha256": "f7c2cfd643432bc97c5acdfc9441dea3bdd3b45cfbda90238de998fea07c4251"
+    }
+  ],
+  "fullGrowthCourse": {
+    "run": "test-results/windows/v409-course-9",
+    "auditSha256": "0c66245ce17cd38c135872f05e45c63d5b424ebe5bc4768016656b441119f7d4",
+    "horizonDays": 20,
+    "elapsedTurns": 440819,
+    "days": 15.306215277777778,
+    "plantedAt": 43210,
+    "seedUid": 173,
+    "growthTotal": 144000,
+    "harvestedAt": 189004,
+    "soldAt": 190174,
+    "craftAt": 478744,
+    "completedAt": 484005,
+    "actions": {
+      "pickup": 57,
+      "place": 1,
+      "move": 7147,
+      "rest": 2359,
+      "blockedMove": 295,
+      "wait": 295,
+      "trade": 10,
+      "consume": 278,
+      "sleep": 55,
+      "drop": 40,
+      "warmByFire": 6
+    },
+    "wholeStateRoundtrips": 21,
+    "newGrainInput": {
+      "uid": 435,
+      "def": "Item.Oats",
+      "count": 1,
+      "cropHarvest": {
+        "owner": 64,
+        "seedUid": 173,
+        "def": "Item.Oats",
+        "terrain": "Terrain.OatPlot",
+        "map": "surface",
+        "region": "Region.Stillhouse",
+        "at": 188949
+      },
+      "foodWater": {
+        "ml": 10,
+        "quality": {
+          "pathogen": 10,
+          "ash": 0,
+          "source": "실제 관수에서 작물로 옮은 오염"
+        }
+      },
+      "contaminantAsh": 0.008300000000000002,
+      "gx": 5,
+      "gy": 0
+    },
+    "jobAtObservedStart": {
+      "kind": "craft",
+      "recipe": "Recipe.AshCake",
+      "progress": 66,
+      "total": 520,
+      "inputs": [
+        {
+          "uid": 435,
+          "def": "Item.Oats",
+          "count": 1
+        },
+        {
+          "uid": 434,
+          "def": "Item.PilgrimAsh",
+          "count": 1
+        },
+        {
+          "uid": 1099511628425,
+          "def": "Item.Bowl",
+          "count": 1
+        }
+      ],
+      "mealPlan": {
+        "bottleUid": 53,
+        "bottleDef": "Item.DirtyWaterBottle",
+        "ml": 220,
+        "uses": 2,
+        "quality": {
+          "pathogen": 10,
+          "ash": 5,
+          "source": "우물물"
+        },
+        "vesselUid": 1099511628425,
+        "fireUid": 1099511628430,
+        "firePos": {
+          "x": 29,
+          "y": 18
+        },
+        "signature": "{\"spec\":{\"waterMl\":220,\"vessel\":\"Item.Bowl\"},\"turns\":400,\"stations\":[\"campfire\"],\"inputs\":[{\"item\":\"Item.Oats\",\"count\":1},{\"item\":\"Item.PilgrimAsh\",\"count\":1},{\"item\":\"Item.Bowl\",\"count\":1}],\"output\":{\"item\":\"Item.AshCake\",\"count\":1},\"food\":{\"kcal\":300,\"protein\":10,\"vitamin\":0,\"water\":220,\"freshHours\":72,\"cooked\":true,\"servings\":1,\"emptyVessel\":\"Item.Bowl\"}}"
+      },
+      "residentWorkshop": {
+        "site": "Region.Stillhouse",
+        "recipe": "Recipe.AshCake"
+      }
+    },
+    "actualSameBowlProduct": {
+      "uid": 1099511628425,
+      "def": "Item.AshCake",
+      "count": 1,
+      "foodVesselDef": "Item.Bowl",
+      "uses": 1,
+      "contaminantAsh": 0.12930000000000003,
+      "foodQ": 11,
+      "freshness": 94.9050925925926,
+      "workshopMade": {
+        "worker": 46,
+        "site": "Region.Stillhouse",
+        "recipe": "Recipe.AshCake",
+        "def": "Item.AshCake",
+        "at": 479198
+      },
+      "foodHeatedAt": 479198,
+      "foodSaltGrams": 0,
+      "foodAgedAt": 483600
+    },
+    "initial": {
+      "proof": {
+        "originalGuard": 64,
+        "originalHome": {
+          "x": 27,
+          "y": 20
+        },
+        "originalPos": {
+          "x": 27,
+          "y": 20
+        },
+        "originalTime": 2160100,
+        "declaredInitialTime": 4320000,
+        "declaredInitialAdjacentGuardPosition": {
+          "x": 30,
+          "y": 17
+        },
+        "declaredHealthyGuard": true,
+        "declaredNoon": true,
+        "declaredWarmCell": true,
+        "onlyOriginalGuardAndObserverScheduled": true,
+        "initialStock": [
+          {
+            "uid": 1099511627835,
+            "def": "Item.Bandage",
+            "count": 18
+          },
+          {
+            "uid": 1099511627836,
+            "def": "Item.Cloth",
+            "count": 20
+          },
+          {
+            "uid": 1099511627837,
+            "def": "Item.Hardtack",
+            "count": 10
+          },
+          {
+            "uid": 1099511627838,
+            "def": "Item.WaterBottle",
+            "count": 10
+          },
+          {
+            "uid": 1099511627839,
+            "def": "Item.HealthDraught",
+            "count": 4
+          },
+          {
+            "uid": 1099511627840,
+            "def": "Item.WillowTea",
+            "count": 6
+          },
+          {
+            "uid": 1099511628414,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628415,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628416,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628417,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628418,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628419,
+            "def": "Item.PilgrimAsh",
+            "count": 5
+          },
+          {
+            "uid": 1099511628420,
+            "def": "Item.AshCake",
+            "count": 1
+          },
+          {
+            "uid": 1099511628421,
+            "def": "Item.Oats",
+            "count": 5
+          },
+          {
+            "uid": 1099511628422,
+            "def": "Item.Oats",
+            "count": 3
+          },
+          {
+            "uid": 1099511628423,
+            "def": "Item.Bowl",
+            "count": 1
+          },
+          {
+            "uid": 1099511628424,
+            "def": "Item.Bowl",
+            "count": 1
+          },
+          {
+            "uid": 1099511628425,
+            "def": "Item.Bowl",
+            "count": 1
+          },
+          {
+            "uid": 1099511628426,
+            "def": "Item.Bowl",
+            "count": 1
+          },
+          {
+            "uid": 1099511628427,
+            "def": "Item.Wood",
+            "count": 3
+          },
+          {
+            "uid": 1099511628428,
+            "def": "Item.Wood",
+            "count": 3
+          },
+          {
+            "uid": 1099511628429,
+            "def": "Item.Wood",
+            "count": 2
+          },
+          {
+            "uid": 1099511628430,
+            "def": "Item.CampfireKit",
+            "count": 1
+          },
+          {
+            "uid": 1099511628431,
+            "def": "Item.OatSeed",
+            "count": 4
+          }
+        ],
+        "initialGuardBag": [
+          {
+            "uid": 67,
+            "def": "Item.LeatherCoat",
+            "count": 1
+          },
+          {
+            "uid": 70,
+            "def": "Item.Hardtack",
+            "count": 2
+          },
+          {
+            "uid": 72,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 73,
+            "def": "Item.WaterBottle",
+            "count": 1
+          }
+        ],
+        "noSeedOrCashGiftToGuard": true,
+        "noPostCaptureInjection": true,
+        "noClaimOfEarlierNormalTravelOrFiveDaysGrowth": true
+      },
+      "originalMerchant": 46,
+      "originalGuard": 64,
+      "market": [
+        {
+          "uid": 1099511627835,
+          "def": "Item.Bandage",
+          "count": 18
+        },
+        {
+          "uid": 1099511627836,
+          "def": "Item.Cloth",
+          "count": 20
+        },
+        {
+          "uid": 1099511627837,
+          "def": "Item.Hardtack",
+          "count": 10
+        },
+        {
+          "uid": 1099511627838,
+          "def": "Item.WaterBottle",
+          "count": 10
+        },
+        {
+          "uid": 1099511627839,
+          "def": "Item.HealthDraught",
+          "count": 4
+        },
+        {
+          "uid": 1099511627840,
+          "def": "Item.WillowTea",
+          "count": 6
+        },
+        {
+          "uid": 1099511628414,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628415,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628416,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628417,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628418,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628419,
+          "def": "Item.PilgrimAsh",
+          "count": 5
+        },
+        {
+          "uid": 1099511628420,
+          "def": "Item.AshCake",
+          "count": 1
+        },
+        {
+          "uid": 1099511628421,
+          "def": "Item.Oats",
+          "count": 5
+        },
+        {
+          "uid": 1099511628422,
+          "def": "Item.Oats",
+          "count": 3
+        },
+        {
+          "uid": 1099511628423,
+          "def": "Item.Bowl",
+          "count": 1
+        },
+        {
+          "uid": 1099511628424,
+          "def": "Item.Bowl",
+          "count": 1
+        },
+        {
+          "uid": 1099511628425,
+          "def": "Item.Bowl",
+          "count": 1
+        },
+        {
+          "uid": 1099511628426,
+          "def": "Item.Bowl",
+          "count": 1
+        },
+        {
+          "uid": 1099511628427,
+          "def": "Item.Wood",
+          "count": 3
+        },
+        {
+          "uid": 1099511628428,
+          "def": "Item.Wood",
+          "count": 3
+        },
+        {
+          "uid": 1099511628429,
+          "def": "Item.Wood",
+          "count": 2
+        },
+        {
+          "uid": 1099511628430,
+          "def": "Item.CampfireKit",
+          "count": 1
+        },
+        {
+          "uid": 1099511628431,
+          "def": "Item.OatSeed",
+          "count": 4
+        }
+      ],
+      "marketCash": 300,
+      "observerCash": 1000,
+      "declaredOriginalMerchantScheduled": true,
+      "declaredObserverCache": {
+        "pos": {
+          "x": 28,
+          "y": 25
+        },
+        "hardtack": 120,
+        "cleanWaterMl": 60000,
+        "bedroll": 1,
+        "naturalAcquisition": false,
+        "npcSupply": false,
+        "items": [
+          {
+            "uid": 88,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 89,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 90,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 91,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 92,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 93,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 94,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 95,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 96,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 97,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 98,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 99,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 100,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 101,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 102,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 103,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 104,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 105,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 106,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 107,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 108,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 109,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 110,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 111,
+            "def": "Item.Hardtack",
+            "count": 5
+          },
+          {
+            "uid": 112,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 113,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 114,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 115,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 116,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 117,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 118,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 119,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 120,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 121,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 122,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 123,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 124,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 125,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 126,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 127,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 128,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 129,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 130,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 131,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 132,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 133,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 134,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 135,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 136,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 137,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 138,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 139,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 140,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 141,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 142,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 143,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 144,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 145,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 146,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 147,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 148,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 149,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 150,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 151,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 152,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 153,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 154,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 155,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 156,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 157,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 158,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 159,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 160,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 161,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 162,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 163,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 164,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 165,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 166,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 167,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 168,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 169,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 170,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 171,
+            "def": "Item.WaterBottle",
+            "count": 1
+          },
+          {
+            "uid": 172,
+            "def": "Item.Bedroll",
+            "count": 1
+          }
+        ]
+      },
+      "noPriorGrowthCredit": true
+    },
+    "limits": "Controlled warm noon arrival/healthy original actors/finite observer cash/scheduling and declared observer-only 120-hardtack/60L/one-bedroll diagnostic camp, not natural acquisition. Instrumented real customer demand and same-bowl returns. No growth credit or post-capture time/RNG/resource/body mutation. Full current crop growth uses normal actual actions; actual NPC seed allocation, water/needs, harvest, paid sale and workshop production. Not normal initial travel, all-community survival, all-season or unlimited grain/fuel self-sufficiency."
+  },
+  "preservedFailures": [
+    "v409-fields-1",
+    "v409-pilot-1",
+    "v409-fields-3",
+    "v409-visibility-1",
+    "v409-pilot-2",
+    "v409-course-3",
+    "v409-course-4",
+    "v409-course-5",
+    "v409-course-6",
+    "v409-course-7",
+    "v409-course-8"
+  ],
+  "limits": [
+    "Finite declared healthy/warm/noon original residents and observer camp; not natural initial acquisition/travel or all-community/all-season self-sufficiency.",
+    "Near-ripe Native scenes explicitly declare the final three effective growth turns; full natural clock is independently exercised in the Core course.",
+    "Long initial fatigue/sleep-debt and hot original beds remain a follow-up diagnostic; one completed grain cycle does not resolve this pacing issue.",
+    "Cultivation subpanel English only; remaining crafting UI and logs are not claimed translated."
+  ]
+}

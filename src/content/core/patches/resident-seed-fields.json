@@ -1,0 +1,55 @@
+[
+  {
+    "op": "add",
+    "target": "ResidentCultivation.Hearth",
+    "path": "/seedSupply",
+    "value": {
+      "factions": [
+        "pilgrims"
+      ],
+      "roles": [
+        "guard"
+      ],
+      "item": "Item.OatSeed",
+      "communal": true,
+      "reserveMoney": 20,
+      "maxUnitPrice": 20,
+      "retryTurns": 1200,
+      "searchPlaces": [
+        {
+          "site": "Region.Stillhouse",
+          "map": "surface",
+          "pos": [
+            30,
+            25
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.pilgrims",
+    "path": "/initialAdditions/-",
+    "value": {
+      "id": "pilgrim-fields-v409",
+      "items": [
+        {
+          "item": "Item.OatSeed",
+          "count": 4
+        }
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "ResidentCultivation.Hearth",
+    "path": "/surplus/materials",
+    "value": [
+      {
+        "item": "Item.Oats",
+        "reserveUnits": 1
+      }
+    ]
+  }
+]

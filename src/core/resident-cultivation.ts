@@ -51,7 +51,7 @@ export function residentCultivationDecision(w:World,c:Creature):{action?:Action;
  const destinations:Pos[]=[]
  for(let y=c.home!.y-d.homeRadius;y<=c.home!.y+d.homeRadius;y++)for(let x=c.home!.x-d.homeRadius;x<=c.home!.x+d.homeRadius;x++){
   const p={x,y};if(!inBounds(w,p)||!canSee(w,c,p)||!hasLos(w,c.pos,p))continue
-  const terrain=terrainAt(w,p),tile=tileAt(w,p);if(w.db.terrain(itemDef(w,seed).place!).cultivation?.needsSoil!==false&&!terrain.soil||!terrain.passable||terrain.gather||terrain.water||terrain.stairs||terrain.container||terrain.station||terrain.bedding||tile.placed||tile.items.length||creatureAt(w,p))continue
+  const terrain=terrainAt(w,p),tile=tileAt(w,p);if(w.db.terrain(itemDef(w,seed).place!).cultivation?.needsSoil!==false&&!terrain.soil||!terrain.passable||terrain.gather||terrain.water||terrain.stairs||terrain.container||terrain.station||terrain.bedding||terrain.residentDepot||terrain.residentWell||tile.placed||tile.items.length||creatureAt(w,p))continue
   const destination=w.db.terrain(itemDef(w,seed).place!),rule=destination.cultivation!,light=daylight(w)*(w.s.map.daylightMult??1)*(tile.roof?.45:1),temp=ambientTemp(w,p)
   if(light>=rule.minLight&&(rule.maxLight===undefined||light<=rule.maxLight)&&temp>=rule.minTemp&&temp<=rule.maxTemp&&(!destination.gather?.soilDependent||towerSoilFertility(w)>0))destinations.push(p)
  }
@@ -62,6 +62,13 @@ export function residentCultivationDecision(w:World,c:Creature):{action?:Action;
   for(const q of access)if(findPath(w,c.pos,q,{avoidCreatures:true,selfId:c.id,maxNodes:1200}))return{goal:q}
  }
 
+ // Familiar public field addresses guide an inspection; unseen current ground is never queried.
+ const supply=d.seedSupply
+ if(supply?.factions.includes(c.faction)&&supply.roles.includes(w.db.creature(c.def).ai)&&seed.def===supply.item)for(const place of supply.searchPlaces??[]){
+  if(place.site!==c.residentSite||place.map!==w.s.map.id)continue
+  const pos={x:place.pos[0],y:place.pos[1]}
+  if(inBounds(w,pos)&&cheb(pos,c.home!)<=d.homeRadius&&(!canSee(w,c,pos)||!hasLos(w,c.pos,pos)))return{goal:pos}
+ }
  return null
 }
 

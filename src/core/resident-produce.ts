@@ -10,17 +10,20 @@ import {foodKcal} from './cooking-state'
 import {foodServings} from './food-vessels'
 import {readyFood} from './open-food-state'
 import {freshnessBand} from './food-state'
+import {itemDef} from './items'
 import type {Action} from './actions'
 import type {Creature,ItemInst,TerrainDef} from './types'
 
 function produceLine(w:World,c:Creature){
  const rule=residentCultivationDef(w).surplus;if(!rule)return
  const total=c.bag.reduce((n,i)=>n+(readyFood(w,c,i)&&!['spoiled','rotten'].includes(freshnessBand(w,i))?foodKcal(w,i)*foodServings(w,i)*i.count:0),0)
- const surplus=total-rule.reserveKcal;if(surplus<=0)return
+ const surplus=total-rule.reserveKcal
  for(const it of [...c.bag].sort((a,b)=>(a.cropHarvest?.at??0)-(b.cropHarvest?.at??0)||a.uid-b.uid)){
   const q=it.cropHarvest
-  if(!q||q.owner!==c.id||q.def!==it.def||!Number.isSafeInteger(q.seedUid)||q.seedUid<=0||!Number.isSafeInteger(q.at)||q.at<0||q.at>turnOf(w)||!q.region||!q.map||w.db.tryGet<TerrainDef>(q.terrain)?.gather?.item!==it.def||!readyFood(w,c,it)||freshnessBand(w,it)!=='fresh')continue
-  const kcal=foodKcal(w,it)*foodServings(w,it),count=kcal>0?Math.min(rule.maxUnits,it.count,Math.floor(surplus/kcal)):0
+  if(!q||q.owner!==c.id||q.def!==it.def||!Number.isSafeInteger(q.seedUid)||q.seedUid<=0||!Number.isSafeInteger(q.at)||q.at<0||q.at>turnOf(w)||!q.region||!q.map||w.db.tryGet<TerrainDef>(q.terrain)?.gather?.item!==it.def||freshnessBand(w,it)!=='fresh')continue
+  const material=!itemDef(w,it).food&&rule.materials?.find(m=>m.item===it.def)
+  const held=c.bag.filter(i=>i.def===it.def).reduce((n,i)=>n+i.count,0),kcal=readyFood(w,c,it)?foodKcal(w,it)*foodServings(w,it):0
+  const count=material?Math.min(rule.maxUnits,it.count,held-material.reserveUnits):kcal>0?Math.min(rule.maxUnits,it.count,Math.floor(surplus/kcal)):0
   if(Number.isSafeInteger(count)&&count>0)return{item:it,count}
  }
 }

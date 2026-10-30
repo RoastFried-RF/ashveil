@@ -1,4 +1,4 @@
-// 실제 같은 주민의 개인 재료/돈 또는 자기 상점 현물을 쓰는 단일 재배 배지 준비.
+// 실제 같은 주민의 개인 재료/돈 또는 자기 상점 현물을 쓰는 종자·배지 준비.
 import {player,turnOf,log,type World} from './ctx'
 import {residentCultivationAvailable,residentCultivationDef,residentCultivationWaterBudget} from './resident-cultivation'
 import {residentCultivationShop,residentShopApproach} from './resident-produce'
@@ -11,20 +11,24 @@ import {marketFor,tradeAccess,tradeQuote,exchange} from './economy'
 import type {Creature,ItemInst,RecipeDef} from './types'
 import type {Action} from './actions'
 function preparation(w:World,c:Creature){
- const def=residentCultivationDef(w),rule=def.preparation
- if(!rule||!rule.factions.includes(c.faction)||!residentCultivationAvailable(w,c)||c.residentPlot||c.bag.some(i=>i.count>0&&itemDef(w,i).place&&w.db.terrain(itemDef(w,i).place!).cultivation)||residentCultivationWaterBudget(w,c)<def.reserveWaterMl+def.doseMl)return
+ const def=residentCultivationDef(w)
+ if(!residentCultivationAvailable(w,c)||c.residentPlot||c.bag.some(i=>i.count>0&&itemDef(w,i).place&&w.db.terrain(itemDef(w,i).place!).cultivation)||residentCultivationWaterBudget(w,c)<def.reserveWaterMl+def.doseMl)return
+ const supply=def.seedSupply
+ if(supply?.factions.includes(c.faction)&&supply.roles.includes(w.db.creature(c.def).ai))return{rule:supply,communal:supply.communal,recipe:undefined,missing:{item:supply.item,count:1}}
+ const rule=def.preparation;if(!rule?.factions.includes(c.faction))return
  const recipe=w.db.get<RecipeDef>(rule.recipe),missing=recipe.inputs.map(input=>({item:input.item,count:input.count-c.bag.filter(i=>i.def===input.item).reduce((n,i)=>n+i.count,0)})).find(i=>i.count>0)
- return{rule,recipe,missing}
+ return{rule,communal:false,recipe,missing}
 }
 function supplyGoal(w:World,c:Creature){
  const p=preparation(w,c);if(!p?.missing||(c.residentCultivationSupplyAfter??0)>turnOf(w))return
  const goal=residentCultivationShop(w,c);if(!goal)return
- if(!goal.own&&(!Number.isSafeInteger(c.money)||c.money!<=p.rule.reserveMoney))return
+ if(p.communal&&w.s.creatures.find(t=>t.id===goal.target)?.faction!==c.faction)return
+ if(!goal.own&&!p.communal&&(!Number.isSafeInteger(c.money)||c.money!<=p.rule.reserveMoney))return
  return{...goal,...p}
 }
 export function residentCropSupplyDecision(w:World,c:Creature):{action?:Action;goal?:Pos}|null{
  const p=preparation(w,c);if(!p)return null
- if(!p.missing)return craftError(w,c,p.recipe)?null:{action:{type:'craft',id:p.recipe.id}}
+ if(!p.missing)return !p.recipe||craftError(w,c,p.recipe)?null:{action:{type:'craft',id:p.recipe.id}}
  const goal=supplyGoal(w,c);if(!goal)return null
  if(cheb(c.pos,goal.pos)<=1&&hasLos(w,c.pos,goal.pos))return{action:{type:'residentCropSupply',target:goal.target}}
  const pos=residentShopApproach(w,c,goal);return pos?{goal:pos}:null
@@ -37,7 +41,7 @@ export function residentCropSupplyQuote(w:World,c:Creature,trader:Creature){
  const market=marketFor(w,trader);if(!market||market.mobile){out.error='같은 정착지의 원래 상점이어야 한다';return out}
  out.checked=true;out.item=market.items.find(i=>i.def===goal.missing!.item&&Number.isSafeInteger(i.count)&&i.count>=1&&Number.isSafeInteger(i.uid)&&i.uid>0)
  if(!out.item){out.error='상점에 필요한 실제 재배 재료가 없다';return out}
- if(!goal.own){const q=tradeQuote(w,c,trader,[{uid:out.item.uid,count:1}],[]);if(q.error){out.error=q.error;return out}out.price=q.buy;out.balance=q.balance;if(!Number.isSafeInteger(q.buy)||q.buy<=0||q.buy>goal.rule.maxUnitPrice||c.money!-q.buy<goal.rule.reserveMoney){out.error='먹고살 돈을 남겨 실제 재배 재료 한 개를 살 수 있어야 한다';return out}}
+ if(!goal.own&&!goal.communal){const q=tradeQuote(w,c,trader,[{uid:out.item.uid,count:1}],[]);if(q.error){out.error=q.error;return out}out.price=q.buy;out.balance=q.balance;if(!Number.isSafeInteger(q.buy)||q.buy<=0||q.buy>goal.rule.maxUnitPrice||c.money!-q.buy<goal.rule.reserveMoney){out.error='먹고살 돈을 남겨 실제 재배 재료 한 개를 살 수 있어야 한다';return out}}
  else{
   const shadow:World={db:w.db,s:{...w.s}},giver={...c,bag:structuredClone(market.items)},receiver={...c,bag:structuredClone(c.bag)},piece=removeOne(shadow,giver,out.item.uid)
   if(!piece||addToBag(shadow,receiver,piece))out.error='자기 실제 배낭에 재배 재료 한 개를 넣을 자리가 없다'
@@ -45,15 +49,15 @@ export function residentCropSupplyQuote(w:World,c:Creature,trader:Creature){
  return out
 }
 export function obtainResidentCropSupply(w:World,c:Creature,trader:Creature):string|null{
- const q=residentCropSupplyQuote(w,c,trader),delay=()=>{const r=residentCultivationDef(w).preparation;if(r)c.residentCultivationSupplyAfter=turnOf(w)+r.retryTurns}
+ const q=residentCropSupplyQuote(w,c,trader),delay=()=>{const r=q.goal?.rule;if(r)c.residentCultivationSupplyAfter=turnOf(w)+r.retryTurns}
  if(q.error){if(q.checked)delay();return q.error}
- if(!q.goal!.own){const error=exchange(w,c,trader,[{uid:q.item!.uid,count:1}],[],q.balance);if(error){delay();return error}}
+ if(!q.goal!.own&&!q.goal!.communal){const error=exchange(w,c,trader,[{uid:q.item!.uid,count:1}],[],q.balance);if(error){delay();return error}}
  else{
   const market=marketFor(w,trader)!,shadow:World={db:w.db,s:{...w.s}},giver={...c,bag:structuredClone(market.items)},receiver={...c,bag:structuredClone(c.bag)},piece=removeOne(shadow,giver,q.item!.uid)
   if(!piece||addToBag(shadow,receiver,piece)){delay();return '실제 배낭에 재배 재료를 옮길 수 없다'}
   market.items=giver.bag;c.bag=receiver.bag;w.s.nextId=shadow.s.nextId
  }
  delete c.residentCultivationSupplyAfter
- if(canSee(w,player(w),c.pos)&&canSee(w,player(w),trader.pos))log(w,'info',q.goal!.own?'주민이 자기 상점에서 실제 재배 재료 한 개를 가져왔다.':'주민이 자기 돈으로 실제 재배 재료 한 개를 샀다.')
+ if(canSee(w,player(w),c.pos)&&canSee(w,player(w),trader.pos))log(w,'info',q.goal!.own?'주민이 자기 상점에서 실제 재배 재료 한 개를 가져왔다.':q.goal!.communal?'주민이 같은 세력 상점에서 실제 종자 한 개를 배분받았다.':'주민이 자기 돈으로 실제 재배 재료 한 개를 샀다.')
  return null
 }

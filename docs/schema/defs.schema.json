@@ -2535,6 +2535,423 @@
                   }
                 ]
               },
+              "seedSupply": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "searchPlaces": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "site": {
+                                      "type": "string"
+                                    },
+                                    "map": {
+                                      "type": "string"
+                                    },
+                                    "pos": {
+                                      "type": "array",
+                                      "prefixItems": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ],
+                                      "minItems": 2,
+                                      "maxItems": 2
+                                    }
+                                  },
+                                  "required": [
+                                    "site",
+                                    "map",
+                                    "pos"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "site": {
+                                          "type": "string"
+                                        },
+                                        "map": {
+                                          "type": "string"
+                                        },
+                                        "pos": {
+                                          "type": "array",
+                                          "prefixItems": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ],
+                                          "minItems": 2,
+                                          "maxItems": 2
+                                        }
+                                      },
+                                      "required": [
+                                        "site",
+                                        "map",
+                                        "pos"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "site": {
+                                          "type": "string"
+                                        },
+                                        "map": {
+                                          "type": "string"
+                                        },
+                                        "pos": {
+                                          "type": "array",
+                                          "prefixItems": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ],
+                                          "minItems": 2,
+                                          "maxItems": 2
+                                        }
+                                      },
+                                      "required": [
+                                        "site",
+                                        "map",
+                                        "pos"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "site": {
+                                              "type": "string"
+                                            },
+                                            "map": {
+                                              "type": "string"
+                                            },
+                                            "pos": {
+                                              "type": "array",
+                                              "prefixItems": [
+                                                {
+                                                  "type": "number"
+                                                },
+                                                {
+                                                  "type": "number"
+                                                }
+                                              ],
+                                              "minItems": 2,
+                                              "maxItems": 2
+                                            }
+                                          },
+                                          "required": [
+                                            "site",
+                                            "map",
+                                            "pos"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "factions": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "roles": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "enum": [
+                                    "player",
+                                    "packHunter",
+                                    "raider",
+                                    "skittish",
+                                    "guard",
+                                    "boss",
+                                    "civilian"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "player",
+                                            "packHunter",
+                                            "raider",
+                                            "skittish",
+                                            "guard",
+                                            "boss",
+                                            "civilian"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "item": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "communal": {
+                        "anyOf": [
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "reserveMoney": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "maxUnitPrice": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "retryTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "surplus": {
                 "anyOf": [
                   {
@@ -2564,6 +2981,126 @@
                         "anyOf": [
                           {
                             "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "materials": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "item": {
+                                      "type": "string"
+                                    },
+                                    "reserveUnits": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "item",
+                                    "reserveUnits"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "item": {
+                                          "type": "string"
+                                        },
+                                        "reserveUnits": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "item",
+                                        "reserveUnits"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "item": {
+                                          "type": "string"
+                                        },
+                                        "reserveUnits": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "item",
+                                        "reserveUnits"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "item": {
+                                              "type": "string"
+                                            },
+                                            "reserveUnits": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "item",
+                                            "reserveUnits"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
                           },
                           {
                             "type": "null"
@@ -2872,6 +3409,87 @@
                   "retryTurns"
                 ]
               },
+              "seedSupply": {
+                "type": "object",
+                "properties": {
+                  "searchPlaces": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "site": {
+                          "type": "string"
+                        },
+                        "map": {
+                          "type": "string"
+                        },
+                        "pos": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ],
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "required": [
+                        "site",
+                        "map",
+                        "pos"
+                      ]
+                    }
+                  },
+                  "factions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "player",
+                        "packHunter",
+                        "raider",
+                        "skittish",
+                        "guard",
+                        "boss",
+                        "civilian"
+                      ]
+                    }
+                  },
+                  "item": {
+                    "type": "string"
+                  },
+                  "communal": {
+                    "type": "boolean"
+                  },
+                  "reserveMoney": {
+                    "type": "number"
+                  },
+                  "maxUnitPrice": {
+                    "type": "number"
+                  },
+                  "retryTurns": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "factions",
+                  "roles",
+                  "item",
+                  "communal",
+                  "reserveMoney",
+                  "maxUnitPrice",
+                  "retryTurns"
+                ]
+              },
               "surplus": {
                 "type": "object",
                 "properties": {
@@ -2883,6 +3501,24 @@
                   },
                   "maxUnits": {
                     "type": "number"
+                  },
+                  "materials": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "item": {
+                          "type": "string"
+                        },
+                        "reserveUnits": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "item",
+                        "reserveUnits"
+                      ]
+                    }
                   }
                 },
                 "required": [
@@ -54842,6 +55478,413 @@
               "defType": {
                 "const": "ResidentWarmth"
               },
+              "cooling": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "factions": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "roles": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "enum": [
+                                    "player",
+                                    "packHunter",
+                                    "raider",
+                                    "skittish",
+                                    "guard",
+                                    "boss",
+                                    "civilian"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "enum": [
+                                        "player",
+                                        "packHunter",
+                                        "raider",
+                                        "skittish",
+                                        "guard",
+                                        "boss",
+                                        "civilian"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "player",
+                                            "packHunter",
+                                            "raider",
+                                            "skittish",
+                                            "guard",
+                                            "boss",
+                                            "civilian"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "at": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "radius": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "restTurns": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "minimumImprovement": {
+                        "anyOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "places": {
+                        "anyOf": [
+                          {
+                            "anyOf": [
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "site": {
+                                      "type": "string"
+                                    },
+                                    "map": {
+                                      "type": "string"
+                                    },
+                                    "pos": {
+                                      "type": "array",
+                                      "prefixItems": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "number"
+                                        }
+                                      ],
+                                      "minItems": 2,
+                                      "maxItems": 2
+                                    }
+                                  },
+                                  "required": [
+                                    "site",
+                                    "map",
+                                    "pos"
+                                  ]
+                                }
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$append": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "site": {
+                                          "type": "string"
+                                        },
+                                        "map": {
+                                          "type": "string"
+                                        },
+                                        "pos": {
+                                          "type": "array",
+                                          "prefixItems": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ],
+                                          "minItems": 2,
+                                          "maxItems": 2
+                                        }
+                                      },
+                                      "required": [
+                                        "site",
+                                        "map",
+                                        "pos"
+                                      ]
+                                    }
+                                  },
+                                  "$prepend": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "site": {
+                                          "type": "string"
+                                        },
+                                        "map": {
+                                          "type": "string"
+                                        },
+                                        "pos": {
+                                          "type": "array",
+                                          "prefixItems": [
+                                            {
+                                              "type": "number"
+                                            },
+                                            {
+                                              "type": "number"
+                                            }
+                                          ],
+                                          "minItems": 2,
+                                          "maxItems": 2
+                                        }
+                                      },
+                                      "required": [
+                                        "site",
+                                        "map",
+                                        "pos"
+                                      ]
+                                    }
+                                  },
+                                  "$remove": {
+                                    "type": "array",
+                                    "items": {
+                                      "anyOf": [
+                                        {
+                                          "type": "object",
+                                          "properties": {
+                                            "site": {
+                                              "type": "string"
+                                            },
+                                            "map": {
+                                              "type": "string"
+                                            },
+                                            "pos": {
+                                              "type": "array",
+                                              "prefixItems": [
+                                                {
+                                                  "type": "number"
+                                                },
+                                                {
+                                                  "type": "number"
+                                                }
+                                              ],
+                                              "minItems": 2,
+                                              "maxItems": 2
+                                            }
+                                          },
+                                          "required": [
+                                            "site",
+                                            "map",
+                                            "pos"
+                                          ]
+                                        },
+                                        {
+                                          "type": "object",
+                                          "required": [
+                                            "id"
+                                          ],
+                                          "properties": {
+                                            "id": {}
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                "additionalProperties": false,
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "$append"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$prepend"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "$remove"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "$inherit": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "label": {
                 "anyOf": [
                   {
@@ -54943,6 +55986,83 @@
             "properties": {
               "defType": {
                 "const": "ResidentWarmth"
+              },
+              "cooling": {
+                "type": "object",
+                "properties": {
+                  "factions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "player",
+                        "packHunter",
+                        "raider",
+                        "skittish",
+                        "guard",
+                        "boss",
+                        "civilian"
+                      ]
+                    }
+                  },
+                  "at": {
+                    "type": "number"
+                  },
+                  "radius": {
+                    "type": "number"
+                  },
+                  "restTurns": {
+                    "type": "number"
+                  },
+                  "minimumImprovement": {
+                    "type": "number"
+                  },
+                  "places": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "site": {
+                          "type": "string"
+                        },
+                        "map": {
+                          "type": "string"
+                        },
+                        "pos": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "number"
+                            }
+                          ],
+                          "minItems": 2,
+                          "maxItems": 2
+                        }
+                      },
+                      "required": [
+                        "site",
+                        "map",
+                        "pos"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "factions",
+                  "roles",
+                  "at",
+                  "radius",
+                  "restTurns",
+                  "minimumImprovement"
+                ]
               },
               "label": {
                 "type": "string"

@@ -39,7 +39,9 @@ def main():
     parser.add_argument('after', type=Path)
     parser.add_argument('output', type=Path)
     parser.add_argument('--ash-supply-v408', action='store_true', help='Assert the separately reviewed v408 metadata and finite stock changes')
+    parser.add_argument('--pilgrim-fields-v409', action='store_true', help='Assert the separately reviewed v409 content metadata and one finite seed allocation')
     args = parser.parse_args()
+    assert not (args.ash_supply_v408 and args.pilgrim_fields_v409)
     old_bytes, new_bytes = args.before.read_bytes(), args.after.read_bytes()
     old, new = json.loads(old_bytes), json.loads(new_bytes)
     assert [row['name'] for row in old] == [row['name'] for row in new]
@@ -72,12 +74,33 @@ def main():
                     world['simulation']['nextItemId'] += 10
                 assert expected == actual, before['name'] + '/' + stage + ': unreviewed complete-state change'
             assert before['errors'] == after['errors']
+        if args.pilgrim_fields_v409:
+            for stage in ['initial', 'state']:
+                original, actual = before[stage], after[stage]
+                expected = copy.deepcopy(original)
+                assert original['version'] == actual['version'] == 221
+                assert re.fullmatch(r'sha256-[0-9a-f]{64}', actual['loadHash'])
+                assert re.fullmatch(r'sha256-[0-9a-f]{64}', actual['contentMods'][0]['hash'])
+                expected['loadHash'] = actual['loadHash']
+                expected['contentMods'][0]['hash'] = actual['contentMods'][0]['hash']
+                if 'overworld' in expected:
+                    world = expected['overworld']
+                    stock = world['markets']['Region.Stillhouse']
+                    uid = stock['items'][-1]['uid'] + 1
+                    stock['items'].append({'uid':uid, 'def':'Item.OatSeed', 'count':4})
+                    stock['adoptedStockAdditions'].append('Stock.pilgrims/pilgrim-fields-v409')
+                    for site in ['Region.ShadeBasin', 'Region.ShadeGrove', 'Region.ShadeHollow']:
+                        for item in world['markets'][site]['items'][8:10]:
+                            item['uid'] += 1
+                    world['simulation']['nextItemId'] += 1
+                assert expected == actual, before['name'] + '/' + stage + ': unreviewed complete-state change'
+            assert before['errors'] == after['errors']
         initial = list(differences(before['initial'], after['initial']))
         final = list(differences(before['state'], after['state']))
         rows.append(dict(name=before['name'], commands=len(before['errors']),
                          errorsUnchanged=before['errors'] == after['errors'],
                          initial=initial, final=final))
-    report = dict(reportOnly=not args.ash_supply_v408, reviewedShape='ash-supply-v408' if args.ash_supply_v408 else None, beforeSha256=hashlib.sha256(old_bytes).hexdigest(),
+    report = dict(reportOnly=not (args.ash_supply_v408 or args.pilgrim_fields_v409), reviewedShape='ash-supply-v408' if args.ash_supply_v408 else 'pilgrim-fields-v409' if args.pilgrim_fields_v409 else None, beforeSha256=hashlib.sha256(old_bytes).hexdigest(),
                   afterSha256=hashlib.sha256(new_bytes).hexdigest(), rows=rows)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x', encoding='utf-8') as handle:

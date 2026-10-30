@@ -11,6 +11,7 @@ import {residentCultivationDecision} from './resident-cultivation'
 import {residentCookingDecision} from './resident-cooking'
 import {residentWorkshopDecision}from'./resident-workshop'
 import {residentWorkshopRestClothing}from'./resident-workshop-state'
+import {residentCoolingDecision}from'./resident-thermal-care'
 import {npcCareAction} from './npc-care'
 import {scriptAITargetScores} from './script-ai'
 import {activeEscort,contractEscortGoal} from './escort-contracts'
@@ -169,6 +170,7 @@ function residentBeddingAction(w:World,c:Creature):Action|null{
   delayResidentBedding(w,c);return null
 }
 function residentWarmAction(w: World, c: Creature): Action | null {
+  const cooling=residentCoolingDecision(w,c);if(cooling?.action)return cooling.action;if(cooling?.goal)return stepToward(w,c,cooling.goal)??{type:'wait'}
   const clothes=residentWorkshopRestClothing(w,c);if(clothes)return clothes
   const fire = residentWarmthGoal(w,c), d = residentWarmthDef(w)
   if (!fire) {

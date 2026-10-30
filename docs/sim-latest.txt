@@ -1,10 +1,10 @@
-v408 Windows simulations — 2026-10-31 KST
-Two distinct sim-0..29/max3day cohorts. No paired-baseline or balance-quality claim.
-Tested code: 39606a7e47461fb7aa7cf7a7448a63309d0376a9
-Source-before/source-after: 22c6b59e13dba21755eb1a7406831334e7203a3a5aefff5fd740ad991cc148ea; 9,171 recorded files unchanged during all21 checks.
-sim30: {"overworld": false, "runs": 30, "averageDays": 1.4225416666666666, "causes": {"치명상": 13, "생존(시간 종료)": 14, "과다 출혈": 3}, "escapes": 0, "seconds": 1944.939}
-world30: {"overworld": true, "runs": 30, "averageDays": 0.9630601851851852, "causes": {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}, "escapes": 0, "seconds": 1021.068}
-60 original initial/final Worlds per cohort retained locally. Completed normal Core actions, no action-cap-as-survival fallback.
+v409 Windows simulations — 2026-10-31 KST
+Two distinct sim-0..29/max3day cohorts; no speed or balance-quality improvement claim.
+Tested code: d68a677b29dd7d952c86282b8c958a2a64b7c0c0
+Source-before/source-after: 9cecdd0b73bc37e8ed483c473b72e3b0542be1701baef8449e44af3ef1e41687; 9,188 recorded files unchanged during23 checks.
+sim30: {"overworld": false, "runs": 30, "averageDays": 1.4225416666666666, "causes": {"치명상": 13, "생존(시간 종료)": 14, "과다 출혈": 3}, "escapes": 0, "seconds": 1891.774}
+world30: {"overworld": true, "runs": 30, "averageDays": 0.9630601851851852, "causes": {"치명상": 14, "과다 출혈": 6, "생존(시간 종료)": 7, "저체온": 3}, "escapes": 0, "seconds": 1021.609}
+60 original initial/final Worlds per cohort retained locally. Completed normal Core actions; action-cap exhaustion is failure.
 
 ── sim30 ──
 sim-0: 치명상 · 0.05일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
@@ -42,7 +42,7 @@ sim-29: 생존(시간 종료) · 3.00일 · Lv1 · surface · Bg.EscapedSlave ·
 생존(시간 종료): 14 (47%)
 치명상: 13 (43%)
 과다 출혈: 3 (10%)
-평균 생존 1.42일 · 탈출 0/30 · 1944.9s
+평균 생존 1.42일 · 탈출 0/30 · 1891.8s
 
 ── world30 ──
 sim-0: 치명상 · 0.01일 · Lv1 · crypt1 · Bg.Boatman · 사건 -
@@ -81,4 +81,4 @@ sim-29: 치명상 · 0.01일 · Lv1 · surface · Bg.EscapedSlave · 사건 -
 생존(시간 종료): 7 (23%)
 과다 출혈: 6 (20%)
 저체온: 3 (10%)
-평균 생존 0.96일 · 탈출 0/30 · 1021.1s
+평균 생존 0.96일 · 탈출 0/30 · 1021.6s

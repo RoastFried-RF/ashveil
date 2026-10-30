@@ -6,10 +6,10 @@ import {freshnessBand}from'./food-state'
 import {residentProvisionDef}from'./resident-provisions'
 import {foodKcal}from'./cooking-state'
 import {foodServings}from'./food-vessels'
-import {projectThermalState,type ThermalActivity}from'./thermal'
-import {itemDef,equipError,equipDisplacements}from'./items'
+import type{ThermalActivity}from'./thermal'
+import {ownedThermalClothingAction}from'./resident-thermal-care'
 import {canSee,hasLos}from'./fov'
-import type{Creature,RecipeDef,Slot}from'./types'
+import type{Creature,RecipeDef}from'./types'
 import type{Pos}from'./geom'
 
 export const residentWorkshopRules=(w:World)=>residentProvisionDef(w)?.workshop
@@ -41,18 +41,8 @@ export function residentWorkshopCraftMarker(w:World,c:Creature,id:string){
 }
 /** Compare the same public forecast; only propose an ordinary swap of already owned clothes. */
 export function residentWorkshopClothing(w:World,c:Creature,pos:Pos,activity:ThermalActivity){
- if(!residentWorkshopActor(w,c)||c.activity||c.workJob||c.asleep||c.unconscious||c.captivity||c.companion||c.rescue||c.breakdown)return
- const score=(actor:Creature)=>{const q=projectThermalState(w,actor,activity,pos);return Math.max(q.low-q.feels,q.feels-q.high,0)}
- const current=score(c),choices=[]
- if(current<.5)return
- for(const it of c.bag){
-  const d=itemDef(w,it),slot=d.slot as Slot|undefined
-  if(d.category!=='apparel'||!d.apparel||!slot||d.slot==='ring'||it.count!==1||equipError(w,c,it.uid,slot))continue
-  const equip={...c.equip};for(const old of equipDisplacements(w,c,it,slot))delete equip[old.slot];equip[slot]=it
-  const improvement=current-score({...c,equip});if(improvement>=.5)choices.push({uid:it.uid,slot,improvement})
- }
- choices.sort((a,b)=>b.improvement-a.improvement||a.uid-b.uid)
- const q=choices[0];return q?{type:'equip'as const,uid:q.uid,slot:q.slot}:undefined
+ if(!residentWorkshopActor(w,c))return
+ return ownedThermalClothingAction(w,c,pos,activity)
 }
 export function residentWorkshopRestClothing(w:World,c:Creature){
  if(c.needs.fatigue<60&&c.needs.bodyTemp>=36.5&&c.needs.bodyTemp<=38)return

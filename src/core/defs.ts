@@ -1328,6 +1328,28 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     for(const target of d.targets){need(d.id,target.region,'RegionSite');need(d.id,target.terrain,'Terrain');need(d.id,target.item,'Item');const item=db.tryGet<ItemDef>(target.item);if(item?.stackable||item?.unidentified||!db.tryGet<TerrainDef>(target.terrain)?.container)report.errors.push(d.id+': recoveryContract 개별 식별 물품/용기 필요')}
   }
   for(const d of db.all<ResidentCultivationDef>('ResidentCultivation')){
+    if(d.surplus?.materials!==undefined){
+      const rows=d.surplus.materials
+      if(!Array.isArray(rows)||!rows.length||new Set(rows.map(m=>m?.item)).size!==rows.length)report.errors.push(d.id+': surplus.materials 고유 물품 목록 필요')
+      else for(const row of rows){
+        if(!row||typeof row!=='object'||Array.isArray(row)){report.errors.push(d.id+': surplus.materials 실제 물품 정책 필요');continue}
+        need(d.id,row.item,'Item');const item=db.tryGet<ItemDef>(row.item)
+        if(!item||item.food||!db.all<TerrainDef>('Terrain').some(t=>t.cultivation&&t.gather?.item===row.item)||!Number.isSafeInteger(row.reserveUnits)||row.reserveUnits<0||row.reserveUnits>100)report.errors.push(d.id+': surplus.materials 비식용 재배 산물/보관 수량 오류')
+      }
+    }
+    if(d.seedSupply!==undefined){
+      const q=d.seedSupply
+      if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': residentCultivation.seedSupply 객체 필요')
+      else{
+        if(!Array.isArray(q.factions)||!q.factions.length||q.factions.some(f=>!db.all<FactionDef>('Faction').some(x=>x.key===f))||new Set(q.factions).size!==q.factions.length)report.errors.push(d.id+': seedSupply.factions 오류')
+        if(!Array.isArray(q.roles)||!q.roles.length||q.roles.some(r=>!['civilian','guard'].includes(r)||!Array.isArray(d.roles)||!d.roles.includes(r))||new Set(q.roles).size!==q.roles.length)report.errors.push(d.id+': seedSupply.roles 오류')
+        if(q.searchPlaces!==undefined){if(!Array.isArray(q.searchPlaces)||q.searchPlaces.length>32||q.searchPlaces.some(p=>!p||typeof p.site!=='string'||typeof p.map!=='string'||!p.map||p.map.length>256||!Array.isArray(p.pos)||p.pos.length!==2||p.pos.some(v=>!Number.isSafeInteger(v)||v<0||v>=128)))report.errors.push(d.id+': seedSupply.searchPlaces 주소 오류');else{for(const p of q.searchPlaces)need(d.id,p.site,'RegionSite');if(new Set(q.searchPlaces.map(p=>p.site+'/'+p.map+'/'+p.pos.join(','))).size!==q.searchPlaces.length)report.errors.push(d.id+': seedSupply.searchPlaces 중복 주소')}}
+        if(typeof q.communal!=='boolean')report.errors.push(d.id+': seedSupply.communal 불리언 필요')
+        need(d.id,q.item,'Item');const seed=db.tryGet<ItemDef>(q.item)
+        if(!seed?.place||!db.tryGet<TerrainDef>(seed.place)?.cultivation)report.errors.push(d.id+': seedSupply 실제 파종 물품 필요')
+        for(const[key,lo,hi]of[['reserveMoney',0,100000],['maxUnitPrice',1,100000],['retryTurns',1,28800]]as const)if(!Number.isSafeInteger(q[key])||q[key]<lo||q[key]>hi)report.errors.push(d.id+': seedSupply.'+key+' 오류')
+      }
+    }
     if(d.preparation!==undefined){const q=d.preparation;if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': residentCultivation.preparation 객체 필요');else{if(!Array.isArray(q.factions)||!q.factions.length||q.factions.some(f=>!db.all<FactionDef>('Faction').some(x=>x.key===f))||new Set(q.factions).size!==q.factions.length)report.errors.push(d.id+': preparation.factions 오류');need(d.id,q.recipe,'Recipe');const recipe=db.tryGet<RecipeDef>(q.recipe),out=recipe&&db.tryGet<ItemDef>(recipe.output.item);if(!recipe||!recipe.basic||recipe.output.count!==1||recipe.passiveTurns||recipe.materialInputs?.length||recipe.waterTreatment||recipe.boiledMeal||recipe.evaporation||recipe.preservation||recipe.tools?.length||recipe.stations?.some(s=>s!=='hand')||!out?.place||!db.tryGet<TerrainDef>(out.place)?.cultivation||recipe.workTurns>2000)report.errors.push(d.id+': 실제 단일 배지의 기본 손 제작법 필요');for(const[key,lo,hi]of[['reserveMoney',0,100000],['maxUnitPrice',1,100000],['retryTurns',1,28800]]as const)if(!Number.isSafeInteger(q[key])||q[key]<lo||q[key]>hi)report.errors.push(d.id+': preparation.'+key+' 오류')}}
     if(d.surplus!==undefined){if(!d.surplus||typeof d.surplus!=='object'||Array.isArray(d.surplus))report.errors.push(d.id+': residentCultivation.surplus 객체 필요');else for(const[key,lo,hi]of[['reserveKcal',0,10000],['retryTurns',1,28800],['maxUnits',1,10]]as const)if(!Number.isSafeInteger(d.surplus[key])||d.surplus[key]<lo||d.surplus[key]>hi)report.errors.push(d.id+': residentCultivation.surplus.'+key+' 오류')}
     if(typeof d.enabled!=='boolean'||!Array.isArray(d.roles)||!d.roles.length||d.roles.some(r=>!['civilian','guard'].includes(r))||new Set(d.roles).size!==d.roles.length)report.errors.push(d.id+': residentCultivation 활성화/주민 역할 오류')
@@ -1412,6 +1434,16 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     }
   }
   for (const d of db.all<ResidentWarmthDef>('ResidentWarmth')) {
+    if(d.cooling!==undefined){
+      const q=d.cooling
+      if(!q||typeof q!=='object'||Array.isArray(q))report.errors.push(d.id+': cooling 객체 필요')
+      else{
+        if(!Array.isArray(q.factions)||!q.factions.length||q.factions.some(f=>!db.all<FactionDef>('Faction').some(x=>x.key===f))||new Set(q.factions).size!==q.factions.length)report.errors.push(d.id+': cooling.factions 오류')
+        if(!Array.isArray(q.roles)||!q.roles.length||q.roles.some(r=>!['civilian','guard'].includes(r))||new Set(q.roles).size!==q.roles.length)report.errors.push(d.id+': cooling.roles 오류')
+        for(const[key,lo,hi,integer]of[['at',37.1,41,false],['radius',1,8,true],['restTurns',1,1200,true],['minimumImprovement',.1,10,false]]as const)if(!Number.isFinite(q[key])||q[key]<lo||q[key]>hi||integer&&!Number.isSafeInteger(q[key]))report.errors.push(d.id+': cooling.'+key+' 오류')
+        if(q.places!==undefined){if(!Array.isArray(q.places)||q.places.length>32||q.places.some(p=>!p||typeof p.site!=='string'||typeof p.map!=='string'||!p.map||p.map.length>256||!Array.isArray(p.pos)||p.pos.length!==2||p.pos.some(v=>!Number.isSafeInteger(v)||v<0||v>=128)))report.errors.push(d.id+': cooling.places 주소 오류');else{for(const p of q.places)need(d.id,p.site,'RegionSite');if(new Set(q.places.map(p=>p.site+'/'+p.map+'/'+p.pos.join(','))).size!==q.places.length)report.errors.push(d.id+': cooling.places 중복 주소')}}
+      }
+    }
     need(d.id,d.fireTerrain,'Terrain')
     for(const [key,min,max,integer] of [['seekAt',28,38,false],['target',28,38,false],['turns',1,28800,true],['retryTurns',1,100000,true]] as const){
       if(!Number.isFinite(d[key]))report.errors.push(`${d.id}: ${key}가 필요함`)

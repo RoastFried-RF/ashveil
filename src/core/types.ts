@@ -749,6 +749,7 @@ export interface TeacherDef extends DefBase {
 }
 export interface ResidentWarmthDef extends DefBase {
   defType: 'ResidentWarmth'
+  cooling?:{factions:string[];roles:CreatureDef['ai'][];at:number;radius:number;restTurns:number;minimumImprovement:number;places?:{site:string;map:string;pos:[number,number]}[]}
   label: string
   fireTerrain: string
   seekAt: number
@@ -1729,7 +1730,7 @@ export interface RescueContractRecord extends ContractLedger {kind:'rescue';witn
 export interface RecoveryContractDef extends DefBase {defType:'RecoveryContract';label:string;refreshDays:number;deadlineBufferDays:number;baseReward:number;distanceReward:number;threatReward:number;wealthMult:number;reputation:number;minDurability:number;targets:{key:string;label:string;region:string;mapId:string;pos:[number,number];terrain:string;item:string;threat:number}[]}
 export interface RecoveryContractRecord extends ContractLedger {kind:'recover';template:string;region:string;mapId:string;pos:Pos;terrain:string;item:string;itemUid:number;observedAt:number;distance:number;minDurability:number;recipient?:{at:number;uid:number;def:string}}
 export interface NpcCareDef extends DefBase {defType:'NpcCare';bondBonus?:number;label:string;enabled:boolean;sourceRules:string;minBond:number;minMedicine:number;minBleed:number;minKcal:number;maxWaterDeficit:number;maxFatigue:number;minBodyTemp:number;maxBodyTemp:number;witnessRange:number;historyLimit:number}
-export interface ResidentCultivationDef extends DefBase {defType:'ResidentCultivation';preparation?:{factions:string[];recipe:string;reserveMoney:number;maxUnitPrice:number;retryTurns:number};surplus?:{reserveKcal:number;retryTurns:number;maxUnits:number};label:string;enabled:boolean;roles:CreatureDef['ai'][];homeRadius:number;doseMl:number;waterBelowMl:number;reserveWaterMl:number;minKcal:number;maxWaterDeficit:number;maxFatigue:number;minBodyTemp:number;maxBodyTemp:number}
+export interface ResidentCultivationDef extends DefBase {defType:'ResidentCultivation';preparation?:{factions:string[];recipe:string;reserveMoney:number;maxUnitPrice:number;retryTurns:number};seedSupply?:{searchPlaces?:{site:string;map:string;pos:[number,number]}[];factions:string[];roles:CreatureDef['ai'][];item:string;communal:boolean;reserveMoney:number;maxUnitPrice:number;retryTurns:number};surplus?:{reserveKcal:number;retryTurns:number;maxUnits:number;materials?:{item:string;reserveUnits:number}[]};label:string;enabled:boolean;roles:CreatureDef['ai'][];homeRadius:number;doseMl:number;waterBelowMl:number;reserveWaterMl:number;minKcal:number;maxWaterDeficit:number;maxFatigue:number;minBodyTemp:number;maxBodyTemp:number}
 export interface NpcCareRecord {at:number;by:number;patient:number;woundId:number;materialUid:number;quality:number}
 export interface NpcIdentityDef extends DefBase {defType:'NpcIdentity';label:string;enabled:boolean;bodies:string[];names:string[];format:string}
 export interface NpcIdentity {site:string;role:string;givenName:string;name:string;bornAt:number;introducedAt?:number}

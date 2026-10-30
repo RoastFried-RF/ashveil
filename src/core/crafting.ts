@@ -329,7 +329,7 @@ export function finishGather(w: World, c: Creature) {
   dirtyHands(w, c)
   // 직접 먹지 않는 실제 재배 곡물도 관수에서 옮은 오염을 조리 재료까지 보존한다.
   const contamination=tileAt(w,p).cultivation||w.db.item(def.item).food?cropHarvestContaminants(w,p,def.count):{}
-  const origin=w.db.item(def.item).food?residentHarvestOrigin(w,c,p):undefined
+  const origin=residentHarvestOrigin(w,c,p)
   receive(w,c,def.item,count,undefined,undefined,undefined,undefined,undefined,undefined,undefined,contamination.ash,undefined,contamination.water,origin)
   takeGatherStock(w,p,count,Math.ceil(def.regrowTurns/fertility))
   if(c.id===w.s.playerId||canSee(w,player(w),c.pos))log(w, 'info', `${w.db.item(def.item).label} ×${count}을(를) 모았다.`)
