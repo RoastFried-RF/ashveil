@@ -47,7 +47,7 @@ jobs:
       - name: Build explicit check plan
         env:
           CLOUD_PROFILE: ${{ inputs.profile || (startsWith(github.ref_name, 'cloud/ashveil-native-') && 'authoring' || 'release') }}
-        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile "$CLOUD_PROFILE" --locale --checkpoint-locale --out test-results/cloud-plan.json
+        run: python3 tools/cloud-harness/plan.py --root "$GITHUB_WORKSPACE" --chromium "$CHROMIUM_PATH" --profile "$CLOUD_PROFILE" --locale --item-detail-locale --out test-results/cloud-plan.json
       - name: Validate and run the shared queue
         run: |
           python3 tools/cloud-harness/run.py test-results/cloud-plan.json --out test-results/cloud-release --check

@@ -40,6 +40,7 @@ class FreshEnvironment(unittest.TestCase):
         with self.assertRaises(ValueError):
             native_phase.phase_plan("/tmp/checkout", "unsupported")
 
+
     def test_missing_executable_is_not_downloaded(self):
         self.assertEqual(environment.version(["/ashveil/definitely-missing-tool", "--version"]), (None, ""))
 
@@ -111,6 +112,14 @@ class FreshEnvironment(unittest.TestCase):
         self.assertIn("tests/checkpoint-start.test.ts",tasks["locale-focused"]["argv"])
         self.assertIn("locale-focused",tasks["full"]["deps"])
         self.assertEqual(tasks["locale-focused"]["argv"][2],"run")
+
+    def test_item_details_plan_keeps_readonly_checks_before_full_and_native_order(self):
+        tasks={t["id"]:t for t in plan.make_plan("/tmp/checkout",profile="release",locale=True,item_locale=True,item_detail_locale=True)["tasks"]}
+        self.assertEqual(tasks["locale-item-details"]["deps"],["locale-items"])
+        self.assertEqual(tasks["locale-item-details"]["lane"],"heavy")
+        self.assertIn("tests/locale-item-details.test.ts",tasks["locale-focused"]["argv"])
+        self.assertIn("locale-focused",tasks["full"]["deps"])
+        self.assertEqual(plan.make_plan("/tmp/checkout",item_detail_locale=True)["tasks"][-1]["deps"],["smoke"])
 
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:

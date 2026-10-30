@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 
 
-def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=False, gameplay_locale=False, status_locale=False, item_locale=False, checkpoint_locale=False):
+def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=False, gameplay_locale=False, status_locale=False, item_locale=False, checkpoint_locale=False, item_detail_locale=False):
     root = str(Path(root).resolve())
     tasks = []
 
@@ -19,7 +19,7 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=Fals
     add("environment", "light", "audit", "read-only", argv)
     add("typecheck", "light", "typecheck", "read-only", ["node", "node_modules/vue-tsc/bin/vue-tsc.js", "--noEmit"], ["environment"])
     add("lint", "light", "lint", "read-only", ["node", "node_modules/eslint/bin/eslint.js", "."], ["environment"])
-    if gameplay_locale or status_locale or item_locale or checkpoint_locale:
+    if gameplay_locale or status_locale or item_locale or checkpoint_locale or item_detail_locale:
         add("locale-focused", "light", "focused-test", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "tests/locale.test.ts", "tests/locale-gameplay.test.ts", "tests/speech.test.ts", "--maxWorkers=2"], ["typecheck", "lint"])
         if status_locale:
             tasks[-1]["argv"][3:3] = ["tests/locale-status.test.ts", "tests/thermal-guidance.test.ts"]
@@ -27,15 +27,19 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=Fals
         tasks[-1]["argv"][3:3] = ["tests/locale-items.test.ts", "tests/inventory-filter.test.ts", "tests/quickbar-items.test.ts"]
     if checkpoint_locale:
         tasks[-1]["argv"][3:3] = ["tests/checkpoint-start.test.ts", "tests/content-change-review.test.ts", "tests/content-compatibility.test.ts", "tests/live-content-reload.test.ts"]
+    if item_detail_locale:
+        tasks[-1]["argv"][3:3] = ["tests/locale-item-details.test.ts"]
+        if not item_locale:
+            tasks[-1]["argv"][3:3] = ["tests/locale-items.test.ts", "tests/inventory-filter.test.ts", "tests/quickbar-items.test.ts"]
     add("preview-helper", "heavy", "native", "output-only", ["node", "tools/verify-native-preview.mjs", "{task_out}/helper"], ["typecheck", "lint"])
     if profile == "release":
         add("defs", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-defs.ts"], ["typecheck", "lint"])
         add("sprites", "light", "audit", "read-only", ["node", "--import", "tsx", "tools/validate-sprites.ts"], ["typecheck", "lint"])
-        add("full", "heavy", "full", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"], ["defs", "sprites"] + (["locale-focused"] if gameplay_locale or status_locale or item_locale or checkpoint_locale else []))
+        add("full", "heavy", "full", "read-only", ["node", "node_modules/vitest/vitest.mjs", "run", "--maxWorkers=2"], ["defs", "sprites"] + (["locale-focused"] if gameplay_locale or status_locale or item_locale or checkpoint_locale or item_detail_locale else []))
         build_deps = ["full", "preview-helper"]
     else:
         build_deps = ["typecheck", "lint", "preview-helper"]
-        if gameplay_locale or status_locale or item_locale or checkpoint_locale:
+        if gameplay_locale or status_locale or item_locale or checkpoint_locale or item_detail_locale:
             build_deps.append("locale-focused")
     add("build", "heavy", "build", "source-write", ["node", "node_modules/vite/bin/vite.js", "build"], build_deps)
     add("smoke", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/game-harness-preview.ts", "{task_out}/smoke"], ["build"])
@@ -49,6 +53,8 @@ def make_plan(root, pnpm="pnpm", chromium=None, profile="authoring", locale=Fals
         add("locale-items", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-items-v403.ts", "{task_out}/locale-items"], ["locale-status" if status_locale else "locale-gameplay" if gameplay_locale else "locale" if locale else "smoke"])
     if checkpoint_locale:
         add("locale-checkpoints", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-checkpoints-v404.ts", "{task_out}/locale-checkpoints"], ["locale-items" if item_locale else "locale-status" if status_locale else "locale-gameplay" if gameplay_locale else "locale" if locale else "smoke"])
+    if item_detail_locale:
+        add("locale-item-details", "heavy", "native", "output-only", ["node", "--import", "tsx", "tools/inspect-item-details-v405.ts", "{task_out}/locale-item-details"], ["locale-checkpoints" if checkpoint_locale else "locale-items" if item_locale else "locale-status" if status_locale else "locale-gameplay" if gameplay_locale else "locale" if locale else "smoke"])
     return {"version": 1, "tasks": tasks}
 
 
@@ -62,12 +68,13 @@ def main():
     parser.add_argument("--gameplay-locale", action="store_true", help="Include gameplay language/learning/save inputs in three viewports")
     parser.add_argument("--status-locale", action="store_true", help="Include status language and actual fatal-warning acknowledgment inputs")
     parser.add_argument("--item-locale", action="store_true", help="Include public inventory names, search, menus, checkpoint save and continuation inputs")
+    parser.add_argument("--item-detail-locale", action="store_true", help="Include public item detail, actual meal and continuation inputs")
     parser.add_argument("--checkpoint-locale", action="store_true", help="Include translated checkpoint review/cancel/restore and content selection inputs")
     parser.add_argument("--out", type=Path, required=True, help="New JSON file; never overwrites evidence")
     args = parser.parse_args()
     if not args.root.is_dir():
         parser.error("Checkout does not exist")
-    result = make_plan(args.root, args.pnpm, args.chromium, args.profile, args.locale, args.gameplay_locale, args.status_locale, args.item_locale, args.checkpoint_locale)
+    result = make_plan(args.root, args.pnpm, args.chromium, args.profile, args.locale, args.gameplay_locale, args.status_locale, args.item_locale, args.checkpoint_locale, args.item_detail_locale)
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x", encoding="utf-8") as output:
         output.write(json.dumps(result, indent=2) + "\n")

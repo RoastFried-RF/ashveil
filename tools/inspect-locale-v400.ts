@@ -1,3 +1,4 @@
+import {isDeepStrictEqual} from 'node:util'
 /** Fresh real creation, settings language changes and save/load; no injected world. */
 import assert from 'node:assert/strict'
 import {existsSync, mkdirSync, writeFileSync} from 'node:fs'
@@ -34,7 +35,7 @@ try {
       await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
       const actual = await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s)
       expected.s.fx = []
-      assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(expected.s)),label)
+      assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(expected.s))),label+' complete serialized state differs')
       const layout = await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,lang:document.documentElement.lang,dialogs:[...document.querySelectorAll<HTMLElement>('.window-shell')].map(el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,reachable:r.x>=0&&r.y>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1}})}))
       assert.equal(layout.overflow,false,label+' document overflow')
       assert.ok(layout.dialogs.every(dialog=>dialog.reachable),label+' dialog unreachable')
