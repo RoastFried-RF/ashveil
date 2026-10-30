@@ -1,0 +1,39 @@
+name: Sequential Native recovery
+
+on:
+  push:
+    branches: ['checks/ashveil-native-*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ashveil-native-recovery
+  cancel-in-progress: false
+
+jobs:
+  build:
+    uses: ./.github/workflows/native-phase.yml
+    with:
+      phase: build
+  common:
+    needs: build
+    uses: ./.github/workflows/native-phase.yml
+    with:
+      phase: common
+  desktop1440:
+    needs: common
+    uses: ./.github/workflows/native-phase.yml
+    with:
+      phase: 1440x1080
+  desktop1366:
+    needs: desktop1440
+    uses: ./.github/workflows/native-phase.yml
+    with:
+      phase: 1366x768
+  mobile390:
+    needs: desktop1366
+    uses: ./.github/workflows/native-phase.yml
+    with:
+      phase: 390x844

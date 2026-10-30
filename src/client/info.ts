@@ -112,7 +112,7 @@ export function itemTip(w: World, it: ItemInst | null, defId?: string): { title:
     const drug = w.db.get<DrugDef>(drugId), preview = drugPreview(w, player(w), drugId)
     lines.push(t("{0} · {1}지속{2}시간{3}" ,drug.external ? t('외용') : t('복용'),d.unidentified ? t('원래 약 기준 ') : '',drug.durationTurns / 1200,drug.pain ? t(" · {0} 통증−{1}" ,d.unidentified ? t('100% 효력의') : t('현재'),preview.pain.toFixed(1)) : ''))
     if (drug.family) lines.push(t("현재 내성{0}/100 · 이번 의존 위험{1}%" ,preview.tolerance.toFixed(1),(preview.addiction * 100).toFixed(1)))
-    if (drug.consciousness || drug.breathing) lines.push(t("의식 감점{0} · 호흡−{1}" ,drug.consciousness,drug.breathing))
+    if (drug.consciousness || drug.breathing) lines.push(t("의식 감점{0} · 호흡−{1}" ,drug.consciousness??0,drug.breathing??0))
     if (drug.external) lines.push(t('신체 창에서 겉으로 드러난 상처를 골라 바른다.'))
   }
   const raw=it&&rawStock(w,it);if(raw)lines.push(t("제작 원재료: {0} · 조각당 {1}g · 합계 {2}g{3}" ,defText(raw.material),raw.unitGrams,raw.grams,d.rawFragment?t(' · 재질을 고르는 제작에 다시 쓸 수 있다'):''))

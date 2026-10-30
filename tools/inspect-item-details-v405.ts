@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict'
 import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
 import {join} from 'node:path'
+import {isDeepStrictEqual} from 'node:util'
 import {chromium,type Page} from 'playwright-core'
 import {loadDb} from './loadContent'
 import {startNativePreview} from './native-preview'
@@ -11,12 +12,14 @@ import {addToBag,makeItem} from '../src/core/items'
 import {serialize,stateHash} from '../src/core/save'
 
 const out=process.argv[2];assert.ok(out&&!existsSync(out));mkdirSync(out,{recursive:true})
+const viewports=[[1440,1080],[1366,768],[390,844]],viewport=process.argv[3]
+assert.ok(!viewport||viewports.some(v=>v.join('x')===viewport),'Expected a supported WIDTHxHEIGHT')
 const server=await startNativePreview(),browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']})
 type Hook={__ashveil:{world():World}}
 const rows:unknown[]=[],errors:string[]=[];let active:Page|undefined
 try{
  const {db,report}=loadDb();assert.deepEqual(report.errors,[])
- for(const [width,height]of [[1440,1080],[1366,768],[390,844]]){
+ for(const [width,height]of viewports.filter(v=>!viewport||v.join('x')===viewport)){
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())})
   const w:World={db,s:newGame(db,{seed:'ashveil-item-details-v405',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,saveMode:'SaveMode.Study',overworld:true,legacyResidents:[]})};runUntilInput(w)
@@ -31,7 +34,7 @@ try{
    await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
    await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending&&s.fx.length===0})
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
-   assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s)),label)
+   assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)
    rows.push({label,width,height,time:actual.time,hash:stateHash(actual)})
    if(capture)await page.screenshot({path:join(out,width+'-'+label+'.png')})

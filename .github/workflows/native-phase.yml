@@ -1,0 +1,71 @@
+name: One Native recovery phase
+
+on:
+  workflow_call:
+    inputs:
+      phase:
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Frozen dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Chromium
+        run: |
+          node node_modules/playwright-core/cli.js install --with-deps chromium
+          node --input-type=module -e 'import {chromium} from "playwright-core"; import {appendFileSync} from "node:fs"; appendFileSync(process.env.GITHUB_ENV, "CHROMIUM_PATH=" + chromium.executablePath() + "\n")'
+      - name: Check shared scheduler
+        if: inputs.phase == 'build'
+        run: |
+          sudo install -d -o "$(id -u)" -g "$(id -g)" /workspace/.ashveil-tools/cloud-harness/locks
+          python3 tools/cloud-harness/verify-environment.py
+          python3 tools/cloud-harness/verify.py --out test-results/selfcheck
+          python3 tools/cloud-harness/verify.py --regressions --out test-results/regressions
+      - name: Download this source commit's build
+        if: inputs.phase != 'build'
+        uses: actions/download-artifact@v4
+        with:
+          name: native-build-${{ github.sha }}
+          path: dist
+      - name: Run one explicit phase through the shared queue
+        env:
+          NATIVE_PHASE: ${{ inputs.phase }}
+        run: |
+          sudo install -d -o "$(id -u)" -g "$(id -g)" /workspace/.ashveil-tools/cloud-harness/locks
+          python3 tools/cloud-harness/native-phase.py --root "$GITHUB_WORKSPACE" --phase "$NATIVE_PHASE" --chromium "$CHROMIUM_PATH" --out test-results/plan.json
+          python3 tools/cloud-harness/run.py test-results/plan.json --out test-results/phase --check
+          python3 tools/cloud-harness/run.py test-results/plan.json --out test-results/phase
+      - name: Retain exact build for subsequent sequential phases
+        if: success() && inputs.phase == 'build'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-build-${{ github.sha }}
+          path: dist/
+          retention-days: 14
+      - name: Retain phase diagnostics and actual input screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-diagnostics-${{ inputs.phase }}-${{ github.sha }}
+          path: |
+            test-results/
+            !test-results/**/*-world.json
+            !test-results/**/*-actual.json
+            !test-results/**/*-expected.json
+            !test-results/**/declared-initial.json
+          retention-days: 14

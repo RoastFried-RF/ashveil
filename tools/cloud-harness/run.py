@@ -246,15 +246,20 @@ def execute(task, stop):
             result["snapshotBefore"] = before
             result.update(status="running", startedAt=now())
             write_json(out / "task.json", result)
+            print(json.dumps({"task": task["id"], "lane": task["lane"], "status": "running"}), flush=True)
             with (out / "stdout.log").open("wb") as stdout, (out / "stderr.log").open("wb") as stderr:
                 process = subprocess.Popen(task["argv"], cwd=task["cwd"], stdin=subprocess.DEVNULL, stdout=stdout, stderr=stderr, shell=False, start_new_session=True, close_fds=True)
                 result.update(pid=process.pid, processGroup=process.pid)
                 write_json(out / "task.json", result)
+                next_progress = time.monotonic() + 30
                 while process.poll() is None:
                     if stop.wait(0.05):
                         stop_group(process)
                         cleanup_done = True
                         break
+                    if time.monotonic() >= next_progress:
+                        print(json.dumps({"task": task["id"], "lane": task["lane"], "status": "running"}), flush=True)
+                        next_progress = time.monotonic() + 30
                 result["exitCode"] = process.wait()
                 if not cleanup_done:
                     stop_group(process)
@@ -279,6 +284,7 @@ def execute(task, stop):
                 process.wait()
         result["endedAt"] = now()
         write_json(out / "task.json", result)
+        print(json.dumps({"task": task["id"], "status": result["status"], "exitCode": result["exitCode"]}), flush=True)
     return result
 
 

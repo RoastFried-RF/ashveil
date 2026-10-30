@@ -20,9 +20,27 @@ def load(name):
 
 
 environment, plan = load("environment"), load("plan")
+sys.path.insert(0, str(HERE))
+native_phase = load("native-phase")
 
 
 class FreshEnvironment(unittest.TestCase):
+    def test_recovery_phases_keep_native_heavy_and_sequential(self):
+        phases = {name: native_phase.phase_plan("/tmp/checkout", name)["tasks"] for name in ["build", "common", "1440x1080", "1366x768", "390x844"]}
+        self.assertFalse(any(t["kind"] == "full" for tasks in phases.values() for t in tasks))
+        self.assertEqual({t["id"] for t in phases["build"]}, {"environment", "typecheck", "lint", "locale-focused", "preview-helper", "build"})
+        common = {t["id"]: t for t in phases["common"]}
+        self.assertEqual(common["smoke"]["deps"], ["environment"])
+        self.assertEqual(common["locale"]["deps"], ["smoke"])
+        for name in ["1440x1080", "1366x768", "390x844"]:
+            tasks = phases[name]
+            self.assertEqual(len(tasks), 2)
+            self.assertEqual(tasks[-1]["argv"][-1], name)
+            self.assertEqual((tasks[-1]["lane"], tasks[-1]["kind"], tasks[-1]["deps"]), ("heavy", "native", ["environment"]))
+        with self.assertRaises(ValueError):
+            native_phase.phase_plan("/tmp/checkout", "unsupported")
+
+
     def test_missing_executable_is_not_downloaded(self):
         self.assertEqual(environment.version(["/ashveil/definitely-missing-tool", "--version"]), (None, ""))
 

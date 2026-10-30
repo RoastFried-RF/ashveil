@@ -65,3 +65,6 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 `cloud/ashveil-native-*` 브랜치는 기존 authoring 프로필로 도구/Native만 재검한다. 앱 원문이 같은 선행 Full 성공의 SHA를 별도로 기록해야 하며 새 Full 성공으로 합산하지 않는다. 일반 클라우드 release와 main Pages Full은 유지한다.
 
 `--item-detail-locale` adds the reviewed public item-detail boundary checks before Full and the exclusive v405 tooltip/actual-meal/save Native task after the selected prior Native tasks. No post-load World/time/RNG injection is used. Initial finite diagnostic stock is recorded separately from acquisition/cooking/appraisal.
+
+`checks/ashveil-native-*`의 `native-recovery.yml`은 동일 앱 Full을 이미 확인한 뒤의 복구 경로다. build→common→1440x1080→1366x768→390x844 순차 job이며 동일 workflow/commit의 build artifact만 사용한다. `native-phase.py`는 각 phase의 명시적 큐를 만들고 전체 검사 프로필은 바꾸지 않는다. 진단은 phase별로 보존하고 raw World 파일은 제외한다. 이 경로는 새 Full/World 검증으로 세지 않는다. 실행기는 ID/상태만 주기적으로 출력하며 자식 stdout/stderr는 원래 파일에 유지한다.
+v405의 개별 화면 phase는 같은 기존 물품 상세 도구를 선택한 viewport 한 곳에서 실행한다. 초기 실물과 원래 UID/섭취 규칙은 그대로다.

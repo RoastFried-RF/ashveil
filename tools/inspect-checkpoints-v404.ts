@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict'
 import {existsSync,mkdirSync,writeFileSync} from 'node:fs'
 import {join} from 'node:path'
+import {isDeepStrictEqual} from 'node:util'
 import {chromium,type Page} from 'playwright-core'
 import {startNativePreview} from './native-preview'
 import {loadDb} from './loadContent'
@@ -12,20 +13,22 @@ import {serialize,deserialize,stateHash} from '../src/core/save'
 import {player,type World} from '../src/core/ctx'
 
 const out=process.argv[2];assert.ok(out&&!existsSync(out));mkdirSync(out,{recursive:true})
+const viewports=[[1440,1080],[1366,768],[390,844]]
+const viewport=process.argv[3];assert.ok(!viewport||viewports.some(v=>v.join('x')===viewport),'Expected a supported WIDTHxHEIGHT')
 const server=await startNativePreview(),browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']})
 type Hook={__ashveil:{world():World}}
-const rows:unknown[]=[],fixtures:unknown[]=[],errors:string[]=[];let active:Page|undefined
+const rows:unknown[]=[],fixtures:unknown[]=[],titleReviews:unknown[]=[],errors:string[]=[];let active:Page|undefined
 try{
  const {db,report}=loadDb();assert.deepEqual(report.errors,[])
- for(const [width,height]of [[1440,1080],[1366,768],[390,844]]){
+ for(const [width,height]of viewports.filter(v=>!viewport||v.join('x')===viewport)){
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())})
   let w:World={db,s:newGame(db,{seed:'ashveil-checkpoints-v404',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,overworld:true,saveMode:'SaveMode.Study',legacyResidents:[]})};runUntilInput(w)
-  async function compare(label:string,capture=true){
-   await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
+  async function compare(label:string,capture=true,onTitle=false){
+   if(!onTitle)await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
    await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending&&s.fx.length===0})
    const actual=await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s);w.s.fx=[]
-   assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s)),label)
+   assert.ok(isDeepStrictEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(w.s))),label+' complete serialized state differs')
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)
    rows.push({label,width,height,time:actual.time,hash:stateHash(actual)})
    if(capture)await page.screenshot({path:join(out,width+'-'+label+'.png')})
@@ -35,11 +38,17 @@ try{
    const raw=serialize(w.s);await page.getByTestId('checkpoint-save-accept').click();await page.getByTestId('checkpoint-save-status').waitFor();assert.match(await page.getByTestId('checkpoint-save-status').innerText(),/^Checkpoint saved\./)
    await compare(label+'-saved');await page.keyboard.press('Escape');return raw
   }
-  async function restore(raw:string,label:string){
+  async function restore(raw:string,label:string,fromTitle=false,imprintBefore:string|null=null){
    await page.getByTestId('content-change-accept').waitFor()
    assert.match(await page.getByTestId('checkpoint-dialog').getAttribute('aria-label')??'',/^Restore checkpoint$/)
    assert.doesNotMatch(await page.getByTestId('content-change-review').innerText(),/[가-힣]/)
-   await compare(label+'-review');await page.getByTestId('content-change-accept').click();await page.getByTestId('checkpoint-dialog').waitFor({state:'detached'});w={db:w.db,s:deserialize(raw)}
+   if(fromTitle){
+    // Returning to Title suspends the existing World; it does not clear store.world.
+    await compare(label+'-review',true,true)
+    assert.ok(imprintBefore);assert.ok(await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1'))===imprintBefore,'Title review changed the existing imprint')
+    titleReviews.push({label:label+'-review',width,height,suspendedWorldHash:stateHash(w.s),imprintHash:stateHash(deserialize(imprintBefore))})
+   }else await compare(label+'-review')
+   await page.getByTestId('content-change-accept').click();await page.getByTestId('checkpoint-dialog').waitFor({state:'detached'});w={db:w.db,s:deserialize(raw)}
    await compare(label+'-restored')
   }
   await page.goto(server.url);await page.getByTestId('seed').fill('ashveil-checkpoints-v404');await page.getByRole('button',{name:/탈영 경비병/}).click();await page.getByTestId('save-mode').selectOption('SaveMode.Study');await page.getByTestId('title-language').selectOption('en')
@@ -60,7 +69,7 @@ try{
   await page.getByTestId('checkpoint-load').click();await restore(saved,'study')
   assert.equal(player(w).name,originalName);await page.keyboard.press('Escape');await page.getByRole('button',{name:'Title',exact:true}).click();await page.getByTestId('title-checkpoint-SaveMode.Study').waitFor()
   assert.match(await page.getByTestId('title-checkpoints').innerText(),/seed ashveil-checkpoints-v404 · turn /)
-  await page.getByTestId('title-checkpoint-SaveMode.Study').click();await restore(saved,'title-study')
+  const titleImprint=await page.evaluate(()=>localStorage.getItem('ashveil.imprint.v1'));await page.getByTestId('title-checkpoint-SaveMode.Study').click();await restore(saved,'title-study',true,titleImprint)
   await page.reload();await page.getByTestId('continue').click();await compare('continued-study',false)
   // Explicit finite Waymark scene with its original lit campfire. No past travel is claimed.
   await page.getByRole('button',{name:'Title',exact:true}).click();const f=checkpointFixture('SaveMode.Waymark');w=f.w;fixtures.push({width,mode:'SaveMode.Waymark',initialHP:player(w).hp,initialCampfire:true,lethal:false})
@@ -70,6 +79,6 @@ try{
   await page.getByTestId('checkpoint-load').click();await restore(mark,'waymark');await page.keyboard.press('Escape')
   await context.close()
  }
- assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({scope:'Real ZIP file import/review/install/remove with original package name and no selected mod or world; actual seed-code create/review/apply without starting a world until Enter. Fresh actual Study creation and save; real wait, modal blocking, changed-mod review revocation, cancellation and original whole-state restoration; Title checkpoint and reload continuation; declared finite Waymark campfire, real movement out of range and restoration. No natural campfire acquisition, death or human evaluation claimed.',postTitleWorldWrites:false,rows,fixtures,errors},null,2));console.log(JSON.stringify({wholePairs:rows.length,errors}))
+ assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({scope:'Real ZIP file import/review/install/remove with original package name and no selected mod or world; actual seed-code create/review/apply without starting a world until Enter. Fresh actual Study creation and save; real wait, modal blocking, changed-mod review revocation, cancellation and original whole-state restoration; Title checkpoint and reload continuation; declared finite Waymark campfire, real movement out of range and restoration. No natural campfire acquisition, death or human evaluation claimed.',postTitleWorldWrites:false,rows,fixtures,titleReviews,errors},null,2));console.log(JSON.stringify({wholePairs:rows.length,errors}))
 }catch(error){await active?.screenshot({path:join(out,'failure.png')}).catch(()=>{});writeFileSync(join(out,'failure.json'),JSON.stringify({error:String(error),rows,errors},null,2));throw error}
 finally{await browser.close();server.stop()}
