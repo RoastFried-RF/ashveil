@@ -197,10 +197,16 @@ index 2cba1471..48316676 100644
      `칼로리 균형 ${n.kcal.toFixed(0)} kcal · ${hungerBand(w, c).label} / 수분 결손 ${n.waterDeficit.toFixed(0)} ml · ${thirstBand(w, c).label}`,
      `현재 소모: 열량 ${rate.kcalHour.toFixed(1)} kcal/시간 · 수분 ${rate.waterHour.toFixed(1)} ml/시간`,
 diff --git a/src/core/save.ts b/src/core/save.ts
-index e643b7f2..5e9f3a0a 100644
+index e643b7f2..93c8e1da 100644
 --- a/src/core/save.ts
 +++ b/src/core/save.ts
-@@ -420,6 +420,8 @@ export function deserialize(json: string): GameState {
+@@ -1,4 +1,5 @@
+ import {validateCullerSave} from './culler-save'
++import {validateFoodExposureTraining} from './food-exposure-save'
+ import {validateCompanionCarePlans} from './companion-care-plan-save'
+ import {validateCrawlerSave} from './crawler-save'
+ import {validRecordedItemShape} from './missing-items'
+@@ -420,6 +421,8 @@ export function deserialize(json: string): GameState {
    if(s.version===217)s.version=218
    // v219 adds explicit delayed care; prior sequences acquire no waiting time or new consent.
    if(s.version===218)s.version=219
@@ -209,6 +215,14 @@ index e643b7f2..5e9f3a0a 100644
    if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
    if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
    if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
+@@ -433,6 +436,7 @@ export function deserialize(json: string): GameState {
+   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
+   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
+   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
++  if(json.includes('"foodExposureTraining"'))validateFoodExposureTraining(actors,Math.floor(s.time/100))
+   if(json.includes('"carePlan"')||json.includes('"companionCarePlan"'))validateCompanionCarePlans(actors)
+   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
+   const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)
 diff --git a/src/core/status-renames.ts b/src/core/status-renames.ts
 index 8e815e6a..47a6e384 100644
 --- a/src/core/status-renames.ts
@@ -269,10 +283,10 @@ index 82f46387..2031761e 100644
    paralysis?:LocalParalysis[]
 diff --git a/docs/ashcake-v406.md b/docs/ashcake-v406.md
 new file mode 100644
-index 00000000..c4e760ce
+index 00000000..e6f56071
 --- /dev/null
 +++ b/docs/ashcake-v406.md
-@@ -0,0 +1,11 @@
+@@ -0,0 +1,13 @@
 +# v406 작업 초안 — 실제 재떡 섭취 장부
 +
 +2026-10-30 KST. 이전 미저장 v406 작업은 복구됐다고 가정하지 않는다. 보존된 v405 초안 d428882에서 T2 정본과 현재 규칙을 다시 읽고 재작성 중이다. 아직 타입/린트/Def/Schema/대상/전체/World/실제 입력/화면/게시 검증 전이며 수락 근거가 아니다.
@@ -284,6 +298,8 @@ index 00000000..c4e760ce
 +음식성 폐 부담을 흡입 재/신장 재와 별도 장부로 저장하고 재폐 단계 계산에서만 합친다. 규칙 snapshot/원래 식사 UID/시각은 같은 몸에 남는다. 실제 완독한 온전한 병리 기록이 있을 때만 수치를 해석하는 문장을 보여주고 책을 읽었다는 이유로 과거 섭취·저항을 만들지 않는다. 저장220은219에 헤더만 이행하고 새 기록을 추정하지 않는다.
 +
 +진행 중: 타입/Def 참조·식사/지연/구형 저장·이름 이행/삭제 경계·질병 RNG/다른 병·골든 원문 차이·원래 재료/그릇 조리·실제30일 경과와30월드/3일 밸런스·Native 초기 fixture와 자연 실행의 구분·영어 표시·개별PNG 검토가 남는다. Schema 생성도 아직 미반영이다. 이 작은 T2 연결은 전체 X3나 X1–X4 수락이 아니다.
++
++추가 초안: 실제 식사 이력이 이미 기간을 충족한 뒤 휴면 지역에서 늦게 정산해도 최초 자격 시각을 기록한다. 없는 식사를 새로 만들지 않고 이미 기록한30회분/간격/경과만 해석한다. 신규 장부의 잘못된 UID/회분/완료 시각은 deserialize에서 거부하도록 연결했다.6개 작성된 단위 검사는 명시적 clock 경계를 사용한 미실행 초안이며 자연30일 플레이를 입증하지 않는다.
 diff --git a/src/content/core/defs/ashcake-v406.json b/src/content/core/defs/ashcake-v406.json
 new file mode 100644
 index 00000000..eb961da3
@@ -452,12 +468,34 @@ index 00000000..65f2804d
 +    "value": "기록은 토양 개량용 정착균이 탑의 분출 재에 실려 퍼졌고, 재폐와 영양 결핍으로 약해진 폐에 적응했다고 적었다. 굴쥐는 포자를 묻히고 벼룩은 상처로 옮긴다고 한다. 순례회의 재떡은 미량 반복 노출로 저항을 얻는 대신 재폐를 쌓는다는 관찰도 있다. 문헌의 설명을 읽었으며 자신의 감염이나 눈앞의 모든 굴쥐가 보균자라는 뜻은 아니다. 부록은 적어도 하루 간격으로 서른 회분을 먹고 첫 식사부터 서른 날을 지낸 몸에서 회색열 노출 위험이 약30% 낮았다고 적었다. 두 날을 넘겨 거르면 연속 관찰을 다시 시작한다. 서른 회분의 음식성 재폐 부담은10이며 몰아 먹거나 토해도 폐 부담은 없어지지 않는다. 완전 면역이나 감염의 치료는 아니다."
 +  }
 +]
+diff --git a/src/core/food-exposure-save.ts b/src/core/food-exposure-save.ts
+new file mode 100644
+index 00000000..e5cb18f2
+--- /dev/null
++++ b/src/core/food-exposure-save.ts
+@@ -0,0 +1,16 @@
++import type {Creature} from './types'
++import {validFoodExposureRule,validFoodExposureCourse,foodExposureCompletion} from './food-exposure-state'
++
++/** Reject malformed new records; never repair old saves by inventing meals or immunity. */
++export function validateFoodExposureTraining(actors:Creature[],now:number){
++ for(const c of actors){
++  const records=c.foodExposureTraining
++  if(records===undefined)continue
++  if(!Array.isArray(records))throw Error('실제 음식 노출 장부 형식이 올바르지 않다')
++  for(const r of records){
++   if(!r||!validFoodExposureRule(r.rule)||!Number.isSafeInteger(r.doseCount)||r.doseCount<1)throw Error('실제 음식 노출의 원래 규칙/회분 기록이 올바르지 않다')
++   if(r.course!==undefined&&(!validFoodExposureCourse(r)||r.course.receipts.some(row=>row.at>now)))throw Error('실제 식사 UID/간격 기록이 올바르지 않다')
++   if(r.completedAt!==undefined&&(!Number.isSafeInteger(r.completedAt)||r.completedAt<0||r.completedAt>now||!foodExposureCompletion(r,r.completedAt)))throw Error('실제 식사 과정 완료 시각이 올바르지 않다')
++  }
++ }
++}
 diff --git a/src/core/food-exposure-state.ts b/src/core/food-exposure-state.ts
 new file mode 100644
-index 00000000..8b97db8e
+index 00000000..f49b1d2b
 --- /dev/null
 +++ b/src/core/food-exposure-state.ts
-@@ -0,0 +1,44 @@
+@@ -0,0 +1,47 @@
 +import {turnOf,TURNS_PER_DAY,type World} from './ctx'
 +import type {Creature,FoodExposureRecord,FoodExposureRule,FoodSafetyDef} from './types'
 +
@@ -483,35 +521,38 @@ index 00000000..8b97db8e
 + const rows=r.course?.receipts
 + return Array.isArray(rows)&&rows.length<=r.rule.servings&&rows.length<=r.doseCount&&rows.every((row,i)=>row&&Number.isSafeInteger(row.uid)&&row.uid>0&&Number.isSafeInteger(row.at)&&row.at>=0&&(!i||row.at-rows[i-1].at>=r.rule.minIntervalTurns&&row.at-rows[i-1].at<=r.rule.maxGapTurns))
 +}
-+export function foodExposureCompletion(r:FoodExposureRecord,at:number):boolean {
-+ if(!validFoodExposureCourse(r))return false
++export function foodExposureReadyAt(r:FoodExposureRecord):number|null {
++ if(!validFoodExposureCourse(r))return null
 + const rows=r.course!.receipts
-+ return rows.length===r.rule.servings&&at>=rows[0].at+r.rule.durationDays*TURNS_PER_DAY&&at>=rows.at(-1)!.at&&at<=rows.at(-1)!.at+r.rule.maxGapTurns
++ if(rows.length!==r.rule.servings)return null
++ const ready=Math.max(rows[0].at+r.rule.durationDays*TURNS_PER_DAY,rows.at(-1)!.at)
++ return ready<=rows.at(-1)!.at+r.rule.maxGapTurns?ready:null
 +}
++export function foodExposureCompletion(r:FoodExposureRecord,at:number):boolean {const ready=foodExposureReadyAt(r);return ready!==null&&at>=ready}
 +export const foodExposureCompleted=(r:FoodExposureRecord,now:number)=>Number.isSafeInteger(r.completedAt)&&r.completedAt!>=0&&r.completedAt!<=now&&foodExposureCompletion(r,r.completedAt!)
 +/** Food-associated pulmonary injury is separate from both inhaled dust and renal ash. */
 +export const foodExposureLungDose=(c:Creature)=>foodExposureRecords(c).reduce((sum,r)=>sum+r.doseCount*r.rule.lungDose/r.rule.servings,0)
 +export function foodExposureDiseaseMultiplier(w:World,c:Creature,disease:string){
-+ return foodExposureRecords(c).reduce((mult,r)=>r.rule.disease===disease&&foodExposureCompleted(r,turnOf(w))?Math.min(mult,r.rule.riskMult):mult,1)
++ return foodExposureRecords(c).reduce((mult,r)=>r.rule.disease===disease&&(foodExposureCompleted(r,turnOf(w))||foodExposureCompletion(r,turnOf(w)))?Math.min(mult,r.rule.riskMult):mult,1)
 +}
 +export function foodExposureLines(w:World,c:Creature):string[]{
 + return foodExposureRecords(c).flatMap(r=>{
 +  const book=r.rule.knowledgeBook
 +  if(!book||!c.booksRead?.includes(book)||!(c.literacyBooks??c.booksRead).includes(book)||c.misreadBooks?.includes(book)||!w.db.has(r.rule.food)||!w.db.has(r.rule.disease))return[]
 +  const servings=validFoodExposureCourse(r)?r.course!.receipts.length:0
-+  return[w.db.item(r.rule.food).label+' · 실제 섭취 '+r.doseCount+'회 · 간격을 지킨 식사 '+servings+'/'+r.rule.servings+'회 · 음식성 재폐 부담 '+(r.doseCount*r.rule.lungDose/r.rule.servings).toFixed(2),foodExposureCompleted(r,turnOf(w))?w.db.get(r.rule.disease).label+' 노출 위험 ×'+r.rule.riskMult+' · 완전 면역이나 현재 감염의 치료는 아니다.':r.rule.durationDays+'일 경과와 식사 간격이 필요하다. 몰아 먹거나 간격을 놓쳐도 폐 부담은 사라지지 않는다.']
++  return[w.db.item(r.rule.food).label+' · 실제 섭취 '+r.doseCount+'회 · 간격을 지킨 식사 '+servings+'/'+r.rule.servings+'회 · 음식성 재폐 부담 '+(r.doseCount*r.rule.lungDose/r.rule.servings).toFixed(2),(foodExposureCompleted(r,turnOf(w))||foodExposureCompletion(r,turnOf(w)))?w.db.get(r.rule.disease).label+' 노출 위험 ×'+r.rule.riskMult+' · 완전 면역이나 현재 감염의 치료는 아니다.':r.rule.durationDays+'일 경과와 식사 간격이 필요하다. 몰아 먹거나 간격을 놓쳐도 폐 부담은 사라지지 않는다.']
 + })
 +}
 diff --git a/src/core/food-exposure.ts b/src/core/food-exposure.ts
 new file mode 100644
-index 00000000..c861cff6
+index 00000000..9a5d8463
 --- /dev/null
 +++ b/src/core/food-exposure.ts
-@@ -0,0 +1,37 @@
+@@ -0,0 +1,38 @@
 +import {log,turnOf,type World} from './ctx'
 +import type {Creature,ItemInst} from './types'
 +import {ashLungStage} from './air-state'
-+import {foodExposureCompleted,foodExposureCompletion,foodExposureRecords,foodExposureRules,foodExposureSignature,validFoodExposureCourse} from './food-exposure-state'
++import {foodExposureCompleted,foodExposureCompletion,foodExposureReadyAt,foodExposureRecords,foodExposureRules,foodExposureSignature,validFoodExposureCourse} from './food-exposure-state'
 +
 +export function foodExposureTick(w:World,c:Creature){
 + const now=turnOf(w)
@@ -519,7 +560,7 @@ index 00000000..c861cff6
 +  if(foodExposureCompleted(r,now))continue
 +  if(r.course&&!validFoodExposureCourse(r))delete r.course
 +  if(foodExposureCompletion(r,now)){
-+   r.completedAt=now
++   r.completedAt=foodExposureReadyAt(r)!
 +   if(c.faction==='player')log(w,'info','간격을 지킨 식사를 '+r.rule.durationDays+'일 동안 이어 왔다.')
 +  }else if(r.course?.receipts?.length&&now>r.course.receipts.at(-1)!.at+r.rule.maxGapTurns)delete r.course
 + }
@@ -543,14 +584,15 @@ index 00000000..c861cff6
 +  r.course!.receipts.push({uid:it.uid,at:now})
 +  if(r.course!.receipts.length>rule.servings)r.course!.receipts.shift()
 + }
-+ if(c.faction==='player'&&ashLungStage(w,c)>before)log(w,'warning','음식에 섞인 재가 폐에 부담을 남겼다.')
++ foodExposureTick(w,c)
++ if(c.faction==='player'&&ashLungStage(w,c)>before)log(w,'warn','음식에 섞인 재가 폐에 부담을 남겼다.')
 +}
 diff --git a/tests/food-exposure.test.ts b/tests/food-exposure.test.ts
 new file mode 100644
-index 00000000..fd122435
+index 00000000..97f31afa
 --- /dev/null
 +++ b/tests/food-exposure.test.ts
-@@ -0,0 +1,56 @@
+@@ -0,0 +1,68 @@
 +import {describe,expect,it} from 'vitest'
 +import {consumeFor} from '../src/core/actions'
 +import {player,TURNS_PER_DAY,turnOf} from '../src/core/ctx'
@@ -586,6 +628,7 @@ index 00000000..fd122435
 +  const {w,c,food}=scene(),start=w.s.time
 +  // Unit boundaries only: these explicit clocks do not claim a naturally played month.
 +  for(let day=0;day<30;day++){w.s.time=start+day*TURNS_PER_DAY*100;c.hands={kind:'washed',at:turnOf(w)};expect(consumeFor(w,c,c,food[day].uid).ok).toBe(true)}
++  const dormant=deserialize(serialize(w.s))
 +  foodExposureTick(w,c);expect(foodExposureDiseaseMultiplier(w,c,'Disease.GreyFever')).toBe(1)
 +  w.s.time=start+30*TURNS_PER_DAY*100-100;foodExposureTick(w,c);expect(foodExposureDiseaseMultiplier(w,c,'Disease.GreyFever')).toBe(1)
 +  w.s.time+=100;foodExposureTick(w,c)
@@ -594,6 +637,7 @@ index 00000000..fd122435
 +  c.booksRead=['Item.SettlementMycologyRecords'];c.literacyBooks=[...c.booksRead];expect(foodExposureLines(w,c).join('\n')).toContain('×0.7')
 +  c.misreadBooks=[...c.booksRead];expect(foodExposureLines(w,c)).toEqual([]);expect(foodExposureDiseaseMultiplier(w,c,'Disease.GreyFever')).toBe(.7)
 +  const restored={db:w.db,s:deserialize(serialize(w.s))};expect(serialize(restored.s)).toBe(serialize(w.s));expect(foodExposureLungDose(player(restored))).toBe(10);expect(foodExposureDiseaseMultiplier(restored,player(restored),'Disease.GreyFever')).toBe(.7)
++  dormant.time=start+60*TURNS_PER_DAY*100;const late={db:w.db,s:dormant};foodExposureTick(late,player(late));expect(player(late).foodExposureTraining?.[0].completedAt).toBe(start/100+30*TURNS_PER_DAY);expect(foodExposureDiseaseMultiplier(late,player(late),'Disease.GreyFever')).toBe(.7)
 + })
 + it('resets a missed course without healing accumulated pulmonary burden',()=>{
 +  const {w,c,food}=scene(2);expect(consumeFor(w,c,c,food[0].uid).ok).toBe(true)
@@ -605,5 +649,15 @@ index 00000000..fd122435
 + it('does not credit a second attempt to consume the original empty vessel',()=>{
 +  const {w,c,food}=scene(1);expect(consumeFor(w,c,c,food[0].uid).ok).toBe(true)
 +  const before=serialize(w.s);expect(consumeFor(w,c,c,food[0].uid).ok).toBe(false);expect(serialize(w.s)).toBe(before)
++ })
++ it('rejects malformed new save records rather than inventing a completed course',()=>{
++  const {w,c,food}=scene(1);expect(consumeFor(w,c,c,food[0].uid).ok).toBe(true)
++  const before=serialize(w.s)
++  for(const mutate of [
++   (copy:typeof w.s)=>{copy.creatures.find(x=>x.id===copy.playerId)!.foodExposureTraining![0].course!.receipts[0].uid=0},
++   (copy:typeof w.s)=>{copy.creatures.find(x=>x.id===copy.playerId)!.foodExposureTraining![0].doseCount=0},
++   (copy:typeof w.s)=>{copy.creatures.find(x=>x.id===copy.playerId)!.foodExposureTraining![0].completedAt=turnOf(w)},
++  ]){const copy=JSON.parse(before) as typeof w.s;mutate(copy);expect(()=>deserialize(JSON.stringify(copy))).toThrow()}
++  expect(serialize(w.s)).toBe(before)
 + })
 +})
