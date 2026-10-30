@@ -12,12 +12,14 @@ import {serialize,deserialize,stateHash} from '../src/core/save'
 import {player,type World} from '../src/core/ctx'
 
 const out=process.argv[2];assert.ok(out&&!existsSync(out));mkdirSync(out,{recursive:true})
+const viewports=[[1440,1080],[1366,768],[390,844]]
+const viewport=process.argv[3];assert.ok(!viewport||viewports.some(v=>v.join('x')===viewport),'Expected a supported WIDTHxHEIGHT')
 const server=await startNativePreview(),browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??chromium.executablePath(),args:['--use-gl=swiftshader','--enable-unsafe-swiftshader']})
 type Hook={__ashveil:{world():World}}
 const rows:unknown[]=[],fixtures:unknown[]=[],titleReviews:unknown[]=[],errors:string[]=[];let active:Page|undefined
 try{
  const {db,report}=loadDb();assert.deepEqual(report.errors,[])
- for(const [width,height]of [[1440,1080],[1366,768],[390,844]]){
+ for(const [width,height]of viewports.filter(v=>!viewport||v.join('x')===viewport)){
   const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();active=page;page.setDefaultTimeout(60000)
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())})
   let w:World={db,s:newGame(db,{seed:'ashveil-checkpoints-v404',background:'Bg.Deserter',mods:db.loadedMods,characterRoll:0,overworld:true,saveMode:'SaveMode.Study',legacyResidents:[]})};runUntilInput(w)

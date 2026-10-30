@@ -63,3 +63,5 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 `--checkpoint-locale`는 탐구/표석의 실제 저장·복원 검토/취소/모드 선택·타이틀 복원을 heavy 단독으로 실행한다. 관련 저장/콘텐츠 계약 검사는 Full을 선행 차단한다. 원시 초기/실제/기대 세계는 아티팩트에서 제외한다.
 
 `cloud/ashveil-native-*` 브랜치는 기존 authoring 프로필로 도구/Native만 재검한다. 앱 원문이 같은 선행 Full 성공의 SHA를 별도로 기록해야 하며 새 Full 성공으로 합산하지 않는다. 일반 클라우드 release와 main Pages Full은 유지한다.
+
+`checks/ashveil-native-*`의 `native-recovery.yml`은 동일 앱 Full을 이미 확인한 뒤의 복구 경로다. build→common→1440x1080→1366x768→390x844 순차 job이며 동일 workflow/commit의 build artifact만 사용한다. `native-phase.py`는 각 phase의 명시적 큐를 만들고 전체 검사 프로필은 바꾸지 않는다. 진단은 phase별로 보존하고 raw World 파일은 제외한다. 이 경로는 새 Full/World 검증으로 세지 않는다. 실행기는 ID/상태만 주기적으로 출력하며 자식 stdout/stderr는 원래 파일에 유지한다.
