@@ -19,3 +19,7 @@
 분할 첫 실행41000421369/a815e71은 타입/린트/대상77/빌드가 통과하고443,255,865바이트 build artifact12953660949(SHA2566c6e2475bf0b377280eff3379a392cfb9dbcbc383011fc9887594c0746df03e3)를 업로드했다. 이어 진단 이름이 build artifact 이름과 같아409 Conflict로 중단돼 Native는 실행하지 않았다. 진단 이름에 별도 diagnostics 접두사를 넣고 새 원문/출력으로 재검한다. 앱/테스트는 바뀌지 않았다.
 
 41000865232/4eff594는 분할 build와 공통 스모크/언어 입력을 통과하고 공통22PNG를 개별 검토했다. 1440 단계는 실행 약130초 뒤 child−9/runner shutdown으로 중단돼 해당 진단은 업로드되지 않았다. 소스를 대조해 이전 도구 수정의 두 번째 잘못된 가정을 찾았다: abandonToTitle은 screen만 title로 바꾸고 world를 null로 만들지 않는다. null과 거대한 실제 World의 assert.equal 비교가 실패하며 큰 오류 출력이 생길 수 있었다. 도구는 타이틀에 보존된 원래 World 전체와 각인 원문 불변을 비교하도록 수정한다. 전체 상태 비교는 isDeepStrictEqual의 boolean을 단정해 실패 시 숨은 World를 거대한 diff로 출력하지 않는다. 메모리 종료 원인은 직접 계측하지 않았으므로 확정하지 않는다. 앱/테스트 원문은 Full 통과본과 같다.
+
+유한 오류 출력 재검41002232607/e0cdb80은1440 탐구/타이틀 검토까지12전체 쌍 뒤 localStorage의 IndexedDB 포인터를 World 본문으로 deserialize한 도구 오류를 진단했다(게임 복원 처리의 실패가 아니다).artifact12953249989 SHA2561953190b32171ab0faf6b3f3f3f9cea671d7d0b31d36b96134cdc96cb87d8fc1. 실패PNG를 직접 확인했고 영어 검토/버튼은 정상이었다. 실제 IndexedDB current 기록과 localStorage mirror를 모두 readonly로 읽고 타이틀의 전체 World와 두 원문 불변을 대조하도록 수정한다.
+
+같은 공통1366 첫 생성 PNG는 canvas ready 직후 지도 첫 그리기 전이었고 후속 설정/대기/계속에서는 지도가 보였다. 공통/저장 지점의 실제 두 animation frame 촬영 대기를 추가한다. 시간/TU/난수/World를 주입하지 않으며 이후 전체 세계 대조도 유지한다.

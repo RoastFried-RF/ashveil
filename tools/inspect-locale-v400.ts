@@ -31,6 +31,7 @@ try {
     async function compare(label:string) {
       await page.waitForSelector('[data-testid=map][data-ready=true] canvas')
       await page.waitForFunction(()=>{const s=(window as unknown as Hook).__ashveil.world().s;return !s.simulationPending && s.fx.length===0})
+      await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
       const actual = await page.evaluate(()=>(window as unknown as Hook).__ashveil.world().s)
       expected.s.fx = []
       assert.deepEqual(JSON.parse(serialize(actual)),JSON.parse(serialize(expected.s)),label)
