@@ -3,6 +3,8 @@ import {consumeFor} from '../src/core/actions'
 import {player,TURNS_PER_DAY,turnOf} from '../src/core/ctx'
 import {Rng,seedState} from '../src/core/rng'
 import {exposeDisease} from '../src/core/conditions'
+import {capacity} from '../src/core/body'
+import {ashLungCap} from '../src/core/air-state'
 import type {DiseaseDef} from '../src/core/types'
 import {makeItem,addToBag} from '../src/core/items'
 import {serialize,deserialize} from '../src/core/save'
@@ -70,6 +72,15 @@ describe('actual food course and distinct pulmonary ledger',()=>{
    expect(person.foodExposureTraining).toEqual(c.foodExposureTraining)
   }
   expect(serialize(w.s)).toBe(original)
+ })
+ it('invalidates the actual breathing cache when a real meal crosses a lung threshold at the same TU',()=>{
+  const {w,c,food}=scene(1);c.body.inhaledAsh=119.75;c.needs.kcal=2500;c.needs.protein=100;c.needs.vitamin=100
+  const before=capacity(w,c,'breathing');expect(before).toBeGreaterThan(.95)
+  expect(consumeFor(w,c,c,food[0].uid).ok).toBe(true)
+  expect(c.body.inhaledAsh).toBe(119.75);expect(ashLungCap(w,c)).toBe(.95)
+  const restored={db:w.db,s:deserialize(serialize(w.s))}
+  expect(capacity(w,c,'breathing')).toBe(Math.min(before,.95))
+  expect(capacity(w,c,'breathing')).toBe(capacity(restored,player(restored),'breathing'))
  })
  it('does not credit a second attempt to consume the original empty vessel',()=>{
   const {w,c,food}=scene(1);expect(consumeFor(w,c,c,food[0].uid).ok).toBe(true)

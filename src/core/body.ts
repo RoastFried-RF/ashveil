@@ -7,7 +7,7 @@ import {finishSleepMemories} from './sleep-memories'
 import {infectionFor,infectionSystemic} from './infection-state'
 import {fatigueBand} from './fatigue-state'
 import {scurvyBleed} from './scurvy-state'
-import {ashLungCap,inhaledAsh} from './air-state'
+import {ashLungCap,lungAshBurden} from './air-state'
 import {diseasePain,diseaseCapacityMultiplier,diseaseKey,recordWoundDiseaseRisk} from './disease-state'
 import { aquaticHypoxiaPenalty, drowningFatal } from './aquatic-state'
 import { parasiteBloodRate } from './parasite-state'
@@ -63,7 +63,7 @@ function stateKey(w: World, c: Creature): string {
   const n = c.needs
   const fx = c.effects.filter((e) => e.untilTurn > turn).map((e) => e.kind + (e.magnitude ?? '')).sort().join(',')
   const eq = Object.values(c.equip).map((i) => i?.uid ?? '').join(',')
-  return `${k}|${paralysisKey(w,c)}|${c.body.concussionCap ?? ''}:${c.aquatic?.hypoxia??''}|${prostheticKey(w, c)}|${nutritionKey(w, c)}|${drugKey(w, c)}|${Object.entries(c.body.organDamage ?? {}).map(([id, n]) => id + n).join(',')}|${recoveryKey(w, c)}|${frozenHands(w, c) ? 1 : 0}|${diseaseKey(w,c)}:${inhaledAsh(c)}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.sleepDebt ?? 0}|${fatigueBand(w,c).consciousness}:${infectionSystemic(w,c).consciousness}|${c.cond?.shock ? 1 : 0}|${c.age?.years ?? 30}:${c.age?.jointPain ? 1 : 0}:${c.age?.senses ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}|${c.leading?.hand??''}`
+  return `${k}|${paralysisKey(w,c)}|${c.body.concussionCap ?? ''}:${c.aquatic?.hypoxia??''}|${prostheticKey(w, c)}|${nutritionKey(w, c)}|${drugKey(w, c)}|${Object.entries(c.body.organDamage ?? {}).map(([id, n]) => id + n).join(',')}|${recoveryKey(w, c)}|${frozenHands(w, c) ? 1 : 0}|${diseaseKey(w,c)}:${lungAshBurden(c)}|${c.body.blood}|${c.body.missing.join(',')}|${Object.keys(c.body.tourniquets).join(',')}|${fx}|${n.bodyTemp}|${n.sleepDebt ?? 0}|${fatigueBand(w,c).consciousness}:${infectionSystemic(w,c).consciousness}|${c.cond?.shock ? 1 : 0}|${c.age?.years ?? 30}:${c.age?.jointPain ? 1 : 0}:${c.age?.senses ? 1 : 0}|${c.stats.vit}|${c.stats.wil}|${c.stats.per}|${c.traits.join(',')}|${c.abilities.length}|${eq}|${c.leading?.hand??''}`
 }
 
 function cached(w: World, c: Creature, name: string, fn: () => number): number {
