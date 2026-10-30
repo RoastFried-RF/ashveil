@@ -1,10 +1,10 @@
 # ASHVEIL (애쉬베일)
 
-이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 하네스](docs/windows-development.md) · [v409 종자·실제 곡물 공급](docs/pilgrim-fields-v409.md). 로컬 v0.409-dev/저장221은 최종23단계·Full422파일6,905검사, 세 화면 Native303전체 상태 쌍/오류0과 기본/월드 각30판을 통과했다. 대표19PNG, 검사 전후9,188파일 SHA와 각인 자료929개 왕복을 확인했다. 가속 없는 실제 곡물→유료 판매→원래 작업장의 새 곡물 제작은 선언한 초기 진단 조건에서15.306일에 완료했다. [v409 로컬 근거](docs/pc-harness-v409-proof.json). main/Pages 게시·공개 확인은 별도다.
+이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 하네스](docs/windows-development.md) · [v409 종자·실제 곡물 공급](docs/pilgrim-fields-v409.md). 로컬 v0.409-dev/저장221은 최종23단계·Full422파일6,905검사, 세 화면 Native303전체 상태 쌍/오류0과 기본/월드 각30판을 통과했다. 대표19PNG, 검사 전후9,188파일 SHA와 각인 자료929개 왕복을 확인했다. 가속 없는 실제 곡물→유료 판매→원래 작업장의 새 곡물 제작은 선언한 초기 진단 조건에서15.306일에 완료했다. [v409 로컬 근거](docs/pc-harness-v409-proof.json). main/Pages 게시·공개 확인도 [영수증](docs/release-v409-proof.json)에 기록했다.
 
-현재 작업: [v409 실제 곡물 공급](docs/pilgrim-fields-v409.md) · [선행 v408 공개 근거](docs/release-v408-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
+현재 작업: [v409 실제 곡물 공급](docs/pilgrim-fields-v409.md) · [v409 공개 근거](docs/release-v409-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
 
-현재 공개 개발 미리보기는 **v0.408-dev · 저장221**이다. 탑 출력 이력에 따른 실제 재 채집과 원래 순례회 상인의 유한 재료·물·같은 그릇·연료/노동·현물 판매를 연결했다. GitHub 전체6,848검사·Pages 배포, 공개 시작/100TU 대기·오류0과 CI 진입 JS 이름/검증 콘텐츠 해시는 [게시 기록](docs/release-v408-proof.json)을 따른다. 자연 곡물/연료의 장기 자급, 나머지 영어·X1–X4·출시/사람 게이트는 계속 남는다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 공개 개발 미리보기는 **v0.409-dev · 저장221**이다. 원래 순례회 경비의 실물 종자 배분·실제 성장/수확·유료 판매와 원래 상인의 새 곡물 제작, 보이는 환경/자기 의복의 냉각 행동과 재배 패널 영어를 연결했다. GitHub 전체6,905검사·Pages 배포, 공개 시작/100TU 대기·오류0과 CI 진입 JS 이름/검증 콘텐츠 해시는 [게시 기록](docs/release-v409-proof.json)을 따른다. 선언한 초기 진단 조건의 한 사이클 완료이며 자연 초기 여행·전 공동체/계절 자급·수면 지연·나머지 영어/X1–X4·출시/사람 게이트는 남는다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 

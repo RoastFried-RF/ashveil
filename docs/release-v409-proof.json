@@ -1,0 +1,433 @@
+{
+  "checkedAtKST": "2026-10-31T07:42:15.229145+09:00",
+  "status": "v0.409-dev development preview published; public Title/start/real wait visually verified. Local diagnostic crop cycle accepted only within declared initial conditions. Full v1/X1-X4/English, all-community self-sufficiency and real human gates remain open.",
+  "previewVersion": "0.409-dev",
+  "saveVersion": 221,
+  "publication": {
+    "localCommit": "fa6e924c13fedc881e0a4718500ad419cd11e61a",
+    "testedCodeCommit": "d68a677b29dd7d952c86282b8c958a2a64b7c0c0",
+    "remoteCommit": "fdd1cc9217825f69ebae8194af371c550347e248",
+    "tree": "73b951447798e5e95f4d1bd6913fdc3976d31bea",
+    "previousHead": "f1ec7d8a09c8a3cf3c0f9047e0168f64af950898",
+    "repository": "RoastFried-RF/ashveil",
+    "mainRefUpdated": true,
+    "localAfterReadOnlyFetchMerge": "a3e45e350fdf985c66a7c2bf46dc61e431daa2c9",
+    "workflowRunId": 41136270983,
+    "workflowURL": "https://github.com/RoastFried-RF/ashveil/actions/runs/41136270983"
+  },
+  "localEvidence": "docs/pc-harness-v409-proof.json",
+  "localEvidenceSHA256": "f0c08b10f35b862f5fc9584763a18c8c94054bd7a3cc509664ae0df7134ada6d",
+  "sourceManifestSHA256": "9cecdd0b73bc37e8ed483c473b72e3b0542be1701baef8449e44af3ef1e41687",
+  "CI": {
+    "summary": {
+      "files": 422,
+      "tests": 6905,
+      "durationSeconds": 1389.01,
+      "jobId": 124339388723,
+      "workflowRunId": 41136270983,
+      "sourceCommit": "fdd1cc9217825f69ebae8194af371c550347e248"
+    },
+    "jobs": [
+      {
+        "id": 124339388723,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41136270983,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run pnpm lint",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run pnpm validate-defs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run pnpm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run pnpm validate-sprites",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run pnpm build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run actions/upload-pages-artifact@v3",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          }
+        ]
+      },
+      {
+        "id": 124348809577,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41136270983,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/configure-pages@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Publish playable preview",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          }
+        ]
+      }
+    ],
+    "run": {
+      "id": 41136270983,
+      "name": "Playable preview",
+      "node_id": "WFR_kwLOVG-qA88AAAAJk-muhw",
+      "head_branch": "main",
+      "head_sha": "fdd1cc9217825f69ebae8194af371c550347e248",
+      "path": ".github/workflows/pages.yml",
+      "display_title": "Implement v409 pilgrim seed allocation, actual crop supply and visibl…",
+      "run_number": 86,
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "workflow_id": 390918451,
+      "check_suite_id": 111513952675,
+      "check_suite_node_id": "CS_kwDOVG-qA88AAAAZ9r_how",
+      "url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41136270983",
+      "pull_requests": [],
+      "created_at": "2026-10-30T22:10:03Z",
+      "updated_at": "2026-10-30T22:35:51Z",
+      "actor": {
+        "login": "RoastFried-RF",
+        "id": 25213916,
+        "node_id": "MDQ6VXNlcjI1MjEzOTE2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/25213916?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/RoastFried-RF",
+        "html_url": "https://github.com/RoastFried-RF",
+        "followers_url": "https://api.github.com/users/RoastFried-RF/followers",
+        "following_url": "https://api.github.com/users/RoastFried-RF/following{/other_user}",
+        "gists_url": "https://api.github.com/users/RoastFried-RF/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/RoastFried-RF/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/RoastFried-RF/subscriptions",
+        "organizations_url": "https://api.github.com/users/RoastFried-RF/orgs",
+        "repos_url": "https://api.github.com/users/RoastFried-RF/repos",
+        "events_url": "https://api.github.com/users/RoastFried-RF/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/RoastFried-RF/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "run_attempt": 1,
+      "referenced_workflows": [],
+      "run_started_at": "2026-10-30T22:10:03Z",
+      "triggering_actor": {
+        "login": "RoastFried-RF",
+        "id": 25213916,
+        "node_id": "MDQ6VXNlcjI1MjEzOTE2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/25213916?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/RoastFried-RF",
+        "html_url": "https://github.com/RoastFried-RF",
+        "followers_url": "https://api.github.com/users/RoastFried-RF/followers",
+        "following_url": "https://api.github.com/users/RoastFried-RF/following{/other_user}",
+        "gists_url": "https://api.github.com/users/RoastFried-RF/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/RoastFried-RF/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/RoastFried-RF/subscriptions",
+        "organizations_url": "https://api.github.com/users/RoastFried-RF/orgs",
+        "repos_url": "https://api.github.com/users/RoastFried-RF/repos",
+        "events_url": "https://api.github.com/users/RoastFried-RF/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/RoastFried-RF/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "jobs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983/jobs",
+      "logs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983/logs",
+      "check_suite_url": "https://api.github.com/repos/RoastFried-RF/ashveil/check-suites/111513952675",
+      "artifacts_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983/artifacts",
+      "cancel_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983/cancel",
+      "rerun_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41136270983/rerun",
+      "previous_attempt_url": null,
+      "workflow_url": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/workflows/390918451",
+      "head_commit": {
+        "id": "fdd1cc9217825f69ebae8194af371c550347e248",
+        "tree_id": "73b951447798e5e95f4d1bd6913fdc3976d31bea",
+        "message": "Implement v409 pilgrim seed allocation, actual crop supply and visible thermal care\n\nConnect original seed stock, full crop growth, paid grain sales and same-bowl workshop production. Add guarded cultivation English and preserve public depots/wells. Validated frozen source: Full 422 files / 6905 tests, 303 Native whole-state pairs, two 30-seed cohorts, 929 save artifact roundtrips and repeated full crop course. Remaining v1/X1-X4, full English, sustainable community supply and human gates stay open.",
+        "timestamp": "2026-10-30T22:09:58Z",
+        "author": {
+          "name": "RoastFried",
+          "email": "oharapass@gmail.com"
+        },
+        "committer": {
+          "name": "RoastFried",
+          "email": "oharapass@gmail.com"
+        }
+      },
+      "repository": {
+        "id": 1416604163,
+        "node_id": "R_kgDOVG-qAw",
+        "name": "ashveil",
+        "full_name": "RoastFried-RF/ashveil",
+        "private": false,
+        "owner": {
+          "login": "RoastFried-RF",
+          "id": 25213916,
+          "node_id": "MDQ6VXNlcjI1MjEzOTE2",
+          "avatar_url": "https://avatars.githubusercontent.com/u/25213916?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/RoastFried-RF",
+          "html_url": "https://github.com/RoastFried-RF",
+          "followers_url": "https://api.github.com/users/RoastFried-RF/followers",
+          "following_url": "https://api.github.com/users/RoastFried-RF/following{/other_user}",
+          "gists_url": "https://api.github.com/users/RoastFried-RF/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/RoastFried-RF/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/RoastFried-RF/subscriptions",
+          "organizations_url": "https://api.github.com/users/RoastFried-RF/orgs",
+          "repos_url": "https://api.github.com/users/RoastFried-RF/repos",
+          "events_url": "https://api.github.com/users/RoastFried-RF/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/RoastFried-RF/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/RoastFried-RF/ashveil",
+        "description": null,
+        "fork": false,
+        "url": "https://api.github.com/repos/RoastFried-RF/ashveil",
+        "forks_url": "https://api.github.com/repos/RoastFried-RF/ashveil/forks",
+        "keys_url": "https://api.github.com/repos/RoastFried-RF/ashveil/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/RoastFried-RF/ashveil/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/RoastFried-RF/ashveil/teams",
+        "hooks_url": "https://api.github.com/repos/RoastFried-RF/ashveil/hooks",
+        "issue_events_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/RoastFried-RF/ashveil/events",
+        "assignees_url": "https://api.github.com/repos/RoastFried-RF/ashveil/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/RoastFried-RF/ashveil/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/RoastFried-RF/ashveil/tags",
+        "blobs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/RoastFried-RF/ashveil/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/RoastFried-RF/ashveil/languages",
+        "stargazers_url": "https://api.github.com/repos/RoastFried-RF/ashveil/stargazers",
+        "contributors_url": "https://api.github.com/repos/RoastFried-RF/ashveil/contributors",
+        "subscribers_url": "https://api.github.com/repos/RoastFried-RF/ashveil/subscribers",
+        "subscription_url": "https://api.github.com/repos/RoastFried-RF/ashveil/subscription",
+        "commits_url": "https://api.github.com/repos/RoastFried-RF/ashveil/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/RoastFried-RF/ashveil/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/RoastFried-RF/ashveil/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/RoastFried-RF/ashveil/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/RoastFried-RF/ashveil/merges",
+        "archive_url": "https://api.github.com/repos/RoastFried-RF/ashveil/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/RoastFried-RF/ashveil/downloads",
+        "issues_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/RoastFried-RF/ashveil/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/RoastFried-RF/ashveil/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/RoastFried-RF/ashveil/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/RoastFried-RF/ashveil/labels{/name}",
+        "releases_url": "https://api.github.com/repos/RoastFried-RF/ashveil/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/RoastFried-RF/ashveil/deployments"
+      },
+      "head_repository": {
+        "id": 1416604163,
+        "node_id": "R_kgDOVG-qAw",
+        "name": "ashveil",
+        "full_name": "RoastFried-RF/ashveil",
+        "private": false,
+        "owner": {
+          "login": "RoastFried-RF",
+          "id": 25213916,
+          "node_id": "MDQ6VXNlcjI1MjEzOTE2",
+          "avatar_url": "https://avatars.githubusercontent.com/u/25213916?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/RoastFried-RF",
+          "html_url": "https://github.com/RoastFried-RF",
+          "followers_url": "https://api.github.com/users/RoastFried-RF/followers",
+          "following_url": "https://api.github.com/users/RoastFried-RF/following{/other_user}",
+          "gists_url": "https://api.github.com/users/RoastFried-RF/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/RoastFried-RF/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/RoastFried-RF/subscriptions",
+          "organizations_url": "https://api.github.com/users/RoastFried-RF/orgs",
+          "repos_url": "https://api.github.com/users/RoastFried-RF/repos",
+          "events_url": "https://api.github.com/users/RoastFried-RF/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/RoastFried-RF/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "html_url": "https://github.com/RoastFried-RF/ashveil",
+        "description": null,
+        "fork": false,
+        "url": "https://api.github.com/repos/RoastFried-RF/ashveil",
+        "forks_url": "https://api.github.com/repos/RoastFried-RF/ashveil/forks",
+        "keys_url": "https://api.github.com/repos/RoastFried-RF/ashveil/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/RoastFried-RF/ashveil/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/RoastFried-RF/ashveil/teams",
+        "hooks_url": "https://api.github.com/repos/RoastFried-RF/ashveil/hooks",
+        "issue_events_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/RoastFried-RF/ashveil/events",
+        "assignees_url": "https://api.github.com/repos/RoastFried-RF/ashveil/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/RoastFried-RF/ashveil/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/RoastFried-RF/ashveil/tags",
+        "blobs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/RoastFried-RF/ashveil/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/RoastFried-RF/ashveil/languages",
+        "stargazers_url": "https://api.github.com/repos/RoastFried-RF/ashveil/stargazers",
+        "contributors_url": "https://api.github.com/repos/RoastFried-RF/ashveil/contributors",
+        "subscribers_url": "https://api.github.com/repos/RoastFried-RF/ashveil/subscribers",
+        "subscription_url": "https://api.github.com/repos/RoastFried-RF/ashveil/subscription",
+        "commits_url": "https://api.github.com/repos/RoastFried-RF/ashveil/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/RoastFried-RF/ashveil/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/RoastFried-RF/ashveil/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues/comments{/number}",
+        "contents_url": "https://api.github.com/repos/RoastFried-RF/ashveil/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/RoastFried-RF/ashveil/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/RoastFried-RF/ashveil/merges",
+        "archive_url": "https://api.github.com/repos/RoastFried-RF/ashveil/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/RoastFried-RF/ashveil/downloads",
+        "issues_url": "https://api.github.com/repos/RoastFried-RF/ashveil/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/RoastFried-RF/ashveil/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/RoastFried-RF/ashveil/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/RoastFried-RF/ashveil/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/RoastFried-RF/ashveil/labels{/name}",
+        "releases_url": "https://api.github.com/repos/RoastFried-RF/ashveil/releases{/id}",
+        "deployments_url": "https://api.github.com/repos/RoastFried-RF/ashveil/deployments"
+      }
+    },
+    "entryJavaScript": "assets/index-BHvDZdzF.js"
+  },
+  "publicVerification": {
+    "audit": "test-results/windows/public-v409-1/tasks/public/public/audit.json",
+    "auditSHA256": "83c13d71ed5ea5922d925fa458ce62a3cf09ebc9f65a1c880e76b6fbc2c52bf3",
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v409=fdd1cc9217825f69ebae8194af371c550347e248",
+    "sourceCommit": "fdd1cc9217825f69ebae8194af371c550347e248",
+    "httpStatus": 200,
+    "previewVersion": "0.409-dev",
+    "publicSaveVersion": 221,
+    "publicContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "expectedContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "realTitleStartAndWait": true,
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "c58261a518528ef727eb9225f3df6a6e96056a5ea3aee42b95dec0d15dc6e5d0",
+    "localIndexSha256": "680c9bf02f06f89eb1a684868eba2d17f476e72bee9979630c040dba3b416076",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-BHvDZdzF.js"
+    ],
+    "entryJavaScriptMatchesCIName": true,
+    "contentHashMatchesTestedSource": true,
+    "pngActuallyReviewed": [
+      "test-results/windows/public-v409-1/tasks/public/public/public-title.png",
+      "test-results/windows/public-v409-1/tasks/public/public/public-world.png"
+    ],
+    "pngReviewedSHA256": {
+      "test-results/windows/public-v409-1/tasks/public/public/public-title.png": "c58f42e163502d68307f0339100d41263770eb51dc2dd9593539e93bc229b12e",
+      "test-results/windows/public-v409-1/tasks/public/public/public-world.png": "42c1b3cd38d8963464370a8a56b57088554f0579b54f83c070741503bbe46949"
+    }
+  },
+  "verificationLimits": [
+    "Public scripts matched the decoded CI build-log entry name and public content hash matched the locally tested source; no CI-artifact byte comparison is claimed.",
+    "Windows local HTML differs from Linux CI/public HTML; indexMatchesLocalBuild is false.",
+    "This public probe checks direct Core saveVersion221 and real creation/wait; it does not prove public save persistence.",
+    "Declared initial warm/healthy arrival, observer-only finite camp/cash and instrumented customer demand distinguish the completed crop course from natural travel, all-season/community self-sufficiency or unlimited fuel.",
+    "Hot-bed/sleep-debt recovery, remaining English/X1-X4, release performance/1000 expeditions and real human gates remain. v410/v411 are separate follow-up work."
+  ]
+}
