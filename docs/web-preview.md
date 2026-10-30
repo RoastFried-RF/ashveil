@@ -1,6 +1,8 @@
 # 웹 플레이 미리보기
 
-**2026-10-30 (한국 시간) 현재:** 공개 [v0.404 개발 미리보기](https://roastfried-rf.github.io/ashveil/)를 플레이할 수 있다. main10ecb29의 Pages 전체412파일6,765검사·빌드·배포가 통과했고 공개 진입 HTML/JavaScript SHA256은 검증 빌드와 같다. 저장/콘텐츠 검토의 최종 Native72전체 상태 쌍·67PNG 검토는 [검증·게시 근거](release-v404-proof.json)를 따른다. 영어 전체/v1/X1–X4·기기/사람 평가 완료는 아니다.
+2026-10-31 공개 후속: **v0.408-dev · 저장221**을 main/Pages에 게시했다. GitHub Full420파일6,848검사와 배포 성공, CI 진입 JS 이름·검증한 콘텐츠 해시의 공개 응답 일치, 실제 시작/한 턴 대기100TU·오류0 및2PNG 검토를 확인했다. [게시·공개 확인 영수증](release-v408-proof.json). 전체 v1/X1–X4·영어/장기 자급·사람 게이트는 남는다.
+
+**선행 공개 기록 — 2026-10-30 (한국 시간):** 공개 [v0.404 개발 미리보기](https://roastfried-rf.github.io/ashveil/)를 플레이할 수 있다. main10ecb29의 Pages 전체412파일6,765검사·빌드·배포가 통과했고 공개 진입 HTML/JavaScript SHA256은 검증 빌드와 같다. 저장/콘텐츠 검토의 최종 Native72전체 상태 쌍·67PNG 검토는 [검증·게시 근거](release-v404-proof.json)를 따른다. 영어 전체/v1/X1–X4·기기/사람 평가 완료는 아니다.
 
 이전 공개 확인 이력 — 2026-10-23 (한국 시간): 공개 [v0.311 게임](https://roastfried-rf.github.io/ashveil/)을 플레이할 수 있다. main `17ee736`의 build·deploy 성공과 실제 새 원정·탐구 저장/복원·배율·창 이동·캐릭터/소지품/신체를 확인했다. 공개8PNG를 각각 검토했고 원본92파일의 실제 응답 바이트가 로컬 검증본과 같다. [게시 근거](release-v311-publication.json). 아래 실패 기록은 당시 관측 이력이다.
 

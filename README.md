@@ -1,10 +1,10 @@
 # ASHVEIL (애쉬베일)
 
-이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 하네스](docs/windows-development.md) · [몸별 장기 노출](docs/ash-cake-v407.md) · [탑의 실제 재와 순례회 작업장](docs/ash-supply-v408.md). 로컬 v0.408-dev/저장221은 최종21단계·Full420파일6,848검사, 세 화면 Native216전체 상태 쌍/오류0과 기본/월드 각30판을 통과했다. 대표13PNG, 검사 전후9,171파일 SHA 일치와 각인 자료486개 왕복을 확인했다. [v408 로컬 영수증](docs/pc-harness-v408-proof.json). main/Pages 게시·공개 확인은 별도로 기록한다.
+이 PC의 후속 작업: [구현 현황 대조](docs/pc-audit-2026-10-30.md) · [Windows 하네스](docs/windows-development.md) · [몸별 장기 노출](docs/ash-cake-v407.md) · [탑의 실제 재와 순례회 작업장](docs/ash-supply-v408.md). 로컬 v0.408-dev/저장221은 최종21단계·Full420파일6,848검사, 세 화면 Native216전체 상태 쌍/오류0과 기본/월드 각30판을 통과했다. 대표13PNG, 검사 전후9,171파일 SHA 일치와 각인 자료486개 왕복을 확인했다. [v408 로컬 영수증](docs/pc-harness-v408-proof.json). main/Pages 게시·공개 확인도 [영수증](docs/release-v408-proof.json)에 기록했다.
 
-현재 작업: [v408 실제 재 채집·주민 생산](docs/ash-supply-v408.md) · [선행 v407 공개 근거](docs/release-v407-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
+현재 작업: [v408 실제 재 채집·주민 생산](docs/ash-supply-v408.md) · [v408 공개 근거](docs/release-v408-proof.json) · [v1.0.0·X1–X4 Goal](docs/goal-v1.md).
 
-현재 공개 개발 미리보기는 **v0.407-dev · 저장220**이다. 기본 물품 상세의 영어 표시, 유한 재떡 제작/섭취·같은 몸의 실제 기간/위험·폐 부담과 저장 입력 검증을 연결했다. GitHub 전체6,806검사·Pages 배포와 공개 시작/대기 입력·콘텐츠 일치는 [게시 기록](docs/release-v407-proof.json)을 따른다. 자연 장기 공급과 나머지 창·동적 로그/문헌의 영어, X1–X4·최종 출시/사람 게이트는 남아 있다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
+현재 공개 개발 미리보기는 **v0.408-dev · 저장221**이다. 탑 출력 이력에 따른 실제 재 채집과 원래 순례회 상인의 유한 재료·물·같은 그릇·연료/노동·현물 판매를 연결했다. GitHub 전체6,848검사·Pages 배포, 공개 시작/100TU 대기·오류0과 CI 진입 JS 이름/검증 콘텐츠 해시는 [게시 기록](docs/release-v408-proof.json)을 따른다. 자연 곡물/연료의 장기 자급, 나머지 영어·X1–X4·출시/사람 게이트는 계속 남는다. [게임](https://roastfried-rf.github.io/ashveil/) · [원화 도감](https://roastfried-rf.github.io/ashveil/artbook/).
 
 실제 인물의 의복·절단·의수족과 변형 인간9종의 전용 몸/머리는 v389–392에서 연결했고, [v394](docs/prosthetic-views-v394.md)에서 방향별 의수족5PNG/52영역과 실제 관절·설치 장비 선택 로딩을 보완했다. 신규 원문7PNG와 세부 결손/체형별 착용의 정확한 범위는 [v392](docs/human-details-v392.md)를 따른다. [예약 진료](docs/care-schedule-v387.md) · [출시 기준](docs/v1-execution.md) · [자율 구현 추적](docs/autonomous-implementation.md).
 

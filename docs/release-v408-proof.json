@@ -1,0 +1,219 @@
+{
+  "checkedAtKST": "2026-10-31T04:31:58.206621+09:00",
+  "status": "v0.408-dev development preview published; public Title/start/real wait visually verified. v1/X1-X4, full English, natural long-term grain/fuel supply and human gates remain open.",
+  "previewVersion": "0.408-dev",
+  "saveVersion": 221,
+  "publication": {
+    "localCommit": "bea67f880a5facc8346a47977da98907090c7fdf",
+    "testedCodeCommit": "39606a7e47461fb7aa7cf7a7448a63309d0376a9",
+    "remoteCommit": "e385d44b5aeeb62665871efb46ef3c70271144f5",
+    "tree": "bc368a2d77625c7fac3df2b1689fea31db2a30dc",
+    "previousHead": "0aef895c107c460731b05e6e2486d1daa5e8a99b",
+    "repository": "RoastFried-RF/ashveil",
+    "mainRefUpdated": true,
+    "localAfterReadOnlyFetchMerge": "6b8f5643341b389d1be2ee6f8386fe8e0f5e6875",
+    "workflowRunId": 41111502794,
+    "workflowURL": "https://github.com/RoastFried-RF/ashveil/actions/runs/41111502794"
+  },
+  "localEvidence": "docs/pc-harness-v408-proof.json",
+  "localEvidenceSHA256": "dd3b9f953c16495c67cc0cb32c82c243e6eb4428a0d43c58694cb82aef93e8d3",
+  "sourceManifestSHA256": "22c6b59e13dba21755eb1a7406831334e7203a3a5aefff5fd740ad991cc148ea",
+  "CI": {
+    "summary": {
+      "files": 420,
+      "tests": 6848,
+      "durationSeconds": 1352.03,
+      "jobId": 124254533735,
+      "workflowRunId": 41111502794,
+      "sourceCommit": "e385d44b5aeeb62665871efb46ef3c70271144f5"
+    },
+    "jobs": [
+      {
+        "id": 124254533735,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41111502794,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run pnpm lint",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Run pnpm validate-defs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Run pnpm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Run pnpm validate-sprites",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Run pnpm build",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run actions/upload-pages-artifact@v3",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          }
+        ]
+      },
+      {
+        "id": 124266665382,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "run_id": 41111502794,
+        "logs_url": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/configure-pages@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Publish playable preview",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          }
+        ]
+      }
+    ],
+    "entryJavaScript": "assets/index-B-TqY0KQ.js",
+    "entryVerifiedInDecodedBuildLog": true,
+    "run": {
+      "id": 41111502794,
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e385d44b5aeeb62665871efb46ef3c70271144f5",
+      "created_at": "2026-10-30T18:59:34Z",
+      "updated_at": "2026-10-30T19:24:44Z",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41111502794"
+    }
+  },
+  "publicVerification": {
+    "audit": "test-results/windows/public-v408-1/tasks/public/public/audit.json",
+    "auditSHA256": "30658208db7ef251543b2f1cf52b45b4cf54c92c784bc8d44147d89a5ade15ae",
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v408=e385d44b5aeeb62665871efb46ef3c70271144f5",
+    "sourceCommit": "e385d44b5aeeb62665871efb46ef3c70271144f5",
+    "httpStatus": 200,
+    "previewVersion": "0.408-dev",
+    "publicSaveVersion": 221,
+    "publicContentHash": "sha256-8ff1fc681234ca0afffb88a1b74d9057d5491d31ffd656a781515d5744b4ebb3",
+    "expectedContentHash": "sha256-8ff1fc681234ca0afffb88a1b74d9057d5491d31ffd656a781515d5744b4ebb3",
+    "realTitleStartAndWait": true,
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "818a8474110c9591f0ca5163ea8c659382bc8b0fe27bcebc4445b9c5559ecfa9",
+    "localIndexSha256": "962275df83d4a2d3b4038f61a4451ffd2e4532021eed1a3bb6bbc2c4a6e4b56a",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-B-TqY0KQ.js"
+    ],
+    "entryJavaScriptMatchesCIName": true,
+    "contentHashMatchesTestedSource": true,
+    "pngActuallyReviewed": [
+      "test-results/windows/public-v408-1/tasks/public/public/public-title.png",
+      "test-results/windows/public-v408-1/tasks/public/public/public-world.png"
+    ],
+    "pngReviewedSHA256": {
+      "test-results/windows/public-v408-1/tasks/public/public/public-title.png": "42d43e4bc346bd4f67b38e8408b3dc45df60582e46fae18824860182a131ebba",
+      "test-results/windows/public-v408-1/tasks/public/public/public-world.png": "df3f3f5be81739adc88dbde7d1703be464aa3d803f4ba4c9b303ff8d40bdd3a2"
+    }
+  },
+  "verificationLimits": [
+    "Public scripts were matched to the decoded CI build-log entry name, and public content hash to the locally tested source. No unperformed CI-artifact byte comparison is claimed.",
+    "Windows local HTML differs from the Linux CI/public HTML; indexMatchesLocalBuild is false.",
+    "savedHeaders was empty; this public probe verifies direct Core saveVersion221 and actual creation/wait, not public save persistence.",
+    "Local v409 crop supply, warm-climate resident care and crop-panel English are separate unfinished follow-up work. This release does not claim natural sustainable grain/fuel production or all-climate community survival.",
+    "Full v1/X1-X4, complete English, release performance/1000 expeditions and actual human gates remain."
+  ]
+}
