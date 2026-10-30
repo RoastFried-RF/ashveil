@@ -38094,6 +38094,78 @@
               "defType": {
                 "const": "FoodSafety"
               },
+              "exposureTraining": {
+                "anyOf": [
+                  {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/$defs/FoodExposureRule"
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "$append": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/FoodExposureRule"
+                            }
+                          },
+                          "$prepend": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/$defs/FoodExposureRule"
+                            }
+                          },
+                          "$remove": {
+                            "type": "array",
+                            "items": {
+                              "anyOf": [
+                                {
+                                  "$ref": "#/$defs/FoodExposureRule"
+                                },
+                                {
+                                  "type": "object",
+                                  "required": [
+                                    "id"
+                                  ],
+                                  "properties": {
+                                    "id": {}
+                                  },
+                                  "additionalProperties": false
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "anyOf": [
+                          {
+                            "required": [
+                              "$append"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$prepend"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "$remove"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "cooking": {
                 "anyOf": [
                   {
@@ -38811,6 +38883,12 @@
               "defType": {
                 "const": "FoodSafety"
               },
+              "exposureTraining": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/FoodExposureRule"
+                }
+              },
               "cooking": {
                 "type": "object",
                 "properties": {
@@ -38987,6 +39065,48 @@
             }
           }
         }
+      ]
+    },
+    "FoodExposureRule": {
+      "type": "object",
+      "properties": {
+        "food": {
+          "type": "string"
+        },
+        "disease": {
+          "type": "string"
+        },
+        "servings": {
+          "type": "number"
+        },
+        "durationDays": {
+          "type": "number"
+        },
+        "minIntervalTurns": {
+          "type": "number"
+        },
+        "maxGapTurns": {
+          "type": "number"
+        },
+        "lungDose": {
+          "type": "number"
+        },
+        "riskMult": {
+          "type": "number"
+        },
+        "knowledgeBook": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "food",
+        "disease",
+        "servings",
+        "durationDays",
+        "minIntervalTurns",
+        "maxGapTurns",
+        "lungDose",
+        "riskMult"
       ]
     },
     "WaterSafetyDef": {

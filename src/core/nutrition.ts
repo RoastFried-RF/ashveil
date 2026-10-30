@@ -1,3 +1,5 @@
+import {foodExposureTick} from './food-exposure'
+import {foodExposureLines} from './food-exposure-state'
 import {observeSevereHunger,severeHunger} from './permanent-loss'
 import {rememberLifeEvent} from './life-memories'
 import {infectionSystemic} from './infection-state'
@@ -46,6 +48,7 @@ export function nourish(w: World, c: Creature, kcal: number, protein = 0, vitami
 }
 export function metabolismTick(w: World, c: Creature, thermal: ThermalState, sleeping: boolean) {
   const severelyHungryBefore=severeHunger(w,c)
+  foodExposureTick(w,c)
   expireDiet(w,c)
   poisoningTick(w, c)
   if (w.s.hygieneEnabled === false) c.needs.hygiene = 70
@@ -82,6 +85,7 @@ export function nutritionLines(w: World, c: Creature): string[] {
   const diet=dietStatus(w,c)
   return [
     ...scurvyLines(w,c),
+    ...foodExposureLines(w,c),
     ...(diet.kcal>0?['최근'+diet.windowDays+'일 식사 중 단백질 열량 '+(diet.fraction*100).toFixed(1)+'% · '+(diet.active?'살코기 굶주림/설사 · 열량 흡수 ×'+diet.absorption:'식사 비중 안정')]:[]),
     `칼로리 균형 ${n.kcal.toFixed(0)} kcal · ${hungerBand(w, c).label} / 수분 결손 ${n.waterDeficit.toFixed(0)} ml · ${thirstBand(w, c).label}`,
     `현재 소모: 열량 ${rate.kcalHour.toFixed(1)} kcal/시간 · 수분 ${rate.waterHour.toFixed(1)} ml/시간`,

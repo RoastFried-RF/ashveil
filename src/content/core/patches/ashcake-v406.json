@@ -1,0 +1,76 @@
+[
+  {
+    "op": "add",
+    "target": "FoodSafety.Human",
+    "path": "/exposureTraining",
+    "value": [
+      {
+        "food": "Item.Ashcake",
+        "disease": "Disease.GreyFever",
+        "servings": 30,
+        "durationDays": 30,
+        "minIntervalTurns": 28800,
+        "maxGapTurns": 57600,
+        "lungDose": 10,
+        "riskMult": 0.7,
+        "knowledgeBook": "Item.SettlementMycologyRecords"
+      }
+    ]
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/clear/-",
+    "value": {
+      "x": 28,
+      "y": 24,
+      "w": 1,
+      "h": 1,
+      "terrain": "Terrain.Earth",
+      "roof": false
+    }
+  },
+  {
+    "op": "add",
+    "target": "RegionLayout.ChimneyService",
+    "path": "/objects/-",
+    "value": {
+      "pos": [
+        28,
+        24
+      ],
+      "terrain": "Terrain.Shelf",
+      "items": [
+        {
+          "item": "Item.TowerAsh",
+          "count": 20
+        },
+        {
+          "item": "Item.TowerAsh",
+          "count": 20
+        },
+        {
+          "item": "Item.TowerAsh",
+          "count": 20
+        }
+      ]
+    }
+  },
+  {
+    "op": "add",
+    "target": "Stock.pilgrims",
+    "path": "/entries/-",
+    "value": {
+      "item": "Item.Ashcake",
+      "target": 1,
+      "dailyProduction": 0,
+      "dailyConsumption": 0
+    }
+  },
+  {
+    "op": "replace",
+    "target": "Item.SettlementMycologyRecords",
+    "path": "/book/note",
+    "value": "기록은 토양 개량용 정착균이 탑의 분출 재에 실려 퍼졌고, 재폐와 영양 결핍으로 약해진 폐에 적응했다고 적었다. 굴쥐는 포자를 묻히고 벼룩은 상처로 옮긴다고 한다. 순례회의 재떡은 미량 반복 노출로 저항을 얻는 대신 재폐를 쌓는다는 관찰도 있다. 문헌의 설명을 읽었으며 자신의 감염이나 눈앞의 모든 굴쥐가 보균자라는 뜻은 아니다. 부록은 적어도 하루 간격으로 서른 회분을 먹고 첫 식사부터 서른 날을 지낸 몸에서 회색열 노출 위험이 약30% 낮았다고 적었다. 두 날을 넘겨 거르면 연속 관찰을 다시 시작한다. 서른 회분의 음식성 재폐 부담은10이며 몰아 먹거나 토해도 폐 부담은 없어지지 않는다. 완전 면역이나 감염의 치료는 아니다."
+  }
+]

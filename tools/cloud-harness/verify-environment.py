@@ -35,6 +35,7 @@ class FreshEnvironment(unittest.TestCase):
         for name in ["1440x1080", "1366x768", "390x844"]:
             tasks = phases[name]
             self.assertEqual(len(tasks), 2)
+            self.assertEqual(tasks[-1]["id"], "food-exposure")
             self.assertEqual(tasks[-1]["argv"][-1], name)
             self.assertEqual((tasks[-1]["lane"], tasks[-1]["kind"], tasks[-1]["deps"]), ("heavy", "native", ["environment"]))
         with self.assertRaises(ValueError):
@@ -120,6 +121,15 @@ class FreshEnvironment(unittest.TestCase):
         self.assertIn("tests/locale-item-details.test.ts",tasks["locale-focused"]["argv"])
         self.assertIn("locale-focused",tasks["full"]["deps"])
         self.assertEqual(plan.make_plan("/tmp/checkout",item_detail_locale=True)["tasks"][-1]["deps"],["smoke"])
+
+    def test_food_exposure_plan_gates_full_and_keeps_inputs_exclusive(self):
+        tasks = {t["id"]: t for t in plan.make_plan("/tmp/checkout", profile="release", locale=True, food_exposure=True)["tasks"]}
+        self.assertEqual(tasks["food-exposure"]["deps"], ["locale"])
+        self.assertEqual((tasks["food-exposure"]["lane"], tasks["food-exposure"]["kind"]), ("heavy", "native"))
+        self.assertIn("tests/food-exposure-compat.test.ts", tasks["locale-focused"]["argv"])
+        self.assertIn("tests/locale-food-exposure.test.ts", tasks["locale-focused"]["argv"])
+        self.assertIn("locale-focused", tasks["full"]["deps"])
+        self.assertEqual(plan.make_plan("/tmp/checkout", item_detail_locale=True, food_exposure=True)["tasks"][-1]["deps"], ["locale-item-details"])
 
     def test_plan_refuses_existing_evidence_and_check_creates_nothing(self):
         with tempfile.TemporaryDirectory(prefix="ashveil plan ") as folder:

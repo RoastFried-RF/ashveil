@@ -14,6 +14,7 @@ function mutate(s:GameState,aliases:ReadonlyMap<string,string>,errors:string[]=[
   for(const x of c.biteRisks??[])x.def=rename(x.def,'Disease')
   for(const x of c.thoughts)x.def=rename(x.def,'Thought')
   c.traits=c.traits.map(x=>rename(x,'Trait'))
+  for(const x of c.foodExposureTraining??[])x.rule.disease=rename(x.rule.disease,'Disease')
   if(c.biteCarrier)c.biteCarrier=rename(c.biteCarrier,'Disease')
   if(c.immuneDiseases)c.immuneDiseases=c.immuneDiseases.map(x=>rename(x,'Disease'))
   if(c.diseaseExposure?.cold)c.diseaseExposure.cold=c.diseaseExposure.cold.map(x=>rename(x,'Disease'))

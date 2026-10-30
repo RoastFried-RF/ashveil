@@ -2,6 +2,7 @@
 // 신체: 6부위 상태(왼쪽) + 상처·출혈·처치(오른쪽)
 import { computed, ref } from 'vue'
 import AirPanel from './AirPanel.vue'
+import FoodExposurePanel from './FoodExposurePanel.vue'
 import {
   infectionFor, scurvyLines, latentBiteLines, diseaseLines, drugLines, topicalError, prostheticError, prostheticLines, allItems, bloodLoss, canHeatBlade, capacity, effectiveBleed, isMissing, procedureDef, procedureError, hpMax, itemDef, itemLabel, painLabel, painTotal, part, partRegion, player,
   recoveryLines, surgeryDef, surgeryError, type Surgery, regionHealth, regionPenalties, regionState, masteryStage, totalBleed, turnOf, woundDef,
@@ -156,6 +157,7 @@ const pct = (v: number) => `${Math.round(v * 100)}%`
           </div>
         </div>
         <AirPanel />
+        <FoodExposurePanel />
         <div v-if="d.scurvy.length" class="df df-tab p-2 text-xs" data-testid="body-scurvy"><p v-for="line in d.scurvy" :key="line">{{ line }}</p></div>
         <div v-if="d.latentClues.length" class="df df-tab p-2 text-xs" data-testid="body-bite-clues"><p v-for="line in d.latentClues" :key="line">{{ line }}</p></div>
         <div v-if="d.diseases.length" class="df df-tab p-2 text-xs" data-testid="body-diseases"><p v-for="line in d.diseases" :key="line">{{ line }}</p></div>

@@ -1,8 +1,10 @@
+import {stateActors} from './missing-statuses'
 import type{DefDatabase}from'./defs'
 import type{GameState}from'./types'
 import{stateItemEntries,validRecordedItemShape,validMissingItemRecord,restoreMissingItem,missingItemReferences}from'./missing-items'
 const historical=new Set(['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'])
 function mutate(s:GameState,aliases:ReadonlyMap<string,string>){
+ for(const c of stateActors(s))for(const x of c.foodExposureTraining??[]){x.rule.food=aliases.get(x.rule.food)??x.rule.food;if(x.rule.knowledgeBook)x.rule.knowledgeBook=aliases.get(x.rule.knowledgeBook)??x.rule.knowledgeBook}
  for(const{item}of stateItemEntries(s)){const target=aliases.get(item.missingItem?.def??item.def);if(!target)continue;if(item.missingItem)restoreMissingItem(item,target);else item.def=target}
  const seen=new WeakSet<object>(),walk=(value:unknown,root=false)=>{if(!value||typeof value!=='object'||seen.has(value))return;seen.add(value);for(const[key,entry]of Object.entries(value)){if(root&&historical.has(key)||['missingItem','note','cropHarvest'].includes(key))continue;if(key==='def'&&typeof entry==='string'&&aliases.has(entry))(value as Record<string,unknown>)[key]=aliases.get(entry)!;else walk(entry)}}
  walk(s,true)

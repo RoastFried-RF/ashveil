@@ -1,3 +1,4 @@
+import {stateActors} from './missing-statuses'
 import type{DefDatabase}from'./defs'
 import type{GameState,ItemInst,ItemDef}from'./types'
 export const MISSING_ITEM='Item.MissingPlaceholder'
@@ -26,9 +27,10 @@ export const validRecordedItemShape=(v:unknown):v is {size:[number,number];maxSt
  return Array.isArray(x.size)&&x.size.length===2&&x.size.every(n=>Number.isSafeInteger(n)&&n>0&&n<=100)&&Number.isSafeInteger(x.maxStack)&&Number(x.maxStack)>0&&typeof x.label==='string'&&(x.storage===undefined||Array.isArray(x.storage)&&x.storage.length===2&&x.storage.every(n=>Number.isSafeInteger(n)&&n>0&&n<=20))
 }
 export function missingItemReferences(s:GameState,ids:Set<string>){
+ const foodHistory=new WeakSet<object>();for(const c of stateActors(s))for(const r of c.foodExposureTraining??[])if(r&&typeof r==='object')foodHistory.add(r)
  const refs:string[]=[],seen=new WeakSet<object>(),entries=stateItemEntries(s),items=new Set(entries.map(e=>e.item as object)),uids=new Set(entries.filter(e=>ids.has(e.item.missingItem?.def??e.item.def)).map(e=>e.item.uid))
  const walk=(value:unknown,path:string)=>{
-  if(!value||typeof value!=='object'||seen.has(value))return
+  if(!value||typeof value!=='object'||seen.has(value)||foodHistory.has(value))return
   seen.add(value)
   for(const[key,entry]of Object.entries(value)){
    if(!path&&['scriptState','contentMods','contentAdoptedAt','gameVersion','defSchemaVersion','contentDefinitions','contentItemShapes','contentRecipeContracts','contentChanges','log','knowledge','over'].includes(key)||key==='missingItem')continue

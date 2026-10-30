@@ -1,0 +1,80 @@
+[
+  {
+    "defType": "Item",
+    "id": "Item.TowerAsh",
+    "label": "탑기슭 재",
+    "description": "굴뚝탑 기슭에서 가려 담은 한 회분의 재. 순례회의 의식 음식에 쓰는 재료다.",
+    "sprite": "av406_tower_ash",
+    "category": "misc",
+    "weight": 0.001,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": true,
+    "maxStack": 20,
+    "value": 1
+  },
+  {
+    "defType": "Item",
+    "id": "Item.Ashcake",
+    "label": "재떡",
+    "description": "귀리와 탑기슭 재를 섞어 찐 순례회의 의식 음식. 먹고 나면 원래 그릇이 남는다.",
+    "sprite": "av406_ashcake",
+    "category": "food",
+    "weight": 0,
+    "size": [
+      1,
+      1
+    ],
+    "stackable": false,
+    "maxStack": 1,
+    "value": 8,
+    "uses": 1,
+    "food": {
+      "kcal": 300,
+      "protein": 10,
+      "vitamin": 0,
+      "water": 80,
+      "freshHours": 48,
+      "cooked": true,
+      "servings": 1,
+      "emptyVessel": "Item.Bowl"
+    }
+  },
+  {
+    "defType": "Recipe",
+    "id": "Recipe.Ashcake",
+    "label": "재떡 찌기",
+    "category": "cooking",
+    "primaryAttr": "per",
+    "mastery": "survival",
+    "basic": true,
+    "stations": [
+      "campfire"
+    ],
+    "workTurns": 400,
+    "inputs": [
+      {
+        "item": "Item.Oats",
+        "count": 1
+      },
+      {
+        "item": "Item.TowerAsh",
+        "count": 1
+      },
+      {
+        "item": "Item.Bowl",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "Item.Ashcake",
+      "count": 1
+    },
+    "boiledMeal": {
+      "waterMl": 80,
+      "vessel": "Item.Bowl"
+    }
+  }
+]

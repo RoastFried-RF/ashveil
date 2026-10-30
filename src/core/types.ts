@@ -855,6 +855,7 @@ export interface WaterSafetyDef extends DefBase {
 
 export interface FoodSafetyDef extends DefBase {
   defType: 'FoodSafety'
+  exposureTraining?: FoodExposureRule[]
   cooking?:{temperature:number;neglectTurns:number;burnChance:number;masteryReduction:number;burnKcal:number;burnMood:number;thought:string;capacity:number}
   temperature: { max: number; mult: number }[]
   sealedMult: number
@@ -882,6 +883,25 @@ export interface FoodSafetyDef extends DefBase {
   bathCooling: number
   liceRisk: number
   liceSleepMult: number
+}
+
+/** Snapshot of the actual food course; later content edits do not erase lung injury. */
+export interface FoodExposureRule {
+  food:string
+  disease:string
+  servings:number
+  durationDays:number
+  minIntervalTurns:number
+  maxGapTurns:number
+  lungDose:number
+  riskMult:number
+  knowledgeBook?:string
+}
+export interface FoodExposureRecord {
+  rule:FoodExposureRule
+  doseCount:number
+  course?:{receipts:{uid:number;at:number}[]}
+  completedAt?:number
 }
 
 export interface NutritionBand {
@@ -2329,6 +2349,7 @@ export interface MedicalReport {
 }
 
 export interface Creature {
+  foodExposureTraining?:FoodExposureRecord[]
   cullerState?:CullerState
   crawlerState?:CrawlerState
   paralysis?:LocalParalysis[]

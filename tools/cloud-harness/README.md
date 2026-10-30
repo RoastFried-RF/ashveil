@@ -68,3 +68,5 @@ Both profiles first test the dependency-free preview helper with real owned HTTP
 
 `checks/ashveil-native-*`의 `native-recovery.yml`은 동일 앱 Full을 이미 확인한 뒤의 복구 경로다. build→common→1440x1080→1366x768→390x844 순차 job이며 동일 workflow/commit의 build artifact만 사용한다. `native-phase.py`는 각 phase의 명시적 큐를 만들고 전체 검사 프로필은 바꾸지 않는다. 진단은 phase별로 보존하고 raw World 파일은 제외한다. 이 경로는 새 Full/World 검증으로 세지 않는다. 실행기는 ID/상태만 주기적으로 출력하며 자식 stdout/stderr는 원래 파일에 유지한다.
 v405의 개별 화면 phase는 같은 기존 물품 상세 도구를 선택한 viewport 한 곳에서 실행한다. 초기 실물과 원래 UID/섭취 규칙은 그대로다.
+
+`--food-exposure`는 v406의 유한 초기 실물·실제 재떡 조리/그릇/섭취·원본 문헌 완독 뒤의 개인 관찰과 저장/계속을 공통 스모크 뒤 heavy 단독으로 검사한다. 음식/저장/콘텐츠 변경/공개 언어 경계 대상 검사는 Full의 선행 조건이다. v406 개별 화면 복구도 같은 도구를 선택한 viewport 한 곳에서 실행한다. 실제 한 달 생존/자연 획득이나 사람 평가로 세지 않는다.

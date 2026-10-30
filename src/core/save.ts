@@ -1,4 +1,6 @@
 import {validateCullerSave} from './culler-save'
+import {validateFoodExposureTraining} from './food-exposure-save'
+import {stateActors} from './missing-statuses'
 import {validateCompanionCarePlans} from './companion-care-plan-save'
 import {validateCrawlerSave} from './crawler-save'
 import {validRecordedItemShape} from './missing-items'
@@ -420,6 +422,8 @@ export function deserialize(json: string): GameState {
   if(s.version===217)s.version=218
   // v219 adds explicit delayed care; prior sequences acquire no waiting time or new consent.
   if(s.version===218)s.version=219
+  // v220 records only future actual food courses; no past doses, resistance or injury.
+  if(s.version===219)s.version=220
   if(s.saveMode!==undefined&&(typeof s.saveMode!=='string'||!s.saveMode.trim()||s.saveMode!==s.saveMode.trim()||s.saveMode.length>256))throw new Error('각인의 저장 방식 형식이 올바르지 않다')
   if(s.contentAdoptedAt!==undefined&&(!s.contentAdoptedAt||typeof s.contentAdoptedAt!=='object'||!Number.isSafeInteger(s.contentAdoptedAt.turn)||s.contentAdoptedAt.turn<0||typeof s.contentAdoptedAt.hash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.contentAdoptedAt.hash)))throw new Error('각인의 현재 구성 기록 시작 형식이 올바르지 않다')
   if(s.gameVersion!==undefined&&(typeof s.gameVersion!=='string'||!s.gameVersion.trim()))throw new Error('각인의 게임 버전 기록 형식이 올바르지 않다')
@@ -433,6 +437,7 @@ export function deserialize(json: string): GameState {
   if(s.loadHash!==undefined&&(typeof s.loadHash!=='string'||!/^sha256-[0-9a-f]{64}$/.test(s.loadHash)))throw new Error('각인의 콘텐츠 로드 해시 형식이 올바르지 않다')
   if (s.version !== SAVE_VERSION) throw new Error(`세이브 버전 불일치: ${s.version} (현재 ${SAVE_VERSION})`)
   const actors=[...s.creatures,...Object.values(s.offCreatures??{}).flat(),...Object.values(s.overworld?.scenes??{}).flatMap(scene=>[...scene.creatures,...Object.values(scene.offCreatures??{}).flat()])]
+  if(json.includes('"foodExposureTraining"'))validateFoodExposureTraining(stateActors(s),Math.floor(s.time/100),s.nextId)
   if(json.includes('"carePlan"')||json.includes('"companionCarePlan"'))validateCompanionCarePlans(actors)
   const integer=(n:unknown)=>Number.isSafeInteger(n)&&Number(n)>=0
   const position=(p:unknown)=>!!p&&typeof p==='object'&&integer((p as {x:unknown}).x)&&integer((p as {y:unknown}).y)

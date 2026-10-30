@@ -1697,6 +1697,27 @@ function validateRefs(db: DefDatabase, report: LoadReport) {
     if (!d.riskBands?.length || d.riskBands.some((b, i) => b.at < 0 || !b.label || (i > 0 && b.at <= d.riskBands[i - 1].at))) report.errors.push(`${d.id}: riskBands 구간 오류`)
   }
   for (const d of db.all<FoodSafetyDef>('FoodSafety')) {
+    if(d.exposureTraining!==undefined){
+      if(!Array.isArray(d.exposureTraining)||d.exposureTraining.length>64)report.errors.push(d.id+': exposureTraining 배열 오류')
+      else{
+        const seen=new Set<string>()
+        for(const r of d.exposureTraining){
+          if(!isObj(r)){report.errors.push(d.id+': exposureTraining 구조 오류');continue}
+          for(const key of ['food','disease'] as const)if(typeof r[key]!=='string'||!r[key].trim())report.errors.push(d.id+': exposureTraining.'+key+' 참조 필요')
+          for(const key of ['servings','durationDays','minIntervalTurns','maxGapTurns','lungDose','riskMult'] as const)if(!Number.isFinite(r[key]))report.errors.push(d.id+': exposureTraining.'+key+' 유한 수치 필요')
+          if(r.knowledgeBook!==undefined&&(typeof r.knowledgeBook!=='string'||!r.knowledgeBook.trim()))report.errors.push(d.id+': exposureTraining.knowledgeBook 문헌 참조 필요')
+          need(d.id,r.food,'Item');need(d.id,r.disease,'Disease');if(r.knowledgeBook)need(d.id,r.knowledgeBook,'Item')
+          if(!db.tryGet<ItemDef>(r.food)?.food)report.errors.push(d.id+': exposureTraining 음식 필요')
+          if(r.knowledgeBook&&!db.tryGet<ItemDef>(r.knowledgeBook)?.book)report.errors.push(d.id+': exposureTraining 문헌 필요')
+          for(const key of ['servings','durationDays'] as const)range(d.id,'exposureTraining.'+key,r[key],1,366,true)
+          for(const key of ['minIntervalTurns','maxGapTurns'] as const)range(d.id,'exposureTraining.'+key,r[key],1,28800*366,true)
+          range(d.id,'exposureTraining.lungDose',r.lungDose,0,100);range(d.id,'exposureTraining.riskMult',r.riskMult,Number.MIN_VALUE,1)
+          if(r.maxGapTurns<r.minIntervalTurns)report.errors.push(d.id+': exposureTraining 간격 오류')
+          const key=JSON.stringify([r.food,r.disease]);if(seen.has(key))report.errors.push(d.id+': exposureTraining 중복 음식/질병');seen.add(key)
+        }
+      }
+    }
+
     if(d.cooking!==undefined){
       const c=d.cooking
       if(!isObj(c))report.errors.push(d.id+': cooking 구조 오류')

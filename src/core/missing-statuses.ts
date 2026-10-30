@@ -42,7 +42,7 @@ export function missingStatusPlan(s:GameState,db:DefDatabase){
  }
  const candidate=structuredClone(s),counts=purge(candidate,ids),historical=new WeakMap<object,Set<string>>()
  for(const c of stateActors(candidate)){
-  historical.set(c,new Set(['immuneDiseases','diseaseExposure','npcCareHistory','history']))
+  historical.set(c,new Set(['immuneDiseases','diseaseExposure','npcCareHistory','history','foodExposureTraining']))
   if(c.npcPsyche)historical.set(c.npcPsyche,new Set(['history']))
   if(c.body.scars)historical.set(c.body.scars,new Set(Object.keys(c.body.scars)))
   for(const d of c.diseases??[])historical.set(d,new Set(['source']))

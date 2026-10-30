@@ -355,3 +355,5 @@ export * from './swarms'
 export * from './swarm-state'
 
 export * from './camouflage'
+
+export * from './food-exposure-state'
