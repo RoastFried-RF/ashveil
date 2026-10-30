@@ -9,14 +9,14 @@ from plan import make_plan
 def phase_plan(root, phase, pnpm="pnpm", chromium=None):
     if phase not in ("build", "common", "1440x1080", "1366x768", "390x844"):
         raise ValueError("Unsupported Native phase")
-    result = make_plan(root, pnpm=pnpm, chromium=chromium, profile="authoring", locale=True, checkpoint_locale=True)
-    selected = {"environment", "typecheck", "lint", "locale-focused", "preview-helper", "build"} if phase == "build" else {"environment", "smoke", "locale"} if phase == "common" else {"environment", "locale-checkpoints"}
+    result = make_plan(root, pnpm=pnpm, chromium=chromium, profile="authoring", locale=True, item_detail_locale=True)
+    selected = {"environment", "typecheck", "lint", "locale-focused", "preview-helper", "build"} if phase == "build" else {"environment", "smoke", "locale"} if phase == "common" else {"environment", "locale-item-details"}
     result["tasks"] = [t for t in result["tasks"] if t["id"] in selected]
     for task in result["tasks"]:
         task["deps"] = [d for d in task["deps"] if d in selected]
-        if task["id"] in ("smoke", "locale-checkpoints"):
+        if task["id"] in ("smoke", "locale-item-details"):
             task["deps"] = ["environment"]
-        if task["id"] == "locale-checkpoints":
+        if task["id"] == "locale-item-details":
             task["argv"].append(phase)
     return result
 

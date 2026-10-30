@@ -1018,7 +1018,7 @@
   "Disease.Tetanus": {
     "label": {
       "source": "턱굳음병",
-      "text": "Lockjaw"
+      "text": "Tetanus"
     }
   },
   "Disease.Pneumonia": {
@@ -1030,7 +1030,7 @@
   "Disease.GreyFever": {
     "label": {
       "source": "회색열",
-      "text": "Grey fever"
+      "text": "Gray fever"
     }
   },
   "Disease.Dysentery": {
@@ -1061,60 +1061,100 @@
     "label": {
       "source": "방진 면포",
       "text": "Dust mask"
+    },
+    "description": {
+      "source": "코와 입을 덮는 방진 면포. 실제 착용한 동안만 재 먼지를 줄인다. 젖거나 여과포가 다하면 보호가 떨어지고, 교체 중에는 보호하지 않는다.",
+      "text": "A dust cloth covering the nose and mouth. Reduces ash dust only while actually worn. Protection falls when wet or exhausted, and stops during filter replacement."
     }
   },
   "Item.LightCrossbow": {
     "label": {
       "source": "경석궁",
       "text": "Light crossbow"
+    },
+    "description": {
+      "source": "손으로 시위를 당기는 작은 석궁. 한 발 쏜 뒤 기본4턴 동안 다시 장전한다.",
+      "text": "A small crossbow drawn by hand. After each shot, reloading takes a base 4 turns."
     }
   },
   "Item.Bolt": {
     "label": {
       "source": "석궁 볼트",
       "text": "Crossbow bolt"
+    },
+    "description": {
+      "source": "짧고 무거운 석궁용 화살.",
+      "text": "A short, heavy crossbow projectile."
     }
   },
   "Item.Pole": {
     "label": {
       "source": "뱃사공 장대",
       "text": "Boatman's pole"
+    },
+    "description": {
+      "source": "강바닥을 짚던 긴 나무 장대.",
+      "text": "A long wooden pole once used to push against the riverbed."
     }
   },
   "Item.LeatherApron": {
     "label": {
       "source": "가죽 앞치마",
       "text": "Leather apron"
+    },
+    "description": {
+      "source": "불똥과 쇳가루를 막는 두꺼운 앞치마.",
+      "text": "A thick apron that keeps off sparks and metal filings."
     }
   },
   "Item.OiledRaincoat": {
     "label": {
       "source": "기름 먹인 천 우비",
       "text": "Oiled cloth raincoat"
+    },
+    "description": {
+      "source": "강바람과 물방울을 막도록 기름을 먹였다.",
+      "text": "Oiled to keep out river winds and water droplets."
     }
   },
   "Item.OldMap": {
     "label": {
       "source": "낡은 경비대 지도",
       "text": "Old Warden map"
+    },
+    "description": {
+      "source": "정확하게 그렸지만 오래된 지도. 읽으면 납골당의 방 위치를 알 수 있다.",
+      "text": "An accurately drawn but outdated map. Reading it reveals room locations in the crypt."
     }
   },
   "Item.OldLedger": {
     "label": {
       "source": "길드 장부 조각",
       "text": "Guild ledger fragment"
+    },
+    "description": {
+      "source": "무너진 길드의 낡은 장부. 수도원과 거래하던 길의 흔적이 남아 있다.",
+      "text": "An old ledger from a fallen guild. Traces remain of the roads used to trade with the monastery."
     }
   },
   "Item.Lute": {
     "label": {
       "source": "낡은 류트",
       "text": "Old lute"
+    },
+    "description": {
+      "source": "길 위에서 노래를 들려주던 나무 악기. 케이스에 오래된 여행 흔적이 남아 있다.",
+      "text": "A wooden instrument once played along the roads. Its case bears marks of old journeys."
     }
   },
   "Item.StorageChest": {
     "label": {
       "source": "목제 보관함",
       "text": "Wooden storage chest"
+    },
+    "description": {
+      "source": "직접 만든 보관함. 비어 있는 땅에 설치하고 주변을 정비해 거점으로 쓸 수 있다.",
+      "text": "A handmade chest. Place it on empty ground and improve the surroundings to establish a base."
     }
   },
   "Item.CinderBearHide": {
@@ -1145,42 +1185,70 @@
     "label": {
       "source": "무두질한 잿곰 가죽",
       "text": "Tanned cinder bear leather"
+    },
+    "description": {
+      "source": "숯빛 털이 남은 두꺼운 가죽. 생가죽과 그림을 공유한다.",
+      "text": "Thick leather with charcoal-colored fur remaining. Shares its illustration with raw hide."
     }
   },
   "Item.BearProcessingNotes": {
     "label": {
       "source": "잿곰 가공 기록",
       "text": "Cinder bear processing notes"
+    },
+    "description": {
+      "source": "검은 숲의 사냥꾼이 남긴 낡은 양피지 묶음. 가죽을 다듬고 지방에서 기름을 얻는 법을 적었다.",
+      "text": "Old parchment left by a Black Forest hunter, describing how to prepare hide and render oil from fat."
     }
   },
   "Item.ShadeRoot": {
     "label": {
       "source": "그늘뿌리",
       "text": "Shaderoot"
+    },
+    "description": {
+      "source": "저조도에서 자라는 검은 잎 식물의 둥근 뿌리. 그늘 마을의 주식이다.",
+      "text": "The round root of a black-leaved plant adapted to low light. A staple of the shade villages."
     }
   },
   "Item.ShadeSeeds": {
     "label": {
       "source": "봉인된 그늘 작물 종자",
       "text": "Sealed shade-crop seeds"
+    },
+    "description": {
+      "source": "종자 금고에 보관된 실제 재배용 종자 봉지. 땅에 심으면 그늘 작물 밭을 만든다.",
+      "text": "An actual packet of cultivation seeds kept in the seed vault. Planting it creates a shade-crop plot."
     }
   },
   "Item.SeedVaultKey": {
     "label": {
       "source": "종자 금고 열쇠",
       "text": "Seed vault key"
+    },
+    "description": {
+      "source": "관로 정비 가문에서 지켜 온 금속 열쇠. 검은 숲 금고의 기계식 잠금장치와 맞는다.",
+      "text": "A metal key preserved by a conduit-maintenance family. Fits the mechanical lock of the Black Forest vault."
     }
   },
   "Item.SeedVaultLedger": {
     "label": {
       "source": "종자 금고 정비 기록",
       "text": "Seed vault maintenance records"
+    },
+    "description": {
+      "source": "실험 수목과 비상 재시작용 종자, 관로를 따라 이동한 정비공 가족의 이름이 남아 있다.",
+      "text": "Records of experimental trees, emergency restart seeds and the names of maintenance families who traveled along the conduits."
     }
   },
   "Item.CampfireKit": {
     "label": {
       "source": "야영 모닥불 꾸러미",
       "text": "Campfire bundle"
+    },
+    "description": {
+      "source": "돌 둘레와 장작 받침. 빈 땅에 설치한 뒤 실제 목재로 불을 피운다.",
+      "text": "A stone ring and firewood support. Place on empty ground, then light it with actual wood."
     }
   },
   "Item.FieldMat": {
@@ -1217,6 +1285,10 @@
     "label": {
       "source": "의료 가방",
       "text": "Medical bag"
+    },
+    "description": {
+      "source": "끓여 말린 붕대와 처치 도구. 다섯 번 쓰면 소모품이 바닥난다.",
+      "text": "Boiled, dried bandages and treatment tools. Supplies run out after five uses."
     }
   },
   "Item.TetanusSerum": {
@@ -1227,18 +1299,30 @@
     "unknownLabel": {
       "source": "봉인된 개척기 주입기",
       "text": "Sealed Pioneer injector"
+    },
+    "description": {
+      "source": "0호 금고의 유한한 주입형 혈청. 턱굳음병을 치료하지만 원래 상처나 다른 질병은 치료하지 않는다.",
+      "text": "A finite injectable serum from Vault Zero. Treats tetanus, but does not heal the original wound or other diseases."
     }
   },
   "Item.AbbotFinalRecord": {
     "label": {
       "source": "수도원장의 마지막 기록",
       "text": "The abbot's final record"
+    },
+    "description": {
+      "source": "봉인 직전 병동에서 적은 마지막 장부. 부서진 봉랍과 회색 가루가 가죽 표지 사이에 남았다.",
+      "text": "The ward's last ledger, written just before sealing. Broken sealing wax and gray powder remain inside its leather cover."
     }
   },
   "Item.AmalgamCapsuleRemnant": {
     "label": {
       "source": "회색 가루가 묻은 씨앗 캡슐 잔해",
       "text": "Seed capsule remains coated in grey dust"
+    },
+    "description": {
+      "source": "융합체가 지니던 부서진 기계 용기. 갈라진 세라믹 틈에 회색 가루와 마모된 공사 각인이 남아 있다.",
+      "text": "A broken mechanical vessel carried by the amalgam. Gray powder and a worn corporate imprint remain in its cracked ceramic seams."
     }
   },
   "Item.Wood": {
@@ -1293,6 +1377,10 @@
     "label": {
       "source": "실 꾸러미",
       "text": "Thread bundle"
+    },
+    "description": {
+      "source": "바늘과 함께 상처를 봉합할 수 있다. 씻지 않은 상처를 꿰매면 감염 위험이 커진다.",
+      "text": "Use with a needle to suture wounds. Stitching an unwashed wound increases infection risk."
     }
   },
   "Item.Charcoal": {
@@ -1377,18 +1465,30 @@
     "label": {
       "source": "지네 신경독샘",
       "text": "Crawler neurotoxin gland"
+    },
+    "description": {
+      "source": "원래 지네의 한 독샘. 물기에 쓰고 남은 회수만 화살에 바를 수 있다. 주머니 그림은 별도 유리병을 뜻하지 않는다.",
+      "text": "One venom gland from the original centipede. Only the doses left after its bites can be applied to arrows. The pouch illustration does not imply a separate glass bottle."
     }
   },
   "Item.CrawlerPlate": {
     "label": {
       "source": "지네 외골격 판",
       "text": "Crawler carapace plate"
+    },
+    "description": {
+      "source": "실제 체절에서 분리한 가볍고 단단한 외골격. 흉갑 재료이며 강한 열에는 약하다.",
+      "text": "Light, hard exoskeleton removed from an actual segment. Used for a cuirass; vulnerable to intense heat."
     }
   },
   "Item.CrawlerLegSegment": {
     "label": {
       "source": "지네 다리 마디",
       "text": "Crawler leg segment"
+    },
+    "description": {
+      "source": "원래 보행 다리에서 분리한 한 마디. 하나로 화살대 하나를 만든다.",
+      "text": "One segment removed from an original walking leg. Makes one arrow shaft."
     }
   },
   "Item.CrawlerRawMeat": {
@@ -1407,6 +1507,10 @@
     "label": {
       "source": "지네 외골격 흉갑",
       "text": "Crawler carapace cuirass"
+    },
+    "description": {
+      "source": "외골격 판 여덟 장을 천으로 묶은 경량 흉갑. 아이콘은 착용 몸 원화와 구분한다.",
+      "text": "A light cuirass of eight exoskeleton plates tied with cloth. Its icon is separate from the worn body artwork."
     }
   },
   "Item.CrawlerMaintenanceNotes": {
@@ -1419,18 +1523,30 @@
     "label": {
       "source": "재까마귀 깃털 꾸러미",
       "text": "Ash crow feather bundle"
+    },
+    "description": {
+      "source": "원래 새의 날개와 꼬리에서 골라낸 작은 깃털 꾸러미. 실제 화살 깃으로 쓴다.",
+      "text": "A small bundle selected from the original bird's wings and tail. Used as actual arrow fletching."
     }
   },
   "Item.CarrionMorsel": {
     "label": {
       "source": "뜯긴 고기 조각",
       "text": "Torn meat scrap"
+    },
+    "description": {
+      "source": "원래 고기 한 덩이의20분의1인25g 조각. 원래 신선도와 오염을 보존한다.",
+      "text": "A 25g piece, one twentieth of the original meat portion. Preserves its freshness and contamination."
     }
   },
   "Item.RoastedMorsel": {
     "label": {
       "source": "구운 고기 조각",
       "text": "Roasted meat scrap"
+    },
+    "description": {
+      "source": "원래 고기 한 덩이의20분의1인25g 조각. 원래 신선도와 오염을 보존한다.",
+      "text": "A 25g piece, one twentieth of the original meat portion. Preserves its freshness and contamination."
     }
   },
   "Item.CullerScytheBlade": {
@@ -1449,6 +1565,10 @@
     "label": {
       "source": "구제기 중장갑판",
       "text": "Culler heavy armor plate"
+    },
+    "description": {
+      "source": "정원 구제기의 겹장갑. 망치로 고정쇠를 풀면 일부 손실을 감수하고 고철을 회수한다.",
+      "text": "Layered armor from a garden culler. Undo the fasteners with a hammer to recover scrap with some material loss."
     }
   },
   "Item.CullerNetFiber": {
@@ -1461,18 +1581,30 @@
     "label": {
       "source": "정화액 탱크",
       "text": "Purifying fluid tank"
+    },
+    "description": {
+      "source": "산성 정화액. F2에서 분사할 수 있다. 원래 남은 회분만 회수되며 마실 수 없다.",
+      "text": "Acidic purification fluid. Can be sprayed through F2. Only the original remaining doses are recovered; it cannot be drunk."
     }
   },
   "Item.CullerGlaive": {
     "label": {
       "source": "정원사 낫창",
       "text": "Gardener glaive"
+    },
+    "description": {
+      "source": "회수한 낫팔 날을 긴 자루에 고정했다. 양손으로 휘두르며 두 칸 거리에서 벤다.",
+      "text": "A recovered sickle-arm blade fixed to a long shaft. Swung with both hands, it cuts from two cells away."
     }
   },
   "Item.MaintenanceBell": {
     "label": {
       "source": "세 음 정비종",
       "text": "Three-tone maintenance bell"
+    },
+    "description": {
+      "source": "작은 금속 그릇을 세 음으로 울려 정원 기계에 정지 신호를 보낸다. 같은 개체에 반복할수록 효과가 약해진다.",
+      "text": "A small metal bowl rung in three tones to signal garden machines to stop. Repeated use on the same machine becomes less effective."
     }
   },
   "Item.CullerSpecifications": {
@@ -1485,78 +1617,130 @@
     "label": {
       "source": "달걀",
       "text": "Egg"
+    },
+    "description": {
+      "source": "한 개에80kcal를 담은 날달걀. 단단한 바닥에 버리면 더미의 껍데기가 깨질 수 있다.",
+      "text": "A raw egg containing 80 kcal. Dropping the stack onto a hard floor may break its shells."
     }
   },
   "Item.CrackedEgg": {
     "label": {
       "source": "깨진 달걀",
       "text": "Cracked egg"
+    },
+    "description": {
+      "source": "껍데기가 깨진 달걀 내용물. 한 개의 영양은 같지만6시간 만에 상하므로 빨리 먹어야 한다.",
+      "text": "The contents of a cracked egg. Nutrition is unchanged, but it spoils in 6 hours and should be eaten quickly."
     }
   },
   "Item.Cabbage": {
     "label": {
       "source": "양배추",
       "text": "Cabbage"
+    },
+    "description": {
+      "source": "발효 절임에 쓸 수 있는 신선한 잎채소.",
+      "text": "Fresh leafy greens suitable for fermented pickling."
     }
   },
   "Item.CeramicJar": {
     "label": {
       "source": "빈 도기 항아리",
       "text": "Empty ceramic jar"
+    },
+    "description": {
+      "source": "채소 다섯 회분을 소금과 함께 절이는 재사용 용기.",
+      "text": "A reusable vessel for pickling five servings of vegetables with salt."
     }
   },
   "Item.PickledCabbageJar": {
     "label": {
       "source": "양배추 절임 항아리",
       "text": "Jar of pickled cabbage"
+    },
+    "description": {
+      "source": "같은 도기 항아리에서 이 주 동안 발효했다. 다섯 회분을 먹은 뒤에도 원래 항아리가 남는다.",
+      "text": "Fermented for two weeks in this same ceramic jar. The original jar remains after all five servings are eaten."
     }
   },
   "Item.CabbageSeed": {
     "label": {
       "source": "양배추 씨앗",
       "text": "Cabbage seed"
+    },
+    "description": {
+      "source": "빈 흙에 심는다. 새 양배추 밭은 햇빛12% 이상·2~32°C·유효 성장5일·실제 물1200ml가 필요하다.",
+      "text": "Plant in empty soil. A new cabbage plot needs at least 12% sunlight, 2–32°C, five days of effective growth and 1,200ml of actual water."
     }
   },
   "Item.SignalMaintenanceManual": {
     "label": {
       "source": "칠번 처리구역 수신 설비 지침",
       "text": "Chimney Seven receiver instructions"
+    },
+    "description": {
+      "source": "센서의 재를 닦고 관로의 회로를 복구하는 절차가 그려져 있다. 고장과 차양 규정의 진실은 실제 점검으로 확인해야 한다.",
+      "text": "Illustrated procedures for wiping ash from sensors and restoring conduit circuitry. Faults and the truth behind shading rules must be checked on site."
     }
   },
   "Item.FlintlockMusket": {
     "label": {
       "source": "부싯돌 장총",
       "text": "Flintlock musket"
+    },
+    "description": {
+      "source": "납탄과 흑색화약을 한 발씩 장전한다. 총열을 청소하고 젖은 화약을 피해야 한다.",
+      "text": "Loads one lead ball and one black-powder charge at a time. Keep the barrel clean and the powder dry."
     }
   },
   "Item.LeadBall": {
     "label": {
       "source": "납탄",
       "text": "Lead ball"
+    },
+    "description": {
+      "source": "장총 한 발의 실제 납 탄두. 화약과 함께 장전한다.",
+      "text": "One actual lead projectile for a long gun. Load with powder."
     }
   },
   "Item.BlackPowderCharge": {
     "label": {
       "source": "흑색화약 1회분",
       "text": "Black powder charge"
+    },
+    "description": {
+      "source": "한 발에 쓰는 화약. 납탄과 별개이며 젖으면 불발 위험이 커진다.",
+      "text": "Powder for one shot, separate from its lead ball. Wet powder increases misfire risk."
     }
   },
   "Item.GunOil": {
     "label": {
       "source": "총기 기름",
       "text": "Gun oil"
+    },
+    "description": {
+      "source": "총열 청소 한 번에 쓰는 기름. 등불 연료와 다르다.",
+      "text": "Oil for one barrel cleaning. Distinct from lamp fuel."
     }
   },
   "Item.SmokedMeat": {
     "label": {
       "source": "훈제 고기",
       "text": "Smoked meat"
+    },
+    "description": {
+      "source": "원래 생고기를 실제 장작불 곁에서 여섯 시간 훈제했다. 냄새가 멀리 퍼지며 비타민이 줄었다.",
+      "text": "The original raw meat, smoked beside an actual wood fire for six hours. Its scent travels farther and its vitamin content has fallen."
     }
   },
   "Item.AirDriedMeat": {
     "label": {
       "source": "직접 말린 육포",
       "text": "Air-dried meat"
+    },
+    "description": {
+      "source": "바람이나 실제 불 곁에서 말린 육포. 생고기 한 회분에서 두 조각을 얻고 비타민의 절반을 남긴다.",
+      "text": "Meat dried in the wind or beside an actual fire. One raw portion makes two pieces, retaining half its vitamins."
     }
   },
   "Item.SharpeningStone": {
@@ -1575,18 +1759,30 @@
     "label": {
       "source": "대도",
       "text": "Greatsword"
+    },
+    "description": {
+      "source": "긴 손잡이로 두 손에 쥐는 낡은 양날 도검. 넓은 날로 베지만 좁은 배낭과 빈 보조 손을 요구한다.",
+      "text": "An old double-edged sword with a long, two-handed grip. Its broad blade cuts well, but needs backpack space and a free off hand."
     }
   },
   "Item.Revolver": {
     "label": {
       "source": "회전식 권총",
       "text": "Revolver"
+    },
+    "description": {
+      "source": "실제 공장/재생 실탄을 장전한다. 빈 탄피를 주워 장인 작업장에서 재장전할 수 있다.",
+      "text": "Loads actual factory or reloaded cartridges. Collect empty cases for reloading at an artisan's workshop."
     }
   },
   "Item.BoltRifle": {
     "label": {
       "source": "볼트식 소총",
       "text": "Bolt-action rifle"
+    },
+    "description": {
+      "source": "실제 공장/재생 실탄을 장전한다. 빈 탄피를 주워 장인 작업장에서 재장전할 수 있다.",
+      "text": "Loads actual factory or reloaded cartridges. Collect empty cases for reloading at an artisan's workshop."
     }
   },
   "Item.FactoryCartridge": {
@@ -1623,24 +1819,40 @@
     "label": {
       "source": "누빔 재킷",
       "text": "Padded jacket"
+    },
+    "description": {
+      "source": "솜을 누빈 천. 타격을 흡수하고 따뜻하다. 젖으면 무거워진다.",
+      "text": "Quilted cloth that absorbs blows and keeps you warm. Becomes heavy when wet."
     }
   },
   "Item.LeatherCoat": {
     "label": {
       "source": "가죽 코트",
       "text": "Leather coat"
+    },
+    "description": {
+      "source": "거칠게 무두질한 가죽. 베기에 강하다.",
+      "text": "Roughly tanned leather. Resists cuts."
     }
   },
   "Item.OilclothCloak": {
     "label": {
       "source": "방수포 망토",
       "text": "Oilcloth cloak"
+    },
+    "description": {
+      "source": "재비의 90%를 막아 아래 옷이 젖는 속도를 늦춘다. 머리·손·발은 덮지 않는다.",
+      "text": "Blocks 90% of ash rain, slowing the wetting of clothes underneath. Does not cover the head, hands or feet."
     }
   },
   "Item.ScrapMail": {
     "label": {
       "source": "고철 사슬옷",
       "text": "Scrap mail"
+    },
+    "description": {
+      "source": "철사와 와셔를 엮었다. 베기·찌르기에 강하지만 시끄럽고, 내피 없이 입으면 추위가 스며든다.",
+      "text": "Linked wire and washers. Resists cuts and thrusts, but is noisy and lets in the cold without lining."
     }
   },
   "Item.Hood": {
@@ -1653,6 +1865,10 @@
     "label": {
       "source": "고철 투구",
       "text": "Scrap helmet"
+    },
+    "description": {
+      "source": "냄비를 두드려 폈다. 머리를 지키지만 소리가 울린다.",
+      "text": "Hammered from a cooking pot. Protects the head, but rings with noise."
     }
   },
   "Item.Boots": {
@@ -1665,60 +1881,100 @@
     "label": {
       "source": "작업 장갑",
       "text": "Work gloves"
+    },
+    "description": {
+      "source": "손가락을 지키고, 상처를 만질 때 덜 더럽힌다.",
+      "text": "Protects the fingers and reduces contamination when handling wounds."
     }
   },
   "Item.LeatherBelt": {
     "label": {
       "source": "가죽 허리띠",
       "text": "Leather belt"
+    },
+    "description": {
+      "source": "주머니가 달린 허리띠. 몸통을 조금 더 단단히 감싼다.",
+      "text": "A belt with pockets, wrapping the torso a little more firmly."
     }
   },
   "Item.BoneCharm": {
     "label": {
       "source": "뼈 부적",
       "text": "Bone charm"
+    },
+    "description": {
+      "source": "순례회가 쓰던 부적. 마음이 조금 단단해진다.",
+      "text": "A charm once used by the pilgrimage fellowship. Steadies the mind slightly."
     }
   },
   "Item.SealRing": {
     "label": {
       "source": "녹슨 인장 반지",
       "text": "Rusty signet ring"
+    },
+    "description": {
+      "source": "개척기 회사 인장이 새겨진 반지. 손에 익으면 칼끝이 정확해진다.",
+      "text": "A ring bearing a Pioneer-era company seal. Familiarity with it steadies the blade's point."
     }
   },
   "Item.Cloth": {
     "label": {
       "source": "천 조각",
       "text": "Cloth scrap"
+    },
+    "description": {
+      "source": "임시 붕대. 출혈은 막지만 깨끗하지 않다.",
+      "text": "An improvised bandage. Stops bleeding, but is not clean."
     }
   },
   "Item.Bandage": {
     "label": {
       "source": "붕대",
       "text": "Bandage"
+    },
+    "description": {
+      "source": "끓여 말린 깨끗한 붕대.",
+      "text": "A clean bandage, boiled and dried."
     }
   },
   "Item.Tourniquet": {
     "label": {
       "source": "지혈대",
       "text": "Tourniquet"
+    },
+    "description": {
+      "source": "팔다리의 동맥 출혈을 멈춘다. 두 시간 넘게 두면 그 아래가 죽는다.",
+      "text": "Stops arterial bleeding in a limb. Leaving it on for more than two hours kills the tissue below it."
     }
   },
   "Item.Splint": {
     "label": {
       "source": "부목",
       "text": "Splint"
+    },
+    "description": {
+      "source": "골절 부위를 고정한다. 통증이 줄고 악화를 막는다.",
+      "text": "Stabilizes a fracture, reducing pain and preventing deterioration."
     }
   },
   "Item.Moonshine": {
     "label": {
       "source": "밀주",
       "text": "Moonshine"
+    },
+    "description": {
+      "source": "마시면 통증이 무뎌지지만 피가 더 흐른다. 상처에 부으면 소독이 된다.",
+      "text": "Drinking dulls pain but increases bleeding. Pouring it on a wound disinfects it."
     }
   },
   "Item.Painkiller": {
     "label": {
       "source": "백색 정제",
       "text": "White tablet"
+    },
+    "description": {
+      "source": "개척기 진통제. 8시간 동안 통증을50줄인다. 내성과 의존 위험이 있다.",
+      "text": "A Pioneer-era analgesic. Reduces pain by 50 for 8 hours. Carries tolerance and dependence risks."
     }
   },
   "Item.PillYellow": {
@@ -1761,24 +2017,40 @@
     "label": {
       "source": "물병 (깨끗한 물)",
       "text": "Water bottle (clean water)"
+    },
+    "description": {
+      "source": " 1,000ml 들이, 한 번에 200ml.",
+      "text": "Holds 1,000ml; drink 200ml at a time."
     }
   },
   "Item.DirtyWaterBottle": {
     "label": {
       "source": "물병 (흐린 물)",
       "text": "Water bottle (cloudy water)"
+    },
+    "description": {
+      "source": "웅덩이에서 떠온 물. 이질에 걸릴 수 있다. 1,000ml 들이, 한 번에 200ml.",
+      "text": "Water gathered from a puddle; may cause dysentery. Holds 1,000ml; drink 200ml at a time."
     }
   },
   "Item.Jerky": {
     "label": {
       "source": "육포",
       "text": "Dried meat"
+    },
+    "description": {
+      "source": "짜고 질기다. 비타민은 없다. 냄새가 난다.",
+      "text": "Salty and tough. Contains no vitamins. Has a noticeable scent."
     }
   },
   "Item.DriedApple": {
     "label": {
       "source": "말린 사과",
       "text": "Dried apple"
+    },
+    "description": {
+      "source": "장막 아래에선 귀한 과일. 괴혈병을 막는다.",
+      "text": "Fruit is precious beneath the veil. Prevents scurvy."
     }
   },
   "Item.Hardtack": {
@@ -1791,48 +2063,80 @@
     "label": {
       "source": "개척기 통조림",
       "text": "Pioneer canned meat"
+    },
+    "description": {
+      "source": "70년 묵었지만 밀봉되어 있다. 실제 사냥칼·녹슨 칼·손도끼로 따야 먹을 수 있다.",
+      "text": "Seventy years old, but still sealed. Requires an actual hunting knife, rusty knife or hatchet to open before eating."
     }
   },
   "Item.RawMeat": {
     "label": {
       "source": "생고기",
       "text": "Raw meat"
+    },
+    "description": {
+      "source": "날로 먹으면 탈이 날 수 있다. 피 냄새가 짐승을 부른다.",
+      "text": "Eating it raw may make you ill. Its bloody scent attracts beasts."
     }
   },
   "Item.Lantern": {
     "label": {
       "source": "기름 등불",
       "text": "Oil lantern"
+    },
+    "description": {
+      "source": "어둠을 밝히지만 멀리서도 보인다. 보조 손에 들거나(반경 5) 허리띠에 걸어야(반경 4) 빛이 난다. 칼날을 달궈 상처를 지질 수 있다.",
+      "text": "Lights the dark, but is visible from afar. Must be held in the off hand (radius 5) or hung on a belt (radius 4) to shine. Can heat a blade for cauterization."
     }
   },
   "Item.HealthDraught": {
     "label": {
       "source": "쓴 약초탕",
       "text": "Bitter herbal broth"
+    },
+    "description": {
+      "source": "수도원 약제실의 약초를 달인 물. 상처의 열을 내리고 체력을 조금 돌려준다.",
+      "text": "Herbs from the monastery dispensary, simmered in water. Cools inflamed wounds and restores a little health."
     }
   },
   "Item.LampOil": {
     "label": {
       "source": "등잔 기름",
       "text": "Lamp oil"
+    },
+    "description": {
+      "source": "등불에 부으면 두 시간을 더 밝힐 수 있다.",
+      "text": "Adds two hours of light when poured into a lamp."
     }
   },
   "Item.Bones": {
     "label": {
       "source": "뼈 무더기",
       "text": "Bone pile"
+    },
+    "description": {
+      "source": "살이 다 썩어 나간 뼈. 쓸모는 없다.",
+      "text": "Bones with all the flesh rotted away. Of no use."
     }
   },
   "Item.Note": {
     "label": {
       "source": "쪽지",
       "text": "Note"
+    },
+    "description": {
+      "source": "당시의 글이 남은 종이. 내용이 없는 쪽지는 지도 작성에 쓸 수 있다.",
+      "text": "Paper bearing words from its time. A note with no content can be used to draw a map."
     }
   },
   "Item.AshCap": {
     "label": {
       "source": "잿빛 갓버섯",
       "text": "Ashcap mushroom"
+    },
+    "description": {
+      "source": "숲 버섯 무리에서 딴 버섯. 날로 먹어도 되지만 가끔 탈이 난다. 뒤진 버섯 무리는 이틀이면 다시 자란다.",
+      "text": "Gathered from a forest mushroom patch. Can be eaten raw, though it sometimes causes illness. A harvested patch regrows in two days."
     }
   },
   "Item.RoastedMeat": {
@@ -1845,6 +2149,10 @@
     "label": {
       "source": "횃불",
       "text": "Torch"
+    },
+    "description": {
+      "source": "손에 들면 조금 따뜻하다. 불붙은 끝으로 공격할 수 있다.",
+      "text": "Provides a little warmth when held. Its burning end can be used to attack."
     }
   },
   "Item.MedicalGuide": {
@@ -1875,18 +2183,30 @@
     "label": {
       "source": "흰버들 껍질 차",
       "text": "White willow bark tea"
+    },
+    "description": {
+      "source": "네 시간 동안 통증을10줄인다. 열이 있을 때 체온 회복 목표를0.5°C낮춘다. 빈속이면 메스꺼울 수 있다.",
+      "text": "Reduces pain by 10 for four hours. With fever, lowers the body's recovery temperature target by 0.5°C. May cause nausea on an empty stomach."
     }
   },
   "Item.PoppyTincture": {
     "label": {
       "source": "잠꽃 팅크",
       "text": "Sleepflower tincture"
+    },
+    "description": {
+      "source": "여섯 시간 동안 통증을35줄이고 잠을 돕지만 의식과 호흡이 둔해진다. 내성과 의존 위험이 있다.",
+      "text": "Reduces pain by 35 for six hours and aids sleep, but dulls consciousness and breathing. Carries tolerance and dependence risks."
     }
   },
   "Item.AshLeaf": {
     "label": {
       "source": "쓴재잎",
       "text": "Bitter ashleaf"
+    },
+    "description": {
+      "source": "씹으면 피로를30줄이고 네 시간 동안 반응속도가4오른다. 이후 피로40이 몰려온다.",
+      "text": "Chewing reduces fatigue by 30 and raises reaction speed by 4 for four hours. Afterwards, 40 fatigue returns."
     }
   },
   "Item.PurificationAmpoule": {
@@ -1897,84 +2217,144 @@
     "unknownLabel": {
       "source": "밀봉된 앰플",
       "text": "Sealed ampoule"
+    },
+    "description": {
+      "source": "개척기 항생 약품. 사흘 동안 감염 진행을70%늦춘다. 이질에 걸릴 위험이 있다.",
+      "text": "A Pioneer-era antibiotic. Slows infection progress by 70% for three days. May cause dysentery."
+    },
+    "unknownDescription": {
+      "source": "기호가 새겨진 개척기 앰플이다. 내용물의 용도는 모른다.",
+      "text": "A Pioneer-era ampoule engraved with symbols. The purpose of its contents is unknown."
     }
   },
   "Item.BitterMoss": {
     "label": {
       "source": "쓴이끼 습포",
       "text": "Bittermoss poultice"
+    },
+    "description": {
+      "source": "상처에 바르면 하루 동안 그 상처의 감염 진행을40%늦춘다. 피부 자극으로 통증2를 더한다.",
+      "text": "Applied to a wound, slows its infection progress by 40% for one day. Skin irritation adds 2 pain."
     }
   },
   "Item.AlphabetPrimer": {
     "label": {
       "source": "글자 익히기",
       "text": "Learning letters"
+    },
+    "description": {
+      "source": "그림과 획을 따라 배우는 독학서. 글을 몰라도 읽을 수 있으며 온전히30시간 공부하면 글자를 읽기 시작한다.",
+      "text": "A self-study book of pictures and letter strokes. Can be studied without literacy; 30 intact hours of study begin basic reading."
     }
   },
   "Item.PioneerDictionary": {
     "label": {
       "source": "개척 사전",
       "text": "Pioneer dictionary"
+    },
+    "description": {
+      "source": "사라진 시대의 공용어를 풀이한800쪽 사전. 읽음 단계에서 완독하면 고문서를 읽는 학자가 된다.",
+      "text": "An 800-page dictionary of a vanished era's common language. Completing it from the Reading tier makes the reader a scholar able to read ancient texts."
     }
   },
   "Item.PioneerPharmacopoeia": {
     "label": {
       "source": "개척 약전",
       "text": "Pioneer pharmacopoeia"
+    },
+    "description": {
+      "source": "옛 공용어로 쓰인 정제 외형과 효능의 대조표. 이 세계에서 발견한 알약의 정체를 알려 준다.",
+      "text": "A table of pill appearances and effects written in the old common language. Identifies pills found in this world."
     }
   },
   "Item.PillPrimer": {
     "label": {
       "source": "길드 의약 수첩",
       "text": "Guild medicine notebook"
+    },
+    "description": {
+      "source": "진통제와 항생제의 외형을 그림과 짧은 글로 기록한 현대 수첩. 더듬어 읽으면 잘못 알아들을 수 있다.",
+      "text": "A modern pocketbook illustrating analgesics and antibiotics with short captions. A hesitant reader may misunderstand it."
     }
   },
   "Item.HighlandBestiary": {
     "label": {
       "source": "고원 생물지",
       "text": "Highland bestiary"
+    },
+    "description": {
+      "source": "고원을 떠돈 이들이 남긴 생물의 습성과 몸 구조 기록. 관련 종의 문헌 지식을 익힌다.",
+      "text": "Notes on creature behavior and anatomy left by highland wanderers. Teaches literature knowledge of the relevant species."
     }
   },
   "Item.RustyKnife": {
     "label": {
       "source": "녹슨 칼",
       "text": "Rusty knife"
+    },
+    "description": {
+      "source": "날이 무뎌 베기보다 찢는다. 상처가 더럽다.",
+      "text": "Its dull edge tears rather than cuts. Leaves dirty wounds."
     }
   },
   "Item.HuntingKnife": {
     "label": {
       "source": "사냥칼",
       "text": "Hunting knife"
+    },
+    "description": {
+      "source": "찌르기에 좋다. 통조림도 딸 수 있다.",
+      "text": "Good for thrusting. Can also open cans."
     }
   },
   "Item.Machete": {
     "label": {
       "source": "철판 마체테",
       "text": "Sheet-metal machete"
+    },
+    "description": {
+      "source": "개척기 농기구를 갈아 만든 칼.",
+      "text": "A blade ground from a Pioneer-era farming tool."
     }
   },
   "Item.Hatchet": {
     "label": {
       "source": "손도끼",
       "text": "Hatchet"
+    },
+    "description": {
+      "source": "갑옷째 쪼갠다. 뼈를 부수기도 한다.",
+      "text": "Splits through armor. Can also break bones."
     }
   },
   "Item.PipeClub": {
     "label": {
       "source": "파이프 곤봉",
       "text": "Pipe club"
+    },
+    "description": {
+      "source": "출혈은 적지만 뼈가 부러진다. 판금에도 통한다.",
+      "text": "Causes little bleeding, but breaks bones. Effective against plate armor too."
     }
   },
   "Item.RebarSpear": {
     "label": {
       "source": "철근 창",
       "text": "Rebar spear"
+    },
+    "description": {
+      "source": "두 칸 떨어진 적을 찌른다. 양손 무기.",
+      "text": "Thrusts at enemies two cells away. A two-handed weapon."
     }
   },
   "Item.Bow": {
     "label": {
       "source": "사냥 활",
       "text": "Hunting bow"
+    },
+    "description": {
+      "source": "화살은 귀하다. 젖으면 시위가 늘어진다. 양손 무기.",
+      "text": "Arrows are precious. Its string slackens when wet. A two-handed weapon."
     }
   },
   "Item.Arrow": {
@@ -1987,18 +2367,30 @@
     "label": {
       "source": "고철 방패",
       "text": "Scrap buckler"
+    },
+    "description": {
+      "source": "정면과 방패 쪽 옆구리만 막는다. 막을 때마다 기력을 쓴다.",
+      "text": "Blocks only the front and the shield-side flank. Each block consumes energy."
     }
   },
   "Item.Javelin": {
     "label": {
       "source": "투창",
       "text": "Javelin"
+    },
+    "description": {
+      "source": "짧은 금속 창끝을 묶은 투척창. 찌르거나 한 자루를 던지고 회수한다.",
+      "text": "A throwing spear tipped with a short metal point. Thrust with it, or throw one actual spear and recover it."
     }
   },
   "Item.Lockpick": {
     "label": {
       "source": "정밀 잠금 도구",
       "text": "Precision lock tools"
+    },
+    "description": {
+      "source": "가느다란 갈고리와 장력쇠. 잠금쇠를 조심스럽게 만질 수 있지만 실패해도 닳는다.",
+      "text": "A thin hook and tension wrench. Allows careful work on a lock, but wears down even on failure."
     }
   },
   "Item.MachinePatch": {
@@ -2035,6 +2427,10 @@
     "label": {
       "source": "지도용 잉크",
       "text": "Map ink"
+    },
+    "description": {
+      "source": "지도 한 장에 쓰는 마른 잉크 안료1회분.",
+      "text": "One dose of dry ink pigment for drawing a single map."
     }
   },
   "Item.RawFragment": {
@@ -2173,150 +2569,250 @@
     "label": {
       "source": "없어진 정의의 보관물",
       "text": "Item from a missing definition"
+    },
+    "description": {
+      "source": "현재 구성에 원래 정의가 없어 보관 중인 물건. 원래 크기와 상태를 보존하며 사용할 수 없다.",
+      "text": "An item preserved because its original definition is missing from the current setup. Its original size and state remain; it cannot be used."
     }
   },
   "Item.Oats": {
     "label": {
       "source": "귀리",
       "text": "Oats"
+    },
+    "description": {
+      "source": "죽을 끓일 실제 곡물.",
+      "text": "Actual grain for cooking porridge."
     }
   },
   "Item.OatSeed": {
     "label": {
       "source": "귀리 씨앗",
       "text": "Oat seed"
+    },
+    "description": {
+      "source": "비어 있는 흙에 심는 실제 귀리 씨앗 한 개. 새 밭은 햇빛15% 이상·0~35°C·성장 주기당 실제 물1000ml가 필요하다. 비·증발과 토양 수분 이동도 적용된다.",
+      "text": "One actual oat seed for empty soil. A new plot requires at least 15% sunlight, 0–35°C and 1,000ml of actual water per growth cycle. Rain, evaporation and soil-water movement also apply."
     }
   },
   "Item.Bowl": {
     "label": {
       "source": "빈 그릇",
       "text": "Empty bowl"
+    },
+    "description": {
+      "source": "죽을 담았다가 같은 그릇을 다시 쓴다.",
+      "text": "Holds porridge; the same bowl can be reused afterwards."
     }
   },
   "Item.OatmealBowl": {
     "label": {
       "source": "귀리죽 그릇",
       "text": "Bowl of oatmeal"
+    },
+    "description": {
+      "source": "실제 귀리와 물로 끓인 한 그릇. 다 먹으면 원래 그릇이 남는다.",
+      "text": "A bowl cooked from actual oats and water. The original bowl remains when it is eaten."
     }
   },
   "Pill.Analgesic": {
     "label": {
       "source": "진통제",
       "text": "Painkiller"
+    },
+    "description": {
+      "source": "통증을50줄인다. 8시간 지속하며 내성과 의존 위험이 있다.",
+      "text": "Reduces pain by 50 for 8 hours. Carries tolerance and dependence risks."
     }
   },
   "Pill.Stimulant": {
     "label": {
       "source": "각성제",
       "text": "Stimulant"
+    },
+    "description": {
+      "source": "피로를 줄이고 반응을 높인다. 끝나면 피로가 몰려온다.",
+      "text": "Reduces fatigue and improves reaction. Fatigue returns when it wears off."
     }
   },
   "Pill.Antibiotic": {
     "label": {
       "source": "항생제",
       "text": "Antibiotic"
+    },
+    "description": {
+      "source": "반나절 동안 감염 진행을70%늦춘다.",
+      "text": "Slows infection progress by 70% for half a day."
     }
   },
   "Pill.Sedative": {
     "label": {
       "source": "수면제",
       "text": "Sleeping pill"
+    },
+    "description": {
+      "source": "약기운에 두 시간 잠든다. 의식이 둔해지고 소리에 덜 깬다.",
+      "text": "Induces two hours of drugged sleep. Dulls consciousness and reduces waking to sounds."
     }
   },
   "Pill.Toxin": {
     "label": {
       "source": "상한 약",
       "text": "Spoiled medicine"
+    },
+    "description": {
+      "source": "구토를 일으킨다. 물과 열량을 잃는다.",
+      "text": "Causes vomiting and loss of water and calories."
     }
   },
   "Pill.Vitamin": {
     "label": {
       "source": "비타민정",
       "text": "Vitamin tablet"
+    },
+    "description": {
+      "source": "비타민을 크게 채운다.",
+      "text": "Greatly replenishes vitamins."
     }
   },
   "Item.PineNeedles": {
     "label": {
       "source": "솔잎",
       "text": "Pine needles"
+    },
+    "description": {
+      "source": "살아 있는 소나무에서 모았다. 실제 물과 장작불로 차를 끓인다.",
+      "text": "Gathered from a living pine. Brew tea with actual water and a wood fire."
     }
   },
   "Item.PineTeaBottle": {
     "label": {
       "source": "솔잎차 물병",
       "text": "Bottle of pine needle tea"
+    },
+    "description": {
+      "source": "원래 물병에 끓인 솔잎차. 300ml당 비타민6, 신선6시간. 끓여도 재와 소금은 남는다.",
+      "text": "Pine-needle tea brewed in the original bottle. Vitamin 6 per 300ml; fresh for 6 hours. Boiling leaves ash and salt behind."
     }
   },
   "Item.RawPotato": {
     "label": {
       "source": "생감자",
       "text": "Raw potato"
+    },
+    "description": {
+      "source": "싹 난 감자는 먹고 탈이 날 수 있다. 불에 구울 수 있다.",
+      "text": "Sprouted potatoes may cause illness when eaten. Can be roasted over a fire."
     }
   },
   "Item.BakedPotato": {
     "label": {
       "source": "구운 감자",
       "text": "Baked potato"
+    },
+    "description": {
+      "source": "원래 감자를 불에 구웠다.",
+      "text": "The original potato, roasted over a fire."
     }
   },
   "Item.Turnip": {
     "label": {
       "source": "순무",
       "text": "Turnip"
+    },
+    "description": {
+      "source": "실제 밭에서 자란 뿌리채소.",
+      "text": "A root vegetable grown in an actual plot."
     }
   },
   "Item.AshBerry": {
     "label": {
       "source": "잿딸기",
       "text": "Ashberry"
+    },
+    "description": {
+      "source": "여름에만 실제 덤불에 열리는 비타민원.",
+      "text": "A source of vitamins borne by actual bushes only in summer."
     }
   },
   "Item.Cheese": {
     "label": {
       "source": "치즈",
       "text": "Cheese"
+    },
+    "description": {
+      "source": "촌락의 유한 교역품.",
+      "text": "A finite village trade good."
     }
   },
   "Item.PotatoSeed": {
     "label": {
       "source": "감자 종자",
       "text": "Seed potato"
+    },
+    "description": {
+      "source": "빈 흙에 심는다. 새 감자 밭은 햇빛12% 이상·3~32°C·유효 성장5일·실제 물1000ml가 필요하다.",
+      "text": "Plant in empty soil. A new potato plot requires at least 12% sunlight, 3–32°C, five days of effective growth and 1,000ml of actual water."
     }
   },
   "Item.TurnipSeed": {
     "label": {
       "source": "순무 씨앗",
       "text": "Turnip seed"
+    },
+    "description": {
+      "source": "빈 흙에 심는다. 새 순무 밭은 햇빛10% 이상·0~32°C·유효 성장5일·실제 물800ml가 필요하다.",
+      "text": "Plant in empty soil. A new turnip plot requires at least 10% sunlight, 0–32°C, five days of effective growth and 800ml of actual water."
     }
   },
   "Item.Rope": {
     "label": {
       "source": "밧줄",
       "text": "Rope"
+    },
+    "description": {
+      "source": "질긴 천 끈을 엮었다. 항복한 사람을 포박할 수 있다. 풀거나 죽으면 같은 밧줄이 남는다.",
+      "text": "Woven from tough cloth strips. Can bind a surrendered person. The same rope remains after release or death."
     }
   },
   "Item.PegLeg": {
     "label": {
       "source": "막대 의족",
       "text": "Peg leg"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 막대 의족.",
+      "text": "A wooden replacement leg installed at a missing part."
     }
   },
   "Item.ArticulatedLeg": {
     "label": {
       "source": "관절 의족",
       "text": "Articulated prosthetic leg"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 관절 의족.",
+      "text": "An articulated replacement leg installed at a missing part."
     }
   },
   "Item.HookHand": {
     "label": {
       "source": "갈고리 손",
       "text": "Hook hand"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 갈고리 손.",
+      "text": "A hook hand installed at a missing part."
     }
   },
   "Item.GlassEye": {
     "label": {
       "source": "유리 눈",
       "text": "Glass eye"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 유리 눈.",
+      "text": "A glass eye installed at a missing part."
     }
   },
   "Item.PioneerArm": {
@@ -2327,6 +2823,14 @@
     "unknownLabel": {
       "source": "따뜻한 금속 팔",
       "text": "Warm metal arm"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 개척 의수.",
+      "text": "A Pioneer prosthetic arm installed at a missing part."
+    },
+    "unknownDescription": {
+      "source": "손목 같은 관절이 달린 금속 덩어리. 만지면 조금 따뜻하다.",
+      "text": "A metal mass with a wrist-like joint. Slightly warm to the touch."
     }
   },
   "Item.GardenerLimb": {
@@ -2337,132 +2841,224 @@
     "unknownLabel": {
       "source": "기이한 흰 가지",
       "text": "Strange white branch"
+    },
+    "description": {
+      "source": "결손 부위에 설치하는 정원사 이식지.",
+      "text": "A grafted Gardener limb installed at a missing part."
+    },
+    "unknownDescription": {
+      "source": "뼈와 나뭇가지 사이처럼 생겼다. 귀를 대면 속삭이는 듯하다.",
+      "text": "Something between bone and a tree branch. It seems to whisper when held to the ear."
     }
   },
   "Item.LeatherStrap": {
     "label": {
       "source": "가죽끈",
       "text": "Leather strap"
+    },
+    "description": {
+      "source": "관절 의족의 정비 재료.",
+      "text": "Maintenance material for an articulated prosthetic leg."
     }
   },
   "Item.PowerCell": {
     "label": {
       "source": "개척 전원셀",
       "text": "Pioneer power cell"
+    },
+    "description": {
+      "source": "개척 의수에30일 분량의 전력을 공급한다.",
+      "text": "Supplies a Pioneer prosthetic arm with 30 days of power."
     }
   },
   "Item.GlassShard": {
     "label": {
       "source": "유리 조각",
       "text": "Glass shard"
+    },
+    "description": {
+      "source": "매끄럽게 다듬어 유리 눈을 만드는 재료.",
+      "text": "Material polished smooth to make a glass eye."
     }
   },
   "Item.Quiver": {
     "label": {
       "source": "가죽 화살통",
       "text": "Leather quiver"
+    },
+    "description": {
+      "source": "화살 전용 1×6칸 화살통. 등에 착용하면 실제 화살을 바로 꺼내 쏜다. 망토와 같은 슬롯을 사용하며 비어 있는 상태로 만든다.",
+      "text": "An arrow-only 1×6 quiver. Worn on the back, it supplies actual arrows directly for shooting. Uses the cloak slot and is crafted empty."
     }
   },
   "Item.RawRatMeat": {
     "label": {
       "source": "굴쥐 생고기",
       "text": "Raw burrow rat meat"
+    },
+    "description": {
+      "source": "원래 굴쥐의 고기. 날로 먹으면 쥐열에 걸릴 수 있다.",
+      "text": "Meat from the original burrow rat. Eating it raw may cause rat fever."
     }
   },
   "Item.CookedRatMeat": {
     "label": {
       "source": "구운 굴쥐 고기",
       "text": "Roasted burrow rat meat"
+    },
+    "description": {
+      "source": "원래 굴쥐 고기를 불에 구웠다.",
+      "text": "The original burrow-rat meat, roasted over a fire."
     }
   },
   "Item.RationPack": {
     "label": {
       "source": "개척 배급 팩",
       "text": "Pioneer ration pack"
+    },
+    "description": {
+      "source": "밀봉된 옛 배급 팩. 실제 칼이나 손도끼로 열어야 한다.",
+      "text": "A sealed old ration pack. Requires an actual knife or hatchet to open."
     }
   },
   "Item.OpenedRationPack": {
     "label": {
       "source": "개봉한 개척 배급 팩",
       "text": "Opened Pioneer ration pack"
+    },
+    "description": {
+      "source": "원래 포장을 열었다. 실제 개봉 후7일 안에 먹는 편이 좋다.",
+      "text": "The original wrapping has been opened. Best eaten within seven days of the actual opening."
     }
   },
   "Item.EmptyRationWrapper": {
     "label": {
       "source": "빈 배급 포장",
       "text": "Empty ration wrapper"
+    },
+    "description": {
+      "source": "실제 한 회분을 다 먹고 남은 원래 포장.",
+      "text": "The original wrapping left after eating one actual serving."
     }
   },
   "Item.SettlementMycologyRecords": {
     "label": {
       "source": "정착균 병리 기록",
       "text": "Settler fungus pathology records"
+    },
+    "description": {
+      "source": "숲의 정비공과 병동 사이를 오간 기록의 필사본. 포자·재·약해진 폐와 굴쥐의 매개 경로를 적었다.",
+      "text": "A copy of records exchanged between forest technicians and the ward. Describes spores, ash, weakened lungs and transmission by burrow rats."
     }
   },
   "Item.LivestockAdaptationRecords": {
     "label": {
       "source": "가축 적응 프로그램 발췌",
       "text": "Livestock adaptation program excerpt"
+    },
+    "description": {
+      "source": "종자 금고에서 보존한 옛 공사 사양의 필사본. 혹한과 저조도에 맞춘 가축 형질, 정착지를 떠난 개 무리의 기록이 이어진다.",
+      "text": "A copy of old corporate specifications preserved in the seed vault. Details livestock adapted to severe cold and low light, followed by records of dog packs leaving settlements."
     }
   },
   "Item.SaltedMeat": {
     "label": {
       "source": "염장육",
       "text": "Salted meat"
+    },
+    "description": {
+      "source": "생고기 세 회분을 소금 한 단위로 이틀 동안 절였다. 육포와 다른 보존식이다. 갈증을 부른다.",
+      "text": "Three raw-meat portions cured for two days with one unit of salt. A different preserved food from jerky. Causes thirst."
     }
   },
   "Item.SaltworkManual": {
     "label": {
       "source": "해안 염부의 수첩",
       "text": "Coastal saltworker's notebook"
+    },
+    "description": {
+      "source": "물의 양과 소금 질량을 맞추는 가열 염법. 재는 소금에 남으므로 여과한 물을 권한다.",
+      "text": "A heated salt-making method balancing water volume and salt mass. Recommends filtered water because ash remains in the salt."
     }
   },
   "Item.OpenedCannedMeat": {
     "label": {
       "source": "딴 개척기 통조림",
       "text": "Opened Pioneer canned meat"
+    },
+    "description": {
+      "source": "원래 도구로 뚜껑을 땄다. 개봉 후에는 하루 안에 먹는 편이 좋다.",
+      "text": "Opened using the original tool. Best eaten within a day of opening."
     }
   },
   "Item.EmptyTin": {
     "label": {
       "source": "빈 통조림통",
       "text": "Empty can"
+    },
+    "description": {
+      "source": "먹고 남은 원래 금속 통.",
+      "text": "The original metal tin left after eating."
     }
   },
   "Item.SowerSeedCapsule": {
     "label": {
       "source": "파종기 저조도 종자 캡슐",
       "text": "Sower low-light seed capsule"
+    },
+    "description": {
+      "source": "밀봉된 저조도 작물 종자 캡슐. 빈 흙에 한 개를 심으며, 파종기의 원래 적재량은 되살아나지 않는다.",
+      "text": "A sealed low-light crop seed capsule. Plant one in empty soil; doing so does not replenish a sower's original cargo."
     }
   },
   "Item.LargeActuator": {
     "label": {
       "source": "대형 액추에이터",
       "text": "Large actuator"
+    },
+    "description": {
+      "source": "굽은 기계 구동부를 고치는 실제 교체 부품. 합금 원재료2kg으로도 사용할 수 있다.",
+      "text": "An actual replacement part for a bent mechanical actuator. Can also supply 2kg of alloy stock."
     }
   },
   "Item.SowerReservoir": {
     "label": {
       "source": "파종기 저장 탱크",
       "text": "Sower reservoir"
+    },
+    "description": {
+      "source": "기계에서 회수한4L 금속 물통. 처음에는 비어 있으며 같은 원본 탱크에 물을 채우고 옮긴다.",
+      "text": "A 4L metal water tank recovered from a machine. Initially empty; fill and carry water in the same original tank."
     }
   },
   "Item.SettlementFungusCapsule": {
     "label": {
       "source": "밀봉된 정착균 캡슐",
       "text": "Sealed settler fungus capsule"
+    },
+    "description": {
+      "source": "회색 가루가 든 밀봉 용기. 파종기는 원래 적재된 한 개를 실제 포자 분사에 소모한다. 빈 재고에서 다시 생기지 않는다.",
+      "text": "A sealed vessel of gray powder. A sower consumes one actually loaded capsule to spray spores. Empty stock does not replenish itself."
     }
   },
   "Item.MediumPowerCell": {
     "label": {
       "source": "중출력 동력핵",
       "text": "Medium-output power core"
+    },
+    "description": {
+      "source": "원래 기계에서 회수한 폐쇄형 동력 모듈. 대형 기계의 전원셀 교체에 한 개를 소비한다.",
+      "text": "A sealed power module recovered from the original machine. One is consumed when replacing a large machine's power cell."
     }
   },
   "Item.Sack": {
     "label": {
       "source": "마대 자루",
       "text": "Burlap sack"
+    },
+    "description": {
+      "source": "배낭 네 칸에 들어가는 4×3칸 자루. 안의 물품은 꺼내서 사용한다. 가방을 겹쳐 넣을 수 없으며 음식은 그대로 상한다.",
+      "text": "A 4×3 sack occupying four backpack cells. Remove items before use. Bags cannot be nested, and food still spoils inside."
     }
   },
   "Item.SurveyLens": {
@@ -2493,90 +3089,150 @@
     "label": {
       "source": "차광 고글",
       "text": "Light-filtering goggles"
+    },
+    "description": {
+      "source": "측량 렌즈를 나눠 어둡게 차광하고 선재 테와 가죽 끈으로 고정한 고글. 실제 장착 상태에서 눈부심과 눈 노출을 막는다.",
+      "text": "Darkened survey lenses held by a wire frame and leather strap. Protect against glare and eye exposure only while actually equipped."
     }
   },
   "Item.AshmothBody": {
     "label": {
       "source": "채집한 재나방",
       "text": "Collected ash moths"
+    },
+    "description": {
+      "source": "원래 군체에서 면포로 잡은0.2g 표본. 날이 있으면 한 마리를 살펴 구조를 기록하거나 열 마리를 갈아 날개 가루를 얻는다.",
+      "text": "A 0.2g specimen caught from the original swarm with cloth. With an edge tool, inspect one to record its structure or grind ten for wing dust."
     }
   },
   "Item.MothWingDust": {
     "label": {
       "source": "재나방 날개 가루",
       "text": "Ash moth wing dust"
+    },
+    "description": {
+      "source": "채집한 나방 열 마리에서 모은 회색 안료1g. 몸통 찌꺼기는 가공 중 버린다. 피부와 겉옷에 바르면1시간 동안 빛을 끄고 웅크리거나 잠행할 때 시각 탐지 거리가20% 줄어든다. 젖으면 씻긴다.",
+      "text": "One gram of gray pigment gathered from ten collected moths; body scraps are discarded during processing. Applied to skin and outer clothing, reduces visual detection distance by 20% for one hour while crouching or sneaking with lights off. Washes away when wet."
     }
   },
   "Item.RoastedMoths": {
     "label": {
       "source": "구운 재나방 한 줌",
       "text": "Handful of roasted ash moths"
+    },
+    "description": {
+      "source": "실제 재나방50마리를 익힌10g 한 줌. 원래 표본을 모아 가공하며 새 군체를 만들지 않는다.",
+      "text": "A 10g handful of 50 actual cooked ash moths. Processes collected specimens without creating a new swarm."
     }
   },
   "Item.MothNightNotes": {
     "label": {
       "source": "야행 규칙 쪽지",
       "text": "Night behavior note"
+    },
+    "description": {
+      "source": "탑 정비 선반에 남은 낡은 쪽지 묶음. 광원과 회색 날개 떼에 관한 실제 현장 기록이다. 겉그림은 기존 일반 수첩을 공유한다.",
+      "text": "Old notes left on a tower-maintenance shelf. Actual field records about lights and swarms of gray wings. Shares the existing generic notebook cover art."
     }
   },
   "Item.UnheatedOatmealBowl": {
     "label": {
       "source": "덜 익은 귀리죽 그릇",
       "text": "Bowl of undercooked oatmeal"
+    },
+    "description": {
+      "source": "귀리와 물을 담은 원래 그릇. 실제로 끓기 전에는 넣은 물의 병원체가 남는다.",
+      "text": "The original bowl containing oats and water. Until it actually boils, pathogens from the added water remain."
     }
   },
   "Item.ClothFilter": {
     "label": {
       "source": "천 여과포",
       "text": "Cloth filter"
+    },
+    "description": {
+      "source": "천 여과포. 실제1L 묶음마다 한 번씩 총10회 쓴다. 병원체와 재를 조금 줄인다.",
+      "text": "A cloth filter, used once per actual 1L batch for ten uses total. Slightly reduces pathogens and ash."
     }
   },
   "Item.CharcoalFilter": {
     "label": {
       "source": "숯·모래 여과통",
       "text": "Charcoal and sand filter"
+    },
+    "description": {
+      "source": "숯과 모래를 넣은 휴대 여과통. 재를 크게 줄인다. 실제1L 묶음마다 한 번씩 총10회 쓴다.",
+      "text": "A portable charcoal-and-sand filter. Greatly reduces ash. Used once per actual 1L batch for ten uses total."
     }
   },
   "Item.WaterPill": {
     "label": {
       "source": "개척기 정수정",
       "text": "Pioneer purification tablet"
+    },
+    "description": {
+      "source": "실제1L 묶음마다 한 정으로 병원체를 제거한다. 재와 소금은 남는다.",
+      "text": "One tablet removes pathogens from an actual 1L batch. Ash and salt remain."
     }
   },
   "Item.Sand": {
     "label": {
       "source": "고운 모래",
       "text": "Fine sand"
+    },
+    "description": {
+      "source": "물가에서 모은 모래. 숯 여과통의 층을 만든다.",
+      "text": "Sand gathered by the water. Makes a layer in a charcoal filter."
     }
   },
   "Item.WaterBucket": {
     "label": {
       "source": "나무 물 양동이",
       "text": "Wooden water bucket"
+    },
+    "description": {
+      "source": "빈 상태로 만드는2L 물 용기. 같은 양동이에 물을 채우고 옮기며 씻거나 마신다.",
+      "text": "A 2L vessel crafted empty. Fill, carry, wash or drink using the same bucket."
     }
   },
   "Item.CoracleKit": {
     "label": {
       "source": "접은 통가죽배",
       "text": "Folded hide coracle"
+    },
+    "description": {
+      "source": "나무틀과 꿰맨 가죽의 소형 배. 실제 부두에서 펴고 띄운다. 정원4명과 별도 화물함을 갖는다.",
+      "text": "A small boat of wood framing and stitched hide. Unfold and launch at an actual dock. Holds four people and has a separate cargo compartment."
     }
   },
   "Item.CoastalBoatManual": {
     "label": {
       "source": "통가죽배 조선 수첩",
       "text": "Hide coracle building notebook"
+    },
+    "description": {
+      "source": "가죽을 꿰고 나무틀을 짜는 법. 실제 사람과 짐을 싣고 바닷길을 건넌다.",
+      "text": "How to stitch hide and build a wood frame. Carry actual people and cargo across sea routes."
     }
   },
   "Item.Whitecap": {
     "label": {
       "source": "흰갓버섯",
       "text": "Whitecap mushroom"
+    },
+    "description": {
+      "source": "관로 입구와 어두운 배양목에서 기르는 버섯. 날것은 탈이 날 수 있다.",
+      "text": "A mushroom grown by conduit entrances and on dark culture logs. Eating it raw may cause illness."
     }
   },
   "Item.WhitecapCulture": {
     "label": {
       "source": "흰갓 배양목",
       "text": "Whitecap culture log"
+    },
+    "description": {
+      "source": "실제 목재와 천·흰갓으로 만든 배지. 빈 바닥에 설치한다. 햇빛20% 이하·5~35°C·실제 물이 필요하며 네 번 수확하면 목재 하나로 배지를 교체한다. 멸균하지 않았으며 재료 오염은 남는다.",
+      "text": "A substrate made from actual wood, cloth and whitecaps. Place on empty ground. Requires at most 20% sunlight, 5–35°C and actual water. After four harvests, replace the substrate with one wood. It is unsterilized; material contamination remains."
     }
   },
   "Item.AshhornAntler": {
@@ -2625,30 +3281,50 @@
     "label": {
       "source": "무두질한 엄니돼지 가죽",
       "text": "Tanned tuskhog leather"
+    },
+    "description": {
+      "source": "진흙과 기름을 벗겨 무두질한 두꺼운 가죽. 질긴 섬유가 남아 몸을 덮는 재료로 쓴다.",
+      "text": "Thick leather cleaned of mud and grease, then tanned. Its tough fibers make body-covering material."
     }
   },
   "Item.WitheredCenser": {
     "label": {
       "source": "꺼진 사슬 향로",
       "text": "Unlit chain censer"
+    },
+    "description": {
+      "source": "말라붙은 사제가 병동을 돌며 들고 다니던 향로. 불은 꺼졌고, 낡은 쇠사슬 끝의 금속 향통만 무겁게 흔들린다.",
+      "text": "A censer once carried through the ward by a withered priest. Its fire is out; the heavy metal bowl swings from the end of an old chain."
     }
   },
   "Item.CorporateCodePlate": {
     "label": {
       "source": "공사 인가 코드 판",
       "text": "Company authorization code plate"
+    },
+    "description": {
+      "source": "공사 인가 문자열과 접점이 새겨진 원본 금속판이다.",
+      "text": "An original metal plate engraved with corporate authorization strings and electrical contacts."
     }
   },
   "Item.ChimneyHalfManual": {
     "label": {
       "source": "칠번 굴뚝 정비 매뉴얼 반쪽",
       "text": "Half of the Chimney Seven maintenance manual"
+    },
+    "description": {
+      "source": "장막과 첨탑의 유지 절차가 남은 정비 매뉴얼 반쪽이다.",
+      "text": "Half a maintenance manual, preserving procedures for the veil and the spire."
     }
   },
   "Item.CalvisJournal": {
     "label": {
       "source": "오렌 칼비스의 침후14년 일지",
       "text": "Oren Calvis's journal, year 14 after the Hush"
+    },
+    "description": {
+      "source": "제3 초소를 봉인한 사령관의 원본 일지다.",
+      "text": "The original journal of the commander who sealed the Third Outpost."
     }
   },
   "SaveMode.Imprint": {
@@ -2679,6 +3355,234 @@
     "description": {
       "source": "원하는 곳에서 직접 저장하고 불러온다. 학습과 모드 시험용이며 업적은 기록하지 않는다.",
       "text": "Save and load anywhere. For learning and testing mods; achievements are disabled."
+    }
+  },
+  "Material.CinderBearHide": {
+    "label": {
+      "source": "잿곰 가죽",
+      "text": "Cinder bear hide"
+    }
+  },
+  "Terrain.ShadePlot": {
+    "label": {
+      "source": "그늘 작물 밭",
+      "text": "Shade-crop plot"
+    }
+  },
+  "Terrain.FieldMat": {
+    "label": {
+      "source": "풀·가지 깔개",
+      "text": "Grass and branch mat"
+    }
+  },
+  "Terrain.Bedroll": {
+    "label": {
+      "source": "침낭",
+      "text": "Bedroll"
+    }
+  },
+  "Terrain.StrawBed": {
+    "label": {
+      "source": "짚 침대",
+      "text": "Straw bed"
+    }
+  },
+  "Terrain.Bed": {
+    "label": {
+      "source": "나무 침대",
+      "text": "Wooden bed"
+    }
+  },
+  "Terrain.GoodBed": {
+    "label": {
+      "source": "좋은 침대",
+      "text": "Good bed"
+    }
+  },
+  "Terrain.CabbagePlot": {
+    "label": {
+      "source": "양배추 밭",
+      "text": "Cabbage plot"
+    }
+  },
+  "Material.Flint": {
+    "label": {
+      "source": "부싯돌",
+      "text": "Flint"
+    }
+  },
+  "Material.Bronze": {
+    "label": {
+      "source": "청동",
+      "text": "Bronze"
+    }
+  },
+  "Material.Iron": {
+    "label": {
+      "source": "연철",
+      "text": "Wrought iron"
+    }
+  },
+  "Material.Scrap": {
+    "label": {
+      "source": "고철",
+      "text": "Scrap metal"
+    }
+  },
+  "Material.Steel": {
+    "label": {
+      "source": "강철",
+      "text": "Steel"
+    }
+  },
+  "Material.Alloy": {
+    "label": {
+      "source": "폐합금",
+      "text": "Salvage alloy"
+    }
+  },
+  "Material.Synthetic": {
+    "label": {
+      "source": "정원사 합성재",
+      "text": "Gardener composite"
+    }
+  },
+  "Material.Bone": {
+    "label": {
+      "source": "뼈",
+      "text": "Bone"
+    }
+  },
+  "Material.Wood": {
+    "label": {
+      "source": "잿나무",
+      "text": "Ash wood"
+    }
+  },
+  "Material.RawHide": {
+    "label": {
+      "source": "생가죽",
+      "text": "Raw hide"
+    }
+  },
+  "Material.Leather": {
+    "label": {
+      "source": "무두질 가죽",
+      "text": "Tanned leather"
+    }
+  },
+  "Material.HardLeather": {
+    "label": {
+      "source": "경화 가죽",
+      "text": "Hardened leather"
+    }
+  },
+  "Material.AshWolfHide": {
+    "label": {
+      "source": "재늑대 가죽",
+      "text": "Ash-wolf hide"
+    }
+  },
+  "Material.Linen": {
+    "label": {
+      "source": "리넨",
+      "text": "Linen"
+    }
+  },
+  "Material.Wool": {
+    "label": {
+      "source": "양모",
+      "text": "Wool"
+    }
+  },
+  "Material.Fur": {
+    "label": {
+      "source": "모피",
+      "text": "Fur"
+    }
+  },
+  "Material.Oilcloth": {
+    "label": {
+      "source": "기름 먹인 천",
+      "text": "Oilcloth"
+    }
+  },
+  "Terrain.OatPlot": {
+    "label": {
+      "source": "귀리 밭",
+      "text": "Oat plot"
+    }
+  },
+  "Terrain.PotatoPlot": {
+    "label": {
+      "source": "감자 밭",
+      "text": "Potato plot"
+    }
+  },
+  "Terrain.TurnipPlot": {
+    "label": {
+      "source": "순무 밭",
+      "text": "Turnip plot"
+    }
+  },
+  "Material.Copper": {
+    "label": {
+      "source": "구리",
+      "text": "Copper"
+    }
+  },
+  "Terrain.Campfire": {
+    "label": {
+      "source": "모닥불",
+      "text": "Campfire"
+    }
+  },
+  "Terrain.Stash": {
+    "label": {
+      "source": "야영지 보관함",
+      "text": "Camp chest"
+    }
+  },
+  "Terrain.Workbench": {
+    "label": {
+      "source": "작업대",
+      "text": "Workbench"
+    }
+  },
+  "Terrain.Forge": {
+    "label": {
+      "source": "대장간",
+      "text": "Forge"
+    }
+  },
+  "Terrain.Loom": {
+    "label": {
+      "source": "베틀",
+      "text": "Loom"
+    }
+  },
+  "Terrain.TanningVat": {
+    "label": {
+      "source": "무두질 통",
+      "text": "Tanning vat"
+    }
+  },
+  "Terrain.Artisan": {
+    "label": {
+      "source": "장인 작업대",
+      "text": "Artisan workbench"
+    }
+  },
+  "Terrain.WhitecapPlot": {
+    "label": {
+      "source": "흰갓 배양목",
+      "text": "Whitecap culture log"
+    }
+  },
+  "Material.TuskhogHide": {
+    "label": {
+      "source": "엄니돼지 가죽",
+      "text": "Tuskhog hide"
     }
   }
 }
