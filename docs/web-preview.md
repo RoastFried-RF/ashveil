@@ -1,10 +1,12 @@
 # 웹 플레이 미리보기
 
-**2026-10-23 (한국 시간) 현재:** 공개 [v0.311 게임](https://roastfried-rf.github.io/ashveil/)을 플레이할 수 있다. main `17ee736`의 build·deploy 성공과 실제 새 원정·탐구 저장/복원·배율·창 이동·캐릭터/소지품/신체를 확인했다. 공개8PNG를 각각 검토했고 원본92파일의 실제 응답 바이트가 로컬 검증본과 같다. [게시 근거](release-v311-publication.json). 아래 실패 기록은 당시 관측 이력이다.
+**2026-10-30 (한국 시간) 현재:** 공개 [v0.404 개발 미리보기](https://roastfried-rf.github.io/ashveil/)를 플레이할 수 있다. main10ecb29의 Pages 전체412파일6,765검사·빌드·배포가 통과했고 공개 진입 HTML/JavaScript SHA256은 검증 빌드와 같다. 저장/콘텐츠 검토의 최종 Native72전체 상태 쌍·67PNG 검토는 [검증·게시 근거](release-v404-proof.json)를 따른다. 영어 전체/v1/X1–X4·기기/사람 평가 완료는 아니다.
+
+이전 공개 확인 이력 — 2026-10-23 (한국 시간): 공개 [v0.311 게임](https://roastfried-rf.github.io/ashveil/)을 플레이할 수 있다. main `17ee736`의 build·deploy 성공과 실제 새 원정·탐구 저장/복원·배율·창 이동·캐릭터/소지품/신체를 확인했다. 공개8PNG를 각각 검토했고 원본92파일의 실제 응답 바이트가 로컬 검증본과 같다. [게시 근거](release-v311-publication.json). 아래 실패 기록은 당시 관측 이력이다.
 
 최신 검증 완료 버전은 [README](../README.md)와 [진행 기록](progress.md)에 표시한다. 검증된 큰 기능 묶음마다 원격 main에 push하며, 작업 중인 코드를 검증 완료 버전으로 표시하지 않는다. 아래는 실제 배포 시도와 제한의 날짜별 기록이다.
 
-GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)을 준비했다. Node.js24·pnpm9.15.9로 잠금 파일 설치 후 타입 검사와 Vite 빌드를 수행하고, dist만 Pages 아티팩트에 올린다. main의 앱 변경과 수동 실행으로 갱신한다. 저장소 공개 설정은 변경하지 않는다.
+GitHub Pages용 [자동 빌드·배포 설정](../.github/workflows/pages.yml)을 준비했다. Node.js24·pnpm9.15.9로 frozen 잠금 파일 설치 후 lint·Def·전체 회귀·스프라이트와 타입/Vite 빌드를 수행하고, dist만 Pages 아티팩트에 올린다. main의 앱 변경과 수동 실행으로 갱신한다. 저장소 공개 설정은 변경하지 않는다.
 
 실제 [GitHub Actions 실행](https://github.com/RoastFried-RF/ashveil/actions/runs/39480877885)은 설치·타입 검사·Vite 빌드·Pages 아티팩트 생성을 통과했다. 공개 단계는 `Get Pages site failed / Not Found`로 실패했다.
 
