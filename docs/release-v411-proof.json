@@ -1,0 +1,100 @@
+{
+  "checkedAtKST": "2026-11-01T18:16:37.528165+09:00",
+  "status": "v0.411-dev development preview published and public Title/start/real wait visually verified within scope. Full v1/English/X1-X4 and human gates remain.",
+  "previewVersion": "0.411-dev",
+  "saveVersion": 221,
+  "publication": {
+    "atUTC": "2026-11-01 08:50:19 UTC",
+    "base": "ad15c2cf586ec0e6311eabcc49ea9cd81f45d88f",
+    "local": "8ed7e179490d7e59604c99c76c6ed8db6d62716a",
+    "publishedCommit": "2b95300d632ac975f085dd204fac192c4583a950",
+    "tree": "1bd43aaf5befcc5649caa77cce4b08cb3e420fb3",
+    "testedCodeCommit": "68fa3ae55ce1febd1ac12bc7ec7ff70e11f25ede",
+    "mainUpdated": true,
+    "force": false,
+    "ciAndPublicPending": false
+  },
+  "localEvidence": "docs/pc-harness-v411-proof.json",
+  "localEvidenceSHA256": "08efbcd5d9e486de1307ec7458368facd57dd9c4f659678a80088752e28bc007",
+  "CI": {
+    "run": {
+      "id": 41290521927,
+      "name": "Playable preview",
+      "head_sha": "2b95300d632ac975f085dd204fac192c4583a950",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41290521927",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 87
+    },
+    "jobs": [
+      {
+        "id": 124800625021,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41290521927/job/124800625021"
+      },
+      {
+        "id": 124804754940,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41290521927/job/124804754940"
+      }
+    ],
+    "summary": {
+      "files": 425,
+      "tests": 6932,
+      "durationSeconds": 1083.9
+    },
+    "entryJavaScript": "assets/index-Bl3yhugn.js",
+    "sources": {
+      "run": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41290521927",
+      "jobs": "https://api.github.com/repos/RoastFried-RF/ashveil/actions/runs/41290521927/attempts/1/jobs?per_page=100",
+      "decodedBuildLog": ".local-tools/v411-build-ci-decoded.log",
+      "buildJob": 124800625021
+    }
+  },
+  "publicVerification": {
+    "audit": "test-results/windows/public-v411-1/tasks/public/public/audit.json",
+    "auditSHA256": "a5522045c47211667159a307b6128337cf200c42e3e1c4024d4fa10ffcaee9d6",
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v411=2b95300d632ac975f085dd204fac192c4583a950",
+    "sourceCommit": "2b95300d632ac975f085dd204fac192c4583a950",
+    "httpStatus": 200,
+    "previewVersion": "0.411-dev",
+    "publicSaveVersion": 221,
+    "publicContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "expectedContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "realTitleStartAndWait": true,
+    "entryJavaScriptMatchesCIName": true,
+    "ciEntryJavaScript": "assets/index-Bl3yhugn.js",
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "1410809a35b064fa0f8b6aa69f3dd4b73bbab843dfe5b216b0198a5bbd600aeb",
+    "localIndexSha256": "88b9bdbd00befdd37624aeaab1b7410498de06a23d7c9339e959446c4d4b7fa0",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-Bl3yhugn.js"
+    ],
+    "pngActuallyReviewed": [
+      "test-results/windows/public-v411-1/tasks/public/public/public-title.png",
+      "test-results/windows/public-v411-1/tasks/public/public/public-world.png"
+    ],
+    "pngReviewedSHA256": {
+      "test-results/windows/public-v411-1/tasks/public/public/public-title.png": "1f20d1e30ddac6890a8139127b2716d8a97c486a12d1ad3ad3b65549d3c6b79d",
+      "test-results/windows/public-v411-1/tasks/public/public/public-world.png": "e6e94ee8338abe6c02665a782088de38bbac7230d0cc9d5b92f66ca54b4935fe"
+    }
+  },
+  "verificationLimits": [
+    "Public entry script name matches the successful decoded CI build log; content hash matches the locally tested source. No CI artifact byte comparison is claimed.",
+    "Windows local HTML differs from Linux CI/public HTML; indexMatchesLocalBuild is false.",
+    "The public probe checks direct Core saveVersion221 and actual Title/start/100TU wait. It does not establish public save persistence.",
+    "The full-growth course starts from declared warm healthy arrival and finite observer supplies. No natural initial travel/acquisition, community/all-season sustainability or unlimited fuel is proved.",
+    "Remaining English, ending/report/access/restore branches, v1/X1-X4,1000 expeditions, performance/minimum hardware and actual human gates remain open.",
+    "The observed one-use/serving English grammar is still present in published v411; correction belongs to the separate unpublished combined UI candidate."
+  ]
+}
