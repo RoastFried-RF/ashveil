@@ -472,7 +472,7 @@ onBeforeUnmount(() => {
       <div class="df df-gold my-auto w-full max-w-xl space-y-3 text-xs">
         <h2 class="text-center font-title text-3xl tracking-widest" :class="over.kind !== 'death' ? 'text-moss-300' : 'text-blood-300'">{{ over.report.title }}</h2>
         <p class="text-center text-sm text-ash-100">{{ over.report.epitaph }}</p>
-        <p class="text-center text-ash-400">{{ over.report.background }} · {{ over.report.traits.join(', ') }} · 원인: {{ over.report.cause }}</p>
+        <p class="text-center text-ash-400">{{ over.report.background }} · {{ over.report.traits.join(', ') }} · {{ t('원인: {0}',over.report.cause) }}</p>
         <div><h3 class="mb-1 font-title text-amber-300">{{ t("마지막 기록") }}</h3><ul class="space-y-0.5 font-mono text-[11px] text-ash-300"><li v-for="(l, i) in over.report.chain" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">{{ t("그때의 몸") }}</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.vitals" :key="i">{{ l }}</li></ul></div>
         <div><h3 class="mb-1 font-title text-amber-300">{{ t("기록") }}</h3><ul class="space-y-0.5 text-ash-300"><li v-for="(l, i) in over.report.stats" :key="i">{{ l }}</li></ul></div>

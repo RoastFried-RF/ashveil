@@ -6,6 +6,7 @@ import{translateFieldIssue}from'./locales/field'
 import{translateFieldWorkIssue}from'./locales/field-work'
 import{displayBaseTaskSummary,translateBaseOrderLabel,translateBaseTaskStatus,translateBaseGearActivity}from'./locales/base-camp'
 import{displayCampClock,translateRetirementIssue,translateRetirementLabel}from'./locales/resident-camp'
+import{translateEndingRule,translateEndingIssue}from'./locales/expedition-records'
 
 /** Explicit display boundary; preference reads participate in Vue dependency tracking. */
 export const t = (source: string, ...values: MessageValue[]) => translate(source, preferences.language, ...values)
@@ -25,6 +26,8 @@ export const baseGearText=(w:Parameters<typeof translateBaseGearActivity>[0],c:P
 export const campClockText=(turn:number)=>displayCampClock(turn,preferences.language)
 export const retirementIssueText=(error:Parameters<typeof translateRetirementIssue>[0],context:Parameters<typeof translateRetirementIssue>[1])=>translateRetirementIssue(error,context,preferences.language)
 export const retirementLabelText=(kind:Parameters<typeof translateRetirementLabel>[0],label:string)=>translateRetirementLabel(kind,label,preferences.language)
+export const endingRuleText=(parentId:string,rule:Parameters<typeof translateEndingRule>[1],field:Parameters<typeof translateEndingRule>[2])=>translateEndingRule(parentId,rule,field,preferences.language)
+export const endingIssueText=(error:Parameters<typeof translateEndingIssue>[0],requirements:string[])=>translateEndingIssue(error,requirements,preferences.language)
 
 /** Only labels produced by the physical-key formatter, never arbitrary game text. */
 export const keyLabel = (source: string) => source.replaceAll('숫자패드', t('숫자패드')).replaceAll('공백', t('공백')).replaceAll('미배정', t('미배정'))

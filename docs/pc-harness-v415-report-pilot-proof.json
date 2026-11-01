@@ -1,0 +1,223 @@
+{
+  "checkedAt": "2026-11-01T10:23:30.800Z",
+  "status": "Bounded tool-only pilot passed on the separate v413 application source; not the v414 final source.",
+  "testedCommit": "3b8fc77f9f64330bdeb42b3482174d140a59c8ee",
+  "previewVersion": "0.411-dev",
+  "saveVersion": 221,
+  "applicationSource": {
+    "srcTree": "7589083cd12ce7dcfda8bb3b4a40f823e6c5b6e8",
+    "unchangedFrom": "0ff2171"
+  },
+  "run": {
+    "path": "test-results/windows/v415-report-1",
+    "planSha256": "f64c1058f686639356b4f640b20dcf656c5cee3d9b8a7e1eb66c0452616126f9",
+    "tasks": 7,
+    "results": {
+      "environment": "passed",
+      "source-before": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "build": "passed",
+      "native": "passed",
+      "source-after": "passed"
+    }
+  },
+  "source": {
+    "files": 9225,
+    "manifest": "test-results\\windows\\v415-report-1\\tasks\\source-before\\source.json",
+    "sha256": "c4ab751bf287768f5330075a38080342ea43c398f0791985adafd496cb0c6cfa",
+    "allOriginalHashesVerified": true
+  },
+  "native": {
+    "wholeWorldPairs": 16,
+    "browserErrors": 0,
+    "audit": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\audit.json",
+    "sha256": "02b44461a938e3c81ecca547868851d34ea549704b48d4f9b2945d17556cd87e",
+    "proofs": [
+      {
+        "scene": "inn",
+        "width": 390,
+        "fixture": "retirementFixture",
+        "declaredFiniteExistingFixture": true,
+        "declaredStudyMode": true,
+        "originalPeople": [
+          {
+            "id": 1,
+            "name": "유나"
+          },
+          {
+            "id": 41,
+            "name": "갈래길 장부관 상인"
+          },
+          {
+            "id": 50,
+            "name": "갈래길 장부관 의사"
+          },
+          {
+            "id": 59,
+            "name": "갈래길 장부관 경비"
+          },
+          {
+            "id": 69,
+            "name": "갈래길 장부관 경비"
+          }
+        ],
+        "originalTarget": 41,
+        "declaredWellArrival": false,
+        "declaredWellNpcUnscheduled": false,
+        "earlierBodyWashIsActualCoreFixtureWork": false,
+        "noEarlierNaturalAcquisitionOrTravelClaim": true,
+        "noPostTitleWorldWrites": true
+      },
+      {
+        "scene": "inn",
+        "width": 390,
+        "originalBed": {
+          "id": "Region.ForkwayLedgerhouse:bed:1",
+          "keeper": 41,
+          "terrain": "Terrain.Bed",
+          "pos": {
+            "x": 28,
+            "y": 16
+          }
+        },
+        "actualLongLeasePeriods": 90,
+        "actualLongLeaseFee": 720,
+        "actualRetirementSavings": 3600,
+        "originalPersonAlive": true,
+        "endingReportEnglishNotClaimed": true,
+        "postRetirementCheckpointNotClaimed": false
+      },
+      {
+        "scene": "inn",
+        "width": 390,
+        "actualReportDownload": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v413-resident-ui\\test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-retirement-report.txt",
+        "actualReportSuggestedFilename": "ashveil-원정보고서-retirement-home.txt",
+        "reportBytes": 12541,
+        "reportDownloadWorldUnchanged": true,
+        "checkpointReviewWorldUnchanged": true,
+        "actualCheckpointRestoredWholeWorld": true,
+        "restoredMoney": 4264,
+        "restoredBed": "Region.ForkwayLedgerhouse:bed:1",
+        "restoredLeaseUntil": 2671201,
+        "clipboardAndChronicleActionsNotClaimed": true
+      }
+    ],
+    "boundary": "Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate."
+  },
+  "actualReport": {
+    "file": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v413-resident-ui\\test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-retirement-report.txt",
+    "sha256": "3bb3afa2fdfff08c57a84e572793c49b8d9e8effd9ef98a7b0e866fe591e258b",
+    "bytes": 12541,
+    "exactUTF8VersusIndependentNodeFormatter": true
+  },
+  "saveRoundtrip": {
+    "artifacts": 16,
+    "version": 221,
+    "exactCanonicalBytes": true,
+    "rows": [
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-loaded-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-english-original-services-read-only-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-original-service-state-saved-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-original-service-state-continued-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-original-bed-rent-actual.json",
+        "sha256": "09958af094c1a9d7efccefaece8c4e169e82c025e967763f3013f8a0e42a53b2",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-original-bed-extend-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-same-bed-paid-and-extended-saved-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-same-bed-paid-and-extended-continued-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-original-bed-long-lease-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-english-ready-retirement-quote-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-same-long-housing-before-retirement-saved-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-same-long-housing-before-retirement-continued-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-retirement-with-same-paid-bed-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-retirement-report-downloaded-read-only-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-post-retirement-checkpoint-review-read-only-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-post-retirement-checkpoint-restored-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      }
+    ]
+  },
+  "actuallyReviewedImages": [
+    {
+      "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-retirement-report-downloaded-read-only.png",
+      "sha256": "b3904a70849d818dd417751f07ccabc8d43a2d9cb14d8ff9d26270101faa1264"
+    },
+    {
+      "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-post-retirement-checkpoint-review-read-only.png",
+      "sha256": "e18037cad0fc80d4c1898f385425410cb4b9f75bf5e27f241de3297f99400b81"
+    },
+    {
+      "path": "test-results\\windows\\v415-report-1\\tasks\\native\\native\\inn-390-actual-post-retirement-checkpoint-restored.png",
+      "sha256": "0d5492f0c528c7e8a4217781c03a0e9b32b979e833ecc7835b3e8acc827770a0"
+    }
+  ],
+  "actuallyReviewedPNG": 3,
+  "boundaries": [
+    "The three current pilot PNGs were individually opened and reviewed.",
+    "Finite declared existing retirement fixture and money, actual paid leases and UI retirement/export/review/confirmation.",
+    "Expected Node state was restored only to mirror the real confirmed UI checkpoint action; no direct browser World/body/RNG/clock/material writes.",
+    "Full on the combined v414 application is separate; no Full rerun is implied for this unchanged v413 app source and tool-only extension.",
+    "Only inn390 Study mode. No full English reports, clipboard copy, chronicle record, other ending branches, natural prior acquisition, X1-X4/v1 or human acceptance."
+  ]
+}

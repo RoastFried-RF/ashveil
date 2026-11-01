@@ -9,10 +9,11 @@ import fieldCamp from './en-field-camp.json'
 import fieldWork from './en-field-work.json'
 import baseCamp from './en-base-camp.json'
 import residentCamp from './en-resident-camp.json'
+import expeditionRecords from './en-expedition-records.json'
 
 export type Language = 'ko' | 'en'
 export type MessageValue = string | number
-const messages: Readonly<Record<string, string>> = {...english,...itemDetails,...itemExtra,...foodTraining,...cultivation,...campCraft,...fieldCamp,...fieldWork,...residentCamp,...baseCamp}
+const messages: Readonly<Record<string, string>> = {...english,...itemDetails,...itemExtra,...foodTraining,...cultivation,...campCraft,...fieldCamp,...fieldWork,...residentCamp,...baseCamp,...expeditionRecords}
 const singularMessages:Readonly<Record<string,{index:number;message:string}>>={
   ' [{0}회]':{index:0,message:' [{0} use]'},
   '침구 사용 허락 ({0}턴)':{index:0,message:'Allow bedding use ({0} turn)'},

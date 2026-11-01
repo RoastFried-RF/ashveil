@@ -1,5 +1,5 @@
 import assert from'node:assert/strict'
-import{existsSync,mkdirSync,writeFileSync}from'node:fs'
+import{existsSync,mkdirSync,readFileSync,writeFileSync}from'node:fs'
 import{join}from'node:path'
 import{chromium,type Page,type BrowserContext,type Locator}from'playwright-core'
 import{startNativePreview}from'./native-preview'
@@ -17,10 +17,12 @@ import{innQuote}from'../src/core/inn'
 import{retirementLongLeaseQuote,retirementQuote}from'../src/core/retirement'
 import{serialize,deserialize,stateHash}from'../src/core/save'
 import type{Action}from'../src/core/actions'
+import{formatExpeditionReport}from'../src/client/report-export'
 
-const out=process.argv[2],selected=process.argv[3]??'all',size=process.argv[4],scenes=['well','hygiene','inn']as const
+const out=process.argv[2],selected=process.argv[3]??'all',size=process.argv[4],reportRestore=process.argv[5]==='report-restore',scenes=['well','hygiene','inn']as const
 type Scene=typeof scenes[number]
 assert.ok(out&&!existsSync(out),'Choose a new output directory');assert.ok(selected==='all'||scenes.some(s=>s===selected));assert.ok(!size||['1440','1366','390'].includes(size));mkdirSync(out,{recursive:true})
+assert.ok(!process.argv[5]||reportRestore);assert.ok(!reportRestore||selected==='inn')
 const rows:unknown[]=[],proofs:unknown[]=[],errors:string[]=[],server=await startNativePreview()
 let browser:Awaited<ReturnType<typeof chromium.launch>>|undefined,active:Page|undefined
 type Hook={__ashveil:{world():World}}
@@ -71,13 +73,25 @@ try{
    for(const label of['rent','extend']){const q=innQuote(w,p,keeper,bed.id),at=w.s.time,cash=p.money!,fund=market.money;assert.equal(q.error,null);await act({type:'rentBed',target:keeper.id,bed:bed.id,expectedFee:q.fee},()=>page.getByTestId('inn-rent-'+index).click(),'actual-original-bed-'+label);assert.equal(w.s.time-at,100);assert.equal(p.money,cash-q.fee);assert.equal(market.money,fund+q.fee);assert.deepEqual(bed.lease,{tenant:p.id,until:q.until});await english()}
    await saveContinue('same-bed-paid-and-extended');await services();const long=retirementLongLeaseQuote(w,p,keeper,bed.id),at=w.s.time,cash=p.money!,fund=market.money;assert.equal(long.error,null)
    await act({type:'rentBed',target:keeper.id,bed:bed.id,periods:long.periods,expectedFee:long.fee},()=>page.getByTestId('inn-long-rent-'+index).click(),'actual-original-bed-long-lease');assert.equal(w.s.time-at,100);assert.equal(p.money,cash-long.fee);assert.equal(market.money,fund+long.fee);assert.equal(bed.lease!.until,long.until);await english();await compare('english-ready-retirement-quote');await saveContinue('same-long-housing-before-retirement');await services()
-   const q=retirementQuote(w,p,keeper),money=p.money!,fundBefore=market.money;assert.equal(q.error,null)
+   const checkpointRaw=serialize(w.s),q=retirementQuote(w,p,keeper),money=p.money!,fundBefore=market.money;assert.equal(q.error,null)
    await act({type:'retire',target:keeper.id,expectedSavings:q.savings},()=>page.getByTestId('retire-confirm').click(),'actual-retirement-with-same-paid-bed');assert.equal(p.money,money-q.savings);assert.equal(market.money,fundBefore+q.savings);assert.equal(w.s.over?.retirement?.legacy.name,p.name);assert.ok(p.alive);assert.deepEqual({id:bed.id,keeper:bed.keeper,terrain:bed.terrain,pos:bed.pos},originalBed)
-   proofs.push({scene,width,originalBed,actualLongLeasePeriods:long.periods,actualLongLeaseFee:long.fee,actualRetirementSavings:q.savings,originalPersonAlive:p.alive,endingReportEnglishNotClaimed:true,postRetirementCheckpointNotClaimed:true})
+   proofs.push({scene,width,originalBed,actualLongLeasePeriods:long.periods,actualLongLeaseFee:long.fee,actualRetirementSavings:q.savings,originalPersonAlive:p.alive,endingReportEnglishNotClaimed:true,postRetirementCheckpointNotClaimed:!reportRestore})
+   if(reportRestore){
+    const retiredRaw=serialize(w.s),report=w.s.over!.report,expected=formatExpeditionReport({report,seed:w.s.seed,language:'en'}),ending=page.getByTestId('report'),downloadPromise=page.waitForEvent('download')
+    await ending.getByTestId('report-download').click()
+    const download=await downloadPromise,path=join(out,prefix+'-actual-retirement-report.txt');await download.saveAs(path);const exported=readFileSync(path,'utf8')
+    assert.equal(exported,expected);assert.ok(exported.includes(p.name)&&exported.includes(w.s.seed)&&exported.includes(q.label)&&exported.includes(String(q.savings)));assert.ok(download.suggestedFilename().startsWith('ashveil-'))
+    assert.equal(serialize(w.s),retiredRaw);await compare('actual-retirement-report-downloaded-read-only',false)
+    await ending.getByTestId('checkpoint-load').click();const dialog=page.getByTestId('checkpoint-dialog');await dialog.getByTestId('content-change-accept').waitFor();await compare('post-retirement-checkpoint-review-read-only',false)
+    await dialog.getByTestId('content-change-accept').click();await dialog.waitFor({state:'detached'});w.s=deserialize(checkpointRaw);await compare('actual-post-retirement-checkpoint-restored',false)
+    const restored=player(w),restoredBed=w.s.map.innBeds!.find(b=>b.id===originalBed.id)!,restoredMarket=w.s.overworld!.markets![keeper.traderSite!]
+    assert.equal(Boolean(w.s.over),false);assert.ok(restored.alive);assert.equal(restored.id,p.id);assert.equal(restored.name,p.name);assert.equal(restored.money,money);assert.equal(restoredMarket.money,fundBefore);assert.deepEqual(restoredBed.lease,{tenant:p.id,until:long.until})
+    proofs.push({scene,width,actualReportDownload:path,actualReportSuggestedFilename:download.suggestedFilename(),reportBytes:Buffer.byteLength(exported,'utf8'),reportDownloadWorldUnchanged:true,checkpointReviewWorldUnchanged:true,actualCheckpointRestoredWholeWorld:true,restoredMoney:restored.money,restoredBed:originalBed.id,restoredLeaseUntil:restoredBed.lease!.until,clipboardAndChronicleActionsNotClaimed:true})
+   }
   }
   for(const original of names)assert.equal(w.s.creatures.find(c=>c.id===original.id)?.name,original.name)
   await context.close()
  }
- assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({proofs,rows,errors,boundary:'Finite declared existing resident/retirement fixtures, warm healthy initial bodies, initial well arrival/thirst/NPC scheduling, actual earlier Core body wash and finite initial money are explicit. Real Title/settings/pointers/keys, original vessel and paid bed, normal wash/lease/retirement actions, checkpoints before retirement, independent Node canonical whole-world equality. No post-Title body/clock/RNG/material/world writes. No whole Society/clinic/base-task/ending-report English, natural prior acquisition/travel, full community sustainability or post-retirement checkpoint claim.'},null,2));console.log(JSON.stringify({wholeStatePairs:rows.length,errors:errors.length}))
+ assert.deepEqual(errors,[]);writeFileSync(join(out,'audit.json'),JSON.stringify({proofs,rows,errors,boundary:reportRestore?'Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate.':'Finite declared existing resident/retirement fixtures, warm healthy initial bodies, initial well arrival/thirst/NPC scheduling, actual earlier Core body wash and finite initial money are explicit. Real Title/settings/pointers/keys, original vessel and paid bed, normal wash/lease/retirement actions, checkpoints before retirement, independent Node canonical whole-world equality. No post-Title body/clock/RNG/material/world writes. No whole Society/clinic/base-task/ending-report English, natural prior acquisition/travel, full community sustainability or post-retirement checkpoint claim.'},null,2));console.log(JSON.stringify({wholeStatePairs:rows.length,errors:errors.length}))
 }catch(error){if(active)await active.screenshot({path:join(out,'failure.png')}).catch(()=>{});writeFileSync(join(out,'failure.json'),JSON.stringify({error:String(error),proofs,rows,errors},null,2));throw error}
 finally{await browser?.close();server.stop()}

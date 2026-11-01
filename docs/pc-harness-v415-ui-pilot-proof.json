@@ -1,0 +1,632 @@
+{
+  "checkedAt": "2026-11-01T10:44:09.325Z",
+  "status": "Bounded v415 UI pilot passed, with the observed one-times wording still open. Full/all sizes/main/CI/public verification remain separate.",
+  "testedCodeCommit": "5894e0a36647fea9b020cddedc3041c56f6f08de",
+  "testedTree": "708ccff74483bf51b9a0c535659f9552170a9d03",
+  "previewVersion": "0.415-dev",
+  "saveVersion": 221,
+  "run": {
+    "path": "test-results/windows/v415-native-1",
+    "planSha256": "5b7fbd0f9bdcb65aa35f9d2d4444bbfaa151bcc1006c0c7ec4793bde0718181b",
+    "tasks": 9,
+    "results": {
+      "environment": "passed",
+      "source-before": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "focused": "passed",
+      "build": "passed",
+      "inn-report": "passed",
+      "conclusions": "passed",
+      "source-after": "passed"
+    },
+    "focused": {
+      "files": 14,
+      "tests": 84,
+      "durationSeconds": 16.93
+    },
+    "lintExistingWarning": 1
+  },
+  "sourceManifest": {
+    "files": 9246,
+    "path": "test-results\\windows\\v415-native-1\\tasks\\source-before\\source.json",
+    "sha256": "cabdee4b7a02d2705e8d7b73ab498065cb09cfe84792d83622c5ec0805ea417b",
+    "allOriginalHashesVerified": true
+  },
+  "native": {
+    "wholeWorldPairs": 52,
+    "browserErrors": 0,
+    "groups": [
+      {
+        "task": "inn-report",
+        "audit": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\audit.json",
+        "sha256": "635f44456589590948fb5ccc08431211c68d0f65a3f16b9257039d28f8f68d7a",
+        "pairs": 16,
+        "runs": [
+          {
+            "scene": "inn",
+            "width": 390,
+            "fixture": "retirementFixture",
+            "declaredFiniteExistingFixture": true,
+            "declaredStudyMode": true,
+            "originalPeople": [
+              {
+                "id": 1,
+                "name": "유나"
+              },
+              {
+                "id": 41,
+                "name": "갈래길 장부관 상인"
+              },
+              {
+                "id": 50,
+                "name": "갈래길 장부관 의사"
+              },
+              {
+                "id": 59,
+                "name": "갈래길 장부관 경비"
+              },
+              {
+                "id": 69,
+                "name": "갈래길 장부관 경비"
+              }
+            ],
+            "originalTarget": 41,
+            "declaredWellArrival": false,
+            "declaredWellNpcUnscheduled": false,
+            "earlierBodyWashIsActualCoreFixtureWork": false,
+            "noEarlierNaturalAcquisitionOrTravelClaim": true,
+            "noPostTitleWorldWrites": true
+          },
+          {
+            "scene": "inn",
+            "width": 390,
+            "originalBed": {
+              "id": "Region.ForkwayLedgerhouse:bed:1",
+              "keeper": 41,
+              "terrain": "Terrain.Bed",
+              "pos": {
+                "x": 28,
+                "y": 16
+              }
+            },
+            "actualLongLeasePeriods": 90,
+            "actualLongLeaseFee": 720,
+            "actualRetirementSavings": 3600,
+            "originalPersonAlive": true,
+            "endingReportEnglishNotClaimed": true,
+            "postRetirementCheckpointNotClaimed": false
+          },
+          {
+            "scene": "inn",
+            "width": 390,
+            "actualReportDownload": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-retirement-report.txt",
+            "actualReportSuggestedFilename": "ashveil-expedition-report-retirement-home.txt",
+            "reportBytes": 12864,
+            "reportDownloadWorldUnchanged": true,
+            "checkpointReviewWorldUnchanged": true,
+            "actualCheckpointRestoredWholeWorld": true,
+            "restoredMoney": 4264,
+            "restoredBed": "Region.ForkwayLedgerhouse:bed:1",
+            "restoredLeaseUntil": 2671201,
+            "clipboardAndChronicleActionsNotClaimed": true
+          }
+        ],
+        "boundary": "Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate."
+      },
+      {
+        "task": "conclusions",
+        "audit": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\audit.json",
+        "sha256": "bb2b3618652820ff6695b808830153ed821cad38644d6cdfe82b9a320f5d59e7",
+        "pairs": 36,
+        "runs": [
+          {
+            "kind": "signal",
+            "width": 390,
+            "height": 844,
+            "declaredInitialPreparation": {
+              "actualPreparationTU": 18100,
+              "sourceUIDs": [
+                129
+              ],
+              "initialExitPositionExplicit": true
+            },
+            "initialSaveMode": "SaveMode.Imprint",
+            "realReviewCancelTitleContinueAndConfirmation": true,
+            "finishTU": 0,
+            "originalPerson": 1,
+            "originalName": "케스",
+            "originalBodyAlive": true,
+            "actualReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-actual-report.txt",
+              "bytes": 15994,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "actualChronicleReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-actual-chronicle-report.txt",
+              "bytes": 16012,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "archiveOriginalReportExactAndUnique": true,
+            "imprintDeletedAfterReload": true,
+            "archiveFilterAndExportReadOnly": true,
+            "noNaturalPriorAcquisitionClaim": true
+          },
+          {
+            "kind": "unveiled",
+            "width": 390,
+            "height": 844,
+            "declaredInitialPreparation": {
+              "actualPreparationTU": 30100,
+              "sourceUIDs": [
+                129
+              ],
+              "initialExitPositionExplicit": true
+            },
+            "initialSaveMode": "SaveMode.Imprint",
+            "realReviewCancelTitleContinueAndConfirmation": true,
+            "finishTU": 0,
+            "originalPerson": 1,
+            "originalName": "케스",
+            "originalBodyAlive": true,
+            "actualReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-actual-report.txt",
+              "bytes": 16659,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "actualChronicleReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-actual-chronicle-report.txt",
+              "bytes": 16677,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "archiveOriginalReportExactAndUnique": true,
+            "imprintDeletedAfterReload": true,
+            "archiveFilterAndExportReadOnly": true,
+            "noNaturalPriorAcquisitionClaim": true
+          },
+          {
+            "kind": "witness",
+            "width": 390,
+            "height": 844,
+            "declaredInitialPreparation": {
+              "actualPreparationTU": 2000,
+              "sourceUIDs": [
+                90,
+                88
+              ],
+              "initialExitPositionExplicit": true
+            },
+            "initialSaveMode": "SaveMode.Imprint",
+            "realReviewCancelTitleContinueAndConfirmation": true,
+            "finishTU": 0,
+            "originalPerson": 1,
+            "originalName": "노아",
+            "originalBodyAlive": true,
+            "actualReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-actual-report.txt",
+              "bytes": 13918,
+              "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+            },
+            "actualChronicleReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-actual-chronicle-report.txt",
+              "bytes": 13936,
+              "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+            },
+            "archiveOriginalReportExactAndUnique": true,
+            "imprintDeletedAfterReload": true,
+            "archiveFilterAndExportReadOnly": true,
+            "noNaturalPriorAcquisitionClaim": true
+          },
+          {
+            "kind": "acknowledged",
+            "width": 390,
+            "height": 844,
+            "declaredInitialPreparation": {
+              "actualPreparationTU": 30100,
+              "sourceUIDs": [
+                129
+              ],
+              "initialExitPositionExplicit": true
+            },
+            "initialSaveMode": "SaveMode.Imprint",
+            "realReviewCancelTitleContinueAndConfirmation": true,
+            "finishTU": 0,
+            "originalPerson": 1,
+            "originalName": "케스",
+            "originalBodyAlive": true,
+            "actualReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-actual-report.txt",
+              "bytes": 17164,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "actualChronicleReport": {
+              "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-actual-chronicle-report.txt",
+              "bytes": 17182,
+              "filename": "ashveil-expedition-report-field-device-physical.txt"
+            },
+            "archiveOriginalReportExactAndUnique": true,
+            "imprintDeletedAfterReload": true,
+            "archiveFilterAndExportReadOnly": true,
+            "noNaturalPriorAcquisitionClaim": true
+          }
+        ],
+        "boundary": "Finite INITIAL evidence from actual prior Core work and explicit fixture exit placement. Actual Title/settings/keys/pointers, review/cancel/continue/confirm, report downloads and chronicle filters/export. Browser complete-world comparisons use independent Node actions. Original saved report/discovery text is preserved. No post-Title browser World/body/clock/RNG/material/metadata writes. Only normal FX cleanup in the expected model. Chronicle reads and UI filters are metadata checks, not extra Node whole-world pairs. No clipboard/Study checkpoint, natural prior acquisition, full English reports or all X3/v1/human acceptance."
+      }
+    ]
+  },
+  "saveRoundtrip": {
+    "artifacts": 52,
+    "version": 221,
+    "exactCanonicalBytes": true,
+    "rows": [
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-loaded-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-english-original-services-read-only-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-original-service-state-saved-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-original-service-state-continued-actual.json",
+        "sha256": "521e8b9a53f097dbdf80e00b24493bbe6392fad90d0889c503369698234f81b8",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-original-bed-rent-actual.json",
+        "sha256": "09958af094c1a9d7efccefaece8c4e169e82c025e967763f3013f8a0e42a53b2",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-original-bed-extend-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-same-bed-paid-and-extended-saved-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-same-bed-paid-and-extended-continued-actual.json",
+        "sha256": "a236fb9ff5c2598757aae9c2ff9bf931a0427fc09de99dc57e57b20f8ffa7ce7",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-original-bed-long-lease-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-english-ready-retirement-quote-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-same-long-housing-before-retirement-saved-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-same-long-housing-before-retirement-continued-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-retirement-with-same-paid-bed-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-retirement-report-downloaded-read-only-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-post-retirement-checkpoint-review-read-only-actual.json",
+        "sha256": "b1a8658b478723b8bd3436cbb5659db0ef16566521f615385c825fc19b03b295",
+        "version": 221
+      },
+      {
+        "task": "inn-report",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\inn-report\\native\\inn-390-actual-post-retirement-checkpoint-restored-actual.json",
+        "sha256": "7b941bafd6599d9b01b7e6b1db4d0ae176b7d0fd4f3dc8a2c5ef4c5bfcfe5159",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-loaded-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-english-read-only-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-review-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-cancel-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-continued-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-review-again-actual.json",
+        "sha256": "7eb26712b9273acd940276b756e8dfc92152ac20b021b58d7be5cf048d2b6f22",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-finished-actual.json",
+        "sha256": "49b1e2f03976cd2043e956b265321585095ac3db8c7d6d4fcd57d9f8c6a97d5c",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-download-read-only-actual.json",
+        "sha256": "49b1e2f03976cd2043e956b265321585095ac3db8c7d6d4fcd57d9f8c6a97d5c",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\signal-390-discovery-open-read-only-actual.json",
+        "sha256": "49b1e2f03976cd2043e956b265321585095ac3db8c7d6d4fcd57d9f8c6a97d5c",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-loaded-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-english-read-only-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-review-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-cancel-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-continued-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-review-again-actual.json",
+        "sha256": "50f609283968d414c1fc8c7eba2686af2413ab0f8550793785d5e68bebc2872a",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-finished-actual.json",
+        "sha256": "b88d2d5394b9f8b1fef81558cb8de45ce5c3e7be35d7368a91a92cfe81a3a125",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-download-read-only-actual.json",
+        "sha256": "b88d2d5394b9f8b1fef81558cb8de45ce5c3e7be35d7368a91a92cfe81a3a125",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\unveiled-390-discovery-open-read-only-actual.json",
+        "sha256": "b88d2d5394b9f8b1fef81558cb8de45ce5c3e7be35d7368a91a92cfe81a3a125",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-loaded-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-english-read-only-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-review-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-cancel-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-continued-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-review-again-actual.json",
+        "sha256": "a18b8910d8d1d0c76a059fd54c8a500cbae156d7823c0d871e3b64b38aff87bf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-finished-actual.json",
+        "sha256": "61d99e2201d725e51a339425f2a53758c5e31ed59209f0e4e6f26caea89a8ccf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-download-read-only-actual.json",
+        "sha256": "61d99e2201d725e51a339425f2a53758c5e31ed59209f0e4e6f26caea89a8ccf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\witness-390-discovery-open-read-only-actual.json",
+        "sha256": "61d99e2201d725e51a339425f2a53758c5e31ed59209f0e4e6f26caea89a8ccf",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-loaded-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-english-read-only-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-review-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-cancel-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-continued-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-review-again-actual.json",
+        "sha256": "0e1d20261d89b667b61896fbc0d058eca172a127163a85838551fa4e674826c5",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-finished-actual.json",
+        "sha256": "556328e6874b044691d0e8471b07b04d098d57e5d3b8a2dbc75121b4c34b71fb",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-download-read-only-actual.json",
+        "sha256": "556328e6874b044691d0e8471b07b04d098d57e5d3b8a2dbc75121b4c34b71fb",
+        "version": 221
+      },
+      {
+        "task": "conclusions",
+        "path": "test-results\\windows\\v415-native-1\\tasks\\conclusions\\native\\acknowledged-390-discovery-open-read-only-actual.json",
+        "sha256": "556328e6874b044691d0e8471b07b04d098d57e5d3b8a2dbc75121b4c34b71fb",
+        "version": 221
+      }
+    ]
+  },
+  "physicalSource": {
+    "exactUnchangedTrees": {
+      "src/core": "9e2c5bf29cea528b84517af137f710a3e465c059",
+      "src/content": "228c631723d6226ee24dd62a40e61310748f6be0",
+      "public": "0a115036e62e379fd1dff3e154b0c0aa1bef641b",
+      "mods": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb"
+    },
+    "referenceCode": "4713015ea34819e197d1f0978efc22c4d4d62a98"
+  },
+  "actuallyReviewedImages": [
+    {
+      "path": "test-results/windows/v415-native-1/tasks/inn-report/native/inn-390-actual-retirement-report-downloaded-read-only.png",
+      "sha256": "81461e48476e7f0c59f95909b5df560a3521620ae606694d671d8077f7b87e71"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/inn-report/native/inn-390-post-retirement-checkpoint-review-read-only.png",
+      "sha256": "981e2ffe0f0cb079cf8bba0fbb55e32ac421e50c2b9475ba590ac9075dcb1dab"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/inn-report/native/inn-390-actual-post-retirement-checkpoint-restored.png",
+      "sha256": "cc576ae2139454af7c02c78eb02cb5c1aaf22e90d01221efc7159d56985b8a9c"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/conclusions/native/signal-390-review-again.png",
+      "sha256": "b0cd11032cc2d9cc2fb3ab4bfa5998d6352744e738866d4d1cb38a629d0b159e"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/conclusions/native/signal-390-actual-chronicle-filtered-read-only.png",
+      "sha256": "5fdc78682574e5bf1463672cd5bd6c490eab6b35ad36a291f28d46f1c66f5fcd"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/conclusions/native/witness-390-review-again.png",
+      "sha256": "7cf017be7560996a84353a8728d665be56a571e8922b73ea6cc4090c026e1b76"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/conclusions/native/unveiled-390-review-again.png",
+      "sha256": "48ec01b36be187f6a1522c6df2df679062cfa5b20b9ba9e1fc28fb1ef9699967"
+    },
+    {
+      "path": "test-results/windows/v415-native-1/tasks/conclusions/native/acknowledged-390-review-again.png",
+      "sha256": "9afb6fa641e705a06da4703a625e749ba6867ea5aba032c2575b37616a8dd07e"
+    }
+  ],
+  "actuallyReviewedPNG": 8,
+  "observedPresentationIssue": {
+    "path": "test-results/windows/v415-native-1/tasks/conclusions/native/witness-390-review-again.png",
+    "text": "Original records read to an actual audience: 1 times",
+    "status": "Open in this pilot source; fix and current-source all-size verification remain separate."
+  },
+  "boundaries": [
+    "Finite declared existing money, initial housing/exit position, actual prior Core fixture work/disclosure/knowledge, original people/items. No natural earlier acquisition or travel claim.",
+    "Actual Title/settings/keys/pointers, paid leases/retirement/file download/checkpoint review/confirmation, four conclusion review/cancel/continue/confirm/report and archive flows.",
+    "Independent Node/browser complete-state equality, including expected Node restoration solely to model real UI restoration. No direct browser World/body/clock/RNG/material writes. Only normal FX cleanup in expected model.",
+    "Imprint archive filters and exported report content are checked against the original saved report and stored metadata; they are not counted as extra world pairs.",
+    "Historical report bodies, names and claims remain original. No clipboard/full English report/all X3/X1-X4/v1/human acceptance."
+  ]
+}

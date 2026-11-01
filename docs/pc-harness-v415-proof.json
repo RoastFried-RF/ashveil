@@ -1,0 +1,983 @@
+{
+  "checkedAtKST": "2026-11-01T20:11:45.687935+09:00",
+  "status": "v415 record-control and ending-choice candidate locally validated within recorded boundaries. Main/CI/Pages/public remain separate; not whole English report bodies or v1/X1-X4/human acceptance.",
+  "previewVersion": "0.415-dev",
+  "saveVersion": 221,
+  "testedCodeCommit": "e094e5c4336df3120cbf390d4fbb7bae101114a2",
+  "testedTree": "01a98b129f87dff52500ee8ab34b1a37f8d7eeb8",
+  "baseMainCode": "4713015ea34819e197d1f0978efc22c4d4d62a98",
+  "sourceSHA256": {
+    "docs/expedition-records-v415.md": "18f24490b931d4fe24d5d6008e43ac570a533e2bb0bfafa9144f13aba1b52062",
+    "docs/pc-harness-v415-report-pilot-proof.json": "4713dcb02cccab39b384e0882c850a7e42905311fc318a8b81f3b8d4b22ea4ba",
+    "docs/pc-harness-v415-ui-pilot-proof.json": "0fab2386e948e7a3165482c87c63d64f6dff6a16b5302c263cacb3b37933d932",
+    "docs/retirement-report-restore-v415.md": "137d497cd5992a72ebc1b2a2894456c00c603cbb2157a31e6d355d9733005ff3",
+    "src/client/GameScreen.vue": "92f9fd7d230e3811038ab84645e9a579bb6e9d4ee1e6aee6ddfe7cc36e13409b",
+    "src/client/build-version.ts": "9a9d2120800dd719f8c033eaa561b20459727104d346d5d8de640299bafeda8c",
+    "src/client/locale.ts": "9d698637390913fd61d32083d9de273df14d46d0d68c8d3f9374fb45d7340ea7",
+    "src/client/locales/en-expedition-endings.json": "c9f36071397a8d86847baccc62e5c0384bac204574e7dcb4ecb9af32229fc673",
+    "src/client/locales/en-expedition-records.json": "3dada058efd6660bead69f2c998ffc7df77c0e14953f6b222007d9bbbdaa6437",
+    "src/client/locales/expedition-records.ts": "8396cbe3733b5c91273e177522754e37cee661474eb485af831dcb3bca93fc96",
+    "src/client/locales/message.ts": "0cf1c88fc48fb71fda3e71250fe85aa53ff62e0e1a6a5dd3dd5107aae146222f",
+    "src/client/report-export.ts": "b7c697a2408cd627257991cdb555c47e443eccfc515e8c76325fa055606dc567",
+    "src/client/ui/ChroniclePanel.vue": "eba8a4e3a77421a12d93ddc006f04affff0c30f7f920707cfdc9a492d927176e",
+    "src/client/ui/DiscoveryArchiveView.vue": "88c09d12d13f671b035deab28c8ffa6f68d7ced37cb0bb9b84361b33d14dbfb4",
+    "src/client/ui/ExpeditionEndingsPanel.vue": "11f024464a6328503cdbcce913c16616695cbb4e95ceb256ba9b8e4c75dc38e8",
+    "src/client/ui/ReportActions.vue": "03253464923b3ad41d30b24c214b0070d49d2cc992e80ac71be66c1c2573c05e",
+    "tests/locale-expedition-records.test.ts": "960a803989e4edb8fefcf80270594d1eabcf6a2d1f09d45460575c969782b0df",
+    "tools/inspect-conclusions-v415.ts": "13c7fad9aec87a6f80a4c0fbae1a24dbfa6813e9d94c83ce8d600998e370c91a",
+    "tools/inspect-resident-services-v413.ts": "20a4b9f979769f9623f3ca3f3375b7d98cdfabff052582ed08f68fee3d81318c"
+  },
+  "sourceManifest": {
+    "files": 9247,
+    "path": "test-results/windows/v415-final-1/tasks/source-before/source.json",
+    "sha256": "a77d10568ba32bcda81d1bcbfbfe59fc893ba3f61b2d84dd552aba4055926c6e",
+    "unchangedBeforeAfter": true,
+    "unchangedAgainBeforeProof": true,
+    "creditsUnchanged": true
+  },
+  "finalRun": {
+    "path": "test-results/windows/v415-final-1",
+    "planSha256": "ec637c0c00a40c9ca55ab43801dcb72954390ed66ec1df0ba392a4ec95fa595f",
+    "tasks": 20,
+    "taskResults": {
+      "environment": "passed",
+      "source-before": "passed",
+      "typecheck": "passed",
+      "physics-source": "passed",
+      "lint": "passed",
+      "preview-helper": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "schema": "passed",
+      "golden-capture": "passed",
+      "golden-reviewed": "passed",
+      "full": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "inn-report-1440": "passed",
+      "inn-report-1366": "passed",
+      "inn-report-390": "passed",
+      "conclusions": "passed",
+      "source-after": "passed"
+    },
+    "full": {
+      "files": 429,
+      "tests": 6952,
+      "durationSeconds": 870.62
+    },
+    "schema": {
+      "files": 180,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "existingWarnings": 1
+    }
+  },
+  "native": [
+    {
+      "task": "inn-report-1440",
+      "wholeWorldPairs": 16,
+      "audit": "test-results/windows/v415-final-1/tasks/inn-report-1440/native/audit.json",
+      "sha256": "2af6d340631fe4e204c5b909bdbb941367348abf9182aea0bd22ab9c381f9ba8",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "inn",
+          "width": 1440,
+          "fixture": "retirementFixture",
+          "declaredFiniteExistingFixture": true,
+          "declaredStudyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "originalTarget": 41,
+          "declaredWellArrival": false,
+          "declaredWellNpcUnscheduled": false,
+          "earlierBodyWashIsActualCoreFixtureWork": false,
+          "noEarlierNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        },
+        {
+          "scene": "inn",
+          "width": 1440,
+          "originalBed": {
+            "id": "Region.ForkwayLedgerhouse:bed:1",
+            "keeper": 41,
+            "terrain": "Terrain.Bed",
+            "pos": {
+              "x": 28,
+              "y": 16
+            }
+          },
+          "actualLongLeasePeriods": 90,
+          "actualLongLeaseFee": 720,
+          "actualRetirementSavings": 3600,
+          "originalPersonAlive": true,
+          "endingReportEnglishNotClaimed": true,
+          "postRetirementCheckpointNotClaimed": false
+        },
+        {
+          "scene": "inn",
+          "width": 1440,
+          "actualReportDownload": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\inn-report-1440\\native\\inn-1440-actual-retirement-report.txt",
+          "actualReportSuggestedFilename": "ashveil-expedition-report-retirement-home.txt",
+          "reportBytes": 12864,
+          "reportDownloadWorldUnchanged": true,
+          "checkpointReviewWorldUnchanged": true,
+          "actualCheckpointRestoredWholeWorld": true,
+          "restoredMoney": 4264,
+          "restoredBed": "Region.ForkwayLedgerhouse:bed:1",
+          "restoredLeaseUntil": 2671201,
+          "clipboardAndChronicleActionsNotClaimed": true
+        }
+      ],
+      "boundary": "Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate."
+    },
+    {
+      "task": "inn-report-1366",
+      "wholeWorldPairs": 16,
+      "audit": "test-results/windows/v415-final-1/tasks/inn-report-1366/native/audit.json",
+      "sha256": "7b70e34f41e56fc493d332eeac7736cbd8a825cd46bc03fcc6c43a9b95b85171",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "inn",
+          "width": 1366,
+          "fixture": "retirementFixture",
+          "declaredFiniteExistingFixture": true,
+          "declaredStudyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "originalTarget": 41,
+          "declaredWellArrival": false,
+          "declaredWellNpcUnscheduled": false,
+          "earlierBodyWashIsActualCoreFixtureWork": false,
+          "noEarlierNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        },
+        {
+          "scene": "inn",
+          "width": 1366,
+          "originalBed": {
+            "id": "Region.ForkwayLedgerhouse:bed:1",
+            "keeper": 41,
+            "terrain": "Terrain.Bed",
+            "pos": {
+              "x": 28,
+              "y": 16
+            }
+          },
+          "actualLongLeasePeriods": 90,
+          "actualLongLeaseFee": 720,
+          "actualRetirementSavings": 3600,
+          "originalPersonAlive": true,
+          "endingReportEnglishNotClaimed": true,
+          "postRetirementCheckpointNotClaimed": false
+        },
+        {
+          "scene": "inn",
+          "width": 1366,
+          "actualReportDownload": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\inn-report-1366\\native\\inn-1366-actual-retirement-report.txt",
+          "actualReportSuggestedFilename": "ashveil-expedition-report-retirement-home.txt",
+          "reportBytes": 12864,
+          "reportDownloadWorldUnchanged": true,
+          "checkpointReviewWorldUnchanged": true,
+          "actualCheckpointRestoredWholeWorld": true,
+          "restoredMoney": 4264,
+          "restoredBed": "Region.ForkwayLedgerhouse:bed:1",
+          "restoredLeaseUntil": 2671201,
+          "clipboardAndChronicleActionsNotClaimed": true
+        }
+      ],
+      "boundary": "Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate."
+    },
+    {
+      "task": "inn-report-390",
+      "wholeWorldPairs": 16,
+      "audit": "test-results/windows/v415-final-1/tasks/inn-report-390/native/audit.json",
+      "sha256": "187c00caead1e20203626e5149c00829808f0e8fd194ae0b2fe4bea7f5e797d9",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "inn",
+          "width": 390,
+          "fixture": "retirementFixture",
+          "declaredFiniteExistingFixture": true,
+          "declaredStudyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "originalTarget": 41,
+          "declaredWellArrival": false,
+          "declaredWellNpcUnscheduled": false,
+          "earlierBodyWashIsActualCoreFixtureWork": false,
+          "noEarlierNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        },
+        {
+          "scene": "inn",
+          "width": 390,
+          "originalBed": {
+            "id": "Region.ForkwayLedgerhouse:bed:1",
+            "keeper": 41,
+            "terrain": "Terrain.Bed",
+            "pos": {
+              "x": 28,
+              "y": 16
+            }
+          },
+          "actualLongLeasePeriods": 90,
+          "actualLongLeaseFee": 720,
+          "actualRetirementSavings": 3600,
+          "originalPersonAlive": true,
+          "endingReportEnglishNotClaimed": true,
+          "postRetirementCheckpointNotClaimed": false
+        },
+        {
+          "scene": "inn",
+          "width": 390,
+          "actualReportDownload": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\inn-report-390\\native\\inn-390-actual-retirement-report.txt",
+          "actualReportSuggestedFilename": "ashveil-expedition-report-retirement-home.txt",
+          "reportBytes": 12864,
+          "reportDownloadWorldUnchanged": true,
+          "checkpointReviewWorldUnchanged": true,
+          "actualCheckpointRestoredWholeWorld": true,
+          "restoredMoney": 4264,
+          "restoredBed": "Region.ForkwayLedgerhouse:bed:1",
+          "restoredLeaseUntil": 2671201,
+          "clipboardAndChronicleActionsNotClaimed": true
+        }
+      ],
+      "boundary": "Finite declared original retirement fixture, initial money and actual housing. Real Title/settings, paid leases, retirement, actual report-file button/download, read-only checkpoint review and actual confirmed restoration. Independent Node complete-world equality, including the expected Node state restored solely to model that real UI action. No direct browser world/body/RNG/clock/material writes. Report language, clipboard copy, chronicle recording, natural prior acquisition and other ending branches remain separate."
+    },
+    {
+      "task": "conclusions",
+      "wholeWorldPairs": 108,
+      "audit": "test-results/windows/v415-final-1/tasks/conclusions/native/audit.json",
+      "sha256": "7633af6f78842da0c22fa4193f267f32f25e86e58c5097aee7e07a873a20f5bf",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "kind": "signal",
+          "width": 1440,
+          "height": 1080,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 18100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-1440-actual-report.txt",
+            "bytes": 15994,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-1440-actual-chronicle-report.txt",
+            "bytes": 16012,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "unveiled",
+          "width": 1440,
+          "height": 1080,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-1440-actual-report.txt",
+            "bytes": 16659,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-1440-actual-chronicle-report.txt",
+            "bytes": 16677,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "witness",
+          "width": 1440,
+          "height": 1080,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 2000,
+            "sourceUIDs": [
+              90,
+              88
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "노아",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-1440-actual-report.txt",
+            "bytes": 13918,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-1440-actual-chronicle-report.txt",
+            "bytes": 13936,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "acknowledged",
+          "width": 1440,
+          "height": 1080,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-1440-actual-report.txt",
+            "bytes": 17164,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-1440-actual-chronicle-report.txt",
+            "bytes": 17182,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "signal",
+          "width": 1366,
+          "height": 768,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 18100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-1366-actual-report.txt",
+            "bytes": 15994,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-1366-actual-chronicle-report.txt",
+            "bytes": 16012,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "unveiled",
+          "width": 1366,
+          "height": 768,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-1366-actual-report.txt",
+            "bytes": 16659,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-1366-actual-chronicle-report.txt",
+            "bytes": 16677,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "witness",
+          "width": 1366,
+          "height": 768,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 2000,
+            "sourceUIDs": [
+              90,
+              88
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "노아",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-1366-actual-report.txt",
+            "bytes": 13918,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-1366-actual-chronicle-report.txt",
+            "bytes": 13936,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "acknowledged",
+          "width": 1366,
+          "height": 768,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-1366-actual-report.txt",
+            "bytes": 17164,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-1366-actual-chronicle-report.txt",
+            "bytes": 17182,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "signal",
+          "width": 390,
+          "height": 844,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 18100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-390-actual-report.txt",
+            "bytes": 15994,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\signal-390-actual-chronicle-report.txt",
+            "bytes": 16012,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "unveiled",
+          "width": 390,
+          "height": 844,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-390-actual-report.txt",
+            "bytes": 16659,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\unveiled-390-actual-chronicle-report.txt",
+            "bytes": 16677,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "witness",
+          "width": 390,
+          "height": 844,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 2000,
+            "sourceUIDs": [
+              90,
+              88
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "노아",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-390-actual-report.txt",
+            "bytes": 13918,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\witness-390-actual-chronicle-report.txt",
+            "bytes": 13936,
+            "filename": "ashveil-expedition-report-zero-vault-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        },
+        {
+          "kind": "acknowledged",
+          "width": 390,
+          "height": 844,
+          "declaredInitialPreparation": {
+            "actualPreparationTU": 30100,
+            "sourceUIDs": [
+              129
+            ],
+            "initialExitPositionExplicit": true
+          },
+          "initialSaveMode": "SaveMode.Imprint",
+          "realReviewCancelTitleContinueAndConfirmation": true,
+          "finishTU": 0,
+          "originalPerson": 1,
+          "originalName": "케스",
+          "originalBodyAlive": true,
+          "actualReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-390-actual-report.txt",
+            "bytes": 17164,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "actualChronicleReport": {
+            "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-final-1\\tasks\\conclusions\\native\\acknowledged-390-actual-chronicle-report.txt",
+            "bytes": 17182,
+            "filename": "ashveil-expedition-report-field-device-physical.txt"
+          },
+          "archiveOriginalReportExactAndUnique": true,
+          "imprintDeletedAfterReload": true,
+          "archiveFilterAndExportReadOnly": true,
+          "noNaturalPriorAcquisitionClaim": true
+        }
+      ],
+      "boundary": "Finite INITIAL evidence from actual prior Core work and explicit fixture exit placement. Actual Title/settings/keys/pointers, review/cancel/continue/confirm, report downloads and chronicle filters/export. Browser complete-world comparisons use independent Node actions. Original saved report/discovery text is preserved. No post-Title browser World/body/clock/RNG/material/metadata writes. Only normal FX cleanup in the expected model. Chronicle reads and UI filters are metadata checks, not extra Node whole-world pairs. No clipboard/Study checkpoint, natural prior acquisition, full English reports or all X3/v1/human acceptance."
+    }
+  ],
+  "independentNodeBrowserWholeWorldPairs": 156,
+  "localeObservation": {
+    "pairs": 12,
+    "audit": "test-results/windows/v415-final-1/tasks/locale/locale/audit.json",
+    "sha256": "cedb18db949ac9fba6abd3f3b58348729cd0f3251dc3a4d7e2e0706793389c60",
+    "countedSeparatelyFromNodeActionWorlds": true
+  },
+  "goldenReview": {
+    "path": "test-results/windows/v415-final-1/tasks/golden-reviewed/reviewed.json",
+    "sha256": "ef8be28f4bfa197a6d512931293cd39be431e5b3fde0ee98cd46b93d834d4bad",
+    "reviewedShape": "exact-whole-v409-to-v411",
+    "reportOnly": false,
+    "vectors": 5,
+    "beforeSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "afterSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "exactCanonicalCaptureBytes": true,
+    "rows": [
+      {
+        "name": "surface",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "dungeon-combat",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "freeze-reentry",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-journey",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-climate-return",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      }
+    ],
+    "allWholeStateFieldsAndRngEqual": true
+  },
+  "physicalSourceEquivalence": {
+    "path": "test-results/windows/v415-final-1/tasks/physics-source/audit.json",
+    "sha256": "5ff2613d846ecfc13517ceb30b9e36aa0318fd46c50d49749ab5bf3412b9e89e",
+    "baseValidatedMainCode": "4713015ea34819e197d1f0978efc22c4d4d62a98",
+    "candidate": "e094e5c4336df3120cbf390d4fbb7bae101114a2",
+    "exactUnchangedTrees": {
+      "src/core": "9e2c5bf29cea528b84517af137f710a3e465c059",
+      "src/content": "228c631723d6226ee24dd62a40e61310748f6be0",
+      "public": "0a115036e62e379fd1dff3e154b0c0aa1bef641b",
+      "mods": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb"
+    },
+    "reusedEvidenceSHA256": {
+      "docs/pc-harness-v414-proof.json": "ff595e17f8c54baaf1795f0574cb393d8b15853fefed38a9ea8f9dffde6f2cff",
+      "docs/pc-harness-v411-proof.json": "08efbcd5d9e486de1307ec7458368facd57dd9c4f659678a80088752e28bc007",
+      "docs/release-v411-proof.json": "aef5e9e3c8e9c66b50c06dd2af6dd2cb8ced13448bc3e8b2e863584e867ef82f"
+    },
+    "scope": "Exact Core, content, public resources and mods source equality. Prior v414582 Native world artifacts and v4111915 corpus/two30-run cohorts remain prior evidence. Current UI Full/Native/visual/save checks are separate; no new cohort or old migration execution, cohort invariance or general balance improvement is inferred."
+  },
+  "saveCorpus": {
+    "audit": "test-results/windows/v415-proof-1/tasks/roundtrip/audit.json",
+    "sha256": "26334920c03107a70e0ae1301a8d55fb9cfcb149726afd3534cd47c4b3e1d486",
+    "currentArtifacts": 156,
+    "currentRoundtripDifferences": 0,
+    "groups": [
+      {
+        "task": "inn-report-1440",
+        "artifacts": 16
+      },
+      {
+        "task": "inn-report-1366",
+        "artifacts": 16
+      },
+      {
+        "task": "inn-report-390",
+        "artifacts": 16
+      },
+      {
+        "task": "conclusions",
+        "artifacts": 108
+      }
+    ],
+    "preservedPrevious": {
+      "artifactRows": 2497,
+      "groups": [
+        {
+          "name": "v414",
+          "rows": 582
+        },
+        {
+          "name": "v411-and-earlier",
+          "rows": 1915
+        }
+      ],
+      "uniqueFiles": 2497,
+      "allOriginalFileSHA256Verified": true,
+      "previousAudit": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v414-base\\test-results\\windows\\v414-proof-1\\tasks\\roundtrip\\audit.json",
+      "previousAuditSHA256": "90f52fcccb3aeb8b0963bb09d3d28420d73992e26b5d73650aa08152728fb96d",
+      "oldAudit": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v411-camp\\test-results\\windows\\v411-proof-3\\tasks\\roundtrip\\audit.json",
+      "oldAuditSHA256": "475e1b208a2566c2926795eebd294df7ca128c3150562c6a1b4af4d7df4f0d67",
+      "migrationNotReexecuted": true
+    },
+    "scope": "Artifact rows are not unique worlds. The156 new browser/Node action worlds roundtrip canonically here. Prior2497 artifact bytes are rehashed; old migration/cohort proof is reused only with exact Core/content/public/mod source. Locale observations, chronicle metadata reads/filters and smoke are not counted as new serialized action worlds. No full English/report body, all X3/v1 or human acceptance."
+  },
+  "actuallyReviewedImages": [
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1440/native/inn-1440-actual-retirement-report-downloaded-read-only.png",
+      "sha256": "a287baa2a9865596660c687f678cdba6e2a6122e83fa30fb4d6dd88c13d6bac9"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1366/native/inn-1366-post-retirement-checkpoint-review-read-only.png",
+      "sha256": "c09b133efcf67a5aeaf6b170c79315fa4c70f7300911add490c58f401eb808b3"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1366/native/inn-1366-actual-post-retirement-checkpoint-restored.png",
+      "sha256": "0a4258eec722fed60d092e3f1b8e80e34e3941fb40c07ce6305bf325cc6b7513"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-390/native/inn-390-actual-retirement-report-downloaded-read-only.png",
+      "sha256": "d24436171f248a2060396a05d7e6b481321f866a49d3c7993372fb517294b787"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-390/native/inn-390-post-retirement-checkpoint-review-read-only.png",
+      "sha256": "5e10609e358ee34b81dffa3bee99036020bdf34c6af8652e6c890c9d55754dc5"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-390/native/inn-390-actual-post-retirement-checkpoint-restored.png",
+      "sha256": "48b517f65e19057f1a7faad8566e6f111d0e79250c6f3e9d7830ce38fe0f8ff5"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1440/native/inn-1440-post-retirement-checkpoint-review-read-only.png",
+      "sha256": "a802b4d5fd26dd5a04c7311e7c6c3dafc7b75f42814a515f68b4ffe83d5ec4ea"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1440/native/inn-1440-actual-post-retirement-checkpoint-restored.png",
+      "sha256": "c977bf417e99a4df937e87629b0e122c53f6b3b9ba9770c533baca30e18599bd"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/inn-report-1366/native/inn-1366-actual-retirement-report-downloaded-read-only.png",
+      "sha256": "17907ab7cc58ff1ed5699c8e555026c63ded74371a7a778270e0739cb12d3c21"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-1440-review-again.png",
+      "sha256": "87dd8e05b60b78335c57f69e94cfd769e6ef128326e8611ca008a64619e9b995"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-1440-review-again.png",
+      "sha256": "7d2ef2b2611d9e7a95cddd2f44b4c0a723b3c389c9729fe8aaafe7e08dbf1c02"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-1440-review-again.png",
+      "sha256": "bd3dfc52c3474332a0ab8e87ad02a150fe8c7621b55d4235feb0d2400dd36e6c"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-1440-review-again.png",
+      "sha256": "f85eea7905a95f617a5c2c5fee58eb4d1379070dd1947489ff8b1dd77426f64b"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-1440-actual-chronicle-filtered-read-only.png",
+      "sha256": "caad96e4aa774007e74c0908e96b55f54e92c8d92df91079c5e16e9fddc6a1dd"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-1440-actual-chronicle-filtered-read-only.png",
+      "sha256": "eb58fba3f1bf54ddeacc97b3e27e5dae0c57dc07cd15db96c67ec9f90d228166"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-1440-actual-chronicle-filtered-read-only.png",
+      "sha256": "66ad4c4ea944734cae5bd47aa8bb11d02c0616874be3084da26f44cc01828225"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-1440-actual-chronicle-filtered-read-only.png",
+      "sha256": "99ff468ae54ddd2e2903b7caacb638fdcb460e93933966482f266858b046f7ac"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-1366-review-again.png",
+      "sha256": "02eb4918aeacf75ec44f6234b71c9ab3e2d730b4df68300baf32cc0277062583"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-1366-actual-chronicle-filtered-read-only.png",
+      "sha256": "a4356353c5e12823ce8b70d8e2af29ba6ead0b1fba9a2468d2d9f4a6c8323c33"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-1366-review-again.png",
+      "sha256": "65fd32318a29c92315492927821f83888dc53be02aefb94b3cc8063bfbeed6ff"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-1366-actual-chronicle-filtered-read-only.png",
+      "sha256": "4986801fe3fb5b65dedea137aa56e9f56c021cdd6b06f21ff752400028806629"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-1366-review-again.png",
+      "sha256": "4f9d7e7ad565de456306152f60cdc7017f2bf4b82fb59d225cfa8b79e9b6383d"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-1366-actual-chronicle-filtered-read-only.png",
+      "sha256": "9803c0d05d837e31e16c617f657f3c7175e070f2098df50e78dfb292cbbca7aa"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-1366-review-again.png",
+      "sha256": "7b69040797b19eec0b5b7e54d6db0d76e943cd29473c1d96018d36fd5613f45f"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-1366-actual-chronicle-filtered-read-only.png",
+      "sha256": "132fe1c0d02d718eaf27ac877cf693d795780cbbadeaad51e6abff727e63a84c"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-390-review-again.png",
+      "sha256": "b0cd11032cc2d9cc2fb3ab4bfa5998d6352744e738866d4d1cb38a629d0b159e"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/signal-390-actual-chronicle-filtered-read-only.png",
+      "sha256": "5fdc78682574e5bf1463672cd5bd6c490eab6b35ad36a291f28d46f1c66f5fcd"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-390-review-again.png",
+      "sha256": "48ec01b36be187f6a1522c6df2df679062cfa5b20b9ba9e1fc28fb1ef9699967"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/unveiled-390-actual-chronicle-filtered-read-only.png",
+      "sha256": "d94d7d3c649505ab73db6c7bbc956b5e1deda70e8b85dba4fc5cacae518e32cf"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-390-review-again.png",
+      "sha256": "d53c978b7b80a26895620e5d43f805782e509187e7b1752044a825e6926c0602"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/witness-390-actual-chronicle-filtered-read-only.png",
+      "sha256": "fcb5b77e2f4d6ab8a95155dba162cfb19a8f2aa7b71c76ebd1513c953da481fa"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-390-review-again.png",
+      "sha256": "9afb6fa641e705a06da4703a625e749ba6867ea5aba032c2575b37616a8dd07e"
+    },
+    {
+      "path": "test-results/windows/v415-final-1/tasks/conclusions/native/acknowledged-390-actual-chronicle-filtered-read-only.png",
+      "sha256": "2e5718305c5e48d527b7b9684c6a2d916fdbf5b38aef2cbf180259a9ff979a49"
+    }
+  ],
+  "actuallyReviewedPNG": 33,
+  "correctedPresentation": "The pilot witnessed 1 times. A neutral count label now uses the actual disclosure count, asserted in each current witness Native run.",
+  "pilotEvidence": [
+    "docs/pc-harness-v415-report-pilot-proof.json",
+    "docs/pc-harness-v415-ui-pilot-proof.json"
+  ],
+  "boundaries": [
+    "Finite declared existing money, original housing, actual prior Core work/disclosure/knowledge and explicit initial exit placement. No natural prior acquisition/travel claim.",
+    "Actual Title/settings/keys/pointers, paid leases, retirement, report-file download, checkpoint review/confirmed restoration; four conclusion review/cancel/continue/confirm/report/Imprint archive flows at three sizes.",
+    "No direct post-Title browser World/body/clock/RNG/material writes. Expected Node restoration mirrors only real confirmed UI restoration; normal FX cleanup in expected model.",
+    "Chronicle filters and archive report downloads preserve original report/metadata. Metadata checks are not additional Node world pairs.",
+    "Current rule labels require parent Def ID, rule ID and exact source. Personal names and historical report/discovery/body/stat/history/claim/mode text remain original.",
+    "Prior2497 artifact hashes and old cohort/migration results are reused by exact source trees. No new old migration or long-run cohort execution is implied."
+  ],
+  "remaining": [
+    "Main/CI/Pages/public verification until separately recorded.",
+    "Full English report bodies and dynamic historical text/logs, remaining Society/clinic/contracts/ceiling/other screens.",
+    "Clipboard path, all death/retirement/access/restore branches, full T1-T10/X1-X4 integration and natural long-term scenarios.",
+    "1000 expeditions, performance/minimum hardware and actual human gates."
+  ]
+}

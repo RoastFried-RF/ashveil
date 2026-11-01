@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import {computed,ref,watch} from 'vue'
-import {knownExpeditionEndings,player,type World} from '../../core'
+import {knownExpeditionEndings,player,retirementDef,type World} from '../../core'
 import {simulating,version,world} from '../store'
 import {doAct} from '../ui'
+import {t,endingRuleText,endingIssueText} from '../locale'
 
-const rows=computed(()=>{void version.value;const w=world.value as World;return knownExpeditionEndings(w,player(w))})
+const rows=computed(()=>{void version.value;const w=world.value as World,parent=retirementDef(w).id;return knownExpeditionEndings(w,player(w)).map(row=>({...row,display:{label:endingRuleText(parent,row.rule!,'label'),summary:endingRuleText(parent,row.rule!,'summary'),epitaph:endingRuleText(parent,row.rule!,'epitaph'),error:endingIssueText(row.error,row.requirements)}}))})
 const choice=ref<{id:string;signature:string}>()
 watch(version,()=>{choice.value=undefined})
 function finish(){const selected=choice.value;if(!selected)return;choice.value=undefined;doAct({type:'finishExpedition',ending:selected.id,expected:selected.signature})}
@@ -12,19 +13,19 @@ function finish(){const selected=choice.value;if(!selected)return;choice.value=u
 
 <template>
   <section class="expedition-endings" data-testid="expedition-endings">
-    <div class="endings-intro"><span>한 생애의 갈림길</span><h3>어디에서 원정을 마칠 것인가</h3><p>직접 확인한 일들이 끝을 고를 이유가 된다. 결말을 고르기 전까지 탐험은 계속할 수 있다.</p></div>
-    <p v-if="!rows.length" class="endings-empty">아직 이 수첩에 남긴 갈림길이 없다. 현장의 설비와 원본 기록을 직접 살펴보자. 정착지 여관에서 거처와 생활비를 확보해 은퇴할 수도 있다.</p>
+    <div class="endings-intro"><span>{{ t('한 생애의 갈림길') }}</span><h3>{{ t('어디에서 원정을 마칠 것인가') }}</h3><p>{{ t('직접 확인한 일들이 끝을 고를 이유가 된다. 결말을 고르기 전까지 탐험은 계속할 수 있다.') }}</p></div>
+    <p v-if="!rows.length" class="endings-empty">{{ t('아직 이 수첩에 남긴 갈림길이 없다. 현장의 설비와 원본 기록을 직접 살펴보자. 정착지 여관에서 거처와 생활비를 확보해 은퇴할 수도 있다.') }}</p>
     <article v-for="row in rows" :key="row.rule!.id" class="ending-card" :class="{'is-ready':!row.error}" :data-ending="row.rule!.id">
-      <div class="ending-card-heading"><span aria-hidden="true">{{ row.error?'◇':'◆' }}</span><h4>{{ row.rule!.label }}</h4><span>{{ row.error?'기록을 잇는 중':'끝을 고를 수 있음' }}</span></div>
-      <p>{{ row.rule!.summary }}</p>
-      <ul v-if="row.notes.length"><li v-for="note in row.notes" :key="note.key">{{ note.title }} · 직접 확인</li></ul>
-      <p v-if="row.disclosures.length" class="ending-evidence">원본 기록을 실제 청중에게 읽은 기록 {{ row.disclosures.length }}회</p>
-      <p v-if="row.error" class="ending-reason">{{ row.error }}</p>
-      <div v-if="choice?.id===row.rule!.id" class="ending-confirm" role="group" :aria-label="row.rule!.label+' 결말 확인'">
-        <p>{{ row.rule!.epitaph }}</p><p>이 원정은 여기서 끝나며 생애 보고서와 연대기에 남는다.</p>
-        <div><button class="dbtn-gold" :disabled="simulating||!!row.error||choice.signature!==row.signature" data-testid="ending-confirm" @click="finish">이 결말로 원정 마치기</button><button class="dbtn" @click="choice=undefined">탐험 계속하기</button></div>
+      <div class="ending-card-heading"><span aria-hidden="true">{{ row.error?'◇':'◆' }}</span><h4>{{ row.display.label }}</h4><span>{{ t(row.error?'기록을 잇는 중':'끝을 고를 수 있음') }}</span></div>
+      <p>{{ row.display.summary }}</p>
+      <ul v-if="row.notes.length"><li v-for="note in row.notes" :key="note.key">{{ t('{0} · 직접 확인',note.title) }}</li></ul>
+      <p v-if="row.disclosures.length" class="ending-evidence">{{ t('원본 기록을 실제 청중에게 읽은 기록 {0}회',row.disclosures.length) }}</p>
+      <p v-if="row.error" class="ending-reason">{{ row.display.error }}</p>
+      <div v-if="choice?.id===row.rule!.id" class="ending-confirm" role="group" :aria-label="t('{0} 결말 확인',row.display.label)">
+        <p>{{ row.display.epitaph }}</p><p>{{ t('이 원정은 여기서 끝나며 생애 보고서와 연대기에 남는다.') }}</p>
+        <div><button class="dbtn-gold" :disabled="simulating||!!row.error||choice.signature!==row.signature" data-testid="ending-confirm" @click="finish">{{ t('이 결말로 원정 마치기') }}</button><button class="dbtn" @click="choice=undefined">{{ t('탐험 계속하기') }}</button></div>
       </div>
-      <button v-else class="dbtn" :disabled="simulating||!!row.error" :data-ending-choose="row.rule!.id" @click="choice={id:row.rule!.id,signature:row.signature}">이 기록으로 마무리 검토</button>
+      <button v-else class="dbtn" :disabled="simulating||!!row.error" :data-ending-choose="row.rule!.id" @click="choice={id:row.rule!.id,signature:row.signature}">{{ t('이 기록으로 마무리 검토') }}</button>
     </article>
   </section>
 </template>
