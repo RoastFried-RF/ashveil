@@ -1,0 +1,236 @@
+{
+  "checkedAtKST": "2026-11-01T22:57:15.060538+09:00",
+  "status": "v0.416-dev preview published; actual public Title/start/wait individually reviewed within recorded scope. Whole English/X1-X4/v1 and human gates remain.",
+  "previewVersion": "0.416-dev",
+  "saveVersion": 221,
+  "publication": {
+    "publishedCommit": "98672c133d919d666ee2df7fb86856ec5bfad71e",
+    "publishedTree": "ad346d04cbf539abc73da15eafa927f6d3dc63b1",
+    "baseMainCommit": "9e73658113dd86be0d89f15abce22b10eedee6bc",
+    "testedCodeCommit": "b6ea0046de693490791bf339f3d649bd202a3a08",
+    "testedTree": "9289544e04ddf5a98e820114e85d38870a0b62f6",
+    "localDocumentationCommit": "8d70349bbf9d748063a601d0ef6875522b6a2269",
+    "payloadSHA256": "7cbc159f6865f49a6edca43f85f76ab8a3aa8e6bede37e01157d9f0c60dae291",
+    "exactRemoteLocalTree": true,
+    "leaseCheckedBeforeRefUpdate": true,
+    "force": false,
+    "ciAndPublicPending": false,
+    "publishedAtUTC": "2026-11-01T13:19:44.849677+00:00",
+    "localSourceMerge": "9409c7df67ad55bf3e5485854f0229efc24ba458",
+    "localMergeTreeMatchesPublished": true,
+    "CI": {
+      "run": 41310617206,
+      "build": 124860016077,
+      "deploy": 124866264080,
+      "url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41310617206",
+      "status": "completed success; actual public16 verified"
+    },
+    "publicAudit": "test-results/windows/public-v416-1/tasks/public/public/audit.json",
+    "public2PNGOpenedIndividually": true
+  },
+  "localEvidence": "docs/pc-harness-v416-proof.json",
+  "localEvidenceSHA256": "dff3bb6a3160dbe5142b32a43c4de8c85325004f9f17ab86a555255d5efc784d",
+  "CI": {
+    "run": {
+      "id": 41310617206,
+      "name": "Playable preview",
+      "head_sha": "98672c133d919d666ee2df7fb86856ec5bfad71e",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41310617206",
+      "created_at": "2026-11-01T13:18:23Z",
+      "updated_at": "2026-11-01T13:45:03Z",
+      "run_started_at": "2026-11-01T13:18:23Z",
+      "event": "push"
+    },
+    "jobs": [
+      {
+        "id": 124860016077,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-01T13:18:26Z",
+        "completed_at": "2026-11-01T13:44:30Z",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41310617206/job/124860016077"
+      },
+      {
+        "id": 124866264080,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-01T13:44:33Z",
+        "completed_at": "2026-11-01T13:45:02Z",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41310617206/job/124866264080"
+      }
+    ],
+    "buildSteps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2
+      },
+      {
+        "name": "Run pnpm/action-setup@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3
+      },
+      {
+        "name": "Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4
+      },
+      {
+        "name": "Run pnpm install --frozen-lockfile",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 5
+      },
+      {
+        "name": "Run pnpm lint",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6
+      },
+      {
+        "name": "Run pnpm validate-defs",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7
+      },
+      {
+        "name": "Run pnpm test",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 8
+      },
+      {
+        "name": "Run pnpm validate-sprites",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 9
+      },
+      {
+        "name": "Run pnpm build",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 10
+      },
+      {
+        "name": "Run actions/upload-pages-artifact@v3",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 11
+      },
+      {
+        "name": "Post Run actions/setup-node@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 20
+      },
+      {
+        "name": "Post Run pnpm/action-setup@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 21
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 22
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 23
+      }
+    ],
+    "summary": {
+      "files": 431,
+      "tests": 6965,
+      "durationSeconds": 1443.03
+    },
+    "entryJavaScript": "assets/index-KgDslu9o.js",
+    "decodedBuildLog": ".local-tools/v416-build-ci-decoded.log",
+    "metadataSource": "Run endpoint and attempt1 jobs per_page30 page1, fetched after completion. Earlier identical GET snapshots remained stale.",
+    "publicPending": false,
+    "decodedBuildLogSHA256": "2ff763f11024a593af7c247d1ebab009201698e38aa9083ec2c8f543690674b6",
+    "recordedAtUTC": "2026-11-01T13:53:11.646150+00:00",
+    "publicVerifiedAtUTC": "2026-11-01T13:56:32.399876+00:00"
+  },
+  "publicVerification": {
+    "audit": "test-results/windows/public-v416-1/tasks/public/public/audit.json",
+    "auditSHA256": "5a4e4d281260da86e0963c7604c4dc3afe91022fb79adf8ca1d0b47cab42a12e",
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v416=98672c133d919d666ee2df7fb86856ec5bfad71e",
+    "sourceCommit": "98672c133d919d666ee2df7fb86856ec5bfad71e",
+    "httpStatus": 200,
+    "previewVersion": "0.416-dev",
+    "publicSaveVersion": 221,
+    "publicContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "expectedContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "realTitleStartAndWait": true,
+    "entryJavaScriptMatchesCIName": true,
+    "ciEntryJavaScript": "assets/index-KgDslu9o.js",
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "a0af160a621924e6af8da3e772f132a7f23db3274f58f0ec12fb83c60e6c2d9b",
+    "localIndexSha256": "6b5b94aa905ddb79bdb6cbb42e9df3ce785abbc8948562d35ee71c7807698b55",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-KgDslu9o.js"
+    ],
+    "pngActuallyReviewed": [
+      "test-results/windows/public-v416-1/tasks/public/public/public-title.png",
+      "test-results/windows/public-v416-1/tasks/public/public/public-world.png"
+    ],
+    "pngReviewedSHA256": {
+      "test-results/windows/public-v416-1/tasks/public/public/public-title.png": "06dd5532d8b771773371063f53a3271fb22a627aa93a20f0fd9fede1835f4825",
+      "test-results/windows/public-v416-1/tasks/public/public/public-world.png": "30a63aa3e815f4075c3593f41b805121dfdce5077c6bf44d4a304e0ba5f660e2"
+    }
+  },
+  "localRootBuild": {
+    "audit": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\test-results\\windows\\v416-root-artifact-1\\tasks\\artifact\\audit.json",
+    "auditSHA256": "bfede1e9b91b1ffac0a0cbc67ea80cfb5180febbdcc9c4b6c8c030bd75911b9a",
+    "buildTasks": 4,
+    "fileCount": 2716,
+    "entryJavaScript": "assets/index-e3bgvSqE.js",
+    "entrySHA256": "cf41425e95747339c4ed06c4da20a5eeedccd018110dade45f995603029ca438",
+    "entryBytesEqualToWindowsCandidate": true,
+    "wholeBuildByteIdentity": false,
+    "classifiedDifferences": {
+      "CRLFOnlyTextFiles": 851,
+      "HTMLCRLFAndEmptyLine": 1,
+      "missingOrExtraFiles": 0,
+      "otherDifferences": 0
+    },
+    "historicalStrictFailureNotRerun": {
+      "run": "test-results/windows/v415-root-artifact-1",
+      "stderrSHA256": "421c005a01e8bc69bfd06031e77781f3afcc0e1037a28cc6658a82615af2d4d8",
+      "notRerunFor416": true
+    },
+    "scope": "Current root/candidate Windows outputs compared with raw-byte and UTF8 line-ending/HTML classification. No CI Linux/public whole-artifact byte identity, public persistence or new Full/Native execution. Original source files were not manually normalized."
+  },
+  "verificationLimits": [
+    "Public script name matches completed decoded CI output; content hash matches the tested source. CI/public artifact byte identity is not claimed.",
+    "Validated Windows candidate HTML differs from Linux CI/public HTML; indexMatchesLocalBuild is false.",
+    "Actual public Title/start/100TU wait and direct saveVersion221 are checked; public save persistence is not established.",
+    "Five finite declared society/trade/clinical/recovery scenes and three viewports are accepted only within their recorded states. Historical findings/reasons/contract titles and personal names remain original.",
+    "Original finite money/medicine/body/arrival and calm doctor conditions are declared; no earlier natural acquisition/travel or complete medical/contract-state permutation is implied.",
+    "Earlier2653 original artifact SHA are reverified, with old220 migration/two30-run cohort evidence reused by exact Core/content/public/mod trees. No fresh old-migration or cohort execution is claimed.",
+    "Parent companion/journal/contract/body panels and remaining clinical failure text, whole dynamic logs/historical bodies/full English, natural X1-X4 integration,1000 expeditions, performance/minimum hardware and actual human gates remain open."
+  ]
+}
