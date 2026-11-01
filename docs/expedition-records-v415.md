@@ -1,8 +1,10 @@
 # v415: expedition choices and report controls
 
+2026-11-01 공개 후속: **v0.415-dev · 저장221**을 main/Pages에 게시했다. 결말 선택4종·보고서/복원·연대기/발견 기록 조작과 파일 항목명을 연결했고 GitHub Full429파일6,952검사와 배포가 성공했다. 공개 CI 진입 JS 이름·콘텐츠 해시·실제 타이틀/시작/100TU 대기·오류0과2PNG를 직접 확인했다. [게시·공개 영수증](release-v415-proof.json). 저장된 본문·이름·주장은 보존하며, 나머지 영어/결말 분기/X1–X4·자연 장기 과정·사람 평가는 남는다.
+
 2026-11-01 v415 최종 로컬 수락: **v0.415-dev · 저장221**의 고정 원문 e094e5c4336d에서20작업을 통과했다. 결말 선택4종·보고서 파일/복원·연대기/발견 기록의 조작 문구와 영어 파일 항목명을 연결했다. Full429파일6,952검사,1440/1366/390 화면에서 독립 Node와 전체 세계156쌍·오류0, 언어 관찰12쌍을 별도로 확인했다. 현재 결과의33PNG를 직접 검토했고 소스9,247파일 SHA가 전후 같았다. 새221자료156개 전체 바이트 왕복과 선행2,497자료의 원래 SHA를 확인했다. [최종 검증·경계](pc-harness-v415-proof.json) · [이전 시범 결과와 표기 문제](pc-harness-v415-ui-pilot-proof.json).
 
-원래 유한 돈/물품·이전 실제 작업/개인 기록·초기 출입구 배치를 명시한 진단 경로다. 보고서/발견의 저장된 제목·본문·주장·개인 이름을 보존하며, 과거 기록을 현재 구성으로 추정하지 않는다. 현재 결말 규칙의12필드는 실제 Def ID/규칙 ID/원문 일치로 제한한다. 클립보드·역사 보고서 본문/로그의 전체 영어·모든 접근/복원 분기·자연 장기 과정·전체 X1–X4/v1·성능/사람 평가는 남는다. main/CI/Pages와 공개 진입 확인은 별도 영수증이 필요하다. 선행 공개 수락은 [v414 영수증](release-v414-proof.json)에 있다. 아래 이전 체크포인트의 표현은 그 시점 기록이다.
+원래 유한 돈/물품·이전 실제 작업/개인 기록·초기 출입구 배치를 명시한 진단 경로다. 보고서/발견의 저장된 제목·본문·주장·개인 이름을 보존하며, 과거 기록을 현재 구성으로 추정하지 않는다. 현재 결말 규칙의12필드는 실제 Def ID/규칙 ID/원문 일치로 제한한다. 클립보드·역사 보고서 본문/로그의 전체 영어·모든 접근/복원 분기·자연 장기 과정·전체 X1–X4/v1·성능/사람 평가는 남는다. 이 원문의 main/CI/Pages와 공개 진입 확인도 [v415 영수증](release-v415-proof.json)에 기록했다. [v414 영수증](release-v414-proof.json)은 선행 공개 기록이다. 아래 이전 체크포인트의 표현은 그 시점 기록이다.
 
 This separate authoring candidate starts from the validated combined v414 UI source. It adds English controls for the four current expedition ending choices, report copy/file actions, chronicle search/categories/pagination, discovery archive controls and exported report headings. Twelve ending-rule fields require the actual parent Def ID, ending ID and original field text. Changed or foreign rules remain literal. Report export defaults to the existing Korean format for callers that do not request a language.
 

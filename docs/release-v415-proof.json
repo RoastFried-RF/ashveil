@@ -1,0 +1,123 @@
+{
+  "checkedAtKST": "2026-11-01T20:48:37.849830+09:00",
+  "status": "v0.415-dev preview published; public Title/start/real wait individually visually reviewed within recorded scope. Full English report bodies/v1/X1-X4 and human gates remain.",
+  "previewVersion": "0.415-dev",
+  "saveVersion": 221,
+  "publication": {
+    "publishedCommit": "acddd1b324ce70cba03a159fffe2182e05ddeebf",
+    "publishedTree": "5b3b3ee08a0f7d6fbe57b39309f28df1da698e37",
+    "localValidatedCommit": "e094e5c4336df3120cbf390d4fbb7bae101114a2",
+    "localDocumentationCommit": "f6a81231519f1a74736d785e17061cf0846c3e5e",
+    "localSyncCommit": "c05f6f21c7c39c28f0cb35690b612173a0fc4531",
+    "previousMain": "7849d9ae0495d6be561e83e966d68b9dbb5a8994",
+    "method": "GitHub connected API exact tree and expected-head fast-forward ref update; readonly fetch and same-tree merge",
+    "payloadSHA256": "8ddcbeaf93e6c97b117f5650a6c2302199fa58c6eeb51a1379d1a50e0213f0a1",
+    "ciAndPublicPending": false
+  },
+  "localEvidence": "docs/pc-harness-v415-proof.json",
+  "localEvidenceSHA256": "a0495469e20408058a55084e5ab45ebe7777bb0eb0766ca6c1a8ca39df91c2fd",
+  "CI": {
+    "run": {
+      "id": 41300895038,
+      "head_sha": "acddd1b324ce70cba03a159fffe2182e05ddeebf",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41300895038",
+      "run_attempt": 1,
+      "created_at": "2026-11-01T11:13:00Z",
+      "updated_at": "2026-11-01T11:34:19Z"
+    },
+    "jobs": [
+      {
+        "id": 124831378333,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41300895038/job/124831378333",
+        "started_at": "2026-11-01T11:13:04Z",
+        "completed_at": "2026-11-01T11:33:35Z"
+      },
+      {
+        "id": 124835943371,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/RoastFried-RF/ashveil/actions/runs/41300895038/job/124835943371",
+        "started_at": "2026-11-01T11:33:40Z",
+        "completed_at": "2026-11-01T11:34:19Z"
+      }
+    ],
+    "summary": {
+      "files": 429,
+      "tests": 6952,
+      "durationSeconds": 1118.24
+    },
+    "entryJavaScript": "assets/index-CkICerA1.js",
+    "decodedLog": ".local-tools/v415-build-ci-decoded.log",
+    "decodedLogSHA256": "72e0d9668cdd622ec4e20af46de5d6cf29910ae09c4aac2f7c7087b416256ca3"
+  },
+  "publicVerification": {
+    "audit": "test-results/windows/public-v415-1/tasks/public/public/audit.json",
+    "auditSHA256": "4d3c6886ab3e9b99ef3b2d1c2015b06882128a19c5da8d294d97c0ddf4e1cca2",
+    "url": "https://roastfried-rf.github.io/ashveil/?debug&v415=acddd1b324ce70cba03a159fffe2182e05ddeebf",
+    "sourceCommit": "acddd1b324ce70cba03a159fffe2182e05ddeebf",
+    "httpStatus": 200,
+    "previewVersion": "0.415-dev",
+    "publicSaveVersion": 221,
+    "publicContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "expectedContentHash": "sha256-d38c2b85d4fee768c7948f0f23e333c1b855d3808a8275470a392fbc39ad8256",
+    "realTitleStartAndWait": true,
+    "entryJavaScriptMatchesCIName": true,
+    "ciEntryJavaScript": "assets/index-CkICerA1.js",
+    "initialTimeTU": 2160000,
+    "afterRealWaitTimeTU": 2160100,
+    "timeDeltaTU": 100,
+    "savedHeaders": [],
+    "manualWorldRNGClockWrites": false,
+    "errors": [],
+    "indexSha256": "7b257e0d77b0cd2d36335163b97a36baaf586bec3c25b20fb7c93c5868700255",
+    "localIndexSha256": "12e86344cc3be6cde225f370c51943e3e917b7cd7f94944ccf82f6f078a61f17",
+    "indexMatchesLocalBuild": false,
+    "scripts": [
+      "./assets/index-CkICerA1.js"
+    ],
+    "pngActuallyReviewed": [
+      "test-results/windows/public-v415-1/tasks/public/public/public-title.png",
+      "test-results/windows/public-v415-1/tasks/public/public/public-world.png"
+    ],
+    "pngReviewedSHA256": {
+      "test-results/windows/public-v415-1/tasks/public/public/public-title.png": "9f44bed265f712e81960a2792742d7a8915431b1ab2a3848bc21d5bf96a56783",
+      "test-results/windows/public-v415-1/tasks/public/public/public-world.png": "d05e1b73b70d8328ace1569325f9b6a193e1df06902a6c425b8e33e28e358f6d"
+    }
+  },
+  "localRootBuild": {
+    "audit": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\test-results\\windows\\v415-root-artifact-2\\tasks\\artifact\\audit.json",
+    "auditSHA256": "52c28cd74babf57db830577e783b46303f461ead06be48c0a80a8cb0fe9d78d3",
+    "buildTasks": 4,
+    "fileCount": 2716,
+    "entryJavaScript": "assets/index-BgxX9sAQ.js",
+    "entrySHA256": "57e04c2de60781e0db6cb182881ab299602b548c2943d28572674c65a78d9f0a",
+    "entryBytesEqualToWindowsCandidate": true,
+    "wholeBuildByteIdentity": false,
+    "classifiedDifferences": {
+      "CRLFOnlyTextFiles": 851,
+      "HTMLCRLFAndEmptyLine": 1,
+      "missingOrExtraFiles": 0,
+      "otherDifferences": 0
+    },
+    "strictFirstFailurePreserved": {
+      "run": "test-results/windows/v415-root-artifact-1",
+      "stderrSHA256": "421c005a01e8bc69bfd06031e77781f3afcc0e1037a28cc6658a82615af2d4d8"
+    },
+    "scope": "Local source-equivalent Windows build with explicitly classified text/HTML byte differences. No whole-build/CI Linux/public byte identity, public persistence or new Full/native run is claimed. Original source files were not normalized or rewritten."
+  },
+  "verificationLimits": [
+    "Public script name matches successful decoded CI output and content hash matches local tested source. CI artifact byte identity is not claimed.",
+    "Windows candidate HTML differs from Linux CI/public HTML; indexMatchesLocalBuild is false.",
+    "Actual public Title/start/100TU wait and direct saveVersion221 are checked; public save persistence is not established.",
+    "Historical report titles/bodies, personal names, discoveries and claims remain original. This release covers current ending choices and record controls/headings, not whole English historical bodies or dynamic logs.",
+    "Finite declared initial money/exit placement and actual prior Core work/disclosure/knowledge are distinguished from natural prior acquisition and travel.",
+    "Prior2497 artifact rows were rehashed, with old cohorts/migration proof reused by exact Core/content/public/mod trees. No fresh old migration or cohort execution is implied.",
+    "Clipboard, all death/retirement/access/restore branches, full T1-T10/X1-X4/v1,1000 expeditions, performance/minimum hardware and actual human gates remain open."
+  ]
+}
