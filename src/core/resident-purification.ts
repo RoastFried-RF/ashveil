@@ -28,6 +28,8 @@ export function delayResidentPurification(w: World, c: Creature) { c.residentPur
 export function residentPurificationGoal(w: World, c: Creature, it: ItemInst) {
   const d = residentPurificationDef(w), fire = w.s.map.residentHearth, depot = w.s.map.residentDepot, fuel = waterSafetyDef(w).treatments.boil.fuel
   if (!d || !resident(w, c) || !fire || fire.site !== c.residentSite || (c.residentPurifyAfter ?? 0) > turnOf(w) || !isWaterVessel(w,it) || (it.uses ?? 0) <= 0 || waterQuality(w, it).pathogen <= 0 || !suitableDrink(w,it) || !fuel) return null
+  // A saved partial boil remembers its original heat. Another hearth cannot replace it.
+  if(c.boilJob){const heat=c.boilJob.heat;return{kind:'boil' as const,pos:heat.map===w.s.map.id?heat.pos??c.pos:fire.pos,uid:it.uid}}
   if (waterResourcePlan(c,fuel,waterBatches(w,it))) return { kind: 'boil' as const, pos: fire.pos, uid: it.uid }
   const unit = worldSimulationDef(w).items[fuel], used = c.residentFuel?.day === dayOf(w) ? c.residentFuel.units : 0
   if (!depot || depot.site !== c.residentSite || unit?.commodity !== 'Fuel' || d.dailyFuelUnits - used + 1e-9 < unit.units) return null

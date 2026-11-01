@@ -4,6 +4,7 @@ import{projectThermalState,type ThermalActivity,type ThermalState}from'./thermal
 import{itemDef,equipError,equipDisplacements,unequipError}from'./items'
 import{clothingRemoveSlots}from'./lining-state'
 import{residentWarmthDef}from'./resident-warmth'
+import{residentPreparingRest}from'./resident-rest'
 import{canSee,hasLos}from'./fov'
 import{cheb,type Pos}from'./geom'
 import{findPath}from'./path'
@@ -36,15 +37,19 @@ export function ownedThermalClothingAction(w:World,c:Creature,pos:Pos,activity:T
 export function residentCoolingDecision(w:World,c:Creature):{action?:Action;goal?:Pos}|null{
  const rule=residentWarmthDef(w)?.cooling
  if(!rule||c.needs.bodyTemp<rule.at||w.s.map.kind!=='surface'||c===player(w)||!w.s.creatures.includes(c)||!c.alive||c.asleep||c.unconscious||c.activity||c.captivity||c.companion||c.rescue||c.breakdown||c.roadRaid||c.caravan||c.abduction||!c.home||!inBounds(w,c.home)||!inBounds(w,c.pos)||!c.residentSite||c.residentSite!==w.s.overworld?.currentRegion||c.mapId!==undefined&&c.mapId!==w.s.map.id||c.body.machine||w.db.body(c.body.def).kind!=='humanoid'||!rule.factions.includes(c.faction)||!rule.roles.includes(w.db.creature(c.def).ai)||c.ai.task||c.ai.route?.length||c.ai.target||['hunt','flee','surrender','patrol','return'].includes(c.ai.mode)||activeEscort(w,c)||hostileAware(w,c))return null
- const current=projectThermalState(w,c,'rest'),clothes=ownedThermalClothingAction(w,c,c.pos,'rest',rule.minimumImprovement)
+ const preparing=residentPreparingRest(w,c),activity=preparing?'sleep':'rest',current=projectThermalState(w,c,activity),clothes=ownedThermalClothingAction(w,c,c.pos,activity,rule.minimumImprovement)
  if(clothes)return{action:clothes}
+ const here=terrainAt(w,c.pos),danger=knownFireDanger(w,c)
+ // Once ordinary visible floor is comfortable for sleep, repay fatigue/debt through real sleep.
+ // Short cooling rests cannot repay debt; returning to an overheated bed would repeat that cycle.
+ if(preparing&&current.feels>=current.low&&current.feels<=current.high&&here.passable&&!here.water&&!here.bedding&&!here.door&&!here.stairs&&!here.container&&!here.station&&!here.cultivation&&!here.residentDepot&&!here.residentWell&&!danger.has(c.pos.y*w.s.map.w+c.pos.x)&&!w.s.map.exits.some(p=>p.x===c.pos.x&&p.y===c.pos.y))return{action:{type:'sleep'}}
  if(current.feels<=current.high)return(current.fever??37)>=rule.at?null:{action:{type:'rest',turns:rule.restTurns}}
  // A visible destination does not grant knowledge of an unseen heat source behind a corner.
- const known:World={db:w.db,s:{...w.s,map:{...w.s.map,lights:w.s.map.lights.filter(l=>canSee(w,c,l.pos)&&hasLos(w,c.pos,l.pos))}}},danger=knownFireDanger(w,c),candidates=[]
+ const known:World={db:w.db,s:{...w.s,map:{...w.s.map,lights:w.s.map.lights.filter(l=>canSee(w,c,l.pos)&&hasLos(w,c.pos,l.pos))}}},candidates=[]
  for(let y=c.pos.y-rule.radius;y<=c.pos.y+rule.radius;y++)for(let x=c.pos.x-rule.radius;x<=c.pos.x+rule.radius;x++){
   const pos={x,y};if(!inBounds(w,pos)||cheb(c.pos,pos)===0||!canSee(w,c,pos)||!hasLos(w,c.pos,pos)||creatureAt(w,pos)||danger.has(y*w.s.map.w+x))continue
-  const t=terrainAt(w,pos);if(!t.passable||t.water||t.bedding||t.stairs||t.container||t.station||t.cultivation)continue
-  const future=projectThermalState(known,c,'rest',pos),score=deviation(future)
+  const t=terrainAt(w,pos);if(!t.passable||t.water||t.bedding||t.door||t.stairs||t.container||t.station||t.cultivation||t.residentDepot||t.residentWell||w.s.map.exits.some(p=>p.x===pos.x&&p.y===pos.y))continue
+  const future=projectThermalState(known,c,activity,pos),score=deviation(future)
   if(deviation(current)-score>=rule.minimumImprovement)candidates.push({pos,score})
  }
  candidates.sort((a,b)=>a.score-b.score||cheb(c.pos,a.pos)-cheb(c.pos,b.pos)||a.pos.y-b.pos.y||a.pos.x-b.pos.x)

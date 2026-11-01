@@ -4,10 +4,12 @@ import itemDetails from './en-item-details.json'
 import itemExtra from './en-item-extra.json'
 import foodTraining from './en-food-training.json'
 import cultivation from './en-cultivation.json'
+import campCraft from './en-camp-craft.json'
+import fieldCamp from './en-field-camp.json'
 
 export type Language = 'ko' | 'en'
 export type MessageValue = string | number
-const messages: Readonly<Record<string, string>> = {...english,...itemDetails,...itemExtra,...foodTraining,...cultivation}
+const messages: Readonly<Record<string, string>> = {...english,...itemDetails,...itemExtra,...foodTraining,...cultivation,...campCraft,...fieldCamp}
 
 export function translate(source: string, language: Language, ...values: MessageValue[]): string {
   const message = language === 'en' && Object.hasOwn(messages, source) ? messages[source] : source

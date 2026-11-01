@@ -8,8 +8,8 @@ import{playerAct,runUntilInput}from'../src/core/game'
 import{serialize,deserialize}from'../src/core/save'
 import{tradeQuote,tradeAccess}from'../src/core/economy'
 import{projectThermalState}from'../src/core/thermal'
-import{DIRS,cheb,dirIndex,type Pos}from'../src/core/geom'
-import{findPath,diagonalBlocked}from'../src/core/path'
+import{cheb,dirIndex,type Pos}from'../src/core/geom'
+import{findPath}from'../src/core/path'
 import{canSee,hasLos}from'../src/core/fov'
 import{drinkVolume}from'../src/core/wash-water'
 import{readyFood}from'../src/core/open-food-state'
@@ -18,6 +18,7 @@ import{makeItem,maxStack}from'../src/core/items'
 import type{Action}from'../src/core/actions'
 
 import{cultivationStatus}from'../src/core/cultivation'
+import{approachCourseDestination}from'./pilgrim-course-route'
 const out=process.argv[2];assert.ok(out&&!existsSync(out),'Choose a new output directory');mkdirSync(out,{recursive:true})
 const horizonDays=Number(process.argv[3]??20);assert.ok(Number.isInteger(horizonDays)&&horizonDays>=1&&horizonDays<=30);const horizon=horizonDays*TURNS_PER_DAY
 const d=pilgrimFieldsFixture(),w=d.w,start=turnOf(w),rows:unknown[]=[],actions:Record<string,number>={}
@@ -35,12 +36,7 @@ const initial={proof:d.proof,originalMerchant:d.trader.id,originalGuard:d.c.id,m
 const garments=(['chest','lining','feet','head']as const).flatMap(slot=>player(w).equip[slot]?[{slot,uid:player(w).equip[slot]!.uid}]:[])
 writeFileSync(join(out,'initial-world.json'),serialize(w.s),{flag:'wx'});writeFileSync(join(out,'declared-initial.json'),JSON.stringify(initial,null,2),{flag:'wx'})
 function act(a:Action){const at=w.s.time,error=playerAct(w,a,200);if(error==='길이 막혔다'&&a.type==='move'){actions.blockedMove=(actions.blockedMove??0)+1;assert.equal(playerAct(w,{type:'wait'},200),null);actions.wait=(actions.wait??0)+1}else assert.equal(error,null,a.type);while(w.s.simulationPending&&!w.s.over){observation();runUntilInput(w,200)}actions[a.type]=(actions[a.type]??0)+1;assert.ok(player(w).alive&&d.trader.alive&&d.c.alive,'Original observer and worker must remain alive');assert.ok(w.s.time>=at);assert.ok(turnOf(w)-start<horizon+TURNS_PER_DAY,'Finite diagnostic horizon, not an action-cap survival claim')}
-function moveTo(pos:Pos,stepLimit=80){
- for(let i=0;cheb(player(w).pos,pos)>1&&i<stepLimit;i++){
-  const p=player(w),paths=DIRS.map(v=>({x:pos.x+v.x,y:pos.y+v.y})).filter(q=>inBounds(w,q)&&terrainAt(w,q).passable&&hasLos(w,q,pos)&&!diagonalBlocked(w,q,pos.x-q.x,pos.y-q.y)&&(!creatureAt(w,q)||creatureAt(w,q)!.id===p.id)).map(q=>findPath(w,p.pos,q,{avoidCreatures:true,selfId:p.id})).filter((p):p is NonNullable<typeof p>=>!!p?.length).sort((a,b)=>a.length-b.length)
-  assert.ok(paths[0]?.length,'Actual route to known local destination');const next=paths[0][0];act({type:'move',dir:dirIndex(next.x-p.pos.x,next.y-p.pos.y)})
- }if(stepLimit===80)assert.ok(cheb(player(w).pos,pos)<=1)
-}
+function moveTo(pos:Pos,stepLimit=80){approachCourseDestination(w,pos,act,stepLimit)}
 function approachWorker(){for(let i=0;i<80;i++){const p=player(w),seen=canSee(w,p,d.trader.pos),goal=seen?d.trader.pos:d.trader.home!;if(seen&&cheb(p.pos,goal)<=1&&hasLos(w,p.pos,goal))return;if(cheb(p.pos,goal)>1)moveTo(goal,1);else if(!seen&&cheb(p.pos,goal)>0)act({type:'move',dir:dirIndex(goal.x-p.pos.x,goal.y-p.pos.y)});else return}}
 function trade(buy:{uid:number;count:number}[],sell:{uid:number;count:number}[]=[]){
  approachWorker();const q=tradeQuote(w,player(w),d.trader,buy,sell);assert.equal(q.error,null);const bank=d.market.money+(player(w).money??0)

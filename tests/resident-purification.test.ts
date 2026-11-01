@@ -1,6 +1,6 @@
 import {SAVE_VERSION} from '../src/core/game'
 import { describe, expect, it } from 'vitest'
-import { perform } from '../src/core/actions'
+import { activityStep, perform } from '../src/core/actions'
 import { aiDecide } from '../src/core/ai'
 import { player, tileAt, turnOf, TURNS_PER_DAY, type World } from '../src/core/ctx'
 import { invalidateLights } from '../src/core/fov'
@@ -9,7 +9,8 @@ import { addToBag, allItems, countOf, makeItem, removeOne } from '../src/core/it
 import { initializeResidentPurification, residentFuelQuote, residentPurificationGoal, takeResidentFuel } from '../src/core/resident-purification'
 import { deserialize, serialize, stateHash } from '../src/core/save'
 import { initializeSettlement } from '../src/core/settlements'
-import { waterStep } from '../src/core/water'
+import { startWaterTreatment, waterStep } from '../src/core/water'
+import {waterBoilQuote} from '../src/core/boil-state'
 import { db } from './helpers'
 const template = newGame(db, { seed: 'resident-purification', overworld: true })
 function setup() {
@@ -32,6 +33,22 @@ function setup() {
 }
 function wait(w: World, n: number) { for (let i = 0; i < n; i++) expect(playerAct(w, { type: 'wait' })).toBeNull() }
 describe('주민의 실제 연료 배급·식수 끓이기', () => {
+  it('a partial boil remembers its original heat instead of walking to another common hearth',()=>{
+    const d=setup(),{w,doctor,fire,bottle}=d;d.raw();d.wood();doctor.pos={x:fire.pos.x-1,y:fire.pos.y}
+    expect(startWaterTreatment(w,doctor,bottle.uid,'boil',1)).toBeNull();for(let n=0;n<80;n++)activityStep(w,doctor);doctor.activity=undefined
+    const original=structuredClone(doctor.boilJob),other={x:fire.pos.x-5,y:fire.pos.y};w.s.map.residentHearth={...fire,pos:other};w.s.map.lights.push({pos:other,radius:6,kind:'campfire'});invalidateLights(w)
+    doctor.pos={x:other.x,y:other.y+1};const before=serialize(w.s)
+    expect(residentPurificationGoal(w,doctor,bottle)).toMatchObject({kind:'boil',pos:fire.pos});expect(serialize(w.s)).toBe(before);expect(doctor.boilJob).toEqual(original)
+  })
+  for(const changed of ['heat','water','fuel']as const)it('a changed original '+changed+' cancels partial boiling without phantom treatment or fuel consumption',()=>{
+    const d=setup(),{w,doctor,fire,bottle}=d;d.raw();const wood=d.wood();doctor.pos={x:fire.pos.x-1,y:fire.pos.y};doctor.needs.waterDeficit=600
+    expect(startWaterTreatment(w,doctor,bottle.uid,'boil',1)).toBeNull();for(let n=0;n<80;n++)activityStep(w,doctor);doctor.activity=undefined
+    if(changed==='heat'){w.s.map.lights[0].off=true;w.s.map.lights.push({pos:{x:doctor.pos.x-1,y:doctor.pos.y},radius:6,kind:'campfire'});invalidateLights(w)}
+    if(changed==='water')bottle.water!.ash++
+    if(changed==='fuel')doctor.bag=doctor.bag.filter(i=>i.uid!==wood.uid)
+    expect(waterBoilQuote(w,doctor,bottle.uid,1).error).not.toBeNull();const action=aiDecide(w,doctor),snapshot={time:w.s.time,rng:structuredClone(w.s.rng),needs:structuredClone(doctor.needs),bag:structuredClone(doctor.bag)}
+    expect(action).toEqual({type:'cancelBoil'});expect(perform(w,doctor,action)).toMatchObject({ok:true,tu:0});expect(doctor.boilJob).toBeUndefined();expect({time:w.s.time,rng:w.s.rng,needs:doctor.needs,bag:doctor.bag}).toEqual(snapshot);expect(doctor.residentPurifyAfter).toBeGreaterThan(turnOf(w));expect(aiDecide(w,doctor)).toEqual({type:'consume',uid:bottle.uid})
+  })
   it('기존 화덕을 기억하고 중복 생성·무료 연료·회복 없이 한 번 초기화한다', () => {
     const { w, site, fire } = setup(); expect(fire.pos).toEqual({ x: 32, y: 18 }); const hash = stateHash(w.s); initializeResidentPurification(w, site); initializeSettlement(w); expect(stateHash(w.s)).toBe(hash)
   })

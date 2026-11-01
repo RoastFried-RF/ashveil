@@ -54,7 +54,8 @@ import {delayResidentHygiene,observeResidentHygiene,residentHygieneGoal,resident
 import {beddingWashQuote} from './bedding-lice'
 import {residentVesselGoal} from './resident-vessels'
 import { delayResidentPurification, residentPurificationGoal } from './resident-purification'
-import { nearbyWater, waterTreatmentError } from './water'
+import { nearbyWater } from './water'
+import {waterBoilQuote} from './boil-state'
 import { handState, washHandsError } from './hand-hygiene'
 import { knownCreatureName } from './bestiary-state'
 // 적 AI: 무리 사냥꾼(재늑대), 약탈자, 겁많은 쥐. 같은 규칙 아래에서 판단한다.
@@ -200,11 +201,13 @@ function residentPurifyAction(w: World, c: Creature, it: ItemInst): Action | nul
     if (step) return step
   } else {
     if (cheb(c.pos, goal.pos) <= 2 && hasLos(w, c.pos, goal.pos)) {
-      const fire = w.s.map.residentHearth!, factor = multiTurnFactor(w, c)
-      if (terrainAt(w, goal.pos).id === fire.terrain && w.s.map.lights.some((l) => l.kind === 'campfire' && !l.off && eq(l.pos, goal.pos)) && !waterTreatmentError(w, c, it, 'boil') && Number.isFinite(factor) && factor <= 4) {
+      const factor = multiTurnFactor(w, c)
+      const fire=w.s.map.residentHearth!,knownHeat=c.boilJob||terrainAt(w,goal.pos).id===fire.terrain&&w.s.map.lights.some(l=>l.kind==='campfire'&&!l.off&&eq(l.pos,goal.pos))
+      if (knownHeat&&!waterBoilQuote(w,c,it.uid,factor).error) {
         c.residentReturning = true; return { type: 'waterTreatment', uid: it.uid, method: 'boil' }
       }
-      delayResidentPurification(w, c); return null
+      delayResidentPurification(w, c)
+      return c.boilJob ? {type:'cancelBoil'} : null
     }
     const access: Pos[] = []
     for (let y = goal.pos.y - 2; y <= goal.pos.y + 2; y++) for (let x = goal.pos.x - 2; x <= goal.pos.x + 2; x++) {

@@ -1,18 +1,51 @@
 import{describe,it,expect}from'vitest'
 import{pilgrimFieldsFixture}from'./pilgrim-fields-fixture'
 import{ownedThermalClothingAction,residentCoolingDecision}from'../src/core/resident-thermal-care'
-import{serialize}from'../src/core/save'
+import{serialize,deserialize}from'../src/core/save'
 import{allItems,itemDef}from'../src/core/items'
 import{perform}from'../src/core/actions'
 import{finishBase}from'./base-camp-fixture'
 import{playerAct}from'../src/core/game'
-import{tileAt}from'../src/core/ctx'
+import{tileAt,turnOf,type World}from'../src/core/ctx'
 import{canSee,hasLos,invalidateLights}from'../src/core/fov'
 import{loadMods,type PatchOp}from'../src/core/defs'
 import{readPackages}from'../tools/loadContent'
 import{projectThermalState}from'../src/core/thermal'
+import{npcRestDef}from'../src/core/resident-rest'
+
+function tiredCourtyard(bare=true){
+ const d=pilgrimFieldsFixture();d.c.pos={x:30,y:25};d.c.needs.bodyTemp=38.2;d.c.needs.fatigue=85;d.s.wind={x:0,y:0}
+ if(bare)for(const slot of Object.keys(d.c.equip)as (keyof typeof d.c.equip)[]){const it=d.c.equip[slot];if(it&&itemDef(d.w,it).apparel){d.c.bag.push(it);delete d.c.equip[slot]}}
+ const forecast=projectThermalState(d.w,d.c,'sleep');expect(forecast.feels).toBeGreaterThanOrEqual(forecast.low);expect(forecast.feels).toBeLessThanOrEqual(forecast.high)
+ return d
+}
 
 describe('original residents use owned clothes and visible cooler ground without instant temperature writes',()=>{
+ it('chooses actual sleep on comfortable ordinary floor without changing the query world or original bed',()=>{
+  const d=tiredCourtyard(),before=serialize(d.s);expect(residentCoolingDecision(d.w,d.c)).toEqual({action:{type:'sleep'}});expect(serialize(d.s)).toBe(before)
+ })
+ it('a real fever target does not prevent prepared sleep on thermally safe floor',()=>{
+  const d=tiredCourtyard();d.c.effects.push({kind:'fever',magnitude:38.5,untilTurn:turnOf(d.w)+28800});const before=serialize(d.s)
+  expect(residentCoolingDecision(d.w,d.c)).toEqual({action:{type:'sleep'}});expect(serialize(d.s)).toBe(before)
+ })
+ it('repays actual sleep debt through normal sleep, preserving the same bed and exact saved continuation',()=>{
+  const d=tiredCourtyard();d.c.needs.fatigue=0;d.c.needs.sleepDebt=2;const beds=structuredClone(d.s.map.residentBeds);let slept=false
+  for(let i=0;i<4;i++){expect(playerAct(d.w,{type:'rest',turns:200})).toBeNull();slept||=!!d.c.asleep}
+  expect(slept).toBe(true);expect(d.c.needs.sleepDebt).toBeLessThan(2);const copy:World={db:d.w.db,s:deserialize(serialize(d.s))}
+  for(let i=0;i<28;i++){expect(playerAct(d.w,{type:'rest',turns:200})).toBeNull();expect(playerAct(copy,{type:'rest',turns:200})).toBeNull()}
+  expect(serialize(copy.s)).toBe(serialize(d.s));expect(d.c.alive).toBe(true);expect(d.c.needs.sleepDebt).toBeLessThan(npcRestDef(d.w)!.debtAt);expect(d.c.needs.bodyTemp).toBeLessThan(39);expect(d.s.map.residentBeds).toEqual(beds)
+ },60000)
+ it('ordinary sleep reduces actual fatigue without replacing the body values or creating bedding',()=>{
+  const d=tiredCourtyard(),beds=structuredClone(d.s.map.residentBeds);let slept=false
+  for(let i=0;i<24;i++){expect(playerAct(d.w,{type:'rest',turns:200})).toBeNull();slept||=!!d.c.asleep}
+  expect(slept).toBe(true);expect(d.c.needs.fatigue).toBeLessThan(npcRestDef(d.w)!.sleepAt);expect(d.c.alive).toBe(true);expect(d.s.map.residentBeds).toEqual(beds)
+ },60000)
+ for(const terrain of ['Terrain.DoorOpen','Terrain.ResidentDepot','Terrain.SettlementWell','Terrain.OatPlot'])it('does not sleep on the public passage/facility '+terrain,()=>{
+  const d=tiredCourtyard();tileAt(d.w,d.c.pos).t=terrain;const before=serialize(d.s);expect(residentCoolingDecision(d.w,d.c)?.action?.type).not.toBe('sleep');expect(serialize(d.s)).toBe(before)
+ })
+ it('does not turn ordinary cooling into sleep without fatigue or sleep debt',()=>{
+  const d=tiredCourtyard();d.c.needs.fatigue=0;d.c.needs.sleepDebt=0;expect(residentCoolingDecision(d.w,d.c)?.action?.type).not.toBe('sleep')
+ })
  it('queries preserve the complete world and actually removing/swapping original clothes preserves all UIDs',()=>{
   const d=pilgrimFieldsFixture();d.c.needs.bodyTemp=38.2;const before=serialize(d.s),uids=allItems(d.c).map(i=>i.uid).sort(),next=d.s.nextId
   const action=ownedThermalClothingAction(d.w,d.c,d.c.pos,'rest');expect(action).toBeDefined();expect(['equip','unequip']).toContain(action!.type);expect(residentCoolingDecision(d.w,d.c)).not.toBeNull();expect(serialize(d.s)).toBe(before)

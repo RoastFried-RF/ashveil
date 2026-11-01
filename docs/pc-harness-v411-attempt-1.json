@@ -1,0 +1,99 @@
+{
+  "status": "Failed first final candidate; not release acceptance",
+  "testedCommit": "82ae23b0492ae66a9ba85c3e7e3a292d5d834fc7",
+  "testedTree": "0342f901ebca59bf02b8b2267911bd790a1d458e",
+  "sourceFiles": 9205,
+  "sourceManifestSha256": "aedec4fc834e74890fc9dad40bd600c15eb52b9f02cf8ba91e94e35de5743258",
+  "run": "test-results\\windows\\v411-final-1",
+  "taskStatuses": {
+    "environment": "passed",
+    "source-before": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "defs": "passed",
+    "sprites": "passed",
+    "schema": "passed",
+    "golden-capture": "passed",
+    "golden-reviewed": "passed",
+    "full": "passed",
+    "preview-helper": "passed",
+    "build": "passed",
+    "smoke": "passed",
+    "locale": "passed",
+    "ash-cake": "passed",
+    "ash-supply": "passed",
+    "ash-supply-course": "passed",
+    "fields-native": "passed",
+    "crop-locale": "passed",
+    "cooling-sleep": "passed",
+    "craft-locale": "passed",
+    "camp-locale": "passed",
+    "natural-course": "failed",
+    "sim30": "blocked",
+    "world30": "blocked",
+    "source-after": "blocked"
+  },
+  "full": {
+    "files": 424,
+    "tests": 6926,
+    "seconds": 790.42
+  },
+  "native": {
+    "wholeStatePairs": 660,
+    "browserErrors": 0,
+    "viewports": [
+      [
+        1440,
+        1080
+      ],
+      [
+        1366,
+        768
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "reviewedImages": 20,
+    "reviewLog": ".local-tools/v411-final-reviewed-images.json"
+  },
+  "sourceVerifiedAfterFailure": {
+    "run": "test-results/windows/v411-failure-audit-1",
+    "differences": 0
+  },
+  "failure": {
+    "error": "AssertionError [ERR_ASSERTION]: Original observer and worker must remain alive",
+    "elapsedTurns": 194410,
+    "plantedAt": 43210,
+    "harvestedAt": 199757,
+    "soldAt": 211573,
+    "craftAt": 228449,
+    "workerCause": "hyperthermia",
+    "workerBodyTemperature": 42.57173417634999,
+    "courseCompleted": false
+  },
+  "confirmedCauses": [
+    "Resident AI repeatedly selected a partial boil at another hearth; the original bound finite heat had expired. Real action rejected every attempt, blocking cooling while time and heat exposure continued.",
+    "English Clear was missing and the Native text check omitted search/pin/no-results states."
+  ],
+  "correctionPilot": {
+    "run": "test-results/windows/v411-heat-fix-3",
+    "relatedFiles": 4,
+    "relatedTests": 65,
+    "typecheck": true,
+    "lintWarnings": 1,
+    "normalRestTraceLastTurn": 240586,
+    "normalRestTraceAlive": true,
+    "normalRestTraceBodyTemperature": 37,
+    "continuedOriginalDemandCourse": false,
+    "priorPilotFailure": "v411-heat-fix-2: 64/65 passed; restored the original destroyed-hearth guard, preserving the prior expectation."
+  },
+  "remaining": [
+    "Corrected candidate Full/build/Native/save corpus",
+    "Restarted unaccelerated full crop course",
+    "Default/world 30-seed cohorts",
+    "Publication, CI and actual public checks"
+  ],
+  "limits": "All first-attempt artifacts remain preserved. Blocked sim30/world30/source-after did not run; the separate stopped-source audit verified all 9205 frozen files. Short normal-rest replay differs from the original observer demand actions and does not complete that course."
+}

@@ -1,0 +1,142 @@
+{
+  "checkedAtKST": "2026-10-31T07:15:23.203967+09:00",
+  "status": "Preflight only. Combined v411 source with v410 physical floor sleep and reviewed crafting/boiling/camp displays. Final frozen-source Full/three-view Native/full-growth course/balance/save corpus/publication remain pending.",
+  "previewVersion": "0.411-dev",
+  "saveVersion": 221,
+  "matchedRuntimeCommit": "361d8399ca00e56927283ffefd7a3218f58013d8",
+  "currentDocumentationMergeCommit": "b686122d2e9a35bbd583399d91493bdf07c75637",
+  "preflightRun": "test-results/windows/v411-pilot-3",
+  "preflightPlanSha256": "4c5a3e4c41d255135d204de20c780c17ca36e3a0c9bcb88ccfd16778815a661f",
+  "tasks": 6,
+  "focused": {
+    "files": 2,
+    "tests": 12
+  },
+  "priorRelatedSuite": {
+    "run": "test-results/windows/v410-pilot-3",
+    "files": 9,
+    "tests": 135,
+    "notRerunInCurrentPilot": true
+  },
+  "native": [
+    {
+      "task": "craft-locale-pilot",
+      "pairs": 19,
+      "errors": 0,
+      "widths": [
+        1440
+      ],
+      "scenes": [
+        "boil-cancel",
+        "boil-resume",
+        "craft"
+      ],
+      "audit": "test-results/windows/v411-pilot-3/tasks/craft-locale-pilot/native/audit.json",
+      "sha256": "d392e50f68555f35cd111600aa09f2523124b769517ca664dd6f7cfd0c390ddd"
+    },
+    {
+      "task": "camp-locale-pilot",
+      "pairs": 63,
+      "errors": 0,
+      "widths": [
+        1440
+      ],
+      "scenes": [
+        "brush",
+        "campfire",
+        "cooking",
+        "forage",
+        "tea-cancel",
+        "tea-resume",
+        "terrain-fire"
+      ],
+      "audit": "test-results/windows/v411-pilot-3/tasks/camp-locale-pilot/native/audit.json",
+      "sha256": "591efd9f2ccdbb12279d5eb4082e870574133d1fe1ceafff54cc7511bde30b47"
+    }
+  ],
+  "currentPilotWholeStatePairs": 82,
+  "currentPilotBrowserErrors": 0,
+  "reviewedImages": [
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\craft-locale-pilot\\native\\craft-1440-english-recipes-read-only.png",
+      "sha256": "3845ee58fc49d63ac18d251055356193a03cf00586fbe524269cb32ca58421e2"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\craft-locale-pilot\\native\\craft-1440-english-maintenance-warning-read-only.png",
+      "sha256": "f85bfb7da6e6ba29e74b271ea8d7f8e1a10f79ca6edd19a35dd7c5f3a1d98d42"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\camp-locale-pilot\\native\\campfire-1440-english-actual-fuel-selected-read-only.png",
+      "sha256": "a82bcdee0d1cc7c40fe6c5b250d2ec2f51f222e549f0c550c082c03ff9c83b96"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\camp-locale-pilot\\native\\tea-cancel-1440-english-field-read-only.png",
+      "sha256": "76178a8182ae445f75efc6392ef0ae453e0188e93990a66af92f156779260b51"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\craft-locale-pilot\\native\\boil-resume-1440-actual-resume-same-water-and-fuel.png",
+      "sha256": "35e224b6a474b70575fa592d2ef52754a2ec91a256c03281c78d77e455134d9c"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\camp-locale-pilot\\native\\terrain-fire-1440-english-field-read-only.png",
+      "sha256": "f3ca452192680cc677602e9252596a8ded9d2446bcbdb188d987673f132df7bb"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\camp-locale-pilot\\native\\forage-1440-actual-seasonal-berries-harvested.png",
+      "sha256": "3009e3a2ffac7dfb4974a02412ac06c82e1e29fd427bf7f9dce280bd92a42966"
+    },
+    {
+      "path": "test-results\\windows\\v411-pilot-3\\tasks\\camp-locale-pilot\\native\\brush-1440-actual-permanent-clear-same-ground.png",
+      "sha256": "754b86e68a0b5b01859d686884affe65207c086eb790bc652dbea11bbf91ad50"
+    }
+  ],
+  "priorFloorSleepPilot": {
+    "sourceCommit": "233b207450cab356e4dd38263ba68cfb9f4476e2",
+    "coreTree": "cfd5121ce2ee2a4b415aa9230c1312703769e5b2",
+    "currentCoreTree": "cfd5121ce2ee2a4b415aa9230c1312703769e5b2",
+    "coreAndContentUnchangedInCombinedRuntime": true,
+    "audit": "..\\v410-rest\\test-results\\windows\\v410-pilot-3\\tasks\\cooling-sleep-pilot\\native\\audit.json",
+    "sha256": "e7780b72049af4626caa5992f2150288691730ea4445025a66dd0e61f89d75d6",
+    "wholeStatePairs": 17,
+    "browserErrors": 0,
+    "proofs": [
+      {
+        "mode": "debt",
+        "width": 1440,
+        "actualSleepObserved": true,
+        "savedWhileAsleep": true,
+        "releaseThresholds": {
+          "sleepDebt": 1,
+          "fatigue": 70
+        },
+        "maximumBodyTemperature": 38.2,
+        "finalFatigue": 0,
+        "finalSleepDebt": 0.9999999999998438,
+        "originalBedsPreserved": true,
+        "originalApparelUidsPreserved": true
+      }
+    ],
+    "reviewedImages": [
+      {
+        "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v410-rest\\test-results\\windows\\v410-pilot-3\\tasks\\cooling-sleep-pilot\\native\\debt-1440-same-resident-asleep-on-floor-continued.png",
+        "sha256": "a35950d2e11b5bb3ee3ccbf076c5d5640232f3128693bb20ea4ec9b47ada3678"
+      },
+      {
+        "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v410-rest\\test-results\\windows\\v410-pilot-3\\tasks\\cooling-sleep-pilot\\native\\debt-1440-actual-rest-threshold-original-bed-preserved-continued.png",
+        "sha256": "0d6ef933405fa7fad65a9e52a2c1cb61213f8546dd313cadb5a54b285a4b548b"
+      }
+    ]
+  },
+  "preservedFailures": [
+    "v411-pilot-1: one expected item name omitted original Sheet-metal modifier; 160/161 passed, unchanged label retained and expectation corrected.",
+    "v410-pilot-3: missing Check requirements translation in boiling panel after six main-crafting read-only state pairs.",
+    "v411-pilot-2:29 whole-state pairs equal, then extra tea ash assertion incorrectly expected no 1.1 concentration; actual existing Core policy retained.",
+    "Actual PNG review found duplicate fuel/needle stack counts; options now use the full item label once, actual option-count assertion added."
+  ],
+  "remaining": [
+    "Final combined26-task source-before/source-after run, Full and all three viewport sizes.",
+    "Unaccelerated full crop/supply course with actual fatigue/debt pacing and both30-seed cohorts.",
+    "Save corpus and main/Pages/public verification.",
+    "Remaining F2 panels/logs, whole v1/X1-X4, sustainable community supply and actual human gates."
+  ]
+}

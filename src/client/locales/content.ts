@@ -1,21 +1,32 @@
 /** Reviewed Def fields only. A changed/foreign Def retains its own source text. */
 import english from './en-content.json'
 import itemEnglish from './en-item-content.json'
+import craftingEnglish from './en-crafting-content.json'
+import fieldEnglish from './en-field-content.json'
 import type {Language} from './message'
 import {translate} from './message'
 
 type Field = 'label' | 'description' | 'unknownLabel' | 'unknownDescription'
 type DisplayDef = {id:string; label?:string; description?:string; unknownLabel?:string; unknownDescription?:string}
 type GuardedText={source:string;text:string}
-type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>}
-const baseline:Readonly<Record<string,Entry>>=english, details:Readonly<Record<string,Entry>>=itemEnglish
-const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details)])].map(id=>[id,{...baseline[id],...details[id]}]))
+type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;materialSlots?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>}
+const baseline:Readonly<Record<string,Entry>>=english, details:Readonly<Record<string,Entry>>=itemEnglish,crafting:Readonly<Record<string,Entry>>=craftingEnglish
+const field:Readonly<Record<string,Entry>>=fieldEnglish
+const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details),...Object.keys(crafting),...Object.keys(field)])].map(id=>[id,{...baseline[id],...details[id],...crafting[id],...field[id]}]))
 
 export function translateDef(def:DisplayDef, field:Field, language:Language):string {
   const source = def[field] ?? ''
   if (language !== 'en' || !Object.hasOwn(messages, def.id)) return source
   const entry = messages[def.id][field]
   return entry?.source === source ? entry.text : source
+}
+
+/** Recipe ID + slot ID + original label guard; foreign or edited material labels remain literal. */
+export function translateRecipeMaterialSlot(id:string,slot:{slot:string;label?:string},language:Language):string{
+ const source=slot.label??slot.slot
+ if(language!=='en'||!Object.hasOwn(messages,id))return source
+ const entries=messages[id].materialSlots,entry=entries&&Object.hasOwn(entries,slot.slot)?entries[slot.slot]:undefined
+ return entry?.source===source?entry.text:source
 }
 
 /** Nested attack names retain the same ID + original-text boundary as Def fields. */

@@ -44,14 +44,17 @@ export function residentWorkshopDecision(w:World,c:Creature):Decision|null{
   const food=c.bag.find(i=>i.def===residentProvisionDef(w)!.food&&readyFood(w,c,i)&&!['spoiled','rotten'].includes(freshnessBand(w,i)))
   return food?{action:handState(w,c)==='dirty'&&!washHandsError(w,c)?{type:'washHands'}:{type:'consume',uid:food.uid}}:shopDecision(w,c,'provision')
  }
+ const reserve=workshopReserveKcal(w,c)-(product?foodKcal(w,product):0)
+ // Finish a stocked meal's short handoff before optional work rest, preserving personal food.
+ // General urgent water/food/thermal care still runs before the workshop decision in the AI.
+ if(product&&reserve>=rule.reserveKcal)return shopDecision(w,c,'offer')
  if(c.needs.fatigue>=60){
   const bed=w.s.map.residentBeds?.find(b=>b.owner===c.id&&!b.packedUid);if(!bed)return null
   if(cheb(c.pos,bed.pos)===0)return{action:{type:'sleep'}}
   if(canSee(w,c,bed.pos)&&(tileAt(w,bed.pos).t!==bed.terrain||creatureAt(w,bed.pos)))return null
   return{goal:bed.pos}
  }
- if(workshopReserveKcal(w,c)-(product?foodKcal(w,product):0)<rule.reserveKcal)return shopDecision(w,c,'provision')
- if(product)return shopDecision(w,c,'offer')
+ if(reserve<rule.reserveKcal)return shopDecision(w,c,'provision')
  if(!residentWorkshopOrder(w,c)){
   if(product||c.needs.kcal<500||c.needs.fatigue>=60||workshopReserveKcal(w,c)<rule.reserveKcal)return null
   return shopDecision(w,c,'plan')

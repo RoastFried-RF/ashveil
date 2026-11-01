@@ -1,0 +1,101 @@
+{
+  "status": "Second final attempt failed on observer approach budget; not release acceptance",
+  "testedCommit": "9748d2050c365d362a5b79afbd29d8d9c2cb72c0",
+  "testedTree": "5a56e5de398b53eca0f6b50134616f2edbab41c8",
+  "sourceManifestSha256": "848c8b26d88e3937fba3cb5f32bd65bd9dc8e66545f6288b2b967eb9e6428537",
+  "sourceFiles": 9208,
+  "run": "test-results\\windows\\v411-final-2",
+  "taskStatuses": {
+    "environment": "passed",
+    "source-before": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "sprites": "passed",
+    "defs": "passed",
+    "schema": "passed",
+    "preview-helper": "passed",
+    "golden-capture": "passed",
+    "golden-reviewed": "passed",
+    "natural-course": "failed",
+    "full": "blocked",
+    "build": "blocked",
+    "smoke": "blocked",
+    "locale": "blocked",
+    "ash-cake": "blocked",
+    "ash-supply": "blocked",
+    "ash-supply-course": "blocked",
+    "fields-native": "blocked",
+    "crop-locale": "blocked",
+    "cooling-sleep": "blocked",
+    "craft-locale": "blocked",
+    "boil-recovery": "blocked",
+    "camp-locale": "blocked",
+    "sim30": "blocked",
+    "world30": "blocked",
+    "source-after": "blocked"
+  },
+  "notExecuted": [
+    "Full",
+    "Build and current Native",
+    "Default/world cohorts",
+    "Source-after in original run"
+  ],
+  "failure": {
+    "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(cheb(player(w).pos,pos)<=1)\n",
+    "elapsedTurns": 544355,
+    "days": 18.901215277777776,
+    "allOriginalActorsAlive": true,
+    "observerBody": 36.488324999999996,
+    "workerBody": 37.016315,
+    "courseCompleted": false
+  },
+  "stoppedSourceAudit": {
+    "run": "test-results/windows/v411-route-audit-1",
+    "differences": 0
+  },
+  "confirmedRouteCause": "A* avoidCreatures adds cost instead of excluding occupancy. The actual guard was resting in the only open doorway.80 attempted moves included real blocked-input waits, so the observer harness stopped before the guard completed ordinary rest.",
+  "routeCorrection": {
+    "successfulWalkingLimit": 80,
+    "separateFiniteStationaryAllowance": 1200,
+    "normalActionsOnly": true,
+    "singleStepMovingWorkerApproachesRemainOneAttempt": true,
+    "proof": "test-results/windows/v411-route-fix-2",
+    "typecheck": true,
+    "lintWarnings": 1,
+    "focusedTests": 1,
+    "firstFixtureFailure": "v411-route-fix-1 had a closed initial door rather than the actual open-door case; declared the matching initial open door, without changing Core movement."
+  },
+  "finishedProductCounterexample": {
+    "run": "test-results/windows/v411-finished-product-1",
+    "at": 228850,
+    "productUid": 1099511628426,
+    "madeAt": 228840,
+    "fatigue": 61.63642708332383,
+    "body": 37.7897,
+    "kcal": 531.15,
+    "water": 432,
+    "reserveAfterOffer": 1400,
+    "requiredReserve": 600,
+    "decision": {
+      "action": {
+        "type": "sleep"
+      }
+    },
+    "finding": "A healthy worker beside its shop chose optional rest while holding its own completed product despite1400kcal of non-product food remaining."
+  },
+  "handoffCorrection": {
+    "run": "test-results/windows/v411-handoff-2",
+    "focusedFiles": 3,
+    "focusedTests": 37,
+    "typecheck": true,
+    "lintWarnings": 1,
+    "sameActualProductUid": 1099511628426,
+    "sameOriginalCheckpoint": true,
+    "normalPendingSimulationUntil": 228850,
+    "foodReserveRemaining": 1400,
+    "priority": "Finish an already completed meal handoff before optional workshop rest only when the existing personal food reserve is met. Urgent AI care and existing actor/ownership/health/exhaustion/action gates remain.",
+    "firstExpectationFailure": "v411-handoff-1 correctly chose hand washing before hungry consumption. Kept the existing hygiene behavior and asserted the subsequent ordinary consume action."
+  },
+  "newNativeScope": "Use the exact saved partial-boil Native snapshot (remaining162/230) to test interrupted original heat recovery independently of the newly earlier meal handoff. Initial Title save only, then real input and Node whole-world comparison.",
+  "limits": "No Full, build or Native from this second final run is counted as passed. Earlier validation belongs to its original source. No resource, clock, RNG or body substitutions; no community/all-season supply acceptance."
+}

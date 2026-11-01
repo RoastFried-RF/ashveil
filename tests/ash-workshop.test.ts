@@ -80,6 +80,15 @@ describe('pilgrim resident workshop uses real ash, materials, water, fuel, labou
   expect(residentWorkshopDecision(d.w,d.c)?.goal).toEqual(bed.pos);d.c.pos={...bed.pos};expect(residentWorkshopDecision(d.w,d.c)?.action).toEqual({type:'sleep'})
   expect(perform(d.w,d.c,{type:'sleep'}).ok).toBe(true);expect(d.c.activity?.kind).toBe('sleep');expect(d.c.activity?.wakeFatigue).toBe(20)
  })
+ it('hands off the same actually finished bowl before optional rest, keeping all reserve, hunger and exhaustion gates',()=>{
+  const d=setup();for(let i=0;i<1800&&!residentWorkshopProduct(d.w,d.c);i++)d.act({type:'wait'})
+  const product=residentWorkshopProduct(d.w,d.c);expect(product).toBeDefined();d.c.needs.fatigue=65
+  const before=serialize(d.s),original=structuredClone(product!),cash={worker:d.c.money,market:d.market.money},reserve=workshopReserveKcal(d.w,d.c)-300,action=residentWorkshopDecision(d.w,d.c)?.action
+  expect(reserve).toBeGreaterThanOrEqual(residentWorkshopRules(d.w)!.reserveKcal);expect(action).toEqual({type:'residentWorkshop',operation:'offer'});expect(serialize(d.s)).toBe(before)
+  const expected={...original};delete expected.gx;delete expected.gy;delete expected.rot
+  expect(perform(d.w,d.c,action!)).toMatchObject({ok:true,tu:100});expect(d.market.items.find(i=>i.uid===original.uid)).toEqual(expected);expect(d.c.bag.some(i=>i.uid===original.uid)).toBe(false);expect(workshopReserveKcal(d.w,d.c)).toBe(reserve);expect({worker:d.c.money,market:d.market.money}).toEqual(cash);expect(serialize(deserialize(serialize(d.s)))).toBe(serialize(d.s))
+  for(const mode of ['hungry','exhausted','noReserve']as const){const w:World={db:d.w.db,s:deserialize(before)},c=w.s.creatures.find(c=>c.id===d.c.id)!;if(mode==='hungry')c.needs.kcal=0;if(mode==='exhausted')c.needs.fatigue=80;if(mode==='noReserve')c.bag=c.bag.filter(i=>i.uid===original.uid||!w.db.item(i.def).food);expect(residentWorkshopDecision(w,c)?.action).not.toEqual({type:'residentWorkshop',operation:'offer'});if(mode==='hungry'){const care=residentWorkshopDecision(w,c)?.action;if(care?.type==='washHands'){expect(perform(w,c,care).ok).toBe(true);finishBase(w,c)}expect(residentWorkshopDecision(w,c)?.action?.type).toBe('consume');continue}const snapshot=serialize(w.s);expect(performResidentWorkshop(w,c,'offer')).not.toBeNull();expect(serialize(w.s)).toBe(snapshot)}
+ },90000)
  it('an absent actual grain stock consumes neither ash nor cash and saves a bounded retry',()=>{
   const d=setup();delete d.c.residentWorkshopOrder;expect(performResidentWorkshop(d.w,d.c,'plan')).toBeNull();d.market.items=d.market.items.filter(i=>i.def!=='Item.Oats');const before={next:d.s.nextId,cash:d.market.money,bag:structuredClone(d.c.bag)}
   expect(performResidentWorkshop(d.w,d.c,'supply')).not.toBeNull();expect({next:d.s.nextId,cash:d.market.money,bag:d.c.bag}).toEqual(before);expect(d.c.residentWorkshopAfter).toBe(turnOf(d.w)+1200)
