@@ -1,0 +1,140 @@
+{
+  "checkedAtKST": "2026-11-01T18:20:57.377017+09:00",
+  "status": "bounded Native actions passed; observed bedding quantity grammar needs correction before final acceptance",
+  "testedCodeCommit": "1c82f1700284b46b650b6040f1e0d3a944523900",
+  "run": "test-results/windows/v414-native-2",
+  "tasks": {
+    "environment": "passed",
+    "source-before": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "focused": "passed",
+    "build": "passed",
+    "native": "passed",
+    "source-after": "passed"
+  },
+  "sourceFiles": 9232,
+  "sourceManifestSHA256": "601e8036497d7f3ac6ba32abf91415997d11ec019b79f13fe744bde1dd413b34",
+  "viewport": [
+    390,
+    844
+  ],
+  "wholeStatePairs": 42,
+  "browserErrors": [],
+  "actualProofs": [
+    {
+      "width": 390,
+      "scene": "claim",
+      "fixture": "baseFixture",
+      "originalChest": 66,
+      "originalWorker": 67,
+      "originalWorkerName": "\uc815\ucc29\uc9c0 \uacbd\ube44",
+      "finiteCloth": {
+        "uid": 80,
+        "count": 4
+      },
+      "finiteGroundWood": {
+        "uid": 81,
+        "count": 3,
+        "pos": {
+          "x": 21,
+          "y": 21
+        }
+      },
+      "finiteWorkerWater": {
+        "uid": 82,
+        "uses": 5
+      },
+      "originalBedding": 77,
+      "originalOwnedFire": 78,
+      "declaredInitialFuel": 1,
+      "actualEarlierCoreClaimTu": 0,
+      "earlierCoreWorkIsNotBrowserInput": true,
+      "declaredInitialWorkerDelayTurns": 50,
+      "removedLegacyUnlimitedHeat": true,
+      "noEarlierNaturalTravelAcquisitionOrPurificationClaim": true,
+      "declaredStudyMode": true,
+      "noPostTitleWorldWrites": true
+    },
+    {
+      "width": 390,
+      "scene": "queue-work",
+      "fixture": "baseFixture",
+      "originalChest": 66,
+      "originalWorker": 67,
+      "originalWorkerName": "\uc815\ucc29\uc9c0 \uacbd\ube44",
+      "finiteCloth": {
+        "uid": 80,
+        "count": 4
+      },
+      "finiteGroundWood": {
+        "uid": 81,
+        "count": 3,
+        "pos": {
+          "x": 21,
+          "y": 21
+        }
+      },
+      "finiteWorkerWater": {
+        "uid": 82,
+        "uses": 5
+      },
+      "originalBedding": 77,
+      "originalOwnedFire": 78,
+      "declaredInitialFuel": 1,
+      "actualEarlierCoreClaimTu": 20000,
+      "earlierCoreWorkIsNotBrowserInput": true,
+      "declaredInitialWorkerDelayTurns": 50,
+      "removedLegacyUnlimitedHeat": true,
+      "noEarlierNaturalTravelAcquisitionOrPurificationClaim": true,
+      "declaredStudyMode": true,
+      "noPostTitleWorldWrites": true
+    },
+    {
+      "scene": "queue-work",
+      "width": 390,
+      "queueKindsAllSeven": true,
+      "actualHaulUid": 81,
+      "actualClothUid": 80,
+      "actualStoredBandages": 2,
+      "actualDeliveredWaterUid": 82,
+      "actualDeliveredMl": 1000,
+      "deliverySnapshot": "queue-work-390-english-original-vessel-delivered-actual.json",
+      "sameOriginalOwnedFire": 78,
+      "sameOriginalChest": 66,
+      "initialWorkerDelayIsFinite": true,
+      "noEarlierNaturalCleanWaterAcquisitionClaim": true,
+      "noGatherLaborOrUnlimitedMaintenanceClaim": true
+    }
+  ],
+  "reviewedImages": [
+    {
+      "path": "test-results/windows/v414-native-2/tasks/native/native/claim-390-english-original-base-read-only.png",
+      "sha256": "cf9d2838e92566fdd62fe3d18a0855d0eb5dbba5928db8d5505e665dbb22c26a"
+    },
+    {
+      "path": "test-results/windows/v414-native-2/tasks/native/native/queue-work-390-english-original-base-read-only.png",
+      "sha256": "7ecb28b3fd5a7cce70651758bf03cec20ac1554e21cd0c6625af03c5ab44644c"
+    },
+    {
+      "path": "test-results/windows/v414-native-2/tasks/native/native/queue-work-390-english-actual-finished-stock.png",
+      "sha256": "31db63e726694deddde6f6ffc66a5a62a5ad322ba02a42d26259fc928fdd44da"
+    }
+  ],
+  "boundary": "Declared finite baseFixture resources, original chest/worker/bedding/fire, one initial fuel, finite clean worker water, ordinary floor replacing legacy unlimited heat and a finite initial50-turn AI delay. Actual earlier Core fixture work is distinguished from real Title/settings/pointers/keys and browser claim/transfer/bed/queue/cancel/haul/craft/fire/water/checkpoint actions. Independent Node canonical whole-world equality. No post-Title world/body/clock/RNG/material writes. No natural prior travel/acquisition/purification, gather labor, whole-game English, general colony sustainability or unlimited fuel claim.",
+  "failedAttempt": "docs/pc-harness-v414-attempt-1.json",
+  "knownPresentationIssue": {
+    "screenshot": "test-results/windows/v414-native-2/tasks/native/native/queue-work-390-english-original-base-read-only.png",
+    "observed": [
+      "Allow bedding use (1 turns)",
+      "Release bedding permission (1 turns)"
+    ],
+    "status": "Correct explicit numeric-one display and review on final combined candidate; Core turn quote remains unchanged."
+  },
+  "notYetValidated": [
+    "1440/1366 Native",
+    "queue/finished stock targeted screenshots",
+    "Full on combined UI",
+    "publication/CI/public probe"
+  ]
+}

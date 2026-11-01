@@ -2,6 +2,7 @@
 import {computed} from 'vue'
 import {beddingLiceRules,foodSafetyDef,hasEffect,nearbyPeople,residentHygieneGoal,residentHygieneSupply,residentVesselGoal,turnOf,type ResidentWaterDef,type World} from '../../core'
 import {version,world} from '../store'
+import{t}from'../locale'
 const props=defineProps<{personId:number}>()
 const data=computed(()=>{
  void version.value
@@ -13,12 +14,12 @@ const data=computed(()=>{
 </script>
 <template>
   <section v-if="data" class="my-2 border-y border-ash-600 py-2 text-xs" data-testid="resident-hygiene">
-    <p v-if="!data.enabled">위생 관리 꺼짐</p>
+    <p v-if="!data.enabled">{{ t('위생 관리 꺼짐') }}</p>
     <template v-else>
-      <p v-if="data.busy" data-testid="resident-hygiene-activity">{{ data.label }} · 남은 {{ data.remaining }}턴 · 마지막에 실제 물을 사용한다.</p>
-      <p v-else>{{ data.lice?'몸에 이가 있음':data.dirty?'몸을 씻어야 함':'몸이 깨끗함' }}<span v-if="data.goal?.kind==='bedding'"> · 직접 본 개인 침구 세탁 준비</span></p>
-      <p v-if="data.goal&&!data.water.available" class="text-ash-300">{{ data.vessel?(data.vessel.own?'자기 상점의 실제 용기를 가져오려 한다.':'상점에서 자기 돈으로 물 용기를 구하려 한다.'):data.water.capacityMl<data.goal.waterMl?'씻을 물을 담을 용기가 부족하다.':'우물까지 걸어가 실제 물을 준비한다.' }}</p>
-      <p class="text-ash-400">몸과 개인 침구는 따로 씻는다. 몸 {{ data.bodyMl }}ml · 침구 {{ data.bedMl }}ml의 실제 물과 노동이 필요하다.</p>
+      <p v-if="data.busy" data-testid="resident-hygiene-activity">{{ t('{0} · 남은 {1}턴 · 마지막에 실제 물을 사용한다.',t(data.label??''),data.remaining??0) }}</p>
+      <p v-else>{{ t(data.lice?'몸에 이가 있음':data.dirty?'몸을 씻어야 함':'몸이 깨끗함') }}<span v-if="data.goal?.kind==='bedding'">{{ t(' · 직접 본 개인 침구 세탁 준비') }}</span></p>
+      <p v-if="data.goal&&!data.water.available" class="text-ash-300">{{ t(data.vessel?(data.vessel.own?'자기 상점의 실제 용기를 가져오려 한다.':'상점에서 자기 돈으로 물 용기를 구하려 한다.'):data.water.capacityMl<data.goal.waterMl?'씻을 물을 담을 용기가 부족하다.':'우물까지 걸어가 실제 물을 준비한다.') }}</p>
+      <p class="text-ash-400">{{ t('몸과 개인 침구는 따로 씻는다. 몸 {0}ml · 침구 {1}ml의 실제 물과 노동이 필요하다.',data.bodyMl,data.bedMl??0) }}</p>
     </template>
   </section>
 </template>

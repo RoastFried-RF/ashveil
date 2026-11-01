@@ -1,0 +1,482 @@
+{
+  "checkedAtKST": "2026-11-01T19:23:51.927816+09:00",
+  "status": "Combined UI candidate locally validated within the recorded scope. Main/CI/Pages/public verification remain separate. Not full English/v1/X1-X4 or human acceptance.",
+  "previewVersion": "0.414-dev",
+  "saveVersion": 221,
+  "testedCodeCommit": "cd700b8fe741872ca771e332546f6a0139aefc88",
+  "testedTree": "ee10bab54107558d94cac2cf99a3b12bbd75cb51",
+  "basePublishedReceipt": "bff1b4d9f2890035e34aecc298089bfcf0b46298",
+  "sourceSHA256": {
+    "docs/base-work-localization-v414.md": "7c614e5e076091b95fc3be6668683ef0f2881e291cfef79180e1a5435c780816",
+    "docs/combined-ui-v414.md": "1f90f58c92d54f9ac4822523d29a0e445d2c3ac0bbc377d345eead843df1fb67",
+    "docs/field-work-localization-v412.md": "ccaa579e0f2a6d4a8222af4d256b2fdd43ad91dd318218fbfcb8bc1f9574bee1",
+    "docs/pc-harness-v412-pilot-proof.json": "1f4d88d2a90f7548cba0e9f70f006ba4c80aa933c45467dab732c2b5feb8e10b",
+    "docs/pc-harness-v413-pilot-proof.json": "5924c06b6621b3aab209dfaa78b7752a382f67829b9c69e705d6c33a5c1f8de7",
+    "docs/pc-harness-v414-attempt-1.json": "0e223bb542c00433bf60b96511c95a76419ee0cc2360f27d411b79d8eca9ecb2",
+    "docs/pc-harness-v414-pilot-proof.json": "14d07346becd1ede15a46f84f56bc3eaac85f2c79e7c5f53d2c99e3444a5d867",
+    "docs/resident-services-v413.md": "1cb2c44cb93442a33e1bff52cdd417517f8ee8b5718277aca8b18efc26a3757c",
+    "src/client/build-version.ts": "d4898585e9a55528374602181b27b1ce1374737bf4beaef913f5927dbef82d78",
+    "src/client/locale.ts": "3e0bc6b76611497a4db64b4b78f58f1b3e5881430743b614f0adc4cbbf171efa",
+    "src/client/locales/base-camp.ts": "abda6658d489d7c1ec566513d124a0c85b419fda7db40261ef1ac42e59c03776",
+    "src/client/locales/content.ts": "bc439ccc60ce53910c828b80e1465d1abd161546b15371f94f39c4f6a6c2bf54",
+    "src/client/locales/en-base-camp.json": "7fa6ccd08b53bf8e722c7597a27e3c8debb45e246b2ee91fe1879427812704cb",
+    "src/client/locales/en-field-work-content.json": "30a0c65cbaab7284efeec8866849eeae14c196258a97a96d817541395937e597",
+    "src/client/locales/en-field-work.json": "af24da8ed297bfd4388594d5b01e82636f0883cbada4acdf555622cb7a170b36",
+    "src/client/locales/en-item-extra.json": "4db9ac74b998f86177f222ff0bcd6640f826b38dfdb779482955d63369420ff2",
+    "src/client/locales/en-resident-camp.json": "64225a6cc6af9a081194103dc5aeeb1b48baaf3eeffad6cb893dfb7ed868ed8c",
+    "src/client/locales/field-work.ts": "9567f6340ce6d50a885338383c9fa13d5bd377fedf63107178d4f59c30ef434f",
+    "src/client/locales/message.ts": "da2fc625dcf87aaa2d8d88f19930baaeb776022ea5b2b5c6d1136f80e40d00f4",
+    "src/client/locales/resident-camp.ts": "5790fde8fc7a3be23c0d2f2ffe707d526f7d1de1498133af9d75d53f876bccfe",
+    "src/client/ui/AquaticPanel.vue": "226c9af61567d8fa933be9ed52c51aa8f1ecd67e4341b187425cc682bcd7ed35",
+    "src/client/ui/BaseCampPanel.vue": "887cc3a20d00ba70af2aacc83815ce01ffa225e9e4d6b8cac5e0caf4090de350",
+    "src/client/ui/BeaconPanel.vue": "bc4777dc430b6976b3c1d8906d03a4e7fc28fd07c52f18ba2c82cf4c7f091cbe",
+    "src/client/ui/ContainerLockPanel.vue": "4e160f8d011ac06e0bb38f5e303417b6ea0218c991da5a7ab373a8f7a16eafc7",
+    "src/client/ui/FieldDevicePanel.vue": "3fc2afa3441d9c1a22d5fbcdfb5794295e7d04f17149654e42d403525e3a5070",
+    "src/client/ui/InnPanel.vue": "e3a634b045371f9751e166326f94f1c3eaf92d66bd31f49bb29203ca5ae19956",
+    "src/client/ui/MarinePanel.vue": "a2ab638590fbcdb23f34db39a9790cd7e54e7e2b8ac593ba5b7df54f027202d9",
+    "src/client/ui/ResidentDepotPanel.vue": "855bb161ddde893db667fe2ee0bbf20b19a84fcc67a96d7d43cc0ca9be398889",
+    "src/client/ui/ResidentHygienePanel.vue": "77f7d9a2798c468984b7783d4946f67843517ccba81349e91cb7ad004a2f51e5",
+    "src/client/ui/ResidentWellPanel.vue": "11c1702ace19e335a5b7a3d2758d37b5baeae3e5c68a8ae6c5ceb0b01844ee79",
+    "src/client/ui/RetirementPanel.vue": "444e08c0d16055aede3e9bf01297d72a4647193110567374af589e78a7617fe8",
+    "tests/base-work-locale-fixture.ts": "7463b8fd1f982a99389f0cb3c54958ed0d6861028d8773f72d4dc9fa73ade601",
+    "tests/field-work-locale-fixture.ts": "2bb56d25cb2cbcd06d6a1e9510a48773c1a5d3475a37d7634bb0f358a6f80766",
+    "tests/locale-base-camp.test.ts": "aebdc8a050790963e60deb6bde14a1514a4d9fcd9c6725aed2d8273b25297012",
+    "tests/locale-field-work.test.ts": "d3b8cfa837fc9ffbcbfc0094a50ab05420ebb24e9f1641aa38067a8a266098f2",
+    "tests/locale-resident-camp.test.ts": "8b502cc0ce309786a89a75773927c6451d4b137ebfeccdcf98d16c7ac2b5981f",
+    "tools/inspect-base-work-locale-v414.ts": "f6ab86d1a93b9cf49060aabcc1936a6acf8c5c602831066e1ed858f428fd75a6",
+    "tools/inspect-field-work-locale-v412.ts": "722d639edb1901852d14f4094048f2660c856d01f996f8cd5de5062bf21b9c21",
+    "tools/inspect-resident-services-v413.ts": "8d282e50a6f7c8940d580e4ca78fcad18270cf23a29d83b8ea3c1f1f4537e92a"
+  },
+  "sourceManifest": {
+    "files": 9237,
+    "sha256": "eacc9fac73eb3bc2f45382acdbb80a28e432cd46ce03dace186fd140ca88a8ea",
+    "path": "test-results/windows/v414-final-1/tasks/source-before/source.json",
+    "unchangedBeforeAfter": true,
+    "unchangedAgainBeforeProof": true,
+    "creditsUnchanged": true
+  },
+  "finalRun": {
+    "path": "test-results/windows/v414-final-1",
+    "planSha256": "60092c7214beecab34e34bce1f17ea4671a021dd7238ca6b215c18bc341f9a0e",
+    "tasks": 21,
+    "taskResults": {
+      "environment": "passed",
+      "source-before": "passed",
+      "physics-source": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "preview-helper": "passed",
+      "sprites": "passed",
+      "defs": "passed",
+      "schema": "passed",
+      "golden-capture": "passed",
+      "golden-reviewed": "passed",
+      "full": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "ash-cake": "passed",
+      "craft-locale": "passed",
+      "field-work": "passed",
+      "resident-services": "passed",
+      "base-work": "passed",
+      "source-after": "passed"
+    },
+    "full": {
+      "files": 428,
+      "tests": 6945,
+      "durationSeconds": 860.51
+    },
+    "schema": {
+      "files": 180,
+      "errors": 0
+    },
+    "lint": {
+      "errors": 0,
+      "existingWarnings": 1
+    }
+  },
+  "native": [
+    {
+      "task": "ash-cake",
+      "wholeWorldPairs": 72,
+      "audit": "test-results/windows/v414-final-1/tasks/ash-cake/ash-cake/audit.json",
+      "sha256": "b40fe77153b82074844701cd3868329d36158ab4851ebd87d84db426dc69838e",
+      "browserErrors": 0,
+      "boundary": null
+    },
+    {
+      "task": "craft-locale",
+      "wholeWorldPairs": 57,
+      "audit": "test-results/windows/v414-final-1/tasks/craft-locale/native/audit.json",
+      "sha256": "08ab3f510c3d6e2ef528d897890ea6f046133f27d48e3acb2edb0d68307c2825",
+      "browserErrors": 0,
+      "boundary": "Declared finite oat and prior interrupted-boiling Study fixtures. Real Title/settings/search/pin/tab/boil/checkpoint/continue inputs, independent Node complete-state equality. No post-Title world/clock/RNG/material writes. Main crafting shell/recipes/maintenance and boiling panel coverage; other field subpanels, dynamic logs, natural prior acquisition and a whole-game English claim remain outside this diagnostic."
+    },
+    {
+      "task": "field-work",
+      "wholeWorldPairs": 237,
+      "audit": "test-results/windows/v414-final-1/tasks/field-work/native/audit.json",
+      "sha256": "555e769611d43e7c67ec21b7b6f6b86174a5bf798ab0308b0ee896a6cca98fb4",
+      "browserErrors": 0,
+      "boundary": "Declared finite existing fixtures, original tools/hull/person/device/beacons and one declared earlier receipt. Real Title load, settings, pointers/keys, actions and checkpoint/continue; independent Node canonical whole-world equality. Prior partial device work/knowledge, initial hull wear, drowning state, visited/fueled posts and prior receipt are explicit initial conditions. No post-Title body/clock/RNG/material/world writes. Raw personal names and saved news are preserved; no whole-game English, normal prior acquisition/travel, prior incoming transmission or remote receipt-reading claim."
+    },
+    {
+      "task": "resident-services",
+      "wholeWorldPairs": 87,
+      "audit": "test-results/windows/v414-final-1/tasks/resident-services/native/audit.json",
+      "sha256": "af6321de19a75ab4f4dabcee1a2a0fa8db756b95bc5d2b09bed439dfd3061e19",
+      "browserErrors": 0,
+      "boundary": "Finite declared existing resident/retirement fixtures, warm healthy initial bodies, initial well arrival/thirst/NPC scheduling, actual earlier Core body wash and finite initial money are explicit. Real Title/settings/pointers/keys, original vessel and paid bed, normal wash/lease/retirement actions, checkpoints before retirement, independent Node canonical whole-world equality. No post-Title body/clock/RNG/material/world writes. No whole Society/clinic/base-task/ending-report English, natural prior acquisition/travel, full community sustainability or post-retirement checkpoint claim."
+    },
+    {
+      "task": "base-work",
+      "wholeWorldPairs": 129,
+      "audit": "test-results/windows/v414-final-1/tasks/base-work/native/audit.json",
+      "sha256": "f71ace51ae356c55c217ae84e2a1ff9d5c0523b4cf8fd153783339f5ccdd4869",
+      "browserErrors": 0,
+      "boundary": "Declared finite baseFixture resources, original chest/worker/bedding/fire, one initial fuel, finite clean worker water, ordinary floor replacing legacy unlimited heat and a finite initial50-turn AI delay. Actual earlier Core fixture work is distinguished from real Title/settings/pointers/keys and browser claim/transfer/bed/queue/cancel/haul/craft/fire/water/checkpoint actions. Independent Node canonical whole-world equality. No post-Title world/body/clock/RNG/material writes. No natural prior travel/acquisition/purification, gather labor, whole-game English, general colony sustainability or unlimited fuel claim."
+    }
+  ],
+  "independentNodeBrowserWholeWorldPairs": 582,
+  "localeObservation": {
+    "pairs": 12,
+    "errors": [],
+    "audit": "test-results/windows/v414-final-1/tasks/locale/locale/audit.json",
+    "sha256": "cedb18db949ac9fba6abd3f3b58348729cd0f3251dc3a4d7e2e0706793389c60",
+    "countedSeparatelyFromNodeActionWorlds": true
+  },
+  "goldenReview": {
+    "path": "test-results/windows/v414-final-1/tasks/golden-reviewed/reviewed.json",
+    "sha256": "ef8be28f4bfa197a6d512931293cd39be431e5b3fde0ee98cd46b93d834d4bad",
+    "reviewedShape": "exact-whole-v409-to-v411",
+    "reportOnly": false,
+    "vectors": 5,
+    "beforeSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "afterSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "exactCanonicalCaptureBytes": true,
+    "rows": [
+      {
+        "name": "surface",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "dungeon-combat",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "freeze-reentry",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-journey",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-climate-return",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      }
+    ],
+    "allWholeStateFieldsAndRngEqual": true
+  },
+  "physicalSourceEquivalence": {
+    "path": "test-results/windows/v414-final-1/tasks/physics-source/audit.json",
+    "sha256": "ba7f53974458d139c212dd75612c5b5980635af453d6e903a9c33f84a55959c6",
+    "basePublishedCode": "2b95300d632ac975f085dd204fac192c4583a950",
+    "candidate": "cd700b8fe741872ca771e332546f6a0139aefc88",
+    "exactUnchangedTrees": {
+      "src/core": "9e2c5bf29cea528b84517af137f710a3e465c059",
+      "src/content": "228c631723d6226ee24dd62a40e61310748f6be0",
+      "public": "0a115036e62e379fd1dff3e154b0c0aa1bef641b",
+      "mods": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb"
+    },
+    "reusedEvidenceSHA256": {
+      "docs/pc-harness-v411-proof.json": "08efbcd5d9e486de1307ec7458368facd57dd9c4f659678a80088752e28bc007",
+      "docs/release-v411-proof.json": "aef5e9e3c8e9c66b50c06dd2af6dd2cb8ced13448bc3e8b2e863584e867ef82f"
+    },
+    "scope": "Exact engine, Core Defs, public resources and mods source equality. Existing v411 default/world30 cohorts and1915 artifact save corpus remain prior evidence. Current UI Full/Native/visual/save checks are separate; no current whole-world cohort invariance or general balance improvement is inferred."
+  },
+  "saveCorpus": {
+    "audit": "test-results/windows/v414-proof-1/tasks/roundtrip/audit.json",
+    "sha256": "90f52fcccb3aeb8b0963bb09d3d28420d73992e26b5d73650aa08152728fb96d",
+    "currentArtifacts": 582,
+    "currentRoundtripDifferences": 0,
+    "groups": [
+      {
+        "task": "ash-cake",
+        "artifacts": 72
+      },
+      {
+        "task": "craft-locale",
+        "artifacts": 57
+      },
+      {
+        "task": "field-work",
+        "artifacts": 237
+      },
+      {
+        "task": "resident-services",
+        "artifacts": 87
+      },
+      {
+        "task": "base-work",
+        "artifacts": 129
+      }
+    ],
+    "preservedPrevious": {
+      "artifactRows": 1915,
+      "uniqueFiles": 1915,
+      "allOriginalFileSHA256Verified": true,
+      "audit": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v411-camp\\test-results\\windows\\v411-proof-3\\tasks\\roundtrip\\audit.json",
+      "auditSHA256": "475e1b208a2566c2926795eebd294df7ca128c3150562c6a1b4af4d7df4f0d67",
+      "migrationNotReexecuted": true
+    },
+    "scope": "Artifact rows are not unique worlds. Current independent Node/browser Native worlds are canonically roundtripped here. Prior1915 artifact bytes are rehashed; their version220/221 roundtrip proof is reused only with exact engine/Core Def/public/mod source equality. Locale-only observations and smoke observations are not counted as new serialized worlds. No full v1, all-community, statistical balance or human acceptance."
+  },
+  "actuallyReviewedImages": [
+    {
+      "path": "test-results/windows/v414-final-1/tasks/smoke/smoke-1440/00-title.png",
+      "sha256": "9f94eaa4478355808b35ff388bc750137ffd26d1f25dade782e4ad6c5e5bc6df"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/smoke/smoke-1366/02-inventory.png",
+      "sha256": "1e3ff516b300a185bf86e9e1a9fe746ec008d5369b90d66e01b62446d7ad6f9c"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/locale/locale/390-settings-en.png",
+      "sha256": "5ef2324e503efb4dc3de72b9de353d6ae3cafb88c374fc4e22f6fa78215dbf3c"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/ash-cake/ash-cake/craft-1366-steamed-food-en.png",
+      "sha256": "92be7173591ae44a67f1f1b27e6eb72ff24d6b693fd04fe29bf4f5887883379f"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/ash-cake/ash-cake/craft-390-recipe-reviewed.png",
+      "sha256": "828e76383485ef1bd22a646a471f2a796e173a1be142eb6630ad4888063a66cd"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/craft-locale/native/craft-390-english-empty-search-read-only.png",
+      "sha256": "bf84261f8846dd678393a0751181a3abe63495abe10ddc181cae35925761937f"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pry-1440-english-field-read-only.png",
+      "sha256": "78bec123af458ba3a552ddff7122d782d1ad32858302e16548039dba918127cb"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pry-390-english-field-read-only.png",
+      "sha256": "05c914b011dc041b235d79d4c2f9597fa3ff0c2f43641e2aa734e1389a092811"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pry-1366-english-field-read-only.png",
+      "sha256": "e162240e9c2fc718373d09768dc9a1b0d70501d57de7791fdf80f24a060ec6c9"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-resume-1440-english-updated-device-state.png",
+      "sha256": "89b507e75b17c603342670b9e954dc1a37c020803329890d54016fae7441cf47"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-resume-390-english-updated-device-state.png",
+      "sha256": "6072df0e80dce0dc8fa8e148ca293641eb5a18b81f1e7f71eee20371413afdd6"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pick-390-english-field-read-only.png",
+      "sha256": "28d987b861cfb51772af3e9b4416a3fe543520d0e568005c5545b484bd74faef"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-cancel-1366-english-updated-device-state.png",
+      "sha256": "54d5553ce944baba6c277a32268d468b83982dd633872d534644361df6832ee8"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/marine-390-english-repaired-hull.png",
+      "sha256": "e44ab2ac1647c81bcfe999c8d432f23ad072ecc53158821f5166eb5cdd698ed1"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/marine-1440-english-repaired-hull.png",
+      "sha256": "d647244d19153dd96ec3d9b7b1e29d12f3cd4cf385b561a64eceb19e2d5a7c7b"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/aquatic-390-english-field-read-only.png",
+      "sha256": "e64d13a221b7821dfe20dfbe9f58e4e73f0f26e850061724eacdababc3778890"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/beacon-390-english-saved-transmission.png",
+      "sha256": "b91710effe6749f7c19fcfc2e08ee0c225c98d2885531d8c76da0d7547a2d0d9"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/well-390-english-original-services-read-only.png",
+      "sha256": "9412014efe33eae90e69aaea9a471373edb76af18a5f248d2c9962c853ba6c62"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/well-1440-english-actual-full-vessel.png",
+      "sha256": "ae6775551080917ac21eecbdad6216665738ad5f2e50427cead0098220ae709a"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/hygiene-390-english-original-services-read-only.png",
+      "sha256": "b1a9319cb270b8f87a961db87edff41141e6c3efc9430111dc7ad418f35745c6"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/hygiene-1366-actual-resident-wash-finished-through-normal-rest.png",
+      "sha256": "62ddcfda1d3fe4a0014755991bd9f0d5a867bb20b8fc3dcf55b847a8e4d637dc"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/inn-1366-english-ready-retirement-quote.png",
+      "sha256": "96e8860c5c25108a7372c13560e42d3f23e329a93e4a5ae1537081ad1b6451c1"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/inn-390-english-original-services-read-only.png",
+      "sha256": "b23f6fb684d85e08710f4c127092ef4182c58aceef5fe55e7463559bc00010b3"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/inn-390-english-ready-retirement-quote.png",
+      "sha256": "216b83f0963f9d2eba275a4431e3a5ffa2232f331b7a478369228f5aea21bf9b"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/inn-390-actual-retirement-with-same-paid-bed.png",
+      "sha256": "c61cf598dbf5435b4ad649ddac912e6fce05c786302034800fc01e2894da3571"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/well-1366-english-actual-full-vessel.png",
+      "sha256": "c1375949aa8e4559ef5505dc15a86a047979d2143630f80236de22fe05b607e8"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/claim-1440-english-original-base-read-only.png",
+      "sha256": "90bbed15399a92b9fa3daebc11c52128835649b6cce54b621d9d19528cbf7353"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/claim-1366-english-original-base-read-only.png",
+      "sha256": "447e584cedc36f7d6b130c1c4d0b389f02492f8b349534aeaf528ab5df47f1fa"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pick-1440-english-field-read-only.png",
+      "sha256": "91b7c6b8690357e5d9e92bf181c5a9982b11f5bbdb53760f1b7696a3ff4ad936"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/lock-pick-1366-english-field-read-only.png",
+      "sha256": "9a16ec58ad3aaeb26a1b3c00de86b84d07cd6c43520c95aa8b78b98afe4422f6"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-resume-1366-english-updated-device-state.png",
+      "sha256": "cbd257919af6ab349e48168c23616763d933314274e2b20d923c4aaaae320c67"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-cancel-1440-english-updated-device-state.png",
+      "sha256": "bd14e2109a75b8bb6c55581ade1fe0a67531457ad5e4b5ed7c55dae292ac12fc"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/device-cancel-390-english-updated-device-state.png",
+      "sha256": "129c36881e44b4f42042b3715ebc243f966cee733a5f85305c0fac211861e1cd"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/marine-1366-english-repaired-hull.png",
+      "sha256": "95609dab45136cda026f1a73ad8f5af2b59d68776372ee12ecb2dc2bd4a5cc31"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/aquatic-1440-english-field-read-only.png",
+      "sha256": "31d196ae1df8943ba822bf8c7ae78adceb1a121a8675600811d5e4b877ce60f3"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/aquatic-1366-english-field-read-only.png",
+      "sha256": "1a46ec83319aa963a2d8d9e2d93f7c2d95062485b02b5bdffe4ecbdb5b9ea1b9"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/beacon-1440-english-saved-transmission.png",
+      "sha256": "7d9100f0ee549a31dafbcca26cf290759465d28ff6a2fe3175381bce9934e7a2"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/field-work/native/beacon-1366-english-saved-transmission.png",
+      "sha256": "6cc0401afd09452a287861ad70f62dfd8c9bc54e92402e55168516d2c36c771b"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/claim-390-english-original-base-read-only.png",
+      "sha256": "a8c806af85745c1c8a87fd2fa281b224b9c63ab6e9fe18c2594f3e690e285a3e"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1440-actual-queue-add-fire.png",
+      "sha256": "4670050a17821e072b3e1d4702309c7900fc13c3f72da5f1c0f9b8b226a8debb"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1440-english-actual-finished-stock.png",
+      "sha256": "3f786c2f7782864491d78d4d4472393c44b76d3efe1b07d857a768343c837913"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/hygiene-1440-english-original-services-read-only.png",
+      "sha256": "c75f265847d8146b89ebb945ff6d48b0287f5e51473a8519faf9842054e5b669"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/resident-services/native/inn-1440-english-ready-retirement-quote.png",
+      "sha256": "c5cd77c403e077a902d5e4c396d206d4cbedde03870abb125a05788df67c0e12"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1366-actual-queue-add-fire.png",
+      "sha256": "e3c81848e2cfc08edb048b0a8d996c11af45ffed89ad483834193a488a9aa537"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1440-english-original-base-read-only.png",
+      "sha256": "c790083be8501844d7a7ac5cb4d755d4d5ae39194c9873a9de7530815d8f4b3c"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1440-english-original-finite-fire-care.png",
+      "sha256": "1a0032fcd6ed7ad63b917eaa0830fb18ff4d8aed48df2bfbb6d2cfb1929e13c6"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1366-english-actual-finished-stock.png",
+      "sha256": "94e7aad0cf40228e3bb3f3fb76ddcc24c81b4ec6692bd5205ffe3fedcfd739ea"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-390-actual-queue-add-fire.png",
+      "sha256": "80f8118afbef0a83ebed27e1dafee0896c47c1917a3e2ef452d28b8c9eb7fa53"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-390-english-actual-finished-stock.png",
+      "sha256": "5e74b8ad347b6be7631cca6f72ad693b752da299514a928f7e138181013897cf"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-390-english-original-finite-fire-care.png",
+      "sha256": "b1be63f7d5e574ecbab6c26f111273ef06c576b94e4f93cda8941ad41e969a64"
+    },
+    {
+      "path": "test-results/windows/v414-final-1/tasks/base-work/native/queue-work-1366-english-original-finite-fire-care.png",
+      "sha256": "62a54615902aa1b28bd4a2e3d6f0983dd9a19d6629d1199b57c3fa33f0505796"
+    }
+  ],
+  "actuallyReviewedPNG": 51,
+  "correctedPresentation": [
+    "Numeric one use and bedding turns/batches are explicit known-source singular forms.",
+    "Food remaining uses the category label Servings remaining.",
+    "Base transfer buttons show the actual stack quantity once."
+  ],
+  "pilotEvidence": [
+    "docs/pc-harness-v412-pilot-proof.json",
+    "docs/pc-harness-v413-pilot-proof.json",
+    "docs/pc-harness-v414-pilot-proof.json"
+  ],
+  "preservedFailedBaseAttempt": "docs/pc-harness-v414-attempt-1.json",
+  "boundaries": [
+    "Finite declared existing fixtures and supplies, actual Title/settings/pointer/key actions and checkpoints. No direct post-Title browser body/clock/RNG/material/world writes.",
+    "Original person names and saved news are preserved. ID/source guards and existing appraisal knowledge bound translated content.",
+    "Initial clean water, prior partial work/knowledge, hull wear/drowning/prior beacon receipt and base layout/scheduling are explicit fixture conditions; no natural earlier acquisition or travel claim.",
+    "The first base fixture had3 cloth for a target needing4. Actual shortage, later fire and injury are preserved; only initial resources were corrected from the recipe. Normal fire/physiology remain.",
+    "Prior v411 default/world30 and old220/221 migration evidence are reused by exact source trees and original artifact hashes. They are not newly executed cohorts/migrations in v414."
+  ],
+  "remaining": [
+    "Main/CI/Pages/public verification until separately recorded.",
+    "Remaining Society/clinic/contracts/ceiling and other screens, dynamic logs/documents/ending-report English.",
+    "All ending/access/report/restore branches, X1-X4 integration and long-term natural scenarios.",
+    "1000 expeditions, performance/minimum hardware and actual human gates."
+  ]
+}

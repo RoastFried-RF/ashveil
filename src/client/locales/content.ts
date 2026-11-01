@@ -3,16 +3,18 @@ import english from './en-content.json'
 import itemEnglish from './en-item-content.json'
 import craftingEnglish from './en-crafting-content.json'
 import fieldEnglish from './en-field-content.json'
+import fieldWorkEnglish from './en-field-work-content.json'
 import type {Language} from './message'
 import {translate} from './message'
 
 type Field = 'label' | 'description' | 'unknownLabel' | 'unknownDescription'
 type DisplayDef = {id:string; label?:string; description?:string; unknownLabel?:string; unknownDescription?:string}
 type GuardedText={source:string;text:string}
-type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;materialSlots?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>}
+type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;materialSlots?:Record<string,GuardedText>;deviceOperations?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>}
 const baseline:Readonly<Record<string,Entry>>=english, details:Readonly<Record<string,Entry>>=itemEnglish,crafting:Readonly<Record<string,Entry>>=craftingEnglish
 const field:Readonly<Record<string,Entry>>=fieldEnglish
-const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details),...Object.keys(crafting),...Object.keys(field)])].map(id=>[id,{...baseline[id],...details[id],...crafting[id],...field[id]}]))
+const fieldWork:Readonly<Record<string,Entry>>=fieldWorkEnglish
+const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details),...Object.keys(crafting),...Object.keys(field),...Object.keys(fieldWork)])].map(id=>[id,{...baseline[id],...details[id],...crafting[id],...field[id],...fieldWork[id]}]))
 
 export function translateDef(def:DisplayDef, field:Field, language:Language):string {
   const source = def[field] ?? ''
@@ -27,6 +29,13 @@ export function translateRecipeMaterialSlot(id:string,slot:{slot:string;label?:s
  if(language!=='en'||!Object.hasOwn(messages,id))return source
  const entries=messages[id].materialSlots,entry=entries&&Object.hasOwn(entries,slot.slot)?entries[slot.slot]:undefined
  return entry?.source===source?entry.text:source
+}
+
+/** Device ID, operation ID and reviewed source must all match. */
+export function translateDeviceOperation(id:string,operation:{id:string;label:string},language:Language):string{
+ if(language!=='en'||!Object.hasOwn(messages,id))return operation.label
+ const entries=messages[id].deviceOperations,entry=entries&&Object.hasOwn(entries,operation.id)?entries[operation.id]:undefined
+ return entry?.source===operation.label?entry.text:operation.label
 }
 
 /** Nested attack names retain the same ID + original-text boundary as Def fields. */

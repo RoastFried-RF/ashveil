@@ -1,0 +1,196 @@
+{
+  "FieldDevice.TowerSensor": {
+    "label": {
+      "source": "칠번 굴뚝 온도 센서",
+      "text": "Chimney Seven temperature sensor"
+    },
+    "description": {
+      "source": "센서 덮개에 재가 두껍게 쌓였다. 지침과 실제 세척 준비물이 필요하다.",
+      "text": "Ash has built up on the sensor cover. Follow the instructions and prepare the actual cleaning supplies."
+    },
+    "deviceOperations": {
+      "clean": {
+        "source": "재를 닦고 측정값 보정",
+        "text": "Clean off ash and calibrate readings"
+      }
+    }
+  },
+  "FieldDevice.ReceiverConduit": {
+    "label": {
+      "source": "수신 첨탑 관로",
+      "text": "Receiver spire conduit"
+    },
+    "description": {
+      "source": "첨탑으로 이어지는 바닥 회로의 구동기와 전원셀이 끊겼다. 이 회로 복구만으로 하늘과 통신할 수는 없다.",
+      "text": "The floor circuit leading to the spire has a broken actuator and power cell. Restoring this circuit alone cannot establish contact with the sky."
+    },
+    "deviceOperations": {
+      "restore": {
+        "source": "관로 수신 회로 복구",
+        "text": "Restore the conduit receiver circuit"
+      }
+    }
+  },
+  "FieldDevice.ConduitCrack": {
+    "label": {
+      "source": "관로 하단 진입 균열",
+      "text": "Lower conduit entry crack"
+    },
+    "description": {
+      "source": "동쪽 벽의 관로 입구를 무너뜨려 막는다. 기존 주민을 처치하지 않으며, 이 공급원에서 오는 새 재점거와 회복을 멈춘다.",
+      "text": "Collapse and seal the conduit entrance in the east wall. This does not kill existing residents; it stops new arrivals and replenishment from this source."
+    },
+    "deviceOperations": {
+      "seal": {
+        "source": "균열을 무너뜨려 막기",
+        "text": "Collapse and seal the crack"
+      }
+    }
+  },
+  "FieldDevice.SpireConsole": {
+    "label": {
+      "source": "칠번 굴뚝 수신 첨탑",
+      "text": "Chimney Seven receiver spire"
+    },
+    "description": {
+      "source": "바람에 노출된 위쪽 안테나다. 반쪽 매뉴얼과 실제 부품으로 수리하고, 실물 인가 판으로 송신한다. 탑을 멈추는 결정은 한 계절과 수년 뒤의 생태까지 바꾼다.",
+      "text": "An upper antenna exposed to the wind. Repair it using the partial manual and physical parts, then transmit with an original authorization plate. Shutting down the tower affects the ecology next season and in the years that follow."
+    },
+    "deviceOperations": {
+      "repair": {
+        "source": "위쪽 안테나와 전원 회로 수리",
+        "text": "Repair the upper antenna and power circuit"
+      },
+      "transmit": {
+        "source": "공사 인가 코드로 지상 신호 송신",
+        "text": "Transmit a ground signal with company authorization"
+      },
+      "stop": {
+        "source": "차양·토양 살포 중단 명령",
+        "text": "Order a stop to sunshade and soil seeding"
+      },
+      "receive": {
+        "source": "수신 회로로 인가 결과 확인",
+        "text": "Read the authorization reply through the receiver circuit"
+      }
+    }
+  },
+  "FieldDevice.ZeroVaultSeal": {
+    "label": {
+      "source": "0호 금고 봉인 기구",
+      "text": "Vault Zero sealing mechanism"
+    },
+    "description": {
+      "source": "기계식 봉인이 잠긴 철문과 이어져 있다. 지렛대로 잠금을 풀 수 있지만 경비대가 허락한 작업은 아니다.",
+      "text": "A mechanical seal connected to a locked iron door. You can force it open, but the Remnant Wardens have not authorized the work."
+    },
+    "deviceOperations": {
+      "breach": {
+        "source": "구동기로 봉인 잠금 해제",
+        "text": "Release the seal with an actuator"
+      }
+    }
+  },
+  "Terrain.RustedDoorClosed": {
+    "label": {
+      "source": "녹슨 잠금 문",
+      "text": "Rusted locked door"
+    }
+  },
+  "Terrain.DoorClosed": {
+    "label": {
+      "source": "닫힌 문",
+      "text": "Closed door"
+    }
+  },
+  "Terrain.Chest": {
+    "label": {
+      "source": "궤짝",
+      "text": "Chest"
+    }
+  },
+  "Terrain.RedChest": {
+    "label": {
+      "source": "붉은 궤짝",
+      "text": "Red chest"
+    }
+  },
+  "Terrain.Crate": {
+    "label": {
+      "source": "나무 상자",
+      "text": "Wooden crate"
+    }
+  },
+  "Terrain.Pot": {
+    "label": {
+      "source": "항아리",
+      "text": "Jar"
+    }
+  },
+  "Terrain.Sarcophagus": {
+    "label": {
+      "source": "석관",
+      "text": "Sarcophagus"
+    }
+  },
+  "Terrain.GuardChest": {
+    "label": {
+      "source": "경비실 상자",
+      "text": "Guardroom chest"
+    }
+  },
+  "Terrain.Altar": {
+    "label": {
+      "source": "제단 상자",
+      "text": "Altar chest"
+    }
+  },
+  "Terrain.StoreCrate": {
+    "label": {
+      "source": "창고 궤짝",
+      "text": "Storehouse crate"
+    }
+  },
+  "Terrain.CampChest": {
+    "label": {
+      "source": "약탈물 상자",
+      "text": "Loot crate"
+    }
+  },
+  "Terrain.Stash": {
+    "label": {
+      "source": "야영지 보관함",
+      "text": "Camp stash"
+    }
+  },
+  "Terrain.CoastalBeacon": {
+    "label": {
+      "source": "형제단 봉화",
+      "text": "Brotherhood beacon"
+    }
+  },
+  "Faction.guard": {
+    "label": {
+      "source": "잔존 경비대",
+      "text": "Remnant Wardens"
+    }
+  },
+  "Faction.signalists": {
+    "label": {
+      "source": "신호회",
+      "text": "Signalists"
+    }
+  },
+  "Region.SaltrimRelay": {
+    "label": {
+      "source": "소금 해안 인근 봉화소",
+      "text": "Salt Coast beacon relay"
+    }
+  },
+  "Region.SaltrimHarbor": {
+    "label": {
+      "source": "소금 해안 등대 장부소",
+      "text": "Salt Coast lighthouse ledger house"
+    }
+  }
+}

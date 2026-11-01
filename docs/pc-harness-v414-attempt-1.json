@@ -1,0 +1,54 @@
+{
+  "status": "failed-preserved-not-accepted",
+  "testedCodeCommit": "08889c6",
+  "run": "test-results/windows/v414-native-1",
+  "sourceFiles": 9231,
+  "sourceManifestSha256": "9dd7f7a5cc539998e06c8a095c068488501fc5d11a1c7b1b905c4821ce222ab5",
+  "sourceUnchangedAudit": "test-results/windows/v414-failure-audit-2",
+  "pairsBeforeFailure": 46,
+  "browserErrors": [],
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(stored('Item.Bandage')>=2)\n",
+  "actualRecipe": {
+    "defType": "Recipe",
+    "id": "Recipe.Bandage",
+    "label": "\ucc9c\uc73c\ub85c \ubd95\ub300 \ub9cc\ub4e4\uae30",
+    "category": "medical",
+    "primaryAttr": "per",
+    "basic": true,
+    "workTurns": 40,
+    "inputs": [
+      {
+        "item": "Item.Cloth",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "Item.Bandage",
+      "count": 1
+    },
+    "mastery": "medicine"
+  },
+  "fixtureDeclaredInitialCloth": 3,
+  "actualRecipeClothPerBandage": 2,
+  "targetBandages": 2,
+  "minimumInitialClothRequired": 4,
+  "observedBeforeFailure": {
+    "storedBandages": 1,
+    "workerCloth": 1,
+    "workerAlive": true,
+    "workerBodyTemp": 37,
+    "workerKcal": 861.87,
+    "laterStoreFireAt": 16120,
+    "laterRestInterruptedByInjury": true
+  },
+  "classification": "Initial fixture material shortfall, not a UI/Core difference. All46 preceding browser/Node complete Worlds matched. The later fire and injury are actual behavior and are not disabled.",
+  "correction": "Derive finite INITIAL cloth from the actual recipe inputs/output and target2. No post-Title material/body/RNG/clock changes. No Core/Def change.",
+  "sourceAuditSetupFailure": "v414-failure-audit-1 used its own missing source-before path; corrected explicit original path passed in audit2.",
+  "actuallyReviewedPNG": "test-results/windows/v414-native-1/tasks/native/native/failure.png",
+  "remaining": [
+    "Corrected-source Native",
+    "All three viewports",
+    "Full on combined UI candidate",
+    "publication/CI/public probe"
+  ]
+}

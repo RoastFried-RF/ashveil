@@ -1,0 +1,217 @@
+{
+  "checkedAtKST": "2026-11-01T17:44:41.302207+09:00",
+  "status": "bounded-local-pilot-passed-not-final",
+  "testedSource": "a3484ea86c3af146997ba86eedf230c899d1afe3",
+  "tree": "09ff7c5c3699bc58deddea424bd702b6280ee25a",
+  "run": "test-results/windows/v413-native-1",
+  "planSha256": "fe04e0593031c1eda08dd92e25200cd52e06a8b31e07d04f6657dbbdae64ca6f",
+  "tasks": {
+    "environment": "passed",
+    "source-before": "passed",
+    "typecheck": "passed",
+    "lint": "passed",
+    "focused": "passed",
+    "build": "passed",
+    "native": "passed",
+    "source-after": "passed"
+  },
+  "focused": {
+    "files": 10,
+    "tests": 51
+  },
+  "sourceFiles": 9223,
+  "sourceManifestSha256": "adbbedb972a18476f9befdcde31310934186186916382d4b70d4236fea8c3e21",
+  "wholeWorldPairs": 29,
+  "browserErrors": [],
+  "viewport": [
+    390,
+    844
+  ],
+  "scenes": [
+    "hygiene",
+    "inn",
+    "well"
+  ],
+  "actualProofs": [
+    {
+      "scene": "well",
+      "width": 390,
+      "fixture": "residentHygieneFixture",
+      "declaredFiniteExistingFixture": true,
+      "declaredStudyMode": true,
+      "originalPeople": [
+        {
+          "id": 1,
+          "name": "\ub3c4\uacb8"
+        },
+        {
+          "id": 47,
+          "name": "\uc591\uce58\uae30 \uace8 \uc0c1\uc778"
+        },
+        {
+          "id": 56,
+          "name": "\uc591\uce58\uae30 \uace8 \uc758\uc0ac"
+        },
+        {
+          "id": 65,
+          "name": "\uc591\uce58\uae30 \uace8 \uacbd\ube44"
+        },
+        {
+          "id": 75,
+          "name": "\uc591\uce58\uae30 \uace8 \uacbd\ube44"
+        }
+      ],
+      "originalVessel": 10,
+      "declaredWellArrival": true,
+      "declaredWellObserverWaterDeficit": 400,
+      "declaredWellNpcUnscheduled": true,
+      "earlierBodyWashIsActualCoreFixtureWork": false,
+      "noEarlierNaturalAcquisitionOrTravelClaim": true,
+      "noPostTitleWorldWrites": true
+    },
+    {
+      "scene": "well",
+      "width": 390,
+      "originalVessel": 10,
+      "priorMl": 1000,
+      "filledMl": 1000,
+      "fillTu": 150,
+      "drinkTu": 200,
+      "wellDrinkDoesNotConsumeVessel": true
+    },
+    {
+      "scene": "hygiene",
+      "width": 390,
+      "fixture": "residentHygieneNativeFixture(body)",
+      "declaredFiniteExistingFixture": true,
+      "declaredStudyMode": true,
+      "originalPeople": [
+        {
+          "id": 1,
+          "name": "\ub3c4\uacb8"
+        },
+        {
+          "id": 47,
+          "name": "\uc591\uce58\uae30 \uace8 \uc0c1\uc778"
+        },
+        {
+          "id": 56,
+          "name": "\uc591\uce58\uae30 \uace8 \uc758\uc0ac"
+        },
+        {
+          "id": 65,
+          "name": "\uc591\uce58\uae30 \uace8 \uacbd\ube44"
+        },
+        {
+          "id": 75,
+          "name": "\uc591\uce58\uae30 \uace8 \uacbd\ube44"
+        }
+      ],
+      "originalTarget": 56,
+      "declaredWellArrival": false,
+      "declaredWellNpcUnscheduled": false,
+      "earlierBodyWashIsActualCoreFixtureWork": true,
+      "noEarlierNaturalAcquisitionOrTravelClaim": true,
+      "noPostTitleWorldWrites": true
+    },
+    {
+      "scene": "hygiene",
+      "width": 390,
+      "originalResident": 56,
+      "initialActivity": {
+        "kind": "wash",
+        "remaining": 197,
+        "total": 200,
+        "label": "\ubab8 \uc53b\uae30",
+        "elapsed": 3
+      },
+      "finalHygiene": 60,
+      "originalResidentAlive": true,
+      "elapsedTurns": 200
+    },
+    {
+      "scene": "inn",
+      "width": 390,
+      "fixture": "retirementFixture",
+      "declaredFiniteExistingFixture": true,
+      "declaredStudyMode": true,
+      "originalPeople": [
+        {
+          "id": 1,
+          "name": "\uc720\ub098"
+        },
+        {
+          "id": 41,
+          "name": "\uac08\ub798\uae38 \uc7a5\ubd80\uad00 \uc0c1\uc778"
+        },
+        {
+          "id": 50,
+          "name": "\uac08\ub798\uae38 \uc7a5\ubd80\uad00 \uc758\uc0ac"
+        },
+        {
+          "id": 59,
+          "name": "\uac08\ub798\uae38 \uc7a5\ubd80\uad00 \uacbd\ube44"
+        },
+        {
+          "id": 69,
+          "name": "\uac08\ub798\uae38 \uc7a5\ubd80\uad00 \uacbd\ube44"
+        }
+      ],
+      "originalTarget": 41,
+      "declaredWellArrival": false,
+      "declaredWellNpcUnscheduled": false,
+      "earlierBodyWashIsActualCoreFixtureWork": false,
+      "noEarlierNaturalAcquisitionOrTravelClaim": true,
+      "noPostTitleWorldWrites": true
+    },
+    {
+      "scene": "inn",
+      "width": 390,
+      "originalBed": {
+        "id": "Region.ForkwayLedgerhouse:bed:1",
+        "keeper": 41,
+        "terrain": "Terrain.Bed",
+        "pos": {
+          "x": 28,
+          "y": 16
+        }
+      },
+      "actualLongLeasePeriods": 90,
+      "actualLongLeaseFee": 720,
+      "actualRetirementSavings": 3600,
+      "originalPersonAlive": true,
+      "endingReportEnglishNotClaimed": true,
+      "postRetirementCheckpointNotClaimed": true
+    }
+  ],
+  "reviewedImages": [
+    {
+      "path": "test-results/windows/v413-native-1/tasks/native/native/well-390-english-original-services-read-only.png",
+      "sha256": "7b6cbee0bb441529e505bd04442a447a7a6682e3071873cb50399ba4d24bc894"
+    },
+    {
+      "path": "test-results/windows/v413-native-1/tasks/native/native/hygiene-390-english-original-services-read-only.png",
+      "sha256": "1bbcacf3bf690b61313f5418318e80b18ab4585451ac487e69194ae158f35d11"
+    },
+    {
+      "path": "test-results/windows/v413-native-1/tasks/native/native/inn-390-english-ready-retirement-quote.png",
+      "sha256": "d4c2191775e5cf8e2524dd74c9e98beb7233c6299c8b03c3876450edf24174dc"
+    },
+    {
+      "path": "test-results/windows/v413-native-1/tasks/native/native/well-390-english-actual-full-vessel.png",
+      "sha256": "59a482b9c9898d3da9c076367f4d90605f6614b5f65053bee2471992950d7812"
+    },
+    {
+      "path": "test-results/windows/v413-native-1/tasks/native/native/inn-390-actual-retirement-with-same-paid-bed.png",
+      "sha256": "6e8cceeb7dd168d28fb8e7dd350caca5d5f76b5c59b09ad4987e935944d360a8"
+    }
+  ],
+  "boundary": "Finite declared existing resident/retirement fixtures, warm healthy initial bodies, initial well arrival/thirst/NPC scheduling, actual earlier Core body wash and finite initial money are explicit. Real Title/settings/pointers/keys, original vessel and paid bed, normal wash/lease/retirement actions, checkpoints before retirement, independent Node canonical whole-world equality. No post-Title body/clock/RNG/material/world writes. No whole Society/clinic/base-task/ending-report English, natural prior acquisition/travel, full community sustainability or post-retirement checkpoint claim.",
+  "notYetValidated": [
+    "1440/1366 Native",
+    "Full on this UI source",
+    "ending/report full English",
+    "post-retirement report export/checkpoint restore",
+    "publication/CI/public probe"
+  ]
+}

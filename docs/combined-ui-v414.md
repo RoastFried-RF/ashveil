@@ -1,0 +1,17 @@
+# v414 combined UI candidate
+
+2026-11-01 v414 통합 로컬 수락: **v0.414-dev · 저장221**의 고정 원문 `cd700b8fe741`에서21작업을 통과했다. 현장5·주민/숙소5·기지/동료1패널의 영어 표시를 통합했다. Full428파일6,945검사,1440/1366/390 화면에서 독립 Node와 전체 세계582쌍·오류0, 언어 관찰12쌍을 별도로 확인했다. 현재 결과의51PNG를 직접 열어 검토했고 소스9,237파일의 전후 SHA가 같았다. 새 저장 자료582개는221 전체 바이트 왕복이 같고, 선행1,915자료는 원래 파일 SHA를 재확인했다. Core·콘텐츠·public·mods 트리가 공개 v411과 정확히 같으므로 기존 두30판/구형220 이행 근거를 재사용하며 새 장기 코호트나 구형 이행을 다시 실행했다고 주장하지 않는다. [통합 검증·경계](pc-harness-v414-proof.json) · [이전 실패](pc-harness-v414-attempt-1.json).
+
+초기 유한 재료/돈/물·기존 부상/이전 작업·지식/배치 조건을 명시한 실제 입력 시나리오다. 원래 인물·물통·침대·선체·상자/노동자 UID와 실제 비용을 보존했다. 자연 초기 여행·전 계절 공동체 자급·전체 영어/결말/X1–X4·성능/사람 평가는 남는다. main/CI/Pages와 공개 진입 확인은 별도다. 현재 공개 수락은 [v411 영수증](release-v411-proof.json)에 있다. 아래 이전 체크포인트의 '현재/미완료'는 그 시점 기록이다.
+
+2026-11-01 authoring checkpoint. This candidate combines the five field-work panels from v412, five resident/lodging panels from v413 and the base/companion work panel from v414. Its preview label is0.414-dev; save221 and the actual game engine/content/resource/mod source are unchanged from published v411. Published v411 is proven separately in [its receipt](release-v411-proof.json).
+
+The original bounded pilots remain distinct: v412 passed79 whole-world pairs at390×844; v413 passed29; corrected v414 passed42. These are different source checkpoints and do not substitute for the combined candidate's Full, all three viewport checks or final visual review. [Field pilot](pc-harness-v412-pilot-proof.json), [resident pilot](pc-harness-v413-pilot-proof.json), [base pilot](pc-harness-v414-pilot-proof.json).
+
+The base pilot's first failure is preserved:3 initial cloth could make only one bandage because the actual recipe uses2 cloth each. Correct initial resources are derived from the recipe for the target2; no material/body/clock/RNG changes occur after Title load. Actual fire and injury during the unsuccessful long wait remain in the evidence. Corrected inputs permitted the original worker's finite stock/delivery/fire chain. This is not a community/all-season sustainability or natural prior acquisition scenario.
+
+The actual visual review found `1 turns` on the bedding buttons. Explicit known-source numeric-one forms now format bedding turns and single batches, retaining literal values and the prior one-use correction. The Native driver checks the actual quoted turn label and targets queue rows, finished stock and fire status for review screenshots. Personal names, unknown items, changed external source labels and saved news remain original data.
+
+The prepared final plan has21 tasks: current environment/source capture, type/lint/Defs/sprites/schema, exact source equality for `src/core`, `src/content`, `public` and `mods`, five unchanged golden vectors, Full, build/smoke/locale, Ash Cake and main crafting checks, all three viewport runs for field work/resident services/base work, and final source integrity. Existing v411 default/world30 cohorts and1915 save artifacts are retained as prior evidence only because the physical source trees match exactly; current UI validation is independent. This plan has not passed yet.
+
+Whole Society/clinic/contracts, ceiling and other remaining screens, dynamic logs/documents/ending-report English, complete ending/access/report/restore branches, X1–X4 integration/long-term scenarios, release performance/1000 expeditions and actual human gates remain open. No completion percentage or full v1 acceptance is claimed.
