@@ -1,12 +1,14 @@
 import { preferences } from './preferences'
 import { translate, type MessageValue } from './locales/message'
-import { translateDef,translateItemAttack,translateRecipeMaterialSlot,translateDeviceOperation } from './locales/content'
+import { translateDef,translateItemAttack,translateRecipeMaterialSlot,translateDeviceOperation,translateReputationBand,translateBodyPart } from './locales/content'
 import{translateCraftingIssue}from'./locales/crafting'
 import{translateFieldIssue}from'./locales/field'
 import{translateFieldWorkIssue}from'./locales/field-work'
 import{displayBaseTaskSummary,translateBaseOrderLabel,translateBaseTaskStatus,translateBaseGearActivity}from'./locales/base-camp'
 import{displayCampClock,translateRetirementIssue,translateRetirementLabel}from'./locales/resident-camp'
 import{translateEndingRule,translateEndingIssue}from'./locales/expedition-records'
+import{translateClinicalLine,translateClinicalIssue,translateClinicalLabel}from'./locales/clinical-care'
+import{displaySocietyMoney,displayFirstReply,displayHeardRelation}from'./locales/society-care'
 
 /** Explicit display boundary; preference reads participate in Vue dependency tracking. */
 export const t = (source: string, ...values: MessageValue[]) => translate(source, preferences.language, ...values)
@@ -28,6 +30,15 @@ export const retirementIssueText=(error:Parameters<typeof translateRetirementIss
 export const retirementLabelText=(kind:Parameters<typeof translateRetirementLabel>[0],label:string)=>translateRetirementLabel(kind,label,preferences.language)
 export const endingRuleText=(parentId:string,rule:Parameters<typeof translateEndingRule>[1],field:Parameters<typeof translateEndingRule>[2])=>translateEndingRule(parentId,rule,field,preferences.language)
 export const endingIssueText=(error:Parameters<typeof translateEndingIssue>[0],requirements:string[])=>translateEndingIssue(error,requirements,preferences.language)
+export const societyMoneyText=(def:Parameters<typeof displaySocietyMoney>[0],value:MessageValue)=>displaySocietyMoney(def,value,preferences.language)
+export const firstReplyText=(source:string|undefined,memory:Parameters<typeof displayFirstReply>[1])=>displayFirstReply(source,memory,preferences.language)
+export const heardRelationText=(value:number)=>displayHeardRelation(value,preferences.language)
+export const reputationText=(def:Parameters<typeof translateReputationBand>[0],band:Parameters<typeof translateReputationBand>[1])=>translateReputationBand(def,band,preferences.language)
 
 /** Only labels produced by the physical-key formatter, never arbitrary game text. */
 export const keyLabel = (source: string) => source.replaceAll('숫자패드', t('숫자패드')).replaceAll('공백', t('공백')).replaceAll('미배정', t('미배정'))
+
+export const bodyPartText=(body:Parameters<typeof translateBodyPart>[0],part:Parameters<typeof translateBodyPart>[1])=>translateBodyPart(body,part,preferences.language)
+export const clinicalLineText=(w:Parameters<typeof translateClinicalLine>[0],source:string)=>translateClinicalLine(w,source,preferences.language)
+export const clinicalIssueText=(w:Parameters<typeof translateClinicalIssue>[0],source:string|null|undefined)=>translateClinicalIssue(w,source,preferences.language)
+export const clinicalLabelText=(w:Parameters<typeof translateClinicalLabel>[0],source:string|undefined,request:Parameters<typeof translateClinicalLabel>[2],itemId?:string)=>translateClinicalLabel(w,source,request,preferences.language,itemId)

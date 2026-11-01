@@ -4,17 +4,21 @@ import itemEnglish from './en-item-content.json'
 import craftingEnglish from './en-crafting-content.json'
 import fieldEnglish from './en-field-content.json'
 import fieldWorkEnglish from './en-field-work-content.json'
+import societyEnglish from './en-society-content.json'
+import clinicalEnglish from './en-clinical-content.json'
 import type {Language} from './message'
 import {translate} from './message'
 
 type Field = 'label' | 'description' | 'unknownLabel' | 'unknownDescription'
 type DisplayDef = {id:string; label?:string; description?:string; unknownLabel?:string; unknownDescription?:string}
 type GuardedText={source:string;text:string}
-type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;materialSlots?:Record<string,GuardedText>;deviceOperations?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>}
+type Entry = Partial<Record<Field, GuardedText>> & {attacks?:Record<string,GuardedText>;materialSlots?:Record<string,GuardedText>;deviceOperations?:Record<string,GuardedText>;waterSources?:Record<string,GuardedText>;waterBands?:Record<string,GuardedText>;waterTreatments?:Record<string,GuardedText>;reputationBands?:Record<string,GuardedText>;bodyParts?:Record<string,GuardedText>}
 const baseline:Readonly<Record<string,Entry>>=english, details:Readonly<Record<string,Entry>>=itemEnglish,crafting:Readonly<Record<string,Entry>>=craftingEnglish
 const field:Readonly<Record<string,Entry>>=fieldEnglish
 const fieldWork:Readonly<Record<string,Entry>>=fieldWorkEnglish
-const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details),...Object.keys(crafting),...Object.keys(field),...Object.keys(fieldWork)])].map(id=>[id,{...baseline[id],...details[id],...crafting[id],...field[id],...fieldWork[id]}]))
+const society:Readonly<Record<string,Entry>>=societyEnglish
+const clinical:Readonly<Record<string,Entry>>=clinicalEnglish
+const messages:Readonly<Record<string, Entry>> = Object.fromEntries([...new Set([...Object.keys(baseline),...Object.keys(details),...Object.keys(crafting),...Object.keys(field),...Object.keys(fieldWork),...Object.keys(society),...Object.keys(clinical)])].map(id=>[id,{...baseline[id],...details[id],...crafting[id],...field[id],...fieldWork[id],...society[id],...clinical[id]}]))
 
 export function translateDef(def:DisplayDef, field:Field, language:Language):string {
   const source = def[field] ?? ''
@@ -56,4 +60,18 @@ export function translateWaterSource(def:WaterDisplayDef,source:string,language:
   const treatments=Object.values(messages[def.id].waterTreatments??{})
   if((!entry&&!['깨끗한 물','물'].includes(parts[0]))||parts.slice(1).some(part=>!treatments.some(t=>t.source===part)))return source
   return[entry?.text??translate(parts[0],language),...parts.slice(1).map(part=>treatments.find(t=>t.source===part)!.text)].join(' · ')
+}
+
+/** Actual diplomacy band, reviewed parent Def ID, threshold and original label. */
+export function translateReputationBand(def:{id:string;bands:{min:number;label:string}[]},band:{min:number;label:string},language:Language):string{
+ if(language!=='en'||!Object.hasOwn(messages,def.id))return band.label
+ const entry=messages[def.id].reputationBands?.[String(band.min)]
+ return entry?.source===band.label&&def.bands.some(b=>b.min===band.min&&b.label===band.label)?entry.text:band.label
+}
+
+/** Body parent, nested part ID and exact reviewed source; names from mods stay literal. */
+export function translateBodyPart(body:{id:string;parts:{id:string;label:string}[]},part:{id:string;label:string},language:Language):string{
+ if(language!=='en'||!Object.hasOwn(messages,body.id))return part.label
+ const entries=messages[body.id].bodyParts,entry=entries&&Object.hasOwn(entries,part.id)?entries[part.id]:undefined
+ return entry?.source===part.label&&body.parts.some(p=>p.id===part.id&&p.label===part.label)?entry.text:part.label
 }

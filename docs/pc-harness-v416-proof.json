@@ -1,0 +1,1012 @@
+{
+  "checkedAtKST": "2026-11-01T22:11:52.949035+09:00",
+  "status": "v416 society/trade/clinical care display candidate locally validated within recorded boundaries; main/CI/Pages/public are separate. Not whole English/X1-X4/v1/human acceptance.",
+  "previewVersion": "0.416-dev",
+  "saveVersion": 221,
+  "testedCodeCommit": "b6ea0046de693490791bf339f3d649bd202a3a08",
+  "testedTree": "9289544e04ddf5a98e820114e85d38870a0b62f6",
+  "baseMainCode": "9e73658113dd86be0d89f15abce22b10eedee6bc",
+  "sourceSHA256": {
+    "docs/pc-harness-v416-schedule-pilot-proof.json": "1bcf2b8b3ef3b444dbe1bd15c94893a681c440acbdcd50eb3212d564953ff1e6",
+    "docs/pc-harness-v416-ui-pilot-proof.json": "d8d4e48f58aff14437cdb745274f74565c1564b5521c686a76c3cbfd2547649a",
+    "docs/society-care-v416.md": "21d77920243c67e94430ddfd279e971f16d846f0ad1aec8a68b7c8ba06f186b7",
+    "src/client/build-version.ts": "e6ade9acec0f54d3088368764b3131c55a97bc9e2ef216c1758dd8c449d9d5b0",
+    "src/client/locale.ts": "a0a771062aa3711200c6ee9bde1c2c640dae235ff99914585e9bca39f42693c6",
+    "src/client/locales/clinical-care.ts": "0fb35b709f5bbab334eae069f06e79ea38c420efb7d99e0fa64ecc1109c4c400",
+    "src/client/locales/content.ts": "0fd29547343941b6a45aa24662420b07505df5160ce061ecfa357a9141162099",
+    "src/client/locales/en-clinical-care.json": "fd289d66da082759f0158b22b999b71d01159457232ef516b048e6a7a7d76e41",
+    "src/client/locales/en-clinical-content.json": "2ee31a4624e3f8d53417a80af7d9eb7bddd99d6c65a344becdd1e4f5d221ecec",
+    "src/client/locales/en-society-care.json": "838b9b09d0c92db77c2c05233184139c744b2413b1fa2ca4d0bca72440a9cd0a",
+    "src/client/locales/en-society-content.json": "54a5e117d2dfa152145cf2c2f43576c8048931b561e487a9a6f4c4b0ffbf7282",
+    "src/client/locales/message.ts": "57a6879b979d6a3252977df1baadae04454fafddd57f7cc9a02a0d8b3d3fdb2d",
+    "src/client/locales/society-care.ts": "21fe79eaa209803ac77b57494225f1c66face315539d26598ce7519c9eef7c75",
+    "src/client/ui/CarePlanOverview.vue": "c81769f2f96dd304ff8a49f0cb816427f00fd1d910fc1a097c0464c46cfd741d",
+    "src/client/ui/ClinicPanel.vue": "5c85031db6078719ccdff65f166537a31abc062c61470ad1b145972915965962",
+    "src/client/ui/CompanionClinicalPanel.vue": "82702235b15ec82432bd8fcccf31b73e66578508e23ed57f1a5817e076f52403",
+    "src/client/ui/CompanionRecoveryPanel.vue": "b4facc6d2cf12989432c61276ab0b7857b7f2b3608f13ff3dfd27f410e86e9fa",
+    "src/client/ui/SocietyWindow.vue": "5f34c621ee33c4d5ea5c0f420cb2594317b884cfc72ac67281ddcd84d0913863",
+    "tests/locale-clinical-care.test.ts": "264e45e3f37f861d79ee9ed2f540636be1dbb03fc3904841a5c5d67ce9385d9d",
+    "tests/locale-society-care.test.ts": "b0ed77f9090a03086d3a59d521c3f0c07de8b452ca6027aff97f8f5f8456b8d5",
+    "tools/inspect-society-care-v416.ts": "5b5a713d44010b50b7b08dce9de6d7e424ad25b98a71e65c750e9d146246f205"
+  },
+  "sourceManifest": {
+    "files": 9262,
+    "path": "test-results/windows/v416-final-1/tasks/source-before/source.json",
+    "sha256": "6a060970c292d33943bd6358d3d905749643bd2732cdd66f27e7cb62fdd6f3c7",
+    "unchangedBeforeAfter": true,
+    "unchangedAgainBeforeProof": true,
+    "creditsUnchanged": true
+  },
+  "finalRun": {
+    "path": "test-results/windows/v416-final-1",
+    "planSha256": "886adc7ecb44bfe49632b9df38da11c700cfe6654494cbf995286baba1880981",
+    "tasks": 31,
+    "taskResults": {
+      "environment": "passed",
+      "source-before": "passed",
+      "typecheck": "passed",
+      "physics-source": "passed",
+      "lint": "passed",
+      "defs": "passed",
+      "sprites": "passed",
+      "schema": "passed",
+      "golden-capture": "passed",
+      "golden-reviewed": "passed",
+      "full": "passed",
+      "preview-helper": "passed",
+      "build": "passed",
+      "smoke": "passed",
+      "locale": "passed",
+      "care-1440": "passed",
+      "care-1366": "passed",
+      "care-390": "passed",
+      "schedule-1440": "passed",
+      "schedule-1366": "passed",
+      "schedule-390": "passed",
+      "recovery-1440": "passed",
+      "recovery-1366": "passed",
+      "recovery-390": "passed",
+      "trade-1440": "passed",
+      "trade-1366": "passed",
+      "trade-390": "passed",
+      "clinic-1440": "passed",
+      "clinic-1366": "passed",
+      "clinic-390": "passed",
+      "source-after": "passed"
+    },
+    "full": {
+      "files": 431,
+      "tests": 6965,
+      "durationSeconds": 851.69
+    },
+    "lint": {
+      "errors": 0,
+      "existingArtToolWarnings": 1
+    }
+  },
+  "native": [
+    {
+      "task": "care-1440",
+      "wholeWorldPairs": 47,
+      "audit": "test-results/windows/v416-final-1/tasks/care-1440/native/audit.json",
+      "sha256": "bbb1ceea571816e4e3a3b5bb74ebd9cbbc9b1388583e8475999f40fd8a914646",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "care",
+          "width": 1440,
+          "height": 1080,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            },
+            {
+              "id": 77,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "care-1366",
+      "wholeWorldPairs": 47,
+      "audit": "test-results/windows/v416-final-1/tasks/care-1366/native/audit.json",
+      "sha256": "43baa690e773c6a736848598c001383b4c5368a142502b03fb7f836d51c15170",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "care",
+          "width": 1366,
+          "height": 768,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            },
+            {
+              "id": 77,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "care-390",
+      "wholeWorldPairs": 47,
+      "audit": "test-results/windows/v416-final-1/tasks/care-390/native/audit.json",
+      "sha256": "3a8e050bb40dcfb8d4d301469130cc9d8b38422eb3dd3c54930c92dfbd680135",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "care",
+          "width": 390,
+          "height": 844,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            },
+            {
+              "id": 77,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "schedule-1440",
+      "wholeWorldPairs": 15,
+      "audit": "test-results/windows/v416-final-1/tasks/schedule-1440/native/audit.json",
+      "sha256": "48236bc6491b4c485cb0482723ba83b8aa7eafd60646b6f8e79cc31d4aceba37",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "schedule",
+          "width": 1440,
+          "height": 1080,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "schedule-1366",
+      "wholeWorldPairs": 15,
+      "audit": "test-results/windows/v416-final-1/tasks/schedule-1366/native/audit.json",
+      "sha256": "1b3a4fc03aa6769a4690fb67960b7450395e35745c0ad362ddd237d13239d4f7",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "schedule",
+          "width": 1366,
+          "height": 768,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "schedule-390",
+      "wholeWorldPairs": 15,
+      "audit": "test-results/windows/v416-final-1/tasks/schedule-390/native/audit.json",
+      "sha256": "70728d92b73db34eaae4bddab3d5c89537da03c727f9797179b839987dfc0c91",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "schedule",
+          "width": 390,
+          "height": 844,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture + declared one medical bag",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 67,
+              "name": "정착지 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "recovery-1440",
+      "wholeWorldPairs": 22,
+      "audit": "test-results/windows/v416-final-1/tasks/recovery-1440/native/audit.json",
+      "sha256": "984daf628c5729eb0827f48f0e523691216e51da04488c313043f8fe61749a3d",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "recovery",
+          "width": 1440,
+          "height": 1080,
+          "finiteExistingFixture": true,
+          "fixture": "companionRecoveryFixture ready: actual original contract/guard/item",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "하렌"
+            },
+            {
+              "id": 167,
+              "name": "수리 드론"
+            },
+            {
+              "id": 85,
+              "name": "양치기 골 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "recovery-1366",
+      "wholeWorldPairs": 22,
+      "audit": "test-results/windows/v416-final-1/tasks/recovery-1366/native/audit.json",
+      "sha256": "48a8ae94a8ad62a07bb045293f4a09aa799e623d5a1314cafe23e841e66b6cf3",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "recovery",
+          "width": 1366,
+          "height": 768,
+          "finiteExistingFixture": true,
+          "fixture": "companionRecoveryFixture ready: actual original contract/guard/item",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "하렌"
+            },
+            {
+              "id": 167,
+              "name": "수리 드론"
+            },
+            {
+              "id": 85,
+              "name": "양치기 골 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "recovery-390",
+      "wholeWorldPairs": 22,
+      "audit": "test-results/windows/v416-final-1/tasks/recovery-390/native/audit.json",
+      "sha256": "a783a96fc3827400110b5231e2b8bba52332f93352b4970a8aeff40d5f2e10a4",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "recovery",
+          "width": 390,
+          "height": 844,
+          "finiteExistingFixture": true,
+          "fixture": "companionRecoveryFixture ready: actual original contract/guard/item",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "하렌"
+            },
+            {
+              "id": 167,
+              "name": "수리 드론"
+            },
+            {
+              "id": 85,
+              "name": "양치기 골 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "trade-1440",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/trade-1440/native/audit.json",
+      "sha256": "34b7406978c1272cb3dd40c57bb3311243231fc0e13de8abce5b076cbe3313ec",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "trade",
+          "width": 1440,
+          "height": 1080,
+          "finiteExistingFixture": true,
+          "fixture": "retirementFixture + declared two unappraised serum items",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "trade-1366",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/trade-1366/native/audit.json",
+      "sha256": "11217623dd15765e629449da8480c16ea07aa1318e5db51449b63365a4c4825f",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "trade",
+          "width": 1366,
+          "height": 768,
+          "finiteExistingFixture": true,
+          "fixture": "retirementFixture + declared two unappraised serum items",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "trade-390",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/trade-390/native/audit.json",
+      "sha256": "5bd1c28b5f08dff2224a00f04b521f0aa8c50e0ced8fb280c698f86f7f583d6f",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "trade",
+          "width": 390,
+          "height": 844,
+          "finiteExistingFixture": true,
+          "fixture": "retirementFixture + declared two unappraised serum items",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "유나"
+            },
+            {
+              "id": 41,
+              "name": "갈래길 장부관 상인"
+            },
+            {
+              "id": 50,
+              "name": "갈래길 장부관 의사"
+            },
+            {
+              "id": 59,
+              "name": "갈래길 장부관 경비"
+            },
+            {
+              "id": 69,
+              "name": "갈래길 장부관 경비"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "clinic-1440",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/clinic-1440/native/audit.json",
+      "sha256": "292279d1814ffe76a4cc71caaeeaf652d84130a6fe6cd1b93c3581598bc0dba6",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "clinic",
+          "width": 1440,
+          "height": 1080,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture room + declared actual settlement doctor on passable adjacent floor, calm nonhostile AI and finite supplies; no world-society relationship exists in this room",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 82,
+              "name": "의사"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "clinic-1366",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/clinic-1366/native/audit.json",
+      "sha256": "5bdd499b7ff1c9485590caf3a476fb9e2162e78713444751d345084478aa772a",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "clinic",
+          "width": 1366,
+          "height": 768,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture room + declared actual settlement doctor on passable adjacent floor, calm nonhostile AI and finite supplies; no world-society relationship exists in this room",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 82,
+              "name": "의사"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    },
+    {
+      "task": "clinic-390",
+      "wholeWorldPairs": 8,
+      "audit": "test-results/windows/v416-final-1/tasks/clinic-390/native/audit.json",
+      "sha256": "624ce82c5462aec020845e8ac91e01d3958d67a6b94d4c250150c85202d08130",
+      "browserErrors": 0,
+      "proofs": [
+        {
+          "scene": "clinic",
+          "width": 390,
+          "height": 844,
+          "finiteExistingFixture": true,
+          "fixture": "carePlanFixture room + declared actual settlement doctor on passable adjacent floor, calm nonhostile AI and finite supplies; no world-society relationship exists in this room",
+          "studyMode": true,
+          "originalPeople": [
+            {
+              "id": 1,
+              "name": "타일"
+            },
+            {
+              "id": 82,
+              "name": "의사"
+            }
+          ],
+          "noPriorNaturalAcquisitionOrTravelClaim": true,
+          "noPostTitleWorldWrites": true
+        }
+      ],
+      "scope": "Five connected society/clinical surfaces; finite prepared trade, paid care, companion chosen patient/sequence, delayed care/cancel/review-original-remainder/resume/save and actual original recovery. No natural-acquisition/long-run/full-English-body/all-X1/v1 claim."
+    }
+  ],
+  "independentNodeBrowserWholeWorldPairs": 300,
+  "localeObservation": {
+    "pairs": 12,
+    "audit": "test-results/windows/v416-final-1/tasks/locale/locale/audit.json",
+    "sha256": "cedb18db949ac9fba6abd3f3b58348729cd0f3251dc3a4d7e2e0706793389c60",
+    "countedSeparatelyFromNodeActionWorlds": true
+  },
+  "goldenReview": {
+    "path": "test-results/windows/v416-final-1/tasks/golden-reviewed/reviewed.json",
+    "sha256": "ef8be28f4bfa197a6d512931293cd39be431e5b3fde0ee98cd46b93d834d4bad",
+    "reviewedShape": "exact-whole-v409-to-v411",
+    "reportOnly": false,
+    "vectors": 5,
+    "beforeSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "afterSha256": "220f486222ad08dcd8eac66433e109384a392dae9638032f8298a24368e83f94",
+    "exactCanonicalCaptureBytes": true,
+    "rows": [
+      {
+        "name": "surface",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "dungeon-combat",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "freeze-reentry",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-journey",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      },
+      {
+        "name": "world-climate-return",
+        "entireVectorEqual": true,
+        "initialWholeStateEqual": true,
+        "finalWholeStateEqual": true,
+        "errorsEqual": true
+      }
+    ],
+    "allWholeStateFieldsAndRngEqual": true
+  },
+  "physicalSourceEquivalence": {
+    "path": "test-results/windows/v416-final-1/tasks/physics-source/audit.json",
+    "sha256": "a22e9607122cda88f45e1f917ec9c9ffd8e04a3dc66e15c0282a4890fd495703",
+    "baseValidatedMainCode": "acddd1b324ce70cba03a159fffe2182e05ddeebf",
+    "candidate": "b6ea0046de693490791bf339f3d649bd202a3a08",
+    "exactUnchangedTrees": {
+      "src/core": "9e2c5bf29cea528b84517af137f710a3e465c059",
+      "src/content": "228c631723d6226ee24dd62a40e61310748f6be0",
+      "public": "0a115036e62e379fd1dff3e154b0c0aa1bef641b",
+      "mods": "fdc7fad71c34d2c9dbadd0b4b0c09fa77057efbb"
+    },
+    "reusedEvidenceSHA256": {
+      "docs/pc-harness-v415-proof.json": "a0495469e20408058a55084e5ab45ebe7777bb0eb0766ca6c1a8ca39df91c2fd",
+      "docs/release-v415-proof.json": "0c58e7cb875cfae75c1ccb8287208cae6adbbe16aa8fa634a5c9a165c0f8f62d",
+      "docs/pc-harness-v414-proof.json": "ff595e17f8c54baaf1795f0574cb393d8b15853fefed38a9ea8f9dffde6f2cff",
+      "docs/pc-harness-v411-proof.json": "08efbcd5d9e486de1307ec7458368facd57dd9c4f659678a80088752e28bc007"
+    },
+    "scope": "Exact Core/content/public/mods source equality to published v415. Earlier two30-run cohorts and original220 migration evidence remain prior work; no fresh cohort/migration execution or complete v1/balance/performance acceptance is inferred. Current UI Full/Native/actual PNG/canonical save evidence is separate."
+  },
+  "saveCorpus": {
+    "audit": "test-results/windows/v416-proof-1/tasks/roundtrip/audit.json",
+    "sha256": "a83cca15c105bd6c3482e1404120b9304cea5369010f999d97a71f135d46220f",
+    "currentArtifacts": 300,
+    "currentRoundtripDifferences": 0,
+    "groups": [
+      {
+        "task": "care-1440",
+        "artifacts": 47
+      },
+      {
+        "task": "care-1366",
+        "artifacts": 47
+      },
+      {
+        "task": "care-390",
+        "artifacts": 47
+      },
+      {
+        "task": "schedule-1440",
+        "artifacts": 15
+      },
+      {
+        "task": "schedule-1366",
+        "artifacts": 15
+      },
+      {
+        "task": "schedule-390",
+        "artifacts": 15
+      },
+      {
+        "task": "recovery-1440",
+        "artifacts": 22
+      },
+      {
+        "task": "recovery-1366",
+        "artifacts": 22
+      },
+      {
+        "task": "recovery-390",
+        "artifacts": 22
+      },
+      {
+        "task": "trade-1440",
+        "artifacts": 8
+      },
+      {
+        "task": "trade-1366",
+        "artifacts": 8
+      },
+      {
+        "task": "trade-390",
+        "artifacts": 8
+      },
+      {
+        "task": "clinic-1440",
+        "artifacts": 8
+      },
+      {
+        "task": "clinic-1366",
+        "artifacts": 8
+      },
+      {
+        "task": "clinic-390",
+        "artifacts": 8
+      }
+    ],
+    "preservedPrevious": {
+      "artifactRows": 2653,
+      "uniqueFiles": 2653,
+      "groups": [
+        {
+          "name": "v415",
+          "rows": 156
+        },
+        {
+          "name": "v414",
+          "rows": 582
+        },
+        {
+          "name": "v411-and-earlier",
+          "rows": 1915
+        }
+      ],
+      "allOriginalFileSHA256Verified": true,
+      "audits": [
+        {
+          "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v415-reports\\test-results\\windows\\v415-proof-1\\tasks\\roundtrip\\audit.json",
+          "sha256": "26334920c03107a70e0ae1301a8d55fb9cfcb149726afd3534cd47c4b3e1d486"
+        },
+        {
+          "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v414-base\\test-results\\windows\\v414-proof-1\\tasks\\roundtrip\\audit.json",
+          "sha256": "90f52fcccb3aeb8b0963bb09d3d28420d73992e26b5d73650aa08152728fb96d"
+        },
+        {
+          "path": "C:\\Users\\User\\.codex\\.chatgpt-projects\\g-p-6ae17a9482f88191a79024539db29be4\\implementation\\.local-tools\\v411-camp\\test-results\\windows\\v411-proof-3\\tasks\\roundtrip\\audit.json",
+          "sha256": "475e1b208a2566c2926795eebd294df7ca128c3150562c6a1b4af4d7df4f0d67"
+        }
+      ],
+      "migrationNotReexecuted": true
+    },
+    "scope": "Current actual Native action artifacts roundtrip as exact canonical221 bytes. Artifact rows are not unique worlds. Earlier2653 original artifact files are rehashed; old220 migrations/two30-run cohorts remain prior evidence under exact Core/content/public/mods source equality. No new old-migration/cohort/1000-run/whole-English/X1-X4/v1/human or public persistence acceptance is inferred."
+  },
+  "actuallyReviewedImages": [
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-1440/native/care-1440-sequence-review.png",
+      "sha256": "1358a9d4deea6dc328ddb55aec0c14227bccea77d46e2ebf19cb3ffca87d799f",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:00:16.698920+00:00",
+      "notes": "Actual1440 care sequence/reorder review and4/4 completion/original recorded findings legible; fixed assignment1turn suffix and original people/history retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-1440/native/care-1440-completed-and-recorded.png",
+      "sha256": "10b83ba1f02355bbb50ced6f426ff1dacec3f7a0d9f25ec4b099700da11ba818",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:00:16.700919+00:00",
+      "notes": "Actual1440 care sequence/reorder review and4/4 completion/original recorded findings legible; fixed assignment1turn suffix and original people/history retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-1366/native/care-1366-sequence-review.png",
+      "sha256": "56eac5d231199923ef9a3b94f166a1ac5617bc4b160dad1fa4d5f1e3d729350e",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:01:05.963644+00:00",
+      "notes": "Actual care review/completion and original historical findings fit at this viewport; body/patient labels and1turn assignment/remaining dose text legible."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-1366/native/care-1366-completed-and-recorded.png",
+      "sha256": "1cdf14958ba664cdff30f8d8a55a69d3d6871980e97651694621707ad90c0306",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:01:05.965147+00:00",
+      "notes": "Actual care review/completion and original historical findings fit at this viewport; body/patient labels and1turn assignment/remaining dose text legible."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-390/native/care-390-sequence-review.png",
+      "sha256": "15150155c7ac102dd8bc904e001ceacdd577b4beea6d9241a052bc1e99eecfb9",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:01:05.965147+00:00",
+      "notes": "Actual care review/completion and original historical findings fit at this viewport; body/patient labels and1turn assignment/remaining dose text legible."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/care-390/native/care-390-completed-and-recorded.png",
+      "sha256": "ce03f0ce0b12f6c449c8849863a5271104eb96014b37144f5ef05da9f2b3d407",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:01:05.966151+00:00",
+      "notes": "Actual care review/completion and original historical findings fit at this viewport; body/patient labels and1turn assignment/remaining dose text legible."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1440/native/schedule-1440-sequence-review.png",
+      "sha256": "b33cc919fa9c950cf16cfb69c18a2e4885a343d5837247d528b831a9573b62be",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.375157+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1440/native/schedule-1440-scheduled-journal.png",
+      "sha256": "55f746857b0f27bad6dc101193231b376f846474b8ebc8f76f8cbf54d1b94458",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.377164+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1440/native/schedule-1440-cancelled-sequence.png",
+      "sha256": "5ca571e9a5d478ada1c488797f46bab7f77af9a1a51df4260f2a1e62a4d1be45",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.379163+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1366/native/schedule-1366-sequence-review.png",
+      "sha256": "8db51c43f66c51df779de15c14c213c30928908b1eb5192ac8bc4903de415182",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.380164+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1366/native/schedule-1366-scheduled-journal.png",
+      "sha256": "f374027ad0ff48f6e1c557dcceb27e13f38489df50d5aedbb562917705bcb982",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.382163+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-1366/native/schedule-1366-cancelled-sequence.png",
+      "sha256": "bdab29d41846e15c7430bcf2c80994e8c34c3216d2fd57d41fe61707aa49f4d7",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:02:12.383166+00:00",
+      "notes": "Actual scheduled review shows original UID80,1minute delays and51turn total; overview due time and cancelled1/3/review control fit. Original saved reason and unrelated journal/parent Korean scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-390/native/schedule-390-sequence-review.png",
+      "sha256": "363dcc7a6d041682cb00539452e2d5149405aba1ee1a05096f68b9e527ad8707",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:03:39.014996+00:00",
+      "notes": "Actual390px scheduled review/journal/cancelled states fit. Original material UID80,1minute/51turn values and remaining-step review visible; original saved reason retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-390/native/schedule-390-scheduled-journal.png",
+      "sha256": "e3d8917403f9e69fbcca0ca1aab8f072cd01cc9e1eef705caecd9e6f4b6b1ecb",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:03:39.016004+00:00",
+      "notes": "Actual390px scheduled review/journal/cancelled states fit. Original material UID80,1minute/51turn values and remaining-step review visible; original saved reason retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/schedule-390/native/schedule-390-cancelled-sequence.png",
+      "sha256": "e56c8e729011e2a62342accd5a8ad6ec4b594cbd464e9a062fd2f98a55fa42d9",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:03:39.016004+00:00",
+      "notes": "Actual390px scheduled review/journal/cancelled states fit. Original material UID80,1minute/51turn values and remaining-step review visible; original saved reason retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/recovery-1440/native/recovery-1440-recovery-review.png",
+      "sha256": "a0bb9146d0a575d43165d6d3795da9b1b16c6af04bc4f98e672e38fca9bda910",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:04:35.679362+00:00",
+      "notes": "Actual original guard/contract review, configured scrip and1turn recovery command fit; original guard/contract names and unrelated parent/log text retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/recovery-1366/native/recovery-1366-recovery-review.png",
+      "sha256": "80fd41ca23ff5c1a26587831c0de975f550f33469ffda24ce3cad8e7e048df87",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:04:35.679362+00:00",
+      "notes": "Actual original guard/contract review, configured scrip and1turn recovery command fit; original guard/contract names and unrelated parent/log text retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/recovery-390/native/recovery-390-recovery-review.png",
+      "sha256": "1684b37bc561d31d37c64e8d00112b14d1e85b42d93f884207d688d5533095c6",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:07:16.931088+00:00",
+      "notes": "Actual390px original recovery guard/contract and1turn command legible without horizontal overflow; original names retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-1440/native/trade-1440-trade-review.png",
+      "sha256": "77d66e95d5e60a580065280c176cef40412c85e283a48345738d6eddf6ff9200",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.280066+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-1440/native/trade-1440-heard-relations.png",
+      "sha256": "95a6efd244d64ed3a3b521f920d8dd550f5147a079af665e64b34b6852b38355",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.281065+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-1440/native/clinic-1440-examination-review.png",
+      "sha256": "c4f29cdf487c0f2c514c9b350c4a056f6389b46603cb871109cab1743d52d406",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.282065+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-1440/native/clinic-1440-topical-review.png",
+      "sha256": "fb687940917b2b0e4b38266170ac4721d448517a1d4b5c657b7cfa751df64b95",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.284065+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-1366/native/trade-1366-trade-review.png",
+      "sha256": "b3c28d82ad656bb6a745bcaf5162de657f1ec87e1d88fefc64ad97d0710bb4c6",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.284065+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-1366/native/trade-1366-heard-relations.png",
+      "sha256": "032934341facbf2f1718297613f7756d1c0443c9fdec2bd4e80cb3db7a563589",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.285066+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-1366/native/clinic-1366-examination-review.png",
+      "sha256": "9194b6ac96a501cd09ebb690d7595e7fccb2c52c25ff67ecf24663a914f3e0ee",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.285569+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-1366/native/clinic-1366-topical-review.png",
+      "sha256": "9ded3a6d0c29b307cc0e0787e6dd651007f807542ae3fbd37cd16ad48d884526",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.286573+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-390/native/trade-390-trade-review.png",
+      "sha256": "88c007e08e4146f541338e53dad97720b166afc589e3413c9115bc5d2ceeb7ae",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.287576+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/trade-390/native/trade-390-heard-relations.png",
+      "sha256": "c56954e9f88817df18af6679576b0171aa941c607430c264fd323210895a749c",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.287576+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-390/native/clinic-390-examination-review.png",
+      "sha256": "e5c43a36f886a245c22429bedae2f8be79dcd139511b747ab92289dc79dc1500",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.287576+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    },
+    {
+      "path": "test-results/windows/v416-final-1/tasks/clinic-390/native/clinic-390-topical-review.png",
+      "sha256": "2d055457c24d5469fe7d7dd1367422e680f1f262a40d887b3605c3a98e12e831",
+      "openedIndividually": true,
+      "reviewedAtUTC": "2026-11-01T13:11:49.288577+00:00",
+      "notes": "Actual final trade/known-heard relation or paid clinical quote at this viewport opened individually; money/time/source names and unknown injector/singular dose labels legible; unrelated original logs/child scope retained."
+    }
+  ],
+  "actuallyReviewedPNG": 30,
+  "pilotEvidence": [
+    "docs/pc-harness-v416-ui-pilot-proof.json",
+    "docs/pc-harness-v416-schedule-pilot-proof.json"
+  ],
+  "correctedPresentation": [
+    "All four real trade adjustment aria names retain the original unappraised name and exclude both identified source and English names.",
+    "Actual clinical Cancel and sequence1turn suffix omissions were corrected after preserved failures and source audits.",
+    "Actual1dose clinic stock, supplies and time use singular forms; drug labels agree with existing item spellings.",
+    "Recorded care labels require their typed request, original binding and exact source; recorded findings/reasons/contract labels and personal names stay original."
+  ],
+  "boundaries": [
+    "Finite declared existing retirement/care/recovery fixtures, actual original people/contract/item and explicitly prepared medical supplies, body state, room/doctor arrival and calm no-world doctor access. No prior natural acquisition/travel claim.",
+    "Actual Title/preferences/keys/pointers, real trade and conversation, paid examination/topical dose, chosen-ally examination and four-step sequence, delayed care/journal navigation/cancel/review-original-remainder/reassign/finish/checkpoint continuation, and original recovery assignment/stop/reassignment/return at1440/1366/390.",
+    "No direct post-Title browser World/body/clock/RNG/supply/knowledge writes. Independent Node inputs mirror real actions; expected presentation FX cleanup only.",
+    "Nested humanoid body/part fields require actual IDs, exact source and membership. Foreign or changed labels remain literal. Fresh Core quotes are not historical findings.",
+    "Earlier2653 artifact SHA and old220 migration/two30-run cohort results are reused only under exact four-tree equality. No fresh old-migration/cohort/1000 execution is claimed."
+  ],
+  "remaining": [
+    "Main/CI/Pages/public verification until separately recorded.",
+    "Other companion/care/contract/journal/body/HUD panels and remaining clinical failure/contract-state messages, full dynamic logs and historical report/finding/reason bodies; complete English/mod display policy.",
+    "Natural long-term X1 care/labour/abduction/rescue and settlement resource loops, X2 dormancy/global ecology, X3 all access/ending branches and X4 actual maritime trade/signals/salt/aquatic cycles.",
+    "Current final30-run and separate1000 expeditions, performance/minimum-hardware measurements and actual human gates."
+  ]
+}

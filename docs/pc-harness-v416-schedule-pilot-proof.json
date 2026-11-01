@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "kind": "390pxScheduledCareReviewResumeExtension",
+  "recordedAtUTC": "2026-11-01T12:42:05.067779+00:00",
+  "testedCommit": "b4e00f31346ed8bb21a22df2c29554ac60e6bf45",
+  "testedTree": "a39fc90dd378d66338514c073847a3f4a2c2bdc3",
+  "candidateLabel": "0.416-dev",
+  "saveVersion": 221,
+  "run": "test-results/windows/v416-native-5",
+  "planSHA256": "3ec44d3dca7ba726c38747b7be7256d6fa7c1348907d08b2cc09da8ee1c6f81f",
+  "all8TasksPassed": true,
+  "sourceFiles": 9261,
+  "sourceUnchanged": true,
+  "nativePairs": 15,
+  "errors": [],
+  "audit": "test-results/windows/v416-native-5/tasks/native-schedule/native/audit.json",
+  "auditSHA256": "70728d92b73db34eaae4bddab3d5c89537da03c727f9797179b839987dfc0c91",
+  "individualPNGOpened": 3,
+  "images": [
+    {
+      "path": "test-results/windows/v416-native-5/tasks/native-schedule/native/schedule-390-sequence-review.png",
+      "sha256": "363dcc7a6d041682cb00539452e2d5149405aba1ee1a05096f68b9e527ad8707",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-5/tasks/native-schedule/native/schedule-390-scheduled-journal.png",
+      "sha256": "f89d1ba7c9b5e94f4a03d39e1bda481f41f83304bd59cb38c3f2693283fe1eb7",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-5/tasks/native-schedule/native/schedule-390-cancelled-sequence.png",
+      "sha256": "e56c8e729011e2a62342accd5a8ad6ec4b594cbd464e9a062fd2f98a55fa42d9",
+      "openedIndividually": true
+    }
+  ],
+  "verifiedInputChain": "Schedule original doses/bandage; actual journal overview to same doctor; real due-time rest interruption; one dose consumed; cancel remaining sequence; review original remaining medicine UID; explicitly assign new two-step sequence; finish last original dose and original medical bag use; actual checkpoint/Title continuation preserves final whole world.",
+  "scope": "Tool-only extension of earlier c2903c1 five-scene pilot. These15 pairs are a separate run and are not15 new unique worlds on top of earlier96. Three screenshots show review/journal/cancelled states, not the completed resumed sequence. Completion/consumption/restoration are verified by whole-state comparisons. No Full/three-size/canonical corpus/CI/public/all English/X1-X4/v1 acceptance."
+}

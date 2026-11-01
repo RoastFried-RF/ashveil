@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "kind": "limited390pxNativePilot",
+  "recordedAtUTC": "2026-11-01T12:39:20.075628+00:00",
+  "testedCommit": "c2903c1a9ed6bc0da7ad599d245218a6feb3e104",
+  "testedTree": "c930d142cd95d50cad4515b22287e4b7c4b7f2aa",
+  "candidateLabel": "0.416-dev",
+  "saveVersion": 221,
+  "run": "test-results/windows/v416-native-4",
+  "planSHA256": "f528178bf9cf67edbcbd10871309c46a7682ea9aa71814ae8aeda2e958ae5ace",
+  "all13TasksPassed": true,
+  "focused": {
+    "files": 19,
+    "tests": 180,
+    "seconds": 13.77
+  },
+  "sourceFiles": 9260,
+  "sourceUnchanged": true,
+  "nativePairs": 96,
+  "browserErrors": 0,
+  "individualCurrentPNGOpened": 10,
+  "audits": [
+    {
+      "scene": "care",
+      "audit": "test-results/windows/v416-native-4/tasks/native-care/native/audit.json",
+      "sha256": "d39d98707dcc5fefbdf34cff9e4d5d91c31966eb12d31457d82b4c14d7275afe",
+      "pairs": 47,
+      "screenshots": 2
+    },
+    {
+      "scene": "schedule",
+      "audit": "test-results/windows/v416-native-4/tasks/native-schedule/native/audit.json",
+      "sha256": "c58a2565c554058186af87076cd28a9c61ed84ad0e2a64d10557f1294f523e70",
+      "pairs": 11,
+      "screenshots": 3
+    },
+    {
+      "scene": "recovery",
+      "audit": "test-results/windows/v416-native-4/tasks/native-recovery/native/audit.json",
+      "sha256": "da9c1f76070025e7b9526e84103593fa2a16c2186518b4e12ac25cb7e43635c6",
+      "pairs": 22,
+      "screenshots": 1
+    },
+    {
+      "scene": "trade",
+      "audit": "test-results/windows/v416-native-4/tasks/native-trade/native/audit.json",
+      "sha256": "a1777bafbe9f531dd705b0a6f75af4c112e906992213d1f60c737f54654f1df2",
+      "pairs": 8,
+      "screenshots": 2
+    },
+    {
+      "scene": "clinic",
+      "audit": "test-results/windows/v416-native-4/tasks/native-clinic/native/audit.json",
+      "sha256": "0793c0432d543aa9129e1d06bd41d43afa8ec2093bed5f45385b306a91a73bd2",
+      "pairs": 8,
+      "screenshots": 2
+    }
+  ],
+  "images": [
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-care/native/care-390-sequence-review.png",
+      "sha256": "15150155c7ac102dd8bc904e001ceacdd577b4beea6d9241a052bc1e99eecfb9",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-care/native/care-390-completed-and-recorded.png",
+      "sha256": "ce03f0ce0b12f6c449c8849863a5271104eb96014b37144f5ef05da9f2b3d407",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-schedule/native/schedule-390-sequence-review.png",
+      "sha256": "363dcc7a6d041682cb00539452e2d5149405aba1ee1a05096f68b9e527ad8707",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-schedule/native/schedule-390-scheduled-journal.png",
+      "sha256": "d2c6b957d2982c87d7605eb88938e796556ada789fb2851b16da2d932b763d31",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-schedule/native/schedule-390-cancelled-sequence.png",
+      "sha256": "e56c8e729011e2a62342accd5a8ad6ec4b594cbd464e9a062fd2f98a55fa42d9",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-recovery/native/recovery-390-recovery-review.png",
+      "sha256": "ac4f4a1b76516b17d526463a7c5033a700c07b08f8489ddb4c36fd38000d450c",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-trade/native/trade-390-trade-review.png",
+      "sha256": "88c007e08e4146f541338e53dad97720b166afc589e3413c9115bc5d2ceeb7ae",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-trade/native/trade-390-heard-relations.png",
+      "sha256": "2fe2b61919c60a4908b0b493978612894ce945eac66444677d631f4a75cb2372",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-clinic/native/clinic-390-examination-review.png",
+      "sha256": "e5c43a36f886a245c22429bedae2f8be79dcd139511b747ab92289dc79dc1500",
+      "openedIndividually": true
+    },
+    {
+      "path": "test-results/windows/v416-native-4/tasks/native-clinic/native/clinic-390-topical-review.png",
+      "sha256": "5b894aaf6e4ea1dec4bd68e58c4a4a136d8bf173094bb12cea7bc73d2ed2e261",
+      "openedIndividually": true
+    }
+  ],
+  "priorFailures": [
+    {
+      "run": "v416-clinical-1",
+      "reason": "New test shortened actual Thread bundle name; source audit passed before correction."
+    },
+    {
+      "run": "v416-native-1",
+      "reason": "Declared doctor placed on storage chest and hostile under no-world fallback; actual initial scene corrected, no post-load edits."
+    },
+    {
+      "run": "v416-native-2",
+      "reason": "Actual clinical Cancel literal untranslated; corrected, also singular1doses from actual clinic PNG."
+    },
+    {
+      "run": "v416-native-3",
+      "reason": "Actual assignment (1turn Korean) suffix untranslated; corrected after source audit and literal-key inventory."
+    }
+  ],
+  "scope": "Only five finite390px scenes with original people/items/patients, actual trade/payment/medicine/ordered care/delayed care/cancel/save/recovery inputs and independent Node whole-state comparisons. Current recorded findings/reasons, contract labels and personal names remain original. Other Korean child panels, final three-size/Full/schema/golden/canonical corpus/main/CI/public and complete English/X1-X4/v1/performance/human gates are not accepted by this pilot."
+}
